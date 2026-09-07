@@ -1,0 +1,40 @@
+name: Publish MCP Registry
+on:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install the pinned publisher
+        run: bash scripts/setup-mcp-publisher.sh
+      - name: Verify registry metadata and release version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          bash scripts/check-registry.sh
+          version=$(jq --raw-output --exit-status .version mcp/server.json)
+          [[ "$RELEASE_TAG" == "v$version" ]]
+      - name: Authenticate with GitHub OIDC
+        run: bin/mcp-publisher login github-oidc --registry=https://registry.modelcontextprotocol.io
+      - name: Publish the server metadata
+        run: bin/mcp-publisher publish mcp/server.json
+      - name: Verify the exact public registry version
+        run: bash scripts/verify-registry.sh
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: mcp-registry-evidence
+          path: artifacts/registry/
+          if-no-files-found: ignore
+      - name: Remove publisher credentials
+        if: always()
+        run: |
+          if [[ -x bin/mcp-publisher ]]; then
+            bin/mcp-publisher logout
+          fi

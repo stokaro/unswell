@@ -45,6 +45,10 @@ jobs:
           cache-dependency-path: '**/go.sum'
       - name: Install pinned ShellCheck
         run: bash scripts/setup-shellcheck.sh
+      - name: Validate MCP Registry metadata with the pinned publisher
+        run: |
+          bash scripts/setup-mcp-publisher.sh
+          make check-registry
       - run: make check
       - run: make race
       - run: make fuzz
