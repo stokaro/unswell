@@ -1,11 +1,15 @@
 version: 2
 updates:
   - package-ecosystem: gomod
-    directories: [/, /examples/consumer, /tools]
+    directories: [/, /examples/consumer, /mcp, /tools]
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
   - package-ecosystem: github-actions
     directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directories: [/, /mcp]
     schedule:
       interval: weekly

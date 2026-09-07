@@ -80,7 +80,7 @@ func within(root, path string) error {
 
 func trackedFiles(ctx context.Context, root string) ([]string, bool, error) {
 	// #nosec G204 -- A fixed read-only Git subcommand receives the project root as an argv value, without a shell.
-	probe := exec.CommandContext(ctx, "git", "-C", root, "rev-parse", "--is-inside-work-tree")
+	probe := exec.CommandContext(ctx, "git", "-c", "core.fsmonitor=false", "-C", root, "rev-parse", "--is-inside-work-tree")
 	if _, err := probe.Output(); err != nil {
 		if ctx.Err() != nil {
 			return nil, false, ctx.Err()
@@ -95,7 +95,7 @@ func trackedFiles(ctx context.Context, root string) ([]string, bool, error) {
 		return nil, false, fmt.Errorf("inspect Git root: %w", err)
 	}
 	// #nosec G204 -- Only tracked paths are listed; no shell, hooks, generators, or source programs are executed.
-	command := exec.CommandContext(ctx, "git", "-C", root, "ls-files", "-z", "--cached")
+	command := exec.CommandContext(ctx, "git", "-c", "core.fsmonitor=false", "-C", root, "ls-files", "-z", "--cached")
 	output, err := command.Output()
 	if err != nil {
 		return nil, true, fmt.Errorf("list tracked files: %w", err)

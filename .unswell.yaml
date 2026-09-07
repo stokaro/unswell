@@ -34,7 +34,7 @@ extraction:
       symbols: [Text]
       reason: "Executable rule examples contain both matching and nonmatching prose."
     - id: shell-gate-fixture
-      paths: ["scripts/dogfood.sh"]
+      paths: ["scripts/dogfood.sh", "scripts/check-containers.sh"]
       kinds: [string]
       symbols: [negative_prose]
       reason: "The shell probe supplies a deliberate violation to verify the project policy."
