@@ -1,8 +1,12 @@
 SHELL := /bin/bash
 
 .PHONY: check test race fuzz lint lint-shell tidy policy api build build-mcp release fmt schema dogfood dogfood-mcp
+.PHONY: check-registry
 
 check: policy tidy test lint lint-shell api schema dogfood-mcp
+
+check-registry:
+	bash scripts/check-registry.sh
 
 test:
 	bash scripts/modules.sh test
