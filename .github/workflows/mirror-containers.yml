@@ -1,0 +1,46 @@
+name: Mirror containers to Docker Hub
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+    secrets:
+      DOCKER_HUB_USER:
+        required: true
+      DOCKER_HUB_TOKEN:
+        required: true
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Existing Unswell image version, such as 0.1.0-alpha.1
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Validate inputs and the anonymous mirror gate
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+          DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
+        run: |
+          bash scripts/check-image-mirrors.sh --validate "$RELEASE_VERSION" "$DOCKER_HUB_USER"
+          bash scripts/check-image-mirrors.sh --self-test
+      - name: Select the hosted runner's Docker daemon
+        run: docker context create unswell-hub --docker host=unix:///var/run/docker.sock
+      - name: Mirror the published digests and verify anonymous equality
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+          DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: printf '%s' "$DOCKER_HUB_TOKEN" | bash scripts/mirror-containers.sh unswell-hub "$RELEASE_VERSION" "$DOCKER_HUB_USER"
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: docker-hub-mirror-evidence
+          path: artifacts/mirrors/
+          if-no-files-found: error

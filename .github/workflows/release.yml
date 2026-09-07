@@ -13,8 +13,18 @@ jobs:
       contents: read
       packages: write
     uses: ./.github/workflows/publish-containers.yml
+  mirrors:
+    needs: containers
+    permissions:
+      contents: read
+    uses: ./.github/workflows/mirror-containers.yml
+    with:
+      version: ${{ github.ref_name }}
+    secrets:
+      DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
+      DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
   publish:
-    needs: [checks, containers]
+    needs: [checks, containers, mirrors]
     runs-on: ubuntu-latest
     permissions:
       contents: write

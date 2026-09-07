@@ -1,9 +1,12 @@
 SHELL := /bin/bash
 
 .PHONY: check test race fuzz lint lint-shell tidy policy api build build-mcp release fmt schema dogfood dogfood-mcp
-.PHONY: check-registry
+.PHONY: check-registry check-mirror-policy
 
-check: policy tidy test lint lint-shell api schema dogfood-mcp
+check: policy tidy test lint lint-shell check-mirror-policy api schema dogfood-mcp
+
+check-mirror-policy:
+	bash scripts/check-image-mirrors.sh --self-test
 
 check-registry:
 	bash scripts/check-registry.sh
