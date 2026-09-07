@@ -20,6 +20,8 @@ Packages under `internal/` are implementation details. `cmd/unswell` is an
 executable, not an importable library. The tools module isolates build dependencies
 from the runtime module and its minimum compiler. The consumer module is an
 executable public-API contract test, not another supported library.
+The separate `mcp/` module provides the `unswell-mcp` executable and its protocol
+tests. It calls the public engine and keeps the MCP SDK out of the core module.
 
 Callers own returned result slices. Source bytes must not change during analysis.
 One engine supports concurrent calls. Custom rules and providers are trusted Go

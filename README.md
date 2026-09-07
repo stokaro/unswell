@@ -105,6 +105,10 @@ Select checked contexts globally or per language with the
 examples, dictionaries and other text that should remain outside an editorial check.
 Exceptions can select paths, languages, comments or strings, and named string owners.
 
+AI assistants can call the same engine through the separate [MCP server](docs/mcp.md).
+Its tools check supplied drafts and expose the fixed policy. `make dogfood-mcp`
+verifies repository checks through a real MCP client and subprocess.
+
 ```yaml
 version: 1
 extends: [builtin:technical-v1]

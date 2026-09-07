@@ -38,5 +38,10 @@ extraction:
       kinds: [string]
       symbols: [negative_prose]
       reason: "The shell probe supplies a deliberate violation to verify the project policy."
+    - id: mcp-gate-fixtures
+      paths: ["mcp/internal/selfcheck/probes.go"]
+      kinds: [string]
+      symbols: [probes]
+      reason: "The MCP client sends deliberate violations and malformed source to verify server outcomes."
 calibration:
   model: none
