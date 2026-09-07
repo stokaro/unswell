@@ -1,0 +1,54 @@
+name: Update distributions
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+    secrets:
+      PUBLISH_APP_KEY:
+        required: true
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Published Unswell release tag
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: distribution-updates
+  cancel-in-progress: false
+jobs:
+  dispatch:
+    if: github.repository == 'stokaro/unswell' && (github.event_name != 'workflow_dispatch' || github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify the published release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.version }}
+        shell: bash
+        run: |
+          [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z]+(\.[0-9A-Za-z]+)*)?$ ]]
+          gh release view "$RELEASE_TAG" --repo stokaro/unswell --json isDraft,tagName \
+            --jq 'select(.isDraft == false).tagName' > "$RUNNER_TEMP/release-tag"
+          [[ "$(cat "$RUNNER_TEMP/release-tag")" == "$RELEASE_TAG" ]]
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: publish
+        with:
+          app-id: ${{ vars.PUBLISH_APP_ID }}
+          private-key: ${{ secrets.PUBLISH_APP_KEY }}
+          owner: stokaro
+          repositories: homebrew-unswell,unswell-action
+          permission-contents: write
+      - name: Request both distribution updates
+        env:
+          GH_TOKEN: ${{ steps.publish.outputs.token }}
+          RELEASE_TAG: ${{ inputs.version }}
+        shell: bash
+        run: |
+          jq -n --arg version "$RELEASE_TAG" \
+            '{event_type:"unswell-release",client_payload:{version:$version}}' > "$RUNNER_TEMP/distribution-request.json"
+          gh api --method POST repos/stokaro/homebrew-unswell/dispatches --input "$RUNNER_TEMP/distribution-request.json"
+          gh api --method POST repos/stokaro/unswell-action/dispatches --input "$RUNNER_TEMP/distribution-request.json"

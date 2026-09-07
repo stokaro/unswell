@@ -4,30 +4,30 @@ Unswell is distributed as a Go library, CLI archives, two container images, a
 Homebrew formula and a GitHub Action. The MCP image is also described in the
 official MCP Registry. These routes all use the same engine and policy model.
 
-The first alpha is being prepared. Source builds and the tap's `--HEAD` formula
-are available before the versioned archives. A workflow or repository existing
-does not mean its corresponding release artifact has been published.
+The first alpha archives, containers, MCP Registry entry, and Action tag are
+published. The tap's versioned formula is merged on main.
+A configured workflow alone does not establish successful publication.
 
 ## Homebrew
 
 The dedicated tap is [stokaro/homebrew-unswell](https://github.com/stokaro/homebrew-unswell).
-Install the current public source with:
+Install the published release with:
 
 ```sh
-brew install --HEAD stokaro/unswell/unswell
+brew install stokaro/unswell/unswell
 brew test stokaro/unswell/unswell
 ```
 
-The development formula builds `main` with Go. Once the versioned formula is
-published, `brew install stokaro/unswell/unswell` selects a checked release archive
-for macOS or Linux on ARM64 or AMD64. Its tests require clean prose to pass, bad
+The formula selects a checked release archive for macOS or Linux on ARM64 or
+AMD64. Use `brew install --HEAD stokaro/unswell/unswell` to build `main` with Go.
+Its tests require clean prose to pass, bad
 prose to return 1, and malformed C# to return 2. The installed executable also
 checks the tap's own Markdown, YAML and Python scripts in CI.
 
-After publishing an Unswell release, run the tap's `Update formula` workflow with
-that tag. The updater checks all four archive hashes, pushes a formula branch and
-starts installation CI. Its summary links to the comparison for creating a PR.
-Review the generated formula and complete all installation checks before merging.
+After archive publication and the three public Action consumer checks succeed,
+the release workflow requests updates in both distribution repositories. The tap
+verifies all four Unix archive hashes and opens a PR for the formula. GitHub
+automatically merges it after the four required installation checks pass.
 
 ## GitHub Action
 
@@ -59,6 +59,12 @@ that bad prose and malformed source fail their action steps, with the expected
 codes and report contents. Unit tests against local archives do not replace this
 public download check.
 
+The Action updater verifies all six archives and opens a PR that updates the
+CLI default in action metadata, package metadata, and the executable. Its CI
+runs both local integration tests and published-release consumers on three
+operating systems. A successful main-branch CI run publishes the Action version;
+existing version tags are preserved.
+
 ## Archives, containers and MCP Registry
 
 CLI release archives cover Linux, macOS and Windows on AMD64 and ARM64. Verify
@@ -81,3 +87,23 @@ exists. A release needs the native and quality gates, CLI/MCP repository checks,
 both container architecture checks, anonymous pulls, registry verification,
 Homebrew installation results and public Action consumer results. Preserve those
 workflow artifacts alongside the release's immutable version and source commit.
+
+## Publishing app setup
+
+`Update distributions` can be dispatched on main with an existing release tag to
+retry delivery. Each receiving repository also has a manual update workflow.
+Repeated requests do not create new commits when the release is already selected.
+An existing update branch must match the regenerated files before reuse. A stale
+or conflicting branch may require a fresh run or maintainer review; it is never
+force-pushed over unrelated changes.
+
+The organization variable `PUBLISH_APP_ID` and secret `PUBLISH_APP_KEY` must be
+available to Unswell, the tap, and the Action repository. The app needs Contents
+and Pull requests write access. Each job requests a short-lived installation
+token limited to its target repositories and required permissions.
+
+Enable auto-merge in the tap and Action repositories. Their main-branch review
+rules allow only the publish app to merge without manual approval; required CI
+checks and resolved conversations still apply. Keep one approving review for
+other authors and keep force pushes and main deletion disabled. Organization-wide
+permission for GitHub Actions to approve PRs is not needed.
