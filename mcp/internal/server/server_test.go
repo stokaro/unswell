@@ -29,10 +29,12 @@ func connect(c *qt.C, ctx context.Context, options server.Options) *mcp.ClientSe
 	session, err := client.Connect(ctx, right, nil)
 	c.Assert(err, qt.IsNil)
 	c.Cleanup(func() {
+		// Stop server work while the client can still read. Closing the client
+		// first can interrupt a canceled request's pending response write.
+		c.Assert(serverSession.Close(), qt.IsNil)
 		c.Assert(session.Close(), qt.IsNil)
 		if err := serverSession.Wait(); err != nil {
-			// SDK responses still in flight after cancellation may observe the
-			// requested connection shutdown. Every other failure remains an error.
+			// The SDK may reject that response after its explicit shutdown starts.
 			c.Assert(err, qt.ErrorIs, &jsonrpc.Error{Code: -32004})
 		}
 	})
