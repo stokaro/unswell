@@ -5,22 +5,22 @@ Homebrew formula and a GitHub Action. The MCP image is also described in the
 official MCP Registry. These routes all use the same engine and policy model.
 
 The first alpha archives, containers, MCP Registry entry, and Action tag are
-published. The tap's versioned formula is delivered through its update PR.
+published. The tap's versioned formula is merged on main.
 A configured workflow alone does not establish successful publication.
 
 ## Homebrew
 
 The dedicated tap is [stokaro/homebrew-unswell](https://github.com/stokaro/homebrew-unswell).
-Install the current public source with:
+Install the published release with:
 
 ```sh
-brew install --HEAD stokaro/unswell/unswell
+brew install stokaro/unswell/unswell
 brew test stokaro/unswell/unswell
 ```
 
-The development formula builds `main` with Go. Once the versioned formula is
-published, `brew install stokaro/unswell/unswell` selects a checked release archive
-for macOS or Linux on ARM64 or AMD64. Its tests require clean prose to pass, bad
+The formula selects a checked release archive for macOS or Linux on ARM64 or
+AMD64. Use `brew install --HEAD stokaro/unswell/unswell` to build `main` with Go.
+Its tests require clean prose to pass, bad
 prose to return 1, and malformed C# to return 2. The installed executable also
 checks the tap's own Markdown, YAML and Python scripts in CI.
 
