@@ -25,9 +25,17 @@ The current ruleset does not require approval, stale-review dismissal, or resolv
 review conversations. Passing CI remains part of the project's release acceptance;
 the ruleset itself does not enforce those checks on a pull request.
 
-The separate Homebrew tap requires its four native installation checks and one
-approving review. The Action repository requires its three native test checks and
-one approving review. Both protect main from force pushes and deletion.
+The separate Homebrew tap currently requires four native installation checks and
+one approving review. The Action repository currently requires three native test
+checks and one approving review. Both protect main from force pushes and deletion.
+
+The distribution automation needs auto-merge enabled in both repositories and a
+review exception for the `ptah-publish` app alone. Other authors retain the review
+requirement. The Action's three published-release consumer checks must also become
+required. These configuration changes are pending explicit authorization; the
+workflow implementation does not establish that the settings are already active.
+The org secret and variable currently select only Ptah, and the installed app
+still needs Pull requests write access. See [publishing setup](installation.md#publishing-app-setup).
 
 Repository administrators can change these settings. CI code in pull requests is
 not a security boundary against a maintainer who can replace it. Workflow tokens

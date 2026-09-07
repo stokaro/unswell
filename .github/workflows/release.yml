@@ -52,6 +52,13 @@ jobs:
       contents: read
       id-token: write
     uses: ./.github/workflows/publish-mcp.yml
+  distributions:
+    needs: [publish, action-consumer]
+    uses: ./.github/workflows/update-distributions.yml
+    with:
+      version: ${{ github.ref_name }}
+    secrets:
+      PUBLISH_APP_KEY: ${{ secrets.PUBLISH_APP_KEY }}
   action-consumer:
     name: Published action (${{ matrix.os }})
     needs: publish
