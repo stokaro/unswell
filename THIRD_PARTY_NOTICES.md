@@ -18,7 +18,25 @@ The Go runtime and standard library's BSD notice is in [licenses/go_LICENSE](lic
 | `golang.org/x/text` | `v0.14.0` | [LICENSE](licenses/golang.org_x_text_LICENSE) |
 | `gopkg.in/neurosnap/sentences.v1` | `v1.0.7` | [LICENSE.md](licenses/gopkg.in_neurosnap_sentences.v1_LICENSE.md) |
 
-## Embedded models
+## MCP modules
+
+The separate MCP executable additionally includes these modules. Its module file
+and binary build metadata define the selected dependency graph; the core CLI does
+not acquire the MCP SDK. Their notices are packaged with MCP distribution artifacts.
+
+| Module | Version | Upstream notices |
+| --- | --- | --- |
+| `github.com/modelcontextprotocol/go-sdk` | `v1.7.0` | [LICENSE](licenses/github.com_modelcontextprotocol_go-sdk_LICENSE) |
+| `github.com/google/jsonschema-go` | `v0.4.3` | [LICENSE](licenses/github.com_google_jsonschema-go_LICENSE) |
+| `github.com/segmentio/encoding` | `v0.5.4` | [LICENSE](licenses/github.com_segmentio_encoding_LICENSE) |
+| `github.com/segmentio/asm` | `v1.1.3` | [LICENSE](licenses/github.com_segmentio_asm_LICENSE) |
+| `github.com/yosida95/uritemplate/v3` | `v3.0.2` | [LICENSE](licenses/github.com_yosida95_uritemplate_v3_LICENSE) |
+| `golang.org/x/oauth2` | `v0.35.0` | [LICENSE](licenses/golang.org_x_oauth2_LICENSE) |
+| `golang.org/x/sync` | `v0.20.0` | [LICENSE](licenses/golang.org_x_sync_LICENSE) |
+| `golang.org/x/sys` | `v0.41.0` | [LICENSE](licenses/golang.org_x_sys_LICENSE) |
+| `golang.org/x/time` | `v0.15.0` | [LICENSE](licenses/golang.org_x_time_LICENSE) |
+
+## Model data
 
 - POS: Prose `tag/aptagmodel/en.bin`, SHA-256
   `209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780`.

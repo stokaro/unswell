@@ -1,8 +1,8 @@
 SHELL := /bin/bash
 
-.PHONY: check test race fuzz lint lint-shell tidy policy api build release fmt schema dogfood
+.PHONY: check test race fuzz lint lint-shell tidy policy api build build-mcp release fmt schema dogfood dogfood-mcp
 
-check: policy tidy test lint lint-shell api schema dogfood
+check: policy tidy test lint lint-shell api schema dogfood-mcp
 
 test:
 	bash scripts/modules.sh test
@@ -44,8 +44,20 @@ build:
 dogfood: build
 	bash scripts/dogfood.sh
 
+build-mcp:
+	@commit=$$(git rev-parse HEAD); \
+	if [ -n "$$(git status --porcelain)" ]; then commit="$$commit-dirty"; fi; \
+	cd mcp && CGO_ENABLED=0 go build -trimpath -ldflags "-X github.com/stokaro/unswell.BuildCommit=$$commit" -o ../bin/unswell-mcp ./cmd/unswell-mcp
+
+dogfood-mcp: dogfood build-mcp
+	cd mcp && go run ./cmd/mcp-selfcheck --expected ../artifacts/dogfood/result.json \
+	  --output ../artifacts/dogfood/mcp-result.json -- ../bin/unswell-mcp --config ../.unswell.yaml
+
 release:
 	bash scripts/release.sh
 
 fmt:
-	@formatter=$$(cd tools && go tool -n golangci-lint); "$$formatter" fmt --config .golangci.yml ./...
+	@formatter=$$(cd tools && go tool -n golangci-lint); root=$$PWD; \
+	while read -r directory role; do \
+	  if [ "$$role" != tools ]; then (cd "$$directory" && "$$formatter" fmt --config "$$root/.golangci.yml" ./...) || exit; fi; \
+	done <.gomodules

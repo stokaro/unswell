@@ -15,6 +15,10 @@ The engine provides 16 configurable rule IDs, explainable local scores, policy
 gates and six builtin profiles. One analysis produces text, JSON, SARIF, HTML and
 Markdown reports.
 
+A separate MCP server lets AI assistants check their drafts with the same engine
+and fixed policy. CI compares its results with CLI evidence and checks failure,
+rewrite, cancellation and invalid-input behavior through the official MCP client.
+
 This alpha does not provide calibrated probabilities, a rule DSL, suppressions,
 baselines, changed-unit analysis, dependency parsing, or stable-rule precision
 claims. See `docs/roadmap.md` for the remaining specification requirements.
