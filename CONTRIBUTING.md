@@ -6,6 +6,16 @@ changes also require `make race`. CI tests the minimum compiler from `go.mod` on
 Linux, macOS, and Windows with automatic toolchain upgrades disabled. Tools have
 their own pinned module and compiler requirements.
 
+Run `bash scripts/setup-shellcheck.sh` once to install the pinned ShellCheck build
+in `bin/`. The installer verifies the archive checksum. `make lint-shell` checks
+Bash syntax, ShellCheck diagnostics through the style level, and shfmt formatting.
+It discovers tracked and new Bash scripts, including scripts without extensions.
+ShellCheck also checks for hidden command failures and suppressed `set -e` behavior.
+The gate rejects missing tools and proves it catches three deliberately bad scripts.
+To format scripts, use the pinned executable from `cd tools && go tool -n shfmt`
+with `-w -ln bash -i 2 -ci`. Shell text extraction for Unswell dogfooding is tracked
+in [issue #6](https://github.com/stokaro/unswell/issues/6).
+
 `make check` includes `make dogfood`: the just-built CLI checks this repository
 using `.unswell.yaml`. Edit the prose when a finding is valid. Investigate a false
 positive with a realistic regression case; do not disable a rule just to make CI

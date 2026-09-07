@@ -1,9 +1,9 @@
-# Proposed GitHub settings
+# GitHub settings
 
-These settings require administrator application. This file describes the
-requested changes; it is not evidence that they are active.
+The settings below were applied and checked through the GitHub API on September 7,
+2026. Administrators can change them; inspect the live settings during release review.
 
-| Setting | Proposed value | Effect |
+| Setting | Configured value | Effect |
 | --- | --- | --- |
 | Visibility | Public, already created | Source is publicly readable |
 | Merge methods | Squash only | Pull requests produce one main-branch commit |
@@ -16,6 +16,7 @@ requested changes; it is not evidence that they are active.
 | Main status checks | All three Native jobs and Quality, strict | The branch must be current with passing checks |
 | Main pull-request review | One approving review, dismiss stale approvals | Reviewed changes are required for normal merges |
 | Force pushes and deletion of main | Disabled | Main history is protected |
+| Linear history and resolved conversations | Required | Merge commits and unresolved review conversations block normal merges |
 | Administrator enforcement | Disabled | The sole initial maintainer retains an explicit emergency bypass |
 
 Repository administrators can change these settings. CI code in pull requests is

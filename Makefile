@@ -1,8 +1,8 @@
 SHELL := /bin/bash
 
-.PHONY: check test race fuzz lint tidy policy api build release fmt schema dogfood
+.PHONY: check test race fuzz lint lint-shell tidy policy api build release fmt schema dogfood
 
-check: policy tidy test lint api schema dogfood
+check: policy tidy test lint lint-shell api schema dogfood
 
 test:
 	bash scripts/modules.sh test
@@ -17,6 +17,10 @@ fuzz:
 
 lint:
 	bash scripts/lint.sh
+
+lint-shell:
+	bash scripts/lint-shell.sh
+	bash scripts/lint-shell.sh --self-test
 
 tidy:
 	bash scripts/modules.sh tidy -diff
