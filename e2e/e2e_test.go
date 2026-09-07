@@ -23,6 +23,7 @@ import (
 
 type scenario struct {
 	Files        []string `json:"files"`
+	Resources    []string `json:"resources"`
 	ExitCode     int      `json:"exit_code"`
 	Args         []string `json:"args"`
 	Stdin        bool     `json:"stdin"`
@@ -74,6 +75,7 @@ func runScenario(t *testing.T, binary, fixture string) {
 	c.Assert(len(spec.Files) > 0, qt.IsTrue)
 	workspace := t.TempDir()
 	sources, wants := prepareSources(t, fixture, workspace, spec)
+	prepareResources(t, fixture, workspace, spec.Resources, sources)
 	policy, err := fs.ReadFile(os.DirFS(fixture), "policy.yaml")
 	if errors.Is(err, os.ErrNotExist) {
 		policy, err = os.ReadFile("testdata/policy.yaml")
@@ -81,6 +83,7 @@ func runScenario(t *testing.T, binary, fixture string) {
 	c.Assert(err, qt.IsNil)
 	// #nosec G703 -- The output is a fixed filename in t.TempDir; fixture bytes never enter its path.
 	c.Assert(os.WriteFile(filepath.Join(workspace, "policy.yaml"), policy, 0o600), qt.IsNil)
+	sources["policy.yaml"] = policy
 	args := []string{"check", "--config", "policy.yaml", "--report", "text:-", "--report", "json:result.json",
 		"--report", "sarif:result.sarif"}
 	args = append(args, spec.Args...)

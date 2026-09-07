@@ -34,6 +34,7 @@ func TestRepositoryPolicy(t *testing.T) {
 		{"filesystem", "engine.go", "package unswell; import \"os\"", "library boundary.*"},
 		{"network", "engine.go", "package unswell; import \"net/http\"", "library boundary.*"},
 		{"CLI dependency", "engine.go", "package unswell; import \"github.com/stokaro/unswell/internal/cli\"", "library boundary.*"},
+		{"config loader", "engine.go", "package unswell; import \"github.com/stokaro/unswell/internal/appconfig\"", "library boundary.*"},
 		{"unpinned CI", ".github/workflows/ci.yml", "- uses: actions/checkout@main", "unpinned action.*"},
 		{"missing CI jobs", ".github/workflows/ci.yml", "", "missing CI coverage.*"},
 	}

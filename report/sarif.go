@@ -55,9 +55,20 @@ func sarif(writer io.Writer, result unswell.RunResult) error {
 			"invocations": []any{
 				map[string]any{"executionSuccessful": result.Manifest.Complete, "toolExecutionNotifications": notifications},
 			},
-			"properties": map[string]any{"gate": result.Gate, "assessments": result.Assessments, "manifest": result.Manifest},
+			"properties": map[string]any{"gate": result.Gate, "assessments": result.Assessments,
+				"manifest": result.Manifest, "file_policies": filePolicies(result)},
 		}},
 	})
+}
+
+func filePolicies(result unswell.RunResult) map[string]any {
+	policies := make(map[string]any, len(result.Documents))
+	for _, doc := range result.Documents {
+		if doc.ConfigHash != "" {
+			policies[doc.Name] = map[string]any{"config_hash": doc.ConfigHash, "applied_overrides": doc.AppliedOverrides}
+		}
+	}
+	return policies
 }
 
 func sarifFinding(finding unswell.Finding, index int) map[string]any {

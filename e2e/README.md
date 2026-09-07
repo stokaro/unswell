@@ -10,6 +10,7 @@ No installed Unswell binary, external service, or separate test framework is nee
 Each directory in `testdata` contains:
 
 - `case.json`: source filenames, expected process exit code, and optional CLI modes.
+- Optional `resources` in `case.json`: local config and dictionary files copied without becoming source arguments.
 - `sample.go.txt` or another language fixture: source with inline `want` annotations.
 - `policy.yaml`, when the case overrides the shared two-rule policy.
 - `diagnostics.golden.json`: exact diagnostics, source spans, completion, and gate state.
@@ -61,6 +62,12 @@ The custom-rule cases load inline packs through the real CLI. They cover matchin
 Go comments and escaped strings with CRLF, and paragraph conditions with exact
 regex locations, Markdown emphasis, a BOM, protected code, and a local exception.
 Their annotated findings and JSON/SARIF output use the same checks as builtin rules.
+
+The `config_inheritance` case loads a parent policy and shared term dictionary,
+applies two overlapping file overrides, and retains the unexempted occurrence beside
+a valid technical term. Its nested Markdown sources include emphasis, protected code,
+CRLF, and a BOM. `config_cycle` requires a startup error before any report is written.
+The harness verifies that source files, policy, and dependency resources stay unchanged.
 
 ## Review golden changes
 

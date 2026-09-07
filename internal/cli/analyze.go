@@ -10,9 +10,9 @@ import (
 
 	"github.com/stokaro/unswell"
 	"github.com/stokaro/unswell/builtin"
-	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/extract"
+	"github.com/stokaro/unswell/internal/appconfig"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -24,25 +24,16 @@ func catalog() []rule.Descriptor {
 	return result
 }
 
-func configuration(environment Environment, options checkOptions) ([]byte, error) {
+func configuration(ctx context.Context, environment Environment, options checkOptions) (appconfig.Loaded, error) {
+	load := appconfig.Options{Dir: environment.Dir, Root: options.projectRoot, Path: options.config,
+		Discover: true, AllowOutsideRoot: options.allowOutsideConfig}
 	if options.profile != "" {
 		if options.config != "" {
-			return nil, fmt.Errorf("--profile and --config cannot be combined")
+			return appconfig.Loaded{}, fmt.Errorf("--profile and --config cannot be combined")
 		}
-		return []byte("version: 1\nextends: [builtin:" + options.profile + "]\n"), nil
+		load.Inline = []byte("version: 1\nextends: [builtin:" + options.profile + "]\n")
 	}
-	path := options.config
-	if path == "" {
-		path = filepath.Join(environment.Dir, ".unswell.yaml")
-		if _, err := os.Stat(path); os.IsNotExist(err) {
-			return nil, nil
-		} else if err != nil {
-			return nil, err
-		}
-	} else if !filepath.IsAbs(path) {
-		path = filepath.Join(environment.Dir, path)
-	}
-	return readLimited(path, 1<<20)
+	return appconfig.Load(ctx, load)
 }
 
 func readLimited(path string, limit int) ([]byte, error) {
@@ -72,7 +63,9 @@ func analyze(ctx context.Context, environment Environment, options checkOptions,
 	if options.maxFindings < 0 || options.timeout <= 0 {
 		return unswell.RunResult{}, nil, fmt.Errorf("invalid display limit or timeout")
 	}
-	data, err := configuration(environment, options)
+	ctx, cancel := context.WithTimeout(ctx, options.timeout)
+	defer cancel()
+	loaded, err := configuration(ctx, environment, options)
 	if err != nil {
 		return unswell.RunResult{}, nil, err
 	}
@@ -81,13 +74,9 @@ func analyze(ctx context.Context, environment Environment, options checkOptions,
 		return unswell.RunResult{}, nil, err
 	}
 	registry := append(builtin.Rules(), additional...)
-	policy, err := config.Load(data, descriptors(registry))
-	if err != nil {
-		return unswell.RunResult{}, nil, err
-	}
 	engine, err := unswell.New(
 		unswell.Options{
-			Config:        data,
+			ConfigBundle:  &loaded.Bundle,
 			Rules:         registry,
 			Jobs:          options.jobs,
 			IncludeSource: options.includeSource,
@@ -98,14 +87,13 @@ func analyze(ctx context.Context, environment Environment, options checkOptions,
 	if err != nil {
 		return unswell.RunResult{}, nil, err
 	}
-	ctx, cancel := context.WithTimeout(ctx, options.timeout)
-	defer cancel()
-	sources, paths, mode, err := selectSources(ctx, environment, options, policy, args)
+	sources, paths, mode, err := selectSources(ctx, environment, options, engine, loaded.Root, args)
 	if err != nil {
 		return unswell.RunResult{}, paths, err
 	}
 	result, err := engine.AnalyzeAll(ctx, sources)
 	result.Manifest.SelectionMode = mode
+	paths = append(paths, loaded.Paths...)
 	return result, append(paths, rulePaths...), err
 }
 
@@ -113,22 +101,44 @@ func selectSources(
 	ctx context.Context,
 	environment Environment,
 	options checkOptions,
-	policy config.Policy,
+	engine *unswell.Engine,
+	root string,
 	args []string,
 ) ([]document.Source, []string, string, error) {
+	policy, err := engine.PolicyForFile("")
+	if err != nil {
+		return nil, nil, "", err
+	}
 	if options.stdin {
 		if len(args) > 0 {
 			return nil, nil, "", fmt.Errorf("stdin cannot be combined with source paths")
 		}
+		policy, err := engine.PolicyForFile(options.filename)
+		if err != nil {
+			return nil, nil, "", err
+		}
 		source, err := stdinSource(environment, options, policy.Analysis.MaxFileBytes)
 		return []document.Source{source}, nil, "stdin", err
 	}
-	paths, mode, err := discover(ctx, environment.Dir, args, policy.Files)
+	paths, mode, err := discover(ctx, root, absoluteArguments(environment.Dir, args), policy.Files)
 	if err != nil {
 		return nil, nil, "", err
 	}
-	sources, err := readSources(ctx, environment, options, policy, paths)
+	sources, err := readSources(ctx, root, options, engine, paths)
 	return sources, paths, mode, err
+}
+
+func absoluteArguments(dir string, args []string) []string {
+	if len(args) == 0 {
+		return []string{dir}
+	}
+	result := slices.Clone(args)
+	for i, arg := range result {
+		if !filepath.IsAbs(arg) {
+			result[i] = filepath.Join(dir, arg)
+		}
+	}
+	return result
 }
 
 func stdinSource(environment Environment, options checkOptions, limit int) (document.Source, error) {
@@ -149,15 +159,23 @@ func stdinSource(environment Environment, options checkOptions, limit int) (docu
 
 func readSources(
 	ctx context.Context,
-	environment Environment,
+	root string,
 	options checkOptions,
-	policy config.Policy,
+	engine *unswell.Engine,
 	paths []string,
 ) ([]document.Source, error) {
 	sources := make([]document.Source, 0, len(paths))
 	total := 0
 	for _, path := range paths {
 		if err := ctx.Err(); err != nil {
+			return nil, err
+		}
+		name, err := filepath.Rel(root, path)
+		if err != nil {
+			return nil, err
+		}
+		policy, err := engine.PolicyForFile(filepath.ToSlash(name))
+		if err != nil {
 			return nil, err
 		}
 		data, err := readLimited(path, policy.Analysis.MaxFileBytes)
@@ -171,10 +189,6 @@ func readSources(
 		total += len(data)
 		if total > policy.Analysis.MaxTotalBytes {
 			return nil, fmt.Errorf("selection exceeds max_total_bytes")
-		}
-		name, err := filepath.Rel(environment.Dir, path)
-		if err != nil {
-			return nil, err
 		}
 		sources = append(sources, document.Source{Name: filepath.ToSlash(name), Format: format, Bytes: data})
 	}

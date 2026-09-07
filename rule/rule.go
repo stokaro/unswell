@@ -53,20 +53,21 @@ type Example struct {
 
 // Descriptor documents a versioned, independently useful editorial signal.
 type Descriptor struct {
-	ID          string           `json:"id"`
-	Version     string           `json:"version"`
-	Summary     string           `json:"summary"`
-	Description string           `json:"description"`
-	Limitations string           `json:"limitations"`
-	Scope       string           `json:"scope"`
-	Contexts    []string         `json:"contexts"`
-	Requires    []nlp.Capability `json:"requires"`
-	Group       string           `json:"group"`
-	Status      string           `json:"status"`
-	Defaults    Settings         `json:"defaults"`
-	Parameters  []string         `json:"parameters"`
-	Examples    []Example        `json:"examples"`
-	Origin      *Origin          `json:"origin,omitempty"`
+	ID             string           `json:"id"`
+	Version        string           `json:"version"`
+	Summary        string           `json:"summary"`
+	Description    string           `json:"description"`
+	Limitations    string           `json:"limitations"`
+	Scope          string           `json:"scope"`
+	Contexts       []string         `json:"contexts"`
+	Requires       []nlp.Capability `json:"requires"`
+	Group          string           `json:"group"`
+	Status         string           `json:"status"`
+	Defaults       Settings         `json:"defaults"`
+	Parameters     []string         `json:"parameters"`
+	Examples       []Example        `json:"examples"`
+	Origin         *Origin          `json:"origin,omitempty"`
+	TermExemptions bool             `json:"term_exemptions,omitempty"`
 }
 
 // Origin identifies a declarative ruleset and its author-supplied provenance.
@@ -108,9 +109,22 @@ type Evidence struct {
 
 // View is read-only for the duration of Evaluate. Never retain its pointers.
 type View struct {
-	Document      *document.Document
-	Parameters    Parameters
-	MaxCandidates int
+	Document       *document.Document
+	Parameters     Parameters
+	MaxCandidates  int
+	TermExemptions *TermMatches
+}
+
+// TokenRange identifies a half-open token range in one sentence and block.
+type TokenRange struct{ BlockID, SentenceID, Start, End int }
+
+// Exempts reports whether an entire candidate lies inside one approved term.
+// Rules call this before counting or aggregating evidence, only when supported.
+func (v View) Exempts(sentence document.Sentence, start, end int) bool {
+	if start < 0 || end <= start || end > len(sentence.Tokens) {
+		return false
+	}
+	return v.TermExemptions.contains(sentence, start, end)
 }
 
 // Emitter validates evidence. An emitter error makes the entire analysis incomplete.

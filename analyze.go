@@ -11,6 +11,7 @@ import (
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/extract"
+	"github.com/stokaro/unswell/internal/terms"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -33,6 +34,10 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source) (Run
 		return result, err
 	}
 	result.Documents = append(result.Documents, e.documentResult(doc))
+	termMatches, err := e.matchTerms(ctx, &doc)
+	if err != nil {
+		return result, err
+	}
 	for _, implementation := range e.rules {
 		if err := ctx.Err(); err != nil {
 			return result, err
@@ -55,6 +60,9 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source) (Run
 			Parameters:    cloneParameters(settings.Parameters),
 			MaxCandidates: e.policy.Analysis.MaxCandidates,
 		}
+		if slices.Contains(e.policy.Vocabulary.TermExemptions, descriptor.ID) {
+			view.TermExemptions = termMatches
+		}
 		err := implementation.Evaluate(ctx, view, emitter)
 		result.Findings = append(result.Findings, emitter.findings...)
 		if emitter.err != nil {
@@ -69,6 +77,22 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source) (Run
 	e.assess(&result, doc)
 	e.decide(&result, doc)
 	return result, nil
+}
+
+func (e *Engine) matchTerms(ctx context.Context, doc *document.Document) (*rule.TermMatches, error) {
+	vocabulary := e.policy.Vocabulary
+	if len(vocabulary.TermExemptions) == 0 || len(vocabulary.ResolvedTerms) == 0 {
+		return nil, nil
+	}
+	matcher, err := terms.Compile(vocabulary.ResolvedTerms, vocabulary.CaseSensitive)
+	if err != nil {
+		return nil, err
+	}
+	ranges, err := matcher.Find(ctx, doc, e.policy.Analysis.MaxCandidates)
+	if err != nil {
+		return nil, err
+	}
+	return rule.NewTermMatches(ranges)
 }
 
 func (e *Engine) enrich(ctx context.Context, doc *document.Document) error {
@@ -118,13 +142,15 @@ func englishApplicable(text string) error {
 
 func (e *Engine) documentResult(doc document.Document) DocumentResult {
 	result := DocumentResult{
-		Name:       doc.Name,
-		Format:     doc.Format,
-		SourceHash: doc.Hash,
-		Bytes:      len(doc.Source),
-		ProseWords: doc.Words,
-		Blocks:     len(doc.Blocks),
-		Excluded:   doc.Excluded,
+		Name:             doc.Name,
+		Format:           doc.Format,
+		SourceHash:       doc.Hash,
+		ConfigHash:       e.policy.Hash,
+		AppliedOverrides: slices.Clone(e.policy.AppliedOverrides),
+		Bytes:            len(doc.Source),
+		ProseWords:       doc.Words,
+		Blocks:           len(doc.Blocks),
+		Excluded:         doc.Excluded,
 	}
 	for _, block := range doc.Blocks {
 		result.Sentences += len(block.Sentences)

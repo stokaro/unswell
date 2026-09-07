@@ -68,7 +68,7 @@ func TestRulePackCommands(t *testing.T) {
 	}
 }
 
-func TestExternalAndInlinePacksProduceTheSamePolicy(t *testing.T) {
+func TestExternalAndInlinePacksPreserveFindingsAndIdentifySources(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
 	root, data := rulesWorkspace(t)
@@ -81,7 +81,9 @@ func TestExternalAndInlinePacksProduceTheSamePolicy(t *testing.T) {
 	c.Assert(json.Unmarshal([]byte(runRulesCLI(t, root, inlineArgs, 1)), &embedded), qt.IsNil)
 	c.Assert(external.Findings, qt.HasLen, 1)
 	c.Assert(external.Findings[0].RuleID, qt.Equals, "company.no-dive-in")
-	c.Assert(external.Manifest.ConfigHash, qt.Equals, embedded.Manifest.ConfigHash)
+	c.Assert(external.Manifest.ConfigHash, qt.Not(qt.Equals), embedded.Manifest.ConfigHash)
+	c.Assert(external.Manifest.ConfigSources[0].Path, qt.Equals, "policy.yaml")
+	c.Assert(embedded.Manifest.ConfigSources[0].Path, qt.Equals, "inline.yaml")
 	c.Assert(external.Manifest.RulesetHash, qt.Equals, embedded.Manifest.RulesetHash)
 	c.Assert(external.Findings, qt.DeepEquals, embedded.Findings)
 }

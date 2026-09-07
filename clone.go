@@ -3,6 +3,7 @@ package unswell
 import (
 	"slices"
 
+	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -19,6 +20,14 @@ func cloneDescriptors(source []rule.Descriptor) []rule.Descriptor {
 			origin := *d.Origin
 			d.Origin = &origin
 		}
+	}
+	return result
+}
+
+func cloneOverrides(source []config.OverrideIdentity) []config.OverrideIdentity {
+	result := slices.Clone(source)
+	for i := range result {
+		result[i].Files = slices.Clone(result[i].Files)
 	}
 	return result
 }

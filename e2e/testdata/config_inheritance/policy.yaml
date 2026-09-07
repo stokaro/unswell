@@ -1,0 +1,9 @@
+version: 1
+extends: [policies/base.yaml]
+overrides:
+  - files: [docs/**]
+    rules:
+      policy.banned-phrases: {severity: warning}
+  - files: [docs/reference/**]
+    rules:
+      policy.banned-phrases: {enabled: false}

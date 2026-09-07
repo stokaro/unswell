@@ -21,14 +21,17 @@ Configure a stdio MCP client to launch the absolute executable path with `--conf
 and the policy path as separate arguments. The executable reserves stdout for
 protocol frames. Startup errors, help and `--version` output go to stderr.
 
-The server reads only the explicit startup policy file. Omitting `--config` uses
+The server reads the explicit startup policy and its local dependencies through the
+shared [configuration loader](configuration.md). Omitting `--config` uses
 builtin defaults; it does not search a working directory or home directory for
 configuration. Set `--timeout 30s` to bound each check; the maximum is five minutes.
 Source and analysis limits also come from the effective policy.
 
 ## Tools
 
-`unswell_describe` takes an empty object. It returns supported input formats and
+`unswell_describe` accepts an empty object for the base policy, or a logical file
+such as `{"file":"docs/reference/api.md"}` to resolve existing file overrides.
+It opens no source file. It returns supported input formats and
 contexts, the rule catalog, the effective policy and its hash, and the build version.
 
 `unswell_check` accepts source contents directly:

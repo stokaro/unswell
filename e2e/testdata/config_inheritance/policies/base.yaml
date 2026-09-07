@@ -1,0 +1,9 @@
+version: 1
+extends: [builtin:custom]
+rules:
+  policy.banned-phrases:
+    enabled: true
+    parameters: {phrases: [robust]}
+vocabulary:
+  dictionaries: [terms.yaml]
+  term_exemptions: [policy.banned-phrases]

@@ -1,5 +1,51 @@
 {
   "$defs": {
+    "config.OverrideIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "files": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "files",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "config.SourceIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "kind",
+        "sha256"
+      ],
+      "type": "object"
+    },
     "document.Exclusion": {
       "additionalProperties": false,
       "properties": {
@@ -162,6 +208,9 @@
         },
         "summary": {
           "type": "string"
+        },
+        "term_exemptions": {
+          "type": "boolean"
         },
         "version": {
           "type": "string"
@@ -568,11 +617,23 @@
     "unswell.DocumentResult": {
       "additionalProperties": false,
       "properties": {
+        "applied_overrides": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
         "blocks": {
           "type": "integer"
         },
         "bytes": {
           "type": "integer"
+        },
+        "config_hash": {
+          "type": "string"
         },
         "eligible_paragraph_flagged_fraction": {
           "type": "number"
@@ -795,6 +856,27 @@
         },
         "config_hash": {
           "type": "string"
+        },
+        "config_identity": {
+          "type": "string"
+        },
+        "config_overrides": {
+          "items": {
+            "$ref": "#/$defs/config.OverrideIdentity"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "config_sources": {
+          "items": {
+            "$ref": "#/$defs/config.SourceIdentity"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
         },
         "feature_contract": {
           "type": "string"

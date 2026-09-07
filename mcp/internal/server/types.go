@@ -26,7 +26,9 @@ type CheckOutput struct {
 }
 
 // DescribeInput has no options that could alter the fixed policy.
-type DescribeInput struct{}
+type DescribeInput struct {
+	File string `json:"file,omitempty" jsonschema:"Optional project-relative filename for policy overrides. Does not open the file."`
+}
 
 // Format describes syntax and available prose contexts.
 type Format struct {

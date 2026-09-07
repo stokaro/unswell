@@ -30,7 +30,7 @@ func prepareSources(t *testing.T, fixture, workspace string, spec scenario) (map
 	sources := make(map[string][]byte)
 	var wants []expectation
 	for _, name := range spec.Files {
-		c.Assert(filepath.Base(name), qt.Equals, name)
+		c.Assert(fs.ValidPath(name), qt.IsTrue)
 		data, err := fs.ReadFile(os.DirFS(fixture), name+".txt")
 		c.Assert(err, qt.IsNil)
 		clean, annotations, err := annotatedSource(name, string(data))
@@ -43,9 +43,32 @@ func prepareSources(t *testing.T, fixture, workspace string, spec scenario) (map
 		}
 		sources[name] = []byte(clean)
 		wants = append(wants, annotations...)
-		c.Assert(os.WriteFile(filepath.Join(workspace, name), sources[name], 0o600), qt.IsNil)
+		writeFixture(c, workspace, name, sources[name])
 	}
 	return sources, wants
+}
+
+func prepareResources(t *testing.T, fixture, workspace string, names []string, sources map[string][]byte) {
+	t.Helper()
+	c := qt.New(t)
+	for _, name := range names {
+		c.Assert(fs.ValidPath(name), qt.IsTrue)
+		_, exists := sources[name]
+		c.Assert(exists || name == "policy.yaml", qt.IsFalse)
+		data, err := fs.ReadFile(os.DirFS(fixture), name)
+		c.Assert(err, qt.IsNil)
+		sources[name] = data
+		writeFixture(c, workspace, name, data)
+	}
+}
+
+func writeFixture(c *qt.C, workspace, name string, data []byte) {
+	c.Helper()
+	c.Assert(fs.ValidPath(name), qt.IsTrue)
+	c.Assert(strings.ContainsAny(name, "\\:"), qt.IsFalse)
+	target := filepath.Join(workspace, filepath.FromSlash(name))
+	c.Assert(os.MkdirAll(filepath.Dir(target), 0o700), qt.IsNil)
+	c.Assert(os.WriteFile(target, data, 0o600), qt.IsNil)
 }
 
 func annotatedSource(name, source string) (string, []expectation, error) {

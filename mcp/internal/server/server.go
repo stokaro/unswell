@@ -9,19 +9,18 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 
 	"github.com/stokaro/unswell"
-	"github.com/stokaro/unswell/builtin"
 	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/extract"
 	"github.com/stokaro/unswell/nlp"
-	"github.com/stokaro/unswell/rule"
 )
 
 // Options fixes policy and resource limits for the lifetime of a server.
 type Options struct {
-	Config  []byte
-	NLP     nlp.Provider
-	Timeout time.Duration
+	Config       []byte
+	ConfigBundle *config.Bundle
+	NLP          nlp.Provider
+	Timeout      time.Duration
 }
 
 type checker struct {
@@ -38,11 +37,11 @@ func New(options Options) (*mcp.Server, error) {
 	if options.Timeout < 0 || options.Timeout > 5*time.Minute {
 		return nil, fmt.Errorf("timeout must be positive and at most five minutes")
 	}
-	engine, err := unswell.New(unswell.Options{Config: options.Config, NLP: options.NLP})
+	engine, err := unswell.New(unswell.Options{Config: options.Config, ConfigBundle: options.ConfigBundle, NLP: options.NLP})
 	if err != nil {
 		return nil, err
 	}
-	description, err := describePolicy(options.Config)
+	description, err := describePolicy(engine)
 	if err != nil {
 		return nil, err
 	}
@@ -71,12 +70,9 @@ func tool(name, description string) *mcp.Tool {
 	}}
 }
 
-func describePolicy(data []byte) (Description, error) {
-	result := Description{Version: unswell.Version, Commit: unswell.BuildCommit, Formats: []Format{}, Rules: []rule.Descriptor{}}
-	for _, implementation := range builtin.Rules() {
-		result.Rules = append(result.Rules, implementation.Descriptor())
-	}
-	policy, err := config.Load(data, result.Rules)
+func describePolicy(engine *unswell.Engine) (Description, error) {
+	result := Description{Version: unswell.Version, Commit: unswell.BuildCommit, Formats: []Format{}, Rules: engine.Catalog()}
+	policy, err := engine.PolicyForFile("")
 	if err != nil {
 		return Description{}, err
 	}
@@ -112,6 +108,12 @@ func (c *checker) check(ctx context.Context, _ *mcp.CallToolRequest, input Check
 	return &mcp.CallToolResult{IsError: err != nil}, CheckOutput{Outcome: outcome, Result: result}, nil
 }
 
-func (c *checker) describe(ctx context.Context, _ *mcp.CallToolRequest, _ DescribeInput) (*mcp.CallToolResult, Description, error) {
-	return nil, c.description, ctx.Err()
+func (c *checker) describe(ctx context.Context, _ *mcp.CallToolRequest, input DescribeInput) (*mcp.CallToolResult, Description, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, Description{}, err
+	}
+	result := c.description
+	policy, err := c.engine.PolicyForFile(input.File)
+	result.Policy = policy
+	return nil, result, err
 }
