@@ -114,6 +114,9 @@ func FuzzSourceMap(f *testing.F) {
 			seed = "It is **important** to note that 😀 &amp; \\*."
 		}
 		f.Add(uint8(index), seed)
+		if format == document.Markdown {
+			f.Add(uint8(index), "| Name | Result |\n| --- | --- |\n|||\n| | |\n| 😀 | Output &amp; `code` |\n")
+		}
 	}
 	f.Fuzz(func(t *testing.T, format uint8, text string) {
 		if len(text) > 4096 {

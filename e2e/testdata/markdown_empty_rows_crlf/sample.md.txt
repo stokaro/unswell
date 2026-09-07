@@ -1,0 +1,28 @@
+# Empty table rows
+
+| Name | Result | State |
+| --- | --- | --- |
+||||
+| Initial | Output | Ready |
+| | | |
+| 😀 | It is **important** to note that the client retries. | Active | <!-- want "filler.announced-importance" -->
+|||||
+| Boundary | It is `important` to note that the client retries. | Ready |
+||
+| Tail | Certainly! The client opens connections. | Active | <!-- want "scaffold.chat-preamble" -->
+| | | |
+
+It is important to note that requests may fail. <!-- want "filler.announced-importance" -->
+
+| Result |
+| --- |
+||
+| Certainly! The client validates the input. | <!-- want "scaffold.chat-preamble" -->
+||
+
+```
+||||
+Certainly! The client opens connections.
+```
+
+The client validates the input.

@@ -14,16 +14,21 @@ type markdownReader struct {
 	ctx     context.Context
 	doc     *document.Document
 	syntax  syntaxTree
+	input   markdownInput
 	options Options
 }
 
 func markdown(ctx context.Context, doc *document.Document, options Options) error {
-	syntax, err := parseSyntax(ctx, maskFrontMatter(doc), "markdown")
+	input, err := prepareMarkdown(ctx, maskFrontMatter(doc))
+	if err != nil {
+		return err
+	}
+	syntax, err := parseSyntax(ctx, input.source, "markdown")
 	if err != nil {
 		return err
 	}
 	defer syntax.tree.Release()
-	reader := markdownReader{ctx: ctx, doc: doc, syntax: syntax, options: options}
+	reader := markdownReader{ctx: ctx, doc: doc, syntax: syntax, input: input, options: options}
 	return walkSyntax(ctx, syntax.tree.RootNode(), 0, reader.block)
 }
 
@@ -32,8 +37,11 @@ func (r markdownReader) block(node *ts.Node) (bool, error) {
 		return true, fmt.Errorf("source exceeds %d prose blocks", r.options.MaxBlocks)
 	}
 	kind := node.Type(r.syntax.lang)
+	if kind == "|" && !markdownTableDelimiter(node.Parent(), r.syntax.lang) {
+		return true, fmt.Errorf("markdown grammar returned an orphaned table delimiter")
+	}
 	if reason := markdownExclusion(kind, r.options.IncludeQuotes); reason != "" {
-		span := syntaxSpan(node, 0)
+		span := r.input.span(node)
 		if reason == "html" && unsupportedSuppression(string(r.doc.Source[span.Start:span.End])) {
 			return true, fmt.Errorf("suppression directives are not implemented in this alpha")
 		}
@@ -47,6 +55,18 @@ func (r markdownReader) block(node *ts.Node) (bool, error) {
 		return false, nil
 	}
 	return true, r.inline(node, markdownKind(node, r.syntax.lang))
+}
+
+func markdownTableDelimiter(parent *ts.Node, lang *ts.Language) bool {
+	if parent == nil {
+		return false
+	}
+	switch parent.Type(lang) {
+	case "pipe_table_row", "pipe_table_header", "pipe_table_delimiter_row":
+		return true
+	default:
+		return false
+	}
 }
 
 func markdownExclusion(kind string, quotes bool) string {
@@ -78,20 +98,7 @@ func markdownKind(node *ts.Node, lang *ts.Language) string {
 }
 
 func (r markdownReader) inline(node *ts.Node, kind string) error {
-	span := syntaxSpan(node, 0)
-	if contextExclusion(r.doc, r.options.Policy, kind, span) {
-		return nil
-	}
-	var continuations []document.Span
-	err := walkSyntax(r.ctx, node, 0, func(child *ts.Node) (bool, error) {
-		if child.Type(r.syntax.lang) == "block_continuation" && child.EndByte() > child.StartByte() {
-			continuations = append(continuations, syntaxSpan(child, 0))
-		}
-		return false, nil
-	})
-	if err != nil {
-		return err
-	}
+	span := r.input.span(node)
 	if kind == "table-cell" {
 		for span.End > span.Start && strings.ContainsRune(" \t", rune(r.doc.Source[span.End-1])) {
 			span.End--
@@ -100,6 +107,19 @@ func (r markdownReader) inline(node *ts.Node, kind string) error {
 		if span.End == span.Start {
 			return nil
 		}
+	}
+	if contextExclusion(r.doc, r.options.Policy, kind, span) {
+		return nil
+	}
+	var continuations []document.Span
+	err := walkSyntax(r.ctx, node, 0, func(child *ts.Node) (bool, error) {
+		if child.Type(r.syntax.lang) == "block_continuation" && child.EndByte() > child.StartByte() {
+			continuations = append(continuations, r.input.span(child))
+		}
+		return false, nil
+	})
+	if err != nil {
+		return err
 	}
 	mapped, err := markdownInline(r.ctx, r.doc, span, continuations)
 	if err == nil {
