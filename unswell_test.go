@@ -113,17 +113,21 @@ func TestDeterministicWorkersAndConcurrentEngine(t *testing.T) {
 	sources := []document.Source{
 		{Name: "z.txt", Format: document.Plain, Bytes: []byte("Certainly! The client opens connections.")},
 		{Name: "a.md", Format: document.Markdown, Bytes: []byte("Let's dive into the configuration.")},
+		{Name: "permitted.md", Format: document.Markdown, Bytes: []byte(
+			"<!-- unswell-disable-next-block filler.announced-importance -- Required contract wording. -->\n\n" +
+				"It is important to note that the client retries.")},
 	}
 	single, err := unswell.New(unswell.Options{Jobs: 1})
 	c.Assert(err, qt.IsNil)
 	want, err := single.AnalyzeAll(t.Context(), sources)
 	c.Assert(err, qt.IsNil)
+	c.Assert(want.Suppressions, qt.HasLen, 1)
 	parallel, err := unswell.New(unswell.Options{Jobs: 4})
 	c.Assert(err, qt.IsNil)
 	var workers sync.WaitGroup
 	for range 4 {
 		workers.Go(func() {
-			result, analyzeErr := parallel.AnalyzeAll(t.Context(), []document.Source{sources[1], sources[0]})
+			result, analyzeErr := parallel.AnalyzeAll(t.Context(), []document.Source{sources[2], sources[1], sources[0]})
 			c.Check(analyzeErr, qt.IsNil)
 			c.Check(result, qt.DeepEquals, want)
 		})

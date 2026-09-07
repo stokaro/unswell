@@ -1,0 +1,8 @@
+version: 1
+extends: [builtin:custom]
+rules:
+  policy.banned-phrases:
+    enabled: true
+    parameters: {phrases: [robust]}
+    score: {weight: 20, cap: 20}
+suppressions: {allow_file_wide: true}

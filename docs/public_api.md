@@ -73,3 +73,17 @@ fields and per-document config hashes and applied overrides. These additions ret
 the existing schema version and old-report readability. Strict older readers need
 an update to accept the added fields. MCP description gains an optional logical
 filename and returns the same selected policy used by analysis.
+
+Source suppressions add `document.Directive`, `Document.Directives`,
+`config.Suppressions`, and `Policy.Suppressions`. The engine validates and resolves
+them after extraction and NLP. Results add `Suppression`, `SuppressionTarget`,
+`RunResult.Suppressions`, `Finding.SuppressionIDs`, and
+`Assessment.EffectiveContributions`. Existing findings, source locations, raw
+contributions, and raw document statistics retain their meaning. Effective unit
+scores and gate decisions now account for valid source permissions.
+
+These are additive fields in the existing result schema. Old saved reports remain
+readable; strict older readers need an update. The new suppression policy defaults
+intentionally change effective policy hashes. No probability field is reinterpreted.
+Malformed or unused permissions return an operational error and an incomplete result;
+unused-permission errors preserve the raw findings and audit records already computed.

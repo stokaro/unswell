@@ -17,31 +17,34 @@ import (
 var updateGoldens = flag.Bool("update", false, "Update reviewed e2e golden reports after checking want annotations")
 
 type findingRecord struct {
-	RuleID   string             `json:"rule_id"`
-	Severity string             `json:"severity"`
-	Gate     string             `json:"gate"`
-	Scope    string             `json:"scope"`
-	Message  string             `json:"message"`
-	Primary  unswell.Location   `json:"primary"`
-	Related  []unswell.Location `json:"related"`
+	RuleID     string             `json:"rule_id"`
+	Severity   string             `json:"severity"`
+	Gate       string             `json:"gate"`
+	Scope      string             `json:"scope"`
+	Message    string             `json:"message"`
+	Primary    unswell.Location   `json:"primary"`
+	Related    []unswell.Location `json:"related"`
+	Suppressed bool               `json:"suppressed,omitempty"`
 }
 
 type diagnosticRecord struct {
-	Status   string             `json:"status"`
-	Complete bool               `json:"complete"`
-	Passed   bool               `json:"passed"`
-	NoGate   bool               `json:"no_gate"`
-	Findings []findingRecord    `json:"findings"`
-	Errors   []unswell.RunError `json:"errors"`
+	Status       string                `json:"status"`
+	Complete     bool                  `json:"complete"`
+	Passed       bool                  `json:"passed"`
+	NoGate       bool                  `json:"no_gate"`
+	Findings     []findingRecord       `json:"findings"`
+	Errors       []unswell.RunError    `json:"errors"`
+	Suppressions []unswell.Suppression `json:"suppressions,omitempty"`
 }
 
 func diagnostics(result unswell.RunResult) diagnosticRecord {
 	record := diagnosticRecord{Status: result.Status, Complete: result.Manifest.Complete,
-		Passed: result.Gate.Passed, NoGate: result.Manifest.NoGate, Findings: []findingRecord{}, Errors: result.Errors}
+		Passed: result.Gate.Passed, NoGate: result.Manifest.NoGate, Findings: []findingRecord{}, Errors: result.Errors,
+		Suppressions: result.Suppressions}
 	for _, finding := range result.Findings {
 		record.Findings = append(record.Findings, findingRecord{RuleID: finding.RuleID, Severity: finding.Severity,
 			Gate: finding.Gate, Scope: finding.Scope, Message: finding.Message,
-			Primary: finding.Primary, Related: finding.Related})
+			Primary: finding.Primary, Related: finding.Related, Suppressed: finding.Suppressed})
 	}
 	return record
 }
@@ -89,7 +92,12 @@ type sarifResult struct {
 	Message struct {
 		Text string `json:"text"`
 	} `json:"message"`
-	Locations []sarifLocation `json:"locations"`
+	Locations    []sarifLocation `json:"locations"`
+	Suppressions []struct {
+		Kind          string `json:"kind"`
+		Status        string `json:"status"`
+		Justification string `json:"justification"`
+	} `json:"suppressions"`
 }
 
 func verifySARIF(t *testing.T, workspace string, result unswell.RunResult) {
@@ -121,6 +129,12 @@ func verifySARIF(t *testing.T, workspace string, result unswell.RunResult) {
 		c.Assert(actual.Level, qt.Equals, finding.Severity)
 		c.Assert(actual.Message.Text, qt.Equals, finding.Message)
 		c.Assert(actual.Locations, qt.HasLen, 1)
+		c.Assert(len(actual.Suppressions) > 0, qt.Equals, finding.Suppressed)
+		for _, permission := range actual.Suppressions {
+			c.Assert(permission.Kind, qt.Equals, "inSource")
+			c.Assert(permission.Status, qt.Equals, "accepted")
+			c.Assert(permission.Justification, qt.Not(qt.Equals), "")
+		}
 		location := actual.Locations[0].PhysicalLocation
 		uri, err := url.Parse(location.ArtifactLocation.URI)
 		c.Assert(err, qt.IsNil)

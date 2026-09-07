@@ -116,6 +116,12 @@ func FuzzSourceMap(f *testing.F) {
 		f.Add(uint8(index), seed)
 		if format == document.Markdown {
 			f.Add(uint8(index), "| Name | Result |\n| --- | --- |\n|||\n| | |\n| 😀 | Output &amp; `code` |\n")
+			f.Add(uint8(index), "<!-- unswell-disable-next-block rule.one -- Required contract wording. -->\n\nRead the manual.")
+			f.Add(uint8(index), "| Name | Result |\n| --- | --- |\n|||\n\n"+
+				"<!-- unswell-disable-next-block rule.one -- Required contract wording. -->\n\nRead the manual.")
+		}
+		if format == document.Go {
+			f.Add(uint8(index), "package sample\n// unswell-disable-next-block rule.one -- Required contract wording.\n// Read the manual.\n")
 		}
 	}
 	f.Fuzz(func(t *testing.T, format uint8, text string) {
@@ -130,12 +136,20 @@ func FuzzSourceMap(f *testing.F) {
 		if err != nil {
 			return
 		}
-		c := qt.New(t)
-		for _, block := range doc.Blocks {
-			c.Assert(block.Text, qt.HasLen, len(block.Map))
-			for _, span := range block.Map {
-				c.Assert(span.Valid(len(text)), qt.IsTrue)
-			}
-		}
+		assertMappedDocument(t, doc, len(text))
 	})
+}
+
+func assertMappedDocument(t *testing.T, doc document.Document, size int) {
+	t.Helper()
+	c := qt.New(t)
+	for _, directive := range doc.Directives {
+		c.Assert(directive.Span.Valid(size), qt.IsTrue)
+	}
+	for _, block := range doc.Blocks {
+		c.Assert(block.Text, qt.HasLen, len(block.Map))
+		for _, span := range block.Map {
+			c.Assert(span.Valid(size), qt.IsTrue)
+		}
+	}
 }

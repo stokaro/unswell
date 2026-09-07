@@ -26,7 +26,7 @@ func markdownInline(ctx context.Context, doc *document.Document, span document.S
 	for _, skip := range skipped {
 		maskRange(source, skip.Start-span.Start, skip.End-span.Start)
 	}
-	syntax, err := parseSyntax(ctx, source, "markdown_inline")
+	syntax, err := inlineSyntax(ctx, source)
 	if err != nil {
 		return document.MappedText{}, err
 	}
@@ -107,8 +107,10 @@ func (r *markdownInlineReader) normalized(start, end int) {
 }
 
 func (r *markdownInlineReader) protect(span document.Span, kind string) error {
-	if kind == "html_tag" && unsupportedSuppression(string(r.doc.Source[span.Start:span.End])) {
-		return fmt.Errorf("suppression directives are not implemented in this alpha")
+	if kind == "html_tag" {
+		if err := htmlDirectives(r.doc, span); err != nil {
+			return err
+		}
 	}
 	r.builder.Add(" \x00 ", span)
 	r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: span, Reason: "inline-protected"})

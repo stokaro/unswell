@@ -29,6 +29,10 @@ IDs represent multiple findings. Every finding must consume one expectation; mis
 extra, duplicate, and wrong-line findings fail the test. Unannotated prose is a
 negative expectation. The harness rejects malformed annotations.
 
+Use `want-suppressed "rule.id"` for a raw finding that must have a valid source
+permission. A plain `want` requires an active finding. A mismatch in either
+direction fails, even when the rule ID and source line are correct.
+
 Before scanning, the harness replaces annotation bytes with spaces to preserve
 offsets without feeding expected diagnostics into prose analysis. Fixture suffixes
 keep source samples out of Go package discovery; the CLI receives the original
@@ -76,6 +80,17 @@ applies two overlapping file overrides, and retains the unexempted occurrence be
 a valid technical term. Its nested Markdown sources include emphasis, protected code,
 CRLF, and a BOM. `config_cycle` requires a startup error before any report is written.
 The harness verifies that source files, policy, and dependency resources stay unchanged.
+
+The `suppression_*` cases cover sentence and Go region permissions, unused and
+misspelled directives, complete multi-location evidence, and explicit file-wide
+permission. Goldens retain directive locations, reasons, targets, used IDs, and
+the suppressed state of raw findings. SARIF must mark exactly those findings as
+accepted source suppressions with reasons. CRLF, a BOM, and Markdown emphasis
+exercise the same source mapping as ordinary detections.
+The [empty-row suppression case](testdata/suppression_after_empty_rows/guide.md.txt)
+checks block and inline permissions after a table whose empty rows require parser
+normalization. Their locations still refer to original bytes, and the final
+unpermitted finding must fail the gate.
 
 ## Review golden changes
 

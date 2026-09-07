@@ -16,7 +16,7 @@ caps limit the remaining contributions. The total is capped at 100. The trace
 records raw and effective points and why a contribution was reduced.
 
 Sentence and paragraph assessments are independent; sentence totals are not
-added again to paragraph evidence. Document statistics report the paragraph
+added again to paragraph evidence. Document statistics report the raw paragraph
 maximum, nearest-rank median and P90, and eligible flagged fraction. Appending
 clean paragraphs cannot lower the index or gate decision for an existing one.
 
@@ -25,7 +25,12 @@ Local score gates trigger at **greater than or equal to** the configured thresho
 when the unit meets `min_words`. They create derived diagnostics that are never
 fed back into scoring. Display limits do not remove evidence from the gate.
 
-Probability is `null` with `calibration_unavailable`. Suppressions and baseline
-acceptance are not implemented in this alpha, so raw and effective scores agree
-after normal evidence deduplication and caps. Stage 2 must preserve raw evidence
-when those mechanisms are added.
+Source [suppressions](suppressions.md) retain raw findings and `contributions`.
+The engine recomputes `effective_slop_score` using only active findings through
+the same correlation and cap rules. `effective_contributions` explains affected
+units, including permitted findings with zero points and `source-suppression`.
+Gates use effective values; document summary statistics remain raw. Derived gate
+diagnostics are generated after suppressions and cannot themselves be suppressed.
+
+Probability is `null` with `calibration_unavailable`; a source permission does not
+adjust a probability. Baseline debt acceptance remains a separate roadmap item.

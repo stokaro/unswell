@@ -33,14 +33,30 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source) (Run
 	if err := e.enrich(ctx, &doc); err != nil {
 		return result, err
 	}
-	result.Documents = append(result.Documents, e.documentResult(doc))
-	termMatches, err := e.matchTerms(ctx, &doc)
+	plan, err := e.suppressionPlan(ctx, doc)
 	if err != nil {
 		return result, err
 	}
+	result.Documents = append(result.Documents, e.documentResult(doc))
+	if err := e.evaluateRules(ctx, &doc, &result); err != nil {
+		return result, err
+	}
+	sortFindings(result.Findings)
+	result.Findings = deduplicateFindings(result.Findings)
+	suppressionErr := e.applySuppressions(ctx, &result, doc, plan)
+	e.assess(&result, doc)
+	e.decide(&result, doc)
+	return result, suppressionErr
+}
+
+func (e *Engine) evaluateRules(ctx context.Context, doc *document.Document, result *RunResult) error {
+	termMatches, err := e.matchTerms(ctx, doc)
+	if err != nil {
+		return err
+	}
 	for _, implementation := range e.rules {
 		if err := ctx.Err(); err != nil {
-			return result, err
+			return err
 		}
 		descriptor := implementation.Descriptor()
 		settings := e.policy.Rules[descriptor.ID]
@@ -49,14 +65,14 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source) (Run
 		}
 		emitter := &collector{
 			ctx:           ctx,
-			doc:           &doc,
+			doc:           doc,
 			descriptor:    descriptor,
 			settings:      settings,
 			limit:         e.policy.Analysis.MaxFindings - len(result.Findings),
 			includeSource: e.includeSource,
 		}
 		view := rule.View{
-			Document:      &doc,
+			Document:      doc,
 			Parameters:    cloneParameters(settings.Parameters),
 			MaxCandidates: e.policy.Analysis.MaxCandidates,
 		}
@@ -66,17 +82,13 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source) (Run
 		err := implementation.Evaluate(ctx, view, emitter)
 		result.Findings = append(result.Findings, emitter.findings...)
 		if emitter.err != nil {
-			return result, fmt.Errorf("%s emitted invalid evidence: %w", descriptor.ID, emitter.err)
+			return fmt.Errorf("%s emitted invalid evidence: %w", descriptor.ID, emitter.err)
 		}
 		if err != nil {
-			return result, fmt.Errorf("%s: %w", descriptor.ID, err)
+			return fmt.Errorf("%s: %w", descriptor.ID, err)
 		}
 	}
-	sortFindings(result.Findings)
-	result.Findings = deduplicateFindings(result.Findings)
-	e.assess(&result, doc)
-	e.decide(&result, doc)
-	return result, nil
+	return nil
 }
 
 func (e *Engine) matchTerms(ctx context.Context, doc *document.Document) (*rule.TermMatches, error) {
