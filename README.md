@@ -108,6 +108,8 @@ Exceptions can select paths, languages, comments or strings, and named string ow
 AI assistants can call the same engine through the separate [MCP server](docs/mcp.md).
 Its tools check supplied drafts and expose the fixed policy. `make dogfood-mcp`
 verifies repository checks through a real MCP client and subprocess.
+Separate [CLI and MCP containers](docs/containers.md) support Linux AMD64 and ARM64,
+including repository checks through both interfaces in CI.
 
 ```yaml
 version: 1

@@ -7,8 +7,14 @@ permissions:
 jobs:
   checks:
     uses: ./.github/workflows/ci.yml
-  publish:
+  containers:
     needs: checks
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/publish-containers.yml
+  publish:
+    needs: [checks, containers]
     runs-on: ubuntu-latest
     permissions:
       contents: write

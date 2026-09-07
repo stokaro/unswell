@@ -90,6 +90,7 @@ a clean rewrite and malformed source. Protocol tests cover invalid arguments,
 context overrides, exceptions, request cancellation and process shutdown.
 CI retains repository and probe results in `artifacts/dogfood/mcp-result.json`.
 
-Separate CLI and MCP container images, MCP Registry publication, and installation
+The separate [CLI and MCP containers](containers.md) include native architecture
+self-checks and release publication. MCP Registry publication and installation
 verification are tracked in the [roadmap](roadmap.md). Publication is complete
 only after the public artifacts and registry record have been verified.
