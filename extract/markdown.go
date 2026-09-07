@@ -96,6 +96,10 @@ func (r markdownReader) inline(node *ts.Node, kind string) error {
 		for span.End > span.Start && strings.ContainsRune(" \t", rune(r.doc.Source[span.End-1])) {
 			span.End--
 		}
+		// The block grammar accepts empty cells; they contain no inline prose to parse.
+		if span.End == span.Start {
+			return nil
+		}
 	}
 	mapped, err := markdownInline(r.ctx, r.doc, span, continuations)
 	if err == nil {
