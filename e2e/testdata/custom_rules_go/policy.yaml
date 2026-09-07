@@ -1,0 +1,33 @@
+version: 1
+extends: [builtin:custom-v1]
+rules:
+  company.no-dive-in:
+    enabled: true
+rule_sets:
+  - version: 1
+    namespace: company
+    release: "1"
+    license: MIT
+    provenance: Example policy maintained in the Unswell repository.
+    rules:
+      - id: company.no-dive-in
+        version: 1
+        summary: Remove conversational introductions.
+        message: Start with the subject instead of announcing the explanation.
+        severity: error
+        gate: forbid
+        scope: sentence
+        requires: [tokens, sentences]
+        contexts: [paragraph, comment, string]
+        match:
+          type: phrase
+          at: start
+          values:
+            - "Let's dive in"
+            - "Let's dive into"
+            - "Let's delve into"
+        examples:
+          fail:
+            - "Let's dive into the configuration options."
+          pass:
+            - "The configuration file defines connection options."

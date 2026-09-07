@@ -15,6 +15,7 @@ import (
 
 	"github.com/stokaro/unswell/extract"
 	"github.com/stokaro/unswell/rule"
+	"github.com/stokaro/unswell/ruleset"
 )
 
 // Threshold gates eligible units at or above FailAt index points.
@@ -63,6 +64,7 @@ type Policy struct {
 	GroupCaps  map[string]int           `json:"group_caps"`
 	Origins    map[string]string        `json:"origins"`
 	Hash       string                   `json:"hash"`
+	RuleSets   []rule.Origin            `json:"rule_sets,omitempty"`
 }
 
 type input struct {
@@ -74,6 +76,7 @@ type input struct {
 	Analysis    yaml.Node            `yaml:"analysis"`
 	Files       yaml.Node            `yaml:"files"`
 	Extraction  yaml.Node            `yaml:"extraction"`
+	RuleSets    []yaml.Node          `yaml:"rule_sets"`
 	Calibration struct {
 		Model          string `yaml:"model"`
 		OnIncompatible string `yaml:"on_incompatible"`
@@ -82,11 +85,36 @@ type input struct {
 
 // Load returns a fully validated policy. Alpha extends accepts versioned builtin
 // profiles only; local inheritance and file overrides are reserved for stage 2.
+// Use Compile when the caller also needs implementations from inline rule_sets.
 func Load(data []byte, catalog []rule.Descriptor) (Policy, error) {
+	policy, _, err := Compile(data, catalog)
+	return policy, err
+}
+
+// Compile returns the effective policy and additional rules declared in rule_sets.
+// The caller supplies the existing catalog; duplicate IDs always fail. All input
+// and ruleset definitions are bytes in memory, with no implicit file loading.
+func Compile(data []byte, catalog []rule.Descriptor) (Policy, []rule.Rule, error) {
 	raw, err := loadInput(data)
 	if err != nil {
-		return Policy{}, err
+		return Policy{}, nil, err
 	}
+	additional, err := compileRuleSets(raw.RuleSets)
+	if err != nil {
+		return Policy{}, nil, err
+	}
+	catalog = slices.Clone(catalog)
+	for _, implementation := range additional {
+		catalog = append(catalog, implementation.Descriptor())
+	}
+	if len(catalog) > 1000 {
+		return Policy{}, nil, fmt.Errorf("catalog exceeds 1000 rules")
+	}
+	policy, err := compilePolicy(raw, catalog)
+	return policy, additional, err
+}
+
+func compilePolicy(raw input, catalog []rule.Descriptor) (Policy, error) {
 	profile, err := resolveProfile(raw.Extends)
 	if err != nil {
 		return Policy{}, err
@@ -95,6 +123,7 @@ func Load(data []byte, catalog []rule.Descriptor) (Policy, error) {
 	if err != nil {
 		return Policy{}, err
 	}
+	policy.RuleSets = catalogOrigins(catalog)
 	if err := applyNodes(raw, &policy, catalog); err != nil {
 		return Policy{}, err
 	}
@@ -112,6 +141,38 @@ func Load(data []byte, catalog []rule.Descriptor) (Policy, error) {
 	}
 	policy.Hash = fmt.Sprintf("%x", sha256.Sum256(canonical))
 	return policy, nil
+}
+
+func compileRuleSets(nodes []yaml.Node) ([]rule.Rule, error) {
+	if len(nodes) > 10 {
+		return nil, fmt.Errorf("configuration exceeds 10 rule_sets")
+	}
+	var implementations []rule.Rule
+	for _, node := range nodes {
+		data, err := yaml.Marshal(node)
+		if err != nil {
+			return nil, err
+		}
+		set, err := ruleset.Load(data)
+		if err != nil {
+			return nil, err
+		}
+		implementations = append(implementations, set.Rules()...)
+	}
+	return implementations, nil
+}
+
+func catalogOrigins(catalog []rule.Descriptor) []rule.Origin {
+	var origins []rule.Origin
+	for _, descriptor := range catalog {
+		if descriptor.Origin != nil && !slices.Contains(origins, *descriptor.Origin) {
+			origins = append(origins, *descriptor.Origin)
+		}
+	}
+	slices.SortFunc(origins, func(a, b rule.Origin) int {
+		return strings.Compare(a.Namespace+"/"+a.Version+"/"+a.Hash, b.Namespace+"/"+b.Version+"/"+b.Hash)
+	})
+	return origins
 }
 
 func loadInput(data []byte) (input, error) {
@@ -222,6 +283,9 @@ func defaults(profile string, catalog []rule.Descriptor) (Policy, error) {
 		applyProfile(profile, descriptor.ID, &settings)
 		policy.Rules[descriptor.ID] = settings
 		policy.Origins["rules."+descriptor.ID] = "builtin:" + profile + "-v1"
+		if descriptor.Origin != nil {
+			policy.Origins["rules."+descriptor.ID] = "ruleset:" + descriptor.Origin.Namespace + "@" + descriptor.Origin.Version
+		}
 	}
 	if profile == "strict" {
 		policy.Gate.Paragraph.FailAt = 50

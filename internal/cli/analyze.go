@@ -76,13 +76,19 @@ func analyze(ctx context.Context, environment Environment, options checkOptions,
 	if err != nil {
 		return unswell.RunResult{}, nil, err
 	}
-	policy, err := config.Load(data, catalog())
+	additional, rulePaths, err := ruleFiles(environment, options.ruleSets)
+	if err != nil {
+		return unswell.RunResult{}, nil, err
+	}
+	registry := append(builtin.Rules(), additional...)
+	policy, err := config.Load(data, descriptors(registry))
 	if err != nil {
 		return unswell.RunResult{}, nil, err
 	}
 	engine, err := unswell.New(
 		unswell.Options{
 			Config:        data,
+			Rules:         registry,
 			Jobs:          options.jobs,
 			IncludeSource: options.includeSource,
 			NoGate:        options.noGate,
@@ -100,7 +106,7 @@ func analyze(ctx context.Context, environment Environment, options checkOptions,
 	}
 	result, err := engine.AnalyzeAll(ctx, sources)
 	result.Manifest.SelectionMode = mode
-	return result, paths, err
+	return result, append(paths, rulePaths...), err
 }
 
 func selectSources(

@@ -43,11 +43,12 @@ type Settings struct {
 	Parameters Parameters `json:"parameters" yaml:"parameters"`
 }
 
-// Example is an executable catalog fixture using plain English prose.
+// Example is an executable catalog fixture. An empty Format selects plain prose.
 type Example struct {
-	Text   string `json:"text"`
-	Match  bool   `json:"match"`
-	Config string `json:"config,omitempty"`
+	Text   string          `json:"text"`
+	Match  bool            `json:"match"`
+	Config string          `json:"config,omitempty"`
+	Format document.Format `json:"format,omitempty"`
 }
 
 // Descriptor documents a versioned, independently useful editorial signal.
@@ -65,6 +66,18 @@ type Descriptor struct {
 	Defaults    Settings         `json:"defaults"`
 	Parameters  []string         `json:"parameters"`
 	Examples    []Example        `json:"examples"`
+	Origin      *Origin          `json:"origin,omitempty"`
+}
+
+// Origin identifies a declarative ruleset and its author-supplied provenance.
+// Hash covers the complete validated definition; license and provenance are
+// declarations, not endorsements or automatically verified permissions.
+type Origin struct {
+	Namespace  string `json:"namespace"`
+	Version    string `json:"version"`
+	License    string `json:"license"`
+	Provenance string `json:"provenance"`
+	Hash       string `json:"sha256"`
 }
 
 // Metric is measurable evidence, with a named unit and activation thresholds.

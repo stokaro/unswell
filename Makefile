@@ -24,6 +24,7 @@ fuzz:
 	go test ./extract -run '^$$' -fuzz Fuzz -fuzztime 10s -parallel 2
 	go test ./report -run '^$$' -fuzz Fuzz -fuzztime 10s -parallel 2
 	go test ./config -run '^$$' -fuzz Fuzz -fuzztime 10s -parallel 2
+	go test ./ruleset -run '^$$' -fuzz FuzzLoad -fuzztime 10s -parallel 2
 
 lint:
 	bash scripts/lint.sh

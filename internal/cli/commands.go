@@ -13,7 +13,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/stokaro/unswell"
-	"github.com/stokaro/unswell/builtin"
 	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/nlp/english"
@@ -30,17 +29,18 @@ func jsonOutput(environment Environment, value any) error {
 func configCommand(environment Environment) *cobra.Command {
 	parent := &cobra.Command{Use: "config", Short: "Validate and inspect the effective editorial policy"}
 	var path, profile, file string
+	var ruleSets []string
 	parent.PersistentFlags().StringVar(&path, "config", "", "Exact configuration path")
+	parent.PersistentFlags().StringArrayVar(&ruleSets, "ruleset", nil, "Local ruleset file or directory")
 	initialize := &cobra.Command{Use: "init", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error {
+		if len(ruleSets) > 0 {
+			return fmt.Errorf("config init does not accept --ruleset; select rule packs when validating or scanning")
+		}
 		return initializeConfig(environment, path, profile)
 	}}
 	initialize.Flags().StringVar(&profile, "profile", "technical", "Builtin profile")
 	validate := &cobra.Command{Use: "validate", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error {
-		data, err := configuration(environment, checkOptions{config: path})
-		if err != nil {
-			return err
-		}
-		policy, err := config.Load(data, catalog())
+		policy, err := configuredPolicy(environment, checkOptions{config: path, ruleSets: ruleSets})
 		if err != nil {
 			return err
 		}
@@ -48,11 +48,7 @@ func configCommand(environment Environment) *cobra.Command {
 		return err
 	}}
 	explain := &cobra.Command{Use: "explain", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error {
-		data, err := configuration(environment, checkOptions{config: path})
-		if err != nil {
-			return err
-		}
-		policy, err := config.Load(data, catalog())
+		policy, err := configuredPolicy(environment, checkOptions{config: path, ruleSets: ruleSets})
 		if err != nil {
 			return err
 		}
@@ -67,37 +63,21 @@ func configCommand(environment Environment) *cobra.Command {
 }
 
 func rulesCommand(environment Environment) *cobra.Command {
-	parent := &cobra.Command{Use: "rules", Short: "Inspect and test the builtin rule catalog"}
-	list := &cobra.Command{Use: "list", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error {
-		for _, descriptor := range catalog() {
-			if _, err := fmt.Fprintf(environment.Out, "%s\t%s\t%s\n", descriptor.ID, descriptor.Status, descriptor.Summary); err != nil {
-				return err
-			}
-		}
-		return nil
-	}}
-	show := &cobra.Command{Use: "show <rule-id>", Args: cobra.ExactArgs(1), RunE: func(_ *cobra.Command, args []string) error {
-		for _, descriptor := range catalog() {
-			if descriptor.ID == args[0] {
-				return jsonOutput(environment, descriptor)
-			}
-		}
-		return fmt.Errorf("unknown rule ID %q", args[0])
-	}}
-	test := &cobra.Command{
-		Use:   "test",
-		Short: "Execute builtin catalog examples (custom DSL is planned for stage 2)",
-		Args:  cobra.NoArgs,
-		RunE: func(command *cobra.Command, _ []string) error {
-			return runCatalog(command.Context(), environment)
-		},
-	}
-	parent.AddCommand(list, show, test)
+	var options checkOptions
+	parent := &cobra.Command{Use: "rules", Short: "Inspect and test builtin and declarative rules"}
+	parent.PersistentFlags().StringVar(&options.config, "config", "", "Exact configuration path")
+	parent.PersistentFlags().StringArrayVar(&options.ruleSets, "ruleset", nil, "Local ruleset file or directory")
+	parent.AddCommand(ruleListCommand(environment, &options), ruleShowCommand(environment, &options), ruleTestCommand(environment, &options))
 	return parent
 }
 
 func doctorCommand(environment Environment) *cobra.Command {
-	return &cobra.Command{Use: "doctor", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error {
+	var options checkOptions
+	command := &cobra.Command{Use: "doctor", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error {
+		policy, err := configuredPolicy(environment, options)
+		if err != nil {
+			return err
+		}
 		provider, err := english.New()
 		if err != nil {
 			return err
@@ -105,9 +85,13 @@ func doctorCommand(environment Environment) *cobra.Command {
 		return jsonOutput(
 			environment,
 			map[string]any{"version": unswell.Version, "schema_version": unswell.SchemaVersion, "nlp": provider.Identity(),
-				"rule_count": len(catalog()), "probability_status": "calibration_unavailable", "calibration_model": nil},
+				"rule_count": len(policy.Rules), "rule_sets": policy.RuleSets, "config_hash": policy.Hash,
+				"probability_status": "calibration_unavailable", "calibration_model": nil},
 		)
 	}}
+	command.Flags().StringVar(&options.config, "config", "", "Exact configuration path")
+	command.Flags().StringArrayVar(&options.ruleSets, "ruleset", nil, "Local ruleset file or directory")
+	return command
 }
 
 func reportCommand(environment Environment) *cobra.Command {
@@ -138,17 +122,19 @@ func reportCommand(environment Environment) *cobra.Command {
 }
 
 func explainCommand(environment Environment) *cobra.Command {
-	var at, configuration string
+	var at string
+	var options checkOptions
 	command := &cobra.Command{
 		Use:   "explain <path>",
 		Short: "Explain the local score at a source line and column",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(command *cobra.Command, args []string) error {
-			return explainAt(command.Context(), environment, args, at, configuration)
+			return explainAt(command.Context(), environment, args, at, options)
 		},
 	}
 	command.Flags().StringVar(&at, "at", "1:1", "One-based line:Unicode-column")
-	command.Flags().StringVar(&configuration, "config", "", "Exact configuration path")
+	command.Flags().StringVar(&options.config, "config", "", "Exact configuration path")
+	command.Flags().StringArrayVar(&options.ruleSets, "ruleset", nil, "Local ruleset file or directory")
 	return command
 }
 
@@ -196,23 +182,12 @@ func initializeConfig(environment Environment, path, profile string) error {
 	return closeErr
 }
 
-func runCatalog(ctx context.Context, environment Environment) error {
+func runRuleExamples(ctx context.Context, environment Environment, registry []rule.Rule) error {
 	count := 0
-	for _, implementation := range builtin.Rules() {
-		for _, example := range implementation.Descriptor().Examples {
-			engine, err := unswell.New(unswell.Options{Rules: []rule.Rule{implementation}, Config: []byte(example.Config)})
-			if err != nil {
-				return err
-			}
-			result, err := engine.Analyze(
-				ctx,
-				document.Source{Name: "example.txt", Format: document.Plain, Bytes: []byte(example.Text)},
-			)
-			if err != nil {
-				return err
-			}
-			if (len(result.Findings) > 0) != example.Match {
-				return fmt.Errorf("catalog fixture failed for %s", implementation.Descriptor().ID)
+	for _, implementation := range registry {
+		for index, example := range implementation.Descriptor().Examples {
+			if err := runRuleExample(ctx, implementation, example); err != nil {
+				return fmt.Errorf("%s example %d: %w", implementation.Descriptor().ID, index+1, err)
 			}
 			count++
 		}
@@ -224,17 +199,32 @@ func runCatalog(ctx context.Context, environment Environment) error {
 	return err
 }
 
-func explainAt(ctx context.Context, environment Environment, args []string, at, configuration string) error {
+func runRuleExample(ctx context.Context, implementation rule.Rule, example rule.Example) error {
+	engine, err := unswell.New(unswell.Options{Rules: []rule.Rule{implementation}, Config: []byte(example.Config)})
+	if err != nil {
+		return err
+	}
+	format := example.Format
+	if format == "" {
+		format = document.Plain
+	}
+	result, err := engine.Analyze(ctx, document.Source{Name: "example.txt", Format: format, Bytes: []byte(example.Text)})
+	if err != nil {
+		return err
+	}
+	if (len(result.Findings) > 0) != example.Match {
+		return fmt.Errorf("expected match=%t, got %d findings", example.Match, len(result.Findings))
+	}
+	return nil
+}
+
+func explainAt(ctx context.Context, environment Environment, args []string, at string, options checkOptions) error {
 	line, column, err := parsePosition(at)
 	if err != nil {
 		return err
 	}
-	result, _, err := analyze(
-		ctx,
-		environment,
-		checkOptions{config: configuration, timeout: 30 * time.Second, includeSource: true, allowEmpty: true},
-		args,
-	)
+	options.timeout, options.includeSource, options.allowEmpty = 30*time.Second, true, true
+	result, _, err := analyze(ctx, environment, options, args)
 	if err != nil {
 		return err
 	}

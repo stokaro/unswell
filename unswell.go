@@ -19,13 +19,16 @@ import (
 	"github.com/stokaro/unswell/nlp"
 	"github.com/stokaro/unswell/nlp/english"
 	"github.com/stokaro/unswell/rule"
+	"github.com/stokaro/unswell/ruleset"
 )
 
 // Options injects all inputs. A nil Rules slice selects the builtin catalog;
-// a nonnil slice is the complete registry. Config is YAML bytes, never a path.
+// a nonnil slice replaces that catalog. RuleSets adds declarative YAML packs to
+// the registry. Config and RuleSets contain bytes, never filenames.
 type Options struct {
 	Config        []byte
 	Rules         []rule.Rule
+	RuleSets      [][]byte
 	NLP           nlp.Provider
 	Jobs          int
 	IncludeSource bool
@@ -54,6 +57,10 @@ func New(options Options) (*Engine, error) {
 	if registry == nil {
 		registry = builtin.Rules()
 	}
+	registry, err := extendRegistry(registry, options.RuleSets)
+	if err != nil {
+		return nil, err
+	}
 	e := &Engine{
 		rules:         slices.Clone(registry),
 		jobs:          options.Jobs,
@@ -69,11 +76,9 @@ func New(options Options) (*Engine, error) {
 	if err := e.snapshotDescriptors(); err != nil {
 		return nil, err
 	}
-	policy, err := config.Load(options.Config, e.descriptors)
-	if err != nil {
+	if err := e.configure(options.Config); err != nil {
 		return nil, err
 	}
-	e.policy = policy
 	e.nlp = options.NLP
 	if e.nlp == nil {
 		e.nlp, err = english.New()
@@ -85,6 +90,35 @@ func New(options Options) (*Engine, error) {
 		return nil, err
 	}
 	return e, nil
+}
+
+func (e *Engine) configure(data []byte) error {
+	policy, additional, err := config.Compile(data, e.descriptors)
+	if err != nil {
+		return err
+	}
+	e.policy = policy
+	if len(additional) == 0 {
+		return nil
+	}
+	e.rules = append(e.rules, additional...)
+	e.descriptors = nil
+	return e.snapshotDescriptors()
+}
+
+func extendRegistry(registry []rule.Rule, definitions [][]byte) ([]rule.Rule, error) {
+	if len(definitions) > 10 {
+		return nil, fmt.Errorf("options exceed 10 rulesets")
+	}
+	registry = slices.Clone(registry)
+	for _, data := range definitions {
+		set, err := ruleset.Load(data)
+		if err != nil {
+			return nil, err
+		}
+		registry = append(registry, set.Rules()...)
+	}
+	return registry, nil
 }
 
 func workerCount(jobs int) (int, error) {

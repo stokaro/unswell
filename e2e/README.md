@@ -57,6 +57,11 @@ omitting unrelated catalog and build metadata. The suite checks SARIF results ag
 those same validated diagnostics, confirms incomplete scans are unsuccessful in
 SARIF, checks source privacy, and verifies input files remain unchanged.
 
+The custom-rule cases load inline packs through the real CLI. They cover matching
+Go comments and escaped strings with CRLF, and paragraph conditions with exact
+regex locations, Markdown emphasis, a BOM, protected code, and a local exception.
+Their annotated findings and JSON/SARIF output use the same checks as builtin rules.
+
 ## Review golden changes
 
 After an intentional behavior change, run:
