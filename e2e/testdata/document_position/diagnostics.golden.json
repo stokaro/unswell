@@ -1,0 +1,42 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "scaffold.chat-preamble",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Start with the subject instead of a conversational acknowledgment.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 18,
+          "end": 28
+        },
+        "start": {
+          "line": 2,
+          "column": 4
+        },
+        "end": {
+          "line": 2,
+          "column": 14
+        },
+        "segments": [
+          {
+            "start": 18,
+            "end": 27
+          },
+          {
+            "start": 27,
+            "end": 28
+          }
+        ]
+      },
+      "related": []
+    }
+  ],
+  "errors": []
+}

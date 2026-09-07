@@ -1,0 +1,91 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "filler.announced-importance",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "State the fact without announcing its importance.",
+      "primary": {
+        "path": "sample.sh",
+        "span": {
+          "start": 12,
+          "end": 40
+        },
+        "start": {
+          "line": 2,
+          "column": 3
+        },
+        "end": {
+          "line": 2,
+          "column": 31
+        },
+        "segments": [
+          {
+            "start": 12,
+            "end": 14
+          },
+          {
+            "start": 15,
+            "end": 17
+          },
+          {
+            "start": 18,
+            "end": 27
+          },
+          {
+            "start": 28,
+            "end": 30
+          },
+          {
+            "start": 31,
+            "end": 35
+          },
+          {
+            "start": 36,
+            "end": 40
+          }
+        ]
+      },
+      "related": []
+    },
+    {
+      "rule_id": "scaffold.chat-preamble",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Start with the subject instead of a conversational acknowledgment.",
+      "primary": {
+        "path": "sample.sh",
+        "span": {
+          "start": 104,
+          "end": 114
+        },
+        "start": {
+          "line": 3,
+          "column": 7
+        },
+        "end": {
+          "line": 3,
+          "column": 17
+        },
+        "segments": [
+          {
+            "start": 104,
+            "end": 113
+          },
+          {
+            "start": 113,
+            "end": 114
+          }
+        ]
+      },
+      "related": []
+    }
+  ],
+  "errors": []
+}

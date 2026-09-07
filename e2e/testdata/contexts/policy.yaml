@@ -1,0 +1,18 @@
+version: 1
+extends: [builtin:custom-v1]
+rules:
+  filler.announced-importance:
+    enabled: true
+    severity: error
+    gate: forbid
+  scaffold.chat-preamble:
+    enabled: true
+    severity: error
+    gate: forbid
+    parameters:
+      positions: [sentence-start]
+extraction:
+  contexts: [comment]
+  languages:
+    yaml:
+      contexts: [string]
