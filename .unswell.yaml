@@ -39,6 +39,11 @@ extraction:
       kinds: [string]
       symbols: [negative_prose]
       reason: "The shell probe supplies a deliberate violation to verify the project policy."
+    - id: custom-policy-examples
+      paths: ["examples/rules/company.yaml"]
+      kinds: [string]
+      symbols: [values, fail]
+      reason: "The custom policy stores matcher phrases and deliberate failing examples."
     - id: mcp-gate-fixtures
       paths: ["mcp/internal/selfcheck/probes.go"]
       kinds: [string]

@@ -1,0 +1,33 @@
+version: 1
+extends: [builtin:custom-v1]
+rules:
+  company.repeated-very:
+    enabled: true
+rule_sets:
+  - version: 1
+    namespace: company
+    release: "1"
+    license: MIT
+    provenance: Unswell CLI regression fixtures.
+    rules:
+      - id: company.repeated-very
+        summary: Check repeated intensifiers in a paragraph.
+        message: Check whether both intensifiers are needed.
+        scope: paragraph
+        severity: warning
+        gate: forbid
+        match:
+          type: all
+          items:
+            - type: count
+              min: 2
+              match: {type: regex, pattern: '\bvery\b'}
+            - type: feature
+              name: prose.words
+              min: 8
+        except:
+          - type: phrase
+            values: [quoted wording]
+        examples:
+          fail: ["A very small client uses a very short timeout."]
+          pass: ["A very small client uses a short timeout."]

@@ -126,6 +126,16 @@
         "limitations": {
           "type": "string"
         },
+        "origin": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/rule.Origin"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "parameters": {
           "items": {
             "type": "string"
@@ -224,6 +234,9 @@
         "config": {
           "type": "string"
         },
+        "format": {
+          "type": "string"
+        },
         "match": {
           "type": "boolean"
         },
@@ -288,6 +301,34 @@
         "block_id",
         "sentence_id",
         "spans"
+      ],
+      "type": "object"
+    },
+    "rule.Origin": {
+      "additionalProperties": false,
+      "properties": {
+        "license": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "provenance": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "namespace",
+        "version",
+        "license",
+        "provenance",
+        "sha256"
       ],
       "type": "object"
     },

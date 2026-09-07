@@ -15,6 +15,10 @@ func cloneDescriptors(source []rule.Descriptor) []rule.Descriptor {
 		d.Parameters = slices.Clone(d.Parameters)
 		d.Examples = slices.Clone(d.Examples)
 		d.Defaults.Parameters = cloneParameters(d.Defaults.Parameters)
+		if d.Origin != nil {
+			origin := *d.Origin
+			d.Origin = &origin
+		}
 	}
 	return result
 }

@@ -1,0 +1,91 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "company.no-dive-in",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Start with the subject instead of announcing the explanation.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 21,
+          "end": 36
+        },
+        "start": {
+          "line": 3,
+          "column": 4
+        },
+        "end": {
+          "line": 3,
+          "column": 19
+        },
+        "segments": [
+          {
+            "start": 21,
+            "end": 24
+          },
+          {
+            "start": 24,
+            "end": 26
+          },
+          {
+            "start": 27,
+            "end": 31
+          },
+          {
+            "start": 32,
+            "end": 36
+          }
+        ]
+      },
+      "related": []
+    },
+    {
+      "rule_id": "company.no-dive-in",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Start with the subject instead of announcing the explanation.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 111,
+          "end": 131
+        },
+        "start": {
+          "line": 4,
+          "column": 18
+        },
+        "end": {
+          "line": 4,
+          "column": 38
+        },
+        "segments": [
+          {
+            "start": 111,
+            "end": 114
+          },
+          {
+            "start": 114,
+            "end": 116
+          },
+          {
+            "start": 117,
+            "end": 126
+          },
+          {
+            "start": 127,
+            "end": 131
+          }
+        ]
+      },
+      "related": []
+    }
+  ],
+  "errors": []
+}

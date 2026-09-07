@@ -90,6 +90,7 @@ func Run(ctx context.Context, args []string, environment Environment) int {
 
 type checkOptions struct {
 	config        string
+	ruleSets      []string
 	profile       string
 	stdin         bool
 	filename      string
@@ -127,6 +128,7 @@ func checkCommand(environment Environment, code *int) *cobra.Command {
 	}
 	flags := command.Flags()
 	flags.StringVar(&options.config, "config", "", "Use this exact YAML configuration file")
+	flags.StringArrayVar(&options.ruleSets, "ruleset", nil, "Load a local declarative ruleset file or directory; repeat to combine")
 	flags.StringVar(&options.profile, "profile", "", "Select a builtin profile (cannot be combined with a config file)")
 	flags.BoolVar(&options.stdin, "stdin", false, "Read source bytes from stdin")
 	flags.StringVar(&options.filename, "filename", "", "Logical filename for stdin")

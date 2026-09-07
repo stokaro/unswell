@@ -1,0 +1,60 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "company.repeated-very",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "paragraph",
+      "message": "Check whether both intensifiers are needed.",
+      "primary": {
+        "path": "sample.md",
+        "span": {
+          "start": 9,
+          "end": 13
+        },
+        "start": {
+          "line": 1,
+          "column": 8
+        },
+        "end": {
+          "line": 1,
+          "column": 12
+        },
+        "segments": [
+          {
+            "start": 9,
+            "end": 13
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "sample.md",
+          "span": {
+            "start": 36,
+            "end": 40
+          },
+          "start": {
+            "line": 1,
+            "column": 35
+          },
+          "end": {
+            "line": 1,
+            "column": 39
+          },
+          "segments": [
+            {
+              "start": 36,
+              "end": 40
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

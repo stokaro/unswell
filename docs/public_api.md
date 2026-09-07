@@ -9,6 +9,7 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell` | Engine, options and versioned results | alpha |
 | `github.com/stokaro/unswell/document` | Sources, byte spans and neutral document model | alpha |
 | `github.com/stokaro/unswell/rule` | Rule contract, typed parameters and evidence | alpha |
+| `github.com/stokaro/unswell/ruleset` | Bounded in-memory compilation of declarative rules | alpha |
 | `github.com/stokaro/unswell/builtin` | Explicit builtin catalog factory | alpha |
 | `github.com/stokaro/unswell/config` | Strict in-memory policy compiler | alpha |
 | `github.com/stokaro/unswell/extract` | Source-preserving input extractors | alpha |
@@ -33,3 +34,17 @@ code and must honor the concurrency and read-only view contracts.
 The engine reads no configuration paths, environment variables, current directory,
 standard streams or network endpoints. The CLI supplies source bytes and policy.
 Reporters consume an existing result and return write errors to the caller.
+
+The custom-rule DSL adds `ruleset.Load`, immutable `Set` accessors,
+`Options.RuleSets`, and `config.Compile`. The latter returns both the effective
+policy and the additional implementations from inline `rule_sets`. `config.Load`
+still returns only the policy; the engine uses `Compile` to register inline rules.
+Declarative packs extend the selected Go registry. Duplicate IDs are errors.
+
+Rule descriptors gain optional `Origin` metadata, examples gain an optional
+`Format`, and effective policies gain `RuleSets`. These are additive fields in
+the version-1 report schema. Old reports remain readable; readers pinned to an
+older release that reject unknown fields need an update to read these new fields.
+Ruleset identities are included in policy and ruleset hashes. Changing matcher
+definitions invalidates their identity even when the human-readable release stays
+the same. See [custom rules](custom-rules.md) for the versioned YAML contract.

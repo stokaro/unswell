@@ -106,6 +106,8 @@ not followed during discovery. Unsupported explicit formats fail.
 The CLI reads `.unswell.yaml` in its current project root, or the exact file named
 by `--config`. It reads no home configuration. The alpha accepts one builtin profile
 and explicit rule overrides; local inheritance and file overrides belong to stage 2.
+Add team policies with [custom rule packs](docs/custom-rules.md), load them through
+`--ruleset` or inline `rule_sets`, and execute their examples with `unswell rules test`.
 Select checked contexts globally or per language with the
 [extraction policy](docs/extraction-policy.md). Use reasoned exceptions for intentional
 examples, dictionaries and other text that should remain outside an editorial check.
@@ -173,8 +175,8 @@ The policy excludes deliberate fixture strings and catalog data with recorded re
 Comments and runtime strings remain checked. Bash also passes syntax, ShellCheck
 and shfmt checks, including negative probes for each gate.
 
-The [roadmap](docs/roadmap.md) preserves the remaining requirements: the custom
-rule DSL, full suppressions, baseline, committed changed-unit checks, trusted
+The [roadmap](docs/roadmap.md) preserves the remaining requirements: full
+suppressions, baseline, committed changed-unit checks, trusted
 policy comparison, Go analysis integration and calibrated revision probabilities.
 The alpha does not silently claim those capabilities.
 
