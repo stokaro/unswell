@@ -27,6 +27,12 @@ bin/unswell config init --profile technical
 bin/unswell check README.md docs/
 ```
 
+The public [Homebrew tap](https://github.com/stokaro/homebrew-unswell) supports
+`brew install --HEAD stokaro/unswell/unswell` while the first release is being prepared.
+A separate [GitHub Action](https://github.com/stokaro/unswell-action) runs pinned
+release archives and writes JSON/SARIF reports. See [installation and release
+verification](docs/installation.md) for availability and platform checks.
+
 For example, this introduction:
 
 ```text

@@ -46,7 +46,7 @@ func Run(ctx context.Context, args []string, environment Environment) int {
 	environment.Err = errOut
 	root := &cobra.Command{
 		Use:           "unswell",
-		Short:         "A linter for lean English",
+		Short:         "Reduce AI-style wording in code and documentation",
 		SilenceUsage:  true,
 		SilenceErrors: true,
 		Version:       unswell.Version,
