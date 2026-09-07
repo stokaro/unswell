@@ -1,0 +1,58 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "filler.announced-importance",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "State the fact without announcing its importance.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 49,
+          "end": 82
+        },
+        "start": {
+          "line": 3,
+          "column": 18
+        },
+        "end": {
+          "line": 3,
+          "column": 51
+        },
+        "segments": [
+          {
+            "start": 49,
+            "end": 51
+          },
+          {
+            "start": 57,
+            "end": 59
+          },
+          {
+            "start": 60,
+            "end": 69
+          },
+          {
+            "start": 70,
+            "end": 72
+          },
+          {
+            "start": 73,
+            "end": 77
+          },
+          {
+            "start": 78,
+            "end": 82
+          }
+        ]
+      },
+      "related": []
+    }
+  ],
+  "errors": []
+}

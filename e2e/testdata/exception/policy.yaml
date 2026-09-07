@@ -1,0 +1,20 @@
+version: 1
+extends: [builtin:custom-v1]
+rules:
+  filler.announced-importance:
+    enabled: true
+    severity: error
+    gate: forbid
+  scaffold.chat-preamble:
+    enabled: true
+    severity: error
+    gate: forbid
+    parameters:
+      positions: [sentence-start]
+extraction:
+  exceptions:
+    - id: fixed-output
+      paths: [sample.go]
+      kinds: [string]
+      symbols: [exempt]
+      reason: "The public output is fixed by an external protocol."

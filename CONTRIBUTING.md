@@ -22,6 +22,11 @@ positive with a realistic regression case; do not disable a rule just to make CI
 green. A real MCP client checks the same bytes and compares complete results, then
 verifies failure and rewrite probes. Reports are written to `artifacts/dogfood/`.
 
+The root [e2e package](e2e/README.md) runs the built CLI against readable source
+fixtures with inline expected diagnostics and golden reports. Run
+`go test ./e2e -count=1` to inspect these scenarios independently. Review fixture
+expectations and golden diffs when behavior changes; ordinary tests never update them.
+
 Add every Go module to `.gomodules` with its role. Add every public package to
 `docs/public_api.md`. Keep library code independent of the CLI, environment,
 filesystem discovery, network, and process execution. Repository policy tests

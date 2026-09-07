@@ -1,0 +1,91 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "filler.announced-importance",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "State the fact without announcing its importance.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 18,
+          "end": 46
+        },
+        "start": {
+          "line": 2,
+          "column": 4
+        },
+        "end": {
+          "line": 2,
+          "column": 32
+        },
+        "segments": [
+          {
+            "start": 18,
+            "end": 20
+          },
+          {
+            "start": 21,
+            "end": 23
+          },
+          {
+            "start": 24,
+            "end": 33
+          },
+          {
+            "start": 34,
+            "end": 36
+          },
+          {
+            "start": 37,
+            "end": 41
+          },
+          {
+            "start": 42,
+            "end": 46
+          }
+        ]
+      },
+      "related": []
+    },
+    {
+      "rule_id": "scaffold.chat-preamble",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Start with the subject instead of a conversational acknowledgment.",
+      "primary": {
+        "path": "sample.yaml",
+        "span": {
+          "start": 61,
+          "end": 71
+        },
+        "start": {
+          "line": 2,
+          "column": 11
+        },
+        "end": {
+          "line": 2,
+          "column": 21
+        },
+        "segments": [
+          {
+            "start": 61,
+            "end": 70
+          },
+          {
+            "start": 70,
+            "end": 71
+          }
+        ]
+      },
+      "related": []
+    }
+  ],
+  "errors": []
+}
