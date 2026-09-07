@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer"><title>Unswell report — {{.Verdict}}</title>
+<style>
+:root{color-scheme:light dark;font-family:system-ui,sans-serif;line-height:1.6}body{max-width:76rem;margin:2rem auto;padding:0 1rem}
+h1,h2,h3{line-height:1.2}a{color:inherit}header{border-bottom:3px solid;padding-bottom:1rem}nav ul{display:flex;gap:1.5rem;flex-wrap:wrap;list-style:none;padding:0}
+article,details{border:1px solid #888;border-radius:.4rem;padding:1rem;margin:1rem 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:1rem;background:#8881}
+mark{background:#ffd97b;color:#171717}table{border-collapse:collapse;width:100%}th,td{text-align:left;border-bottom:1px solid #888;padding:.5rem;overflow-wrap:anywhere}
+label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.3rem}small{font-size:.9rem}.error{border-left:5px solid #b64e40}
+.warning{border-left:5px solid #b98722}.note{border-left:5px solid #477bad}:focus-visible{outline:3px solid #477bad;outline-offset:3px}[hidden]{display:none}
+@media print{body{max-width:none;margin:0;font-size:10pt}.filters{display:none}article,details{break-inside:avoid}details>*{display:block}a{text-decoration:none}}
+</style></head><body>
+<header><h1>Unswell: {{.Verdict}}</h1><p>{{len .Result.Documents}} documents · {{len .Result.Findings}} findings · analysis {{.Result.Status}}</p>
+<p>Revision probability: <strong>unavailable</strong>. This alpha has no calibrated revision model. Index values are points out of 100.</p>
+<nav aria-label="Report sections"><ul><li><a href="#gate">Gate</a></li><li><a href="#files">Files and coverage</a></li><li><a href="#findings">Findings</a></li><li><a href="#paragraphs">Paragraph scores</a></li><li><a href="#manifest">Analysis manifest</a></li></ul></nav></header>
+<main><section id="gate"><h2>Gate decision</h2>{{range .Result.Gate.Reasons}}<p><a href="#finding-{{.FindingID}}">{{.Path}}</a>: {{.Message}}</p>{{else}}<p>No editorial gate failures.</p>{{end}}
+{{range .Result.Errors}}<p class="error">Operational error: {{.Path}} — {{.Message}}</p>{{end}}</section>
+<section id="files"><h2>Files and coverage</h2><table><thead><tr><th>File</th><th>Prose words</th><th>Blocks</th><th>Maximum paragraph index</th></tr></thead><tbody>
+{{range .Result.Documents}}<tr><td>{{.Name}}</td><td>{{.ProseWords}}</td><td>{{.Blocks}}</td><td>{{.Maximum}}/100</td></tr>{{end}}</tbody></table>
+{{range .Result.Documents}}<details><summary>{{.Name}} — {{len .Excluded}} excluded regions</summary><ul>{{range .Excluded}}<li>{{.Reason}}: bytes [{{.Span.Start}}, {{.Span.End}})</li>{{end}}</ul></details>{{end}}</section>
+<section id="findings"><h2>Findings</h2><div class="filters" hidden id="filters">
+<label>Severity <select id="severity"><option value="">All</option><option>error</option><option>warning</option><option>note</option></select></label>
+<label>Rule or group <input id="query" type="search" placeholder="Filter findings"></label><p id="filter-count" role="status"></p></div>
+{{range .Findings}}<article id="finding-{{.ID}}" class="finding {{.Severity}}" data-severity="{{.Severity}}" data-rule="{{.RuleID}}" data-group="{{.Group}}">
+<h3>{{.RuleID}} <small>({{.Severity}}, {{.Evidence.Kind}} evidence)</small></h3><p>{{.Message}}</p>
+<p>{{.Primary.Path}}:{{.Primary.Start.Line}}:{{.Primary.Start.Column}} · bytes [{{.Primary.Span.Start}}, {{.Primary.Span.End}})</p>
+{{if .Primary.Snippet}}<pre><mark>{{.Primary.Snippet}}</mark></pre>{{end}}
+{{if .Related}}<details><summary>{{len .Related}} related occurrences</summary>{{range .Related}}<p>{{.Path}}:{{.Start.Line}}:{{.Start.Column}}</p>{{if .Snippet}}<pre>{{.Snippet}}</pre>{{end}}{{end}}</details>{{end}}
+<details><summary>Evidence and policy</summary><p>Group: {{.Group}}. Gate: {{.Gate}}. Baseline: {{.BaselineState}}. Suppressed: {{.Suppressed}}.</p>
+<ul>{{range .Evidence.Metrics}}<li>{{.Name}}: {{.Value}} {{.Unit}}; onset {{.Onset}}, saturation {{.Saturation}}</li>{{end}}</ul><p>Fingerprint: <code>{{.Fingerprint}}</code></p></details></article>{{else}}<p>No displayed findings.</p>{{end}}
+{{if .Omitted}}<p>{{.Omitted}} findings were omitted by display options. The gate still uses every finding.</p>{{end}}</section>
+<section id="paragraphs"><h2>Paragraph scores</h2>{{range .Paragraphs}}<details open><summary>{{.Assessment.Path}} — paragraph {{.Assessment.UnitID}}: {{.Assessment.SlopScore}}/100</summary>
+<pre>{{range .Pieces}}{{if .Highlight}}<mark>{{.Text}}</mark>{{else}}{{.Text}}{{end}}{{end}}</pre>
+<p>Raw index: {{.Assessment.SlopScore}}. Effective index: {{.Assessment.EffectiveSlopScore}}. Probability: {{.Assessment.ProbabilityStatus}}.</p>
+<table><thead><tr><th>Rule</th><th>Raw points</th><th>Effective points</th><th>Reason</th></tr></thead><tbody>{{range .Assessment.Contributions}}<tr><td><a href="#finding-{{.FindingID}}">{{.RuleID}}</a></td><td>{{.Raw}}</td><td>{{.Effective}}</td><td>{{.Reason}}</td></tr>{{end}}</tbody></table></details>{{else}}<p>No scored paragraph findings.</p>{{end}}</section>
+<section id="manifest"><h2>Analysis manifest</h2><p>Unswell {{.Result.Manifest.ToolVersion}} · {{.Result.Manifest.ScoringProfile}} · {{.Result.Manifest.NLP.Version}}</p>
+<p>Config hash: <code>{{.Result.Manifest.ConfigHash}}</code></p><p>Ruleset hash: <code>{{.Result.Manifest.RulesetHash}}</code></p>
+<p>Source text included: {{.Result.Manifest.IncludeSource}}. Complete: {{.Result.Manifest.Complete}}.</p></section></main>
+<script>
+const filters=document.getElementById('filters');filters.hidden=false;
+function filter(){const severity=document.getElementById('severity').value;const query=document.getElementById('query').value.toLowerCase();let count=0;
+document.querySelectorAll('.finding').forEach(row=>{row.hidden=!!((severity&&row.dataset.severity!==severity)||!(row.dataset.rule+' '+row.dataset.group).toLowerCase().includes(query));if(!row.hidden)count++;});
+document.getElementById('filter-count').textContent=count+' displayed findings';}
+document.getElementById('severity').addEventListener('change',filter);document.getElementById('query').addEventListener('input',filter);filter();
+</script></body></html>

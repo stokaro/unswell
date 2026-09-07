@@ -1,0 +1,110 @@
+// Package rule defines explicit rule registration, evidence, and configuration.
+package rule
+
+import (
+	"context"
+
+	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/nlp"
+)
+
+// Parameters contains the typed matcher controls supported by the alpha catalog.
+// A descriptor explicitly lists the fields it accepts. External Go rules can
+// receive additional typed configuration through their own constructors.
+type Parameters struct {
+	Phrases               []string `json:"phrases"                yaml:"phrases"`
+	Positions             []string `json:"positions"              yaml:"positions"`
+	MinWords              int      `json:"min_words"              yaml:"min_words"`
+	Similarity            float64  `json:"similarity"             yaml:"similarity"`
+	Window                string   `json:"window"                 yaml:"window"`
+	WindowSentences       int      `json:"window_sentences"       yaml:"window_sentences"`
+	AllowedOccurrences    int      `json:"allowed_occurrences"    yaml:"allowed_occurrences"`
+	SaturationOccurrences int      `json:"saturation_occurrences" yaml:"saturation_occurrences"`
+	Onset                 int      `json:"onset"                  yaml:"onset"`
+	Saturation            int      `json:"saturation"             yaml:"saturation"`
+	OpenerWords           int      `json:"opener_words"           yaml:"opener_words"`
+	ProtectNegation       bool     `json:"protect_negation"       yaml:"protect_negation"`
+	ProtectNumbers        bool     `json:"protect_numbers"        yaml:"protect_numbers"`
+	ProtectIdentifiers    bool     `json:"protect_identifiers"    yaml:"protect_identifiers"`
+}
+
+// Score is independent of presentation severity. Units are index points.
+type Score struct {
+	Weight int `json:"weight" yaml:"weight"`
+	Cap    int `json:"cap"    yaml:"cap"`
+}
+
+// Settings controls execution, presentation, unconditional policy, and scoring.
+type Settings struct {
+	Enabled    bool       `json:"enabled"    yaml:"enabled"`
+	Severity   string     `json:"severity"   yaml:"severity"`
+	Gate       string     `json:"gate"       yaml:"gate"`
+	Score      Score      `json:"score"      yaml:"score"`
+	Parameters Parameters `json:"parameters" yaml:"parameters"`
+}
+
+// Example is an executable catalog fixture using plain English prose.
+type Example struct {
+	Text   string `json:"text"`
+	Match  bool   `json:"match"`
+	Config string `json:"config,omitempty"`
+}
+
+// Descriptor documents a versioned, independently useful editorial signal.
+type Descriptor struct {
+	ID          string           `json:"id"`
+	Version     string           `json:"version"`
+	Summary     string           `json:"summary"`
+	Description string           `json:"description"`
+	Limitations string           `json:"limitations"`
+	Scope       string           `json:"scope"`
+	Contexts    []string         `json:"contexts"`
+	Requires    []nlp.Capability `json:"requires"`
+	Group       string           `json:"group"`
+	Status      string           `json:"status"`
+	Defaults    Settings         `json:"defaults"`
+	Parameters  []string         `json:"parameters"`
+	Examples    []Example        `json:"examples"`
+}
+
+// Metric is measurable evidence, with a named unit and activation thresholds.
+type Metric struct {
+	Name       string  `json:"name"`
+	Value      float64 `json:"value"`
+	Unit       string  `json:"unit"`
+	Onset      float64 `json:"onset"`
+	Saturation float64 `json:"saturation"`
+}
+
+// Occurrence links a finding to each affected sentence and structural block.
+type Occurrence struct {
+	BlockID    int             `json:"block_id"`
+	SentenceID int             `json:"sentence_id"`
+	Spans      []document.Span `json:"spans"`
+}
+
+// Evidence is emitted once for a cluster, with all of its occurrences.
+type Evidence struct {
+	Kind        string       `json:"kind"`
+	Message     string       `json:"message"`
+	Suggestion  string       `json:"suggestion"`
+	Occurrences []Occurrence `json:"occurrences"`
+	Metrics     []Metric     `json:"metrics"`
+	Activation  int          `json:"activation"` // Fixed point: 0 through 1000.
+}
+
+// View is read-only for the duration of Evaluate. Never retain its pointers.
+type View struct {
+	Document      *document.Document
+	Parameters    Parameters
+	MaxCandidates int
+}
+
+// Emitter validates evidence. An emitter error makes the entire analysis incomplete.
+type Emitter interface{ Emit(Evidence) error }
+
+// Rule is trusted Go code. Implementations must support concurrent evaluation.
+type Rule interface {
+	Descriptor() Descriptor
+	Evaluate(context.Context, View, Emitter) error
+}

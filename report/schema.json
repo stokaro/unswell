@@ -1,0 +1,906 @@
+{
+  "$defs": {
+    "document.Exclusion": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "type": "string"
+        },
+        "span": {
+          "$ref": "#/$defs/document.Span"
+        }
+      },
+      "required": [
+        "span",
+        "reason"
+      ],
+      "type": "object"
+    },
+    "document.Position": {
+      "additionalProperties": false,
+      "properties": {
+        "column": {
+          "type": "integer"
+        },
+        "line": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "line",
+        "column"
+      ],
+      "type": "object"
+    },
+    "document.Span": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "type": "integer"
+        },
+        "start": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "type": "object"
+    },
+    "nlp.Identity": {
+      "additionalProperties": false,
+      "properties": {
+        "capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "license": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "model_sha256": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sentence_model_sha256": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "model",
+        "model_sha256",
+        "sentence_model_sha256",
+        "license",
+        "capabilities"
+      ],
+      "type": "object"
+    },
+    "rule.Descriptor": {
+      "additionalProperties": false,
+      "properties": {
+        "contexts": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "defaults": {
+          "$ref": "#/$defs/rule.Settings"
+        },
+        "description": {
+          "type": "string"
+        },
+        "examples": {
+          "items": {
+            "$ref": "#/$defs/rule.Example"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "group": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "string"
+        },
+        "parameters": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "requires": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "scope": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "summary",
+        "description",
+        "limitations",
+        "scope",
+        "contexts",
+        "requires",
+        "group",
+        "status",
+        "defaults",
+        "parameters",
+        "examples"
+      ],
+      "type": "object"
+    },
+    "rule.Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "activation": {
+          "type": "integer"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "metrics": {
+          "items": {
+            "$ref": "#/$defs/rule.Metric"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "occurrences": {
+          "items": {
+            "$ref": "#/$defs/rule.Occurrence"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "suggestion": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "message",
+        "suggestion",
+        "occurrences",
+        "metrics",
+        "activation"
+      ],
+      "type": "object"
+    },
+    "rule.Example": {
+      "additionalProperties": false,
+      "properties": {
+        "config": {
+          "type": "string"
+        },
+        "match": {
+          "type": "boolean"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "match"
+      ],
+      "type": "object"
+    },
+    "rule.Metric": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "onset": {
+          "type": "number"
+        },
+        "saturation": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "value",
+        "unit",
+        "onset",
+        "saturation"
+      ],
+      "type": "object"
+    },
+    "rule.Occurrence": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "type": "integer"
+        },
+        "sentence_id": {
+          "type": "integer"
+        },
+        "spans": {
+          "items": {
+            "$ref": "#/$defs/document.Span"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "block_id",
+        "sentence_id",
+        "spans"
+      ],
+      "type": "object"
+    },
+    "rule.Parameters": {
+      "additionalProperties": false,
+      "properties": {
+        "allowed_occurrences": {
+          "type": "integer"
+        },
+        "min_words": {
+          "type": "integer"
+        },
+        "onset": {
+          "type": "integer"
+        },
+        "opener_words": {
+          "type": "integer"
+        },
+        "phrases": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "positions": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "protect_identifiers": {
+          "type": "boolean"
+        },
+        "protect_negation": {
+          "type": "boolean"
+        },
+        "protect_numbers": {
+          "type": "boolean"
+        },
+        "saturation": {
+          "type": "integer"
+        },
+        "saturation_occurrences": {
+          "type": "integer"
+        },
+        "similarity": {
+          "type": "number"
+        },
+        "window": {
+          "type": "string"
+        },
+        "window_sentences": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "phrases",
+        "positions",
+        "min_words",
+        "similarity",
+        "window",
+        "window_sentences",
+        "allowed_occurrences",
+        "saturation_occurrences",
+        "onset",
+        "saturation",
+        "opener_words",
+        "protect_negation",
+        "protect_numbers",
+        "protect_identifiers"
+      ],
+      "type": "object"
+    },
+    "rule.Score": {
+      "additionalProperties": false,
+      "properties": {
+        "cap": {
+          "type": "integer"
+        },
+        "weight": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "weight",
+        "cap"
+      ],
+      "type": "object"
+    },
+    "rule.Settings": {
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "gate": {
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/$defs/rule.Parameters"
+        },
+        "score": {
+          "$ref": "#/$defs/rule.Score"
+        },
+        "severity": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "enabled",
+        "severity",
+        "gate",
+        "score",
+        "parameters"
+      ],
+      "type": "object"
+    },
+    "unswell.Assessment": {
+      "additionalProperties": false,
+      "properties": {
+        "contributions": {
+          "items": {
+            "$ref": "#/$defs/unswell.Contribution"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "effective_slop_score": {
+          "type": "number"
+        },
+        "path": {
+          "type": "string"
+        },
+        "probability_status": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "slop_probability": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "slop_score": {
+          "type": "number"
+        },
+        "span": {
+          "$ref": "#/$defs/document.Span"
+        },
+        "status": {
+          "type": "string"
+        },
+        "unit_id": {
+          "type": "integer"
+        },
+        "words": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "path",
+        "scope",
+        "unit_id",
+        "span",
+        "words",
+        "slop_score",
+        "effective_slop_score",
+        "slop_probability",
+        "probability_status",
+        "status",
+        "contributions"
+      ],
+      "type": "object"
+    },
+    "unswell.Contribution": {
+      "additionalProperties": false,
+      "properties": {
+        "activation": {
+          "type": "integer"
+        },
+        "effective": {
+          "type": "number"
+        },
+        "finding_id": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "group_cap": {
+          "type": "integer"
+        },
+        "raw": {
+          "type": "number"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "rule_cap": {
+          "type": "integer"
+        },
+        "rule_id": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "finding_id",
+        "rule_id",
+        "group",
+        "weight",
+        "activation",
+        "raw",
+        "effective",
+        "rule_cap",
+        "group_cap",
+        "reason"
+      ],
+      "type": "object"
+    },
+    "unswell.DocumentResult": {
+      "additionalProperties": false,
+      "properties": {
+        "blocks": {
+          "type": "integer"
+        },
+        "bytes": {
+          "type": "integer"
+        },
+        "eligible_paragraph_flagged_fraction": {
+          "type": "number"
+        },
+        "excluded": {
+          "items": {
+            "$ref": "#/$defs/document.Exclusion"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "format": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "paragraph_maximum": {
+          "type": "number"
+        },
+        "paragraph_median": {
+          "type": "number"
+        },
+        "paragraph_p90": {
+          "type": "number"
+        },
+        "prose_words": {
+          "type": "integer"
+        },
+        "sentences": {
+          "type": "integer"
+        },
+        "source": {
+          "type": "string"
+        },
+        "source_hash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "format",
+        "source_hash",
+        "bytes",
+        "prose_words",
+        "blocks",
+        "sentences",
+        "excluded",
+        "paragraph_maximum",
+        "paragraph_median",
+        "paragraph_p90",
+        "eligible_paragraph_flagged_fraction"
+      ],
+      "type": "object"
+    },
+    "unswell.Finding": {
+      "additionalProperties": false,
+      "properties": {
+        "baseline_state": {
+          "type": "string"
+        },
+        "derived": {
+          "type": "boolean"
+        },
+        "evidence": {
+          "$ref": "#/$defs/rule.Evidence"
+        },
+        "fingerprint": {
+          "type": "string"
+        },
+        "gate": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "primary": {
+          "$ref": "#/$defs/unswell.Location"
+        },
+        "related": {
+          "items": {
+            "$ref": "#/$defs/unswell.Location"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "rule_id": {
+          "type": "string"
+        },
+        "rule_version": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "string"
+        },
+        "suppressed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "rule_id",
+        "rule_version",
+        "severity",
+        "gate",
+        "group",
+        "scope",
+        "message",
+        "primary",
+        "related",
+        "evidence",
+        "fingerprint",
+        "suppressed",
+        "baseline_state",
+        "derived"
+      ],
+      "type": "object"
+    },
+    "unswell.GateDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "reasons": {
+          "items": {
+            "$ref": "#/$defs/unswell.GateReason"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "passed",
+        "reasons"
+      ],
+      "type": "object"
+    },
+    "unswell.GateReason": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "finding_id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "path",
+        "finding_id",
+        "message"
+      ],
+      "type": "object"
+    },
+    "unswell.Location": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "$ref": "#/$defs/document.Position"
+        },
+        "path": {
+          "type": "string"
+        },
+        "segments": {
+          "items": {
+            "$ref": "#/$defs/document.Span"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "snippet": {
+          "type": "string"
+        },
+        "span": {
+          "$ref": "#/$defs/document.Span"
+        },
+        "start": {
+          "$ref": "#/$defs/document.Position"
+        }
+      },
+      "required": [
+        "path",
+        "span",
+        "start",
+        "end",
+        "segments"
+      ],
+      "type": "object"
+    },
+    "unswell.Manifest": {
+      "additionalProperties": false,
+      "properties": {
+        "complete": {
+          "type": "boolean"
+        },
+        "config_hash": {
+          "type": "string"
+        },
+        "feature_contract": {
+          "type": "string"
+        },
+        "include_source": {
+          "type": "boolean"
+        },
+        "nlp": {
+          "$ref": "#/$defs/nlp.Identity"
+        },
+        "no_gate": {
+          "type": "boolean"
+        },
+        "rules": {
+          "items": {
+            "$ref": "#/$defs/rule.Descriptor"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "ruleset_hash": {
+          "type": "string"
+        },
+        "scoring_profile": {
+          "type": "string"
+        },
+        "selection_mode": {
+          "type": "string"
+        },
+        "skipped_rules": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "tool_commit": {
+          "type": "string"
+        },
+        "tool_version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tool_version",
+        "tool_commit",
+        "config_hash",
+        "ruleset_hash",
+        "scoring_profile",
+        "feature_contract",
+        "nlp",
+        "rules",
+        "selection_mode",
+        "complete",
+        "no_gate",
+        "include_source",
+        "skipped_rules"
+      ],
+      "type": "object"
+    },
+    "unswell.RunError": {
+      "additionalProperties": false,
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "message"
+      ],
+      "type": "object"
+    },
+    "unswell.RunResult": {
+      "additionalProperties": false,
+      "properties": {
+        "assessments": {
+          "items": {
+            "$ref": "#/$defs/unswell.Assessment"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "documents": {
+          "items": {
+            "$ref": "#/$defs/unswell.DocumentResult"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "errors": {
+          "items": {
+            "$ref": "#/$defs/unswell.RunError"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "findings": {
+          "items": {
+            "$ref": "#/$defs/unswell.Finding"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "gate": {
+          "$ref": "#/$defs/unswell.GateDecision"
+        },
+        "manifest": {
+          "$ref": "#/$defs/unswell.Manifest"
+        },
+        "schema_version": {
+          "const": "1.0.0-alpha.1",
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema_version",
+        "status",
+        "manifest",
+        "documents",
+        "findings",
+        "assessments",
+        "gate",
+        "errors"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/unswell.RunResult",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Unswell saved analysis 1.0.0-alpha.1"
+}
