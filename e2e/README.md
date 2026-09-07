@@ -35,11 +35,12 @@ language filename. CRLF and BOM cases materialize those bytes explicitly on ever
 
 ## Coverage
 
-The cases cover all 18 supported input formats, comments and strings, clean rewrites,
-Markdown code protection and entities, escaped Unicode, CRLF/BOM coordinates,
-interpolation boundaries, global/per-language context replacement, reasoned symbol
-exceptions, directory exclusions, stdin, malformed input, invalid configuration,
-empty input, and `--no-gate` behavior. Exit codes 0, 1, and 2 are explicit expectations.
+The cases cover all 18 supported input formats, comments and strings, and clean
+rewrites. Source-mapping cases include Markdown code protection and entities,
+escaped Unicode, CRLF/BOM coordinates, and interpolation boundaries. Policy cases
+check context replacement, reasoned symbol exceptions, and directory exclusions.
+Process cases cover stdin, malformed and empty input, invalid configuration, and
+`--no-gate`. Exit codes 0, 1, and 2 are explicit expectations.
 
 The shared policy limits language-extraction cases to two phrase rules and sets
 chat-preamble matching to sentence starts. The `document_position` case checks its
