@@ -71,6 +71,7 @@ func phraseRules() []rule.Rule {
 	result := make([]rule.Rule, 0, len(definitions))
 	for _, def := range definitions {
 		d := descriptor(def.id, def.summary, "scaffolding", "sentence", 15)
+		d.TermExemptions = true
 		d.Defaults.Parameters = rule.Parameters{Phrases: def.phrases, Positions: []string{def.position}}
 		d.Parameters = []string{"phrases", "positions"}
 		if def.forbid {
@@ -105,7 +106,7 @@ func phraseEvaluate(ctx context.Context, view rule.View, emit rule.Emitter) erro
 			return err
 		}
 		for _, pattern := range patterns {
-			if err := matchPhrase(sentence, pattern, view.Parameters.Positions, index, len(sentences), emit); err != nil {
+			if err := matchPhrase(sentence, pattern, view, index, len(sentences), emit); err != nil {
 				return err
 			}
 		}
@@ -113,12 +114,12 @@ func phraseEvaluate(ctx context.Context, view rule.View, emit rule.Emitter) erro
 	return nil
 }
 
-func matchPhrase(sentence document.Sentence, pattern, positions []string, index, total int, emit rule.Emitter) error {
+func matchPhrase(sentence document.Sentence, pattern []string, view rule.View, index, total int, emit rule.Emitter) error {
 	if len(pattern) == 0 {
 		return nil
 	}
 	for start := 0; start+len(pattern) <= len(sentence.Tokens); start++ {
-		if !phrasePosition(positions, start, index, total) {
+		if !phrasePosition(view.Parameters.Positions, start, index, total) || view.Exempts(sentence, start, start+len(pattern)) {
 			continue
 		}
 		if !matches(sentence.Tokens[start:start+len(pattern)], pattern) {

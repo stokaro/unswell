@@ -1,0 +1,38 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "policy.banned-phrases",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Remove a phrase forbidden by this editorial policy.",
+      "primary": {
+        "path": "docs/guide.md",
+        "span": {
+          "start": 90,
+          "end": 96
+        },
+        "start": {
+          "line": 3,
+          "column": 27
+        },
+        "end": {
+          "line": 3,
+          "column": 33
+        },
+        "segments": [
+          {
+            "start": 90,
+            "end": 96
+          }
+        ]
+      },
+      "related": []
+    }
+  ],
+  "errors": []
+}

@@ -38,7 +38,7 @@ Reporters consume an existing result and return write errors to the caller.
 The custom-rule DSL adds `ruleset.Load`, immutable `Set` accessors,
 `Options.RuleSets`, and `config.Compile`. The latter returns both the effective
 policy and the additional implementations from inline `rule_sets`. `config.Load`
-still returns only the policy; the engine uses `Compile` to register inline rules.
+still returns only the policy; the engine registers inline rules from the compiled plan.
 Declarative packs extend the selected Go registry. Duplicate IDs are errors.
 
 Rule descriptors gain optional `Origin` metadata, examples gain an optional
@@ -48,3 +48,28 @@ older release that reject unknown fields need an update to read these new fields
 Ruleset identities are included in policy and ruleset hashes. Changing matcher
 definitions invalidates their identity even when the human-readable release stays
 the same. See [custom rules](custom-rules.md) for the versioned YAML contract.
+
+Configuration inheritance adds `config.Bundle`, `Reference`, `SourceIdentity`,
+`OverrideIdentity`, `Vocabulary`, and immutable `Plan`, plus `CompileBundle`,
+`References`, and `ResolveReference`. Plans return owned base and per-file policies
+and a conservative list of possibly enabled rule IDs. `Options.ConfigBundle`,
+`Engine.PolicyForFile`, and `Engine.Catalog` expose those capabilities through the
+engine. The caller grants any outside-root permission explicitly; the library still
+performs no filesystem access.
+
+Rules gain opt-in `Descriptor.TermExemptions`, `View.TermExemptions`, `View.Exempts`,
+`TokenRange`, and immutable `TermMatches` constructed with `NewTermMatches`.
+Supporting rules must exclude candidates before computing aggregate metrics.
+
+Policies add identity, vocabulary, sources, overrides, and applied override metadata.
+`unswell-config-bundle-v1` intentionally changes config hashes to include resource
+provenance. Equivalent inline/external configurations may now have different config
+hashes while retaining the same ruleset hash and findings. Context-set ordering is
+still irrelevant. Existing config hashes cannot be compared across these algorithms.
+See [configuration](configuration.md) for merge, root, origin, and pinning semantics.
+
+The saved-result schema gains optional manifest config identity/source/override
+fields and per-document config hashes and applied overrides. These additions retain
+the existing schema version and old-report readability. Strict older readers need
+an update to accept the added fields. MCP description gains an optional logical
+filename and returns the same selected policy used by analysis.

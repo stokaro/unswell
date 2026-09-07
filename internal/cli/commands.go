@@ -28,27 +28,29 @@ func jsonOutput(environment Environment, value any) error {
 
 func configCommand(environment Environment) *cobra.Command {
 	parent := &cobra.Command{Use: "config", Short: "Validate and inspect the effective editorial policy"}
-	var path, profile, file string
-	var ruleSets []string
-	parent.PersistentFlags().StringVar(&path, "config", "", "Exact configuration path")
-	parent.PersistentFlags().StringArrayVar(&ruleSets, "ruleset", nil, "Local ruleset file or directory")
+	var options checkOptions
+	var profile, file string
+	parent.PersistentFlags().StringVar(&options.config, "config", "", "Exact configuration path")
+	parent.PersistentFlags().StringArrayVar(&options.ruleSets, "ruleset", nil, "Local ruleset file or directory")
+	configurationFlags(parent, &options, true)
 	initialize := &cobra.Command{Use: "init", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error {
-		if len(ruleSets) > 0 {
+		if len(options.ruleSets) > 0 {
 			return fmt.Errorf("config init does not accept --ruleset; select rule packs when validating or scanning")
 		}
-		return initializeConfig(environment, path, profile)
+		return initializeConfig(environment, options.config, profile)
 	}}
 	initialize.Flags().StringVar(&profile, "profile", "technical", "Builtin profile")
-	validate := &cobra.Command{Use: "validate", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error {
-		policy, err := configuredPolicy(environment, checkOptions{config: path, ruleSets: ruleSets})
+	validate := &cobra.Command{Use: "validate", Args: cobra.NoArgs, RunE: func(command *cobra.Command, _ []string) error {
+		policy, err := configuredPolicy(command.Context(), environment, options)
 		if err != nil {
 			return err
 		}
 		_, err = fmt.Fprintln(environment.Out, "Configuration valid:", policy.Profile, policy.Hash)
 		return err
 	}}
-	explain := &cobra.Command{Use: "explain", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error {
-		policy, err := configuredPolicy(environment, checkOptions{config: path, ruleSets: ruleSets})
+	explain := &cobra.Command{Use: "explain", Args: cobra.NoArgs, RunE: func(command *cobra.Command, _ []string) error {
+		options.filename = file
+		policy, err := configuredPolicy(command.Context(), environment, options)
 		if err != nil {
 			return err
 		}
@@ -57,7 +59,7 @@ func configCommand(environment Environment) *cobra.Command {
 			Policy config.Policy `json:"policy"`
 		}{File: file, Policy: policy})
 	}}
-	explain.Flags().StringVar(&file, "file", "", "Logical filename to identify in the policy explanation")
+	explain.Flags().StringVar(&file, "file", "", "Source path for resolving the effective file policy")
 	parent.AddCommand(initialize, validate, explain)
 	return parent
 }
@@ -67,14 +69,15 @@ func rulesCommand(environment Environment) *cobra.Command {
 	parent := &cobra.Command{Use: "rules", Short: "Inspect and test builtin and declarative rules"}
 	parent.PersistentFlags().StringVar(&options.config, "config", "", "Exact configuration path")
 	parent.PersistentFlags().StringArrayVar(&options.ruleSets, "ruleset", nil, "Local ruleset file or directory")
+	configurationFlags(parent, &options, true)
 	parent.AddCommand(ruleListCommand(environment, &options), ruleShowCommand(environment, &options), ruleTestCommand(environment, &options))
 	return parent
 }
 
 func doctorCommand(environment Environment) *cobra.Command {
 	var options checkOptions
-	command := &cobra.Command{Use: "doctor", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error {
-		policy, err := configuredPolicy(environment, options)
+	command := &cobra.Command{Use: "doctor", Args: cobra.NoArgs, RunE: func(command *cobra.Command, _ []string) error {
+		policy, err := configuredPolicy(command.Context(), environment, options)
 		if err != nil {
 			return err
 		}
@@ -86,11 +89,13 @@ func doctorCommand(environment Environment) *cobra.Command {
 			environment,
 			map[string]any{"version": unswell.Version, "schema_version": unswell.SchemaVersion, "nlp": provider.Identity(),
 				"rule_count": len(policy.Rules), "rule_sets": policy.RuleSets, "config_hash": policy.Hash,
+				"config_sources": policy.Sources, "config_overrides": policy.Overrides,
 				"probability_status": "calibration_unavailable", "calibration_model": nil},
 		)
 	}}
 	command.Flags().StringVar(&options.config, "config", "", "Exact configuration path")
 	command.Flags().StringArrayVar(&options.ruleSets, "ruleset", nil, "Local ruleset file or directory")
+	configurationFlags(command, &options, false)
 	return command
 }
 
@@ -135,7 +140,18 @@ func explainCommand(environment Environment) *cobra.Command {
 	command.Flags().StringVar(&at, "at", "1:1", "One-based line:Unicode-column")
 	command.Flags().StringVar(&options.config, "config", "", "Exact configuration path")
 	command.Flags().StringArrayVar(&options.ruleSets, "ruleset", nil, "Local ruleset file or directory")
+	configurationFlags(command, &options, false)
 	return command
+}
+
+func configurationFlags(command *cobra.Command, options *checkOptions, persistent bool) {
+	flags := command.Flags()
+	if persistent {
+		flags = command.PersistentFlags()
+	}
+	flags.StringVar(&options.projectRoot, "project-root", "", "Configuration and source root (default: nearest Git root or working directory)")
+	flags.BoolVar(&options.allowOutsideConfig, "allow-config-outside-root", false,
+		"Explicitly permit local config resources outside the project root")
 }
 
 func parsePosition(text string) (int, int, error) {

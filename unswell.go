@@ -27,6 +27,7 @@ import (
 // the registry. Config and RuleSets contain bytes, never filenames.
 type Options struct {
 	Config        []byte
+	ConfigBundle  *config.Bundle
 	Rules         []rule.Rule
 	RuleSets      [][]byte
 	NLP           nlp.Provider
@@ -40,6 +41,7 @@ type Options struct {
 // rule and NLP implementations must uphold their documented concurrency contract.
 type Engine struct {
 	policy        config.Policy
+	plan          *config.Plan
 	rules         []rule.Rule
 	descriptors   []rule.Descriptor
 	nlp           nlp.Provider
@@ -76,7 +78,7 @@ func New(options Options) (*Engine, error) {
 	if err := e.snapshotDescriptors(); err != nil {
 		return nil, err
 	}
-	if err := e.configure(options.Config); err != nil {
+	if err := e.configure(options); err != nil {
 		return nil, err
 	}
 	e.nlp = options.NLP
@@ -92,18 +94,40 @@ func New(options Options) (*Engine, error) {
 	return e, nil
 }
 
-func (e *Engine) configure(data []byte) error {
-	policy, additional, err := config.Compile(data, e.descriptors)
+func (e *Engine) configure(options Options) error {
+	if options.ConfigBundle != nil && len(options.Config) != 0 {
+		return fmt.Errorf("config bytes and ConfigBundle cannot be combined")
+	}
+	bundle := config.Bundle{Root: ".unswell.yaml", Files: map[string][]byte{".unswell.yaml": options.Config}}
+	if options.ConfigBundle != nil {
+		bundle = *options.ConfigBundle
+	}
+	plan, additional, err := config.CompileBundle(bundle, e.descriptors)
 	if err != nil {
 		return err
 	}
-	e.policy = policy
+	e.plan = plan
+	e.policy, err = plan.Policy()
+	if err != nil {
+		return err
+	}
 	if len(additional) == 0 {
 		return nil
 	}
 	e.rules = append(e.rules, additional...)
 	e.descriptors = nil
 	return e.snapshotDescriptors()
+}
+
+// PolicyForFile returns an owned effective policy for a project-relative logical
+// filename. An empty filename returns the base discovery and run-wide policy.
+func (e *Engine) PolicyForFile(name string) (config.Policy, error) {
+	return e.plan.ForFile(name)
+}
+
+// Catalog returns owned descriptors for the complete registered rule catalog.
+func (e *Engine) Catalog() []rule.Descriptor {
+	return cloneDescriptors(e.descriptors)
 }
 
 func extendRegistry(registry []rule.Rule, definitions [][]byte) ([]rule.Rule, error) {
@@ -164,8 +188,9 @@ func (e *Engine) snapshotDescriptors() error {
 func (e *Engine) planCapabilities() error {
 	e.capabilities = []nlp.Capability{nlp.Tokens, nlp.Sentences}
 	available := e.nlp.Identity().Capabilities
+	enabled := e.plan.EnabledRuleIDs()
 	for _, descriptor := range e.descriptors {
-		if !e.policy.Rules[descriptor.ID].Enabled {
+		if !slices.Contains(enabled, descriptor.ID) {
 			continue
 		}
 		for _, capability := range descriptor.Requires {
@@ -190,13 +215,17 @@ func (e *Engine) Analyze(ctx context.Context, src document.Source) (Result, erro
 // count or source order. It returns partial evidence and an error on incompleteness.
 func (e *Engine) AnalyzeAll(ctx context.Context, sources []document.Source) (RunResult, error) {
 	result := e.emptyResult()
+	if err := ctx.Err(); err != nil {
+		return incomplete(result, err)
+	}
 	sources = slices.Clone(sources)
 	slices.SortFunc(sources, func(a, b document.Source) int { return strings.Compare(a.Name, b.Name) })
-	if err := e.validateSources(sources); err != nil {
-		return incomplete(result, "", err)
+	engines, err := e.prepareSources(ctx, sources)
+	if err != nil {
+		return incomplete(result, err)
 	}
 	if err := ctx.Err(); err != nil {
-		return incomplete(result, "", err)
+		return incomplete(result, err)
 	}
 	partials := make([]RunResult, len(sources))
 	errorsBySource := make([]error, len(sources))
@@ -204,7 +233,7 @@ func (e *Engine) AnalyzeAll(ctx context.Context, sources []document.Source) (Run
 	for worker := 0; worker < min(e.jobs, len(sources)); worker++ {
 		workers.Go(func() {
 			for index := worker; index < len(sources); index += e.jobs {
-				partials[index], errorsBySource[index] = e.analyzeSource(ctx, sources[index])
+				partials[index], errorsBySource[index] = engines[index].analyzeSource(ctx, sources[index])
 			}
 		})
 	}
@@ -234,6 +263,9 @@ func (e *Engine) emptyResult() RunResult {
 			ToolVersion:     Version,
 			ToolCommit:      BuildCommit,
 			ConfigHash:      e.policy.Hash,
+			ConfigIdentity:  e.policy.Identity,
+			ConfigSources:   slices.Clone(e.policy.Sources),
+			ConfigOverrides: cloneOverrides(e.policy.Overrides),
 			RulesetHash:     e.rulesetHash,
 			ScoringProfile:  e.policy.Profile,
 			FeatureContract: "unswell-features-v1",
@@ -248,28 +280,45 @@ func (e *Engine) emptyResult() RunResult {
 	}
 }
 
-func (e *Engine) validateSources(sources []document.Source) error {
+func (e *Engine) prepareSources(ctx context.Context, sources []document.Source) ([]*Engine, error) {
+	engines := make([]*Engine, len(sources))
+	resolved := make(map[string]*Engine)
 	total := 0
 	for i, source := range sources {
-		if i > 0 && sources[i-1].Name == source.Name {
-			return fmt.Errorf("duplicate source name %q", source.Name)
+		if err := ctx.Err(); err != nil {
+			return nil, err
 		}
-		if len(source.Bytes) > e.policy.Analysis.MaxFileBytes {
-			return fmt.Errorf("%s exceeds max_file_bytes", source.Name)
+		if i > 0 && sources[i-1].Name == source.Name {
+			return nil, fmt.Errorf("duplicate source name %q", source.Name)
+		}
+		policy, err := e.PolicyForFile(source.Name)
+		if err != nil {
+			return nil, fmt.Errorf("%s: %w", source.Name, err)
+		}
+		engine := resolved[policy.Hash]
+		if engine == nil {
+			local := *e
+			local.policy = policy
+			engine = &local
+			resolved[policy.Hash] = engine
+		}
+		engines[i] = engine
+		if len(source.Bytes) > policy.Analysis.MaxFileBytes {
+			return nil, fmt.Errorf("%s exceeds max_file_bytes", source.Name)
 		}
 		total += len(source.Bytes)
 		if total > e.policy.Analysis.MaxTotalBytes {
-			return fmt.Errorf("sources exceed max_total_bytes")
+			return nil, fmt.Errorf("sources exceed max_total_bytes")
 		}
 	}
-	return nil
+	return engines, nil
 }
 
-func incomplete(result RunResult, path string, err error) (RunResult, error) {
+func incomplete(result RunResult, err error) (RunResult, error) {
 	result.Status = "incomplete"
 	result.Manifest.Complete = false
 	result.Gate.Passed = false
-	result.Errors = append(result.Errors, RunError{Path: path, Message: err.Error()})
+	result.Errors = append(result.Errors, RunError{Message: err.Error()})
 	return result, err
 }
 
@@ -282,7 +331,7 @@ func (e *Engine) finish(result RunResult, err error) (RunResult, error) {
 		err = errors.Join(err, fmt.Errorf("scan contains no applicable English prose"))
 	}
 	if err != nil {
-		return incomplete(result, "", err)
+		return incomplete(result, err)
 	}
 	result.Gate.Passed = len(result.Gate.Reasons) == 0 || e.noGate
 	return result, nil

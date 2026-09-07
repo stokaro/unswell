@@ -165,6 +165,9 @@ func text(writer io.Writer, result unswell.RunResult, options Options) error {
 		fmt.Fprintf(&output, "  error: %s: %s\n", terminal(failure.Path), terminal(failure.Message))
 	}
 	output.WriteString("Revision probability: unavailable (no calibrated alpha model).\n")
+	if len(result.Manifest.ConfigSources) > 1 || len(result.Manifest.ConfigOverrides) > 0 {
+		fmt.Fprintf(&output, "Configuration: %s (%s).\n", terminal(result.Manifest.ConfigHash), terminal(result.Manifest.ConfigIdentity))
+	}
 	_, err := io.WriteString(writer, output.String())
 	return err
 }
@@ -205,6 +208,10 @@ func markdown(writer io.Writer, result unswell.RunResult, options Options) error
 		fmt.Fprintf(&output, "\n- Error: %s — %s\n", markdownEscape(failure.Path), markdownEscape(failure.Message))
 	}
 	output.WriteString("\nRevision probability: unavailable; this alpha has no calibrated model.\n")
+	if len(result.Manifest.ConfigSources) > 1 || len(result.Manifest.ConfigOverrides) > 0 {
+		fmt.Fprintf(&output, "\nConfiguration: %s (%s).\n",
+			markdownEscape(result.Manifest.ConfigHash), markdownEscape(result.Manifest.ConfigIdentity))
+	}
 	_, err := io.WriteString(writer, output.String())
 	return err
 }

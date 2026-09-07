@@ -37,6 +37,7 @@ func contextRules() []rule.Rule {
 		Saturation: 5,
 	}
 	hype.Parameters = []string{"phrases", "onset", "saturation"}
+	hype.TermExemptions = true
 	hype.Examples = []rule.Example{
 		{Text: "The powerful, seamless, innovative platform offers a robust, transformative experience.", Match: true},
 		{Text: "The robust estimator tolerates outliers.", Match: false},
@@ -68,6 +69,7 @@ func contextRules() []rule.Rule {
 		Saturation: 4,
 	}
 	connective.Parameters = []string{"phrases", "min_words", "onset", "saturation"}
+	connective.TermExemptions = true
 	connective.Examples = []rule.Example{
 		{Text: "Moreover, " + strings.Repeat("word ", 16) + "ends. Furthermore, " + strings.Repeat("word ", 16) + "ends.", Match: true},
 		{Text: "Furthermore, the server may close the connection.", Match: false},
@@ -126,14 +128,7 @@ func modifierCluster(ctx context.Context, view rule.View, emit rule.Emitter) err
 		if err := ctx.Err(); err != nil {
 			return err
 		}
-		count := 0
-		occurrence := rule.Occurrence{BlockID: sentence.BlockID, SentenceID: sentence.ID, Spans: []document.Span{}}
-		for _, token := range sentence.Tokens {
-			if lexicon[token.Normal] && strings.HasPrefix(token.Tag, "JJ") {
-				count++
-				occurrence.Spans = append(occurrence.Spans, token.Spans...)
-			}
-		}
+		count, occurrence := modifierOccurrence(sentence, lexicon, view)
 		if count <= view.Parameters.Onset {
 			continue
 		}
@@ -151,6 +146,21 @@ func modifierCluster(ctx context.Context, view rule.View, emit rule.Emitter) err
 		}
 	}
 	return nil
+}
+
+func modifierOccurrence(sentence document.Sentence, lexicon map[string]bool, view rule.View) (int, rule.Occurrence) {
+	count := 0
+	occurrence := rule.Occurrence{BlockID: sentence.BlockID, SentenceID: sentence.ID, Spans: []document.Span{}}
+	for i, token := range sentence.Tokens {
+		if token.Protected || view.Exempts(sentence, i, i+1) {
+			continue
+		}
+		if lexicon[token.Normal] && strings.HasPrefix(token.Tag, "JJ") {
+			count++
+			occurrence.Spans = append(occurrence.Spans, token.Spans...)
+		}
+	}
+	return count, occurrence
 }
 
 func notOnlyDensity(ctx context.Context, view rule.View, emit rule.Emitter) error {
@@ -200,7 +210,7 @@ func connectiveOveruse(ctx context.Context, view rule.View, emit rule.Emitter) e
 		if block.Words < view.Parameters.MinWords {
 			continue
 		}
-		occurrences := transitionOccurrences(block, lexicon)
+		occurrences := transitionOccurrences(block, lexicon, view)
 		if len(occurrences) <= view.Parameters.Onset {
 			continue
 		}
@@ -220,10 +230,10 @@ func connectiveOveruse(ctx context.Context, view rule.View, emit rule.Emitter) e
 	return nil
 }
 
-func transitionOccurrences(block document.Block, lexicon map[string]bool) []rule.Occurrence {
+func transitionOccurrences(block document.Block, lexicon map[string]bool, view rule.View) []rule.Occurrence {
 	occurrences := make([]rule.Occurrence, 0)
 	for _, sentence := range block.Sentences {
-		if len(sentence.Tokens) > 0 && lexicon[sentence.Tokens[0].Normal] {
+		if len(sentence.Tokens) > 0 && !sentence.Tokens[0].Protected && lexicon[sentence.Tokens[0].Normal] && !view.Exempts(sentence, 0, 1) {
 			occurrences = append(occurrences, tokenOccurrence(sentence, 0, 1))
 		}
 	}

@@ -114,25 +114,25 @@ func descriptors(registry []rule.Rule) []rule.Descriptor {
 	return result
 }
 
-func configuredRules(environment Environment, configurationPath string, paths []string) ([]rule.Rule, error) {
-	data, err := configuration(environment, checkOptions{config: configurationPath})
+func configuredRules(ctx context.Context, environment Environment, options checkOptions) ([]rule.Rule, error) {
+	loaded, err := configuration(ctx, environment, options)
 	if err != nil {
 		return nil, err
 	}
-	additional, _, err := ruleFiles(environment, paths)
+	additional, _, err := ruleFiles(environment, options.ruleSets)
 	if err != nil {
 		return nil, err
 	}
 	registry := append(builtin.Rules(), additional...)
-	_, inline, err := config.Compile(data, descriptors(registry))
+	_, inline, err := config.CompileBundle(loaded.Bundle, descriptors(registry))
 	if err != nil {
 		return nil, err
 	}
 	return append(registry, inline...), nil
 }
 
-func configuredPolicy(environment Environment, options checkOptions) (config.Policy, error) {
-	data, err := configuration(environment, options)
+func configuredPolicy(ctx context.Context, environment Environment, options checkOptions) (config.Policy, error) {
+	loaded, err := configuration(ctx, environment, options)
 	if err != nil {
 		return config.Policy{}, err
 	}
@@ -141,15 +141,27 @@ func configuredPolicy(environment Environment, options checkOptions) (config.Pol
 		return config.Policy{}, err
 	}
 	registry := append(builtin.Rules(), additional...)
-	if _, err := unswell.New(unswell.Options{Config: data, Rules: registry}); err != nil {
+	engine, err := unswell.New(unswell.Options{ConfigBundle: &loaded.Bundle, Rules: registry})
+	if err != nil {
 		return config.Policy{}, err
 	}
-	return config.Load(data, descriptors(registry))
+	name := options.filename
+	if name != "" {
+		if !filepath.IsAbs(name) {
+			name = filepath.Join(environment.Dir, name)
+		}
+		name, err = filepath.Rel(loaded.Root, name)
+		if err != nil {
+			return config.Policy{}, err
+		}
+		name = filepath.ToSlash(name)
+	}
+	return engine.PolicyForFile(name)
 }
 
 func ruleListCommand(environment Environment, options *checkOptions) *cobra.Command {
-	return &cobra.Command{Use: "list", Args: cobra.NoArgs, RunE: func(_ *cobra.Command, _ []string) error {
-		registry, err := configuredRules(environment, options.config, options.ruleSets)
+	return &cobra.Command{Use: "list", Args: cobra.NoArgs, RunE: func(command *cobra.Command, _ []string) error {
+		registry, err := configuredRules(command.Context(), environment, *options)
 		if err != nil {
 			return err
 		}
@@ -163,8 +175,8 @@ func ruleListCommand(environment Environment, options *checkOptions) *cobra.Comm
 }
 
 func ruleShowCommand(environment Environment, options *checkOptions) *cobra.Command {
-	return &cobra.Command{Use: "show <rule-id>", Args: cobra.ExactArgs(1), RunE: func(_ *cobra.Command, args []string) error {
-		registry, err := configuredRules(environment, options.config, options.ruleSets)
+	return &cobra.Command{Use: "show <rule-id>", Args: cobra.ExactArgs(1), RunE: func(command *cobra.Command, args []string) error {
+		registry, err := configuredRules(command.Context(), environment, *options)
 		if err != nil {
 			return err
 		}
@@ -188,7 +200,7 @@ func ruleTestCommand(environment Environment, options *checkOptions) *cobra.Comm
 
 func testSelectedRules(ctx context.Context, environment Environment, options checkOptions, args []string) error {
 	if len(args) == 0 {
-		registry, err := configuredRules(environment, options.config, options.ruleSets)
+		registry, err := configuredRules(ctx, environment, options)
 		if err != nil {
 			return err
 		}

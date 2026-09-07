@@ -125,7 +125,8 @@ func checkSource(tree fs.FS, name, ledger string) error {
 			return err
 		}
 	}
-	if strings.HasPrefix(name, "internal/cli/") || strings.HasPrefix(name, "internal/repopolicy/") {
+	if strings.HasPrefix(name, "internal/cli/") || strings.HasPrefix(name, "internal/repopolicy/") ||
+		strings.HasPrefix(name, "internal/appconfig/") {
 		return nil
 	}
 	return checkImports(name, file.Imports)
@@ -157,7 +158,9 @@ func forbiddenImport(name string) bool {
 	if name == "net/url" {
 		return false
 	}
-	for _, prefix := range []string{"os", "net", "syscall", modulePath + "/internal/cli", modulePath + "/internal/repopolicy"} {
+	for _, prefix := range []string{
+		"os", "net", "syscall", modulePath + "/internal/cli", modulePath + "/internal/repopolicy", modulePath + "/internal/appconfig",
+	} {
 		if name == prefix || strings.HasPrefix(name, prefix+"/") {
 			return true
 		}

@@ -1,6 +1,7 @@
 package unswell
 
 import (
+	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/nlp"
 	"github.com/stokaro/unswell/rule"
@@ -76,36 +77,41 @@ type Assessment struct {
 
 // DocumentResult summarizes one source without including its prose by default.
 type DocumentResult struct {
-	Name            string               `json:"name"`
-	Format          document.Format      `json:"format"`
-	SourceHash      string               `json:"source_hash"`
-	Bytes           int                  `json:"bytes"`
-	ProseWords      int                  `json:"prose_words"`
-	Blocks          int                  `json:"blocks"`
-	Sentences       int                  `json:"sentences"`
-	Excluded        []document.Exclusion `json:"excluded"`
-	Source          string               `json:"source,omitempty"`
-	Maximum         float64              `json:"paragraph_maximum"`
-	Median          float64              `json:"paragraph_median"`
-	P90             float64              `json:"paragraph_p90"`
-	FlaggedFraction float64              `json:"eligible_paragraph_flagged_fraction"`
+	Name             string               `json:"name"`
+	Format           document.Format      `json:"format"`
+	SourceHash       string               `json:"source_hash"`
+	ConfigHash       string               `json:"config_hash,omitempty"`
+	AppliedOverrides []string             `json:"applied_overrides,omitempty"`
+	Bytes            int                  `json:"bytes"`
+	ProseWords       int                  `json:"prose_words"`
+	Blocks           int                  `json:"blocks"`
+	Sentences        int                  `json:"sentences"`
+	Excluded         []document.Exclusion `json:"excluded"`
+	Source           string               `json:"source,omitempty"`
+	Maximum          float64              `json:"paragraph_maximum"`
+	Median           float64              `json:"paragraph_median"`
+	P90              float64              `json:"paragraph_p90"`
+	FlaggedFraction  float64              `json:"eligible_paragraph_flagged_fraction"`
 }
 
 // Manifest records the exact execution policy and feature versions, without time.
 type Manifest struct {
-	ToolVersion     string            `json:"tool_version"`
-	ToolCommit      string            `json:"tool_commit"`
-	ConfigHash      string            `json:"config_hash"`
-	RulesetHash     string            `json:"ruleset_hash"`
-	ScoringProfile  string            `json:"scoring_profile"`
-	FeatureContract string            `json:"feature_contract"`
-	NLP             nlp.Identity      `json:"nlp"`
-	Rules           []rule.Descriptor `json:"rules"`
-	SelectionMode   string            `json:"selection_mode"`
-	Complete        bool              `json:"complete"`
-	NoGate          bool              `json:"no_gate"`
-	IncludeSource   bool              `json:"include_source"`
-	SkippedRules    []string          `json:"skipped_rules"`
+	ToolVersion     string                    `json:"tool_version"`
+	ToolCommit      string                    `json:"tool_commit"`
+	ConfigHash      string                    `json:"config_hash"`
+	ConfigIdentity  string                    `json:"config_identity,omitempty"`
+	ConfigSources   []config.SourceIdentity   `json:"config_sources,omitempty"`
+	ConfigOverrides []config.OverrideIdentity `json:"config_overrides,omitempty"`
+	RulesetHash     string                    `json:"ruleset_hash"`
+	ScoringProfile  string                    `json:"scoring_profile"`
+	FeatureContract string                    `json:"feature_contract"`
+	NLP             nlp.Identity              `json:"nlp"`
+	Rules           []rule.Descriptor         `json:"rules"`
+	SelectionMode   string                    `json:"selection_mode"`
+	Complete        bool                      `json:"complete"`
+	NoGate          bool                      `json:"no_gate"`
+	IncludeSource   bool                      `json:"include_source"`
+	SkippedRules    []string                  `json:"skipped_rules"`
 }
 
 // GateReason identifies the exact local condition behind a policy failure.

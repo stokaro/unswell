@@ -3,7 +3,6 @@ package command
 
 import (
 	"context"
-	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -13,6 +12,7 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 
 	"github.com/stokaro/unswell"
+	"github.com/stokaro/unswell/internal/appconfig"
 	"github.com/stokaro/unswell/mcp/internal/server"
 )
 
@@ -21,6 +21,8 @@ func Run(ctx context.Context, args []string, stderr io.Writer, transport mcp.Tra
 	flags := flag.NewFlagSet("unswell-mcp", flag.ContinueOnError)
 	flags.SetOutput(stderr)
 	configPath := flags.String("config", "", "explicit Unswell policy file; omitted uses builtin defaults")
+	projectRoot := flags.String("project-root", "", "root for local policy dependencies and logical source names")
+	allowOutside := flags.Bool("allow-config-outside-root", false, "explicitly permit local configuration outside the project root")
 	timeout := flags.Duration("timeout", 30*time.Second, "maximum duration of one check (at most 5m)")
 	version := flags.Bool("version", false, "print version to stderr and exit")
 	if err := flags.Parse(args); err != nil {
@@ -33,32 +35,18 @@ func Run(ctx context.Context, args []string, stderr io.Writer, transport mcp.Tra
 		_, err := fmt.Fprintf(stderr, "unswell-mcp %s (%s)\n", unswell.Version, unswell.BuildCommit)
 		return err
 	}
-	data, err := readPolicy(*configPath)
+	dir, err := os.Getwd()
 	if err != nil {
 		return err
 	}
-	instance, err := server.New(server.Options{Config: data, Timeout: *timeout})
+	loaded, err := appconfig.Load(ctx, appconfig.Options{Dir: dir, Root: *projectRoot, Path: *configPath,
+		AllowOutsideRoot: *allowOutside})
+	if err != nil {
+		return err
+	}
+	instance, err := server.New(server.Options{ConfigBundle: &loaded.Bundle, Timeout: *timeout})
 	if err != nil {
 		return err
 	}
 	return instance.Run(ctx, transport)
-}
-
-func readPolicy(path string) ([]byte, error) {
-	if path == "" {
-		return nil, nil
-	}
-	// #nosec G304 -- Only the operator's explicit startup policy path is read, under a byte limit.
-	file, err := os.Open(path)
-	if err != nil {
-		return nil, err
-	}
-	data, readErr := io.ReadAll(io.LimitReader(file, (1<<20)+1))
-	if err := errors.Join(readErr, file.Close()); err != nil {
-		return nil, err
-	}
-	if len(data) > 1<<20 {
-		return nil, fmt.Errorf("configuration exceeds 1 MiB")
-	}
-	return data, nil
 }

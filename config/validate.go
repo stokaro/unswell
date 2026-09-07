@@ -6,10 +6,14 @@ import (
 	"slices"
 
 	"github.com/stokaro/unswell/extract"
+	"github.com/stokaro/unswell/internal/pathglob"
 	"github.com/stokaro/unswell/rule"
 )
 
 func validate(policy Policy, catalog []rule.Descriptor) error {
+	if err := validateFiles(policy.Files); err != nil {
+		return err
+	}
 	if err := extract.ValidatePolicy(policy.Extraction); err != nil {
 		return err
 	}
@@ -22,6 +26,23 @@ func validate(policy Policy, catalog []rule.Descriptor) error {
 	for _, descriptor := range catalog {
 		if err := validateSettings(policy.Rules[descriptor.ID], descriptor.Parameters); err != nil {
 			return fmt.Errorf("%s: %w", descriptor.ID, err)
+		}
+	}
+	return nil
+}
+
+func validateFiles(files Files) error {
+	for _, patterns := range [][]string{files.Include, files.Exclude} {
+		if len(patterns) > 1000 {
+			return fmt.Errorf("file selection exceeds 1000 patterns")
+		}
+		for _, pattern := range patterns {
+			if err := relativeGlob(pattern); err != nil {
+				return err
+			}
+		}
+		if _, err := pathglob.Compile(patterns); err != nil {
+			return err
 		}
 	}
 	return nil

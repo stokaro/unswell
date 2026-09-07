@@ -103,9 +103,10 @@ bypass recursive include/exclude patterns. Outside Git, directories use a bounde
 filesystem walk. Inputs must remain within the current project root. Symlinks are
 not followed during discovery. Unsupported explicit formats fail.
 
-The CLI reads `.unswell.yaml` in its current project root, or the exact file named
-by `--config`. It reads no home configuration. The alpha accepts one builtin profile
-and explicit rule overrides; local inheritance and file overrides belong to stage 2.
+The CLI reads the nearest `.unswell.yaml` up to the project root, or the exact file
+named by `--config`. It reads no home configuration. Local inheritance, ordered file
+overrides, and shared term dictionaries use one
+[configuration plan](docs/configuration.md) in the CLI, library, and MCP server.
 Add team policies with [custom rule packs](docs/custom-rules.md), load them through
 `--ruleset` or inline `rule_sets`, and execute their examples with `unswell rules test`.
 Select checked contexts globally or per language with the

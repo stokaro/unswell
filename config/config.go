@@ -3,8 +3,6 @@ package config
 
 import (
 	"bytes"
-	"crypto/sha256"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -53,18 +51,23 @@ type Files struct {
 
 // Policy is an effective policy with provenance and a canonical content hash.
 type Policy struct {
-	Version    int                      `json:"version"`
-	Profile    string                   `json:"profile"`
-	Language   string                   `json:"language"`
-	Rules      map[string]rule.Settings `json:"rules"`
-	Gate       Gate                     `json:"gate"`
-	Analysis   Analysis                 `json:"analysis"`
-	Files      Files                    `json:"files"`
-	Extraction extract.Policy           `json:"extraction"`
-	GroupCaps  map[string]int           `json:"group_caps"`
-	Origins    map[string]string        `json:"origins"`
-	Hash       string                   `json:"hash"`
-	RuleSets   []rule.Origin            `json:"rule_sets,omitempty"`
+	Identity         string                   `json:"identity"`
+	Version          int                      `json:"version"`
+	Profile          string                   `json:"profile"`
+	Language         string                   `json:"language"`
+	Rules            map[string]rule.Settings `json:"rules"`
+	Gate             Gate                     `json:"gate"`
+	Analysis         Analysis                 `json:"analysis"`
+	Files            Files                    `json:"files"`
+	Extraction       extract.Policy           `json:"extraction"`
+	GroupCaps        map[string]int           `json:"group_caps"`
+	Origins          map[string]string        `json:"origins"`
+	Hash             string                   `json:"hash"`
+	RuleSets         []rule.Origin            `json:"rule_sets,omitempty"`
+	Vocabulary       Vocabulary               `json:"vocabulary"`
+	Sources          []SourceIdentity         `json:"sources,omitempty"`
+	Overrides        []OverrideIdentity       `json:"overrides,omitempty"`
+	AppliedOverrides []string                 `json:"applied_overrides,omitempty"`
 }
 
 type input struct {
@@ -77,15 +80,17 @@ type input struct {
 	Files       yaml.Node            `yaml:"files"`
 	Extraction  yaml.Node            `yaml:"extraction"`
 	RuleSets    []yaml.Node          `yaml:"rule_sets"`
+	Vocabulary  yaml.Node            `yaml:"vocabulary"`
+	Overrides   []overrideInput      `yaml:"overrides"`
 	Calibration struct {
 		Model          string `yaml:"model"`
 		OnIncompatible string `yaml:"on_incompatible"`
 	} `yaml:"calibration"`
 }
 
-// Load returns a fully validated policy. Alpha extends accepts versioned builtin
-// profiles only; local inheritance and file overrides are reserved for stage 2.
-// Use Compile when the caller also needs implementations from inline rule_sets.
+// Load returns the base policy for a single in-memory configuration. Use
+// CompileBundle for local dependencies and per-file resolution, or Compile when
+// the caller also needs implementations from inline rule_sets.
 func Load(data []byte, catalog []rule.Descriptor) (Policy, error) {
 	policy, _, err := Compile(data, catalog)
 	return policy, err
@@ -95,52 +100,12 @@ func Load(data []byte, catalog []rule.Descriptor) (Policy, error) {
 // The caller supplies the existing catalog; duplicate IDs always fail. All input
 // and ruleset definitions are bytes in memory, with no implicit file loading.
 func Compile(data []byte, catalog []rule.Descriptor) (Policy, []rule.Rule, error) {
-	raw, err := loadInput(data)
+	plan, additional, err := CompileBundle(Bundle{Root: ".unswell.yaml", Files: map[string][]byte{".unswell.yaml": data}}, catalog)
 	if err != nil {
 		return Policy{}, nil, err
 	}
-	additional, err := compileRuleSets(raw.RuleSets)
-	if err != nil {
-		return Policy{}, nil, err
-	}
-	catalog = slices.Clone(catalog)
-	for _, implementation := range additional {
-		catalog = append(catalog, implementation.Descriptor())
-	}
-	if len(catalog) > 1000 {
-		return Policy{}, nil, fmt.Errorf("catalog exceeds 1000 rules")
-	}
-	policy, err := compilePolicy(raw, catalog)
+	policy, err := plan.Policy()
 	return policy, additional, err
-}
-
-func compilePolicy(raw input, catalog []rule.Descriptor) (Policy, error) {
-	profile, err := resolveProfile(raw.Extends)
-	if err != nil {
-		return Policy{}, err
-	}
-	policy, err := defaults(profile, catalog)
-	if err != nil {
-		return Policy{}, err
-	}
-	policy.RuleSets = catalogOrigins(catalog)
-	if err := applyNodes(raw, &policy, catalog); err != nil {
-		return Policy{}, err
-	}
-	if err := validate(policy, catalog); err != nil {
-		return Policy{}, err
-	}
-	slices.Sort(policy.Extraction.Contexts)
-	for format, override := range policy.Extraction.Languages {
-		slices.Sort(override.Contexts)
-		policy.Extraction.Languages[format] = override
-	}
-	canonical, err := json.Marshal(policy)
-	if err != nil {
-		return Policy{}, err
-	}
-	policy.Hash = fmt.Sprintf("%x", sha256.Sum256(canonical))
-	return policy, nil
 }
 
 func compileRuleSets(nodes []yaml.Node) ([]rule.Rule, error) {
@@ -182,10 +147,23 @@ func loadInput(data []byte) (input, error) {
 	}
 	if len(bytes.TrimSpace(data)) == 0 {
 		raw.Version = 1
-	} else if err := decode(data, &raw); err != nil {
+		return raw, nil
+	}
+	if err := validateYAML(data); err != nil {
+		return raw, err
+	}
+	if err := decode(data, &raw); err != nil {
 		return raw, err
 	}
 	return raw, validateInput(raw)
+}
+
+func validateYAML(data []byte) error {
+	var node yaml.Node
+	if err := decode(data, &node); err != nil {
+		return err
+	}
+	return rejectAliasesAndNull(&node, 0)
 }
 
 func validateInput(raw input) error {
@@ -240,6 +218,7 @@ func resolveProfile(extends []string) (string, error) {
 
 func defaults(profile string, catalog []rule.Descriptor) (Policy, error) {
 	policy := Policy{
+		Identity:   "unswell-config-bundle-v1",
 		Version:    1,
 		Profile:    profile + "-v1",
 		Language:   "en",
@@ -377,7 +356,8 @@ func applyPolicyNodes(raw input, policy *Policy) error {
 	for _, item := range []struct {
 		node   yaml.Node
 		target any
-	}{{raw.Gate, &policy.Gate}, {raw.Analysis, &policy.Analysis}, {raw.Files, &policy.Files}, {raw.Extraction, &policy.Extraction}} {
+	}{{raw.Gate, &policy.Gate}, {raw.Analysis, &policy.Analysis}, {raw.Files, &policy.Files}, {raw.Extraction, &policy.Extraction},
+		{raw.Vocabulary, &policy.Vocabulary}} {
 		if item.node.Kind != 0 {
 			if err := mergeNode(item.node, item.target); err != nil {
 				return err
@@ -391,11 +371,33 @@ func mergeNode(node yaml.Node, target any) error {
 	if err := rejectAliasesAndNull(&node, 0); err != nil {
 		return err
 	}
-	data, err := yaml.Marshal(node)
+	var base yaml.Node
+	if err := base.Encode(target); err != nil {
+		return err
+	}
+	mergeMapping(&base, node)
+	data, err := yaml.Marshal(base)
 	if err != nil {
 		return err
 	}
 	return decode(data, target)
+}
+
+// mergeMapping preserves map entries recursively; scalars and lists replace.
+func mergeMapping(base *yaml.Node, overlay yaml.Node) {
+	if base.Kind != yaml.MappingNode || overlay.Kind != yaml.MappingNode {
+		*base = overlay
+		return
+	}
+	for i := 0; i+1 < len(overlay.Content); i += 2 {
+		key, value := overlay.Content[i], overlay.Content[i+1]
+		old := nodeField(*base, key.Value)
+		if old == nil {
+			base.Content = append(base.Content, key, value)
+		} else {
+			mergeMapping(old, *value)
+		}
+	}
 }
 
 func rejectAliasesAndNull(node *yaml.Node, depth int) error {
@@ -405,10 +407,30 @@ func rejectAliasesAndNull(node *yaml.Node, depth int) error {
 	if node.Kind == yaml.AliasNode || node.Tag == "!!null" {
 		return fmt.Errorf("YAML aliases and null overrides are not supported")
 	}
+	if node.Kind == yaml.MappingNode {
+		if err := validateMappingKeys(node); err != nil {
+			return err
+		}
+	}
 	for _, child := range node.Content {
 		if err := rejectAliasesAndNull(child, depth+1); err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
+func validateMappingKeys(node *yaml.Node) error {
+	seen := make(map[string]bool)
+	for i := 0; i+1 < len(node.Content); i += 2 {
+		key := node.Content[i]
+		if key.Kind != yaml.ScalarNode || key.Tag != "!!str" {
+			return fmt.Errorf("configuration mapping keys must be strings")
+		}
+		if seen[key.Value] {
+			return fmt.Errorf("duplicate configuration key %q", key.Value)
+		}
+		seen[key.Value] = true
 	}
 	return nil
 }
