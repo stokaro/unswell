@@ -13,10 +13,31 @@ type Format string
 
 // Supported formats never execute the source.
 const (
-	Plain    Format = "text"
-	Markdown Format = "markdown"
-	Go       Format = "go"
+	Plain      Format = "text"
+	Markdown   Format = "markdown"
+	Go         Format = "go"
+	JavaScript Format = "javascript"
+	TypeScript Format = "typescript"
+	TSX        Format = "tsx"
+	Python     Format = "python"
+	Rust       Format = "rust"
+	Java       Format = "java"
+	C          Format = "c"
+	CPP        Format = "cpp"
+	CSharp     Format = "csharp"
+	YAML       Format = "yaml"
+	Bash       Format = "bash"
+	Shell      Format = "sh"
+	Zsh        Format = "zsh"
+	Fish       Format = "fish"
+	PowerShell Format = "powershell"
 )
+
+// Formats returns the supported syntax names in a stable order.
+func Formats() []Format {
+	return []Format{Plain, Markdown, Go, JavaScript, TypeScript, TSX, Python, Rust, Java, C, CPP,
+		CSharp, YAML, Bash, Shell, Zsh, Fish, PowerShell}
+}
 
 // Source contains UTF-8 bytes owned by the caller. Do not mutate them during analysis.
 type Source struct {

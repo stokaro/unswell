@@ -85,9 +85,12 @@ reduce another paragraph's score. The tool makes no authorship or factuality cla
 
 ## Input and configuration
 
-Supported inputs are `.txt`, Markdown with common GFM constructs, and Go comments.
-For stdin, provide `--filename` or a supported `--format`. Source coordinates use
-original UTF-8 byte ranges and one-based Unicode code point columns.
+Inputs include plain text, Markdown/GFM, and comments and string literals in Go,
+JavaScript, TypeScript/TSX, Python, Rust, Java, C/C++, C#, YAML, Bash/POSIX sh, Zsh's common
+shell syntax, Fish and PowerShell. Markdown uses block and inline grammars.
+See [formats and extraction limits](docs/inputs.md) for extensions and dialect details.
+For stdin, provide `--filename` or a supported `--format`. Coordinates use original
+UTF-8 byte ranges and one-based Unicode code point columns.
 
 Recursive Git scans select tracked files. Explicit files may be untracked and
 bypass recursive include/exclude patterns. Outside Git, directories use a bounded
@@ -97,6 +100,10 @@ not followed during discovery. Unsupported explicit formats fail.
 The CLI reads `.unswell.yaml` in its current project root, or the exact file named
 by `--config`. It reads no home configuration. The alpha accepts one builtin profile
 and explicit rule overrides; local inheritance and file overrides belong to stage 2.
+Select checked contexts globally or per language with the
+[extraction policy](docs/extraction-policy.md). Use reasoned exceptions for intentional
+examples, dictionaries and other text that should remain outside an editorial check.
+Exceptions can select paths, languages, comments or strings, and named string owners.
 
 ```yaml
 version: 1
@@ -143,12 +150,15 @@ ownership contracts. Go rules are trusted code and must support concurrent calls
 
 ## Development and limits
 
-Unswell checks its own README, documentation and Go comments with the committed
+Unswell checks its own README, documentation, Go code and Bash scripts with the committed
 [strict repository policy](.unswell.yaml). Run `make dogfood`, or `make check` for
 all checks. CI runs the same gate and uploads all five report formats. A negative
 CLI probe must fail with exit code 1, proving the policy is active. Third-party
 licenses and test-data documents are outside this editorial policy; inline code
 and fenced examples use the normal extractor's protected boundaries.
+The policy excludes deliberate fixture strings and catalog data with recorded reasons.
+Comments and runtime strings remain checked. Bash also passes syntax, ShellCheck
+and shfmt checks, including negative probes for each gate.
 
 The [roadmap](docs/roadmap.md) preserves the remaining requirements: the custom
 rule DSL, full suppressions, baseline, committed changed-unit checks, trusted

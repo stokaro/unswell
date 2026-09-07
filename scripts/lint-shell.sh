@@ -13,8 +13,8 @@ else
   }
 fi
 expected=$(cat .shellcheck-version)
-installed=$("$checker" --version)
-if [[ "$installed" != *"version: $expected"$'\n'* && "$installed" != *"version: $expected" ]]; then
+installed=$("$checker" --version | sed -n 's/^version: //p')
+if [[ "$installed" != "$expected" ]]; then
   printf 'ShellCheck %s is required; run bash scripts/setup-shellcheck.sh.\n' "$expected" >&2
   exit 1
 fi
@@ -61,6 +61,7 @@ fi
 # Include new scripts before they are staged; honor Git ignores and retain spaces.
 git ls-files --cached --others --exclude-standard -z >"$temporary/files"
 scripts=()
+bash_shebang='(^|[[:space:]/])bash([[:space:]]|$)'
 while IFS= read -r -d '' file; do
   [[ -f "$file" ]] || continue
   case "$file" in
@@ -68,7 +69,7 @@ while IFS= read -r -d '' file; do
     *)
       first_line=
       IFS= read -r first_line <"$file" || true
-      if [[ "$first_line" == '#!'* && "$first_line" =~ (^|[[:space:]/])bash([[:space:]]|$) ]]; then
+      if [[ "$first_line" == '#!'* && "$first_line" =~ $bash_shebang ]]; then
         scripts+=("$file")
       fi
       ;;

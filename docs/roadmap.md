@@ -14,8 +14,15 @@ real data; implementation alone cannot satisfy those requirements.
 | --- | --- |
 | [#5](https://github.com/stokaro/unswell/issues/5) | Alpha: enforce Bash syntax, ShellCheck and shfmt in CI |
 | [#6](https://github.com/stokaro/unswell/issues/6) | Alpha: parse source languages and Markdown with gotreesitter |
-| [#7](https://github.com/stokaro/unswell/issues/7) | Alpha: configure exclusions for comments and string literals |
+| [#7](https://github.com/stokaro/unswell/issues/7) | Alpha: select prose contexts globally and per language with reasoned exceptions |
 | [#8](https://github.com/stokaro/unswell/issues/8) | Alpha: document the AI-style reduction motivation and workflows |
+| [#32](https://github.com/stokaro/unswell/issues/32) | MCP: expose offline self-checking through the shared engine |
+| [#33](https://github.com/stokaro/unswell/issues/33) | MCP: prove agent self-checking and repository dogfooding |
+| [#34](https://github.com/stokaro/unswell/issues/34) | Containers: publish a standalone Unswell CLI image |
+| [#35](https://github.com/stokaro/unswell/issues/35) | Containers: publish a separate Unswell MCP image |
+| [#36](https://github.com/stokaro/unswell/issues/36) | MCP Registry: publish and verify the Unswell server |
+| [#37](https://github.com/stokaro/unswell/issues/37) | Distribution: publish and verify a dedicated Homebrew tap |
+| [#38](https://github.com/stokaro/unswell/issues/38) | Distribution: publish and verify the Unswell GitHub Action |
 | [#9](https://github.com/stokaro/unswell/issues/9) | Alpha: verify and publish the first prerelease |
 | [#10](https://github.com/stokaro/unswell/issues/10) | Stage 2: add the bounded custom rule DSL |
 | [#11](https://github.com/stokaro/unswell/issues/11) | Stage 2: add local inheritance, file overrides and terminology |
@@ -46,7 +53,7 @@ real data; implementation alone cannot satisfy those requirements.
 | Public repository and project setup | Public GitHub state; license, contribution and security guidance; protected main; pinned CI and tools |
 | Standalone public Go API | External consumer module analyzes bytes, registers a custom rule, writes JSON, and passes CI |
 | Pure Go offline runtime | Native tests and `CGO_ENABLED=0` release builds; dependency and model notices |
-| Source mapping | Exact UTF-8 spans for Markdown, GFM, Go comments, CRLF, BOM, Unicode, entities, escapes, and emphasis |
+| Source mapping | Exact UTF-8 spans for Markdown, GFM, comments and string literals, CRLF, BOM, Unicode, entities, escapes, and emphasis |
 | NLP baseline | Tokens, sentences, Penn Treebank POS, tested NP/VP/PP chunks; capability failures; backend comparison ADR |
 | Required 16-rule catalog | Executable positive, negative, boundary and technical-prose examples; no unsupported quality claims |
 | Index and local gate | Fixed-point trace, correlated-evidence and group caps, nondilution, threshold diagnostics, independent severity |
@@ -57,7 +64,7 @@ real data; implementation alone cannot satisfy those requirements.
 | Determinism and ownership | Reordered inputs, worker counts and concurrent calls return equivalent results without shared result buffers |
 | Project quality | Strict lint, qtlint, nolintguard, architecture/API/module gates and their negative tests; reproducible `make check` |
 | Native platforms and release | Linux/macOS/Windows test results, minimum Go compiler without auto-upgrade, release binaries, checksums and SBOM |
-| Dogfooding | The built CLI checks owned Markdown and Go comments with the committed strict policy; CI retains reports and proves a negative case fails |
+| Dogfooding | The built CLI checks owned Markdown, Go code and Bash scripts with the committed strict policy; CI retains reports and proves a negative case fails |
 
 Acceptance is unproven until the listed evidence exists for the released commit.
 Passing a subset of local unit tests does not establish release readiness.

@@ -12,6 +12,7 @@ import (
 	"github.com/stokaro/unswell/builtin"
 	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/extract"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -132,11 +133,11 @@ func stdinSource(environment Environment, options checkOptions, limit int) (docu
 	if name == "" {
 		name = "stdin"
 	}
-	format, err := inputFormat(name, options.format)
+	data, err := io.ReadAll(io.LimitReader(environment.In, int64(limit)+1))
 	if err != nil {
 		return document.Source{}, err
 	}
-	data, err := io.ReadAll(io.LimitReader(environment.In, int64(limit)+1))
+	format, err := inputFormat(name, options.format, data)
 	return document.Source{Name: name, Format: format, Bytes: data}, err
 }
 
@@ -153,11 +154,11 @@ func readSources(
 		if err := ctx.Err(); err != nil {
 			return nil, err
 		}
-		format, err := inputFormat(path, options.format)
+		data, err := readLimited(path, policy.Analysis.MaxFileBytes)
 		if err != nil {
 			return nil, err
 		}
-		data, err := readLimited(path, policy.Analysis.MaxFileBytes)
+		format, err := inputFormat(path, options.format, data)
 		if err != nil {
 			return nil, err
 		}
@@ -174,21 +175,16 @@ func readSources(
 	return sources, nil
 }
 
-func inputFormat(name, explicit string) (document.Format, error) {
+func inputFormat(name, explicit string, source []byte) (document.Format, error) {
 	if explicit != "" {
 		format := document.Format(explicit)
-		if format != document.Plain && format != document.Markdown && format != document.Go {
+		if !slices.Contains(document.Formats(), format) {
 			return "", fmt.Errorf("unsupported input format %q", explicit)
 		}
 		return format, nil
 	}
-	switch filepath.Ext(name) {
-	case ".md":
-		return document.Markdown, nil
-	case ".txt":
-		return document.Plain, nil
-	case ".go":
-		return document.Go, nil
+	if format, ok := extract.Detect(name, source); ok {
+		return format, nil
 	}
 	return "", fmt.Errorf("unsupported input extension for %q; specify a supported --format", name)
 }

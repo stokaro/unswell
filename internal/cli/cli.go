@@ -130,7 +130,8 @@ func checkCommand(environment Environment, code *int) *cobra.Command {
 	flags.StringVar(&options.profile, "profile", "", "Select a builtin profile (cannot be combined with a config file)")
 	flags.BoolVar(&options.stdin, "stdin", false, "Read source bytes from stdin")
 	flags.StringVar(&options.filename, "filename", "", "Logical filename for stdin")
-	flags.StringVar(&options.format, "format", "", "Explicit input format: text, markdown, go")
+	flags.StringVar(&options.format, "format", "", "Input syntax: text, markdown, go, javascript, typescript, tsx, "+
+		"python, rust, java, c, cpp, csharp, yaml, bash, sh, zsh, fish, powershell")
 	flags.StringArrayVar(&options.reports, "report", nil, "Report format:path; repeat for one analysis and multiple reports")
 	flags.IntVar(&options.jobs, "jobs", 1, "Concurrent source workers (1–64)")
 	flags.DurationVar(&options.timeout, "timeout", 30*time.Second, "Analysis timeout")

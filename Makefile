@@ -48,4 +48,4 @@ release:
 	bash scripts/release.sh
 
 fmt:
-	cd tools && go tool golangci-lint fmt --config ../.golangci.yml ..
+	@formatter=$$(cd tools && go tool -n golangci-lint); "$$formatter" fmt --config .golangci.yml ./...

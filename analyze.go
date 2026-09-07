@@ -23,6 +23,7 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source) (Run
 			IncludeQuotes: e.policy.Analysis.IncludeQuotes,
 			MaxBytes:      e.policy.Analysis.MaxFileBytes,
 			MaxBlocks:     e.policy.Analysis.MaxBlocks,
+			Policy:        e.policy.Extraction,
 		},
 	)
 	if err != nil {

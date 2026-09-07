@@ -1,4 +1,4 @@
-// Package extract provides source-preserving text, Markdown, and Go extractors.
+// Package extract provides source-preserving prose extraction from text and syntax trees.
 package extract
 
 import (
@@ -18,6 +18,7 @@ type Options struct {
 	IncludeQuotes bool
 	MaxBytes      int
 	MaxBlocks     int
+	Policy        Policy
 }
 
 // Parse extracts prose without changing or retaining the caller's input buffer.
@@ -27,6 +28,9 @@ func Parse(ctx context.Context, src document.Source, options Options) (document.
 		return doc, err
 	}
 	options = defaultOptions(options)
+	if err := ValidatePolicy(options.Policy); err != nil {
+		return doc, err
+	}
 	if err := validateSource(src, options); err != nil {
 		return doc, err
 	}
@@ -38,14 +42,17 @@ func Parse(ctx context.Context, src document.Source, options Options) (document.
 		plain(&doc, 0, len(src.Bytes), "paragraph")
 	case document.Markdown:
 		err = markdown(ctx, &doc, options)
-	case document.Go:
-		err = goComments(ctx, &doc, options)
+	case document.Go, document.JavaScript, document.TypeScript, document.TSX, document.Python,
+		document.Rust, document.Java, document.C, document.CPP, document.Bash, document.Shell,
+		document.Zsh, document.Fish, document.PowerShell, document.CSharp, document.YAML:
+		err = sourceProse(ctx, &doc, options)
 	default:
 		err = fmt.Errorf("unsupported input format %q", src.Format)
 	}
 	if err != nil {
 		return doc, err
 	}
+	filterContexts(&doc, options.Policy)
 	if len(doc.Blocks) > options.MaxBlocks {
 		return doc, fmt.Errorf("source exceeds %d prose blocks", options.MaxBlocks)
 	}

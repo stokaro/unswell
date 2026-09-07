@@ -13,6 +13,7 @@ import (
 	"strings"
 
 	"github.com/stokaro/unswell/config"
+	"github.com/stokaro/unswell/internal/pathglob"
 )
 
 func discover(ctx context.Context, root string, args []string, files config.Files) ([]string, string, error) {
@@ -175,28 +176,11 @@ func eligiblePath(name string, include, exclude []*regexp.Regexp) bool {
 }
 
 func compileGlobs(patterns []string) ([]*regexp.Regexp, error) {
-	result := make([]*regexp.Regexp, 0, len(patterns))
-	for _, pattern := range patterns {
-		if len(pattern) > 500 || strings.ContainsAny(pattern, "[]{}\\") {
-			return nil, fmt.Errorf("unsupported glob %q; use *, **, and ?", pattern)
-		}
-		expression := globExpression(pattern)
-		compiled, err := regexp.Compile(expression)
-		if err != nil {
-			return nil, err
-		}
-		result = append(result, compiled)
-	}
-	return result, nil
+	return pathglob.Compile(patterns)
 }
 
 func matchesGlobs(name string, patterns []*regexp.Regexp) bool {
-	for _, pattern := range patterns {
-		if pattern.MatchString(name) {
-			return true
-		}
-	}
-	return false
+	return pathglob.Matches(name, patterns)
 }
 
 type sourceSelection struct {
@@ -239,37 +223,6 @@ func (s sourceSelection) argument(ctx context.Context, arg string) error {
 		return err
 	}
 	return nil
-}
-
-func globExpression(pattern string) string {
-	var expression strings.Builder
-	expression.WriteByte('^')
-	for i := 0; i < len(pattern); i++ {
-		switch pattern[i] {
-		case '*':
-			fragment, end := globStar(pattern, i)
-			expression.WriteString(fragment)
-			i = end
-		case '?':
-			expression.WriteString("[^/]")
-		default:
-			expression.WriteString(regexp.QuoteMeta(pattern[i : i+1]))
-		}
-	}
-
-	expression.WriteByte('$')
-	return expression.String()
-}
-
-func globStar(pattern string, index int) (string, int) {
-	if index+1 >= len(pattern) || pattern[index+1] != '*' {
-		return "[^/]*", index
-	}
-	index++
-	if index+1 < len(pattern) && pattern[index+1] == '/' {
-		return "(?:.*/)?", index + 1
-	}
-	return ".*", index
 }
 
 func escapesRoot(relative string) bool {

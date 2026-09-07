@@ -6,6 +6,9 @@ files:
     - "*.md"
     - "docs/**/*.md"
     - "**/*.go"
+    - "scripts/**/*.sh"
+    - "**/*.yaml"
+    - "**/*.yml"
   exclude:
     - ".git/**"
     - "vendor/**"
@@ -13,5 +16,27 @@ files:
     - "**/testdata/**"
     - "artifacts/**"
     - "dist/**"
+extraction:
+  contexts: [comment, string, paragraph, heading, list-item, table-cell]
+  exceptions:
+    - id: regression-inputs
+      paths: ["**/*_test.go"]
+      kinds: [string]
+      reason: "Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+    - id: phrase-catalog
+      paths: ["builtin/phrase.go"]
+      kinds: [string]
+      symbols: [definitions]
+      reason: "The phrase catalog stores the wording that the rules must detect."
+    - id: rule-examples
+      paths: ["builtin/context.go", "builtin/repetition.go"]
+      kinds: [string]
+      symbols: [Text]
+      reason: "Executable rule examples contain both matching and nonmatching prose."
+    - id: shell-gate-fixture
+      paths: ["scripts/dogfood.sh"]
+      kinds: [string]
+      symbols: [negative_prose]
+      reason: "The shell probe supplies a deliberate violation to verify the project policy."
 calibration:
   model: none
