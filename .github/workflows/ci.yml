@@ -41,6 +41,8 @@ jobs:
         with:
           go-version-file: tools/go.mod
           cache-dependency-path: '**/go.sum'
+      - name: Install pinned ShellCheck
+        run: bash scripts/setup-shellcheck.sh
       - run: make check
       - run: make race
       - run: make fuzz

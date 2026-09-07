@@ -4,6 +4,41 @@ The September 7, 2026 technical specification defines five stages. The requested
 first alpha implements stages 0 and 1. Later stages remain product requirements;
 the alpha does not claim completion of the full product specification.
 
+## Issue queue
+
+Work proceeds in the order below. An issue is complete only after its acceptance
+evidence passes on the merged commit. Human annotation and measured quality require
+real data; implementation alone cannot satisfy those requirements.
+
+| Issue | Work |
+| --- | --- |
+| [#5](https://github.com/stokaro/unswell/issues/5) | Alpha: enforce Bash syntax, ShellCheck and shfmt in CI |
+| [#6](https://github.com/stokaro/unswell/issues/6) | Alpha: parse source languages and Markdown with gotreesitter |
+| [#7](https://github.com/stokaro/unswell/issues/7) | Alpha: configure exclusions for comments and string literals |
+| [#8](https://github.com/stokaro/unswell/issues/8) | Alpha: document the AI-style reduction motivation and workflows |
+| [#9](https://github.com/stokaro/unswell/issues/9) | Alpha: verify and publish the first prerelease |
+| [#10](https://github.com/stokaro/unswell/issues/10) | Stage 2: add the bounded custom rule DSL |
+| [#11](https://github.com/stokaro/unswell/issues/11) | Stage 2: add local inheritance, file overrides and terminology |
+| [#12](https://github.com/stokaro/unswell/issues/12) | Stage 2: add reasoned structural suppressions |
+| [#13](https://github.com/stokaro/unswell/issues/13) | Stage 2: add explicit baseline debt management |
+| [#14](https://github.com/stokaro/unswell/issues/14) | Stage 2: analyze committed changes with full paragraph context |
+| [#15](https://github.com/stokaro/unswell/issues/15) | Stage 2: enforce trusted base policy in change checks |
+| [#16](https://github.com/stokaro/unswell/issues/16) | Stage 2: add a public go/analysis adapter |
+| [#17](https://github.com/stokaro/unswell/issues/17) | Stage 2: expand filler, hype and rhetorical signals |
+| [#18](https://github.com/stokaro/unswell/issues/18) | Stage 2: expand repetition beyond sentences |
+| [#19](https://github.com/stokaro/unswell/issues/19) | Stage 2: add surface syntax and readability signals |
+| [#20](https://github.com/stokaro/unswell/issues/20) | NLP: evaluate a real dependency backend and capability contract |
+| [#21](https://github.com/stokaro/unswell/issues/21) | Stage 3: define the editorial annotation and data protocol |
+| [#22](https://github.com/stokaro/unswell/issues/22) | Stage 3: collect and validate the human-labeled corpus |
+| [#23](https://github.com/stokaro/unswell/issues/23) | Stage 3: implement reproducible Go training and calibration |
+| [#24](https://github.com/stokaro/unswell/issues/24) | Stage 3: add probability applicability and calibrated gating |
+| [#25](https://github.com/stokaro/unswell/issues/25) | Stage 3: publish held-out probability evaluation |
+| [#26](https://github.com/stokaro/unswell/issues/26) | Stage 4: qualify stable rules against a real corpus |
+| [#27](https://github.com/stokaro/unswell/issues/27) | Stage 4: meet coverage and failure-path acceptance |
+| [#28](https://github.com/stokaro/unswell/issues/28) | Stage 4: establish reproducible performance and resource limits |
+| [#29](https://github.com/stokaro/unswell/issues/29) | Stage 4: verify SARIF consumers and reproducible release artifacts |
+| [#30](https://github.com/stokaro/unswell/issues/30) | Stage 4: close the product documentation and acceptance audit |
+
 ## Alpha acceptance: stages 0 and 1
 
 | Requirement | Evidence required before release |
