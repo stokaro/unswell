@@ -42,6 +42,10 @@ check context replacement, reasoned symbol exceptions, and directory exclusions.
 Process cases cover stdin, malformed and empty input, invalid configuration, and
 `--no-gate`. Exit codes 0, 1, and 2 are explicit expectations.
 
+The [empty table cells](testdata/markdown_empty_cells/sample.md.txt) case came from
+the Ptah evaluation. It preserves detections beside empty cells and protected code,
+including Unicode and Markdown emphasis in a file with CRLF and a BOM.
+
 The shared policy limits language-extraction cases to two phrase rules and sets
 chat-preamble matching to sentence starts. The `document_position` case checks its
 document-start setting separately. This suite does not claim every catalog rule or
