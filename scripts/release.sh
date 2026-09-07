@@ -36,7 +36,8 @@ for platform in linux darwin windows; do
       -ldflags "-s -w -X github.com/stokaro/unswell.BuildCommit=$commit" \
       -o "$package/$binary" ./cmd/unswell
     CGO_ENABLED=0 GOOS="$platform" GOARCH="$architecture" "$sbom" app -json -licenses -std \
-      -noserial -notimestamp -main cmd/unswell -output "dist/$name.cdx.json" .
+      -noserial -notimestamp -main cmd/unswell -output "$temporary/$name.raw.cdx.json" .
+    bash scripts/prepare-sbom.sh "$temporary/$name.raw.cdx.json" "dist/$name.cdx.json"
     cp LICENSE THIRD_PARTY_NOTICES.md "$package/"
     cp -R licenses "$package/"
     if [[ "$platform" == windows ]]; then
