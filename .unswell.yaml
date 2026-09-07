@@ -1,0 +1,17 @@
+version: 1
+extends: [builtin:strict-v1]
+language: en
+files:
+  include:
+    - "*.md"
+    - "docs/**/*.md"
+    - "**/*.go"
+  exclude:
+    - ".git/**"
+    - "vendor/**"
+    - "licenses/**"
+    - "**/testdata/**"
+    - "artifacts/**"
+    - "dist/**"
+calibration:
+  model: none

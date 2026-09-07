@@ -117,6 +117,9 @@ func verdict(result unswell.RunResult) string {
 
 func terminal(text string) string {
 	return strings.Map(func(r rune) rune {
+		if r == '\n' || r == '\r' || r == '\t' {
+			return ' '
+		}
 		if unicode.IsControl(r) {
 			return '�'
 		}

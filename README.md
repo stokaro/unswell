@@ -135,6 +135,13 @@ ownership contracts. Go rules are trusted code and must support concurrent calls
 
 ## Development and limits
 
+Unswell checks its own README, documentation and Go comments with the committed
+[strict repository policy](.unswell.yaml). Run `make dogfood`, or `make check` for
+all checks. CI runs the same gate and uploads all five report formats. A negative
+CLI probe must fail with exit code 1, proving the policy is active. Third-party
+licenses and test-data documents are outside this editorial policy; inline code
+and fenced examples use the normal extractor's protected boundaries.
+
 The [roadmap](docs/roadmap.md) preserves the remaining requirements: the custom
 rule DSL, full suppressions, baseline, committed changed-unit checks, trusted
 policy comparison, Go analysis integration and calibrated revision probabilities.

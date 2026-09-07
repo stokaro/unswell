@@ -4,6 +4,13 @@ cd "$(dirname "$0")/.."
 version=$(sed -n 's/^const Version = "\(.*\)"/\1/p' result.go)
 [[ -n "$version" ]] || { printf 'Missing release version\n' >&2; exit 1; }
 commit=$(git rev-parse HEAD)
+release_go=$(awk '/^toolchain / {print $2}' tools/go.mod)
+if [[ "$(go env GOVERSION)" != "$release_go" ]]; then
+  printf 'Release builds require %s from tools/go.mod.\n' "$release_go" >&2; exit 1
+fi
+if compgen -G 'dist/*' > /dev/null; then
+  printf 'dist must be empty before a release build; preserve or remove old artifacts first.\n' >&2; exit 1
+fi
 if [[ -n "${RELEASE_TAG:-}" && "$RELEASE_TAG" != "v$version" ]]; then
   printf 'Release tag and source version disagree\n' >&2; exit 1
 fi

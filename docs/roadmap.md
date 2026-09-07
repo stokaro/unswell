@@ -22,6 +22,7 @@ the alpha does not claim completion of the full product specification.
 | Determinism and ownership | Reordered inputs, worker counts and concurrent calls return equivalent results without shared result buffers |
 | Project quality | Strict lint, qtlint, nolintguard, architecture/API/module gates and their negative tests; reproducible `make check` |
 | Native platforms and release | Linux/macOS/Windows test results, minimum Go compiler without auto-upgrade, release binaries, checksums and SBOM |
+| Dogfooding | The built CLI checks owned Markdown and Go comments with the committed strict policy; CI retains reports and proves a negative case fails |
 
 Acceptance is unproven until the listed evidence exists for the released commit.
 Passing a subset of local unit tests does not establish release readiness.

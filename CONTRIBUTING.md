@@ -6,6 +6,11 @@ changes also require `make race`. CI tests the minimum compiler from `go.mod` on
 Linux, macOS, and Windows with automatic toolchain upgrades disabled. Tools have
 their own pinned module and compiler requirements.
 
+`make check` includes `make dogfood`: the just-built CLI checks this repository
+using `.unswell.yaml`. Edit the prose when a finding is valid. Investigate a false
+positive with a realistic regression case; do not disable a rule just to make CI
+green. Reports are written to `artifacts/dogfood/` for inspection.
+
 Add every Go module to `.gomodules` with its role. Add every public package to
 `docs/public_api.md`. Keep library code independent of the CLI, environment,
 filesystem discovery, network, and process execution. Repository policy tests
@@ -23,6 +28,8 @@ that history with its reviewed snapshot. Do not update snapshots to conceal a br
 Release tags are immutable. Release preparation requires green checks for the
 exact commit, an updated changelog, license notices, and reviewed artifacts. The
 release workflow runs the native and quality checks again before publishing.
+Release builds use the pinned `toolchain` from `tools/go.mod` and require an empty
+`dist/` directory. The runtime's minimum compiler remains independently tested.
 
 Pull requests can modify their own workflow. Branch protection and a maintainer's
 review are the trust boundary; repository scripts cannot prevent an authorized

@@ -4,6 +4,7 @@ The release executable includes the following modules on one or more supported
 platforms. Original notices are reproduced in `licenses/` and packaged with every
 binary archive. Tool dependencies are isolated in `tools/go.mod` and are not
 included in the runtime. The per-platform CycloneDX SBOM records build selection.
+The Go runtime and standard library's BSD notice is in [licenses/go_LICENSE](licenses/go_LICENSE).
 
 | Module | Version | Upstream notices |
 | --- | --- | --- |
