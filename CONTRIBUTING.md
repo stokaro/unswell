@@ -13,13 +13,14 @@ It discovers tracked and new Bash scripts, including scripts without extensions.
 ShellCheck also checks for hidden command failures and suppressed `set -e` behavior.
 The gate rejects missing tools and proves it catches three deliberately bad scripts.
 To format scripts, use the pinned executable from `cd tools && go tool -n shfmt`
-with `-w -ln bash -i 2 -ci`. Shell text extraction for Unswell dogfooding is tracked
-in [issue #6](https://github.com/stokaro/unswell/issues/6).
+with `-w -ln bash -i 2 -ci`. Shell comments and quoted strings also pass the
+grammar-based prose check with the committed extraction policy.
 
-`make check` includes `make dogfood`: the just-built CLI checks this repository
+`make check` includes `make dogfood-mcp`: the just-built CLI checks this repository
 using `.unswell.yaml`. Edit the prose when a finding is valid. Investigate a false
 positive with a realistic regression case; do not disable a rule just to make CI
-green. Reports are written to `artifacts/dogfood/` for inspection.
+green. A real MCP client checks the same bytes and compares complete results, then
+verifies failure and rewrite probes. Reports are written to `artifacts/dogfood/`.
 
 Add every Go module to `.gomodules` with its role. Add every public package to
 `docs/public_api.md`. Keep library code independent of the CLI, environment,
@@ -37,9 +38,11 @@ that history with its reviewed snapshot. Do not update snapshots to conceal a br
 
 Release tags are immutable. Release preparation requires green checks for the
 exact commit, an updated changelog, license notices, and reviewed artifacts. The
-release workflow runs the native and quality checks again before publishing.
+release workflow runs native, quality and container checks before publishing.
 Release builds use the pinned `toolchain` from `tools/go.mod` and require an empty
 `dist/` directory. The runtime's minimum compiler remains independently tested.
+The separate tap and action repositories have their own installation CI. Follow
+[distribution verification](docs/installation.md) before declaring a release ready.
 
 Pull requests can modify their own workflow. Branch protection and a maintainer's
 review are the trust boundary; repository scripts cannot prevent an authorized

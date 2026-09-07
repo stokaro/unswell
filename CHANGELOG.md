@@ -19,6 +19,12 @@ A separate MCP server lets AI assistants check their drafts with the same engine
 and fixed policy. CI compares its results with CLI evidence and checks failure,
 rewrite, cancellation and invalid-input behavior through the official MCP client.
 
+Separate CLI and MCP images support Linux AMD64 and ARM64. Release workflows
+verify public image pulls and publish the stdio MCP package to the official
+MCP Registry. A dedicated Homebrew tap and GitHub Action include installation
+checks and use Unswell to check their own documentation and supported source.
+Public availability is established by the release verification workflows.
+
 This alpha does not provide calibrated probabilities, a rule DSL, suppressions,
 baselines, changed-unit analysis, dependency parsing, or stable-rule precision
 claims. See `docs/roadmap.md` for the remaining specification requirements.

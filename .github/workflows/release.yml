@@ -42,3 +42,27 @@ jobs:
       contents: read
       id-token: write
     uses: ./.github/workflows/publish-mcp.yml
+  action-consumer:
+    name: Published action (${{ matrix.os }})
+    needs: publish
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Check this repository through the public action and release archive
+        id: unswell
+        uses: stokaro/unswell-action@5c4e109d71c1ec16429a62ac1860b97baee3974e
+        with:
+          version: ${{ github.ref_name }}
+          config: .unswell.yaml
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: action-consumer-evidence-${{ matrix.os }}
+          path: |
+            ${{ steps.unswell.outputs.report-json }}
+            ${{ steps.unswell.outputs.report-sarif }}
+          if-no-files-found: error
