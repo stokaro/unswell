@@ -4,15 +4,16 @@ Unswell provides two separate Linux images. Both contain the same engine, Englis
 model and grammars and run without runtime downloads. Release images support
 `linux/amd64` and `linux/arm64`.
 
-| Image | Interface |
-| --- | --- |
-| `ghcr.io/stokaro/unswell` | CLI commands, filesystem discovery and reports |
-| `ghcr.io/stokaro/unswell-mcp` | MCP over stdin/stdout, with source bytes supplied by the client |
+| Interface | GHCR | Docker Hub mirror |
+| --- | --- | --- |
+| CLI commands, filesystem discovery and reports | `ghcr.io/stokaro/unswell` | `docker.io/cabyrc/unswell` |
+| MCP over stdin/stdout, with source bytes supplied by the client | `ghcr.io/stokaro/unswell-mcp` | `docker.io/cabyrc/unswell-mcp` |
 
 The release tag is the version without its leading `v`, such as `0.1.0-alpha.1`.
-These names become installable when the corresponding release workflow succeeds.
-Do not infer publication from the presence of Dockerfiles. Release evidence records
-immutable image digests; pin a digest in reproducible installations.
+Version `0.1.0-alpha.1` is public in both registries. Each mirror preserves the
+GHCR image index, both architectures, and its provenance/SBOM attestations. Release
+evidence records immutable image digests; pin a digest in reproducible installations.
+Either registry name works in the examples below.
 
 ## Run the CLI
 
@@ -81,3 +82,26 @@ for CI, publishes both images with SBOM and provenance attestations, then pulls 
 by digest on fresh runners without registry credentials and repeats the checks.
 Public download or protocol failures stop the archive publication job. Container
 results and immutable image references remain attached to the workflow run.
+
+## Docker Hub mirroring
+
+The release workflow copies the verified GHCR indexes to Docker Hub with pinned
+Skopeo, without rebuilding them. It reads `DOCKER_HUB_USER` and `DOCKER_HUB_TOKEN`
+from repository Actions secrets. The token reaches `skopeo login` through stdin;
+the authfile stays in a temporary container tmpfs. The script removes the container
+and any tool image it had to pull.
+
+The mirror gate fetches both registries anonymously, requires identical index
+bytes, and checks that both Linux architectures and attestations are present.
+Missing, differing, malformed or incomplete indexes fail. The fetched indexes are
+retained as workflow artifacts. Archive publication waits for this gate.
+
+Retry the `Mirror containers to Docker Hub` workflow on `main` with an existing
+image version. Its input accepts the version with or without a leading `v`.
+To check the current public mirrors without credentials or a Docker daemon:
+
+```sh
+bash scripts/check-image-mirrors.sh 0.1.0-alpha.1 cabyrc
+```
+
+`make check` includes the mirror gate's offline positive and negative cases.

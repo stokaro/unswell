@@ -20,6 +20,7 @@ real data; implementation alone cannot satisfy those requirements.
 | [#33](https://github.com/stokaro/unswell/issues/33) | MCP: prove agent self-checking and repository dogfooding |
 | [#34](https://github.com/stokaro/unswell/issues/34) | Containers: publish a standalone Unswell CLI image |
 | [#35](https://github.com/stokaro/unswell/issues/35) | Containers: publish a separate Unswell MCP image |
+| [#46](https://github.com/stokaro/unswell/issues/46) | Containers: automate verified Docker Hub mirrors |
 | [#36](https://github.com/stokaro/unswell/issues/36) | MCP Registry: publish and verify the Unswell server |
 | [#37](https://github.com/stokaro/unswell/issues/37) | Distribution: publish and verify a dedicated Homebrew tap |
 | [#38](https://github.com/stokaro/unswell/issues/38) | Distribution: publish and verify the Unswell GitHub Action |

@@ -28,7 +28,7 @@ bin/unswell check README.md docs/
 ```
 
 The public [Homebrew tap](https://github.com/stokaro/homebrew-unswell) supports
-`brew install --HEAD stokaro/unswell/unswell` while the first release is being prepared.
+`brew install --HEAD stokaro/unswell/unswell` for source builds.
 A separate [GitHub Action](https://github.com/stokaro/unswell-action) runs pinned
 release archives and writes JSON/SARIF reports. See [installation and release
 verification](docs/installation.md) for availability and platform checks.
@@ -115,7 +115,8 @@ AI assistants can call the same engine through the separate [MCP server](docs/mc
 Its tools check supplied drafts and expose the fixed policy. `make dogfood-mcp`
 verifies repository checks through a real MCP client and subprocess.
 Separate [CLI and MCP containers](docs/containers.md) support Linux AMD64 and ARM64,
-including repository checks through both interfaces in CI.
+including repository checks through both interfaces in CI. Both images are public
+in GHCR and mirrored to Docker Hub with matching digests and attestations.
 
 ```yaml
 version: 1
