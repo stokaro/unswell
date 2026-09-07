@@ -24,6 +24,7 @@ real data; implementation alone cannot satisfy those requirements.
 | [#36](https://github.com/stokaro/unswell/issues/36) | MCP Registry: publish and verify the Unswell server |
 | [#37](https://github.com/stokaro/unswell/issues/37) | Distribution: publish and verify a dedicated Homebrew tap |
 | [#38](https://github.com/stokaro/unswell/issues/38) | Distribution: publish and verify the Unswell GitHub Action |
+| [#48](https://github.com/stokaro/unswell/issues/48) | Release: distinguish the project license from bundled notices in SBOM metadata |
 | [#9](https://github.com/stokaro/unswell/issues/9) | Alpha: verify and publish the first prerelease |
 | [#10](https://github.com/stokaro/unswell/issues/10) | Stage 2: add the bounded custom rule DSL |
 | [#11](https://github.com/stokaro/unswell/issues/11) | Stage 2: add local inheritance, file overrides and terminology |
