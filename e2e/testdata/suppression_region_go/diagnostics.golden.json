@@ -1,0 +1,147 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": true,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "policy.banned-phrases",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Remove a phrase forbidden by this editorial policy.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 94,
+          "end": 100
+        },
+        "start": {
+          "line": 4,
+          "column": 8
+        },
+        "end": {
+          "line": 4,
+          "column": 14
+        },
+        "segments": [
+          {
+            "start": 94,
+            "end": 100
+          }
+        ]
+      },
+      "related": [],
+      "suppressed": true
+    },
+    {
+      "rule_id": "policy.banned-phrases",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Remove a phrase forbidden by this editorial policy.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 183,
+          "end": 189
+        },
+        "start": {
+          "line": 7,
+          "column": 8
+        },
+        "end": {
+          "line": 7,
+          "column": 14
+        },
+        "segments": [
+          {
+            "start": 183,
+            "end": 189
+          }
+        ]
+      },
+      "related": [],
+      "suppressed": true
+    }
+  ],
+  "errors": [],
+  "suppressions": [
+    {
+      "id": "810333ae2979903ee351cbd52a9a7a32db5fcf5c8ee0e17ca527d375afb82d0a",
+      "kind": "disable",
+      "rule_ids": [
+        "policy.banned-phrases"
+      ],
+      "reason": "Required contract wording.",
+      "directive": {
+        "path": "sample.go",
+        "span": {
+          "start": 16,
+          "end": 86
+        },
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 71
+        },
+        "segments": [
+          {
+            "start": 16,
+            "end": 86
+          }
+        ]
+      },
+      "end": {
+        "path": "sample.go",
+        "span": {
+          "start": 249,
+          "end": 288
+        },
+        "start": {
+          "line": 8,
+          "column": 1
+        },
+        "end": {
+          "line": 8,
+          "column": 40
+        },
+        "segments": [
+          {
+            "start": 249,
+            "end": 288
+          }
+        ]
+      },
+      "targets": [
+        {
+          "scope": "paragraph",
+          "unit_id": 0,
+          "span": {
+            "start": 89,
+            "end": 161
+          }
+        },
+        {
+          "scope": "paragraph",
+          "unit_id": 1,
+          "span": {
+            "start": 178,
+            "end": 249
+          }
+        }
+      ],
+      "finding_ids": [
+        "67a3fef5c55409a8",
+        "63000430f95af3cc"
+      ],
+      "used_rules": [
+        "policy.banned-phrases"
+      ],
+      "status": "used"
+    }
+  ]
+}

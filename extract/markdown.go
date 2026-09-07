@@ -42,8 +42,10 @@ func (r markdownReader) block(node *ts.Node) (bool, error) {
 	}
 	if reason := markdownExclusion(kind, r.options.IncludeQuotes); reason != "" {
 		span := r.input.span(node)
-		if reason == "html" && unsupportedSuppression(string(r.doc.Source[span.Start:span.End])) {
-			return true, fmt.Errorf("suppression directives are not implemented in this alpha")
+		if reason == "html" {
+			if err := htmlDirectives(r.doc, span); err != nil {
+				return true, err
+			}
 		}
 		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: span, Reason: reason})
 		return true, nil

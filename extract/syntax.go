@@ -17,6 +17,21 @@ type syntaxTree struct {
 }
 
 func parseSyntax(ctx context.Context, source []byte, name string) (syntaxTree, error) {
+	syntax, err := parseSyntaxTree(ctx, source, name)
+	if err == nil && syntax.tree.RootNode().HasErrorOrMissing() {
+		syntax.tree.Release()
+		return syntaxTree{}, invalidSyntax(name)
+	}
+	return syntax, err
+}
+
+func invalidSyntax(name string) error {
+	return fmt.Errorf("parse %s: %s grammar returned an incomplete or invalid syntax tree", name, name)
+}
+
+// parseSyntaxTree preserves error nodes only for bounded grammar normalization.
+// Callers must validate the complete final tree before extracting any prose.
+func parseSyntaxTree(ctx context.Context, source []byte, name string) (syntaxTree, error) {
 	if err := ctx.Err(); err != nil {
 		return syntaxTree{}, err
 	}
@@ -37,7 +52,7 @@ func parseSyntax(ctx context.Context, source []byte, name string) (syntaxTree, e
 	if ctx.Err() != nil {
 		err = ctx.Err()
 	}
-	if err == nil && (tree == nil || tree.RootNode() == nil || tree.RootNode().HasErrorOrMissing()) {
+	if err == nil && (tree == nil || tree.RootNode() == nil) {
 		err = fmt.Errorf("%s grammar returned an incomplete or invalid syntax tree", name)
 	}
 	if err != nil {

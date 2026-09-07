@@ -1,0 +1,192 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "policy.banned-phrases",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Remove a phrase forbidden by this editorial policy.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 180,
+          "end": 186
+        },
+        "start": {
+          "line": 9,
+          "column": 7
+        },
+        "end": {
+          "line": 9,
+          "column": 13
+        },
+        "segments": [
+          {
+            "start": 180,
+            "end": 186
+          }
+        ]
+      },
+      "related": [],
+      "suppressed": true
+    },
+    {
+      "rule_id": "policy.banned-phrases",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Remove a phrase forbidden by this editorial policy.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 371,
+          "end": 377
+        },
+        "start": {
+          "line": 11,
+          "column": 114
+        },
+        "end": {
+          "line": 11,
+          "column": 120
+        },
+        "segments": [
+          {
+            "start": 371,
+            "end": 377
+          }
+        ]
+      },
+      "related": [],
+      "suppressed": true
+    },
+    {
+      "rule_id": "policy.banned-phrases",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Remove a phrase forbidden by this editorial policy.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 449,
+          "end": 455
+        },
+        "start": {
+          "line": 13,
+          "column": 5
+        },
+        "end": {
+          "line": 13,
+          "column": 11
+        },
+        "segments": [
+          {
+            "start": 449,
+            "end": 455
+          }
+        ]
+      },
+      "related": []
+    }
+  ],
+  "errors": [],
+  "suppressions": [
+    {
+      "id": "0731a6519b17601f3da74275ddc031182b8cfb33bfe5f481632466d2a08ee24a",
+      "kind": "disable-next-block",
+      "rule_ids": [
+        "policy.banned-phrases"
+      ],
+      "reason": "Required contract wording.",
+      "directive": {
+        "path": "guide.md",
+        "span": {
+          "start": 83,
+          "end": 170
+        },
+        "start": {
+          "line": 7,
+          "column": 1
+        },
+        "end": {
+          "line": 7,
+          "column": 88
+        },
+        "segments": [
+          {
+            "start": 83,
+            "end": 170
+          }
+        ]
+      },
+      "targets": [
+        {
+          "scope": "paragraph",
+          "unit_id": 4,
+          "span": {
+            "start": 174,
+            "end": 205
+          }
+        }
+      ],
+      "finding_ids": [
+        "941101b6456d0491"
+      ],
+      "used_rules": [
+        "policy.banned-phrases"
+      ],
+      "status": "used"
+    },
+    {
+      "id": "45acb01db07e33f0891f6a22a5935f34c756acd3d27c9a17f96fc300f759d8db",
+      "kind": "disable-next-sentence",
+      "rule_ids": [
+        "policy.banned-phrases"
+      ],
+      "reason": "Required contract wording.",
+      "directive": {
+        "path": "guide.md",
+        "span": {
+          "start": 276,
+          "end": 366
+        },
+        "start": {
+          "line": 11,
+          "column": 19
+        },
+        "end": {
+          "line": 11,
+          "column": 109
+        },
+        "segments": [
+          {
+            "start": 276,
+            "end": 366
+          }
+        ]
+      },
+      "targets": [
+        {
+          "scope": "sentence",
+          "unit_id": 6,
+          "span": {
+            "start": 276,
+            "end": 392
+          }
+        }
+      ],
+      "finding_ids": [
+        "44ba60c30451a505"
+      ],
+      "used_rules": [
+        "policy.banned-phrases"
+      ],
+      "status": "used"
+    }
+  ]
+}

@@ -49,6 +49,13 @@ type Files struct {
 	Exclude []string `json:"exclude" yaml:"exclude"`
 }
 
+// Suppressions controls explicit source permissions without changing raw evidence.
+type Suppressions struct {
+	RequireReason bool `json:"require_reason" yaml:"require_reason"`
+	AllowFileWide bool `json:"allow_file_wide" yaml:"allow_file_wide"`
+	RejectUnused  bool `json:"reject_unused" yaml:"reject_unused"`
+}
+
 // Policy is an effective policy with provenance and a canonical content hash.
 type Policy struct {
 	Identity         string                   `json:"identity"`
@@ -65,24 +72,26 @@ type Policy struct {
 	Hash             string                   `json:"hash"`
 	RuleSets         []rule.Origin            `json:"rule_sets,omitempty"`
 	Vocabulary       Vocabulary               `json:"vocabulary"`
+	Suppressions     Suppressions             `json:"suppressions"`
 	Sources          []SourceIdentity         `json:"sources,omitempty"`
 	Overrides        []OverrideIdentity       `json:"overrides,omitempty"`
 	AppliedOverrides []string                 `json:"applied_overrides,omitempty"`
 }
 
 type input struct {
-	Version     int                  `yaml:"version"`
-	Extends     []string             `yaml:"extends"`
-	Language    string               `yaml:"language"`
-	Rules       map[string]yaml.Node `yaml:"rules"`
-	Gate        yaml.Node            `yaml:"gate"`
-	Analysis    yaml.Node            `yaml:"analysis"`
-	Files       yaml.Node            `yaml:"files"`
-	Extraction  yaml.Node            `yaml:"extraction"`
-	RuleSets    []yaml.Node          `yaml:"rule_sets"`
-	Vocabulary  yaml.Node            `yaml:"vocabulary"`
-	Overrides   []overrideInput      `yaml:"overrides"`
-	Calibration struct {
+	Version      int                  `yaml:"version"`
+	Extends      []string             `yaml:"extends"`
+	Language     string               `yaml:"language"`
+	Rules        map[string]yaml.Node `yaml:"rules"`
+	Gate         yaml.Node            `yaml:"gate"`
+	Analysis     yaml.Node            `yaml:"analysis"`
+	Files        yaml.Node            `yaml:"files"`
+	Extraction   yaml.Node            `yaml:"extraction"`
+	RuleSets     []yaml.Node          `yaml:"rule_sets"`
+	Vocabulary   yaml.Node            `yaml:"vocabulary"`
+	Suppressions yaml.Node            `yaml:"suppressions"`
+	Overrides    []overrideInput      `yaml:"overrides"`
+	Calibration  struct {
 		Model          string `yaml:"model"`
 		OnIncompatible string `yaml:"on_incompatible"`
 	} `yaml:"calibration"`
@@ -218,13 +227,14 @@ func resolveProfile(extends []string) (string, error) {
 
 func defaults(profile string, catalog []rule.Descriptor) (Policy, error) {
 	policy := Policy{
-		Identity:   "unswell-config-bundle-v1",
-		Version:    1,
-		Profile:    profile + "-v1",
-		Language:   "en",
-		Extraction: extract.Policy{Contexts: extract.DefaultContexts()},
-		Rules:      make(map[string]rule.Settings),
-		Origins:    make(map[string]string),
+		Identity:     "unswell-config-bundle-v1",
+		Version:      1,
+		Profile:      profile + "-v1",
+		Language:     "en",
+		Extraction:   extract.Policy{Contexts: extract.DefaultContexts()},
+		Rules:        make(map[string]rule.Settings),
+		Origins:      make(map[string]string),
+		Suppressions: Suppressions{RequireReason: true, RejectUnused: true},
 		Gate: Gate{
 			Sentence:         Threshold{FailAt: 80, MinWords: 12},
 			Paragraph:        Threshold{FailAt: 65, MinWords: 30},
@@ -357,7 +367,7 @@ func applyPolicyNodes(raw input, policy *Policy) error {
 		node   yaml.Node
 		target any
 	}{{raw.Gate, &policy.Gate}, {raw.Analysis, &policy.Analysis}, {raw.Files, &policy.Files}, {raw.Extraction, &policy.Extraction},
-		{raw.Vocabulary, &policy.Vocabulary}} {
+		{raw.Vocabulary, &policy.Vocabulary}, {raw.Suppressions, &policy.Suppressions}} {
 		if item.node.Kind != 0 {
 			if err := mergeNode(item.node, item.target); err != nil {
 				return err

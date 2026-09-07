@@ -21,6 +21,12 @@ Source text is omitted unless `--include-source` is selected. Without it, report
 still retain paths, coordinates, messages, metrics and score traces. With it,
 saved reports can show highlighted paragraphs after originals change or disappear.
 
+Source [suppressions](suppressions.md) retain their reasons and audit records even
+without source inclusion. Raw findings link to the permissions that cover them.
+SARIF records accepted `inSource` suppressions with reasons. HTML, Markdown, and
+text identify permitted findings and show raw and effective unit scores. A saved
+result contains those calculations; a reporter never resolves permissions again.
+
 The CLI writes regular-file reports through temporary files in the destination
 directory and renames them after successful serialization. It rejects duplicate
 destinations, direct input overwrites, symlink destinations and existing hard-link

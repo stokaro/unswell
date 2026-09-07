@@ -513,6 +513,15 @@
             "null"
           ]
         },
+        "effective_contributions": {
+          "items": {
+            "$ref": "#/$defs/unswell.Contribution"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
         "effective_slop_score": {
           "type": "number"
         },
@@ -744,6 +753,15 @@
         },
         "suppressed": {
           "type": "boolean"
+        },
+        "suppression_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
         }
       },
       "required": [
@@ -1008,6 +1026,15 @@
         },
         "status": {
           "type": "string"
+        },
+        "suppressions": {
+          "items": {
+            "$ref": "#/$defs/unswell.Suppression"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
         }
       },
       "required": [
@@ -1019,6 +1046,104 @@
         "assessments",
         "gate",
         "errors"
+      ],
+      "type": "object"
+    },
+    "unswell.Suppression": {
+      "additionalProperties": false,
+      "properties": {
+        "directive": {
+          "$ref": "#/$defs/unswell.Location"
+        },
+        "end": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unswell.Location"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "finding_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "rule_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string"
+        },
+        "targets": {
+          "items": {
+            "$ref": "#/$defs/unswell.SuppressionTarget"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "used_rules": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "rule_ids",
+        "reason",
+        "directive",
+        "targets",
+        "finding_ids",
+        "used_rules",
+        "status"
+      ],
+      "type": "object"
+    },
+    "unswell.SuppressionTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "scope": {
+          "type": "string"
+        },
+        "span": {
+          "$ref": "#/$defs/document.Span"
+        },
+        "unit_id": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "scope",
+        "unit_id",
+        "span"
       ],
       "type": "object"
     }

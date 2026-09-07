@@ -35,7 +35,7 @@ unknown fields, invalid IDs, and incompatible parameter ranges are errors.
 Extraction `contexts` retain their set semantics: order does not affect identity.
 
 An explicit builtin profile layer replaces rule defaults and profile gate thresholds.
-It preserves unrelated discovery, extraction, analysis, and vocabulary settings.
+It preserves unrelated discovery, extraction, analysis, vocabulary, and suppression settings.
 For example, put `builtin:strict-v1` before local policy files whose rules should
 override that profile. `--profile` selects a builtin policy without discovery and
 remains mutually exclusive with `--config`.
@@ -107,11 +107,16 @@ term exemptions. Unsupported rules are rejected, including aggregate sentence
 checks and current declarative DSL rules. Custom Go rules can declare
 `Descriptor.TermExemptions` and consult `View.Exempts` before aggregation.
 
-File overrides accept `rules`, `gate`, `analysis`, `extraction`, and `vocabulary`.
+File overrides accept `rules`, `gate`, `analysis`, `extraction`, `vocabulary`, and `suppressions`.
 They cannot add rulesets, change discovery, nest overrides, or change run-wide
 `max_total_bytes`, `fail_on_empty`, or `fail_on_incomplete`. Every declared override
 is validated against the merged base policy. Selected combinations are validated
 again before source parsing; two individually valid layers can still conflict.
+
+Source [suppression settings](suppressions.md) require reasons, reject unused
+permissions, and disallow file-wide permissions by default. These fields merge
+independently, including explicit `false` values in file overrides. They participate
+in policy hashes and field origins; builtin profile layers preserve them.
 
 ## Inspecting and pinning policy
 

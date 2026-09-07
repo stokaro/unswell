@@ -38,7 +38,7 @@ func compileOverrides(raw []overrideInput, source string) ([]fileLayer, error) {
 		result = append(result, fileLayer{patterns: patterns,
 			identity: OverrideIdentity{ID: id, Files: slices.Clone(override.Files), Hash: identity.Hash},
 			raw: input{Version: 1, Rules: override.Rules, Gate: override.Gate, Analysis: override.Analysis,
-				Extraction: override.Extraction, Vocabulary: override.Vocabulary}})
+				Extraction: override.Extraction, Vocabulary: override.Vocabulary, Suppressions: override.Suppressions}})
 	}
 	return result, nil
 }
@@ -104,6 +104,7 @@ func applyLayer(raw input, policy *Policy, catalog []rule.Descriptor, origin str
 		node yaml.Node
 	}{
 		{"gate", raw.Gate}, {"analysis", raw.Analysis}, {"files", raw.Files}, {"extraction", raw.Extraction}, {"vocabulary", raw.Vocabulary},
+		{"suppressions", raw.Suppressions},
 	} {
 		if item.node.Kind != 0 {
 			recordNodeOrigins(policy.Origins, "/"+item.name, item.node, origin)
@@ -138,6 +139,7 @@ func defaultOrigins(policy *Policy, catalog []rule.Descriptor) error {
 		{"version", policy.Version}, {"profile", policy.Profile}, {"language", policy.Language}, {"gate", policy.Gate},
 		{"analysis", policy.Analysis}, {"files", policy.Files}, {"extraction", policy.Extraction},
 		{"group_caps", policy.GroupCaps}, {"vocabulary", policy.Vocabulary},
+		{"suppressions", policy.Suppressions},
 	} {
 		if err := recordValueOrigins(policy.Origins, "/"+item.name, item.value, origin); err != nil {
 			return err

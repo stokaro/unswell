@@ -176,8 +176,9 @@ The policy excludes deliberate fixture strings and catalog data with recorded re
 Comments and runtime strings remain checked. Bash also passes syntax, ShellCheck
 and shfmt checks, including negative probes for each gate.
 
-The [roadmap](docs/roadmap.md) preserves the remaining requirements: full
-suppressions, baseline, committed changed-unit checks, trusted
+Reasoned [source suppressions](docs/suppressions.md) permit individual rule findings
+while retaining raw evidence, scores, and an audit record across CLI and MCP.
+The [roadmap](docs/roadmap.md) preserves the remaining requirements: baseline, committed changed-unit checks, trusted
 policy comparison, Go analysis integration and calibrated revision probabilities.
 The alpha does not silently claim those capabilities.
 

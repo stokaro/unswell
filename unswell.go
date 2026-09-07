@@ -242,6 +242,7 @@ func (e *Engine) AnalyzeAll(ctx context.Context, sources []document.Source) (Run
 		result.Documents = append(result.Documents, part.Documents...)
 		result.Findings = append(result.Findings, part.Findings...)
 		result.Assessments = append(result.Assessments, part.Assessments...)
+		result.Suppressions = append(result.Suppressions, part.Suppressions...)
 		result.Gate.Reasons = append(result.Gate.Reasons, part.Gate.Reasons...)
 		if errorsBySource[i] != nil {
 			result.Errors = append(result.Errors, RunError{Path: sources[i].Name, Message: errorsBySource[i].Error()})

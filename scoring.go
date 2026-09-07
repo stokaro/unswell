@@ -47,6 +47,29 @@ func (e *Engine) assessment(findings []Finding, path, scope string, id int, span
 		Contributions:     []Contribution{},
 	}
 	locals := e.localFindings(findings, scope, id)
+	assessment.SlopScore, assessment.Contributions = e.scoreLocals(locals)
+	assessment.EffectiveSlopScore = assessment.SlopScore
+	if slices.ContainsFunc(locals, func(local localFinding) bool { return local.finding.Suppressed }) {
+		suppressed := make(map[string]bool)
+		for _, local := range locals {
+			if local.finding.Suppressed {
+				suppressed[local.finding.ID] = true
+			}
+		}
+		active := slices.DeleteFunc(slices.Clone(locals), func(local localFinding) bool { return local.finding.Suppressed })
+		assessment.EffectiveSlopScore, assessment.EffectiveContributions = e.scoreLocals(active)
+		for _, local := range assessment.Contributions {
+			if suppressed[local.FindingID] {
+				local.Effective, local.Reason = 0, "source-suppression"
+				assessment.EffectiveContributions = append(assessment.EffectiveContributions, local)
+			}
+		}
+	}
+	return assessment
+}
+
+func (e *Engine) scoreLocals(locals []localFinding) (float64, []Contribution) {
+	contributions := []Contribution{}
 	slices.SortStableFunc(locals, func(a, b localFinding) int { return cmp.Compare(b.points, a.points) })
 	accepted := make([]localFinding, 0)
 	ruleTotals := make(map[string]int)
@@ -87,11 +110,9 @@ func (e *Engine) assessment(findings []Finding, path, scope string, id int, span
 		}
 		total += points
 		trace.Effective = float64(points) / 1000
-		assessment.Contributions = append(assessment.Contributions, trace)
+		contributions = append(contributions, trace)
 	}
-	assessment.SlopScore = float64(total) / 1000
-	assessment.EffectiveSlopScore = assessment.SlopScore
-	return assessment
+	return float64(total) / 1000, contributions
 }
 
 func (e *Engine) localFindings(findings []Finding, scope string, id int) []localFinding {

@@ -1,0 +1,61 @@
+{
+  "status": "incomplete",
+  "complete": false,
+  "passed": false,
+  "no_gate": false,
+  "findings": [],
+  "errors": [
+    {
+      "path": "guide.md",
+      "message": "suppression at bytes [0,87): unused suppression for rule policy.banned-phrases"
+    },
+    {
+      "path": "",
+      "message": "suppression at bytes [0,87): unused suppression for rule policy.banned-phrases"
+    }
+  ],
+  "suppressions": [
+    {
+      "id": "22f696d6325cb9179fcccf314fbd085ade1effdd0e31ee4bf69535101c593468",
+      "kind": "disable-next-block",
+      "rule_ids": [
+        "policy.banned-phrases"
+      ],
+      "reason": "Required contract wording.",
+      "directive": {
+        "path": "guide.md",
+        "span": {
+          "start": 0,
+          "end": 87
+        },
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 88
+        },
+        "segments": [
+          {
+            "start": 0,
+            "end": 87
+          }
+        ]
+      },
+      "targets": [
+        {
+          "scope": "paragraph",
+          "unit_id": 0,
+          "span": {
+            "start": 89,
+            "end": 107
+          }
+        }
+      ],
+      "finding_ids": [],
+      "used_rules": [],
+      "status": "unused"
+    }
+  ]
+}

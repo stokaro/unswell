@@ -1,0 +1,171 @@
+{
+  "status": "incomplete",
+  "complete": false,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "repetition.exact-sentence",
+      "severity": "warning",
+      "gate": "none",
+      "scope": "document",
+      "message": "This sentence is repeated; consider whether every occurrence is needed.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 96,
+          "end": 121
+        },
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 26
+        },
+        "segments": [
+          {
+            "start": 96,
+            "end": 121
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 189,
+            "end": 214
+          },
+          "start": {
+            "line": 5,
+            "column": 1
+          },
+          "end": {
+            "line": 5,
+            "column": 26
+          },
+          "segments": [
+            {
+              "start": 189,
+              "end": 214
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "policy.banned-phrases",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Remove a phrase forbidden by this editorial policy.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 100,
+          "end": 106
+        },
+        "start": {
+          "line": 3,
+          "column": 5
+        },
+        "end": {
+          "line": 3,
+          "column": 11
+        },
+        "segments": [
+          {
+            "start": 100,
+            "end": 106
+          }
+        ]
+      },
+      "related": []
+    },
+    {
+      "rule_id": "policy.banned-phrases",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Remove a phrase forbidden by this editorial policy.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 193,
+          "end": 199
+        },
+        "start": {
+          "line": 5,
+          "column": 5
+        },
+        "end": {
+          "line": 5,
+          "column": 11
+        },
+        "segments": [
+          {
+            "start": 193,
+            "end": 199
+          }
+        ]
+      },
+      "related": []
+    }
+  ],
+  "errors": [
+    {
+      "path": "guide.md",
+      "message": "suppression at bytes [0,94): unused suppression for rule repetition.exact-sentence"
+    },
+    {
+      "path": "",
+      "message": "suppression at bytes [0,94): unused suppression for rule repetition.exact-sentence"
+    }
+  ],
+  "suppressions": [
+    {
+      "id": "cf7f9518e24adff024f57b56347855e2168db686c882f7b28d0c0b68a5ade83e",
+      "kind": "disable-next-block",
+      "rule_ids": [
+        "repetition.exact-sentence"
+      ],
+      "reason": "Required repeated definition.",
+      "directive": {
+        "path": "guide.md",
+        "span": {
+          "start": 0,
+          "end": 94
+        },
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 95
+        },
+        "segments": [
+          {
+            "start": 0,
+            "end": 94
+          }
+        ]
+      },
+      "targets": [
+        {
+          "scope": "paragraph",
+          "unit_id": 0,
+          "span": {
+            "start": 96,
+            "end": 121
+          }
+        }
+      ],
+      "finding_ids": [],
+      "used_rules": [],
+      "status": "unused"
+    }
+  ]
+}

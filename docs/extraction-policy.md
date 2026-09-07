@@ -83,5 +83,6 @@ still parse successfully. To omit a file from recursive discovery entirely, use
 `files.exclude`; explicit file arguments bypass discovery patterns.
 
 Markdown code, quotations and other protected syntax follow the normal extraction
-policy described in [input formats](inputs.md). Fine-grained finding suppressions
-and baseline debt handling are tracked separately in the [roadmap](roadmap.md).
+policy described in [input formats](inputs.md). Reasoned [source suppressions](suppressions.md)
+permit specific rule findings while retaining raw evidence. Baseline debt handling
+remains a separate item in the [roadmap](roadmap.md).

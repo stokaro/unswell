@@ -3,7 +3,6 @@ package extract
 import (
 	"bytes"
 	"context"
-	"fmt"
 	"go/ast"
 	"go/parser"
 	"go/token"
@@ -70,8 +69,15 @@ func extractCommentGroup(doc *document.Document, group *ast.CommentGroup, fset *
 	for _, comment := range group.List {
 		start := fset.Position(comment.Pos()).Offset
 		end := originalCommentEnd(doc.Source, start)
-		if unsupportedSuppression(comment.Text) {
-			return fmt.Errorf("suppression directives are not implemented in this alpha")
+		span := document.Span{Start: start, End: end}
+		found, err := collectDirective(doc, span, directiveText(doc.Source, span))
+		if err != nil {
+			return err
+		}
+		if found {
+			appendBlock(doc, builder.Build(), "comment")
+			builder = mapping.Builder{}
+			continue
 		}
 		if directive(comment.Text) {
 			appendBlock(doc, builder.Build(), "comment")
@@ -102,14 +108,6 @@ func originalCommentEnd(source []byte, start int) int {
 		return start + end
 	}
 	return len(source)
-}
-
-func unsupportedSuppression(text string) bool {
-	text = strings.TrimSpace(text)
-	for _, prefix := range []string{"<!--", "//", "/*"} {
-		text = strings.TrimSpace(strings.TrimPrefix(text, prefix))
-	}
-	return strings.HasPrefix(text, "unswell-disable") || strings.HasPrefix(text, "unswell-enable")
 }
 
 func directive(text string) bool {

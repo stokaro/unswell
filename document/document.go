@@ -149,15 +149,23 @@ type Exclusion struct {
 	Reason string `json:"reason"`
 }
 
+// Directive is policy-sensitive text extracted from an actual source comment.
+// Text omits comment delimiters; Span covers the original comment bytes.
+type Directive struct {
+	Text string `json:"text"`
+	Span Span   `json:"span"`
+}
+
 // Document holds extracted prose and explicit analysis coverage.
 type Document struct {
-	Name     string      `json:"name"`
-	Format   Format      `json:"format"`
-	Hash     string      `json:"sha256"`
-	Blocks   []Block     `json:"blocks"`
-	Excluded []Exclusion `json:"excluded"`
-	Words    int         `json:"words"`
-	Source   []byte      `json:"-"`
+	Name       string      `json:"name"`
+	Format     Format      `json:"format"`
+	Hash       string      `json:"sha256"`
+	Blocks     []Block     `json:"blocks"`
+	Excluded   []Exclusion `json:"excluded"`
+	Directives []Directive `json:"directives,omitempty"`
+	Words      int         `json:"words"`
+	Source     []byte      `json:"-"`
 }
 
 // Normalize folds case and typographic apostrophes without changing source data.

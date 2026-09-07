@@ -10,7 +10,7 @@ import (
 
 func (e *Engine) decide(result *RunResult, doc document.Document) {
 	for _, finding := range result.Findings {
-		if finding.Gate == "forbid" {
+		if finding.Gate == "forbid" && !finding.Suppressed {
 			result.Gate.Reasons = append(
 				result.Gate.Reasons,
 				GateReason{Code: "forbidden-phrase", Path: doc.Name, FindingID: finding.ID, Message: finding.Message},

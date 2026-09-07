@@ -26,7 +26,7 @@ func sourceProse(ctx context.Context, doc *document.Document, options Options) e
 	if skip, err := prepareGo(ctx, doc, options); skip || err != nil {
 		return err
 	}
-	syntax, err := parseSyntax(ctx, sourceTerminator(doc), string(doc.Format))
+	syntax, err := sourceSyntax(ctx, doc)
 	if err != nil {
 		return err
 	}
@@ -93,7 +93,8 @@ func (r *sourceReader) node(node *ts.Node) (bool, error) {
 		return true, fmt.Errorf("incomplete string at byte %d", node.StartByte())
 	}
 	if slices.Contains([]string{"comment", "line_comment", "block_comment"}, kind) {
-		return true, r.commentNode(node)
+		r.commentNode(node)
+		return true, nil
 	}
 	if r.doc.Format == document.YAML {
 		return r.yamlNode(node)
@@ -104,24 +105,23 @@ func (r *sourceReader) node(node *ts.Node) (bool, error) {
 	return r.stringNode(node)
 }
 
-func (r *sourceReader) commentNode(node *ts.Node) error {
+func (r *sourceReader) commentNode(node *ts.Node) {
 	if r.doc.Format == document.Go {
-		return nil
+		return
 	}
 	span := syntaxSpan(node, 0)
-	if contextExclusion(r.doc, r.options.Policy, "comment", span) {
-		return nil
+	if directiveCandidate(directiveText(r.doc.Source, span)) {
+		r.comments = append(r.comments, span)
+		return
 	}
-	content := commentContent(r.doc.Source, span)
-	if unsupportedSuppression(string(r.doc.Source[content.Start:content.End])) {
-		return fmt.Errorf("suppression directives are not implemented in this alpha")
+	if contextExclusion(r.doc, r.options.Policy, "comment", span) {
+		return
 	}
 	if reason := r.exception("comment", node); reason != "" {
 		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: span, Reason: reason})
 	} else {
 		r.comments = append(r.comments, span)
 	}
-	return nil
 }
 
 func (r *sourceReader) stringNode(node *ts.Node) (bool, error) {
@@ -198,8 +198,15 @@ func (r *sourceReader) commentGroups() error {
 			builder = mapping.Builder{}
 		}
 		content := commentContent(r.doc.Source, span)
-		if unsupportedSuppression(string(r.doc.Source[content.Start:content.End])) {
-			return fmt.Errorf("suppression directives are not implemented in this alpha")
+		found, err := collectDirective(r.doc, span, directiveText(r.doc.Source, span))
+		if err != nil {
+			return err
+		}
+		if found {
+			appendBlock(r.doc, builder.Build(), "comment")
+			builder = mapping.Builder{}
+			previous = span.End
+			continue
 		}
 		if commentDirective(string(r.doc.Source[span.Start:span.End]), string(r.doc.Source[content.Start:content.End])) {
 			appendBlock(r.doc, builder.Build(), "comment")

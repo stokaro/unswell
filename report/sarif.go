@@ -30,8 +30,13 @@ func sarif(writer io.Writer, result unswell.RunResult) error {
 		)
 	}
 	results := make([]map[string]any, 0, len(result.Findings))
+	permissions := suppressionIndex(result.Suppressions)
 	for _, finding := range result.Findings {
-		results = append(results, sarifFinding(finding, indexes[finding.RuleID]))
+		entry := sarifFinding(finding, indexes[finding.RuleID])
+		if finding.Suppressed {
+			entry["suppressions"] = sarifSuppressions(finding, permissions)
+		}
+		results = append(results, entry)
 	}
 	notifications := make([]map[string]any, 0, len(result.Errors))
 	for _, failure := range result.Errors {
@@ -56,7 +61,7 @@ func sarif(writer io.Writer, result unswell.RunResult) error {
 				map[string]any{"executionSuccessful": result.Manifest.Complete, "toolExecutionNotifications": notifications},
 			},
 			"properties": map[string]any{"gate": result.Gate, "assessments": result.Assessments,
-				"manifest": result.Manifest, "file_policies": filePolicies(result)},
+				"manifest": result.Manifest, "file_policies": filePolicies(result), "suppressions": result.Suppressions},
 		}},
 	})
 }
@@ -86,10 +91,8 @@ func sarifFinding(finding unswell.Finding, index int) map[string]any {
 		"locations":           []any{sarifLocation(finding.Primary)},
 		"relatedLocations":    related,
 		"partialFingerprints": map[string]string{"unswell/v1": finding.Fingerprint},
-		"properties":          map[string]any{"evidence": finding.Evidence, "group": finding.Group, "derived": finding.Derived},
-	}
-	if finding.Suppressed {
-		result["suppressions"] = []any{map[string]any{"kind": "inSource", "status": "accepted"}}
+		"properties": map[string]any{"evidence": finding.Evidence, "group": finding.Group, "derived": finding.Derived,
+			"suppression_ids": finding.SuppressionIDs},
 	}
 	if slices.Contains([]string{"new", "unchanged", "updated", "absent"}, finding.BaselineState) {
 		result["baselineState"] = finding.BaselineState

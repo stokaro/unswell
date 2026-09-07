@@ -22,12 +22,13 @@ type OverrideIdentity struct {
 }
 
 type overrideInput struct {
-	Files      []string             `yaml:"files"`
-	Rules      map[string]yaml.Node `yaml:"rules"`
-	Gate       yaml.Node            `yaml:"gate"`
-	Analysis   yaml.Node            `yaml:"analysis"`
-	Extraction yaml.Node            `yaml:"extraction"`
-	Vocabulary yaml.Node            `yaml:"vocabulary"`
+	Files        []string             `yaml:"files"`
+	Rules        map[string]yaml.Node `yaml:"rules"`
+	Gate         yaml.Node            `yaml:"gate"`
+	Analysis     yaml.Node            `yaml:"analysis"`
+	Extraction   yaml.Node            `yaml:"extraction"`
+	Vocabulary   yaml.Node            `yaml:"vocabulary"`
+	Suppressions yaml.Node            `yaml:"suppressions"`
 }
 
 type policyLayer struct {
