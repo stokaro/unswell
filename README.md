@@ -1,8 +1,16 @@
 # Unswell
 
-A linter for lean English. Unswell checks prose for repeated setup, inflated
-phrases, overloaded sentences and violations of an explicit editorial policy.
-It runs locally as a Go library and CLI.
+A linter for lean English, built to reduce AI-sounding prose.
+
+Unswell's main motivation is to keep formulaic AI-style wording from leaking into
+source code and documentation. AI-assisted work often leaves behind conversational
+preambles, generic claims of importance, inflated modifiers and repeated setup.
+Unswell finds these patterns in prose and explains what to revise before the text
+reaches a commit or a published document.
+
+The checks apply to text regardless of its author. They enforce a chosen editorial
+policy through concrete findings and explainable scores. Unswell runs locally as
+a Go library and CLI, without sending source text to an AI service.
 
 **Development alpha.** The current implementation targets stages 0–1 of the
 [technical roadmap](docs/roadmap.md). Rules and defaults are experimental.
