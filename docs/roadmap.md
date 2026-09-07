@@ -39,9 +39,13 @@ real data; implementation alone cannot satisfy those requirements.
 | [#20](https://github.com/stokaro/unswell/issues/20) | NLP: evaluate a real dependency backend and capability contract |
 | [#21](https://github.com/stokaro/unswell/issues/21) | Stage 3: define the editorial annotation and data protocol |
 | [#22](https://github.com/stokaro/unswell/issues/22) | Stage 3: collect and validate the human-labeled corpus |
+| [#50](https://github.com/stokaro/unswell/issues/50) | Research: compare lexical and stylometric quality baselines |
 | [#23](https://github.com/stokaro/unswell/issues/23) | Stage 3: implement reproducible Go training and calibration |
 | [#24](https://github.com/stokaro/unswell/issues/24) | Stage 3: add probability applicability and calibrated gating |
 | [#25](https://github.com/stokaro/unswell/issues/25) | Stage 3: publish held-out probability evaluation |
+| [#51](https://github.com/stokaro/unswell/issues/51) | Research: evaluate an offline pure-Go LLMDet port |
+| [#52](https://github.com/stokaro/unswell/issues/52) | Research: test compression similarity as an optional feature |
+| [#53](https://github.com/stokaro/unswell/issues/53) | Research: define optional model-based detector comparisons |
 | [#26](https://github.com/stokaro/unswell/issues/26) | Stage 4: qualify stable rules against a real corpus |
 | [#27](https://github.com/stokaro/unswell/issues/27) | Stage 4: meet coverage and failure-path acceptance |
 | [#28](https://github.com/stokaro/unswell/issues/28) | Stage 4: establish reproducible performance and resource limits |
@@ -103,6 +107,10 @@ Passing a subset of local unit tests does not establish release readiness.
   unsupported-domain cases. Add probability gating only with a compatible model.
 
 These requirements cannot be replaced by a sigmoid applied to the heuristic index.
+The [research plan](research.md) defines baseline comparisons, feature ablations,
+and optional detector experiments. Quality and provenance labels stay independent.
+Provenance research does not determine the initial CI gate, and none of these
+experiments is reported as a completed benchmark.
 
 ## Stage 4: first product release
 
