@@ -83,7 +83,7 @@ func extractCommentGroup(doc *document.Document, group *ast.CommentGroup, fset *
 		if strings.HasPrefix(comment.Text, "/*") {
 			contentEnd -= 2
 		}
-		addCommentLines(doc, &builder, contentStart, contentEnd)
+		addCommentLines(doc, &builder, contentStart, contentEnd, strings.HasPrefix(comment.Text, "/*"))
 		if end < len(doc.Source) {
 			builder.Add(" ", document.Span{Start: end, End: end + 1})
 		}
@@ -122,26 +122,40 @@ func directive(text string) bool {
 	return false
 }
 
-func addCommentLines(doc *document.Document, builder *mapping.Builder, start, end int) {
+func addCommentLines(doc *document.Document, builder *mapping.Builder, start, end int, block bool) {
 	pos := start
 	for line := range strings.SplitSeq(string(doc.Source[start:end]), "\n") {
+		lineStart := pos
+		lineSize := len(line)
+		if block {
+			line, lineStart = blockCommentLine(line, pos)
+		}
 		trimmed := strings.TrimSpace(line)
 		switch {
 		case trimmed == "":
 			appendBlock(doc, builder.Build(), "comment")
 			*builder = mapping.Builder{}
 		case strings.HasPrefix(line, "\t"), strings.HasPrefix(line, "    "):
-			builder.Add(" \x00 ", document.Span{Start: pos, End: pos + len(line)})
+			builder.Add(" \x00 ", document.Span{Start: lineStart, End: lineStart + len(line)})
 			doc.Excluded = append(
 				doc.Excluded,
-				document.Exclusion{Span: document.Span{Start: pos, End: pos + len(line)}, Reason: "comment-code"},
+				document.Exclusion{Span: document.Span{Start: lineStart, End: lineStart + len(line)}, Reason: "comment-code"},
 			)
 		default:
-			builder.Source(doc.Source, pos, pos+len(line), false)
+			builder.Source(doc.Source, lineStart, lineStart+len(line), false)
 		}
-		pos += len(line) + 1
+		pos += lineSize + 1
 		if pos <= end {
 			builder.Add(" ", document.Span{Start: pos - 1, End: pos})
 		}
 	}
+}
+
+func blockCommentLine(line string, start int) (string, int) {
+	trimmed := strings.TrimLeft(line, " \t")
+	if trimmed == "*" || strings.HasPrefix(trimmed, "* ") || strings.HasPrefix(trimmed, "*\t") {
+		removed := len(line) - len(trimmed) + 1
+		return line[removed:], start + removed
+	}
+	return line, start
 }

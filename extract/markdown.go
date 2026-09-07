@@ -1,213 +1,105 @@
 package extract
 
 import (
-	"bytes"
 	"context"
 	"fmt"
+	"strings"
 
-	"github.com/yuin/goldmark"
-	"github.com/yuin/goldmark/ast"
-	"github.com/yuin/goldmark/extension"
-	extast "github.com/yuin/goldmark/extension/ast"
-	"github.com/yuin/goldmark/text"
+	ts "github.com/odvcencio/gotreesitter"
 
 	"github.com/stokaro/unswell/document"
-	"github.com/stokaro/unswell/internal/mapping"
 )
 
+type markdownReader struct {
+	ctx     context.Context
+	doc     *document.Document
+	syntax  syntaxTree
+	options Options
+}
+
 func markdown(ctx context.Context, doc *document.Document, options Options) error {
-	source := maskFrontMatter(doc)
-	parser := goldmark.New(goldmark.WithExtensions(extension.GFM)).Parser()
-	root := parser.Parse(text.NewReader(source))
-	depth := 0
-	return ast.Walk(root, func(node ast.Node, entering bool) (ast.WalkStatus, error) {
-		if !entering {
-			depth--
-			return ast.WalkContinue, nil
-		}
-		if err := ctx.Err(); err != nil {
-			return ast.WalkStop, err
-		}
-		depth++
-		if depth > 128 {
-			return ast.WalkStop, fmt.Errorf("markdown nesting exceeds 128")
-		}
-		return extractNode(doc, node, options)
-	})
+	syntax, err := parseSyntax(ctx, maskFrontMatter(doc), "markdown")
+	if err != nil {
+		return err
+	}
+	defer syntax.tree.Release()
+	reader := markdownReader{ctx: ctx, doc: doc, syntax: syntax, options: options}
+	return walkSyntax(ctx, syntax.tree.RootNode(), 0, reader.block)
 }
 
-func extractNode(doc *document.Document, node ast.Node, options Options) (ast.WalkStatus, error) {
-	if reason := excludedNode(node, options); reason != "" {
-		if blockSuppression(doc, node, reason) {
-			return ast.WalkStop, fmt.Errorf("suppression directives are not implemented in this alpha")
-		}
-		recordExcluded(doc, node, reason)
-		return ast.WalkSkipChildren, nil
+func (r markdownReader) block(node *ts.Node) (bool, error) {
+	if len(r.doc.Blocks) > r.options.MaxBlocks {
+		return true, fmt.Errorf("source exceeds %d prose blocks", r.options.MaxBlocks)
 	}
-	if kind := proseKind(node); kind != "" {
-		mapped, err := inlineText(doc, node)
-		if err != nil {
-			return ast.WalkStop, err
+	kind := node.Type(r.syntax.lang)
+	if reason := markdownExclusion(kind, r.options.IncludeQuotes); reason != "" {
+		span := syntaxSpan(node, 0)
+		if reason == "html" && unsupportedSuppression(string(r.doc.Source[span.Start:span.End])) {
+			return true, fmt.Errorf("suppression directives are not implemented in this alpha")
 		}
-		appendBlock(doc, mapped, kind)
-		return ast.WalkSkipChildren, nil
+		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: span, Reason: reason})
+		return true, nil
 	}
-	return ast.WalkContinue, nil
+	if kind == "pipe_table_cell" {
+		return true, r.inline(node, "table-cell")
+	}
+	if kind != "inline" {
+		return false, nil
+	}
+	return true, r.inline(node, markdownKind(node, r.syntax.lang))
 }
 
-func maskFrontMatter(doc *document.Document) []byte {
-	source := bytes.Clone(doc.Source)
-	start := 0
-	if bytes.HasPrefix(source, []byte{0xef, 0xbb, 0xbf}) {
-		start = 3
-		copy(source[:3], "   ")
-	}
-	if !bytes.HasPrefix(source[start:], []byte("---\n")) && !bytes.HasPrefix(source[start:], []byte("---\r\n")) {
-		return source
-	}
-	end := frontMatterEnd(source, start)
-	if end == 0 {
-		return source
-	}
-	doc.Excluded = append(doc.Excluded, document.Exclusion{Span: document.Span{Start: start, End: end}, Reason: "front-matter"})
-	maskRange(source, start, end)
-	return source
-}
-
-func frontMatterEnd(source []byte, start int) int {
-	pos := start + bytes.IndexByte(source[start:], '\n') + 1
-	for pos < len(source) {
-		end := bytes.IndexByte(source[pos:], '\n')
-		if end < 0 {
-			end = len(source) - pos
-		}
-		line := bytes.TrimSpace(source[pos : pos+end])
-		pos = min(len(source), pos+end+1)
-		if bytes.Equal(line, []byte("---")) || bytes.Equal(line, []byte("...")) {
-			return pos
-		}
-	}
-	return 0
-}
-
-func maskRange(source []byte, start, end int) {
-	for i := start; i < end; i++ {
-		if source[i] != '\n' && source[i] != '\r' {
-			source[i] = ' '
-		}
-	}
-}
-
-func excludedNode(node ast.Node, options Options) string {
-	switch node.Kind() {
-	case ast.KindCodeBlock, ast.KindFencedCodeBlock:
+func markdownExclusion(kind string, quotes bool) string {
+	switch kind {
+	case "fenced_code_block", "indented_code_block":
 		return "code"
-	case ast.KindHTMLBlock:
+	case "html_block":
 		return "html"
-	case ast.KindBlockquote:
-		if !options.IncludeQuotes {
+	case "link_reference_definition":
+		return "link-definition"
+	case "block_quote":
+		if !quotes {
 			return "quote"
 		}
 	}
 	return ""
 }
 
-func proseKind(node ast.Node) string {
-	switch node.Kind() {
-	case ast.KindHeading:
-		return "heading"
-	case extast.KindTableCell:
-		return "table-cell"
-	case ast.KindParagraph, ast.KindTextBlock:
-		for parent := node.Parent(); parent != nil; parent = parent.Parent() {
-			if parent.Kind() == ast.KindListItem {
-				return "list-item"
-			}
+func markdownKind(node *ts.Node, lang *ts.Language) string {
+	for parent := node.Parent(); parent != nil; parent = parent.Parent() {
+		switch parent.Type(lang) {
+		case "atx_heading", "setext_heading":
+			return "heading"
+		case "list_item":
+			return "list-item"
 		}
-		return "paragraph"
 	}
-	return ""
+	return "paragraph"
 }
 
-func recordExcluded(doc *document.Document, node ast.Node, reason string) {
-	span := nodeBounds(node)
-	if span.Valid(len(doc.Source)) {
-		doc.Excluded = append(doc.Excluded, document.Exclusion{Span: span, Reason: reason})
+func (r markdownReader) inline(node *ts.Node, kind string) error {
+	span := syntaxSpan(node, 0)
+	if contextExclusion(r.doc, r.options.Policy, kind, span) {
+		return nil
 	}
-}
-
-func nodeBounds(node ast.Node) document.Span {
-	start, end := node.Pos(), node.Pos()
-	if node.Type() != ast.TypeInline && node.Lines().Len() > 0 {
-		start = node.Lines().At(0).Start
-		end = node.Lines().At(node.Lines().Len() - 1).Stop
-	}
-	for child := node.FirstChild(); child != nil; child = child.NextSibling() {
-		span := nodeBounds(child)
-		if start < 0 || span.Start < start {
-			start = span.Start
+	var continuations []document.Span
+	err := walkSyntax(r.ctx, node, 0, func(child *ts.Node) (bool, error) {
+		if child.Type(r.syntax.lang) == "block_continuation" && child.EndByte() > child.StartByte() {
+			continuations = append(continuations, syntaxSpan(child, 0))
 		}
-		end = max(end, span.End)
-	}
-	if value, ok := node.(*ast.Text); ok {
-		start, end = value.Segment.Start, value.Segment.Stop
-	}
-	return document.Span{Start: start, End: end}
-}
-
-func inlineText(doc *document.Document, root ast.Node) (document.MappedText, error) {
-	var builder mapping.Builder
-	err := ast.Walk(root, func(node ast.Node, entering bool) (ast.WalkStatus, error) {
-		if !entering {
-			return ast.WalkContinue, nil
-		}
-		switch value := node.(type) {
-		case *ast.CodeSpan, *ast.AutoLink, *ast.RawHTML, *ast.Image:
-			if inlineSuppression(doc, node) {
-				return ast.WalkStop, fmt.Errorf("suppression directives are not implemented in this alpha")
-			}
-			span := nodeBounds(node)
-			if !span.Valid(len(doc.Source)) {
-				span = document.Span{Start: max(0, node.Pos()), End: min(len(doc.Source), max(0, node.Pos())+1)}
-			}
-			builder.Add(" \x00 ", span)
-			recordExcluded(doc, node, "inline-protected")
-			return ast.WalkSkipChildren, nil
-		case *ast.Text:
-			appendInlineText(doc, &builder, value)
-		case *ast.String:
-			return ast.WalkStop, fmt.Errorf("unsupported synthetic Markdown text at byte %d", node.Pos())
-		}
-		return ast.WalkContinue, nil
+		return false, nil
 	})
-	return builder.Build(), err
-}
-
-func appendInlineText(doc *document.Document, builder *mapping.Builder, value *ast.Text) {
-	builder.Source(doc.Source, value.Segment.Start, value.Segment.Stop, true)
-	if !value.SoftLineBreak() && !value.HardLineBreak() {
-		return
+	if err != nil {
+		return err
 	}
-	pos := value.Segment.Stop
-	if pos < len(doc.Source) {
-		builder.Add(" ", document.Span{Start: pos, End: pos + 1})
+	if kind == "table-cell" {
+		for span.End > span.Start && strings.ContainsRune(" \t", rune(r.doc.Source[span.End-1])) {
+			span.End--
+		}
 	}
-}
-
-func blockSuppression(doc *document.Document, node ast.Node, reason string) bool {
-	span := nodeBounds(node)
-	return reason == "html" && span.Valid(len(doc.Source)) && unsupportedSuppression(string(doc.Source[span.Start:span.End]))
-}
-
-func inlineSuppression(doc *document.Document, node ast.Node) bool {
-	raw, ok := node.(*ast.RawHTML)
-	if !ok {
-		return false
+	mapped, err := markdownInline(r.ctx, r.doc, span, continuations)
+	if err == nil {
+		appendBlock(r.doc, mapped, kind)
 	}
-	var content bytes.Buffer
-	for i := 0; i < raw.Segments.Len(); i++ {
-		segment := raw.Segments.At(i)
-		content.Write(segment.Value(doc.Source))
-	}
-	return unsupportedSuppression(content.String())
+	return err
 }

@@ -13,7 +13,7 @@ The Go runtime and standard library's BSD notice is in [licenses/go_LICENSE](lic
 | `github.com/santhosh-tekuri/jsonschema/v6` | `v6.0.3` | [LICENSE](licenses/github.com_santhosh-tekuri_jsonschema_v6_LICENSE) |
 | `github.com/spf13/cobra` | `v1.10.2` | [LICENSE.txt](licenses/github.com_spf13_cobra_LICENSE.txt) |
 | `github.com/spf13/pflag` | `v1.0.9` | [LICENSE](licenses/github.com_spf13_pflag_LICENSE) |
-| `github.com/yuin/goldmark` | `v1.8.6` | [LICENSE](licenses/github.com_yuin_goldmark_LICENSE) |
+| `github.com/odvcencio/gotreesitter` | `v0.52.0` | [LICENSE](licenses/github.com_odvcencio_gotreesitter_LICENSE) |
 | `go.yaml.in/yaml/v3` | `v3.0.5` | [LICENSE](licenses/go.yaml.in_yaml_v3_LICENSE), [NOTICE](licenses/go.yaml.in_yaml_v3_NOTICE) |
 | `golang.org/x/text` | `v0.14.0` | [LICENSE](licenses/golang.org_x_text_LICENSE) |
 | `gopkg.in/neurosnap/sentences.v1` | `v1.0.7` | [LICENSE.md](licenses/gopkg.in_neurosnap_sentences.v1_LICENSE.md) |

@@ -2,14 +2,15 @@
 
 Status: accepted for the experimental alpha.
 
-Unswell needs original UTF-8 byte ranges after removing Markdown syntax and Go
-comment markers. The public document model must also work with another NLP
+Unswell needs original UTF-8 byte ranges after removing Markdown syntax, comment
+markers and string delimiters. The public document model must also work with another NLP
 provider without exposing vendor types.
 
 ## Extraction decision
 
-Use Goldmark's AST and source segments for Markdown/GFM. Own the normalized-text
-to original-byte map in Unswell. Each output byte maps to an original rune or
+Use gotreesitter's block and inline grammars for Markdown/GFM and its source
+grammars for comments and strings. This replaces the initial Goldmark adapter.
+Own the normalized-text to original-byte map in Unswell. Each byte maps to a rune or
 escaped entity; a finding may therefore contain several discontiguous segments.
 Inline code, URLs and other protected atoms insert a boundary marker with spacing.
 They do not join surrounding words or count as prose in density denominators.
@@ -19,6 +20,12 @@ from the original source. `ast.CommentGroup.Text()` is unsuitable because it
 normalizes comment markers, directives and whitespace. Even `ast.Comment.End()`
 can undercount CRLF bytes because the AST comment text omits carriage returns;
 the extractor finds the original terminator from the AST's starting offset.
+
+Use grammar DFAs with their attached scanners. The registry's C-family token
+factory misclassifies C++ raw strings; the DFA regression retains the literal's
+content and exact range. Strict parsing, error-node checks and a Python orphaned
+string-delimiter check reject known partial-tree cases. The adapter bounds parse
+time and nesting and propagates context cancellation.
 
 An alternative of stripping Markdown markers or using normalized Go comment text
 would be smaller but loses entity, emphasis and CRLF coordinates. The extraction

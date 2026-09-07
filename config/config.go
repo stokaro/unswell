@@ -13,6 +13,7 @@ import (
 
 	"go.yaml.in/yaml/v3"
 
+	"github.com/stokaro/unswell/extract"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -51,16 +52,17 @@ type Files struct {
 
 // Policy is an effective policy with provenance and a canonical content hash.
 type Policy struct {
-	Version   int                      `json:"version"`
-	Profile   string                   `json:"profile"`
-	Language  string                   `json:"language"`
-	Rules     map[string]rule.Settings `json:"rules"`
-	Gate      Gate                     `json:"gate"`
-	Analysis  Analysis                 `json:"analysis"`
-	Files     Files                    `json:"files"`
-	GroupCaps map[string]int           `json:"group_caps"`
-	Origins   map[string]string        `json:"origins"`
-	Hash      string                   `json:"hash"`
+	Version    int                      `json:"version"`
+	Profile    string                   `json:"profile"`
+	Language   string                   `json:"language"`
+	Rules      map[string]rule.Settings `json:"rules"`
+	Gate       Gate                     `json:"gate"`
+	Analysis   Analysis                 `json:"analysis"`
+	Files      Files                    `json:"files"`
+	Extraction extract.Policy           `json:"extraction"`
+	GroupCaps  map[string]int           `json:"group_caps"`
+	Origins    map[string]string        `json:"origins"`
+	Hash       string                   `json:"hash"`
 }
 
 type input struct {
@@ -71,6 +73,7 @@ type input struct {
 	Gate        yaml.Node            `yaml:"gate"`
 	Analysis    yaml.Node            `yaml:"analysis"`
 	Files       yaml.Node            `yaml:"files"`
+	Extraction  yaml.Node            `yaml:"extraction"`
 	Calibration struct {
 		Model          string `yaml:"model"`
 		OnIncompatible string `yaml:"on_incompatible"`
@@ -97,6 +100,11 @@ func Load(data []byte, catalog []rule.Descriptor) (Policy, error) {
 	}
 	if err := validate(policy, catalog); err != nil {
 		return Policy{}, err
+	}
+	slices.Sort(policy.Extraction.Contexts)
+	for format, override := range policy.Extraction.Languages {
+		slices.Sort(override.Contexts)
+		policy.Extraction.Languages[format] = override
 	}
 	canonical, err := json.Marshal(policy)
 	if err != nil {
@@ -171,11 +179,12 @@ func resolveProfile(extends []string) (string, error) {
 
 func defaults(profile string, catalog []rule.Descriptor) (Policy, error) {
 	policy := Policy{
-		Version:  1,
-		Profile:  profile + "-v1",
-		Language: "en",
-		Rules:    make(map[string]rule.Settings),
-		Origins:  make(map[string]string),
+		Version:    1,
+		Profile:    profile + "-v1",
+		Language:   "en",
+		Extraction: extract.Policy{Contexts: extract.DefaultContexts()},
+		Rules:      make(map[string]rule.Settings),
+		Origins:    make(map[string]string),
 		Gate: Gate{
 			Sentence:         Threshold{FailAt: 80, MinWords: 12},
 			Paragraph:        Threshold{FailAt: 65, MinWords: 30},
@@ -193,7 +202,7 @@ func defaults(profile string, catalog []rule.Descriptor) (Policy, error) {
 			MaxCandidates:   100000,
 		},
 		Files: Files{
-			Include: []string{"**/*.md", "**/*.txt", "**/*.go"},
+			Include: defaultIncludes(),
 			Exclude: []string{".git/**", "vendor/**", "testdata/**", "artifacts/**", "dist/**", "rules/**", "**/*.generated.go"},
 		},
 		GroupCaps: map[string]int{
@@ -219,6 +228,18 @@ func defaults(profile string, catalog []rule.Descriptor) (Policy, error) {
 		policy.Gate.Sentence.FailAt = 65
 	}
 	return policy, nil
+}
+
+func defaultIncludes() []string {
+	return []string{
+		"**/*.md", "**/*.markdown", "**/*.txt", "**/*.go", "**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs",
+		"**/*.ts", "**/*.mts", "**/*.cts", "**/*.tsx", "**/*.py", "**/*.pyi", "**/*.rs", "**/*.java",
+		"**/*.c", "**/*.h", "**/*.C", "**/*.cc", "**/*.cpp", "**/*.cxx", "**/*.hpp", "**/*.hh", "**/*.hxx",
+		"**/*.cs", "**/*.csx", "**/*.yaml", "**/*.yml",
+		"**/*.sh", "**/*.bash", "**/*.zsh", "**/*.fish", "**/*.ps1", "**/*.psm1", "**/*.psd1",
+		"**/.bashrc", "**/.bash_profile", "**/.bash_login", "**/.bash_logout", "**/.profile",
+		"**/.zshrc", "**/.zprofile", "**/.zshenv", "**/.zlogin", "**/.zlogout",
+	}
 }
 
 func applyProfile(profile, id string, settings *rule.Settings) {
@@ -292,7 +313,7 @@ func applyPolicyNodes(raw input, policy *Policy) error {
 	for _, item := range []struct {
 		node   yaml.Node
 		target any
-	}{{raw.Gate, &policy.Gate}, {raw.Analysis, &policy.Analysis}, {raw.Files, &policy.Files}} {
+	}{{raw.Gate, &policy.Gate}, {raw.Analysis, &policy.Analysis}, {raw.Files, &policy.Files}, {raw.Extraction, &policy.Extraction}} {
 		if item.node.Kind != 0 {
 			if err := mergeNode(item.node, item.target); err != nil {
 				return err

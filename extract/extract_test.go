@@ -107,14 +107,21 @@ func TestInputFailures(t *testing.T) {
 }
 
 func FuzzSourceMap(f *testing.F) {
-	f.Add("It is **important** to note that 😀 &amp; \\*.")
-	f.Fuzz(func(t *testing.T, text string) {
+	formats := document.Formats()
+	for index, format := range formats {
+		seed := "Read the manual."
+		if format == document.Markdown {
+			seed = "It is **important** to note that 😀 &amp; \\*."
+		}
+		f.Add(uint8(index), seed)
+	}
+	f.Fuzz(func(t *testing.T, format uint8, text string) {
 		if len(text) > 4096 {
 			t.Skip()
 		}
 		doc, err := extract.Parse(
 			t.Context(),
-			document.Source{Name: "f.md", Format: document.Markdown, Bytes: []byte(text)},
+			document.Source{Name: "fuzz-input", Format: formats[int(format)%len(formats)], Bytes: []byte(text)},
 			extract.Options{},
 		)
 		if err != nil {

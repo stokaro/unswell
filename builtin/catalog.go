@@ -41,7 +41,7 @@ func Rules() []rule.Rule {
 func descriptor(id, summary, group, scope string, weight int) rule.Descriptor {
 	return rule.Descriptor{
 		ID: id, Version: "1", Summary: summary, Description: summary, Group: group, Scope: scope, Status: "experimental",
-		Contexts: []string{"paragraph", "comment", "heading", "list-item", "table-cell"},
+		Contexts: []string{"paragraph", "comment", "string", "heading", "list-item", "table-cell"},
 		Requires: []nlp.Capability{nlp.Tokens, nlp.Sentences},
 		Defaults: rule.Settings{
 			Enabled:  true,

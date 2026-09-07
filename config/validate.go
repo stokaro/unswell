@@ -5,10 +5,14 @@ import (
 	"math"
 	"slices"
 
+	"github.com/stokaro/unswell/extract"
 	"github.com/stokaro/unswell/rule"
 )
 
 func validate(policy Policy, catalog []rule.Descriptor) error {
+	if err := extract.ValidatePolicy(policy.Extraction); err != nil {
+		return err
+	}
 	if err := validateAnalysis(policy.Analysis); err != nil {
 		return err
 	}
