@@ -27,6 +27,17 @@ content and exact range. Strict parsing, error-node checks and a Python orphaned
 string-delimiter check reject known partial-tree cases. The adapter bounds parse
 time and nesting and propagates context cancellation.
 
+The pinned Markdown scanner accepts pipe-only lines as delimiter rows, which can
+interrupt a table before an empty data row. Prepare its block input with one
+synthetic marker per empty cell on those lines. A sorted insertion map translates
+every node span back to original bytes; inline parsing never sees the markers.
+This also lets the grammar recognize adjacent pipes as empty cells. The adapter
+does not identify table boundaries: the block grammar still decides whether the
+line belongs to a table, paragraph, quote or protected block. A lone pipe remains
+unchanged because GitHub's GFM renderer does not accept it as an empty table row.
+The pinned grammar can leave orphaned delimiter tokens for this boundary; reject
+that incomplete tree rather than silently omitting the following prose.
+
 An alternative of stripping Markdown markers or using normalized Go comment text
 would be smaller but loses entity, emphasis and CRLF coordinates. The extraction
 tests retain exact expected original ranges rather than searching the normalized

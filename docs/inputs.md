@@ -34,6 +34,11 @@ task lists. Inline code, fenced and indented code, HTML, image syntax, link
 destinations and front matter are protected. Link labels remain prose. Quoted
 blocks are excluded unless `analysis.include_quotes` is enabled.
 
+Empty GFM data rows retain the table-cell context of following rows. Blank lines
+and other block boundaries still end the table. The adapter uses a mapped block
+parser input to work around the pinned scanner's empty-row handling; inline prose
+and reported ranges always come from the original source.
+
 Original UTF-8 byte coordinates survive CRLF, escaped Unicode, Markdown entities,
 emphasis and removed delimiters. A decoded character points to its full original
 escape. Interpolation expressions and command substitutions insert protected
@@ -61,6 +66,11 @@ prose context; language overrides replace that set.
 The pinned backend is gotreesitter 0.52.0. Grammar errors, partial parses and
 unsupported string escapes produce incomplete analysis and CLI exit code 2.
 This is not a substitute for a compiler or a language-specific linter.
+
+A lone `|` after a Markdown table can leave orphaned delimiter tokens in the
+pinned grammar's tree ([#69](https://github.com/stokaro/unswell/issues/69)). Unswell
+rejects that incomplete tree instead of skipping the following text. Rows with
+two or more pipes support empty cells normally.
 
 There is no dedicated Zsh grammar in this backend. Zsh uses the Bash grammar;
 extended Zsh syntax can fail explicitly. Bash also has upstream parsing limits,

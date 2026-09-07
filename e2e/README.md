@@ -46,6 +46,14 @@ The [empty table cells](testdata/markdown_empty_cells/sample.md.txt) case came f
 the Ptah evaluation. It preserves detections beside empty cells and protected code,
 including Unicode and Markdown emphasis in a file with CRLF and a BOM.
 
+The [empty table rows](testdata/markdown_empty_rows/sample.md.txt) case requires
+a detection on line 5 after a blank data row. Its
+[CRLF variant](testdata/markdown_empty_rows_crlf/sample.md.txt) covers repeated rows,
+different column counts, a BOM, Unicode, emphasis and protected code boundaries.
+The [orphaned delimiter](testdata/markdown_orphaned_delimiter/sample.md.txt) case
+requires exit code 2 for a known partial grammar tree, preserving the difference
+between an unsupported boundary and a completed clean scan.
+
 The shared policy limits language-extraction cases to two phrase rules and sets
 chat-preamble matching to sentence starts. The `document_position` case checks its
 document-start setting separately. This suite does not claim every catalog rule or
