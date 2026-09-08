@@ -38,7 +38,10 @@ real data; implementation alone cannot satisfy those requirements.
 | [#19](https://github.com/stokaro/unswell/issues/19) | Stage 2: add surface syntax and readability signals |
 | [#20](https://github.com/stokaro/unswell/issues/20) | NLP: evaluate a real dependency backend and capability contract |
 | [#21](https://github.com/stokaro/unswell/issues/21) | Stage 3: define the editorial annotation and data protocol |
+| [#55](https://github.com/stokaro/unswell/issues/55) | Research: fix targets, methodology, and a versioned method registry |
+| [#56](https://github.com/stokaro/unswell/issues/56) | Research: share versioned features across rules, training, and inference |
 | [#22](https://github.com/stokaro/unswell/issues/22) | Stage 3: collect and validate the human-labeled corpus |
+| [#57](https://github.com/stokaro/unswell/issues/57) | Research: execute reproducible comparisons with grouped evaluation |
 | [#50](https://github.com/stokaro/unswell/issues/50) | Research: compare lexical and stylometric quality baselines |
 | [#23](https://github.com/stokaro/unswell/issues/23) | Stage 3: implement reproducible Go training and calibration |
 | [#24](https://github.com/stokaro/unswell/issues/24) | Stage 3: add probability applicability and calibrated gating |

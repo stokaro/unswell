@@ -7,6 +7,13 @@ findings. Quality and provenance need separate labels and evaluation targets.
 The following tasks are experiments. No model training, comparative benchmark, or
 production accuracy result is claimed by this plan.
 
+[ADR 0015](adr/0015-research-methodology.md) and the
+[versioned protocol](../research/methods/protocol-v1.md) now fix the targets,
+A–G comparison, split/tuning procedure, and selection criteria before fitting.
+The [method registry](../research/methods/README.md) records pinned source review,
+component terms, measured source-file hashes, and scoped decisions. None of its
+methods has been reproduced, ported, or qualified by this research work.
+
 The [annotation rubric](editorial-annotation.md) now defines independent quality
 and origin records, reviewer instructions, adjudication, and data partitions.
 Its [Go tools](../research/annotation/README.md) validate rounds, prepare blinded
@@ -22,6 +29,9 @@ provide workflow tests, with no human judgments or independent final-test eviden
 
 | Step | Issue | Deliverable |
 | --- | --- | --- |
+| Fix research design | [#55](https://github.com/stokaro/unswell/issues/55) | Methodology ADR, versioned source registry, and comparison/selection protocol |
+| Share features | [#56](https://github.com/stokaro/unswell/issues/56) | One capability-aware feature contract for rules, training, inference, and explanations |
+| Execute comparisons | [#57](https://github.com/stokaro/unswell/issues/57) | Locked run manifests, grouped metrics, and saved predictions for A–G |
 | Define labels | [#21](https://github.com/stokaro/unswell/issues/21) | Independent quality and provenance annotations, reviewer rubric, and adjudication |
 | Collect data | [#22](https://github.com/stokaro/unswell/issues/22) | Licensed technical corpus, real human judgments, and grouped splits before fragment extraction |
 | Compare small models | [#50](https://github.com/stokaro/unswell/issues/50) | Rules, lexical n-grams, stylometry, logistic regression, and small tree ensembles |
@@ -48,8 +58,9 @@ See the [LLMDet paper](https://aclanthology.org/2023.findings-emnlp.139/) and
 
 ## Runtime and reporting boundaries
 
-Python may support isolated experiments and model conversion. The shipping Go
-library, CLI, and MCP server remain offline and pure Go. Their feature ordering,
+Primary editorial training and calibration run on Go. Python may support isolated
+reference experiments and port comparison data. The shipping Go library, CLI,
+and MCP server remain offline and pure Go. Their feature ordering,
 normalization, tokenization, and model outputs need golden parity with the reference
 implementation before an exported model can be accepted.
 
