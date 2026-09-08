@@ -38,6 +38,7 @@ type Format struct {
 
 // Description exposes the same catalog and effective policy used for checking.
 type Description struct {
+	Features       []string          `json:"features,omitempty"`
 	BaselineLoaded bool              `json:"baseline_loaded"`
 	GateMode       string            `json:"gate_mode"`
 	Version        string            `json:"version"`

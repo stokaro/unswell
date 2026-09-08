@@ -53,5 +53,17 @@ func expectedBatch(expected unswell.RunResult, documents []unswell.DocumentResul
 	if len(expected.Suppressions) == 0 {
 		expected.Suppressions = nil // Empty suppressions are omitted by the wire schema.
 	}
+	expected.Features = batchFeatures(expected.Features, paths)
 	return expected
+}
+
+func batchFeatures(collection *unswell.FeatureCollection, paths map[string]bool) *unswell.FeatureCollection {
+	if collection == nil {
+		return nil
+	}
+	batch := *collection
+	batch.Sources = slices.DeleteFunc(slices.Clone(collection.Sources), func(source unswell.FeatureSource) bool {
+		return !paths[source.Path]
+	})
+	return &batch
 }

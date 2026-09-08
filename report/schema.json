@@ -298,6 +298,40 @@
       ],
       "type": "object"
     },
+    "feature.Value": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "number": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "unit",
+        "number"
+      ],
+      "type": "object"
+    },
     "nlp.Identity": {
       "additionalProperties": false,
       "properties": {
@@ -1041,6 +1075,145 @@
       ],
       "type": "object"
     },
+    "unswell.FeatureCollection": {
+      "additionalProperties": false,
+      "properties": {
+        "block_contract": {
+          "type": "string"
+        },
+        "requested": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/unswell.FeatureSource"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "block_contract",
+        "requested",
+        "sources"
+      ],
+      "type": "object"
+    },
+    "unswell.FeatureSource": {
+      "additionalProperties": false,
+      "properties": {
+        "capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "nlp": {
+          "$ref": "#/$defs/nlp.Identity"
+        },
+        "path": {
+          "type": "string"
+        },
+        "policy_hash": {
+          "type": "string"
+        },
+        "preprocessing": {
+          "type": "string"
+        },
+        "source_hash": {
+          "type": "string"
+        },
+        "units": {
+          "items": {
+            "$ref": "#/$defs/unswell.FeatureUnit"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "vocabulary_hash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "source_hash",
+        "policy_hash",
+        "vocabulary_hash",
+        "preprocessing",
+        "nlp",
+        "capabilities",
+        "units"
+      ],
+      "type": "object"
+    },
+    "unswell.FeatureUnit": {
+      "additionalProperties": false,
+      "properties": {
+        "context_hash": {
+          "type": "string"
+        },
+        "input_hash": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "segments": {
+          "items": {
+            "$ref": "#/$defs/document.Span"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "span": {
+          "$ref": "#/$defs/document.Span"
+        },
+        "unit_id": {
+          "type": "integer"
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/feature.Value"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "scope",
+        "unit_id",
+        "kind",
+        "context_hash",
+        "span",
+        "segments",
+        "values"
+      ],
+      "type": "object"
+    },
     "unswell.Finding": {
       "additionalProperties": false,
       "properties": {
@@ -1490,6 +1663,16 @@
           "type": [
             "array",
             "null"
+          ]
+        },
+        "features": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unswell.FeatureCollection"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "findings": {

@@ -22,15 +22,16 @@ import (
 )
 
 type scenario struct {
-	Files        []string `json:"files"`
-	Resources    []string `json:"resources"`
-	ExitCode     int      `json:"exit_code"`
-	Args         []string `json:"args"`
-	Stdin        bool     `json:"stdin"`
-	Directory    bool     `json:"directory"`
-	CRLF         bool     `json:"crlf"`
-	BOM          bool     `json:"bom"`
-	StartupError bool     `json:"startup_error"`
+	FeatureCollection bool     `json:"feature_collection"`
+	Files             []string `json:"files"`
+	Resources         []string `json:"resources"`
+	ExitCode          int      `json:"exit_code"`
+	Args              []string `json:"args"`
+	Stdin             bool     `json:"stdin"`
+	Directory         bool     `json:"directory"`
+	CRLF              bool     `json:"crlf"`
+	BOM               bool     `json:"bom"`
+	StartupError      bool     `json:"startup_error"`
 }
 
 func TestCLI(t *testing.T) {
@@ -111,6 +112,10 @@ func runScenario(t *testing.T, binary, fixture string) {
 		verifyLocations(t, result, sources)
 		verifySARIF(t, workspace, result)
 		assertGoldenJSON(t, filepath.Join(fixture, "diagnostics.golden.json"), diagnostics(result))
+		if spec.FeatureCollection {
+			c.Assert(result.Features, qt.IsNotNil)
+			assertGoldenJSON(t, filepath.Join(fixture, "features.golden.json"), result.Features)
+		}
 	}
 	assertGolden(t, filepath.Join(fixture, "stdout.golden"), []byte(normalizeOutput(stdout, workspace)))
 	assertGolden(t, filepath.Join(fixture, "stderr.golden"), []byte(normalizeOutput(stderr, workspace)))

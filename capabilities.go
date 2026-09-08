@@ -32,6 +32,9 @@ func (e *Engine) planCapabilities() error {
 	if slices.Contains(e.capabilities, nlp.Dependencies) && strings.TrimSpace(identity.DependencyScheme) == "" {
 		return fmt.Errorf("NLP provider requires a dependency scheme for requested dependencies")
 	}
+	if err := e.requireFeatureCapabilities(identity.Capabilities); err != nil {
+		return err
+	}
 	slices.Sort(e.capabilities)
 	return nil
 }
@@ -53,4 +56,13 @@ func (e *Engine) validateDependencies(ctx context.Context, mapped document.Mappe
 		return nil
 	}
 	return nlp.ValidateDependencies(ctx, mapped, sentences)
+}
+
+func (e *Engine) requireFeatureCapabilities(available []nlp.Capability) error {
+	for _, descriptor := range e.featureDefinitions {
+		if err := e.requireCapabilities(descriptor.Requires, available, "feature "+descriptor.ID); err != nil {
+			return err
+		}
+	}
+	return nil
 }

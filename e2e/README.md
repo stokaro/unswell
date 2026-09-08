@@ -28,6 +28,8 @@ Each directory in `testdata` contains:
 - `policy.yaml`, when the case overrides the shared two-rule policy.
 - `diagnostics.golden.json`: exact diagnostics, source spans, completion, and gate state.
 - `stdout.golden` and `stderr.golden`: complete user-facing process output.
+- `features.golden.json`, when `feature_collection` is expected: requested values,
+  absence reasons, source segments, and compatibility identities.
 
 For example, the [Go fixture](testdata/go/sample.go.txt) places expectations beside
 the comment and string that should trigger them:
@@ -59,6 +61,11 @@ escaped Unicode, CRLF/BOM coordinates, and interpolation boundaries. Policy case
 check context replacement, reasoned symbol exceptions, and directory exclusions.
 Process cases cover stdin, malformed and empty input, invalid configuration, and
 `--no-gate`. Exit codes 0, 1, and 2 are explicit expectations.
+
+The [feature collection](testdata/feature_collection/sample.md.txt) case requests
+word count and lexical diversity through the CLI. Its golden keeps three counted
+words across Markdown emphasis, excludes protected code, and records absent
+heading measurements under CRLF. A missing requested collection fails the case.
 
 The [empty table cells](testdata/markdown_empty_cells/sample.md.txt) case came from
 the Ptah evaluation. It preserves detections beside empty cells and protected code,

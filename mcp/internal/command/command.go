@@ -22,6 +22,11 @@ import (
 func Run(ctx context.Context, args []string, stderr io.Writer, transport mcp.Transport) error {
 	flags := flag.NewFlagSet("unswell-mcp", flag.ContinueOnError)
 	flags.SetOutput(stderr)
+	var features []string
+	flags.Func("feature", "collect a shared block feature by ID; repeat to select a set", func(id string) error {
+		features = append(features, id)
+		return nil
+	})
 	configPath := flags.String("config", "", "explicit Unswell policy file; omitted uses builtin defaults")
 	baselinePath := flags.String("baseline", "", "explicit local baseline loaded once at startup; tools cannot update it")
 	gateMode := flags.String("gate-mode", "", "override gate mode: all or new (new requires a baseline)")
@@ -52,7 +57,8 @@ func Run(ctx context.Context, args []string, stderr io.Writer, transport mcp.Tra
 	if err != nil {
 		return err
 	}
-	instance, err := server.New(server.Options{ConfigBundle: &loaded.Bundle, Timeout: *timeout, Baseline: accepted, GateMode: *gateMode})
+	instance, err := server.New(server.Options{Features: features, ConfigBundle: &loaded.Bundle,
+		Timeout: *timeout, Baseline: accepted, GateMode: *gateMode})
 	if err != nil {
 		return err
 	}

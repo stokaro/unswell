@@ -56,7 +56,7 @@ func (r featureRule) Evaluate(ctx context.Context, view rule.View, _ rule.Emitte
 func TestSharedFeaturesThroughPublicEngine(t *testing.T) {
 	c := qt.New(t)
 	sets := make(chan *feature.Set, 4)
-	engine, err := unswell.New(unswell.Options{Rules: []rule.Rule{
+	engine, err := unswell.New(unswell.Options{Features: []string{"prose-words"}, Rules: []rule.Rule{
 		featureRule{id: "team.features-a", sets: sets}, featureRule{id: "team.features-b", sets: sets},
 	}})
 	c.Assert(err, qt.IsNil)
@@ -74,6 +74,9 @@ func TestSharedFeaturesThroughPublicEngine(t *testing.T) {
 	m, err := first.Block(0)
 	c.Assert(err, qt.IsNil)
 	c.Assert(m.Spans(), qt.DeepEquals, []document.Span{{Start: 0, End: 3}, {Start: 6, End: 9}, {Start: 12, End: 17}})
+	c.Assert(result.Features.Sources[0].Units[0].InputHash, qt.Equals, m.Hash())
+	c.Assert(result.Features.Sources[0].Units[0].Segments, qt.DeepEquals, m.Spans())
+	c.Assert(*result.Features.Sources[0].Units[0].Values[0].Number, qt.Equals, float64(3))
 }
 
 func TestPublicLexicalMeasurements(t *testing.T) {

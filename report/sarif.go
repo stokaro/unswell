@@ -61,10 +61,7 @@ func sarif(writer io.Writer, result unswell.RunResult) error {
 			"invocations": []any{
 				map[string]any{"executionSuccessful": result.Manifest.Complete, "toolExecutionNotifications": notifications},
 			},
-			"properties": map[string]any{"gate": result.Gate, "assessments": result.Assessments,
-				"changes": result.Changes, "policy_comparison": result.PolicyComparison,
-				"baseline": result.Baseline, "baseline_snapshot": result.BaselineSnapshot,
-				"manifest": result.Manifest, "file_policies": filePolicies(result), "suppressions": result.Suppressions},
+			"properties": runProperties(result),
 		}},
 	})
 }
@@ -126,4 +123,15 @@ func sarifLocation(location unswell.Location) map[string]any {
 	return map[string]any{
 		"physicalLocation": map[string]any{"artifactLocation": map[string]string{"uri": uri.String()}, "region": region},
 	}
+}
+
+func runProperties(result unswell.RunResult) map[string]any {
+	properties := map[string]any{"gate": result.Gate, "assessments": result.Assessments,
+		"changes": result.Changes, "policy_comparison": result.PolicyComparison,
+		"baseline": result.Baseline, "baseline_snapshot": result.BaselineSnapshot,
+		"manifest": result.Manifest, "file_policies": filePolicies(result), "suppressions": result.Suppressions}
+	if result.Features != nil {
+		properties["features"] = result.Features
+	}
+	return properties
 }

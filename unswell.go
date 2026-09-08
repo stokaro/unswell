@@ -17,6 +17,7 @@ import (
 	"github.com/stokaro/unswell/builtin"
 	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/nlp"
 	"github.com/stokaro/unswell/nlp/english"
 	"github.com/stokaro/unswell/rule"
@@ -27,6 +28,9 @@ import (
 // a nonnil slice replaces that catalog. RuleSets adds declarative YAML packs to
 // the registry. Config and RuleSets contain bytes, never filenames.
 type Options struct {
+	// Features selects block measurements for the result. IDs form a set; unknown
+	// or repeated IDs are errors. Nil or empty disables result collection.
+	Features []string
 	// Baseline contains an explicitly selected artifact; nil disables comparison.
 	Baseline []byte
 	// CollectBaseline requests a validated snapshot for explicit create or update.
@@ -47,6 +51,8 @@ type Options struct {
 // Engine is immutable after construction and supports concurrent calls. Custom
 // rule and NLP implementations must uphold their documented concurrency contract.
 type Engine struct {
+	featureIDs            []string
+	featureDefinitions    []feature.Descriptor
 	trustedSources        map[string]sourceIdentities
 	baselineFile          *baseline.File
 	collectBaseline       bool
@@ -124,6 +130,9 @@ func (e *Engine) configure(options Options) error {
 	e.plan = plan
 	e.policy, err = plan.Policy()
 	if err != nil {
+		return err
+	}
+	if err := e.selectFeatures(options.Features); err != nil {
 		return err
 	}
 	if len(additional) == 0 {
@@ -249,6 +258,7 @@ func (e *Engine) analyzeAll(ctx context.Context, sources []document.Source, iden
 	}
 	workers.Wait()
 	for i, part := range partials {
+		result.appendFeatureSources(part.Features)
 		result.Documents = append(result.Documents, part.Documents...)
 		result.Findings = append(result.Findings, part.Findings...)
 		result.Assessments = append(result.Assessments, part.Assessments...)
@@ -287,6 +297,7 @@ func batchIdentity(identities []sourceIdentities, index int) *sourceIdentities {
 
 func (e *Engine) emptyResult() RunResult {
 	result := RunResult{
+		Features:      e.featureCollection(),
 		SchemaVersion: SchemaVersion,
 		Status:        "complete",
 		Documents:     []DocumentResult{},

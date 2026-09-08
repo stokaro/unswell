@@ -34,7 +34,7 @@ func Measure(ctx context.Context, block document.Block, identity Identity, limit
 	if err := ctx.Err(); err != nil {
 		return Measurements{}, err
 	}
-	if !supported(block.Kind) {
+	if !SupportsBlock(block.Kind) {
 		return missingMeasurements(hash, "unsupported_unit"), nil
 	}
 	if !slices.Contains(identity.Capabilities, nlp.Tokens) || !slices.Contains(identity.Capabilities, nlp.Sentences) {
@@ -157,4 +157,7 @@ func lengthStatistics(lengths []int) (mean, deviation float64, shortest, longest
 	return mean, math.Sqrt(m2 / float64(len(lengths))), shortest, longest
 }
 
-func supported(kind string) bool { return kind == "paragraph" || kind == "comment" || kind == "string" }
+// SupportsBlock reports whether the current block contract measures this kind.
+func SupportsBlock(kind string) bool {
+	return kind == "paragraph" || kind == "comment" || kind == "string"
+}

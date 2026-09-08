@@ -27,6 +27,12 @@ builtin defaults; it does not search a working directory or home directory for
 configuration. Set `--timeout 30s` to bound each check; the maximum is five minutes.
 Source and analysis limits also come from the effective policy.
 
+Repeat `--feature ID` at startup to collect selected [block measurements](shared-features.md),
+for example `--feature prose-words --feature type-token-ratio`. Discovery reports
+the selected IDs. Checks return the same optional feature collection as the CLI;
+clients cannot alter the selection. These measurements do not change the gate or
+provide calibrated probabilities. Collection is off by default.
+
 Use `--baseline /absolute/path/to/.unswell-baseline.json --gate-mode new` to accept
 reviewed debt through the shared engine. The artifact is loaded once at startup;
 restart after an explicit update. `unswell_describe` reports whether a baseline is
@@ -99,13 +105,16 @@ starts a real MCP subprocess with the committed policy. A client discovers its
 tools and submits the same source bytes. It compares the complete engine results
 after removing source-display fields and normalizing the CLI discovery mode.
 Policy hashes, build revisions, findings, exclusions and gate outcomes must match.
+Both scans request word counts and type-token ratios. Their feature identities,
+source ranges, numeric values and reasons for missing values must also match.
 
 The client also checks deliberate Markdown, comment, YAML and C# violations,
 a clean rewrite and malformed source. Protocol tests cover invalid arguments,
 context overrides, exceptions, request cancellation and process shutdown.
 CI retains repository and probe results in `artifacts/dogfood/mcp-result.json`.
 The self-check sends at most 256 documents per request and compares every batch
-with the corresponding CLI documents, findings, assessments, and suppressions.
+with the corresponding CLI documents, findings, assessments, suppressions and
+requested measurements.
 Its developer evidence file stores the actual responses in `repository_batches`;
 the public MCP response schema is unchanged. Any mismatched batch fails the check.
 

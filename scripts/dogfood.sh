@@ -3,6 +3,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p artifacts/dogfood
 bin/unswell check . --config .unswell.yaml --include-source \
+  --feature prose-words --feature type-token-ratio \
   --report text:- \
   --report json:artifacts/dogfood/result.json \
   --report sarif:artifacts/dogfood/result.sarif \

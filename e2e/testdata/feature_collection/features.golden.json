@@ -1,0 +1,103 @@
+{
+  "version": "unswell-feature-collection-v1",
+  "block_contract": "unswell-block-features-v1",
+  "requested": [
+    "prose-words",
+    "type-token-ratio"
+  ],
+  "sources": [
+    {
+      "path": "sample.md",
+      "source_hash": "546997d5f3e61c2536fc409dbc604c47b1b080d17c13d3acc1d75043b932e399",
+      "policy_hash": "3d3d3be4c4d593325fa7c9608ef26424424cb1c73b5fc7984fc5f4adab584d2c",
+      "vocabulary_hash": "3d3d3be4c4d593325fa7c9608ef26424424cb1c73b5fc7984fc5f4adab584d2c",
+      "preprocessing": "extracted-provider-tokens-v1",
+      "nlp": {
+        "name": "builtin-en",
+        "version": "prose-v3.2.1/chunks-v1",
+        "model": "prose/aptagmodel/en.bin",
+        "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+        "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+        "license": "MIT",
+        "capabilities": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ]
+      },
+      "capabilities": [
+        "sentences",
+        "tokens"
+      ],
+      "units": [
+        {
+          "scope": "block",
+          "unit_id": 0,
+          "kind": "heading",
+          "context_hash": "e69e5fa7a0ee0b025aa1bcaff08a8892e60bbc59b6654ed6f373bf1554b44ea7",
+          "span": {
+            "start": 2,
+            "end": 9
+          },
+          "segments": null,
+          "values": [
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": null,
+              "reason": "unsupported_unit"
+            },
+            {
+              "id": "type-token-ratio",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "unsupported_unit"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 1,
+          "kind": "paragraph",
+          "context_hash": "e69e5fa7a0ee0b025aa1bcaff08a8892e60bbc59b6654ed6f373bf1554b44ea7",
+          "span": {
+            "start": 13,
+            "end": 46
+          },
+          "segments": [
+            {
+              "start": 13,
+              "end": 16
+            },
+            {
+              "start": 19,
+              "end": 22
+            },
+            {
+              "start": 25,
+              "end": 30
+            }
+          ],
+          "input_hash": "02c63b97e670dd62e621faa24ed90494645c228d1020c23d856bd334f4e7d10d",
+          "values": [
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 3
+            },
+            {
+              "id": "type-token-ratio",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -143,4 +143,50 @@ two sentences say the same thing.
 `PatternCatalog` defines these string preprocessing outputs under
 `unswell-pattern-features-v1`. They are separate from numeric `Value` measurements.
 Keys explicitly expose source-derived text and are not added to saved reports or
-MCP responses. Shared engine collection for model inputs remains part of #56.
+MCP responses. Repetition/model-specific collection remains part of #56.
+
+## Collect block measurements
+
+Pass a set of block feature IDs in `unswell.Options.Features`, or repeat the CLI
+`--feature` flag:
+
+```sh
+unswell check README.md --feature prose-words --feature type-token-ratio --report json:features.json
+```
+
+Unknown and duplicate IDs are errors. The engine requests and checks the selected
+NLP capabilities before analysis; a requested POS feature cannot silently use an
+untagged representation. Collection reads the same immutable set as enabled rules.
+It does not repeat extraction, tokenization, or measurement. A nil or empty request
+preserves ordinary reports without a `features` field.
+
+The optional `RunResult.Features` uses `unswell-feature-collection-v1` and records
+the block contract, canonical requested IDs, source/NLP/policy/preprocessing
+identities, and each block's measured input hash, original span and counted source
+segments. Values retain their own IDs, versions, units, and absence reasons.
+Context is stored as a SHA256 hash of its ordered JSON representation because
+grammar context can contain heading prose. The collection never saves that text.
+`feature.SupportsBlock` exposes the current block-kind boundary. Unsupported
+kinds carry only absent values with `unsupported_unit`; empty ratios remain absent
+with `no_prose_words`. Neither is an observed zero or a clean training label.
+
+The enclosing analysis completion state applies to the entire collection. Do not
+train or infer from an incomplete run as if it were complete. Later rule or policy
+processing errors can leave valid partial measurements; they do not make the run
+successful. Complete policy failures may still have complete measurements.
+
+JSON and SARIF preserve the collection. Text, Markdown, and HTML display requested
+values and absence reasons from that same result. `unswell report` can render saved
+values without source files or an installed model. Readers reject incompatible
+collection versions, inconsistent identities, invalid ranges, and ambiguous or
+nonfinite values. This validates the record's structure; it does not authenticate
+an edited report or prove the underlying source content.
+
+Start MCP with the same repeated `--feature` flags to fix its requested set.
+`unswell_describe` includes those IDs, and `unswell_check` returns the shared engine
+collection. A client cannot select a different set or policy in a check request.
+No source words or template keys are added to reports by collection.
+
+See [ADR 0017](adr/0017-feature-collection.md). Raw activations and repetition/model
+vectors still require integration; this block collection does not qualify a model
+or provide calibrated probabilities.
