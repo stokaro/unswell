@@ -48,3 +48,25 @@ func TestRepositoryPolicy(t *testing.T) {
 		})
 	}
 }
+
+func TestAdapterHasThePublicLibraryBoundary(t *testing.T) {
+	for _, row := range []struct{ name, file, source, want string }{
+		{"filesystem", "goanalysis/analyzer.go", "package goanalysis; import \"os\"", "library boundary.*"},
+		{"internal", "goanalysis/analyzer.go", "package goanalysis; import \"github.com/stokaro/unswell/internal/mapping\"",
+			"go/analysis adapter must use public.*"},
+		{"driver internal", "goanalysis/cmd/driver/main.go", "package main; import \"github.com/stokaro/unswell/internal/cli\"",
+			"go/analysis adapter must use public.*"},
+	} {
+		t.Run(row.name, func(t *testing.T) {
+			c := qt.New(t)
+			tree := fixture()
+			tree[".gomodules"].Data = []byte(". runtime\ngoanalysis runtime\ntools tools\n")
+			tree["goanalysis/go.mod"] = &fstest.MapFile{Data: []byte("module github.com/stokaro/unswell/goanalysis\n")}
+			tree["docs/public_api.md"].Data = []byte("`github.com/stokaro/unswell`\n`github.com/stokaro/unswell/goanalysis`\n")
+			tree["goanalysis/analyzer.go"] = &fstest.MapFile{Data: []byte("package goanalysis; import \"context\"")}
+			c.Assert(repopolicy.Check(tree), qt.IsNil)
+			tree[row.file] = &fstest.MapFile{Data: []byte(row.source)}
+			c.Assert(repopolicy.Check(tree), qt.ErrorMatches, row.want)
+		})
+	}
+}
