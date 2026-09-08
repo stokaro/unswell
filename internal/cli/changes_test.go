@@ -118,6 +118,9 @@ func TestCommittedChangesRejectDirtyAndUnavailableInputs(t *testing.T) {
 			commitGit(t, root, "rm", ".unswell.yaml")
 			commitGit(t, root, "commit", "-m", "Remove policy")
 		}, nil, "policy input changed"},
+		{"locally removed discovered policy", func(t *testing.T, root string) {
+			qt.New(t).Assert(os.Remove(filepath.Join(root, ".unswell.yaml")), qt.IsNil)
+		}, []string{"guide.md"}, "missing committed policy input"},
 		{"stdin", func(_ *testing.T, _ string) {}, []string{"--stdin", "--filename", "guide.md"}, "requires committed source paths"},
 	}
 	for _, row := range cases {
@@ -212,4 +215,24 @@ func TestCommittedSourcesRejectSymlinksAndCheckoutFilters(t *testing.T) {
 	code, _, stderr = runChanged(t, root, base, "guide.md")
 	c.Assert(code, qt.Equals, 2)
 	c.Assert(stderr, qt.Contains, "bytes do not match HEAD")
+}
+
+func TestCommittedPolicyDirectoryCannotLoseALocalRuleFile(t *testing.T) {
+	c := qt.New(t)
+	root, _ := changedRepository(t)
+	data, err := os.ReadFile("../../examples/rules/company.yaml")
+	c.Assert(err, qt.IsNil)
+	c.Assert(os.Mkdir(filepath.Join(root, "rules"), 0o700), qt.IsNil)
+	writeChanged(t, root, "rules/first.yaml", string(data))
+	second := strings.ReplaceAll(string(data), "company", "second")
+	writeChanged(t, root, "rules/second.yaml", second)
+	commitGit(t, root, "add", "rules")
+	commitGit(t, root, "commit", "-m", "Add ruleset directory")
+	base := commitGit(t, root, "rev-parse", "HEAD")
+	code, _, stderr := runChanged(t, root, base, "guide.md", "--ruleset", "rules")
+	c.Assert(code, qt.Equals, 0, qt.Commentf("%s", stderr))
+	c.Assert(os.Remove(filepath.Join(root, "rules", "first.yaml")), qt.IsNil)
+	code, _, stderr = runChanged(t, root, base, "guide.md", "--ruleset", "rules", "--no-gate")
+	c.Assert(code, qt.Equals, 2)
+	c.Assert(stderr, qt.Contains, "missing committed policy input")
 }

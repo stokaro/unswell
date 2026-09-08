@@ -38,11 +38,11 @@ func (g *gitComparison) verifyPolicy(environment Environment, options checkOptio
 		}
 	}
 	if options.config == "" && options.profile == "" {
-		if err := g.verifyDiscovery(environment.Dir); err != nil {
+		if err := g.verifyDiscovery(environment.Dir, resources); err != nil {
 			return err
 		}
 	}
-	return g.verifyRuleDirectories(environment, options.ruleSets)
+	return g.verifyRuleDirectories(environment, options.ruleSets, resources)
 }
 
 func (g *gitComparison) unchangedPolicy(name string) error {
@@ -52,14 +52,18 @@ func (g *gitComparison) unchangedPolicy(name string) error {
 	return nil
 }
 
-func (g *gitComparison) verifyDiscovery(dir string) error {
+func (g *gitComparison) verifyDiscovery(dir string, resources map[string][]byte) error {
 	for {
 		name, err := filepath.Rel(g.project, filepath.Join(dir, ".unswell.yaml"))
 		if err != nil || escapesRoot(name) {
 			return fmt.Errorf("configuration discovery escapes project root")
 		}
-		if err := g.unchangedPolicy(filepath.ToSlash(name)); err != nil {
+		name = filepath.ToSlash(name)
+		if err := g.unchangedPolicy(name); err != nil {
 			return err
+		}
+		if g.after[g.prefix+name].id != "" {
+			return g.requirePolicyInput(name, resources)
 		}
 		if dir == g.project {
 			return nil
@@ -68,7 +72,7 @@ func (g *gitComparison) verifyDiscovery(dir string) error {
 	}
 }
 
-func (g *gitComparison) verifyRuleDirectories(environment Environment, args []string) error {
+func (g *gitComparison) verifyRuleDirectories(environment Environment, args []string, resources map[string][]byte) error {
 	for _, arg := range args {
 		path := absoluteArguments(environment.Dir, []string{arg})[0]
 		info, err := os.Stat(path)
@@ -82,14 +86,14 @@ func (g *gitComparison) verifyRuleDirectories(environment Environment, args []st
 		if err != nil || escapesRoot(name) {
 			return fmt.Errorf("ruleset directory escapes project root")
 		}
-		if err := g.unchangedRuleDirectory(filepath.ToSlash(name)); err != nil {
+		if err := g.unchangedRuleDirectory(filepath.ToSlash(name), resources); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func (g *gitComparison) unchangedRuleDirectory(dir string) error {
+func (g *gitComparison) unchangedRuleDirectory(dir string, resources map[string][]byte) error {
 	for _, tree := range []map[string]gitEntry{g.before, g.after} {
 		for path := range tree {
 			name := strings.TrimPrefix(path, g.prefix)
@@ -97,8 +101,18 @@ func (g *gitComparison) unchangedRuleDirectory(dir string) error {
 				if err := g.unchangedPolicy(name); err != nil {
 					return err
 				}
+				if err := g.requirePolicyInput(name, resources); err != nil {
+					return err
+				}
 			}
 		}
+	}
+	return nil
+}
+
+func (g *gitComparison) requirePolicyInput(name string, resources map[string][]byte) error {
+	if _, loaded := resources[filepath.Join(g.project, filepath.FromSlash(name))]; !loaded {
+		return fmt.Errorf("missing committed policy input: %s", name)
 	}
 	return nil
 }
