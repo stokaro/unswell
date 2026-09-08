@@ -186,6 +186,8 @@ Use [trusted policy](docs/trusted-policy.md) to apply merge-base rules and basel
 while auditing candidate policy changes and new source permissions.
 The public [Go analysis adapter](docs/go-analysis.md) and its prototype vet driver
 check comments and strings through the same engine.
+The [contextual editorial catalog](docs/editorial-patterns.md) adds opt-in filler,
+hype, and rhetorical-pattern checks with explicit evidence and technical counterexamples.
 The [roadmap](docs/roadmap.md) preserves the remaining requirements:
 calibrated revision probabilities and qualified editorial defaults.
 The alpha does not silently claim those capabilities.

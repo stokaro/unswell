@@ -138,3 +138,9 @@ The [Go analysis module](../goanalysis) adds standard `analysistest` fixtures wi
 inline `want` annotations, exact byte-range assertions, and a real
 `go vet -vettool` test. Its adapter result is compared with the public engine.
 These tests participate in the module inventory and native-platform CI.
+
+The `editorial_patterns` case covers the eleven opt-in contextual rules, the
+version-2 not-only matcher, and a FAQ file override. It retains the overlapping
+praise/triad findings and their related ranges. `editorial_code` covers an escaped
+Go string, a reasoned permission, and independent comments/strings that must not be
+combined to reach a rhetorical threshold. Both fixtures include CRLF and a BOM.

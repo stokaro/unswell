@@ -30,10 +30,15 @@ extraction:
       symbols: [definitions]
       reason: "The phrase catalog stores the wording that the rules must detect."
     - id: rule-examples
-      paths: ["builtin/context.go", "builtin/repetition.go"]
+      paths: ["builtin/context.go", "builtin/repetition.go", "builtin/editorial_catalog.go"]
       kinds: [string]
       symbols: [Text]
       reason: "Executable rule examples contain both matching and nonmatching prose."
+    - id: editorial-pattern-vocabulary
+      paths: ["builtin/editorial_catalog.go"]
+      kinds: [string]
+      symbols: [Phrases]
+      reason: "Configured phrase lists contain the exact wording that the experimental rules must detect."
     - id: shell-gate-fixture
       paths: ["scripts/dogfood.sh", "scripts/check-containers.sh"]
       kinds: [string]
@@ -51,3 +56,15 @@ extraction:
       reason: "The MCP client sends deliberate violations and malformed source to verify server outcomes."
 calibration:
   model: none
+rules:
+  filler.section-announcement: {enabled: true, gate: forbid}
+  filler.empty-transition: {enabled: true, gate: forbid}
+  hype.vague-praise: {enabled: true, gate: forbid}
+  hype.metaphor-cluster: {enabled: true, gate: forbid}
+  hype.absolute-claim: {enabled: true, gate: forbid}
+  filler.weak-intensifiers: {enabled: true, gate: forbid}
+  filler.stacked-hedging: {enabled: true, gate: forbid}
+  syntax.paired-contrast-density: {enabled: true, gate: forbid}
+  syntax.triad-density: {enabled: true, gate: forbid}
+  syntax.whether-preface-density: {enabled: true, gate: forbid}
+  syntax.rhetorical-question-density: {enabled: true, gate: forbid}

@@ -26,6 +26,7 @@ type Parameters struct {
 	ProtectNegation       bool     `json:"protect_negation"       yaml:"protect_negation"`
 	ProtectNumbers        bool     `json:"protect_numbers"        yaml:"protect_numbers"`
 	ProtectIdentifiers    bool     `json:"protect_identifiers"    yaml:"protect_identifiers"`
+	MaxAnswerWords        int      `json:"max_answer_words,omitempty" yaml:"max_answer_words"`
 }
 
 // Score is independent of presentation severity. Units are index points.

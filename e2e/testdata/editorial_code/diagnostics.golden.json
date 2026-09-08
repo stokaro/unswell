@@ -1,0 +1,163 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "filler.stacked-hedging",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Check whether each hedge expresses a distinct uncertainty; retain needed qualifications.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 137,
+          "end": 140
+        },
+        "start": {
+          "line": 4,
+          "column": 15
+        },
+        "end": {
+          "line": 4,
+          "column": 18
+        },
+        "segments": [
+          {
+            "start": 137,
+            "end": 140
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "sample.go",
+          "span": {
+            "start": 141,
+            "end": 149
+          },
+          "start": {
+            "line": 4,
+            "column": 19
+          },
+          "end": {
+            "line": 4,
+            "column": 27
+          },
+          "segments": [
+            {
+              "start": 141,
+              "end": 149
+            }
+          ]
+        },
+        {
+          "path": "sample.go",
+          "span": {
+            "start": 150,
+            "end": 157
+          },
+          "start": {
+            "line": 4,
+            "column": 28
+          },
+          "end": {
+            "line": 4,
+            "column": 35
+          },
+          "segments": [
+            {
+              "start": 150,
+              "end": 157
+            }
+          ]
+        }
+      ],
+      "suppressed": true
+    },
+    {
+      "rule_id": "hype.vague-praise",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Replace general praise with a specific property or measured result.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 265,
+          "end": 292
+        },
+        "start": {
+          "line": 7,
+          "column": 28
+        },
+        "end": {
+          "line": 7,
+          "column": 55
+        },
+        "segments": [
+          {
+            "start": 265,
+            "end": 283
+          },
+          {
+            "start": 284,
+            "end": 292
+          }
+        ]
+      },
+      "related": []
+    }
+  ],
+  "errors": [],
+  "suppressions": [
+    {
+      "id": "2a701be05b41c9e010607cca885cedae54105521b83369af2fadfefbdfe58756",
+      "kind": "disable-next-block",
+      "rule_ids": [
+        "filler.stacked-hedging"
+      ],
+      "reason": "Preserve the supplied compatibility wording.",
+      "directive": {
+        "path": "sample.go",
+        "span": {
+          "start": 21,
+          "end": 122
+        },
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 102
+        },
+        "segments": [
+          {
+            "start": 21,
+            "end": 122
+          }
+        ]
+      },
+      "targets": [
+        {
+          "scope": "paragraph",
+          "unit_id": 0,
+          "span": {
+            "start": 125,
+            "end": 211
+          }
+        }
+      ],
+      "finding_ids": [
+        "b2d1c4eade865303"
+      ],
+      "used_rules": [
+        "filler.stacked-hedging"
+      ],
+      "status": "used"
+    }
+  ]
+}

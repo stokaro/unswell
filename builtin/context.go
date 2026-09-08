@@ -32,7 +32,7 @@ func contextRules() []rule.Rule {
 	)
 	hype.Requires = append(hype.Requires, nlp.POS, nlp.Chunks)
 	hype.Defaults.Parameters = rule.Parameters{
-		Phrases:    []string{"powerful", "seamless", "robust", "innovative", "transformative", "unparalleled"},
+		Phrases:    evaluativeWords(),
 		Onset:      2,
 		Saturation: 5,
 	}
@@ -50,6 +50,9 @@ func contextRules() []rule.Rule {
 		18,
 	)
 	notOnly.Defaults.Parameters = rule.Parameters{WindowSentences: 8, AllowedOccurrences: 1, SaturationOccurrences: 4}
+	notOnly.Version = "2"
+	notOnly.Description = "Counts ordered not-only/not-just followed by but in bounded prose windows, allowing one matching sentence."
+	notOnly.Limitations += " Version 2 stops at structural/protected boundaries and requires the contrast markers in source order."
 	notOnly.Parameters = []string{"window_sentences", "allowed_occurrences", "saturation_occurrences"}
 	notOnly.Examples = []rule.Example{
 		{Text: "It not only reads but also writes. It not only checks but also validates.", Match: true},
@@ -77,7 +80,7 @@ func contextRules() []rule.Rule {
 	result := []rule.Rule{
 		check{long, longSentence},
 		check{hype, modifierCluster},
-		check{notOnly, notOnlyDensity},
+		check{notOnly, editorialWindow(notOnlyEvents, "paired-contrasts")},
 		check{connective, connectiveOveruse},
 	}
 	return append(result, repetitionRules()...)
@@ -161,41 +164,6 @@ func modifierOccurrence(sentence document.Sentence, lexicon map[string]bool, vie
 		}
 	}
 	return count, occurrence
-}
-
-func notOnlyDensity(ctx context.Context, view rule.View, emit rule.Emitter) error {
-	sentences := allSentences(view.Document)
-	for start := 0; start < len(sentences); start++ {
-		if err := ctx.Err(); err != nil {
-			return err
-		}
-		occurrences := make([]rule.Occurrence, 0)
-		last := start
-		for offset, sentence := range sentences[start:min(len(sentences), start+view.Parameters.WindowSentences)] {
-			words := " " + strings.Join(normalizedWords(sentence), " ") + " "
-			if (strings.Contains(words, " not only ") || strings.Contains(words, " not just ")) && strings.Contains(words, " but ") {
-				occurrences = append(occurrences, sentenceOccurrence(sentence))
-				last = start + offset
-			}
-		}
-		if len(occurrences) <= view.Parameters.AllowedOccurrences {
-			continue
-		}
-		evidence := measured(
-			"heuristic",
-			"paired-contrasts",
-			"sentences",
-			len(occurrences),
-			view.Parameters.AllowedOccurrences,
-			view.Parameters.SaturationOccurrences,
-			occurrences,
-		)
-		if err := emit.Emit(evidence); err != nil {
-			return err
-		}
-		start = last
-	}
-	return nil
 }
 
 func connectiveOveruse(ctx context.Context, view rule.View, emit rule.Emitter) error {

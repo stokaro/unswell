@@ -1,0 +1,992 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "filler.section-announcement",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "Replace repeated section announcements with their subject.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 72,
+          "end": 100
+        },
+        "start": {
+          "line": 5,
+          "column": 9
+        },
+        "end": {
+          "line": 5,
+          "column": 37
+        },
+        "segments": [
+          {
+            "start": 72,
+            "end": 74
+          },
+          {
+            "start": 75,
+            "end": 79
+          },
+          {
+            "start": 82,
+            "end": 89
+          },
+          {
+            "start": 91,
+            "end": 92
+          },
+          {
+            "start": 93,
+            "end": 95
+          },
+          {
+            "start": 96,
+            "end": 100
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 117,
+            "end": 141
+          },
+          "start": {
+            "line": 5,
+            "column": 54
+          },
+          "end": {
+            "line": 5,
+            "column": 78
+          },
+          "segments": [
+            {
+              "start": 117,
+              "end": 119
+            },
+            {
+              "start": 120,
+              "end": 124
+            },
+            {
+              "start": 125,
+              "end": 132
+            },
+            {
+              "start": 132,
+              "end": 133
+            },
+            {
+              "start": 134,
+              "end": 136
+            },
+            {
+              "start": 137,
+              "end": 141
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "filler.empty-transition",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "Check whether these repeated opening transitions add information.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 228,
+          "end": 248
+        },
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 9,
+          "column": 21
+        },
+        "segments": [
+          {
+            "start": 228,
+            "end": 232
+          },
+          {
+            "start": 233,
+            "end": 237
+          },
+          {
+            "start": 238,
+            "end": 243
+          },
+          {
+            "start": 244,
+            "end": 248
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 269,
+            "end": 291
+          },
+          "start": {
+            "line": 9,
+            "column": 42
+          },
+          "end": {
+            "line": 9,
+            "column": 64
+          },
+          "segments": [
+            {
+              "start": 269,
+              "end": 271
+            },
+            {
+              "start": 272,
+              "end": 276
+            },
+            {
+              "start": 277,
+              "end": 284
+            },
+            {
+              "start": 285,
+              "end": 291
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "hype.vague-praise",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Replace general praise with a specific property or measured result.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 381,
+          "end": 403
+        },
+        "start": {
+          "line": 13,
+          "column": 11
+        },
+        "end": {
+          "line": 13,
+          "column": 33
+        },
+        "segments": [
+          {
+            "start": 381,
+            "end": 394
+          },
+          {
+            "start": 395,
+            "end": 403
+          }
+        ]
+      },
+      "related": []
+    },
+    {
+      "rule_id": "hype.metaphor-cluster",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "Replace clustered stock metaphors with specific properties.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 492,
+          "end": 522
+        },
+        "start": {
+          "line": 17,
+          "column": 22
+        },
+        "end": {
+          "line": 17,
+          "column": 52
+        },
+        "segments": [
+          {
+            "start": 492,
+            "end": 496
+          },
+          {
+            "start": 497,
+            "end": 505
+          },
+          {
+            "start": 506,
+            "end": 508
+          },
+          {
+            "start": 509,
+            "end": 522
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 532,
+            "end": 553
+          },
+          "start": {
+            "line": 17,
+            "column": 62
+          },
+          "end": {
+            "line": 17,
+            "column": 83
+          },
+          "segments": [
+            {
+              "start": 532,
+              "end": 539
+            },
+            {
+              "start": 540,
+              "end": 542
+            },
+            {
+              "start": 543,
+              "end": 553
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "hype.absolute-claim",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Check whether this guarantee has conditions or exceptions.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 641,
+          "end": 667
+        },
+        "start": {
+          "line": 21,
+          "column": 13
+        },
+        "end": {
+          "line": 21,
+          "column": 39
+        },
+        "segments": [
+          {
+            "start": 641,
+            "end": 651
+          },
+          {
+            "start": 652,
+            "end": 660
+          },
+          {
+            "start": 661,
+            "end": 667
+          }
+        ]
+      },
+      "related": []
+    },
+    {
+      "rule_id": "filler.weak-intensifiers",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "paragraph",
+      "message": "Check whether these intensifiers add a measurable distinction.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 731,
+          "end": 735
+        },
+        "start": {
+          "line": 25,
+          "column": 5
+        },
+        "end": {
+          "line": 25,
+          "column": 9
+        },
+        "segments": [
+          {
+            "start": 731,
+            "end": 735
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 762,
+            "end": 772
+          },
+          "start": {
+            "line": 25,
+            "column": 36
+          },
+          "end": {
+            "line": 25,
+            "column": 46
+          },
+          "segments": [
+            {
+              "start": 762,
+              "end": 772
+            }
+          ]
+        },
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 801,
+            "end": 810
+          },
+          "start": {
+            "line": 25,
+            "column": 75
+          },
+          "end": {
+            "line": 25,
+            "column": 84
+          },
+          "segments": [
+            {
+              "start": 801,
+              "end": 810
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "filler.stacked-hedging",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Check whether each hedge expresses a distinct uncertainty; retain needed qualifications.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 930,
+          "end": 933
+        },
+        "start": {
+          "line": 29,
+          "column": 12
+        },
+        "end": {
+          "line": 29,
+          "column": 15
+        },
+        "segments": [
+          {
+            "start": 930,
+            "end": 933
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 934,
+            "end": 942
+          },
+          "start": {
+            "line": 29,
+            "column": 16
+          },
+          "end": {
+            "line": 29,
+            "column": 24
+          },
+          "segments": [
+            {
+              "start": 934,
+              "end": 942
+            }
+          ]
+        },
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 943,
+            "end": 950
+          },
+          "start": {
+            "line": 29,
+            "column": 25
+          },
+          "end": {
+            "line": 29,
+            "column": 32
+          },
+          "segments": [
+            {
+              "start": 943,
+              "end": 950
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "syntax.paired-contrast-density",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "Check whether repeated paired contrasts carry distinct information.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 1024,
+          "end": 1039
+        },
+        "start": {
+          "line": 33,
+          "column": 1
+        },
+        "end": {
+          "line": 33,
+          "column": 16
+        },
+        "segments": [
+          {
+            "start": 1024,
+            "end": 1026
+          },
+          {
+            "start": 1027,
+            "end": 1029
+          },
+          {
+            "start": 1030,
+            "end": 1033
+          },
+          {
+            "start": 1034,
+            "end": 1039
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 1047,
+            "end": 1058
+          },
+          "start": {
+            "line": 33,
+            "column": 24
+          },
+          "end": {
+            "line": 33,
+            "column": 35
+          },
+          "segments": [
+            {
+              "start": 1047,
+              "end": 1049
+            },
+            {
+              "start": 1050,
+              "end": 1052
+            },
+            {
+              "start": 1053,
+              "end": 1058
+            }
+          ]
+        },
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 1067,
+            "end": 1082
+          },
+          "start": {
+            "line": 33,
+            "column": 44
+          },
+          "end": {
+            "line": 33,
+            "column": 59
+          },
+          "segments": [
+            {
+              "start": 1067,
+              "end": 1069
+            },
+            {
+              "start": 1070,
+              "end": 1072
+            },
+            {
+              "start": 1073,
+              "end": 1076
+            },
+            {
+              "start": 1077,
+              "end": 1082
+            }
+          ]
+        },
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 1090,
+            "end": 1101
+          },
+          "start": {
+            "line": 33,
+            "column": 67
+          },
+          "end": {
+            "line": 33,
+            "column": 78
+          },
+          "segments": [
+            {
+              "start": 1090,
+              "end": 1092
+            },
+            {
+              "start": 1093,
+              "end": 1095
+            },
+            {
+              "start": 1096,
+              "end": 1101
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "syntax.triad-density",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "Check repeated triads of evaluative modifiers against specific properties.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 1177,
+          "end": 1207
+        },
+        "start": {
+          "line": 37,
+          "column": 3
+        },
+        "end": {
+          "line": 37,
+          "column": 33
+        },
+        "segments": [
+          {
+            "start": 1177,
+            "end": 1185
+          },
+          {
+            "start": 1187,
+            "end": 1195
+          },
+          {
+            "start": 1197,
+            "end": 1207
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 1227,
+            "end": 1263
+          },
+          "start": {
+            "line": 37,
+            "column": 53
+          },
+          "end": {
+            "line": 37,
+            "column": 89
+          },
+          "segments": [
+            {
+              "start": 1227,
+              "end": 1233
+            },
+            {
+              "start": 1235,
+              "end": 1249
+            },
+            {
+              "start": 1251,
+              "end": 1263
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "hype.vague-praise",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Replace general praise with a specific property or measured result.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 1251,
+          "end": 1274
+        },
+        "start": {
+          "line": 37,
+          "column": 77
+        },
+        "end": {
+          "line": 37,
+          "column": 100
+        },
+        "segments": [
+          {
+            "start": 1251,
+            "end": 1263
+          },
+          {
+            "start": 1264,
+            "end": 1274
+          }
+        ]
+      },
+      "related": []
+    },
+    {
+      "rule_id": "syntax.whether-preface-density",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "Reduce repeated whether-you prefaces while preserving alternatives.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 1363,
+          "end": 1403
+        },
+        "start": {
+          "line": 41,
+          "column": 1
+        },
+        "end": {
+          "line": 41,
+          "column": 41
+        },
+        "segments": [
+          {
+            "start": 1363,
+            "end": 1370
+          },
+          {
+            "start": 1371,
+            "end": 1374
+          },
+          {
+            "start": 1375,
+            "end": 1378
+          },
+          {
+            "start": 1379,
+            "end": 1380
+          },
+          {
+            "start": 1381,
+            "end": 1389
+          },
+          {
+            "start": 1390,
+            "end": 1392
+          },
+          {
+            "start": 1393,
+            "end": 1395
+          },
+          {
+            "start": 1396,
+            "end": 1402
+          },
+          {
+            "start": 1402,
+            "end": 1403
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 1420,
+            "end": 1456
+          },
+          "start": {
+            "line": 41,
+            "column": 58
+          },
+          "end": {
+            "line": 41,
+            "column": 94
+          },
+          "segments": [
+            {
+              "start": 1420,
+              "end": 1427
+            },
+            {
+              "start": 1428,
+              "end": 1431
+            },
+            {
+              "start": 1431,
+              "end": 1434
+            },
+            {
+              "start": 1435,
+              "end": 1436
+            },
+            {
+              "start": 1437,
+              "end": 1443
+            },
+            {
+              "start": 1444,
+              "end": 1446
+            },
+            {
+              "start": 1447,
+              "end": 1448
+            },
+            {
+              "start": 1449,
+              "end": 1455
+            },
+            {
+              "start": 1455,
+              "end": 1456
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "syntax.rhetorical-question-density",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "Check repeated question-and-short-answer transitions.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 1538,
+          "end": 1549
+        },
+        "start": {
+          "line": 45,
+          "column": 1
+        },
+        "end": {
+          "line": 45,
+          "column": 12
+        },
+        "segments": [
+          {
+            "start": 1538,
+            "end": 1541
+          },
+          {
+            "start": 1542,
+            "end": 1548
+          },
+          {
+            "start": 1548,
+            "end": 1549
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 1550,
+            "end": 1570
+          },
+          "start": {
+            "line": 45,
+            "column": 13
+          },
+          "end": {
+            "line": 45,
+            "column": 33
+          },
+          "segments": [
+            {
+              "start": 1550,
+              "end": 1570
+            }
+          ]
+        },
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 1571,
+            "end": 1583
+          },
+          "start": {
+            "line": 45,
+            "column": 34
+          },
+          "end": {
+            "line": 45,
+            "column": 46
+          },
+          "segments": [
+            {
+              "start": 1571,
+              "end": 1574
+            },
+            {
+              "start": 1575,
+              "end": 1582
+            },
+            {
+              "start": 1582,
+              "end": 1583
+            }
+          ]
+        },
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 1584,
+            "end": 1602
+          },
+          "start": {
+            "line": 45,
+            "column": 47
+          },
+          "end": {
+            "line": 45,
+            "column": 65
+          },
+          "segments": [
+            {
+              "start": 1584,
+              "end": 1602
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "syntax.not-only-density",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "Repeated paired contrasts make this passage formulaic.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 1684,
+          "end": 1702
+        },
+        "start": {
+          "line": 49,
+          "column": 4
+        },
+        "end": {
+          "line": 49,
+          "column": 22
+        },
+        "segments": [
+          {
+            "start": 1684,
+            "end": 1687
+          },
+          {
+            "start": 1688,
+            "end": 1692
+          },
+          {
+            "start": 1693,
+            "end": 1698
+          },
+          {
+            "start": 1699,
+            "end": 1702
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 1719,
+            "end": 1738
+          },
+          "start": {
+            "line": 49,
+            "column": 39
+          },
+          "end": {
+            "line": 49,
+            "column": 58
+          },
+          "segments": [
+            {
+              "start": 1719,
+              "end": 1722
+            },
+            {
+              "start": 1723,
+              "end": 1727
+            },
+            {
+              "start": 1728,
+              "end": 1734
+            },
+            {
+              "start": 1735,
+              "end": 1738
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

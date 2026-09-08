@@ -36,6 +36,13 @@ access and never imports Unswell internals. Default diagnostics reflect engine
 gate failures; `ReportAll` explicitly includes advisory and accepted findings.
 All raw results remain available to dependent analyzers as `unswell.RunResult`.
 
+The additive `rule.Parameters.MaxAnswerWords` field configures the experimental
+question/answer pattern. Its zero value is omitted from saved parameter objects;
+enabled use requires a value from 1 through 100. The report schema includes the
+optional field, and existing saved settings remain valid.
+Older readers with a strict schema may reject new reports containing this field;
+use a reader that supports the producing tool's schema additions.
+
 Callers own returned result slices. Source bytes must not change during analysis.
 One engine supports concurrent calls. Custom rules and providers are trusted Go
 code and must honor the concurrency and read-only view contracts.

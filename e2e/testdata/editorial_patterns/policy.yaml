@@ -1,0 +1,19 @@
+version: 1
+extends: [builtin:custom]
+rules:
+  filler.section-announcement: {enabled: true, gate: forbid}
+  filler.empty-transition: {enabled: true, gate: forbid}
+  hype.vague-praise: {enabled: true, gate: forbid}
+  hype.metaphor-cluster: {enabled: true, gate: forbid}
+  hype.absolute-claim: {enabled: true, gate: forbid}
+  filler.weak-intensifiers: {enabled: true, gate: forbid}
+  filler.stacked-hedging: {enabled: true, gate: forbid}
+  syntax.paired-contrast-density: {enabled: true, gate: forbid}
+  syntax.triad-density: {enabled: true, gate: forbid}
+  syntax.whether-preface-density: {enabled: true, gate: forbid}
+  syntax.rhetorical-question-density: {enabled: true, gate: forbid}
+  syntax.not-only-density: {enabled: true, gate: forbid}
+overrides:
+  - files: [faq.md]
+    rules:
+      syntax.rhetorical-question-density: {enabled: false}
