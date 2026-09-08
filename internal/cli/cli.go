@@ -90,6 +90,7 @@ func Run(ctx context.Context, args []string, environment Environment) int {
 }
 
 type checkOptions struct {
+	features           []string
 	policyFromBase     bool
 	changedFrom        string
 	baseline           string
@@ -140,6 +141,7 @@ func checkCommand(environment Environment, code *int) *cobra.Command {
 
 func checkFlags(command *cobra.Command, options *checkOptions) {
 	flags := command.Flags()
+	flags.StringArrayVar(&options.features, "feature", nil, "Collect a shared block feature by ID; repeat to select a set")
 	flags.BoolVar(&options.policyFromBase, "policy-from-base", false,
 		"Use merge-base policy and baseline for a committed check; audit HEAD policy changes")
 	flags.StringVar(&options.changedFrom, "changed-from", "",

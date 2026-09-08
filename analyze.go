@@ -21,7 +21,7 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source, iden
 		ctx,
 		source,
 		extract.Options{
-			IncludeStructure: e.collectBaseline || identities != nil || e.rulesRequireStructure(),
+			IncludeStructure: e.collectBaseline || identities != nil || e.requiresStructure(),
 			IncludeQuotes:    e.policy.Analysis.IncludeQuotes,
 			MaxBytes:         e.policy.Analysis.MaxFileBytes,
 			MaxBlocks:        e.policy.Analysis.MaxBlocks,
@@ -59,7 +59,10 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source, iden
 	return result, suppressionErr
 }
 
-func (e *Engine) rulesRequireStructure() bool {
+func (e *Engine) requiresStructure() bool {
+	if len(e.featureIDs) > 0 {
+		return true
+	}
 	for _, implementation := range e.rules {
 		descriptor := implementation.Descriptor()
 		if e.policy.Rules[descriptor.ID].Enabled && descriptor.RequiresStructure {
@@ -72,6 +75,9 @@ func (e *Engine) rulesRequireStructure() bool {
 func (e *Engine) evaluateRules(ctx context.Context, doc *document.Document, result *RunResult) error {
 	features, err := e.sharedFeatures(ctx, doc)
 	if err != nil {
+		return err
+	}
+	if err := e.captureFeatures(ctx, doc, features, result); err != nil {
 		return err
 	}
 	termMatches, err := e.matchTerms(ctx, doc)

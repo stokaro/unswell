@@ -176,6 +176,7 @@ type Suppression struct {
 // RunResult is the immutable input shared by every reporter.
 // Returned slices are owned by the caller and do not alias the engine.
 type RunResult struct {
+	Features         *FeatureCollection   `json:"features,omitempty"`
 	PolicyComparison *PolicyComparison    `json:"policy_comparison,omitempty"`
 	Changes          *ChangeSelection     `json:"changes,omitempty"`
 	BaselineSnapshot *baseline.Snapshot   `json:"baseline_snapshot,omitempty"`

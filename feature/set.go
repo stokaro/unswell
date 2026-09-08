@@ -42,7 +42,7 @@ func measureBlocks(ctx context.Context, blocks []document.Block, identity Identi
 			return nil, fmt.Errorf("invalid or duplicate feature block ID %d", block.ID)
 		}
 		seen[block.ID] = true
-		if !supported(block.Kind) {
+		if !SupportsBlock(block.Kind) {
 			continue
 		}
 		visits += tokenCount(block)

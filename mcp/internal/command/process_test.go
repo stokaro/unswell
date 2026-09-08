@@ -22,7 +22,7 @@ func TestStdioProcess(t *testing.T) {
 	c.Assert(os.WriteFile(policy, []byte("version: 1\nextends: [builtin:strict-v1]\n"), 0o600), qt.IsNil)
 	var diagnostics bytes.Buffer
 	// #nosec G204 -- Execute only the server built from this checkout in the test's temporary directory.
-	process := exec.CommandContext(t.Context(), binary, "--config", policy)
+	process := exec.CommandContext(t.Context(), binary, "--config", policy, "--feature", "prose-words")
 	process.Stderr = &diagnostics
 	client := mcp.NewClient(&mcp.Implementation{Name: "stdio-test", Version: "1"}, nil)
 	session, err := client.Connect(t.Context(), &mcp.CommandTransport{Command: process}, nil)
@@ -49,6 +49,8 @@ func TestStdioProcess(t *testing.T) {
 			c.Assert(json.Unmarshal(data, &checked), qt.IsNil)
 			c.Assert(checked.Outcome, qt.Equals, tc.outcome)
 			c.Assert(result.IsError, qt.Equals, tc.outcome == "error")
+			c.Assert(checked.Result.Features, qt.IsNotNil)
+			c.Assert(checked.Result.Features.Requested, qt.DeepEquals, []string{"prose-words"})
 		})
 	}
 	c.Assert(session.Close(), qt.IsNil)
@@ -72,7 +74,7 @@ func buildServer(c *qt.C, t *testing.T) string {
 
 func verifyStartupFailures(c *qt.C, t *testing.T, binary string) {
 	c.Helper()
-	for _, args := range [][]string{{"--version"}, {"--config", filepath.Join(t.TempDir(), "absent.yaml")}} {
+	for _, args := range [][]string{{"--version"}, {"--config", filepath.Join(t.TempDir(), "absent.yaml")}, {"--feature", "unknown"}} {
 		// #nosec G204 -- Test-owned executable and fixed startup cases; no source text enters arguments.
 		process := exec.CommandContext(t.Context(), binary, args...)
 		var stdout, stderr bytes.Buffer

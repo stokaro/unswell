@@ -87,5 +87,5 @@ func validatePolicyComparison(result unswell.RunResult) error {
 		(result.PolicyComparison == nil || result.Manifest.Git == nil) {
 		return fmt.Errorf("trusted committed analysis requires policy and Git provenance")
 	}
-	return nil
+	return validateFeatures(result)
 }

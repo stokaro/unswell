@@ -17,6 +17,7 @@ import (
 
 // Options fixes policy and resource limits for the lifetime of a server.
 type Options struct {
+	Features     []string
 	Baseline     []byte
 	GateMode     string
 	Config       []byte
@@ -40,7 +41,8 @@ func New(options Options) (*mcp.Server, error) {
 	if options.Timeout < 0 || options.Timeout > 5*time.Minute {
 		return nil, fmt.Errorf("timeout must be positive and at most five minutes")
 	}
-	engine, err := unswell.New(unswell.Options{Config: options.Config, ConfigBundle: options.ConfigBundle, NLP: options.NLP,
+	engine, err := unswell.New(unswell.Options{Features: options.Features,
+		Config: options.Config, ConfigBundle: options.ConfigBundle, NLP: options.NLP,
 		Baseline: options.Baseline, GateMode: options.GateMode})
 	if err != nil {
 		return nil, err
@@ -76,7 +78,8 @@ func tool(name, description string) *mcp.Tool {
 }
 
 func describePolicy(engine *unswell.Engine) (Description, error) {
-	result := Description{Version: unswell.Version, Commit: unswell.BuildCommit, Formats: []Format{}, Rules: engine.Catalog()}
+	result := Description{Features: engine.FeatureIDs(), Version: unswell.Version, Commit: unswell.BuildCommit,
+		Formats: []Format{}, Rules: engine.Catalog()}
 	policy, err := engine.PolicyForFile("")
 	if err != nil {
 		return Description{}, err

@@ -16,7 +16,7 @@ import (
 func batchFixture(t *testing.T) (*unswell.Engine, unswell.RunResult) {
 	t.Helper()
 	c := qt.New(t)
-	engine, err := unswell.New(unswell.Options{IncludeSource: true})
+	engine, err := unswell.New(unswell.Options{IncludeSource: true, Features: []string{"prose-words", "type-token-ratio"}})
 	c.Assert(err, qt.IsNil)
 	sources := make([]document.Source, server.MaxSources+1)
 	for i := range sources {
@@ -53,7 +53,7 @@ func batchSession(t *testing.T, instance *mcp.Server) *mcp.ClientSession {
 func TestRepositoryBatchesPreserveEveryDocumentAndSuppression(t *testing.T) {
 	c := qt.New(t)
 	_, expected := batchFixture(t)
-	instance, err := server.New(server.Options{})
+	instance, err := server.New(server.Options{Features: expected.Features.Requested})
 	c.Assert(err, qt.IsNil)
 	batches, err := verifyBatches(t.Context(), batchSession(t, instance), expected)
 	c.Assert(err, qt.IsNil)
@@ -63,13 +63,16 @@ func TestRepositoryBatchesPreserveEveryDocumentAndSuppression(t *testing.T) {
 	c.Assert(batches[1].Result.Findings, qt.HasLen, 1)
 	c.Assert(batches[1].Result.Suppressions, qt.HasLen, 1)
 	c.Assert(batches[1].Result.Findings[0].Suppressed, qt.IsTrue)
+	c.Assert(batches[0].Result.Features.Sources, qt.HasLen, server.MaxSources)
+	c.Assert(batches[1].Result.Features.Sources, qt.HasLen, 1)
+	c.Assert(expected.Features.Sources, qt.HasLen, server.MaxSources+1)
 	c.Assert(expected.Documents[0].Source, qt.Equals, "The client opens connections.")
 	c.Assert(expected.Findings[0].Primary.Snippet, qt.Not(qt.Equals), "")
 	c.Assert(expected.Suppressions[0].Directive.Snippet, qt.Not(qt.Equals), "")
 }
 
 func TestRepositoryBatchesRejectLaterMismatch(t *testing.T) {
-	for _, defect := range []string{"missing document", "changed manifest"} {
+	for _, defect := range []string{"missing document", "changed manifest", "missing features", "changed feature value"} {
 		t.Run(defect, func(t *testing.T) {
 			c := qt.New(t)
 			engine, expected := batchFixture(t)
@@ -82,11 +85,7 @@ func TestRepositoryBatchesRejectLaterMismatch(t *testing.T) {
 					}
 					result, err := engine.AnalyzeAll(ctx, sources)
 					if len(sources) == 1 {
-						if defect == "missing document" {
-							result.Documents = nil
-						} else {
-							result.Manifest.ConfigHash = "wrong-policy"
-						}
+						corruptBatch(&result, defect)
 					}
 					return nil, server.CheckOutput{Outcome: "pass", Result: normalize(result)}, err
 				})
@@ -94,5 +93,18 @@ func TestRepositoryBatchesRejectLaterMismatch(t *testing.T) {
 			c.Assert(err, qt.ErrorMatches, "MCP repository batch 2 differs from normalized CLI evidence")
 			c.Assert(batches, qt.HasLen, 0)
 		})
+	}
+}
+
+func corruptBatch(result *unswell.RunResult, defect string) {
+	switch defect {
+	case "missing document":
+		result.Documents = nil
+	case "changed manifest":
+		result.Manifest.ConfigHash = "wrong-policy"
+	case "missing features":
+		result.Features = nil
+	case "changed feature value":
+		*result.Features.Sources[0].Units[0].Values[0].Number += 1
 	}
 }

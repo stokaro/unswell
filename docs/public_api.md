@@ -76,6 +76,17 @@ partial output. Surface templates keep explicit absence reasons and caller-selec
 literal tokens. These additions preserve saved-result fields and existing rule
 evidence. See [shared features](shared-features.md) for caller policy obligations.
 
+`Options.Features` and `Engine.FeatureIDs` select and expose a canonical set of
+implemented block measurements. `feature.SupportsBlock` declares their supported
+unit kinds. Requested capabilities are validated before analysis. Collection reads
+the existing shared set and adds optional `RunResult.Features` containing
+`FeatureCollection`, `FeatureSource`, and `FeatureUnit` records under
+`FeatureCollectionVersion`. Source/policy/NLP identities and original segments
+travel with the numeric values; incomplete runs remain incomplete model inputs.
+The additive field is omitted by default. Old reports remain readable; strict
+older readers need an update when collection is explicitly requested. See
+[ADR 0017](adr/0017-feature-collection.md) for compatibility and remaining scope.
+
 The additive `rule.Parameters.MaxAnswerWords` field configures the experimental
 question/answer pattern. Its zero value is omitted from saved parameter objects;
 enabled use requires a value from 1 through 100. The report schema includes the

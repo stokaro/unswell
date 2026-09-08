@@ -20,15 +20,16 @@ type paragraph struct {
 	Anchor     string
 }
 type htmlData struct {
-	Result     unswell.RunResult
-	Verdict    string
-	Findings   []unswell.Finding
-	Paragraphs []paragraph
-	Omitted    int
+	FeatureRows []featureRow
+	Result      unswell.RunResult
+	Verdict     string
+	Findings    []unswell.Finding
+	Paragraphs  []paragraph
+	Omitted     int
 }
 
 func htmlReport(writer io.Writer, result unswell.RunResult, options Options) error {
-	data := htmlData{Result: result, Verdict: verdict(result), Findings: visible(result, options)}
+	data := htmlData{FeatureRows: featureRows(result), Result: result, Verdict: verdict(result), Findings: visible(result, options)}
 	data.Omitted = len(result.Findings) - len(data.Findings)
 	for _, assessment := range result.Assessments {
 		if assessment.Scope != "paragraph" || assessment.SlopScore == 0 {

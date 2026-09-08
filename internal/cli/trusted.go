@@ -31,7 +31,7 @@ func analyzeTrusted(
 	if err != nil {
 		return unswell.RunResult{}, nil, err
 	}
-	engine, err := unswell.New(unswell.Options{
+	engine, err := unswell.New(unswell.Options{Features: options.features,
 		ConfigBundle: &inputs.loaded.Bundle, Rules: append(builtin.Rules(), inputs.rules...), Baseline: inputs.baseline,
 		Jobs: options.jobs, IncludeSource: options.includeSource, NoGate: options.noGate, AllowEmpty: options.allowEmpty,
 	})
