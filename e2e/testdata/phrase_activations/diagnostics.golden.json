@@ -1,0 +1,75 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "scaffold.chat-preamble",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Start with the subject instead of a conversational acknowledgment.",
+      "primary": {
+        "path": "sample.md",
+        "span": {
+          "start": 5,
+          "end": 15
+        },
+        "start": {
+          "line": 1,
+          "column": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 14
+        },
+        "segments": [
+          {
+            "start": 5,
+            "end": 14
+          },
+          {
+            "start": 14,
+            "end": 15
+          }
+        ]
+      },
+      "related": []
+    },
+    {
+      "rule_id": "policy.banned-phrases",
+      "severity": "error",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Remove a phrase forbidden by this editorial policy.",
+      "primary": {
+        "path": "sample.md",
+        "span": {
+          "start": 52,
+          "end": 64
+        },
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 13
+        },
+        "segments": [
+          {
+            "start": 52,
+            "end": 57
+          },
+          {
+            "start": 60,
+            "end": 64
+          }
+        ]
+      },
+      "related": []
+    }
+  ],
+  "errors": []
+}

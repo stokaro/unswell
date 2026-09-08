@@ -1,0 +1,286 @@
+{
+  "activation_contract": "unswell-rule-activations-v1",
+  "version": "unswell-feature-collection-v1",
+  "block_contract": "unswell-block-features-v1",
+  "requested": [
+    "activation/filler.wordy-phrase",
+    "activation/policy.banned-phrases",
+    "activation/scaffold.chat-preamble",
+    "activation/scaffold.follow-up-offer"
+  ],
+  "sources": [
+    {
+      "ruleset_hash": "82696a2a2effa8f93d4a70b05bfe7c625e046c1a9ceb0a6b687b8461beeccf91",
+      "path": "sample.md",
+      "source_hash": "23709999375457ba380275032ed4538cdc43d6c39f3a526fa4c965c7c9b76d8c",
+      "policy_hash": "958d9d0a09bcb9d7cb28352ee17049a966aa82e87b38a12faffdfb664f69dce3",
+      "vocabulary_hash": "958d9d0a09bcb9d7cb28352ee17049a966aa82e87b38a12faffdfb664f69dce3",
+      "preprocessing": "extracted-provider-tokens-v1",
+      "nlp": {
+        "name": "builtin-en",
+        "version": "prose-v3.2.1/chunks-v1",
+        "model": "prose/aptagmodel/en.bin",
+        "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+        "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+        "license": "MIT",
+        "capabilities": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ]
+      },
+      "capabilities": [
+        "sentences",
+        "tokens"
+      ],
+      "units": [
+        {
+          "scope": "block",
+          "unit_id": 0,
+          "kind": "heading",
+          "context_hash": "58dbd0e0e135bb4a4c651ec99b7dcfd3441b860dca182b3d32c8ee1a8573726b",
+          "span": {
+            "start": 5,
+            "end": 15
+          },
+          "segments": null,
+          "values": [
+            {
+              "id": "activation/filler.wordy-phrase",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_patterns"
+            },
+            {
+              "id": "activation/policy.banned-phrases",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/scaffold.chat-preamble",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            },
+            {
+              "id": "activation/scaffold.follow-up-offer",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "disabled"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 1,
+          "kind": "paragraph",
+          "context_hash": "58dbd0e0e135bb4a4c651ec99b7dcfd3441b860dca182b3d32c8ee1a8573726b",
+          "span": {
+            "start": 52,
+            "end": 73
+          },
+          "segments": [
+            {
+              "start": 52,
+              "end": 57
+            },
+            {
+              "start": 60,
+              "end": 64
+            },
+            {
+              "start": 67,
+              "end": 72
+            }
+          ],
+          "input_hash": "c80349b1dbea0e412c13358d89699e86113bc75f3283e6676f51359492b2e398",
+          "values": [
+            {
+              "id": "activation/filler.wordy-phrase",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_patterns"
+            },
+            {
+              "id": "activation/policy.banned-phrases",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            },
+            {
+              "id": "activation/scaffold.chat-preamble",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/scaffold.follow-up-offer",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "disabled"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 2,
+          "kind": "paragraph",
+          "context_hash": "58dbd0e0e135bb4a4c651ec99b7dcfd3441b860dca182b3d32c8ee1a8573726b",
+          "span": {
+            "start": 109,
+            "end": 130
+          },
+          "segments": [
+            {
+              "start": 109,
+              "end": 114
+            },
+            {
+              "start": 115,
+              "end": 120
+            },
+            {
+              "start": 121,
+              "end": 129
+            }
+          ],
+          "input_hash": "78e34944ee94b56550752172ec797bbb26da16e33c0bc9c2d9f766b8d9a7edd1",
+          "values": [
+            {
+              "id": "activation/filler.wordy-phrase",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_patterns"
+            },
+            {
+              "id": "activation/policy.banned-phrases",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/scaffold.chat-preamble",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/scaffold.follow-up-offer",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "disabled"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 3,
+          "kind": "paragraph",
+          "context_hash": "58dbd0e0e135bb4a4c651ec99b7dcfd3441b860dca182b3d32c8ee1a8573726b",
+          "span": {
+            "start": 134,
+            "end": 152
+          },
+          "segments": [
+            {
+              "start": 134,
+              "end": 139
+            },
+            {
+              "start": 147,
+              "end": 151
+            }
+          ],
+          "input_hash": "2ac858a1a0400366139f1f9e7aabac0fc34cf47178398277b35dfa223fe63cf7",
+          "values": [
+            {
+              "id": "activation/filler.wordy-phrase",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_patterns"
+            },
+            {
+              "id": "activation/policy.banned-phrases",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/scaffold.chat-preamble",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/scaffold.follow-up-offer",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "disabled"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 4,
+          "kind": "paragraph",
+          "context_hash": "58dbd0e0e135bb4a4c651ec99b7dcfd3441b860dca182b3d32c8ee1a8573726b",
+          "span": {
+            "start": 156,
+            "end": 161
+          },
+          "segments": [
+            {
+              "start": 156,
+              "end": 161
+            }
+          ],
+          "input_hash": "fabf45a5830bf25c82b09ebda725d1775213f31940ea759b31143ea6d4850781",
+          "values": [
+            {
+              "id": "activation/filler.wordy-phrase",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_patterns"
+            },
+            {
+              "id": "activation/policy.banned-phrases",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/scaffold.chat-preamble",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/scaffold.follow-up-offer",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "disabled"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

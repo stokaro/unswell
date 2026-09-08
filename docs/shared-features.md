@@ -221,12 +221,27 @@ Failed evaluations discard their numeric values, including values associated wit
 partial findings. The enclosing run remains incomplete.
 
 The two readability rules account for unsupported blocks, empty prose, and the
-grade metric's word/sentence minimums using their existing calculations. Other
-rule families still need complete applicability observations before their silent
+grade metric's word/sentence minimums using their existing calculations.
+
+The eight phrase rules record each comparison opportunity: `policy.banned-phrases`,
+`scaffold.chat-preamble`, `scaffold.ai-self-reference`, `scaffold.follow-up-offer`,
+`scaffold.dive-in`, `filler.announced-importance`, `filler.modern-world-opening`, and
+`filler.wordy-phrase`. An eligible window has the configured
+phrase's token length, starts at an allowed position, and contains no protected
+tokens or exempted term. At least one comparison with no match yields zero.
+`inapplicable/no_patterns`, `inapplicable/no_sentences`, and
+`inapplicable/no_eligible_window` distinguish blocks without a comparison.
+Document-start/end use the first/last extracted sentence, including headings and
+list items. Term exemptions can remove a comparison opportunity; suppressions
+preserve a matched rule's raw activation. Declaring full observations changes the
+catalog hash used by collected values. Finding versions and fingerprints stay
+unchanged because phrase matching has not changed.
+
+Other families still need complete applicability observations before their silent
 blocks can supply dense negative inputs for training. The complete #56 work and
 model qualification remain open. See [ADR 0018](adr/0018-rule-activation-features.md).
 
 The number of blocks times requested values must fit `analysis.max_candidates`
 for each source. Exceeding this output bound is an operational error; values are
-not sampled or silently dropped. Repository CLI/MCP self-checks collect a real
-readability activation alongside word counts and lexical diversity.
+not sampled or silently dropped. Repository CLI/MCP self-checks collect readability
+and phrase activations alongside word counts and lexical diversity.
