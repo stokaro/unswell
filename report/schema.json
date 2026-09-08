@@ -380,6 +380,9 @@
     "rule.Descriptor": {
       "additionalProperties": false,
       "properties": {
+        "block_observations": {
+          "type": "boolean"
+        },
         "contexts": {
           "items": {
             "type": "string"
@@ -1078,6 +1081,9 @@
     "unswell.FeatureCollection": {
       "additionalProperties": false,
       "properties": {
+        "activation_contract": {
+          "type": "string"
+        },
         "block_contract": {
           "type": "string"
         },
@@ -1133,6 +1139,9 @@
           "type": "string"
         },
         "preprocessing": {
+          "type": "string"
+        },
+        "ruleset_hash": {
           "type": "string"
         },
         "source_hash": {

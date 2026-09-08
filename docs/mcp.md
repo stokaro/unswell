@@ -33,6 +33,12 @@ the selected IDs. Checks return the same optional feature collection as the CLI;
 clients cannot alter the selection. These measurements do not change the gate or
 provide calibrated probabilities. Collection is off by default.
 
+Select a rule activation with `--feature activation/readability.long-paragraph`.
+The rule must exist in the startup catalog; selection does not enable it.
+Missing applicability remains absent, while a measured nonmatch can be zero.
+The same [activation contract](shared-features.md#collect-rule-activations) applies
+to the CLI, library and MCP.
+
 Use `--baseline /absolute/path/to/.unswell-baseline.json --gate-mode new` to accept
 reviewed debt through the shared engine. The artifact is loaded once at startup;
 restart after an explicit update. `unswell_describe` reports whether a baseline is
@@ -107,6 +113,8 @@ after removing source-display fields and normalizing the CLI discovery mode.
 Policy hashes, build revisions, findings, exclusions and gate outcomes must match.
 Both scans request word counts and type-token ratios. Their feature identities,
 source ranges, numeric values and reasons for missing values must also match.
+They also collect the long-paragraph rule's activation and applicability through
+its normal evaluation, including observed zeros and excluded block kinds.
 
 The client also checks deliberate Markdown, comment, YAML and C# violations,
 a clean rewrite and malformed source. Protocol tests cover invalid arguments,

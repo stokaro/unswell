@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"slices"
+	"strings"
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/feature"
@@ -13,10 +14,16 @@ import (
 
 func (e *Engine) selectFeatures(ids []string) error {
 	catalog := feature.Catalog()
+	for _, d := range e.descriptors {
+		definition := feature.ActivationDescriptor(d.ID)
+		definition.Requires = slices.Clone(d.Requires)
+		catalog = append(catalog, definition)
+	}
 	if len(ids) > len(catalog) {
 		return fmt.Errorf("too many requested features")
 	}
 	e.featureIDs = slices.Clone(ids)
+	e.activationIndices = make(map[string]int)
 	slices.Sort(e.featureIDs)
 	for i, id := range e.featureIDs {
 		if i > 0 && id == e.featureIDs[i-1] {
@@ -27,6 +34,9 @@ func (e *Engine) selectFeatures(ids []string) error {
 			return fmt.Errorf("unknown requested feature %q", id)
 		}
 		e.featureDefinitions = append(e.featureDefinitions, catalog[index])
+		if ruleID, activation := strings.CutPrefix(id, "activation/"); activation {
+			e.activationIndices[ruleID] = i
+		}
 	}
 	return nil
 }
@@ -38,17 +48,27 @@ func (e *Engine) featureCollection() *FeatureCollection {
 	if len(e.featureIDs) == 0 {
 		return nil
 	}
-	return &FeatureCollection{Version: FeatureCollectionVersion, BlockContract: feature.Contract, Requested: e.FeatureIDs()}
+	collection := &FeatureCollection{Version: FeatureCollectionVersion, BlockContract: feature.Contract, Requested: e.FeatureIDs()}
+	if len(e.activationIndices) > 0 {
+		collection.ActivationContract = feature.ActivationContract
+	}
+	return collection
 }
 
 func (e *Engine) captureFeatures(ctx context.Context, doc *document.Document, set *feature.Set, result *RunResult) error {
 	if result.Features == nil {
 		return nil
 	}
+	if len(doc.Blocks) > e.policy.Analysis.MaxCandidates/len(e.featureIDs) {
+		return fmt.Errorf("collected feature values exceed max_candidates")
+	}
 	identity := e.featureIdentity(doc)
 	source := FeatureSource{Path: doc.Name, SourceHash: doc.Hash, PolicyHash: identity.Policy,
 		VocabularyHash: identity.Vocabulary, Preprocessing: identity.Preprocessing, NLP: identity.NLP,
 		Capabilities: identity.Capabilities}
+	if len(e.activationIndices) > 0 {
+		source.RulesetHash = e.rulesetHash
+	}
 	for _, block := range doc.Blocks {
 		if err := ctx.Err(); err != nil {
 			return err
@@ -70,25 +90,38 @@ func (e *Engine) captureBlock(block document.Block, set *feature.Set) (FeatureUn
 		return unit, err
 	}
 	unit.ContextHash = fmt.Sprintf("%x", sha256.Sum256(contextBytes))
-	if !feature.SupportsBlock(block.Kind) {
-		for _, d := range e.featureDefinitions {
-			unit.Values = append(unit.Values, feature.Value{ID: d.ID, Version: d.Version, Unit: d.Unit, Reason: "unsupported_unit"})
+	var m feature.Measurements
+	if feature.SupportsBlock(block.Kind) {
+		m, err = set.Block(block.ID)
+		if err != nil {
+			return unit, err
 		}
-		return unit, nil
+		unit.InputHash, unit.Segments = m.Hash(), m.Spans()
 	}
-	m, err := set.Block(block.ID)
-	if err != nil {
-		return unit, err
-	}
-	unit.InputHash, unit.Segments = m.Hash(), m.Spans()
-	for _, id := range e.featureIDs {
-		value, err := m.Value(id)
+	for _, d := range e.featureDefinitions {
+		value, err := e.initialFeatureValue(d, block, m)
 		if err != nil {
 			return unit, err
 		}
 		unit.Values = append(unit.Values, value)
 	}
 	return unit, nil
+}
+
+func (e *Engine) initialFeatureValue(d feature.Descriptor, block document.Block, m feature.Measurements) (feature.Value, error) {
+	value := feature.Value{ID: d.ID, Version: d.Version, Unit: d.Unit}
+	if ruleID, activation := strings.CutPrefix(d.ID, "activation/"); activation {
+		value.Reason = "not_evaluated"
+		if !e.policy.Rules[ruleID].Enabled {
+			value.Reason = "disabled"
+		}
+		return value, nil
+	}
+	if !feature.SupportsBlock(block.Kind) {
+		value.Reason = "unsupported_unit"
+		return value, nil
+	}
+	return m.Value(d.ID)
 }
 
 func (r *RunResult) appendFeatureSources(part *FeatureCollection) {

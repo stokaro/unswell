@@ -67,7 +67,8 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 <table><caption>Sentence scores affected by source permissions</caption><thead><tr><th>File</th><th>Sentence</th><th>Raw index</th><th>Effective index</th></tr></thead><tbody>
 {{range .Result.Assessments}}{{if and (eq .Scope "sentence") .EffectiveContributions}}<tr><td>{{.Path}}</td><td>{{.UnitID}}</td><td>{{.SlopScore}}</td><td>{{.EffectiveSlopScore}}</td></tr>{{end}}{{end}}</tbody></table></section>{{end}}
 {{if .Result.Features}}<section id="features"><h2>Shared measurements</h2>
-<p>{{.Result.Features.Version}} / {{.Result.Features.BlockContract}}. The analysis completion state applies to these values.</p>
+<p>{{.Result.Features.Version}} / {{.Result.Features.BlockContract}}. The analysis completion state applies to these values.</p>{{if .Result.Features.ActivationContract}}
+<p>Rule activations: {{.Result.Features.ActivationContract}}. Values are signals, not probabilities.</p>{{end}}
 <table><thead><tr><th>Location</th><th>Feature</th><th>Value</th><th>Unit</th></tr></thead><tbody>
 {{range .FeatureRows}}<tr><td>{{.Location}}</td><td>{{.ID}}</td><td>{{.Value}}</td><td>{{.Unit}}</td></tr>{{end}}
 </tbody></table></section>{{end}}<section id="manifest"><h2>Analysis manifest</h2><p>Unswell {{.Result.Manifest.ToolVersion}} · {{.Result.Manifest.ScoringProfile}} · {{.Result.Manifest.NLP.Version}}</p>

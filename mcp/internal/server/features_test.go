@@ -13,7 +13,7 @@ import (
 
 func TestFeatureCollectionMatchesThePublicEngine(t *testing.T) {
 	c := qt.New(t)
-	ids := []string{"prose-words", "noun-token-ratio"}
+	ids := []string{"prose-words", "noun-token-ratio", "activation/readability.long-paragraph"}
 	session := connect(c, t.Context(), server.Options{Features: ids})
 	engine, err := unswell.New(unswell.Options{Features: ids})
 	c.Assert(err, qt.IsNil)

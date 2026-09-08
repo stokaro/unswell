@@ -90,6 +90,12 @@ omitting unrelated catalog and build metadata. The suite checks SARIF results ag
 those same validated diagnostics, confirms incomplete scans are unsuccessful in
 SARIF, checks source privacy, and verifies input files remain unchanged.
 
+The [activation collection](testdata/activation_collection/sample.md.txt) case
+uses CRLF Markdown to distinguish a disabled rule, an unsupported heading, an
+insufficient word count, an observed zero, and a positive activation. Its
+`features.golden.json` records actual values and absence reasons beside the usual
+annotated detection and source coordinates. No model or quality labels are used.
+
 The custom-rule cases load inline packs through the real CLI. They cover matching
 Go comments and escaped strings with CRLF, and paragraph conditions with exact
 regex locations, Markdown emphasis, a BOM, protected code, and a local exception.

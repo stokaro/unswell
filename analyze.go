@@ -11,6 +11,7 @@ import (
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/extract"
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/internal/terms"
 	"github.com/stokaro/unswell/rule"
 )
@@ -88,35 +89,8 @@ func (e *Engine) evaluateRules(ctx context.Context, doc *document.Document, resu
 		if err := ctx.Err(); err != nil {
 			return err
 		}
-		descriptor := implementation.Descriptor()
-		settings := e.policy.Rules[descriptor.ID]
-		if !settings.Enabled {
-			continue
-		}
-		emitter := &collector{
-			ctx:           ctx,
-			doc:           doc,
-			descriptor:    descriptor,
-			settings:      settings,
-			limit:         e.policy.Analysis.MaxFindings - len(result.Findings),
-			includeSource: e.includeSource,
-		}
-		view := rule.View{
-			Document:      doc,
-			Features:      features,
-			Parameters:    cloneParameters(settings.Parameters),
-			MaxCandidates: e.policy.Analysis.MaxCandidates,
-		}
-		if slices.Contains(e.policy.Vocabulary.TermExemptions, descriptor.ID) {
-			view.TermExemptions = termMatches
-		}
-		err := implementation.Evaluate(ctx, view, emitter)
-		result.Findings = append(result.Findings, emitter.findings...)
-		if emitter.err != nil {
-			return fmt.Errorf("%s emitted invalid evidence: %w", descriptor.ID, emitter.err)
-		}
-		if err != nil {
-			return fmt.Errorf("%s: %w", descriptor.ID, err)
+		if err := e.runRule(ctx, implementation, rule.View{Document: doc, Features: features}, termMatches, result); err != nil {
+			return err
 		}
 	}
 	return nil
@@ -209,6 +183,7 @@ func (e *Engine) documentResult(doc document.Document) DocumentResult {
 }
 
 type collector struct {
+	activations   *feature.ActivationBuilder
 	ctx           context.Context
 	doc           *document.Document
 	descriptor    rule.Descriptor
@@ -263,7 +238,7 @@ func (c *collector) append(evidence rule.Evidence) error {
 	c.findings = append(c.findings, Finding{ID: instance[:16], RuleID: c.descriptor.ID, RuleVersion: c.descriptor.Version,
 		Severity: c.settings.Severity, Gate: c.settings.Gate, Group: c.descriptor.Group, Scope: c.descriptor.Scope, Message: message,
 		Primary: locations[0], Related: locations[1:], Evidence: evidence, Fingerprint: fingerprint, BaselineState: "untracked"})
-	return nil
+	return c.observeOccurrences(evidence)
 }
 
 func (c *collector) occurrenceLocation(occurrence rule.Occurrence) (Location, error) {

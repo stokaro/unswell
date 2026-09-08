@@ -21,6 +21,9 @@ func measureReadability(ctx context.Context, view rule.View, emit rule.Emitter, 
 	m := newEditorialMatcher(ctx, view)
 	for _, block := range view.Document.Blocks {
 		if !proseBlock(block) {
+			if err := view.Observe(feature.BlockObservation{BlockID: block.ID, Status: "inapplicable", Reason: "unsupported_unit"}); err != nil {
+				return err
+			}
 			continue
 		}
 		evidence, err := readabilityEvidence(m, block, grade)
@@ -42,12 +45,18 @@ func readabilityEvidence(m *editorialMatcher, block document.Block, grade bool) 
 	if err != nil {
 		return rule.Evidence{}, err
 	}
-	if stats.Counts().Words == 0 {
-		return rule.Evidence{}, nil
+	if reason := readabilityAbsence(m.view.Parameters, stats.Counts(), grade); reason != "" {
+		return rule.Evidence{}, m.view.Observe(feature.BlockObservation{BlockID: block.ID, Status: "inapplicable", Reason: reason})
 	}
 	evidence, err := configuredReadability(m.view.Parameters, block, stats, grade)
-	if err != nil || len(evidence.Occurrences) == 0 {
+	if err != nil {
 		return evidence, err
+	}
+	if err := m.view.Observe(feature.BlockObservation{BlockID: block.ID, Status: "evaluated"}); err != nil {
+		return rule.Evidence{}, err
+	}
+	if len(evidence.Occurrences) == 0 {
+		return evidence, nil
 	}
 	metrics, err := proseMetrics(stats)
 	if err != nil {
@@ -55,6 +64,19 @@ func readabilityEvidence(m *editorialMatcher, block document.Block, grade bool) 
 	}
 	evidence.Metrics = append(evidence.Metrics, metrics...)
 	return evidence, nil
+}
+
+func readabilityAbsence(p rule.Parameters, counts feature.Counts, grade bool) string {
+	if counts.Words == 0 {
+		return "no_prose_words"
+	}
+	if grade && counts.Words < p.MinWords {
+		return "insufficient_words"
+	}
+	if grade && counts.Sentences < p.MinSentences {
+		return "insufficient_sentences"
+	}
+	return ""
 }
 
 func configuredReadability(p rule.Parameters, block document.Block, stats feature.Measurements, grade bool) (rule.Evidence, error) {
@@ -65,9 +87,6 @@ func configuredReadability(p rule.Parameters, block document.Block, stats featur
 }
 
 func gradeEvidence(p rule.Parameters, block document.Block, stats feature.Measurements) (rule.Evidence, error) {
-	if stats.Counts().Words < p.MinWords || stats.Counts().Sentences < p.MinSentences {
-		return rule.Evidence{}, nil
-	}
 	metric, err := stats.Value("automated-readability-index")
 	if err != nil {
 		return rule.Evidence{}, err

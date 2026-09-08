@@ -67,21 +67,24 @@ type Example struct {
 
 // Descriptor documents a versioned, independently useful editorial signal.
 type Descriptor struct {
-	ID             string           `json:"id"`
-	Version        string           `json:"version"`
-	Summary        string           `json:"summary"`
-	Description    string           `json:"description"`
-	Limitations    string           `json:"limitations"`
-	Scope          string           `json:"scope"`
-	Contexts       []string         `json:"contexts"`
-	Requires       []nlp.Capability `json:"requires"`
-	Group          string           `json:"group"`
-	Status         string           `json:"status"`
-	Defaults       Settings         `json:"defaults"`
-	Parameters     []string         `json:"parameters"`
-	Examples       []Example        `json:"examples"`
-	Origin         *Origin          `json:"origin,omitempty"`
-	TermExemptions bool             `json:"term_exemptions,omitempty"`
+	// BlockObservations promises one observation per extracted block when an
+	// observer is supplied and Evaluate succeeds. False does not imply zero.
+	BlockObservations bool             `json:"block_observations,omitempty"`
+	ID                string           `json:"id"`
+	Version           string           `json:"version"`
+	Summary           string           `json:"summary"`
+	Description       string           `json:"description"`
+	Limitations       string           `json:"limitations"`
+	Scope             string           `json:"scope"`
+	Contexts          []string         `json:"contexts"`
+	Requires          []nlp.Capability `json:"requires"`
+	Group             string           `json:"group"`
+	Status            string           `json:"status"`
+	Defaults          Settings         `json:"defaults"`
+	Parameters        []string         `json:"parameters"`
+	Examples          []Example        `json:"examples"`
+	Origin            *Origin          `json:"origin,omitempty"`
+	TermExemptions    bool             `json:"term_exemptions,omitempty"`
 	// SharedFeatures requests the common block measurements in View.Features.
 	// POS values still require an explicit POS capability in Requires.
 	SharedFeatures bool `json:"shared_features,omitempty"`
@@ -133,6 +136,7 @@ type Evidence struct {
 // View is read-only for the duration of Evaluate. Do not retain its document or
 // term pointers. Features is independently owned and immutable and may be retained.
 type View struct {
+	Observer       Observer
 	Document       *document.Document
 	Features       *feature.Set
 	Parameters     Parameters

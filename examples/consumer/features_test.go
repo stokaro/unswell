@@ -22,6 +22,7 @@ type featureRule struct {
 func (r featureRule) Descriptor() rule.Descriptor {
 	d := teamRule{}.Descriptor()
 	d.ID, d.SharedFeatures = r.id, true
+	d.BlockObservations = true
 	return d
 }
 
@@ -31,6 +32,21 @@ func (r featureRule) Evaluate(ctx context.Context, view rule.View, _ rule.Emitte
 	if err != nil {
 		return err
 	}
+	if err := validateConsumerMeasurements(measurements); err != nil {
+		return err
+	}
+	if err := view.Observe(feature.BlockObservation{BlockID: 0, Status: "evaluated"}); err != nil {
+		return err
+	}
+	select {
+	case r.sets <- view.Features:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+func validateConsumerMeasurements(measurements feature.Measurements) error {
 	value, err := measurements.Value("prose-words")
 	if err != nil {
 		return err
@@ -45,18 +61,13 @@ func (r featureRule) Evaluate(ctx context.Context, view rule.View, _ rule.Emitte
 	if pos.Number != nil || pos.Reason != "capability_missing" {
 		return fmt.Errorf("unrequested POS must remain unavailable")
 	}
-	select {
-	case r.sets <- view.Features:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
+	return nil
 }
 
 func TestSharedFeaturesThroughPublicEngine(t *testing.T) {
 	c := qt.New(t)
 	sets := make(chan *feature.Set, 4)
-	engine, err := unswell.New(unswell.Options{Features: []string{"prose-words"}, Rules: []rule.Rule{
+	engine, err := unswell.New(unswell.Options{Features: []string{"prose-words", "activation/team.features-a"}, Rules: []rule.Rule{
 		featureRule{id: "team.features-a", sets: sets}, featureRule{id: "team.features-b", sets: sets},
 	}})
 	c.Assert(err, qt.IsNil)
@@ -76,7 +87,8 @@ func TestSharedFeaturesThroughPublicEngine(t *testing.T) {
 	c.Assert(m.Spans(), qt.DeepEquals, []document.Span{{Start: 0, End: 3}, {Start: 6, End: 9}, {Start: 12, End: 17}})
 	c.Assert(result.Features.Sources[0].Units[0].InputHash, qt.Equals, m.Hash())
 	c.Assert(result.Features.Sources[0].Units[0].Segments, qt.DeepEquals, m.Spans())
-	c.Assert(*result.Features.Sources[0].Units[0].Values[0].Number, qt.Equals, float64(3))
+	c.Assert(*result.Features.Sources[0].Units[0].Values[0].Number, qt.Equals, float64(0))
+	c.Assert(*result.Features.Sources[0].Units[0].Values[1].Number, qt.Equals, float64(3))
 }
 
 func TestPublicLexicalMeasurements(t *testing.T) {
