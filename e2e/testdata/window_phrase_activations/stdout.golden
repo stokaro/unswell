@@ -1,0 +1,57 @@
+sample.go:9:18: warning [filler.empty-transition] Check whether these repeated opening transitions add information.
+  related: sample.go:9:30
+sample.go:9:18: warning [filler.section-announcement] Replace repeated section announcements with their subject.
+  related: sample.go:9:30
+sample.go:9:18: warning [hype.metaphor-cluster] Replace clustered stock metaphors with specific properties.
+  related: sample.go:9:30
+sample.md:1:2: warning [filler.empty-transition] Check whether these repeated opening transitions add information.
+  related: sample.md:3:1
+sample.md:1:2: warning [filler.section-announcement] Replace repeated section announcements with their subject.
+  related: sample.md:3:1
+sample.md:1:2: warning [hype.metaphor-cluster] Replace clustered stock metaphors with specific properties.
+  related: sample.md:3:1
+sample.md:9:1: warning [filler.section-announcement] Replace repeated section announcements with their subject.
+  related: sample.md:13:1
+PASS: 2 documents, 7 findings; analysis complete.
+Shared measurements: unswell-feature-collection-v1 / unswell-block-features-v1; analysis complete.
+Rule activations: unswell-rule-activations-v1; values are signals, not probabilities.
+sample.go [block 0, comment] activation/filler.empty-transition: 0 ratio
+sample.go [block 0, comment] activation/filler.section-announcement: 0 ratio
+sample.go [block 0, comment] activation/hype.metaphor-cluster: 0 ratio
+sample.go [block 1, comment] activation/filler.empty-transition: 0 ratio
+sample.go [block 1, comment] activation/filler.section-announcement: 0 ratio
+sample.go [block 1, comment] activation/hype.metaphor-cluster: 0 ratio
+sample.go [block 2, string] activation/filler.empty-transition: 0 ratio
+sample.go [block 2, string] activation/filler.section-announcement: 0 ratio
+sample.go [block 2, string] activation/hype.metaphor-cluster: 0 ratio
+sample.go [block 3, string] activation/filler.empty-transition: 0.333 ratio
+sample.go [block 3, string] activation/filler.section-announcement: 0.333 ratio
+sample.go [block 3, string] activation/hype.metaphor-cluster: 0.333 ratio
+sample.md [block 0, paragraph] activation/filler.empty-transition: 0.333 ratio
+sample.md [block 0, paragraph] activation/filler.section-announcement: 0.333 ratio
+sample.md [block 0, paragraph] activation/hype.metaphor-cluster: 0.333 ratio
+sample.md [block 1, paragraph] activation/filler.empty-transition: 0.333 ratio
+sample.md [block 1, paragraph] activation/filler.section-announcement: 0.333 ratio
+sample.md [block 1, paragraph] activation/hype.metaphor-cluster: 0.333 ratio
+sample.md [block 2, paragraph] activation/filler.empty-transition: 0 ratio
+sample.md [block 2, paragraph] activation/filler.section-announcement: 0 ratio
+sample.md [block 2, paragraph] activation/hype.metaphor-cluster: 0 ratio
+sample.md [block 3, paragraph] activation/filler.empty-transition: unavailable (inapplicable/no_eligible_window) ratio
+sample.md [block 3, paragraph] activation/filler.section-announcement: unavailable (inapplicable/no_eligible_window) ratio
+sample.md [block 3, paragraph] activation/hype.metaphor-cluster: unavailable (inapplicable/no_eligible_window) ratio
+sample.md [block 4, paragraph] activation/filler.empty-transition: 0 ratio
+sample.md [block 4, paragraph] activation/filler.section-announcement: 0.333 ratio
+sample.md [block 4, paragraph] activation/hype.metaphor-cluster: 0 ratio
+sample.md [block 5, heading] activation/filler.empty-transition: unavailable (inapplicable/unsupported_unit) ratio
+sample.md [block 5, heading] activation/filler.section-announcement: unavailable (inapplicable/unsupported_unit) ratio
+sample.md [block 5, heading] activation/hype.metaphor-cluster: unavailable (inapplicable/unsupported_unit) ratio
+sample.md [block 6, paragraph] activation/filler.empty-transition: 0 ratio
+sample.md [block 6, paragraph] activation/filler.section-announcement: 0.333 ratio
+sample.md [block 6, paragraph] activation/hype.metaphor-cluster: 0 ratio
+sample.md [block 7, list-item] activation/filler.empty-transition: unavailable (inapplicable/unsupported_unit) ratio
+sample.md [block 7, list-item] activation/filler.section-announcement: unavailable (inapplicable/unsupported_unit) ratio
+sample.md [block 7, list-item] activation/hype.metaphor-cluster: unavailable (inapplicable/unsupported_unit) ratio
+sample.md [block 8, paragraph] activation/filler.empty-transition: unavailable (inapplicable/no_eligible_window) ratio
+sample.md [block 8, paragraph] activation/filler.section-announcement: unavailable (inapplicable/no_eligible_window) ratio
+sample.md [block 8, paragraph] activation/hype.metaphor-cluster: unavailable (inapplicable/no_eligible_window) ratio
+Revision probability: unavailable (no calibrated alpha model).

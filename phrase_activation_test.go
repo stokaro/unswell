@@ -68,10 +68,10 @@ func assertPhraseMeasurements(t *testing.T, result unswell.RunResult, reasons []
 	units := result.Features.Sources[0].Units
 	c.Assert(units, qt.HasLen, len(reasons))
 	var got []float64
-	for i, unit := range units {
-		value := unit.Values[0]
-		c.Assert(value.Reason, qt.Equals, reasons[i])
-		if reasons[i] != "" {
+	for i, reason := range reasons {
+		value := units[i].Values[0]
+		c.Assert(value.Reason, qt.Equals, reason)
+		if reason != "" {
 			c.Assert(value.Number, qt.IsNil)
 		} else {
 			c.Assert(value.Number, qt.IsNotNil)

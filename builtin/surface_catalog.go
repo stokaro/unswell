@@ -58,7 +58,7 @@ func surfaceSyntaxRules() []rule.Rule {
 	passive := passiveDescriptor()
 	insertion := insertionDescriptor()
 	return []rule.Rule{check{nominal, nominalizationChains}, check{noun, nounStacks},
-		check{passive, editorialWindow(passiveEvents, "passive-candidate-sentences", false)}, check{insertion, parentheticalLoad}}
+		check{passive, editorialWindow(passiveEvents, "passive-candidate-sentences")}, check{insertion, parentheticalLoad}}
 }
 
 func passiveDescriptor() rule.Descriptor {

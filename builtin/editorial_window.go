@@ -15,24 +15,28 @@ type editorialEvent struct {
 
 type eventFinder func(*editorialMatcher, []document.Sentence, int) ([]editorialEvent, error)
 
-func editorialWindow(find eventFinder, metric string, sectionOpenings bool) func(context.Context, rule.View, rule.Emitter) error {
+func editorialWindow(find eventFinder, metric string) func(context.Context, rule.View, rule.Emitter) error {
 	return func(ctx context.Context, view rule.View, emit rule.Emitter) error {
 		matcher := newEditorialMatcher(ctx, view)
-		runs, err := proseRuns(ctx, view.Document, sectionOpenings)
+		return matcher.evaluateWindows(find, metric, false, emit)
+	}
+}
+
+func (m *editorialMatcher) evaluateWindows(find eventFinder, metric string, sectionOpenings bool, emit rule.Emitter) error {
+	runs, err := proseRuns(m.ctx, m.view.Document, sectionOpenings)
+	if err != nil {
+		return err
+	}
+	for _, run := range runs {
+		events, err := m.events(run, find)
 		if err != nil {
 			return err
 		}
-		for _, run := range runs {
-			events, err := matcher.events(run, find)
-			if err != nil {
-				return err
-			}
-			if err := emitWindows(ctx, view.Parameters, metric, events, emit); err != nil {
-				return err
-			}
+		if err := emitWindows(m.ctx, m.view.Parameters, metric, events, emit); err != nil {
+			return err
 		}
-		return ctx.Err()
 	}
+	return m.ctx.Err()
 }
 
 func (m *editorialMatcher) events(run []document.Sentence, find eventFinder) ([]editorialEvent, error) {

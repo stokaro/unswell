@@ -257,11 +257,23 @@ headings for sentence length while another rule excludes them from its prose
 scope. A measured zero uses the supplied POS/chunks and configured pattern
 definition; it does not establish that the parse or text is correct.
 
-Windowed rhetoric, repetition, and list rules still need complete observations before their silent
+Three windowed phrase rules also report applicability: `filler.section-announcement`,
+`filler.empty-transition`, and `hype.metaphor-cluster`. Their existing prose runs
+exclude protected sentences and unsupported block kinds. A configured phrase
+length fitting at an inspected start outside an approved term establishes an
+evaluated block. The first two rules inspect sentence openings; metaphors may
+occur anywhere. No match, or one occurrence below the default cluster threshold,
+yields zero. A cluster sets activations only on its occurrence blocks. Headings
+can bridge section-announcement runs but remain `unsupported_unit` themselves.
+Empty dictionaries, no sentences, or no eligible window retain their absence
+reasons. Collection preserves matching and source coordinates.
+
+Other windowed rhetoric, repetition, and list rules still need complete observations before their silent
 blocks can supply dense negative inputs for training. The complete #56 work and
 model qualification remain open. See [ADR 0018](adr/0018-rule-activation-features.md).
 
 The number of blocks times requested values must fit `analysis.max_candidates`
 for each source. Exceeding this output bound is an operational error; values are
 not sampled or silently dropped. Repository CLI/MCP self-checks collect readability,
-phrase, and noun-stack activations alongside word counts and lexical diversity.
+phrase, section-announcement, and noun-stack activations alongside word counts and
+lexical diversity.
