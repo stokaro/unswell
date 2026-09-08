@@ -70,6 +70,29 @@ This preprocessing API does not substitute for the remaining engine-wide feature
 collection. Its lexical values must be paired with the caller's source, NLP,
 normalization, and policy identities before use in a persisted model vector.
 
+N-gram and POS-template preparation also belongs in `feature`. N-grams are
+streamed in start/end token order, with one logical visit for every attempted
+token, including a punctuation or protected-token boundary. Streaming avoids
+allocating a second unbounded candidate collection. A callback failure or exhausted
+budget makes the computation incomplete; callers must not accept partial evidence.
+Callbacks receive owned normalized keys and half-open indices into the original
+token sequence. Callers still apply complete-term exclusions and protected
+signatures before grouping occurrences, then use the original token source spans.
+
+POS preparation returns an owned surface key or a machine-readable absence reason.
+It folds only the established NN/VB/JJ/RB tag families, keeps punctuation and
+explicitly selected term tokens literal, and does not infer missing tags.
+Questions, imperative openings, protected tokens, and absent POS keep their
+existing exclusions. The caller adds the protected signature; a shared POS key
+alone must never establish semantic equivalence or an editorial violation.
+
+These two preprocessing definitions use a separate pattern contract and the
+common descriptor schema. Source-derived keys are exposed only by explicit
+library calls and are not numeric feature values or default report content.
+Token/byte limits, cancellation, and explicit normalization apply to both APIs.
+Input tokens must remain unchanged during a call; no token or source buffers are
+retained. Source-map validation remains in the existing document/engine boundary.
+
 The complete #56 contract also needs shared repetition computations and a neutral
 adapter for raw rule activations. Activation features are computed after rule
 evaluation, before policy suppression; they must not depend on derived threshold

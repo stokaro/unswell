@@ -3,9 +3,9 @@ package builtin
 import (
 	"context"
 	"slices"
-	"strings"
 
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -16,7 +16,10 @@ func syntaxTemplates(ctx context.Context, view rule.View, emit rule.Emitter) err
 		if err := budget.spend(len(item.sentence.Tokens)); err != nil {
 			return err
 		}
-		key := syntaxTemplate(view, item.sentence)
+		key, err := syntaxTemplate(ctx, view, item.sentence)
+		if err != nil {
+			return err
+		}
 		if key != "" {
 			groups[key] = append(groups[key], item)
 		}
@@ -34,32 +37,19 @@ func syntaxTemplates(ctx context.Context, view rule.View, emit rule.Emitter) err
 	return ctx.Err()
 }
 
-func syntaxTemplate(view rule.View, sentence document.Sentence) string {
-	if len(sentence.Tokens) == 0 || sentence.Tokens[0].Tag == "VB" || question(sentence) {
-		return ""
-	}
-	parts := make([]string, 0, len(sentence.Tokens)+1)
-	for i, token := range sentence.Tokens {
-		if token.Protected || token.Tag == "" {
-			return ""
+func syntaxTemplate(ctx context.Context, view rule.View, sentence document.Sentence) (string, error) {
+	literal := make([]bool, len(sentence.Tokens))
+	for i := range sentence.Tokens {
+		if err := ctx.Err(); err != nil {
+			return "", err
 		}
-		part := templateTag(token.Tag)
-		if !token.Word || view.Exempts(sentence, i, i+1) {
-			part = token.Normal
-		}
-		parts = append(parts, part)
+		literal[i] = view.Exempts(sentence, i, i+1)
 	}
-	parts = append(parts, repetitionSignature(view, sentence))
-	return strings.Join(parts, "|")
-}
-
-func templateTag(tag string) string {
-	for _, prefix := range []string{"NN", "VB", "JJ", "RB"} {
-		if strings.HasPrefix(tag, prefix) {
-			return prefix
-		}
+	pattern, err := feature.PreparePOSPattern(ctx, sentence, literal, sequenceLimits(sentence))
+	if err != nil || !pattern.Available() {
+		return "", err
 	}
-	return tag
+	return pattern.Key() + "|" + repetitionSignature(view, sentence), nil
 }
 
 func emitTemplateWindows(budget *repetitionBudget, p rule.Parameters, items []repetitionSentence, emit rule.Emitter) error {

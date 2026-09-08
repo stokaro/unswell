@@ -105,5 +105,42 @@ coordinates retain their definitions.
 This shared preprocessing remains separate from the pending collection API.
 Persisted training and inference vectors must identify their source, NLP,
 normalization, and selection policies; normalized word sets alone do not establish
-that compatibility. N-gram extraction, syntax-template preparation, raw rule
-activations, and the remaining #56 collection work still need integration.
+that compatibility. Raw rule activations and the remaining #56 collection work
+still need integration.
+
+## N-grams and surface templates
+
+`ScanNgrams` streams the existing consecutive 3-8-word candidates in deterministic
+start/end token order. A candidate needs two distinct words accepted by the
+versioned lexical filter. Punctuation and protected tokens stop a candidate.
+The returned indices refer to the original token sequence; the rule uses those
+tokens' source spans and applies complete-term exemptions before grouping.
+
+`NgramOptions.MaxVisits` counts each attempted token, including a boundary that
+terminates a candidate. The returned visit count is valid even on error. A zero
+budget permits an empty input only. Producing the last candidate does not finish
+the scan if later boundary checks exhaust the budget. Callback failure,
+cancellation, or a limit error invalidates partial output. Streaming avoids an
+extra candidate collection; consumers must bound any groups they retain.
+
+`PreparePOSPattern` folds the established NN/VB/JJ/RB prefixes and preserves other
+tags. Punctuation and word tokens selected by the literal mask retain their
+provider-normalized strings. A nil mask selects no word literals; a supplied mask
+must cover the whole sequence. No additional normalization or POS inference runs.
+Unavailable templates report `empty`, `imperative`, `question`, `protected_token`,
+or `missing_pos`; the zero result reports `not_computed`. Invalid input and resource
+errors return errors. Existing engine capability checks still reject a missing
+required POS backend before rule evaluation.
+
+Both APIs honor cancellation and explicit token/byte limits. Input tokens must
+remain unchanged during a call; returned keys own their bytes. They consume
+already extracted and validated tokens, without revalidating or replacing source
+maps. The caller must preserve source selection, NLP, term, and preprocessing
+identities. Rules still add their protected signatures and decide windows,
+occurrence thresholds, and grouping. A common template alone does not imply that
+two sentences say the same thing.
+
+`PatternCatalog` defines these string preprocessing outputs under
+`unswell-pattern-features-v1`. They are separate from numeric `Value` measurements.
+Keys explicitly expose source-derived text and are not added to saved reports or
+MCP responses. Shared engine collection for model inputs remains part of #56.
