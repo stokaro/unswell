@@ -29,6 +29,7 @@ func surfaceSyntaxRules() []rule.Rule {
 		"Consider a direct verb while preserving the subject, conditions, and technical meaning.", "syntax-load", "sentence", 12,
 		rule.Example{Text: "We perform an evaluation of the implementation before the release.", Match: true},
 		rule.Example{Text: "The evaluation of the implementation found a defect. The client performs an operation."})
+	nominal.BlockObservations = true
 	nominal.Requires = append(nominal.Requires, nlp.POS)
 	nominal.Defaults.Parameters.Verbs = []string{"perform", "performs", "performed", "performing", "conduct", "conducts", "conducted",
 		"conducting", "undertake", "undertakes", "undertook", "undertaken", "make", "makes", "made", "making"}
@@ -45,6 +46,7 @@ func surfaceSyntaxRules() []rule.Rule {
 		rule.Example{Text: "Emit latches validation failures even when a custom rule ignores the error."},
 		rule.Example{Text: "A binary origin probability cannot measure the fraction of words written by AI."},
 		rule.Example{Text: "The request has a status code. The client uses TransportCacheEntry."})
+	noun.BlockObservations = true
 	noun.Version = "3"
 	noun.Requires = append(noun.Requires, nlp.POS, nlp.Chunks)
 	noun.Defaults.Parameters = rule.Parameters{Onset: 3, Saturation: 7}
@@ -82,6 +84,7 @@ func insertionDescriptor() rule.Descriptor {
 		rule.Example{Text: "The client (which may retry after a temporary failure when the configured budget still permits another attempt) " +
 			"opens a connection to the server.", Match: true},
 		rule.Example{Text: "The application programming interface (API) lets the client send requests to the server and receive responses."})
+	d.BlockObservations = true
 	d.Defaults.Parameters = rule.Parameters{MinWords: 20, Onset: 12, Saturation: 36,
 		AllowedOccurrences: 2, SaturationOccurrences: 5, AllowedDepth: 1, SaturationDepth: 4}
 	d.Parameters = []string{"min_words", "onset", "saturation", "allowed_occurrences",
@@ -127,6 +130,7 @@ func surfaceFormatRules() []rule.Rule {
 		"readability", "paragraph", 0,
 		rule.Example{Text: strings.Repeat("The client opens the connection — then checks the reply from the server. ", 4), Match: true},
 		rule.Example{Text: "The client opens a connection — then waits. " + strings.Repeat("The server sends the response. ", 8)})
+	dash.BlockObservations = true
 	dash.TermExemptions = false
 	dash.Defaults.Parameters = rule.Parameters{MinWords: 40, Onset: 2, Saturation: 6, AllowedOccurrences: 1}
 	dash.Parameters = []string{"min_words", "onset", "saturation", "allowed_occurrences"}

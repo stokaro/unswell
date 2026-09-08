@@ -70,7 +70,7 @@ dogfood-mcp: dogfood build-mcp
 	cd mcp && go run ./cmd/mcp-selfcheck --expected ../artifacts/dogfood/result.json \
 	  --output ../artifacts/dogfood/mcp-result.json -- ../bin/unswell-mcp --config ../.unswell.yaml \
 	  --feature prose-words --feature type-token-ratio --feature activation/readability.long-paragraph \
-	  --feature activation/filler.announced-importance
+	  --feature activation/filler.announced-importance --feature activation/syntax.noun-stack
 
 release:
 	bash scripts/release.sh

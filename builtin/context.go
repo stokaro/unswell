@@ -1,10 +1,8 @@
 package builtin
 
 import (
-	"context"
 	"strings"
 
-	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/nlp"
 	"github.com/stokaro/unswell/rule"
 )
@@ -17,6 +15,7 @@ func contextRules() []rule.Rule {
 		"sentence",
 		30,
 	)
+	long.BlockObservations = true
 	long.Defaults.Parameters = rule.Parameters{Onset: 35, Saturation: 65}
 	long.Parameters = []string{"onset", "saturation"}
 	long.Examples = []rule.Example{
@@ -30,6 +29,7 @@ func contextRules() []rule.Rule {
 		"sentence",
 		24,
 	)
+	hype.BlockObservations = true
 	hype.Requires = append(hype.Requires, nlp.POS, nlp.Chunks)
 	hype.Defaults.Parameters = rule.Parameters{
 		Phrases:    evaluativeWords(),
@@ -65,6 +65,7 @@ func contextRules() []rule.Rule {
 		"paragraph",
 		20,
 	)
+	connective.BlockObservations = true
 	connective.Defaults.Parameters = rule.Parameters{
 		Phrases:    []string{"moreover", "furthermore", "additionally"},
 		MinWords:   30,
@@ -96,114 +97,4 @@ func activation(metric, onset, saturation int) int {
 func measured(kind, name, unit string, value, onset, saturation int, occurrences []rule.Occurrence) rule.Evidence {
 	return rule.Evidence{Kind: kind, Occurrences: occurrences, Activation: activation(value, onset, saturation),
 		Metrics: []rule.Metric{{Name: name, Value: float64(value), Unit: unit, Onset: float64(onset), Saturation: float64(saturation)}}}
-}
-
-func longSentence(ctx context.Context, view rule.View, emit rule.Emitter) error {
-	for _, sentence := range allSentences(view.Document) {
-		if err := ctx.Err(); err != nil {
-			return err
-		}
-		if sentence.Words <= view.Parameters.Onset {
-			continue
-		}
-		evidence := measured(
-			"exact",
-			"length",
-			"prose-words",
-			sentence.Words,
-			view.Parameters.Onset,
-			view.Parameters.Saturation,
-			[]rule.Occurrence{sentenceOccurrence(sentence)},
-		)
-		if err := emit.Emit(evidence); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func modifierCluster(ctx context.Context, view rule.View, emit rule.Emitter) error {
-	lexicon := make(map[string]bool)
-	for _, word := range view.Parameters.Phrases {
-		lexicon[word] = true
-	}
-	for _, sentence := range allSentences(view.Document) {
-		if err := ctx.Err(); err != nil {
-			return err
-		}
-		count, occurrence := modifierOccurrence(sentence, lexicon, view)
-		if count <= view.Parameters.Onset {
-			continue
-		}
-		evidence := measured(
-			"heuristic",
-			"evaluative-modifiers",
-			"tokens",
-			count,
-			view.Parameters.Onset,
-			view.Parameters.Saturation,
-			[]rule.Occurrence{occurrence},
-		)
-		if err := emit.Emit(evidence); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func modifierOccurrence(sentence document.Sentence, lexicon map[string]bool, view rule.View) (int, rule.Occurrence) {
-	count := 0
-	occurrence := rule.Occurrence{BlockID: sentence.BlockID, SentenceID: sentence.ID, Spans: []document.Span{}}
-	for i, token := range sentence.Tokens {
-		if token.Protected || view.Exempts(sentence, i, i+1) {
-			continue
-		}
-		if lexicon[token.Normal] && strings.HasPrefix(token.Tag, "JJ") {
-			count++
-			occurrence.Spans = append(occurrence.Spans, token.Spans...)
-		}
-	}
-	return count, occurrence
-}
-
-func connectiveOveruse(ctx context.Context, view rule.View, emit rule.Emitter) error {
-	lexicon := make(map[string]bool)
-	for _, phrase := range view.Parameters.Phrases {
-		lexicon[phrase] = true
-	}
-	for _, block := range view.Document.Blocks {
-		if err := ctx.Err(); err != nil {
-			return err
-		}
-		if block.Words < view.Parameters.MinWords {
-			continue
-		}
-		occurrences := transitionOccurrences(block, lexicon, view)
-		if len(occurrences) <= view.Parameters.Onset {
-			continue
-		}
-		evidence := measured(
-			"heuristic",
-			"sentence-transitions",
-			"occurrences",
-			len(occurrences),
-			view.Parameters.Onset,
-			view.Parameters.Saturation,
-			occurrences,
-		)
-		if err := emit.Emit(evidence); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func transitionOccurrences(block document.Block, lexicon map[string]bool, view rule.View) []rule.Occurrence {
-	occurrences := make([]rule.Occurrence, 0)
-	for _, sentence := range block.Sentences {
-		if len(sentence.Tokens) > 0 && !sentence.Tokens[0].Protected && lexicon[sentence.Tokens[0].Normal] && !view.Exempts(sentence, 0, 1) {
-			occurrences = append(occurrences, tokenOccurrence(sentence, 0, 1))
-		}
-	}
-	return occurrences
 }

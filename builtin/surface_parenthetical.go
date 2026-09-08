@@ -55,21 +55,35 @@ func parentheticalLoad(ctx context.Context, view rule.View, emit rule.Emitter) e
 	m := newEditorialMatcher(ctx, view)
 	for _, block := range view.Document.Blocks {
 		if !proseBlock(block) || block.Words < view.Parameters.MinWords {
+			if err := observeBlock(view, block, proseMinimumReason(block, view.Parameters.MinWords)); err != nil {
+				return err
+			}
 			continue
 		}
-		index, err := nonexemptWordPositions(m, block)
-		if err != nil {
-			return err
-		}
-		load, err := balancedInsertions(m, block.Text, index)
-		if err != nil {
-			return err
-		}
-		if err := emitInsertionLoad(view.Parameters, block, load, emit); err != nil {
+		if err := parentheticalBlock(m, block, emit); err != nil {
 			return err
 		}
 	}
 	return ctx.Err()
+}
+
+func parentheticalBlock(m *editorialMatcher, block document.Block, emit rule.Emitter) error {
+	index, err := nonexemptWordPositions(m, block)
+	if err != nil {
+		return err
+	}
+	load, err := balancedInsertions(m, block.Text, index)
+	if err != nil {
+		return err
+	}
+	reason := proseMinimumReason(block, m.view.Parameters.MinWords)
+	if reason == "" && index.counts[len(index.counts)-1] == 0 {
+		reason = "no_eligible_tokens"
+	}
+	if err := observeBlock(m.view, block, reason); err != nil {
+		return err
+	}
+	return emitInsertionLoad(m.view.Parameters, block, load, emit)
 }
 
 func balancedInsertions(m *editorialMatcher, text string, words wordPositions) (insertionLoad, error) {

@@ -102,6 +102,11 @@ protected code, and too few tokens for a comparison. BOM, CRLF, emphasis, and
 Unicode exercise the original source coordinates alongside numeric and absent
 values. A matched phrase still fails its configured gate.
 
+The [local activations](testdata/local_activations/sample.md.txt) case collects
+seven syntax, modifier, connective, insertion, and punctuation signals. Annotated
+matches, clean measurements, protected code, unsupported headings, and short
+blocks share one real CLI run with BOM/CRLF and mapped Markdown emphasis.
+
 The custom-rule cases load inline packs through the real CLI. They cover matching
 Go comments and escaped strings with CRLF, and paragraph conditions with exact
 regex locations, Markdown emphasis, a BOM, protected code, and a local exception.
