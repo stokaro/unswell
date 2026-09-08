@@ -62,6 +62,7 @@ func TestSurfaceSyntaxBoundaries(t *testing.T) {
 		{"short noun sequence", "syntax.noun-stack", "The request has a status code.", "", ""},
 		{"noun chunk boundary", "syntax.noun-stack", "The service request and response status code are recorded.", "", ""},
 		{"proper name", "syntax.noun-stack", "The client uses TransportCacheEntry.", "", ""},
+		{"format placeholder", "syntax.noun-stack", "configuration resource name %q", "", ""},
 		{"approved term", "syntax.noun-stack", nounProse, "", "vocabulary:\n  terms: [response status code]\n" +
 			"  term_exemptions: [syntax.noun-stack]\n"},
 		{"one passive candidate", "syntax.passive-candidate-density", strings.Split(passiveProse, ". ")[0] + ".", "", ""},

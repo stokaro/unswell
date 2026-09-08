@@ -103,6 +103,51 @@
           ]
         }
       ]
+    },
+    {
+      "rule_id": "syntax.noun-stack",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Review this common-noun sequence; keep established technical terms.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 262,
+          "end": 298
+        },
+        "start": {
+          "line": 8,
+          "column": 8
+        },
+        "end": {
+          "line": 8,
+          "column": 44
+        },
+        "segments": [
+          {
+            "start": 262,
+            "end": 269
+          },
+          {
+            "start": 270,
+            "end": 277
+          },
+          {
+            "start": 278,
+            "end": 286
+          },
+          {
+            "start": 287,
+            "end": 293
+          },
+          {
+            "start": 294,
+            "end": 298
+          }
+        ]
+      },
+      "related": []
     }
   ],
   "errors": []

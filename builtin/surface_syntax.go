@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"slices"
 	"strings"
+	"unicode"
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/rule"
@@ -100,7 +101,12 @@ func nominalModifier(token document.Token) bool {
 }
 
 func commonNoun(token document.Token) bool {
-	return !token.Protected && (token.Tag == "NN" || token.Tag == "NNS") && !protectedIdentifier(token, 1)
+	return surfaceProseWord(token) && (token.Tag == "NN" || token.Tag == "NNS") && !protectedIdentifier(token, 1)
+}
+
+func surfaceProseWord(token document.Token) bool {
+	return token.Word && !token.Protected && token.Text != "" &&
+		!strings.ContainsFunc(token.Text, func(r rune) bool { return !unicode.IsLetter(r) })
 }
 
 func nounStacks(ctx context.Context, view rule.View, emit rule.Emitter) error {

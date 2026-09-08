@@ -33,6 +33,7 @@ func TestShortListsExcludeStructuredInstructions(t *testing.T) {
 		{"procedure", strings.ReplaceAll(fragmentedLists, "Clear reports", "Read reports"), "", ""},
 		{"reference", "# API Reference\n\n" + fragmentedLists, "", ""},
 		{"identifier", strings.ReplaceAll(fragmentedLists, "Clear reports", "RetryStatus reports"), "", ""},
+		{"format placeholder", strings.ReplaceAll(fragmentedLists, "Clear reports", "Clear %q"), "", ""},
 		{"code item", strings.ReplaceAll(fragmentedLists, "Clear reports", "`Clear reports`"), "", ""},
 		{"multiple paragraphs", strings.ReplaceAll(fragmentedLists, "- Useful summaries", "\n  More details.\n\n- Useful summaries"), "", ""},
 		{"excluded gap", strings.ReplaceAll(fragmentedLists, "Its output", "```go\nx()\n```\n\nIts output"), "", ""},

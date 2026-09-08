@@ -172,7 +172,7 @@ func procedureSentence(sentence document.Sentence) bool {
 }
 
 func protectedFragmentToken(token document.Token, index int) bool {
-	return token.Protected || protectedIdentifier(token, index) || token.Tag == "CD"
+	return token.Protected || protectedIdentifier(token, index) || token.Tag == "CD" || (token.Word && !surfaceProseWord(token))
 }
 
 func proceduralOpening(word string) bool {

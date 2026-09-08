@@ -69,6 +69,8 @@ suffix such as `-tion`. Up to four modifiers can precede the nominal head and up
 six can precede its complement. Noun stacks stop at punctuation, noncommon-noun tags,
 approved terms, and identifier candidates. The shallow NP boundary comes from the
 NLP backend; an invalid chunk range causes an operational error.
+Noun and short-list candidates require alphabetic prose words; format placeholders
+such as `%q` and words containing digits cannot supply noun or fragment evidence.
 
 The passive candidate counts sentences, including one occurrence per matching
 construction in the evidence. Independent comments, protected code, and structural
