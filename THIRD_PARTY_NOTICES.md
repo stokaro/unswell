@@ -61,7 +61,11 @@ Its embedded copyright and license notices are retained. It is test data and is
 not embedded in the executable. The Unswell result schema is generated from
 Unswell's public Go types and distributed under this project's MIT license.
 
-## Dependency research
+## Test and research dependencies
+
+Root e2e tests use `github.com/dlclark/regexp2` v1.11.0 (MIT) to exercise GitHub
+Runner's ECMAScript matcher semantics. This test dependency is not linked into
+the CLI or MCP server. Its original notices remain in the dependency source.
 
 The isolated `research/dependencies` consumer module evaluates
 `github.com/bioshock/gospacy/v3` at `v3.8.14-port.2` (MIT). Its selected dependency

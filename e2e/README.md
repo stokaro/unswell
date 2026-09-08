@@ -158,6 +158,10 @@ cases in Go and Markdown, alongside genuine stacks with singular and plural head
 The GitHub matcher tests render real text reports, preserve severity and locations,
 and leave compiler diagnostics for setup-go. CI registers the Unswell matcher
 after setup-go so it takes precedence for Unswell's own diagnostic lines.
+Runner uses ECMAScript regex semantics. These tests use regexp2 in that mode and
+retain a counterexample accepted by Go regexp but rejected by ECMAScript. This
+test dependency is pure Go and does not enter the CLI or MCP runtime. Also confirm
+the annotation levels in live CI when changing the matcher.
 
 `surface_code` checks the same engine through Go comments and escaped
 string literals. Unannotated clean prose must produce no extra findings.

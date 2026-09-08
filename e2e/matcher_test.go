@@ -5,7 +5,9 @@ import (
 	"regexp"
 	"strings"
 	"testing"
+	"time"
 
+	"github.com/dlclark/regexp2"
 	qt "github.com/frankban/quicktest"
 
 	"github.com/stokaro/unswell"
@@ -63,7 +65,7 @@ func assertDiagnosticMatch(t *testing.T, config problemMatchers, line, want stri
 	for _, matcher := range config.Matchers {
 		c.Assert(matcher.Patterns, qt.HasLen, 1)
 		pattern := matcher.Patterns[0]
-		groups := regexp.MustCompile(pattern.Regexp).FindStringSubmatch(line)
+		groups := problemGroups(t, pattern.Regexp, line)
 		if groups == nil {
 			continue
 		}
@@ -94,8 +96,34 @@ func TestGitHubMatcherLeavesCompilerDiagnostics(t *testing.T) {
 		t.Run(line, func(t *testing.T) {
 			c := qt.New(t)
 			for _, matcher := range config.Matchers {
-				c.Assert(regexp.MustCompile(matcher.Patterns[0].Regexp).MatchString(line), qt.IsFalse)
+				c.Assert(problemGroups(t, matcher.Patterns[0].Regexp, line), qt.IsNil)
 			}
 		})
 	}
+}
+
+func problemGroups(t *testing.T, pattern, line string) []string {
+	t.Helper()
+	c := qt.New(t)
+	compiled := regexp2.MustCompile(pattern, regexp2.ECMAScript)
+	compiled.MatchTimeout = time.Second
+	match, err := compiled.FindStringMatch(line)
+	c.Assert(err, qt.IsNil)
+	if match == nil {
+		return nil
+	}
+	var groups []string
+	for _, group := range match.Groups() {
+		groups = append(groups, group.String())
+	}
+	return groups
+}
+
+func TestGitHubMatcherUsesECMAScript(t *testing.T) {
+	c := qt.New(t)
+	// This original character class succeeds in Go but not in Runner's dialect.
+	pattern := `^(.+):([0-9]+):([0-9]+): (error|warning) \[([^]]+)\] (.+)$`
+	line := "document/document.go:1:4: warning [syntax.noun-stack] Review the noun sequence."
+	c.Assert(regexp.MustCompile(pattern).MatchString(line), qt.IsTrue)
+	c.Assert(problemGroups(t, pattern, line), qt.IsNil)
 }

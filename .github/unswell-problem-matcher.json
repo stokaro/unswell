@@ -4,7 +4,7 @@
       "owner": "unswell",
       "pattern": [
         {
-          "regexp": "^(.+):([0-9]+):([0-9]+): (error|warning) \\[([^]]+)\\] (.+)$",
+          "regexp": "^(.+):([0-9]+):([0-9]+): (error|warning) \\[([^\\]]+)\\] (.+)$",
           "file": 1,
           "line": 2,
           "column": 3,
@@ -19,7 +19,7 @@
       "severity": "notice",
       "pattern": [
         {
-          "regexp": "^(.+):([0-9]+):([0-9]+): note \\[([^]]+)\\] (.+)$",
+          "regexp": "^(.+):([0-9]+):([0-9]+): note \\[([^\\]]+)\\] (.+)$",
           "file": 1,
           "line": 2,
           "column": 3,

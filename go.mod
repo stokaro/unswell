@@ -13,6 +13,7 @@ require (
 )
 
 require (
+	github.com/dlclark/regexp2 v1.11.0
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
