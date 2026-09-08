@@ -105,11 +105,14 @@ the verified package artifact rather than an unverified source revision.
 
 On September 8, 2026, macOS 26.5 / Apple M3 Pro / Go 1.27.1, the recorded Go run
 processed ten sources with 100 repetitions: 8,400 counted words and 10,300 tokens.
-It took 6.65 seconds wall time with 217,694,208 bytes (207.6 MiB) maximum resident
-set size. The command recorded 31.7 ms model loading and 5.55 seconds for extraction,
+It took 6.10 seconds wall time with 203,948,032 bytes (194.5 MiB) maximum resident
+set size. The command recorded 30.5 ms model loading and 5.15 seconds for extraction,
 parsing, and tree/source validation. Lazy initialization occurs in the analysis
 interval. Report encoding is included in wall time. Allocated bytes and retained
-Go heap are recorded separately; neither is peak RSS.
+Go heap are recorded separately; neither is peak RSS. The source commit is
+`efb31808df9556fa64b460c1fa04b382572cb06b`; `testdata/resources.json` links the
+process measurements to the observation hash, and `testdata/process-time.txt`
+preserves the original timing output.
 
 All 103 unique tokens matched Python in token text, head, relation label, fine POS,
 and byte start on these sources. A separate run of the upstream GoSpacy parser
