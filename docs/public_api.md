@@ -17,6 +17,7 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell/nlp` | Neutral provider and capability contract | alpha |
 | `github.com/stokaro/unswell/nlp/english` | Default pure-Go English backend | alpha |
 | `github.com/stokaro/unswell/report` | Writers and saved-result decoding | alpha |
+| `github.com/stokaro/unswell/goanalysis` | Go analysis adapter in a separate module | alpha |
 
 Packages under `internal/` are implementation details. `cmd/unswell` is an
 executable, not an importable library. The tools module isolates build dependencies
@@ -27,6 +28,13 @@ tests. It calls the public engine and keeps the MCP SDK out of the core module.
 The root `e2e` directory contains only test code and fixtures. It exports no library
 API; the API snapshot records its package identity because it belongs to the root
 module.
+
+The separate `goanalysis/` module exports `New` and `Options`, builds a singlechecker
+driver, and tests against the public engine. Its API snapshot is
+`docs/api/goanalysis.api`. The adapter uses `analysis.Pass.ReadFile` for source
+access and never imports Unswell internals. Default diagnostics reflect engine
+gate failures; `ReportAll` explicitly includes advisory and accepted findings.
+All raw results remain available to dependent analyzers as `unswell.RunResult`.
 
 Callers own returned result slices. Source bytes must not change during analysis.
 One engine supports concurrent calls. Custom rules and providers are trusted Go

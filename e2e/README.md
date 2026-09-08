@@ -133,3 +133,8 @@ SARIF parity first. Ordinary runs never create or rewrite missing goldens.
 
 The MCP process tests use the official client and remain in the separate MCP module.
 Repository dogfooding also compares CLI and MCP results through the actual protocol.
+
+The [Go analysis module](../goanalysis) adds standard `analysistest` fixtures with
+inline `want` annotations, exact byte-range assertions, and a real
+`go vet -vettool` test. Its adapter result is compared with the public engine.
+These tests participate in the module inventory and native-platform CI.

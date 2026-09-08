@@ -48,25 +48,30 @@ if [[ "$shallow" == true ]]; then
   printf 'API comparison requires complete tag history\n' >&2
   exit 1
 fi
-"$apidiff" -m -w "$temporary/current.api" github.com/stokaro/unswell
-# The first release has a reviewed bootstrap snapshot. Subsequent CI runs compare
-# with the immutable snapshot from the most recent reachable release tag.
-baseline=docs/api/alpha.api
-previous=$(git describe --tags --abbrev=0 --match 'v*' HEAD^ 2>/dev/null || true)
-if [[ -n "$previous" ]]; then
-  git show "$previous:docs/api/alpha.api" >"$temporary/released.api"
-  baseline="$temporary/released.api"
-fi
-# compatible checks each command failure explicitly.
-# shellcheck disable=SC2310
-if ! compatible "$baseline" "$temporary/current.api"; then
-  printf 'API comparison failed; resolve the reported error before release.\n' >&2
-  exit 1
-fi
-# Ensure each release carries a current snapshot for the following release.
-"$apidiff" -m docs/api/alpha.api "$temporary/current.api" >"$temporary/freshness.txt"
-if [[ -s "$temporary/freshness.txt" ]]; then
-  cat "$temporary/freshness.txt" >&2
-  printf 'The committed API snapshot is stale\n' >&2
-  exit 1
-fi
+check_module() {
+  local directory=$1 module=$2 snapshot=$3 tag_pattern=$4 baseline previous
+  (cd "$directory" && "$apidiff" -m -w "$temporary/current.api" "$module")
+  # Each public module starts with a reviewed bootstrap snapshot, then compares
+  # with the immutable snapshot from its most recent reachable release tag.
+  baseline=$snapshot
+  previous=$(git describe --tags --abbrev=0 --match "$tag_pattern" HEAD^ 2>/dev/null || true)
+  if [[ -n "$previous" ]]; then
+    git show "$previous:$snapshot" >"$temporary/released.api"
+    baseline="$temporary/released.api"
+  fi
+  # compatible checks each command failure explicitly.
+  # shellcheck disable=SC2310
+  if ! compatible "$baseline" "$temporary/current.api"; then
+    printf 'API comparison failed for %s.\n' "$module" >&2
+    exit 1
+  fi
+  "$apidiff" -m "$snapshot" "$temporary/current.api" >"$temporary/freshness.txt"
+  if [[ -s "$temporary/freshness.txt" ]]; then
+    cat "$temporary/freshness.txt" >&2
+    printf 'The committed API snapshot is stale for %s.\n' "$module" >&2
+    exit 1
+  fi
+}
+
+check_module . github.com/stokaro/unswell docs/api/alpha.api 'v*'
+check_module goanalysis github.com/stokaro/unswell/goanalysis docs/api/goanalysis.api 'goanalysis/v*'

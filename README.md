@@ -184,8 +184,10 @@ Committed [changed-unit checks](docs/changes.md) compare merge-base to HEAD with
 clean-source verification and retain whole-document repetition context.
 Use [trusted policy](docs/trusted-policy.md) to apply merge-base rules and baseline
 while auditing candidate policy changes and new source permissions.
+The public [Go analysis adapter](docs/go-analysis.md) and its prototype vet driver
+check comments and strings through the same engine.
 The [roadmap](docs/roadmap.md) preserves the remaining requirements:
-Go analysis integration and calibrated revision probabilities.
+calibrated revision probabilities and qualified editorial defaults.
 The alpha does not silently claim those capabilities.
 
 Code, URLs, front matter, directives and quoted Markdown blocks are excluded from

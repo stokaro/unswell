@@ -45,11 +45,43 @@ func checkEntry(tree fs.FS, modules []string, ledger, name string, entry fs.DirE
 	if path.Base(name) == "go.mod" && !slices.Contains(modules, path.Dir(name)) {
 		return fmt.Errorf("unclassified Go module: %s", name)
 	}
+	if strings.HasPrefix(name, "goanalysis/") && strings.HasSuffix(name, ".go") {
+		return checkAdapterSource(tree, name, ledger)
+	}
 	if strings.HasSuffix(name, ".go") && inRootModule(name, modules) {
 		return checkSource(tree, name, ledger)
 	}
 	if strings.HasPrefix(name, ".github/workflows/") {
 		return checkWorkflow(tree, name)
+	}
+	return nil
+}
+
+func checkAdapterSource(tree fs.FS, name, ledger string) error {
+	if strings.Contains(name, "/testdata/") {
+		return nil
+	}
+	if !strings.HasPrefix(name, "goanalysis/cmd/") {
+		if err := checkSource(tree, name, ledger); err != nil {
+			return err
+		}
+	}
+	data, err := fs.ReadFile(tree, name)
+	if err != nil {
+		return err
+	}
+	file, err := parser.ParseFile(token.NewFileSet(), name, data, parser.ImportsOnly)
+	if err != nil {
+		return err
+	}
+	for _, item := range file.Imports {
+		importPath, err := strconv.Unquote(item.Path.Value)
+		if err != nil {
+			return err
+		}
+		if strings.HasPrefix(importPath, modulePath+"/internal/") || strings.HasPrefix(importPath, modulePath+"/cmd/") {
+			return fmt.Errorf("go/analysis adapter must use public Unswell packages: %s", name)
+		}
 	}
 	return nil
 }
