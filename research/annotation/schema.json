@@ -1,0 +1,553 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unswell:annotation:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "round_id",
+    "purpose",
+    "rubric",
+    "profile",
+    "units",
+    "actors",
+    "judgments",
+    "adjudications"
+  ],
+  "properties": {
+    "version": {
+      "const": "unswell-annotation-v1"
+    },
+    "round_id": {
+      "type": "string",
+      "maxLength": 65536,
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "purpose": {
+      "type": "string",
+      "enum": [
+        "tutorial",
+        "pilot",
+        "corpus"
+      ]
+    },
+    "rubric": {
+      "const": "unswell-editorial-v1"
+    },
+    "profile": {
+      "$ref": "#/$defs/profile"
+    },
+    "units": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unit"
+      },
+      "minItems": 1,
+      "maxItems": 10000
+    },
+    "actors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/actor"
+      },
+      "minItems": 2,
+      "maxItems": 32
+    },
+    "judgments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/judgment"
+      },
+      "minItems": 0,
+      "maxItems": 320000
+    },
+    "adjudications": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/adjudication"
+      },
+      "minItems": 0,
+      "maxItems": 10000
+    }
+  },
+  "$defs": {
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "instructions",
+        "sha256"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "instructions": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "span": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "start",
+        "end"
+      ],
+      "properties": {
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_id",
+        "repository_id",
+        "template_id",
+        "author_group",
+        "related_group",
+        "reference",
+        "sha256",
+        "bytes",
+        "language",
+        "prose_language",
+        "segments"
+      ],
+      "properties": {
+        "document_id": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "repository_id": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "template_id": {
+          "type": "string",
+          "maxLength": 65536
+        },
+        "author_group": {
+          "type": "string",
+          "maxLength": 65536
+        },
+        "related_group": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "reference": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16777216
+        },
+        "language": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "prose_language": {
+          "const": "en"
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/span"
+          },
+          "minItems": 1,
+          "maxItems": 1024
+        }
+      }
+    },
+    "extraction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity",
+        "policy_sha256",
+        "context_policy"
+      ],
+      "properties": {
+        "identity": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "policy_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "context_policy": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      }
+    },
+    "origin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "scope",
+        "evidence",
+        "generation_record"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "enum": [
+            "human",
+            "generated",
+            "human_ai_edited",
+            "generated_human_edited",
+            "mixed",
+            "unknown"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "unit",
+            "document",
+            "repository"
+          ]
+        },
+        "evidence": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "generation_record": {
+          "type": "string",
+          "maxLength": 65536
+        }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "license",
+        "evidence",
+        "allowed_uses"
+      ],
+      "properties": {
+        "license": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "evidence": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "allowed_uses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "annotation",
+              "training",
+              "evaluation",
+              "redistribute_source",
+              "redistribute_annotations"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 5,
+          "uniqueItems": true
+        }
+      }
+    },
+    "unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "role",
+        "text",
+        "context",
+        "source",
+        "extraction",
+        "origin",
+        "rights"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^u[0-9]{6}$"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "sentence",
+            "paragraph",
+            "fragment"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "documentation",
+            "readme",
+            "api_reference",
+            "doc_comment",
+            "comment",
+            "release_note",
+            "string",
+            "error_message",
+            "log_message",
+            "ui_text",
+            "other_string"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "context": {
+          "type": "string",
+          "maxLength": 65536
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "extraction": {
+          "$ref": "#/$defs/extraction"
+        },
+        "origin": {
+          "$ref": "#/$defs/origin"
+        },
+        "rights": {
+          "$ref": "#/$defs/rights"
+        }
+      }
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "role",
+        "declaration"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^a[0-9]{3}$"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "human",
+            "assistant",
+            "simulation"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "rater",
+            "adjudicator"
+          ]
+        },
+        "declaration": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      }
+    },
+    "judgment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_id",
+        "actor_id",
+        "label",
+        "categories",
+        "context",
+        "rationale",
+        "recorded_at",
+        "packet_sha256"
+      ],
+      "properties": {
+        "unit_id": {
+          "type": "string",
+          "pattern": "^u[0-9]{6}$"
+        },
+        "actor_id": {
+          "type": "string",
+          "pattern": "^a[0-9]{3}$"
+        },
+        "label": {
+          "type": "string",
+          "enum": [
+            "acceptable",
+            "needs_revision",
+            "uncertain"
+          ]
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "empty_framing",
+              "needless_repetition",
+              "wordiness",
+              "unjustified_intensifiers",
+              "vague_claims",
+              "formulaic_transitions",
+              "needless_complexity"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 7,
+          "uniqueItems": true
+        },
+        "context": {
+          "type": "string",
+          "enum": [
+            "adequate",
+            "insufficient"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "recorded_at": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "packet_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "adjudication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_id",
+        "reviewers",
+        "label",
+        "categories",
+        "rationale",
+        "recorded_at",
+        "packet_sha256"
+      ],
+      "properties": {
+        "unit_id": {
+          "type": "string",
+          "pattern": "^u[0-9]{6}$"
+        },
+        "reviewers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^a[0-9]{3}$"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "label": {
+          "type": "string",
+          "enum": [
+            "acceptable",
+            "needs_revision",
+            "uncertain"
+          ]
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "empty_framing",
+              "needless_repetition",
+              "wordiness",
+              "unjustified_intensifiers",
+              "vague_claims",
+              "formulaic_transitions",
+              "needless_complexity"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 7,
+          "uniqueItems": true
+        },
+        "rationale": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "recorded_at": {
+          "type": "string",
+          "maxLength": 65536,
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "packet_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

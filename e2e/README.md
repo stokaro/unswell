@@ -1,5 +1,10 @@
 # End-to-end CLI cases
 
+The [annotation protocol test](annotation_test.go) builds the research command,
+checks a blinded packet golden and agreement summary, and requires exit 2 for
+ambiguous JSON or attempts to count simulated responses as a human corpus.
+Its fixtures are documented teaching data, not human annotation evidence.
+
 Run `go test ./e2e -count=1` from the repository root. The suite builds the real CLI
 with `CGO_ENABLED=0`, then launches it in a fresh directory for each scenario.
 The native CI matrix and `make check` run this package through `go test ./...`.
