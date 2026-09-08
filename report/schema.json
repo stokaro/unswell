@@ -714,6 +714,12 @@
         "baseline_state": {
           "type": "string"
         },
+        "change_fingerprint": {
+          "type": "string"
+        },
+        "change_state": {
+          "type": "string"
+        },
         "contributions": {
           "items": {
             "$ref": "#/$defs/unswell.Contribution"
@@ -782,6 +788,65 @@
         "probability_status",
         "status",
         "contributions"
+      ],
+      "type": "object"
+    },
+    "unswell.ChangeSelection": {
+      "additionalProperties": false,
+      "properties": {
+        "compared_units": {
+          "type": "integer"
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "documents": {
+          "items": {
+            "$ref": "#/$defs/unswell.ChangedDocument"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "selected_units": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "complete",
+        "documents",
+        "compared_units",
+        "selected_units"
+      ],
+      "type": "object"
+    },
+    "unswell.ChangedDocument": {
+      "additionalProperties": false,
+      "properties": {
+        "after_hash": {
+          "type": "string"
+        },
+        "before_hash": {
+          "type": "string"
+        },
+        "full_reason": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "status"
       ],
       "type": "object"
     },
@@ -922,6 +987,12 @@
         "baseline_state": {
           "type": "string"
         },
+        "change_fingerprint": {
+          "type": "string"
+        },
+        "change_state": {
+          "type": "string"
+        },
         "derived": {
           "type": "boolean"
         },
@@ -1022,6 +1093,15 @@
             "array",
             "null"
           ]
+        },
+        "unchanged": {
+          "items": {
+            "$ref": "#/$defs/unswell.GateReason"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
         }
       },
       "required": [
@@ -1051,6 +1131,30 @@
         "path",
         "finding_id",
         "message"
+      ],
+      "type": "object"
+    },
+    "unswell.GitSelection": {
+      "additionalProperties": false,
+      "properties": {
+        "base_commit": {
+          "type": "string"
+        },
+        "clean": {
+          "type": "boolean"
+        },
+        "head_commit": {
+          "type": "string"
+        },
+        "requested_ref": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "requested_ref",
+        "base_commit",
+        "head_commit",
+        "clean"
       ],
       "type": "object"
     },
@@ -1126,6 +1230,16 @@
         },
         "gate_mode": {
           "type": "string"
+        },
+        "git": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unswell.GitSelection"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "include_source": {
           "type": "boolean"
@@ -1229,6 +1343,16 @@
           "anyOf": [
             {
               "$ref": "#/$defs/baseline.Snapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "changes": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unswell.ChangeSelection"
             },
             {
               "type": "null"

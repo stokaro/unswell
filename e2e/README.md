@@ -102,6 +102,16 @@ scores, and gate acceptance. Each check verifies that source and baseline bytes
 remain unchanged. Use `go test ./e2e -run TestBaselineWorkflow -update -count=1` to
 review an intentional change to this workflow separately.
 
+`TestCommittedWorkflow` uses [changesdata](changesdata) in a temporary Git repository.
+Its inline annotations still require every raw detection, including unchanged debt.
+The golden adds change states, compared/selected units, source hashes, scores, and
+unchanged gate reasons. The process must pass after unrelated line movement, fail
+after joining paragraphs or changing technical meaning, and return an operational
+error for an uncommitted rewrite even with `--no-gate`. Both commit IDs are checked
+against Git without embedding timestamp-dependent commit hashes in the golden.
+Run `go test ./e2e -run TestCommittedWorkflow -update -count=1` for intentional
+changes to this workflow.
+
 After an intentional behavior change, run:
 
 ```sh

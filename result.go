@@ -30,6 +30,8 @@ type Location struct {
 
 // Finding is a rule activation enriched with policy, identity, and source locations.
 type Finding struct {
+	ChangeState         string        `json:"change_state,omitempty"`
+	ChangeFingerprint   string        `json:"change_fingerprint,omitempty"`
 	ID                  string        `json:"id"`
 	RuleID              string        `json:"rule_id"`
 	RuleVersion         string        `json:"rule_version"`
@@ -65,6 +67,8 @@ type Contribution struct {
 
 // Assessment is a local, nondilutable index. Probability is unavailable in alpha.
 type Assessment struct {
+	ChangeState            string         `json:"change_state,omitempty"`
+	ChangeFingerprint      string         `json:"change_fingerprint,omitempty"`
 	BaselineFingerprint    string         `json:"baseline_fingerprint,omitempty"`
 	BaselineState          string         `json:"baseline_state,omitempty"`
 	Path                   string         `json:"path"`
@@ -103,6 +107,7 @@ type DocumentResult struct {
 
 // Manifest records the exact execution policy and feature versions, without time.
 type Manifest struct {
+	Git             *GitSelection             `json:"git,omitempty"`
 	GateMode        string                    `json:"gate_mode,omitempty"`
 	ToolVersion     string                    `json:"tool_version"`
 	ToolCommit      string                    `json:"tool_commit"`
@@ -132,9 +137,10 @@ type GateReason struct {
 
 // GateDecision reports policy separately from operational completion.
 type GateDecision struct {
-	Passed   bool         `json:"passed"`
-	Reasons  []GateReason `json:"reasons"`
-	Accepted []GateReason `json:"accepted,omitempty"`
+	Unchanged []GateReason `json:"unchanged,omitempty"`
+	Passed    bool         `json:"passed"`
+	Reasons   []GateReason `json:"reasons"`
+	Accepted  []GateReason `json:"accepted,omitempty"`
 }
 
 // RunError records an operational failure in a partial result.
@@ -168,6 +174,7 @@ type Suppression struct {
 // RunResult is the immutable input shared by every reporter.
 // Returned slices are owned by the caller and do not alias the engine.
 type RunResult struct {
+	Changes          *ChangeSelection     `json:"changes,omitempty"`
 	BaselineSnapshot *baseline.Snapshot   `json:"baseline_snapshot,omitempty"`
 	Baseline         *baseline.Comparison `json:"baseline,omitempty"`
 	SchemaVersion    string               `json:"schema_version"`

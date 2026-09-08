@@ -99,7 +99,7 @@ func capturedDebt(ctx context.Context, operation string, previous baseline.File,
 }
 
 func captureDestination(environment Environment, options checkOptions, operation, output string) (string, error) {
-	if options.stdin || len(options.reports) > 0 || options.noGate || options.gateMode != "" {
+	if options.stdin || len(options.reports) > 0 || options.noGate || options.gateMode != "" || options.changedFrom != "" {
 		return "", fmt.Errorf("baseline capture accepts complete source paths; stdin, reports, and gate overrides are unsupported")
 	}
 	if operation == "update" {

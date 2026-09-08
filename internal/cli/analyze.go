@@ -58,19 +58,30 @@ func readLimited(path string, limit int) ([]byte, error) {
 }
 
 func analyze(ctx context.Context, environment Environment, options checkOptions, args []string) (unswell.RunResult, []string, error) {
-	if !slices.Contains([]string{"note", "warning", "error"}, options.minSeverity) && options.minSeverity != "" {
-		return unswell.RunResult{}, nil, fmt.Errorf("invalid minimum severity")
-	}
-	if options.maxFindings < 0 || options.timeout <= 0 {
-		return unswell.RunResult{}, nil, fmt.Errorf("invalid display limit or timeout")
+	if err := validateCheckOptions(options); err != nil {
+		return unswell.RunResult{}, nil, err
 	}
 	ctx, cancel := context.WithTimeout(ctx, options.timeout)
 	defer cancel()
+	return analyzeInputs(ctx, environment, options, args)
+}
+
+func validateCheckOptions(options checkOptions) error {
+	if !slices.Contains([]string{"note", "warning", "error"}, options.minSeverity) && options.minSeverity != "" {
+		return fmt.Errorf("invalid minimum severity")
+	}
+	if options.maxFindings < 0 || options.timeout <= 0 {
+		return fmt.Errorf("invalid display limit or timeout")
+	}
+	return nil
+}
+
+func analyzeInputs(ctx context.Context, environment Environment, options checkOptions, args []string) (unswell.RunResult, []string, error) {
 	loaded, err := configuration(ctx, environment, options)
 	if err != nil {
 		return unswell.RunResult{}, nil, err
 	}
-	additional, rulePaths, err := ruleFiles(environment, options.ruleSets)
+	additional, rulePaths, ruleData, err := ruleInputs(environment, options.ruleSets)
 	if err != nil {
 		return unswell.RunResult{}, nil, err
 	}
@@ -92,6 +103,10 @@ func analyze(ctx context.Context, environment Environment, options checkOptions,
 	)
 	if err != nil {
 		return unswell.RunResult{}, nil, err
+	}
+	if options.changedFrom != "" {
+		resources := policyInputs(loaded, ruleData, baselinePaths, baselineData)
+		return analyzeCommitted(ctx, environment, options, engine, loaded.Root, args, resources)
 	}
 	sources, paths, mode, err := selectSources(ctx, environment, options, engine, loaded.Root, args)
 	if err != nil {

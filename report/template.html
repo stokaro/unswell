@@ -21,6 +21,12 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 {{range .Result.Gate.Accepted}}<li><a href="#finding-{{.FindingID}}">{{.Path}}</a>: {{.Message}}</li>{{end}}</ul></details>{{end}}
 {{if .Result.Baseline.Stale}}<details><summary>Stale debt</summary><ul>{{range .Result.Baseline.Stale}}<li>{{.Identity.Path}}: {{.Identity.Kind}} {{.Identity.RuleID}} — {{.Fingerprint}}</li>{{end}}</ul></details>{{end}}
 {{if .Result.Baseline.Unobserved}}<details><summary>Unobserved debt</summary><ul>{{range .Result.Baseline.Unobserved}}<li>{{.Identity.Path}}: {{.Identity.Kind}} {{.Identity.RuleID}} — {{.Fingerprint}}</li>{{end}}</ul></details>{{end}}</section>{{end}}
+{{if .Result.Changes}}<section id="changes"><h2>Changed units</h2>
+<p>{{.Result.Changes.SelectedUnits}} selected of {{.Result.Changes.ComparedUnits}} compared. Complete: {{.Result.Changes.Complete}}.</p>
+{{if .Result.Manifest.Git}}<p>Committed selection: <code>{{.Result.Manifest.Git.BaseCommit}}</code> to <code>{{.Result.Manifest.Git.HeadCommit}}</code>. Selected inputs clean: {{.Result.Manifest.Git.Clean}}.</p>{{end}}
+<ul>{{range .Result.Changes.Documents}}<li>{{.Path}}: {{.Status}}{{if .FullReason}} ({{.FullReason}}){{end}}</li>{{end}}</ul>
+{{if .Result.Gate.Unchanged}}<details><summary>Unchanged gate reasons retained</summary><ul>
+{{range .Result.Gate.Unchanged}}<li><a href="#finding-{{.FindingID}}">{{.Path}}</a>: {{.Message}}</li>{{end}}</ul></details>{{end}}</section>{{end}}
 <section id="files"><h2>Files and coverage</h2><table><thead><tr><th>File</th><th>Prose words</th><th>Blocks</th><th>Maximum raw paragraph index</th></tr></thead><tbody>
 {{range .Result.Documents}}<tr><td>{{.Name}}</td><td>{{.ProseWords}}</td><td>{{.Blocks}}</td><td>{{.Maximum}}/100</td></tr>{{end}}</tbody></table>
 {{range .Result.Documents}}<details><summary>{{.Name}} — {{len .Excluded}} excluded regions</summary>
@@ -33,6 +39,7 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 {{range .Findings}}<article id="finding-{{.ID}}" class="finding {{.Severity}}" data-severity="{{.Severity}}" data-rule="{{.RuleID}}" data-group="{{.Group}}">
 <h3>{{.RuleID}} <small>({{.Severity}}, {{.Evidence.Kind}} evidence{{if .Suppressed}}, suppressed{{end}}{{if .BaselineFingerprint}}, baseline: {{.BaselineState}}{{end}})</small></h3><p>{{.Message}}</p>
 {{if .SuppressionIDs}}<p>Source permissions: {{range .SuppressionIDs}}<a href="#suppression-{{.}}">{{.}}</a> {{end}}</p>{{end}}
+{{if .ChangeState}}<p>Change selection: {{.ChangeState}}.</p>{{end}}
 <p>{{.Primary.Path}}:{{.Primary.Start.Line}}:{{.Primary.Start.Column}} · bytes [{{.Primary.Span.Start}}, {{.Primary.Span.End}})</p>
 {{if .Primary.Snippet}}<pre><mark>{{.Primary.Snippet}}</mark></pre>{{end}}
 {{if .Related}}<details><summary>{{len .Related}} related occurrences</summary>{{range .Related}}<p>{{.Path}}:{{.Start.Line}}:{{.Start.Column}}</p>{{if .Snippet}}<pre>{{.Snippet}}</pre>{{end}}{{end}}</details>{{end}}
@@ -43,6 +50,7 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 <pre>{{range .Pieces}}{{if .Highlight}}<mark>{{.Text}}</mark>{{else}}{{.Text}}{{end}}{{end}}</pre>
 <p>Raw index: {{.Assessment.SlopScore}}. Effective index: {{.Assessment.EffectiveSlopScore}}. Probability: {{.Assessment.ProbabilityStatus}}.</p>
 {{if .Assessment.BaselineFingerprint}}<p>Baseline: {{.Assessment.BaselineState}}. Structural fingerprint: <code>{{.Assessment.BaselineFingerprint}}</code>.</p>{{end}}
+{{if .Assessment.ChangeState}}<p>Change selection: {{.Assessment.ChangeState}}.</p>{{end}}
 <table><caption>Raw scoring trace, including caps and correlation</caption><thead><tr><th>Rule</th><th>Raw points</th><th>Effective points</th><th>Reason</th></tr></thead><tbody>{{range .Assessment.Contributions}}<tr><td><a href="#finding-{{.FindingID}}">{{.RuleID}}</a></td><td>{{.Raw}}</td><td>{{.Effective}}</td><td>{{.Reason}}</td></tr>{{end}}</tbody></table>
 {{if .Assessment.EffectiveContributions}}<table><caption>Scoring after source permissions</caption><thead><tr><th>Rule</th><th>Points</th><th>Reason</th></tr></thead><tbody>
 {{range .Assessment.EffectiveContributions}}<tr><td><a href="#finding-{{.FindingID}}">{{.RuleID}}</a></td><td>{{.Effective}}</td><td>{{.Reason}}</td></tr>{{end}}</tbody></table>{{end}}

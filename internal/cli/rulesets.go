@@ -20,34 +20,41 @@ import (
 )
 
 func ruleFiles(environment Environment, paths []string) ([]rule.Rule, []string, error) {
+	implementations, files, _, err := ruleInputs(environment, paths)
+	return implementations, files, err
+}
+
+func ruleInputs(environment Environment, paths []string) ([]rule.Rule, []string, map[string][]byte, error) {
 	var implementations []rule.Rule
 	var files []string
+	resources := make(map[string][]byte)
 	for _, path := range paths {
 		if !filepath.IsAbs(path) {
 			path = filepath.Join(environment.Dir, path)
 		}
 		selected, err := selectRuleFiles(path)
 		if err != nil {
-			return nil, nil, err
+			return nil, nil, nil, err
 		}
 		files = append(files, selected...)
 		if len(files) > 10 {
-			return nil, nil, fmt.Errorf("at most 10 ruleset files may be loaded")
+			return nil, nil, nil, fmt.Errorf("at most 10 ruleset files may be loaded")
 		}
 	}
 	slices.Sort(files)
 	for _, path := range files {
 		data, err := readLimited(path, 1<<20)
 		if err != nil {
-			return nil, nil, err
+			return nil, nil, nil, err
 		}
 		set, err := ruleset.Load(data)
 		if err != nil {
-			return nil, nil, fmt.Errorf("%s: %w", path, err)
+			return nil, nil, nil, fmt.Errorf("%s: %w", path, err)
 		}
 		implementations = append(implementations, set.Rules()...)
+		resources[path] = data
 	}
-	return implementations, files, nil
+	return implementations, files, resources, nil
 }
 
 func selectRuleFiles(path string) ([]string, error) {

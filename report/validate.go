@@ -57,5 +57,22 @@ func validateCompletion(result unswell.RunResult) error {
 	if result.Gate.Passed && (!complete || (!result.Manifest.NoGate && len(result.Gate.Reasons) != 0)) {
 		return fmt.Errorf("inconsistent policy decision")
 	}
+	return validateChanges(result)
+}
+
+func validateChanges(result unswell.RunResult) error {
+	if changes := result.Changes; changes != nil {
+		if changes.Version != "unswell-changes-v1" || changes.Complete != result.Manifest.Complete {
+			return fmt.Errorf("inconsistent change selection completion or version")
+		}
+		if changes.SelectedUnits < 0 || changes.ComparedUnits < changes.SelectedUnits {
+			return fmt.Errorf("invalid change selection counts")
+		}
+	}
+	if git := result.Manifest.Git; git != nil {
+		if result.Changes == nil || (result.Manifest.Complete && !git.Clean) {
+			return fmt.Errorf("committed analysis requires verified change selection")
+		}
+	}
 	return nil
 }
