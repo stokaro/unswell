@@ -71,13 +71,17 @@ func phraseObservation(block document.Block, patterns int, evaluated bool) featu
 
 func (m *phraseMatcher) match(sentence document.Sentence, pattern []string) (bool, error) {
 	evaluated := false
+	needsObservation := m.view.Observer != nil
 	for start := 0; start+len(pattern) <= len(sentence.Tokens); start++ {
 		end := start + len(pattern)
 		if !m.candidate(sentence, start, end) {
 			continue
 		}
-		evaluated = true
-		if !matches(sentence.Tokens[start:end], pattern) {
+		tokens := sentence.Tokens[start:end]
+		if needsObservation && !slices.ContainsFunc(tokens, protectedPhraseToken) {
+			evaluated, needsObservation = true, false
+		}
+		if !matches(tokens, pattern) {
 			continue
 		}
 		if err := m.emit.Emit(phraseEvidence(sentence, start, end)); err != nil {
@@ -89,8 +93,11 @@ func (m *phraseMatcher) match(sentence document.Sentence, pattern []string) (boo
 
 func (m *phraseMatcher) candidate(sentence document.Sentence, start, end int) bool {
 	return phrasePosition(m.view.Parameters.Positions, start, m.index, m.total) &&
-		!m.view.Exempts(sentence, start, end) &&
-		!slices.ContainsFunc(sentence.Tokens[start:end], func(token document.Token) bool { return token.Protected })
+		!m.view.Exempts(sentence, start, end)
+}
+
+func protectedPhraseToken(token document.Token) bool {
+	return token.Protected
 }
 
 func phraseEvidence(sentence document.Sentence, start, end int) rule.Evidence {

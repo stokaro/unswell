@@ -74,6 +74,12 @@ observations, which changes the catalog hash. The finding algorithm version stay
 unchanged because the phrase lists, findings, and matching semantics stay intact;
 collecting observations must not change finding or baseline fingerprints.
 
+Only requested observations need a separate protected-token eligibility scan.
+For each phrase and sentence, stop this optional scan after an eligible window
+has established applicability. The matcher still checks every possible match.
+The Go benchmark isolates both modes on 100,000 prepared tokens and 128 phrases;
+it does not stand in for the full extraction/NLP performance budget.
+
 Acceptance includes positive and zero activations, each absence state, disabled
 rules, uninstrumented external rules, ignored observer errors, partial failures,
 cluster occurrences and duplicates, policy overrides, source protection,
