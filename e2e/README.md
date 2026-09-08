@@ -79,6 +79,12 @@ The [orphaned delimiter](testdata/markdown_orphaned_delimiter/sample.md.txt) cas
 requires exit code 2 for a known partial grammar tree, preserving the difference
 between an unsupported boundary and a completed clean scan.
 
+The [Markdown boundaries](testdata/markdown_boundaries/heading.md.txt) fixtures
+intentionally lack final newlines. They cover EOF headings and the first quote,
+code block, or link definition with BOM/CRLF and original SARIF coordinates.
+The [included quote](testdata/markdown_quote_included/quote.md.txt) case requires
+the same leading quoted phrase to be detected when quote analysis is enabled.
+
 The shared policy limits language-extraction cases to two phrase rules and sets
 chat-preamble matching to sentence starts. The `document_position` case checks its
 document-start setting separately. This suite does not claim every catalog rule or

@@ -38,6 +38,17 @@ unchanged because GitHub's GFM renderer does not accept it as an empty table row
 The pinned grammar can leave orphaned delimiter tokens for this boundary; reject
 that incomplete tree rather than silently omitting the following prose.
 
+The block scanner can flatten the first block's wrapper and needs a line ending
+to finish some nodes at EOF. Frame nonempty block input with a synthetic paragraph
+and blank line, and append one LF when missing. Record every framing byte in the
+same insertion map. The leading paragraph maps to an empty original range and
+is never extracted. The grammar retains actual quote, code, HTML, and reference
+wrappers; the adapter does not infer those kinds from source lines. Heading
+structure and original ranges remain intact at EOF. Original bytes, hashes,
+inline text, and reported spans exclude the framing. Strict tree validation and
+orphaned-delimiter checks still apply; this is not a fallback for arbitrary
+parser errors.
+
 An alternative of stripping Markdown markers or using normalized Go comment text
 would be smaller but loses entity, emphasis and CRLF coordinates. The extraction
 tests retain exact expected original ranges rather than searching the normalized
