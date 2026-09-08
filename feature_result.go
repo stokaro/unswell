@@ -13,14 +13,16 @@ const FeatureCollectionVersion = "unswell-feature-collection-v1"
 // The enclosing RunResult completion state applies: partial runs are not complete
 // training or inference inputs. Values never include normalized words or keys.
 type FeatureCollection struct {
-	Version       string          `json:"version"`
-	BlockContract string          `json:"block_contract"`
-	Requested     []string        `json:"requested"`
-	Sources       []FeatureSource `json:"sources"`
+	ActivationContract string          `json:"activation_contract,omitempty"`
+	Version            string          `json:"version"`
+	BlockContract      string          `json:"block_contract"`
+	Requested          []string        `json:"requested"`
+	Sources            []FeatureSource `json:"sources"`
 }
 
 // FeatureSource identifies the actual representation and policy used for a source.
 type FeatureSource struct {
+	RulesetHash    string           `json:"ruleset_hash,omitempty"`
 	Path           string           `json:"path"`
 	SourceHash     string           `json:"source_hash"`
 	PolicyHash     string           `json:"policy_hash"`
@@ -33,7 +35,8 @@ type FeatureSource struct {
 
 // FeatureUnit records one original block and its requested numeric values.
 // Segments contain counted source tokens, without filling protected gaps. An
-// unsupported kind has no input hash or segments and only absent values.
+// unsupported measurement kind has no input hash or counted segments. Rule
+// activations retain the source, context, and rule identities instead.
 type FeatureUnit struct {
 	Scope       string          `json:"scope"`
 	UnitID      int             `json:"unit_id"`

@@ -99,6 +99,7 @@ func surfaceReadabilityRules() []rule.Rule {
 	long.Requires = append(long.Requires, nlp.POS)
 	long.TermExemptions = false
 	long.SharedFeatures = true
+	long.BlockObservations = true
 	long.Defaults.Parameters = rule.Parameters{Onset: 120, Saturation: 240, SentenceWords: 25, MinLongSentences: 2}
 	long.Parameters = []string{"onset", "saturation", "sentence_words", "min_long_sentences"}
 	long.Description = "Requires both paragraph length and a configured count of long sentences; reports local descriptive measurements."
@@ -112,6 +113,7 @@ func surfaceReadabilityRules() []rule.Rule {
 	grade.Requires = append(grade.Requires, nlp.POS)
 	grade.TermExemptions = false
 	grade.SharedFeatures = true
+	grade.BlockObservations = true
 	grade.Defaults.Parameters = rule.Parameters{MinWords: 50, MinSentences: 2, Onset: 12, Saturation: 20}
 	grade.Parameters = []string{"min_words", "min_sentences", "onset", "saturation"}
 	grade.Description = "Applies 4.71*characters/words + 0.5*words/sentences - 21.43 to local extracted prose using explicit token counts."

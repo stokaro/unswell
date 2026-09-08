@@ -60,6 +60,9 @@ func (e *Engine) validateDependencies(ctx context.Context, mapped document.Mappe
 
 func (e *Engine) requireFeatureCapabilities(available []nlp.Capability) error {
 	for _, descriptor := range e.featureDefinitions {
+		if descriptor.Family == "rule-activation" {
+			continue // Execution planning checks only enabled rules, including per-file overrides.
+		}
 		if err := e.requireCapabilities(descriptor.Requires, available, "feature "+descriptor.ID); err != nil {
 			return err
 		}

@@ -187,6 +187,46 @@ Start MCP with the same repeated `--feature` flags to fix its requested set.
 collection. A client cannot select a different set or policy in a check request.
 No source words or template keys are added to reports by collection.
 
-See [ADR 0017](adr/0017-feature-collection.md). Raw activations and repetition/model
-vectors still require integration; this block collection does not qualify a model
-or provide calibrated probabilities.
+See [ADR 0017](adr/0017-feature-collection.md). Repetition/model vectors still
+require integration; collection does not qualify a model or provide probabilities.
+
+## Collect rule activations
+
+Request `activation/<rule-id>` through the same `--feature` flag or
+`Options.Features` set. The ID must belong to the registered catalog, including
+configured rule packs. Selecting a feature does not enable its rule. The collection
+records `unswell-rule-activations-v1` and binds each source to the rule catalog hash;
+the saved manifest supplies the participating rule versions and capability contracts.
+
+For each block, the value is the maximum raw fixed-point activation emitted by
+that rule for the block, divided by 1000. Collection reads validated emissions
+before diagnostic deduplication, so a stronger repeated emission sets the maximum.
+It excludes weights, caps, derived gate findings, suppressions and accepted debt.
+The value is a policy-dependent signal, not a probability or an editorial label.
+
+Rules can call `View.Observe(feature.BlockObservation{...})` during their normal
+computation. Status `evaluated` has no reason; `inapplicable` requires a bounded
+lowercase machine identifier. `Descriptor.BlockObservations` promises one explicit
+observation for every extracted block when an observer was supplied and evaluation
+succeeded. Missing promised observations, duplicate records, invalid IDs and
+evidence for an inapplicable block are errors even when a rule ignores the returned
+error. Calls are sequential within an evaluation. No observer means collection
+was not requested, so the helper does nothing.
+
+An explicitly evaluated block with no evidence has zero activation. A positive
+finding can establish an activation for an existing uninstrumented rule. A silent
+uninstrumented rule leaves `applicability_unknown`. Other absence reasons are
+`disabled`, `not_evaluated`, `evaluation_failed`, and `inapplicable/<reason>`.
+Failed evaluations discard their numeric values, including values associated with
+partial findings. The enclosing run remains incomplete.
+
+The two readability rules account for unsupported blocks, empty prose, and the
+grade metric's word/sentence minimums using their existing calculations. Other
+rule families still need complete applicability observations before their silent
+blocks can supply dense negative inputs for training. The complete #56 work and
+model qualification remain open. See [ADR 0018](adr/0018-rule-activation-features.md).
+
+The number of blocks times requested values must fit `analysis.max_candidates`
+for each source. Exceeding this output bound is an operational error; values are
+not sampled or silently dropped. Repository CLI/MCP self-checks collect a real
+readability activation alongside word counts and lexical diversity.

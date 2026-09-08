@@ -20,7 +20,7 @@ func validateFeatures(result unswell.RunResult) error {
 	if collection.Version != unswell.FeatureCollectionVersion || collection.BlockContract != feature.Contract {
 		return fmt.Errorf("unsupported feature collection contract")
 	}
-	definitions, err := requestedDefinitions(collection.Requested)
+	definitions, err := requestedDefinitions(result)
 	if err != nil {
 		return err
 	}
@@ -30,8 +30,13 @@ func validateFeatures(result unswell.RunResult) error {
 	return validateFeatureSources(result, definitions)
 }
 
-func requestedDefinitions(ids []string) ([]feature.Descriptor, error) {
+func requestedDefinitions(result unswell.RunResult) ([]feature.Descriptor, error) {
+	ids := result.Features.Requested
 	catalog := feature.Catalog()
+	if len(result.Manifest.Rules) > 1000 {
+		return nil, fmt.Errorf("feature rule catalog exceeds its limit")
+	}
+	catalog = append(catalog, activationDefinitions(result)...)
 	if len(ids) == 0 || len(ids) > len(catalog) || !slices.IsSorted(ids) {
 		return nil, fmt.Errorf("invalid feature request order or size")
 	}
@@ -45,6 +50,9 @@ func requestedDefinitions(ids []string) ([]feature.Descriptor, error) {
 			return nil, fmt.Errorf("unknown requested feature")
 		}
 		definitions = append(definitions, catalog[index])
+	}
+	if err := validateActivationContract(result, definitions); err != nil {
+		return nil, err
 	}
 	return definitions, nil
 }
@@ -67,10 +75,13 @@ func validateFeatureSources(result unswell.RunResult, definitions []feature.Desc
 		if err := validateFeatureIdentity(source, doc, result.Manifest.NLP); err != nil {
 			return err
 		}
+		if err := validateActivationSource(source, result); err != nil {
+			return err
+		}
 		if err := validateFeatureCapabilities(source, definitions); err != nil {
 			return err
 		}
-		if err := validateFeatureUnits(source, doc, definitions); err != nil {
+		if err := validateFeatureUnits(source, doc, definitions, result.Manifest.Complete); err != nil {
 			return err
 		}
 	}
@@ -98,16 +109,28 @@ func validateFeatureCapabilities(source unswell.FeatureSource, definitions []fea
 		}
 	}
 	for _, definition := range definitions {
-		for _, required := range definition.Requires {
-			if !slices.Contains(source.Capabilities, required) {
-				return fmt.Errorf("requested feature requires missing capability %s", required)
-			}
+		if definition.Family == "rule-activation" {
+			continue // Disabled rules need no capability; observed numbers are checked separately.
+		}
+		if err := requireFeatureCapabilities(source.Capabilities, definition.Requires); err != nil {
+			return err
 		}
 	}
 	return nil
 }
 
-func validateFeatureUnits(source unswell.FeatureSource, doc unswell.DocumentResult, definitions []feature.Descriptor) error {
+func requireFeatureCapabilities(available, required []nlp.Capability) error {
+	for _, capability := range required {
+		if !slices.Contains(available, capability) {
+			return fmt.Errorf("requested feature requires missing capability %s", capability)
+		}
+	}
+	return nil
+}
+
+func validateFeatureUnits(
+	source unswell.FeatureSource, doc unswell.DocumentResult, definitions []feature.Descriptor, complete bool,
+) error {
 	if len(source.Units) != doc.Blocks {
 		return fmt.Errorf("feature source does not cover its extracted blocks")
 	}
@@ -119,7 +142,7 @@ func validateFeatureUnits(source unswell.FeatureSource, doc unswell.DocumentResu
 		if err := validateFeatureSegments(unit); err != nil {
 			return err
 		}
-		if err := validateFeatureValues(unit, definitions); err != nil {
+		if err := validateFeatureValues(unit, definitions, source.Capabilities, complete); err != nil {
 			return err
 		}
 	}
@@ -146,7 +169,7 @@ func validateFeatureSegments(unit unswell.FeatureUnit) error {
 	return nil
 }
 
-func validateFeatureValues(unit unswell.FeatureUnit, definitions []feature.Descriptor) error {
+func validateFeatureValues(unit unswell.FeatureUnit, definitions []feature.Descriptor, capabilities []nlp.Capability, complete bool) error {
 	if len(unit.Values) != len(definitions) {
 		return fmt.Errorf("feature unit does not match its request")
 	}
@@ -155,11 +178,18 @@ func validateFeatureValues(unit unswell.FeatureUnit, definitions []feature.Descr
 		if value.ID != d.ID || value.Version != d.Version || value.Unit != d.Unit {
 			return fmt.Errorf("feature value has an incompatible definition")
 		}
-		if err := validateFeatureNumber(value, feature.SupportsBlock(unit.Kind), d.MinWords); err != nil {
+		if err := validateRequestedValue(value, d, unit.Kind, capabilities, complete); err != nil {
 			return err
 		}
 	}
 	return nil
+}
+
+func validateRequestedValue(value feature.Value, d feature.Descriptor, kind string, capabilities []nlp.Capability, complete bool) error {
+	if d.Family == "rule-activation" {
+		return validateActivationValue(value, d, capabilities, complete)
+	}
+	return validateFeatureNumber(value, feature.SupportsBlock(kind), d.MinWords)
 }
 
 func validateFeatureNumber(value feature.Value, supported bool, minimum int) error {

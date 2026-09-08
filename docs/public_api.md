@@ -219,3 +219,18 @@ an update for reports containing the new fields. Trees remain in the in-memory
 document model and are not added to normal saved reports or MCP results. The
 separate dependency research command explicitly emits source-bearing traces for
 reference experiments and is not part of the supported product API.
+
+Rule activation collection adds `feature.ActivationContract`, `ActivationDescriptor`,
+`ActivationBuilder`, `NewActivations`, `BlockObservation`, `ValidateActivation`,
+and `ValidApplicabilityReason`. The mutable builder is local to one evaluation;
+its returned values are owned. `rule.Observer`, `View.Observer`, `View.Observe`,
+and `Descriptor.BlockObservations` expose optional applicability reporting without
+changing the Rule or Emitter interfaces. Missing observations never imply zero.
+
+`Options.Features` also accepts registered `activation/<rule-id>` requests.
+`FeatureCollection.ActivationContract` and `FeatureSource.RulesetHash` bind the
+new values to their formula and rules. These fields are additive and omitted for
+ordinary block collection. Existing reports remain readable; strict older readers
+need the new fields. Rule identities now include their observation declaration.
+See [ADR 0018](adr/0018-rule-activation-features.md) for failure states and the
+remaining applicability coverage required before training.

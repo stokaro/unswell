@@ -51,6 +51,7 @@ type Options struct {
 // Engine is immutable after construction and supports concurrent calls. Custom
 // rule and NLP implementations must uphold their documented concurrency contract.
 type Engine struct {
+	activationIndices     map[string]int
 	featureIDs            []string
 	featureDefinitions    []feature.Descriptor
 	trustedSources        map[string]sourceIdentities
@@ -132,15 +133,14 @@ func (e *Engine) configure(options Options) error {
 	if err != nil {
 		return err
 	}
-	if err := e.selectFeatures(options.Features); err != nil {
-		return err
+	if len(additional) > 0 {
+		e.rules = append(e.rules, additional...)
+		e.descriptors = nil
+		if err := e.snapshotDescriptors(); err != nil {
+			return err
+		}
 	}
-	if len(additional) == 0 {
-		return nil
-	}
-	e.rules = append(e.rules, additional...)
-	e.descriptors = nil
-	return e.snapshotDescriptors()
+	return e.selectFeatures(options.Features)
 }
 
 // PolicyForFile returns an owned effective policy for a project-relative logical

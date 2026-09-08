@@ -1,0 +1,270 @@
+{
+  "activation_contract": "unswell-rule-activations-v1",
+  "version": "unswell-feature-collection-v1",
+  "block_contract": "unswell-block-features-v1",
+  "requested": [
+    "activation/filler.announced-importance",
+    "activation/readability.grade-metric",
+    "prose-words"
+  ],
+  "sources": [
+    {
+      "ruleset_hash": "52f8d4ca156489e1c1bfe1db5035dc3bf725def5a606fe7e4e9fd7671805e31f",
+      "path": "sample.md",
+      "source_hash": "b26c503c0036b7817c110225f0dadb25ba0013e8164f16bf8fdd90a7a9d7593b",
+      "policy_hash": "1bf9ccbbfbb2d5c2ab52007c1ccd99d4bde3ea7b33fb265678c875ec05e3c8e2",
+      "vocabulary_hash": "1bf9ccbbfbb2d5c2ab52007c1ccd99d4bde3ea7b33fb265678c875ec05e3c8e2",
+      "preprocessing": "extracted-provider-tokens-v1",
+      "nlp": {
+        "name": "builtin-en",
+        "version": "prose-v3.2.1/chunks-v1",
+        "model": "prose/aptagmodel/en.bin",
+        "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+        "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+        "license": "MIT",
+        "capabilities": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ]
+      },
+      "capabilities": [
+        "pos",
+        "sentences",
+        "tokens"
+      ],
+      "units": [
+        {
+          "scope": "block",
+          "unit_id": 0,
+          "kind": "heading",
+          "context_hash": "e69e5fa7a0ee0b025aa1bcaff08a8892e60bbc59b6654ed6f373bf1554b44ea7",
+          "span": {
+            "start": 2,
+            "end": 9
+          },
+          "segments": null,
+          "values": [
+            {
+              "id": "activation/filler.announced-importance",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "disabled"
+            },
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/unsupported_unit"
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": null,
+              "reason": "unsupported_unit"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 1,
+          "kind": "paragraph",
+          "context_hash": "e69e5fa7a0ee0b025aa1bcaff08a8892e60bbc59b6654ed6f373bf1554b44ea7",
+          "span": {
+            "start": 13,
+            "end": 31
+          },
+          "segments": [
+            {
+              "start": 13,
+              "end": 16
+            },
+            {
+              "start": 17,
+              "end": 22
+            },
+            {
+              "start": 23,
+              "end": 30
+            }
+          ],
+          "input_hash": "e72c6cc97600bdcf0404eb4f5d8197a2de0568d268e4990d1f0a269c55a7f6f5",
+          "values": [
+            {
+              "id": "activation/filler.announced-importance",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "disabled"
+            },
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 3
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 2,
+          "kind": "paragraph",
+          "context_hash": "e69e5fa7a0ee0b025aa1bcaff08a8892e60bbc59b6654ed6f373bf1554b44ea7",
+          "span": {
+            "start": 35,
+            "end": 85
+          },
+          "segments": [
+            {
+              "start": 35,
+              "end": 38
+            },
+            {
+              "start": 39,
+              "end": 45
+            },
+            {
+              "start": 46,
+              "end": 51
+            },
+            {
+              "start": 52,
+              "end": 53
+            },
+            {
+              "start": 54,
+              "end": 58
+            },
+            {
+              "start": 60,
+              "end": 63
+            },
+            {
+              "start": 64,
+              "end": 70
+            },
+            {
+              "start": 71,
+              "end": 76
+            },
+            {
+              "start": 77,
+              "end": 78
+            },
+            {
+              "start": 79,
+              "end": 84
+            }
+          ],
+          "input_hash": "c5a0ba165fffa81f9410cb65dd113c4a7dd5135f96d413310ffa57d36161eedd",
+          "values": [
+            {
+              "id": "activation/filler.announced-importance",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "disabled"
+            },
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 10
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 3,
+          "kind": "paragraph",
+          "context_hash": "e69e5fa7a0ee0b025aa1bcaff08a8892e60bbc59b6654ed6f373bf1554b44ea7",
+          "span": {
+            "start": 89,
+            "end": 195
+          },
+          "segments": [
+            {
+              "start": 89,
+              "end": 92
+            },
+            {
+              "start": 93,
+              "end": 107
+            },
+            {
+              "start": 108,
+              "end": 116
+            },
+            {
+              "start": 117,
+              "end": 130
+            },
+            {
+              "start": 131,
+              "end": 144
+            },
+            {
+              "start": 146,
+              "end": 149
+            },
+            {
+              "start": 150,
+              "end": 161
+            },
+            {
+              "start": 162,
+              "end": 170
+            },
+            {
+              "start": 171,
+              "end": 181
+            },
+            {
+              "start": 182,
+              "end": 194
+            }
+          ],
+          "input_hash": "712c50b635c2573bf8c58a76eaac9231d33255e626850cebe05990c4e2bbac6d",
+          "values": [
+            {
+              "id": "activation/filler.announced-importance",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "disabled"
+            },
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 10
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

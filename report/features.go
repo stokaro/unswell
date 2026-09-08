@@ -37,6 +37,9 @@ func featureLines(result unswell.RunResult) []string {
 	}
 	lines := []string{fmt.Sprintf("Shared measurements: %s / %s; analysis %s.",
 		result.Features.Version, result.Features.BlockContract, result.Status)}
+	if result.Features.ActivationContract != "" {
+		lines = append(lines, "Rule activations: "+result.Features.ActivationContract+"; values are signals, not probabilities.")
+	}
 	for _, row := range featureRows(result) {
 		lines = append(lines, fmt.Sprintf("%s %s: %s %s", row.Location, row.ID, row.Value, row.Unit))
 	}
