@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"slices"
 
@@ -23,7 +24,9 @@ func (e *Engine) suppressionPlan(ctx context.Context, doc document.Document) (*s
 	})
 }
 
-func (e *Engine) applySuppressions(ctx context.Context, result *RunResult, doc document.Document, plan *suppress.Plan) error {
+func (e *Engine) applySuppressions(
+	ctx context.Context, result *RunResult, doc document.Document, plan *suppress.Plan, builder *debtBuilder,
+) error {
 	ids := make([]string, len(plan.Entries))
 	for i, entry := range plan.Entries {
 		identity, err := json.Marshal(struct {
@@ -40,7 +43,7 @@ func (e *Engine) applySuppressions(ctx context.Context, result *RunResult, doc d
 	for i, entry := range plan.Entries {
 		result.Suppressions = append(result.Suppressions, e.suppressionRecord(doc, entry, ids[i]))
 	}
-	return err
+	return errors.Join(err, e.filterTrustedSuppressions(ctx, result, doc, builder))
 }
 
 func matchSuppressions(ctx context.Context, findings []Finding, plan *suppress.Plan, ids []string) error {

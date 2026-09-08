@@ -74,5 +74,18 @@ func validateChanges(result unswell.RunResult) error {
 			return fmt.Errorf("committed analysis requires verified change selection")
 		}
 	}
+	return validatePolicyComparison(result)
+}
+
+func validatePolicyComparison(result unswell.RunResult) error {
+	if policy := result.PolicyComparison; policy != nil {
+		if policy.Version != "unswell-policy-comparison-v1" || policy.Complete != result.Manifest.Complete || result.Changes == nil {
+			return fmt.Errorf("inconsistent trusted policy completion or version")
+		}
+	}
+	if result.Manifest.SelectionMode == "git-committed-trusted-policy" &&
+		(result.PolicyComparison == nil || result.Manifest.Git == nil) {
+		return fmt.Errorf("trusted committed analysis requires policy and Git provenance")
+	}
 	return nil
 }

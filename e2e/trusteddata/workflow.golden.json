@@ -1,0 +1,274 @@
+[
+  {
+    "stage": "policy",
+    "diagnostics": {
+      "status": "complete",
+      "complete": true,
+      "passed": false,
+      "no_gate": false,
+      "findings": [
+        {
+          "rule_id": "filler.announced-importance",
+          "severity": "error",
+          "gate": "forbid",
+          "scope": "sentence",
+          "message": "State the fact without announcing its importance.",
+          "primary": {
+            "path": "guide.md",
+            "span": {
+              "start": 11,
+              "end": 39
+            },
+            "start": {
+              "line": 3,
+              "column": 1
+            },
+            "end": {
+              "line": 3,
+              "column": 29
+            },
+            "segments": [
+              {
+                "start": 11,
+                "end": 13
+              },
+              {
+                "start": 14,
+                "end": 16
+              },
+              {
+                "start": 17,
+                "end": 26
+              },
+              {
+                "start": 27,
+                "end": 29
+              },
+              {
+                "start": 30,
+                "end": 34
+              },
+              {
+                "start": 35,
+                "end": 39
+              }
+            ]
+          },
+          "related": []
+        }
+      ],
+      "errors": []
+    },
+    "policy_comparison": {
+      "version": "unswell-policy-comparison-v1",
+      "complete": true,
+      "full_scan": true,
+      "changes": [
+        {
+          "path": "policy.yaml",
+          "kind": "config",
+          "before_hash": "f5fdac75daad3c2d33fefba772124fc06b3280badbfd23f52ceb11a8b4ed033a",
+          "after_hash": "4c68de34a369812ac5b4f6905921d86b5d66292acb0ce1e0491ad2cb9de1a217"
+        }
+      ]
+    },
+    "selection": {
+      "version": "unswell-changes-v1",
+      "complete": true,
+      "documents": [
+        {
+          "path": "guide.md",
+          "before_hash": "546c98e5e262cb67c157c9caf3697c502e3e8fdc492c68627f9f0f03cce18381",
+          "after_hash": "546c98e5e262cb67c157c9caf3697c502e3e8fdc492c68627f9f0f03cce18381",
+          "status": "unchanged",
+          "full_reason": "policy_changed"
+        }
+      ],
+      "compared_units": 6,
+      "selected_units": 6
+    }
+  },
+  {
+    "stage": "permission",
+    "diagnostics": {
+      "status": "complete",
+      "complete": true,
+      "passed": false,
+      "no_gate": false,
+      "findings": [
+        {
+          "rule_id": "filler.announced-importance",
+          "severity": "error",
+          "gate": "forbid",
+          "scope": "sentence",
+          "message": "State the fact without announcing its importance.",
+          "primary": {
+            "path": "guide.md",
+            "span": {
+              "start": 97,
+              "end": 125
+            },
+            "start": {
+              "line": 5,
+              "column": 1
+            },
+            "end": {
+              "line": 5,
+              "column": 29
+            },
+            "segments": [
+              {
+                "start": 97,
+                "end": 99
+              },
+              {
+                "start": 100,
+                "end": 102
+              },
+              {
+                "start": 103,
+                "end": 112
+              },
+              {
+                "start": 113,
+                "end": 115
+              },
+              {
+                "start": 116,
+                "end": 120
+              },
+              {
+                "start": 121,
+                "end": 125
+              }
+            ]
+          },
+          "related": []
+        }
+      ],
+      "errors": [],
+      "suppressions": [
+        {
+          "trust_state": "untrusted",
+          "trust_fingerprint": "71dd1f9582db666a0071eec4509c7ae9fd6ab25957c46e9ce0eeaaa6bab66315",
+          "id": "d8b7b5e648f17aae15f7cccc977bdb1896a993cda7c79819fcccbef8b143fc13",
+          "kind": "disable-next-block",
+          "rule_ids": [
+            "filler.announced-importance"
+          ],
+          "reason": "External wording.",
+          "directive": {
+            "path": "guide.md",
+            "span": {
+              "start": 11,
+              "end": 95
+            },
+            "start": {
+              "line": 3,
+              "column": 1
+            },
+            "end": {
+              "line": 3,
+              "column": 85
+            },
+            "segments": [
+              {
+                "start": 11,
+                "end": 95
+              }
+            ]
+          },
+          "targets": [
+            {
+              "scope": "paragraph",
+              "unit_id": 1,
+              "span": {
+                "start": 97,
+                "end": 164
+              }
+            }
+          ],
+          "finding_ids": [
+            "78355f03f517f40b"
+          ],
+          "used_rules": [
+            "filler.announced-importance"
+          ],
+          "status": "used"
+        }
+      ]
+    },
+    "policy_comparison": {
+      "version": "unswell-policy-comparison-v1",
+      "complete": true,
+      "full_scan": true,
+      "changes": [
+        {
+          "path": "guide.md",
+          "kind": "source-permissions",
+          "after_hash": "6a9264953fee0cc4d12a36cf0dc67204ddfa1535b8aa4b36f85149451d1f552d"
+        },
+        {
+          "path": "policy.yaml",
+          "kind": "config",
+          "before_hash": "f5fdac75daad3c2d33fefba772124fc06b3280badbfd23f52ceb11a8b4ed033a",
+          "after_hash": "4c68de34a369812ac5b4f6905921d86b5d66292acb0ce1e0491ad2cb9de1a217"
+        }
+      ]
+    },
+    "selection": {
+      "version": "unswell-changes-v1",
+      "complete": true,
+      "documents": [
+        {
+          "path": "guide.md",
+          "before_hash": "546c98e5e262cb67c157c9caf3697c502e3e8fdc492c68627f9f0f03cce18381",
+          "after_hash": "0368c20aea532ab2ac82c1f61771d063e687d69ee966210c8c183e1941bcb2e1",
+          "status": "modified",
+          "full_reason": "policy_changed"
+        }
+      ],
+      "compared_units": 6,
+      "selected_units": 6
+    }
+  },
+  {
+    "stage": "edited",
+    "diagnostics": {
+      "status": "complete",
+      "complete": true,
+      "passed": true,
+      "no_gate": false,
+      "findings": [],
+      "errors": []
+    },
+    "policy_comparison": {
+      "version": "unswell-policy-comparison-v1",
+      "complete": true,
+      "full_scan": true,
+      "changes": [
+        {
+          "path": "policy.yaml",
+          "kind": "config",
+          "before_hash": "f5fdac75daad3c2d33fefba772124fc06b3280badbfd23f52ceb11a8b4ed033a",
+          "after_hash": "4c68de34a369812ac5b4f6905921d86b5d66292acb0ce1e0491ad2cb9de1a217"
+        }
+      ]
+    },
+    "selection": {
+      "version": "unswell-changes-v1",
+      "complete": true,
+      "documents": [
+        {
+          "path": "guide.md",
+          "before_hash": "546c98e5e262cb67c157c9caf3697c502e3e8fdc492c68627f9f0f03cce18381",
+          "after_hash": "7897fa88143bf583f57bb03f98677496dc4f4d202e1f029eeeeb6ea539528486",
+          "status": "modified",
+          "full_reason": "policy_changed"
+        }
+      ],
+      "compared_units": 6,
+      "selected_units": 6
+    }
+  }
+]

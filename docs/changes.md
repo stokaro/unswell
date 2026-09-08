@@ -63,9 +63,9 @@ Configuration, inherited policies, dictionaries, explicitly loaded rulesets, and
 the selected baseline must be committed, clean, and identical between the merge
 base and HEAD. Changes to discovered configuration or membership of a ruleset
 directory also fail. Policy inputs outside the project root are unsupported here.
-Until [trusted-policy support](https://github.com/stokaro/unswell/issues/15) is
-implemented, policy changes require a full check. This mode alone does not secure
-an untrusted pull request's workflow or command-line options.
+Use [trusted policy](trusted-policy.md) with `--policy-from-base` to check those
+changes under merge-base policy. An ordinary changed-unit check alone does not
+secure an untrusted pull request's workflow or command-line options.
 
 Missing objects, incomplete extraction in either version, incompatible baselines,
 dirty inputs, or a moving HEAD return an operational error. An empty current scan,

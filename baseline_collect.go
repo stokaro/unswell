@@ -14,21 +14,27 @@ type identityUnit struct {
 }
 
 type sourceIdentities struct {
-	document baseline.Document
-	findings map[string]string
-	units    map[identityUnit]string
+	document    baseline.Document
+	findings    map[string]string
+	units       map[identityUnit]string
+	permissions map[string]int
 }
 
-func (e *Engine) identifySource(ctx context.Context, result *RunResult, doc document.Document, ids *sourceIdentities) error {
+func (e *Engine) identityBuilder(ctx context.Context, doc document.Document, ids *sourceIdentities) (*debtBuilder, error) {
+	if !e.collectBaseline && ids == nil && e.trustedSources == nil {
+		return nil, nil
+	}
+	return newDebtBuilder(ctx, doc)
+}
+
+func (e *Engine) identifySource(
+	ctx context.Context, result *RunResult, doc document.Document, ids *sourceIdentities, builder *debtBuilder,
+) error {
 	allUnits := ids != nil
 	if ids == nil {
 		ids = &sourceIdentities{}
 	}
 	ids.findings, ids.units = make(map[string]string), make(map[identityUnit]string)
-	builder, err := newDebtBuilder(ctx, doc)
-	if err != nil {
-		return err
-	}
 	if err := builder.collectFindings(ctx, result, ids); err != nil {
 		return err
 	}
@@ -39,6 +45,7 @@ func (e *Engine) identifySource(ctx context.Context, result *RunResult, doc docu
 		Path: doc.Name, Format: string(doc.Format), SourceHash: doc.Hash,
 		PolicyHash: builder.hash(baselinePolicy(e.policy)), SuppressionHash: builder.suppressionHash(result.Suppressions),
 	}
+	ids.permissions = builder.permissionCounts(result.Suppressions)
 	if result.BaselineSnapshot != nil {
 		result.BaselineSnapshot.Documents = append(result.BaselineSnapshot.Documents, ids.document)
 	}
@@ -119,15 +126,27 @@ type debtSuppression struct {
 func (b *debtBuilder) suppressionHash(suppressions []Suppression) string {
 	identities := make([]debtSuppression, 0, len(suppressions))
 	for _, suppression := range suppressions {
-		identity := debtSuppression{Kind: suppression.Kind, Reason: suppression.Reason, Rules: suppression.RuleIDs}
-		for _, target := range suppression.Targets {
-			unit := baseline.Identity{Path: b.doc.Name, Kind: target.Scope}
-			if target.Scope != "file" {
-				unit = b.unit(target.Scope, target.UnitID)
-			}
-			identity.Targets = append(identity.Targets, unit)
-		}
-		identities = append(identities, identity)
+		identities = append(identities, b.permissionIdentity(suppression))
 	}
 	return b.hash(identities)
+}
+
+func (b *debtBuilder) permissionIdentity(suppression Suppression) debtSuppression {
+	identity := debtSuppression{Kind: suppression.Kind, Reason: suppression.Reason, Rules: suppression.RuleIDs}
+	for _, target := range suppression.Targets {
+		unit := baseline.Identity{Path: b.doc.Name, Kind: target.Scope}
+		if target.Scope != "file" {
+			unit = b.unit(target.Scope, target.UnitID)
+		}
+		identity.Targets = append(identity.Targets, unit)
+	}
+	return identity
+}
+
+func (b *debtBuilder) permissionCounts(suppressions []Suppression) map[string]int {
+	counts := make(map[string]int, len(suppressions))
+	for _, suppression := range suppressions {
+		counts[b.hash(b.permissionIdentity(suppression))]++
+	}
+	return counts
 }

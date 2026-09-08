@@ -110,3 +110,13 @@ optional change identities/states on findings and assessments, `RunResult.Change
 existing schema version and old-report readability; strict older readers need an
 update. Raw scores, baseline acceptance, and ordinary analysis keep their semantics.
 See [changed-unit analysis](changes.md) for selection and clean-source requirements.
+
+Trusted comparison adds `Engine.AnalyzeChangedWithOptions`, `ChangeOptions`,
+`PolicyChange`, and `PolicyComparison`. Results gain optional `PolicyComparison`,
+and suppressions gain optional `TrustState` and `TrustFingerprint`. These additive
+fields retain the existing schema version; strict older readers need an update.
+The caller asserts which engine policy, baseline, and before-sources are trusted.
+The engine filters current permissions and performs full selection for reported
+resource changes without loading policy resources. Ordinary analysis, baseline
+identities, and directive syntax retain their contracts. See
+[trusted policy](trusted-policy.md) for scope, hashes, and CI trust boundaries.

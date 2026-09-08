@@ -90,6 +90,7 @@ func Run(ctx context.Context, args []string, environment Environment) int {
 }
 
 type checkOptions struct {
+	policyFromBase     bool
 	changedFrom        string
 	baseline           string
 	gateMode           string
@@ -139,6 +140,8 @@ func checkCommand(environment Environment, code *int) *cobra.Command {
 
 func checkFlags(command *cobra.Command, options *checkOptions) {
 	flags := command.Flags()
+	flags.BoolVar(&options.policyFromBase, "policy-from-base", false,
+		"Use merge-base policy and baseline for a committed check; audit HEAD policy changes")
 	flags.StringVar(&options.changedFrom, "changed-from", "",
 		"Check committed changes from merge-base(REF, HEAD) with clean-source verification")
 	flags.StringVar(&options.baseline, "baseline", "", "Read accepted debt from this local baseline; checking never writes it")

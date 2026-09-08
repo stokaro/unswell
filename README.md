@@ -182,8 +182,10 @@ Explicit [baselines](docs/baseline.md) accept existing debt without removing fin
 or changing scores. The `new` gate checks new findings and changed scored units.
 Committed [changed-unit checks](docs/changes.md) compare merge-base to HEAD with
 clean-source verification and retain whole-document repetition context.
-The [roadmap](docs/roadmap.md) preserves the remaining requirements: trusted
-policy comparison, Go analysis integration and calibrated revision probabilities.
+Use [trusted policy](docs/trusted-policy.md) to apply merge-base rules and baseline
+while auditing candidate policy changes and new source permissions.
+The [roadmap](docs/roadmap.md) preserves the remaining requirements:
+Go analysis integration and calibrated revision probabilities.
 The alpha does not silently claim those capabilities.
 
 Code, URLs, front matter, directives and quoted Markdown blocks are excluded from

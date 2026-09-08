@@ -27,7 +27,10 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 <ul>{{range .Result.Changes.Documents}}<li>{{.Path}}: {{.Status}}{{if .FullReason}} ({{.FullReason}}){{end}}</li>{{end}}</ul>
 {{if .Result.Gate.Unchanged}}<details><summary>Unchanged gate reasons retained</summary><ul>
 {{range .Result.Gate.Unchanged}}<li><a href="#finding-{{.FindingID}}">{{.Path}}</a>: {{.Message}}</li>{{end}}</ul></details>{{end}}</section>{{end}}
-<section id="files"><h2>Files and coverage</h2><table><thead><tr><th>File</th><th>Prose words</th><th>Blocks</th><th>Maximum raw paragraph index</th></tr></thead><tbody>
+{{if .Result.PolicyComparison}}<section id="policy-comparison"><h2>Trusted policy</h2>
+<p>Complete: {{.Result.PolicyComparison.Complete}}. Full scan: {{.Result.PolicyComparison.FullScan}}.</p>
+<ul>{{range .Result.PolicyComparison.Changes}}<li>{{.Path}} [{{.Kind}}]: <code>{{.BeforeHash}}</code> to <code>{{.AfterHash}}</code></li>{{end}}</ul>
+</section>{{end}}<section id="files"><h2>Files and coverage</h2><table><thead><tr><th>File</th><th>Prose words</th><th>Blocks</th><th>Maximum raw paragraph index</th></tr></thead><tbody>
 {{range .Result.Documents}}<tr><td>{{.Name}}</td><td>{{.ProseWords}}</td><td>{{.Blocks}}</td><td>{{.Maximum}}/100</td></tr>{{end}}</tbody></table>
 {{range .Result.Documents}}<details><summary>{{.Name}} — {{len .Excluded}} excluded regions</summary>
 {{if .ConfigHash}}<p>Effective policy: <code>{{.ConfigHash}}</code></p>{{end}}
@@ -58,7 +61,7 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 {{if .Result.Suppressions}}<section id="suppressions"><h2>Source permissions</h2>
 {{range .Result.Suppressions}}<details id="suppression-{{.ID}}"><summary>{{.Directive.Path}}:{{.Directive.Start.Line}} — {{.Kind}} ({{.Status}})</summary>
 <p>{{.Reason}}</p><p>Rules: {{range .RuleIDs}}{{.}} {{end}}</p>
-<ul>{{range .Targets}}<li>{{.Scope}} {{.UnitID}}: bytes [{{.Span.Start}}, {{.Span.End}})</li>{{end}}</ul>
+{{if .TrustState}}<p>Permission trust: {{.TrustState}}. Structural identity: <code>{{.TrustFingerprint}}</code>.</p>{{end}}<ul>{{range .Targets}}<li>{{.Scope}} {{.UnitID}}: bytes [{{.Span.Start}}, {{.Span.End}})</li>{{end}}</ul>
 {{if .End}}<p>Region ends at {{.End.Start.Line}}:{{.End.Start.Column}}.</p>{{end}}
 <p>Retained findings: {{range .FindingIDs}}<a href="#finding-{{.}}">{{.}}</a> {{end}}</p></details>{{end}}
 <table><caption>Sentence scores affected by source permissions</caption><thead><tr><th>File</th><th>Sentence</th><th>Raw index</th><th>Effective index</th></tr></thead><tbody>

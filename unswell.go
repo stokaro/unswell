@@ -47,6 +47,7 @@ type Options struct {
 // Engine is immutable after construction and supports concurrent calls. Custom
 // rule and NLP implementations must uphold their documented concurrency contract.
 type Engine struct {
+	trustedSources        map[string]sourceIdentities
 	baselineFile          *baseline.File
 	collectBaseline       bool
 	baselineCompatibility baseline.Compatibility
