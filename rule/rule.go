@@ -84,6 +84,9 @@ type Descriptor struct {
 	// RequiresStructure requests grammar-derived block context, including heading
 	// ancestry. It does not restore prose excluded by the extraction policy.
 	RequiresStructure bool `json:"requires_structure,omitempty"`
+	// DependencyScheme requires an exact provider label scheme. Requires must
+	// include nlp.Dependencies. Empty permits scheme-independent graph analysis.
+	DependencyScheme string `json:"dependency_scheme,omitempty"`
 }
 
 // Origin identifies a declarative ruleset and its author-supplied provenance.

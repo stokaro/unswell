@@ -149,6 +149,9 @@ func (e *Engine) enrich(ctx context.Context, doc *document.Document) error {
 			}
 			block.Words += sentence.Words
 		}
+		if err := e.validateDependencies(ctx, block.MappedText, sentences); err != nil {
+			return err
+		}
 		block.Sentences = sentences
 		doc.Words += block.Words
 	}

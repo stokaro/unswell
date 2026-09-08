@@ -1,0 +1,43 @@
+{
+  "schema": "unswell-dependency-candidates-v1",
+  "candidates": [
+    {
+      "id": "gospacy",
+      "code_revision": "e2766da9ab71ffc55a5967a76a474046a96402bc",
+      "version": "v3.8.14-port.2",
+      "code_license": "MIT",
+      "state": "reproduced",
+      "decision": "experimental",
+      "scope": "103-token reference comparison; no grammatical or editorial qualification",
+      "model_archive_sha256": "14a2f31bc476af87019819ea8c9948fabdfd473a442edd6b1cba62bf0c2c0f55",
+      "model_files": "testdata/observation.json",
+      "model_terms": [
+        "MIT",
+        "WordNet-3.0"
+      ],
+      "training_data": "OntoNotes 5; commercial rights held by upstream; not redistributed",
+      "resource_observation": "testdata/observation.json"
+    },
+    {
+      "id": "lingo",
+      "code_revision": "491e816b48d421cddb666db8c288cb62e4f617d7",
+      "code_license": "MIT",
+      "state": "reviewed",
+      "decision": "defer",
+      "reason": "No pretrained model is supplied by the inspected distribution",
+      "model_sha256": null,
+      "measured_resources": null
+    },
+    {
+      "id": "yap",
+      "code_revision": "188e0046317f61bfe64af9210f91bcb9d88d561a",
+      "code_license": "Apache-2.0",
+      "state": "reviewed",
+      "decision": "defer",
+      "reason": "Documented distributed model is Hebrew; BGU lexicon is outside Apache-2.0 terms",
+      "model_sha256": null,
+      "measured_resources": null,
+      "upstream_documented_ram_gb": 6
+    }
+  ]
+}

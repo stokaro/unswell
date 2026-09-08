@@ -1,0 +1,2500 @@
+{
+  "unswell_commit": "efb31808df9556fa64b460c1fa04b382572cb06b",
+  "schema": "unswell-dependency-probe-v1",
+  "go": "go1.27.1",
+  "platform": "darwin/arm64",
+  "provider": "gospacy/v3@v3.8.14-port.2",
+  "revision": "e2766da9ab71ffc55a5967a76a474046a96402bc",
+  "model_files_sha256": {
+    "LICENSE": "3933c176979b68bc6d0bcc902c7d6c130f1d127f476f17ba5cdba8d99cfd0012",
+    "LICENSES_SOURCES": "20d9dfacd215112251f15341edd1a47b1f98bf393a212f10f194ffdc7ee98a90",
+    "README.md": "91b0ed1742ea0803034b4d769c4536e88d9d4da7808d833f2a804b6c54aae220",
+    "accuracy.json": "e7572d7f2f3c18e9921471f9d0b3424f8cf7f1a909ae484fa10b780a13f4c676",
+    "attribute_ruler/patterns": "f8b97f7ebef9b8536bba5f0fc1e73af6183563e96e2325bcbb021b8c6dbc6683",
+    "config.cfg": "65c545ca2da5bd4b87b22d4917318605360b37dee6ed6b18516a036f87319f79",
+    "lemmatizer/lookups/lookups.bin": "eb64f40c0f8396d1762730c0ddf4dad2a52d138f5a389f71a1a1d088173b7737",
+    "meta.json": "7456349002fa8cf31111051bd37fdbea67a1b7f7a0a60ce235466f98a6758125",
+    "ner/cfg": "a7172edadafba9f472e9ac0f2660eec04b6405e471be9e20267b79c67288d22d",
+    "ner/model": "cd93e9ca9126c69f1d10a1039ef67c3d9ec1223b44d079856705970f0f19ff4e",
+    "ner/moves": "d82b13473ebd33e0396004dd22f00c71fe3c1251742bf1f7c4554f23fd3b0af4",
+    "parser/cfg": "e2a240ef01f95e58f5dd4c9d6e90d61f597b8d998966570d3009dd81e8879780",
+    "parser/model": "e0098910535a863d430082ece57455d5fa071cd4ca3a0054e80582076c752b1e",
+    "parser/moves": "ec41318c32eb7f9e4d8f050b2e8466ee67954d2d3455c1aec73abf46c82dd67f",
+    "senter/cfg": "2a4db4a729b6469da1f87d71cc7cd3ed2a73360cc85326821e850836c4671103",
+    "senter/model": "b69e7174a0b6307739adec3c8053ac45fdbad7171c4d3d8bfcd9713ecbc01f8c",
+    "tagger/cfg": "d484c3d9391f37bf9c727aa2eb4c477a24cb103020f95e52dc37842818b50118",
+    "tagger/model": "1ec3d93f38cebe172f2b5c89d84be72856ce42c8f1a64f1699f1d98a771f36b7",
+    "tok2vec/cfg": "f8a5a26e3056eb6fb06deeb3dbccfd88ae74900200c98c70b5966bbb7ec9d4de",
+    "tok2vec/model": "e84fc06eb319c94d28e460fc334e292120b01f18baa5dc8b50c977459820a090",
+    "tokenizer": "b014e8bba4958b120af2d0c1c63eabb7c00379f2bacaf10df7c5325efd2ea467",
+    "vocab/key2row": "76be8b528d0075f7aae98d6fa57a6d3c83ae480a8469e668d7b0af968995ac71",
+    "vocab/lookups.bin": "fce9c883c56165f29573cc938c2a1c9d417ac61bd8f56b671dd5f7996de70682",
+    "vocab/strings.json": "b1966d1f07a05b68576df07f43f40203b4e11124ad82cc839e8312ad8d7fdae7",
+    "vocab/vectors": "14772b683e726436d5948ad3fff2b43d036ef2ebbe3458aafed6004e05a40706",
+    "vocab/vectors.cfg": "ff4359091952c8cd16f1f0482f5770fb82d1707368d5cca3c46aa501f552e3c5"
+  },
+  "model_bytes": 15231350,
+  "input_sha256": "8bb3d773b437ee5bd18f6691be714fc9bab932c62ea94fe0ea68d1d90401909c",
+  "load_ns": 30525042,
+  "analysis_ns": 5152490750,
+  "repeat": 100,
+  "sources": [
+    {
+      "id": "technical-1.txt",
+      "format": "text",
+      "text": "The request was rejected by the server.",
+      "sentences": [
+        {
+          "id": 0,
+          "block_id": 0,
+          "text": "The request was rejected by the server.",
+          "span": {
+            "start": 0,
+            "end": 39
+          },
+          "spans": [
+            {
+              "start": 0,
+              "end": 39
+            }
+          ],
+          "tokens": [
+            {
+              "text": "The",
+              "normal": "the",
+              "tag": "DT",
+              "start": 0,
+              "end": 3,
+              "spans": [
+                {
+                  "start": 0,
+                  "end": 3
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "request",
+              "normal": "request",
+              "tag": "NN",
+              "start": 4,
+              "end": 11,
+              "spans": [
+                {
+                  "start": 4,
+                  "end": 11
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "was",
+              "normal": "was",
+              "tag": "VBD",
+              "start": 12,
+              "end": 15,
+              "spans": [
+                {
+                  "start": 12,
+                  "end": 15
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "rejected",
+              "normal": "rejected",
+              "tag": "VBN",
+              "start": 16,
+              "end": 24,
+              "spans": [
+                {
+                  "start": 16,
+                  "end": 24
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "by",
+              "normal": "by",
+              "tag": "IN",
+              "start": 25,
+              "end": 27,
+              "spans": [
+                {
+                  "start": 25,
+                  "end": 27
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "the",
+              "normal": "the",
+              "tag": "DT",
+              "start": 28,
+              "end": 31,
+              "spans": [
+                {
+                  "start": 28,
+                  "end": 31
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "server",
+              "normal": "server",
+              "tag": "NN",
+              "start": 32,
+              "end": 38,
+              "spans": [
+                {
+                  "start": 32,
+                  "end": 38
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 38,
+              "end": 39,
+              "spans": [
+                {
+                  "start": 38,
+                  "end": 39
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 7,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "det"
+              },
+              {
+                "head": 3,
+                "relation": "nsubjpass"
+              },
+              {
+                "head": 3,
+                "relation": "auxpass"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 3,
+                "relation": "agent"
+              },
+              {
+                "head": 6,
+                "relation": "det"
+              },
+              {
+                "head": 4,
+                "relation": "pobj"
+              },
+              {
+                "head": 3,
+                "relation": "punct"
+              }
+            ]
+          }
+        }
+      ],
+      "inputs": [
+        {
+          "text": "The request was rejected by the server.",
+          "offset": 0,
+          "first_sentence": 0,
+          "end_sentence": 1
+        }
+      ]
+    },
+    {
+      "id": "technical-2.txt",
+      "format": "text",
+      "text": "The client is ready.",
+      "sentences": [
+        {
+          "id": 0,
+          "block_id": 0,
+          "text": "The client is ready.",
+          "span": {
+            "start": 0,
+            "end": 20
+          },
+          "spans": [
+            {
+              "start": 0,
+              "end": 20
+            }
+          ],
+          "tokens": [
+            {
+              "text": "The",
+              "normal": "the",
+              "tag": "DT",
+              "start": 0,
+              "end": 3,
+              "spans": [
+                {
+                  "start": 0,
+                  "end": 3
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "client",
+              "normal": "client",
+              "tag": "NN",
+              "start": 4,
+              "end": 10,
+              "spans": [
+                {
+                  "start": 4,
+                  "end": 10
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "is",
+              "normal": "is",
+              "tag": "VBZ",
+              "start": 11,
+              "end": 13,
+              "spans": [
+                {
+                  "start": 11,
+                  "end": 13
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "ready",
+              "normal": "ready",
+              "tag": "JJ",
+              "start": 14,
+              "end": 19,
+              "spans": [
+                {
+                  "start": 14,
+                  "end": 19
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 19,
+              "end": 20,
+              "spans": [
+                {
+                  "start": 19,
+                  "end": 20
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 4,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "det"
+              },
+              {
+                "head": 2,
+                "relation": "nsubj"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 2,
+                "relation": "acomp"
+              },
+              {
+                "head": 2,
+                "relation": "punct"
+              }
+            ]
+          }
+        }
+      ],
+      "inputs": [
+        {
+          "text": "The client is ready.",
+          "offset": 0,
+          "first_sentence": 0,
+          "end_sentence": 1
+        }
+      ]
+    },
+    {
+      "id": "technical-3.txt",
+      "format": "text",
+      "text": "The report that the client sent after the server recovered was accepted.",
+      "sentences": [
+        {
+          "id": 0,
+          "block_id": 0,
+          "text": "The report that the client sent after the server recovered was accepted.",
+          "span": {
+            "start": 0,
+            "end": 72
+          },
+          "spans": [
+            {
+              "start": 0,
+              "end": 72
+            }
+          ],
+          "tokens": [
+            {
+              "text": "The",
+              "normal": "the",
+              "tag": "DT",
+              "start": 0,
+              "end": 3,
+              "spans": [
+                {
+                  "start": 0,
+                  "end": 3
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "report",
+              "normal": "report",
+              "tag": "NN",
+              "start": 4,
+              "end": 10,
+              "spans": [
+                {
+                  "start": 4,
+                  "end": 10
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "that",
+              "normal": "that",
+              "tag": "IN",
+              "start": 11,
+              "end": 15,
+              "spans": [
+                {
+                  "start": 11,
+                  "end": 15
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "the",
+              "normal": "the",
+              "tag": "DT",
+              "start": 16,
+              "end": 19,
+              "spans": [
+                {
+                  "start": 16,
+                  "end": 19
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "client",
+              "normal": "client",
+              "tag": "NN",
+              "start": 20,
+              "end": 26,
+              "spans": [
+                {
+                  "start": 20,
+                  "end": 26
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "sent",
+              "normal": "sent",
+              "tag": "VBD",
+              "start": 27,
+              "end": 31,
+              "spans": [
+                {
+                  "start": 27,
+                  "end": 31
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "after",
+              "normal": "after",
+              "tag": "IN",
+              "start": 32,
+              "end": 37,
+              "spans": [
+                {
+                  "start": 32,
+                  "end": 37
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "the",
+              "normal": "the",
+              "tag": "DT",
+              "start": 38,
+              "end": 41,
+              "spans": [
+                {
+                  "start": 38,
+                  "end": 41
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "server",
+              "normal": "server",
+              "tag": "NN",
+              "start": 42,
+              "end": 48,
+              "spans": [
+                {
+                  "start": 42,
+                  "end": 48
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "recovered",
+              "normal": "recovered",
+              "tag": "VBN",
+              "start": 49,
+              "end": 58,
+              "spans": [
+                {
+                  "start": 49,
+                  "end": 58
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "was",
+              "normal": "was",
+              "tag": "VBD",
+              "start": 59,
+              "end": 62,
+              "spans": [
+                {
+                  "start": 59,
+                  "end": 62
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "accepted",
+              "normal": "accepted",
+              "tag": "VBN",
+              "start": 63,
+              "end": 71,
+              "spans": [
+                {
+                  "start": 63,
+                  "end": 71
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 71,
+              "end": 72,
+              "spans": [
+                {
+                  "start": 71,
+                  "end": 72
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 12,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "det"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 5,
+                "relation": "dobj"
+              },
+              {
+                "head": 4,
+                "relation": "det"
+              },
+              {
+                "head": 5,
+                "relation": "nsubj"
+              },
+              {
+                "head": 1,
+                "relation": "relcl"
+              },
+              {
+                "head": 11,
+                "relation": "mark"
+              },
+              {
+                "head": 8,
+                "relation": "det"
+              },
+              {
+                "head": 11,
+                "relation": "nsubjpass"
+              },
+              {
+                "head": 8,
+                "relation": "acl"
+              },
+              {
+                "head": 11,
+                "relation": "auxpass"
+              },
+              {
+                "head": 5,
+                "relation": "advcl"
+              },
+              {
+                "head": 1,
+                "relation": "punct"
+              }
+            ]
+          }
+        }
+      ],
+      "inputs": [
+        {
+          "text": "The report that the client sent after the server recovered was accepted.",
+          "offset": 0,
+          "first_sentence": 0,
+          "end_sentence": 1
+        }
+      ]
+    },
+    {
+      "id": "technical-4.txt",
+      "format": "text",
+      "text": "The list of credentials that the administrator revoked remains available.",
+      "sentences": [
+        {
+          "id": 0,
+          "block_id": 0,
+          "text": "The list of credentials that the administrator revoked remains available.",
+          "span": {
+            "start": 0,
+            "end": 73
+          },
+          "spans": [
+            {
+              "start": 0,
+              "end": 73
+            }
+          ],
+          "tokens": [
+            {
+              "text": "The",
+              "normal": "the",
+              "tag": "DT",
+              "start": 0,
+              "end": 3,
+              "spans": [
+                {
+                  "start": 0,
+                  "end": 3
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "list",
+              "normal": "list",
+              "tag": "NN",
+              "start": 4,
+              "end": 8,
+              "spans": [
+                {
+                  "start": 4,
+                  "end": 8
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "of",
+              "normal": "of",
+              "tag": "IN",
+              "start": 9,
+              "end": 11,
+              "spans": [
+                {
+                  "start": 9,
+                  "end": 11
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "credentials",
+              "normal": "credentials",
+              "tag": "NNS",
+              "start": 12,
+              "end": 23,
+              "spans": [
+                {
+                  "start": 12,
+                  "end": 23
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "that",
+              "normal": "that",
+              "tag": "IN",
+              "start": 24,
+              "end": 28,
+              "spans": [
+                {
+                  "start": 24,
+                  "end": 28
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "the",
+              "normal": "the",
+              "tag": "DT",
+              "start": 29,
+              "end": 32,
+              "spans": [
+                {
+                  "start": 29,
+                  "end": 32
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "administrator",
+              "normal": "administrator",
+              "tag": "NN",
+              "start": 33,
+              "end": 46,
+              "spans": [
+                {
+                  "start": 33,
+                  "end": 46
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "revoked",
+              "normal": "revoked",
+              "tag": "VBD",
+              "start": 47,
+              "end": 54,
+              "spans": [
+                {
+                  "start": 47,
+                  "end": 54
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "remains",
+              "normal": "remains",
+              "tag": "VBZ",
+              "start": 55,
+              "end": 62,
+              "spans": [
+                {
+                  "start": 55,
+                  "end": 62
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "available",
+              "normal": "available",
+              "tag": "JJ",
+              "start": 63,
+              "end": 72,
+              "spans": [
+                {
+                  "start": 63,
+                  "end": 72
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 72,
+              "end": 73,
+              "spans": [
+                {
+                  "start": 72,
+                  "end": 73
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 10,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "det"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 1,
+                "relation": "prep"
+              },
+              {
+                "head": 2,
+                "relation": "pobj"
+              },
+              {
+                "head": 7,
+                "relation": "mark"
+              },
+              {
+                "head": 6,
+                "relation": "det"
+              },
+              {
+                "head": 7,
+                "relation": "nsubj"
+              },
+              {
+                "head": 1,
+                "relation": "relcl"
+              },
+              {
+                "head": 7,
+                "relation": "dobj"
+              },
+              {
+                "head": 8,
+                "relation": "acomp"
+              },
+              {
+                "head": 1,
+                "relation": "punct"
+              }
+            ]
+          }
+        }
+      ],
+      "inputs": [
+        {
+          "text": "The list of credentials that the administrator revoked remains available.",
+          "offset": 0,
+          "first_sentence": 0,
+          "end_sentence": 1
+        }
+      ]
+    },
+    {
+      "id": "technical-5.txt",
+      "format": "text",
+      "text": "Café clients may retry. The server must not retry.",
+      "sentences": [
+        {
+          "id": 0,
+          "block_id": 0,
+          "text": "Café clients may retry.",
+          "span": {
+            "start": 0,
+            "end": 24
+          },
+          "spans": [
+            {
+              "start": 0,
+              "end": 24
+            }
+          ],
+          "tokens": [
+            {
+              "text": "Café",
+              "normal": "café",
+              "tag": "NN",
+              "start": 0,
+              "end": 5,
+              "spans": [
+                {
+                  "start": 0,
+                  "end": 5
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "clients",
+              "normal": "clients",
+              "tag": "NNS",
+              "start": 6,
+              "end": 13,
+              "spans": [
+                {
+                  "start": 6,
+                  "end": 13
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "may",
+              "normal": "may",
+              "tag": "MD",
+              "start": 14,
+              "end": 17,
+              "spans": [
+                {
+                  "start": 14,
+                  "end": 17
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "retry",
+              "normal": "retry",
+              "tag": "VB",
+              "start": 18,
+              "end": 23,
+              "spans": [
+                {
+                  "start": 18,
+                  "end": 23
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 23,
+              "end": 24,
+              "spans": [
+                {
+                  "start": 23,
+                  "end": 24
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 4,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "compound"
+              },
+              {
+                "head": 3,
+                "relation": "nsubj"
+              },
+              {
+                "head": 3,
+                "relation": "aux"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 3,
+                "relation": "punct"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1,
+          "block_id": 0,
+          "text": "The server must not retry.",
+          "span": {
+            "start": 25,
+            "end": 51
+          },
+          "spans": [
+            {
+              "start": 25,
+              "end": 51
+            }
+          ],
+          "tokens": [
+            {
+              "text": "The",
+              "normal": "the",
+              "tag": "DT",
+              "start": 25,
+              "end": 28,
+              "spans": [
+                {
+                  "start": 25,
+                  "end": 28
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "server",
+              "normal": "server",
+              "tag": "NN",
+              "start": 29,
+              "end": 35,
+              "spans": [
+                {
+                  "start": 29,
+                  "end": 35
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "must",
+              "normal": "must",
+              "tag": "MD",
+              "start": 36,
+              "end": 40,
+              "spans": [
+                {
+                  "start": 36,
+                  "end": 40
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "not",
+              "normal": "not",
+              "tag": "RB",
+              "start": 41,
+              "end": 44,
+              "spans": [
+                {
+                  "start": 41,
+                  "end": 44
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "retry",
+              "normal": "retry",
+              "tag": "VB",
+              "start": 45,
+              "end": 50,
+              "spans": [
+                {
+                  "start": 45,
+                  "end": 50
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 50,
+              "end": 51,
+              "spans": [
+                {
+                  "start": 50,
+                  "end": 51
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 5,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "det"
+              },
+              {
+                "head": 4,
+                "relation": "nsubj"
+              },
+              {
+                "head": 4,
+                "relation": "aux"
+              },
+              {
+                "head": 4,
+                "relation": "neg"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 4,
+                "relation": "punct"
+              }
+            ]
+          }
+        }
+      ],
+      "inputs": [
+        {
+          "text": "Café clients may retry. The server must not retry.",
+          "offset": 0,
+          "first_sentence": 0,
+          "end_sentence": 2
+        }
+      ]
+    },
+    {
+      "id": "technical-6.txt",
+      "format": "text",
+      "text": "The timeout is 30 seconds, not 60 seconds.",
+      "sentences": [
+        {
+          "id": 0,
+          "block_id": 0,
+          "text": "The timeout is 30 seconds, not 60 seconds.",
+          "span": {
+            "start": 0,
+            "end": 42
+          },
+          "spans": [
+            {
+              "start": 0,
+              "end": 42
+            }
+          ],
+          "tokens": [
+            {
+              "text": "The",
+              "normal": "the",
+              "tag": "DT",
+              "start": 0,
+              "end": 3,
+              "spans": [
+                {
+                  "start": 0,
+                  "end": 3
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "timeout",
+              "normal": "timeout",
+              "tag": "NN",
+              "start": 4,
+              "end": 11,
+              "spans": [
+                {
+                  "start": 4,
+                  "end": 11
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "is",
+              "normal": "is",
+              "tag": "VBZ",
+              "start": 12,
+              "end": 14,
+              "spans": [
+                {
+                  "start": 12,
+                  "end": 14
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "30",
+              "normal": "30",
+              "tag": "CD",
+              "start": 15,
+              "end": 17,
+              "spans": [
+                {
+                  "start": 15,
+                  "end": 17
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "seconds",
+              "normal": "seconds",
+              "tag": "NNS",
+              "start": 18,
+              "end": 25,
+              "spans": [
+                {
+                  "start": 18,
+                  "end": 25
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ",",
+              "normal": ",",
+              "tag": ",",
+              "start": 25,
+              "end": 26,
+              "spans": [
+                {
+                  "start": 25,
+                  "end": 26
+                }
+              ],
+              "word": false,
+              "protected": false
+            },
+            {
+              "text": "not",
+              "normal": "not",
+              "tag": "RB",
+              "start": 27,
+              "end": 30,
+              "spans": [
+                {
+                  "start": 27,
+                  "end": 30
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "60",
+              "normal": "60",
+              "tag": "CD",
+              "start": 31,
+              "end": 33,
+              "spans": [
+                {
+                  "start": 31,
+                  "end": 33
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "seconds",
+              "normal": "seconds",
+              "tag": "NNS",
+              "start": 34,
+              "end": 41,
+              "spans": [
+                {
+                  "start": 34,
+                  "end": 41
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 41,
+              "end": 42,
+              "spans": [
+                {
+                  "start": 41,
+                  "end": 42
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 8,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "det"
+              },
+              {
+                "head": 2,
+                "relation": "nsubj"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 4,
+                "relation": "nummod"
+              },
+              {
+                "head": 2,
+                "relation": "attr"
+              },
+              {
+                "head": 4,
+                "relation": "punct"
+              },
+              {
+                "head": 8,
+                "relation": "neg"
+              },
+              {
+                "head": 8,
+                "relation": "nummod"
+              },
+              {
+                "head": 4,
+                "relation": "appos"
+              },
+              {
+                "head": 2,
+                "relation": "punct"
+              }
+            ]
+          }
+        }
+      ],
+      "inputs": [
+        {
+          "text": "The timeout is 30 seconds, not 60 seconds.",
+          "offset": 0,
+          "first_sentence": 0,
+          "end_sentence": 1
+        }
+      ]
+    },
+    {
+      "id": "technical-7.txt",
+      "format": "text",
+      "text": "Clients retry\r\nafter failure.",
+      "sentences": [
+        {
+          "id": 0,
+          "block_id": 0,
+          "text": "Clients retry \nafter failure.",
+          "span": {
+            "start": 0,
+            "end": 29
+          },
+          "spans": [
+            {
+              "start": 0,
+              "end": 29
+            }
+          ],
+          "tokens": [
+            {
+              "text": "Clients",
+              "normal": "clients",
+              "tag": "NNS",
+              "start": 0,
+              "end": 7,
+              "spans": [
+                {
+                  "start": 0,
+                  "end": 7
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "retry",
+              "normal": "retry",
+              "tag": "VBP",
+              "start": 8,
+              "end": 13,
+              "spans": [
+                {
+                  "start": 8,
+                  "end": 13
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "\n",
+              "normal": "\n",
+              "tag": "_SP",
+              "start": 14,
+              "end": 15,
+              "spans": [
+                {
+                  "start": 14,
+                  "end": 15
+                }
+              ],
+              "word": false,
+              "protected": false
+            },
+            {
+              "text": "after",
+              "normal": "after",
+              "tag": "IN",
+              "start": 15,
+              "end": 20,
+              "spans": [
+                {
+                  "start": 15,
+                  "end": 20
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "failure",
+              "normal": "failure",
+              "tag": "NN",
+              "start": 21,
+              "end": 28,
+              "spans": [
+                {
+                  "start": 21,
+                  "end": 28
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 28,
+              "end": 29,
+              "spans": [
+                {
+                  "start": 28,
+                  "end": 29
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 4,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "nsubj"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 1,
+                "relation": "dep"
+              },
+              {
+                "head": 1,
+                "relation": "prep"
+              },
+              {
+                "head": 3,
+                "relation": "pobj"
+              },
+              {
+                "head": 1,
+                "relation": "punct"
+              }
+            ]
+          }
+        }
+      ],
+      "inputs": [
+        {
+          "text": "Clients retry \nafter failure.",
+          "offset": 0,
+          "first_sentence": 0,
+          "end_sentence": 1
+        }
+      ]
+    },
+    {
+      "id": "markup.md",
+      "format": "markdown",
+      "text": "﻿The **request** was rejected by the server.\r\n\r\nCaf\u0026eacute; clients may retry.",
+      "sentences": [
+        {
+          "id": 0,
+          "block_id": 0,
+          "text": "The request was rejected by the server.",
+          "span": {
+            "start": 3,
+            "end": 46
+          },
+          "spans": [
+            {
+              "start": 3,
+              "end": 7
+            },
+            {
+              "start": 9,
+              "end": 16
+            },
+            {
+              "start": 18,
+              "end": 46
+            }
+          ],
+          "tokens": [
+            {
+              "text": "The",
+              "normal": "the",
+              "tag": "DT",
+              "start": 0,
+              "end": 3,
+              "spans": [
+                {
+                  "start": 3,
+                  "end": 6
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "request",
+              "normal": "request",
+              "tag": "NN",
+              "start": 4,
+              "end": 11,
+              "spans": [
+                {
+                  "start": 9,
+                  "end": 16
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "was",
+              "normal": "was",
+              "tag": "VBD",
+              "start": 12,
+              "end": 15,
+              "spans": [
+                {
+                  "start": 19,
+                  "end": 22
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "rejected",
+              "normal": "rejected",
+              "tag": "VBN",
+              "start": 16,
+              "end": 24,
+              "spans": [
+                {
+                  "start": 23,
+                  "end": 31
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "by",
+              "normal": "by",
+              "tag": "IN",
+              "start": 25,
+              "end": 27,
+              "spans": [
+                {
+                  "start": 32,
+                  "end": 34
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "the",
+              "normal": "the",
+              "tag": "DT",
+              "start": 28,
+              "end": 31,
+              "spans": [
+                {
+                  "start": 35,
+                  "end": 38
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "server",
+              "normal": "server",
+              "tag": "NN",
+              "start": 32,
+              "end": 38,
+              "spans": [
+                {
+                  "start": 39,
+                  "end": 45
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 38,
+              "end": 39,
+              "spans": [
+                {
+                  "start": 45,
+                  "end": 46
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 7,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "det"
+              },
+              {
+                "head": 3,
+                "relation": "nsubjpass"
+              },
+              {
+                "head": 3,
+                "relation": "auxpass"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 3,
+                "relation": "agent"
+              },
+              {
+                "head": 6,
+                "relation": "det"
+              },
+              {
+                "head": 4,
+                "relation": "pobj"
+              },
+              {
+                "head": 3,
+                "relation": "punct"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1,
+          "block_id": 1,
+          "text": "Café clients may retry.",
+          "span": {
+            "start": 50,
+            "end": 80
+          },
+          "spans": [
+            {
+              "start": 50,
+              "end": 80
+            }
+          ],
+          "tokens": [
+            {
+              "text": "Café",
+              "normal": "café",
+              "tag": "NN",
+              "start": 0,
+              "end": 5,
+              "spans": [
+                {
+                  "start": 50,
+                  "end": 61
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "clients",
+              "normal": "clients",
+              "tag": "NNS",
+              "start": 6,
+              "end": 13,
+              "spans": [
+                {
+                  "start": 62,
+                  "end": 69
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "may",
+              "normal": "may",
+              "tag": "MD",
+              "start": 14,
+              "end": 17,
+              "spans": [
+                {
+                  "start": 70,
+                  "end": 73
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "retry",
+              "normal": "retry",
+              "tag": "VB",
+              "start": 18,
+              "end": 23,
+              "spans": [
+                {
+                  "start": 74,
+                  "end": 79
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 23,
+              "end": 24,
+              "spans": [
+                {
+                  "start": 79,
+                  "end": 80
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 4,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "compound"
+              },
+              {
+                "head": 3,
+                "relation": "nsubj"
+              },
+              {
+                "head": 3,
+                "relation": "aux"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 3,
+                "relation": "punct"
+              }
+            ]
+          }
+        }
+      ],
+      "inputs": [
+        {
+          "text": "The request was rejected by the server.",
+          "offset": 0,
+          "first_sentence": 0,
+          "end_sentence": 1
+        },
+        {
+          "text": "Café clients may retry.",
+          "offset": 0,
+          "first_sentence": 1,
+          "end_sentence": 2
+        }
+      ]
+    },
+    {
+      "id": "protected.md",
+      "format": "markdown",
+      "text": "The request was rejected. `must not retry` The client may retry.",
+      "sentences": [
+        {
+          "id": 0,
+          "block_id": 0,
+          "text": "The request was rejected.  ",
+          "span": {
+            "start": 0,
+            "end": 42
+          },
+          "spans": [
+            {
+              "start": 0,
+              "end": 42
+            }
+          ],
+          "tokens": [
+            {
+              "text": "The",
+              "normal": "the",
+              "tag": "DT",
+              "start": 0,
+              "end": 3,
+              "spans": [
+                {
+                  "start": 0,
+                  "end": 3
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "request",
+              "normal": "request",
+              "tag": "NN",
+              "start": 4,
+              "end": 11,
+              "spans": [
+                {
+                  "start": 4,
+                  "end": 11
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "was",
+              "normal": "was",
+              "tag": "VBD",
+              "start": 12,
+              "end": 15,
+              "spans": [
+                {
+                  "start": 12,
+                  "end": 15
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "rejected",
+              "normal": "rejected",
+              "tag": "VBN",
+              "start": 16,
+              "end": 24,
+              "spans": [
+                {
+                  "start": 16,
+                  "end": 24
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 24,
+              "end": 25,
+              "spans": [
+                {
+                  "start": 24,
+                  "end": 25
+                }
+              ],
+              "word": false,
+              "protected": false
+            },
+            {
+              "text": " ",
+              "normal": " ",
+              "tag": "_SP",
+              "start": 26,
+              "end": 27,
+              "spans": [
+                {
+                  "start": 26,
+                  "end": 42
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 4,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "det"
+              },
+              {
+                "head": 3,
+                "relation": "nsubjpass"
+              },
+              {
+                "head": 3,
+                "relation": "auxpass"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 3,
+                "relation": "punct"
+              },
+              {
+                "head": 4,
+                "relation": "dep"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1,
+          "block_id": 0,
+          "text": "  The client may retry.",
+          "span": {
+            "start": 26,
+            "end": 64
+          },
+          "spans": [
+            {
+              "start": 26,
+              "end": 64
+            }
+          ],
+          "tokens": [
+            {
+              "text": "  ",
+              "normal": "  ",
+              "tag": "_SP",
+              "start": 28,
+              "end": 30,
+              "spans": [
+                {
+                  "start": 26,
+                  "end": 43
+                }
+              ],
+              "word": false,
+              "protected": false
+            },
+            {
+              "text": "The",
+              "normal": "the",
+              "tag": "DT",
+              "start": 30,
+              "end": 33,
+              "spans": [
+                {
+                  "start": 43,
+                  "end": 46
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "client",
+              "normal": "client",
+              "tag": "NN",
+              "start": 34,
+              "end": 40,
+              "spans": [
+                {
+                  "start": 47,
+                  "end": 53
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "may",
+              "normal": "may",
+              "tag": "MD",
+              "start": 41,
+              "end": 44,
+              "spans": [
+                {
+                  "start": 54,
+                  "end": 57
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "retry",
+              "normal": "retry",
+              "tag": "VB",
+              "start": 45,
+              "end": 50,
+              "spans": [
+                {
+                  "start": 58,
+                  "end": 63
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 50,
+              "end": 51,
+              "spans": [
+                {
+                  "start": 63,
+                  "end": 64
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 4,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "dep"
+              },
+              {
+                "head": 2,
+                "relation": "det"
+              },
+              {
+                "head": 4,
+                "relation": "nsubj"
+              },
+              {
+                "head": 4,
+                "relation": "aux"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 4,
+                "relation": "punct"
+              }
+            ]
+          }
+        }
+      ],
+      "inputs": [
+        {
+          "text": "The request was rejected.  ",
+          "offset": 0,
+          "first_sentence": 0,
+          "end_sentence": 1
+        },
+        {
+          "text": "  The client may retry.",
+          "offset": 28,
+          "first_sentence": 1,
+          "end_sentence": 2
+        }
+      ]
+    },
+    {
+      "id": "comment.go",
+      "format": "go",
+      "text": "package sample\n// The request was rejected by the server.\nvar message = \"Caf\\u00e9 clients may retry.\"\n",
+      "sentences": [
+        {
+          "id": 0,
+          "block_id": 0,
+          "text": " The request was rejected by the server.",
+          "span": {
+            "start": 17,
+            "end": 57
+          },
+          "spans": [
+            {
+              "start": 17,
+              "end": 57
+            }
+          ],
+          "tokens": [
+            {
+              "text": " ",
+              "normal": " ",
+              "tag": "_SP",
+              "start": 0,
+              "end": 1,
+              "spans": [
+                {
+                  "start": 17,
+                  "end": 18
+                }
+              ],
+              "word": false,
+              "protected": false
+            },
+            {
+              "text": "The",
+              "normal": "the",
+              "tag": "DT",
+              "start": 1,
+              "end": 4,
+              "spans": [
+                {
+                  "start": 18,
+                  "end": 21
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "request",
+              "normal": "request",
+              "tag": "NN",
+              "start": 5,
+              "end": 12,
+              "spans": [
+                {
+                  "start": 22,
+                  "end": 29
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "was",
+              "normal": "was",
+              "tag": "VBD",
+              "start": 13,
+              "end": 16,
+              "spans": [
+                {
+                  "start": 30,
+                  "end": 33
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "rejected",
+              "normal": "rejected",
+              "tag": "VBN",
+              "start": 17,
+              "end": 25,
+              "spans": [
+                {
+                  "start": 34,
+                  "end": 42
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "by",
+              "normal": "by",
+              "tag": "IN",
+              "start": 26,
+              "end": 28,
+              "spans": [
+                {
+                  "start": 43,
+                  "end": 45
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "the",
+              "normal": "the",
+              "tag": "DT",
+              "start": 29,
+              "end": 32,
+              "spans": [
+                {
+                  "start": 46,
+                  "end": 49
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "server",
+              "normal": "server",
+              "tag": "NN",
+              "start": 33,
+              "end": 39,
+              "spans": [
+                {
+                  "start": 50,
+                  "end": 56
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 39,
+              "end": 40,
+              "spans": [
+                {
+                  "start": 56,
+                  "end": 57
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 7,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "dep"
+              },
+              {
+                "head": 2,
+                "relation": "det"
+              },
+              {
+                "head": 4,
+                "relation": "nsubjpass"
+              },
+              {
+                "head": 4,
+                "relation": "auxpass"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 4,
+                "relation": "agent"
+              },
+              {
+                "head": 7,
+                "relation": "det"
+              },
+              {
+                "head": 5,
+                "relation": "pobj"
+              },
+              {
+                "head": 4,
+                "relation": "punct"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1,
+          "block_id": 1,
+          "text": "Café clients may retry.",
+          "span": {
+            "start": 73,
+            "end": 101
+          },
+          "spans": [
+            {
+              "start": 73,
+              "end": 101
+            }
+          ],
+          "tokens": [
+            {
+              "text": "Café",
+              "normal": "café",
+              "tag": "NN",
+              "start": 0,
+              "end": 5,
+              "spans": [
+                {
+                  "start": 73,
+                  "end": 82
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "clients",
+              "normal": "clients",
+              "tag": "NNS",
+              "start": 6,
+              "end": 13,
+              "spans": [
+                {
+                  "start": 83,
+                  "end": 90
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "may",
+              "normal": "may",
+              "tag": "MD",
+              "start": 14,
+              "end": 17,
+              "spans": [
+                {
+                  "start": 91,
+                  "end": 94
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": "retry",
+              "normal": "retry",
+              "tag": "VB",
+              "start": 18,
+              "end": 23,
+              "spans": [
+                {
+                  "start": 95,
+                  "end": 100
+                }
+              ],
+              "word": true,
+              "protected": false
+            },
+            {
+              "text": ".",
+              "normal": ".",
+              "tag": ".",
+              "start": 23,
+              "end": 24,
+              "spans": [
+                {
+                  "start": 100,
+                  "end": 101
+                }
+              ],
+              "word": false,
+              "protected": false
+            }
+          ],
+          "chunks": null,
+          "words": 4,
+          "dependencies": {
+            "arcs": [
+              {
+                "head": 1,
+                "relation": "compound"
+              },
+              {
+                "head": 3,
+                "relation": "nsubj"
+              },
+              {
+                "head": 3,
+                "relation": "aux"
+              },
+              {
+                "head": -1,
+                "relation": "ROOT"
+              },
+              {
+                "head": 3,
+                "relation": "punct"
+              }
+            ]
+          }
+        }
+      ],
+      "inputs": [
+        {
+          "text": " The request was rejected by the server. ",
+          "offset": 0,
+          "first_sentence": 0,
+          "end_sentence": 1
+        },
+        {
+          "text": "Café clients may retry.",
+          "offset": 0,
+          "first_sentence": 1,
+          "end_sentence": 2
+        }
+      ]
+    }
+  ],
+  "analysis_allocated_bytes": 510804696,
+  "heap_retained_bytes": 86388096
+}

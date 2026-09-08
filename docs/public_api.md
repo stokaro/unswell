@@ -145,3 +145,26 @@ The engine filters current permissions and performs full selection for reported
 resource changes without loading policy resources. Ordinary analysis, baseline
 identities, and directive syntax retain their contracts. See
 [trusted policy](trusted-policy.md) for scope, hashes, and CI trust boundaries.
+
+Dependency evaluation adds `document.DependencyTree`, `DependencyArc`, optional
+`Sentence.Dependencies`, `nlp.Identity.DependencyScheme`, and
+`rule.Descriptor.DependencyScheme`. `nlp.ValidateDependencies` checks block
+coverage, and `ValidateDependencyTree` validates basic sentence-local trees
+against extracted byte ranges. Scheme IDs are compared
+exactly; an empty rule scheme permits structural analysis without interpreting
+labels. These additions do not advertise dependency support in the builtin NLP
+provider. See [ADR 0012](adr/0012-dependency-contract.md).
+
+Providers must supply the base token/sentence capabilities and every requested
+representation. A requested dependency tree that is absent, malformed, or mapped
+across protected content now fails before rule execution, including with
+`NoGate`. Previously the engine checked the advertised dependency name without
+having a tree contract. Custom providers relying on that incomplete behavior
+must implement the representation. Existing rules-only providers are unchanged.
+
+The optional scheme fields extend saved provider/rule identities under the
+existing schema version. Old reports remain readable; strict older readers need
+an update for reports containing the new fields. Trees remain in the in-memory
+document model and are not added to normal saved reports or MCP results. The
+separate dependency research command explicitly emits source-bearing traces for
+reference experiments and is not part of the supported product API.
