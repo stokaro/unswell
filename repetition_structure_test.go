@@ -12,7 +12,7 @@ func TestParagraphOverlapClustersAndWindows(t *testing.T) {
 	second := strings.Replace(overlapParagraph, "opens", "creates", 1)
 	third := strings.Replace(overlapParagraph, "opens", "starts", 1)
 	text := overlapParagraph + "\n\n" + second + "\n\n" + third
-	result := repetitionResult(t, "repetition.paragraph-overlap", text, "", "")
+	result := singleRuleResult(t, "repetition.paragraph-overlap", text, "", "")
 	c.Assert(result.Findings, qt.HasLen, 1)
 	finding := result.Findings[0]
 	c.Assert(finding.Related, qt.HasLen, 2)
@@ -21,12 +21,12 @@ func TestParagraphOverlapClustersAndWindows(t *testing.T) {
 	c.Assert(finding.Primary.Snippet, qt.Equals, overlapParagraph)
 	c.Assert(finding.Related[0].Snippet, qt.Equals, second)
 	c.Assert(finding.Related[1].Snippet, qt.Equals, third)
-	clean := repetitionResult(t, "repetition.paragraph-overlap", text+"\n\nThe reader checks the configuration.", "", "")
+	clean := singleRuleResult(t, "repetition.paragraph-overlap", text+"\n\nThe reader checks the configuration.", "", "")
 	c.Assert(clean.Findings, qt.DeepEquals, result.Findings)
 	c.Assert(clean.Assessments[:len(result.Assessments)], qt.DeepEquals, result.Assessments)
-	c.Assert(repetitionResult(t, "repetition.paragraph-overlap", text, "{allowed_occurrences: 3}", "").Findings, qt.HasLen, 0)
+	c.Assert(singleRuleResult(t, "repetition.paragraph-overlap", text, "{allowed_occurrences: 3}", "").Findings, qt.HasLen, 0)
 	outside := overlapParagraph + "\n\n" + strings.Repeat("The reader waits.\n\n", 8) + second
-	c.Assert(repetitionResult(t, "repetition.paragraph-overlap", outside, "", "").Findings, qt.HasLen, 0)
+	c.Assert(singleRuleResult(t, "repetition.paragraph-overlap", outside, "", "").Findings, qt.HasLen, 0)
 }
 
 func TestHeadingEchoUsesSelectedStructure(t *testing.T) {
@@ -46,7 +46,7 @@ func TestHeadingEchoUsesSelectedStructure(t *testing.T) {
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
-			result := repetitionResult(t, "repetition.heading-echo", row.text, "", row.extra)
+			result := singleRuleResult(t, "repetition.heading-echo", row.text, "", row.extra)
 			c.Assert(result.Findings, qt.HasLen, row.want)
 			if row.want > 0 {
 				c.Assert(result.Findings[0].Primary.Snippet, qt.Equals, title+".")
@@ -75,7 +75,7 @@ func TestSummaryEchoRequiresExplicitSelectedScope(t *testing.T) {
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
-			result := repetitionResult(t, "repetition.summary-echo", overlapParagraph+"\n\n"+row.middle+"\n\n"+second,
+			result := singleRuleResult(t, "repetition.summary-echo", overlapParagraph+"\n\n"+row.middle+"\n\n"+second,
 				row.parameters, row.extra)
 			c.Assert(result.Findings, qt.HasLen, row.want)
 			if row.want > 0 {
@@ -86,15 +86,15 @@ func TestSummaryEchoRequiresExplicitSelectedScope(t *testing.T) {
 	}
 	c := qt.New(t)
 	future := "## Summary\n\n" + second + "\n\n## Details\n\n" + overlapParagraph
-	c.Assert(repetitionResult(t, "repetition.summary-echo", future, "", "").Findings, qt.HasLen, 0)
+	c.Assert(singleRuleResult(t, "repetition.summary-echo", future, "", "").Findings, qt.HasLen, 0)
 }
 
 func TestOverlapTermsAndProtectedContent(t *testing.T) {
 	c := qt.New(t)
 	text := overlapParagraph + "\n\n" + strings.Replace(overlapParagraph, "opens", "creates", 1)
 	code := strings.ReplaceAll(text, "server", "`server`")
-	c.Assert(repetitionResult(t, "repetition.paragraph-overlap", code, "", "").Findings, qt.HasLen, 0)
+	c.Assert(singleRuleResult(t, "repetition.paragraph-overlap", code, "", "").Findings, qt.HasLen, 0)
 	terms := "vocabulary:\n  terms: [a connection to the server and sends the request with its credentials]\n" +
 		"  term_exemptions: [repetition.paragraph-overlap]\n"
-	c.Assert(repetitionResult(t, "repetition.paragraph-overlap", text, "", terms).Findings, qt.HasLen, 0)
+	c.Assert(singleRuleResult(t, "repetition.paragraph-overlap", text, "", terms).Findings, qt.HasLen, 0)
 }

@@ -88,11 +88,5 @@ func withinSection(context, parent []string) bool {
 }
 
 func unitOccurrences(unit lexicalUnit) []rule.Occurrence {
-	var occurrences []rule.Occurrence
-	for _, sentence := range unit.block.Sentences {
-		if sentence.Words > 0 {
-			occurrences = append(occurrences, sentenceOccurrence(sentence))
-		}
-	}
-	return occurrences
+	return blockOccurrences(unit.block)
 }

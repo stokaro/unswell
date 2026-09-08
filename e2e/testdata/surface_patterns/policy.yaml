@@ -1,0 +1,27 @@
+version: 1
+extends: [builtin:custom]
+overrides:
+  - files: [nominal.md]
+    rules:
+      syntax.nominalization-chain: {enabled: true, gate: forbid}
+  - files: [nouns.md]
+    rules:
+      syntax.noun-stack: {enabled: true, gate: forbid}
+  - files: [passive.md]
+    rules:
+      syntax.passive-candidate-density: {enabled: true, gate: forbid}
+  - files: [insertions.md]
+    rules:
+      syntax.parenthetical-load: {enabled: true, gate: forbid}
+  - files: [paragraph.md]
+    rules:
+      readability.long-paragraph: {enabled: true, gate: forbid}
+  - files: [readability.md]
+    rules:
+      readability.grade-metric: {enabled: true, gate: forbid}
+  - files: [dashes.md]
+    rules:
+      format.em-dash-density: {enabled: true, gate: forbid}
+  - files: [lists.md]
+    rules:
+      format.list-fragmentation: {enabled: true, gate: forbid}

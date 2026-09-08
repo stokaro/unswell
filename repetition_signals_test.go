@@ -17,7 +17,7 @@ const repeatedPhraseProse = "The clear release notes explain the release schedul
 
 const overlapParagraph = "The client opens a connection to the server and sends the request with its credentials."
 
-func repetitionEngine(t *testing.T, id, parameters, extra string) *unswell.Engine {
+func singleRuleEngine(t *testing.T, id, parameters, extra string) *unswell.Engine {
 	t.Helper()
 	c := qt.New(t)
 	if parameters == "" {
@@ -30,10 +30,10 @@ func repetitionEngine(t *testing.T, id, parameters, extra string) *unswell.Engin
 	return engine
 }
 
-func repetitionResult(t *testing.T, id, text, parameters, extra string) unswell.RunResult {
+func singleRuleResult(t *testing.T, id, text, parameters, extra string) unswell.RunResult {
 	t.Helper()
 	c := qt.New(t)
-	result, err := repetitionEngine(t, id, parameters, extra).Analyze(t.Context(),
+	result, err := singleRuleEngine(t, id, parameters, extra).Analyze(t.Context(),
 		document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)})
 	c.Assert(err, qt.IsNil)
 	return result
@@ -43,7 +43,7 @@ func TestNgramClustersPreserveEvidence(t *testing.T) {
 	c := qt.New(t)
 	text := "\ufeff" + strings.ReplaceAll(repeatedPhraseProse, ". ", ".\r\n\r\n")
 	text = strings.Replace(text, "clear release notes", "clear **release** notes", 1)
-	result := repetitionResult(t, "repetition.ngram-density", text, "", "")
+	result := singleRuleResult(t, "repetition.ngram-density", text, "", "")
 	c.Assert(result.Findings, qt.HasLen, 1)
 	finding := result.Findings[0]
 	c.Assert(finding.Related, qt.HasLen, 2)
@@ -54,7 +54,7 @@ func TestNgramClustersPreserveEvidence(t *testing.T) {
 	c.Assert(finding.Evidence.Metrics[1].Value, qt.Equals, float64(3))
 	c.Assert(finding.Evidence.Metrics[2].Value, qt.Equals, float64(36))
 	c.Assert(finding.Evidence.Metrics[3].Value, qt.Equals, float64(25))
-	clean := repetitionResult(t, "repetition.ngram-density", text+"\n\nThe connection closes.", "", "")
+	clean := singleRuleResult(t, "repetition.ngram-density", text+"\n\nThe connection closes.", "", "")
 	c.Assert(clean.Findings, qt.DeepEquals, result.Findings)
 	c.Assert(clean.Assessments[:len(result.Assessments)], qt.DeepEquals, result.Assessments)
 }
@@ -70,7 +70,7 @@ func TestNgramBoundariesAndExemptions(t *testing.T) {
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
-			c.Assert(repetitionResult(t, "repetition.ngram-density", row.text, row.parameters, row.extra).Findings, qt.HasLen, 0)
+			c.Assert(singleRuleResult(t, "repetition.ngram-density", row.text, row.parameters, row.extra).Findings, qt.HasLen, 0)
 		})
 	}
 }
@@ -80,7 +80,7 @@ func TestNestedNgramClustersUseLongestEvidence(t *testing.T) {
 	text := "Readers value clear release notes with context for all of the upcoming changes. " +
 		"Writers prepare clear release notes with context as part of the documentation process. " +
 		"Editors review clear release notes with context to describe the release for everyone."
-	result := repetitionResult(t, "repetition.ngram-density", text, "", "")
+	result := singleRuleResult(t, "repetition.ngram-density", text, "", "")
 	c.Assert(result.Findings, qt.HasLen, 1)
 	c.Assert(result.Findings[0].Primary.Snippet, qt.Equals, "clear release notes with context")
 	c.Assert(result.Findings[0].Related, qt.HasLen, 2)
@@ -106,7 +106,7 @@ func TestRepetitionTechnicalDifferences(t *testing.T) {
 				if id == "repetition.summary-echo" {
 					text = left + "\n\n## Summary\n\n" + right
 				}
-				result := repetitionResult(t, id, text, "{similarity: 0.5}", "")
+				result := singleRuleResult(t, id, text, "{similarity: 0.5}", "")
 				c.Assert(result.Findings, qt.HasLen, 0, qt.Commentf("%s", id))
 			}
 		})

@@ -30,6 +30,15 @@ type Parameters struct {
 	MinNgramWords         int      `json:"min_ngram_words,omitempty" yaml:"min_ngram_words"`
 	MaxNgramWords         int      `json:"max_ngram_words,omitempty" yaml:"max_ngram_words"`
 	WindowBlocks          int      `json:"window_blocks,omitempty" yaml:"window_blocks"`
+	Verbs                 []string `json:"verbs,omitempty" yaml:"verbs"`
+	Nouns                 []string `json:"nouns,omitempty" yaml:"nouns"`
+	MinSentences          int      `json:"min_sentences,omitempty" yaml:"min_sentences"`
+	SentenceWords         int      `json:"sentence_words,omitempty" yaml:"sentence_words"`
+	MinLongSentences      int      `json:"min_long_sentences,omitempty" yaml:"min_long_sentences"`
+	AllowedDepth          int      `json:"allowed_depth,omitempty" yaml:"allowed_depth"`
+	SaturationDepth       int      `json:"saturation_depth,omitempty" yaml:"saturation_depth"`
+	MaxItemWords          int      `json:"max_item_words,omitempty" yaml:"max_item_words"`
+	MaxListItems          int      `json:"max_list_items,omitempty" yaml:"max_list_items"`
 }
 
 // Score is independent of presentation severity. Units are index points.

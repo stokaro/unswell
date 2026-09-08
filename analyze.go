@@ -342,5 +342,7 @@ func deduplicateFindings(findings []Finding) []Finding {
 func cloneParameters(parameters rule.Parameters) rule.Parameters {
 	parameters.Phrases = slices.Clone(parameters.Phrases)
 	parameters.Positions = slices.Clone(parameters.Positions)
+	parameters.Verbs = slices.Clone(parameters.Verbs)
+	parameters.Nouns = slices.Clone(parameters.Nouns)
 	return parameters
 }

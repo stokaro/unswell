@@ -190,6 +190,8 @@ The [contextual editorial catalog](docs/editorial-patterns.md) adds opt-in fille
 hype, and rhetorical-pattern checks with explicit evidence and technical counterexamples.
 The [repetition catalog](docs/repetition-signals.md) adds bounded phrase, POS-template,
 paragraph, heading, and summary comparisons with measured overlap evidence.
+The [surface catalog](docs/surface-signals.md) adds opt-in syntax, readability, and
+formatting measurements with explicit counting protocols and protected boundaries.
 The [roadmap](docs/roadmap.md) preserves the remaining requirements:
 calibrated revision probabilities and qualified editorial defaults.
 The alpha does not silently claim those capabilities.
