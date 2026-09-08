@@ -136,15 +136,26 @@ func nounChunk(m *editorialMatcher, sentence document.Sentence, chunk document.C
 		if i < chunk.EndToken && eligibleCommonNoun(m.view, sentence, i) {
 			continue
 		}
-		if i-start > m.view.Parameters.Onset {
-			if err := emit.Emit(measured("heuristic", "consecutive-common-nouns", "nouns", i-start,
-				m.view.Parameters.Onset, m.view.Parameters.Saturation, []rule.Occurrence{tokenOccurrence(sentence, start, i)})); err != nil {
-				return err
-			}
+		if err := emitNounStack(m, sentence, start, i, emit); err != nil {
+			return err
 		}
 		start = i + 1
 	}
 	return nil
+}
+
+func emitNounStack(m *editorialMatcher, sentence document.Sentence, start, end int, emit rule.Emitter) error {
+	if end-start <= m.view.Parameters.Onset || !singularNounModifiers(sentence.Tokens[start:end]) {
+		return nil
+	}
+	return emit.Emit(measured("heuristic", "consecutive-common-nouns", "nouns", end-start,
+		m.view.Parameters.Onset, m.view.Parameters.Saturation, []rule.Occurrence{tokenOccurrence(sentence, start, end)}))
+}
+
+func singularNounModifiers(tokens []document.Token) bool {
+	// NNS also catches finite verbs such as "defines" when the tagger misreads
+	// a clause. Require NN modifiers; allow NNS only for the final noun head.
+	return !slices.ContainsFunc(tokens[:len(tokens)-1], func(token document.Token) bool { return token.Tag == "NNS" })
 }
 
 func eligibleCommonNoun(view rule.View, sentence document.Sentence, index int) bool {
