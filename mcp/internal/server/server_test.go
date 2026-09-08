@@ -131,25 +131,31 @@ func TestInvalidToolArgumentsCannotWeakenPolicy(t *testing.T) {
 	}
 }
 
-func TestEditorialClustersMatchThePublicEngine(t *testing.T) {
-	c := qt.New(t)
-	policy := []byte("version: 1\nextends: [builtin:custom]\nrules:\n" +
-		"  filler.section-announcement: {enabled: true, gate: forbid}\n")
-	session := connect(c, t.Context(), server.Options{Config: policy})
-	text := "In this section, we will describe setup. In this section, we will describe deployment."
-	input := server.CheckInput{Sources: []server.Source{{Name: "guide.md", Text: text}}}
-	response, err := session.CallTool(t.Context(), &mcp.CallToolParams{Name: "unswell_check", Arguments: input})
-	c.Assert(err, qt.IsNil)
-	c.Assert(response.IsError, qt.IsFalse)
-	checked := output[server.CheckOutput](c, response)
-	c.Assert(checked.Outcome, qt.Equals, "policy_failure")
-	c.Assert(checked.Result.Findings, qt.HasLen, 1)
-	c.Assert(checked.Result.Findings[0].Related, qt.HasLen, 1)
-	engine, err := unswell.New(unswell.Options{Config: policy})
-	c.Assert(err, qt.IsNil)
-	direct, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)})
-	c.Assert(err, qt.IsNil)
-	c.Assert(checked.Result, qt.DeepEquals, direct)
+func TestContextualClustersMatchThePublicEngine(t *testing.T) {
+	for _, row := range []struct{ id, text string }{
+		{"filler.section-announcement", "In this section, we will describe setup. In this section, we will describe deployment."},
+		{"repetition.summary-echo", "The client opens a connection to the server and sends the request with its credentials.\n\n" +
+			"## Summary\n\nThe client creates a connection to the server and sends the request with its credentials."},
+	} {
+		t.Run(row.id, func(t *testing.T) {
+			c := qt.New(t)
+			policy := []byte("version: 1\nextends: [builtin:custom]\nrules:\n  " + row.id + ": {enabled: true, gate: forbid}\n")
+			session := connect(c, t.Context(), server.Options{Config: policy})
+			input := server.CheckInput{Sources: []server.Source{{Name: "guide.md", Text: row.text}}}
+			response, err := session.CallTool(t.Context(), &mcp.CallToolParams{Name: "unswell_check", Arguments: input})
+			c.Assert(err, qt.IsNil)
+			c.Assert(response.IsError, qt.IsFalse)
+			checked := output[server.CheckOutput](c, response)
+			c.Assert(checked.Outcome, qt.Equals, "policy_failure")
+			c.Assert(checked.Result.Findings, qt.HasLen, 1)
+			c.Assert(checked.Result.Findings[0].Related, qt.HasLen, 1)
+			engine, err := unswell.New(unswell.Options{Config: policy})
+			c.Assert(err, qt.IsNil)
+			direct, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(row.text)})
+			c.Assert(err, qt.IsNil)
+			c.Assert(checked.Result, qt.DeepEquals, direct)
+		})
+	}
 }
 
 type waitingNLP struct {

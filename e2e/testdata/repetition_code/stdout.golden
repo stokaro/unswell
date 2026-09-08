@@ -1,0 +1,14 @@
+quoted.go:4:8: warning [repetition.ngram-density] This phrase recurs in a short prose window; check whether each use is needed. [suppressed]
+  related: quoted.go:5:8
+  related: quoted.go:6:10
+sample.go:3:20: warning [repetition.ngram-density] This phrase recurs in a short prose window; check whether each use is needed.
+  related: sample.go:4:21
+  related: sample.go:5:22
+FAIL: 2 documents, 2 findings; analysis complete.
+  gate: sample.go: This phrase recurs in a short prose window; check whether each use is needed.
+Suppression used: quoted.go:3:1 [disable-next-block] Preserve the phrase repetitions in the external example. (matches: 1).
+quoted.go paragraph 0: raw index 4; effective index 0.
+quoted.go sentence 0: raw index 4; effective index 0.
+quoted.go sentence 1: raw index 4; effective index 0.
+quoted.go sentence 2: raw index 4; effective index 0.
+Revision probability: unavailable (no calibrated alpha model).

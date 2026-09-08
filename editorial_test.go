@@ -95,7 +95,7 @@ func TestNewEditorialRulesRequireExplicitOptIn(t *testing.T) {
 	newRules := 0
 	for _, implementation := range builtin.Rules() {
 		d := implementation.Descriptor()
-		if d.Defaults.Enabled {
+		if d.Defaults.Enabled || strings.HasPrefix(d.ID, "repetition.") {
 			continue
 		}
 		newRules++

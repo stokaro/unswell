@@ -43,6 +43,16 @@ optional field, and existing saved settings remain valid.
 Older readers with a strict schema may reject new reports containing this field;
 use a reader that supports the producing tool's schema additions.
 
+Repetition signals add optional `rule.Parameters.MinNgramWords`, `MaxNgramWords`,
+and `WindowBlocks` fields. Their supported ranges are 3 through 8 words with an
+ordered minimum/maximum, and 1 through 128 prose blocks. Zero values are omitted
+from saved JSON. `rule.Descriptor.RequiresStructure` requests the existing
+grammar-derived block context for an enabled rule, including per-file overrides;
+it does not restore excluded prose. The saved-report schema includes these
+additions. Strict older readers need an update to accept reports using them.
+Existing rule IDs and behavior versions retain their meaning. See
+[repetition signals](repetition-signals.md) for formulas and limits.
+
 Callers own returned result slices. Source bytes must not change during analysis.
 One engine supports concurrent calls. Custom rules and providers are trusted Go
 code and must honor the concurrency and read-only view contracts.

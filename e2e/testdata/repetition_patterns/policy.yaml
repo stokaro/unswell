@@ -1,0 +1,8 @@
+version: 1
+extends: [builtin:custom]
+rules:
+  repetition.ngram-density: {enabled: true, gate: forbid}
+  repetition.syntax-template: {enabled: true, gate: forbid}
+  repetition.paragraph-overlap: {enabled: true, gate: forbid}
+  repetition.heading-echo: {enabled: true, gate: forbid}
+  repetition.summary-echo: {enabled: true, gate: forbid}

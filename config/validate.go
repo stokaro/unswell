@@ -122,6 +122,9 @@ func parameterValidity(p rule.Parameters) map[string]bool {
 		"allowed_occurrences": p.AllowedOccurrences >= 0, "saturation_occurrences": p.SaturationOccurrences > p.AllowedOccurrences,
 		"window_sentences": inRange(p.WindowSentences, 1, 1000), "opener_words": inRange(p.OpenerWords, 2, 5),
 		"max_answer_words": inRange(p.MaxAnswerWords, 1, 100),
+		"min_ngram_words":  inRange(p.MinNgramWords, 3, 8) && p.MinNgramWords <= p.MaxNgramWords,
+		"max_ngram_words":  inRange(p.MaxNgramWords, 3, 8) && p.MaxNgramWords >= p.MinNgramWords,
+		"window_blocks":    inRange(p.WindowBlocks, 1, 128),
 		"similarity":       !math.IsNaN(p.Similarity) && p.Similarity > 0 && p.Similarity <= 1, "window": p.Window == "document",
 	}
 }

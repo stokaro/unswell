@@ -9,7 +9,7 @@ import (
 	"io"
 	"os"
 	"os/exec"
-	"reflect"
+	"slices"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 
@@ -54,22 +54,15 @@ func verifySession(ctx context.Context, session *mcp.ClientSession, expected uns
 	if err := verifyDiscovery(ctx, session, expected); err != nil {
 		return evidence{}, err
 	}
-	input := server.CheckInput{Sources: make([]server.Source, 0, len(expected.Documents))}
-	for _, doc := range expected.Documents {
-		input.Sources = append(input.Sources, server.Source{Name: doc.Name, Format: doc.Format, Text: doc.Source})
-	}
-	checked, err := check(ctx, session, input, "pass")
+	batches, err := verifyBatches(ctx, session, expected)
 	if err != nil {
 		return evidence{}, err
-	}
-	if !reflect.DeepEqual(normalize(expected), checked.Result) {
-		return evidence{}, fmt.Errorf("MCP result differs from normalized CLI evidence")
 	}
 	probes, err := verifyProbes(ctx, session)
 	if err != nil {
 		return evidence{}, err
 	}
-	return evidence{Repository: checked, Probes: probes}, nil
+	return evidence{RepositoryBatches: batches, Probes: probes}, nil
 }
 
 func readExpected(path string) (unswell.RunResult, error) {
@@ -142,21 +135,33 @@ func decodeResult(result *mcp.CallToolResult, value any) error {
 func normalize(result unswell.RunResult) unswell.RunResult {
 	result.Manifest.SelectionMode = "explicit"
 	result.Manifest.IncludeSource = false
+	result.Documents = slices.Clone(result.Documents)
 	for i := range result.Documents {
 		result.Documents[i].Source = ""
 	}
+	result.Findings = slices.Clone(result.Findings)
 	for i := range result.Findings {
 		result.Findings[i].Primary.Snippet = ""
+		result.Findings[i].Related = slices.Clone(result.Findings[i].Related)
 		for j := range result.Findings[i].Related {
 			result.Findings[i].Related[j].Snippet = ""
+		}
+	}
+	result.Suppressions = slices.Clone(result.Suppressions)
+	for i := range result.Suppressions {
+		result.Suppressions[i].Directive.Snippet = ""
+		if end := result.Suppressions[i].End; end != nil {
+			location := *end
+			location.Snippet = ""
+			result.Suppressions[i].End = &location
 		}
 	}
 	return result
 }
 
 type evidence struct {
-	Repository server.CheckOutput   `json:"repository"`
-	Probes     []server.CheckOutput `json:"probes"`
+	RepositoryBatches []server.CheckOutput `json:"repository_batches"`
+	Probes            []server.CheckOutput `json:"probes"`
 }
 
 func writeEvidence(path string, result evidence) error {

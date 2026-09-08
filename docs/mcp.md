@@ -104,6 +104,10 @@ The client also checks deliberate Markdown, comment, YAML and C# violations,
 a clean rewrite and malformed source. Protocol tests cover invalid arguments,
 context overrides, exceptions, request cancellation and process shutdown.
 CI retains repository and probe results in `artifacts/dogfood/mcp-result.json`.
+The self-check sends at most 256 documents per request and compares every batch
+with the corresponding CLI documents, findings, assessments, and suppressions.
+Its developer evidence file stores the actual responses in `repository_batches`;
+the public MCP response schema is unchanged. Any mismatched batch fails the check.
 
 The separate [CLI and MCP containers](containers.md) include native architecture
 self-checks and release publication. [MCP Registry publication](mcp-registry.md) and installation

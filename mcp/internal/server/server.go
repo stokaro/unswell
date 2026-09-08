@@ -88,8 +88,11 @@ func describePolicy(engine *unswell.Engine) (Description, error) {
 	return result, nil
 }
 
+// MaxSources bounds one MCP check request, including self-check batches.
+const MaxSources = 256
+
 func (c *checker) check(ctx context.Context, _ *mcp.CallToolRequest, input CheckInput) (*mcp.CallToolResult, CheckOutput, error) {
-	if len(input.Sources) == 0 || len(input.Sources) > 256 {
+	if len(input.Sources) == 0 || len(input.Sources) > MaxSources {
 		return nil, CheckOutput{}, fmt.Errorf("sources must contain 1 to 256 documents")
 	}
 	ctx, cancel := context.WithTimeout(ctx, c.timeout)

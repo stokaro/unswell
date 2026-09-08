@@ -21,11 +21,15 @@ func TestExecutableCatalog(t *testing.T) {
 		t.Run(descriptor.ID, func(t *testing.T) {
 			c := qt.New(t)
 			for _, example := range descriptor.Examples {
+				format := example.Format
+				if format == "" {
+					format = document.Plain
+				}
 				engine, err := unswell.New(unswell.Options{Rules: []rule.Rule{implementation}, Config: []byte(example.Config)})
 				c.Assert(err, qt.IsNil)
 				result, err := engine.Analyze(
 					t.Context(),
-					document.Source{Name: "fixture.txt", Format: document.Plain, Bytes: []byte(example.Text)},
+					document.Source{Name: "fixture.txt", Format: format, Bytes: []byte(example.Text)},
 				)
 				c.Assert(err, qt.IsNil)
 				c.Check(len(result.Findings) > 0, qt.Equals, example.Match, qt.Commentf("%q", example.Text))
