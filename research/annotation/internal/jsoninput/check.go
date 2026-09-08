@@ -7,16 +7,31 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"strings"
 	"unicode/utf8"
 )
 
+// Limits bounds collections during streaming validation, before typed allocation.
+// Zero leaves a limit unset. Arrays overrides Array for a named object property;
+// its names must be distinct under Unicode case folding.
+// These are structural limits, not a promise about peak process memory.
+type Limits struct {
+	Array, Object int
+	Arrays        map[string]int
+}
+
 // Check rejects duplicate keys, excessive depth, invalid Unicode, and trailing values.
 func Check(ctx context.Context, data []byte, maximum int) error {
+	return check(ctx, data, maximum, Limits{})
+}
+
+func check(ctx context.Context, data []byte, maximum int, limits Limits) error {
 	if len(data) > maximum || !utf8.Valid(data) {
 		return fmt.Errorf("annotation input exceeds %d bytes or is not UTF-8", maximum)
 	}
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	if err := uniqueValue(ctx, decoder, 0); err != nil {
+	c := checker{ctx: ctx, decoder: decoder, limits: limits}
+	if err := c.value(0, ""); err != nil {
 		return err
 	}
 	if _, err := decoder.Token(); err != io.EOF {
@@ -25,9 +40,10 @@ func Check(ctx context.Context, data []byte, maximum int) error {
 	return validSurrogates(data)
 }
 
-// Decode also rejects unknown fields throughout a typed destination.
-func Decode(ctx context.Context, data []byte, maximum int, target any) error {
-	if err := Check(ctx, data, maximum); err != nil {
+// Decode checks collection bounds before allocating the typed destination and
+// rejects unknown fields. Field-specific limits also cover case-insensitive aliases.
+func Decode(ctx context.Context, data []byte, maximum int, target any, limits Limits) error {
+	if err := check(ctx, data, maximum, limits); err != nil {
 		return err
 	}
 	decoder := json.NewDecoder(bytes.NewReader(data))
@@ -35,35 +51,59 @@ func Decode(ctx context.Context, data []byte, maximum int, target any) error {
 	return decoder.Decode(target)
 }
 
-func uniqueValue(ctx context.Context, decoder *json.Decoder, depth int) error {
-	if err := ctx.Err(); err != nil {
+type checker struct {
+	ctx     context.Context
+	decoder *json.Decoder
+	limits  Limits
+}
+
+func (c checker) value(depth int, field string) error {
+	if err := c.ctx.Err(); err != nil {
 		return err
 	}
 	if depth > 32 {
 		return fmt.Errorf("annotation JSON nesting exceeds 32")
 	}
-	token, err := decoder.Token()
+	token, err := c.decoder.Token()
 	if err != nil {
 		return err
 	}
 	switch token {
 	case json.Delim('{'):
-		return uniqueObject(ctx, decoder, depth)
+		return c.object(depth)
 	case json.Delim('['):
-		for decoder.More() {
-			if err := uniqueValue(ctx, decoder, depth+1); err != nil {
-				return err
-			}
-		}
-		_, err = decoder.Token()
+		return c.array(depth, field)
 	}
+	return nil
+}
+
+func (c checker) array(depth int, field string) error {
+	maximum := c.limits.Array
+	for name, limit := range c.limits.Arrays {
+		if strings.EqualFold(field, name) {
+			maximum = limit
+			break
+		}
+	}
+	for count := 0; c.decoder.More(); count++ {
+		if maximum > 0 && count >= maximum {
+			return fmt.Errorf("research JSON array %q exceeds %d entries", field, maximum)
+		}
+		if err := c.value(depth+1, ""); err != nil {
+			return err
+		}
+	}
+	_, err := c.decoder.Token()
 	return err
 }
 
-func uniqueObject(ctx context.Context, decoder *json.Decoder, depth int) error {
+func (c checker) object(depth int) error {
 	seen := make(map[string]bool)
-	for decoder.More() {
-		token, err := decoder.Token()
+	for c.decoder.More() {
+		if c.limits.Object > 0 && len(seen) >= c.limits.Object {
+			return fmt.Errorf("research JSON object exceeds %d properties", c.limits.Object)
+		}
+		token, err := c.decoder.Token()
 		if err != nil {
 			return err
 		}
@@ -72,10 +112,10 @@ func uniqueObject(ctx context.Context, decoder *json.Decoder, depth int) error {
 			return fmt.Errorf("invalid or duplicate annotation JSON key %q", key)
 		}
 		seen[key] = true
-		if err := uniqueValue(ctx, decoder, depth+1); err != nil {
+		if err := c.value(depth+1, key); err != nil {
 			return err
 		}
 	}
-	_, err := decoder.Token()
+	_, err := c.decoder.Token()
 	return err
 }

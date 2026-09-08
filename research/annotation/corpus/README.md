@@ -66,8 +66,9 @@ partition assignments fail; unknown relationships cannot establish independence.
 For unpinned groups, it hashes the algorithm name, seed, and component ID separated
 by NUL bytes. The first eight SHA-256 bytes, interpreted as an unsigned big-endian
 integer modulo 10,000, select a bucket in the ordered partition weights.
-Explicit source assignments pin the whole component. Reordering set-valued inputs
-does not change the plan. Changing declarations requires a new plan.
+Explicit source assignments pin the whole component. Reordering sources, grouping
+keys, unit kinds, and context sets does not change the plan. Extraction exception
+and selector order is retained. Changing declarations requires a new plan.
 
 The planner cannot promise balanced unit counts, discover unrecorded paraphrases,
 or replace a curator's review for leaks. Freeze and archive the complete source
@@ -128,6 +129,12 @@ context is limited to 65,536 bytes and each unit to 1,024 source segments. Compa
 candidate serialization has a conservative 64 MiB preparation budget, reserving
 16 MiB for the manifest. Exceeding a limit fails; sources are never silently
 truncated. These limits do not define a reliable statistical sample length.
+
+Collection sizes are checked in a streaming pass before typed JSON allocation:
+10,000 entries per array/object, with array limits of 100,000 for group keys,
+1,024 for source segments, and 1,000 for role regions. Semantic checks then enforce
+the more specific limits. These checks bound structure; they do not certify a
+fixed peak process-memory budget for arbitrary inputs.
 
 Root [e2e tests](../../../e2e/corpus_test.go) build the command with cgo disabled and
 compare every Ptah candidate's text, context, role, kind, and source segments with

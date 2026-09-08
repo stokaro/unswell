@@ -150,3 +150,15 @@ func FuzzLoadArtifact(f *testing.F) {
 		_, _ = corpus.LoadArtifact(t.Context(), data)
 	})
 }
+
+func TestCollectionLimitsBeforeCorpusDecoding(t *testing.T) {
+	c := qt.New(t)
+	objects := []byte(`{"sources":[` + strings.Repeat("{},", corpus.MaxSources) + `{}]}`)
+	_, err := corpus.LoadManifest(t.Context(), objects)
+	c.Assert(err, qt.ErrorMatches, `research JSON array "sources" exceeds 10000 entries`)
+	_, err = corpus.LoadPlan(t.Context(), []byte(`{"manifest":`+string(objects)+`}`))
+	c.Assert(err, qt.ErrorMatches, `research JSON array "sources" exceeds 10000 entries`)
+	units := []byte(`{"Units":[` + strings.Repeat("{},", corpus.MaxUnits) + `{}]}`)
+	_, err = corpus.LoadArtifact(t.Context(), units)
+	c.Assert(err, qt.ErrorMatches, `research JSON array "Units" exceeds 10000 entries`)
+}

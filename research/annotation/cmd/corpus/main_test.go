@@ -92,3 +92,24 @@ func TestSourceRootRequiresRegularPinnedFiles(t *testing.T) {
 	_, err = readFile(root, corpus.Notice{Path: filepath.Join("absent", "source"), Bytes: 1})
 	c.Assert(err, qt.IsNotNil)
 }
+
+type endlessInput struct{ bytes int }
+
+func (r *endlessInput) Read(data []byte) (int, error) {
+	for i := range data {
+		data[i] = ' '
+	}
+	r.bytes += len(data)
+	return len(data), nil
+}
+
+func TestManifestCommandsBoundReads(t *testing.T) {
+	for _, args := range [][]string{{"plan"}, {"extract", "--root", "."}} {
+		t.Run(args[0], func(t *testing.T) {
+			c := qt.New(t)
+			input := &endlessInput{}
+			c.Assert(run(t.Context(), args, input, io.Discard), qt.IsNotNil)
+			c.Assert(input.bytes, qt.Equals, corpus.MaxManifestBytes+1)
+		})
+	}
+}

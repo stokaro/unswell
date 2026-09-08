@@ -25,7 +25,7 @@ var manifestSchema []byte
 // It cannot establish that a provenance or permission assertion is true.
 func LoadManifest(ctx context.Context, data []byte) (Manifest, error) {
 	var manifest Manifest
-	if err := jsoninput.Decode(ctx, data, MaxManifestBytes, &manifest); err != nil {
+	if err := jsoninput.Decode(ctx, data, MaxManifestBytes, &manifest, inputLimits()); err != nil {
 		return Manifest{}, err
 	}
 	if err := jsoninput.Schema(data, manifestSchema, "urn:unswell:corpus:manifest:v1"); err != nil {
@@ -35,6 +35,11 @@ func LoadManifest(ctx context.Context, data []byte) (Manifest, error) {
 		return Manifest{}, err
 	}
 	return manifest, nil
+}
+
+func inputLimits() jsoninput.Limits {
+	return jsoninput.Limits{Array: MaxUnits, Object: MaxSources,
+		Arrays: map[string]int{"keys": 100000, "segments": 1024, "role_regions": 1000}}
 }
 
 func (m Manifest) validate(ctx context.Context) error {
