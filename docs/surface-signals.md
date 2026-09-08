@@ -69,6 +69,14 @@ suffix such as `-tion`. Up to four modifiers can precede the nominal head and up
 six can precede its complement. Noun stacks stop at punctuation, noncommon-noun tags,
 approved terms, and identifier candidates. The shallow NP boundary comes from the
 NLP backend; an invalid chunk range causes an operational error.
+Rule version 3 also stops at the negative modal `cannot`, regardless of its POS
+tag. The unchanged sentence `A binary origin probability cannot measure the
+fraction of words written by AI.` exposed an all-NN tagging error in dogfooding.
+This boundary preserves the negation and leaves the backend's tags untouched.
+The rule still abstains on interior NNS tags, retaining the earlier `defines` and
+`latches` regressions at the cost of missing some genuine plural modifiers.
+Other mistagged verb phrases may still produce false candidates; this rule remains
+experimental and disabled in builtin profiles.
 Noun and short-list candidates require alphabetic prose words; format placeholders
 such as `%q` and words containing digits cannot supply noun or fragment evidence.
 
