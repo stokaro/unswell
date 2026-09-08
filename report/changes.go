@@ -8,7 +8,22 @@ import (
 
 func auditLines(result unswell.RunResult) []string {
 	lines := append(suppressionLines(result), baselineLines(result)...)
-	return append(lines, changeLines(result)...)
+	lines = append(lines, changeLines(result)...)
+	return append(lines, policyLines(result)...)
+}
+
+func policyLines(result unswell.RunResult) []string {
+	comparison := result.PolicyComparison
+	if comparison == nil {
+		return nil
+	}
+	lines := []string{fmt.Sprintf("Trusted policy: complete: %t; full scan: %t; %d changes.",
+		comparison.Complete, comparison.FullScan, len(comparison.Changes))}
+	for _, change := range comparison.Changes {
+		lines = append(lines, fmt.Sprintf("Policy change: %s [%s]; %s to %s.",
+			change.Path, change.Kind, change.BeforeHash, change.AfterHash))
+	}
+	return lines
 }
 
 func changeLines(result unswell.RunResult) []string {

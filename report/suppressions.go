@@ -25,6 +25,9 @@ func suppressionLines(result unswell.RunResult) []string {
 		lines = append(lines, fmt.Sprintf("Suppression %s: %s:%d:%d [%s] %s (matches: %d).",
 			record.Status, record.Directive.Path, record.Directive.Start.Line, record.Directive.Start.Column,
 			record.Kind, record.Reason, len(record.FindingIDs)))
+		if record.TrustState != "" {
+			lines = append(lines, fmt.Sprintf("Permission trust: %s; structural identity: %s.", record.TrustState, record.TrustFingerprint))
+		}
 	}
 	for _, assessment := range result.Assessments {
 		if len(assessment.EffectiveContributions) != 0 {

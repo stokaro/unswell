@@ -77,6 +77,9 @@ func validateCheckOptions(options checkOptions) error {
 }
 
 func analyzeInputs(ctx context.Context, environment Environment, options checkOptions, args []string) (unswell.RunResult, []string, error) {
+	if options.policyFromBase {
+		return analyzeTrusted(ctx, environment, options, args)
+	}
 	loaded, err := configuration(ctx, environment, options)
 	if err != nil {
 		return unswell.RunResult{}, nil, err

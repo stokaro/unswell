@@ -44,10 +44,14 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source, iden
 	}
 	sortFindings(result.Findings)
 	result.Findings = deduplicateFindings(result.Findings)
-	suppressionErr := e.applySuppressions(ctx, &result, doc, plan)
+	builder, err := e.identityBuilder(ctx, doc, identities)
+	if err != nil {
+		return result, err
+	}
+	suppressionErr := e.applySuppressions(ctx, &result, doc, plan, builder)
 	e.assess(&result, doc)
-	if e.collectBaseline || identities != nil {
-		if err := e.identifySource(ctx, &result, doc, identities); err != nil {
+	if builder != nil {
+		if err := e.identifySource(ctx, &result, doc, identities, builder); err != nil {
 			return result, err
 		}
 	}

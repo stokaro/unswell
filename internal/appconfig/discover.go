@@ -6,6 +6,15 @@ import (
 	"path/filepath"
 )
 
+// ProjectRoot resolves only the project boundary, without discovering or loading
+// configuration. Immutable-resource adapters select policy from their own source.
+func ProjectRoot(options Options) (string, error) {
+	if !filepath.IsAbs(options.Dir) {
+		return "", fmt.Errorf("configuration working directory must be absolute")
+	}
+	return projectRoot(options, options.Dir)
+}
+
 func selectConfig(options Options) (string, string, error) {
 	if !filepath.IsAbs(options.Dir) {
 		return "", "", fmt.Errorf("configuration working directory must be absolute")

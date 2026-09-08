@@ -62,7 +62,7 @@ func sarif(writer io.Writer, result unswell.RunResult) error {
 				map[string]any{"executionSuccessful": result.Manifest.Complete, "toolExecutionNotifications": notifications},
 			},
 			"properties": map[string]any{"gate": result.Gate, "assessments": result.Assessments,
-				"changes":  result.Changes,
+				"changes": result.Changes, "policy_comparison": result.PolicyComparison,
 				"baseline": result.Baseline, "baseline_snapshot": result.BaselineSnapshot,
 				"manifest": result.Manifest, "file_policies": filePolicies(result), "suppressions": result.Suppressions},
 		}},

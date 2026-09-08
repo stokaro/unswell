@@ -112,6 +112,13 @@ against Git without embedding timestamp-dependent commit hashes in the golden.
 Run `go test ./e2e -run TestCommittedWorkflow -update -count=1` for intentional
 changes to this workflow.
 
+`TestTrustedWorkflow` adds a disabled candidate rule and a new source permission in
+a real Git repository. The built CLI must still fail under base policy, then pass
+after editing the prose. The [trusted fixtures](trusteddata) retain expected raw
+detections; their golden records policy hashes, permission trust, source locations,
+and full-scan selection. Update only this workflow with
+`go test ./e2e -run TestTrustedWorkflow -update -count=1` after reviewing those facts.
+
 After an intentional behavior change, run:
 
 ```sh

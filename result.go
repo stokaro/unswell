@@ -159,21 +159,24 @@ type SuppressionTarget struct {
 // Suppression records an explicit permission and links it to retained raw findings.
 // A partially used or unused permission is an error when reject_unused is true.
 type Suppression struct {
-	ID         string              `json:"id"`
-	Kind       string              `json:"kind"`
-	RuleIDs    []string            `json:"rule_ids"`
-	Reason     string              `json:"reason"`
-	Directive  Location            `json:"directive"`
-	End        *Location           `json:"end,omitempty"`
-	Targets    []SuppressionTarget `json:"targets"`
-	FindingIDs []string            `json:"finding_ids"`
-	UsedRules  []string            `json:"used_rules"`
-	Status     string              `json:"status"`
+	TrustState       string              `json:"trust_state,omitempty"`
+	TrustFingerprint string              `json:"trust_fingerprint,omitempty"`
+	ID               string              `json:"id"`
+	Kind             string              `json:"kind"`
+	RuleIDs          []string            `json:"rule_ids"`
+	Reason           string              `json:"reason"`
+	Directive        Location            `json:"directive"`
+	End              *Location           `json:"end,omitempty"`
+	Targets          []SuppressionTarget `json:"targets"`
+	FindingIDs       []string            `json:"finding_ids"`
+	UsedRules        []string            `json:"used_rules"`
+	Status           string              `json:"status"`
 }
 
 // RunResult is the immutable input shared by every reporter.
 // Returned slices are owned by the caller and do not alias the engine.
 type RunResult struct {
+	PolicyComparison *PolicyComparison    `json:"policy_comparison,omitempty"`
 	Changes          *ChangeSelection     `json:"changes,omitempty"`
 	BaselineSnapshot *baseline.Snapshot   `json:"baseline_snapshot,omitempty"`
 	Baseline         *baseline.Comparison `json:"baseline,omitempty"`

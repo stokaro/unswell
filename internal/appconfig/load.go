@@ -34,6 +34,7 @@ type Loaded struct {
 type loader struct {
 	loaded Loaded
 	root   *os.Root
+	reader func(string) ([]byte, error)
 	active map[string]bool
 	infos  map[string]os.FileInfo
 	total  int
@@ -127,6 +128,16 @@ func (l *loader) dependencies(ctx context.Context, name string, data []byte, dep
 }
 
 func (l *loader) resource(name string) ([]byte, error) {
+	if l.reader != nil {
+		data, err := l.reader(name)
+		if err != nil {
+			return nil, err
+		}
+		if len(data) > 1<<20 {
+			return nil, fmt.Errorf("configuration exceeds 1 MiB")
+		}
+		return slices.Clone(data), nil
+	}
 	local := filepath.FromSlash(name)
 	info, err := l.root.Stat(local)
 	if l.loaded.Bundle.AllowOutsideRoot {

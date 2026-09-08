@@ -57,10 +57,15 @@ func (e *Engine) AnalyzeChanged(ctx context.Context, before, after []document.So
 	if err != nil {
 		return incomplete(result, fmt.Errorf("previous source analysis: %w", err))
 	}
+	return e.finishChanged(ctx, result, previous, current)
+}
+
+func (e *Engine) finishChanged(ctx context.Context, result RunResult, previous, current []sourceIdentities) (RunResult, error) {
 	comparisons, err := compareSources(ctx, previous, current)
 	if err != nil {
 		return incomplete(result, err)
 	}
+	compareTrustedPolicy(&result, comparisons)
 	for _, comparison := range comparisons {
 		result.Changes.Documents = append(result.Changes.Documents, comparison.document)
 	}
@@ -69,6 +74,9 @@ func (e *Engine) AnalyzeChanged(ctx context.Context, before, after []document.So
 		return incomplete(result, err)
 	}
 	result.Changes.Complete = true
+	if result.PolicyComparison != nil {
+		result.PolicyComparison.Complete = true
+	}
 	result.Gate.Passed = len(result.Gate.Reasons) == 0 || e.noGate
 	return result, nil
 }

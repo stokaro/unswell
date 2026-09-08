@@ -47,7 +47,7 @@ func (g *gitComparison) verifyPolicy(environment Environment, options checkOptio
 
 func (g *gitComparison) unchangedPolicy(name string) error {
 	if g.before[g.prefix+name] != g.after[g.prefix+name] {
-		return fmt.Errorf("policy input changed between merge base and HEAD: %s; run a full check pending trusted-policy support", name)
+		return fmt.Errorf("policy input changed between merge base and HEAD: %s; use --policy-from-base or run a full check", name)
 	}
 	return nil
 }
@@ -117,7 +117,7 @@ func (g *gitComparison) requirePolicyInput(name string, resources map[string][]b
 	return nil
 }
 
-func (g *gitComparison) verifySnapshot(ctx context.Context, sources committedSources, resources map[string][]byte) error {
+func (g *gitComparison) verifySnapshot(ctx context.Context, sources committedSources, resources map[string][]byte, deleted []string) error {
 	data, err := gitOutput(ctx, g.root, gitListLimit, "ls-files", "--stage", "--full-name", "-z")
 	if err != nil {
 		return err
@@ -134,6 +134,9 @@ func (g *gitComparison) verifySnapshot(ctx context.Context, sources committedSou
 	if err := g.verifyResources(ctx, resources); err != nil {
 		return err
 	}
+	if err := g.verifyDeletions(deleted); err != nil {
+		return err
+	}
 	for _, source := range sources.before {
 		if g.after[g.prefix+source.Name].id == "" {
 			if err := g.verifyDeleted(source.Name); err != nil {
@@ -142,6 +145,15 @@ func (g *gitComparison) verifySnapshot(ctx context.Context, sources committedSou
 		}
 	}
 	return g.verifyHead(ctx)
+}
+
+func (g *gitComparison) verifyDeletions(names []string) error {
+	for _, name := range names {
+		if err := g.verifyDeleted(name); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (g *gitComparison) verifyResources(ctx context.Context, resources map[string][]byte) error {

@@ -1301,6 +1301,58 @@
       ],
       "type": "object"
     },
+    "unswell.PolicyChange": {
+      "additionalProperties": false,
+      "properties": {
+        "after_hash": {
+          "type": "string"
+        },
+        "before_hash": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "kind"
+      ],
+      "type": "object"
+    },
+    "unswell.PolicyComparison": {
+      "additionalProperties": false,
+      "properties": {
+        "changes": {
+          "items": {
+            "$ref": "#/$defs/unswell.PolicyChange"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "full_scan": {
+          "type": "boolean"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "complete",
+        "full_scan",
+        "changes"
+      ],
+      "type": "object"
+    },
     "unswell.RunError": {
       "additionalProperties": false,
       "properties": {
@@ -1392,6 +1444,16 @@
         "manifest": {
           "$ref": "#/$defs/unswell.Manifest"
         },
+        "policy_comparison": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unswell.PolicyComparison"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "schema_version": {
           "const": "1.0.0-alpha.1",
           "type": "string"
@@ -1475,6 +1537,12 @@
             "array",
             "null"
           ]
+        },
+        "trust_fingerprint": {
+          "type": "string"
+        },
+        "trust_state": {
+          "type": "string"
         },
         "used_rules": {
           "items": {

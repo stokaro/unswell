@@ -23,6 +23,10 @@ func baselineCommand(environment Environment, code *int) *cobra.Command {
 		if path == "" {
 			return fmt.Errorf("baseline check requires --baseline")
 		}
+		trusted, err := command.Flags().GetBool("policy-from-base")
+		if err != nil || trusted {
+			return err
+		}
 		if !command.Flags().Changed("gate-mode") {
 			return command.Flags().Set("gate-mode", "new")
 		}
