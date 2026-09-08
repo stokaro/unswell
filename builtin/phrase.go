@@ -1,7 +1,6 @@
 package builtin
 
 import (
-	"context"
 	"slices"
 	"strings"
 
@@ -72,6 +71,7 @@ func phraseRules() []rule.Rule {
 	for _, def := range definitions {
 		d := descriptor(def.id, def.summary, "scaffolding", "sentence", 15)
 		d.TermExemptions = true
+		d.BlockObservations = true
 		d.Defaults.Parameters = rule.Parameters{Phrases: def.phrases, Positions: []string{def.position}}
 		d.Parameters = []string{"phrases", "positions"}
 		if def.forbid {
@@ -93,46 +93,6 @@ func phraseRules() []rule.Rule {
 		result = append(result, check{descriptor: d, evaluate: phraseEvaluate})
 	}
 	return result
-}
-
-func phraseEvaluate(ctx context.Context, view rule.View, emit rule.Emitter) error {
-	patterns := make([][]string, 0, len(view.Parameters.Phrases))
-	for _, phrase := range view.Parameters.Phrases {
-		patterns = append(patterns, phraseTokens(phrase))
-	}
-	sentences := allSentences(view.Document)
-	for index, sentence := range sentences {
-		if err := ctx.Err(); err != nil {
-			return err
-		}
-		for _, pattern := range patterns {
-			if err := matchPhrase(sentence, pattern, view, index, len(sentences), emit); err != nil {
-				return err
-			}
-		}
-	}
-	return nil
-}
-
-func matchPhrase(sentence document.Sentence, pattern []string, view rule.View, index, total int, emit rule.Emitter) error {
-	if len(pattern) == 0 {
-		return nil
-	}
-	for start := 0; start+len(pattern) <= len(sentence.Tokens); start++ {
-		if !phrasePosition(view.Parameters.Positions, start, index, total) || view.Exempts(sentence, start, start+len(pattern)) {
-			continue
-		}
-		if !matches(sentence.Tokens[start:start+len(pattern)], pattern) {
-			continue
-		}
-		occurrence := tokenOccurrence(sentence, start, start+len(pattern))
-		evidence := rule.Evidence{Kind: "exact", Occurrences: []rule.Occurrence{occurrence}, Activation: 1000,
-			Metrics: []rule.Metric{{Name: "phrase-match", Value: 1, Unit: "matches", Onset: 0, Saturation: 1}}}
-		if err := emit.Emit(evidence); err != nil {
-			return err
-		}
-	}
-	return nil
 }
 
 func phraseTokens(text string) []string {

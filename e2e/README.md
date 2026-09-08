@@ -96,6 +96,12 @@ insufficient word count, an observed zero, and a positive activation. Its
 `features.golden.json` records actual values and absence reasons beside the usual
 annotated detection and source coordinates. No model or quality labels are used.
 
+The [phrase activations](testdata/phrase_activations/sample.md.txt) case adds a
+heading match, a clean comparison, an empty dictionary, document-position limits,
+protected code, and too few tokens for a comparison. BOM, CRLF, emphasis, and
+Unicode exercise the original source coordinates alongside numeric and absent
+values. A matched phrase still fails its configured gate.
+
 The custom-rule cases load inline packs through the real CLI. They cover matching
 Go comments and escaped strings with CRLF, and paragraph conditions with exact
 regex locations, Markdown emphasis, a BOM, protected code, and a local exception.

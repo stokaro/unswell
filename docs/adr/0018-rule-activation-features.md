@@ -61,6 +61,25 @@ Other rule families require their own applicability accounting before their
 negative observations can serve as dense training inputs. This remaining work is
 part of #56 and cannot be replaced by assuming every silent rule was applicable.
 
+The phrase catalog records applicability at its existing matching loop. A block
+is evaluated when at least one configured phrase has a candidate window of the
+required token length at an allowed position, without protected tokens or a
+configured term exemption. A candidate need not match the phrase: a completed
+comparison with no evidence is a measured zero. No patterns, no sentences, or no
+eligible window instead produce explicit absence reasons. Document-start/end
+positions retain their existing meaning across all extracted sentences,
+including headings and list items. Collection does not change matching or merge
+independent blocks to create candidates. These descriptors declare complete block
+observations, which changes the catalog hash. The finding algorithm version stays
+unchanged because the phrase lists, findings, and matching semantics stay intact;
+collecting observations must not change finding or baseline fingerprints.
+
+Only requested observations need a separate protected-token eligibility scan.
+For each phrase and sentence, stop this optional scan after an eligible window
+has established applicability. The matcher still checks every possible match.
+The Go benchmark isolates both modes on 100,000 prepared tokens and 128 phrases;
+it does not stand in for the full extraction/NLP performance budget.
+
 Acceptance includes positive and zero activations, each absence state, disabled
 rules, uninstrumented external rules, ignored observer errors, partial failures,
 cluster occurrences and duplicates, policy overrides, source protection,
