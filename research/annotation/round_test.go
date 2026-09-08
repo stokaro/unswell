@@ -87,6 +87,7 @@ func TestRoundRejectsInvalidRecords(t *testing.T) {
 		{"profile hash", func(r *roundData) { r.Profile.Instructions += "changed" }},
 		{"source span", func(r *roundData) { r.Units[0].Source.Segments[0].End++ }},
 		{"source language", func(r *roundData) { r.Units[0].Source.Language = "unknown" }},
+		{"unknown role", func(r *roundData) { r.Units[0].Role = "unknown" }},
 		{"source origin", func(r *roundData) { r.Units[0].Origin.Scope = "repository" }},
 		{"generation record", func(r *roundData) { r.Units[0].Origin.GenerationRecord = "" }},
 		{"protected boundary", func(r *roundData) { r.Units[0].Text += "\x00text" }},
@@ -222,6 +223,30 @@ func TestUnloadedRound(t *testing.T) {
 			c.Assert(err, qt.IsNotNil)
 			_, err = tc.round.Agreement(t.Context())
 			c.Assert(err, qt.IsNotNil)
+		})
+	}
+}
+
+func TestStringRolesAndFragments(t *testing.T) {
+	cases := []struct{ role string }{{"error_message"}, {"log_message"}, {"ui_text"}, {"other_string"}, {"string"}}
+	for _, tc := range cases {
+		t.Run(tc.role, func(t *testing.T) {
+			c := qt.New(t)
+			data := fixture(c)
+			data.Judgments = []Judgment{}
+			data.Adjudications = []Adjudication{}
+			data.Units[0].Kind = "fragment"
+			data.Units[0].Role = tc.role
+			round, err := Load(t.Context(), encode(c, data))
+			c.Assert(err, qt.IsNil)
+			packet, err := round.Packet(t.Context())
+			c.Assert(err, qt.IsNil)
+			c.Assert(packet.Units[0].Kind, qt.Equals, "fragment")
+			c.Assert(packet.Units[0].Role, qt.Equals, tc.role)
+			result, err := round.Agreement(t.Context())
+			c.Assert(err, qt.IsNil)
+			found := slices.ContainsFunc(result.Groups, func(group GroupStats) bool { return group.Group == "role:"+tc.role })
+			c.Assert(found, qt.IsTrue)
 		})
 	}
 }

@@ -50,6 +50,9 @@ Unit IDs follow `u000001`; actor IDs follow `a001`. Assign them without encoding
 origin, names, models, or quality. Keep the private identity key outside the packet.
 All primary raters in a round are assigned every unit. Omit missing responses
 instead of inserting an empty label. Use another round for a different assignment.
+String roles distinguish error messages, log messages, UI text, and other strings;
+the generic `string` role means the subtype is unknown. This retains the corpus
+sampling and analysis distinctions required by #22.
 
 Start a round with empty `judgments` and `adjudications` arrays. `packet` supplies
 the `sha256` that each response and adjudication must echo as `packet_sha256`.
