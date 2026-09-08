@@ -25,6 +25,9 @@ from the runtime module and its minimum compiler. The consumer module is an
 executable public-API contract test, not another supported library.
 The separate `mcp/` module provides the `unswell-mcp` executable and its protocol
 tests. It calls the public engine and keeps the MCP SDK out of the core module.
+The `research/annotation` consumer module defines a versioned research artifact
+and a developer command. It does not extend the supported engine, CLI, MCP, or
+saved-report APIs. See [ADR 0013](adr/0013-annotation-protocol.md).
 The root `e2e` directory contains only test code and fixtures. It exports no library
 API; the API snapshot records its package identity because it belongs to the root
 module.

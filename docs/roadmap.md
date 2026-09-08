@@ -93,6 +93,11 @@ Passing a subset of local unit tests does not establish release readiness.
 
 ## Stage 3: calibrated revision probability
 
+The [published annotation protocol](editorial-annotation.md) and its
+[research tools](../research/annotation/README.md) support collection and review.
+Real human annotation, the corpus minimums, and final held-out evidence remain
+acceptance requirements; the tutorial fixtures do not satisfy them.
+
 - Publish an editorial annotation rubric, data provenance and licenses.
 - Collect at least 5,000 labeled sentence/paragraph units, including good
   AI-assisted and poor human-written prose, with at least two annotators.

@@ -7,6 +7,12 @@ findings. Quality and provenance need separate labels and evaluation targets.
 The following tasks are experiments. No model training, comparative benchmark, or
 production accuracy result is claimed by this plan.
 
+The [annotation rubric](editorial-annotation.md) now defines independent quality
+and origin records, reviewer instructions, adjudication, and data partitions.
+Its [Go tools](../research/annotation/README.md) validate rounds, prepare blinded
+packets, and measure agreement. The included tutorial has scripted responses and
+does not count as the human-labeled corpus or a completed pilot.
+
 ## Execution order
 
 | Step | Issue | Deliverable |
