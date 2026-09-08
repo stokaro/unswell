@@ -1,5 +1,13 @@
 # End-to-end CLI cases
 
+The [corpus workflow test](corpus_test.go) builds the developer command with cgo
+disabled, plans the pinned Ptah sources, extracts candidates, and repeats extraction
+to verify them. Its [golden](corpusdata/ptah-units.golden.json) records all 378 units'
+text, context, role, kind, and original source segments. Conflicting split pins and
+invented human-corpus status must fail. See the
+[fixture provenance](../research/annotation/corpus/testdata/README.md); these units
+have no human labels and all belong to development.
+
 The [annotation protocol test](annotation_test.go) builds the research command,
 checks a blinded packet golden and agreement summary, and requires exit 2 for
 ambiguous JSON or attempts to count simulated responses as a human corpus.

@@ -12,6 +12,7 @@ import (
 	"slices"
 
 	"github.com/stokaro/unswell/research/annotation"
+	"github.com/stokaro/unswell/research/annotation/internal/commandio"
 )
 
 func main() {
@@ -25,7 +26,7 @@ func mainCode() int {
 		if errors.Is(err, context.Canceled) || ctx.Err() != nil {
 			return 130
 		}
-		_, _ = awaitIO(ctx, func() (int, error) { return fmt.Fprintln(os.Stderr, err) })
+		_, _ = commandio.Await(ctx, func() (int, error) { return fmt.Fprintln(os.Stderr, err) })
 		if ctx.Err() != nil {
 			return 130
 		}
@@ -44,7 +45,7 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 	if err := ctx.Err(); err != nil {
 		return err
 	}
-	data, err := awaitIO(ctx, func() ([]byte, error) {
+	data, err := commandio.Await(ctx, func() ([]byte, error) {
 		return io.ReadAll(io.LimitReader(input, annotation.MaxBytes+1))
 	})
 	if err != nil {
@@ -70,7 +71,7 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 	}
 	encoder := json.NewEncoder(output)
 	encoder.SetIndent("", "  ")
-	_, err = awaitIO(ctx, func() (struct{}, error) {
+	_, err = commandio.Await(ctx, func() (struct{}, error) {
 		return struct{}{}, encoder.Encode(result)
 	})
 	return err

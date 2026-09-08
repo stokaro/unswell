@@ -61,8 +61,13 @@ func TestAnnotationProtocol(t *testing.T) {
 
 func buildAnnotationTool(t *testing.T) string {
 	t.Helper()
+	return buildResearchTool(t, "annotate")
+}
+
+func buildResearchTool(t *testing.T, program string) string {
+	t.Helper()
 	c := qt.New(t)
-	name := "annotate"
+	name := program
 	if runtime.GOOS == "windows" {
 		name += ".exe"
 	}
@@ -70,7 +75,7 @@ func buildAnnotationTool(t *testing.T) string {
 	ctx, cancel := context.WithTimeout(t.Context(), 2*time.Minute)
 	defer cancel()
 	// #nosec G204 -- Compile the fixed local research command into a test-owned directory.
-	command := exec.CommandContext(ctx, "go", "build", "-trimpath", "-o", binary, "./cmd/annotate")
+	command := exec.CommandContext(ctx, "go", "build", "-trimpath", "-o", binary, "./cmd/"+program)
 	command.Dir = "../research/annotation"
 	command.Env = append(os.Environ(), "CGO_ENABLED=0", "GOWORK=off")
 	output, err := command.CombinedOutput()
@@ -80,11 +85,16 @@ func buildAnnotationTool(t *testing.T) string {
 
 func annotationCommand(t *testing.T, binary, name string, data []byte, exit int) []byte {
 	t.Helper()
+	return researchCommand(t, binary, []string{name}, data, exit)
+}
+
+func researchCommand(t *testing.T, binary string, args []string, data []byte, exit int) []byte {
+	t.Helper()
 	c := qt.New(t)
 	ctx, cancel := context.WithTimeout(t.Context(), time.Minute)
 	defer cancel()
 	// #nosec G204 -- The test selects the locally built command and a fixed operation.
-	command := exec.CommandContext(ctx, binary, name)
+	command := exec.CommandContext(ctx, binary, args...)
 	command.Stdin = bytes.NewReader(data)
 	var stdout, stderr bytes.Buffer
 	command.Stdout, command.Stderr = &stdout, &stderr

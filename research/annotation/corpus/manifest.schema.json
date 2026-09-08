@@ -1,0 +1,655 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unswell:corpus:manifest:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": "unswell-corpus-v1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "seed": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "weights": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "training": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "development": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "calibration": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "final_test": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        }
+      },
+      "required": [
+        "training",
+        "development",
+        "calibration",
+        "final_test"
+      ]
+    },
+    "extraction_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contexts": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "comment",
+                  "string",
+                  "paragraph",
+                  "heading",
+                  "list-item",
+                  "table-cell"
+                ]
+              },
+              "maxItems": 6,
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "languages": {
+          "anyOf": [
+            {
+              "type": "object",
+              "propertyNames": {
+                "type": "string",
+                "enum": [
+                  "text",
+                  "markdown",
+                  "go",
+                  "javascript",
+                  "typescript",
+                  "tsx",
+                  "python",
+                  "rust",
+                  "java",
+                  "c",
+                  "cpp",
+                  "csharp",
+                  "yaml",
+                  "bash",
+                  "sh",
+                  "zsh",
+                  "fish",
+                  "powershell"
+                ]
+              },
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "contexts": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "comment",
+                        "string",
+                        "paragraph",
+                        "heading",
+                        "list-item",
+                        "table-cell"
+                      ]
+                    },
+                    "maxItems": 6,
+                    "minItems": 0,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "contexts"
+                ]
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "exceptions": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  "paths": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096
+                    },
+                    "maxItems": 100,
+                    "minItems": 1,
+                    "uniqueItems": true
+                  },
+                  "formats": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "text",
+                            "markdown",
+                            "go",
+                            "javascript",
+                            "typescript",
+                            "tsx",
+                            "python",
+                            "rust",
+                            "java",
+                            "c",
+                            "cpp",
+                            "csharp",
+                            "yaml",
+                            "bash",
+                            "sh",
+                            "zsh",
+                            "fish",
+                            "powershell"
+                          ]
+                        },
+                        "maxItems": 18,
+                        "minItems": 0,
+                        "uniqueItems": true
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "kinds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "comment",
+                        "string"
+                      ]
+                    },
+                    "maxItems": 2,
+                    "minItems": 1,
+                    "uniqueItems": true
+                  },
+                  "symbols": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 4096
+                        },
+                        "maxItems": 100,
+                        "minItems": 0,
+                        "uniqueItems": true
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  }
+                },
+                "required": [
+                  "id",
+                  "paths",
+                  "kinds",
+                  "reason"
+                ]
+              },
+              "maxItems": 100,
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": []
+    },
+    "unit_kinds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "sentence",
+          "paragraph",
+          "fragment"
+        ]
+      },
+      "maxItems": 3,
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2097152
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "text",
+              "markdown",
+              "go",
+              "javascript",
+              "typescript",
+              "tsx",
+              "python",
+              "rust",
+              "java",
+              "c",
+              "cpp",
+              "csharp",
+              "yaml",
+              "bash",
+              "sh",
+              "zsh",
+              "fish",
+              "powershell"
+            ]
+          },
+          "prose_language": {
+            "const": "en"
+          },
+          "repository": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "document": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "authors": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "maxItems": 100,
+                "minItems": 0,
+                "uniqueItems": true
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "templates": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "maxItems": 100,
+                "minItems": 0,
+                "uniqueItems": true
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "related": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "maxItems": 100,
+                "minItems": 0,
+                "uniqueItems": true
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "generation_tasks": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "maxItems": 100,
+                "minItems": 0,
+                "uniqueItems": true
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "topic": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "author_language": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "author_language_basis": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "documentation",
+              "readme",
+              "api_reference",
+              "doc_comment",
+              "comment",
+              "release_note",
+              "string",
+              "error_message",
+              "log_message",
+              "ui_text",
+              "other_string"
+            ]
+          },
+          "role_regions": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "span": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "start": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "end": {
+                          "type": "integer",
+                          "minimum": 1
+                        }
+                      },
+                      "required": [
+                        "start",
+                        "end"
+                      ]
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "documentation",
+                        "readme",
+                        "api_reference",
+                        "doc_comment",
+                        "comment",
+                        "release_note",
+                        "string",
+                        "error_message",
+                        "log_message",
+                        "ui_text",
+                        "other_string"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "span",
+                    "role"
+                  ]
+                },
+                "maxItems": 1000,
+                "minItems": 0,
+                "uniqueItems": true
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "origin": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string",
+                "enum": [
+                  "human",
+                  "generated",
+                  "human_ai_edited",
+                  "generated_human_edited",
+                  "mixed",
+                  "unknown"
+                ]
+              },
+              "scope": {
+                "type": "string",
+                "enum": [
+                  "document",
+                  "repository"
+                ]
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "generation_record": {
+                "type": "string",
+                "maxLength": 4096
+              }
+            },
+            "required": [
+              "label",
+              "scope",
+              "evidence",
+              "generation_record"
+            ]
+          },
+          "rights": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "license": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "allowed_uses": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "annotation",
+                    "training",
+                    "evaluation",
+                    "redistribute_source",
+                    "redistribute_annotations"
+                  ]
+                },
+                "maxItems": 5,
+                "minItems": 1,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "license",
+              "evidence",
+              "allowed_uses"
+            ]
+          },
+          "notices": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "bytes": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2097152
+                }
+              },
+              "required": [
+                "path",
+                "sha256",
+                "bytes"
+              ]
+            },
+            "maxItems": 20,
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "partition": {
+            "type": "string",
+            "enum": [
+              "",
+              "training",
+              "development",
+              "calibration",
+              "final_test"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "path",
+          "sha256",
+          "bytes",
+          "format",
+          "prose_language",
+          "repository",
+          "document",
+          "authors",
+          "templates",
+          "related",
+          "generation_tasks",
+          "reference",
+          "topic",
+          "purpose",
+          "author_language",
+          "author_language_basis",
+          "role",
+          "role_regions",
+          "origin",
+          "rights",
+          "notices",
+          "partition"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 10000
+    }
+  },
+  "required": [
+    "version",
+    "id",
+    "seed",
+    "weights",
+    "extraction_policy",
+    "unit_kinds",
+    "sources"
+  ]
+}
