@@ -14,7 +14,7 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell/builtin` | Explicit builtin catalog factory | alpha |
 | `github.com/stokaro/unswell/config` | Strict in-memory policy compiler | alpha |
 | `github.com/stokaro/unswell/extract` | Source-preserving input extractors | alpha |
-| `github.com/stokaro/unswell/feature` | Versioned block measurements and immutable shared sets | alpha |
+| `github.com/stokaro/unswell/feature` | Versioned prose measurements and immutable lexical sets | alpha |
 | `github.com/stokaro/unswell/nlp` | Neutral provider and capability contract | alpha |
 | `github.com/stokaro/unswell/nlp/english` | Default pure-Go English backend | alpha |
 | `github.com/stokaro/unswell/report` | Writers and saved-result decoding | alpha |
@@ -57,6 +57,15 @@ block contract has its own identity, `unswell-block-features-v1`; it does not
 reinterpret the aggregate `unswell-features-v1` scoring/baseline identity. Descriptor
 hashes change for rules requesting the shared set. Statistical model collection,
 raw activation vectors, and the remaining #56 feature families are not yet complete.
+
+Lexical preprocessing adds `feature.WordSet`, `WordLimits`, `NewWordSet`,
+`Overlap`, `CompareWords`, `InformativeWord`, and `LexicalCatalog`. These share the
+existing repetition set-overlap formula and candidate filter. Available empty
+sets differ from unavailable zero values; an empty union has no Jaccard number.
+The contract is separately identified by `feature.LexicalContract`. No saved-result
+fields change, and the block `Catalog` retains its existing measurement order.
+Callers must retain source and preprocessing identities for model use and must
+not export the explicit word/key accessors in reports by default.
 
 The additive `rule.Parameters.MaxAnswerWords` field configures the experimental
 question/answer pattern. Its zero value is omitted from saved parameter objects;

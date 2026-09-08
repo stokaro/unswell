@@ -4,6 +4,7 @@ import (
 	"context"
 	"slices"
 
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -85,13 +86,17 @@ func (a *overlapAnalysis) pair(left, right int) error {
 	if a.summaries && (!v.summary || u.summary) {
 		return nil
 	}
-	if err := a.budget.spend(len(u.words) + len(v.words)); err != nil {
+	if err := a.budget.spend(u.words.Len() + v.words.Len()); err != nil {
 		return err
 	}
 	if u.block.Kind != v.block.Kind || u.signature != v.signature {
 		return nil
 	}
-	shared, union := wordOverlap(u.words, v.words)
+	overlap, err := feature.CompareWords(a.budget.ctx, u.words, v.words)
+	if err != nil {
+		return err
+	}
+	shared, union := overlap.Intersection(), overlap.Union()
 	if union > 0 && float64(shared)/float64(union) >= a.view.Parameters.Similarity {
 		a.parents[leader(a.parents, right)] = leader(a.parents, left)
 		a.edges = append(a.edges, overlapEdge{left, right, shared, union})

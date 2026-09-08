@@ -8,6 +8,7 @@ import (
 	"unicode"
 
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/nlp"
 	"github.com/stokaro/unswell/rule"
 )
@@ -152,27 +153,9 @@ func openers(ctx context.Context, view rule.View, emit rule.Emitter, paragraphs 
 
 func nearRepetition(ctx context.Context, view rule.View, emit rule.Emitter) error {
 	sentences := allSentences(view.Document)
-	index := candidateIndex{postings: make(map[string][]int), remaining: view.MaxCandidates}
-	parents := make([]int, len(sentences))
-	for i := range parents {
-		parents[i] = i
-	}
-	for i, sentence := range sentences {
-		if err := ctx.Err(); err != nil {
-			return err
-		}
-		if sentence.Words < view.Parameters.MinWords || sentenceKey(sentence) == "" {
-			continue
-		}
-		shingles := bigrams(normalizedWords(sentence))
-		ordered, err := index.candidates(ctx, shingles)
-		if err != nil {
-			return err
-		}
-		joinNearPairs(sentences, i, ordered, parents, view.Parameters)
-		for _, shingle := range shingles {
-			index.postings[shingle] = append(index.postings[shingle], i)
-		}
+	parents, err := linkNearCandidates(ctx, view, sentences)
+	if err != nil {
+		return err
 	}
 	groups := make(map[string][]rule.Occurrence)
 	for i, sentence := range sentences {
@@ -180,6 +163,41 @@ func nearRepetition(ctx context.Context, view rule.View, emit rule.Emitter) erro
 		groups[key] = append(groups[key], sentenceOccurrence(sentence))
 	}
 	return emitGroups(groups, 1, 2, "heuristic", emit)
+}
+
+func linkNearCandidates(ctx context.Context, view rule.View, sentences []document.Sentence) ([]int, error) {
+	units := make([]nearSentence, len(sentences))
+	index := candidateIndex{postings: make(map[string][]int), remaining: view.MaxCandidates}
+	parents := make([]int, len(sentences))
+	for i := range parents {
+		parents[i] = i
+	}
+	for i, sentence := range sentences {
+		if err := ctx.Err(); err != nil {
+			return nil, err
+		}
+		if sentence.Words < view.Parameters.MinWords || sentenceKey(sentence) == "" {
+			continue
+		}
+		words := normalizedWords(sentence)
+		set, err := makeWordSet(ctx, words, len(sentence.Text))
+		if err != nil {
+			return nil, err
+		}
+		units[i] = nearSentence{key: sentenceKey(sentence), signature: protectedSignature(sentence, view.Parameters), words: set}
+		shingles := bigrams(words)
+		ordered, err := index.candidates(ctx, shingles)
+		if err != nil {
+			return nil, err
+		}
+		if err := joinNearPairs(ctx, units, i, ordered, parents, view.Parameters.Similarity); err != nil {
+			return nil, err
+		}
+		for _, shingle := range shingles {
+			index.postings[shingle] = append(index.postings[shingle], i)
+		}
+	}
+	return parents, nil
 }
 
 type candidateIndex struct {
@@ -209,12 +227,25 @@ func (index *candidateIndex) candidates(ctx context.Context, shingles []string) 
 	return ordered, nil
 }
 
-func joinNearPairs(sentences []document.Sentence, index int, candidates, parents []int, parameters rule.Parameters) {
+type nearSentence struct {
+	key, signature string
+	words          feature.WordSet
+}
+
+func joinNearPairs(ctx context.Context, units []nearSentence, index int, candidates, parents []int, similarity float64) error {
 	for _, candidate := range candidates {
-		if nearPair(sentences[index], sentences[candidate], parameters) {
+		if err := ctx.Err(); err != nil {
+			return err
+		}
+		matches, err := nearPair(ctx, units[index], units[candidate], similarity)
+		if err != nil {
+			return err
+		}
+		if matches {
 			parents[leader(parents, index)] = leader(parents, candidate)
 		}
 	}
+	return nil
 }
 
 func leader(parents []int, index int) int {
@@ -234,23 +265,15 @@ func bigrams(words []string) []string {
 	return slices.Compact(result)
 }
 
-func nearPair(a, b document.Sentence, parameters rule.Parameters) bool {
-	if sentenceKey(a) == sentenceKey(b) {
-		return false
+func nearPair(ctx context.Context, left, right nearSentence, similarity float64) (bool, error) {
+	if left.key == right.key || left.signature != right.signature {
+		return false, nil
 	}
-	if protectedSignature(a, parameters) != protectedSignature(b, parameters) {
-		return false
+	overlap, err := feature.CompareWords(ctx, left.words, right.words)
+	if err != nil {
+		return false, err
 	}
-	left := make(map[string]bool)
-	for _, word := range normalizedWords(a) {
-		left[word] = true
-	}
-	right := make(map[string]bool)
-	for _, word := range normalizedWords(b) {
-		right[word] = true
-	}
-	intersection, union := wordOverlap(left, right)
-	return union > 0 && float64(intersection)/float64(union) >= parameters.Similarity
+	return overlap.Union() > 0 && float64(overlap.Intersection())/float64(overlap.Union()) >= similarity, nil
 }
 
 func protectedSignature(sentence document.Sentence, parameters rule.Parameters) string {

@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -37,13 +38,17 @@ func compareHeading(view rule.View, heading, paragraph document.Block, budget *r
 	if err != nil || !ok {
 		return err
 	}
-	if err := budget.spend(len(left.words) + len(right.words)); err != nil {
+	if err := budget.spend(left.words.Len() + right.words.Len()); err != nil {
 		return err
 	}
 	if left.signature != right.signature {
 		return nil
 	}
-	shared, union := wordOverlap(left.words, right.words)
+	overlap, err := feature.CompareWords(budget.ctx, left.words, right.words)
+	if err != nil {
+		return err
+	}
+	shared, union := overlap.Intersection(), overlap.Union()
 	value := float64(shared) / float64(union)
 	if value < view.Parameters.Similarity {
 		return nil

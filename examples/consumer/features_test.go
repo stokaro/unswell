@@ -75,3 +75,18 @@ func TestSharedFeaturesThroughPublicEngine(t *testing.T) {
 	c.Assert(err, qt.IsNil)
 	c.Assert(m.Spans(), qt.DeepEquals, []document.Span{{Start: 0, End: 3}, {Start: 6, End: 9}, {Start: 12, End: 17}})
 }
+
+func TestPublicLexicalMeasurements(t *testing.T) {
+	c := qt.New(t)
+	limits := feature.WordLimits{MaxWords: 10, MaxUniqueWords: 10, MaxBytes: 100}
+	left, err := feature.NewWordSet(t.Context(), []string{"the", "cache", "entry"}, limits)
+	c.Assert(err, qt.IsNil)
+	right, err := feature.NewWordSet(t.Context(), []string{"the", "cache", "record"}, limits)
+	c.Assert(err, qt.IsNil)
+	value, err := feature.CompareWords(t.Context(), left, right)
+	c.Assert(err, qt.IsNil)
+	c.Assert(value.Available(), qt.IsTrue)
+	c.Assert(value.Intersection(), qt.Equals, 2)
+	c.Assert(value.Union(), qt.Equals, 4)
+	c.Assert(*value.Values()[2].Number, qt.Equals, 0.5)
+}
