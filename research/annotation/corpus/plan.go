@@ -14,7 +14,8 @@ import (
 const assignmentAlgorithm = "connected-sources-sha256-v1"
 
 // MakePlan groups original sources before extraction and assigns whole components.
-// The returned manifest is detached from the caller, with set-valued fields sorted.
+// The returned manifest is detached from the caller. Source/group/context sets
+// are sorted; extraction exceptions retain their declared selector order.
 func MakePlan(ctx context.Context, manifest Manifest) (Plan, error) {
 	if err := manifest.validate(ctx); err != nil {
 		return Plan{}, err

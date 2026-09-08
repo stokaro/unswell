@@ -11,7 +11,7 @@ import (
 // LoadPlan rejects ambiguous JSON and a modified or stale assignment artifact.
 func LoadPlan(ctx context.Context, data []byte) (Plan, error) {
 	var plan Plan
-	if err := jsoninput.Decode(ctx, data, MaxManifestBytes, &plan); err != nil {
+	if err := jsoninput.Decode(ctx, data, MaxManifestBytes, &plan, inputLimits()); err != nil {
 		return Plan{}, err
 	}
 	if err := ValidatePlan(ctx, plan); err != nil {
@@ -24,7 +24,7 @@ func LoadPlan(ctx context.Context, data []byte) (Plan, error) {
 // Call Verify before treating source maps or candidate contents as reproduced.
 func LoadArtifact(ctx context.Context, data []byte) (Artifact, error) {
 	var artifact Artifact
-	if err := jsoninput.Decode(ctx, data, MaxArtifactBytes, &artifact); err != nil {
+	if err := jsoninput.Decode(ctx, data, MaxArtifactBytes, &artifact, inputLimits()); err != nil {
 		return Artifact{}, err
 	}
 	if err := artifact.validate(ctx); err != nil {

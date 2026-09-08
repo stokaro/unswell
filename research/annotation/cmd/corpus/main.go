@@ -42,9 +42,7 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 	if err != nil {
 		return err
 	}
-	data, err := commandio.Await(ctx, func() ([]byte, error) {
-		return io.ReadAll(io.LimitReader(input, corpus.MaxArtifactBytes+1))
-	})
+	data, err := readInput(ctx, args[0], input)
 	if err != nil {
 		return err
 	}
@@ -64,6 +62,16 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 		return io.ErrShortWrite
 	}
 	return err
+}
+
+func readInput(ctx context.Context, name string, input io.Reader) ([]byte, error) {
+	maximum := corpus.MaxArtifactBytes
+	if name != "verify" {
+		maximum = corpus.MaxManifestBytes
+	}
+	return commandio.Await(ctx, func() ([]byte, error) {
+		return io.ReadAll(io.LimitReader(input, int64(maximum)+1))
+	})
 }
 
 func operation(ctx context.Context, name, root string, data []byte) (any, error) {
