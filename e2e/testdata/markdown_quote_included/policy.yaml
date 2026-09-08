@@ -1,0 +1,6 @@
+version: 1
+extends: [builtin:custom]
+analysis:
+  include_quotes: true
+rules:
+  filler.announced-importance: {enabled: true, severity: error, gate: forbid}

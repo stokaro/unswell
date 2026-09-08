@@ -39,6 +39,11 @@ and other block boundaries still end the table. The adapter uses a mapped block
 parser input to work around the pinned scanner's empty-row handling; inline prose
 and reported ranges always come from the original source.
 
+Markdown inputs may end without a final newline. The block parser receives
+mapped framing to retain the first block's grammar wrapper and finish the last
+block. It never becomes source text or part of a reported range. Headings retain
+their structure at EOF, and leading protected blocks retain their exclusions.
+
 Original UTF-8 byte coordinates survive CRLF, escaped Unicode, Markdown entities,
 emphasis and removed delimiters. A decoded character points to its full original
 escape. Interpolation expressions and command substitutions insert protected
