@@ -150,3 +150,8 @@ heading/summary structure, and clean technical contrasts. `repetition_code` cove
 escaped Go strings and a reasoned permission for a repeated comment block. Both
 retain exact source coordinates with CRLF and a BOM. Library tests also check
 numeric units, modalities, terminology, resource budgets, and concurrent reuse.
+
+`surface_patterns` covers all eight experimental syntax/readability and
+formatting rules with file-specific policies, CRLF, a BOM, emphasis, and entities.
+`surface_code` checks the same engine through Go comments and escaped
+string literals. Unannotated clean prose must produce no extra findings.

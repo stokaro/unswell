@@ -1,0 +1,5 @@
+version: 1
+extends: [builtin:custom]
+rules:
+  syntax.nominalization-chain: {enabled: true, gate: forbid}
+  format.em-dash-density: {enabled: true, gate: forbid, parameters: {min_words: 1}}

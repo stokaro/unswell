@@ -1,0 +1,109 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "syntax.nominalization-chain",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Consider a direct verb while preserving the subject, conditions, and technical meaning.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 24,
+          "end": 67
+        },
+        "start": {
+          "line": 3,
+          "column": 7
+        },
+        "end": {
+          "line": 3,
+          "column": 50
+        },
+        "segments": [
+          {
+            "start": 24,
+            "end": 31
+          },
+          {
+            "start": 32,
+            "end": 34
+          },
+          {
+            "start": 35,
+            "end": 45
+          },
+          {
+            "start": 46,
+            "end": 48
+          },
+          {
+            "start": 49,
+            "end": 52
+          },
+          {
+            "start": 53,
+            "end": 67
+          }
+        ]
+      },
+      "related": []
+    },
+    {
+      "rule_id": "format.em-dash-density",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "paragraph",
+      "message": "Em dashes exceed the selected local density; punctuation can be intentional.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 177,
+          "end": 183
+        },
+        "start": {
+          "line": 6,
+          "column": 35
+        },
+        "end": {
+          "line": 6,
+          "column": 41
+        },
+        "segments": [
+          {
+            "start": 177,
+            "end": 183
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "sample.go",
+          "span": {
+            "start": 197,
+            "end": 203
+          },
+          "start": {
+            "line": 6,
+            "column": 55
+          },
+          "end": {
+            "line": 6,
+            "column": 61
+          },
+          "segments": [
+            {
+              "start": 197,
+              "end": 203
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

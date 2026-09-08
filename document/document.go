@@ -106,13 +106,26 @@ func Bounds(spans []Span) Span {
 // labels, not line numbers; an empty context means no named owner was available.
 // Slices are immutable during rule evaluation.
 type Block struct {
-	ID      int      `json:"id"`
-	Kind    string   `json:"kind"`
-	Span    Span     `json:"span"`
-	Context []string `json:"context,omitempty"`
+	ID      int          `json:"id"`
+	Kind    string       `json:"kind"`
+	Span    Span         `json:"span"`
+	Context []string     `json:"context,omitempty"`
+	List    *ListContext `json:"list,omitempty"`
 	MappedText
 	Sentences []Sentence `json:"sentences"`
 	Words     int        `json:"words"`
+}
+
+// ListContext describes a grammar-recognized Markdown list. IDs and item ordinals
+// are local to one extracted document and do not encode source text or positions.
+type ListContext struct {
+	ID      int  `json:"id"`
+	Item    int  `json:"item"`
+	Items   int  `json:"items"`
+	Depth   int  `json:"depth"`
+	Ordered bool `json:"ordered"`
+	Task    bool `json:"task"`
+	Complex bool `json:"complex"` // Nested lists, multiple prose blocks, headings, or protected blocks.
 }
 
 // Token carries original evidence and a Penn Treebank POS tag.

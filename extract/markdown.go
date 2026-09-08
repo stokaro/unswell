@@ -17,6 +17,7 @@ type markdownReader struct {
 	input    markdownInput
 	options  Options
 	headings map[markdownScope][6]string
+	lists    map[document.Span]document.ListContext
 }
 
 func markdown(ctx context.Context, doc *document.Document, options Options) error {
@@ -30,7 +31,12 @@ func markdown(ctx context.Context, doc *document.Document, options Options) erro
 	}
 	defer syntax.tree.Release()
 	reader := markdownReader{ctx: ctx, doc: doc, syntax: syntax, input: input, options: options,
-		headings: make(map[markdownScope][6]string)}
+		headings: make(map[markdownScope][6]string), lists: make(map[document.Span]document.ListContext)}
+	if options.IncludeStructure {
+		if err := reader.indexLists(); err != nil {
+			return err
+		}
+	}
 	return walkSyntax(ctx, syntax.tree.RootNode(), 0, reader.block)
 }
 
@@ -154,6 +160,13 @@ func (r *markdownReader) appendInline(node *ts.Node, mapped document.MappedText,
 	appendBlock(r.doc, mapped, kind)
 	if r.options.IncludeStructure && len(r.doc.Blocks) > before {
 		r.doc.Blocks[before].Context = r.sectionContext(node)
+		if kind == "list-item" {
+			list, err := r.listContext(node)
+			if err != nil {
+				return err
+			}
+			r.doc.Blocks[before].List = list
+		}
 	}
 	return nil
 }

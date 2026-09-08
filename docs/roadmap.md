@@ -130,7 +130,8 @@ Additional filler/hype signals and repeated rhetorical patterns are available as
 [opt-in experiments](editorial-patterns.md); their corpus qualification remains open.
 [Repetition experiments](repetition-signals.md) cover n-grams, templates, paragraph
 overlap, and heading/summary echoes, with the same qualification requirement.
-The remaining catalog includes nominalization/noun stacks, parenthetical load,
-readability and experimental formatting.
+[Surface experiments](surface-signals.md) cover nominalization, noun stacks,
+passive candidates, parenthetical load, readability, and formatting. These are
+unqualified candidates; they remain disabled in builtin profiles.
 Dependency-based passive, long-subject and nested-clause rules require a real
 dependency backend. They must never silently fall back to surface approximations.

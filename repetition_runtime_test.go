@@ -20,7 +20,7 @@ func TestRepetitionLimitsAndCapabilities(t *testing.T) {
 	text := overlapParagraph + "\n\n## Summary\n\n" + overlapParagraph
 	for _, id := range []string{"repetition.ngram-density", "repetition.syntax-template", "repetition.paragraph-overlap",
 		"repetition.heading-echo", "repetition.summary-echo"} {
-		engine := repetitionEngine(t, id, "", "analysis: {max_candidates: 1}\n")
+		engine := singleRuleEngine(t, id, "", "analysis: {max_candidates: 1}\n")
 		result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)})
 		c.Assert(err, qt.ErrorMatches, ".*max_candidates.*", qt.Commentf("%s", id))
 		c.Assert(result.Gate.Passed, qt.IsFalse)
@@ -28,7 +28,7 @@ func TestRepetitionLimitsAndCapabilities(t *testing.T) {
 		_, err = unswell.New(unswell.Options{Config: config, NLP: limitedPolicyNLP{Provider: provider}})
 		c.Assert(err, qt.ErrorMatches, "rule "+id+" requires unavailable capability pos")
 	}
-	engine := repetitionEngine(t, "repetition.ngram-density", "", "")
+	engine := singleRuleEngine(t, "repetition.ngram-density", "", "")
 	ctx, cancel := context.WithCancel(t.Context())
 	cancel()
 	result, err := engine.Analyze(ctx, document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(repeatedPhraseProse)})
@@ -83,7 +83,7 @@ func TestRepeatedFactsAndCorrelatedEvidence(t *testing.T) {
 		text += "The clear release notes describe the timeout of " + value + " seconds for the new client. "
 	}
 	for _, id := range []string{"repetition.ngram-density", "repetition.syntax-template"} {
-		c.Assert(repetitionResult(t, id, text, "", "").Findings, qt.HasLen, 0)
+		c.Assert(singleRuleResult(t, id, text, "", "").Findings, qt.HasLen, 0)
 	}
 	config := "version: 1\nextends: [builtin:custom]\nrules:\n" +
 		"  repetition.ngram-density: {enabled: true, score: {weight: 100, cap: 100}}\n" +
@@ -102,7 +102,7 @@ func TestRepeatedFactsAndCorrelatedEvidence(t *testing.T) {
 
 func TestRepetitionConcurrentReuse(t *testing.T) {
 	c := qt.New(t)
-	engine := repetitionEngine(t, "repetition.paragraph-overlap", "", "")
+	engine := singleRuleEngine(t, "repetition.paragraph-overlap", "", "")
 	text := overlapParagraph + "\n\n" + strings.Replace(overlapParagraph, "opens", "creates", 1)
 	source := document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)}
 	want, err := engine.Analyze(t.Context(), source)
@@ -124,7 +124,7 @@ func TestSyntaxTemplatesDistinguishInstructionsAndExactCopies(t *testing.T) {
 	const second = "The curious reader reviews the clear procedure for the entire small group."
 	const third = "The skilled editor explains the useful approach for the entire new audience."
 	c := qt.New(t)
-	result := repetitionResult(t, "repetition.syntax-template", first+" "+second+" "+third, "", "")
+	result := singleRuleResult(t, "repetition.syntax-template", first+" "+second+" "+third, "", "")
 	c.Assert(result.Findings, qt.HasLen, 1)
 	c.Assert(result.Findings[0].Related, qt.HasLen, 2)
 	c.Assert(result.Findings[0].Evidence.Metrics[1].Value, qt.Equals, float64(3))
@@ -133,6 +133,6 @@ func TestSyntaxTemplatesDistinguishInstructionsAndExactCopies(t *testing.T) {
 		"- " + first + "\n- " + second + "\n- " + third,
 		strings.ReplaceAll(first+" "+second+" "+third, "process", "`process`"),
 	} {
-		c.Assert(repetitionResult(t, "repetition.syntax-template", text, "", "").Findings, qt.HasLen, 0)
+		c.Assert(singleRuleResult(t, "repetition.syntax-template", text, "", "").Findings, qt.HasLen, 0)
 	}
 }

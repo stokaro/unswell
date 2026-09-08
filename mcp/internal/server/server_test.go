@@ -134,6 +134,8 @@ func TestInvalidToolArgumentsCannotWeakenPolicy(t *testing.T) {
 func TestContextualClustersMatchThePublicEngine(t *testing.T) {
 	for _, row := range []struct{ id, text string }{
 		{"filler.section-announcement", "In this section, we will describe setup. In this section, we will describe deployment."},
+		{"syntax.passive-candidate-density", "The request is carefully validated by the server before execution. " +
+			"The response is securely recorded by the client after completion."},
 		{"repetition.summary-echo", "The client opens a connection to the server and sends the request with its credentials.\n\n" +
 			"## Summary\n\nThe client creates a connection to the server and sends the request with its credentials."},
 	} {

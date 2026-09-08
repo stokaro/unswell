@@ -1,6 +1,7 @@
 package unswell_test
 
 import (
+	"slices"
 	"strings"
 	"testing"
 
@@ -95,7 +96,7 @@ func TestNewEditorialRulesRequireExplicitOptIn(t *testing.T) {
 	newRules := 0
 	for _, implementation := range builtin.Rules() {
 		d := implementation.Descriptor()
-		if d.Defaults.Enabled || strings.HasPrefix(d.ID, "repetition.") {
+		if d.Defaults.Enabled || strings.HasPrefix(d.ID, "repetition.") || surfaceRuleID(d.ID) {
 			continue
 		}
 		newRules++
@@ -111,4 +112,10 @@ func TestNewEditorialRulesRequireExplicitOptIn(t *testing.T) {
 		}
 	}
 	c.Assert(newRules, qt.Equals, 11)
+}
+
+func surfaceRuleID(id string) bool {
+	return slices.Contains([]string{"syntax.nominalization-chain", "syntax.noun-stack", "syntax.passive-candidate-density",
+		"syntax.parenthetical-load", "readability.long-paragraph", "readability.grade-metric",
+		"format.em-dash-density", "format.list-fragmentation"}, id)
 }

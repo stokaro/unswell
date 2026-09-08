@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math"
 	"slices"
+	"strings"
+	"unicode"
 
 	"github.com/stokaro/unswell/extract"
 	"github.com/stokaro/unswell/internal/pathglob"
@@ -113,6 +115,9 @@ func validateParameters(p rule.Parameters, accepted []string) error {
 			return fmt.Errorf("invalid %s parameter", name)
 		}
 	}
+	if err := validateWordLists(p.Verbs, p.Nouns); err != nil {
+		return err
+	}
 	return validatePhrases(p.Phrases)
 }
 
@@ -125,8 +130,26 @@ func parameterValidity(p rule.Parameters) map[string]bool {
 		"min_ngram_words":  inRange(p.MinNgramWords, 3, 8) && p.MinNgramWords <= p.MaxNgramWords,
 		"max_ngram_words":  inRange(p.MaxNgramWords, 3, 8) && p.MaxNgramWords >= p.MinNgramWords,
 		"window_blocks":    inRange(p.WindowBlocks, 1, 128),
-		"similarity":       !math.IsNaN(p.Similarity) && p.Similarity > 0 && p.Similarity <= 1, "window": p.Window == "document",
+		"min_sentences":    inRange(p.MinSentences, 1, 1000), "sentence_words": inRange(p.SentenceWords, 1, 10000),
+		"min_long_sentences": inRange(p.MinLongSentences, 1, 1000),
+		"allowed_depth":      inRange(p.AllowedDepth, 0, 16), "saturation_depth": inRange(p.SaturationDepth, p.AllowedDepth+1, 32),
+		"max_item_words": inRange(p.MaxItemWords, 1, 1000), "max_list_items": inRange(p.MaxListItems, 1, 100),
+		"similarity": !math.IsNaN(p.Similarity) && p.Similarity > 0 && p.Similarity <= 1, "window": p.Window == "document",
 	}
+}
+
+func validateWordLists(lists ...[]string) error {
+	for _, words := range lists {
+		if err := validatePhrases(words); err != nil {
+			return err
+		}
+		for _, word := range words {
+			if strings.ContainsFunc(word, func(r rune) bool { return !unicode.IsLetter(r) }) {
+				return fmt.Errorf("verb and noun dictionaries require single words containing only letters")
+			}
+		}
+	}
+	return nil
 }
 
 func validatePhrases(phrases []string) error {

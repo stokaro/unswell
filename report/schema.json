@@ -591,20 +591,44 @@
     "rule.Parameters": {
       "additionalProperties": false,
       "properties": {
+        "allowed_depth": {
+          "type": "integer"
+        },
         "allowed_occurrences": {
           "type": "integer"
         },
         "max_answer_words": {
           "type": "integer"
         },
+        "max_item_words": {
+          "type": "integer"
+        },
+        "max_list_items": {
+          "type": "integer"
+        },
         "max_ngram_words": {
+          "type": "integer"
+        },
+        "min_long_sentences": {
           "type": "integer"
         },
         "min_ngram_words": {
           "type": "integer"
         },
+        "min_sentences": {
+          "type": "integer"
+        },
         "min_words": {
           "type": "integer"
+        },
+        "nouns": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
         },
         "onset": {
           "type": "integer"
@@ -642,11 +666,26 @@
         "saturation": {
           "type": "integer"
         },
+        "saturation_depth": {
+          "type": "integer"
+        },
         "saturation_occurrences": {
+          "type": "integer"
+        },
+        "sentence_words": {
           "type": "integer"
         },
         "similarity": {
           "type": "number"
+        },
+        "verbs": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
         },
         "window": {
           "type": "string"

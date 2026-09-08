@@ -30,7 +30,7 @@ extraction:
       symbols: [definitions]
       reason: "The phrase catalog stores the wording that the rules must detect."
     - id: rule-examples
-      paths: ["builtin/context.go", "builtin/repetition.go", "builtin/editorial_catalog.go", "builtin/repetition_catalog.go"]
+      paths: ["builtin/context.go", "builtin/repetition.go", "builtin/editorial_catalog.go", "builtin/repetition_catalog.go", "builtin/surface_catalog.go"]
       kinds: [string]
       symbols: [Text]
       reason: "Executable rule examples contain both matching and nonmatching prose."
@@ -73,3 +73,11 @@ rules:
   repetition.paragraph-overlap: {enabled: true, gate: forbid}
   repetition.heading-echo: {enabled: true, gate: forbid}
   repetition.summary-echo: {enabled: true, gate: forbid}
+  syntax.nominalization-chain: {enabled: true}
+  syntax.noun-stack: {enabled: true}
+  syntax.passive-candidate-density: {enabled: true}
+  syntax.parenthetical-load: {enabled: true}
+  readability.long-paragraph: {enabled: true}
+  readability.grade-metric: {enabled: true}
+  format.em-dash-density: {enabled: true}
+  format.list-fragmentation: {enabled: true}

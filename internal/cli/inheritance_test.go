@@ -79,3 +79,24 @@ func TestDocumentedConfigurationExamples(t *testing.T) {
 		c.Assert(explanation.Policy.Rules["hype.modifier-cluster"].Enabled, qt.Equals, name == "docs/guide.md")
 	}
 }
+
+func TestSurfaceConfigurationExample(t *testing.T) {
+	c := qt.New(t)
+	guide, err := fs.ReadFile(os.DirFS("../.."), "docs/surface-signals.md")
+	c.Assert(err, qt.IsNil)
+	examples := regexp.MustCompile("(?s)```yaml\\n(.*?)\\n```").FindAllSubmatch(guide, -1)
+	c.Assert(examples, qt.HasLen, 1)
+	root := t.TempDir()
+	c.Assert(os.WriteFile(filepath.Join(root, ".unswell.yaml"), examples[0][1], 0o600), qt.IsNil)
+	runRulesCLI(t, root, []string{"config", "validate"}, 0)
+	output := runRulesCLI(t, root, []string{"config", "explain", "--file", "guide.md"}, 0)
+	var explanation struct {
+		Policy config.Policy `json:"policy"`
+	}
+	c.Assert(json.Unmarshal([]byte(output), &explanation), qt.IsNil)
+	for _, id := range []string{"syntax.nominalization-chain", "syntax.noun-stack", "readability.grade-metric", "format.list-fragmentation"} {
+		c.Assert(explanation.Policy.Rules[id].Enabled, qt.IsTrue)
+		c.Assert(explanation.Policy.Rules[id].Gate, qt.Equals, "none")
+	}
+	c.Assert(explanation.Policy.Rules["readability.grade-metric"].Score.Weight, qt.Equals, 0)
+}
