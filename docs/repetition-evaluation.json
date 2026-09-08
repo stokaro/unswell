@@ -1,0 +1,42 @@
+{
+  "evidence_version": 1,
+  "implementation_commit": "0473dc86bdc4c9a2a4ec93d4697c14ed23271d92",
+  "recorded_at": "2026-09-08T06:05:44.684228+00:00",
+  "benchmark": {
+    "command": "go test . -run '^$' -bench BenchmarkRepetitionScaling -benchtime=3x -count=1",
+    "go_version": "go1.27.1",
+    "os": "darwin",
+    "architecture": "arm64",
+    "cpu": "Apple M3 Pro",
+    "gomaxprocs": 11,
+    "max_candidates": 8000000,
+    "concurrent_agent_checks": false,
+    "output": "goos: darwin\ngoarch: arm64\npkg: github.com/stokaro/unswell\ncpu: Apple M3 Pro\nBenchmarkRepetitionScaling/repetition.ngram-density/blocks=128-11         \t       3\t  17230195 ns/op\t   0.66 MB/s\t 8036722 B/op\t   67507 allocs/op\nBenchmarkRepetitionScaling/repetition.ngram-density/blocks=512-11         \t       3\t  42516986 ns/op\t   1.08 MB/s\t27043200 B/op\t  260294 allocs/op\nBenchmarkRepetitionScaling/repetition.ngram-density/blocks=2048-11        \t       3\t 199531667 ns/op\t   0.93 MB/s\t107707045 B/op\t 1033607 allocs/op\nBenchmarkRepetitionScaling/repetition.syntax-template/blocks=128-11       \t       3\t   5104028 ns/op\t   2.24 MB/s\t 4226253 B/op\t   32972 allocs/op\nBenchmarkRepetitionScaling/repetition.syntax-template/blocks=512-11       \t       3\t  18952861 ns/op\t   2.43 MB/s\t14936064 B/op\t  123277 allocs/op\nBenchmarkRepetitionScaling/repetition.syntax-template/blocks=2048-11      \t       3\t  73535681 ns/op\t   2.52 MB/s\t58094570 B/op\t  484320 allocs/op\nBenchmarkRepetitionScaling/repetition.paragraph-overlap/blocks=128-11     \t       3\t   6269680 ns/op\t   1.82 MB/s\t 4339016 B/op\t   34348 allocs/op\nBenchmarkRepetitionScaling/repetition.paragraph-overlap/blocks=512-11     \t       3\t  20486889 ns/op\t   2.24 MB/s\t15553312 B/op\t  128995 allocs/op\nBenchmarkRepetitionScaling/repetition.paragraph-overlap/blocks=2048-11    \t       3\t  73139500 ns/op\t   2.53 MB/s\t60863664 B/op\t  507372 allocs/op\nPASS\nok  \tgithub.com/stokaro/unswell\t2.478s\n",
+    "limitations": [
+      "Synthetic technical blocks with distinct numeric facts.",
+      "Allocations are cumulative bytes per operation, not peak resident memory.",
+      "This run does not qualify corpus precision or the Linux resource target."
+    ]
+  },
+  "ptah_smoke": {
+    "repository": "stokaro/ptah",
+    "commit": "112a72244a81db149899df0ce43afc704a152bc4",
+    "source_hashes": {
+      "README.md": "cc1132150e7c3c4ec0dfdbcd3f4faeff3433f515fe5f5bd142a7e5e402f2fb51",
+      "PARSER_IMPLEMENTATION.md": "08957be3f8dbcf65ba42ac6f36f13ea55f08d8b15aa25f61605dfe235268d665",
+      "migration/lint/lint.go": "023800df2426437e4b6f0faa8436521eb0018fda9faa04888c3db8444d2e8da4",
+      "migration/lint/scan.go": "4caab0b1e46694dd14229ee9263c46701df62799c38f902ed34aee837aa4feea"
+    },
+    "tool_commit": "0473dc86bdc4c9a2a4ec93d4697c14ed23271d92",
+    "config_hash": "2f92a4a5d9814ce1b6701bd800c8b629c266d9afa4eb5eb3d0ef7fc0ad61a875",
+    "status": "complete",
+    "document_count": 4,
+    "findings_by_rule": {},
+    "source_unchanged": true,
+    "policy_yaml": "version: 1\nextends: [builtin:custom]\nrules:\n  repetition.ngram-density: {enabled: true}\n  repetition.syntax-template: {enabled: true}\n  repetition.paragraph-overlap: {enabled: true}\n  repetition.heading-echo: {enabled: true}\n  repetition.summary-echo: {enabled: true}\n",
+    "gate_bypassed_for_observation": true,
+    "limitations": [
+      "Four selected files; no quality labels or accuracy estimate."
+    ]
+  }
+}

@@ -129,3 +129,10 @@ resident memory. This scaling check does not establish corpus accuracy or the
 roadmap's Linux 2-vCPU/512-MiB performance target. Qualification and full resource
 acceptance remain in #26 and #28. [ADR 0010](adr/0010-repetition-signals.md) records
 the design and compatibility boundaries.
+
+[Recorded evaluation](repetition-evaluation.json) contains the implementation commit,
+benchmark command, environment, raw measurements, and a read-only Ptah smoke scan
+with source hashes. On that Mac, scanning 2048 synthetic blocks took about 200 ms
+for n-grams and 74 ms for templates or paragraph overlap. These are local measurements,
+not release resource guarantees. The four-file Ptah sample produced no new repetition
+findings; its size and absence of quality labels prevent an accuracy conclusion.
