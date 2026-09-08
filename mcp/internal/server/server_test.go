@@ -20,6 +20,10 @@ import (
 
 func connect(c *qt.C, ctx context.Context, options server.Options) *mcp.ClientSession {
 	c.Helper()
+	// testing.T.Context is canceled before cleanup. Keep the transport alive
+	// until the explicit session shutdown has finished reading pending replies.
+	ctx, cancel := context.WithCancel(context.WithoutCancel(ctx))
+	c.Cleanup(cancel)
 	instance, err := server.New(options)
 	c.Assert(err, qt.IsNil)
 	client := mcp.NewClient(&mcp.Implementation{Name: "unswell-test", Version: "1"}, nil)
