@@ -196,6 +196,12 @@ numeric units, modalities, terminology, resource budgets, and concurrent reuse.
 
 `surface_patterns` covers all eight experimental syntax/readability and
 formatting rules with file-specific policies, CRLF, a BOM, emphasis, and entities.
+`window_phrase_activations` checks repeated section announcements, empty transitions,
+and metaphors. Annotated detections and feature goldens cover cluster membership,
+an allowed occurrence, clean zeros, protected sentences, headings, short fragments,
+and separate Go comments and strings. BOM/CRLF, Unicode, and Markdown emphasis
+exercise original coordinates in JSON and SARIF.
+
 `noun_ambiguity` preserves the reported package and method comments as negative
 cases in Go and Markdown, alongside genuine stacks with singular and plural heads.
 The GitHub matcher tests render real text reports, preserve severity and locations,

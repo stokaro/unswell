@@ -13,12 +13,13 @@ import (
 type tokenMatch struct{ start, end int }
 
 type editorialMatcher struct {
-	ctx      context.Context
-	view     rule.View
-	patterns map[string][][]string
-	fixed    map[string][]string
-	words    map[string]bool
-	checks   int
+	ctx          context.Context
+	view         rule.View
+	patterns     map[string][][]string
+	fixed        map[string][]string
+	words        map[string]bool
+	checks       int
+	observations *windowPhraseObservations
 }
 
 func newEditorialMatcher(ctx context.Context, view rule.View) *editorialMatcher {
@@ -56,6 +57,9 @@ func (m *editorialMatcher) phrases(sentence document.Sentence, opening bool) ([]
 		}
 		if opening && i > 0 {
 			break
+		}
+		if err := m.observePhraseStart(sentence, i); err != nil {
+			return nil, err
 		}
 		end, err := m.phraseAt(sentence, i)
 		if err != nil {

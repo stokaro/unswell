@@ -44,10 +44,11 @@ func editorialPhraseRules() []rule.Rule {
 	}
 	var rules []rule.Rule
 	for _, d := range []rule.Descriptor{section, transition, metaphor} {
+		d.BlockObservations = true
 		d.Parameters = append(d.Parameters, "phrases")
 		d.Description = "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default."
 		d.Limitations += " Only configured phrases are recognized; literal meanings and local exceptions require editorial review."
-		rules = append(rules, check{d, editorialWindow(phraseEvents(d.ID != metaphor.ID), "phrase-patterns", d.ID == section.ID)})
+		rules = append(rules, check{d, windowPhrases(d.ID != metaphor.ID, d.ID == section.ID)})
 	}
 	praise := experimentalPattern("hype.vague-praise", "Replace general praise with a specific property or measured result.", "inflation",
 		rule.Example{Text: "This is a game-changing solution for the team.", Match: true},
@@ -107,10 +108,10 @@ func editorialRhetoricRules() []rule.Rule {
 	question.Description = "Counts configured complete questions followed in the same block by a short nonquestion answer."
 	question.Limitations += " Arbitrary questions are not classified. Numeric/code answers are excluded; disable for FAQ paths."
 	return []rule.Rule{
-		check{contrast, editorialWindow(pairedContrastEvents, "contrast-pairs", false)},
-		check{triad, editorialWindow(triadEvents, "evaluative-triads", false)},
-		check{whether, editorialWindow(whetherEvents, "whether-prefaces", false)},
-		check{question, editorialWindow(questionEvents, "question-answer-pairs", false)},
+		check{contrast, editorialWindow(pairedContrastEvents, "contrast-pairs")},
+		check{triad, editorialWindow(triadEvents, "evaluative-triads")},
+		check{whether, editorialWindow(whetherEvents, "whether-prefaces")},
+		check{question, editorialWindow(questionEvents, "question-answer-pairs")},
 	}
 }
 

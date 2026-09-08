@@ -99,6 +99,25 @@ candidate scopes cannot become negative training examples merely because an
 emitter was silent. Windowed rhetoric, repetition, and list rules require their
 own accounting and remain outside this local increment.
 
+The three windowed phrase rules also declare full observations: section
+announcements, empty transitions, and metaphor clusters. They reuse the existing
+prose runs and phrase traversal. A configured token length fitting at an inspected
+start, outside an approved term, establishes applicability even when the indexed
+dictionary lookup finds no match. Opening-only rules retain that restriction;
+metaphors retain matching anywhere in a sentence. Protected sentences remain
+excluded in their entirety, including a matching phrase beside protected code.
+Unsupported block kinds, no patterns, no sentences, and no eligible window retain
+distinct absence reasons. A single allowed occurrence is an evaluated zero;
+cluster activations apply only to the blocks carrying occurrences. Headings may
+bridge section-announcement runs but never acquire a numeric value themselves.
+
+Optional eligibility checks use sorted unique pattern lengths and stop after a
+block has supplied a candidate. Observation state belongs to one evaluation and
+is bounded by the existing block and phrase limits. Matching, candidate charges,
+window grouping, source boundaries, and finding versions remain unchanged. No
+observer means no eligibility scans or observation map. Paired rhetoric, other
+editorial rules, repetition, and lists still require their own observations.
+
 Acceptance includes positive and zero activations, each absence state, disabled
 rules, uninstrumented external rules, ignored observer errors, partial failures,
 cluster occurrences and duplicates, policy overrides, source protection,
