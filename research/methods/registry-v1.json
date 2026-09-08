@@ -1,0 +1,700 @@
+{
+  "format": "unswell-method-registry-v1",
+  "revision": 1,
+  "reviewed_on": "2026-09-08",
+  "protocol": "unswell-research-v1",
+  "scope": "Source review and scoped decisions; no experiment, Go port, or model qualification.",
+  "resources": "reviewed-resources-v1.json",
+  "methods": [
+    {
+      "id": "stylometry",
+      "name": "Stylometry / StyloAI",
+      "publication": {
+        "url": "https://arxiv.org/abs/2405.10129v1",
+        "status": "arXiv v1, May 2024; AIED 2024 proceedings listing at https://link.springer.com/book/10.1007/978-3-031-64312-5"
+      },
+      "unit": "Whole supplied text; not a validated sentence locator.",
+      "code": {
+        "repository": null,
+        "revision": null,
+        "scope": "No authoritative upstream code or model release identified in the paper and targeted search."
+      },
+      "evidence": {
+        "reviewed": {
+          "status": "complete",
+          "reason": "Publication and the listed source files inspected; no experiment executed.",
+          "resources": []
+        },
+        "reproduced": {
+          "status": "not_run",
+          "reason": "No original experiment or predictions generated."
+        },
+        "ported": {
+          "status": "not_run",
+          "reason": "No Go/reference parity evidence."
+        },
+        "qualified": {
+          "status": "not_run",
+          "reason": "No Unswell human-labeled held-out evaluation."
+        }
+      },
+      "decision": {
+        "value": "adopt",
+        "scope": "Compact feature hypotheses and B/D comparison; defer upstream reproduction.",
+        "reason": "The paper combines 31 stylometric features with Random Forest. Evaluate shared features with a Go logistic baseline before adding nonlinear complexity. This does not adopt its model or thresholds."
+      },
+      "compute": {
+        "requirements": "Feature extraction and compact classifiers; no generative model required by the proposed Unswell baseline.",
+        "measured_runtime_seconds": null,
+        "measured_peak_memory_bytes": null,
+        "reason": "Desk review; compute cost has not been measured by Unswell."
+      },
+      "components": [
+        {
+          "kind": "code",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "feature_resources",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "classifier",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "training_and_evaluation_data",
+          "license": null,
+          "reference": "https://arxiv.org/abs/2405.10129v1",
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        }
+      ],
+      "limitations": [
+        "The published tasks differ from technical-comment editing.",
+        "No authoritative code, tokenizer, or model pack identified; do not claim implementation parity.",
+        "Published accuracy is not an Unswell estimate."
+      ],
+      "follow_up_issues": [
+        50,
+        56,
+        23
+      ]
+    },
+    {
+      "id": "llmdet",
+      "name": "LLMDet",
+      "publication": {
+        "url": "https://aclanthology.org/2023.findings-emnlp.139/",
+        "status": "Findings of EMNLP 2023"
+      },
+      "unit": "Whole supplied token sequence; model-specific origin features.",
+      "code": {
+        "repository": "https://github.com/TrustedLLM/LLMDet",
+        "revision": "5d038354006ca0c8e6aa0dadb75e8840accb51a8",
+        "scope": "Pinned files identified in reviewed-resources-v1.json; other files were not reviewed."
+      },
+      "evidence": {
+        "reviewed": {
+          "status": "complete",
+          "reason": "Publication and the listed source files inspected; no experiment executed.",
+          "resources": [
+            "https://raw.githubusercontent.com/TrustedLLM/LLMDet/5d038354006ca0c8e6aa0dadb75e8840accb51a8/README.md",
+            "https://raw.githubusercontent.com/TrustedLLM/LLMDet/5d038354006ca0c8e6aa0dadb75e8840accb51a8/LICENSE",
+            "https://raw.githubusercontent.com/TrustedLLM/LLMDet/5d038354006ca0c8e6aa0dadb75e8840accb51a8/llmdet/detector.py"
+          ]
+        },
+        "reproduced": {
+          "status": "not_run",
+          "reason": "No original experiment or predictions generated."
+        },
+        "ported": {
+          "status": "not_run",
+          "reason": "No Go/reference parity evidence."
+        },
+        "qualified": {
+          "status": "not_run",
+          "reason": "No Unswell human-labeled held-out evaluation."
+        }
+      },
+      "decision": {
+        "value": "experimental",
+        "scope": "Limited offline Go-port research; no product model adoption.",
+        "reason": "The paper and detector use stored n-gram probabilities, tokenizer outputs, and a classifier rather than generative-model inference during scoring. Reproduce one permitted pack before attempting a port."
+      },
+      "compute": {
+        "requirements": "Python reference uses NumPy, tokenizers, probability tables, and LightGBM; proposed Go inference needs bounded tables and data-only tree traversal.",
+        "measured_runtime_seconds": null,
+        "measured_peak_memory_bytes": null,
+        "reason": "Desk review; compute cost has not been measured by Unswell."
+      },
+      "components": [
+        {
+          "kind": "code",
+          "license": "MIT",
+          "reference": "https://raw.githubusercontent.com/TrustedLLM/LLMDet/5d038354006ca0c8e6aa0dadb75e8840accb51a8/LICENSE",
+          "sha256": "c7f8b09fdc2346839ae7c0da52d5757ded9564baedba775461d8481cf9e7cf3a",
+          "bytes": 1093,
+          "status": "license_file_reviewed",
+          "reason": "Digest and size identify the license file, not the whole code tree. Component licenses do not establish rights to external data or models."
+        },
+        {
+          "kind": "tokenizers",
+          "license": null,
+          "reference": "https://github.com/TrustedLLM/LLMDet/blob/5d038354006ca0c8e6aa0dadb75e8840accb51a8/llmdet/detector.py",
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "probability_tables",
+          "license": null,
+          "reference": "https://huggingface.co/datasets/TryMore/n_grams_probability",
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "classifier",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "training_and_evaluation_data",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        }
+      ],
+      "limitations": [
+        "The original loader downloads assets and uses NumPy allow_pickle; it is not a product loader.",
+        "Proxy feature normalization, backoff, missing continuation, and token IDs need golden parity.",
+        "No resource availability, complete component rights, memory budget, or modern technical-domain accuracy established.",
+        "Low context coverage must cause abstention, not a human label."
+      ],
+      "follow_up_issues": [
+        51,
+        56,
+        57
+      ]
+    },
+    {
+      "id": "fast-detectgpt",
+      "name": "Fast-DetectGPT",
+      "publication": {
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/6b8c6f846c3575e1d1ad496abea28826-Abstract-Conference.html",
+        "status": "ICLR 2024"
+      },
+      "unit": "Whole supplied token sequence; conditional-probability discrepancy.",
+      "code": {
+        "repository": "https://github.com/baoguangsheng/fast-detect-gpt",
+        "revision": "971b05202bac2bb504d60c0ac0812fea7a8f7c82",
+        "scope": "Pinned files identified in reviewed-resources-v1.json; other files were not reviewed."
+      },
+      "evidence": {
+        "reviewed": {
+          "status": "complete",
+          "reason": "Publication and the listed source files inspected; no experiment executed.",
+          "resources": [
+            "https://raw.githubusercontent.com/baoguangsheng/fast-detect-gpt/971b05202bac2bb504d60c0ac0812fea7a8f7c82/README.md",
+            "https://raw.githubusercontent.com/baoguangsheng/fast-detect-gpt/971b05202bac2bb504d60c0ac0812fea7a8f7c82/LICENSE",
+            "https://raw.githubusercontent.com/baoguangsheng/fast-detect-gpt/971b05202bac2bb504d60c0ac0812fea7a8f7c82/scripts/fast_detect_gpt.py",
+            "https://raw.githubusercontent.com/baoguangsheng/fast-detect-gpt/971b05202bac2bb504d60c0ac0812fea7a8f7c82/scripts/model.py"
+          ]
+        },
+        "reproduced": {
+          "status": "not_run",
+          "reason": "No original experiment or predictions generated."
+        },
+        "ported": {
+          "status": "not_run",
+          "reason": "No Go/reference parity evidence."
+        },
+        "qualified": {
+          "status": "not_run",
+          "reason": "No Unswell human-labeled held-out evaluation."
+        }
+      },
+      "decision": {
+        "value": "experimental",
+        "scope": "Isolated G reference comparison only.",
+        "reason": "The analytic routine uses full token probability distributions. Porting its scalar calculation alone would omit the expensive inputs."
+      },
+      "compute": {
+        "requirements": "One scoring model, plus a reference model when different; PyTorch/Transformers probability tensors. GPU budget and model precision must be declared.",
+        "measured_runtime_seconds": null,
+        "measured_peak_memory_bytes": null,
+        "reason": "Desk review; compute cost has not been measured by Unswell."
+      },
+      "components": [
+        {
+          "kind": "code",
+          "license": "MIT",
+          "reference": "https://raw.githubusercontent.com/baoguangsheng/fast-detect-gpt/971b05202bac2bb504d60c0ac0812fea7a8f7c82/LICENSE",
+          "sha256": "3f49eca8e2cff129eb14135d570f98466830fbb8377c18261d43e176084dba48",
+          "bytes": 1071,
+          "status": "license_file_reviewed",
+          "reason": "Digest and size identify the license file, not the whole code tree. Component licenses do not establish rights to external data or models."
+        },
+        {
+          "kind": "tokenizers",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "model_weights",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "training_and_evaluation_data",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        }
+      ],
+      "limitations": [
+        "Discrepancy is not a calibrated revision or origin probability.",
+        "Tokenizer alignment, truncation, and model-dependent thresholds require explicit checks.",
+        "No heavy model resources acquired or original experiment reproduced."
+      ],
+      "follow_up_issues": [
+        53,
+        57
+      ]
+    },
+    {
+      "id": "binoculars",
+      "name": "Binoculars",
+      "publication": {
+        "url": "https://proceedings.mlr.press/v235/hans24a.html",
+        "status": "ICML 2024, PMLR 235"
+      },
+      "unit": "Whole supplied text, with a default 512-token observation limit in the reviewed implementation.",
+      "code": {
+        "repository": "https://github.com/ahans30/Binoculars",
+        "revision": "c8ae2f90d50ee696418bc71d8d9e5020e5f9d7b8",
+        "scope": "Pinned files identified in reviewed-resources-v1.json; other files were not reviewed."
+      },
+      "evidence": {
+        "reviewed": {
+          "status": "complete",
+          "reason": "Publication and the listed source files inspected; no experiment executed.",
+          "resources": [
+            "https://raw.githubusercontent.com/ahans30/Binoculars/c8ae2f90d50ee696418bc71d8d9e5020e5f9d7b8/README.md",
+            "https://raw.githubusercontent.com/ahans30/Binoculars/c8ae2f90d50ee696418bc71d8d9e5020e5f9d7b8/LICENSE.md",
+            "https://raw.githubusercontent.com/ahans30/Binoculars/c8ae2f90d50ee696418bc71d8d9e5020e5f9d7b8/binoculars/detector.py"
+          ]
+        },
+        "reproduced": {
+          "status": "not_run",
+          "reason": "No original experiment or predictions generated."
+        },
+        "ported": {
+          "status": "not_run",
+          "reason": "No Go/reference parity evidence."
+        },
+        "qualified": {
+          "status": "not_run",
+          "reason": "No Unswell human-labeled held-out evaluation."
+        }
+      },
+      "decision": {
+        "value": "defer",
+        "scope": "Optional G reference until compute/resources are fixed.",
+        "reason": "The reference loads Falcon-7B and Falcon-7B-Instruct. Its two-model cost is outside the required lightweight runtime and cannot delay B/D."
+      },
+      "compute": {
+        "requirements": "Two causal language models, tokenizers, and probability tensors; default bfloat16.",
+        "measured_runtime_seconds": null,
+        "measured_peak_memory_bytes": null,
+        "reason": "Desk review; compute cost has not been measured by Unswell."
+      },
+      "components": [
+        {
+          "kind": "code",
+          "license": "BSD-3-Clause",
+          "reference": "https://raw.githubusercontent.com/ahans30/Binoculars/c8ae2f90d50ee696418bc71d8d9e5020e5f9d7b8/LICENSE.md",
+          "sha256": "c9af34dfb98067ae3a96bd4776213e774526e363d0307247842690dfaea8a7ce",
+          "bytes": 1535,
+          "status": "license_file_reviewed",
+          "reason": "Digest and size identify the license file, not the whole code tree. Component licenses do not establish rights to external data or models."
+        },
+        {
+          "kind": "tokenizers",
+          "license": null,
+          "reference": "https://huggingface.co/tiiuae/falcon-7b",
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "model_weights",
+          "license": null,
+          "reference": "https://huggingface.co/tiiuae/falcon-7b-instruct",
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "training_and_evaluation_data",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        }
+      ],
+      "limitations": [
+        "Published thresholds are tied to the selected models and precision.",
+        "Default tokenizer truncation must not silently replace a full-target score.",
+        "Reviewed code permits remote model code; isolated reference execution requires a pinned resource review."
+      ],
+      "follow_up_issues": [
+        53,
+        57
+      ]
+    },
+    {
+      "id": "diveye",
+      "name": "DivEye",
+      "publication": {
+        "url": "https://arxiv.org/abs/2509.18880v3",
+        "status": "arXiv v3, February 25, 2026; author metadata and the reviewed README report TMLR 2026 acceptance. The README also cites the 2025 DIG-BUG workshop version."
+      },
+      "unit": "Whole supplied text, using variation in token surprisal.",
+      "code": {
+        "repository": "https://github.com/IBM/diveye",
+        "revision": "ee7d53abfb56ea4dc4cac2cb24e17beec0146e5e",
+        "scope": "Pinned files identified in reviewed-resources-v1.json; other files were not reviewed."
+      },
+      "evidence": {
+        "reviewed": {
+          "status": "complete",
+          "reason": "Publication and the listed source files inspected; no experiment executed.",
+          "resources": [
+            "https://raw.githubusercontent.com/IBM/diveye/ee7d53abfb56ea4dc4cac2cb24e17beec0146e5e/README.md",
+            "https://raw.githubusercontent.com/IBM/diveye/ee7d53abfb56ea4dc4cac2cb24e17beec0146e5e/LICENSE"
+          ]
+        },
+        "reproduced": {
+          "status": "not_run",
+          "reason": "No original experiment or predictions generated."
+        },
+        "ported": {
+          "status": "not_run",
+          "reason": "No Go/reference parity evidence."
+        },
+        "qualified": {
+          "status": "not_run",
+          "reason": "No Unswell human-labeled held-out evaluation."
+        }
+      },
+      "decision": {
+        "value": "defer",
+        "scope": "Code reuse and execution; retain the feature-variation hypothesis.",
+        "reason": "The reference requires a language model and has CC BY-NC-SA 4.0 source terms. Resolve component permissions before reuse; no code imported."
+      },
+      "compute": {
+        "requirements": "A language model for surprisal, statistical features, and a compact classifier; small classifier size does not bound the full runtime.",
+        "measured_runtime_seconds": null,
+        "measured_peak_memory_bytes": null,
+        "reason": "Desk review; compute cost has not been measured by Unswell."
+      },
+      "components": [
+        {
+          "kind": "code",
+          "license": "CC-BY-NC-SA-4.0",
+          "reference": "https://raw.githubusercontent.com/IBM/diveye/ee7d53abfb56ea4dc4cac2cb24e17beec0146e5e/LICENSE",
+          "sha256": "5b8e7938e1b5e0a675869ffe429cc8e7cc187d76a7c6ea1e0546c412782a43da",
+          "bytes": 20843,
+          "status": "license_file_reviewed",
+          "reason": "Digest and size identify the license file, not the whole code tree. Component licenses do not establish rights to external data or models."
+        },
+        {
+          "kind": "tokenizers",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "model_weights",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "classifier",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "training_and_evaluation_data",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        }
+      ],
+      "limitations": [
+        "Source terms are not a permissive runtime license.",
+        "Model, tokenizer, and training-data rights remain separate.",
+        "The reviewed README does not establish technical-editorial usefulness or Unswell calibration."
+      ],
+      "follow_up_issues": [
+        53,
+        57
+      ]
+    },
+    {
+      "id": "raid",
+      "name": "RAID",
+      "publication": {
+        "url": "https://aclanthology.org/2024.acl-long.674/",
+        "status": "ACL 2024"
+      },
+      "unit": "External origin benchmark texts and transformed variants; not editorial labels.",
+      "code": {
+        "repository": "https://github.com/liamdugan/raid",
+        "revision": "ebd2cd8583d5bafdc988a716246faf6f45b8fabd",
+        "scope": "Pinned files identified in reviewed-resources-v1.json; other files were not reviewed."
+      },
+      "evidence": {
+        "reviewed": {
+          "status": "complete",
+          "reason": "Publication and the listed source files inspected; no experiment executed.",
+          "resources": [
+            "https://raw.githubusercontent.com/liamdugan/raid/ebd2cd8583d5bafdc988a716246faf6f45b8fabd/README.md",
+            "https://raw.githubusercontent.com/liamdugan/raid/ebd2cd8583d5bafdc988a716246faf6f45b8fabd/LICENSE",
+            "https://raw.githubusercontent.com/liamdugan/raid/ebd2cd8583d5bafdc988a716246faf6f45b8fabd/generation/sources/README.md"
+          ]
+        },
+        "reproduced": {
+          "status": "not_run",
+          "reason": "No original experiment or predictions generated."
+        },
+        "ported": {
+          "status": "not_applicable",
+          "reason": "External benchmark design; no shipped detector port proposed."
+        },
+        "qualified": {
+          "status": "not_run",
+          "reason": "No Unswell human-labeled held-out evaluation."
+        }
+      },
+      "decision": {
+        "value": "adopt",
+        "scope": "Robustness dimensions; defer dataset execution and redistribution.",
+        "reason": "Use domain, generator, decoding, and transformation shifts to design held-out origin checks. Source datasets require their own review."
+      },
+      "compute": {
+        "requirements": "Evaluation cost depends on the selected detectors and subset; benchmark execution is separate from ordinary CI.",
+        "measured_runtime_seconds": null,
+        "measured_peak_memory_bytes": null,
+        "reason": "Desk review; compute cost has not been measured by Unswell."
+      },
+      "components": [
+        {
+          "kind": "code",
+          "license": "MIT",
+          "reference": "https://raw.githubusercontent.com/liamdugan/raid/ebd2cd8583d5bafdc988a716246faf6f45b8fabd/LICENSE",
+          "sha256": "ffc5aafea5bd37371f9977e90efde0327561150d6619a828bcf6b8f3b4230560",
+          "bytes": 1068,
+          "status": "license_file_reviewed",
+          "reason": "Digest and size identify the license file, not the whole code tree. Component licenses do not establish rights to external data or models."
+        },
+        {
+          "kind": "dataset",
+          "license": null,
+          "reference": "https://huggingface.co/datasets/liamdugan/raid",
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "source_datasets",
+          "license": null,
+          "reference": "https://github.com/liamdugan/raid/blob/ebd2cd8583d5bafdc988a716246faf6f45b8fabd/generation/sources/README.md",
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "detector_resources",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        }
+      ],
+      "limitations": [
+        "Code-level MIT terms do not settle source-text redistribution.",
+        "Existing domains and transformations do not establish technical-editing quality.",
+        "Related variants must stay grouped; external test data cannot tune the editorial final test."
+      ],
+      "follow_up_issues": [
+        57,
+        25
+      ]
+    },
+    {
+      "id": "detectrl-x",
+      "name": "DetectRL-X",
+      "publication": {
+        "url": "https://aclanthology.org/2026.acl-long.1773/",
+        "status": "ACL 2026; arXiv:2605.15518"
+      },
+      "unit": "External benchmark with human, generated, and AI-refined text; English subset only for this project.",
+      "code": {
+        "repository": "https://github.com/ATH-MaaS/Marco-LLM",
+        "revision": "f291775fc1f78d00e52ebbf390d5a1445e05f0af",
+        "scope": "Pinned files identified in reviewed-resources-v1.json; other files were not reviewed."
+      },
+      "evidence": {
+        "reviewed": {
+          "status": "complete",
+          "reason": "Publication and the listed source files inspected; no experiment executed.",
+          "resources": [
+            "https://raw.githubusercontent.com/ATH-MaaS/Marco-LLM/f291775fc1f78d00e52ebbf390d5a1445e05f0af/DetectRL-X/README.md"
+          ]
+        },
+        "reproduced": {
+          "status": "not_run",
+          "reason": "No original experiment or predictions generated."
+        },
+        "ported": {
+          "status": "not_applicable",
+          "reason": "External benchmark design; no shipped detector port proposed."
+        },
+        "qualified": {
+          "status": "not_run",
+          "reason": "No Unswell human-labeled held-out evaluation."
+        }
+      },
+      "decision": {
+        "value": "adopt",
+        "scope": "Editing and transfer scenarios; defer data/code acquisition and execution.",
+        "reason": "The README names Apache 2.0 and a noncommercial-academic restriction together. Treat permissions as unresolved rather than selecting the more permissive statement."
+      },
+      "compute": {
+        "requirements": "Depends on subset and detector; no cost measurement or resource download.",
+        "measured_runtime_seconds": null,
+        "measured_peak_memory_bytes": null,
+        "reason": "Desk review; compute cost has not been measured by Unswell."
+      },
+      "components": [
+        {
+          "kind": "code",
+          "license": null,
+          "reference": "https://github.com/ATH-MaaS/Marco-LLM/tree/f291775fc1f78d00e52ebbf390d5a1445e05f0af/DetectRL-X",
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "Only the README was reviewed; no detector implementation or separate applicable code grant verified."
+        },
+        {
+          "kind": "dataset",
+          "license": null,
+          "reference": "https://huggingface.co/datasets/WUJUNCHAO/DetectRL-X",
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "README states Apache 2.0 plus noncommercial academic use; terms unresolved, bytes not acquired."
+        },
+        {
+          "kind": "tokenizers",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "model_weights",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        },
+        {
+          "kind": "source_datasets",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+        }
+      ],
+      "limitations": [
+        "The dataset terms require clarification before use.",
+        "Mixed/refined targets must not be silently folded into pure binary authorship.",
+        "A multilingual benchmark does not expand the English-only product scope.",
+        "The reviewed repository revision pins its README, not a detector implementation or dataset snapshot."
+      ],
+      "follow_up_issues": [
+        57,
+        53
+      ]
+    }
+  ]
+}
