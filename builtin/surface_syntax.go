@@ -159,7 +159,9 @@ func singularNounModifiers(tokens []document.Token) bool {
 }
 
 func eligibleCommonNoun(view rule.View, sentence document.Sentence, index int) bool {
-	return commonNoun(sentence.Tokens[index]) && !view.Exempts(sentence, index, index+1)
+	token := sentence.Tokens[index]
+	// The negative modal "cannot" is never a common noun, even when tagged NN.
+	return commonNoun(token) && !strings.EqualFold(token.Text, "cannot") && !view.Exempts(sentence, index, index+1)
 }
 
 func passiveEvents(m *editorialMatcher, sentences []document.Sentence, index int) ([]editorialEvent, error) {

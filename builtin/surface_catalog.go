@@ -43,14 +43,16 @@ func surfaceSyntaxRules() []rule.Rule {
 		rule.Example{Text: "The access control policy requirements apply.", Match: true},
 		rule.Example{Text: "Package document defines source coordinates and the neutral prose model."},
 		rule.Example{Text: "Emit latches validation failures even when a custom rule ignores the error."},
+		rule.Example{Text: "A binary origin probability cannot measure the fraction of words written by AI."},
 		rule.Example{Text: "The request has a status code. The client uses TransportCacheEntry."})
-	noun.Version = "2"
+	noun.Version = "3"
 	noun.Requires = append(noun.Requires, nlp.POS, nlp.Chunks)
 	noun.Defaults.Parameters = rule.Parameters{Onset: 3, Saturation: 7}
 	noun.Parameters = []string{"onset", "saturation"}
 	noun.Description = "Counts NN modifiers followed by an NN/NNS head within a shallow NP chunk, stopping at terms and identifiers."
 	noun.Limitations += " A shallow NP is not a dependency tree, and a noun sequence can be an appropriate domain term."
 	noun.Limitations += " Interior NNS tags cause abstention: they can be plural modifiers or misclassified finite verbs."
+	noun.Limitations += " The negative modal \"cannot\" breaks a noun run even when tagged NN; other tagging ambiguity remains possible."
 	passive := passiveDescriptor()
 	insertion := insertionDescriptor()
 	return []rule.Rule{check{nominal, nominalizationChains}, check{noun, nounStacks},
