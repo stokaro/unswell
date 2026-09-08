@@ -102,11 +102,14 @@ func Bounds(spans []Span) Span {
 	return Span{Start: spans[0].Start, End: spans[len(spans)-1].End}
 }
 
-// Block is one structural prose unit. Slices are immutable during rule evaluation.
+// Block is one structural prose unit. Context contains grammar-derived scope
+// labels, not line numbers; an empty context means no named owner was available.
+// Slices are immutable during rule evaluation.
 type Block struct {
-	ID   int    `json:"id"`
-	Kind string `json:"kind"`
-	Span Span   `json:"span"`
+	ID      int      `json:"id"`
+	Kind    string   `json:"kind"`
+	Span    Span     `json:"span"`
+	Context []string `json:"context,omitempty"`
 	MappedText
 	Sentences []Sentence `json:"sentences"`
 	Words     int        `json:"words"`

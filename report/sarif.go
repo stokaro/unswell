@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/stokaro/unswell"
+	"github.com/stokaro/unswell/baseline"
 )
 
 func sarif(writer io.Writer, result unswell.RunResult) error {
@@ -61,6 +62,7 @@ func sarif(writer io.Writer, result unswell.RunResult) error {
 				map[string]any{"executionSuccessful": result.Manifest.Complete, "toolExecutionNotifications": notifications},
 			},
 			"properties": map[string]any{"gate": result.Gate, "assessments": result.Assessments,
+				"baseline": result.Baseline, "baseline_snapshot": result.BaselineSnapshot,
 				"manifest": result.Manifest, "file_policies": filePolicies(result), "suppressions": result.Suppressions},
 		}},
 	})
@@ -70,7 +72,8 @@ func filePolicies(result unswell.RunResult) map[string]any {
 	policies := make(map[string]any, len(result.Documents))
 	for _, doc := range result.Documents {
 		if doc.ConfigHash != "" {
-			policies[doc.Name] = map[string]any{"config_hash": doc.ConfigHash, "applied_overrides": doc.AppliedOverrides}
+			policies[doc.Name] = map[string]any{"config_hash": doc.ConfigHash, "applied_overrides": doc.AppliedOverrides,
+				"gate_mode": doc.GateMode}
 		}
 	}
 	return policies
@@ -94,7 +97,13 @@ func sarifFinding(finding unswell.Finding, index int) map[string]any {
 		"properties": map[string]any{"evidence": finding.Evidence, "group": finding.Group, "derived": finding.Derived,
 			"suppression_ids": finding.SuppressionIDs},
 	}
-	if slices.Contains([]string{"new", "unchanged", "updated", "absent"}, finding.BaselineState) {
+	if finding.BaselineFingerprint != "" {
+		result["partialFingerprints"] = map[string]string{"unswell/v1": finding.Fingerprint,
+			baseline.FingerprintVersion: finding.BaselineFingerprint}
+	}
+	if finding.BaselineState == "existing" {
+		result["baselineState"] = "unchanged"
+	} else if slices.Contains([]string{"new", "unchanged", "updated", "absent"}, finding.BaselineState) {
 		result["baselineState"] = finding.BaselineState
 	}
 	return result

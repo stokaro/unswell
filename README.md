@@ -178,7 +178,9 @@ and shfmt checks, including negative probes for each gate.
 
 Reasoned [source suppressions](docs/suppressions.md) permit individual rule findings
 while retaining raw evidence, scores, and an audit record across CLI and MCP.
-The [roadmap](docs/roadmap.md) preserves the remaining requirements: baseline, committed changed-unit checks, trusted
+Explicit [baselines](docs/baseline.md) accept existing debt without removing findings
+or changing scores. The `new` gate checks new findings and changed scored units.
+The [roadmap](docs/roadmap.md) preserves the remaining requirements: committed changed-unit checks, trusted
 policy comparison, Go analysis integration and calibrated revision probabilities.
 The alpha does not silently claim those capabilities.
 

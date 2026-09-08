@@ -9,6 +9,7 @@ import (
 	"slices"
 
 	"github.com/stokaro/unswell"
+	"github.com/stokaro/unswell/baseline"
 	"github.com/stokaro/unswell/builtin"
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/extract"
@@ -74,8 +75,13 @@ func analyze(ctx context.Context, environment Environment, options checkOptions,
 		return unswell.RunResult{}, nil, err
 	}
 	registry := append(builtin.Rules(), additional...)
+	baselineData, baselinePaths, err := baselineInput(environment, options)
+	if err != nil {
+		return unswell.RunResult{}, nil, err
+	}
 	engine, err := unswell.New(
 		unswell.Options{
+			Baseline: baselineData, CollectBaseline: options.collectBaseline, GateMode: options.gateMode,
 			ConfigBundle:  &loaded.Bundle,
 			Rules:         registry,
 			Jobs:          options.jobs,
@@ -94,7 +100,17 @@ func analyze(ctx context.Context, environment Environment, options checkOptions,
 	result, err := engine.AnalyzeAll(ctx, sources)
 	result.Manifest.SelectionMode = mode
 	paths = append(paths, loaded.Paths...)
+	paths = append(paths, baselinePaths...)
 	return result, append(paths, rulePaths...), err
+}
+
+func baselineInput(environment Environment, options checkOptions) ([]byte, []string, error) {
+	if options.baseline == "" || options.collectBaseline {
+		return nil, nil, nil
+	}
+	path := absoluteArguments(environment.Dir, []string{options.baseline})[0]
+	data, err := readLimited(path, baseline.MaxBytes)
+	return data, []string{path}, err
 }
 
 func selectSources(

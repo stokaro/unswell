@@ -21,10 +21,11 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source) (Run
 		ctx,
 		source,
 		extract.Options{
-			IncludeQuotes: e.policy.Analysis.IncludeQuotes,
-			MaxBytes:      e.policy.Analysis.MaxFileBytes,
-			MaxBlocks:     e.policy.Analysis.MaxBlocks,
-			Policy:        e.policy.Extraction,
+			IncludeStructure: e.collectBaseline,
+			IncludeQuotes:    e.policy.Analysis.IncludeQuotes,
+			MaxBytes:         e.policy.Analysis.MaxFileBytes,
+			MaxBlocks:        e.policy.Analysis.MaxBlocks,
+			Policy:           e.policy.Extraction,
 		},
 	)
 	if err != nil {
@@ -45,6 +46,11 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source) (Run
 	result.Findings = deduplicateFindings(result.Findings)
 	suppressionErr := e.applySuppressions(ctx, &result, doc, plan)
 	e.assess(&result, doc)
+	if e.collectBaseline {
+		if err := e.collectDebt(ctx, &result, doc); err != nil {
+			return result, err
+		}
+	}
 	e.decide(&result, doc)
 	return result, suppressionErr
 }
@@ -154,6 +160,7 @@ func englishApplicable(text string) error {
 
 func (e *Engine) documentResult(doc document.Document) DocumentResult {
 	result := DocumentResult{
+		GateMode:         e.selectedGateMode(),
 		Name:             doc.Name,
 		Format:           doc.Format,
 		SourceHash:       doc.Hash,
@@ -224,7 +231,8 @@ func (c *collector) append(evidence rule.Evidence) error {
 		}
 	}
 	fingerprint := fmt.Sprintf("%x", sha256.Sum256([]byte(strings.Join(identities, "\n"))))
-	c.findings = append(c.findings, Finding{ID: fingerprint[:16], RuleID: c.descriptor.ID, RuleVersion: c.descriptor.Version,
+	instance := fmt.Sprintf("%x", sha256.Sum256([]byte(fmt.Sprintf("%s:%d:%d", fingerprint, locations[0].Span.Start, locations[0].Span.End))))
+	c.findings = append(c.findings, Finding{ID: instance[:16], RuleID: c.descriptor.ID, RuleVersion: c.descriptor.Version,
 		Severity: c.settings.Severity, Gate: c.settings.Gate, Group: c.descriptor.Group, Scope: c.descriptor.Scope, Message: message,
 		Primary: locations[0], Related: locations[1:], Evidence: evidence, Fingerprint: fingerprint, BaselineState: "untracked"})
 	return nil

@@ -69,7 +69,12 @@ func writeFixture(c *qt.C, workspace, name string, data []byte) {
 	c.Assert(strings.ContainsAny(name, "\\:"), qt.IsFalse)
 	target := filepath.Join(workspace, filepath.FromSlash(name))
 	c.Assert(os.MkdirAll(filepath.Dir(target), 0o700), qt.IsNil)
-	c.Assert(os.WriteFile(target, data, 0o600), qt.IsNil)
+	root, err := os.OpenRoot(workspace)
+	c.Assert(err, qt.IsNil)
+	writeErr := root.WriteFile(filepath.FromSlash(name), data, 0o600)
+	closeErr := root.Close()
+	c.Assert(writeErr, qt.IsNil)
+	c.Assert(closeErr, qt.IsNil)
 }
 
 func annotatedSource(name, source string) (string, []expectation, error) {

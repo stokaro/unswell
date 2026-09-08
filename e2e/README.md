@@ -94,6 +94,14 @@ unpermitted finding must fail the gate.
 
 ## Review golden changes
 
+`TestBaselineWorkflow` runs annotated files in [baselinedata](baselinedata) through
+the built CLI: create, check after unrelated movement and Markdown emphasis, reject
+semantic changes and new debt, explicitly update, then report resolved debt.
+Its golden preserves matches, stale entries, finding states, raw and effective
+scores, and gate acceptance. Each check verifies that source and baseline bytes
+remain unchanged. Use `go test ./e2e -run TestBaselineWorkflow -update -count=1` to
+review an intentional change to this workflow separately.
+
 After an intentional behavior change, run:
 
 ```sh

@@ -1,0 +1,1349 @@
+[
+  {
+    "stage": "moved/new",
+    "diagnostics": {
+      "status": "complete",
+      "complete": true,
+      "passed": true,
+      "no_gate": false,
+      "findings": [
+        {
+          "rule_id": "filler.announced-importance",
+          "severity": "error",
+          "gate": "forbid",
+          "scope": "sentence",
+          "message": "State the fact without announcing its importance.",
+          "primary": {
+            "path": "guide.md",
+            "span": {
+              "start": 47,
+              "end": 79
+            },
+            "start": {
+              "line": 5,
+              "column": 1
+            },
+            "end": {
+              "line": 5,
+              "column": 33
+            },
+            "segments": [
+              {
+                "start": 47,
+                "end": 49
+              },
+              {
+                "start": 50,
+                "end": 52
+              },
+              {
+                "start": 55,
+                "end": 64
+              },
+              {
+                "start": 67,
+                "end": 69
+              },
+              {
+                "start": 70,
+                "end": 74
+              },
+              {
+                "start": 75,
+                "end": 79
+              }
+            ]
+          },
+          "related": []
+        }
+      ],
+      "errors": []
+    },
+    "comparison": {
+      "matches": [
+        {
+          "fingerprint": "7855e983bb72408afe65430c350d5ae2980e58ed51d540ebe287efaa0cd38d78",
+          "state": "existing"
+        },
+        {
+          "fingerprint": "7dd7148eea649a2469c1b7b6b3d1e2ac96fca5c27cda21fe016966f2269f9b58",
+          "state": "existing"
+        },
+        {
+          "fingerprint": "ec08d8e1ccc67d4062abca07d31f91e7c4e98d16fcecbf3645befe78e54b6818",
+          "state": "existing"
+        }
+      ],
+      "stale": [],
+      "unobserved": []
+    },
+    "finding_states": [
+      "existing"
+    ],
+    "assessments": [
+      {
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 0,
+        "span": {
+          "start": 4,
+          "end": 11
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 0,
+        "span": {
+          "start": 4,
+          "end": 11
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 1,
+        "span": {
+          "start": 15,
+          "end": 45
+        },
+        "words": 5,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 1,
+        "span": {
+          "start": 15,
+          "end": 45
+        },
+        "words": 5,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "baseline_fingerprint": "ec08d8e1ccc67d4062abca07d31f91e7c4e98d16fcecbf3645befe78e54b6818",
+        "baseline_state": "existing",
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 2,
+        "span": {
+          "start": 47,
+          "end": 118
+        },
+        "words": 12,
+        "slop_score": 15,
+        "effective_slop_score": 15,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": [
+          {
+            "finding_id": "0d1cce67ecb38bb1",
+            "rule_id": "filler.announced-importance",
+            "group": "scaffolding",
+            "weight": 15,
+            "activation": 1000,
+            "raw": 15,
+            "effective": 15,
+            "rule_cap": 30,
+            "group_cap": 40,
+            "reason": "contributed"
+          }
+        ]
+      },
+      {
+        "baseline_fingerprint": "7855e983bb72408afe65430c350d5ae2980e58ed51d540ebe287efaa0cd38d78",
+        "baseline_state": "existing",
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 2,
+        "span": {
+          "start": 47,
+          "end": 118
+        },
+        "words": 12,
+        "slop_score": 15,
+        "effective_slop_score": 15,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": [
+          {
+            "finding_id": "0d1cce67ecb38bb1",
+            "rule_id": "filler.announced-importance",
+            "group": "scaffolding",
+            "weight": 15,
+            "activation": 1000,
+            "raw": 15,
+            "effective": 15,
+            "rule_cap": 30,
+            "group_cap": 40,
+            "reason": "contributed"
+          }
+        ]
+      }
+    ],
+    "accepted_gate_reasons": 1
+  },
+  {
+    "stage": "moved/all",
+    "diagnostics": {
+      "status": "complete",
+      "complete": true,
+      "passed": false,
+      "no_gate": false,
+      "findings": [
+        {
+          "rule_id": "filler.announced-importance",
+          "severity": "error",
+          "gate": "forbid",
+          "scope": "sentence",
+          "message": "State the fact without announcing its importance.",
+          "primary": {
+            "path": "guide.md",
+            "span": {
+              "start": 47,
+              "end": 79
+            },
+            "start": {
+              "line": 5,
+              "column": 1
+            },
+            "end": {
+              "line": 5,
+              "column": 33
+            },
+            "segments": [
+              {
+                "start": 47,
+                "end": 49
+              },
+              {
+                "start": 50,
+                "end": 52
+              },
+              {
+                "start": 55,
+                "end": 64
+              },
+              {
+                "start": 67,
+                "end": 69
+              },
+              {
+                "start": 70,
+                "end": 74
+              },
+              {
+                "start": 75,
+                "end": 79
+              }
+            ]
+          },
+          "related": []
+        }
+      ],
+      "errors": []
+    },
+    "comparison": {
+      "matches": [
+        {
+          "fingerprint": "7855e983bb72408afe65430c350d5ae2980e58ed51d540ebe287efaa0cd38d78",
+          "state": "existing"
+        },
+        {
+          "fingerprint": "7dd7148eea649a2469c1b7b6b3d1e2ac96fca5c27cda21fe016966f2269f9b58",
+          "state": "existing"
+        },
+        {
+          "fingerprint": "ec08d8e1ccc67d4062abca07d31f91e7c4e98d16fcecbf3645befe78e54b6818",
+          "state": "existing"
+        }
+      ],
+      "stale": [],
+      "unobserved": []
+    },
+    "finding_states": [
+      "existing"
+    ],
+    "assessments": [
+      {
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 0,
+        "span": {
+          "start": 4,
+          "end": 11
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 0,
+        "span": {
+          "start": 4,
+          "end": 11
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 1,
+        "span": {
+          "start": 15,
+          "end": 45
+        },
+        "words": 5,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 1,
+        "span": {
+          "start": 15,
+          "end": 45
+        },
+        "words": 5,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "baseline_fingerprint": "ec08d8e1ccc67d4062abca07d31f91e7c4e98d16fcecbf3645befe78e54b6818",
+        "baseline_state": "existing",
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 2,
+        "span": {
+          "start": 47,
+          "end": 118
+        },
+        "words": 12,
+        "slop_score": 15,
+        "effective_slop_score": 15,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": [
+          {
+            "finding_id": "0d1cce67ecb38bb1",
+            "rule_id": "filler.announced-importance",
+            "group": "scaffolding",
+            "weight": 15,
+            "activation": 1000,
+            "raw": 15,
+            "effective": 15,
+            "rule_cap": 30,
+            "group_cap": 40,
+            "reason": "contributed"
+          }
+        ]
+      },
+      {
+        "baseline_fingerprint": "7855e983bb72408afe65430c350d5ae2980e58ed51d540ebe287efaa0cd38d78",
+        "baseline_state": "existing",
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 2,
+        "span": {
+          "start": 47,
+          "end": 118
+        },
+        "words": 12,
+        "slop_score": 15,
+        "effective_slop_score": 15,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": [
+          {
+            "finding_id": "0d1cce67ecb38bb1",
+            "rule_id": "filler.announced-importance",
+            "group": "scaffolding",
+            "weight": 15,
+            "activation": 1000,
+            "raw": 15,
+            "effective": 15,
+            "rule_cap": 30,
+            "group_cap": 40,
+            "reason": "contributed"
+          }
+        ]
+      }
+    ],
+    "accepted_gate_reasons": 0
+  },
+  {
+    "stage": "changed/new",
+    "diagnostics": {
+      "status": "complete",
+      "complete": true,
+      "passed": false,
+      "no_gate": false,
+      "findings": [
+        {
+          "rule_id": "filler.announced-importance",
+          "severity": "error",
+          "gate": "forbid",
+          "scope": "sentence",
+          "message": "State the fact without announcing its importance.",
+          "primary": {
+            "path": "guide.md",
+            "span": {
+              "start": 11,
+              "end": 39
+            },
+            "start": {
+              "line": 3,
+              "column": 1
+            },
+            "end": {
+              "line": 3,
+              "column": 29
+            },
+            "segments": [
+              {
+                "start": 11,
+                "end": 13
+              },
+              {
+                "start": 14,
+                "end": 16
+              },
+              {
+                "start": 17,
+                "end": 26
+              },
+              {
+                "start": 27,
+                "end": 29
+              },
+              {
+                "start": 30,
+                "end": 34
+              },
+              {
+                "start": 35,
+                "end": 39
+              }
+            ]
+          },
+          "related": []
+        },
+        {
+          "rule_id": "filler.announced-importance",
+          "severity": "error",
+          "gate": "forbid",
+          "scope": "sentence",
+          "message": "State the fact without announcing its importance.",
+          "primary": {
+            "path": "guide.md",
+            "span": {
+              "start": 138,
+              "end": 166
+            },
+            "start": {
+              "line": 7,
+              "column": 1
+            },
+            "end": {
+              "line": 7,
+              "column": 29
+            },
+            "segments": [
+              {
+                "start": 138,
+                "end": 140
+              },
+              {
+                "start": 141,
+                "end": 143
+              },
+              {
+                "start": 144,
+                "end": 153
+              },
+              {
+                "start": 154,
+                "end": 156
+              },
+              {
+                "start": 157,
+                "end": 161
+              },
+              {
+                "start": 162,
+                "end": 166
+              }
+            ]
+          },
+          "related": []
+        }
+      ],
+      "errors": []
+    },
+    "comparison": {
+      "matches": [
+        {
+          "fingerprint": "43cd13648f9cec9467f553c526172d0c1c55dea741c15d491d079e92f8e19376",
+          "state": "new"
+        },
+        {
+          "fingerprint": "4f4f4e7f08561267d1e593f813428c2aa98310dad4dd1ca4caffe8f5f521c570",
+          "state": "new"
+        },
+        {
+          "fingerprint": "c22dd8c4cb132950f1b35512fa143b526b2a5de1ee65d222b625519ff256a062",
+          "state": "new"
+        },
+        {
+          "fingerprint": "cc10d7f2c32d60a84513ebfb5d3dcc765c53839ff4fd71cd961fa75baafb96fc",
+          "state": "new"
+        },
+        {
+          "fingerprint": "eea930660b44b19e64b7dcf6a09fa673eb9e4c861d1b8028714d5f75e30ded1d",
+          "state": "new"
+        },
+        {
+          "fingerprint": "fddc7de41cd24cd310f4053e1fcbad1c54ed52611786ca466d078cff78305b0c",
+          "state": "new"
+        }
+      ],
+      "stale": [
+        {
+          "identity": {
+            "path": "guide.md",
+            "kind": "sentence",
+            "structure_hash": "2b86f5c14b1c9ea372d60e55d097ba9a2a0bbe9960eb1a0e2566466b5fbe77a9",
+            "content_hash": "88703eb299c931a55b1a2ecd5943f94868a6f1f3b2d76059fce537064dda1bb3",
+            "evidence_hash": "91f13a1bc106411f2bb67e7b59c9b9ee2275b7c2d9fd61905a89f0bce456456f"
+          },
+          "fingerprint": "7855e983bb72408afe65430c350d5ae2980e58ed51d540ebe287efaa0cd38d78",
+          "status": "accepted"
+        },
+        {
+          "identity": {
+            "path": "guide.md",
+            "kind": "finding",
+            "rule_id": "filler.announced-importance",
+            "rule_version": "1",
+            "structure_hash": "53b48360c34c9328d9e01acec068df4ba3718a1ba4619b160f2b9a2c5bd74858",
+            "content_hash": "fc9798d775699bae78bf83286f44ea09347c434099ef2d8d846d7252abc3f199",
+            "evidence_hash": "592c4f55ce37512ffebe3fa59c243ba8563f6ce746fbf240e5772d8a10d819b3"
+          },
+          "fingerprint": "7dd7148eea649a2469c1b7b6b3d1e2ac96fca5c27cda21fe016966f2269f9b58",
+          "status": "accepted"
+        },
+        {
+          "identity": {
+            "path": "guide.md",
+            "kind": "paragraph",
+            "structure_hash": "17ebbc42291c25d5674c41c66730ab80e417bae73ce815df2650d1f187f57c7a",
+            "content_hash": "88703eb299c931a55b1a2ecd5943f94868a6f1f3b2d76059fce537064dda1bb3",
+            "evidence_hash": "91f13a1bc106411f2bb67e7b59c9b9ee2275b7c2d9fd61905a89f0bce456456f"
+          },
+          "fingerprint": "ec08d8e1ccc67d4062abca07d31f91e7c4e98d16fcecbf3645befe78e54b6818",
+          "status": "accepted"
+        }
+      ],
+      "unobserved": []
+    },
+    "finding_states": [
+      "new",
+      "new"
+    ],
+    "assessments": [
+      {
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 0,
+        "span": {
+          "start": 2,
+          "end": 9
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 0,
+        "span": {
+          "start": 2,
+          "end": 9
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "baseline_fingerprint": "43cd13648f9cec9467f553c526172d0c1c55dea741c15d491d079e92f8e19376",
+        "baseline_state": "new",
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 1,
+        "span": {
+          "start": 11,
+          "end": 82
+        },
+        "words": 13,
+        "slop_score": 15,
+        "effective_slop_score": 15,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": [
+          {
+            "finding_id": "41ff45d045695828",
+            "rule_id": "filler.announced-importance",
+            "group": "scaffolding",
+            "weight": 15,
+            "activation": 1000,
+            "raw": 15,
+            "effective": 15,
+            "rule_cap": 30,
+            "group_cap": 40,
+            "reason": "contributed"
+          }
+        ]
+      },
+      {
+        "baseline_fingerprint": "eea930660b44b19e64b7dcf6a09fa673eb9e4c861d1b8028714d5f75e30ded1d",
+        "baseline_state": "new",
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 1,
+        "span": {
+          "start": 11,
+          "end": 82
+        },
+        "words": 13,
+        "slop_score": 15,
+        "effective_slop_score": 15,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": [
+          {
+            "finding_id": "41ff45d045695828",
+            "rule_id": "filler.announced-importance",
+            "group": "scaffolding",
+            "weight": 15,
+            "activation": 1000,
+            "raw": 15,
+            "effective": 15,
+            "rule_cap": 30,
+            "group_cap": 40,
+            "reason": "contributed"
+          }
+        ]
+      },
+      {
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 2,
+        "span": {
+          "start": 130,
+          "end": 136
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 2,
+        "span": {
+          "start": 130,
+          "end": 136
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "baseline_fingerprint": "c22dd8c4cb132950f1b35512fa143b526b2a5de1ee65d222b625519ff256a062",
+        "baseline_state": "new",
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 3,
+        "span": {
+          "start": 138,
+          "end": 198
+        },
+        "words": 11,
+        "slop_score": 15,
+        "effective_slop_score": 15,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": [
+          {
+            "finding_id": "21d1d8b643a2d7ab",
+            "rule_id": "filler.announced-importance",
+            "group": "scaffolding",
+            "weight": 15,
+            "activation": 1000,
+            "raw": 15,
+            "effective": 15,
+            "rule_cap": 30,
+            "group_cap": 40,
+            "reason": "contributed"
+          }
+        ]
+      },
+      {
+        "baseline_fingerprint": "cc10d7f2c32d60a84513ebfb5d3dcc765c53839ff4fd71cd961fa75baafb96fc",
+        "baseline_state": "new",
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 3,
+        "span": {
+          "start": 138,
+          "end": 198
+        },
+        "words": 11,
+        "slop_score": 15,
+        "effective_slop_score": 15,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": [
+          {
+            "finding_id": "21d1d8b643a2d7ab",
+            "rule_id": "filler.announced-importance",
+            "group": "scaffolding",
+            "weight": 15,
+            "activation": 1000,
+            "raw": 15,
+            "effective": 15,
+            "rule_cap": 30,
+            "group_cap": 40,
+            "reason": "contributed"
+          }
+        ]
+      }
+    ],
+    "accepted_gate_reasons": 0
+  },
+  {
+    "stage": "changed/new",
+    "diagnostics": {
+      "status": "complete",
+      "complete": true,
+      "passed": true,
+      "no_gate": false,
+      "findings": [
+        {
+          "rule_id": "filler.announced-importance",
+          "severity": "error",
+          "gate": "forbid",
+          "scope": "sentence",
+          "message": "State the fact without announcing its importance.",
+          "primary": {
+            "path": "guide.md",
+            "span": {
+              "start": 11,
+              "end": 39
+            },
+            "start": {
+              "line": 3,
+              "column": 1
+            },
+            "end": {
+              "line": 3,
+              "column": 29
+            },
+            "segments": [
+              {
+                "start": 11,
+                "end": 13
+              },
+              {
+                "start": 14,
+                "end": 16
+              },
+              {
+                "start": 17,
+                "end": 26
+              },
+              {
+                "start": 27,
+                "end": 29
+              },
+              {
+                "start": 30,
+                "end": 34
+              },
+              {
+                "start": 35,
+                "end": 39
+              }
+            ]
+          },
+          "related": []
+        },
+        {
+          "rule_id": "filler.announced-importance",
+          "severity": "error",
+          "gate": "forbid",
+          "scope": "sentence",
+          "message": "State the fact without announcing its importance.",
+          "primary": {
+            "path": "guide.md",
+            "span": {
+              "start": 138,
+              "end": 166
+            },
+            "start": {
+              "line": 7,
+              "column": 1
+            },
+            "end": {
+              "line": 7,
+              "column": 29
+            },
+            "segments": [
+              {
+                "start": 138,
+                "end": 140
+              },
+              {
+                "start": 141,
+                "end": 143
+              },
+              {
+                "start": 144,
+                "end": 153
+              },
+              {
+                "start": 154,
+                "end": 156
+              },
+              {
+                "start": 157,
+                "end": 161
+              },
+              {
+                "start": 162,
+                "end": 166
+              }
+            ]
+          },
+          "related": []
+        }
+      ],
+      "errors": []
+    },
+    "comparison": {
+      "matches": [
+        {
+          "fingerprint": "43cd13648f9cec9467f553c526172d0c1c55dea741c15d491d079e92f8e19376",
+          "state": "existing"
+        },
+        {
+          "fingerprint": "4f4f4e7f08561267d1e593f813428c2aa98310dad4dd1ca4caffe8f5f521c570",
+          "state": "existing"
+        },
+        {
+          "fingerprint": "c22dd8c4cb132950f1b35512fa143b526b2a5de1ee65d222b625519ff256a062",
+          "state": "existing"
+        },
+        {
+          "fingerprint": "cc10d7f2c32d60a84513ebfb5d3dcc765c53839ff4fd71cd961fa75baafb96fc",
+          "state": "existing"
+        },
+        {
+          "fingerprint": "eea930660b44b19e64b7dcf6a09fa673eb9e4c861d1b8028714d5f75e30ded1d",
+          "state": "existing"
+        },
+        {
+          "fingerprint": "fddc7de41cd24cd310f4053e1fcbad1c54ed52611786ca466d078cff78305b0c",
+          "state": "existing"
+        }
+      ],
+      "stale": [],
+      "unobserved": []
+    },
+    "finding_states": [
+      "existing",
+      "existing"
+    ],
+    "assessments": [
+      {
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 0,
+        "span": {
+          "start": 2,
+          "end": 9
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 0,
+        "span": {
+          "start": 2,
+          "end": 9
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "baseline_fingerprint": "43cd13648f9cec9467f553c526172d0c1c55dea741c15d491d079e92f8e19376",
+        "baseline_state": "existing",
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 1,
+        "span": {
+          "start": 11,
+          "end": 82
+        },
+        "words": 13,
+        "slop_score": 15,
+        "effective_slop_score": 15,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": [
+          {
+            "finding_id": "41ff45d045695828",
+            "rule_id": "filler.announced-importance",
+            "group": "scaffolding",
+            "weight": 15,
+            "activation": 1000,
+            "raw": 15,
+            "effective": 15,
+            "rule_cap": 30,
+            "group_cap": 40,
+            "reason": "contributed"
+          }
+        ]
+      },
+      {
+        "baseline_fingerprint": "eea930660b44b19e64b7dcf6a09fa673eb9e4c861d1b8028714d5f75e30ded1d",
+        "baseline_state": "existing",
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 1,
+        "span": {
+          "start": 11,
+          "end": 82
+        },
+        "words": 13,
+        "slop_score": 15,
+        "effective_slop_score": 15,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": [
+          {
+            "finding_id": "41ff45d045695828",
+            "rule_id": "filler.announced-importance",
+            "group": "scaffolding",
+            "weight": 15,
+            "activation": 1000,
+            "raw": 15,
+            "effective": 15,
+            "rule_cap": 30,
+            "group_cap": 40,
+            "reason": "contributed"
+          }
+        ]
+      },
+      {
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 2,
+        "span": {
+          "start": 130,
+          "end": 136
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 2,
+        "span": {
+          "start": 130,
+          "end": 136
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "baseline_fingerprint": "c22dd8c4cb132950f1b35512fa143b526b2a5de1ee65d222b625519ff256a062",
+        "baseline_state": "existing",
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 3,
+        "span": {
+          "start": 138,
+          "end": 198
+        },
+        "words": 11,
+        "slop_score": 15,
+        "effective_slop_score": 15,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": [
+          {
+            "finding_id": "21d1d8b643a2d7ab",
+            "rule_id": "filler.announced-importance",
+            "group": "scaffolding",
+            "weight": 15,
+            "activation": 1000,
+            "raw": 15,
+            "effective": 15,
+            "rule_cap": 30,
+            "group_cap": 40,
+            "reason": "contributed"
+          }
+        ]
+      },
+      {
+        "baseline_fingerprint": "cc10d7f2c32d60a84513ebfb5d3dcc765c53839ff4fd71cd961fa75baafb96fc",
+        "baseline_state": "existing",
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 3,
+        "span": {
+          "start": 138,
+          "end": 198
+        },
+        "words": 11,
+        "slop_score": 15,
+        "effective_slop_score": 15,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": [
+          {
+            "finding_id": "21d1d8b643a2d7ab",
+            "rule_id": "filler.announced-importance",
+            "group": "scaffolding",
+            "weight": 15,
+            "activation": 1000,
+            "raw": 15,
+            "effective": 15,
+            "rule_cap": 30,
+            "group_cap": 40,
+            "reason": "contributed"
+          }
+        ]
+      }
+    ],
+    "accepted_gate_reasons": 2
+  },
+  {
+    "stage": "clean/new",
+    "diagnostics": {
+      "status": "complete",
+      "complete": true,
+      "passed": true,
+      "no_gate": false,
+      "findings": [],
+      "errors": []
+    },
+    "comparison": {
+      "matches": [],
+      "stale": [
+        {
+          "identity": {
+            "path": "guide.md",
+            "kind": "paragraph",
+            "structure_hash": "17ebbc42291c25d5674c41c66730ab80e417bae73ce815df2650d1f187f57c7a",
+            "content_hash": "3b19458a643f9b0afd1093e237c8ca626803122fdbd33d6c50cfb839d0e18359",
+            "evidence_hash": "5fb7fd1308f705e2bce174d276f5d0c8634017616f216b4623909c5fcada6ac3"
+          },
+          "fingerprint": "43cd13648f9cec9467f553c526172d0c1c55dea741c15d491d079e92f8e19376",
+          "status": "accepted"
+        },
+        {
+          "identity": {
+            "path": "guide.md",
+            "kind": "finding",
+            "rule_id": "filler.announced-importance",
+            "rule_version": "1",
+            "structure_hash": "53b48360c34c9328d9e01acec068df4ba3718a1ba4619b160f2b9a2c5bd74858",
+            "content_hash": "c60b7a42556763ef31a90d3402908e50e7a705c2008775c04dfe0936f746ea4d",
+            "evidence_hash": "0ac33fcf6868bc13dfabc21c02d9b9a493a2af849fb20b3a115f65e78e1e8990"
+          },
+          "fingerprint": "4f4f4e7f08561267d1e593f813428c2aa98310dad4dd1ca4caffe8f5f521c570",
+          "status": "accepted"
+        },
+        {
+          "identity": {
+            "path": "guide.md",
+            "kind": "paragraph",
+            "structure_hash": "6ee3f6e318fa26eeb28f0786c332b1930ca6bcabd8d6cb754ca845c529603e17",
+            "content_hash": "16e17d3d07dd8f835bbef2882a2130d700973ca52bfc885084a7b95eae6f6dee",
+            "evidence_hash": "6bbd93490e213f98eac9f1ad4cf97b4c466fa25225eab4bedf100132cf78250c"
+          },
+          "fingerprint": "c22dd8c4cb132950f1b35512fa143b526b2a5de1ee65d222b625519ff256a062",
+          "status": "accepted"
+        },
+        {
+          "identity": {
+            "path": "guide.md",
+            "kind": "sentence",
+            "structure_hash": "8916d367bc0c756aefba4c81cf018a122f6c271adddc28dbb13e8b6a4d37c217",
+            "content_hash": "16e17d3d07dd8f835bbef2882a2130d700973ca52bfc885084a7b95eae6f6dee",
+            "evidence_hash": "6bbd93490e213f98eac9f1ad4cf97b4c466fa25225eab4bedf100132cf78250c"
+          },
+          "fingerprint": "cc10d7f2c32d60a84513ebfb5d3dcc765c53839ff4fd71cd961fa75baafb96fc",
+          "status": "accepted"
+        },
+        {
+          "identity": {
+            "path": "guide.md",
+            "kind": "sentence",
+            "structure_hash": "2b86f5c14b1c9ea372d60e55d097ba9a2a0bbe9960eb1a0e2566466b5fbe77a9",
+            "content_hash": "3b19458a643f9b0afd1093e237c8ca626803122fdbd33d6c50cfb839d0e18359",
+            "evidence_hash": "5fb7fd1308f705e2bce174d276f5d0c8634017616f216b4623909c5fcada6ac3"
+          },
+          "fingerprint": "eea930660b44b19e64b7dcf6a09fa673eb9e4c861d1b8028714d5f75e30ded1d",
+          "status": "accepted"
+        },
+        {
+          "identity": {
+            "path": "guide.md",
+            "kind": "finding",
+            "rule_id": "filler.announced-importance",
+            "rule_version": "1",
+            "structure_hash": "b6cd5f584aec72fee1ecc3677d46e0ea3fc4ec9480c8d92263bc86a8e2614f87",
+            "content_hash": "c6a8b4a170df22bc204dd62213867d828119fb5a1c669e372d872efc2e10315a",
+            "evidence_hash": "22aab9c403272385957a9399a434c080beef664b515dd98db94a420709e75ee8"
+          },
+          "fingerprint": "fddc7de41cd24cd310f4053e1fcbad1c54ed52611786ca466d078cff78305b0c",
+          "status": "accepted"
+        }
+      ],
+      "unobserved": []
+    },
+    "finding_states": null,
+    "assessments": [
+      {
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 0,
+        "span": {
+          "start": 2,
+          "end": 9
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 0,
+        "span": {
+          "start": 2,
+          "end": 9
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 1,
+        "span": {
+          "start": 11,
+          "end": 53
+        },
+        "words": 7,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 1,
+        "span": {
+          "start": 11,
+          "end": 53
+        },
+        "words": 7,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 2,
+        "span": {
+          "start": 57,
+          "end": 63
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 2,
+        "span": {
+          "start": 57,
+          "end": 63
+        },
+        "words": 1,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "paragraph",
+        "unit_id": 3,
+        "span": {
+          "start": 65,
+          "end": 96
+        },
+        "words": 5,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      },
+      {
+        "path": "guide.md",
+        "scope": "sentence",
+        "unit_id": 3,
+        "span": {
+          "start": 65,
+          "end": 96
+        },
+        "words": 5,
+        "slop_score": 0,
+        "effective_slop_score": 0,
+        "slop_probability": null,
+        "probability_status": "calibration_unavailable",
+        "status": "available",
+        "contributions": []
+      }
+    ],
+    "accepted_gate_reasons": 0
+  }
+]

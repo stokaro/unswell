@@ -19,6 +19,23 @@ rules:
     score: {weight: 20, cap: 20}
 `
 
+func TestRepeatedIdenticalMatchesHaveIndependentSuppressionTraces(t *testing.T) {
+	c := qt.New(t)
+	engine, err := unswell.New(unswell.Options{Config: []byte(suppressionPolicy)})
+	c.Assert(err, qt.IsNil)
+	text := "<!-- unswell-disable-next-sentence policy.banned-phrases -- Required contract wording. -->\n\n" +
+		"The robust client retries. The robust client retries."
+	result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)})
+	c.Assert(err, qt.IsNil)
+	c.Assert(result.Findings, qt.HasLen, 2)
+	c.Assert(result.Findings[0].ID, qt.Not(qt.Equals), result.Findings[1].ID)
+	c.Assert(result.Findings[0].Suppressed, qt.IsTrue)
+	c.Assert(result.Findings[1].Suppressed, qt.IsFalse)
+	c.Assert(result.Gate.Reasons, qt.HasLen, 1)
+	c.Assert(result.Gate.Reasons[0].FindingID, qt.Equals, result.Findings[1].ID)
+	c.Assert(result.Assessments[0].EffectiveSlopScore, qt.Equals, float64(20))
+}
+
 func TestSuppressionPreservesRawScoresAndOtherFindings(t *testing.T) {
 	c := qt.New(t)
 	engine, err := unswell.New(unswell.Options{Config: []byte(suppressionPolicy), IncludeSource: true})

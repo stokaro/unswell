@@ -24,6 +24,7 @@ type Threshold struct {
 
 // Gate is independent of reporter filtering and severity.
 type Gate struct {
+	Mode             string    `json:"mode"              yaml:"mode"`
 	Sentence         Threshold `json:"sentence_score"     yaml:"sentence_score"`
 	Paragraph        Threshold `json:"paragraph_score"    yaml:"paragraph_score"`
 	FailOnEmpty      bool      `json:"fail_on_empty"      yaml:"fail_on_empty"`
@@ -236,6 +237,7 @@ func defaults(profile string, catalog []rule.Descriptor) (Policy, error) {
 		Origins:      make(map[string]string),
 		Suppressions: Suppressions{RequireReason: true, RejectUnused: true},
 		Gate: Gate{
+			Mode:             "all",
 			Sentence:         Threshold{FailAt: 80, MinWords: 12},
 			Paragraph:        Threshold{FailAt: 65, MinWords: 30},
 			FailOnEmpty:      true,

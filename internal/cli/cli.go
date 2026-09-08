@@ -64,6 +64,7 @@ func Run(ctx context.Context, args []string, environment Environment) int {
 		rulesCommand(environment),
 		doctorCommand(environment),
 		explainCommand(environment),
+		baselineCommand(environment, &code),
 	)
 	root.AddCommand(
 		&cobra.Command{
@@ -89,6 +90,9 @@ func Run(ctx context.Context, args []string, environment Environment) int {
 }
 
 type checkOptions struct {
+	baseline           string
+	gateMode           string
+	collectBaseline    bool
 	config             string
 	projectRoot        string
 	allowOutsideConfig bool
@@ -128,9 +132,16 @@ func checkCommand(environment Environment, code *int) *cobra.Command {
 			return nil
 		},
 	}
+	checkFlags(command, &options)
+	return command
+}
+
+func checkFlags(command *cobra.Command, options *checkOptions) {
 	flags := command.Flags()
+	flags.StringVar(&options.baseline, "baseline", "", "Read accepted debt from this local baseline; checking never writes it")
+	flags.StringVar(&options.gateMode, "gate-mode", "", "Override gate mode: all or new (new requires --baseline)")
 	flags.StringVar(&options.config, "config", "", "Use this exact YAML configuration file")
-	configurationFlags(command, &options, false)
+	configurationFlags(command, options, false)
 	flags.StringArrayVar(&options.ruleSets, "ruleset", nil, "Load a local declarative ruleset file or directory; repeat to combine")
 	flags.StringVar(&options.profile, "profile", "", "Select a builtin profile (cannot be combined with a config file)")
 	flags.BoolVar(&options.stdin, "stdin", false, "Read source bytes from stdin")
@@ -145,5 +156,4 @@ func checkCommand(environment Environment, code *int) *cobra.Command {
 	flags.BoolVar(&options.allowEmpty, "allow-empty", false, "Explicitly allow a scan without applicable prose")
 	flags.StringVar(&options.minSeverity, "min-severity", "note", "Display severity floor; never changes the gate")
 	flags.IntVar(&options.maxFindings, "max-findings", 0, "Presentation limit; zero displays all findings")
-	return command
 }

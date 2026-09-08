@@ -120,6 +120,11 @@ in policy hashes and field origins; builtin profile layers preserve them.
 
 ## Inspecting and pinning policy
 
+`gate.mode` accepts `all` (the default) and `new`, including in file overrides.
+New mode requires an explicitly supplied baseline. `--gate-mode` overrides the
+selection for one run. See [baseline debt](baseline.md) for creation, compatibility,
+partial coverage, and the distinction between acceptance and source permissions.
+
 ```sh
 unswell config validate
 unswell config explain --file docs/reference/api.md

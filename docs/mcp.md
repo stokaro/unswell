@@ -27,6 +27,12 @@ builtin defaults; it does not search a working directory or home directory for
 configuration. Set `--timeout 30s` to bound each check; the maximum is five minutes.
 Source and analysis limits also come from the effective policy.
 
+Use `--baseline /absolute/path/to/.unswell-baseline.json --gate-mode new` to accept
+reviewed debt through the shared engine. The artifact is loaded once at startup;
+restart after an explicit update. `unswell_describe` reports whether a baseline is
+loaded and the selected gate mode. Tools cannot create or update debt. See
+[baseline behavior](baseline.md) for exact matching, coverage, and compatibility.
+
 ## Tools
 
 `unswell_describe` accepts an empty object for the base policy, or a logical file

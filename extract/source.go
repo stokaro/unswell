@@ -13,13 +13,14 @@ import (
 )
 
 type sourceReader struct {
-	ctx        context.Context
-	doc        *document.Document
-	syntax     syntaxTree
-	options    Options
-	comments   []document.Span
-	exceptions []compiledException
-	yamlValues map[int]yamlValue
+	ctx             context.Context
+	doc             *document.Document
+	syntax          syntaxTree
+	options         Options
+	comments        []document.Span
+	exceptions      []compiledException
+	yamlValues      map[int]yamlValue
+	structureLabels map[structureKey]string
 }
 
 func sourceProse(ctx context.Context, doc *document.Document, options Options) error {
@@ -49,9 +50,17 @@ func sourceProse(ctx context.Context, doc *document.Document, options Options) e
 	if err := reader.commentGroups(); err != nil {
 		return err
 	}
+	return reader.finish()
+}
+
+func (r *sourceReader) finish() error {
+	doc := r.doc
 	slices.SortStableFunc(doc.Blocks, func(a, b document.Block) int { return a.Span.Start - b.Span.Start })
 	for i := range doc.Blocks {
 		doc.Blocks[i].ID = i
+	}
+	if r.options.IncludeStructure {
+		return r.assignSourceContexts()
 	}
 	return nil
 }

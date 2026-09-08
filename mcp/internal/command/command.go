@@ -3,6 +3,7 @@ package command
 
 import (
 	"context"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -12,6 +13,7 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 
 	"github.com/stokaro/unswell"
+	"github.com/stokaro/unswell/baseline"
 	"github.com/stokaro/unswell/internal/appconfig"
 	"github.com/stokaro/unswell/mcp/internal/server"
 )
@@ -21,6 +23,8 @@ func Run(ctx context.Context, args []string, stderr io.Writer, transport mcp.Tra
 	flags := flag.NewFlagSet("unswell-mcp", flag.ContinueOnError)
 	flags.SetOutput(stderr)
 	configPath := flags.String("config", "", "explicit Unswell policy file; omitted uses builtin defaults")
+	baselinePath := flags.String("baseline", "", "explicit local baseline loaded once at startup; tools cannot update it")
+	gateMode := flags.String("gate-mode", "", "override gate mode: all or new (new requires a baseline)")
 	projectRoot := flags.String("project-root", "", "root for local policy dependencies and logical source names")
 	allowOutside := flags.Bool("allow-config-outside-root", false, "explicitly permit local configuration outside the project root")
 	timeout := flags.Duration("timeout", 30*time.Second, "maximum duration of one check (at most 5m)")
@@ -44,9 +48,32 @@ func Run(ctx context.Context, args []string, stderr io.Writer, transport mcp.Tra
 	if err != nil {
 		return err
 	}
-	instance, err := server.New(server.Options{ConfigBundle: &loaded.Bundle, Timeout: *timeout})
+	accepted, err := readBaseline(*baselinePath)
+	if err != nil {
+		return err
+	}
+	instance, err := server.New(server.Options{ConfigBundle: &loaded.Bundle, Timeout: *timeout, Baseline: accepted, GateMode: *gateMode})
 	if err != nil {
 		return err
 	}
 	return instance.Run(ctx, transport)
+}
+
+func readBaseline(path string) ([]byte, error) {
+	if path == "" {
+		return nil, nil
+	}
+	// #nosec G304 -- The operator explicitly selects a local artifact; reads have a byte limit.
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	data, readErr := io.ReadAll(io.LimitReader(file, baseline.MaxBytes+1))
+	if err := errors.Join(readErr, file.Close()); err != nil {
+		return nil, err
+	}
+	if len(data) > baseline.MaxBytes {
+		return nil, fmt.Errorf("baseline exceeds %d bytes", baseline.MaxBytes)
+	}
+	return data, nil
 }

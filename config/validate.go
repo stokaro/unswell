@@ -72,6 +72,9 @@ func validateAnalysis(analysis Analysis) error {
 }
 
 func validateGate(gate Gate) error {
+	if gate.Mode != "all" && gate.Mode != "new" {
+		return fmt.Errorf("gate.mode must be all or new")
+	}
 	if !gate.FailOnIncomplete {
 		return fmt.Errorf("alpha requires complete analysis")
 	}

@@ -10,6 +10,9 @@ func findingMessage(finding unswell.Finding) string {
 	if finding.Suppressed {
 		return finding.Message + " [suppressed]"
 	}
+	if finding.BaselineFingerprint != "" {
+		return finding.Message + " [baseline: " + finding.BaselineState + "]"
+	}
 	return finding.Message
 }
 

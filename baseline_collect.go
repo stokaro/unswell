@@ -1,0 +1,109 @@
+package unswell
+
+import (
+	"context"
+	"slices"
+
+	"github.com/stokaro/unswell/baseline"
+	"github.com/stokaro/unswell/document"
+)
+
+func (e *Engine) collectDebt(ctx context.Context, result *RunResult, doc document.Document) error {
+	builder, err := newDebtBuilder(ctx, doc)
+	if err != nil {
+		return err
+	}
+	if err := builder.collectFindings(ctx, result); err != nil {
+		return err
+	}
+	if err := builder.collectAssessments(ctx, result); err != nil {
+		return err
+	}
+	result.BaselineSnapshot.Documents = append(result.BaselineSnapshot.Documents, baseline.Document{
+		Path: doc.Name, Format: string(doc.Format), SourceHash: doc.Hash,
+		PolicyHash: builder.hash(baselinePolicy(e.policy)), SuppressionHash: builder.suppressionHash(result.Suppressions),
+	})
+	return builder.err
+}
+
+func (b *debtBuilder) collectFindings(ctx context.Context, result *RunResult) error {
+	for i := range result.Findings {
+		if err := ctx.Err(); err != nil {
+			return err
+		}
+		finding := &result.Findings[i]
+		identity := b.finding(*finding)
+		finding.BaselineFingerprint = b.fingerprint(identity)
+		if !finding.Suppressed {
+			finding.BaselineState = "new"
+			result.BaselineSnapshot.Candidates = append(result.BaselineSnapshot.Candidates, identity)
+		}
+	}
+	return b.err
+}
+
+func (b *debtBuilder) collectAssessments(ctx context.Context, result *RunResult) error {
+	findings := make(map[string]string, len(result.Findings))
+	for _, finding := range result.Findings {
+		findings[finding.ID] = finding.BaselineFingerprint
+	}
+	for i := range result.Assessments {
+		if err := ctx.Err(); err != nil {
+			return err
+		}
+		assessment := &result.Assessments[i]
+		if assessment.EffectiveSlopScore == 0 {
+			continue
+		}
+		identity := b.unit(assessment.Scope, assessment.UnitID)
+		identity.EvidenceHash = b.assessmentEvidence(*assessment, findings)
+		assessment.BaselineFingerprint = b.fingerprint(identity)
+		assessment.BaselineState = "new"
+		result.BaselineSnapshot.Candidates = append(result.BaselineSnapshot.Candidates, identity)
+	}
+	return b.err
+}
+
+func (b *debtBuilder) assessmentEvidence(assessment Assessment, findings map[string]string) string {
+	// Replace transient run IDs on owned copies. Scores and evidence, including
+	// document repetition and source suppressions, remain part of unit identity.
+	raw := stableContributions(assessment.Contributions, findings)
+	effective := stableContributions(assessment.EffectiveContributions, findings)
+	return b.hash(struct {
+		Words             int
+		Raw, Effective    float64
+		Status            string
+		Contributions     []Contribution
+		EffectiveEvidence []Contribution
+	}{assessment.Words, assessment.SlopScore, assessment.EffectiveSlopScore, assessment.Status, raw, effective})
+}
+
+func stableContributions(contributions []Contribution, findings map[string]string) []Contribution {
+	result := slices.Clone(contributions)
+	for i := range result {
+		result[i].FindingID = findings[result[i].FindingID]
+	}
+	return result
+}
+
+type debtSuppression struct {
+	Kind, Reason string
+	Rules        []string
+	Targets      []baseline.Identity
+}
+
+func (b *debtBuilder) suppressionHash(suppressions []Suppression) string {
+	identities := make([]debtSuppression, 0, len(suppressions))
+	for _, suppression := range suppressions {
+		identity := debtSuppression{Kind: suppression.Kind, Reason: suppression.Reason, Rules: suppression.RuleIDs}
+		for _, target := range suppression.Targets {
+			unit := baseline.Identity{Path: b.doc.Name, Kind: target.Scope}
+			if target.Scope != "file" {
+				unit = b.unit(target.Scope, target.UnitID)
+			}
+			identity.Targets = append(identity.Targets, unit)
+		}
+		identities = append(identities, identity)
+	}
+	return b.hash(identities)
+}
