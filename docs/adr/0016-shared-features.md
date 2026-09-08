@@ -49,6 +49,27 @@ change raw measurements or manufacture negative training labels.
 
 ## Remaining feature families and consumers
 
+The next implementation shares lexical set construction and overlap measurements.
+`feature.WordSet` owns distinct normalized words; callers supply already selected
+words and explicit size limits. It performs no additional normalization or source
+selection. The existing stopword filter used for repetition candidate indexing
+moves with it under a separate versioned lexical contract. Numeric pair results
+use the common `Value` and `Descriptor` contracts, including absent Jaccard for an
+empty union. Obtaining sorted words or content keys is an explicit library call;
+these strings must not be added to saved reports by default.
+
+Near-sentence comparisons build each eligible sentence's set once and reuse it for
+candidate pairs. Paragraph/summary/heading comparisons use the same set and overlap
+implementation. Their existing term exclusions, protected signatures, candidate
+windows, and evidence grouping remain rule policy. Reuse must not change logical
+candidate charges. A mathematical overlap alone does not establish repetition of
+the same information: different negation, numbers, units, and required conditions
+still prevent a qualifying pair under the selected rule's guards.
+
+This preprocessing API does not substitute for the remaining engine-wide feature
+collection. Its lexical values must be paired with the caller's source, NLP,
+normalization, and policy identities before use in a persisted model vector.
+
 The complete #56 contract also needs shared repetition computations and a neutral
 adapter for raw rule activations. Activation features are computed after rule
 evaluation, before policy suppression; they must not depend on derived threshold

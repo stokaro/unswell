@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -97,7 +98,7 @@ func (a *ngramAnalysis) addSentence(item repetitionSentence) error {
 func ngramContent(words []string) bool {
 	first := ""
 	for _, word := range words {
-		if informativeWord(word) {
+		if feature.InformativeWord(word) {
 			if first != "" && word != first {
 				return true
 			}

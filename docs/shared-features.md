@@ -71,3 +71,39 @@ The remaining #56 work covers shared repetition computations, raw rule activatio
 features with applicability, optional LLMDet contracts, and engine collection for
 Go training, inference, and explanations. It must use this package and the existing
 `RunResult`; reporters and MCP must not compute independent feature vectors.
+
+## Lexical overlap
+
+`NewWordSet` builds an immutable representation of already selected normalized
+words under explicit word, distinct-word, and byte limits. It performs no extra
+normalization and owns its keys. The caller must select the correct source unit
+and apply protected-content and term policies before constructing the set.
+Empty, invalid UTF-8, and NUL-containing normalized words are errors.
+
+`CompareWords` computes an observed intersection and union. `LexicalCatalog`
+defines those two counts and Jaccard, using the same `Descriptor` and `Value`
+contracts as block measurements. The lexical contract is
+`unswell-lexical-features-v1`. An unavailable set cannot be compared. Two available
+empty sets have observed zero counts and unavailable Jaccard with `empty_union`.
+The zero value of `Overlap` has no observed numbers.
+
+`ContentKeys` uses the existing repetition candidate filter. It removes short
+keys and listed stopwords from candidate retrieval, while those words remain in
+the overlap denominator. The length check uses bytes, preserving the original
+formula; it is not a language or semantic-content classifier. `Words` and
+`ContentKeys` explicitly expose normalized strings to library callers. They are
+not added to saved reports or MCP responses.
+
+Near-sentence rules construct one word set per eligible sentence and reuse it
+for candidate comparisons. Paragraph, summary, and heading comparisons consume
+the same set and overlap implementation. Existing rule policy still determines
+term exemptions, windows, protected signatures, candidate charges, and clusters.
+Numerical overlap does not override a difference in negation, a numerical limit,
+or any other condition protected by the rule. Existing evidence values and
+coordinates retain their definitions.
+
+This shared preprocessing remains separate from the pending collection API.
+Persisted training and inference vectors must identify their source, NLP,
+normalization, and selection policies; normalized word sets alone do not establish
+that compatibility. N-gram extraction, syntax-template preparation, raw rule
+activations, and the remaining #56 collection work still need integration.

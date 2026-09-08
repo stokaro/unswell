@@ -8,6 +8,7 @@ import (
 	"unicode"
 
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -71,43 +72,17 @@ func contrastCue(word string) bool {
 	}, word)
 }
 
-func proseWordSet(view rule.View, sentence document.Sentence, words map[string]bool) int {
-	count := 0
+func proseWords(view rule.View, sentence document.Sentence, words []string) []string {
 	for i, token := range sentence.Tokens {
 		if token.Word && !token.Protected && !view.Exempts(sentence, i, i+1) {
-			words[token.Normal] = true
-			count++
+			words = append(words, token.Normal)
 		}
 	}
-	return count
+	return words
 }
 
-func wordOverlap(left, right map[string]bool) (int, int) {
-	shared := 0
-	for word := range right {
-		if left[word] {
-			shared++
-		}
-	}
-	return shared, len(left) + len(right) - shared
-}
-
-func informativeWord(word string) bool {
-	return len(word) > 2 && !slices.Contains([]string{
-		"the", "and", "for", "that", "this", "with", "from", "into", "are", "was", "were", "has", "have", "had",
-		"its", "their", "they", "them", "you", "your", "our", "can", "will", "would", "could", "should", "may",
-		"must", "not", "but", "also", "than", "then", "when", "which", "each", "all", "any", "one", "more", "most",
-		"been", "being", "these", "those", "there", "here", "such", "some", "other", "through", "about", "over",
-	}, word)
-}
-
-func contentKeys(words map[string]bool) []string {
-	var keys []string
-	for word := range words {
-		if informativeWord(word) {
-			keys = append(keys, word)
-		}
-	}
-	slices.Sort(keys)
-	return keys
+func makeWordSet(ctx context.Context, words []string, textBytes int) (feature.WordSet, error) {
+	count := max(1, len(words))
+	return feature.NewWordSet(ctx, words, feature.WordLimits{MaxWords: count, MaxUniqueWords: count,
+		MaxBytes: min(1<<30, max(1, textBytes)*4)})
 }

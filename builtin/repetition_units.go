@@ -5,22 +5,23 @@ import (
 	"strings"
 
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/rule"
 )
 
 type lexicalUnit struct {
 	block     document.Block
 	ordinal   int
-	words     map[string]bool
+	words     feature.WordSet
 	keys      []string
 	signature string
 	summary   bool
 }
 
 func makeLexicalUnit(view rule.View, block document.Block, ordinal int, budget *repetitionBudget) (lexicalUnit, bool, error) {
-	unit := lexicalUnit{block: block, ordinal: ordinal, words: make(map[string]bool)}
+	unit := lexicalUnit{block: block, ordinal: ordinal}
 	var signatures []string
-	words := 0
+	var words []string
 	for _, sentence := range block.Sentences {
 		if err := budget.spend(len(sentence.Tokens)); err != nil {
 			return unit, false, err
@@ -28,14 +29,19 @@ func makeLexicalUnit(view rule.View, block document.Block, ordinal int, budget *
 		if protectedSentence(sentence) {
 			return unit, false, nil
 		}
-		words += proseWordSet(view, sentence, unit.words)
+		words = proseWords(view, sentence, words)
 		if signature := repetitionSignature(view, sentence); signature != "" {
 			signatures = append(signatures, signature)
 		}
 	}
-	unit.keys = contentKeys(unit.words)
+	var err error
+	unit.words, err = makeWordSet(budget.ctx, words, len(block.Text))
+	if err != nil {
+		return unit, false, err
+	}
+	unit.keys = unit.words.ContentKeys()
 	unit.signature = strings.Join(signatures, "|")
-	return unit, words >= view.Parameters.MinWords && len(unit.keys) >= 2, nil
+	return unit, len(words) >= view.Parameters.MinWords && len(unit.keys) >= 2, nil
 }
 
 func overlapUnits(view rule.View, summaries bool, budget *repetitionBudget) ([]lexicalUnit, error) {
