@@ -150,6 +150,22 @@ type Sentence struct {
 	Tokens  []Token `json:"tokens"`
 	Chunks  []Chunk `json:"chunks"`
 	Words   int     `json:"words"`
+	// Dependencies is nil unless a provider produced a complete basic tree.
+	Dependencies *DependencyTree `json:"dependencies,omitempty"`
+}
+
+// DependencyTree contains one incoming arc per sentence token, in token order.
+// Punctuation participates; enhanced edges and empty nodes are not represented.
+// The provider identity defines the label scheme. Nonprojective trees are valid.
+type DependencyTree struct {
+	Arcs []DependencyArc `json:"arcs"`
+}
+
+// DependencyArc connects its token to a sentence-local head. Head -1 denotes
+// the single root; Relation retains the provider's label without reinterpretation.
+type DependencyArc struct {
+	Head     int    `json:"head"`
+	Relation string `json:"relation"`
 }
 
 // Chunk is a shallow NP, VP, or PP candidate, not a dependency parse.

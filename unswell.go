@@ -179,8 +179,8 @@ func (e *Engine) snapshotDescriptors() error {
 			return fmt.Errorf("nil rule implementation")
 		}
 		descriptor := implementation.Descriptor()
-		if !strings.Contains(descriptor.ID, ".") || descriptor.Version == "" || descriptor.Group == "" {
-			return fmt.Errorf("incomplete rule descriptor %q", descriptor.ID)
+		if err := validateDescriptor(descriptor); err != nil {
+			return err
 		}
 		e.descriptors = append(e.descriptors, descriptor)
 	}
@@ -200,24 +200,13 @@ func (e *Engine) snapshotDescriptors() error {
 	return nil
 }
 
-func (e *Engine) planCapabilities() error {
-	e.capabilities = []nlp.Capability{nlp.Tokens, nlp.Sentences}
-	available := e.nlp.Identity().Capabilities
-	enabled := e.plan.EnabledRuleIDs()
-	for _, descriptor := range e.descriptors {
-		if !slices.Contains(enabled, descriptor.ID) {
-			continue
-		}
-		for _, capability := range descriptor.Requires {
-			if !slices.Contains(available, capability) {
-				return fmt.Errorf("rule %s requires unavailable capability %s", descriptor.ID, capability)
-			}
-			if !slices.Contains(e.capabilities, capability) {
-				e.capabilities = append(e.capabilities, capability)
-			}
-		}
+func validateDescriptor(descriptor rule.Descriptor) error {
+	if !strings.Contains(descriptor.ID, ".") || descriptor.Version == "" || descriptor.Group == "" {
+		return fmt.Errorf("incomplete rule descriptor %q", descriptor.ID)
 	}
-	slices.Sort(e.capabilities)
+	if descriptor.DependencyScheme != "" && !slices.Contains(descriptor.Requires, nlp.Dependencies) {
+		return fmt.Errorf("rule %s declares a dependency scheme without requiring dependencies", descriptor.ID)
+	}
 	return nil
 }
 

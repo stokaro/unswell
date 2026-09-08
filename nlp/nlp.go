@@ -30,6 +30,9 @@ type Identity struct {
 	SentenceModelHash string       `json:"sentence_model_sha256"`
 	License           string       `json:"license"`
 	Capabilities      []Capability `json:"capabilities"`
+	// DependencyScheme identifies the label inventory and its interpretation.
+	// Providers that advertise Dependencies must set a stable, versioned ID.
+	DependencyScheme string `json:"dependency_scheme,omitempty"`
 }
 
 // Provider must support concurrent calls and must not mutate its input.

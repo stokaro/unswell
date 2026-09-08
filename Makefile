@@ -21,6 +21,7 @@ race:
 	bash scripts/modules.sh test -race
 
 fuzz:
+	go test ./nlp -run '^$$' -fuzz FuzzDependencyTree -fuzztime 10s -parallel 2
 	go test ./baseline -run '^$$' -fuzz FuzzLoad -fuzztime 10s -parallel 2
 	go test ./extract -run '^$$' -fuzz Fuzz -fuzztime 10s -parallel 2
 	go test ./report -run '^$$' -fuzz Fuzz -fuzztime 10s -parallel 2

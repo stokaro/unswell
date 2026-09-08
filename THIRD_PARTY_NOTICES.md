@@ -60,3 +60,13 @@ https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-
 Its embedded copyright and license notices are retained. It is test data and is
 not embedded in the executable. The Unswell result schema is generated from
 Unswell's public Go types and distributed under this project's MIT license.
+
+## Dependency research
+
+The isolated `research/dependencies` consumer module evaluates
+`github.com/bioshock/gospacy/v3` at `v3.8.14-port.2` (MIT). Its selected dependency
+graph and model component terms are documented in that module's README. It is not
+linked into the Unswell CLI, MCP server, or published library module. No spaCy
+model weights or Python environment are distributed in this repository.
+The saved dependency traces are predictions on agent-authored structural probes,
+not human grammatical judgments or editorial annotations.

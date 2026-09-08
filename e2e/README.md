@@ -155,3 +155,13 @@ numeric units, modalities, terminology, resource budgets, and concurrent reuse.
 formatting rules with file-specific policies, CRLF, a BOM, emphasis, and entities.
 `surface_code` checks the same engine through Go comments and escaped
 string literals. Unannotated clean prose must produce no extra findings.
+
+`TestDependencyTraceReplay` uses `testdata/dependency-traces.json`, a frozen
+GoSpacy/model run on ten source probes. It passes those predictions through the
+public engine and a test-only relation rule, checking missing/expected findings,
+source coordinates, and model identity. Markdown entities, emphasis, CRLF/BOM,
+protected code, Go comments, and escaped literals retain their original ranges.
+The JSON includes full trees for inspection. These are model predictions, not
+human labels: the `server` finding in `technical-3.txt` deliberately preserves a
+questionable parse reproduced by Python. The experiment and its limitations are
+in [dependency research](../research/dependencies/README.md).

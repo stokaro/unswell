@@ -133,5 +133,8 @@ overlap, and heading/summary echoes, with the same qualification requirement.
 [Surface experiments](surface-signals.md) cover nominalization, noun stacks,
 passive candidates, parenthetical load, readability, and formatting. These are
 unqualified candidates; they remain disabled in builtin profiles.
+The [dependency evaluation](../research/dependencies/README.md) records GoSpacy
+reference parity, component terms, and adapter limitations. The engine now validates
+requested trees and label schemes; the builtin provider remains surface-only.
 Dependency-based passive, long-subject and nested-clause rules require a real
 dependency backend. They must never silently fall back to surface approximations.
