@@ -13,28 +13,38 @@ func emDashDensity(ctx context.Context, view rule.View, emit rule.Emitter) error
 	m := newEditorialMatcher(ctx, view)
 	for _, block := range view.Document.Blocks {
 		if !proseBlock(block) || block.Words == 0 || block.Words < view.Parameters.MinWords {
+			if err := observeBlock(view, block, proseMinimumReason(block, view.Parameters.MinWords)); err != nil {
+				return err
+			}
 			continue
 		}
-		count, occurrences, err := emDashes(m, block)
-		if err != nil {
-			return err
-		}
-		value := float64(count) * 100 / float64(block.Words)
-		if count <= view.Parameters.AllowedOccurrences || value <= float64(view.Parameters.Onset) {
-			continue
-		}
-		p := view.Parameters
-		if err := emit.Emit(rule.Evidence{Kind: "heuristic", Activation: metricActivation(value, p.Onset, p.Saturation),
-			Occurrences: occurrences, Metrics: []rule.Metric{
-				{Name: "em-dash-density", Value: value, Unit: "em-dashes/100-prose-words",
-					Onset: float64(p.Onset), Saturation: float64(p.Saturation)},
-				{Name: "em-dash-count", Value: float64(count), Unit: "em-dashes"},
-				{Name: "prose-denominator", Value: float64(block.Words), Unit: "words"},
-			}}); err != nil {
+		if err := emitDashDensity(m, block, emit); err != nil {
 			return err
 		}
 	}
 	return ctx.Err()
+}
+
+func emitDashDensity(m *editorialMatcher, block document.Block, emit rule.Emitter) error {
+	count, occurrences, err := emDashes(m, block)
+	if err != nil {
+		return err
+	}
+	if err := observeBlock(m.view, block, ""); err != nil {
+		return err
+	}
+	p := m.view.Parameters
+	value := float64(count) * 100 / float64(block.Words)
+	if count <= p.AllowedOccurrences || value <= float64(p.Onset) {
+		return nil
+	}
+	return emit.Emit(rule.Evidence{Kind: "heuristic", Activation: metricActivation(value, p.Onset, p.Saturation),
+		Occurrences: occurrences, Metrics: []rule.Metric{
+			{Name: "em-dash-density", Value: value, Unit: "em-dashes/100-prose-words",
+				Onset: float64(p.Onset), Saturation: float64(p.Saturation)},
+			{Name: "em-dash-count", Value: float64(count), Unit: "em-dashes"},
+			{Name: "prose-denominator", Value: float64(block.Words), Unit: "words"},
+		}})
 }
 
 func emDashes(m *editorialMatcher, block document.Block) (int, []rule.Occurrence, error) {

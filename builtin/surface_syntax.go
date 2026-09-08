@@ -14,29 +14,52 @@ import (
 func nominalizationChains(ctx context.Context, view rule.View, emit rule.Emitter) error {
 	verbs, nouns := wordDictionary(view.Parameters.Verbs), wordDictionary(view.Parameters.Nouns)
 	matcher := newEditorialMatcher(ctx, view)
-	return surfaceSentences(matcher, func(sentence document.Sentence) error {
+	return surfaceSentences(matcher, len(verbs) > 0 && len(nouns) > 0, func(sentence document.Sentence) (bool, error) {
 		return nominalizationSentence(matcher, sentence, verbs, nouns, emit)
 	})
 }
 
-func surfaceSentences(m *editorialMatcher, visit func(document.Sentence) error) error {
+func surfaceSentences(m *editorialMatcher, hasPatterns bool, visit func(document.Sentence) (bool, error)) error {
 	for _, block := range m.view.Document.Blocks {
 		if !proseBlock(block) {
-			continue
-		}
-		for _, sentence := range block.Sentences {
-			if err := visit(sentence); err != nil {
+			if err := observeBlock(m.view, block, "unsupported_unit"); err != nil {
 				return err
 			}
+			continue
+		}
+		evaluated, err := visitSurfaceBlock(block, visit)
+		if err != nil {
+			return err
+		}
+		if err := observeBlock(m.view, block, tokenBlockReason(block, evaluated, hasPatterns)); err != nil {
+			return err
 		}
 	}
 	return m.ctx.Err()
 }
 
-func nominalizationSentence(m *editorialMatcher, sentence document.Sentence, verbs, nouns map[string]bool, emit rule.Emitter) error {
+func visitSurfaceBlock(block document.Block, visit func(document.Sentence) (bool, error)) (bool, error) {
+	evaluated := false
+	for _, sentence := range block.Sentences {
+		compared, err := visit(sentence)
+		if err != nil {
+			return evaluated, err
+		}
+		evaluated = evaluated || compared
+	}
+	return evaluated, nil
+}
+
+func nominalizationSentence(
+	m *editorialMatcher, sentence document.Sentence, verbs, nouns map[string]bool, emit rule.Emitter,
+) (bool, error) {
+	evaluated := false
 	for start, token := range sentence.Tokens {
 		if err := m.spend(); err != nil {
-			return err
+			return evaluated, err
+		}
+		if !evaluated && observedProseWord(m.view, sentence, start) {
+			evaluated = true
 		}
 		if !verbs[token.Normal] || !strings.HasPrefix(token.Tag, "VB") || token.Protected {
 			continue
@@ -47,10 +70,10 @@ func nominalizationSentence(m *editorialMatcher, sentence document.Sentence, ver
 		}
 		if err := emit.Emit(measured("heuristic", "nominalization-chains", "chains", 1, 0, 1,
 			[]rule.Occurrence{tokenOccurrence(sentence, start, end)})); err != nil {
-			return err
+			return evaluated, err
 		}
 	}
-	return nil
+	return evaluated, nil
 }
 
 func wordDictionary(words []string) map[string]bool {
@@ -111,37 +134,51 @@ func surfaceProseWord(token document.Token) bool {
 
 func nounStacks(ctx context.Context, view rule.View, emit rule.Emitter) error {
 	matcher := newEditorialMatcher(ctx, view)
-	return surfaceSentences(matcher, func(sentence document.Sentence) error {
-		for _, chunk := range sentence.Chunks {
-			if chunk.Kind != "NP" {
-				continue
-			}
-			if err := nounChunk(matcher, sentence, chunk, emit); err != nil {
-				return err
-			}
-		}
-		return nil
+	return surfaceSentences(matcher, true, func(sentence document.Sentence) (bool, error) {
+		return nounSentence(matcher, sentence, emit)
 	})
 }
 
-func nounChunk(m *editorialMatcher, sentence document.Sentence, chunk document.Chunk, emit rule.Emitter) error {
-	if chunk.FirstToken < 0 || chunk.EndToken <= chunk.FirstToken || chunk.EndToken > len(sentence.Tokens) {
-		return fmt.Errorf("invalid NP chunk token range")
-	}
-	start := chunk.FirstToken
-	for i := chunk.FirstToken; i <= chunk.EndToken; i++ {
-		if err := m.spend(); err != nil {
-			return err
-		}
-		if i < chunk.EndToken && eligibleCommonNoun(m.view, sentence, i) {
+func nounSentence(m *editorialMatcher, sentence document.Sentence, emit rule.Emitter) (bool, error) {
+	evaluated := false
+	for _, chunk := range sentence.Chunks {
+		if chunk.Kind != "NP" {
 			continue
 		}
+		compared, err := nounChunk(m, sentence, chunk, emit)
+		if err != nil {
+			return evaluated, err
+		}
+		evaluated = evaluated || compared
+	}
+	return evaluated, nil
+}
+
+func nounChunk(m *editorialMatcher, sentence document.Sentence, chunk document.Chunk, emit rule.Emitter) (bool, error) {
+	if !validNounChunk(chunk, len(sentence.Tokens)) {
+		return false, fmt.Errorf("invalid NP chunk token range")
+	}
+	start, evaluated := chunk.FirstToken, false
+	for i := chunk.FirstToken; i <= chunk.EndToken; i++ {
+		if err := m.spend(); err != nil {
+			return evaluated, err
+		}
+		if i < chunk.EndToken && nounStackWord(m.view, sentence, i) {
+			evaluated = true
+			if tag := sentence.Tokens[i].Tag; tag == "NN" || tag == "NNS" {
+				continue
+			}
+		}
 		if err := emitNounStack(m, sentence, start, i, emit); err != nil {
-			return err
+			return evaluated, err
 		}
 		start = i + 1
 	}
-	return nil
+	return evaluated, nil
+}
+
+func validNounChunk(chunk document.Chunk, tokens int) bool {
+	return chunk.FirstToken >= 0 && chunk.EndToken > chunk.FirstToken && chunk.EndToken <= tokens
 }
 
 func emitNounStack(m *editorialMatcher, sentence document.Sentence, start, end int, emit rule.Emitter) error {
@@ -158,10 +195,11 @@ func singularNounModifiers(tokens []document.Token) bool {
 	return !slices.ContainsFunc(tokens[:len(tokens)-1], func(token document.Token) bool { return token.Tag == "NNS" })
 }
 
-func eligibleCommonNoun(view rule.View, sentence document.Sentence, index int) bool {
+func nounStackWord(view rule.View, sentence document.Sentence, index int) bool {
 	token := sentence.Tokens[index]
 	// The negative modal "cannot" is never a common noun, even when tagged NN.
-	return commonNoun(token) && !strings.EqualFold(token.Text, "cannot") && !view.Exempts(sentence, index, index+1)
+	return surfaceProseWord(token) && !protectedIdentifier(token, 1) &&
+		!strings.EqualFold(token.Text, "cannot") && !view.Exempts(sentence, index, index+1)
 }
 
 func passiveEvents(m *editorialMatcher, sentences []document.Sentence, index int) ([]editorialEvent, error) {

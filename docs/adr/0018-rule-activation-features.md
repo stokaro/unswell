@@ -80,6 +80,25 @@ has established applicability. The matcher still checks every possible match.
 The Go benchmark isolates both modes on 100,000 prepared tokens and 128 phrases;
 it does not stand in for the full extraction/NLP performance budget.
 
+Local syntax, modifier, connective, insertion, and punctuation rules also report
+their applicability while computing existing counts. Length requires a sentence
+with prose words. Modifier and nominalization dictionaries must be nonempty;
+token checks require an unprotected, nonexempt token in the rule's inspected
+scope. Noun-stack observations cover eligible words in inspected NP chunks.
+Connective checks require the configured word minimum and an eligible sentence
+opening. Parenthetical load requires the configured word minimum and a nonexempt
+prose word; em-dash density retains its prose-kind, nonzero-denominator, and
+minimum-word requirements. An applicable count below its configured activation
+threshold is zero. Inapplicability records its cause instead. Nominalization
+checks perform the additional eligibility comparison only when observations are
+requested, stopping after the first eligible token in each sentence.
+
+Keep each rule's existing traversal, resource accounting, evidence, and finding
+version. The new observation declaration changes the catalog hash. Empty
+candidate scopes cannot become negative training examples merely because an
+emitter was silent. Windowed rhetoric, repetition, and list rules require their
+own accounting and remain outside this local increment.
+
 Acceptance includes positive and zero activations, each absence state, disabled
 rules, uninstrumented external rules, ignored observer errors, partial failures,
 cluster occurrences and duplicates, policy overrides, source protection,

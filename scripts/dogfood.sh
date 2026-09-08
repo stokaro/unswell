@@ -4,7 +4,7 @@ cd "$(dirname "$0")/.."
 mkdir -p artifacts/dogfood
 bin/unswell check . --config .unswell.yaml --include-source \
   --feature prose-words --feature type-token-ratio --feature activation/readability.long-paragraph \
-  --feature activation/filler.announced-importance \
+  --feature activation/filler.announced-importance --feature activation/syntax.noun-stack \
   --report text:- \
   --report json:artifacts/dogfood/result.json \
   --report sarif:artifacts/dogfood/result.sarif \

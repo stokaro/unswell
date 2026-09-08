@@ -237,11 +237,31 @@ preserve a matched rule's raw activation. Declaring full observations changes th
 catalog hash used by collected values. Finding versions and fingerprints stay
 unchanged because phrase matching has not changed.
 
-Other families still need complete applicability observations before their silent
+Seven additional local rules record observations in their existing calculations:
+
+| Rules | Applicability |
+| --- | --- |
+| `syntax.long-sentence` | At least one sentence with prose words; otherwise `no_prose_words`. |
+| `hype.modifier-cluster` | Configured phrases and an unprotected, nonexempt word to inspect. |
+| `density.connective-overuse` | Configured word minimum, phrases, and an eligible sentence opening. |
+| `syntax.nominalization-chain` | Prose block, both dictionaries, and an unprotected, nonexempt prose word. |
+| `syntax.noun-stack` | Prose block and an eligible word in an inspected NP chunk; terms and identifiers retain their exclusions. |
+| `syntax.parenthetical-load` | Prose block, configured word minimum, and nonexempt prose words. |
+| `format.em-dash-density` | Prose block with a nonzero denominator and the configured word minimum. |
+
+Missing dictionaries, sentences, or eligible tokens produce `no_patterns`,
+`no_sentences`, or `no_eligible_tokens`. Unsupported prose kinds and word limits
+produce `unsupported_unit`, `no_prose_words`, or `insufficient_words` as applicable.
+Reasons retain the `inapplicable/` prefix in saved values. The same rule can inspect
+headings for sentence length while another rule excludes them from its prose
+scope. A measured zero uses the supplied POS/chunks and configured pattern
+definition; it does not establish that the parse or text is correct.
+
+Windowed rhetoric, repetition, and list rules still need complete observations before their silent
 blocks can supply dense negative inputs for training. The complete #56 work and
 model qualification remain open. See [ADR 0018](adr/0018-rule-activation-features.md).
 
 The number of blocks times requested values must fit `analysis.max_candidates`
 for each source. Exceeding this output bound is an operational error; values are
-not sampled or silently dropped. Repository CLI/MCP self-checks collect readability
-and phrase activations alongside word counts and lexical diversity.
+not sampled or silently dropped. Repository CLI/MCP self-checks collect readability,
+phrase, and noun-stack activations alongside word counts and lexical diversity.
