@@ -80,7 +80,7 @@ func contextRules() []rule.Rule {
 	result := []rule.Rule{
 		check{long, longSentence},
 		check{hype, modifierCluster},
-		check{notOnly, editorialWindow(notOnlyEvents, "paired-contrasts")},
+		check{notOnly, editorialWindow(notOnlyEvents, "paired-contrasts", false)},
 		check{connective, connectiveOveruse},
 	}
 	return append(result, repetitionRules()...)

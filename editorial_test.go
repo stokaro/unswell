@@ -67,8 +67,11 @@ func TestEditorialWindowBoundaries(t *testing.T) {
 		want         int
 	}{
 		{"adjacent paragraphs", "\n\n", 1},
-		{"heading", "\n\n## Another topic\n\n", 0},
+		{"heading", "\n\n## Another topic\n\n", 1},
+		{"setext heading", "\n\nAnother topic\n-------------\n\n", 1},
 		{"code block", "\n\n```go\nconst Value = 1\n```\n\n", 0},
+		{"code before heading", "\n\n```go\nconst Value = 1\n```\n\n## Another topic\n\n", 0},
+		{"symbol code before heading", "\n\n    ===\n\n## Another topic\n\n", 0},
 		{"protected sentence", " Check `Value` before continuing. ", 0},
 		{"beyond window", " " + strings.Repeat("The client waits. ", 8), 0},
 	} {
@@ -83,6 +86,8 @@ func TestEditorialWindowBoundaries(t *testing.T) {
 	result, err := engine.Analyze(t.Context(), document.Source{Name: "p.go", Format: document.Go, Bytes: []byte(text)})
 	c.Assert(err, qt.IsNil)
 	c.Assert(result.Findings, qt.HasLen, 0)
+	transition := "With that being said, the server starts.\n\n## Another topic\n\nIt goes without saying that the client waits."
+	c.Assert(editorialResult(t, "filler.empty-transition", transition, "").Findings, qt.HasLen, 0)
 }
 
 func TestNewEditorialRulesRequireExplicitOptIn(t *testing.T) {

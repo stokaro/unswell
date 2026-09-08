@@ -22,8 +22,9 @@ protected or structural boundaries. Its default thresholds stay unchanged; the
 version change makes baseline and result compatibility explicit.
 
 Phrase-pattern windows count measured occurrences, allowing one isolated instance.
-They span adjacent prose paragraphs but stop at headings, lists, tables, protected
-gaps, and independent source comments or strings. Paired constructions must occur
+They span adjacent prose paragraphs. Section announcements also cross recognized
+headings; other patterns stop there. All stop at lists, tables, protected gaps,
+and independent source comments or strings. Paired constructions must occur
 within one block. A rolling window emits each occurrence in at most one cluster.
 There is no document-wide all-pairs comparison. Candidate checks and stored matches
 are bounded by `max_candidates`, and evaluation observes caller cancellation.

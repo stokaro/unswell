@@ -15,10 +15,10 @@ type editorialEvent struct {
 
 type eventFinder func(*editorialMatcher, []document.Sentence, int) ([]editorialEvent, error)
 
-func editorialWindow(find eventFinder, metric string) func(context.Context, rule.View, rule.Emitter) error {
+func editorialWindow(find eventFinder, metric string, sectionOpenings bool) func(context.Context, rule.View, rule.Emitter) error {
 	return func(ctx context.Context, view rule.View, emit rule.Emitter) error {
 		matcher := newEditorialMatcher(ctx, view)
-		runs, err := proseRuns(ctx, view.Document)
+		runs, err := proseRuns(ctx, view.Document, sectionOpenings)
 		if err != nil {
 			return err
 		}
@@ -50,10 +50,11 @@ func (m *editorialMatcher) events(run []document.Sentence, find eventFinder) ([]
 	return events, nil
 }
 
-func proseRuns(ctx context.Context, doc *document.Document) ([][]document.Sentence, error) {
+func proseRuns(ctx context.Context, doc *document.Document, sectionOpenings bool) ([][]document.Sentence, error) {
 	var runs [][]document.Sentence
 	var current []document.Sentence
 	var previous *document.Block
+	gaps := newProseGapIndex(doc.Excluded)
 	flush := func() {
 		if len(current) > 0 {
 			runs = append(runs, current)
@@ -65,7 +66,7 @@ func proseRuns(ctx context.Context, doc *document.Document) ([][]document.Senten
 			return nil, err
 		}
 		block := &doc.Blocks[i]
-		if !adjacentParagraphs(doc, previous, block) {
+		if gaps.between(previous, block) || !adjacentProse(doc, previous, block, sectionOpenings) {
 			flush()
 		}
 		previous = block
@@ -84,12 +85,25 @@ func proseRuns(ctx context.Context, doc *document.Document) ([][]document.Senten
 	return runs, ctx.Err()
 }
 
-func adjacentParagraphs(doc *document.Document, before, after *document.Block) bool {
-	if before == nil || before.Kind != "paragraph" || after.Kind != "paragraph" {
+func adjacentProse(doc *document.Document, before, after *document.Block, sectionOpenings bool) bool {
+	if before == nil || !windowBlock(before.Kind, sectionOpenings) || !windowBlock(after.Kind, sectionOpenings) {
 		return false
 	}
 	start, end := before.Span.End, after.Span.Start
-	return start <= end && end <= len(doc.Source) && len(bytes.TrimSpace(doc.Source[start:end])) == 0
+	if start > end || end > len(doc.Source) {
+		return false
+	}
+	gap := doc.Source[start:end]
+	if before.Kind == "heading" || after.Kind == "heading" {
+		// Only grammar-recognized headings may contribute Markdown delimiters.
+		// Fences, omitted comments, and other source bytes still break the run.
+		gap = bytes.Trim(gap, " \t\r\n#=-")
+	}
+	return len(bytes.TrimSpace(gap)) == 0
+}
+
+func windowBlock(kind string, sectionOpenings bool) bool {
+	return kind == "paragraph" || (sectionOpenings && kind == "heading")
 }
 
 func emitWindows(ctx context.Context, p rule.Parameters, metric string, events []editorialEvent, emit rule.Emitter) error {

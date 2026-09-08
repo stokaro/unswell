@@ -65,8 +65,10 @@ these rules have no dependency-parser requirement or hidden model lookup.
 
 ## Context and limits
 
-Windowed rules can connect adjacent prose paragraphs. They stop at headings,
-lists, table cells, nonwhitespace source gaps, and protected-token sentences.
+Windowed rules can connect adjacent prose paragraphs. Section announcements also
+cross grammar-recognized headings so repeated introductions in separate sections
+are counted. Other windowed rules stop at headings. Lists, table cells,
+nonwhitespace source gaps, and protected-token sentences end every run.
 Independent comments and string literals form separate runs. A paired contrast or
 question/answer must fit within one block. These conservative boundaries prevent
 code removal or unrelated source fragments from creating a rhetorical pattern.
