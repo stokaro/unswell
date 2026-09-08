@@ -98,6 +98,11 @@ The [published annotation protocol](editorial-annotation.md) and its
 Real human annotation, the corpus minimums, and final held-out evidence remain
 acceptance requirements; the tutorial fixtures do not satisfy them.
 
+The [corpus preparation tool](../research/annotation/corpus/README.md) supplies
+source manifests, grouped partition plans, original ranges, and re-extraction
+verification for #22. Its 378 Ptah candidates remain unlabeled and entirely in
+development. The human-labeled corpus and final-test acceptance remain open.
+
 - Publish an editorial annotation rubric, data provenance and licenses.
 - Collect at least 5,000 labeled sentence/paragraph units, including good
   AI-assisted and poor human-written prose, with at least two annotators.

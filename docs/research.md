@@ -13,6 +13,11 @@ Its [Go tools](../research/annotation/README.md) validate rounds, prepare blinde
 packets, and measure agreement. The included tutorial has scripted responses and
 does not count as the human-labeled corpus or a completed pilot.
 
+The [corpus preparation tool](../research/annotation/corpus/README.md) freezes
+source groups before extraction and verifies candidates against exact originals.
+Its eight pinned Ptah files produce 378 unlabeled development candidates; they
+provide workflow tests, with no human judgments or independent final-test evidence.
+
 ## Execution order
 
 | Step | Issue | Deliverable |

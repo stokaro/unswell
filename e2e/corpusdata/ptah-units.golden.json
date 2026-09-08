@@ -1,0 +1,6286 @@
+[
+  {
+    "id": "u000001",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Ptah",
+    "context": "Ptah",
+    "segments": [
+      {
+        "start": 198,
+        "end": 202
+      }
+    ]
+  },
+  {
+    "id": "u000002",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "Ptah manages database change across schemas and persistent inference state.",
+    "context": "Ptah manages database change across schemas and persistent inference state. For schemas, it compares a desired schema with a live database and either writes versioned migrations or applies an approved plan directly. For inference state, it builds a candidate generation beside the active one, calls an external embedding endpoint, verifies the result, and switches consumers with a rollback path.",
+    "segments": [
+      {
+        "start": 2556,
+        "end": 2631
+      }
+    ]
+  },
+  {
+    "id": "u000003",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "For schemas, it compares a desired schema with a live database and either writes versioned migrations or applies an approved plan directly.",
+    "context": "Ptah manages database change across schemas and persistent inference state. For schemas, it compares a desired schema with a live database and either writes versioned migrations or applies an approved plan directly. For inference state, it builds a candidate generation beside the active one, calls an external embedding endpoint, verifies the result, and switches consumers with a rollback path.",
+    "segments": [
+      {
+        "start": 2632,
+        "end": 2771
+      }
+    ]
+  },
+  {
+    "id": "u000004",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "For inference state, it builds a candidate generation beside the active one, calls an external embedding endpoint, verifies the result, and switches consumers with a rollback path.",
+    "context": "Ptah manages database change across schemas and persistent inference state. For schemas, it compares a desired schema with a live database and either writes versioned migrations or applies an approved plan directly. For inference state, it builds a candidate generation beside the active one, calls an external embedding endpoint, verifies the result, and switches consumers with a rollback path.",
+    "segments": [
+      {
+        "start": 2772,
+        "end": 2952
+      }
+    ]
+  },
+  {
+    "id": "u000005",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "Ptah manages database change across schemas and persistent inference state. For schemas, it compares a desired schema with a live database and either writes versioned migrations or applies an approved plan directly. For inference state, it builds a candidate generation beside the active one, calls an external embedding endpoint, verifies the result, and switches consumers with a rollback path.",
+    "context": "Ptah manages database change across schemas and persistent inference state. For schemas, it compares a desired schema with a live database and either writes versioned migrations or applies an approved plan directly. For inference state, it builds a candidate generation beside the active one, calls an external embedding endpoint, verifies the result, and switches consumers with a rollback path.",
+    "segments": [
+      {
+        "start": 2556,
+        "end": 2952
+      }
+    ]
+  },
+  {
+    "id": "u000006",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "The command-line interface runs without a Go toolchain, and the same planning components are available as Go packages.",
+    "context": "The command-line interface runs without a Go toolchain, and the same planning components are available as Go packages.",
+    "segments": [
+      {
+        "start": 2954,
+        "end": 3072
+      }
+    ]
+  },
+  {
+    "id": "u000007",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "The command-line interface runs without a Go toolchain, and the same planning components are available as Go packages.",
+    "context": "The command-line interface runs without a Go toolchain, and the same planning components are available as Go packages.",
+    "segments": [
+      {
+        "start": 2954,
+        "end": 3072
+      }
+    ]
+  },
+  {
+    "id": "u000008",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Schema changes",
+    "context": "Schema changes",
+    "segments": [
+      {
+        "start": 3077,
+        "end": 3091
+      }
+    ]
+  },
+  {
+    "id": "u000009",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "Both workflows use the same comparison and planning model.",
+    "context": "Both workflows use the same comparison and planning model. The difference is whether SQL becomes a reviewed artifact in version control before it runs.",
+    "segments": [
+      {
+        "start": 3484,
+        "end": 3542
+      }
+    ]
+  },
+  {
+    "id": "u000010",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "The difference is whether SQL becomes a reviewed artifact in version control before it runs.",
+    "context": "Both workflows use the same comparison and planning model. The difference is whether SQL becomes a reviewed artifact in version control before it runs.",
+    "segments": [
+      {
+        "start": 3543,
+        "end": 3635
+      }
+    ]
+  },
+  {
+    "id": "u000011",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "Both workflows use the same comparison and planning model. The difference is whether SQL becomes a reviewed artifact in version control before it runs.",
+    "context": "Both workflows use the same comparison and planning model. The difference is whether SQL becomes a reviewed artifact in version control before it runs.",
+    "segments": [
+      {
+        "start": 3484,
+        "end": 3635
+      }
+    ]
+  },
+  {
+    "id": "u000012",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Persistent inference state",
+    "context": "Persistent inference state",
+    "segments": [
+      {
+        "start": 3640,
+        "end": 3666
+      }
+    ]
+  },
+  {
+    "id": "u000013",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "Ptah orchestrates the migration; it does not run inference.",
+    "context": "Ptah orchestrates the migration; it does not run inference. It reads source rows, calls the external endpoint, and writes the candidate generation itself, leaving the active generation untouched until verification and cutover.",
+    "segments": [
+      {
+        "start": 3668,
+        "end": 3727
+      }
+    ]
+  },
+  {
+    "id": "u000014",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "It reads source rows, calls the external endpoint, and writes the candidate generation itself, leaving the active generation untouched until verification and cutover.",
+    "context": "Ptah orchestrates the migration; it does not run inference. It reads source rows, calls the external endpoint, and writes the candidate generation itself, leaving the active generation untouched until verification and cutover.",
+    "segments": [
+      {
+        "start": 3728,
+        "end": 3894
+      }
+    ]
+  },
+  {
+    "id": "u000015",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "Ptah orchestrates the migration; it does not run inference. It reads source rows, calls the external endpoint, and writes the candidate generation itself, leaving the active generation untouched until verification and cutover.",
+    "context": "Ptah orchestrates the migration; it does not run inference. It reads source rows, calls the external endpoint, and writes the candidate generation itself, leaving the active generation untouched until verification and cutover.",
+    "segments": [
+      {
+        "start": 3668,
+        "end": 3894
+      }
+    ]
+  },
+  {
+    "id": "u000016",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "The inference migrations guide covers the specification, concurrent-change catch-up, evaluation, approvals, rollback, and retirement.",
+    "context": "The inference migrations guide covers the specification, concurrent-change catch-up, evaluation, approvals, rollback, and retirement.",
+    "segments": [
+      {
+        "start": 4287,
+        "end": 4291
+      },
+      {
+        "start": 4292,
+        "end": 4318
+      },
+      {
+        "start": 4367,
+        "end": 4470
+      }
+    ]
+  },
+  {
+    "id": "u000017",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "The inference migrations guide covers the specification, concurrent-change catch-up, evaluation, approvals, rollback, and retirement.",
+    "context": "The inference migrations guide covers the specification, concurrent-change catch-up, evaluation, approvals, rollback, and retirement.",
+    "segments": [
+      {
+        "start": 4287,
+        "end": 4291
+      },
+      {
+        "start": 4292,
+        "end": 4318
+      },
+      {
+        "start": 4367,
+        "end": 4470
+      }
+    ]
+  },
+  {
+    "id": "u000018",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Install",
+    "context": "Install",
+    "segments": [
+      {
+        "start": 4564,
+        "end": 4571
+      }
+    ]
+  },
+  {
+    "id": "u000019",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "The installer selects the current release for Linux, macOS, or Windows, verifies its checksum, and installs",
+    "context": "The installer selects the current release for Linux, macOS, or Windows, verifies its checksum, and installs",
+    "segments": [
+      {
+        "start": 4573,
+        "end": 4680
+      }
+    ]
+  },
+  {
+    "id": "u000020",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": ", and",
+    "context": ", and",
+    "segments": [
+      {
+        "start": 4702,
+        "end": 4707
+      }
+    ]
+  },
+  {
+    "id": "u000021",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "under your home directory.",
+    "context": "under your home directory.",
+    "segments": [
+      {
+        "start": 4718,
+        "end": 4744
+      }
+    ]
+  },
+  {
+    "id": "u000022",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "In PowerShell:",
+    "context": "In PowerShell:",
+    "segments": [
+      {
+        "start": 4803,
+        "end": 4817
+      }
+    ]
+  },
+  {
+    "id": "u000023",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "In PowerShell:",
+    "context": "In PowerShell:",
+    "segments": [
+      {
+        "start": 4803,
+        "end": 4817
+      }
+    ]
+  },
+  {
+    "id": "u000024",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "The installation guide covers version pinning, signature verification, download-without-execution, and building from source.",
+    "context": "The installation guide covers version pinning, signature verification, download-without-execution, and building from source.",
+    "segments": [
+      {
+        "start": 4877,
+        "end": 4881
+      },
+      {
+        "start": 4882,
+        "end": 4900
+      },
+      {
+        "start": 4944,
+        "end": 5046
+      }
+    ]
+  },
+  {
+    "id": "u000025",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "The installation guide covers version pinning, signature verification, download-without-execution, and building from source.",
+    "context": "The installation guide covers version pinning, signature verification, download-without-execution, and building from source.",
+    "segments": [
+      {
+        "start": 4877,
+        "end": 4881
+      },
+      {
+        "start": 4882,
+        "end": 4900
+      },
+      {
+        "start": 4944,
+        "end": 5046
+      }
+    ]
+  },
+  {
+    "id": "u000026",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Try Ptah with SQLite",
+    "context": "Try Ptah with SQLite",
+    "segments": [
+      {
+        "start": 5080,
+        "end": 5100
+      }
+    ]
+  },
+  {
+    "id": "u000027",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Save this desired schema as",
+    "context": "Save this desired schema as",
+    "segments": [
+      {
+        "start": 5102,
+        "end": 5129
+      }
+    ]
+  },
+  {
+    "id": "u000028",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "Render the SQL, apply it to a throwaway database, and check that the database matches the file:",
+    "context": "Render the SQL, apply it to a throwaway database, and check that the database matches the file:",
+    "segments": [
+      {
+        "start": 5240,
+        "end": 5335
+      }
+    ]
+  },
+  {
+    "id": "u000029",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "Render the SQL, apply it to a throwaway database, and check that the database matches the file:",
+    "context": "Render the SQL, apply it to a throwaway database, and check that the database matches the file:",
+    "segments": [
+      {
+        "start": 5240,
+        "end": 5335
+      }
+    ]
+  },
+  {
+    "id": "u000030",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "Expected output includes:",
+    "context": "Expected output includes:",
+    "segments": [
+      {
+        "start": 5566,
+        "end": 5591
+      }
+    ]
+  },
+  {
+    "id": "u000031",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "Expected output includes:",
+    "context": "Expected output includes:",
+    "segments": [
+      {
+        "start": 5566,
+        "end": 5591
+      }
+    ]
+  },
+  {
+    "id": "u000032",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "Expected output includes:",
+    "context": "Expected output includes:",
+    "segments": [
+      {
+        "start": 5629,
+        "end": 5654
+      }
+    ]
+  },
+  {
+    "id": "u000033",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "Expected output includes:",
+    "context": "Expected output includes:",
+    "segments": [
+      {
+        "start": 5629,
+        "end": 5654
+      }
+    ]
+  },
+  {
+    "id": "u000034",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "Expected output includes:",
+    "context": "Expected output includes:",
+    "segments": [
+      {
+        "start": 5706,
+        "end": 5731
+      }
+    ]
+  },
+  {
+    "id": "u000035",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "Expected output includes:",
+    "context": "Expected output includes:",
+    "segments": [
+      {
+        "start": 5706,
+        "end": 5731
+      }
+    ]
+  },
+  {
+    "id": "u000036",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "The last command exits 0 when the database matches the file, which is what makes it usable as a CI gate. Remove",
+    "context": "The last command exits 0 when the database matches the file, which is what makes it usable as a CI gate. Remove",
+    "segments": [
+      {
+        "start": 5772,
+        "end": 5883
+      }
+    ]
+  },
+  {
+    "id": "u000037",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "and",
+    "context": "and",
+    "segments": [
+      {
+        "start": 5893,
+        "end": 5896
+      }
+    ]
+  },
+  {
+    "id": "u000038",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "when you are done.",
+    "context": "when you are done.",
+    "segments": [
+      {
+        "start": 5910,
+        "end": 5928
+      }
+    ]
+  },
+  {
+    "id": "u000039",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "For a complete workflow with expected output and verification, use the direct schema changes tutorial or the versioned migrations tutorial.",
+    "context": "For a complete workflow with expected output and verification, use the direct schema changes tutorial or the versioned migrations tutorial.",
+    "segments": [
+      {
+        "start": 6129,
+        "end": 6200
+      },
+      {
+        "start": 6201,
+        "end": 6231
+      },
+      {
+        "start": 6286,
+        "end": 6294
+      },
+      {
+        "start": 6295,
+        "end": 6324
+      },
+      {
+        "start": 6383,
+        "end": 6384
+      }
+    ]
+  },
+  {
+    "id": "u000040",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "For a complete workflow with expected output and verification, use the direct schema changes tutorial or the versioned migrations tutorial.",
+    "context": "For a complete workflow with expected output and verification, use the direct schema changes tutorial or the versioned migrations tutorial.",
+    "segments": [
+      {
+        "start": 6129,
+        "end": 6200
+      },
+      {
+        "start": 6201,
+        "end": 6231
+      },
+      {
+        "start": 6286,
+        "end": 6294
+      },
+      {
+        "start": 6295,
+        "end": 6324
+      },
+      {
+        "start": 6383,
+        "end": 6384
+      }
+    ]
+  },
+  {
+    "id": "u000041",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Choose how schema changes land",
+    "context": "Choose how schema changes land",
+    "segments": [
+      {
+        "start": 6389,
+        "end": 6419
+      }
+    ]
+  },
+  {
+    "id": "u000042",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Workflow",
+    "context": "Workflow",
+    "segments": [
+      {
+        "start": 6423,
+        "end": 6431
+      }
+    ]
+  },
+  {
+    "id": "u000043",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Use it when",
+    "context": "Use it when",
+    "segments": [
+      {
+        "start": 6434,
+        "end": 6445
+      }
+    ]
+  },
+  {
+    "id": "u000044",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Start with",
+    "context": "Start with",
+    "segments": [
+      {
+        "start": 6448,
+        "end": 6458
+      }
+    ]
+  },
+  {
+    "id": "u000045",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Versioned migrations",
+    "context": "Versioned migrations",
+    "segments": [
+      {
+        "start": 6483,
+        "end": 6503
+      }
+    ]
+  },
+  {
+    "id": "u000046",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "SQL files belong in code review and deployment history",
+    "context": "SQL files belong in code review and deployment history",
+    "segments": [
+      {
+        "start": 6506,
+        "end": 6560
+      }
+    ]
+  },
+  {
+    "id": "u000047",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Direct schema changes",
+    "context": "Direct schema changes",
+    "segments": [
+      {
+        "start": 6594,
+        "end": 6615
+      }
+    ]
+  },
+  {
+    "id": "u000048",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "The desired schema is authoritative and you want to review and apply the plan now",
+    "context": "The desired schema is authoritative and you want to review and apply the plan now",
+    "segments": [
+      {
+        "start": 6618,
+        "end": 6699
+      }
+    ]
+  },
+  {
+    "id": "u000049",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Schema sources can come from SQL, YAML, HCL, DBML, Go annotations, external loaders, or a live database. Database and feature coverage vary by engine; use the support matrix and",
+    "context": "Schema sources can come from SQL, YAML, HCL, DBML, Go annotations, external loaders, or a live database. Database and feature coverage vary by engine; use the support matrix and",
+    "segments": [
+      {
+        "start": 6724,
+        "end": 6883
+      },
+      {
+        "start": 6884,
+        "end": 6898
+      },
+      {
+        "start": 6953,
+        "end": 6957
+      }
+    ]
+  },
+  {
+    "id": "u000050",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "for the concrete target.",
+    "context": "for the concrete target.",
+    "segments": [
+      {
+        "start": 6996,
+        "end": 7020
+      }
+    ]
+  },
+  {
+    "id": "u000051",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Explore the documentation",
+    "context": "Explore the documentation",
+    "segments": [
+      {
+        "start": 7025,
+        "end": 7050
+      }
+    ]
+  },
+  {
+    "id": "u000052",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Choose a workflow to compare versioned migrations with direct schema changes.",
+    "context": "Choose a workflow to compare versioned migrations with direct schema changes.",
+    "segments": [
+      {
+        "start": 7055,
+        "end": 7072
+      },
+      {
+        "start": 7126,
+        "end": 7127
+      },
+      {
+        "start": 7129,
+        "end": 7188
+      }
+    ]
+  },
+  {
+    "id": "u000053",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Inspect a live database or compare and detect drift.",
+    "context": "Inspect a live database or compare and detect drift.",
+    "segments": [
+      {
+        "start": 7192,
+        "end": 7215
+      },
+      {
+        "start": 7260,
+        "end": 7261
+      },
+      {
+        "start": 7263,
+        "end": 7266
+      },
+      {
+        "start": 7267,
+        "end": 7291
+      },
+      {
+        "start": 7346,
+        "end": 7347
+      }
+    ]
+  },
+  {
+    "id": "u000054",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Validate migration integrity or test migrations and schemas.",
+    "context": "Validate migration integrity or test migrations and schemas.",
+    "segments": [
+      {
+        "start": 7351,
+        "end": 7379
+      },
+      {
+        "start": 7440,
+        "end": 7441
+      },
+      {
+        "start": 7443,
+        "end": 7446
+      },
+      {
+        "start": 7447,
+        "end": 7474
+      },
+      {
+        "start": 7534,
+        "end": 7535
+      }
+    ]
+  },
+  {
+    "id": "u000055",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Visualize or export a schema.",
+    "context": "Visualize or export a schema.",
+    "segments": [
+      {
+        "start": 7539,
+        "end": 7548
+      },
+      {
+        "start": 7595,
+        "end": 7596
+      },
+      {
+        "start": 7598,
+        "end": 7601
+      },
+      {
+        "start": 7602,
+        "end": 7608
+      },
+      {
+        "start": 7652,
+        "end": 7662
+      }
+    ]
+  },
+  {
+    "id": "u000056",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Migrate persistent inference state while an external endpoint computes embeddings.",
+    "context": "Migrate persistent inference state while an external endpoint computes embeddings.",
+    "segments": [
+      {
+        "start": 7666,
+        "end": 7700
+      },
+      {
+        "start": 7749,
+        "end": 7750
+      },
+      {
+        "start": 7752,
+        "end": 7799
+      }
+    ]
+  },
+  {
+    "id": "u000057",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Look up native commands or diagnose a failure.",
+    "context": "Look up native commands or diagnose a failure.",
+    "segments": [
+      {
+        "start": 7803,
+        "end": 7826
+      },
+      {
+        "start": 7882,
+        "end": 7883
+      },
+      {
+        "start": 7885,
+        "end": 7888
+      },
+      {
+        "start": 7889,
+        "end": 7907
+      },
+      {
+        "start": 7961,
+        "end": 7962
+      }
+    ]
+  },
+  {
+    "id": "u000058",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "The site source lives in",
+    "context": "The site source lives in",
+    "segments": [
+      {
+        "start": 7964,
+        "end": 7988
+      }
+    ]
+  },
+  {
+    "id": "u000059",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "indexes contributor and implementation documents outside the reader site.",
+    "context": "indexes contributor and implementation documents outside the reader site.",
+    "segments": [
+      {
+        "start": 8050,
+        "end": 8123
+      }
+    ]
+  },
+  {
+    "id": "u000060",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Go packages and Atlas compatibility",
+    "context": "Go packages and Atlas compatibility",
+    "segments": [
+      {
+        "start": 8128,
+        "end": 8163
+      }
+    ]
+  },
+  {
+    "id": "u000061",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "Go projects can embed the documented packages, use annotated structs as schema sources, and run",
+    "context": "Go projects can embed the documented packages, use annotated structs as schema sources, and run",
+    "segments": [
+      {
+        "start": 8165,
+        "end": 8260
+      }
+    ]
+  },
+  {
+    "id": "u000062",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "for editor support. Start with the public API ledger, reusable components, or Go annotations.",
+    "context": "for editor support. Start with the public API ledger, reusable components, or Go annotations.",
+    "segments": [
+      {
+        "start": 8271,
+        "end": 8306
+      },
+      {
+        "start": 8307,
+        "end": 8324
+      },
+      {
+        "start": 8372,
+        "end": 8374
+      },
+      {
+        "start": 8375,
+        "end": 8394
+      },
+      {
+        "start": 8442,
+        "end": 8447
+      },
+      {
+        "start": 8448,
+        "end": 8462
+      },
+      {
+        "start": 8514,
+        "end": 8515
+      }
+    ]
+  },
+  {
+    "id": "u000063",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "The separate",
+    "context": "The separate",
+    "segments": [
+      {
+        "start": 8517,
+        "end": 8529
+      }
+    ]
+  },
+  {
+    "id": "u000064",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "binary exposes an Atlas-compatible command surface; the native",
+    "context": "binary exposes an Atlas-compatible command surface; the native",
+    "segments": [
+      {
+        "start": 8544,
+        "end": 8606
+      }
+    ]
+  },
+  {
+    "id": "u000065",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "command tree does not use Atlas command paths. Ptah does not claim full Atlas parity. The compatibility overview and conformance results state the measured coverage and differences.",
+    "context": "command tree does not use Atlas command paths. Ptah does not claim full Atlas parity. The compatibility overview and conformance results state the measured coverage and differences.",
+    "segments": [
+      {
+        "start": 8614,
+        "end": 8704
+      },
+      {
+        "start": 8705,
+        "end": 8727
+      },
+      {
+        "start": 8772,
+        "end": 8777
+      },
+      {
+        "start": 8778,
+        "end": 8797
+      },
+      {
+        "start": 8845,
+        "end": 8890
+      }
+    ]
+  },
+  {
+    "id": "u000066",
+    "source": "d000001",
+    "kind": "fragment",
+    "role": "readme",
+    "text": "License and help",
+    "context": "License and help",
+    "segments": [
+      {
+        "start": 8895,
+        "end": 8911
+      }
+    ]
+  },
+  {
+    "id": "u000067",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "Ptah is an independent clean-room implementation published under the MIT license.",
+    "context": "Ptah is an independent clean-room implementation published under the MIT license. It does not use Atlas source code and is not affiliated with or endorsed by Ariga. The license boundary records the provenance policy.",
+    "segments": [
+      {
+        "start": 8913,
+        "end": 8982
+      },
+      {
+        "start": 8983,
+        "end": 8994
+      },
+      {
+        "start": 9004,
+        "end": 9005
+      }
+    ]
+  },
+  {
+    "id": "u000068",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "It does not use Atlas source code and is not affiliated with or endorsed by Ariga.",
+    "context": "Ptah is an independent clean-room implementation published under the MIT license. It does not use Atlas source code and is not affiliated with or endorsed by Ariga. The license boundary records the provenance policy.",
+    "segments": [
+      {
+        "start": 9006,
+        "end": 9088
+      }
+    ]
+  },
+  {
+    "id": "u000069",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "The license boundary records the provenance policy.",
+    "context": "Ptah is an independent clean-room implementation published under the MIT license. It does not use Atlas source code and is not affiliated with or endorsed by Ariga. The license boundary records the provenance policy.",
+    "segments": [
+      {
+        "start": 9089,
+        "end": 9093
+      },
+      {
+        "start": 9094,
+        "end": 9110
+      },
+      {
+        "start": 9163,
+        "end": 9194
+      }
+    ]
+  },
+  {
+    "id": "u000070",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "Ptah is an independent clean-room implementation published under the MIT license. It does not use Atlas source code and is not affiliated with or endorsed by Ariga. The license boundary records the provenance policy.",
+    "context": "Ptah is an independent clean-room implementation published under the MIT license. It does not use Atlas source code and is not affiliated with or endorsed by Ariga. The license boundary records the provenance policy.",
+    "segments": [
+      {
+        "start": 8913,
+        "end": 8982
+      },
+      {
+        "start": 8983,
+        "end": 8994
+      },
+      {
+        "start": 9004,
+        "end": 9093
+      },
+      {
+        "start": 9094,
+        "end": 9110
+      },
+      {
+        "start": 9163,
+        "end": 9194
+      }
+    ]
+  },
+  {
+    "id": "u000071",
+    "source": "d000001",
+    "kind": "sentence",
+    "role": "readme",
+    "text": "For questions and bug reports, open an issue in stokaro/ptah.",
+    "context": "For questions and bug reports, open an issue in stokaro/ptah.",
+    "segments": [
+      {
+        "start": 9196,
+        "end": 9244
+      },
+      {
+        "start": 9245,
+        "end": 9257
+      },
+      {
+        "start": 9298,
+        "end": 9299
+      }
+    ]
+  },
+  {
+    "id": "u000072",
+    "source": "d000001",
+    "kind": "paragraph",
+    "role": "readme",
+    "text": "For questions and bug reports, open an issue in stokaro/ptah.",
+    "context": "For questions and bug reports, open an issue in stokaro/ptah.",
+    "segments": [
+      {
+        "start": 9196,
+        "end": 9244
+      },
+      {
+        "start": 9245,
+        "end": 9257
+      },
+      {
+        "start": 9298,
+        "end": 9299
+      }
+    ]
+  },
+  {
+    "id": "u000073",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "PostgreSQL Sequences with Ptah",
+    "context": "PostgreSQL Sequences with Ptah",
+    "segments": [
+      {
+        "start": 2,
+        "end": 32
+      }
+    ]
+  },
+  {
+    "id": "u000074",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Ptah supports standalone PostgreSQL sequences as a first-class schema object through the",
+    "context": "Ptah supports standalone PostgreSQL sequences as a first-class schema object through the",
+    "segments": [
+      {
+        "start": 34,
+        "end": 122
+      }
+    ]
+  },
+  {
+    "id": "u000075",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "annotation. A standalone sequence is created with",
+    "context": "annotation. A standalone sequence is created with",
+    "segments": [
+      {
+        "start": 148,
+        "end": 197
+      }
+    ]
+  },
+  {
+    "id": "u000076",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ", altered with",
+    "context": ", altered with",
+    "segments": [
+      {
+        "start": 215,
+        "end": 229
+      }
+    ]
+  },
+  {
+    "id": "u000077",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ", and dropped with",
+    "context": ", and dropped with",
+    "segments": [
+      {
+        "start": 246,
+        "end": 264
+      }
+    ]
+  },
+  {
+    "id": "u000078",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ", and participates in the full generate / compare / migrate / rollback lifecycle in the same way as tables, views, functions, and roles.",
+    "context": ", and participates in the full generate / compare / migrate / rollback lifecycle in the same way as tables, views, functions, and roles.",
+    "segments": [
+      {
+        "start": 280,
+        "end": 416
+      }
+    ]
+  },
+  {
+    "id": "u000079",
+    "source": "d000002",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "Standalone sequences are a PostgreSQL feature that Atlas keeps out of its open-source core (it lives only in the proprietary \"Pro\" build).",
+    "context": "Standalone sequences are a PostgreSQL feature that Atlas keeps out of its open-source core (it lives only in the proprietary \"Pro\" build). Ptah provides it as an open (MIT), local, no-account capability — see epic #654.",
+    "segments": [
+      {
+        "start": 418,
+        "end": 556
+      }
+    ]
+  },
+  {
+    "id": "u000080",
+    "source": "d000002",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "Ptah provides it as an open (MIT), local, no-account capability — see epic #654.",
+    "context": "Standalone sequences are a PostgreSQL feature that Atlas keeps out of its open-source core (it lives only in the proprietary \"Pro\" build). Ptah provides it as an open (MIT), local, no-account capability — see epic #654.",
+    "segments": [
+      {
+        "start": 557,
+        "end": 634
+      },
+      {
+        "start": 635,
+        "end": 639
+      },
+      {
+        "start": 684,
+        "end": 685
+      }
+    ]
+  },
+  {
+    "id": "u000081",
+    "source": "d000002",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "Standalone sequences are a PostgreSQL feature that Atlas keeps out of its open-source core (it lives only in the proprietary \"Pro\" build). Ptah provides it as an open (MIT), local, no-account capability — see epic #654.",
+    "context": "Standalone sequences are a PostgreSQL feature that Atlas keeps out of its open-source core (it lives only in the proprietary \"Pro\" build). Ptah provides it as an open (MIT), local, no-account capability — see epic #654.",
+    "segments": [
+      {
+        "start": 418,
+        "end": 634
+      },
+      {
+        "start": 635,
+        "end": 639
+      },
+      {
+        "start": 684,
+        "end": 685
+      }
+    ]
+  },
+  {
+    "id": "u000082",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Standalone vs. implicit sequences",
+    "context": "Standalone vs. implicit sequences",
+    "segments": [
+      {
+        "start": 690,
+        "end": 723
+      }
+    ]
+  },
+  {
+    "id": "u000083",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "PostgreSQL creates an implicit sequence for every",
+    "context": "PostgreSQL creates an implicit sequence for every",
+    "segments": [
+      {
+        "start": 725,
+        "end": 747
+      },
+      {
+        "start": 748,
+        "end": 756
+      },
+      {
+        "start": 757,
+        "end": 776
+      }
+    ]
+  },
+  {
+    "id": "u000084",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "column and for identity columns (",
+    "context": "column and for identity columns (",
+    "segments": [
+      {
+        "start": 816,
+        "end": 849
+      }
+    ]
+  },
+  {
+    "id": "u000085",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "). Those implicit sequences are owned by their column and are created and dropped automatically with it — you do not declare them.",
+    "context": "). Those implicit sequences are owned by their column and are created and dropped automatically with it — you do not declare them.",
+    "segments": [
+      {
+        "start": 876,
+        "end": 1008
+      }
+    ]
+  },
+  {
+    "id": "u000086",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "A standalone sequence is one you declare explicitly, typically to share a single number generator across several tables or to control a column default with",
+    "context": "A standalone sequence is one you declare explicitly, typically to share a single number generator across several tables or to control a column default with",
+    "segments": [
+      {
+        "start": 1010,
+        "end": 1012
+      },
+      {
+        "start": 1013,
+        "end": 1023
+      },
+      {
+        "start": 1024,
+        "end": 1167
+      }
+    ]
+  },
+  {
+    "id": "u000087",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ". Ptah's introspection deliberately excludes implicit serial/identity sequences, so declaring a plain",
+    "context": ". Ptah's introspection deliberately excludes implicit serial/identity sequences, so declaring a plain",
+    "segments": [
+      {
+        "start": 1190,
+        "end": 1291
+      }
+    ]
+  },
+  {
+    "id": "u000088",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "column never produces a spurious standalone-sequence diff.",
+    "context": "column never produces a spurious standalone-sequence diff.",
+    "segments": [
+      {
+        "start": 1301,
+        "end": 1359
+      }
+    ]
+  },
+  {
+    "id": "u000089",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Declaring a sequence",
+    "context": "Declaring a sequence",
+    "segments": [
+      {
+        "start": 1364,
+        "end": 1384
+      }
+    ]
+  },
+  {
+    "id": "u000090",
+    "source": "d000002",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "This renders:",
+    "context": "This renders:",
+    "segments": [
+      {
+        "start": 1539,
+        "end": 1552
+      }
+    ]
+  },
+  {
+    "id": "u000091",
+    "source": "d000002",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "This renders:",
+    "context": "This renders:",
+    "segments": [
+      {
+        "start": 1539,
+        "end": 1552
+      }
+    ]
+  },
+  {
+    "id": "u000092",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Sequence attributes",
+    "context": "Sequence attributes",
+    "segments": [
+      {
+        "start": 1656,
+        "end": 1675
+      }
+    ]
+  },
+  {
+    "id": "u000093",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Attribute",
+    "context": "Attribute",
+    "segments": [
+      {
+        "start": 1679,
+        "end": 1688
+      }
+    ]
+  },
+  {
+    "id": "u000094",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Description",
+    "context": "Description",
+    "segments": [
+      {
+        "start": 1691,
+        "end": 1702
+      }
+    ]
+  },
+  {
+    "id": "u000095",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Sequence name (required)",
+    "context": "Sequence name (required)",
+    "segments": [
+      {
+        "start": 1730,
+        "end": 1754
+      }
+    ]
+  },
+  {
+    "id": "u000096",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Target schema/namespace (optional)",
+    "context": "Target schema/namespace (optional)",
+    "segments": [
+      {
+        "start": 1770,
+        "end": 1804
+      }
+    ]
+  },
+  {
+    "id": "u000097",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Underlying integer type, e.g.",
+    "context": "Underlying integer type, e.g.",
+    "segments": [
+      {
+        "start": 1816,
+        "end": 1845
+      }
+    ]
+  },
+  {
+    "id": "u000098",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "value",
+    "context": "value",
+    "segments": [
+      {
+        "start": 1905,
+        "end": 1910
+      }
+    ]
+  },
+  {
+    "id": "u000099",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "value (must be non-zero)",
+    "context": "value (must be non-zero)",
+    "segments": [
+      {
+        "start": 1944,
+        "end": 1968
+      }
+    ]
+  },
+  {
+    "id": "u000100",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "bound",
+    "context": "bound",
+    "segments": [
+      {
+        "start": 1997,
+        "end": 2002
+      }
+    ]
+  },
+  {
+    "id": "u000101",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "bound",
+    "context": "bound",
+    "segments": [
+      {
+        "start": 2031,
+        "end": 2036
+      }
+    ]
+  },
+  {
+    "id": "u000102",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "size",
+    "context": "size",
+    "segments": [
+      {
+        "start": 2059,
+        "end": 2063
+      }
+    ]
+  },
+  {
+    "id": "u000103",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "to enable",
+    "context": "to enable",
+    "segments": [
+      {
+        "start": 2085,
+        "end": 2094
+      }
+    ]
+  },
+  {
+    "id": "u000104",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "(default",
+    "context": "(default",
+    "segments": [
+      {
+        "start": 2103,
+        "end": 2111
+      }
+    ]
+  },
+  {
+    "id": "u000105",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "association (",
+    "context": "association (",
+    "segments": [
+      {
+        "start": 2156,
+        "end": 2169
+      }
+    ]
+  },
+  {
+    "id": "u000106",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Emit",
+    "context": "Emit",
+    "segments": [
+      {
+        "start": 2203,
+        "end": 2207
+      }
+    ]
+  },
+  {
+    "id": "u000107",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Optional comment",
+    "context": "Optional comment",
+    "segments": [
+      {
+        "start": 2240,
+        "end": 2256
+      }
+    ]
+  },
+  {
+    "id": "u000108",
+    "source": "d000002",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "Only the options you set are emitted.",
+    "context": "Only the options you set are emitted. An option left unset relies on the PostgreSQL default and is never reported as a difference during comparison, so a sequence that uses defaults does not churn against the introspected catalog values.",
+    "segments": [
+      {
+        "start": 2260,
+        "end": 2297
+      }
+    ]
+  },
+  {
+    "id": "u000109",
+    "source": "d000002",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "An option left unset relies on the PostgreSQL default and is never reported as a difference during comparison, so a sequence that uses defaults does not churn against the introspected catalog values.",
+    "context": "Only the options you set are emitted. An option left unset relies on the PostgreSQL default and is never reported as a difference during comparison, so a sequence that uses defaults does not churn against the introspected catalog values.",
+    "segments": [
+      {
+        "start": 2298,
+        "end": 2497
+      }
+    ]
+  },
+  {
+    "id": "u000110",
+    "source": "d000002",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "Only the options you set are emitted. An option left unset relies on the PostgreSQL default and is never reported as a difference during comparison, so a sequence that uses defaults does not churn against the introspected catalog values.",
+    "context": "Only the options you set are emitted. An option left unset relies on the PostgreSQL default and is never reported as a difference during comparison, so a sequence that uses defaults does not churn against the introspected catalog values.",
+    "segments": [
+      {
+        "start": 2260,
+        "end": 2497
+      }
+    ]
+  },
+  {
+    "id": "u000111",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Using a sequence as a column default",
+    "context": "Using a sequence as a column default",
+    "segments": [
+      {
+        "start": 2502,
+        "end": 2538
+      }
+    ]
+  },
+  {
+    "id": "u000112",
+    "source": "d000002",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "Because a standalone sequence may back a column default, Ptah always creates sequences before the tables that reference them:",
+    "context": "Because a standalone sequence may back a column default, Ptah always creates sequences before the tables that reference them:",
+    "segments": [
+      {
+        "start": 2540,
+        "end": 2665
+      }
+    ]
+  },
+  {
+    "id": "u000113",
+    "source": "d000002",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "Because a standalone sequence may back a column default, Ptah always creates sequences before the tables that reference them:",
+    "context": "Because a standalone sequence may back a column default, Ptah always creates sequences before the tables that reference them:",
+    "segments": [
+      {
+        "start": 2540,
+        "end": 2665
+      }
+    ]
+  },
+  {
+    "id": "u000114",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Ownership (",
+    "context": "Ownership (",
+    "segments": [
+      {
+        "start": 2940,
+        "end": 2951
+      }
+    ]
+  },
+  {
+    "id": "u000115",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "ties the sequence's lifecycle to a column. Because a sequence referenced by a column default must be created before its table, while",
+    "context": "ties the sequence's lifecycle to a column. Because a sequence referenced by a column default must be created before its table, while",
+    "segments": [
+      {
+        "start": 2990,
+        "end": 3099
+      },
+      {
+        "start": 3100,
+        "end": 3106
+      },
+      {
+        "start": 3107,
+        "end": 3124
+      }
+    ]
+  },
+  {
+    "id": "u000116",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "requires the table to already exist, Ptah emits the association as a separate",
+    "context": "requires the table to already exist, Ptah emits the association as a separate",
+    "segments": [
+      {
+        "start": 3136,
+        "end": 3213
+      }
+    ]
+  },
+  {
+    "id": "u000117",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "after the table is created — the same ordering",
+    "context": "after the table is created — the same ordering",
+    "segments": [
+      {
+        "start": 3245,
+        "end": 3250
+      },
+      {
+        "start": 3251,
+        "end": 3294
+      }
+    ]
+  },
+  {
+    "id": "u000118",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "uses.",
+    "context": "uses.",
+    "segments": [
+      {
+        "start": 3305,
+        "end": 3310
+      }
+    ]
+  },
+  {
+    "id": "u000119",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Granting privileges on a sequence",
+    "context": "Granting privileges on a sequence",
+    "segments": [
+      {
+        "start": 4109,
+        "end": 4142
+      }
+    ]
+  },
+  {
+    "id": "u000120",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Use",
+    "context": "Use",
+    "segments": [
+      {
+        "start": 4144,
+        "end": 4147
+      }
+    ]
+  },
+  {
+    "id": "u000121",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "on a",
+    "context": "on a",
+    "segments": [
+      {
+        "start": 4162,
+        "end": 4166
+      }
+    ]
+  },
+  {
+    "id": "u000122",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "annotation. Valid sequence privileges are",
+    "context": "annotation. Valid sequence privileges are",
+    "segments": [
+      {
+        "start": 4189,
+        "end": 4230
+      }
+    ]
+  },
+  {
+    "id": "u000123",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ", and",
+    "context": ", and",
+    "segments": [
+      {
+        "start": 4248,
+        "end": 4253
+      }
+    ]
+  },
+  {
+    "id": "u000124",
+    "source": "d000002",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "See PostgreSQL Role Management for the full grant model.",
+    "context": "See PostgreSQL Role Management for the full grant model.",
+    "segments": [
+      {
+        "start": 4398,
+        "end": 4402
+      },
+      {
+        "start": 4403,
+        "end": 4429
+      },
+      {
+        "start": 4453,
+        "end": 4479
+      }
+    ]
+  },
+  {
+    "id": "u000125",
+    "source": "d000002",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "See PostgreSQL Role Management for the full grant model.",
+    "context": "See PostgreSQL Role Management for the full grant model.",
+    "segments": [
+      {
+        "start": 4398,
+        "end": 4402
+      },
+      {
+        "start": 4403,
+        "end": 4429
+      },
+      {
+        "start": 4453,
+        "end": 4479
+      }
+    ]
+  },
+  {
+    "id": "u000126",
+    "source": "d000002",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Other dialects",
+    "context": "Other dialects",
+    "segments": [
+      {
+        "start": 4484,
+        "end": 4498
+      }
+    ]
+  },
+  {
+    "id": "u000127",
+    "source": "d000002",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "Standalone sequences are enabled for PostgreSQL-family presets with a complete emit/read/plan path, currently PostgreSQL, CockroachDB, and YugabyteDB.",
+    "context": "Standalone sequences are enabled for PostgreSQL-family presets with a complete emit/read/plan path, currently PostgreSQL, CockroachDB, and YugabyteDB. MySQL, MariaDB, ClickHouse, and Spanner name standalone sequence declarations as skipped or unsupported in rendered plans. SQLite rejects the change in the planner. SQL Server has engine-level sequence support, but Ptah does not yet model standalone SQL Server sequence objects in the portable schema path.",
+    "segments": [
+      {
+        "start": 4500,
+        "end": 4650
+      }
+    ]
+  },
+  {
+    "id": "u000128",
+    "source": "d000002",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "MySQL, MariaDB, ClickHouse, and Spanner name standalone sequence declarations as skipped or unsupported in rendered plans.",
+    "context": "Standalone sequences are enabled for PostgreSQL-family presets with a complete emit/read/plan path, currently PostgreSQL, CockroachDB, and YugabyteDB. MySQL, MariaDB, ClickHouse, and Spanner name standalone sequence declarations as skipped or unsupported in rendered plans. SQLite rejects the change in the planner. SQL Server has engine-level sequence support, but Ptah does not yet model standalone SQL Server sequence objects in the portable schema path.",
+    "segments": [
+      {
+        "start": 4651,
+        "end": 4773
+      }
+    ]
+  },
+  {
+    "id": "u000129",
+    "source": "d000002",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "SQLite rejects the change in the planner.",
+    "context": "Standalone sequences are enabled for PostgreSQL-family presets with a complete emit/read/plan path, currently PostgreSQL, CockroachDB, and YugabyteDB. MySQL, MariaDB, ClickHouse, and Spanner name standalone sequence declarations as skipped or unsupported in rendered plans. SQLite rejects the change in the planner. SQL Server has engine-level sequence support, but Ptah does not yet model standalone SQL Server sequence objects in the portable schema path.",
+    "segments": [
+      {
+        "start": 4774,
+        "end": 4815
+      }
+    ]
+  },
+  {
+    "id": "u000130",
+    "source": "d000002",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "SQL Server has engine-level sequence support, but Ptah does not yet model standalone SQL Server sequence objects in the portable schema path.",
+    "context": "Standalone sequences are enabled for PostgreSQL-family presets with a complete emit/read/plan path, currently PostgreSQL, CockroachDB, and YugabyteDB. MySQL, MariaDB, ClickHouse, and Spanner name standalone sequence declarations as skipped or unsupported in rendered plans. SQLite rejects the change in the planner. SQL Server has engine-level sequence support, but Ptah does not yet model standalone SQL Server sequence objects in the portable schema path.",
+    "segments": [
+      {
+        "start": 4816,
+        "end": 4957
+      }
+    ]
+  },
+  {
+    "id": "u000131",
+    "source": "d000002",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "Standalone sequences are enabled for PostgreSQL-family presets with a complete emit/read/plan path, currently PostgreSQL, CockroachDB, and YugabyteDB. MySQL, MariaDB, ClickHouse, and Spanner name standalone sequence declarations as skipped or unsupported in rendered plans. SQLite rejects the change in the planner. SQL Server has engine-level sequence support, but Ptah does not yet model standalone SQL Server sequence objects in the portable schema path.",
+    "context": "Standalone sequences are enabled for PostgreSQL-family presets with a complete emit/read/plan path, currently PostgreSQL, CockroachDB, and YugabyteDB. MySQL, MariaDB, ClickHouse, and Spanner name standalone sequence declarations as skipped or unsupported in rendered plans. SQLite rejects the change in the planner. SQL Server has engine-level sequence support, but Ptah does not yet model standalone SQL Server sequence objects in the portable schema path.",
+    "segments": [
+      {
+        "start": 4500,
+        "end": 4957
+      }
+    ]
+  },
+  {
+    "id": "u000132",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "PostgreSQL Extension Ignore Functionality",
+    "context": "PostgreSQL Extension Ignore Functionality",
+    "segments": [
+      {
+        "start": 2,
+        "end": 43
+      }
+    ]
+  },
+  {
+    "id": "u000133",
+    "source": "d000003",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "This document describes the PostgreSQL extension ignore functionality in Ptah, which allows you to configure which extensions should be ignored during schema migrations.",
+    "context": "This document describes the PostgreSQL extension ignore functionality in Ptah, which allows you to configure which extensions should be ignored during schema migrations.",
+    "segments": [
+      {
+        "start": 45,
+        "end": 214
+      }
+    ]
+  },
+  {
+    "id": "u000134",
+    "source": "d000003",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "This document describes the PostgreSQL extension ignore functionality in Ptah, which allows you to configure which extensions should be ignored during schema migrations.",
+    "context": "This document describes the PostgreSQL extension ignore functionality in Ptah, which allows you to configure which extensions should be ignored during schema migrations.",
+    "segments": [
+      {
+        "start": 45,
+        "end": 214
+      }
+    ]
+  },
+  {
+    "id": "u000135",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Overview",
+    "context": "Overview",
+    "segments": [
+      {
+        "start": 219,
+        "end": 227
+      }
+    ]
+  },
+  {
+    "id": "u000136",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Some PostgreSQL extensions (like",
+    "context": "Some PostgreSQL extensions (like",
+    "segments": [
+      {
+        "start": 229,
+        "end": 261
+      }
+    ]
+  },
+  {
+    "id": "u000137",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ") are installed by default in databases and should not be managed by migration systems. The ignore functionality provides:",
+    "context": ") are installed by default in databases and should not be managed by migration systems. The ignore functionality provides:",
+    "segments": [
+      {
+        "start": 271,
+        "end": 393
+      }
+    ]
+  },
+  {
+    "id": "u000138",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Configurable ignore list: Specify which extensions to ignore",
+    "context": "Configurable ignore list: Specify which extensions to ignore",
+    "segments": [
+      {
+        "start": 399,
+        "end": 423
+      },
+      {
+        "start": 425,
+        "end": 461
+      }
+    ]
+  },
+  {
+    "id": "u000139",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Default behavior:",
+    "context": "Default behavior:",
+    "segments": [
+      {
+        "start": 466,
+        "end": 482
+      },
+      {
+        "start": 484,
+        "end": 485
+      }
+    ]
+  },
+  {
+    "id": "u000140",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "is ignored by default",
+    "context": "is ignored by default",
+    "segments": [
+      {
+        "start": 496,
+        "end": 517
+      }
+    ]
+  },
+  {
+    "id": "u000141",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Programmatic API: Clean Go API for library usage",
+    "context": "Programmatic API: Clean Go API for library usage",
+    "segments": [
+      {
+        "start": 522,
+        "end": 538
+      },
+      {
+        "start": 540,
+        "end": 572
+      }
+    ]
+  },
+  {
+    "id": "u000142",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Three ways to set the list: keep the defaults, replace them, or add to them",
+    "context": "Three ways to set the list: keep the defaults, replace them, or add to them",
+    "segments": [
+      {
+        "start": 577,
+        "end": 603
+      },
+      {
+        "start": 605,
+        "end": 654
+      }
+    ]
+  },
+  {
+    "id": "u000143",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Key Behaviors",
+    "context": "Key Behaviors",
+    "segments": [
+      {
+        "start": 659,
+        "end": 672
+      }
+    ]
+  },
+  {
+    "id": "u000144",
+    "source": "d000003",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "When an extension is ignored:",
+    "context": "When an extension is ignored:",
+    "segments": [
+      {
+        "start": 674,
+        "end": 703
+      }
+    ]
+  },
+  {
+    "id": "u000145",
+    "source": "d000003",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "When an extension is ignored:",
+    "context": "When an extension is ignored:",
+    "segments": [
+      {
+        "start": 674,
+        "end": 703
+      }
+    ]
+  },
+  {
+    "id": "u000146",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "✅ Can be created during migrations if defined in target schema",
+    "context": "✅ Can be created during migrations if defined in target schema",
+    "segments": [
+      {
+        "start": 706,
+        "end": 710
+      },
+      {
+        "start": 712,
+        "end": 726
+      },
+      {
+        "start": 728,
+        "end": 774
+      }
+    ]
+  },
+  {
+    "id": "u000147",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "❌ Never deleted even if missing from target schema",
+    "context": "❌ Never deleted even if missing from target schema",
+    "segments": [
+      {
+        "start": 777,
+        "end": 781
+      },
+      {
+        "start": 783,
+        "end": 796
+      },
+      {
+        "start": 798,
+        "end": 833
+      }
+    ]
+  },
+  {
+    "id": "u000148",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "🚫 Excluded from diff calculations (treated as if it doesn't exist)",
+    "context": "🚫 Excluded from diff calculations (treated as if it doesn't exist)",
+    "segments": [
+      {
+        "start": 838,
+        "end": 843
+      },
+      {
+        "start": 845,
+        "end": 876
+      },
+      {
+        "start": 878,
+        "end": 911
+      }
+    ]
+  },
+  {
+    "id": "u000149",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "🔍 Filtered out before schema comparison",
+    "context": "🔍 Filtered out before schema comparison",
+    "segments": [
+      {
+        "start": 914,
+        "end": 919
+      },
+      {
+        "start": 921,
+        "end": 933
+      },
+      {
+        "start": 935,
+        "end": 960
+      }
+    ]
+  },
+  {
+    "id": "u000150",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Library Usage",
+    "context": "Library Usage",
+    "segments": [
+      {
+        "start": 965,
+        "end": 978
+      }
+    ]
+  },
+  {
+    "id": "u000151",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Basic Usage (Default Behavior)",
+    "context": "Basic Usage (Default Behavior)",
+    "segments": [
+      {
+        "start": 984,
+        "end": 1014
+      }
+    ]
+  },
+  {
+    "id": "u000152",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Custom Ignore List",
+    "context": "Custom Ignore List",
+    "segments": [
+      {
+        "start": 2147,
+        "end": 2165
+      }
+    ]
+  },
+  {
+    "id": "u000153",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Add to Default Ignore List",
+    "context": "Add to Default Ignore List",
+    "segments": [
+      {
+        "start": 2391,
+        "end": 2417
+      }
+    ]
+  },
+  {
+    "id": "u000154",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Manage All Extensions",
+    "context": "Manage All Extensions",
+    "segments": [
+      {
+        "start": 2686,
+        "end": 2707
+      }
+    ]
+  },
+  {
+    "id": "u000155",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Configuration API",
+    "context": "Configuration API",
+    "segments": [
+      {
+        "start": 2932,
+        "end": 2949
+      }
+    ]
+  },
+  {
+    "id": "u000156",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "CompareOptions",
+    "context": "CompareOptions",
+    "segments": [
+      {
+        "start": 2955,
+        "end": 2969
+      }
+    ]
+  },
+  {
+    "id": "u000157",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Factory Functions",
+    "context": "Factory Functions",
+    "segments": [
+      {
+        "start": 3048,
+        "end": 3065
+      }
+    ]
+  },
+  {
+    "id": "u000158",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Utility Methods",
+    "context": "Utility Methods",
+    "segments": [
+      {
+        "start": 3374,
+        "end": 3389
+      }
+    ]
+  },
+  {
+    "id": "u000159",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Real-World Examples",
+    "context": "Real-World Examples",
+    "segments": [
+      {
+        "start": 3736,
+        "end": 3755
+      }
+    ]
+  },
+  {
+    "id": "u000160",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Development Environment",
+    "context": "Development Environment",
+    "segments": [
+      {
+        "start": 3761,
+        "end": 3784
+      }
+    ]
+  },
+  {
+    "id": "u000161",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Production Environment",
+    "context": "Production Environment",
+    "segments": [
+      {
+        "start": 3982,
+        "end": 4004
+      }
+    ]
+  },
+  {
+    "id": "u000162",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Testing Environment",
+    "context": "Testing Environment",
+    "segments": [
+      {
+        "start": 4262,
+        "end": 4281
+      }
+    ]
+  },
+  {
+    "id": "u000163",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Migration Generation",
+    "context": "Migration Generation",
+    "segments": [
+      {
+        "start": 4485,
+        "end": 4505
+      }
+    ]
+  },
+  {
+    "id": "u000164",
+    "source": "d000003",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "The ignore functionality automatically integrates with migration generation:",
+    "context": "The ignore functionality automatically integrates with migration generation:",
+    "segments": [
+      {
+        "start": 4507,
+        "end": 4583
+      }
+    ]
+  },
+  {
+    "id": "u000165",
+    "source": "d000003",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "The ignore functionality automatically integrates with migration generation:",
+    "context": "The ignore functionality automatically integrates with migration generation:",
+    "segments": [
+      {
+        "start": 4507,
+        "end": 4583
+      }
+    ]
+  },
+  {
+    "id": "u000166",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Common Extensions to Ignore",
+    "context": "Common Extensions to Ignore",
+    "segments": [
+      {
+        "start": 5147,
+        "end": 5174
+      }
+    ]
+  },
+  {
+    "id": "u000167",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ": PostgreSQL procedural language (usually pre-installed)",
+    "context": ": PostgreSQL procedural language (usually pre-installed)",
+    "segments": [
+      {
+        "start": 5191,
+        "end": 5247
+      }
+    ]
+  },
+  {
+    "id": "u000168",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ": Administrative functions (often pre-installed)",
+    "context": ": Administrative functions (often pre-installed)",
+    "segments": [
+      {
+        "start": 5265,
+        "end": 5313
+      }
+    ]
+  },
+  {
+    "id": "u000169",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ": Query statistics (monitoring extension)",
+    "context": ": Query statistics (monitoring extension)",
+    "segments": [
+      {
+        "start": 5340,
+        "end": 5381
+      }
+    ]
+  },
+  {
+    "id": "u000170",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ": Buffer cache inspection (monitoring extension)",
+    "context": ": Buffer cache inspection (monitoring extension)",
+    "segments": [
+      {
+        "start": 5404,
+        "end": 5452
+      }
+    ]
+  },
+  {
+    "id": "u000171",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Best Practices",
+    "context": "Best Practices",
+    "segments": [
+      {
+        "start": 5457,
+        "end": 5471
+      }
+    ]
+  },
+  {
+    "id": "u000172",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Start with defaults: Use",
+    "context": "Start with defaults: Use",
+    "segments": [
+      {
+        "start": 5478,
+        "end": 5497
+      },
+      {
+        "start": 5499,
+        "end": 5504
+      }
+    ]
+  },
+  {
+    "id": "u000173",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "for most cases",
+    "context": "for most cases",
+    "segments": [
+      {
+        "start": 5528,
+        "end": 5542
+      }
+    ]
+  },
+  {
+    "id": "u000174",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Be explicit in production: Use",
+    "context": "Be explicit in production: Use",
+    "segments": [
+      {
+        "start": 5548,
+        "end": 5573
+      },
+      {
+        "start": 5575,
+        "end": 5580
+      }
+    ]
+  },
+  {
+    "id": "u000175",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "with explicit ignore lists",
+    "context": "with explicit ignore lists",
+    "segments": [
+      {
+        "start": 5604,
+        "end": 5630
+      }
+    ]
+  },
+  {
+    "id": "u000176",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Document your choices: Comment why specific extensions are ignored",
+    "context": "Document your choices: Comment why specific extensions are ignored",
+    "segments": [
+      {
+        "start": 5636,
+        "end": 5657
+      },
+      {
+        "start": 5659,
+        "end": 5704
+      }
+    ]
+  },
+  {
+    "id": "u000177",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Test thoroughly: Verify ignore behavior in your test environment",
+    "context": "Test thoroughly: Verify ignore behavior in your test environment",
+    "segments": [
+      {
+        "start": 5710,
+        "end": 5725
+      },
+      {
+        "start": 5727,
+        "end": 5776
+      }
+    ]
+  },
+  {
+    "id": "u000178",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Review regularly: Periodically review your ignore list as your system evolves",
+    "context": "Review regularly: Periodically review your ignore list as your system evolves",
+    "segments": [
+      {
+        "start": 5782,
+        "end": 5798
+      },
+      {
+        "start": 5800,
+        "end": 5861
+      }
+    ]
+  },
+  {
+    "id": "u000179",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Backward Compatibility",
+    "context": "Backward Compatibility",
+    "segments": [
+      {
+        "start": 5866,
+        "end": 5888
+      }
+    ]
+  },
+  {
+    "id": "u000180",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Existing code using",
+    "context": "Existing code using",
+    "segments": [
+      {
+        "start": 5892,
+        "end": 5911
+      }
+    ]
+  },
+  {
+    "id": "u000181",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "continues to work unchanged",
+    "context": "continues to work unchanged",
+    "segments": [
+      {
+        "start": 5935,
+        "end": 5962
+      }
+    ]
+  },
+  {
+    "id": "u000182",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Default behavior ignores",
+    "context": "Default behavior ignores",
+    "segments": [
+      {
+        "start": 5965,
+        "end": 5989
+      }
+    ]
+  },
+  {
+    "id": "u000183",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "(safe for most PostgreSQL installations)",
+    "context": "(safe for most PostgreSQL installations)",
+    "segments": [
+      {
+        "start": 6000,
+        "end": 6040
+      }
+    ]
+  },
+  {
+    "id": "u000184",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "New",
+    "context": "New",
+    "segments": [
+      {
+        "start": 6043,
+        "end": 6046
+      }
+    ]
+  },
+  {
+    "id": "u000185",
+    "source": "d000003",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "function provides full control when needed",
+    "context": "function provides full control when needed",
+    "segments": [
+      {
+        "start": 6070,
+        "end": 6112
+      }
+    ]
+  },
+  {
+    "id": "u000186",
+    "source": "d000004",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "For schema changes, wiring Ptah into a project answers two questions, and they are independent.",
+    "context": "For schema changes, wiring Ptah into a project answers two questions, and they are independent.",
+    "segments": [
+      {
+        "start": 581,
+        "end": 676
+      }
+    ]
+  },
+  {
+    "id": "u000187",
+    "source": "d000004",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "For schema changes, wiring Ptah into a project answers two questions, and they are independent.",
+    "context": "For schema changes, wiring Ptah into a project answers two questions, and they are independent.",
+    "segments": [
+      {
+        "start": 581,
+        "end": 676
+      }
+    ]
+  },
+  {
+    "id": "u000188",
+    "source": "d000004",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "Persistent inference state follows a separate generation lifecycle.",
+    "context": "Persistent inference state follows a separate generation lifecycle. Start with Inference migrations.",
+    "segments": [
+      {
+        "start": 678,
+        "end": 745
+      }
+    ]
+  },
+  {
+    "id": "u000189",
+    "source": "d000004",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "Start with Inference migrations.",
+    "context": "Persistent inference state follows a separate generation lifecycle. Start with Inference migrations.",
+    "segments": [
+      {
+        "start": 746,
+        "end": 757
+      },
+      {
+        "start": 758,
+        "end": 778
+      },
+      {
+        "start": 806,
+        "end": 807
+      }
+    ]
+  },
+  {
+    "id": "u000190",
+    "source": "d000004",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "Persistent inference state follows a separate generation lifecycle. Start with Inference migrations.",
+    "context": "Persistent inference state follows a separate generation lifecycle. Start with Inference migrations.",
+    "segments": [
+      {
+        "start": 678,
+        "end": 757
+      },
+      {
+        "start": 758,
+        "end": 778
+      },
+      {
+        "start": 806,
+        "end": 807
+      }
+    ]
+  },
+  {
+    "id": "u000191",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Where does the change come from? Either you write the migration yourself —",
+    "context": "Where does the change come from? Either you write the migration yourself —",
+    "segments": [
+      {
+        "start": 811,
+        "end": 843
+      },
+      {
+        "start": 845,
+        "end": 889
+      }
+    ]
+  },
+  {
+    "id": "u000192",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ", then the SQL — or you describe the schema you want and Ptah works out the difference. The first needs no schema source at all; the second reads one from SQL, YAML, HCL, or DBML files, Go annotations, an OCI artifact, or an external loader.",
+    "context": ", then the SQL — or you describe the schema you want and Ptah works out the difference. The first needs no schema source at all; the second reads one from SQL, YAML, HCL, or DBML files, Go annotations, an OCI artifact, or an external loader.",
+    "segments": [
+      {
+        "start": 914,
+        "end": 1157
+      }
+    ]
+  },
+  {
+    "id": "u000193",
+    "source": "d000004",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "How does it reach the database?",
+    "context": "How does it reach the database? Either as versioned migration files that are reviewed, committed, applied in order and recorded in a revision table, or as a direct apply that computes the difference and executes it after approval.",
+    "segments": [
+      {
+        "start": 1161,
+        "end": 1192
+      }
+    ]
+  },
+  {
+    "id": "u000194",
+    "source": "d000004",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "Either as versioned migration files that are reviewed, committed, applied in order and recorded in a revision table, or as a direct apply that computes the difference and executes it after approval.",
+    "context": "How does it reach the database? Either as versioned migration files that are reviewed, committed, applied in order and recorded in a revision table, or as a direct apply that computes the difference and executes it after approval.",
+    "segments": [
+      {
+        "start": 1195,
+        "end": 1393
+      }
+    ]
+  },
+  {
+    "id": "u000195",
+    "source": "d000004",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "How does it reach the database? Either as versioned migration files that are reviewed, committed, applied in order and recorded in a revision table, or as a direct apply that computes the difference and executes it after approval.",
+    "context": "How does it reach the database? Either as versioned migration files that are reviewed, committed, applied in order and recorded in a revision table, or as a direct apply that computes the difference and executes it after approval.",
+    "segments": [
+      {
+        "start": 1161,
+        "end": 1192
+      },
+      {
+        "start": 1194,
+        "end": 1393
+      }
+    ]
+  },
+  {
+    "id": "u000196",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Versioned files",
+    "context": "Versioned files",
+    "segments": [
+      {
+        "start": 1400,
+        "end": 1415
+      }
+    ]
+  },
+  {
+    "id": "u000197",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Direct apply",
+    "context": "Direct apply",
+    "segments": [
+      {
+        "start": 1418,
+        "end": 1430
+      }
+    ]
+  },
+  {
+    "id": "u000198",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "You write the migration",
+    "context": "You write the migration",
+    "segments": [
+      {
+        "start": 1457,
+        "end": 1480
+      }
+    ]
+  },
+  {
+    "id": "u000199",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ", write the SQL,",
+    "context": ", write the SQL,",
+    "segments": [
+      {
+        "start": 1504,
+        "end": 1520
+      }
+    ]
+  },
+  {
+    "id": "u000200",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "— Quick start: versioned migrations",
+    "context": "— Quick start: versioned migrations",
+    "segments": [
+      {
+        "start": 1534,
+        "end": 1538
+      },
+      {
+        "start": 1539,
+        "end": 1572
+      }
+    ]
+  },
+  {
+    "id": "u000201",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Ptah derives it from a desired schema",
+    "context": "Ptah derives it from a desired schema",
+    "segments": [
+      {
+        "start": 1614,
+        "end": 1651
+      }
+    ]
+  },
+  {
+    "id": "u000202",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ", then the same",
+    "context": ", then the same",
+    "segments": [
+      {
+        "start": 1677,
+        "end": 1692
+      }
+    ]
+  },
+  {
+    "id": "u000203",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "and",
+    "context": "and",
+    "segments": [
+      {
+        "start": 1700,
+        "end": 1703
+      }
+    ]
+  },
+  {
+    "id": "u000204",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "The empty cell is not an omission: a direct apply computes a difference, and with no description of the schema you want there is nothing to compute one against. Everything else combines, and neither row is a reduced form of the other — a project can run for years on migrations it writes by hand and use every verb below except",
+    "context": "The empty cell is not an omission: a direct apply computes a difference, and with no description of the schema you want there is nothing to compute one against. Everything else combines, and neither row is a reduced form of the other — a project can run for years on migrations it writes by hand and use every verb below except",
+    "segments": [
+      {
+        "start": 1729,
+        "end": 2058
+      }
+    ]
+  },
+  {
+    "id": "u000205",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "and",
+    "context": "and",
+    "segments": [
+      {
+        "start": 2070,
+        "end": 2073
+      }
+    ]
+  },
+  {
+    "id": "u000206",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "How Ptah models the two workflows",
+    "context": "How Ptah models the two workflows",
+    "segments": [
+      {
+        "start": 2086,
+        "end": 2119
+      }
+    ]
+  },
+  {
+    "id": "u000207",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Versioned migrations",
+    "context": "Versioned migrations",
+    "segments": [
+      {
+        "start": 2125,
+        "end": 2145
+      }
+    ]
+  },
+  {
+    "id": "u000208",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "The native",
+    "context": "The native",
+    "segments": [
+      {
+        "start": 2147,
+        "end": 2157
+      }
+    ]
+  },
+  {
+    "id": "u000209",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "namespace owns this workflow, and only two of its verbs read a desired schema.",
+    "context": "namespace owns this workflow, and only two of its verbs read a desired schema.",
+    "segments": [
+      {
+        "start": 2176,
+        "end": 2254
+      }
+    ]
+  },
+  {
+    "id": "u000210",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "scaffolds an empty",
+    "context": "scaffolds an empty",
+    "segments": [
+      {
+        "start": 2264,
+        "end": 2282
+      }
+    ]
+  },
+  {
+    "id": "u000211",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "pair for you to fill in;",
+    "context": "pair for you to fill in;",
+    "segments": [
+      {
+        "start": 2307,
+        "end": 2331
+      }
+    ]
+  },
+  {
+    "id": "u000212",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "writes the same pair from the difference between a desired schema and a database. From there the lifecycle is identical:",
+    "context": "writes the same pair from the difference between a desired schema and a database. From there the lifecycle is identical:",
+    "segments": [
+      {
+        "start": 2343,
+        "end": 2463
+      }
+    ]
+  },
+  {
+    "id": "u000213",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "seals the directory in the",
+    "context": "seals the directory in the",
+    "segments": [
+      {
+        "start": 2471,
+        "end": 2497
+      }
+    ]
+  },
+  {
+    "id": "u000214",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "integrity file,",
+    "context": "integrity file,",
+    "segments": [
+      {
+        "start": 2509,
+        "end": 2524
+      }
+    ]
+  },
+  {
+    "id": "u000215",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "applies pending files in order and records each one in the revision table,",
+    "context": "applies pending files in order and records each one in the revision table,",
+    "segments": [
+      {
+        "start": 2530,
+        "end": 2604
+      }
+    ]
+  },
+  {
+    "id": "u000216",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "replays the committed rollback files, and",
+    "context": "replays the committed rollback files, and",
+    "segments": [
+      {
+        "start": 2612,
+        "end": 2653
+      }
+    ]
+  },
+  {
+    "id": "u000217",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "and the history verbs never ask what the schema should look like.",
+    "context": "and the history verbs never ask what the schema should look like.",
+    "segments": [
+      {
+        "start": 2707,
+        "end": 2772
+      }
+    ]
+  },
+  {
+    "id": "u000218",
+    "source": "d000004",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "The migration directory lives in your repository, so every change is code-reviewed as SQL, and every environment replays the same files in the same order.",
+    "context": "The migration directory lives in your repository, so every change is code-reviewed as SQL, and every environment replays the same files in the same order. Quick start: versioned migrations runs the hand-written half of this loop end to end.",
+    "segments": [
+      {
+        "start": 3067,
+        "end": 3221
+      }
+    ]
+  },
+  {
+    "id": "u000219",
+    "source": "d000004",
+    "kind": "sentence",
+    "role": "documentation",
+    "text": "Quick start: versioned migrations runs the hand-written half of this loop end to end.",
+    "context": "The migration directory lives in your repository, so every change is code-reviewed as SQL, and every environment replays the same files in the same order. Quick start: versioned migrations runs the hand-written half of this loop end to end.",
+    "segments": [
+      {
+        "start": 3223,
+        "end": 3256
+      },
+      {
+        "start": 3285,
+        "end": 3337
+      }
+    ]
+  },
+  {
+    "id": "u000220",
+    "source": "d000004",
+    "kind": "paragraph",
+    "role": "documentation",
+    "text": "The migration directory lives in your repository, so every change is code-reviewed as SQL, and every environment replays the same files in the same order. Quick start: versioned migrations runs the hand-written half of this loop end to end.",
+    "context": "The migration directory lives in your repository, so every change is code-reviewed as SQL, and every environment replays the same files in the same order. Quick start: versioned migrations runs the hand-written half of this loop end to end.",
+    "segments": [
+      {
+        "start": 3067,
+        "end": 3222
+      },
+      {
+        "start": 3223,
+        "end": 3256
+      },
+      {
+        "start": 3285,
+        "end": 3337
+      }
+    ]
+  },
+  {
+    "id": "u000221",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Direct schema changes",
+    "context": "Direct schema changes",
+    "segments": [
+      {
+        "start": 3343,
+        "end": 3364
+      }
+    ]
+  },
+  {
+    "id": "u000222",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "If you arrived looking for a \"declarative\" workflow, this is it. Ptah does not use that word as the name, because",
+    "context": "If you arrived looking for a \"declarative\" workflow, this is it. Ptah does not use that word as the name, because",
+    "segments": [
+      {
+        "start": 3366,
+        "end": 3479
+      }
+    ]
+  },
+  {
+    "id": "u000223",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "reads the same desired schema and is not in this group: \"declarative\" names where a change came from, not how it lands. Direct schema changes sets out the distinction.",
+    "context": "reads the same desired schema and is not in this group: \"declarative\" names where a change came from, not how it lands. Direct schema changes sets out the distinction.",
+    "segments": [
+      {
+        "start": 3507,
+        "end": 3627
+      },
+      {
+        "start": 3628,
+        "end": 3649
+      },
+      {
+        "start": 3674,
+        "end": 3700
+      }
+    ]
+  },
+  {
+    "id": "u000224",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Native commands cover the whole loop:",
+    "context": "Native commands cover the whole loop:",
+    "segments": [
+      {
+        "start": 3702,
+        "end": 3739
+      }
+    ]
+  },
+  {
+    "id": "u000225",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "prints a live schema,",
+    "context": "prints a live schema,",
+    "segments": [
+      {
+        "start": 3755,
+        "end": 3776
+      }
+    ]
+  },
+  {
+    "id": "u000226",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "shows how it differs from the desired schema,",
+    "context": "shows how it differs from the desired schema,",
+    "segments": [
+      {
+        "start": 3799,
+        "end": 3844
+      }
+    ]
+  },
+  {
+    "id": "u000227",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "turns that difference into a check that exits non-zero when the database has diverged, and",
+    "context": "turns that difference into a check that exits non-zero when the database has diverged, and",
+    "segments": [
+      {
+        "start": 3865,
+        "end": 3955
+      }
+    ]
+  },
+  {
+    "id": "u000228",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "applies the planned change directly.",
+    "context": "applies the planned change directly.",
+    "segments": [
+      {
+        "start": 3976,
+        "end": 4012
+      }
+    ]
+  },
+  {
+    "id": "u000229",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "With",
+    "context": "With",
+    "segments": [
+      {
+        "start": 4186,
+        "end": 4190
+      }
+    ]
+  },
+  {
+    "id": "u000230",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "prints the planned SQL under a",
+    "context": "prints the planned SQL under a",
+    "segments": [
+      {
+        "start": 4224,
+        "end": 4254
+      }
+    ]
+  },
+  {
+    "id": "u000231",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "heading and stops. Without it, the command shows the same plan and asks for approval before executing (",
+    "context": "heading and stops. Without it, the command shows the same plan and asks for approval before executing (",
+    "segments": [
+      {
+        "start": 4281,
+        "end": 4384
+      }
+    ]
+  },
+  {
+    "id": "u000232",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "skips the prompt). To separate review from execution,",
+    "context": "skips the prompt). To separate review from execution,",
+    "segments": [
+      {
+        "start": 4401,
+        "end": 4454
+      }
+    ]
+  },
+  {
+    "id": "u000233",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "writes a fingerprinted local plan file, and",
+    "context": "writes a fingerprinted local plan file, and",
+    "segments": [
+      {
+        "start": 4474,
+        "end": 4517
+      }
+    ]
+  },
+  {
+    "id": "u000234",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "runs it only while the database still matches the plan's recorded starting state.",
+    "context": "runs it only while the database still matches the plan's recorded starting state.",
+    "segments": [
+      {
+        "start": 4552,
+        "end": 4633
+      }
+    ]
+  },
+  {
+    "id": "u000235",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Consequences and tradeoffs",
+    "context": "Consequences and tradeoffs",
+    "segments": [
+      {
+        "start": 4638,
+        "end": 4664
+      }
+    ]
+  },
+  {
+    "id": "u000236",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Question",
+    "context": "Question",
+    "segments": [
+      {
+        "start": 4668,
+        "end": 4676
+      }
+    ]
+  },
+  {
+    "id": "u000237",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Versioned migrations",
+    "context": "Versioned migrations",
+    "segments": [
+      {
+        "start": 4679,
+        "end": 4699
+      }
+    ]
+  },
+  {
+    "id": "u000238",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Direct schema changes",
+    "context": "Direct schema changes",
+    "segments": [
+      {
+        "start": 4702,
+        "end": 4723
+      }
+    ]
+  },
+  {
+    "id": "u000239",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Whether a desired schema is required",
+    "context": "Whether a desired schema is required",
+    "segments": [
+      {
+        "start": 4748,
+        "end": 4784
+      }
+    ]
+  },
+  {
+    "id": "u000240",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "No, except for",
+    "context": "No, except for",
+    "segments": [
+      {
+        "start": 4787,
+        "end": 4801
+      }
+    ]
+  },
+  {
+    "id": "u000241",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "and",
+    "context": "and",
+    "segments": [
+      {
+        "start": 4813,
+        "end": 4816
+      }
+    ]
+  },
+  {
+    "id": "u000242",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Yes",
+    "context": "Yes",
+    "segments": [
+      {
+        "start": 4826,
+        "end": 4829
+      }
+    ]
+  },
+  {
+    "id": "u000243",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "What gets reviewed",
+    "context": "What gets reviewed",
+    "segments": [
+      {
+        "start": 4834,
+        "end": 4852
+      }
+    ]
+  },
+  {
+    "id": "u000244",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Migration SQL committed to the repository",
+    "context": "Migration SQL committed to the repository",
+    "segments": [
+      {
+        "start": 4855,
+        "end": 4896
+      }
+    ]
+  },
+  {
+    "id": "u000245",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Planned SQL at apply time, or a saved plan file",
+    "context": "Planned SQL at apply time, or a saved plan file",
+    "segments": [
+      {
+        "start": 4899,
+        "end": 4946
+      }
+    ]
+  },
+  {
+    "id": "u000246",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "What records history",
+    "context": "What records history",
+    "segments": [
+      {
+        "start": 4951,
+        "end": 4971
+      }
+    ]
+  },
+  {
+    "id": "u000247",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Migration directory,",
+    "context": "Migration directory,",
+    "segments": [
+      {
+        "start": 4974,
+        "end": 4994
+      }
+    ]
+  },
+  {
+    "id": "u000248",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": ", revision table",
+    "context": ", revision table",
+    "segments": [
+      {
+        "start": 5005,
+        "end": 5021
+      }
+    ]
+  },
+  {
+    "id": "u000249",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Nothing; the live database is the only state",
+    "context": "Nothing; the live database is the only state",
+    "segments": [
+      {
+        "start": 5024,
+        "end": 5068
+      }
+    ]
+  },
+  {
+    "id": "u000250",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "How rollback works",
+    "context": "How rollback works",
+    "segments": [
+      {
+        "start": 5073,
+        "end": 5091
+      }
+    ]
+  },
+  {
+    "id": "u000251",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "replays committed down files",
+    "context": "replays committed down files",
+    "segments": [
+      {
+        "start": 5117,
+        "end": 5145
+      }
+    ]
+  },
+  {
+    "id": "u000252",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "A new diff toward the schema you want back",
+    "context": "A new diff toward the schema you want back",
+    "segments": [
+      {
+        "start": 5148,
+        "end": 5190
+      }
+    ]
+  },
+  {
+    "id": "u000253",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Where it fits",
+    "context": "Where it fits",
+    "segments": [
+      {
+        "start": 5195,
+        "end": 5208
+      }
+    ]
+  },
+  {
+    "id": "u000254",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Shared and production databases, teams, CI gates",
+    "context": "Shared and production databases, teams, CI gates",
+    "segments": [
+      {
+        "start": 5211,
+        "end": 5259
+      }
+    ]
+  },
+  {
+    "id": "u000255",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Prototypes, local development, single-owner databases",
+    "context": "Prototypes, local development, single-owner databases",
+    "segments": [
+      {
+        "start": 5262,
+        "end": 5315
+      }
+    ]
+  },
+  {
+    "id": "u000256",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Main commands",
+    "context": "Main commands",
+    "segments": [
+      {
+        "start": 5320,
+        "end": 5333
+      }
+    ]
+  },
+  {
+    "id": "u000257",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "The versioned workflow costs you a migration directory to maintain and the discipline of hashing and reviewing it. In exchange, changes are auditable, rollback is a committed file rather than an improvisation, and hashed directories verify integrity before anything touches a database, and",
+    "context": "The versioned workflow costs you a migration directory to maintain and the discipline of hashing and reviewing it. In exchange, changes are auditable, rollback is a committed file rather than an improvisation, and hashed directories verify integrity before anything touches a database, and",
+    "segments": [
+      {
+        "start": 5404,
+        "end": 5693
+      }
+    ]
+  },
+  {
+    "id": "u000258",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "additionally requires the sum file to exist. The direct workflow removes the file overhead and iterates fastest, but the apply-time approval is its only gate, and there is no history to replay or audit.",
+    "context": "additionally requires the sum file to exist. The direct workflow removes the file overhead and iterates fastest, but the apply-time approval is its only gate, and there is no history to replay or audit.",
+    "segments": [
+      {
+        "start": 5709,
+        "end": 5911
+      }
+    ]
+  },
+  {
+    "id": "u000259",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "A common hybrid uses both: iterate with",
+    "context": "A common hybrid uses both: iterate with",
+    "segments": [
+      {
+        "start": 5913,
+        "end": 5952
+      }
+    ]
+  },
+  {
+    "id": "u000260",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "against a disposable local database, then run",
+    "context": "against a disposable local database, then run",
+    "segments": [
+      {
+        "start": 5973,
+        "end": 6018
+      }
+    ]
+  },
+  {
+    "id": "u000261",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "against a database at the released state so the reviewed migration file — not the ad-hoc changes — is what reaches shared environments. In either model,",
+    "context": "against a database at the released state so the reviewed migration file — not the ad-hoc changes — is what reaches shared environments. In either model,",
+    "segments": [
+      {
+        "start": 6046,
+        "end": 6202
+      }
+    ]
+  },
+  {
+    "id": "u000262",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "works as a pipeline guard that fails when a database no longer matches the desired schema.",
+    "context": "works as a pipeline guard that fails when a database no longer matches the desired schema.",
+    "segments": [
+      {
+        "start": 6223,
+        "end": 6313
+      }
+    ]
+  },
+  {
+    "id": "u000263",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Where each workflow appears",
+    "context": "Where each workflow appears",
+    "segments": [
+      {
+        "start": 6318,
+        "end": 6345
+      }
+    ]
+  },
+  {
+    "id": "u000264",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "The versioned lifecycle — plan, generate, apply, roll back, verify — lives in Versioned migrations.",
+    "context": "The versioned lifecycle — plan, generate, apply, roll back, verify — lives in Versioned migrations.",
+    "segments": [
+      {
+        "start": 6349,
+        "end": 6431
+      },
+      {
+        "start": 6432,
+        "end": 6452
+      },
+      {
+        "start": 6480,
+        "end": 6481
+      }
+    ]
+  },
+  {
+    "id": "u000265",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "The direct workflow — inspect, compare and drift, apply — lives in Direct schema changes, with direct application on Apply directly.",
+    "context": "The direct workflow — inspect, compare and drift, apply — lives in Direct schema changes, with direct application on Apply directly.",
+    "segments": [
+      {
+        "start": 6484,
+        "end": 6555
+      },
+      {
+        "start": 6556,
+        "end": 6577
+      },
+      {
+        "start": 6602,
+        "end": 6631
+      },
+      {
+        "start": 6632,
+        "end": 6646
+      },
+      {
+        "start": 6668,
+        "end": 6669
+      }
+    ]
+  },
+  {
+    "id": "u000266",
+    "source": "d000004",
+    "kind": "fragment",
+    "role": "documentation",
+    "text": "Bringing a database that already exists into either workflow is covered in Adopt an existing database.",
+    "context": "Bringing a database that already exists into either workflow is covered in Adopt an existing database.",
+    "segments": [
+      {
+        "start": 6672,
+        "end": 6747
+      },
+      {
+        "start": 6748,
+        "end": 6774
+      },
+      {
+        "start": 6807,
+        "end": 6808
+      }
+    ]
+  },
+  {
+    "id": "u000267",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "Package ast provides an Abstract Syntax Tree (AST) representation for SQL statements.",
+    "context": "Package ast provides an Abstract Syntax Tree (AST) representation for SQL statements.",
+    "segments": [
+      {
+        "start": 3,
+        "end": 88
+      }
+    ]
+  },
+  {
+    "id": "u000268",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "Package ast provides an Abstract Syntax Tree (AST) representation for SQL statements.",
+    "context": "Package ast provides an Abstract Syntax Tree (AST) representation for SQL statements.",
+    "segments": [
+      {
+        "start": 3,
+        "end": 88
+      }
+    ]
+  },
+  {
+    "id": "u000269",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "This package is a core component of the Ptah schema management tool, implementing  the visitor pattern to enable dialect-specific SQL generation from a common AST  representation.",
+    "context": "This package is a core component of the Ptah schema management tool, implementing  the visitor pattern to enable dialect-specific SQL generation from a common AST  representation. It supports CREATE TABLE, ALTER TABLE, CREATE INDEX, generic  upsert nodes, and other operations across multiple database platforms.",
+    "segments": [
+      {
+        "start": 95,
+        "end": 177
+      },
+      {
+        "start": 179,
+        "end": 260
+      },
+      {
+        "start": 262,
+        "end": 278
+      }
+    ]
+  },
+  {
+    "id": "u000270",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "It supports CREATE TABLE, ALTER TABLE, CREATE INDEX, generic  upsert nodes, and other operations across multiple database platforms.",
+    "context": "This package is a core component of the Ptah schema management tool, implementing  the visitor pattern to enable dialect-specific SQL generation from a common AST  representation. It supports CREATE TABLE, ALTER TABLE, CREATE INDEX, generic  upsert nodes, and other operations across multiple database platforms.",
+    "segments": [
+      {
+        "start": 279,
+        "end": 340
+      },
+      {
+        "start": 342,
+        "end": 413
+      }
+    ]
+  },
+  {
+    "id": "u000271",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "This package is a core component of the Ptah schema management tool, implementing  the visitor pattern to enable dialect-specific SQL generation from a common AST  representation. It supports CREATE TABLE, ALTER TABLE, CREATE INDEX, generic  upsert nodes, and other operations across multiple database platforms.",
+    "context": "This package is a core component of the Ptah schema management tool, implementing  the visitor pattern to enable dialect-specific SQL generation from a common AST  representation. It supports CREATE TABLE, ALTER TABLE, CREATE INDEX, generic  upsert nodes, and other operations across multiple database platforms.",
+    "segments": [
+      {
+        "start": 95,
+        "end": 177
+      },
+      {
+        "start": 179,
+        "end": 260
+      },
+      {
+        "start": 262,
+        "end": 340
+      },
+      {
+        "start": 342,
+        "end": 413
+      }
+    ]
+  },
+  {
+    "id": "u000272",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "# Architecture",
+    "context": "# Architecture",
+    "segments": [
+      {
+        "start": 420,
+        "end": 434
+      }
+    ]
+  },
+  {
+    "id": "u000273",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "# Architecture",
+    "context": "# Architecture",
+    "segments": [
+      {
+        "start": 420,
+        "end": 434
+      }
+    ]
+  },
+  {
+    "id": "u000274",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "The package follows the visitor pattern with these key components:",
+    "context": "The package follows the visitor pattern with these key components:",
+    "segments": [
+      {
+        "start": 441,
+        "end": 507
+      }
+    ]
+  },
+  {
+    "id": "u000275",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "The package follows the visitor pattern with these key components:",
+    "context": "The package follows the visitor pattern with these key components:",
+    "segments": [
+      {
+        "start": 441,
+        "end": 507
+      }
+    ]
+  },
+  {
+    "id": "u000276",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "- Node: Base interface for all AST nodes    - Visitor: Interface for traversing and rendering AST nodes    - Concrete node types: CreateTableNode, AlterTableNode, ColumnNode, etc.",
+    "context": "- Node: Base interface for all AST nodes    - Visitor: Interface for traversing and rendering AST nodes    - Concrete node types: CreateTableNode, AlterTableNode, ColumnNode, etc.    - Helper types: DefaultValue, ForeignKeyRef, ConstraintType",
+    "segments": [
+      {
+        "start": 516,
+        "end": 557
+      },
+      {
+        "start": 559,
+        "end": 622
+      },
+      {
+        "start": 624,
+        "end": 699
+      }
+    ]
+  },
+  {
+    "id": "u000277",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "- Helper types: DefaultValue, ForeignKeyRef, ConstraintType",
+    "context": "- Node: Base interface for all AST nodes    - Visitor: Interface for traversing and rendering AST nodes    - Concrete node types: CreateTableNode, AlterTableNode, ColumnNode, etc.    - Helper types: DefaultValue, ForeignKeyRef, ConstraintType",
+    "segments": [
+      {
+        "start": 705,
+        "end": 764
+      }
+    ]
+  },
+  {
+    "id": "u000278",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "- Node: Base interface for all AST nodes    - Visitor: Interface for traversing and rendering AST nodes    - Concrete node types: CreateTableNode, AlterTableNode, ColumnNode, etc.    - Helper types: DefaultValue, ForeignKeyRef, ConstraintType",
+    "context": "- Node: Base interface for all AST nodes    - Visitor: Interface for traversing and rendering AST nodes    - Concrete node types: CreateTableNode, AlterTableNode, ColumnNode, etc.    - Helper types: DefaultValue, ForeignKeyRef, ConstraintType",
+    "segments": [
+      {
+        "start": 516,
+        "end": 557
+      },
+      {
+        "start": 559,
+        "end": 622
+      },
+      {
+        "start": 624,
+        "end": 700
+      },
+      {
+        "start": 702,
+        "end": 764
+      }
+    ]
+  },
+  {
+    "id": "u000279",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "# Core Node Types",
+    "context": "# Core Node Types",
+    "segments": [
+      {
+        "start": 771,
+        "end": 788
+      }
+    ]
+  },
+  {
+    "id": "u000280",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "# Core Node Types",
+    "context": "# Core Node Types",
+    "segments": [
+      {
+        "start": 771,
+        "end": 788
+      }
+    ]
+  },
+  {
+    "id": "u000281",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "The package provides several node types representing different SQL constructs:",
+    "context": "The package provides several node types representing different SQL constructs:",
+    "segments": [
+      {
+        "start": 795,
+        "end": 873
+      }
+    ]
+  },
+  {
+    "id": "u000282",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "The package provides several node types representing different SQL constructs:",
+    "context": "The package provides several node types representing different SQL constructs:",
+    "segments": [
+      {
+        "start": 795,
+        "end": 873
+      }
+    ]
+  },
+  {
+    "id": "u000283",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "- CreateTableNode: Represents CREATE TABLE statements with columns and constraints    - AlterTableNode: Represents ALTER TABLE statements with various operations    - ColumnNode: Represents table column definitions with all attributes    - ConstraintNode: Represents table-level constraints (PK, FK, UNIQUE, CHECK)    - IndexNode: Represents CREATE INDEX statements    - EnumNode: Represents CREATE TYPE ...",
+    "context": "- CreateTableNode: Represents CREATE TABLE statements with columns and constraints    - AlterTableNode: Represents ALTER TABLE statements with various operations    - ColumnNode: Represents table column definitions with all attributes    - ConstraintNode: Represents table-level constraints (PK, FK, UNIQUE, CHECK)    - IndexNode: Represents CREATE INDEX statements    - EnumNode: Represents CREATE TYPE ... AS ENUM statements (PostgreSQL)    - CommentNode: Represents SQL comments    - UpsertNode: Represents a dialect-independent row upsert operation",
+    "segments": [
+      {
+        "start": 882,
+        "end": 965
+      },
+      {
+        "start": 967,
+        "end": 1046
+      },
+      {
+        "start": 1048,
+        "end": 1121
+      },
+      {
+        "start": 1123,
+        "end": 1203
+      },
+      {
+        "start": 1205,
+        "end": 1256
+      },
+      {
+        "start": 1258,
+        "end": 1299
+      }
+    ]
+  },
+  {
+    "id": "u000284",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "AS ENUM statements (PostgreSQL)    - CommentNode: Represents SQL comments    - UpsertNode: Represents a dialect-independent row upsert operation",
+    "context": "- CreateTableNode: Represents CREATE TABLE statements with columns and constraints    - AlterTableNode: Represents ALTER TABLE statements with various operations    - ColumnNode: Represents table column definitions with all attributes    - ConstraintNode: Represents table-level constraints (PK, FK, UNIQUE, CHECK)    - IndexNode: Represents CREATE INDEX statements    - EnumNode: Represents CREATE TYPE ... AS ENUM statements (PostgreSQL)    - CommentNode: Represents SQL comments    - UpsertNode: Represents a dialect-independent row upsert operation",
+    "segments": [
+      {
+        "start": 1300,
+        "end": 1332
+      },
+      {
+        "start": 1334,
+        "end": 1376
+      },
+      {
+        "start": 1378,
+        "end": 1448
+      }
+    ]
+  },
+  {
+    "id": "u000285",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "- CreateTableNode: Represents CREATE TABLE statements with columns and constraints    - AlterTableNode: Represents ALTER TABLE statements with various operations    - ColumnNode: Represents table column definitions with all attributes    - ConstraintNode: Represents table-level constraints (PK, FK, UNIQUE, CHECK)    - IndexNode: Represents CREATE INDEX statements    - EnumNode: Represents CREATE TYPE ... AS ENUM statements (PostgreSQL)    - CommentNode: Represents SQL comments    - UpsertNode: Represents a dialect-independent row upsert operation",
+    "context": "- CreateTableNode: Represents CREATE TABLE statements with columns and constraints    - AlterTableNode: Represents ALTER TABLE statements with various operations    - ColumnNode: Represents table column definitions with all attributes    - ConstraintNode: Represents table-level constraints (PK, FK, UNIQUE, CHECK)    - IndexNode: Represents CREATE INDEX statements    - EnumNode: Represents CREATE TYPE ... AS ENUM statements (PostgreSQL)    - CommentNode: Represents SQL comments    - UpsertNode: Represents a dialect-independent row upsert operation",
+    "segments": [
+      {
+        "start": 882,
+        "end": 965
+      },
+      {
+        "start": 967,
+        "end": 1046
+      },
+      {
+        "start": 1048,
+        "end": 1121
+      },
+      {
+        "start": 1123,
+        "end": 1203
+      },
+      {
+        "start": 1205,
+        "end": 1256
+      },
+      {
+        "start": 1258,
+        "end": 1332
+      },
+      {
+        "start": 1334,
+        "end": 1376
+      },
+      {
+        "start": 1378,
+        "end": 1448
+      }
+    ]
+  },
+  {
+    "id": "u000286",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "# Visitor Pattern",
+    "context": "# Visitor Pattern",
+    "segments": [
+      {
+        "start": 1455,
+        "end": 1472
+      }
+    ]
+  },
+  {
+    "id": "u000287",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "# Visitor Pattern",
+    "context": "# Visitor Pattern",
+    "segments": [
+      {
+        "start": 1455,
+        "end": 1472
+      }
+    ]
+  },
+  {
+    "id": "u000288",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "The visitor pattern enables dialect-specific rendering without modifying the  AST nodes.",
+    "context": "The visitor pattern enables dialect-specific rendering without modifying the  AST nodes. Each node implements an Accept method that calls the visitor method  for that node's own kind, so the interface carries one method per kind:  [Visitor] declares 46 of them, from VisitCreateTable through VisitUpsert. Read  the interface for the current set rather than a list repeated in prose.",
+    "segments": [
+      {
+        "start": 1479,
+        "end": 1556
+      },
+      {
+        "start": 1558,
+        "end": 1569
+      }
+    ]
+  },
+  {
+    "id": "u000289",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "Each node implements an Accept method that calls the visitor method  for that node's own kind, so the interface carries one method per kind:  [Visitor] declares 46 of them, from VisitCreateTable through VisitUpsert.",
+    "context": "The visitor pattern enables dialect-specific rendering without modifying the  AST nodes. Each node implements an Accept method that calls the visitor method  for that node's own kind, so the interface carries one method per kind:  [Visitor] declares 46 of them, from VisitCreateTable through VisitUpsert. Read  the interface for the current set rather than a list repeated in prose.",
+    "segments": [
+      {
+        "start": 1570,
+        "end": 1638
+      },
+      {
+        "start": 1640,
+        "end": 1713
+      },
+      {
+        "start": 1715,
+        "end": 1789
+      }
+    ]
+  },
+  {
+    "id": "u000290",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "Read  the interface for the current set rather than a list repeated in prose.",
+    "context": "The visitor pattern enables dialect-specific rendering without modifying the  AST nodes. Each node implements an Accept method that calls the visitor method  for that node's own kind, so the interface carries one method per kind:  [Visitor] declares 46 of them, from VisitCreateTable through VisitUpsert. Read  the interface for the current set rather than a list repeated in prose.",
+    "segments": [
+      {
+        "start": 1790,
+        "end": 1795
+      },
+      {
+        "start": 1797,
+        "end": 1869
+      }
+    ]
+  },
+  {
+    "id": "u000291",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "The visitor pattern enables dialect-specific rendering without modifying the  AST nodes. Each node implements an Accept method that calls the visitor method  for that node's own kind, so the interface carries one method per kind:  [Visitor] declares 46 of them, from VisitCreateTable through VisitUpsert. Read  the interface for the current set rather than a list repeated in prose.",
+    "context": "The visitor pattern enables dialect-specific rendering without modifying the  AST nodes. Each node implements an Accept method that calls the visitor method  for that node's own kind, so the interface carries one method per kind:  [Visitor] declares 46 of them, from VisitCreateTable through VisitUpsert. Read  the interface for the current set rather than a list repeated in prose.",
+    "segments": [
+      {
+        "start": 1479,
+        "end": 1556
+      },
+      {
+        "start": 1558,
+        "end": 1638
+      },
+      {
+        "start": 1640,
+        "end": 1713
+      },
+      {
+        "start": 1715,
+        "end": 1795
+      },
+      {
+        "start": 1797,
+        "end": 1869
+      }
+    ]
+  },
+  {
+    "id": "u000292",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "A consumer that handles only part of the AST can embed [NoopVisitor], whose  methods all ignore their node and return nil, and override the kinds it cares  about.",
+    "context": "A consumer that handles only part of the AST can embed [NoopVisitor], whose  methods all ignore their node and return nil, and override the kinds it cares  about. That keeps it compiling as node kinds are added, at the cost of  answering an unrecognized kind with silence.",
+    "segments": [
+      {
+        "start": 1876,
+        "end": 1952
+      },
+      {
+        "start": 1954,
+        "end": 2033
+      },
+      {
+        "start": 2035,
+        "end": 2042
+      }
+    ]
+  },
+  {
+    "id": "u000293",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "That keeps it compiling as node kinds are added, at the cost of  answering an unrecognized kind with silence.",
+    "context": "A consumer that handles only part of the AST can embed [NoopVisitor], whose  methods all ignore their node and return nil, and override the kinds it cares  about. That keeps it compiling as node kinds are added, at the cost of  answering an unrecognized kind with silence.",
+    "segments": [
+      {
+        "start": 2043,
+        "end": 2107
+      },
+      {
+        "start": 2109,
+        "end": 2154
+      }
+    ]
+  },
+  {
+    "id": "u000294",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "A consumer that handles only part of the AST can embed [NoopVisitor], whose  methods all ignore their node and return nil, and override the kinds it cares  about. That keeps it compiling as node kinds are added, at the cost of  answering an unrecognized kind with silence.",
+    "context": "A consumer that handles only part of the AST can embed [NoopVisitor], whose  methods all ignore their node and return nil, and override the kinds it cares  about. That keeps it compiling as node kinds are added, at the cost of  answering an unrecognized kind with silence.",
+    "segments": [
+      {
+        "start": 1876,
+        "end": 1952
+      },
+      {
+        "start": 1954,
+        "end": 2033
+      },
+      {
+        "start": 2035,
+        "end": 2107
+      },
+      {
+        "start": 2109,
+        "end": 2154
+      }
+    ]
+  },
+  {
+    "id": "u000295",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "Ptah's own dialect renderers deliberately do not embed it: every dialect must  answer for every node kind, and a build that breaks when [Visitor] grows is  what makes that happen.",
+    "context": "Ptah's own dialect renderers deliberately do not embed it: every dialect must  answer for every node kind, and a build that breaks when [Visitor] grows is  what makes that happen. See [NoopVisitor].",
+    "segments": [
+      {
+        "start": 2161,
+        "end": 2239
+      },
+      {
+        "start": 2241,
+        "end": 2318
+      },
+      {
+        "start": 2320,
+        "end": 2344
+      }
+    ]
+  },
+  {
+    "id": "u000296",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "See [NoopVisitor].",
+    "context": "Ptah's own dialect renderers deliberately do not embed it: every dialect must  answer for every node kind, and a build that breaks when [Visitor] grows is  what makes that happen. See [NoopVisitor].",
+    "segments": [
+      {
+        "start": 2345,
+        "end": 2363
+      }
+    ]
+  },
+  {
+    "id": "u000297",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "Ptah's own dialect renderers deliberately do not embed it: every dialect must  answer for every node kind, and a build that breaks when [Visitor] grows is  what makes that happen. See [NoopVisitor].",
+    "context": "Ptah's own dialect renderers deliberately do not embed it: every dialect must  answer for every node kind, and a build that breaks when [Visitor] grows is  what makes that happen. See [NoopVisitor].",
+    "segments": [
+      {
+        "start": 2161,
+        "end": 2239
+      },
+      {
+        "start": 2241,
+        "end": 2318
+      },
+      {
+        "start": 2320,
+        "end": 2363
+      }
+    ]
+  },
+  {
+    "id": "u000298",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "# Usage Example",
+    "context": "# Usage Example",
+    "segments": [
+      {
+        "start": 2370,
+        "end": 2385
+      }
+    ]
+  },
+  {
+    "id": "u000299",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "# Usage Example",
+    "context": "# Usage Example",
+    "segments": [
+      {
+        "start": 2370,
+        "end": 2385
+      }
+    ]
+  },
+  {
+    "id": "u000300",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "Creating a table with columns and constraints:",
+    "context": "Creating a table with columns and constraints:",
+    "segments": [
+      {
+        "start": 2392,
+        "end": 2438
+      }
+    ]
+  },
+  {
+    "id": "u000301",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "Creating a table with columns and constraints:",
+    "context": "Creating a table with columns and constraints:",
+    "segments": [
+      {
+        "start": 2392,
+        "end": 2438
+      }
+    ]
+  },
+  {
+    "id": "u000302",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "Rendering with the public renderer package:",
+    "context": "Rendering with the public renderer package:",
+    "segments": [
+      {
+        "start": 2888,
+        "end": 2931
+      }
+    ]
+  },
+  {
+    "id": "u000303",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "Rendering with the public renderer package:",
+    "context": "Rendering with the public renderer package:",
+    "segments": [
+      {
+        "start": 2888,
+        "end": 2931
+      }
+    ]
+  },
+  {
+    "id": "u000304",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "# Fluent API",
+    "context": "# Fluent API",
+    "segments": [
+      {
+        "start": 3057,
+        "end": 3069
+      }
+    ]
+  },
+  {
+    "id": "u000305",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "# Fluent API",
+    "context": "# Fluent API",
+    "segments": [
+      {
+        "start": 3057,
+        "end": 3069
+      }
+    ]
+  },
+  {
+    "id": "u000306",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "Most node types provide a fluent API for easy construction:",
+    "context": "Most node types provide a fluent API for easy construction:",
+    "segments": [
+      {
+        "start": 3076,
+        "end": 3135
+      }
+    ]
+  },
+  {
+    "id": "u000307",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "Most node types provide a fluent API for easy construction:",
+    "context": "Most node types provide a fluent API for easy construction:",
+    "segments": [
+      {
+        "start": 3076,
+        "end": 3135
+      }
+    ]
+  },
+  {
+    "id": "u000308",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "# Database Dialect Support",
+    "context": "# Database Dialect Support",
+    "segments": [
+      {
+        "start": 3293,
+        "end": 3319
+      }
+    ]
+  },
+  {
+    "id": "u000309",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "# Database Dialect Support",
+    "context": "# Database Dialect Support",
+    "segments": [
+      {
+        "start": 3293,
+        "end": 3319
+      }
+    ]
+  },
+  {
+    "id": "u000310",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "The AST is designed to be database-agnostic, with dialect-specific rendering  handled by visitor implementations.",
+    "context": "The AST is designed to be database-agnostic, with dialect-specific rendering  handled by visitor implementations. This allows the same AST to generate  SQL for PostgreSQL, MySQL, MariaDB, and other databases.",
+    "segments": [
+      {
+        "start": 3326,
+        "end": 3403
+      },
+      {
+        "start": 3405,
+        "end": 3441
+      }
+    ]
+  },
+  {
+    "id": "u000311",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "This allows the same AST to generate  SQL for PostgreSQL, MySQL, MariaDB, and other databases.",
+    "context": "The AST is designed to be database-agnostic, with dialect-specific rendering  handled by visitor implementations. This allows the same AST to generate  SQL for PostgreSQL, MySQL, MariaDB, and other databases.",
+    "segments": [
+      {
+        "start": 3442,
+        "end": 3479
+      },
+      {
+        "start": 3481,
+        "end": 3538
+      }
+    ]
+  },
+  {
+    "id": "u000312",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "The AST is designed to be database-agnostic, with dialect-specific rendering  handled by visitor implementations. This allows the same AST to generate  SQL for PostgreSQL, MySQL, MariaDB, and other databases.",
+    "context": "The AST is designed to be database-agnostic, with dialect-specific rendering  handled by visitor implementations. This allows the same AST to generate  SQL for PostgreSQL, MySQL, MariaDB, and other databases.",
+    "segments": [
+      {
+        "start": 3326,
+        "end": 3403
+      },
+      {
+        "start": 3405,
+        "end": 3479
+      },
+      {
+        "start": 3481,
+        "end": 3538
+      }
+    ]
+  },
+  {
+    "id": "u000313",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "# Integration with Ptah",
+    "context": "# Integration with Ptah",
+    "segments": [
+      {
+        "start": 3545,
+        "end": 3568
+      }
+    ]
+  },
+  {
+    "id": "u000314",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "# Integration with Ptah",
+    "context": "# Integration with Ptah",
+    "segments": [
+      {
+        "start": 3545,
+        "end": 3568
+      }
+    ]
+  },
+  {
+    "id": "u000315",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "This package integrates with other Ptah components:",
+    "context": "This package integrates with other Ptah components:",
+    "segments": [
+      {
+        "start": 3575,
+        "end": 3626
+      }
+    ]
+  },
+  {
+    "id": "u000316",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "This package integrates with other Ptah components:",
+    "context": "This package integrates with other Ptah components:",
+    "segments": [
+      {
+        "start": 3575,
+        "end": 3626
+      }
+    ]
+  },
+  {
+    "id": "u000317",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "- ptah/core/goschema: Converts parsed Go structs to AST nodes    - ptah/core/renderer: Provides dialect-specific SQL rendering    - ptah/migration/schemadiff: Compares AST representations for migration generation    - internal builder helpers: Provide fluent APIs for building AST nodes    - internal parser helpers: Parse SQL DDL into AST nodes",
+    "context": "- ptah/core/goschema: Converts parsed Go structs to AST nodes    - ptah/core/renderer: Provides dialect-specific SQL rendering    - ptah/migration/schemadiff: Compares AST representations for migration generation    - internal builder helpers: Provide fluent APIs for building AST nodes    - internal parser helpers: Parse SQL DDL into AST nodes",
+    "segments": [
+      {
+        "start": 3635,
+        "end": 3697
+      },
+      {
+        "start": 3699,
+        "end": 3764
+      },
+      {
+        "start": 3766,
+        "end": 3852
+      },
+      {
+        "start": 3854,
+        "end": 3928
+      },
+      {
+        "start": 3930,
+        "end": 3988
+      }
+    ]
+  },
+  {
+    "id": "u000318",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "- ptah/core/goschema: Converts parsed Go structs to AST nodes    - ptah/core/renderer: Provides dialect-specific SQL rendering    - ptah/migration/schemadiff: Compares AST representations for migration generation    - internal builder helpers: Provide fluent APIs for building AST nodes    - internal parser helpers: Parse SQL DDL into AST nodes",
+    "context": "- ptah/core/goschema: Converts parsed Go structs to AST nodes    - ptah/core/renderer: Provides dialect-specific SQL rendering    - ptah/migration/schemadiff: Compares AST representations for migration generation    - internal builder helpers: Provide fluent APIs for building AST nodes    - internal parser helpers: Parse SQL DDL into AST nodes",
+    "segments": [
+      {
+        "start": 3635,
+        "end": 3697
+      },
+      {
+        "start": 3699,
+        "end": 3764
+      },
+      {
+        "start": 3766,
+        "end": 3852
+      },
+      {
+        "start": 3854,
+        "end": 3928
+      },
+      {
+        "start": 3930,
+        "end": 3988
+      }
+    ]
+  },
+  {
+    "id": "u000319",
+    "source": "d000005",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "The AST serves as the central representation that bridges code parsing,  schema comparison, and SQL generation in the Ptah ecosystem.",
+    "context": "The AST serves as the central representation that bridges code parsing,  schema comparison, and SQL generation in the Ptah ecosystem.",
+    "segments": [
+      {
+        "start": 3995,
+        "end": 4067
+      },
+      {
+        "start": 4069,
+        "end": 4130
+      }
+    ]
+  },
+  {
+    "id": "u000320",
+    "source": "d000005",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "The AST serves as the central representation that bridges code parsing,  schema comparison, and SQL generation in the Ptah ecosystem.",
+    "context": "The AST serves as the central representation that bridges code parsing,  schema comparison, and SQL generation in the Ptah ecosystem.",
+    "segments": [
+      {
+        "start": 3995,
+        "end": 4067
+      },
+      {
+        "start": 4069,
+        "end": 4130
+      }
+    ]
+  },
+  {
+    "id": "u000321",
+    "source": "d000006",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "Package goschema parses Ptah annotation comments in Go source files into the  schema model.",
+    "context": "Package goschema parses Ptah annotation comments in Go source files into the  schema model.",
+    "segments": [
+      {
+        "start": 3,
+        "end": 80
+      },
+      {
+        "start": 82,
+        "end": 96
+      }
+    ]
+  },
+  {
+    "id": "u000322",
+    "source": "d000006",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "Package goschema parses Ptah annotation comments in Go source files into the  schema model.",
+    "context": "Package goschema parses Ptah annotation comments in Go source files into the  schema model.",
+    "segments": [
+      {
+        "start": 3,
+        "end": 80
+      },
+      {
+        "start": 82,
+        "end": 96
+      }
+    ]
+  },
+  {
+    "id": "u000323",
+    "source": "d000006",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "Every entry point returns a  [ptah.run/core/schemamodel.Database] holding the tables, fields,  indexes, constraints, enums, extensions, roles, grants, and RLS declarations  the annotations declare.",
+    "context": "Every entry point returns a  [ptah.run/core/schemamodel.Database] holding the tables, fields,  indexes, constraints, enums, extensions, roles, grants, and RLS declarations  the annotations declare. They differ in what they read and in how far the  result is taken:",
+    "segments": [
+      {
+        "start": 103,
+        "end": 131
+      },
+      {
+        "start": 133,
+        "end": 199
+      },
+      {
+        "start": 201,
+        "end": 279
+      },
+      {
+        "start": 281,
+        "end": 306
+      }
+    ]
+  },
+  {
+    "id": "u000324",
+    "source": "d000006",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "They differ in what they read and in how far the  result is taken:",
+    "context": "Every entry point returns a  [ptah.run/core/schemamodel.Database] holding the tables, fields,  indexes, constraints, enums, extensions, roles, grants, and RLS declarations  the annotations declare. They differ in what they read and in how far the  result is taken:",
+    "segments": [
+      {
+        "start": 307,
+        "end": 356
+      },
+      {
+        "start": 358,
+        "end": 375
+      }
+    ]
+  },
+  {
+    "id": "u000325",
+    "source": "d000006",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "Every entry point returns a  [ptah.run/core/schemamodel.Database] holding the tables, fields,  indexes, constraints, enums, extensions, roles, grants, and RLS declarations  the annotations declare. They differ in what they read and in how far the  result is taken:",
+    "context": "Every entry point returns a  [ptah.run/core/schemamodel.Database] holding the tables, fields,  indexes, constraints, enums, extensions, roles, grants, and RLS declarations  the annotations declare. They differ in what they read and in how far the  result is taken:",
+    "segments": [
+      {
+        "start": 103,
+        "end": 131
+      },
+      {
+        "start": 133,
+        "end": 199
+      },
+      {
+        "start": 201,
+        "end": 279
+      },
+      {
+        "start": 281,
+        "end": 356
+      },
+      {
+        "start": 358,
+        "end": 375
+      }
+    ]
+  },
+  {
+    "id": "u000326",
+    "source": "d000006",
+    "kind": "fragment",
+    "role": "doc_comment",
+    "text": "- ParseFile and ParseSource read one file, resolve its table-scoped names,",
+    "context": "- ParseFile and ParseSource read one file, resolve its table-scoped names,",
+    "segments": [
+      {
+        "start": 384,
+        "end": 458
+      }
+    ]
+  },
+  {
+    "id": "u000327",
+    "source": "d000006",
+    "kind": "fragment",
+    "role": "doc_comment",
+    "text": "- ParseDir, ParseFS, and ParseDirs walk one or more roots and finalize the",
+    "context": "- ParseDir, ParseFS, and ParseDirs walk one or more roots and finalize the",
+    "segments": [
+      {
+        "start": 598,
+        "end": 672
+      }
+    ]
+  },
+  {
+    "id": "u000328",
+    "source": "d000006",
+    "kind": "fragment",
+    "role": "doc_comment",
+    "text": "- ParseDirRaw walks one root and stops before that pipeline, so",
+    "context": "- ParseDirRaw walks one root and stops before that pipeline, so",
+    "segments": [
+      {
+        "start": 860,
+        "end": 923
+      }
+    ]
+  },
+  {
+    "id": "u000329",
+    "source": "d000006",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "The model itself, and everything done to it after parsing, lives in  schemamodel.",
+    "context": "The model itself, and everything done to it after parsing, lives in  schemamodel. This package only turns Go source into one.",
+    "segments": [
+      {
+        "start": 1063,
+        "end": 1131
+      },
+      {
+        "start": 1133,
+        "end": 1146
+      }
+    ]
+  },
+  {
+    "id": "u000330",
+    "source": "d000006",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "This package only turns Go source into one.",
+    "context": "The model itself, and everything done to it after parsing, lives in  schemamodel. This package only turns Go source into one.",
+    "segments": [
+      {
+        "start": 1147,
+        "end": 1190
+      }
+    ]
+  },
+  {
+    "id": "u000331",
+    "source": "d000006",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "The model itself, and everything done to it after parsing, lives in  schemamodel. This package only turns Go source into one.",
+    "context": "The model itself, and everything done to it after parsing, lives in  schemamodel. This package only turns Go source into one.",
+    "segments": [
+      {
+        "start": 1063,
+        "end": 1131
+      },
+      {
+        "start": 1133,
+        "end": 1190
+      }
+    ]
+  },
+  {
+    "id": "u000332",
+    "source": "d000007",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "ReadTableRows reads the current rows of table, projected onto the requested  column set, from the database behind conn.",
+    "context": "ReadTableRows reads the current rows of table, projected onto the requested  column set, from the database behind conn.",
+    "segments": [
+      {
+        "start": 103,
+        "end": 179
+      },
+      {
+        "start": 181,
+        "end": 224
+      }
+    ]
+  },
+  {
+    "id": "u000333",
+    "source": "d000007",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "ReadTableRows reads the current rows of table, projected onto the requested  column set, from the database behind conn.",
+    "context": "ReadTableRows reads the current rows of table, projected onto the requested  column set, from the database behind conn.",
+    "segments": [
+      {
+        "start": 103,
+        "end": 179
+      },
+      {
+        "start": 181,
+        "end": 224
+      }
+    ]
+  },
+  {
+    "id": "u000334",
+    "source": "d000007",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "The SELECT is built with dialect-aware, safely-quoted identifiers (via  internal/sqlident) keyed off conn.Info().Dialect, so callers never hand-quote  table or column names.",
+    "context": "The SELECT is built with dialect-aware, safely-quoted identifiers (via  internal/sqlident) keyed off conn.Info().Dialect, so callers never hand-quote  table or column names. When schema is non-empty the table is  schema-qualified. columns is required and drives both the projection and the  keys of the returned maps: each returned row is a map[string]any keyed by the  requested column names, in the exact spelling passed in. []byte scan results  (several drivers return []byte for text and numeric columns) are converted to  string so that values compare stably regardless of driver; all other values  are returned as scanned.",
+    "segments": [
+      {
+        "start": 231,
+        "end": 302
+      },
+      {
+        "start": 304,
+        "end": 383
+      },
+      {
+        "start": 385,
+        "end": 408
+      }
+    ]
+  },
+  {
+    "id": "u000335",
+    "source": "d000007",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "When schema is non-empty the table is  schema-qualified.",
+    "context": "The SELECT is built with dialect-aware, safely-quoted identifiers (via  internal/sqlident) keyed off conn.Info().Dialect, so callers never hand-quote  table or column names. When schema is non-empty the table is  schema-qualified. columns is required and drives both the projection and the  keys of the returned maps: each returned row is a map[string]any keyed by the  requested column names, in the exact spelling passed in. []byte scan results  (several drivers return []byte for text and numeric columns) are converted to  string so that values compare stably regardless of driver; all other values  are returned as scanned.",
+    "segments": [
+      {
+        "start": 409,
+        "end": 447
+      },
+      {
+        "start": 449,
+        "end": 467
+      }
+    ]
+  },
+  {
+    "id": "u000336",
+    "source": "d000007",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "columns is required and drives both the projection and the  keys of the returned maps: each returned row is a map[string]any keyed by the  requested column names, in the exact spelling passed in.",
+    "context": "The SELECT is built with dialect-aware, safely-quoted identifiers (via  internal/sqlident) keyed off conn.Info().Dialect, so callers never hand-quote  table or column names. When schema is non-empty the table is  schema-qualified. columns is required and drives both the projection and the  keys of the returned maps: each returned row is a map[string]any keyed by the  requested column names, in the exact spelling passed in. []byte scan results  (several drivers return []byte for text and numeric columns) are converted to  string so that values compare stably regardless of driver; all other values  are returned as scanned.",
+    "segments": [
+      {
+        "start": 468,
+        "end": 527
+      },
+      {
+        "start": 529,
+        "end": 608
+      },
+      {
+        "start": 610,
+        "end": 667
+      }
+    ]
+  },
+  {
+    "id": "u000337",
+    "source": "d000007",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "[]byte scan results  (several drivers return []byte for text and numeric columns) are converted to  string so that values compare stably regardless of driver; all other values  are returned as scanned.",
+    "context": "The SELECT is built with dialect-aware, safely-quoted identifiers (via  internal/sqlident) keyed off conn.Info().Dialect, so callers never hand-quote  table or column names. When schema is non-empty the table is  schema-qualified. columns is required and drives both the projection and the  keys of the returned maps: each returned row is a map[string]any keyed by the  requested column names, in the exact spelling passed in. []byte scan results  (several drivers return []byte for text and numeric columns) are converted to  string so that values compare stably regardless of driver; all other values  are returned as scanned.",
+    "segments": [
+      {
+        "start": 668,
+        "end": 688
+      },
+      {
+        "start": 690,
+        "end": 769
+      },
+      {
+        "start": 771,
+        "end": 848
+      },
+      {
+        "start": 850,
+        "end": 875
+      }
+    ]
+  },
+  {
+    "id": "u000338",
+    "source": "d000007",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "The SELECT is built with dialect-aware, safely-quoted identifiers (via  internal/sqlident) keyed off conn.Info().Dialect, so callers never hand-quote  table or column names. When schema is non-empty the table is  schema-qualified. columns is required and drives both the projection and the  keys of the returned maps: each returned row is a map[string]any keyed by the  requested column names, in the exact spelling passed in. []byte scan results  (several drivers return []byte for text and numeric columns) are converted to  string so that values compare stably regardless of driver; all other values  are returned as scanned.",
+    "context": "The SELECT is built with dialect-aware, safely-quoted identifiers (via  internal/sqlident) keyed off conn.Info().Dialect, so callers never hand-quote  table or column names. When schema is non-empty the table is  schema-qualified. columns is required and drives both the projection and the  keys of the returned maps: each returned row is a map[string]any keyed by the  requested column names, in the exact spelling passed in. []byte scan results  (several drivers return []byte for text and numeric columns) are converted to  string so that values compare stably regardless of driver; all other values  are returned as scanned.",
+    "segments": [
+      {
+        "start": 231,
+        "end": 302
+      },
+      {
+        "start": 304,
+        "end": 383
+      },
+      {
+        "start": 385,
+        "end": 447
+      },
+      {
+        "start": 449,
+        "end": 527
+      },
+      {
+        "start": 529,
+        "end": 608
+      },
+      {
+        "start": 610,
+        "end": 688
+      },
+      {
+        "start": 690,
+        "end": 769
+      },
+      {
+        "start": 771,
+        "end": 848
+      },
+      {
+        "start": 850,
+        "end": 875
+      }
+    ]
+  },
+  {
+    "id": "u000339",
+    "source": "d000007",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "No ORDER BY is applied, so the returned row order is whatever the database  yields and must not be relied upon.",
+    "context": "No ORDER BY is applied, so the returned row order is whatever the database  yields and must not be relied upon. This suits set-oriented callers such as  migration/datadiff.Compute, which key rows by their declared key columns and  are order-independent by construction.",
+    "segments": [
+      {
+        "start": 882,
+        "end": 957
+      },
+      {
+        "start": 959,
+        "end": 995
+      }
+    ]
+  },
+  {
+    "id": "u000340",
+    "source": "d000007",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "This suits set-oriented callers such as  migration/datadiff.Compute, which key rows by their declared key columns and  are order-independent by construction.",
+    "context": "No ORDER BY is applied, so the returned row order is whatever the database  yields and must not be relied upon. This suits set-oriented callers such as  migration/datadiff.Compute, which key rows by their declared key columns and  are order-independent by construction.",
+    "segments": [
+      {
+        "start": 996,
+        "end": 1036
+      },
+      {
+        "start": 1038,
+        "end": 1116
+      },
+      {
+        "start": 1118,
+        "end": 1157
+      }
+    ]
+  },
+  {
+    "id": "u000341",
+    "source": "d000007",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "No ORDER BY is applied, so the returned row order is whatever the database  yields and must not be relied upon. This suits set-oriented callers such as  migration/datadiff.Compute, which key rows by their declared key columns and  are order-independent by construction.",
+    "context": "No ORDER BY is applied, so the returned row order is whatever the database  yields and must not be relied upon. This suits set-oriented callers such as  migration/datadiff.Compute, which key rows by their declared key columns and  are order-independent by construction.",
+    "segments": [
+      {
+        "start": 882,
+        "end": 957
+      },
+      {
+        "start": 959,
+        "end": 1036
+      },
+      {
+        "start": 1038,
+        "end": 1116
+      },
+      {
+        "start": 1118,
+        "end": 1157
+      }
+    ]
+  },
+  {
+    "id": "u000342",
+    "source": "d000007",
+    "kind": "sentence",
+    "role": "doc_comment",
+    "text": "The context governs query execution and row iteration; canceling it aborts  the read with the context error wrapped in the returned error.",
+    "context": "The context governs query execution and row iteration; canceling it aborts  the read with the context error wrapped in the returned error.",
+    "segments": [
+      {
+        "start": 1164,
+        "end": 1239
+      },
+      {
+        "start": 1241,
+        "end": 1304
+      }
+    ]
+  },
+  {
+    "id": "u000343",
+    "source": "d000007",
+    "kind": "paragraph",
+    "role": "doc_comment",
+    "text": "The context governs query execution and row iteration; canceling it aborts  the read with the context error wrapped in the returned error.",
+    "context": "The context governs query execution and row iteration; canceling it aborts  the read with the context error wrapped in the returned error.",
+    "segments": [
+      {
+        "start": 1164,
+        "end": 1239
+      },
+      {
+        "start": 1241,
+        "end": 1304
+      }
+    ]
+  },
+  {
+    "id": "u000344",
+    "source": "d000007",
+    "kind": "fragment",
+    "role": "error_message",
+    "text": "dbschema: ReadTableRows requires a non-nil connection",
+    "context": "dbschema: ReadTableRows requires a non-nil connection",
+    "segments": [
+      {
+        "start": 1483,
+        "end": 1536
+      }
+    ]
+  },
+  {
+    "id": "u000345",
+    "source": "d000007",
+    "kind": "fragment",
+    "role": "error_message",
+    "text": "dbschema: ReadTableRows requires a table name",
+    "context": "dbschema: ReadTableRows requires a table name",
+    "segments": [
+      {
+        "start": 1605,
+        "end": 1650
+      }
+    ]
+  },
+  {
+    "id": "u000346",
+    "source": "d000007",
+    "kind": "fragment",
+    "role": "error_message",
+    "text": "dbschema: ReadTableRows requires at least one column",
+    "context": "dbschema: ReadTableRows requires at least one column",
+    "segments": [
+      {
+        "start": 1706,
+        "end": 1758
+      }
+    ]
+  },
+  {
+    "id": "u000347",
+    "source": "d000007",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "Duplicate column names would collapse into a single map key while the  column-count guard below still passed, silently dropping a column, so  reject them up front.",
+    "context": "Duplicate column names would collapse into a single map key while the  column-count guard below still passed, silently dropping a column, so  reject them up front.",
+    "segments": [
+      {
+        "start": 1768,
+        "end": 1838
+      },
+      {
+        "start": 1841,
+        "end": 1912
+      },
+      {
+        "start": 1915,
+        "end": 1937
+      }
+    ]
+  },
+  {
+    "id": "u000348",
+    "source": "d000007",
+    "kind": "paragraph",
+    "role": "comment",
+    "text": "Duplicate column names would collapse into a single map key while the  column-count guard below still passed, silently dropping a column, so  reject them up front.",
+    "context": "Duplicate column names would collapse into a single map key while the  column-count guard below still passed, silently dropping a column, so  reject them up front.",
+    "segments": [
+      {
+        "start": 1768,
+        "end": 1838
+      },
+      {
+        "start": 1841,
+        "end": 1912
+      },
+      {
+        "start": 1915,
+        "end": 1937
+      }
+    ]
+  },
+  {
+    "id": "u000349",
+    "source": "d000007",
+    "kind": "fragment",
+    "role": "error_message",
+    "text": "dbschema: ReadTableRows got duplicate column %q",
+    "context": "dbschema: ReadTableRows got duplicate column %q",
+    "segments": [
+      {
+        "start": 2077,
+        "end": 2124
+      }
+    ]
+  },
+  {
+    "id": "u000350",
+    "source": "d000007",
+    "kind": "fragment",
+    "role": "string",
+    "text": "SELECT",
+    "context": "SELECT",
+    "segments": [
+      {
+        "start": 2326,
+        "end": 2332
+      }
+    ]
+  },
+  {
+    "id": "u000351",
+    "source": "d000007",
+    "kind": "fragment",
+    "role": "string",
+    "text": "FROM",
+    "context": "FROM",
+    "segments": [
+      {
+        "start": 2368,
+        "end": 2372
+      }
+    ]
+  },
+  {
+    "id": "u000352",
+    "source": "d000007",
+    "kind": "fragment",
+    "role": "error_message",
+    "text": "dbschema: read rows of table %q: %w",
+    "context": "dbschema: read rows of table %q: %w",
+    "segments": [
+      {
+        "start": 2508,
+        "end": 2543
+      }
+    ]
+  },
+  {
+    "id": "u000353",
+    "source": "d000007",
+    "kind": "fragment",
+    "role": "error_message",
+    "text": "dbschema: read columns of table %q: %w",
+    "context": "dbschema: read columns of table %q: %w",
+    "segments": [
+      {
+        "start": 2655,
+        "end": 2693
+      }
+    ]
+  },
+  {
+    "id": "u000354",
+    "source": "d000007",
+    "kind": "fragment",
+    "role": "error_message",
+    "text": "dbschema: table %q returned %d columns, want %d",
+    "context": "dbschema: table %q returned %d columns, want %d",
+    "segments": [
+      {
+        "start": 2770,
+        "end": 2817
+      }
+    ]
+  },
+  {
+    "id": "u000355",
+    "source": "d000007",
+    "kind": "fragment",
+    "role": "error_message",
+    "text": "dbschema: scan row of table %q: %w",
+    "context": "dbschema: scan row of table %q: %w",
+    "segments": [
+      {
+        "start": 3125,
+        "end": 3159
+      }
+    ]
+  },
+  {
+    "id": "u000356",
+    "source": "d000007",
+    "kind": "fragment",
+    "role": "error_message",
+    "text": "dbschema: iterate rows of table %q: %w",
+    "context": "dbschema: iterate rows of table %q: %w",
+    "segments": [
+      {
+        "start": 3402,
+        "end": 3440
+      }
+    ]
+  },
+  {
+    "id": "u000357",
+    "source": "d000007",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "normalizeScannedValue converts driver []byte results (several drivers return  []byte for text and numeric columns) to string, leaving all other values  untouched, so scanned values compare stably regardless of driver.",
+    "context": "normalizeScannedValue converts driver []byte results (several drivers return  []byte for text and numeric columns) to string, leaving all other values  untouched, so scanned values compare stably regardless of driver.",
+    "segments": [
+      {
+        "start": 3485,
+        "end": 3562
+      },
+      {
+        "start": 3564,
+        "end": 3638
+      },
+      {
+        "start": 3640,
+        "end": 3706
+      }
+    ]
+  },
+  {
+    "id": "u000358",
+    "source": "d000007",
+    "kind": "paragraph",
+    "role": "comment",
+    "text": "normalizeScannedValue converts driver []byte results (several drivers return  []byte for text and numeric columns) to string, leaving all other values  untouched, so scanned values compare stably regardless of driver.",
+    "context": "normalizeScannedValue converts driver []byte results (several drivers return  []byte for text and numeric columns) to string, leaving all other values  untouched, so scanned values compare stably regardless of driver.",
+    "segments": [
+      {
+        "start": 3485,
+        "end": 3562
+      },
+      {
+        "start": 3564,
+        "end": 3638
+      },
+      {
+        "start": 3640,
+        "end": 3706
+      }
+    ]
+  },
+  {
+    "id": "u000359",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "Rebind converts portable `?` placeholders in query to the dialect's  placeholder syntax.",
+    "context": "Rebind converts portable `?` placeholders in query to the dialect's  placeholder syntax. For PostgreSQL it rewrites them to `$1`, `$2`, ... in  the order they appear; for SQL Server it rewrites them to `@p1`, `@p2`, ...  for github.com/microsoft/go-mssqldb; for MySQL/MariaDB the query is returned  unchanged because `?` is already the native placeholder. Unknown dialects  pass through verbatim: Rebind is a translator, not a validator.",
+    "segments": [
+      {
+        "start": 81,
+        "end": 149
+      },
+      {
+        "start": 151,
+        "end": 171
+      }
+    ]
+  },
+  {
+    "id": "u000360",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "For PostgreSQL it rewrites them to `$1`, `$2`, ...",
+    "context": "Rebind converts portable `?` placeholders in query to the dialect's  placeholder syntax. For PostgreSQL it rewrites them to `$1`, `$2`, ... in  the order they appear; for SQL Server it rewrites them to `@p1`, `@p2`, ...  for github.com/microsoft/go-mssqldb; for MySQL/MariaDB the query is returned  unchanged because `?` is already the native placeholder. Unknown dialects  pass through verbatim: Rebind is a translator, not a validator.",
+    "segments": [
+      {
+        "start": 172,
+        "end": 222
+      }
+    ]
+  },
+  {
+    "id": "u000361",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "in  the order they appear; for SQL Server it rewrites them to `@p1`, `@p2`, ...  for github.com/microsoft/go-mssqldb; for MySQL/MariaDB the query is returned  unchanged because `?` is already the native placeholder.",
+    "context": "Rebind converts portable `?` placeholders in query to the dialect's  placeholder syntax. For PostgreSQL it rewrites them to `$1`, `$2`, ... in  the order they appear; for SQL Server it rewrites them to `@p1`, `@p2`, ...  for github.com/microsoft/go-mssqldb; for MySQL/MariaDB the query is returned  unchanged because `?` is already the native placeholder. Unknown dialects  pass through verbatim: Rebind is a translator, not a validator.",
+    "segments": [
+      {
+        "start": 223,
+        "end": 226
+      },
+      {
+        "start": 228,
+        "end": 305
+      },
+      {
+        "start": 307,
+        "end": 385
+      },
+      {
+        "start": 387,
+        "end": 444
+      }
+    ]
+  },
+  {
+    "id": "u000362",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "Unknown dialects  pass through verbatim: Rebind is a translator, not a validator.",
+    "context": "Rebind converts portable `?` placeholders in query to the dialect's  placeholder syntax. For PostgreSQL it rewrites them to `$1`, `$2`, ... in  the order they appear; for SQL Server it rewrites them to `@p1`, `@p2`, ...  for github.com/microsoft/go-mssqldb; for MySQL/MariaDB the query is returned  unchanged because `?` is already the native placeholder. Unknown dialects  pass through verbatim: Rebind is a translator, not a validator.",
+    "segments": [
+      {
+        "start": 445,
+        "end": 462
+      },
+      {
+        "start": 464,
+        "end": 528
+      }
+    ]
+  },
+  {
+    "id": "u000363",
+    "source": "d000008",
+    "kind": "paragraph",
+    "role": "comment",
+    "text": "Rebind converts portable `?` placeholders in query to the dialect's  placeholder syntax. For PostgreSQL it rewrites them to `$1`, `$2`, ... in  the order they appear; for SQL Server it rewrites them to `@p1`, `@p2`, ...  for github.com/microsoft/go-mssqldb; for MySQL/MariaDB the query is returned  unchanged because `?` is already the native placeholder. Unknown dialects  pass through verbatim: Rebind is a translator, not a validator.",
+    "context": "Rebind converts portable `?` placeholders in query to the dialect's  placeholder syntax. For PostgreSQL it rewrites them to `$1`, `$2`, ... in  the order they appear; for SQL Server it rewrites them to `@p1`, `@p2`, ...  for github.com/microsoft/go-mssqldb; for MySQL/MariaDB the query is returned  unchanged because `?` is already the native placeholder. Unknown dialects  pass through verbatim: Rebind is a translator, not a validator.",
+    "segments": [
+      {
+        "start": 81,
+        "end": 149
+      },
+      {
+        "start": 151,
+        "end": 226
+      },
+      {
+        "start": 228,
+        "end": 305
+      },
+      {
+        "start": 307,
+        "end": 385
+      },
+      {
+        "start": 387,
+        "end": 462
+      },
+      {
+        "start": 464,
+        "end": 528
+      }
+    ]
+  },
+  {
+    "id": "u000364",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "The scanner skips occurrences inside standard single-quoted string  literals (where a single quote inside is escaped by doubling it, per the  SQL standard), double-quoted identifiers, and SQL Server bracket-quoted  identifiers, so a literal question mark in user data is not mistaken for a  placeholder.",
+    "context": "The scanner skips occurrences inside standard single-quoted string  literals (where a single quote inside is escaped by doubling it, per the  SQL standard), double-quoted identifiers, and SQL Server bracket-quoted  identifiers, so a literal question mark in user data is not mistaken for a  placeholder.",
+    "segments": [
+      {
+        "start": 535,
+        "end": 602
+      },
+      {
+        "start": 604,
+        "end": 678
+      },
+      {
+        "start": 680,
+        "end": 753
+      },
+      {
+        "start": 755,
+        "end": 831
+      },
+      {
+        "start": 833,
+        "end": 846
+      }
+    ]
+  },
+  {
+    "id": "u000365",
+    "source": "d000008",
+    "kind": "paragraph",
+    "role": "comment",
+    "text": "The scanner skips occurrences inside standard single-quoted string  literals (where a single quote inside is escaped by doubling it, per the  SQL standard), double-quoted identifiers, and SQL Server bracket-quoted  identifiers, so a literal question mark in user data is not mistaken for a  placeholder.",
+    "context": "The scanner skips occurrences inside standard single-quoted string  literals (where a single quote inside is escaped by doubling it, per the  SQL standard), double-quoted identifiers, and SQL Server bracket-quoted  identifiers, so a literal question mark in user data is not mistaken for a  placeholder.",
+    "segments": [
+      {
+        "start": 535,
+        "end": 602
+      },
+      {
+        "start": 604,
+        "end": 678
+      },
+      {
+        "start": 680,
+        "end": 753
+      },
+      {
+        "start": 755,
+        "end": 831
+      },
+      {
+        "start": 833,
+        "end": 846
+      }
+    ]
+  },
+  {
+    "id": "u000366",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "Rebind does NOT understand PostgreSQL E-strings (E'...'), dollar-quoted  string literals ($$...$$ or $tag$...$tag$), or SQL comments (-- or /* */).",
+    "context": "Rebind does NOT understand PostgreSQL E-strings (E'...'), dollar-quoted  string literals ($$...$$ or $tag$...$tag$), or SQL comments (-- or /* */).  It is intended for short, hand-written templates that use only standard  single-quoted literals and double-quoted identifiers. Apply Rebind to  known templates — never to user-supplied SQL.",
+    "segments": [
+      {
+        "start": 853,
+        "end": 925
+      },
+      {
+        "start": 927,
+        "end": 1002
+      }
+    ]
+  },
+  {
+    "id": "u000367",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "It is intended for short, hand-written templates that use only standard  single-quoted literals and double-quoted identifiers.",
+    "context": "Rebind does NOT understand PostgreSQL E-strings (E'...'), dollar-quoted  string literals ($$...$$ or $tag$...$tag$), or SQL comments (-- or /* */).  It is intended for short, hand-written templates that use only standard  single-quoted literals and double-quoted identifiers. Apply Rebind to  known templates — never to user-supplied SQL.",
+    "segments": [
+      {
+        "start": 1006,
+        "end": 1078
+      },
+      {
+        "start": 1080,
+        "end": 1134
+      }
+    ]
+  },
+  {
+    "id": "u000368",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "Apply Rebind to  known templates — never to user-supplied SQL.",
+    "context": "Rebind does NOT understand PostgreSQL E-strings (E'...'), dollar-quoted  string literals ($$...$$ or $tag$...$tag$), or SQL comments (-- or /* */).  It is intended for short, hand-written templates that use only standard  single-quoted literals and double-quoted identifiers. Apply Rebind to  known templates — never to user-supplied SQL.",
+    "segments": [
+      {
+        "start": 1135,
+        "end": 1151
+      },
+      {
+        "start": 1153,
+        "end": 1201
+      }
+    ]
+  },
+  {
+    "id": "u000369",
+    "source": "d000008",
+    "kind": "paragraph",
+    "role": "comment",
+    "text": "Rebind does NOT understand PostgreSQL E-strings (E'...'), dollar-quoted  string literals ($$...$$ or $tag$...$tag$), or SQL comments (-- or /* */).  It is intended for short, hand-written templates that use only standard  single-quoted literals and double-quoted identifiers. Apply Rebind to  known templates — never to user-supplied SQL.",
+    "context": "Rebind does NOT understand PostgreSQL E-strings (E'...'), dollar-quoted  string literals ($$...$$ or $tag$...$tag$), or SQL comments (-- or /* */).  It is intended for short, hand-written templates that use only standard  single-quoted literals and double-quoted identifiers. Apply Rebind to  known templates — never to user-supplied SQL.",
+    "segments": [
+      {
+        "start": 853,
+        "end": 925
+      },
+      {
+        "start": 927,
+        "end": 1003
+      },
+      {
+        "start": 1005,
+        "end": 1078
+      },
+      {
+        "start": 1080,
+        "end": 1151
+      },
+      {
+        "start": 1153,
+        "end": 1201
+      }
+    ]
+  },
+  {
+    "id": "u000370",
+    "source": "d000008",
+    "kind": "fragment",
+    "role": "string",
+    "text": "@p",
+    "context": "@p",
+    "segments": [
+      {
+        "start": 1490,
+        "end": 1492
+      }
+    ]
+  },
+  {
+    "id": "u000371",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "Measured on 23.26: an INSERT bound with :1 is accepted, while ?",
+    "context": "Measured on 23.26: an INSERT bound with :1 is accepted, while ? and  $1 both answer ORA-00911, invalid character.",
+    "segments": [
+      {
+        "start": 1523,
+        "end": 1586
+      }
+    ]
+  },
+  {
+    "id": "u000372",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "and  $1 both answer ORA-00911, invalid character.",
+    "context": "Measured on 23.26: an INSERT bound with :1 is accepted, while ? and  $1 both answer ORA-00911, invalid character.",
+    "segments": [
+      {
+        "start": 1587,
+        "end": 1591
+      },
+      {
+        "start": 1595,
+        "end": 1640
+      }
+    ]
+  },
+  {
+    "id": "u000373",
+    "source": "d000008",
+    "kind": "paragraph",
+    "role": "comment",
+    "text": "Measured on 23.26: an INSERT bound with :1 is accepted, while ? and  $1 both answer ORA-00911, invalid character.",
+    "context": "Measured on 23.26: an INSERT bound with :1 is accepted, while ? and  $1 both answer ORA-00911, invalid character.",
+    "segments": [
+      {
+        "start": 1523,
+        "end": 1591
+      },
+      {
+        "start": 1595,
+        "end": 1640
+      }
+    ]
+  },
+  {
+    "id": "u000374",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "Byte-by-byte scanning is safe here: '?'",
+    "context": "Byte-by-byte scanning is safe here: '?' (0x3F), '\\'' (0x27), and '\"'  (0x22) all fall below 0x80, and a UTF-8 continuation byte always has  its high bit set, so a multibyte rune cannot be misidentified as one  of the structural characters we care about.",
+    "segments": [
+      {
+        "start": 1891,
+        "end": 1930
+      }
+    ]
+  },
+  {
+    "id": "u000375",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "(0x3F), '\\'' (0x27), and '\"'  (0x22) all fall below 0x80, and a UTF-8 continuation byte always has  its high bit set, so a multibyte rune cannot be misidentified as one  of the structural characters we care about.",
+    "context": "Byte-by-byte scanning is safe here: '?' (0x3F), '\\'' (0x27), and '\"'  (0x22) all fall below 0x80, and a UTF-8 continuation byte always has  its high bit set, so a multibyte rune cannot be misidentified as one  of the structural characters we care about.",
+    "segments": [
+      {
+        "start": 1931,
+        "end": 1960
+      },
+      {
+        "start": 1963,
+        "end": 2033
+      },
+      {
+        "start": 2036,
+        "end": 2106
+      },
+      {
+        "start": 2109,
+        "end": 2153
+      }
+    ]
+  },
+  {
+    "id": "u000376",
+    "source": "d000008",
+    "kind": "paragraph",
+    "role": "comment",
+    "text": "Byte-by-byte scanning is safe here: '?' (0x3F), '\\'' (0x27), and '\"'  (0x22) all fall below 0x80, and a UTF-8 continuation byte always has  its high bit set, so a multibyte rune cannot be misidentified as one  of the structural characters we care about.",
+    "context": "Byte-by-byte scanning is safe here: '?' (0x3F), '\\'' (0x27), and '\"'  (0x22) all fall below 0x80, and a UTF-8 continuation byte always has  its high bit set, so a multibyte rune cannot be misidentified as one  of the structural characters we care about.",
+    "segments": [
+      {
+        "start": 1891,
+        "end": 1960
+      },
+      {
+        "start": 1963,
+        "end": 2033
+      },
+      {
+        "start": 2036,
+        "end": 2106
+      },
+      {
+        "start": 2109,
+        "end": 2153
+      }
+    ]
+  },
+  {
+    "id": "u000377",
+    "source": "d000008",
+    "kind": "sentence",
+    "role": "comment",
+    "text": "SQL standard: '' inside a string is an escaped single quote.",
+    "context": "SQL standard: '' inside a string is an escaped single quote.",
+    "segments": [
+      {
+        "start": 2276,
+        "end": 2336
+      }
+    ]
+  },
+  {
+    "id": "u000378",
+    "source": "d000008",
+    "kind": "paragraph",
+    "role": "comment",
+    "text": "SQL standard: '' inside a string is an escaped single quote.",
+    "context": "SQL standard: '' inside a string is an escaped single quote.",
+    "segments": [
+      {
+        "start": 2276,
+        "end": 2336
+      }
+    ]
+  }
+]

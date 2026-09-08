@@ -1,4 +1,5 @@
-package main
+// Package commandio lets command entry points return when standard I/O is canceled.
+package commandio
 
 import "context"
 
@@ -7,10 +8,11 @@ type ioResult[T any] struct {
 	err   error
 }
 
+// Await returns on cancellation even when an I/O operation remains blocked.
 // A terminal read may survive closing its descriptor on macOS. Let main return
 // on cancellation; process exit ends any outstanding stdin/stdout operation.
 // The buffered result permits completion after the waiting call has returned.
-func awaitIO[T any](ctx context.Context, operation func() (T, error)) (T, error) {
+func Await[T any](ctx context.Context, operation func() (T, error)) (T, error) {
 	var zero T
 	if err := ctx.Err(); err != nil {
 		return zero, err

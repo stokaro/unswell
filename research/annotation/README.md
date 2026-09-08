@@ -1,5 +1,9 @@
 # Annotation protocol tools
 
+For source acquisition, grouped splits, and reproducible unlabeled units, use the
+[corpus preparation tool](corpus/README.md). It feeds this protocol and assigns no
+human responses or quality labels.
+
 This developer module implements the format and measurement portion of
 [#21](https://github.com/stokaro/unswell/issues/21). Read the
 [editorial rubric](../../docs/editorial-annotation.md) before preparing a round.
