@@ -70,6 +70,10 @@ func (e *Engine) rulesRequireStructure() bool {
 }
 
 func (e *Engine) evaluateRules(ctx context.Context, doc *document.Document, result *RunResult) error {
+	features, err := e.sharedFeatures(ctx, doc)
+	if err != nil {
+		return err
+	}
 	termMatches, err := e.matchTerms(ctx, doc)
 	if err != nil {
 		return err
@@ -93,6 +97,7 @@ func (e *Engine) evaluateRules(ctx context.Context, doc *document.Document, resu
 		}
 		view := rule.View{
 			Document:      doc,
+			Features:      features,
 			Parameters:    cloneParameters(settings.Parameters),
 			MaxCandidates: e.policy.Analysis.MaxCandidates,
 		}

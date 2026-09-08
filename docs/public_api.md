@@ -14,6 +14,7 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell/builtin` | Explicit builtin catalog factory | alpha |
 | `github.com/stokaro/unswell/config` | Strict in-memory policy compiler | alpha |
 | `github.com/stokaro/unswell/extract` | Source-preserving input extractors | alpha |
+| `github.com/stokaro/unswell/feature` | Versioned block measurements and immutable shared sets | alpha |
 | `github.com/stokaro/unswell/nlp` | Neutral provider and capability contract | alpha |
 | `github.com/stokaro/unswell/nlp/english` | Default pure-Go English backend | alpha |
 | `github.com/stokaro/unswell/report` | Writers and saved-result decoding | alpha |
@@ -40,6 +41,22 @@ driver, and tests against the public engine. Its API snapshot is
 access and never imports Unswell internals. Default diagnostics reflect engine
 gate failures; `ReportAll` explicitly includes advisory and accepted findings.
 All raw results remain available to dependent analyzers as `unswell.RunResult`.
+
+Shared block measurements add the public `feature` package, optional
+`rule.Descriptor.SharedFeatures`, and `rule.View.Features`. Enabled consumers
+receive one immutable set per enriched document. Public callers can also use
+`feature.Measure` and `feature.NewSet` with explicit NLP, policy, source, vocabulary,
+preprocessing, and resource identities. Returned values distinguish observed zero
+from absence. See [shared features](shared-features.md) and
+[ADR 0016](adr/0016-shared-features.md).
+
+The descriptor flag is additive in the existing saved-result schema. Old reports
+remain readable; strict older readers need an update for the optional field.
+Existing evidence metric names, values, and order retain their definitions. The
+block contract has its own identity, `unswell-block-features-v1`; it does not
+reinterpret the aggregate `unswell-features-v1` scoring/baseline identity. Descriptor
+hashes change for rules requesting the shared set. Statistical model collection,
+raw activation vectors, and the remaining #56 feature families are not yet complete.
 
 The additive `rule.Parameters.MaxAnswerWords` field configures the experimental
 question/answer pattern. Its zero value is omitted from saved parameter objects;

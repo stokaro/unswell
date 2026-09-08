@@ -2,8 +2,10 @@ package builtin
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -21,23 +23,13 @@ func measureReadability(ctx context.Context, view rule.View, emit rule.Emitter, 
 		if !proseBlock(block) {
 			continue
 		}
-		stats, err := measureProse(m, block)
+		evidence, err := readabilityEvidence(m, block, grade)
 		if err != nil {
 			return err
-		}
-		if stats.words == 0 {
-			continue
-		}
-		var evidence rule.Evidence
-		if grade {
-			evidence = gradeEvidence(view.Parameters, block, stats)
-		} else {
-			evidence = paragraphEvidence(view.Parameters, block, stats)
 		}
 		if len(evidence.Occurrences) == 0 {
 			continue
 		}
-		evidence.Metrics = append(evidence.Metrics, stats.metrics()...)
 		if err := emit.Emit(evidence); err != nil {
 			return err
 		}
@@ -45,36 +37,67 @@ func measureReadability(ctx context.Context, view rule.View, emit rule.Emitter, 
 	return ctx.Err()
 }
 
-func gradeEvidence(p rule.Parameters, block document.Block, stats proseMeasurements) rule.Evidence {
-	if stats.words < p.MinWords || len(stats.lengths) < p.MinSentences {
-		return rule.Evidence{}
+func readabilityEvidence(m *editorialMatcher, block document.Block, grade bool) (rule.Evidence, error) {
+	stats, err := measureProse(m, block)
+	if err != nil {
+		return rule.Evidence{}, err
 	}
-	value := automatedReadability(stats.characters, stats.words, len(stats.lengths))
+	if stats.Counts().Words == 0 {
+		return rule.Evidence{}, nil
+	}
+	evidence, err := configuredReadability(m.view.Parameters, block, stats, grade)
+	if err != nil || len(evidence.Occurrences) == 0 {
+		return evidence, err
+	}
+	metrics, err := proseMetrics(stats)
+	if err != nil {
+		return rule.Evidence{}, err
+	}
+	evidence.Metrics = append(evidence.Metrics, metrics...)
+	return evidence, nil
+}
+
+func configuredReadability(p rule.Parameters, block document.Block, stats feature.Measurements, grade bool) (rule.Evidence, error) {
+	if grade {
+		return gradeEvidence(p, block, stats)
+	}
+	return paragraphEvidence(p, block, stats), nil
+}
+
+func gradeEvidence(p rule.Parameters, block document.Block, stats feature.Measurements) (rule.Evidence, error) {
+	if stats.Counts().Words < p.MinWords || stats.Counts().Sentences < p.MinSentences {
+		return rule.Evidence{}, nil
+	}
+	metric, err := stats.Value("automated-readability-index")
+	if err != nil {
+		return rule.Evidence{}, err
+	}
+	if metric.Number == nil {
+		return rule.Evidence{}, fmt.Errorf("required ARI feature is unavailable: %s", metric.Reason)
+	}
+	value := *metric.Number
 	if value <= float64(p.Onset) {
-		return rule.Evidence{}
+		return rule.Evidence{}, nil
 	}
 	return rule.Evidence{Kind: "heuristic", Activation: metricActivation(value, p.Onset, p.Saturation),
 		Occurrences: blockOccurrences(block), Metrics: []rule.Metric{
 			{Name: "automated-readability-index", Value: value, Unit: "ARI-formula-units",
 				Onset: float64(p.Onset), Saturation: float64(p.Saturation)},
-		}}
+		}}, nil
 }
 
-func automatedReadability(characters, words, sentences int) float64 {
-	return 4.71*float64(characters)/float64(words) + 0.5*float64(words)/float64(sentences) - 21.43
-}
-
-func paragraphEvidence(p rule.Parameters, block document.Block, stats proseMeasurements) rule.Evidence {
+func paragraphEvidence(p rule.Parameters, block document.Block, stats feature.Measurements) rule.Evidence {
 	long := 0
-	for _, words := range stats.lengths {
+	for _, words := range stats.SentenceLengths() {
 		if words > p.SentenceWords {
 			long++
 		}
 	}
-	if stats.words <= p.Onset || long < p.MinLongSentences {
+	if stats.Counts().Words <= p.Onset || long < p.MinLongSentences {
 		return rule.Evidence{}
 	}
-	evidence := measured("heuristic", "paragraph-length", "prose-words", stats.words, p.Onset, p.Saturation, blockOccurrences(block))
+	evidence := measured("heuristic", "paragraph-length", "prose-words", stats.Counts().Words,
+		p.Onset, p.Saturation, blockOccurrences(block))
 	evidence.Metrics = append(evidence.Metrics,
 		rule.Metric{Name: "long-sentences", Value: float64(long), Unit: "sentences",
 			Onset: float64(p.MinLongSentences)},

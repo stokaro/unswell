@@ -5,6 +5,7 @@ import (
 	"context"
 
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/nlp"
 )
 
@@ -81,6 +82,9 @@ type Descriptor struct {
 	Examples       []Example        `json:"examples"`
 	Origin         *Origin          `json:"origin,omitempty"`
 	TermExemptions bool             `json:"term_exemptions,omitempty"`
+	// SharedFeatures requests the common block measurements in View.Features.
+	// POS values still require an explicit POS capability in Requires.
+	SharedFeatures bool `json:"shared_features,omitempty"`
 	// RequiresStructure requests grammar-derived block context, including heading
 	// ancestry. It does not restore prose excluded by the extraction policy.
 	RequiresStructure bool `json:"requires_structure,omitempty"`
@@ -126,9 +130,11 @@ type Evidence struct {
 	Activation  int          `json:"activation"` // Fixed point: 0 through 1000.
 }
 
-// View is read-only for the duration of Evaluate. Never retain its pointers.
+// View is read-only for the duration of Evaluate. Do not retain its document or
+// term pointers. Features is independently owned and immutable and may be retained.
 type View struct {
 	Document       *document.Document
+	Features       *feature.Set
 	Parameters     Parameters
 	MaxCandidates  int
 	TermExemptions *TermMatches
