@@ -126,8 +126,10 @@ experiments is reported as a completed benchmark.
   all report/input formats and platform behavior.
 - Complete the full documentation set, model/data notices and release inventory.
 
-The remaining catalog includes additional filler/hype signals, repeated rhetorical
-patterns, nominalization/noun stacks, parenthetical load, n-grams, template and
-paragraph overlap, heading/summary echoes, readability and experimental formatting.
+Additional filler/hype signals and repeated rhetorical patterns are available as
+[opt-in experiments](editorial-patterns.md); their corpus qualification remains open.
+The remaining catalog includes nominalization/noun stacks, parenthetical load,
+n-grams, template and paragraph overlap, heading/summary echoes, readability and
+experimental formatting.
 Dependency-based passive, long-subject and nested-clause rules require a real
 dependency backend. They must never silently fall back to surface approximations.

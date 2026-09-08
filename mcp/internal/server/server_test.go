@@ -69,7 +69,9 @@ func TestDiscoveryAndFixedPolicy(t *testing.T) {
 	c.Assert(description.Formats, qt.HasLen, len(document.Formats()))
 	c.Assert(description.Policy.Extraction.Contexts, qt.DeepEquals, []string{"comment"})
 	c.Assert(description.Policy.Extraction.Languages[document.YAML].Contexts, qt.DeepEquals, []string{"string"})
-	c.Assert(description.Rules, qt.HasLen, 16)
+	engine, err := unswell.New(unswell.Options{Config: policy})
+	c.Assert(err, qt.IsNil)
+	c.Assert(description.Rules, qt.DeepEquals, engine.Catalog())
 }
 
 func TestChecksMatchEngine(t *testing.T) {
@@ -127,6 +129,27 @@ func TestInvalidToolArgumentsCannotWeakenPolicy(t *testing.T) {
 			c.Assert(result.IsError, qt.IsTrue)
 		})
 	}
+}
+
+func TestEditorialClustersMatchThePublicEngine(t *testing.T) {
+	c := qt.New(t)
+	policy := []byte("version: 1\nextends: [builtin:custom]\nrules:\n" +
+		"  filler.section-announcement: {enabled: true, gate: forbid}\n")
+	session := connect(c, t.Context(), server.Options{Config: policy})
+	text := "In this section, we will describe setup. In this section, we will describe deployment."
+	input := server.CheckInput{Sources: []server.Source{{Name: "guide.md", Text: text}}}
+	response, err := session.CallTool(t.Context(), &mcp.CallToolParams{Name: "unswell_check", Arguments: input})
+	c.Assert(err, qt.IsNil)
+	c.Assert(response.IsError, qt.IsFalse)
+	checked := output[server.CheckOutput](c, response)
+	c.Assert(checked.Outcome, qt.Equals, "policy_failure")
+	c.Assert(checked.Result.Findings, qt.HasLen, 1)
+	c.Assert(checked.Result.Findings[0].Related, qt.HasLen, 1)
+	engine, err := unswell.New(unswell.Options{Config: policy})
+	c.Assert(err, qt.IsNil)
+	direct, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)})
+	c.Assert(err, qt.IsNil)
+	c.Assert(checked.Result, qt.DeepEquals, direct)
 }
 
 type waitingNLP struct {
