@@ -64,6 +64,7 @@ func editorialPhraseRules() []rule.Rule {
 		Phrases: []string{"guarantees complete safety", "eliminates all risk", "guarantees zero downtime", "works in every environment"},
 	}
 	for _, d := range []rule.Descriptor{praise, absolute} {
+		d.BlockObservations = true
 		d.Scope = "sentence"
 		d.Parameters = []string{"phrases"}
 		d.Defaults.Parameters = rule.Parameters{Phrases: d.Defaults.Parameters.Phrases}
@@ -121,6 +122,7 @@ func editorialQualifierRules() []rule.Rule {
 			"for every person using the service.", Match: true},
 		rule.Example{Text: "The client really needs the exact identifier to retry safely."})
 	weak.Scope = "paragraph"
+	weak.BlockObservations = true
 	weak.Requires = append(weak.Requires, nlp.POS)
 	weak.Defaults.Parameters = rule.Parameters{Phrases: []string{"very", "really", "incredibly", "extremely", "highly"},
 		MinWords: 20, Onset: 4, Saturation: 12}
@@ -132,6 +134,7 @@ func editorialQualifierRules() []rule.Rule {
 		rule.Example{Text: "The result may possibly perhaps change.", Match: true},
 		rule.Example{Text: "The request may fail, and the server might retry."})
 	hedge.Scope = "sentence"
+	hedge.BlockObservations = true
 	hedge.Requires = append(hedge.Requires, nlp.POS)
 	hedge.Defaults.Parameters = rule.Parameters{Phrases: []string{"may", "might", "could", "perhaps", "possibly", "potentially", "apparently"},
 		Onset: 2, Saturation: 5}

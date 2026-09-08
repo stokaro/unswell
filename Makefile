@@ -71,7 +71,7 @@ dogfood-mcp: dogfood build-mcp
 	  --output ../artifacts/dogfood/mcp-result.json -- ../bin/unswell-mcp --config ../.unswell.yaml \
 	  --feature prose-words --feature type-token-ratio --feature activation/readability.long-paragraph \
 	  --feature activation/filler.announced-importance --feature activation/syntax.noun-stack \
-	  --feature activation/filler.section-announcement
+	  --feature activation/filler.section-announcement --feature activation/filler.stacked-hedging
 
 release:
 	bash scripts/release.sh

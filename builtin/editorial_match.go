@@ -19,7 +19,7 @@ type editorialMatcher struct {
 	fixed        map[string][]string
 	words        map[string]bool
 	checks       int
-	observations *windowPhraseObservations
+	observations *editorialPhraseObservations
 }
 
 func newEditorialMatcher(ctx context.Context, view rule.View) *editorialMatcher {

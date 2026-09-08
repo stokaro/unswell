@@ -268,6 +268,20 @@ can bridge section-announcement runs but remain `unsupported_unit` themselves.
 Empty dictionaries, no sentences, or no eligible window retain their absence
 reasons. Collection preserves matching and source coordinates.
 
+Four qualifier rules also distinguish inspected candidates from omitted scopes:
+
+| Rules | Applicability |
+| --- | --- |
+| `hype.vague-praise`, `hype.absolute-claim` | An eligible phrase window after the existing question/qualification screen. Code protects the candidate window, not every other phrase in its sentence. |
+| `filler.weak-intensifiers` | Prose-kind and word limits, a dictionary, and an adjacent unprotected pair outside the first-token term exemption and excluded successor words. |
+| `filler.stacked-hedging` | A dictionary and a nonexempt token within an inspected clause; existing punctuation, conjunction, and code boundaries remain. |
+
+The dictionary/POS tests and counts remain unchanged. An eligible comparison below
+the configured threshold yields zero. Missing eligible phrase/pair windows use
+`no_eligible_window`; missing clause tokens use `no_eligible_tokens`. Empty
+dictionaries, unsupported kinds, no sentences, and intensifier word limits retain
+their existing reasons. Text omitted by extraction supplies no feature unit.
+
 Other windowed rhetoric, repetition, and list rules still need complete observations before their silent
 blocks can supply dense negative inputs for training. The complete #56 work and
 model qualification remain open. See [ADR 0018](adr/0018-rule-activation-features.md).
@@ -275,5 +289,5 @@ model qualification remain open. See [ADR 0018](adr/0018-rule-activation-feature
 The number of blocks times requested values must fit `analysis.max_candidates`
 for each source. Exceeding this output bound is an operational error; values are
 not sampled or silently dropped. Repository CLI/MCP self-checks collect readability,
-phrase, section-announcement, and noun-stack activations alongside word counts and
+phrase, section-announcement, stacked-hedging, and noun-stack activations alongside word counts and
 lexical diversity.
