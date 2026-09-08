@@ -90,3 +90,22 @@ func TestPublicLexicalMeasurements(t *testing.T) {
 	c.Assert(value.Union(), qt.Equals, 4)
 	c.Assert(*value.Values()[2].Number, qt.Equals, 0.5)
 }
+
+func TestPublicPatternPreparation(t *testing.T) {
+	c := qt.New(t)
+	sentence := document.Sentence{Text: "The cache expires.", Tokens: []document.Token{
+		{Normal: "the", Word: true, Tag: "DT"}, {Normal: "cache", Word: true, Tag: "NN"},
+		{Normal: "expires", Word: true, Tag: "VBZ"}, {Normal: ".", Tag: "."},
+	}}
+	limits := feature.SequenceLimits{MaxTokens: 20, MaxBytes: 1000}
+	var candidates []feature.Ngram
+	_, err := feature.ScanNgrams(t.Context(), sentence.Tokens,
+		feature.NgramOptions{MinWords: 3, MaxWords: 3, MaxVisits: 100}, limits,
+		func(candidate feature.Ngram) error { candidates = append(candidates, candidate); return nil })
+	c.Assert(err, qt.IsNil)
+	c.Assert(candidates, qt.DeepEquals, []feature.Ngram{{Start: 0, End: 3, Key: "the cache expires"}})
+	pattern, err := feature.PreparePOSPattern(t.Context(), sentence, nil, limits)
+	c.Assert(err, qt.IsNil)
+	c.Assert(pattern.Available(), qt.IsTrue)
+	c.Assert(pattern.Key(), qt.Equals, "DT|NN|VB|.")
+}

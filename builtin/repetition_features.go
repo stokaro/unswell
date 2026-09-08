@@ -86,3 +86,8 @@ func makeWordSet(ctx context.Context, words []string, textBytes int) (feature.Wo
 	return feature.NewWordSet(ctx, words, feature.WordLimits{MaxWords: count, MaxUniqueWords: count,
 		MaxBytes: min(1<<30, max(1, textBytes)*4)})
 }
+
+func sequenceLimits(sentence document.Sentence) feature.SequenceLimits {
+	return feature.SequenceLimits{MaxTokens: max(1, len(sentence.Tokens)),
+		MaxBytes: int(min(int64(1<<30), int64(max(1, len(sentence.Text)))*16))}
+}

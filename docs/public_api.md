@@ -14,7 +14,7 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell/builtin` | Explicit builtin catalog factory | alpha |
 | `github.com/stokaro/unswell/config` | Strict in-memory policy compiler | alpha |
 | `github.com/stokaro/unswell/extract` | Source-preserving input extractors | alpha |
-| `github.com/stokaro/unswell/feature` | Versioned prose measurements and immutable lexical sets | alpha |
+| `github.com/stokaro/unswell/feature` | Versioned prose measurements and repetition preprocessing | alpha |
 | `github.com/stokaro/unswell/nlp` | Neutral provider and capability contract | alpha |
 | `github.com/stokaro/unswell/nlp/english` | Default pure-Go English backend | alpha |
 | `github.com/stokaro/unswell/report` | Writers and saved-result decoding | alpha |
@@ -66,6 +66,15 @@ The contract is separately identified by `feature.LexicalContract`. No saved-res
 fields change, and the block `Catalog` retains its existing measurement order.
 Callers must retain source and preprocessing identities for model use and must
 not export the explicit word/key accessors in reports by default.
+
+Pattern preprocessing adds `SequenceLimits`, `NgramOptions`, `Ngram`, `ScanNgrams`,
+`POSPattern`, `PreparePOSPattern`, and `PatternCatalog`, identified by
+`feature.PatternContract`. These string keys have the common descriptor schema,
+but are not numeric `Value` measurements. The streaming callback owns its n-gram
+key and receives original token indices; failure stops the scan and invalidates
+partial output. Surface templates keep explicit absence reasons and caller-selected
+literal tokens. These additions preserve saved-result fields and existing rule
+evidence. See [shared features](shared-features.md) for caller policy obligations.
 
 The additive `rule.Parameters.MaxAnswerWords` field configures the experimental
 question/answer pattern. Its zero value is omitted from saved parameter objects;

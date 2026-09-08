@@ -2,6 +2,8 @@ package builtin
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"slices"
 	"strings"
 
@@ -76,36 +78,23 @@ func proseWordPrefix(doc *document.Document) []int {
 func (a *ngramAnalysis) addSentence(item repetitionSentence) error {
 	sentence := item.sentence
 	signature := repetitionSignature(a.view, sentence)
-	for start := range sentence.Tokens {
-		var words []string
-		for end := start; end < min(len(sentence.Tokens), start+a.view.Parameters.MaxNgramWords); end++ {
-			if err := a.budget.spend(1); err != nil {
-				return err
-			}
-			token := sentence.Tokens[end]
-			if !token.Word || token.Protected {
-				break
-			}
-			words = append(words, token.Normal)
-			if len(words) >= a.view.Parameters.MinNgramWords && ngramContent(words) && !a.view.Exempts(sentence, start, end+1) {
-				a.add(strings.Join(words, " ")+"\x00"+signature, len(words), ngramOccurrence{sentence, item.ordinal, start, end + 1})
-			}
+	visits, err := feature.ScanNgrams(a.budget.ctx, sentence.Tokens, feature.NgramOptions{
+		MinWords: a.view.Parameters.MinNgramWords, MaxWords: a.view.Parameters.MaxNgramWords,
+		MaxVisits: a.budget.remaining,
+	}, sequenceLimits(sentence), func(candidate feature.Ngram) error {
+		if !a.view.Exempts(sentence, candidate.Start, candidate.End) {
+			a.add(candidate.Key+"\x00"+signature, candidate.End-candidate.Start,
+				ngramOccurrence{sentence, item.ordinal, candidate.Start, candidate.End})
 		}
+		return nil
+	})
+	if errors.Is(err, feature.ErrTokenLimit) {
+		return fmt.Errorf("repetition work exceeds max_candidates: %w", err)
 	}
-	return nil
-}
-
-func ngramContent(words []string) bool {
-	first := ""
-	for _, word := range words {
-		if feature.InformativeWord(word) {
-			if first != "" && word != first {
-				return true
-			}
-			first = word
-		}
+	if err != nil {
+		return err
 	}
-	return false
+	return a.budget.spend(visits)
 }
 
 func (a *ngramAnalysis) add(key string, words int, item ngramOccurrence) {

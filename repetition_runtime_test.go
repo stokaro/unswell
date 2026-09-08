@@ -101,20 +101,30 @@ func TestRepeatedFactsAndCorrelatedEvidence(t *testing.T) {
 }
 
 func TestRepetitionConcurrentReuse(t *testing.T) {
-	c := qt.New(t)
-	engine := singleRuleEngine(t, "repetition.paragraph-overlap", "", "")
-	text := overlapParagraph + "\n\n" + strings.Replace(overlapParagraph, "opens", "creates", 1)
-	source := document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)}
-	want, err := engine.Analyze(t.Context(), source)
-	c.Assert(err, qt.IsNil)
-	for range 4 {
-		t.Run("shared engine", func(t *testing.T) {
-			t.Parallel()
+	for _, row := range []struct{ id, text string }{
+		{"repetition.paragraph-overlap", overlapParagraph + "\n\n" + strings.Replace(overlapParagraph, "opens", "creates", 1)},
+		{"repetition.ngram-density", repeatedPhraseProse},
+		{"repetition.syntax-template", "The careful writer describes the simple process for the entire local team. " +
+			"The curious reader reviews the clear procedure for the entire small group. " +
+			"The skilled editor explains the useful approach for the entire new audience."},
+	} {
+		t.Run(row.id, func(t *testing.T) {
 			c := qt.New(t)
-			got, err := engine.Analyze(t.Context(), source)
+			engine := singleRuleEngine(t, row.id, "", "")
+			source := document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(row.text)}
+			want, err := engine.Analyze(t.Context(), source)
 			c.Assert(err, qt.IsNil)
-			c.Assert(got, qt.DeepEquals, want)
-			c.Assert(string(source.Bytes), qt.Equals, text)
+			c.Assert(want.Findings, qt.HasLen, 1)
+			for range 4 {
+				t.Run("shared engine", func(t *testing.T) {
+					t.Parallel()
+					c := qt.New(t)
+					got, err := engine.Analyze(t.Context(), source)
+					c.Assert(err, qt.IsNil)
+					c.Assert(got, qt.DeepEquals, want)
+					c.Assert(string(source.Bytes), qt.Equals, row.text)
+				})
+			}
 		})
 	}
 }
