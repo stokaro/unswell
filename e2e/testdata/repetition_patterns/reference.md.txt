@@ -1,0 +1,15 @@
+# Retry policy
+
+The client may retry the request after the server closes the connection during a transport failure.
+
+The client must retry the request after the server closes the connection during a transport failure.
+
+The client waits 30 seconds for a response before closing the connection to the server.
+
+The client waits 60 seconds for a response before closing the connection to the server.
+
+## Procedure
+
+- Open the connection to the server and wait for the complete response.
+- Close the connection to the server and wait for the complete response.
+- Check the connection to the server and wait for the complete response.

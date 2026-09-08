@@ -12,7 +12,7 @@ func toolSchemas() (*mcp.Tool, *mcp.Tool, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	minimum, maximum := 1, 256
+	minimum, maximum := 1, MaxSources
 	sources := input.Properties["sources"]
 	sources.MinItems, sources.MaxItems = &minimum, &maximum
 	format := sources.Items.Properties["format"]

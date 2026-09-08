@@ -249,13 +249,7 @@ func nearPair(a, b document.Sentence, parameters rule.Parameters) bool {
 	for _, word := range normalizedWords(b) {
 		right[word] = true
 	}
-	intersection := 0
-	for word := range right {
-		if left[word] {
-			intersection++
-		}
-	}
-	union := len(left) + len(right) - intersection
+	intersection, union := wordOverlap(left, right)
 	return union > 0 && float64(intersection)/float64(union) >= parameters.Similarity
 }
 

@@ -21,7 +21,7 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source, iden
 		ctx,
 		source,
 		extract.Options{
-			IncludeStructure: e.collectBaseline || identities != nil,
+			IncludeStructure: e.collectBaseline || identities != nil || e.rulesRequireStructure(),
 			IncludeQuotes:    e.policy.Analysis.IncludeQuotes,
 			MaxBytes:         e.policy.Analysis.MaxFileBytes,
 			MaxBlocks:        e.policy.Analysis.MaxBlocks,
@@ -57,6 +57,16 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source, iden
 	}
 	e.decide(&result, doc)
 	return result, suppressionErr
+}
+
+func (e *Engine) rulesRequireStructure() bool {
+	for _, implementation := range e.rules {
+		descriptor := implementation.Descriptor()
+		if e.policy.Rules[descriptor.ID].Enabled && descriptor.RequiresStructure {
+			return true
+		}
+	}
+	return false
 }
 
 func (e *Engine) evaluateRules(ctx context.Context, doc *document.Document, result *RunResult) error {

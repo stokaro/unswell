@@ -27,6 +27,7 @@ func Rules() []rule.Rule {
 	result := phraseRules()
 	result = append(result, contextRules()...)
 	result = append(result, editorialRules()...)
+	result = append(result, extendedRepetitionRules()...)
 	slices.SortFunc(result, func(a, b rule.Rule) int {
 		if a.Descriptor().ID < b.Descriptor().ID {
 			return -1

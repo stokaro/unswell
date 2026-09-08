@@ -27,6 +27,9 @@ type Parameters struct {
 	ProtectNumbers        bool     `json:"protect_numbers"        yaml:"protect_numbers"`
 	ProtectIdentifiers    bool     `json:"protect_identifiers"    yaml:"protect_identifiers"`
 	MaxAnswerWords        int      `json:"max_answer_words,omitempty" yaml:"max_answer_words"`
+	MinNgramWords         int      `json:"min_ngram_words,omitempty" yaml:"min_ngram_words"`
+	MaxNgramWords         int      `json:"max_ngram_words,omitempty" yaml:"max_ngram_words"`
+	WindowBlocks          int      `json:"window_blocks,omitempty" yaml:"window_blocks"`
 }
 
 // Score is independent of presentation severity. Units are index points.
@@ -69,6 +72,9 @@ type Descriptor struct {
 	Examples       []Example        `json:"examples"`
 	Origin         *Origin          `json:"origin,omitempty"`
 	TermExemptions bool             `json:"term_exemptions,omitempty"`
+	// RequiresStructure requests grammar-derived block context, including heading
+	// ancestry. It does not restore prose excluded by the extraction policy.
+	RequiresStructure bool `json:"requires_structure,omitempty"`
 }
 
 // Origin identifies a declarative ruleset and its author-supplied provenance.

@@ -144,3 +144,9 @@ version-2 not-only matcher, and a FAQ file override. It retains the overlapping
 praise/triad findings and their related ranges. `editorial_code` covers an escaped
 Go string, a reasoned permission, and independent comments/strings that must not be
 combined to reach a rhetorical threshold. Both fixtures include CRLF and a BOM.
+
+The `repetition_patterns` case covers five opt-in signals, their related clusters,
+heading/summary structure, and clean technical contrasts. `repetition_code` covers
+escaped Go strings and a reasoned permission for a repeated comment block. Both
+retain exact source coordinates with CRLF and a BOM. Library tests also check
+numeric units, modalities, terminology, resource budgets, and concurrent reuse.

@@ -1,0 +1,22 @@
+heading.md:3:1: warning [repetition.heading-echo] The first paragraph closely echoes its heading; check whether it adds information.
+  related: heading.md:1:4
+ngrams.md:3:5: warning [repetition.ngram-density] This phrase recurs in a short prose window; check whether each use is needed.
+  related: ngrams.md:3:84
+  related: ngrams.md:3:160
+overlap.md:3:1: warning [repetition.paragraph-overlap] These prose blocks have high lexical overlap; check for repeated information.
+  related: overlap.md:5:1
+summary.md:3:1: warning [repetition.paragraph-overlap] These prose blocks have high lexical overlap; check for repeated information.
+  related: summary.md:7:1
+summary.md:7:1: warning [repetition.summary-echo] This summary has high lexical overlap with preceding prose; check what it adds.
+  related: summary.md:3:1
+templates.md:3:1: warning [repetition.syntax-template] Several sentences repeat a POS shape; check whether the structure serves the text.
+  related: templates.md:3:76
+  related: templates.md:3:151
+FAIL: 6 documents, 6 findings; analysis complete.
+  gate: heading.md: The first paragraph closely echoes its heading; check whether it adds information.
+  gate: ngrams.md: This phrase recurs in a short prose window; check whether each use is needed.
+  gate: overlap.md: These prose blocks have high lexical overlap; check for repeated information.
+  gate: summary.md: These prose blocks have high lexical overlap; check for repeated information.
+  gate: summary.md: This summary has high lexical overlap with preceding prose; check what it adds.
+  gate: templates.md: Several sentences repeat a POS shape; check whether the structure serves the text.
+Revision probability: unavailable (no calibrated alpha model).
