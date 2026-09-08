@@ -62,6 +62,7 @@ func sarif(writer io.Writer, result unswell.RunResult) error {
 				map[string]any{"executionSuccessful": result.Manifest.Complete, "toolExecutionNotifications": notifications},
 			},
 			"properties": map[string]any{"gate": result.Gate, "assessments": result.Assessments,
+				"changes":  result.Changes,
 				"baseline": result.Baseline, "baseline_snapshot": result.BaselineSnapshot,
 				"manifest": result.Manifest, "file_policies": filePolicies(result), "suppressions": result.Suppressions},
 		}},
@@ -95,7 +96,7 @@ func sarifFinding(finding unswell.Finding, index int) map[string]any {
 		"relatedLocations":    related,
 		"partialFingerprints": map[string]string{"unswell/v1": finding.Fingerprint},
 		"properties": map[string]any{"evidence": finding.Evidence, "group": finding.Group, "derived": finding.Derived,
-			"suppression_ids": finding.SuppressionIDs},
+			"suppression_ids": finding.SuppressionIDs, "change_state": finding.ChangeState, "change_fingerprint": finding.ChangeFingerprint},
 	}
 	if finding.BaselineFingerprint != "" {
 		result["partialFingerprints"] = map[string]string{"unswell/v1": finding.Fingerprint,

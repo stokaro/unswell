@@ -228,26 +228,32 @@ func (e *Engine) Analyze(ctx context.Context, src document.Source) (Result, erro
 // AnalyzeAll returns a deterministic, path-sorted result regardless of worker
 // count or source order. It returns partial evidence and an error on incompleteness.
 func (e *Engine) AnalyzeAll(ctx context.Context, sources []document.Source) (RunResult, error) {
+	result, _, err := e.analyzeAll(ctx, sources, false)
+	return result, err
+}
+
+func (e *Engine) analyzeAll(ctx context.Context, sources []document.Source, identify bool) (RunResult, []sourceIdentities, error) {
 	result := e.emptyResult()
 	if err := ctx.Err(); err != nil {
-		return incomplete(result, err)
+		return incompleteBatch(result, err)
 	}
 	sources = slices.Clone(sources)
 	slices.SortFunc(sources, func(a, b document.Source) int { return strings.Compare(a.Name, b.Name) })
 	engines, err := e.prepareSources(ctx, sources)
 	if err != nil {
-		return incomplete(result, err)
+		return incompleteBatch(result, err)
 	}
 	if err := ctx.Err(); err != nil {
-		return incomplete(result, err)
+		return incompleteBatch(result, err)
 	}
 	partials := make([]RunResult, len(sources))
+	identities := newBatchIdentities(identify, len(sources))
 	errorsBySource := make([]error, len(sources))
 	var workers sync.WaitGroup
 	for worker := 0; worker < min(e.jobs, len(sources)); worker++ {
 		workers.Go(func() {
 			for index := worker; index < len(sources); index += e.jobs {
-				partials[index], errorsBySource[index] = engines[index].analyzeSource(ctx, sources[index])
+				partials[index], errorsBySource[index] = engines[index].analyzeSource(ctx, sources[index], batchIdentity(identities, index))
 			}
 		})
 	}
@@ -266,7 +272,27 @@ func (e *Engine) AnalyzeAll(ctx context.Context, sources []document.Source) (Run
 			result.Errors = append(result.Errors, RunError{Path: sources[i].Name, Message: errorsBySource[i].Error()})
 		}
 	}
-	return e.finishBaseline(ctx, result, errors.Join(errorsBySource...))
+	result, err = e.finishBaseline(ctx, result, errors.Join(errorsBySource...))
+	return result, identities, err
+}
+
+func newBatchIdentities(identify bool, count int) []sourceIdentities {
+	if identify {
+		return make([]sourceIdentities, count)
+	}
+	return nil
+}
+
+func incompleteBatch(result RunResult, err error) (RunResult, []sourceIdentities, error) {
+	result, err = incomplete(result, err)
+	return result, nil, err
+}
+
+func batchIdentity(identities []sourceIdentities, index int) *sourceIdentities {
+	if identities == nil {
+		return nil
+	}
+	return &identities[index]
 }
 
 func (e *Engine) emptyResult() RunResult {

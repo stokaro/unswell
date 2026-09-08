@@ -90,6 +90,7 @@ func Run(ctx context.Context, args []string, environment Environment) int {
 }
 
 type checkOptions struct {
+	changedFrom        string
 	baseline           string
 	gateMode           string
 	collectBaseline    bool
@@ -138,6 +139,8 @@ func checkCommand(environment Environment, code *int) *cobra.Command {
 
 func checkFlags(command *cobra.Command, options *checkOptions) {
 	flags := command.Flags()
+	flags.StringVar(&options.changedFrom, "changed-from", "",
+		"Check committed changes from merge-base(REF, HEAD) with clean-source verification")
 	flags.StringVar(&options.baseline, "baseline", "", "Read accepted debt from this local baseline; checking never writes it")
 	flags.StringVar(&options.gateMode, "gate-mode", "", "Override gate mode: all or new (new requires --baseline)")
 	flags.StringVar(&options.config, "config", "", "Use this exact YAML configuration file")

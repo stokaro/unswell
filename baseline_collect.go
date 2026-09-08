@@ -8,32 +8,55 @@ import (
 	"github.com/stokaro/unswell/document"
 )
 
-func (e *Engine) collectDebt(ctx context.Context, result *RunResult, doc document.Document) error {
+type identityUnit struct {
+	scope string
+	id    int
+}
+
+type sourceIdentities struct {
+	document baseline.Document
+	findings map[string]string
+	units    map[identityUnit]string
+}
+
+func (e *Engine) identifySource(ctx context.Context, result *RunResult, doc document.Document, ids *sourceIdentities) error {
+	allUnits := ids != nil
+	if ids == nil {
+		ids = &sourceIdentities{}
+	}
+	ids.findings, ids.units = make(map[string]string), make(map[identityUnit]string)
 	builder, err := newDebtBuilder(ctx, doc)
 	if err != nil {
 		return err
 	}
-	if err := builder.collectFindings(ctx, result); err != nil {
+	if err := builder.collectFindings(ctx, result, ids); err != nil {
 		return err
 	}
-	if err := builder.collectAssessments(ctx, result); err != nil {
+	if err := builder.collectAssessments(ctx, result, ids, allUnits); err != nil {
 		return err
 	}
-	result.BaselineSnapshot.Documents = append(result.BaselineSnapshot.Documents, baseline.Document{
+	ids.document = baseline.Document{
 		Path: doc.Name, Format: string(doc.Format), SourceHash: doc.Hash,
 		PolicyHash: builder.hash(baselinePolicy(e.policy)), SuppressionHash: builder.suppressionHash(result.Suppressions),
-	})
+	}
+	if result.BaselineSnapshot != nil {
+		result.BaselineSnapshot.Documents = append(result.BaselineSnapshot.Documents, ids.document)
+	}
 	return builder.err
 }
 
-func (b *debtBuilder) collectFindings(ctx context.Context, result *RunResult) error {
+func (b *debtBuilder) collectFindings(ctx context.Context, result *RunResult, ids *sourceIdentities) error {
 	for i := range result.Findings {
 		if err := ctx.Err(); err != nil {
 			return err
 		}
 		finding := &result.Findings[i]
 		identity := b.finding(*finding)
-		finding.BaselineFingerprint = b.fingerprint(identity)
+		ids.findings[finding.ID] = b.fingerprint(identity)
+		if result.BaselineSnapshot == nil {
+			continue
+		}
+		finding.BaselineFingerprint = ids.findings[finding.ID]
 		if !finding.Suppressed {
 			finding.BaselineState = "new"
 			result.BaselineSnapshot.Candidates = append(result.BaselineSnapshot.Candidates, identity)
@@ -42,22 +65,23 @@ func (b *debtBuilder) collectFindings(ctx context.Context, result *RunResult) er
 	return b.err
 }
 
-func (b *debtBuilder) collectAssessments(ctx context.Context, result *RunResult) error {
-	findings := make(map[string]string, len(result.Findings))
-	for _, finding := range result.Findings {
-		findings[finding.ID] = finding.BaselineFingerprint
-	}
+func (b *debtBuilder) collectAssessments(ctx context.Context, result *RunResult, ids *sourceIdentities, allUnits bool) error {
 	for i := range result.Assessments {
 		if err := ctx.Err(); err != nil {
 			return err
 		}
 		assessment := &result.Assessments[i]
-		if assessment.EffectiveSlopScore == 0 {
+		if assessment.EffectiveSlopScore == 0 && !allUnits {
 			continue
 		}
 		identity := b.unit(assessment.Scope, assessment.UnitID)
-		identity.EvidenceHash = b.assessmentEvidence(*assessment, findings)
-		assessment.BaselineFingerprint = b.fingerprint(identity)
+		identity.EvidenceHash = b.assessmentEvidence(*assessment, ids.findings)
+		fingerprint := b.fingerprint(identity)
+		ids.units[identityUnit{assessment.Scope, assessment.UnitID}] = fingerprint
+		if result.BaselineSnapshot == nil || assessment.EffectiveSlopScore == 0 {
+			continue
+		}
+		assessment.BaselineFingerprint = fingerprint
 		assessment.BaselineState = "new"
 		result.BaselineSnapshot.Candidates = append(result.BaselineSnapshot.Candidates, identity)
 	}

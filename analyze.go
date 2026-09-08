@@ -15,13 +15,13 @@ import (
 	"github.com/stokaro/unswell/rule"
 )
 
-func (e *Engine) analyzeSource(ctx context.Context, source document.Source) (RunResult, error) {
+func (e *Engine) analyzeSource(ctx context.Context, source document.Source, identities *sourceIdentities) (RunResult, error) {
 	result := e.emptyResult()
 	doc, err := extract.Parse(
 		ctx,
 		source,
 		extract.Options{
-			IncludeStructure: e.collectBaseline,
+			IncludeStructure: e.collectBaseline || identities != nil,
 			IncludeQuotes:    e.policy.Analysis.IncludeQuotes,
 			MaxBytes:         e.policy.Analysis.MaxFileBytes,
 			MaxBlocks:        e.policy.Analysis.MaxBlocks,
@@ -46,8 +46,8 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source) (Run
 	result.Findings = deduplicateFindings(result.Findings)
 	suppressionErr := e.applySuppressions(ctx, &result, doc, plan)
 	e.assess(&result, doc)
-	if e.collectBaseline {
-		if err := e.collectDebt(ctx, &result, doc); err != nil {
+	if e.collectBaseline || identities != nil {
+		if err := e.identifySource(ctx, &result, doc, identities); err != nil {
 			return result, err
 		}
 	}

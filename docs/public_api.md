@@ -102,3 +102,11 @@ fingerprint. It is a run-local reference used by scoring and suppression traces,
 and can change with line movement. The existing `Finding.Fingerprint` field retains
 its algorithm. Durable debt uses the separately versioned `BaselineFingerprint`;
 do not persist finding IDs as baseline identities. See [baseline behavior](baseline.md).
+
+Committed comparison adds `Engine.AnalyzeChanged`, `ChangeSelection`,
+`ChangedDocument`, and application-owned `GitSelection` provenance. Results gain
+optional change identities/states on findings and assessments, `RunResult.Changes`,
+`Manifest.Git`, and `GateDecision.Unchanged`. These additive fields retain the
+existing schema version and old-report readability; strict older readers need an
+update. Raw scores, baseline acceptance, and ordinary analysis keep their semantics.
+See [changed-unit analysis](changes.md) for selection and clean-source requirements.

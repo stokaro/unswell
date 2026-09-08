@@ -7,13 +7,16 @@ import (
 )
 
 func findingMessage(finding unswell.Finding) string {
+	message := finding.Message
 	if finding.Suppressed {
-		return finding.Message + " [suppressed]"
+		message += " [suppressed]"
+	} else if finding.BaselineFingerprint != "" {
+		message += " [baseline: " + finding.BaselineState + "]"
 	}
-	if finding.BaselineFingerprint != "" {
-		return finding.Message + " [baseline: " + finding.BaselineState + "]"
+	if finding.ChangeState != "" {
+		message += " [change: " + finding.ChangeState + "]"
 	}
-	return finding.Message
+	return message
 }
 
 func suppressionLines(result unswell.RunResult) []string {
