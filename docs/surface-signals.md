@@ -17,7 +17,7 @@ and comparative qualification remain in #56 and #57.
 | Rule | Candidate condition | Parameters and defaults | Weight/cap |
 | --- | --- | --- | --- |
 | `syntax.nominalization-chain` | Configured verb + optional modifiers + configured common noun + `of` + a common-noun complement | `verbs`, `nouns` | 12/24 |
-| `syntax.noun-stack` | Consecutive NN/NNS tokens inside a shallow NP chunk | `onset: 3`, `saturation: 7` | 8/16 |
+| `syntax.noun-stack` | NN modifiers with an NN/NNS head inside a shallow NP chunk | `onset: 3`, `saturation: 7` | 8/16 |
 | `syntax.passive-candidate-density` | Multiple sentences with be + up to four adverbs + VBN | `min_words: 8`, `window_sentences: 8`, `allowed_occurrences: 1`, `saturation_occurrences: 4` | 6/12 |
 | `syntax.parenthetical-load` | Balanced insertion word count, pair count, or nesting | `min_words: 20`, `onset: 12`, `saturation: 36`, `allowed_occurrences: 2`, `saturation_occurrences: 5`, `allowed_depth: 1`, `saturation_depth: 4` | 8/16 |
 | `readability.long-paragraph` | Both a long block and several long sentences | `onset: 120`, `saturation: 240`, `sentence_words: 25`, `min_long_sentences: 2` | 8/16 |
@@ -84,6 +84,13 @@ nesting. An unfinished or mismatched frame is discarded; protected boundaries re
 open frames. In Markdown, link delimiters are handled by extraction and do not become
 parenthetical evidence. Escaped literal brackets and brackets in source strings are
 eligible. Nesting beyond 256 levels returns an error instead of truncating a result.
+
+Noun-stack version 2 requires singular noun modifiers. A final plural noun remains
+eligible, but an interior NNS tag makes the sequence inapplicable. The POS model
+can mistake finite verbs such as `defines` and `latches` for plural nouns. This
+boundary avoids warnings on the reported package and method comments without
+rewriting them or assigning invented verb tags. It also misses genuine stacks
+with plural modifiers; the rule remains an unqualified, conservative measurement.
 
 Configured term exemptions apply to nominalization, noun stacks, passive candidates,
 parenthetical load, and list fragmentation. The readability formulas and dash density
