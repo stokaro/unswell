@@ -164,7 +164,7 @@ func text(writer io.Writer, result unswell.RunResult, options Options) error {
 	for _, failure := range result.Errors {
 		fmt.Fprintf(&output, "  error: %s: %s\n", terminal(failure.Path), terminal(failure.Message))
 	}
-	for _, line := range suppressionLines(result) {
+	for _, line := range append(suppressionLines(result), baselineLines(result)...) {
 		fmt.Fprintf(&output, "%s\n", terminal(line))
 	}
 	output.WriteString("Revision probability: unavailable (no calibrated alpha model).\n")
@@ -210,7 +210,7 @@ func markdown(writer io.Writer, result unswell.RunResult, options Options) error
 	for _, failure := range result.Errors {
 		fmt.Fprintf(&output, "\n- Error: %s — %s\n", markdownEscape(failure.Path), markdownEscape(failure.Message))
 	}
-	for _, line := range suppressionLines(result) {
+	for _, line := range append(suppressionLines(result), baselineLines(result)...) {
 		fmt.Fprintf(&output, "\n%s\n", markdownEscape(line))
 	}
 	output.WriteString("\nRevision probability: unavailable; this alpha has no calibrated model.\n")

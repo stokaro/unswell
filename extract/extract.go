@@ -15,10 +15,11 @@ import (
 
 // Options controls extraction. Zero values select conservative prose contexts.
 type Options struct {
-	IncludeQuotes bool
-	MaxBytes      int
-	MaxBlocks     int
-	Policy        Policy
+	IncludeQuotes    bool
+	IncludeStructure bool
+	MaxBytes         int
+	MaxBlocks        int
+	Policy           Policy
 }
 
 // Parse extracts prose without changing or retaining the caller's input buffer.

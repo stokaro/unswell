@@ -17,6 +17,8 @@ import (
 
 // Options fixes policy and resource limits for the lifetime of a server.
 type Options struct {
+	Baseline     []byte
+	GateMode     string
 	Config       []byte
 	ConfigBundle *config.Bundle
 	NLP          nlp.Provider
@@ -24,6 +26,7 @@ type Options struct {
 }
 
 type checker struct {
+	gateMode    string
 	engine      *unswell.Engine
 	timeout     time.Duration
 	description Description
@@ -37,7 +40,8 @@ func New(options Options) (*mcp.Server, error) {
 	if options.Timeout < 0 || options.Timeout > 5*time.Minute {
 		return nil, fmt.Errorf("timeout must be positive and at most five minutes")
 	}
-	engine, err := unswell.New(unswell.Options{Config: options.Config, ConfigBundle: options.ConfigBundle, NLP: options.NLP})
+	engine, err := unswell.New(unswell.Options{Config: options.Config, ConfigBundle: options.ConfigBundle, NLP: options.NLP,
+		Baseline: options.Baseline, GateMode: options.GateMode})
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +49,8 @@ func New(options Options) (*mcp.Server, error) {
 	if err != nil {
 		return nil, err
 	}
-	check := &checker{engine: engine, timeout: options.Timeout, description: description}
+	description.BaselineLoaded = options.Baseline != nil
+	check := &checker{engine: engine, timeout: options.Timeout, description: description, gateMode: options.GateMode}
 	server := mcp.NewServer(&mcp.Implementation{Name: "unswell", Version: unswell.Version}, &mcp.ServerOptions{
 		Instructions: "Check draft prose and source with unswell_check before submitting changes. " +
 			"Use unswell_describe to inspect formats, contexts, rules, and the fixed policy. " +
@@ -115,5 +120,9 @@ func (c *checker) describe(ctx context.Context, _ *mcp.CallToolRequest, input De
 	result := c.description
 	policy, err := c.engine.PolicyForFile(input.File)
 	result.Policy = policy
+	result.GateMode = policy.Gate.Mode
+	if c.gateMode != "" {
+		result.GateMode = c.gateMode
+	}
 	return nil, result, err
 }

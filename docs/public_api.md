@@ -7,6 +7,7 @@ changes against the preceding release and document intentional differences.
 | Import path | Purpose | Stability |
 | --- | --- | --- |
 | `github.com/stokaro/unswell` | Engine, options and versioned results | alpha |
+| `github.com/stokaro/unswell/baseline` | In-memory debt artifacts, fingerprints, and comparison | alpha |
 | `github.com/stokaro/unswell/document` | Sources, byte spans and neutral document model | alpha |
 | `github.com/stokaro/unswell/rule` | Rule contract, typed parameters and evidence | alpha |
 | `github.com/stokaro/unswell/ruleset` | Bounded in-memory compilation of declarative rules | alpha |
@@ -87,3 +88,17 @@ readable; strict older readers need an update. The new suppression policy defaul
 intentionally change effective policy hashes. No probability field is reinterpreted.
 Malformed or unused permissions return an operational error and an incomplete result;
 unused-permission errors preserve the raw findings and audit records already computed.
+
+Baseline support adds `Options.Baseline`, `CollectBaseline`, and `GateMode`, the
+public `baseline` package, `extract.Options.IncludeStructure`, and optional
+`document.Block.Context`. Config gates add `Mode`, defaulting to `all`; this changes
+effective configuration hashes. Result additions include snapshots, comparisons,
+finding and assessment baseline identities, selected gate modes, and
+`GateDecision.Accepted`. Old saved results remain readable under the existing schema
+version; strict older readers need an update for these additive fields.
+
+`Finding.ID` now distinguishes separate source occurrences of the same legacy
+fingerprint. It is a run-local reference used by scoring and suppression traces,
+and can change with line movement. The existing `Finding.Fingerprint` field retains
+its algorithm. Durable debt uses the separately versioned `BaselineFingerprint`;
+do not persist finding IDs as baseline identities. See [baseline behavior](baseline.md).

@@ -1,6 +1,7 @@
 package unswell
 
 import (
+	"github.com/stokaro/unswell/baseline"
 	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/nlp"
@@ -29,22 +30,23 @@ type Location struct {
 
 // Finding is a rule activation enriched with policy, identity, and source locations.
 type Finding struct {
-	ID             string        `json:"id"`
-	RuleID         string        `json:"rule_id"`
-	RuleVersion    string        `json:"rule_version"`
-	Severity       string        `json:"severity"`
-	Gate           string        `json:"gate"`
-	Group          string        `json:"group"`
-	Scope          string        `json:"scope"`
-	Message        string        `json:"message"`
-	Primary        Location      `json:"primary"`
-	Related        []Location    `json:"related"`
-	Evidence       rule.Evidence `json:"evidence"`
-	Fingerprint    string        `json:"fingerprint"`
-	Suppressed     bool          `json:"suppressed"`
-	SuppressionIDs []string      `json:"suppression_ids,omitempty"`
-	BaselineState  string        `json:"baseline_state"`
-	Derived        bool          `json:"derived"`
+	ID                  string        `json:"id"`
+	RuleID              string        `json:"rule_id"`
+	RuleVersion         string        `json:"rule_version"`
+	Severity            string        `json:"severity"`
+	Gate                string        `json:"gate"`
+	Group               string        `json:"group"`
+	Scope               string        `json:"scope"`
+	Message             string        `json:"message"`
+	Primary             Location      `json:"primary"`
+	Related             []Location    `json:"related"`
+	Evidence            rule.Evidence `json:"evidence"`
+	Fingerprint         string        `json:"fingerprint"`
+	Suppressed          bool          `json:"suppressed"`
+	SuppressionIDs      []string      `json:"suppression_ids,omitempty"`
+	BaselineState       string        `json:"baseline_state"`
+	BaselineFingerprint string        `json:"baseline_fingerprint,omitempty"`
+	Derived             bool          `json:"derived"`
 }
 
 // Contribution explains fixed-point scoring and the effects of caps and deduplication.
@@ -63,6 +65,8 @@ type Contribution struct {
 
 // Assessment is a local, nondilutable index. Probability is unavailable in alpha.
 type Assessment struct {
+	BaselineFingerprint    string         `json:"baseline_fingerprint,omitempty"`
+	BaselineState          string         `json:"baseline_state,omitempty"`
 	Path                   string         `json:"path"`
 	Scope                  string         `json:"scope"`
 	UnitID                 int            `json:"unit_id"`
@@ -79,6 +83,7 @@ type Assessment struct {
 
 // DocumentResult summarizes one source without including its prose by default.
 type DocumentResult struct {
+	GateMode         string               `json:"gate_mode,omitempty"`
 	Name             string               `json:"name"`
 	Format           document.Format      `json:"format"`
 	SourceHash       string               `json:"source_hash"`
@@ -98,6 +103,7 @@ type DocumentResult struct {
 
 // Manifest records the exact execution policy and feature versions, without time.
 type Manifest struct {
+	GateMode        string                    `json:"gate_mode,omitempty"`
 	ToolVersion     string                    `json:"tool_version"`
 	ToolCommit      string                    `json:"tool_commit"`
 	ConfigHash      string                    `json:"config_hash"`
@@ -126,8 +132,9 @@ type GateReason struct {
 
 // GateDecision reports policy separately from operational completion.
 type GateDecision struct {
-	Passed  bool         `json:"passed"`
-	Reasons []GateReason `json:"reasons"`
+	Passed   bool         `json:"passed"`
+	Reasons  []GateReason `json:"reasons"`
+	Accepted []GateReason `json:"accepted,omitempty"`
 }
 
 // RunError records an operational failure in a partial result.
@@ -161,15 +168,17 @@ type Suppression struct {
 // RunResult is the immutable input shared by every reporter.
 // Returned slices are owned by the caller and do not alias the engine.
 type RunResult struct {
-	SchemaVersion string           `json:"schema_version"`
-	Status        string           `json:"status"`
-	Manifest      Manifest         `json:"manifest"`
-	Documents     []DocumentResult `json:"documents"`
-	Findings      []Finding        `json:"findings"`
-	Assessments   []Assessment     `json:"assessments"`
-	Gate          GateDecision     `json:"gate"`
-	Errors        []RunError       `json:"errors"`
-	Suppressions  []Suppression    `json:"suppressions,omitempty"`
+	BaselineSnapshot *baseline.Snapshot   `json:"baseline_snapshot,omitempty"`
+	Baseline         *baseline.Comparison `json:"baseline,omitempty"`
+	SchemaVersion    string               `json:"schema_version"`
+	Status           string               `json:"status"`
+	Manifest         Manifest             `json:"manifest"`
+	Documents        []DocumentResult     `json:"documents"`
+	Findings         []Finding            `json:"findings"`
+	Assessments      []Assessment         `json:"assessments"`
+	Gate             GateDecision         `json:"gate"`
+	Errors           []RunError           `json:"errors"`
+	Suppressions     []Suppression        `json:"suppressions,omitempty"`
 }
 
 // Result is the same report contract restricted to one source by Analyze.

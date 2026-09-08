@@ -11,11 +11,12 @@ import (
 )
 
 type markdownReader struct {
-	ctx     context.Context
-	doc     *document.Document
-	syntax  syntaxTree
-	input   markdownInput
-	options Options
+	ctx      context.Context
+	doc      *document.Document
+	syntax   syntaxTree
+	input    markdownInput
+	options  Options
+	headings map[markdownScope][6]string
 }
 
 func markdown(ctx context.Context, doc *document.Document, options Options) error {
@@ -28,11 +29,12 @@ func markdown(ctx context.Context, doc *document.Document, options Options) erro
 		return err
 	}
 	defer syntax.tree.Release()
-	reader := markdownReader{ctx: ctx, doc: doc, syntax: syntax, input: input, options: options}
+	reader := markdownReader{ctx: ctx, doc: doc, syntax: syntax, input: input, options: options,
+		headings: make(map[markdownScope][6]string)}
 	return walkSyntax(ctx, syntax.tree.RootNode(), 0, reader.block)
 }
 
-func (r markdownReader) block(node *ts.Node) (bool, error) {
+func (r *markdownReader) block(node *ts.Node) (bool, error) {
 	if len(r.doc.Blocks) > r.options.MaxBlocks {
 		return true, fmt.Errorf("source exceeds %d prose blocks", r.options.MaxBlocks)
 	}
@@ -99,20 +101,33 @@ func markdownKind(node *ts.Node, lang *ts.Language) string {
 	return "paragraph"
 }
 
-func (r markdownReader) inline(node *ts.Node, kind string) error {
+func (r *markdownReader) inline(node *ts.Node, kind string) error {
+	span := r.inlineSpan(node, kind)
+	if span.End == span.Start {
+		return nil
+	}
+	excluded := contextExclusion(r.doc, r.options.Policy, kind, span)
+	if excluded && (kind != "heading" || !r.options.IncludeStructure) {
+		return nil
+	}
+	mapped, err := r.inlineMapping(node, span)
+	if err != nil {
+		return err
+	}
+	return r.appendInline(node, mapped, kind, excluded)
+}
+
+func (r *markdownReader) inlineSpan(node *ts.Node, kind string) document.Span {
 	span := r.input.span(node)
 	if kind == "table-cell" {
 		for span.End > span.Start && strings.ContainsRune(" \t", rune(r.doc.Source[span.End-1])) {
 			span.End--
 		}
-		// The block grammar accepts empty cells; they contain no inline prose to parse.
-		if span.End == span.Start {
-			return nil
-		}
 	}
-	if contextExclusion(r.doc, r.options.Policy, kind, span) {
-		return nil
-	}
+	return span
+}
+
+func (r *markdownReader) inlineMapping(node *ts.Node, span document.Span) (document.MappedText, error) {
 	var continuations []document.Span
 	err := walkSyntax(r.ctx, node, 0, func(child *ts.Node) (bool, error) {
 		if child.Type(r.syntax.lang) == "block_continuation" && child.EndByte() > child.StartByte() {
@@ -121,11 +136,24 @@ func (r markdownReader) inline(node *ts.Node, kind string) error {
 		return false, nil
 	})
 	if err != nil {
-		return err
+		return document.MappedText{}, err
 	}
-	mapped, err := markdownInline(r.ctx, r.doc, span, continuations)
-	if err == nil {
-		appendBlock(r.doc, mapped, kind)
+	return markdownInline(r.ctx, r.doc, span, continuations)
+}
+
+func (r *markdownReader) appendInline(node *ts.Node, mapped document.MappedText, kind string, excluded bool) error {
+	if kind == "heading" && r.options.IncludeStructure {
+		if err := r.headingContext(node, mapped); err != nil {
+			return err
+		}
 	}
-	return err
+	if excluded {
+		return nil
+	}
+	before := len(r.doc.Blocks)
+	appendBlock(r.doc, mapped, kind)
+	if r.options.IncludeStructure && len(r.doc.Blocks) > before {
+		r.doc.Blocks[before].Context = r.sectionContext(node)
+	}
+	return nil
 }

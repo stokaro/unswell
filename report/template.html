@@ -15,6 +15,12 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 <nav aria-label="Report sections"><ul><li><a href="#gate">Gate</a></li><li><a href="#files">Files and coverage</a></li><li><a href="#findings">Findings</a></li><li><a href="#paragraphs">Paragraph scores</a></li>{{if .Result.Suppressions}}<li><a href="#suppressions">Source permissions</a></li>{{end}}<li><a href="#manifest">Analysis manifest</a></li></ul></nav></header>
 <main><section id="gate"><h2>Gate decision</h2>{{range .Result.Gate.Reasons}}<p><a href="#finding-{{.FindingID}}">{{.Path}}</a>: {{.Message}}</p>{{else}}<p>No editorial gate failures.</p>{{end}}
 {{range .Result.Errors}}<p class="error">Operational error: {{.Path}} — {{.Message}}</p>{{end}}</section>
+{{if .Result.Baseline}}<section id="baseline"><h2>Baseline debt</h2>
+<p>{{len .Result.Baseline.Matches}} compared candidates; {{len .Result.Baseline.Stale}} stale entries; {{len .Result.Baseline.Unobserved}} unobserved entries.</p>
+{{if .Result.Gate.Accepted}}<details><summary>Gate reasons accepted in new mode</summary><ul>
+{{range .Result.Gate.Accepted}}<li><a href="#finding-{{.FindingID}}">{{.Path}}</a>: {{.Message}}</li>{{end}}</ul></details>{{end}}
+{{if .Result.Baseline.Stale}}<details><summary>Stale debt</summary><ul>{{range .Result.Baseline.Stale}}<li>{{.Identity.Path}}: {{.Identity.Kind}} {{.Identity.RuleID}} — {{.Fingerprint}}</li>{{end}}</ul></details>{{end}}
+{{if .Result.Baseline.Unobserved}}<details><summary>Unobserved debt</summary><ul>{{range .Result.Baseline.Unobserved}}<li>{{.Identity.Path}}: {{.Identity.Kind}} {{.Identity.RuleID}} — {{.Fingerprint}}</li>{{end}}</ul></details>{{end}}</section>{{end}}
 <section id="files"><h2>Files and coverage</h2><table><thead><tr><th>File</th><th>Prose words</th><th>Blocks</th><th>Maximum raw paragraph index</th></tr></thead><tbody>
 {{range .Result.Documents}}<tr><td>{{.Name}}</td><td>{{.ProseWords}}</td><td>{{.Blocks}}</td><td>{{.Maximum}}/100</td></tr>{{end}}</tbody></table>
 {{range .Result.Documents}}<details><summary>{{.Name}} — {{len .Excluded}} excluded regions</summary>
@@ -25,7 +31,7 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 <label>Severity <select id="severity"><option value="">All</option><option>error</option><option>warning</option><option>note</option></select></label>
 <label>Rule or group <input id="query" type="search" placeholder="Filter findings"></label><p id="filter-count" role="status"></p></div>
 {{range .Findings}}<article id="finding-{{.ID}}" class="finding {{.Severity}}" data-severity="{{.Severity}}" data-rule="{{.RuleID}}" data-group="{{.Group}}">
-<h3>{{.RuleID}} <small>({{.Severity}}, {{.Evidence.Kind}} evidence{{if .Suppressed}}, suppressed{{end}})</small></h3><p>{{.Message}}</p>
+<h3>{{.RuleID}} <small>({{.Severity}}, {{.Evidence.Kind}} evidence{{if .Suppressed}}, suppressed{{end}}{{if .BaselineFingerprint}}, baseline: {{.BaselineState}}{{end}})</small></h3><p>{{.Message}}</p>
 {{if .SuppressionIDs}}<p>Source permissions: {{range .SuppressionIDs}}<a href="#suppression-{{.}}">{{.}}</a> {{end}}</p>{{end}}
 <p>{{.Primary.Path}}:{{.Primary.Start.Line}}:{{.Primary.Start.Column}} · bytes [{{.Primary.Span.Start}}, {{.Primary.Span.End}})</p>
 {{if .Primary.Snippet}}<pre><mark>{{.Primary.Snippet}}</mark></pre>{{end}}
@@ -36,6 +42,7 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 <section id="paragraphs"><h2>Paragraph scores</h2>{{range .Paragraphs}}<details open><summary>{{.Assessment.Path}} — paragraph {{.Assessment.UnitID}}: {{.Assessment.SlopScore}}/100</summary>
 <pre>{{range .Pieces}}{{if .Highlight}}<mark>{{.Text}}</mark>{{else}}{{.Text}}{{end}}{{end}}</pre>
 <p>Raw index: {{.Assessment.SlopScore}}. Effective index: {{.Assessment.EffectiveSlopScore}}. Probability: {{.Assessment.ProbabilityStatus}}.</p>
+{{if .Assessment.BaselineFingerprint}}<p>Baseline: {{.Assessment.BaselineState}}. Structural fingerprint: <code>{{.Assessment.BaselineFingerprint}}</code>.</p>{{end}}
 <table><caption>Raw scoring trace, including caps and correlation</caption><thead><tr><th>Rule</th><th>Raw points</th><th>Effective points</th><th>Reason</th></tr></thead><tbody>{{range .Assessment.Contributions}}<tr><td><a href="#finding-{{.FindingID}}">{{.RuleID}}</a></td><td>{{.Raw}}</td><td>{{.Effective}}</td><td>{{.Reason}}</td></tr>{{end}}</tbody></table>
 {{if .Assessment.EffectiveContributions}}<table><caption>Scoring after source permissions</caption><thead><tr><th>Rule</th><th>Points</th><th>Reason</th></tr></thead><tbody>
 {{range .Assessment.EffectiveContributions}}<tr><td><a href="#finding-{{.FindingID}}">{{.RuleID}}</a></td><td>{{.Effective}}</td><td>{{.Reason}}</td></tr>{{end}}</tbody></table>{{end}}

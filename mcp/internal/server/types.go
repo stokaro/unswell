@@ -38,9 +38,11 @@ type Format struct {
 
 // Description exposes the same catalog and effective policy used for checking.
 type Description struct {
-	Version string            `json:"version"`
-	Commit  string            `json:"commit"`
-	Formats []Format          `json:"formats"`
-	Policy  config.Policy     `json:"policy"`
-	Rules   []rule.Descriptor `json:"rules"`
+	BaselineLoaded bool              `json:"baseline_loaded"`
+	GateMode       string            `json:"gate_mode"`
+	Version        string            `json:"version"`
+	Commit         string            `json:"commit"`
+	Formats        []Format          `json:"formats"`
+	Policy         config.Policy     `json:"policy"`
+	Rules          []rule.Descriptor `json:"rules"`
 }

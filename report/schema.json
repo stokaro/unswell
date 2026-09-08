@@ -1,5 +1,209 @@
 {
   "$defs": {
+    "baseline.Comparison": {
+      "additionalProperties": false,
+      "properties": {
+        "matches": {
+          "items": {
+            "$ref": "#/$defs/baseline.Match"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "stale": {
+          "items": {
+            "$ref": "#/$defs/baseline.Entry"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "unobserved": {
+          "items": {
+            "$ref": "#/$defs/baseline.Entry"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "matches",
+        "stale",
+        "unobserved"
+      ],
+      "type": "object"
+    },
+    "baseline.Compatibility": {
+      "additionalProperties": false,
+      "properties": {
+        "feature_contract": {
+          "type": "string"
+        },
+        "model_hash": {
+          "type": "string"
+        },
+        "nlp_hash": {
+          "type": "string"
+        },
+        "policy_hash": {
+          "type": "string"
+        },
+        "rules_hash": {
+          "type": "string"
+        },
+        "scoring_contract": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "policy_hash",
+        "rules_hash",
+        "nlp_hash",
+        "feature_contract",
+        "scoring_contract",
+        "model_hash"
+      ],
+      "type": "object"
+    },
+    "baseline.Document": {
+      "additionalProperties": false,
+      "properties": {
+        "format": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "policy_hash": {
+          "type": "string"
+        },
+        "source_hash": {
+          "type": "string"
+        },
+        "suppression_hash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "format",
+        "source_hash",
+        "policy_hash",
+        "suppression_hash"
+      ],
+      "type": "object"
+    },
+    "baseline.Entry": {
+      "additionalProperties": false,
+      "properties": {
+        "fingerprint": {
+          "type": "string"
+        },
+        "identity": {
+          "$ref": "#/$defs/baseline.Identity"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "identity",
+        "fingerprint",
+        "status"
+      ],
+      "type": "object"
+    },
+    "baseline.Identity": {
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "type": "string"
+        },
+        "evidence_hash": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "rule_id": {
+          "type": "string"
+        },
+        "rule_version": {
+          "type": "string"
+        },
+        "structure_hash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "kind",
+        "structure_hash",
+        "content_hash",
+        "evidence_hash"
+      ],
+      "type": "object"
+    },
+    "baseline.Match": {
+      "additionalProperties": false,
+      "properties": {
+        "fingerprint": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "fingerprint",
+        "state"
+      ],
+      "type": "object"
+    },
+    "baseline.Snapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/baseline.Identity"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "compatibility": {
+          "$ref": "#/$defs/baseline.Compatibility"
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "documents": {
+          "items": {
+            "$ref": "#/$defs/baseline.Document"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "complete",
+        "compatibility",
+        "documents",
+        "candidates"
+      ],
+      "type": "object"
+    },
     "config.OverrideIdentity": {
       "additionalProperties": false,
       "properties": {
@@ -504,6 +708,12 @@
     "unswell.Assessment": {
       "additionalProperties": false,
       "properties": {
+        "baseline_fingerprint": {
+          "type": "string"
+        },
+        "baseline_state": {
+          "type": "string"
+        },
         "contributions": {
           "items": {
             "$ref": "#/$defs/unswell.Contribution"
@@ -659,6 +869,9 @@
         "format": {
           "type": "string"
         },
+        "gate_mode": {
+          "type": "string"
+        },
         "name": {
           "type": "string"
         },
@@ -703,6 +916,9 @@
     "unswell.Finding": {
       "additionalProperties": false,
       "properties": {
+        "baseline_fingerprint": {
+          "type": "string"
+        },
         "baseline_state": {
           "type": "string"
         },
@@ -786,6 +1002,15 @@
     "unswell.GateDecision": {
       "additionalProperties": false,
       "properties": {
+        "accepted": {
+          "items": {
+            "$ref": "#/$defs/unswell.GateReason"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
         "passed": {
           "type": "boolean"
         },
@@ -899,6 +1124,9 @@
         "feature_contract": {
           "type": "string"
         },
+        "gate_mode": {
+          "type": "string"
+        },
         "include_source": {
           "type": "boolean"
         },
@@ -985,6 +1213,26 @@
           "type": [
             "array",
             "null"
+          ]
+        },
+        "baseline": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/baseline.Comparison"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "baseline_snapshot": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/baseline.Snapshot"
+            },
+            {
+              "type": "null"
+            }
           ]
         },
         "documents": {

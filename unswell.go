@@ -13,6 +13,7 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/stokaro/unswell/baseline"
 	"github.com/stokaro/unswell/builtin"
 	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/document"
@@ -26,6 +27,12 @@ import (
 // a nonnil slice replaces that catalog. RuleSets adds declarative YAML packs to
 // the registry. Config and RuleSets contain bytes, never filenames.
 type Options struct {
+	// Baseline contains an explicitly selected artifact; nil disables comparison.
+	Baseline []byte
+	// CollectBaseline requests a validated snapshot for explicit create or update.
+	CollectBaseline bool
+	// GateMode overrides configuration with all or new; empty follows the policy.
+	GateMode      string
 	Config        []byte
 	ConfigBundle  *config.Bundle
 	Rules         []rule.Rule
@@ -40,17 +47,21 @@ type Options struct {
 // Engine is immutable after construction and supports concurrent calls. Custom
 // rule and NLP implementations must uphold their documented concurrency contract.
 type Engine struct {
-	policy        config.Policy
-	plan          *config.Plan
-	rules         []rule.Rule
-	descriptors   []rule.Descriptor
-	nlp           nlp.Provider
-	capabilities  []nlp.Capability
-	jobs          int
-	includeSource bool
-	allowEmpty    bool
-	noGate        bool
-	rulesetHash   string
+	baselineFile          *baseline.File
+	collectBaseline       bool
+	baselineCompatibility baseline.Compatibility
+	gateMode              string
+	policy                config.Policy
+	plan                  *config.Plan
+	rules                 []rule.Rule
+	descriptors           []rule.Descriptor
+	nlp                   nlp.Provider
+	capabilities          []nlp.Capability
+	jobs                  int
+	includeSource         bool
+	allowEmpty            bool
+	noGate                bool
+	rulesetHash           string
 }
 
 // New validates the entire policy and required capabilities before reading prose.
@@ -89,6 +100,9 @@ func New(options Options) (*Engine, error) {
 		}
 	}
 	if err := e.planCapabilities(); err != nil {
+		return nil, err
+	}
+	if err := e.configureBaseline(options); err != nil {
 		return nil, err
 	}
 	return e, nil
@@ -243,16 +257,20 @@ func (e *Engine) AnalyzeAll(ctx context.Context, sources []document.Source) (Run
 		result.Findings = append(result.Findings, part.Findings...)
 		result.Assessments = append(result.Assessments, part.Assessments...)
 		result.Suppressions = append(result.Suppressions, part.Suppressions...)
+		if result.BaselineSnapshot != nil && part.BaselineSnapshot != nil {
+			result.BaselineSnapshot.Documents = append(result.BaselineSnapshot.Documents, part.BaselineSnapshot.Documents...)
+			result.BaselineSnapshot.Candidates = append(result.BaselineSnapshot.Candidates, part.BaselineSnapshot.Candidates...)
+		}
 		result.Gate.Reasons = append(result.Gate.Reasons, part.Gate.Reasons...)
 		if errorsBySource[i] != nil {
 			result.Errors = append(result.Errors, RunError{Path: sources[i].Name, Message: errorsBySource[i].Error()})
 		}
 	}
-	return e.finish(result, errors.Join(errorsBySource...))
+	return e.finishBaseline(ctx, result, errors.Join(errorsBySource...))
 }
 
 func (e *Engine) emptyResult() RunResult {
-	return RunResult{
+	result := RunResult{
 		SchemaVersion: SchemaVersion,
 		Status:        "complete",
 		Documents:     []DocumentResult{},
@@ -261,6 +279,7 @@ func (e *Engine) emptyResult() RunResult {
 		Errors:        []RunError{},
 		Gate:          GateDecision{Passed: true, Reasons: []GateReason{}},
 		Manifest: Manifest{
+			GateMode:        e.selectedGateMode(),
 			ToolVersion:     Version,
 			ToolCommit:      BuildCommit,
 			ConfigHash:      e.policy.Hash,
@@ -279,6 +298,11 @@ func (e *Engine) emptyResult() RunResult {
 			SkippedRules:    []string{},
 		},
 	}
+	if e.collectBaseline {
+		result.BaselineSnapshot = &baseline.Snapshot{Complete: true, Compatibility: e.baselineCompatibility,
+			Documents: []baseline.Document{}, Candidates: []baseline.Identity{}}
+	}
+	return result
 }
 
 func (e *Engine) prepareSources(ctx context.Context, sources []document.Source) ([]*Engine, error) {
@@ -296,12 +320,9 @@ func (e *Engine) prepareSources(ctx context.Context, sources []document.Source) 
 		if err != nil {
 			return nil, fmt.Errorf("%s: %w", source.Name, err)
 		}
-		engine := resolved[policy.Hash]
-		if engine == nil {
-			local := *e
-			local.policy = policy
-			engine = &local
-			resolved[policy.Hash] = engine
+		engine, err := e.sourceEngine(policy, resolved)
+		if err != nil {
+			return nil, fmt.Errorf("%s: %w", source.Name, err)
 		}
 		engines[i] = engine
 		if len(source.Bytes) > policy.Analysis.MaxFileBytes {
@@ -315,9 +336,25 @@ func (e *Engine) prepareSources(ctx context.Context, sources []document.Source) 
 	return engines, nil
 }
 
+func (e *Engine) sourceEngine(policy config.Policy, resolved map[string]*Engine) (*Engine, error) {
+	if engine := resolved[policy.Hash]; engine != nil {
+		return engine, nil
+	}
+	local := *e
+	local.policy = policy
+	if local.selectedGateMode() == "new" && local.baselineFile == nil {
+		return nil, fmt.Errorf("gate.mode new requires a baseline")
+	}
+	resolved[policy.Hash] = &local
+	return &local, nil
+}
+
 func incomplete(result RunResult, err error) (RunResult, error) {
 	result.Status = "incomplete"
 	result.Manifest.Complete = false
+	if result.BaselineSnapshot != nil {
+		result.BaselineSnapshot.Complete = false
+	}
 	result.Gate.Passed = false
 	result.Errors = append(result.Errors, RunError{Message: err.Error()})
 	return result, err
