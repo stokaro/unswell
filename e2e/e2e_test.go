@@ -22,6 +22,7 @@ import (
 )
 
 type scenario struct {
+	ExclusionReport    bool     `json:"exclusion_report"`
 	PreparedCollection bool     `json:"prepared_collection"`
 	FeatureCollection  bool     `json:"feature_collection"`
 	Files              []string `json:"files"`
@@ -113,14 +114,7 @@ func runScenario(t *testing.T, binary, fixture string) {
 		verifyLocations(t, result, sources)
 		verifySARIF(t, workspace, result)
 		assertGoldenJSON(t, filepath.Join(fixture, "diagnostics.golden.json"), diagnostics(result))
-		if spec.PreparedCollection {
-			c.Assert(result.PreparedFeatures, qt.IsNotNil)
-			assertGoldenJSON(t, filepath.Join(fixture, "prepared.golden.json"), result.PreparedFeatures)
-		}
-		if spec.FeatureCollection {
-			c.Assert(result.Features, qt.IsNotNil)
-			assertGoldenJSON(t, filepath.Join(fixture, "features.golden.json"), result.Features)
-		}
+		assertOptionalReports(t, fixture, spec, result)
 	}
 	assertGolden(t, filepath.Join(fixture, "stdout.golden"), []byte(normalizeOutput(stdout, workspace)))
 	assertGolden(t, filepath.Join(fixture, "stderr.golden"), []byte(normalizeOutput(stderr, workspace)))

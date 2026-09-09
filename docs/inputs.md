@@ -54,6 +54,12 @@ Go retains its standard parser's comment grouping and generated-file, directive
 and cgo metadata. The syntax tree validates source structure and supplies strings.
 Import paths and Go struct tags are excluded as technical metadata. Recognized
 source directives and Python byte literals are also recorded as exclusions.
+Valid source literals whose decoded bytes are not UTF-8 are recorded as
+`non-utf8-literal` exclusions. The full literal range is omitted from prose;
+neighboring comments and text strings remain checked. Byte escapes that together
+form UTF-8, such as Go `"\xc3\xa9"`, remain text. Invalid source encoding still
+fails before extraction, and an input containing only excluded data still reaches
+the empty-scan gate.
 
 YAML keys, aliases and resolved non-string values are recorded as exclusions.
 Anchored strings are checked where they are defined; aliases are not expanded.
@@ -61,6 +67,8 @@ The grammar supplies source spans. The existing YAML decoder supplies scalar
 values, including folding, chomping and explicit tags, without constructing
 application objects. A disagreement between the two parsers fails analysis.
 YAML embedded scripts remain string values; they are not executed or recursively parsed.
+SQL, JSON, identifiers, and fixed protocol strings also remain selected text unless
+the project supplies a [reasoned exception](extraction-policy.md#literal-data).
 
 Choose checked contexts globally or per format with the
 [extraction policy](extraction-policy.md). Omitted settings check every supported

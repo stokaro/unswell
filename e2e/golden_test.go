@@ -12,6 +12,7 @@ import (
 	qt "github.com/frankban/quicktest"
 
 	"github.com/stokaro/unswell"
+	"github.com/stokaro/unswell/document"
 )
 
 var updateGoldens = flag.Bool("update", false, "Update reviewed e2e golden reports after checking want annotations")
@@ -47,6 +48,35 @@ func diagnostics(result unswell.RunResult) diagnosticRecord {
 			Primary: finding.Primary, Related: finding.Related, Suppressed: finding.Suppressed})
 	}
 	return record
+}
+
+type exclusionRecord struct {
+	Name     string               `json:"name"`
+	Excluded []document.Exclusion `json:"excluded"`
+}
+
+func exclusions(result unswell.RunResult) []exclusionRecord {
+	records := make([]exclusionRecord, 0, len(result.Documents))
+	for _, source := range result.Documents {
+		records = append(records, exclusionRecord{Name: source.Name, Excluded: source.Excluded})
+	}
+	return records
+}
+
+func assertOptionalReports(t *testing.T, fixture string, spec scenario, result unswell.RunResult) {
+	t.Helper()
+	c := qt.New(t)
+	if spec.ExclusionReport {
+		assertGoldenJSON(t, filepath.Join(fixture, "exclusions.golden.json"), exclusions(result))
+	}
+	if spec.PreparedCollection {
+		c.Assert(result.PreparedFeatures, qt.IsNotNil)
+		assertGoldenJSON(t, filepath.Join(fixture, "prepared.golden.json"), result.PreparedFeatures)
+	}
+	if spec.FeatureCollection {
+		c.Assert(result.Features, qt.IsNotNil)
+		assertGoldenJSON(t, filepath.Join(fixture, "features.golden.json"), result.Features)
+	}
 }
 
 func assertGoldenJSON(t *testing.T, path string, value any) {
