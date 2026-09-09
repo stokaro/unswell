@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "version",
+    "vocab_size",
+    "rows"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": "unswell-llmdet-proxy-v1"
+    },
+    "vocab_size": {
+      "type": "integer"
+    },
+    "rows": {
+      "type": "array",
+      "maxItems": 100000,
+      "items": {
+        "type": "object",
+        "required": [
+          "context",
+          "continuations",
+          "probabilities"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "type": "array",
+            "maxItems": 3,
+            "items": {
+              "type": "integer"
+            }
+          },
+          "continuations": {
+            "type": "array",
+            "maxItems": 4096,
+            "items": {
+              "type": "integer"
+            }
+          },
+          "probabilities": {
+            "type": "array",
+            "maxItems": 4096,
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    }
+  }
+}

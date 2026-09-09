@@ -83,3 +83,14 @@ linked into the Unswell CLI, MCP server, or published library module. No spaCy
 model weights or Python environment are distributed in this repository.
 The saved dependency traces are predictions on agent-authored structural probes,
 not human grammatical judgments or editorial annotations.
+
+The research `llmdet` proxy calculation adapts `perplexity` from
+TrustedLLM/LLMDet revision `5d038354006ca0c8e6aa0dadb75e8840accb51a8`,
+copyright 2023 Kangxi Wu, Liang Pang, TryMore Group, under the MIT License.
+The source notice follows `package`; the full notice is preserved in
+[licenses/LLMDet_LICENSE](licenses/LLMDet_LICENSE). The numerical package is
+outside the product module. Its isolated reference environment pins LightGBM,
+NumPy, and SciPy; none is required by normal Go builds or tests. Classifier weights,
+probability tables, and tokenizer assets are not distributed. Their observed
+metadata and unresolved terms are recorded in the
+[resource inventory](research/llmdet/resources-v1.json).

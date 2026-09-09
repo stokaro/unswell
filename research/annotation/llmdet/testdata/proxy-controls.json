@@ -1,0 +1,483 @@
+[
+  {
+    "id": "four-gram",
+    "tokens": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            1,
+            2,
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.5
+          ]
+        }
+      ]
+    },
+    "reference_score": 0.5
+  },
+  {
+    "id": "three-gram",
+    "tokens": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            2,
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.25
+          ]
+        }
+      ]
+    },
+    "reference_score": 1.0
+  },
+  {
+    "id": "two-gram",
+    "tokens": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.125
+          ]
+        }
+      ]
+    },
+    "reference_score": 1.5
+  },
+  {
+    "id": "highest-context-first",
+    "tokens": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.125
+          ]
+        },
+        {
+          "context": [
+            2,
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.25
+          ]
+        },
+        {
+          "context": [
+            1,
+            2,
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.5
+          ]
+        }
+      ]
+    },
+    "reference_score": 0.5
+  },
+  {
+    "id": "residual-before-backoff",
+    "tokens": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.125
+          ]
+        },
+        {
+          "context": [
+            1,
+            2,
+            3
+          ],
+          "continuations": [
+            5,
+            6
+          ],
+          "probabilities": [
+            0.25,
+            0.25
+          ]
+        }
+      ]
+    },
+    "reference_score": 2.4036774610288023
+  },
+  {
+    "id": "retained-zero",
+    "tokens": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            1,
+            2,
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.0
+          ]
+        }
+      ]
+    },
+    "reference_score": -0.0
+  },
+  {
+    "id": "saturated-residual",
+    "tokens": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            1,
+            2,
+            3
+          ],
+          "continuations": [
+            5
+          ],
+          "probabilities": [
+            1.0
+          ]
+        }
+      ]
+    },
+    "reference_score": -0.0
+  },
+  {
+    "id": "no-context",
+    "tokens": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": []
+    },
+    "reference_score": -0.0
+  },
+  {
+    "id": "too-short",
+    "tokens": [
+      1,
+      2,
+      3
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.125
+          ]
+        }
+      ]
+    },
+    "reference_score": -0.0
+  },
+  {
+    "id": "empty-input",
+    "tokens": [],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            1,
+            2,
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.5
+          ]
+        }
+      ]
+    },
+    "reference_score": -0.0
+  },
+  {
+    "id": "mixed-orders",
+    "tokens": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            1,
+            2,
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.5
+          ]
+        },
+        {
+          "context": [
+            3,
+            4
+          ],
+          "continuations": [
+            5
+          ],
+          "probabilities": [
+            0.25
+          ]
+        },
+        {
+          "context": [
+            5
+          ],
+          "continuations": [
+            6
+          ],
+          "probabilities": [
+            0.125
+          ]
+        }
+      ]
+    },
+    "reference_score": 1.5
+  },
+  {
+    "id": "partial-coverage",
+    "tokens": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            1,
+            2,
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.5
+          ]
+        }
+      ]
+    },
+    "reference_score": 0.5
+  },
+  {
+    "id": "zero-in-denominator",
+    "tokens": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            1,
+            2,
+            3
+          ],
+          "continuations": [
+            4
+          ],
+          "probabilities": [
+            0.0
+          ]
+        },
+        {
+          "context": [
+            4
+          ],
+          "continuations": [
+            5
+          ],
+          "probabilities": [
+            0.5
+          ]
+        }
+      ]
+    },
+    "reference_score": 0.3333333333333333
+  },
+  {
+    "id": "token-zero",
+    "tokens": [
+      0,
+      0,
+      0,
+      0,
+      5
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            0
+          ],
+          "continuations": [
+            0
+          ],
+          "probabilities": [
+            0.5
+          ]
+        }
+      ]
+    },
+    "reference_score": 1.9689635318695062
+  },
+  {
+    "id": "uniform-row",
+    "tokens": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "spec": {
+      "version": "unswell-llmdet-proxy-v1",
+      "vocab_size": 16,
+      "rows": [
+        {
+          "context": [
+            1,
+            2,
+            3
+          ],
+          "continuations": [],
+          "probabilities": []
+        }
+      ]
+    },
+    "reference_score": 2.0
+  }
+]

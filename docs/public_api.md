@@ -80,6 +80,13 @@ metrics and source-group intervals over saved predictions. `corpus compare`
 validates a frozen comparison plan and reports common coverage alongside the
 full eligible flow. Its distinct artifact version leaves existing evaluation
 and product results unchanged. See [ADR 0028](adr/0028-paired-research-evaluation.md).
+The research `llmdet` package validates explicit token/probability rows and finite
+numeric ensembles for component compatibility experiments. `cmd/llmdetprobe`
+loads an explicit local pack at the application boundary. These research APIs
+do not tokenize prose or extend product inference. Their separate formats retain
+coverage, absent features, reference margins, and uncalibrated responses. See
+[ADR 0029](adr/0029-llmdet-numerical-parity.md) and the
+[component experiment](../research/llmdet/README.md).
 The root `e2e` directory contains only test code and fixtures. It exports no library
 API; the API snapshot records its package identity because it belongs to the root
 module.
