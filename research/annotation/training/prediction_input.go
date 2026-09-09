@@ -58,7 +58,7 @@ func validatePredictionPlan(p PredictionPlan, a Artifact) error {
 	context := "prepared_piece"
 	if a.Identity.FeatureSource == "rule_activations" {
 		context = "source_document"
-	} else if a.Identity.FeatureSource != "" {
+	} else if a.Identity.FeatureSource != "" && a.Identity.FeatureSource != "lexical_ngrams" {
 		return fmt.Errorf("unsupported prediction feature source")
 	}
 	if p.Context != context || (p.Response == "isotonic" && a.Calibration == nil) {

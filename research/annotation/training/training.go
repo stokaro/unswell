@@ -9,7 +9,7 @@ import (
 )
 
 // Version identifies the experimental training artifact and selection semantics.
-const Version = "unswell-editorial-training-v1"
+const Version = "unswell-editorial-training-v2"
 
 // MaxArtifactBytes bounds the compact serialized training result.
 const MaxArtifactBytes = 16 << 20
@@ -40,28 +40,29 @@ func (f Fit) numerical() model.FitOptions {
 // Identity binds the training target and effective representations. Columns use
 // the shared descriptor serialization; ColumnsSHA256 freezes its exact definition.
 type Identity struct {
-	FeatureSource        string               `json:"feature_source,omitempty"`
-	Context              string               `json:"context,omitempty"`
-	ActivationContract   string               `json:"activation_contract,omitempty"`
-	RulesetHash          string               `json:"ruleset_hash,omitempty"`
-	RuleConfigSHA256     string               `json:"rule_config_sha256,omitempty"`
-	Preprocessing        string               `json:"preprocessing,omitempty"`
-	Task                 string               `json:"task"`
-	Rubric               string               `json:"rubric"`
-	ProfileSHA256        string               `json:"profile_sha256"`
-	Kind                 string               `json:"kind"`
-	FeatureContract      string               `json:"feature_contract"`
-	UnitContract         string               `json:"unit_contract"`
-	Columns              []feature.Descriptor `json:"columns"`
-	ColumnsSHA256        string               `json:"columns_sha256"`
-	NLP                  nlp.Identity         `json:"nlp"`
-	Capabilities         []nlp.Capability     `json:"capabilities"`
-	PolicyHash           string               `json:"policy_hash"`
-	VocabularyHash       string               `json:"vocabulary_hash"`
-	ExtractionPolicyHash string               `json:"extraction_policy_hash"`
-	PreparationHash      string               `json:"preparation_hash"`
-	IncludeQuotes        bool                 `json:"include_quotes"`
-	IncludeStructure     bool                 `json:"include_structure"`
+	LexicalVocabularyHash string               `json:"lexical_vocabulary_hash,omitempty"`
+	FeatureSource         string               `json:"feature_source,omitempty"`
+	Context               string               `json:"context,omitempty"`
+	ActivationContract    string               `json:"activation_contract,omitempty"`
+	RulesetHash           string               `json:"ruleset_hash,omitempty"`
+	RuleConfigSHA256      string               `json:"rule_config_sha256,omitempty"`
+	Preprocessing         string               `json:"preprocessing,omitempty"`
+	Task                  string               `json:"task"`
+	Rubric                string               `json:"rubric"`
+	ProfileSHA256         string               `json:"profile_sha256"`
+	Kind                  string               `json:"kind"`
+	FeatureContract       string               `json:"feature_contract"`
+	UnitContract          string               `json:"unit_contract"`
+	Columns               []feature.Descriptor `json:"columns"`
+	ColumnsSHA256         string               `json:"columns_sha256"`
+	NLP                   nlp.Identity         `json:"nlp"`
+	Capabilities          []nlp.Capability     `json:"capabilities"`
+	PolicyHash            string               `json:"policy_hash"`
+	VocabularyHash        string               `json:"vocabulary_hash"`
+	ExtractionPolicyHash  string               `json:"extraction_policy_hash"`
+	PreparationHash       string               `json:"preparation_hash"`
+	IncludeQuotes         bool                 `json:"include_quotes"`
+	IncludeStructure      bool                 `json:"include_structure"`
 }
 
 // Row identifies an actually fitted row without exposing its label or vector.
@@ -129,4 +130,5 @@ type Artifact struct {
 	Partitions        []Partition  `json:"partitions"`
 	Logistic          Logistic     `json:"logistic"`
 	Calibration       *Calibration `json:"calibration"`
+	Lexical           *Vocabulary  `json:"lexical,omitempty"`
 }

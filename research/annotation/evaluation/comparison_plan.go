@@ -9,6 +9,7 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/research/annotation/internal/jsoninput"
 	"github.com/stokaro/unswell/research/annotation/training"
 )
@@ -76,6 +77,7 @@ func matchingComparisonScope(plan ComparisonPlan, a, b training.Predictions) err
 }
 
 func compatibleComparisonIdentity(a, b training.Identity) bool {
+	a, b = comparisonRepresentation(a), comparisonRepresentation(b)
 	// Feature columns and fitted parameters may differ; source preprocessing and
 	// the editorial target must stay fixed for this controlled numerical comparison.
 	a.Columns, b.Columns = nil, nil
@@ -85,4 +87,15 @@ func compatibleComparisonIdentity(a, b training.Identity) bool {
 	// identical; each trial still records the capabilities its columns requested.
 	a.Capabilities, b.Capabilities = nil, nil
 	return reflect.DeepEqual(a, b)
+}
+
+// The supported lexical model changes feature formulas and learns its dictionary.
+// All source-policy, preparation, NLP, and editorial identities still compare.
+func comparisonRepresentation(identity training.Identity) training.Identity {
+	if identity.FeatureSource == "lexical_ngrams" {
+		identity.FeatureSource, identity.Context, identity.Preprocessing = "", "", ""
+		identity.FeatureContract = feature.UnitContract
+		identity.LexicalVocabularyHash = ""
+	}
+	return identity
 }

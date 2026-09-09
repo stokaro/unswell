@@ -6,12 +6,13 @@ CI tests the minimum compiler from `go.mod` on
 Linux, macOS, and Windows with automatic toolchain upgrades disabled. Tools have
 their own pinned module and compiler requirements.
 
-Race detection and active fuzzing are temporarily deferred during alpha development,
+Race detection, active fuzzing, and coverage collection are deferred during alpha development,
 including concurrency changes. Preserve their tests, seed corpora, and the
 `make race` / `make fuzz` targets; do not run them during routine implementation.
 The final roadmap task, [#123](https://github.com/stokaro/unswell/issues/123), restores
-both CI checks and fixes any findings before final product acceptance. Ordinary
+these CI checks and fixes any findings before final product acceptance. Ordinary
 tests still execute the existing fuzz seeds.
+Coverage collection must not add a second test run during implementation.
 
 Run `bash scripts/setup-shellcheck.sh` once to install the pinned ShellCheck build
 in `bin/`. The installer verifies the archive checksum. `make lint-shell` checks

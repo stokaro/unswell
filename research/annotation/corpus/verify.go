@@ -74,6 +74,10 @@ func Verify(ctx context.Context, artifact Artifact, files map[string][]byte) (Ve
 	if err != nil {
 		return Verification{}, err
 	}
+	return verifyRebuilt(artifact, rebuilt)
+}
+
+func verifyRebuilt(artifact, rebuilt Artifact) (Verification, error) {
 	if !samePipeline(artifact.Pipeline, rebuilt.Pipeline) || !reflect.DeepEqual(artifact.Sources, rebuilt.Sources) ||
 		!reflect.DeepEqual(artifact.Units, rebuilt.Units) {
 		return Verification{}, fmt.Errorf("candidate contents, mappings, or pipeline are not reproduced")

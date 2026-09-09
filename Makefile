@@ -22,6 +22,7 @@ race:
 	bash scripts/modules.sh test -race
 
 fuzz:
+	go test ./feature -run '^$$' -fuzz '^FuzzLexicalKey$$' -fuzztime 10s -parallel 2
 	cd research/annotation && go test ./llmdet -run '^$$' -fuzz '^FuzzLoadNumericalPack$$' -fuzztime 10s -parallel 2
 	cd research/annotation && go test ./corpus -run '^$$' -fuzz '^FuzzLoadManifest$$' -fuzztime 10s -parallel 2
 	cd research/annotation && go test ./corpus -run '^$$' -fuzz '^FuzzLoadArtifact$$' -fuzztime 10s -parallel 2

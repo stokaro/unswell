@@ -59,7 +59,7 @@ product results or qualify training data. See
 [ADR 0024](adr/0024-corpus-feature-bindings.md).
 The research `training` package and `corpus train` command connect these reproduced
 targets to Go fitting with separate training and calibration partitions. Their
-`unswell-editorial-training-v1` artifact records unqualified numerical experiments;
+`unswell-editorial-training-v2` artifact records unqualified numerical experiments;
 it does not extend the engine's model loading or probability contract. See
 [ADR 0025](adr/0025-corpus-training.md).
 `corpus.JoinRules`, `training.RunRules`, and `--rule-config` add the existing
@@ -72,8 +72,8 @@ Research adds label-free `corpus.Measure` and `MeasureRules`, bounded numerical
 `training.Load`, frozen `training.Predict`/`LoadPredictions`, and the separate
 `evaluation` package. The developer commands `corpus predict` and `corpus evaluate`
 separate model execution from evaluation labels. They preserve explicit context,
-missing responses, and unqualified status. Existing joined/training artifacts
-retain their versions and fields; product model loading and reports are unchanged.
+missing responses, and unqualified status. Predictions embed the current training
+artifact; product model loading and reports are unchanged.
 See [ADR 0027](adr/0027-frozen-research-predictions.md).
 The research `evaluation.Compare` and `RunComparison` APIs add paired numerical
 metrics and source-group intervals over saved predictions. `corpus compare`
@@ -319,3 +319,13 @@ ordinary block collection. Existing reports remain readable; strict older reader
 need the new fields. Rule identities now include their observation declaration.
 See [ADR 0018](adr/0018-rule-activation-features.md) for failure states and the
 remaining applicability coverage required before training.
+
+Research lexical training adds `corpus.Prepare`, `training.RunLexical`, and an
+explicit source-derived vocabulary under `unswell-editorial-lexical-training-v1`.
+`feature.CountLexical` and `ValidLexicalKey` share bounded word/character formulas
+on existing `nlp.PreparedUnit` data; `nlp.PreparationHash` shares the existing source
+preparation identity between the engine and research consumers. Existing v1 model
+bytes remain unchanged. Learned lexical dictionaries have their own identity,
+separate from the engine's policy/vocabulary identity. Predictions, evaluation,
+and comparison use the existing commands and retain unqualified status. See
+[ADR 0030](adr/0030-lexical-research-baseline.md).

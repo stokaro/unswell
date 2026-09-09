@@ -20,6 +20,10 @@ const pipelineVersion = "unswell-corpus-extraction-v1"
 // Build verifies all declared source and notice bytes, then extracts unlabeled
 // units from the frozen plan. It returns no partial artifact on error.
 func Build(ctx context.Context, plan Plan, files map[string][]byte) (Artifact, error) {
+	return build(ctx, plan, files, nil)
+}
+
+func build(ctx context.Context, plan Plan, files map[string][]byte, observe func(nlp.PreparedUnit) error) (Artifact, error) {
 	if err := ValidatePlan(ctx, plan); err != nil {
 		return Artifact{}, err
 	}
@@ -41,7 +45,7 @@ func Build(ctx context.Context, plan Plan, files map[string][]byte) (Artifact, e
 	if err != nil {
 		return Artifact{}, err
 	}
-	if err := collectSources(ctx, &result, files, provider, policyHash); err != nil {
+	if err := collectSources(ctx, &result, files, provider, policyHash, observe); err != nil {
 		return Artifact{}, err
 	}
 	if len(result.Units) == 0 {
@@ -57,7 +61,9 @@ func Build(ctx context.Context, plan Plan, files map[string][]byte) (Artifact, e
 	return result, nil
 }
 
-func collectSources(ctx context.Context, result *Artifact, files map[string][]byte, provider *english.Provider, policyHash string) error {
+func collectSources(ctx context.Context, result *Artifact, files map[string][]byte, provider *english.Provider,
+	policyHash string, observe func(nlp.PreparedUnit) error,
+) error {
 	plan := result.Plan
 	groups := sourceGroups(plan)
 	budget := MaxManifestBytes
@@ -70,7 +76,7 @@ func collectSources(ctx context.Context, result *Artifact, files map[string][]by
 		if err != nil {
 			return fmt.Errorf("extract %s: %w", source.ID, err)
 		}
-		units, err := sourceUnits(ctx, provider, source, doc, plan.Manifest.UnitKinds, groups[source.ID], policyHash)
+		units, err := sourceUnits(ctx, provider, source, doc, plan.Manifest.UnitKinds, groups[source.ID], policyHash, observe)
 		if err != nil {
 			return fmt.Errorf("units for %s: %w", source.ID, err)
 		}
@@ -143,7 +149,7 @@ func sourceGroups(plan Plan) map[string]Group {
 }
 
 func sourceUnits(ctx context.Context, provider *english.Provider, source Source, doc document.Document,
-	kinds []string, group Group, policyHash string,
+	kinds []string, group Group, policyHash string, observe func(nlp.PreparedUnit) error,
 ) ([]Candidate, error) {
 	result := []Candidate{}
 	options := nlp.UnitOptions{Kinds: kinds, Capabilities: []nlp.Capability{nlp.Tokens, nlp.Sentences},
@@ -159,6 +165,9 @@ func sourceUnits(ctx context.Context, provider *english.Provider, source Source,
 			candidate, err := candidate(source, group, binding.BlockKind, binding.Kind, target.Text,
 				unit.Context(), binding.Segments, target.Words, policyHash)
 			if err != nil {
+				return nil, err
+			}
+			if err := observePrepared(observe, unit); err != nil {
 				return nil, err
 			}
 			result = append(result, candidate)
@@ -240,4 +249,11 @@ func pipeline(provider *english.Provider) Pipeline {
 	}
 	slices.SortFunc(result.Dependencies, func(a, b Dependency) int { return strings.Compare(a.Path, b.Path) })
 	return result
+}
+
+func observePrepared(observe func(nlp.PreparedUnit) error, unit nlp.PreparedUnit) error {
+	if observe != nil {
+		return observe(unit)
+	}
+	return nil
 }

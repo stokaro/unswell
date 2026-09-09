@@ -9,6 +9,7 @@ import (
 
 	qt "github.com/frankban/quicktest"
 
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/nlp"
 	"github.com/stokaro/unswell/research/annotation/training"
 )
@@ -44,10 +45,21 @@ func TestComparisonRejectsUnmatchedScopes(t *testing.T) {
 			plan, a, b := comparisonInputs()
 			_, err := comparisonPlanIdentity(t.Context(), plan, a, b)
 			c.Assert(err, qt.IsNil)
-			row.change(&b)
-			hash, err := comparisonPlanIdentity(t.Context(), plan, a, b)
-			c.Assert(err, qt.IsNotNil)
-			c.Assert(hash, qt.Equals, "")
+			for _, lexical := range []bool{false, true} {
+				left, right := a, b
+				left.Model.Identity.FeatureContract, right.Model.Identity.FeatureContract = feature.UnitContract, feature.UnitContract
+				if lexical {
+					right.Model.Identity.FeatureSource = "lexical_ngrams"
+					right.Model.Identity.FeatureContract = feature.LexicalCountContract
+					right.Model.Identity.LexicalVocabularyHash = strings.Repeat("f", 64)
+				}
+				_, err := comparisonPlanIdentity(t.Context(), plan, left, right)
+				c.Assert(err, qt.IsNil)
+				row.change(&right)
+				hash, err := comparisonPlanIdentity(t.Context(), plan, left, right)
+				c.Assert(err, qt.IsNotNil)
+				c.Assert(hash, qt.Equals, "")
+			}
 		})
 	}
 }

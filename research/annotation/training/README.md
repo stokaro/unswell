@@ -71,7 +71,7 @@ Exit codes are 0 for a completed experiment, 2 for an error, and 130 for cancell
 
 ## Result and qualification
 
-`unswell-editorial-training-v1` records input hashes, fitting options, feature
+`unswell-editorial-training-v2` records input hashes, fitting options, feature
 definitions, representation identity, selected unit/group references, exclusion
 counts, and fitted parameters. It contains no source prose, per-unit labels, or
 raw vectors. Compact output is limited to 16 MiB; formatted CLI output must also
@@ -153,3 +153,42 @@ prediction retains source-document context.
 It requires no source root, model file, or model execution. See the
 [evaluation guide](../evaluation/README.md) for the two-stage command contract,
 metric denominators, simulation handling, and remaining scientific acceptance.
+
+## Lexical baseline
+
+The optional lexical path learns word and character n-grams only from resolved,
+permitted training targets. It uses the same prepared NLP units and Go optimizer.
+From this directory, using the explicitly simulated tutorial fixture:
+
+```sh
+go run ../cmd/corpus plan < testdata/manifest.json > /tmp/lexical-plan.json
+go run ../cmd/corpus extract --root testdata/sources \
+  < /tmp/lexical-plan.json > /tmp/lexical-corpus.json
+go run ../cmd/corpus train --root testdata/sources --round testdata/round.json \
+  --kind paragraph --lexical --lexical-max-features 64 \
+  --calibration isotonic --allow-simulation \
+  < /tmp/lexical-corpus.json > /tmp/lexical-model.json
+```
+
+Do not pass `--feature` or `--rule-config` with `--lexical`. Word defaults are
+orders 1–2; character defaults are 3–5. Change them with `--lexical-word-min`,
+`--lexical-word-max`, `--lexical-char-min`, and `--lexical-char-max`; a 0/0 pair
+disables a family. `--lexical-min-targets` defaults to 1 and counts selected
+training targets containing a key, not independent documents. Vocabulary
+selection uses this frequency with a lexical tie break, then orders columns by
+stable IDs. No held-out or calibration target contributes keys or frequencies.
+
+The model uses `log1p(count)` followed by training-only standardization. There is
+no IDF or stop-word removal. Unknown terms are ignored; a target containing no
+known terms has an observed zero raw vector. This does not qualify a quality or
+authorship conclusion. The current dense Go optimizer supports at most 128
+columns. The corpus comparison must determine whether that budget is useful;
+this implementation does not establish its accuracy or replace that experiment.
+
+All training variants use the v2 artifact format, which rejects earlier alpha
+formats. A lexical artifact includes an explicit vocabulary with source-derived keys. Consider source permissions before sharing it. It is
+not included in normal scan reports. `predict`, `evaluate`, and `compare` use the
+same saved-result path as the other baselines. Comparison permits supported
+lexical feature representations to differ while preserving equality of input
+policy, source preparation, target, rubric, profile, and NLP identities. See
+[ADR 0030](../../../docs/adr/0030-lexical-research-baseline.md).

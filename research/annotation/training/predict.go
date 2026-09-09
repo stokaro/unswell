@@ -26,7 +26,7 @@ func Predict(ctx context.Context, candidates corpus.Artifact, files map[string][
 	if err != nil {
 		return Predictions{}, err
 	}
-	selector, bindings, verification, err := predictionMeasurements(ctx, candidates, files, fitted, configuration)
+	selector, bindings, verification, err := predictionMeasurements(ctx, candidates, files, fitted, configuration, plan.Partition)
 	if err != nil {
 		return Predictions{}, err
 	}
@@ -57,8 +57,11 @@ func Predict(ctx context.Context, candidates corpus.Artifact, files map[string][
 }
 
 func predictionMeasurements(ctx context.Context, candidates corpus.Artifact, files map[string][]byte,
-	fitted Artifact, configuration []byte,
+	fitted Artifact, configuration []byte, partition string,
 ) (rowSelector, []corpus.FeatureBinding, corpus.Verification, error) {
+	if fitted.Identity.FeatureSource == "lexical_ngrams" {
+		return lexicalPredictionMeasurements(ctx, candidates, files, fitted, configuration, partition)
+	}
 	// Only frozen rubric/profile identity enters this adapter, with no decisions.
 	identity := annotation.DecisionSet{Rubric: fitted.Identity.Rubric, ProfileSHA256: fitted.Identity.ProfileSHA256}
 	if fitted.Identity.FeatureSource == "rule_activations" {

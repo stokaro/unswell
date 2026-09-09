@@ -43,14 +43,10 @@ func (e *Engine) preparedSource(doc *document.Document, structure bool) (Prepare
 		return source, err
 	}
 	source.ExtractionPolicyHash = fmt.Sprintf("%x", sha256.Sum256(policy))
-	preparation, err := json.Marshal(struct {
-		Contract, Policy                string
-		IncludeQuotes, IncludeStructure bool
-	}{nlp.UnitContract, source.ExtractionPolicyHash, source.IncludeQuotes, source.IncludeStructure})
+	source.PreparationHash, err = nlp.PreparationHash(source.ExtractionPolicyHash, source.IncludeQuotes, source.IncludeStructure)
 	if err != nil {
 		return source, err
 	}
-	source.PreparationHash = fmt.Sprintf("%x", sha256.Sum256(preparation))
 	return source, nil
 }
 

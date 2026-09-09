@@ -53,7 +53,8 @@ func validateRestored(a Artifact) error {
 }
 
 func validArtifactStatus(a Artifact) bool {
-	return a.Version == Version && a.Status == "experimental_numerical_fit" && a.HumanCorpus == "not_qualified" &&
+	return a.Version == Version && a.Status == "experimental_numerical_fit" &&
+		a.HumanCorpus == "not_qualified" &&
 		a.ProbabilityStatus == "unavailable_unqualified_model" &&
 		slices.Contains([]string{"simulation", "declared_human"}, a.Basis)
 }
@@ -79,7 +80,10 @@ func validateRestoredContract(a Artifact) error {
 	if err := a.Options.Fit.numerical().Validate(); err != nil {
 		return err
 	}
-	return validateColumnOrder(a)
+	if err := validateColumnOrder(a); err != nil {
+		return err
+	}
+	return validateLexicalArtifact(a)
 }
 
 func restoreModels(a Artifact) (*model.Logistic, *model.Isotonic, error) {
