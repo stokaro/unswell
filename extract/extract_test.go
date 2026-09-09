@@ -124,6 +124,9 @@ func FuzzSourceMap(f *testing.F) {
 			f.Add(uint8(index), "package sample\n// unswell-disable-next-block rule.one -- Required contract wording.\n// Read the manual.\n")
 			f.Add(uint8(index), "package sample\n// Read the manual.\nconst data = \"\\xff\"\nconst text = \"caf\\xc3\\xa9\"\n")
 		}
+		if format == document.Bash || format == document.Shell || format == document.Zsh {
+			f.Add(uint8(index), "# Keep café coordinates.\r\n! A=x B= command \"Check ${name} with $(printf 'care').\"\r\n")
+		}
 	}
 	f.Fuzz(func(t *testing.T, format uint8, text string) {
 		if len(text) > 4096 {

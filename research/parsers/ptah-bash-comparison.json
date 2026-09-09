@@ -1,0 +1,884 @@
+{
+  "source_commit": "8873cca616bcd021e5d6588037076fc9d7001c1a",
+  "policy": "research/extraction/ptah-focused.yaml",
+  "timeout": "10m",
+  "runs": [
+    {
+      "tool_commit": "d4eae11f524c33d997bd47e8605f577405eca929",
+      "report_sha256": "d282b7e57c7be813ca161cd257ad6e803441e882d02ddc9a9cf58186fba93527",
+      "report_bytes": 292682261,
+      "binary_sha256": "b20c90e35d5b2f61c3a7d9309716e1bf5c8a331e60222b02df1f532f69f098b5",
+      "config_sha256": "db8dc908ee0db845dc9c5da13f1fbf3d01b81403852c84c4a6a915c7feb603d7",
+      "seconds": 56.65855545899831,
+      "exit_code": 2,
+      "status": "incomplete",
+      "complete": false,
+      "gate_passed": false,
+      "documents": 4068,
+      "findings": 10957,
+      "prose_words": 2545831,
+      "file_errors": [
+        {
+          "path": "scripts/check-documented-install.sh",
+          "message": "parse bash: bash grammar returned an incomplete or invalid syntax tree"
+        }
+      ],
+      "ruleset_hash": "554c01192fd28df96bb54294c764e031d3cefebee311ef2c50cde1919ad1a7c7",
+      "config_hash": "e944159f709712e47a794a6bf68da8b0501b458d1d9b20ed523015366842b88b",
+      "nlp": {
+        "name": "builtin-en",
+        "version": "prose-v3.2.1/chunks-v1",
+        "model": "prose/aptagmodel/en.bin",
+        "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+        "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+        "license": "MIT",
+        "capabilities": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ]
+      }
+    },
+    {
+      "tool_commit": "42ec7520621faaca04b7fff1d91dd5bd89ede3bc",
+      "report_sha256": "1409cae5edf1db4a709b77c2a7ecb28b2bf52faefe8bccc761532fe20e7690e1",
+      "report_bytes": 292741733,
+      "binary_sha256": "5fe9753975d47ceabe3182a0db5fa754abfb9dd99411f7485c1a60ceea6fad1f",
+      "config_sha256": "db8dc908ee0db845dc9c5da13f1fbf3d01b81403852c84c4a6a915c7feb603d7",
+      "seconds": 50.40633133298252,
+      "exit_code": 1,
+      "status": "complete",
+      "complete": true,
+      "gate_passed": false,
+      "documents": 4069,
+      "findings": 10963,
+      "prose_words": 2546624,
+      "file_errors": [],
+      "ruleset_hash": "554c01192fd28df96bb54294c764e031d3cefebee311ef2c50cde1919ad1a7c7",
+      "config_hash": "e944159f709712e47a794a6bf68da8b0501b458d1d9b20ed523015366842b88b",
+      "nlp": {
+        "name": "builtin-en",
+        "version": "prose-v3.2.1/chunks-v1",
+        "model": "prose/aptagmodel/en.bin",
+        "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+        "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+        "license": "MIT",
+        "capabilities": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ]
+      }
+    }
+  ],
+  "unchanged_documents": 4068,
+  "unchanged_findings": 10957,
+  "new_document": {
+    "gate_mode": "all",
+    "name": "scripts/check-documented-install.sh",
+    "format": "bash",
+    "source_hash": "53f0733c8f50597cadf7ba4a859283f7082070cff853781203fc061485112a34",
+    "config_hash": "e944159f709712e47a794a6bf68da8b0501b458d1d9b20ed523015366842b88b",
+    "bytes": 6684,
+    "prose_words": 793,
+    "blocks": 44,
+    "sentences": 57,
+    "excluded": [
+      {
+        "span": {
+          "start": 670,
+          "end": 702
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 708,
+          "end": 718
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 1417,
+          "end": 1422
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 1553,
+          "end": 1568
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 2544,
+          "end": 2549
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 3127,
+          "end": 3144
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 3688,
+          "end": 3702
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 3736,
+          "end": 3752
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 3766,
+          "end": 3776
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 3781,
+          "end": 3788
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 3827,
+          "end": 3833
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 3862,
+          "end": 3869
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 3888,
+          "end": 3902
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 3981,
+          "end": 3994
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 4346,
+          "end": 4362
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 4405,
+          "end": 4412
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 4436,
+          "end": 4448
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 4501,
+          "end": 4516
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 4566,
+          "end": 4580
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 4595,
+          "end": 4630
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 4641,
+          "end": 4658
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 4671,
+          "end": 4679
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 4694,
+          "end": 4701
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 4768,
+          "end": 4775
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 6129,
+          "end": 6198
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 6132,
+          "end": 6139
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 6140,
+          "end": 6147
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 6210,
+          "end": 6219
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 6241,
+          "end": 6312
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 6244,
+          "end": 6251
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 6252,
+          "end": 6259
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 6328,
+          "end": 6337
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 6370,
+          "end": 6377
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 6488,
+          "end": 6497
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 6511,
+          "end": 6518
+        },
+        "reason": "interpolation"
+      },
+      {
+        "span": {
+          "start": 0,
+          "end": 19
+        },
+        "reason": "source-directive"
+      }
+    ],
+    "paragraph_maximum": 18.99,
+    "paragraph_median": 0,
+    "paragraph_p90": 6,
+    "eligible_paragraph_flagged_fraction": 0
+  },
+  "new_findings": [
+    {
+      "id": "89ea95d77ddf79c7",
+      "rule_id": "syntax.long-sentence",
+      "rule_version": "1",
+      "severity": "warning",
+      "gate": "none",
+      "group": "syntax-load",
+      "scope": "sentence",
+      "message": "Consider splitting this long sentence without losing its conditions.",
+      "primary": {
+        "path": "scripts/check-documented-install.sh",
+        "span": {
+          "start": 407,
+          "end": 639
+        },
+        "start": {
+          "line": 9,
+          "column": 58
+        },
+        "end": {
+          "line": 12,
+          "column": 53
+        },
+        "segments": [
+          {
+            "start": 407,
+            "end": 428
+          },
+          {
+            "start": 429,
+            "end": 506
+          },
+          {
+            "start": 507,
+            "end": 587
+          },
+          {
+            "start": 588,
+            "end": 639
+          }
+        ]
+      },
+      "related": [],
+      "evidence": {
+        "kind": "exact",
+        "message": "",
+        "suggestion": "",
+        "occurrences": [
+          {
+            "block_id": 2,
+            "sentence_id": 3,
+            "spans": [
+              {
+                "start": 407,
+                "end": 428
+              },
+              {
+                "start": 429,
+                "end": 506
+              },
+              {
+                "start": 507,
+                "end": 587
+              },
+              {
+                "start": 588,
+                "end": 639
+              }
+            ]
+          }
+        ],
+        "metrics": [
+          {
+            "name": "length",
+            "value": 39,
+            "unit": "prose-words",
+            "onset": 35,
+            "saturation": 65
+          }
+        ],
+        "activation": 133
+      },
+      "fingerprint": "8665173c3142aba887b5accb47f5f3f3e397bbfd9c43ef5c6b3905d89fba5d03",
+      "suppressed": false,
+      "baseline_state": "untracked",
+      "derived": false
+    },
+    {
+      "id": "2e569049bb9e2007",
+      "rule_id": "syntax.long-sentence",
+      "rule_version": "1",
+      "severity": "warning",
+      "gate": "none",
+      "group": "syntax-load",
+      "scope": "sentence",
+      "message": "Consider splitting this long sentence without losing its conditions.",
+      "primary": {
+        "path": "scripts/check-documented-install.sh",
+        "span": {
+          "start": 758,
+          "end": 1032
+        },
+        "start": {
+          "line": 18,
+          "column": 38
+        },
+        "end": {
+          "line": 21,
+          "column": 75
+        },
+        "segments": [
+          {
+            "start": 758,
+            "end": 799
+          },
+          {
+            "start": 800,
+            "end": 879
+          },
+          {
+            "start": 880,
+            "end": 958
+          },
+          {
+            "start": 959,
+            "end": 1032
+          }
+        ]
+      },
+      "related": [],
+      "evidence": {
+        "kind": "exact",
+        "message": "",
+        "suggestion": "",
+        "occurrences": [
+          {
+            "block_id": 3,
+            "sentence_id": 5,
+            "spans": [
+              {
+                "start": 758,
+                "end": 799
+              },
+              {
+                "start": 800,
+                "end": 879
+              },
+              {
+                "start": 880,
+                "end": 958
+              },
+              {
+                "start": 959,
+                "end": 1032
+              }
+            ]
+          }
+        ],
+        "metrics": [
+          {
+            "name": "length",
+            "value": 45,
+            "unit": "prose-words",
+            "onset": 35,
+            "saturation": 65
+          }
+        ],
+        "activation": 333
+      },
+      "fingerprint": "c1d5b0515723ce45fca2fd46b296169a316a3668d94ab6ea641084184c45500a",
+      "suppressed": false,
+      "baseline_state": "untracked",
+      "derived": false
+    },
+    {
+      "id": "2e43496cda8d5803",
+      "rule_id": "syntax.long-sentence",
+      "rule_version": "1",
+      "severity": "warning",
+      "gate": "none",
+      "group": "syntax-load",
+      "scope": "sentence",
+      "message": "Consider splitting this long sentence without losing its conditions.",
+      "primary": {
+        "path": "scripts/check-documented-install.sh",
+        "span": {
+          "start": 1822,
+          "end": 2094
+        },
+        "start": {
+          "line": 44,
+          "column": 63
+        },
+        "end": {
+          "line": 48,
+          "column": 22
+        },
+        "segments": [
+          {
+            "start": 1822,
+            "end": 1839
+          },
+          {
+            "start": 1840,
+            "end": 1917
+          },
+          {
+            "start": 1918,
+            "end": 1997
+          },
+          {
+            "start": 1998,
+            "end": 2073
+          },
+          {
+            "start": 2074,
+            "end": 2094
+          }
+        ]
+      },
+      "related": [],
+      "evidence": {
+        "kind": "exact",
+        "message": "",
+        "suggestion": "",
+        "occurrences": [
+          {
+            "block_id": 10,
+            "sentence_id": 14,
+            "spans": [
+              {
+                "start": 1822,
+                "end": 1839
+              },
+              {
+                "start": 1840,
+                "end": 1917
+              },
+              {
+                "start": 1918,
+                "end": 1997
+              },
+              {
+                "start": 1998,
+                "end": 2073
+              },
+              {
+                "start": 2074,
+                "end": 2094
+              }
+            ]
+          }
+        ],
+        "metrics": [
+          {
+            "name": "length",
+            "value": 48,
+            "unit": "prose-words",
+            "onset": 35,
+            "saturation": 65
+          }
+        ],
+        "activation": 433
+      },
+      "fingerprint": "3518453cb470682575b4d685c8a592e6d7404e7ac7dba7a43a4a91eb1bbcedc7",
+      "suppressed": false,
+      "baseline_state": "untracked",
+      "derived": false
+    },
+    {
+      "id": "3e752f37a32fe405",
+      "rule_id": "syntax.long-sentence",
+      "rule_version": "1",
+      "severity": "warning",
+      "gate": "none",
+      "group": "syntax-load",
+      "scope": "sentence",
+      "message": "Consider splitting this long sentence without losing its conditions.",
+      "primary": {
+        "path": "scripts/check-documented-install.sh",
+        "span": {
+          "start": 2260,
+          "end": 2486
+        },
+        "start": {
+          "line": 52,
+          "column": 3
+        },
+        "end": {
+          "line": 54,
+          "column": 78
+        },
+        "segments": [
+          {
+            "start": 2260,
+            "end": 2337
+          },
+          {
+            "start": 2338,
+            "end": 2409
+          },
+          {
+            "start": 2410,
+            "end": 2486
+          }
+        ]
+      },
+      "related": [],
+      "evidence": {
+        "kind": "exact",
+        "message": "",
+        "suggestion": "",
+        "occurrences": [
+          {
+            "block_id": 11,
+            "sentence_id": 16,
+            "spans": [
+              {
+                "start": 2260,
+                "end": 2337
+              },
+              {
+                "start": 2338,
+                "end": 2409
+              },
+              {
+                "start": 2410,
+                "end": 2486
+              }
+            ]
+          }
+        ],
+        "metrics": [
+          {
+            "name": "length",
+            "value": 41,
+            "unit": "prose-words",
+            "onset": 35,
+            "saturation": 65
+          }
+        ],
+        "activation": 200
+      },
+      "fingerprint": "a9dadcd8052ab687cb71b224ca2536531d55ef125b2e00090276897dd75dafc1",
+      "suppressed": false,
+      "baseline_state": "untracked",
+      "derived": false
+    },
+    {
+      "id": "888b8f7324d517e0",
+      "rule_id": "syntax.long-sentence",
+      "rule_version": "1",
+      "severity": "warning",
+      "gate": "none",
+      "group": "syntax-load",
+      "scope": "sentence",
+      "message": "Consider splitting this long sentence without losing its conditions.",
+      "primary": {
+        "path": "scripts/check-documented-install.sh",
+        "span": {
+          "start": 2807,
+          "end": 3120
+        },
+        "start": {
+          "line": 65,
+          "column": 71
+        },
+        "end": {
+          "line": 69,
+          "column": 75
+        },
+        "segments": [
+          {
+            "start": 2807,
+            "end": 2817
+          },
+          {
+            "start": 2818,
+            "end": 2895
+          },
+          {
+            "start": 2896,
+            "end": 2974
+          },
+          {
+            "start": 2975,
+            "end": 3046
+          },
+          {
+            "start": 3047,
+            "end": 3120
+          }
+        ]
+      },
+      "related": [],
+      "evidence": {
+        "kind": "exact",
+        "message": "",
+        "suggestion": "",
+        "occurrences": [
+          {
+            "block_id": 20,
+            "sentence_id": 26,
+            "spans": [
+              {
+                "start": 2807,
+                "end": 2817
+              },
+              {
+                "start": 2818,
+                "end": 2895
+              },
+              {
+                "start": 2896,
+                "end": 2974
+              },
+              {
+                "start": 2975,
+                "end": 3046
+              },
+              {
+                "start": 3047,
+                "end": 3120
+              }
+            ]
+          }
+        ],
+        "metrics": [
+          {
+            "name": "length",
+            "value": 54,
+            "unit": "prose-words",
+            "onset": 35,
+            "saturation": 65
+          }
+        ],
+        "activation": 633
+      },
+      "fingerprint": "0723c1b065dbbd9e77f6103b52f75c8e4216d0bd2851621b2e03406b9ef4736b",
+      "suppressed": false,
+      "baseline_state": "untracked",
+      "derived": false
+    },
+    {
+      "id": "71e7f6adee4ae72a",
+      "rule_id": "syntax.long-sentence",
+      "rule_version": "1",
+      "severity": "warning",
+      "gate": "none",
+      "group": "syntax-load",
+      "scope": "sentence",
+      "message": "Consider splitting this long sentence without losing its conditions.",
+      "primary": {
+        "path": "scripts/check-documented-install.sh",
+        "span": {
+          "start": 3425,
+          "end": 3661
+        },
+        "start": {
+          "line": 76,
+          "column": 47
+        },
+        "end": {
+          "line": 79,
+          "column": 45
+        },
+        "segments": [
+          {
+            "start": 3425,
+            "end": 3457
+          },
+          {
+            "start": 3458,
+            "end": 3537
+          },
+          {
+            "start": 3538,
+            "end": 3617
+          },
+          {
+            "start": 3618,
+            "end": 3661
+          }
+        ]
+      },
+      "related": [],
+      "evidence": {
+        "kind": "exact",
+        "message": "",
+        "suggestion": "",
+        "occurrences": [
+          {
+            "block_id": 23,
+            "sentence_id": 30,
+            "spans": [
+              {
+                "start": 3425,
+                "end": 3457
+              },
+              {
+                "start": 3458,
+                "end": 3537
+              },
+              {
+                "start": 3538,
+                "end": 3617
+              },
+              {
+                "start": 3618,
+                "end": 3661
+              }
+            ]
+          }
+        ],
+        "metrics": [
+          {
+            "name": "length",
+            "value": 41,
+            "unit": "prose-words",
+            "onset": 35,
+            "saturation": 65
+          }
+        ],
+        "activation": 200
+      },
+      "fingerprint": "265c5590adff51bb75a6682e8026f0cd75151c1c94ade7f73d0eb146b854562e",
+      "suppressed": false,
+      "baseline_state": "untracked",
+      "derived": false
+    }
+  ],
+  "limitations": [
+    "The source snapshot is unchanged and none of its programs were executed.",
+    "The focused policy has explicit exclusions; the broad policy is not rerun here.",
+    "This is parser recovery evidence without independent prose-quality or authorship labels."
+  ]
+}

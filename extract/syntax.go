@@ -65,6 +65,9 @@ func parseSyntaxTree(ctx context.Context, source []byte, name string) (syntaxTre
 }
 
 func syntaxLanguage(name string) (*ts.Language, error) {
+	if name == "bash" || name == "sh" || name == "zsh" {
+		return bashSyntaxLanguage()
+	}
 	loaders := map[string]func() *ts.Language{
 		"markdown": grammars.MarkdownLanguage, "markdown_inline": grammars.MarkdownInlineLanguage,
 		"go": grammars.GoLanguage, "javascript": grammars.JavascriptLanguage,
@@ -72,7 +75,6 @@ func syntaxLanguage(name string) (*ts.Language, error) {
 		"python": grammars.PythonLanguage, "rust": grammars.RustLanguage,
 		"java": grammars.JavaLanguage, "c": grammars.CLanguage, "cpp": grammars.CppLanguage,
 		"csharp": grammars.CSharpLanguage, "yaml": grammars.YamlLanguage,
-		"bash": grammars.BashLanguage, "sh": grammars.BashLanguage, "zsh": grammars.BashLanguage,
 		"fish": grammars.FishLanguage, "powershell": grammars.PowershellLanguage,
 	}
 	load := loaders[name]
