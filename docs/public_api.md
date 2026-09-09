@@ -87,13 +87,14 @@ do not tokenize prose or extend product inference. Their separate formats retain
 coverage, absent features, reference margins, and uncalibrated responses. See
 [ADR 0029](adr/0029-llmdet-numerical-parity.md) and the
 [component experiment](../research/llmdet/README.md).
-The root `e2e` directory contains only test code and fixtures. It exports no library
-API; the API snapshot records its package identity because it belongs to the root
-module.
+The root `e2e` directory contains only test code and fixtures. It exports no library API.
+
+Alpha APIs may change without backward compatibility. The package ledger and
+consumer tests describe the current contract; CI does not compare API snapshots
+against earlier releases. See [the development policy](../CONTRIBUTING.md).
 
 The separate `goanalysis/` module exports `New` and `Options`, builds a singlechecker
-driver, and tests against the public engine. Its API snapshot is
-`docs/api/goanalysis.api`. The adapter uses `analysis.Pass.ReadFile` for source
+driver, and tests against the public engine. The adapter uses `analysis.Pass.ReadFile` for source
 access and never imports Unswell internals. Default diagnostics reflect engine
 gate failures; `ReportAll` explicitly includes advisory and accepted findings.
 All raw results remain available to dependent analyzers as `unswell.RunResult`.

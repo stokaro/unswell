@@ -10,6 +10,13 @@ Work proceeds in the order below. An issue is complete only after its acceptance
 evidence passes on the merged commit. Human annotation and measured quality require
 real data; implementation alone cannot satisfy those requirements.
 
+During alpha implementation, race detection and active fuzzing are deferred.
+Their tests and commands remain available. Run #123 last, after the other
+implementation tasks have a recorded disposition, to restore both CI checks and
+fix discovered issues. An earlier audit must keep this final validation outstanding.
+Alpha API compatibility with previous releases is not required; current schemas,
+consumer tests, and the public package ledger remain maintained.
+
 | Issue | Work |
 | --- | --- |
 | [#5](https://github.com/stokaro/unswell/issues/5) | Alpha: enforce Bash syntax, ShellCheck and shfmt in CI |
@@ -54,6 +61,7 @@ real data; implementation alone cannot satisfy those requirements.
 | [#28](https://github.com/stokaro/unswell/issues/28) | Stage 4: establish reproducible performance and resource limits |
 | [#29](https://github.com/stokaro/unswell/issues/29) | Stage 4: verify SARIF consumers and reproducible release artifacts |
 | [#30](https://github.com/stokaro/unswell/issues/30) | Stage 4: close the product documentation and acceptance audit |
+| [#123](https://github.com/stokaro/unswell/issues/123) | Final task: restore race detection and active fuzzing, fix findings, and record acceptance evidence |
 
 ## Alpha acceptance: stages 0 and 1
 
@@ -135,9 +143,11 @@ experiments is reported as a completed benchmark.
   and 85% overall, without hiding difficult packages.
 - Publish repeatable performance measurements against the proposed 100,000 words
   in 10 seconds and 512 MiB target on a specified 2-vCPU Linux host.
-- Verify SARIF import in a real consumer, release reproducibility, API compatibility,
+- Verify SARIF import in a real consumer, release reproducibility, current API consumers,
   all report/input formats and platform behavior.
 - Complete the full documentation set, model/data notices and release inventory.
+- Finally, restore race detection and active fuzzing in CI, fix findings, and retain
+  passing evidence for the merged commit as required by #123.
 
 Additional filler/hype signals and repeated rhetorical patterns are available as
 [opt-in experiments](editorial-patterns.md); their corpus qualification remains open.

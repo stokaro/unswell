@@ -36,7 +36,18 @@ Repository checks enforce the package convention, exception filename, and the
 presence and placement of the explanation across all Go modules. Review must
 assess whether the explanation warrants whitebox access.
 
-Run `make check` before publishing. Run `make race` for concurrency changes.
+Run `make check` before publishing. Race detection and active fuzzing are deferred
+during alpha implementation, including concurrency changes. Do not run them as
+routine validation. Preserve the tests, fuzz seeds, and explicit `make race` and
+`make fuzz` targets. Restore the checks and fix their findings as the final roadmap
+task, [#123](https://github.com/stokaro/unswell/issues/123).
+
+Backward compatibility is not required during alpha development. Change APIs and
+artifact formats when needed, update their documentation and consumers, and reject
+unsupported formats explicitly. Do not add compatibility shims or maintain API
+snapshots solely to preserve earlier alpha releases. Current-contract validation,
+source integrity, and library boundaries remain required.
+
 Every repository policy check needs a negative test proving it rejects a violation.
 Document alpha limitations and preserve later requirements in the roadmap.
 

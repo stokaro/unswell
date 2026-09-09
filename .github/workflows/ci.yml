@@ -52,8 +52,7 @@ jobs:
           bash scripts/setup-mcp-publisher.sh
           make check-registry
       - run: make check
-      - run: make race
-      - run: make fuzz
+      # Restore race detection and active fuzzing in the final validation task (#123).
       - name: Vulnerability check
         shell: bash
         run: |

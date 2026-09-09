@@ -1,9 +1,9 @@
 SHELL := /bin/bash
 
-.PHONY: check test race fuzz lint lint-shell tidy policy api build build-mcp release fmt schema dogfood dogfood-mcp
+.PHONY: check test race fuzz lint lint-shell tidy policy build build-mcp release fmt schema dogfood dogfood-mcp
 .PHONY: check-registry check-mirror-policy check-sbom-policy
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy api schema dogfood-mcp
+check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp
 
 check-sbom-policy:
 	bash scripts/prepare-sbom.sh --self-test
@@ -17,6 +17,7 @@ check-registry:
 test:
 	bash scripts/modules.sh test
 
+# Retained for final validation (#123); deferred from routine alpha development.
 race:
 	bash scripts/modules.sh test -race
 
@@ -47,10 +48,6 @@ tidy:
 policy:
 	go run ./cmd/repocheck
 	go test ./internal/repopolicy
-
-api:
-	bash scripts/api.sh
-	bash scripts/api.sh --self-test
 
 schema:
 	@temporary=$$(mktemp); trap 'rm -f "$$temporary"' EXIT; go run ./cmd/genschema > "$$temporary" && cmp report/schema.json "$$temporary"
