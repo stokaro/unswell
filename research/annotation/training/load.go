@@ -61,8 +61,7 @@ func validArtifactStatus(a Artifact) bool {
 
 func validModelShape(a Artifact) bool {
 	return a.Identity.Task == "editorial_needs_revision" && a.Identity.Kind == a.Options.Kind && a.Identity.Rubric != "" &&
-		len(a.Identity.Columns) == len(a.Logistic.Weights) && len(a.Options.Features) == len(a.Identity.Columns) &&
-		a.Logistic.Algorithm == model.Algorithm
+		len(a.Options.Features) == len(a.Identity.Columns)
 }
 
 func validateRestoredContract(a Artifact) error {
@@ -77,31 +76,13 @@ func validateRestoredContract(a Artifact) error {
 	if err != nil || columnsHash != a.Identity.ColumnsSHA256 {
 		return fmt.Errorf("training column contract digest mismatch")
 	}
-	if err := a.Options.Fit.numerical().Validate(); err != nil {
+	if err := validateEstimatorOptions(a.Options); err != nil {
 		return err
 	}
 	if err := validateColumnOrder(a); err != nil {
 		return err
 	}
 	return validateLexicalArtifact(a)
-}
-
-func restoreModels(a Artifact) (*model.Logistic, *model.Isotonic, error) {
-	p := a.Logistic
-	classifier, err := model.NewLogistic(model.Parameters{Means: p.Means, Scales: p.Scales, Weights: p.Weights, Intercept: p.Intercept})
-	if err != nil {
-		return nil, nil, err
-	}
-	if a.Options.Calibration == "none" && a.Calibration == nil {
-		return classifier, nil, nil
-	}
-	c := a.Calibration
-	if a.Options.Calibration != "isotonic" || c == nil || c.Algorithm != model.IsotonicAlgorithm ||
-		c.ScoreKind != "linear_score" || !validDigest(c.InputSHA256) {
-		return nil, nil, fmt.Errorf("training artifact has incompatible calibration")
-	}
-	calibration, err := model.NewIsotonic(model.IsotonicParameters{Scores: c.Scores, Responses: c.Responses})
-	return classifier, calibration, err
 }
 
 func validDigest(value string) bool {
@@ -111,7 +92,7 @@ func validDigest(value string) bool {
 
 func validateRestoredDigests(a Artifact) error {
 	for _, value := range []string{a.CorpusSHA256, a.ManifestSHA256, a.RoundSHA256, a.JoinedSHA256,
-		a.Logistic.InputSHA256, a.Identity.ColumnsSHA256, a.Identity.ProfileSHA256} {
+		a.Identity.ColumnsSHA256, a.Identity.ProfileSHA256} {
 		if !validDigest(value) {
 			return fmt.Errorf("training artifact requires complete SHA-256 identities")
 		}

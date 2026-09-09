@@ -41,6 +41,11 @@ func commandOptions(args []string) (options, error) {
 	if err := flags.Parse(args[1:]); err != nil {
 		return options{}, err
 	}
+	if args[0] == "train" {
+		if err := selectTrainingEstimator(flags, &result.train); err != nil {
+			return options{}, err
+		}
+	}
 	if err := validateLexicalFlags(flags, result); err != nil {
 		return options{}, err
 	}

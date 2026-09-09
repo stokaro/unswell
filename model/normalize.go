@@ -43,11 +43,11 @@ func prepareTraining(ctx context.Context, examples []Example, budget *workBudget
 
 func trainingWidth(examples []Example) (int, error) {
 	if len(examples) < 2 || len(examples) > 100000 {
-		return 0, fmt.Errorf("logistic training requires 2..100000 rows")
+		return 0, fmt.Errorf("training requires 2..100000 rows")
 	}
 	width := len(examples[0].Values)
 	if width < 1 || width > MaxFeatures || len(examples)*width > 4000000 {
-		return 0, fmt.Errorf("logistic training exceeds feature or cell limits")
+		return 0, fmt.Errorf("training exceeds feature or cell limits")
 	}
 	return width, nil
 }

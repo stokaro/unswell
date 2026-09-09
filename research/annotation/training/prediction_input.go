@@ -39,7 +39,7 @@ func validatePlanFields(p PredictionPlan) error {
 	}
 	if !slices.Contains([]string{"development", "final_test"}, p.Partition) ||
 		!slices.Contains([]string{"prepared_piece", "source_document"}, p.Context) ||
-		!slices.Contains([]string{"logistic", "isotonic"}, p.Response) {
+		!slices.Contains([]string{"logistic", "forest", "isotonic"}, p.Response) {
 		return fmt.Errorf("prediction plan has an unsupported partition, context, or response")
 	}
 	if !validResponse(p.Threshold) {
@@ -55,16 +55,28 @@ func validatePredictionPlan(p PredictionPlan, a Artifact) error {
 	if p.ModelSHA256 != a.SHA256 || p.CorpusSHA256 != a.CorpusSHA256 {
 		return fmt.Errorf("prediction plan does not match the frozen model and corpus")
 	}
-	context := "prepared_piece"
-	if a.Identity.FeatureSource == "rule_activations" {
-		context = "source_document"
-	} else if a.Identity.FeatureSource != "" && a.Identity.FeatureSource != "lexical_ngrams" {
-		return fmt.Errorf("unsupported prediction feature source")
+	context, err := predictionContext(a.Identity.FeatureSource)
+	if err != nil {
+		return err
+	}
+	if p.Response != "isotonic" && p.Response != a.Options.Estimator {
+		return fmt.Errorf("prediction response does not match the fitted estimator")
 	}
 	if p.Context != context || (p.Response == "isotonic" && a.Calibration == nil) {
 		return fmt.Errorf("prediction plan has incompatible context or unavailable calibration")
 	}
 	return nil
+}
+
+func predictionContext(source string) (string, error) {
+	switch source {
+	case "rule_activations":
+		return "source_document", nil
+	case "", "lexical_ngrams":
+		return "prepared_piece", nil
+	default:
+		return "", fmt.Errorf("unsupported prediction feature source")
+	}
 }
 
 // LoadPredictions restores a saved numerical run without rerunning models or
@@ -112,7 +124,10 @@ func validatePredictionInputs(ctx context.Context, result Predictions) error {
 		result.Verification.Status != "source_and_candidates_reproduced" || len(result.Rows) == 0 {
 		return fmt.Errorf("prediction artifact has inconsistent plan, verification, or targets")
 	}
-	return validatePredictionRows(ctx, result.Rows, result.Plan)
+	if err := validatePredictionRows(ctx, result.Rows, result.Plan); err != nil {
+		return err
+	}
+	return validatePredictionEstimator(result.Rows, fitted.Options.Estimator)
 }
 
 func validatePredictionRows(ctx context.Context, rows []Prediction, plan PredictionPlan) error {
@@ -139,7 +154,7 @@ func validatePredictionRow(row Prediction, plan PredictionPlan) error {
 			return fmt.Errorf("available prediction requires valid numerical outputs")
 		}
 		if *row.Positive != (*row.Response >= *plan.Threshold) ||
-			(plan.Response == "logistic" && *row.Response != *row.LogisticResponse) {
+			!consistentRawResponse(row, plan.Response) {
 			return fmt.Errorf("prediction response or threshold decision is inconsistent")
 		}
 		return nil
@@ -154,7 +169,7 @@ func validateAbsentPrediction(row Prediction, plan PredictionPlan) error {
 	if validCalibrationAbsence(row, plan) {
 		return nil
 	}
-	if row.LinearScore != nil || row.LogisticResponse != nil {
+	if row.LinearScore != nil || row.LogisticResponse != nil || row.ForestResponse != nil {
 		return fmt.Errorf("unmeasured target cannot have numerical outputs")
 	}
 	if validTargetAbsence(row) {
@@ -200,13 +215,13 @@ func planDigestsValid(p PredictionPlan) bool {
 }
 
 func validAvailablePrediction(row Prediction) bool {
-	return validDigest(row.FeatureInputHash) && row.Reason == "" && finitePointer(row.LinearScore) &&
-		validResponse(row.LogisticResponse) && validResponse(row.Response) && row.Positive != nil
+	return validDigest(row.FeatureInputHash) && row.Reason == "" && validRawPrediction(row) &&
+		validResponse(row.Response) && row.Positive != nil
 }
 
 func validCalibrationAbsence(row Prediction, plan PredictionPlan) bool {
 	return row.Reason == "calibration/out_of_range" && plan.Response == "isotonic" &&
-		validDigest(row.FeatureInputHash) && finitePointer(row.LinearScore) && validResponse(row.LogisticResponse)
+		validDigest(row.FeatureInputHash) && validRawPrediction(row)
 }
 
 func validTargetAbsence(row Prediction) bool {
