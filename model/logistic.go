@@ -1,5 +1,5 @@
-// Package model trains and evaluates numerical logistic models in Go.
-// Classifier responses are uncalibrated; this package does not qualify prose models.
+// Package model trains numerical classifiers and separate calibration mappings in Go.
+// Numerical outputs alone do not qualify prose models or editorial probabilities.
 package model
 
 import (
