@@ -33,6 +33,7 @@ def main():
     parser.add_argument("--reference", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
+    commit, sources, build = go_identity(args.probe)
     reference = json.loads((args.reference / "reference.json").read_bytes())
     for name, expected in reference["artifacts"].items():
         assert Path(name).name == name
@@ -70,19 +71,40 @@ def main():
         "proxy_controls": len(proxies), "classifier_controls": len(vectors),
         "absolute_tolerance": reference["absolute_tolerance"], "relative_tolerance": reference["relative_tolerance"],
         "maximum_absolute_error": errors, "proxy_results": proxy_results,
-        "go_source_sha256": go_sources(),
+        "go_source_commit": commit, "go_source_sha256": sources, "probe_build": build,
         "scope": "Numeric component controls only; tokenizer, full probability tables, text detection, and qualification not run.",
     }
     args.output.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
     print(json.dumps({key: value for key, value in report.items() if key != "proxy_results"}))
 
 
-def go_sources():
+def go_identity(probe):
     root = Path(__file__).resolve().parents[2]
+    commit = subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD"],
+                            capture_output=True, text=True, check=True, timeout=10).stdout.strip()
     directories = ["llmdet", "internal/llmdetcommand", "cmd/llmdetprobe", "internal/jsoninput", "internal/commandio"]
     paths = [path for directory in directories for path in (root / "research/annotation" / directory).glob("*")
              if path.suffix in [".go", ".json"] and not path.name.endswith("_test.go")]
-    return {str(path.relative_to(root)): digest(path.read_bytes()) for path in sorted(paths)}
+    sources = {}
+    for path in sorted(paths):
+        name = str(path.relative_to(root))
+        saved = subprocess.run(["git", "-C", str(root), "show", f"{commit}:{name}"],
+                               capture_output=True, check=True, timeout=10).stdout
+        if saved != path.read_bytes():
+            raise ValueError(f"uncommitted numerical source: {name}")
+        sources[name] = digest(saved)
+    metadata = subprocess.run(["go", "version", "-m", str(probe)],
+                              capture_output=True, text=True, check=True, timeout=10).stdout
+    build = {}
+    for line in metadata.splitlines():
+        fields = line.split()
+        if len(fields) == 2 and fields[0] == "build" and "=" in fields[1]:
+            key, value = fields[1].split("=", 1)
+            build[key] = value
+    if build.get("vcs.revision") != commit or build.get("vcs.modified") != "false" or build.get("CGO_ENABLED") != "0":
+        raise ValueError("probe must be built without cgo from this clean committed revision")
+    build["go_version"] = metadata.splitlines()[0].rsplit(": ", 1)[-1]
+    return commit, sources, build
 
 
 if __name__ == "__main__":

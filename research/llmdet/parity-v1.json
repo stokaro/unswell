@@ -2,8 +2,8 @@
   "version": "unswell-llmdet-component-parity-v1",
   "status": "passed",
   "reference_sha256": "67b44d7734cc7acfe0ccaf92463996cb5bd5966c8655dfbbdd8db3d4ecacdf6a",
-  "probe_sha256": "2428a3079c52276a9f3a746d98fad38850b6fc21b11a1db02a7496b78ba3360d",
-  "script_sha256": "cfaaee955b011e2904c764130a47af7f2367704c73337504e3fe1bc566239b6b",
+  "probe_sha256": "b673ad2cc9bbeba43cd893640896342cf5e9a0cdb834e11eb7f480c9e412f01f",
+  "script_sha256": "0759f24d4c94585d7595a07a9f99451a87a637366709b20fd459c9e6ae4df566",
   "proxy_controls": 15,
   "classifier_controls": 328,
   "absolute_tolerance": 1e-12,
@@ -305,6 +305,7 @@
       }
     }
   ],
+  "go_source_commit": "655526bd99cac65824894b118e100732f6ee2228",
   "go_source_sha256": {
     "research/annotation/cmd/llmdetprobe/main.go": "de2eb3e0adcdc378e3aa8aabd132e72ae1711e88cbe8bed76ab12d5602f8c03c",
     "research/annotation/internal/commandio/io.go": "35160f3411e47f8b6f4ccfb77658a2a43930369bf3ee5c82b76e10f9cabbc8cb",
@@ -318,6 +319,21 @@
     "research/annotation/llmdet/proxy.go": "b89740e93d7b60562c2b1fb7f5d507cb184b1701dd284635ec32f2598ae09951",
     "research/annotation/llmdet/proxy.schema.json": "45d53cdba1eac2be837ebdedb5f156be1a9a6866f8f2e93433b42b86a0adb181",
     "research/annotation/llmdet/tree.go": "0c751ad322ae50e44f6ffe4b4d5988eee29d6cc35e206eb8a3e28f3253f51fca"
+  },
+  "probe_build": {
+    "-buildmode": "exe",
+    "-compiler": "gc",
+    "-trimpath": "true",
+    "DefaultGODEBUG": "cryptocustomrand=1,tlssecpmlkem=0,tracebacklabels=0,urlstrictcolons=0,x509sslcertoverrideplatform=0",
+    "CGO_ENABLED": "0",
+    "GOARCH": "arm64",
+    "GOOS": "darwin",
+    "GOARM64": "v8.0",
+    "vcs": "git",
+    "vcs.revision": "655526bd99cac65824894b118e100732f6ee2228",
+    "vcs.time": "2026-09-09T17:56:27Z",
+    "vcs.modified": "false",
+    "go_version": "go1.27.1"
   },
   "scope": "Numeric component controls only; tokenizer, full probability tables, text detection, and qualification not run."
 }

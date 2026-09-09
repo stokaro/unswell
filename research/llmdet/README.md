@@ -18,6 +18,10 @@ The reference ran with Python 3.12.13, LightGBM 4.6.0, NumPy 2.2.6, and SciPy
 1.15.3 on macOS ARM64. [`reference-v1.json`](reference-v1.json) records exact
 source, classifier, script, and output hashes. [`parity-v1.json`](parity-v1.json)
 records the Go comparison and coverage for each authored proxy input.
+The Go calculation sources are fixed at
+[`655526bd`](https://github.com/stokaro/unswell/commit/655526bd99cac65824894b118e100732f6ee2228).
+The verifier checks their committed bytes and requires a clean, cgo-free probe
+built from the same revision. The receipt records compiler and build metadata.
 
 | Comparison | Controls | Maximum absolute error |
 | --- | ---: | ---: |
@@ -68,7 +72,7 @@ numerical function executes. The reference does not fetch or unpickle table data
 The classifier archive contains `nine_LightGBM_model.txt`; verify its recorded
 digest after extraction. The experiment does not grant redistribution rights.
 
-From the repository root, with a separately created Python 3.12 environment:
+From a clean committed checkout, with a separately created Python 3.12 environment:
 
 ```sh
 python -m pip install -r research/llmdet/reference-requirements.txt
