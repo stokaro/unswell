@@ -1,6 +1,6 @@
 {
   "format": "unswell-method-registry-v1",
-  "revision": 3,
+  "revision": 4,
   "reviewed_on": "2026-09-09",
   "protocol": "unswell-research-v1",
   "scope": "Source review, scoped decisions, and linked numerical component evidence; no qualified product model.",
@@ -740,7 +740,7 @@
         "requirements": "Bounded Go compress/zlib streams over a caller-supplied reference and prepared target; no language model or external runtime.",
         "measured_runtime_seconds": null,
         "measured_peak_memory_bytes": null,
-        "reason": "No warm/cold timing or peak-memory study has been completed."
+        "reason": "Synthetic primitive timings and whole-harness RSS are recorded in research/compression. Complete-scan and process-cold-start costs and representative memory remain unmeasured."
       },
       "components": [
         {
