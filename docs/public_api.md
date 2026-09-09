@@ -16,7 +16,7 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell/extract` | Source-preserving input extractors | alpha |
 | `github.com/stokaro/unswell/feature` | Versioned prose measurements and repetition preprocessing | alpha |
 | `github.com/stokaro/unswell/model` | Immutable numerical classifiers, separate calibration, and deterministic Go fitting | alpha |
-| `github.com/stokaro/unswell/nlp` | Neutral provider and capability contract | alpha |
+| `github.com/stokaro/unswell/nlp` | Neutral providers, capabilities, and shared target preparation | alpha |
 | `github.com/stokaro/unswell/nlp/english` | Default pure-Go English backend | alpha |
 | `github.com/stokaro/unswell/report` | Writers and saved-result decoding | alpha |
 | `github.com/stokaro/unswell/goanalysis` | Go analysis adapter in a separate module | alpha |
@@ -104,6 +104,15 @@ travel with the numeric values; incomplete runs remain incomplete model inputs.
 The additive field is omitted by default. Old reports remain readable; strict
 older readers need an update when collection is explicitly requested. See
 [ADR 0017](adr/0017-feature-collection.md) for compatibility and remaining scope.
+
+`nlp.PrepareUnits`, `PreparedUnit`, `UnitBinding`, `UnitOptions`, and `UnitLimits`
+add shared sentence/paragraph/fragment preparation under `nlp.UnitContract`.
+Prepared units retain separate target, surrounding prose, and grammar identities;
+accessors return owned NLP data. `feature.MeasureUnit` and `UnitCatalog` reuse
+descriptive formulas under `feature.UnitContract` with an explicit target scope.
+They verify the actual provider and requested capabilities. Existing block
+collection, rule activations, and saved reports keep their contracts. See
+[prepared units](prepared-units.md) and [ADR 0022](adr/0022-shared-prose-units.md).
 
 The additive `rule.Parameters.MaxAnswerWords` field configures the experimental
 question/answer pattern. Its zero value is omitted from saved parameter objects;
