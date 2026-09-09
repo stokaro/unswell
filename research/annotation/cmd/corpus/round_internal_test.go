@@ -1,5 +1,8 @@
 package main
 
+// White-box tests: Probe annotation round file limits and cancellation at the command reader;
+// the reader is private to package main and is not an importable library API.
+
 import (
 	"context"
 	"os"

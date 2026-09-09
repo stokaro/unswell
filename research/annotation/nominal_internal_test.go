@@ -1,5 +1,8 @@
 package annotation
 
+// White-box tests: Compare the private agreement formula with published rating matrices;
+// those arbitrary category matrices are not valid editorial rounds accepted by Load.
+
 import (
 	"math"
 	"testing"

@@ -1,5 +1,8 @@
 package corpus
 
+// White-box tests: Distinguish nil and empty context sets in private extraction-policy comparison;
+// the public join pipeline normalizes configuration before this comparison runs.
+
 import (
 	"testing"
 

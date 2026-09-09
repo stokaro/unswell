@@ -1,5 +1,8 @@
 package training
 
+// White-box tests: Change intermediate rule identities and inspect selected partitions;
+// RunRules generates the join itself and does not accept altered intermediate feature collections.
+
 import (
 	"context"
 	"os"
@@ -9,6 +12,7 @@ import (
 	qt "github.com/frankban/quicktest"
 
 	"github.com/stokaro/unswell/research/annotation/corpus"
+	"github.com/stokaro/unswell/research/annotation/internal/testfixture"
 )
 
 func ruleOptions() Options {
@@ -27,10 +31,10 @@ func ruleConfig(t *testing.T) []byte {
 
 func TestRuleBaselineUsesActualActivationsAndSharedFitting(t *testing.T) {
 	c := qt.New(t)
-	input := fixtureInput(t)
-	candidates, round := input.compile(t)
+	input := testfixture.Load(t, "testdata")
+	candidates, round := input.Compile(t)
 	configuration := ruleConfig(t)
-	result, err := RunRules(t.Context(), candidates, round, input.files, ruleOptions(), configuration)
+	result, err := RunRules(t.Context(), candidates, round, input.Files, ruleOptions(), configuration)
 	c.Assert(err, qt.IsNil)
 	c.Assert(result.Identity.FeatureSource, qt.Equals, "rule_activations")
 	c.Assert(result.Identity.Context, qt.Equals, "source_document")
@@ -46,29 +50,29 @@ func TestRuleBaselineUsesActualActivationsAndSharedFitting(t *testing.T) {
 	c.Assert(result.Partitions[2].Rows, qt.HasLen, 2)
 	c.Assert(result.HumanCorpus, qt.Equals, "not_qualified")
 	c.Assert(result.ProbabilityStatus, qt.Equals, "unavailable_unqualified_model")
-	again, err := RunRules(t.Context(), candidates, round, input.files, ruleOptions(), configuration)
+	again, err := RunRules(t.Context(), candidates, round, input.Files, ruleOptions(), configuration)
 	c.Assert(err, qt.IsNil)
 	c.Assert(again, qt.DeepEquals, result)
 	result.Identity.Columns[0].ID = "changed"
 	result.Options.Features[0] = "changed"
 	result.Logistic.Means[0] = 99
-	third, err := RunRules(t.Context(), candidates, round, input.files, ruleOptions(), configuration)
+	third, err := RunRules(t.Context(), candidates, round, input.Files, ruleOptions(), configuration)
 	c.Assert(err, qt.IsNil)
 	c.Assert(third, qt.DeepEquals, again)
 }
 
 func TestRuleBaselineKeepsCalibrationAndReservedInputsSeparate(t *testing.T) {
 	c := qt.New(t)
-	input := fixtureInput(t)
-	candidates, round := input.compile(t)
+	input := testfixture.Load(t, "testdata")
+	candidates, round := input.Compile(t)
 	options, configuration := ruleOptions(), ruleConfig(t)
-	before, err := RunRules(t.Context(), candidates, round, input.files, options, configuration)
+	before, err := RunRules(t.Context(), candidates, round, input.Files, options, configuration)
 	c.Assert(err, qt.IsNil)
-	input.replaceSource(3, "Keep the timeout condition.")
-	input.replaceSource(4, "It is important to note that development remains reserved.")
-	input.replaceSource(5, "In order to check evaluation, keep this source reserved.")
-	candidates, round = input.compile(t)
-	after, err := RunRules(t.Context(), candidates, round, input.files, options, configuration)
+	input.ReplaceSource(3, "Keep the timeout condition.")
+	input.ReplaceSource(4, "It is important to note that development remains reserved.")
+	input.ReplaceSource(5, "In order to check evaluation, keep this source reserved.")
+	candidates, round = input.Compile(t)
+	after, err := RunRules(t.Context(), candidates, round, input.Files, options, configuration)
 	c.Assert(err, qt.IsNil)
 	c.Assert(after.Logistic, qt.DeepEquals, before.Logistic)
 	c.Assert(after.Calibration.InputSHA256, qt.Not(qt.Equals), before.Calibration.InputSHA256)
@@ -78,7 +82,7 @@ func TestRuleBaselineKeepsCalibrationAndReservedInputsSeparate(t *testing.T) {
 		c.Assert(after.Partitions[index].Excluded["reserved_partition"], qt.Equals, 2)
 	}
 	options.Calibration = "none"
-	after, err = RunRules(t.Context(), candidates, round, input.files, options, configuration)
+	after, err = RunRules(t.Context(), candidates, round, input.Files, options, configuration)
 	c.Assert(err, qt.IsNil)
 	c.Assert(after.Calibration, qt.IsNil)
 	c.Assert(after.Logistic, qt.DeepEquals, before.Logistic)
@@ -86,13 +90,13 @@ func TestRuleBaselineKeepsCalibrationAndReservedInputsSeparate(t *testing.T) {
 
 func TestRuleBaselineRetainsPolicyIdentityWithoutChangingRawValues(t *testing.T) {
 	c := qt.New(t)
-	input := fixtureInput(t)
-	candidates, round := input.compile(t)
+	input := testfixture.Load(t, "testdata")
+	candidates, round := input.Compile(t)
 	configuration := ruleConfig(t)
-	before, err := RunRules(t.Context(), candidates, round, input.files, ruleOptions(), configuration)
+	before, err := RunRules(t.Context(), candidates, round, input.Files, ruleOptions(), configuration)
 	c.Assert(err, qt.IsNil)
 	changed := []byte(strings.Replace(string(configuration), "enabled: true", "enabled: true\n    severity: error", 1))
-	after, err := RunRules(t.Context(), candidates, round, input.files, ruleOptions(), changed)
+	after, err := RunRules(t.Context(), candidates, round, input.Files, ruleOptions(), changed)
 	c.Assert(err, qt.IsNil)
 	c.Assert(after.Logistic, qt.DeepEquals, before.Logistic)
 	c.Assert(after.Identity.RuleConfigSHA256, qt.Not(qt.Equals), before.Identity.RuleConfigSHA256)
@@ -102,10 +106,10 @@ func TestRuleBaselineRetainsPolicyIdentityWithoutChangingRawValues(t *testing.T)
 
 func TestRuleSelectionPreservesMissingTargetsAndDisabledValues(t *testing.T) {
 	c := qt.New(t)
-	input := fixtureInput(t)
-	candidates, round := input.compile(t)
+	input := testfixture.Load(t, "testdata")
+	candidates, round := input.Compile(t)
 	options := ruleOptions()
-	joined, err := corpus.JoinRules(t.Context(), candidates, round, input.files, options.Features, ruleConfig(t))
+	joined, err := corpus.JoinRules(t.Context(), candidates, round, input.Files, options.Features, ruleConfig(t))
 	c.Assert(err, qt.IsNil)
 	for i := range joined.Bindings {
 		binding := &joined.Bindings[i]
@@ -121,7 +125,7 @@ func TestRuleSelectionPreservesMissingTargetsAndDisabledValues(t *testing.T) {
 	c.Assert(selected.training, qt.HasLen, 1)
 	c.Assert(selected.training[0].Values, qt.DeepEquals, []float64{1})
 	c.Assert(selected.partitions[0].Excluded["target/no_complete_block_match"], qt.Equals, 1)
-	joined, err = corpus.JoinRules(t.Context(), candidates, round, input.files, options.Features,
+	joined, err = corpus.JoinRules(t.Context(), candidates, round, input.Files, options.Features,
 		[]byte("version: 1\nextends: [builtin:custom]\n"))
 	c.Assert(err, qt.IsNil)
 	selected, err = selectRuleRows(t.Context(), candidates.Plan, joined, options, "config-hash")
@@ -134,11 +138,11 @@ func TestRuleBaselineRejectsInvalidOrUnauthorizedInputs(t *testing.T) {
 	for _, name := range []string{"simulation", "rights", "tamper", "cancel", "configuration", "disabled", "prepared feature", "kind"} {
 		t.Run(name, func(t *testing.T) {
 			c := qt.New(t)
-			input := fixtureInput(t)
+			input := testfixture.Load(t, "testdata")
 			if name == "rights" {
-				input.manifest.Sources[0].Rights.AllowedUses = []string{"annotation", "evaluation"}
+				input.Manifest.Sources[0].Rights.AllowedUses = []string{"annotation", "evaluation"}
 			}
-			candidates, round := input.compile(t)
+			candidates, round := input.Compile(t)
 			options, configuration := ruleOptions(), ruleConfig(t)
 			ctx, cancel := context.WithCancel(t.Context())
 			defer cancel()
@@ -146,7 +150,7 @@ func TestRuleBaselineRejectsInvalidOrUnauthorizedInputs(t *testing.T) {
 			case "simulation":
 				options.AllowSimulation = false
 			case "tamper":
-				input.files["d000001.txt"][0]++
+				input.Files["d000001.txt"][0]++
 			case "cancel":
 				cancel()
 			case "configuration":
@@ -158,7 +162,7 @@ func TestRuleBaselineRejectsInvalidOrUnauthorizedInputs(t *testing.T) {
 			case "kind":
 				options.Kind = "sentence"
 			}
-			result, err := RunRules(ctx, candidates, round, input.files, options, configuration)
+			result, err := RunRules(ctx, candidates, round, input.Files, options, configuration)
 			c.Assert(err, qt.IsNotNil)
 			c.Assert(result, qt.DeepEquals, Artifact{})
 		})

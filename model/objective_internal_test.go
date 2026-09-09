@@ -1,5 +1,8 @@
 package model
 
+// White-box tests: Compare private gradients and Hessians with finite differences and probe solver failures;
+// FitLogistic returns the fitted model without exposing derivatives or line-search state.
+
 import (
 	"math"
 	"slices"

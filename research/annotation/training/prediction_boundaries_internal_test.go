@@ -1,5 +1,8 @@
 package training
 
+// White-box tests: Rehash corrupted models and predictions to reach semantic loader checks;
+// public artifact producers cannot create these invalid states with matching digests.
+
 import (
 	"encoding/json"
 	"os"
@@ -9,13 +12,14 @@ import (
 	qt "github.com/frankban/quicktest"
 
 	"github.com/stokaro/unswell/research/annotation"
+	"github.com/stokaro/unswell/research/annotation/internal/testfixture"
 )
 
 func TestLoadedModelRejectsInvalidRehashedParameters(t *testing.T) {
-	input := fixtureInput(t)
-	candidates, round := input.compile(t)
+	input := testfixture.Load(t, "testdata")
+	candidates, round := input.Compile(t)
 	c := qt.New(t)
-	original, err := Run(t.Context(), candidates, round, input.files, fittingOptions())
+	original, err := Run(t.Context(), candidates, round, input.Files, fittingOptions())
 	c.Assert(err, qt.IsNil)
 	for _, row := range []struct {
 		name string
@@ -33,13 +37,13 @@ func TestLoadedModelRejectsInvalidRehashedParameters(t *testing.T) {
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
-			changed, err := Load(t.Context(), encode(t, original))
+			changed, err := Load(t.Context(), testfixture.Encode(t, original))
 			c.Assert(err, qt.IsNil)
 			row.edit(&changed)
 			changed.SHA256 = ""
 			changed, err = finish(t.Context(), changed)
 			c.Assert(err, qt.IsNil)
-			result, err := Load(t.Context(), encode(t, changed))
+			result, err := Load(t.Context(), testfixture.Encode(t, changed))
 			c.Assert(err, qt.IsNotNil)
 			c.Assert(result, qt.DeepEquals, Artifact{})
 		})
@@ -48,26 +52,26 @@ func TestLoadedModelRejectsInvalidRehashedParameters(t *testing.T) {
 
 func TestPredictPartialTargetsRemainUnavailable(t *testing.T) {
 	c := qt.New(t)
-	input := fixtureInput(t)
-	input.replaceSource(5, "Keep the first sentence. Preserve the second sentence.")
+	input := testfixture.Load(t, "testdata")
+	input.ReplaceSource(5, "Keep the first sentence. Preserve the second sentence.")
 	// Reuse simulated labels for the same single-sentence training/calibration targets.
 	var judgments []annotation.Judgment
-	c.Assert(json.Unmarshal(input.round["judgments"], &judgments), qt.IsNil)
+	c.Assert(json.Unmarshal(input.Round["judgments"], &judgments), qt.IsNil)
 	ids := map[string]string{"u000002": "u000001", "u000004": "u000003", "u000006": "u000005", "u000008": "u000007"}
 	for i := range judgments {
 		if id, exists := ids[judgments[i].UnitID]; exists {
 			judgments[i].UnitID = id
 		}
 	}
-	input.round["judgments"] = encode(t, judgments)
-	candidates, round := input.compile(t)
+	input.Round["judgments"] = testfixture.Encode(t, judgments)
+	candidates, round := input.Compile(t)
 	configuration, err := os.ReadFile("testdata/rules.yaml")
 	c.Assert(err, qt.IsNil)
 	options := fittingOptions()
 	options.Kind, options.Features = "sentence", []string{"activation/policy.banned-phrases"}
-	fitted, err := RunRules(t.Context(), candidates, round, input.files, options, configuration)
+	fitted, err := RunRules(t.Context(), candidates, round, input.Files, options, configuration)
 	c.Assert(err, qt.IsNil)
-	result, err := Predict(t.Context(), candidates, input.files, fitted, predictionPlan(fitted), configuration)
+	result, err := Predict(t.Context(), candidates, input.Files, fitted, predictionPlan(fitted), configuration)
 	c.Assert(err, qt.IsNil)
 	c.Assert(result.Rows, qt.HasLen, 2)
 	for _, row := range result.Rows {
@@ -77,33 +81,33 @@ func TestPredictPartialTargetsRemainUnavailable(t *testing.T) {
 		c.Assert(row.Response, qt.IsNil)
 		c.Assert(row.LinearScore, qt.IsNil)
 	}
-	_, err = LoadPredictions(t.Context(), encode(t, result))
+	_, err = LoadPredictions(t.Context(), testfixture.Encode(t, result))
 	c.Assert(err, qt.IsNil)
 }
 
 func TestPredictRequiresEvaluationPermissionAndOriginalSources(t *testing.T) {
 	c := qt.New(t)
-	input := fixtureInput(t)
-	input.manifest.Sources[5].Rights.AllowedUses = []string{"annotation"}
-	candidates, round := input.compile(t)
-	fitted, err := Run(t.Context(), candidates, round, input.files, fittingOptions())
+	input := testfixture.Load(t, "testdata")
+	input.Manifest.Sources[5].Rights.AllowedUses = []string{"annotation"}
+	candidates, round := input.Compile(t)
+	fitted, err := Run(t.Context(), candidates, round, input.Files, fittingOptions())
 	c.Assert(err, qt.IsNil)
-	result, err := Predict(t.Context(), candidates, input.files, fitted, predictionPlan(fitted), nil)
+	result, err := Predict(t.Context(), candidates, input.Files, fitted, predictionPlan(fitted), nil)
 	c.Assert(err, qt.ErrorMatches, ".*evaluation permission")
 	c.Assert(result, qt.DeepEquals, Predictions{})
-	input.files["d000006.txt"][0]++
-	result, err = Predict(t.Context(), candidates, input.files, fitted, predictionPlan(fitted), nil)
+	input.Files["d000006.txt"][0]++
+	result, err = Predict(t.Context(), candidates, input.Files, fitted, predictionPlan(fitted), nil)
 	c.Assert(err, qt.IsNotNil)
 	c.Assert(result, qt.DeepEquals, Predictions{})
 }
 
 func TestPredictionLoaderRejectsInconsistentRows(t *testing.T) {
 	c := qt.New(t)
-	input := fixtureInput(t)
-	candidates, round := input.compile(t)
-	fitted, err := Run(t.Context(), candidates, round, input.files, fittingOptions())
+	input := testfixture.Load(t, "testdata")
+	candidates, round := input.Compile(t)
+	fitted, err := Run(t.Context(), candidates, round, input.Files, fittingOptions())
 	c.Assert(err, qt.IsNil)
-	original, err := Predict(t.Context(), candidates, input.files, fitted, predictionPlan(fitted), nil)
+	original, err := Predict(t.Context(), candidates, input.Files, fitted, predictionPlan(fitted), nil)
 	c.Assert(err, qt.IsNil)
 	for _, row := range []struct {
 		name string
@@ -118,13 +122,13 @@ func TestPredictionLoaderRejectsInconsistentRows(t *testing.T) {
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
-			changed, err := LoadPredictions(t.Context(), encode(t, original))
+			changed, err := LoadPredictions(t.Context(), testfixture.Encode(t, original))
 			c.Assert(err, qt.IsNil)
 			row.edit(&changed)
 			changed.SHA256 = ""
 			changed, err = finishPredictions(t.Context(), changed)
 			c.Assert(err, qt.IsNil)
-			_, err = LoadPredictions(t.Context(), encode(t, changed))
+			_, err = LoadPredictions(t.Context(), testfixture.Encode(t, changed))
 			c.Assert(err, qt.IsNotNil)
 		})
 	}
@@ -142,4 +146,15 @@ func TestResearchLoadersRejectAmbiguousJSON(t *testing.T) {
 			c.Assert(err, qt.IsNotNil)
 		})
 	}
+}
+
+func predictionPlan(fitted Artifact) PredictionPlan {
+	threshold := 0.5
+	context := "prepared_piece"
+	if fitted.Identity.FeatureSource == "rule_activations" {
+		context = "source_document"
+	}
+	return PredictionPlan{Version: PredictionVersion, ID: "simulated-test-v1", ProtocolSHA256: strings.Repeat("a", 64),
+		ModelSHA256: fitted.SHA256, CorpusSHA256: fitted.CorpusSHA256, Partition: "final_test",
+		Context: context, Response: "logistic", Threshold: &threshold}
 }

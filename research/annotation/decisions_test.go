@@ -1,4 +1,4 @@
-package annotation
+package annotation_test
 
 import (
 	"slices"
@@ -6,42 +6,44 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
+
+	"github.com/stokaro/unswell/research/annotation"
 )
 
 func TestDecisionSelection(t *testing.T) {
 	for _, row := range []struct {
 		name, status, reason, basis, label string
-		edit                               func(*roundData)
+		edit                               func(*roundInput)
 	}{
-		{"unanimous", "resolved", "", "unanimous", "needs_revision", func(*roundData) {}},
-		{"missing", "unresolved", "missing_judgments", "none", "", func(r *roundData) { r.Judgments = r.Judgments[:1] }},
-		{"disagreement", "unresolved", "judgment_disagreement", "none", "", func(r *roundData) {
+		{"unanimous", "resolved", "", "unanimous", "needs_revision", func(*roundInput) {}},
+		{"missing", "unresolved", "missing_judgments", "none", "", func(r *roundInput) { r.Judgments = r.Judgments[:1] }},
+		{"disagreement", "unresolved", "judgment_disagreement", "none", "", func(r *roundInput) {
 			r.Judgments[1].Label, r.Judgments[1].Categories = "acceptable", []string{}
 		}},
-		{"category disagreement", "unresolved", "judgment_disagreement", "none", "", func(r *roundData) {
+		{"category disagreement", "unresolved", "judgment_disagreement", "none", "", func(r *roundInput) {
 			r.Judgments[1].Categories = []string{"wordiness"}
 		}},
-		{"uncertain", "unresolved", "uncertain", "unanimous", "uncertain", func(r *roundData) {
+		{"uncertain", "unresolved", "uncertain", "unanimous", "uncertain", func(r *roundInput) {
 			for i := range r.Judgments {
 				r.Judgments[i].Label, r.Judgments[i].Context = "uncertain", "insufficient"
 			}
 		}},
-		{"adjudicated", "resolved", "", "adjudication", "acceptable", func(r *roundData) {
-			r.Adjudications = []Adjudication{decisionAdjudication(r, "acceptable")}
+		{"adjudicated", "resolved", "", "adjudication", "acceptable", func(r *roundInput) {
+			r.Adjudications = []annotation.Adjudication{decisionAdjudication(r, "acceptable")}
 		}},
-		{"uncertain adjudication", "unresolved", "uncertain", "adjudication", "uncertain", func(r *roundData) {
-			r.Adjudications = []Adjudication{decisionAdjudication(r, "uncertain")}
+		{"uncertain adjudication", "unresolved", "uncertain", "adjudication", "uncertain", func(r *roundInput) {
+			r.Adjudications = []annotation.Adjudication{decisionAdjudication(r, "uncertain")}
 		}},
-		{"unfinished adjudicated assignment", "unresolved", "missing_judgments", "none", "", func(r *roundData) {
-			r.Actors = append(r.Actors, Actor{ID: "a005", Kind: "simulation", Role: "rater", Declaration: "A missing test response."})
-			r.Adjudications = []Adjudication{decisionAdjudication(r, "acceptable")}
+		{"unfinished adjudicated assignment", "unresolved", "missing_judgments", "none", "", func(r *roundInput) {
+			r.Actors = append(r.Actors, annotation.Actor{ID: "a005", Kind: "simulation", Role: "rater", Declaration: "A missing test response."})
+			r.Adjudications = []annotation.Adjudication{decisionAdjudication(r, "acceptable")}
 		}},
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
 			data := decisionFixture(c)
 			row.edit(&data)
-			round, err := Load(t.Context(), encode(c, data))
+			round, err := annotation.Load(t.Context(), encode(c, data))
 			c.Assert(err, qt.IsNil)
 			result, err := round.Decisions(t.Context())
 			c.Assert(err, qt.IsNil)
@@ -62,12 +64,14 @@ func TestDecisionSelection(t *testing.T) {
 	}
 }
 
-func decisionFixture(c *qt.C) roundData {
+func decisionFixture(c *qt.C) roundInput {
 	c.Helper()
 	data := fixture(c)
-	data.Adjudications = []Adjudication{}
-	data.Judgments = slices.DeleteFunc(data.Judgments, func(j Judgment) bool { return j.UnitID != "u000001" || j.ActorID == "a003" })
-	slices.SortFunc(data.Judgments, func(a, b Judgment) int {
+	data.Adjudications = []annotation.Adjudication{}
+	data.Judgments = slices.DeleteFunc(data.Judgments, func(j annotation.Judgment) bool {
+		return j.UnitID != "u000001" || j.ActorID == "a003"
+	})
+	slices.SortFunc(data.Judgments, func(a, b annotation.Judgment) int {
 		return strings.Compare(a.ActorID, b.ActorID)
 	})
 	for i := range data.Judgments {
@@ -78,8 +82,8 @@ func decisionFixture(c *qt.C) roundData {
 	return data
 }
 
-func decisionAdjudication(r *roundData, label string) Adjudication {
-	return Adjudication{PacketSHA256: r.Judgments[0].PacketSHA256, UnitID: "u000001", Reviewers: []string{"a001", "a002"},
+func decisionAdjudication(r *roundInput, label string) annotation.Adjudication {
+	return annotation.Adjudication{PacketSHA256: r.Judgments[0].PacketSHA256, UnitID: "u000001", Reviewers: []string{"a001", "a002"},
 		Label: label, Categories: []string{}, Rationale: "Scripted final selection for this test.", RecordedAt: "2026-09-09T12:00:00Z"}
 }
 
@@ -90,7 +94,7 @@ func TestAuxiliaryResponsesDoNotSupplyPrimaryDecisions(t *testing.T) {
 	auxiliary := data.Judgments[0]
 	auxiliary.ActorID = "a003"
 	data.Judgments = append(data.Judgments, auxiliary)
-	round, err := Load(t.Context(), encode(c, data))
+	round, err := annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.IsNil)
 	result, err := round.Decisions(t.Context())
 	c.Assert(err, qt.IsNil)

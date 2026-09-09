@@ -1,5 +1,8 @@
 package training
 
+// White-box tests: Corrupt intermediate feature identities and inspect excluded training rows;
+// Run computes its own join and exposes neither row selection nor malformed resolved decisions.
+
 import (
 	"testing"
 
@@ -8,19 +11,20 @@ import (
 	"github.com/stokaro/unswell"
 	"github.com/stokaro/unswell/research/annotation"
 	"github.com/stokaro/unswell/research/annotation/corpus"
+	"github.com/stokaro/unswell/research/annotation/internal/testfixture"
 )
 
 func TestCalibrationRequiresTrainingRightsOnlyWhenFitted(t *testing.T) {
 	c := qt.New(t)
-	input := fixtureInput(t)
-	input.manifest.Sources[2].Rights.AllowedUses = []string{"annotation", "evaluation"}
-	candidates, round := input.compile(t)
-	result, err := Run(t.Context(), candidates, round, input.files, fittingOptions())
+	input := testfixture.Load(t, "testdata")
+	input.Manifest.Sources[2].Rights.AllowedUses = []string{"annotation", "evaluation"}
+	candidates, round := input.Compile(t)
+	result, err := Run(t.Context(), candidates, round, input.Files, fittingOptions())
 	c.Assert(err, qt.ErrorMatches, ".*training permission.*")
 	c.Assert(result, qt.DeepEquals, Artifact{})
 	options := fittingOptions()
 	options.Calibration = "none"
-	result, err = Run(t.Context(), candidates, round, input.files, options)
+	result, err = Run(t.Context(), candidates, round, input.Files, options)
 	c.Assert(err, qt.IsNil)
 	c.Assert(result.Calibration, qt.IsNil)
 	c.Assert(result.Partitions[2].Excluded["reserved_partition"], qt.Equals, 4)
@@ -41,10 +45,10 @@ func TestSelectionRejectsRepresentationChanges(t *testing.T) {
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
-			input := fixtureInput(t)
-			candidates, round := input.compile(t)
+			input := testfixture.Load(t, "testdata")
+			candidates, round := input.Compile(t)
 			options := fittingOptions()
-			joined, err := corpus.Join(t.Context(), candidates, round, input.files, options.Features)
+			joined, err := corpus.Join(t.Context(), candidates, round, input.Files, options.Features)
 			c.Assert(err, qt.IsNil)
 			row.edit(&joined.Features.Sources[1])
 			_, err = selectRows(t.Context(), candidates.Plan, joined, options)
@@ -55,10 +59,10 @@ func TestSelectionRejectsRepresentationChanges(t *testing.T) {
 
 func TestUnresolvedDecisionsDoNotBecomeNegativeRows(t *testing.T) {
 	c := qt.New(t)
-	input := fixtureInput(t)
-	candidates, round := input.compile(t)
+	input := testfixture.Load(t, "testdata")
+	candidates, round := input.Compile(t)
 	options := fittingOptions()
-	joined, err := corpus.Join(t.Context(), candidates, round, input.files, options.Features)
+	joined, err := corpus.Join(t.Context(), candidates, round, input.Files, options.Features)
 	c.Assert(err, qt.IsNil)
 	for i := range joined.Decisions.Units {
 		decision := &joined.Decisions.Units[i]
@@ -73,4 +77,9 @@ func TestUnresolvedDecisionsDoNotBecomeNegativeRows(t *testing.T) {
 	c.Assert(selected.partitions[0].Excluded["decision/uncertain"], qt.Equals, 1)
 	_, err = binaryLabel(annotation.EditorialDecision{Status: "resolved"})
 	c.Assert(err, qt.IsNotNil)
+}
+
+func fittingOptions() Options {
+	return Options{Kind: "paragraph", Features: []string{"prose-words"}, MissingFeatures: "reject", Calibration: "isotonic",
+		AllowSimulation: true, Fit: Fit{L2: 1, Tolerance: 1e-8, MaxIterations: 100, MaxOperations: 10_000_000}}
 }

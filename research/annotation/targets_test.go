@@ -1,4 +1,4 @@
-package annotation
+package annotation_test
 
 import (
 	"context"
@@ -6,40 +6,42 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
+
+	"github.com/stokaro/unswell/research/annotation"
 )
 
 func TestMatchTargetsRejectsChangedBindings(t *testing.T) {
 	for _, row := range []struct {
 		name string
-		edit func(*Unit)
+		edit func(*annotation.Unit)
 	}{
-		{"id", func(u *Unit) { u.ID = "other" }},
-		{"text", func(u *Unit) { u.Text += "." }},
-		{"context", func(u *Unit) { u.Context += "." }},
-		{"kind", func(u *Unit) { u.Kind = "fragment" }},
-		{"role", func(u *Unit) { u.Role = "error_message" }},
-		{"document", func(u *Unit) { u.Source.DocumentID += "-other" }},
-		{"repository", func(u *Unit) { u.Source.RepositoryID += "-other" }},
-		{"author", func(u *Unit) { u.Source.AuthorGroup += "-other" }},
-		{"template", func(u *Unit) { u.Source.TemplateID += "-other" }},
-		{"group", func(u *Unit) { u.Source.RelatedGroup += "-other" }},
-		{"reference", func(u *Unit) { u.Source.Reference += "-other" }},
-		{"source hash", func(u *Unit) { u.Source.SHA256 = "changed" }},
-		{"source size", func(u *Unit) { u.Source.Bytes++ }},
-		{"source format", func(u *Unit) { u.Source.Language = "go" }},
-		{"prose language", func(u *Unit) { u.Source.ProseLanguage = "ru" }},
-		{"segments", func(u *Unit) { u.Source.Segments[0].End-- }},
-		{"extraction", func(u *Unit) { u.Extraction.Identity += "-other" }},
-		{"policy", func(u *Unit) { u.Extraction.PolicySHA256 = "changed" }},
-		{"context policy", func(u *Unit) { u.Extraction.ContextPolicy += "-other" }},
-		{"license", func(u *Unit) { u.Rights.License = "changed" }},
-		{"rights evidence", func(u *Unit) { u.Rights.Evidence += "-other" }},
-		{"allowed uses", func(u *Unit) { u.Rights.AllowedUses = []string{"annotation"} }},
+		{"id", func(u *annotation.Unit) { u.ID = "other" }},
+		{"text", func(u *annotation.Unit) { u.Text += "." }},
+		{"context", func(u *annotation.Unit) { u.Context += "." }},
+		{"kind", func(u *annotation.Unit) { u.Kind = "fragment" }},
+		{"role", func(u *annotation.Unit) { u.Role = "error_message" }},
+		{"document", func(u *annotation.Unit) { u.Source.DocumentID += "-other" }},
+		{"repository", func(u *annotation.Unit) { u.Source.RepositoryID += "-other" }},
+		{"author", func(u *annotation.Unit) { u.Source.AuthorGroup += "-other" }},
+		{"template", func(u *annotation.Unit) { u.Source.TemplateID += "-other" }},
+		{"group", func(u *annotation.Unit) { u.Source.RelatedGroup += "-other" }},
+		{"reference", func(u *annotation.Unit) { u.Source.Reference += "-other" }},
+		{"source hash", func(u *annotation.Unit) { u.Source.SHA256 = "changed" }},
+		{"source size", func(u *annotation.Unit) { u.Source.Bytes++ }},
+		{"source format", func(u *annotation.Unit) { u.Source.Language = "go" }},
+		{"prose language", func(u *annotation.Unit) { u.Source.ProseLanguage = "ru" }},
+		{"segments", func(u *annotation.Unit) { u.Source.Segments[0].End-- }},
+		{"extraction", func(u *annotation.Unit) { u.Extraction.Identity += "-other" }},
+		{"policy", func(u *annotation.Unit) { u.Extraction.PolicySHA256 = "changed" }},
+		{"context policy", func(u *annotation.Unit) { u.Extraction.ContextPolicy += "-other" }},
+		{"license", func(u *annotation.Unit) { u.Rights.License = "changed" }},
+		{"rights evidence", func(u *annotation.Unit) { u.Rights.Evidence += "-other" }},
+		{"allowed uses", func(u *annotation.Unit) { u.Rights.AllowedUses = []string{"annotation"} }},
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
 			data := fixture(c)
-			round, err := Load(t.Context(), encode(c, data))
+			round, err := annotation.Load(t.Context(), encode(c, data))
 			c.Assert(err, qt.IsNil)
 			c.Assert(round.MatchTargets(t.Context(), data.Units), qt.IsNil)
 			row.edit(&data.Units[0])
@@ -51,21 +53,21 @@ func TestMatchTargetsRejectsChangedBindings(t *testing.T) {
 func TestMatchTargetsOriginSetsAndLimits(t *testing.T) {
 	c := qt.New(t)
 	data := fixture(c)
-	round, err := Load(t.Context(), encode(c, data))
+	round, err := annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.IsNil)
-	data.Units[0].Origin = Origin{Label: "unknown", Scope: "unit", Evidence: "Independent curation."}
+	data.Units[0].Origin = annotation.Origin{Label: "unknown", Scope: "unit", Evidence: "Independent curation."}
 	slices.Reverse(data.Units[0].Rights.AllowedUses)
 	slices.Reverse(data.Units)
 	c.Assert(round.MatchTargets(t.Context(), data.Units), qt.IsNil)
 	c.Assert(round.MatchTargets(t.Context(), nil), qt.IsNotNil)
-	c.Assert(round.MatchTargets(t.Context(), make([]Unit, 10001)), qt.IsNotNil)
+	c.Assert(round.MatchTargets(t.Context(), make([]annotation.Unit, 10001)), qt.IsNotNil)
 	duplicate := append(slices.Clone(data.Units), data.Units[0])
 	c.Assert(round.MatchTargets(t.Context(), duplicate), qt.ErrorMatches, ".*unique.*")
 	data.Units[0].ID = ""
 	c.Assert(round.MatchTargets(t.Context(), data.Units), qt.ErrorMatches, ".*nonempty.*")
-	var absent *Round
+	var absent *annotation.Round
 	c.Assert(absent.MatchTargets(t.Context(), data.Units), qt.IsNotNil)
-	c.Assert((&Round{}).MatchTargets(t.Context(), data.Units), qt.IsNotNil)
+	c.Assert((&annotation.Round{}).MatchTargets(t.Context(), data.Units), qt.IsNotNil)
 	ctx, cancel := context.WithCancel(t.Context())
 	cancel()
 	c.Assert(round.MatchTargets(ctx, data.Units), qt.ErrorIs, context.Canceled)

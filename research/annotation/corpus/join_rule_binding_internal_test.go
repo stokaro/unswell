@@ -1,5 +1,8 @@
 package corpus
 
+// White-box tests: Inject ambiguous rule bindings and change each component of their identity;
+// JoinRules computes its own feature collection instead of accepting these intermediate states.
+
 import (
 	"testing"
 

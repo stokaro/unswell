@@ -1,5 +1,8 @@
 package corpus
 
+// White-box tests: Inject mismatched prepared targets between extraction and candidate binding;
+// Join constructs its own measurements and cannot accept these corrupted intermediate collections.
+
 import (
 	"context"
 	"testing"

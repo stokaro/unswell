@@ -1,9 +1,11 @@
-package annotation
+package annotation_test
 
 import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
+
+	"github.com/stokaro/unswell/research/annotation"
 )
 
 func TestParticipationDeclarationsNeverQualifyCorpus(t *testing.T) {
@@ -16,12 +18,17 @@ func TestParticipationDeclarationsNeverQualifyCorpus(t *testing.T) {
 			data.Actors[i].Kind = "human"
 		}
 	}
-	packet, err := data.packetView(t.Context())
+	unrated := data
+	unrated.Judgments = []annotation.Judgment{}
+	unrated.Adjudications = []annotation.Adjudication{}
+	pending, err := annotation.Load(t.Context(), encode(c, unrated))
+	c.Assert(err, qt.IsNil)
+	packet, err := pending.Packet(t.Context())
 	c.Assert(err, qt.IsNil)
 	for i := range data.Judgments {
 		data.Judgments[i].PacketSHA256 = packet.SHA256
 	}
-	round, err := Load(t.Context(), encode(c, data))
+	round, err := annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.IsNil)
 	result, err := round.Decisions(t.Context())
 	c.Assert(err, qt.IsNil)
