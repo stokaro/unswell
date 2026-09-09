@@ -68,9 +68,12 @@ func syntaxLanguage(name string) (*ts.Language, error) {
 	if name == "bash" || name == "sh" || name == "zsh" {
 		return bashSyntaxLanguage()
 	}
+	if name == "markdown" {
+		return markdownSyntaxLanguage()
+	}
 	loaders := map[string]func() *ts.Language{
-		"markdown": grammars.MarkdownLanguage, "markdown_inline": grammars.MarkdownInlineLanguage,
-		"go": grammars.GoLanguage, "javascript": grammars.JavascriptLanguage,
+		"markdown_inline": grammars.MarkdownInlineLanguage,
+		"go":              grammars.GoLanguage, "javascript": grammars.JavascriptLanguage,
 		"typescript": grammars.TypescriptLanguage, "tsx": grammars.TsxLanguage,
 		"python": grammars.PythonLanguage, "rust": grammars.RustLanguage,
 		"java": grammars.JavaLanguage, "c": grammars.CLanguage, "cpp": grammars.CppLanguage,
