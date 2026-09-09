@@ -12,11 +12,12 @@ import (
 )
 
 func preparePieces(ctx context.Context, block document.Block, provider Provider, options UnitOptions) ([]PreparedUnit, error) {
-	result := []PreparedUnit{}
-	kind := "fragment"
-	if !strings.ContainsRune(block.Text, 0) && slices.Contains([]string{"paragraph", "comment"}, block.Kind) {
-		kind = "paragraph"
+	binding, err := bindUnitBlock(block)
+	if err != nil {
+		return nil, err
 	}
+	result := []PreparedUnit{}
+	kind := enclosingUnitKind(block)
 	start, tokens := 0, 0
 	for part := range strings.SplitSeq(block.Text, "\x00") {
 		if err := ctx.Err(); err != nil {
@@ -26,7 +27,7 @@ func preparePieces(ctx context.Context, block document.Block, provider Provider,
 		text := strings.TrimSpace(part)
 		if text != "" {
 			piece := document.MappedText{Text: text, Map: block.Map[start+left : start+left+len(text)]}
-			units, visits, err := preparePiece(ctx, block, piece, kind, provider, options)
+			units, visits, err := preparePiece(ctx, block, piece, kind, provider, options, binding)
 			if err != nil {
 				return nil, err
 			}
@@ -45,7 +46,7 @@ func preparePieces(ctx context.Context, block document.Block, provider Provider,
 }
 
 func preparePiece(ctx context.Context, block document.Block, piece document.MappedText, kind string,
-	provider Provider, options UnitOptions,
+	provider Provider, options UnitOptions, binding UnitBinding,
 ) ([]PreparedUnit, int, error) {
 	if len(piece.Text) > options.Limits.MaxContextBytes {
 		return nil, 0, fmt.Errorf("eligible context exceeds %d bytes", options.Limits.MaxContextBytes)
@@ -59,17 +60,15 @@ func preparePiece(ctx context.Context, block document.Block, piece document.Mapp
 	if err != nil {
 		return nil, 0, err
 	}
-	units, err := selectPieceUnits(ctx, block, piece, kind, sentences, options)
+	units, err := selectPieceUnits(ctx, block, piece, kind, sentences, options, binding)
 	return units, visits, err
 }
 
 func selectPieceUnits(ctx context.Context, block document.Block, piece document.MappedText, kind string,
-	sentences []document.Sentence, options UnitOptions,
+	sentences []document.Sentence, options UnitOptions, binding UnitBinding,
 ) ([]PreparedUnit, error) {
-	binding, err := bindUnitContext(block, piece)
-	if err != nil {
-		return nil, err
-	}
+	binding.ContextSHA256 = fmt.Sprintf("%x", sha256.Sum256([]byte(piece.Text)))
+	binding.ContextSpans = piece.Spans(0, len(piece.Text))
 	if len(binding.ContextSpans) < 1 || len(binding.ContextSpans) > options.Limits.MaxSegments {
 		return nil, fmt.Errorf("eligible context exceeds source segment limit")
 	}
@@ -113,4 +112,11 @@ func makeUnit(parent document.Block, context document.MappedText, kind string, s
 
 func selectSentenceUnit(kind string, kinds []string, words int) bool {
 	return kind == "paragraph" && slices.Contains(kinds, "sentence") && words > 0
+}
+
+func enclosingUnitKind(block document.Block) string {
+	if !strings.ContainsRune(block.Text, 0) && slices.Contains([]string{"paragraph", "comment"}, block.Kind) {
+		return "paragraph"
+	}
+	return "fragment"
 }

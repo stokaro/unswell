@@ -49,6 +49,9 @@ func MeasureUnit(ctx context.Context, unit nlp.PreparedUnit, identity Identity, 
 	if err := validateInputs(ctx, block, identity, limits); err != nil {
 		return Measurements{}, err
 	}
+	// The binding already hashes grammar labels once per original block.
+	// Hashing the labels again for every target would repeat their byte cost.
+	block.Context = nil
 	base, err := unitHash(block, identity)
 	if err != nil {
 		return Measurements{}, err

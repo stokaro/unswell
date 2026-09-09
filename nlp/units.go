@@ -104,15 +104,13 @@ func PrepareUnits(ctx context.Context, block document.Block, provider Provider, 
 	return units, nil
 }
 
-func bindUnitContext(block document.Block, context document.MappedText) (UnitBinding, error) {
+func bindUnitBlock(block document.Block) (UnitBinding, error) {
 	grammar, err := json.Marshal(block.Context)
 	if err != nil {
 		return UnitBinding{}, err
 	}
 	return UnitBinding{Contract: UnitContract, BlockID: block.ID, BlockKind: block.Kind,
-		ContextSHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(context.Text))),
-		GrammarSHA256: fmt.Sprintf("%x", sha256.Sum256(grammar)),
-		ContextSpans:  context.Spans(0, len(context.Text))}, nil
+		GrammarSHA256: fmt.Sprintf("%x", sha256.Sum256(grammar))}, nil
 }
 
 func cloneUnitBlock(block document.Block) document.Block {
