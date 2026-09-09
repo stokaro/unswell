@@ -33,7 +33,7 @@ type repetitionSentence struct {
 	ordinal  int
 }
 
-func repetitionSentences(view rule.View) []repetitionSentence {
+func repetitionSentences(view rule.View, observations *candidateObservations) []repetitionSentence {
 	var result []repetitionSentence
 	ordinal := 0
 	for _, block := range view.Document.Blocks {
@@ -41,8 +41,12 @@ func repetitionSentences(view rule.View) []repetitionSentence {
 			continue
 		}
 		for _, sentence := range block.Sentences {
-			if sentence.Words >= view.Parameters.MinWords && !protectedSentence(sentence) {
-				result = append(result, repetitionSentence{sentence, ordinal})
+			observations.advance(block.ID, candidateInsufficientWords)
+			if sentence.Words >= view.Parameters.MinWords {
+				observations.advance(block.ID, candidateNoTokens)
+				if !protectedSentence(sentence) {
+					result = append(result, repetitionSentence{sentence, ordinal})
+				}
 			}
 			ordinal++
 		}

@@ -144,6 +144,7 @@ func surfaceFormatRules() []rule.Rule {
 		rule.Example{Text: "Follow these steps.\n\n1. Open the connection\n2. Send the request\n3. Check the response",
 			Format: document.Markdown})
 	list.Contexts, list.RequiresStructure = []string{"heading", "paragraph", "list-item"}, true
+	list.BlockObservations = true
 	list.Requires = append(list.Requires, nlp.POS)
 	list.Defaults.Parameters = rule.Parameters{WindowBlocks: 32, MaxItemWords: 10, MaxListItems: 3,
 		AllowedOccurrences: 2, SaturationOccurrences: 5}

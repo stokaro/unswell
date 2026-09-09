@@ -76,7 +76,11 @@ dogfood-mcp: dogfood build-mcp
 	  --feature activation/syntax.triad-density --feature activation/syntax.whether-preface-density \
 	  --feature activation/syntax.rhetorical-question-density --feature activation/syntax.passive-candidate-density \
 	  --feature activation/repetition.exact-sentence --feature activation/repetition.sentence-openers \
-	  --feature activation/repetition.paragraph-openers
+	  --feature activation/repetition.paragraph-openers \
+	  --feature activation/repetition.near-sentence --feature activation/repetition.ngram-density \
+	  --feature activation/repetition.syntax-template --feature activation/repetition.paragraph-overlap \
+	  --feature activation/repetition.heading-echo --feature activation/repetition.summary-echo \
+	  --feature activation/format.list-fragmentation
 
 release:
 	bash scripts/release.sh

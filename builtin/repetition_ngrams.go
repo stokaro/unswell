@@ -25,17 +25,19 @@ type ngramGroup struct {
 type ngramPosition struct{ sentence, token int }
 
 type ngramAnalysis struct {
-	view       rule.View
-	budget     repetitionBudget
-	groups     map[string]*ngramGroup
-	covered    map[ngramPosition]int
-	wordPrefix []int
+	view         rule.View
+	budget       repetitionBudget
+	groups       map[string]*ngramGroup
+	covered      map[ngramPosition]int
+	wordPrefix   []int
+	observations *candidateObservations
 }
 
 func ngramDensity(ctx context.Context, view rule.View, emit rule.Emitter) error {
 	a := ngramAnalysis{view: view, budget: repetitionBudget{ctx, view.MaxCandidates},
 		groups: make(map[string]*ngramGroup), covered: make(map[ngramPosition]int), wordPrefix: proseWordPrefix(view.Document)}
-	for _, item := range repetitionSentences(view) {
+	a.observations = newCandidateObservations(view, proseBlock)
+	for _, item := range repetitionSentences(view, a.observations) {
 		if err := a.addSentence(item); err != nil {
 			return err
 		}
@@ -55,7 +57,7 @@ func ngramDensity(ctx context.Context, view rule.View, emit rule.Emitter) error 
 			return err
 		}
 	}
-	return ctx.Err()
+	return a.observations.finish(ctx, view)
 }
 
 func proseWordPrefix(doc *document.Document) []int {
@@ -83,6 +85,7 @@ func (a *ngramAnalysis) addSentence(item repetitionSentence) error {
 		MaxVisits: a.budget.remaining,
 	}, sequenceLimits(sentence), func(candidate feature.Ngram) error {
 		if !a.view.Exempts(sentence, candidate.Start, candidate.End) {
+			a.observations.advance(sentence.BlockID, candidateEvaluated)
 			a.add(candidate.Key+"\x00"+signature, candidate.End-candidate.Start,
 				ngramOccurrence{sentence, item.ordinal, candidate.Start, candidate.End})
 		}

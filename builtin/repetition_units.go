@@ -18,7 +18,8 @@ type lexicalUnit struct {
 	summary   bool
 }
 
-func makeLexicalUnit(view rule.View, block document.Block, ordinal int, budget *repetitionBudget) (lexicalUnit, bool, error) {
+func makeLexicalUnit(view rule.View, block document.Block, ordinal int, budget *repetitionBudget,
+	observations *candidateObservations) (lexicalUnit, bool, error) {
 	unit := lexicalUnit{block: block, ordinal: ordinal}
 	var signatures []string
 	var words []string
@@ -27,6 +28,7 @@ func makeLexicalUnit(view rule.View, block document.Block, ordinal int, budget *
 			return unit, false, err
 		}
 		if protectedSentence(sentence) {
+			observations.advance(block.ID, candidateNoTokens)
 			return unit, false, nil
 		}
 		words = proseWords(view, sentence, words)
@@ -41,10 +43,13 @@ func makeLexicalUnit(view rule.View, block document.Block, ordinal int, budget *
 	}
 	unit.keys = unit.words.ContentKeys()
 	unit.signature = strings.Join(signatures, "|")
-	return unit, len(words) >= view.Parameters.MinWords && len(unit.keys) >= 2, nil
+	enoughWords := len(words) >= view.Parameters.MinWords
+	ok := enoughWords && len(unit.keys) >= 2
+	observations.lexicalCandidate(block.ID, enoughWords, ok)
+	return unit, ok, nil
 }
 
-func overlapUnits(view rule.View, summaries bool, budget *repetitionBudget) ([]lexicalUnit, error) {
+func overlapUnits(view rule.View, summaries bool, budget *repetitionBudget, observations *candidateObservations) ([]lexicalUnit, error) {
 	var units []lexicalUnit
 	var scope []string
 	ordinal := 0
@@ -58,7 +63,7 @@ func overlapUnits(view rule.View, summaries bool, budget *repetitionBudget) ([]l
 		if len(scope) > 0 && !withinSection(block.Context, scope) {
 			scope = nil
 		}
-		unit, ok, err := makeLexicalUnit(view, block, ordinal, budget)
+		unit, ok, err := makeLexicalUnit(view, block, ordinal, budget, observations)
 		if err != nil {
 			return nil, err
 		}

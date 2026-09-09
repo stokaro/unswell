@@ -71,6 +71,7 @@ type shortList struct {
 }
 
 func listFragmentation(ctx context.Context, view rule.View, emit rule.Emitter) error {
+	observations := newListObservations(view)
 	m := newEditorialMatcher(ctx, view)
 	groups, err := shortLists(m)
 	if err != nil {
@@ -79,7 +80,15 @@ func listFragmentation(ctx context.Context, view rule.View, emit rule.Emitter) e
 	groups = slices.DeleteFunc(groups, func(group shortList) bool {
 		return !group.eligible || len(group.blocks) != group.context.Items
 	})
-	return emitShortLists(m, groups, emit)
+	if observations != nil {
+		for _, group := range groups {
+			observations.listGroup(group, candidatePrepared)
+		}
+	}
+	if err := emitShortLists(m, groups, emit, observations); err != nil {
+		return err
+	}
+	return observations.finish(ctx, view)
 }
 
 func shortLists(m *editorialMatcher) ([]shortList, error) {
@@ -191,7 +200,7 @@ func proceduralOpening(word string) bool {
 		"run", "save", "select", "set", "start", "stop", "type", "use", "verify", "wait"}, word)
 }
 
-func emitShortLists(m *editorialMatcher, groups []shortList, emit rule.Emitter) error {
+func emitShortLists(m *editorialMatcher, groups []shortList, emit rule.Emitter, observations *candidateObservations) error {
 	p := m.view.Parameters
 	for start := 0; start < len(groups); {
 		if err := m.spend(); err != nil {
@@ -199,6 +208,7 @@ func emitShortLists(m *editorialMatcher, groups []shortList, emit rule.Emitter) 
 		}
 		end := start
 		for end < len(groups) && groups[end].section == groups[start].section && groups[end].last-groups[start].first < p.WindowBlocks {
+			observations.listGroup(groups[end], candidateEvaluated)
 			end++
 		}
 		if end-start <= p.AllowedOccurrences {

@@ -324,13 +324,53 @@ calculation retains the provider's `Word` flags; protected code words are omitte
 while other words in the same sentence remain eligible. This differs from exact
 repetition's rejection of the whole protected sentence.
 
-Near-repetition, extended repetition, and list rules still need complete
-observations before their silent blocks can supply dense negative inputs for training. The complete #56 work and
-model qualification remain open. See [ADR 0018](adr/0018-rule-activation-features.md).
+The remaining seven builtin rules record their actual candidate comparisons:
+
+| Rule | Eligible input |
+| --- | --- |
+| `repetition.near-sentence` | Two prepared sentences reached by the existing shared-bigram index. All extracted block kinds retain their scope. |
+| `repetition.paragraph-overlap` | Prepared prose blocks of the same kind reached by the content-key index within `window_blocks`. |
+| `repetition.summary-echo` | An indexed comparison from an earlier nonsummary block to a later block under a selected summary heading. |
+| `repetition.heading-echo` | A selected heading and its adjacent paragraph, both meeting the lexical requirements without an excluded boundary between them. |
+| `repetition.ngram-density` | A nonexempt n-gram accepted by the existing scanner in a supported sentence meeting `min_words`. |
+| `repetition.syntax-template` | A nonempty key from the existing POS-template computation in a supported sentence meeting `min_words`. |
+| `format.list-fragmentation` | An item in a complete, eligible short unordered list that fits an inspected `window_blocks` window. |
+
+For pair rules, preparing one unit is insufficient to supply a numeric zero. No
+indexed partner, an expired comparison window, an excluded heading, or a missing
+summary scope leaves `inapplicable/no_eligible_pair`. An actual candidate rejected
+by the technical-contrast signature is evaluated with zero; different obligations
+such as `may retry` and `must retry` retain their protection. Near repetition also
+evaluates exact-copy candidates without emitting a near-match finding.
+
+N-gram and template keys supply evaluated zeros below the occurrence threshold,
+including singleton keys. Template groups still require distinct lexical
+realizations to produce evidence. These grouping rules differ from pair rules:
+counting an accepted key is itself their comparison opportunity.
+
+List observations apply only to extracted list items. Ordered, task, procedural,
+reference, protected, or incomplete lists yield `inapplicable/no_eligible_list`.
+A complete eligible list that cannot fit its configured window yields
+`inapplicable/no_eligible_window`. Allowed list counts yield zero. A code-only item
+omitted by extraction has no feature unit; any surviving items still have to meet
+the existing complete-list requirement.
+
+Each rule retains its own sentence/block minimum, term exemptions, token checks,
+and source boundaries. Unsupported units, empty sentences, insufficient words,
+and rejected token/key candidates retain explicit absence reasons. A later
+ineligible sentence cannot erase an earlier evaluated comparison in the same
+block. Observations add no new candidate comparisons and do not change evidence,
+scoring, or finding versions.
+
+All 40 currently implemented builtins declare complete block observations.
+External rules without observations still use `applicability_unknown`. This
+completes applicability accounting for the current catalog; the broader shared
+feature work in #56 and model qualification remain open. See
+[ADR 0018](adr/0018-rule-activation-features.md).
 
 The number of blocks times requested values must fit `analysis.max_candidates`
 for each source. Exceeding this output bound is an operational error; values are
 not sampled or silently dropped. Repository CLI/MCP self-checks collect readability,
 phrase, section-announcement, stacked-hedging, noun-stack, and all six window
-activations, plus exact-repetition and opener activations, alongside word counts
-and lexical diversity.
+activations, exact-repetition and opener activations, and these seven candidate
+activations, alongside word counts and lexical diversity.

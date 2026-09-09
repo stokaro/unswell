@@ -57,9 +57,9 @@ readable with their original contract.
 Instrument the existing readability computations first: unsupported block kinds,
 empty prose, and the ARI minimum word/sentence requirements must produce explicit
 absence reasons; a measured value below the configured onset produces zero.
-Other rule families require their own applicability accounting before their
-negative observations can serve as dense training inputs. This remaining work is
-part of #56 and cannot be replaced by assuming every silent rule was applicable.
+Each rule family needs its own applicability accounting before its negative
+observations can serve as dense training inputs. The following increments add
+that accounting without assuming every silent rule was applicable.
 
 The phrase catalog records applicability at its existing matching loop. A block
 is evaluated when at least one configured phrase has a candidate window of the
@@ -96,8 +96,8 @@ requested, stopping after the first eligible token in each sentence.
 Keep each rule's existing traversal, resource accounting, evidence, and finding
 version. The new observation declaration changes the catalog hash. Empty
 candidate scopes cannot become negative training examples merely because an
-emitter was silent. Windowed rhetoric, repetition, and list rules require their
-own accounting and remain outside this local increment.
+emitter was silent. Windowed rhetoric, repetition, and list rules use the
+separate accounting described below.
 
 The three windowed phrase rules also declare full observations: section
 announcements, empty transitions, and metaphor clusters. They reuse the existing
@@ -115,8 +115,7 @@ Optional eligibility checks use sorted unique pattern lengths and stop after a
 block has supplied a candidate. Observation state belongs to one evaluation and
 is bounded by the existing block and phrase limits. Matching, candidate charges,
 window grouping, source boundaries, and finding versions remain unchanged. No
-observer means no eligibility scans or observation map. Later increments supply
-the observations for the remaining rules.
+observer means no eligibility scans or observation map.
 
 Vague-praise and absolute-claim observations use the same phrase eligibility
 accounting after the existing question/qualification screen. A block without an
@@ -157,7 +156,7 @@ contract documents each candidate scope and absence reason.
 Observation state is local to each invocation and is allocated only when
 requested. No second NLP pass, extraction path, or scoring calculation is added.
 The six descriptor declarations change the catalog hash without changing finding
-versions. Repetition and list observations remain open work under #56.
+versions.
 
 Exact-sentence and sentence/paragraph-opener rules now report whether their
 existing grouping loop accepted a key. The exact rule visits blocks in the same
@@ -173,7 +172,42 @@ explicit absence reasons. Unsupported opener block kinds remain absent. Scalar
 state is local to each block and adds no observation map or second NLP pass.
 Observer errors and cancellation propagate before grouped evidence is emitted.
 Only the three descriptor declarations change catalog identity; finding versions
-stay unchanged. Near/extended repetition and list observations remain open.
+stay unchanged.
+
+Near-sentence, heading, paragraph-overlap, and summary-echo rules report evaluated
+blocks only after their existing traversal reaches a prepared candidate pair.
+Preparing one sentence or block does not establish that a pair was compared.
+The indexed rules retain their bigram/content-key candidates and window limits;
+heading echo retains adjacency and source-gap checks. Summary echo additionally
+requires an earlier nonsummary source and a later selected summary scope. No
+eligible partner means an absent value. A pair rejected by the existing technical
+signature supplies an evaluated zero, preserving modal, condition, number/unit,
+and identifier distinctions. No second all-pairs comparison is added.
+
+N-gram and syntax-template rules instead record acceptance of a grouping key in
+their existing scanner/template loops. A singleton or an allowed group supplies
+zero. Template groups retain the requirement for different lexical realizations
+before emitting evidence. Protected sentences, sentence minima, term exemptions,
+and POS/key eligibility remain unchanged.
+
+List fragmentation observes complete, eligible lists after the existing short-list
+screen, then records which groups fit an actual inspection window. Only list items
+are supported feature units. Rejected/incomplete lists and lists that cannot fit
+the window have distinct absence reasons. Counting an allowed list supplies zero.
+Excluded items do not return as synthetic feature units, and their exclusion does
+not waive the complete-list requirement for surviving items.
+
+Optional state records the furthest candidate stage per block. A later rejected
+sentence cannot overwrite an earlier evaluation. The map starts empty and is
+allocated only for requested observations. Final observations follow original
+block order and propagate cancellation and observer errors. A failure discards
+that rule's partial values through the existing engine contract. These seven
+descriptor declarations change catalog identity without changing finding
+versions, candidate budgets, matching, evidence, or gate policy.
+
+All 40 currently implemented builtin rules now declare complete observations.
+Uninstrumented external rules retain `applicability_unknown`. Shared feature/model
+qualification in #56 remains separate from this catalog coverage.
 
 Acceptance includes positive and zero activations, each absence state, disabled
 rules, uninstrumented external rules, ignored observer errors, partial failures,

@@ -222,6 +222,13 @@ exercise original coordinates in JSON and SARIF.
 `noun_ambiguity` preserves the reported package and method comments as negative
 cases in Go and Markdown, alongside genuine stacks with singular and plural heads.
 
+`candidate_activations` covers the seven near/extended repetition and list rules.
+Annotated clusters and feature goldens distinguish evaluated zeros from missing
+pairs, protected candidates, excluded boundaries, and reference lists. Markdown
+headings, summaries, lists, and emphasis retain original coordinates; Go comments
+and escaped strings cover the same engine with BOM/CRLF. Collection must preserve
+ordinary findings and gate outcomes.
+
 `near_contrasts` checks modal, condition, state, and number-unit differences against
 positive near-match clusters. It includes the reported `may retry`/`must retry`
 pair, a contrasting sentence beside a valid cluster, Go comments and escaped
