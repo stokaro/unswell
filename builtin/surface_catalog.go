@@ -58,7 +58,7 @@ func surfaceSyntaxRules() []rule.Rule {
 	passive := passiveDescriptor()
 	insertion := insertionDescriptor()
 	return []rule.Rule{check{nominal, nominalizationChains}, check{noun, nounStacks},
-		check{passive, editorialWindow(passiveEvents, "passive-candidate-sentences")}, check{insertion, parentheticalLoad}}
+		check{passive, editorialWindow(passiveEvents, "passive-candidate-sentences", false)}, check{insertion, parentheticalLoad}}
 }
 
 func passiveDescriptor() rule.Descriptor {
@@ -68,6 +68,7 @@ func passiveDescriptor() rule.Descriptor {
 		rule.Example{Text: "The request is carefully validated by the server before execution. " +
 			"The response is securely recorded by the client after completion.", Match: true},
 		rule.Example{Text: "The request must be validated before execution. The client is ready for the next request."})
+	d.BlockObservations = true
 	d.Requires = append(d.Requires, nlp.POS)
 	d.Defaults.Parameters = rule.Parameters{MinWords: 8, WindowSentences: 8, AllowedOccurrences: 1, SaturationOccurrences: 4}
 	d.Parameters = []string{"min_words", "window_sentences", "allowed_occurrences", "saturation_occurrences"}

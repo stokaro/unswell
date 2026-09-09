@@ -9,24 +9,43 @@ import (
 	"github.com/stokaro/unswell/rule"
 )
 
-func (m *editorialMatcher) prefixTokens(sentence document.Sentence, phrases ...string) int {
+type editorialPrefix struct {
+	length   int
+	eligible bool
+}
+
+func (m *editorialMatcher) fixedPattern(phrase string) []string {
+	parts, ok := m.fixed[phrase]
+	if !ok {
+		parts = phraseTokens(phrase)
+		m.fixed[phrase] = parts
+	}
+	return parts
+}
+
+func (m *editorialMatcher) prefixTokens(sentence document.Sentence, phrases ...string) editorialPrefix {
+	result := editorialPrefix{}
 	for _, phrase := range phrases {
-		parts, ok := m.fixed[phrase]
-		if !ok {
-			parts = phraseTokens(phrase)
-			m.fixed[phrase] = parts
+		parts := m.fixedPattern(phrase)
+		if len(parts) > len(sentence.Tokens) {
+			continue
 		}
-		if len(parts) <= len(sentence.Tokens) && matches(sentence.Tokens[:len(parts)], parts) {
-			return len(parts)
+		if m.windowObservations != nil && !m.view.Exempts(sentence, 0, len(parts)) {
+			result.eligible = true
+		}
+		if matches(sentence.Tokens[:len(parts)], parts) {
+			result.length = len(parts)
+			return result
 		}
 	}
-	return 0
+	return result
 }
 
 func notOnlyEvents(m *editorialMatcher, sentences []document.Sentence, index int) ([]editorialEvent, error) {
 	sentence := sentences[index]
 	start := -1
 	for i, token := range sentence.Tokens {
+		m.observeNotOnlyStart(sentence, i)
 		if token.Normal == ";" {
 			start = -1
 		}
@@ -56,10 +75,14 @@ func pairedContrastEvents(m *editorialMatcher, sentences []document.Sentence, i 
 	second := sentences[i+1]
 	a := m.prefixTokens(first, "it is not about", "it's not about")
 	b := m.prefixTokens(second, "it is about", "it's about")
-	if a == 0 || b == 0 || question(second) || m.view.Exempts(first, 0, a) || m.view.Exempts(second, 0, b) {
+	m.observeContrastPair(first, second, a, b)
+	if a.length == 0 || b.length == 0 || question(second) ||
+		m.view.Exempts(first, 0, a.length) || m.view.Exempts(second, 0, b.length) {
 		return nil, nil
 	}
-	return []editorialEvent{{i, i + 1, []rule.Occurrence{tokenOccurrence(first, 0, a), tokenOccurrence(second, 0, b)}}}, nil
+	return []editorialEvent{{i, i + 1, []rule.Occurrence{
+		tokenOccurrence(first, 0, a.length), tokenOccurrence(second, 0, b.length),
+	}}}, nil
 }
 
 func whetherEvents(m *editorialMatcher, sentences []document.Sentence, i int) ([]editorialEvent, error) {
@@ -68,11 +91,12 @@ func whetherEvents(m *editorialMatcher, sentences []document.Sentence, i int) ([
 	}
 	sentence := sentences[i]
 	start := m.prefixTokens(sentence, "whether you are", "whether you're")
-	if start == 0 {
+	m.observeWhetherStart(sentence, "whether you are", "whether you're")
+	if start.length == 0 {
 		return nil, nil
 	}
 	or := false
-	for end := start; end < min(len(sentence.Tokens), 32); end++ {
+	for end := start.length; end < min(len(sentence.Tokens), 32); end++ {
 		token := sentence.Tokens[end]
 		or = or || token.Normal == "or"
 		if token.Normal == "," {
@@ -94,6 +118,7 @@ func questionEvents(m *editorialMatcher, sentences []document.Sentence, i int) (
 	if !shortProseAnswer(answer, m.view.Parameters.MaxAnswerWords) {
 		return nil, nil
 	}
+	m.observeQuestionPair(first, answer)
 	matches, err := m.phrases(first, true)
 	if err != nil || len(matches) == 0 {
 		return nil, err
@@ -120,6 +145,7 @@ func triadEvents(m *editorialMatcher, sentences []document.Sentence, index int) 
 	sentence := sentences[index]
 	var events []editorialEvent
 	for i := 0; i < len(sentence.Tokens); i++ {
+		m.observeWindowWord(sentence, i)
 		if !m.adjective(sentence, i) {
 			continue
 		}

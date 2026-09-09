@@ -71,7 +71,10 @@ dogfood-mcp: dogfood build-mcp
 	  --output ../artifacts/dogfood/mcp-result.json -- ../bin/unswell-mcp --config ../.unswell.yaml \
 	  --feature prose-words --feature type-token-ratio --feature activation/readability.long-paragraph \
 	  --feature activation/filler.announced-importance --feature activation/syntax.noun-stack \
-	  --feature activation/filler.section-announcement --feature activation/filler.stacked-hedging
+	  --feature activation/filler.section-announcement --feature activation/filler.stacked-hedging \
+	  --feature activation/syntax.not-only-density --feature activation/syntax.paired-contrast-density \
+	  --feature activation/syntax.triad-density --feature activation/syntax.whether-preface-density \
+	  --feature activation/syntax.rhetorical-question-density --feature activation/syntax.passive-candidate-density
 
 release:
 	bash scripts/release.sh

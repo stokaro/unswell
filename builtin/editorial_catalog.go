@@ -108,11 +108,13 @@ func editorialRhetoricRules() []rule.Rule {
 	question.Parameters = append(question.Parameters, "phrases", "max_answer_words")
 	question.Description = "Counts configured complete questions followed in the same block by a short nonquestion answer."
 	question.Limitations += " Arbitrary questions are not classified. Numeric/code answers are excluded; disable for FAQ paths."
+	contrast.BlockObservations, triad.BlockObservations = true, true
+	whether.BlockObservations, question.BlockObservations = true, true
 	return []rule.Rule{
-		check{contrast, editorialWindow(pairedContrastEvents, "contrast-pairs")},
-		check{triad, editorialWindow(triadEvents, "evaluative-triads")},
-		check{whether, editorialWindow(whetherEvents, "whether-prefaces")},
-		check{question, editorialWindow(questionEvents, "question-answer-pairs")},
+		check{contrast, editorialWindow(pairedContrastEvents, "contrast-pairs", false)},
+		check{triad, editorialWindow(triadEvents, "evaluative-triads", true)},
+		check{whether, editorialWindow(whetherEvents, "whether-prefaces", false)},
+		check{question, editorialWindow(questionEvents, "question-answer-pairs", true)},
 	}
 }
 

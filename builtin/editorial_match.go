@@ -13,13 +13,14 @@ import (
 type tokenMatch struct{ start, end int }
 
 type editorialMatcher struct {
-	ctx          context.Context
-	view         rule.View
-	patterns     map[string][][]string
-	fixed        map[string][]string
-	words        map[string]bool
-	checks       int
-	observations *editorialPhraseObservations
+	ctx                context.Context
+	view               rule.View
+	patterns           map[string][][]string
+	fixed              map[string][]string
+	words              map[string]bool
+	checks             int
+	observations       *editorialPhraseObservations
+	windowObservations *editorialWindowObservations
 }
 
 func newEditorialMatcher(ctx context.Context, view rule.View) *editorialMatcher {

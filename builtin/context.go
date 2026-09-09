@@ -50,6 +50,7 @@ func contextRules() []rule.Rule {
 		18,
 	)
 	notOnly.Defaults.Parameters = rule.Parameters{WindowSentences: 8, AllowedOccurrences: 1, SaturationOccurrences: 4}
+	notOnly.BlockObservations = true
 	notOnly.Version = "2"
 	notOnly.Description = "Counts ordered not-only/not-just followed by but in bounded prose windows, allowing one matching sentence."
 	notOnly.Limitations += " Version 2 stops at structural/protected boundaries and requires the contrast markers in source order."
@@ -81,7 +82,7 @@ func contextRules() []rule.Rule {
 	result := []rule.Rule{
 		check{long, longSentence},
 		check{hype, modifierCluster},
-		check{notOnly, editorialWindow(notOnlyEvents, "paired-contrasts")},
+		check{notOnly, editorialWindow(notOnlyEvents, "paired-contrasts", false)},
 		check{connective, connectiveOveruse},
 	}
 	return append(result, repetitionRules()...)
