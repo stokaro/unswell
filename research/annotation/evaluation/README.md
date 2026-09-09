@@ -113,9 +113,66 @@ All tutorial observations and raters are explicitly simulated.
 
 The executable path covers the current prepared-feature and rule-activation
 logistic fits. It does not claim the full A–G comparison or a qualified D feature
-set. Group-macro comparisons, paired bootstrap intervals, qualified FPR bounds,
+set. Qualified FPR bounds,
 predeclared subgroups, figures, lexical models, ablations, LLMDet/reference adapters,
 and measured resource accounting retain their existing research requirements.
 Unexecuted methods remain unverified in the method registry. Human acquisition,
 independent annotation, final-test custody, calibration selection, and scientific
 qualification require real evidence; these simulated tests cannot supply it.
+
+## Compare frozen trials
+
+The `compare` command consumes saved predictions and one independent evaluation
+round. Store the selected trial hashes in a plan before opening evaluation labels:
+
+```json
+{
+  "version": "unswell-research-comparison-v1",
+  "id": "registered-candidate-vs-comparator",
+  "protocol_sha256": "<64 lowercase hexadecimal characters>",
+  "candidate_predictions_sha256": "<candidate artifact sha256>",
+  "comparator_predictions_sha256": "<comparator artifact sha256>"
+}
+```
+
+The digest placeholders must be replaced with actual artifact identities. The
+complete run manifest, context design, and custody records remain separate inputs
+to research acceptance. A plan's hash cannot prove it preceded access to labels.
+
+```sh
+corpus compare --plan comparison.json --protocol protocol.md \
+  --comparator comparator.json --corpus candidates.json \
+  --round evaluation-round.json < candidate.json > comparison-results.json
+```
+
+Both trials must share the protocol, corpus, partition, kind, context, rubric,
+profile, preparation/extraction policies, feature contracts, vocabulary, and NLP.
+Feature columns, requested capabilities, fitted parameters, responses, and fixed
+thresholds may differ. The NLP provider and its supported capabilities must match;
+requesting POS for one feature set does not change the shared input context.
+Current prepared-piece and source-document trials fail this compatibility check;
+they cannot support a controlled B/D comparison. No source root, external model,
+or model execution is used. Tutorial labels require `--allow-simulation`.
+
+The report includes full-flow and common-covered summaries, asymmetric coverage
+counts, micro estimates, and equal-group averages. Macro differences use only
+groups defining both metrics. Each estimate records its group support. Full-flow
+false-flag rate uses all eligible negative labels as denominator; abstention does
+not supply a probability or a negative prediction. Training-constant Brier uses
+each model's own fitted training prevalence on the displayed scope.
+
+Intervals use 10,000 paired group bootstrap replicates, sorted group IDs, and
+PCG(17,0). Both predictions and all targets in a sampled group stay together.
+The method fixes interpolated 2.5th/97.5th percentiles, records missing-denominator
+replicates, and withholds bounds with fewer than two defining groups. That minimum
+permits a numerical calculation; it does not establish adequate scientific power.
+The two scopes have separate resampling populations and no cross-scope interval.
+
+Zero observed false flags do not produce a zero upper risk bound. The report
+separately gives a conditional exact zero-event bound for groups with negative
+targets. It requires independent group sampling and never certifies micro FPR.
+Nonzero-event exact bounds and independent micro confirmation remain unimplemented.
+See [ADR 0028](../../../docs/adr/0028-paired-research-evaluation.md) for definitions,
+resource limits, quantiles, and restrictions on interpretation. All results remain
+experimental; favorable metrics cannot enable product probabilities or close
+human annotation and qualification requirements.

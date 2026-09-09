@@ -55,6 +55,7 @@ func (a *accumulator) addClassification(row Observation) {
 func (a *accumulator) finish(groups int) Metrics {
 	c := a.counts
 	c.Groups = groups
+	rates := classificationValues(c)
 	ece := 0.0
 	for i := range a.bins {
 		bin := &a.bins[i]
@@ -64,9 +65,9 @@ func (a *accumulator) finish(groups int) Metrics {
 			ece += math.Abs(a.sums[i] - a.positives[i])
 		}
 	}
-	return Metrics{Counts: c, Coverage: ratio(float64(c.Covered), c.Eligible),
-		Precision: ratio(float64(c.TP), c.TP+c.FP), Recall: ratio(float64(c.TP), c.TP+c.FN),
-		FPR: ratio(float64(c.FP), c.FP+c.TN), FullRecall: ratio(float64(c.TP), c.TP+c.FN+c.AbstainedPositive),
+	return Metrics{Counts: c, Coverage: finitePointer(rates[0]),
+		Precision: finitePointer(rates[1]), Recall: finitePointer(rates[2]),
+		FPR: finitePointer(rates[3]), FullRecall: finitePointer(rates[4]),
 		Brier: ratio(a.brier, c.Covered), ConstantBrier: ratio(a.constantBrier, c.Covered),
 		ECE: ratio(ece, c.Covered), Bins: a.bins}
 }

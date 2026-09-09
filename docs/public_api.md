@@ -75,6 +75,11 @@ separate model execution from evaluation labels. They preserve explicit context,
 missing responses, and unqualified status. Existing joined/training artifacts
 retain their versions and fields; product model loading and reports are unchanged.
 See [ADR 0027](adr/0027-frozen-research-predictions.md).
+The research `evaluation.Compare` and `RunComparison` APIs add paired numerical
+metrics and source-group intervals over saved predictions. `corpus compare`
+validates a frozen comparison plan and reports common coverage alongside the
+full eligible flow. Its distinct artifact version leaves existing evaluation
+and product results unchanged. See [ADR 0028](adr/0028-paired-research-evaluation.md).
 The root `e2e` directory contains only test code and fixtures. It exports no library
 API; the API snapshot records its package identity because it belongs to the root
 module.
