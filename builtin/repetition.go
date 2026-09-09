@@ -34,6 +34,11 @@ func repetitionRules() []rule.Rule {
 		22,
 	)
 	near.Requires = append(near.Requires, nlp.POS)
+	near.Version = "2"
+	near.Description = "Compares indexed sentence candidates with set Jaccard and a shared technical-contrast signature."
+	near.Limitations += " Modal, condition, and state cues are retained in token order."
+	near.Limitations += " Numeric-unit protection retains the token after a number, not a complete unit expression."
+	near.Limitations += " Equal signatures do not establish semantic equivalence."
 	near.Defaults.Parameters = rule.Parameters{
 		MinWords:           12,
 		Similarity:         0.85,
@@ -46,6 +51,8 @@ func repetitionRules() []rule.Rule {
 	near.Examples = []rule.Example{
 		{Text: sample + " " + strings.Replace(sample, "opens", "creates", 1), Match: true},
 		{Text: sample + " " + strings.Replace(sample, "opens", "never opens", 1), Match: false},
+		{Text: "The client may retry the failed request after the server closes the connection and releases all resources. " +
+			"The client must retry the failed request after the server closes the connection and releases all resources."},
 	}
 	sentence := descriptor(
 		"repetition.sentence-openers",
@@ -178,7 +185,7 @@ func linkNearCandidates(ctx context.Context, view rule.View, sentences []documen
 		if err != nil {
 			return nil, err
 		}
-		units[i] = nearSentence{key: sentenceKey(sentence), signature: protectedSignature(sentence, view.Parameters), words: set}
+		units[i] = nearSentence{key: sentenceKey(sentence), signature: repetitionSignature(view, sentence), words: set}
 		shingles := bigrams(words)
 		ordered, err := index.candidates(ctx, shingles)
 		if err != nil {
