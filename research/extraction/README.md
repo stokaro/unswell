@@ -21,7 +21,7 @@ unswell check /path/to/ptah-snapshot --timeout 10m \
   --project-root /path/to/ptah-snapshot \
   --config /path/to/unswell/research/extraction/ptah-broad.yaml \
   --allow-config-outside-root \
-  --report json:before.json --report text:before.txt
+  --report json:broad.json --report text:broad.txt
 
 unswell check /path/to/ptah-snapshot --timeout 10m \
   --project-root /path/to/ptah-snapshot \
@@ -45,3 +45,40 @@ is maintainer-reported; these inputs have no independent editorial labels.
 The root CLI fixtures and blackbox extraction tests cover invalid source encoding,
 decoded non-UTF-8 bytes, valid escaped Unicode, data-only input, and explicit SQL,
 JSON, script, identifier, and protocol exceptions alongside checked prose.
+
+## Recorded comparison
+
+The [saved comparison](ptah-comparison.json) records the September 9, 2026 runs on
+the pinned snapshot. The initial broad run used Unswell commit
+`bc627f079acce48963662a9d3a914fc1718071c0`. Both subsequent runs used the same binary
+built from `d4eae11f524c33d997bd47e8605f577405eca929`. The technical profile, rules,
+and NLP identities were unchanged. No Ptah source was edited or executed.
+
+| Run | Documents analyzed | Prose words | Findings | File errors | Exit |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Before fix, broad | 4,064 | 2,546,834 | 10,992 | 5 | 2 |
+| After fix, broad | 4,067 | 2,549,315 | 10,996 | 2 | 2 |
+| After fix, focused | 4,068 | 2,545,831 | 10,957 | 1 | 2 |
+
+Every previously analyzed document retained the same source hash, document
+summary, exclusions, and findings in the broad run after the fix. Three byte-valued
+literals received `non-utf8-literal` exclusions, allowing analysis of the remaining
+prose in `core/renderer/identifier_bytes_test.go`,
+`internal/agentpatch/agentpatch_test.go`, and
+`internal/atlasschema/planfile_hcl_test.go`.
+
+The focused policy changed 39 of the 4,067 common documents and recovered
+`internal/parser/parser_test.go` by excluding its non-English identifier fixture.
+The other 4,028 common documents retained identical results. The configured
+exclusions covered 199 workflow scalars, 559 SQL values, three literals in the
+Unicode fixture, and four identifier constants. Each changed document had a
+named exception, and every exclusion span was checked against the pinned source.
+The Bash grammar error remained in all runs.
+
+The JSON summary retains report hashes, exact exclusions, manifest identities,
+counts, and remaining errors. The three full JSON reports, terminal reports, and
+exit records are retained in the local experiment directory; they are not bundled
+with this summary. Repeating the commands above regenerates reports, though a
+different configuration path changes the recorded configuration identity. Config
+paths in the summary are represented by their basenames. This comparison measures
+source selection and error recovery; it supplies no editorial quality labels.
