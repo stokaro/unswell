@@ -46,3 +46,14 @@ Exhaustion is an error, with no hidden sampling or partial successful gate. Wind
 expiration bounds active postings. Evaluation observes cancellation and uses only
 call-local buffers. Tests cover source coordinates, technical counterexamples,
 term exemptions, structural policy, clusters, window boundaries, and scaling.
+
+Issue #102 extends the shared signature to the existing `repetition.near-sentence`
+rule and advances that rule to version `2`. This corrects lexical matches across
+modal, condition, state, and adjacent numeric-unit contrasts without changing the
+candidate index, similarity threshold, cluster construction, or source mapping.
+Existing negation, number, and identifier switches keep their meanings; number
+protection now includes the following token. The fixed contrast cues always apply.
+Term exemptions and public configuration fields do not change. Rule identity and
+catalog changes intentionally invalidate old baseline compatibility, while saved
+reports preserve their recorded versions. This remains a lexical safeguard with
+documented limits, not a claim of semantic equivalence.

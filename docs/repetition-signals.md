@@ -77,7 +77,34 @@ grammatical structure. It makes no dependency-parser claim.
 
 ## Technical and structural boundaries
 
-By default, negation, numbers, versions, identifier candidates, numeric units, modal and condition
+The core `repetition.near-sentence` rule uses the shared technical signature as of
+rule version `2` (#102). Its default minimum remains 12 words and its set-Jaccard
+threshold remains 0.85. Candidates share a word bigram and are compared within a
+document; exact copies remain the responsibility of `repetition.exact-sentence`.
+Matching pairs form connected clusters with original source locations.
+
+Near-sentence matching retains these cues in token order:
+
+- Modals: `may`, `must`, `can`, `should`, `could`, `would`, `might`, `shall`.
+- Conditions: `if`, `unless`, `until`, `when`, `before`, `after`, `except`, `only`.
+- States: `enabled`, `disabled`, `supported`, `unsupported`, `required`, `optional`,
+  `allowed`, `denied`, `success`, `failure`.
+
+These checks stay active independently of the existing protection parameters.
+`protect_numbers` also protects the token immediately following a numeric token,
+so `30 seconds` and `30 minutes` differ. It does not parse complete unit expressions
+or associate every quantity or condition with a particular clause. Equal lexical
+signatures cannot establish equal meaning. A fixed cue list can miss other contrasts
+or exclude a useful repetition candidate; it is not a semantic parser.
+
+The version change updates the catalog hash and near-sentence finding identities.
+Existing baseline compatibility checks reject a baseline built with the previous
+catalog; review findings before replacing it. Previously saved version-1 reports
+retain their recorded identities and can still be rendered without reanalysis.
+The public report schema and configuration fields are unchanged. Near-sentence
+matching does not add term exemptions; its existing parameter set remains intact.
+
+For the five extended rules, negation, numbers, versions, identifier candidates, numeric units, modal and condition
 cues, and approved term wording form a protected signature. Different signatures
 cannot form a template or overlap cluster. Thus changing a permission to an obligation,
 a timeout, a unit of measurement, or an identifier does not become duplicated
@@ -116,6 +143,10 @@ expected detections and exact CLI/JSON goldens, checked against SARIF and the or
 source. Library tests cover structural selection, technical differences, terminology,
 count thresholds, cancellation, limits, concurrent reuse, and nondilution. Catalog
 examples use their declared input format, including grammar-parsed Markdown.
+
+`e2e/testdata/near_contrasts` adds positive near-match clusters and protected
+modal, condition, state, and number-unit pairs. Go comments and escaped strings,
+Markdown emphasis, BOM/CRLF, JSON, and SARIF use the same source-coordinate checks.
 
 `BenchmarkRepetitionScaling` measures the full public-engine scan for 128, 512, and
 2048 synthetic technical blocks with different numeric facts. Run it with:

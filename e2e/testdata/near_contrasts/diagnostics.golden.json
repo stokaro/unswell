@@ -1,0 +1,140 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "repetition.near-sentence",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "These sentences have high lexical overlap; check for repeated information.",
+      "primary": {
+        "path": "positive.md",
+        "span": {
+          "start": 3,
+          "end": 113
+        },
+        "start": {
+          "line": 1,
+          "column": 2
+        },
+        "end": {
+          "line": 1,
+          "column": 112
+        },
+        "segments": [
+          {
+            "start": 3,
+            "end": 35
+          },
+          {
+            "start": 37,
+            "end": 44
+          },
+          {
+            "start": 46,
+            "end": 113
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "positive.md",
+          "span": {
+            "start": 158,
+            "end": 266
+          },
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 109
+          },
+          "segments": [
+            {
+              "start": 158,
+              "end": 266
+            }
+          ]
+        },
+        {
+          "path": "positive.md",
+          "span": {
+            "start": 270,
+            "end": 374
+          },
+          "start": {
+            "line": 5,
+            "column": 1
+          },
+          "end": {
+            "line": 5,
+            "column": 105
+          },
+          "segments": [
+            {
+              "start": 270,
+              "end": 374
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "repetition.near-sentence",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "These sentences have high lexical overlap; check for repeated information.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 296,
+          "end": 389
+        },
+        "start": {
+          "line": 8,
+          "column": 16
+        },
+        "end": {
+          "line": 8,
+          "column": 109
+        },
+        "segments": [
+          {
+            "start": 296,
+            "end": 389
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "sample.go",
+          "span": {
+            "start": 443,
+            "end": 533
+          },
+          "start": {
+            "line": 9,
+            "column": 17
+          },
+          "end": {
+            "line": 9,
+            "column": 107
+          },
+          "segments": [
+            {
+              "start": 443,
+              "end": 533
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

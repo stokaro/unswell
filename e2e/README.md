@@ -221,6 +221,12 @@ exercise original coordinates in JSON and SARIF.
 
 `noun_ambiguity` preserves the reported package and method comments as negative
 cases in Go and Markdown, alongside genuine stacks with singular and plural heads.
+
+`near_contrasts` checks modal, condition, state, and number-unit differences against
+positive near-match clusters. It includes the reported `may retry`/`must retry`
+pair, a contrasting sentence beside a valid cluster, Go comments and escaped
+strings, Markdown emphasis, and BOM/CRLF. JSON and SARIF retain original locations.
+
 The GitHub matcher tests render real text reports, preserve severity and locations,
 and leave compiler diagnostics for setup-go. CI registers the Unswell matcher
 after setup-go so it takes precedence for Unswell's own diagnostic lines.
