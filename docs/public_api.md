@@ -15,6 +15,7 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell/config` | Strict in-memory policy compiler | alpha |
 | `github.com/stokaro/unswell/extract` | Source-preserving input extractors | alpha |
 | `github.com/stokaro/unswell/feature` | Versioned prose measurements and repetition preprocessing | alpha |
+| `github.com/stokaro/unswell/model` | Immutable numerical logistic models and deterministic Go training | alpha |
 | `github.com/stokaro/unswell/nlp` | Neutral provider and capability contract | alpha |
 | `github.com/stokaro/unswell/nlp/english` | Default pure-Go English backend | alpha |
 | `github.com/stokaro/unswell/report` | Writers and saved-result decoding | alpha |
@@ -24,6 +25,12 @@ Packages under `internal/` are implementation details. `cmd/unswell` is an
 executable, not an importable library. The tools module isolates build dependencies
 from the runtime module and its minimum compiler. The consumer module is an
 executable public-API contract test, not another supported library.
+The `model` package supplies the shared numerical logistic objective, training
+normalization, optimizer, and immutable inference. It takes ordered complete
+numeric vectors. A sigmoid response is uncalibrated; the parameter snapshot does
+not establish feature compatibility, corpus qualification, or a usable probability
+gate. Existing engine results and `calibration.model: none` retain their contracts.
+See [ADR 0020](adr/0020-logistic-numerical-core.md) and [model documentation](../model/README.md).
 The separate `mcp/` module provides the `unswell-mcp` executable and its protocol
 tests. It calls the public engine and keeps the MCP SDK out of the core module.
 The `research/annotation` consumer module defines versioned research artifacts
