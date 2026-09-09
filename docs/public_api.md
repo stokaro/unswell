@@ -31,6 +31,11 @@ and developer commands for annotation and corpus preparation. Its `corpus`
 subpackage consumes public extraction/NLP contracts; it does not extend the
 supported engine, CLI, MCP, or saved-report APIs. See
 [ADR 0013](adr/0013-annotation-protocol.md) and [ADR 0014](adr/0014-corpus-acquisition.md).
+`annotation.Round.Decisions` adds a separate research export with resolved labels,
+unresolved reasons, original input identities, and detached target references.
+It shares primary-response selection with agreement calculations. The existing
+round schema and product reports retain their contracts. See
+[ADR 0019](adr/0019-editorial-decision-export.md).
 The root `e2e` directory contains only test code and fixtures. It exports no library
 API; the API snapshot records its package identity because it belongs to the root
 module.

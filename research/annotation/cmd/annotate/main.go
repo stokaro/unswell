@@ -1,4 +1,4 @@
-// Command annotate validates rounds, prepares blinded packets, and measures agreement.
+// Command annotate prepares review packets, measures agreement, and exports decisions.
 package main
 
 import (
@@ -37,9 +37,9 @@ func mainCode() int {
 
 func run(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
 	if len(args) != 1 {
-		return fmt.Errorf("usage: annotate {validate|packet|agreement} < round.json")
+		return fmt.Errorf("usage: annotate {validate|packet|agreement|decisions} < round.json")
 	}
-	if !slices.Contains([]string{"validate", "packet", "agreement"}, args[0]) {
+	if !slices.Contains([]string{"validate", "packet", "agreement", "decisions"}, args[0]) {
 		return fmt.Errorf("unknown annotation command %q", args[0])
 	}
 	if err := ctx.Err(); err != nil {
@@ -55,17 +55,7 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 	if err != nil {
 		return err
 	}
-	var result any
-	switch args[0] {
-	case "validate":
-		result = map[string]string{"status": "structurally_valid", "version": annotation.Version}
-	case "packet":
-		result, err = round.Packet(ctx)
-	case "agreement":
-		result, err = round.Agreement(ctx)
-	default:
-		return fmt.Errorf("unknown annotation command %q", args[0])
-	}
+	result, err := annotationOutput(ctx, round, args[0])
 	if err != nil {
 		return err
 	}
@@ -75,4 +65,19 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 		return struct{}{}, encoder.Encode(result)
 	})
 	return err
+}
+
+func annotationOutput(ctx context.Context, round *annotation.Round, command string) (any, error) {
+	switch command {
+	case "validate":
+		return map[string]string{"status": "structurally_valid", "version": annotation.Version}, nil
+	case "packet":
+		return round.Packet(ctx)
+	case "agreement":
+		return round.Agreement(ctx)
+	case "decisions":
+		return round.Decisions(ctx)
+	default:
+		return nil, fmt.Errorf("unknown annotation command %q", command)
+	}
 }
