@@ -14,7 +14,7 @@ Unknown component terms, resource hashes, and measured costs remain null with a
 reason. A repository license is not permission for its models or source datasets.
 
 [`reviewed-resources-v1.json`](reviewed-resources-v1.json) contains measured SHA-256
-digests and byte sizes of the small upstream files read on September 8, 2026.
+digests and byte sizes of the small upstream files read on September 8-9, 2026.
 Each URL includes the reviewed Git commit. These are source-review identities,
 not hashes of downloaded model packs or datasets. No upstream code, weights,
 tables, or corpus data is bundled in this directory. The original September 8
@@ -49,6 +49,7 @@ detector or authorize data redistribution. The current decisions are:
 | Fast-DetectGPT | Experimental reference only | #53/#57; isolated fixed-budget model run |
 | Binoculars | Defer optional reference execution | #53; justify the two-model budget and tokenizer/model terms |
 | DivEye | Defer code use and execution | #53; resolve component terms and the model dependency |
+| ZipPy / compression | Experimental shared Go measurements; no upstream reproduction | #52; build independent reference groups and measure added value |
 | RAID | Adopt robustness dimensions; defer dataset execution | #57; review source-data permissions and pin a permitted subset |
 | DetectRL-X | Adopt editing scenarios; defer dataset/code use | #57; resolve conflicting stated usage terms and pin resources |
 

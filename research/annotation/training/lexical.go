@@ -10,7 +10,7 @@ import (
 	"github.com/stokaro/unswell/research/annotation/corpus"
 )
 
-// RunLexical fits a training-only vocabulary and the shared Go logistic model.
+// RunLexical fits a training-only vocabulary and the shared Go classifier.
 // It uses the same reproduced NLP units, annotation selection, permissions, and
 // separate calibration as Run. Options.Features must be empty: column IDs are
 // learned from permitted, resolved training targets only. The returned vocabulary
