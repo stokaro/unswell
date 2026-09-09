@@ -15,7 +15,7 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell/config` | Strict in-memory policy compiler | alpha |
 | `github.com/stokaro/unswell/extract` | Source-preserving input extractors | alpha |
 | `github.com/stokaro/unswell/feature` | Versioned prose measurements and repetition preprocessing | alpha |
-| `github.com/stokaro/unswell/model` | Immutable numerical logistic models and deterministic Go training | alpha |
+| `github.com/stokaro/unswell/model` | Immutable numerical classifiers, separate calibration, and deterministic Go fitting | alpha |
 | `github.com/stokaro/unswell/nlp` | Neutral providers, capabilities, and shared target preparation | alpha |
 | `github.com/stokaro/unswell/nlp/english` | Default pure-Go English backend | alpha |
 | `github.com/stokaro/unswell/report` | Writers and saved-result decoding | alpha |
@@ -31,6 +31,12 @@ numeric vectors. A sigmoid response is uncalibrated; the parameter snapshot does
 not establish feature compatibility, corpus qualification, or a usable probability
 gate. Existing engine results and `calibration.model: none` retain their contracts.
 See [ADR 0020](adr/0020-logistic-numerical-core.md) and [model documentation](../model/README.md).
+`Isotonic` and `FitIsotonic` add a separate monotonic calibration candidate over
+frozen scores and binary labels. Snapshots contain ordered knots; inference
+interpolates only inside their range. `ErrCalibrationRange` is a numerical
+boundary, not a validated domain classifier. A fitted mapping does not establish
+independent calibration data, acceptable held-out error, or editorial probability
+qualification. See [ADR 0021](adr/0021-isotonic-calibration.md).
 The separate `mcp/` module provides the `unswell-mcp` executable and its protocol
 tests. It calls the public engine and keeps the MCP SDK out of the core module.
 The `research/annotation` consumer module defines versioned research artifacts

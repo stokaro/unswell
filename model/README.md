@@ -1,5 +1,8 @@
 # Numerical logistic models
 
+This package also supplies a [separate isotonic calibration candidate](calibration.md).
+Selecting and qualifying an editorial calibration method requires corpus evidence.
+
 This package supplies a shared Go implementation for the initial logistic baseline
 in #23. It performs numerical training and inference over ordered vectors. It does
 not extract prose, assign labels, select features, load files, or make CI decisions.
