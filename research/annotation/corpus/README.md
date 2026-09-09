@@ -103,6 +103,42 @@ review. Keep acquisition metadata away from blinded reviewers: it contains sourc
 and origin information. Responses must bind to the exact round packet hash.
 Candidate selection alone does not complete a pilot or the human-labeled corpus.
 
+## Bind decisions to measured targets
+
+From `research/annotation`, use a curated annotation round whose units retain the
+candidate IDs and acquisition metadata:
+
+```sh
+go run ./cmd/corpus join --root ./sources --round ./round.json \
+  --feature prose-words --feature noun-token-ratio < candidates.json > joined.json
+```
+
+`join` verifies the original sources and notices again, reproduces the candidate
+artifact, and compares every round target with its candidate. It measures all
+corpus units with the public engine, using the plan's kinds and extraction policy.
+Feature selection is explicit; unsupported IDs, duplicates, and block activation
+IDs fail. Default engine limits apply and cannot be raised by this command.
+
+The output contains decisions separately from prepared measurements. Bindings
+retain the exact source, unit ID, group, partition, and measured input hash. A
+round may select a subset; other targets are retained without invented labels.
+Missing or uncertain judgments remain unresolved. Origin curation does not change
+editorial targets, but changing text, context, source metadata, extraction, or
+rights requires a matching new candidate artifact.
+
+Instruction, policy, extraction, preparation, NLP, and feature hashes keep distinct
+meanings. An unset global context set uses defaults. Per-language overrides
+require an explicit set; empty sets disable extraction.
+Matching uses every original segment and both target/context hashes. A bounding
+span or equal unit ID alone is insufficient. An incomplete measurement fails the
+whole operation; no partial JSON is written. Exit codes remain 0, 2, and 130.
+
+The versioned research output stays `human_corpus: not_qualified`, including when
+all judgments are resolved. It omits prose and rationales but retains paths,
+ranges, group metadata, and numerical features. It is not a blinded packet or a
+training authorization. Keep the original inputs: a saved artifact's digest does
+not prove reproduction. See [ADR 0024](../../../docs/adr/0024-corpus-feature-bindings.md).
+
 ## Reproduce and audit
 
 `plan` records the canonical manifest digest, components, algorithm, and assignments.

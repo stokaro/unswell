@@ -37,7 +37,10 @@ func TestCommandPlansExtractsAndVerifies(t *testing.T) {
 }
 
 func TestCommandRejectsBadInputs(t *testing.T) {
-	for _, args := range [][]string{nil, {"bad"}, {"plan", "extra"}, {"extract"}, {"plan", "--root", "."}, {"plan", "--bad"}} {
+	for _, args := range [][]string{nil, {"bad"}, {"plan", "extra"}, {"extract"}, {"plan", "--root", "."}, {"plan", "--bad"},
+		{"join"}, {"join", "--root", "."}, {"join", "--root", ".", "--round", "round.json"},
+		{"join", "--root", ".", "--feature", "prose-words"}, {"plan", "--round", "round.json"},
+		{"verify", "--root", ".", "--feature", "prose-words"}} {
 		t.Run(strings.Join(args, " "), func(t *testing.T) {
 			c := qt.New(t)
 			var output bytes.Buffer

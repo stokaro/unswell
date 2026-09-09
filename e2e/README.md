@@ -8,6 +8,12 @@ invented human-corpus status must fail. See the
 [fixture provenance](../research/annotation/corpus/testdata/README.md); these units
 have no human labels and all belong to development.
 
+The [corpus join test](corpus_join_test.go) runs the compiled `corpus join` command
+and checks all 378 feature bindings against the same source-segment golden. A
+simulated round selects five targets without responses; their labels stay absent.
+The first heading and sentence have explicit expected word counts of 1 and 10.
+Changing the round's repository ID must return exit 2 without partial output.
+
 The [annotation protocol test](annotation_test.go) builds the research command,
 checks packet and decision goldens and an agreement summary, and requires exit 2 for
 ambiguous JSON or attempts to count simulated responses as a human corpus.

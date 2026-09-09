@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"flag"
 	"fmt"
 	"io"
 	"os"
@@ -35,10 +34,10 @@ func mainCode() int {
 }
 
 func run(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
-	if len(args) == 0 || !slices.Contains([]string{"plan", "extract", "verify"}, args[0]) {
-		return fmt.Errorf("usage: corpus {plan|extract|verify} [--root source-directory] < artifact.json")
+	if len(args) == 0 || !slices.Contains([]string{"plan", "extract", "verify", "join"}, args[0]) {
+		return fmt.Errorf("usage: corpus {plan|extract|verify|join} [options] < artifact.json")
 	}
-	root, err := sourceRoot(args)
+	options, err := commandOptions(args)
 	if err != nil {
 		return err
 	}
@@ -46,7 +45,7 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 	if err != nil {
 		return err
 	}
-	result, err := operation(ctx, args[0], root, data)
+	result, err := operation(ctx, args[0], options, data)
 	if err != nil {
 		return err
 	}
@@ -66,7 +65,7 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 
 func readInput(ctx context.Context, name string, input io.Reader) ([]byte, error) {
 	maximum := corpus.MaxArtifactBytes
-	if name != "verify" {
+	if name == "plan" || name == "extract" {
 		maximum = corpus.MaxManifestBytes
 	}
 	return commandio.Await(ctx, func() ([]byte, error) {
@@ -74,7 +73,7 @@ func readInput(ctx context.Context, name string, input io.Reader) ([]byte, error
 	})
 }
 
-func operation(ctx context.Context, name, root string, data []byte) (any, error) {
+func operation(ctx context.Context, name string, options options, data []byte) (any, error) {
 	if name == "plan" {
 		manifest, err := corpus.LoadManifest(ctx, data)
 		if err != nil {
@@ -94,25 +93,19 @@ func operation(ctx context.Context, name, root string, data []byte) (any, error)
 	if err != nil {
 		return nil, err
 	}
-	files, err := loadFiles(ctx, root, plan)
+	files, err := loadFiles(ctx, options.root, plan)
 	if err != nil {
 		return nil, err
 	}
 	if name == "verify" {
 		return corpus.Verify(ctx, artifact, files)
 	}
+	if name == "join" {
+		round, err := loadRound(ctx, options.round)
+		if err != nil {
+			return nil, err
+		}
+		return corpus.Join(ctx, artifact, round, files, options.features)
+	}
 	return corpus.Build(ctx, plan, files)
-}
-
-func sourceRoot(args []string) (string, error) {
-	flags := flag.NewFlagSet("corpus", flag.ContinueOnError)
-	flags.SetOutput(io.Discard)
-	root := flags.String("root", "", "Local directory containing exactly pinned source and notice files")
-	if err := flags.Parse(args[1:]); err != nil {
-		return "", err
-	}
-	if flags.NArg() != 0 || (args[0] == "plan") != (*root == "") {
-		return "", fmt.Errorf("only extract and verify require --root")
-	}
-	return *root, nil
 }
