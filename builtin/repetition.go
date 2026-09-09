@@ -22,6 +22,7 @@ func repetitionRules() []rule.Rule {
 		30,
 	)
 	exact.Defaults.Parameters = rule.Parameters{MinWords: 12, Window: "document"}
+	exact.BlockObservations = true
 	exact.Parameters = []string{"min_words", "window"}
 	sample := "The client opens a connection to the server and sends the request with its credentials."
 	exact.Examples = []rule.Example{{Text: sample + " " + sample, Match: true}, {Text: sample, Match: false}}
@@ -54,6 +55,7 @@ func repetitionRules() []rule.Rule {
 		15,
 	)
 	sentence.Defaults.Parameters = rule.Parameters{MinWords: 8, OpenerWords: 3, AllowedOccurrences: 2, SaturationOccurrences: 5}
+	sentence.BlockObservations = true
 	sentence.Parameters = []string{"min_words", "opener_words", "allowed_occurrences", "saturation_occurrences"}
 	sentence.Examples = []rule.Example{
 		{
@@ -71,6 +73,7 @@ func repetitionRules() []rule.Rule {
 		18,
 	)
 	paragraph.Defaults.Parameters = sentence.Defaults.Parameters
+	paragraph.BlockObservations = true
 	paragraph.Parameters = slices.Clone(sentence.Parameters)
 	paragraph.Examples = []rule.Example{
 		{Text: strings.ReplaceAll(sentence.Examples[0].Text, ". ", ".\n\n"), Match: true},
@@ -86,16 +89,12 @@ func repetitionRules() []rule.Rule {
 
 func exactRepetition(ctx context.Context, view rule.View, emit rule.Emitter) error {
 	groups := make(map[string][]rule.Occurrence)
-	for _, sentence := range allSentences(view.Document) {
+	for _, block := range view.Document.Blocks {
 		if err := ctx.Err(); err != nil {
 			return err
 		}
-		if sentence.Words < view.Parameters.MinWords {
-			continue
-		}
-		key := sentenceKey(sentence)
-		if key != "" {
-			groups[key] = append(groups[key], sentenceOccurrence(sentence))
+		if err := addExactBlock(ctx, view, block, groups); err != nil {
+			return err
 		}
 	}
 	return emitGroups(groups, 1, 2, "exact", emit)
@@ -134,18 +133,13 @@ func openers(ctx context.Context, view rule.View, emit rule.Emitter, paragraphs 
 			return err
 		}
 		if block.Kind != "paragraph" {
+			if err := observeBlock(view, block, "unsupported_unit"); err != nil {
+				return err
+			}
 			continue
 		}
-		for i, sentence := range block.Sentences {
-			if paragraphs && i > 0 {
-				break
-			}
-			words := normalizedWords(sentence)
-			if sentence.Words < view.Parameters.MinWords || len(words) < view.Parameters.OpenerWords {
-				continue
-			}
-			key := strings.Join(words[:view.Parameters.OpenerWords], " ")
-			groups[key] = append(groups[key], sentenceOccurrence(sentence))
+		if err := addOpenerBlock(ctx, view, block, groups, paragraphs); err != nil {
+			return err
 		}
 	}
 	return emitGroups(groups, view.Parameters.AllowedOccurrences, view.Parameters.SaturationOccurrences, "heuristic", emit)

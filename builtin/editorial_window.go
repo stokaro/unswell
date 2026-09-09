@@ -15,10 +15,14 @@ type editorialEvent struct {
 
 type eventFinder func(*editorialMatcher, []document.Sentence, int) ([]editorialEvent, error)
 
-func editorialWindow(find eventFinder, metric string) func(context.Context, rule.View, rule.Emitter) error {
+func editorialWindow(find eventFinder, metric string, patternsRequired bool) func(context.Context, rule.View, rule.Emitter) error {
 	return func(ctx context.Context, view rule.View, emit rule.Emitter) error {
 		matcher := newEditorialMatcher(ctx, view)
-		return matcher.evaluateWindows(find, metric, false, emit)
+		matcher.collectWindowObservations(patternsRequired)
+		if err := matcher.evaluateWindows(find, metric, false, emit); err != nil {
+			return err
+		}
+		return matcher.observeWindowBlocks()
 	}
 }
 
@@ -45,11 +49,13 @@ func (m *editorialMatcher) events(run []document.Sentence, find eventFinder) ([]
 		if err := m.ctx.Err(); err != nil {
 			return nil, err
 		}
+		m.visitWindowSentence(run[i])
 		found, err := find(m, run, i)
 		if err != nil {
 			return nil, err
 		}
 		events = append(events, found...)
+		m.observeWindowEvents(found)
 	}
 	return events, nil
 }

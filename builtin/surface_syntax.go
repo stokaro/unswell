@@ -212,6 +212,7 @@ func passiveEvents(m *editorialMatcher, sentences []document.Sentence, index int
 		if err := m.spend(); err != nil {
 			return nil, err
 		}
+		m.observeWindowWord(sentence, i)
 		if token.Protected || !strings.HasPrefix(token.Tag, "VB") ||
 			!slices.Contains([]string{"am", "is", "are", "was", "were", "be", "been", "being"}, token.Normal) {
 			continue

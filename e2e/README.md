@@ -67,6 +67,18 @@ word count and lexical diversity through the CLI. Its golden keeps three counted
 words across Markdown emphasis, excludes protected code, and records absent
 heading measurements under CRLF. A missing requested collection fails the case.
 
+The [window activations](testdata/window_activations/sample.md.txt) case checks
+all six contrast, triad, preface, question/answer, and passive-candidate rules.
+Eight `want` annotations cover Markdown, Go comments, and a Go string. Feature
+goldens distinguish zero from unavailable context, preserve emphasis with
+BOM/CRLF coordinates, and keep independent comments and answers separate.
+
+The [repetition group activations](testdata/repetition_group_activations/sample.md.txt)
+case preserves five annotated clusters and their related locations. Exact matches
+can link a Go comment to a string, while opener measurements remain unavailable
+for both. Markdown goldens retain sentence minima, the first-sentence requirement,
+code boundaries, emphasis, and BOM/CRLF coordinates.
+
 The [empty table cells](testdata/markdown_empty_cells/sample.md.txt) case came from
 the Ptah evaluation. It preserves detections beside empty cells and protected code,
 including Unicode and Markdown emphasis in a file with CRLF and a BOM.

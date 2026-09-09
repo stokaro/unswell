@@ -282,12 +282,55 @@ the configured threshold yields zero. Missing eligible phrase/pair windows use
 dictionaries, unsupported kinds, no sentences, and intensifier word limits retain
 their existing reasons. Text omitted by extraction supplies no feature unit.
 
-Other windowed rhetoric, repetition, and list rules still need complete observations before their silent
-blocks can supply dense negative inputs for training. The complete #56 work and
+Six more window rules record applicability within the same prose runs:
+
+| Rule | Eligible comparison |
+| --- | --- |
+| `syntax.not-only-density` | Three inspected tokens within one semicolon-delimited fragment can contain the complete marker sequence. This rule does not support term exemptions. |
+| `syntax.paired-contrast-density` | Adjacent nonquestion sentences in the same block with nonexempt opening windows large enough for both fixed prefixes. |
+| `syntax.whether-preface-density` | An opening window with room for the fixed prefix and an alternative token before the first inspected comma, within 32 tokens; the complete preface must be nonexempt. |
+| `syntax.rhetorical-question-density` | A question with exactly a configured pattern's token length and an adjacent admissible answer in the same block. Neither whole candidate may be exempt. |
+| `syntax.triad-density` | A configured dictionary and a nonexempt word inspected by the existing dictionary/POS loop. |
+| `syntax.passive-candidate-density` | A sentence meeting the configured minimum and a nonexempt inspected word or matched auxiliary-participle span. |
+
+Pairs require `window_sentences` of at least two. A smaller window is
+`inapplicable/no_eligible_window`, even when the source contains the pair.
+An allowed event below the density threshold is zero. Positive clusters still
+activate only their occurrence blocks; independent prose does not dilute them.
+Protected sentences break every one of these runs. Headings, lists, excluded
+source, and independent comments retain their existing boundaries.
+
+A passive candidate uses the sentence minimum; several short sentences cannot
+satisfy it together. A visited block with no sentence reaching that minimum is
+`inapplicable/insufficient_words`. Other missing windows, dictionaries, sentences,
+and unsupported units retain explicit reasons. POS candidates still do not
+establish grammatical voice or editorial quality.
+
+Three repetition rules report the eligibility of their existing grouping keys:
+
+| Rule | Eligible input |
+| --- | --- |
+| `repetition.exact-sentence` | A sentence meeting `min_words` with a nonempty exact key. Any protected token invalidates that sentence's key. All extracted block kinds retain their existing scope. |
+| `repetition.sentence-openers` | A sentence in a paragraph meeting `min_words` with at least `opener_words` normalized words. |
+| `repetition.paragraph-openers` | The same requirements, applied only to the paragraph's first sentence. A later sentence cannot make that paragraph eligible. |
+
+A grouping key below the occurrence threshold yields zero, including a singleton.
+Clusters activate their occurrence blocks. Adding an unrelated eligible paragraph
+does not reduce existing activations. Suppressions keep the raw cluster and its
+activations. No sentences, no inspected sentence meeting the word minimum, and no
+eligible key produce `no_sentences`, `insufficient_words`, and `no_eligible_tokens`.
+Opener rules report `unsupported_unit` outside paragraphs. Their word-prefix
+calculation retains the provider's `Word` flags; protected code words are omitted
+while other words in the same sentence remain eligible. This differs from exact
+repetition's rejection of the whole protected sentence.
+
+Near-repetition, extended repetition, and list rules still need complete
+observations before their silent blocks can supply dense negative inputs for training. The complete #56 work and
 model qualification remain open. See [ADR 0018](adr/0018-rule-activation-features.md).
 
 The number of blocks times requested values must fit `analysis.max_candidates`
 for each source. Exceeding this output bound is an operational error; values are
 not sampled or silently dropped. Repository CLI/MCP self-checks collect readability,
-phrase, section-announcement, stacked-hedging, and noun-stack activations alongside word counts and
-lexical diversity.
+phrase, section-announcement, stacked-hedging, noun-stack, and all six window
+activations, plus exact-repetition and opener activations, alongside word counts
+and lexical diversity.

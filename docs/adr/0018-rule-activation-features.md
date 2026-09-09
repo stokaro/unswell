@@ -115,8 +115,8 @@ Optional eligibility checks use sorted unique pattern lengths and stop after a
 block has supplied a candidate. Observation state belongs to one evaluation and
 is bounded by the existing block and phrase limits. Matching, candidate charges,
 window grouping, source boundaries, and finding versions remain unchanged. No
-observer means no eligibility scans or observation map. Paired rhetoric, other
-editorial rules, repetition, and lists still require their own observations.
+observer means no eligibility scans or observation map. Later increments supply
+the observations for the remaining rules.
 
 Vague-praise and absolute-claim observations use the same phrase eligibility
 accounting after the existing question/qualification screen. A block without an
@@ -139,6 +139,41 @@ conjunctions, and configured clause markers retain their boundaries. The same
 distinct-cue count and threshold determine the activation. Empty candidate scopes
 retain no-pattern/no-sentence/no-eligible-token reasons. These four descriptors
 change the catalog hash but retain their finding versions, evidence, and scoring.
+
+The six remaining contrast, triad, preface, question/answer, and passive-candidate
+window rules declare observations in their existing event finders. Optional state
+records visited sentences, the sentence word minimum, and eligible comparisons.
+Actual events also establish applicability when their span fits the configured
+window. Two-sentence pairs cannot produce a measured zero under a one-sentence
+window. The finding algorithm and its candidate charges remain unchanged.
+
+Fixed-prefix and whole-question comparisons retain their token lengths and term
+boundaries. A whether-preface exemption covers the complete preface through the
+comma, while contrast exemptions cover each opening. Triad and passive loops
+record inspected words, preserving their dictionary/POS scope. Sentence minima
+cannot be satisfied by combining independent fragments. The shared feature
+contract documents each candidate scope and absence reason.
+
+Observation state is local to each invocation and is allocated only when
+requested. No second NLP pass, extraction path, or scoring calculation is added.
+The six descriptor declarations change the catalog hash without changing finding
+versions. Repetition and list observations remain open work under #56.
+
+Exact-sentence and sentence/paragraph-opener rules now report whether their
+existing grouping loop accepted a key. The exact rule visits blocks in the same
+order instead of first allocating a flattened sentence slice. It retains every
+extracted block kind, the sentence word minimum, and rejection of any protected
+token. Opener rules retain paragraph-only scope and the existing normalized word
+prefix; paragraph-openers examines only the first sentence. Group counts, sorting,
+evidence, and thresholds remain unchanged.
+
+A singleton key supplies a measured zero because its count is below the configured
+threshold. Missing sentences, a missed sentence word minimum, or no key supply
+explicit absence reasons. Unsupported opener block kinds remain absent. Scalar
+state is local to each block and adds no observation map or second NLP pass.
+Observer errors and cancellation propagate before grouped evidence is emitted.
+Only the three descriptor declarations change catalog identity; finding versions
+stay unchanged. Near/extended repetition and list observations remain open.
 
 Acceptance includes positive and zero activations, each absence state, disabled
 rules, uninstrumented external rules, ignored observer errors, partial failures,
