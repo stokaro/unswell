@@ -1,5 +1,11 @@
 # End-to-end CLI cases
 
+`corpus_training_test.go` builds the research command with cgo disabled, prepares
+the pinned scripted corpus, and fits its paragraph labels through `corpus train`.
+It checks training-only normalization, separate calibration, reserved partitions,
+explicit simulation opt-in, and failed runs without partial JSON. Expected values
+come from the [inspectable fixture](../research/annotation/training/testdata/README.md).
+
 The [corpus workflow test](corpus_test.go) builds the developer command with cgo
 disabled, plans the pinned Ptah sources, extracts candidates, and repeats extraction
 to verify them. Its [golden](corpusdata/ptah-units.golden.json) records all 378 units'

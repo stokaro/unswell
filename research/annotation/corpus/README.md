@@ -141,6 +141,11 @@ not prove reproduction. See [ADR 0024](../../../docs/adr/0024-corpus-feature-bin
 
 ## Reproduce and audit
 
+After matching a round, the [`corpus train` workflow](../training/README.md) can fit
+the shared Go logistic model on permitted training targets and optionally calibrate
+it on the separate calibration partition. It retains development and final test
+as reserved and produces an explicitly unqualified research artifact.
+
 `plan` records the canonical manifest digest, components, algorithm, and assignments.
 `extract` revalidates that plan and checks every source and notice hash before
 building candidates. The artifact records pipeline/NLP/dependency identity and a

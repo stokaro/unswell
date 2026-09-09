@@ -34,6 +34,9 @@ type FitOptions struct {
 	MaxOperations int64
 }
 
+// Validate checks the shared fitting limits without reading or preparing rows.
+func (o FitOptions) Validate() error { return validateOptions(o) }
+
 // FitResult records reproducible numerical training, not corpus qualification.
 // InputSHA256 binds ordered raw vectors and labels; Options records tuning inputs.
 type FitResult struct {
@@ -61,7 +64,7 @@ func (b *workBudget) charge(cost int64) error {
 // It standardizes with training statistics and requires both classes. Input order
 // is fixed, no randomness is used, and errors return no partial model or result.
 func FitLogistic(ctx context.Context, examples []Example, options FitOptions) (FitResult, error) {
-	if err := validateOptions(options); err != nil {
+	if err := options.Validate(); err != nil {
 		return FitResult{}, err
 	}
 	budget := workBudget{limit: options.MaxOperations}
