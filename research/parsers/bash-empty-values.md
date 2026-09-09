@@ -78,3 +78,29 @@ Root CLI fixtures require six exact detections across three shell formats, with
 CRLF and protected substitutions. An incomplete `if` statement remains an
 operational failure with exit code 2. All expectations run through the normal
 engine and reporting path.
+
+## Full Ptah scan
+
+The [full-scan comparison](ptah-bash-comparison.json) uses the unchanged Ptah
+snapshot and the same focused policy, configuration identity, rules, and NLP
+model as the earlier [literal-selection comparison](../extraction/README.md).
+The new binary was built from signed Unswell commit
+`42ec7520621faaca04b7fff1d91dd5bd89ede3bc`.
+
+| Focused scan | Documents | Prose words | Findings | File errors | Exit |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Before Bash repair | 4,068 | 2,545,831 | 10,957 | 1 | 2 |
+| After Bash repair | 4,069 | 2,546,624 | 10,963 | 0 | 1 |
+
+The scan completed in 50.4 seconds with a ten-minute limit. Exit 1 reports policy
+failure after complete analysis. The recovered script contributes 793 prose
+words, 44 blocks, 57 sentences, and six long-sentence findings. All 4,068 previously
+analyzed document results and their 10,957 findings are unchanged. Source hashes
+and every exclusion range were checked against the pinned archive.
+
+The broad policy was not rerun for this repair; it still selects the non-English
+identifier fixture described in the earlier experiment. This focused scan proves
+parser recovery, not editorial precision or authorship detection. Its full JSON
+and terminal reports, exit code, command receipt, and comparison script are
+retained in the local `issue62` research directory. The published summary records
+their hashes and the recovered document's ranges without copying source text.

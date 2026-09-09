@@ -82,3 +82,8 @@ with this summary. Repeating the commands above regenerates reports, though a
 different configuration path changes the recorded configuration identity. Config
 paths in the summary are represented by their basenames. This comparison measures
 source selection and error recovery; it supplies no editorial quality labels.
+
+A later [Bash parser comparison](../parsers/bash-empty-values.md#full-ptah-scan)
+repeats the focused scan after the #62 repair. It completes without file errors
+and preserves all 4,068 document results from the focused run recorded above.
+The three historical measurements in this document remain unchanged.
