@@ -1,5 +1,8 @@
 package main
 
+// White-box tests: Inject incomplete dependency-parser output into private source mapping;
+// the command obtains parser output from an external process without a mapping injection API.
+
 import (
 	"testing"
 

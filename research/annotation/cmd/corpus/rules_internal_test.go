@@ -1,5 +1,8 @@
 package main
 
+// White-box tests: Probe the command private rule-config byte limit and regular-file reader;
+// the command exposes neither the limit constant nor a callable reader API.
+
 import (
 	"os"
 	"path/filepath"

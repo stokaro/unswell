@@ -1,5 +1,8 @@
 package main
 
+// White-box tests: Exercise private training argument validation and inject a failing output writer;
+// the executable interface cannot accept the writer used to verify error propagation.
+
 import (
 	"bytes"
 	"io"

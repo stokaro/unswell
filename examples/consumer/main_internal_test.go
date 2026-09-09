@@ -1,5 +1,8 @@
 package main
 
+// White-box tests: Inspect the example command analysis result and custom rule before output rendering;
+// package main cannot be imported, and process output omits these intermediate rule values.
+
 import (
 	"testing"
 

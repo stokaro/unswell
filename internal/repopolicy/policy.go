@@ -45,14 +45,26 @@ func checkEntry(tree fs.FS, modules []string, ledger, name string, entry fs.DirE
 	if path.Base(name) == "go.mod" && !slices.Contains(modules, path.Dir(name)) {
 		return fmt.Errorf("unclassified Go module: %s", name)
 	}
-	if strings.HasPrefix(name, "goanalysis/") && strings.HasSuffix(name, ".go") {
-		return checkAdapterSource(tree, name, ledger)
-	}
-	if strings.HasSuffix(name, ".go") && inRootModule(name, modules) {
-		return checkSource(tree, name, ledger)
+	if strings.HasSuffix(name, ".go") {
+		return checkGoEntry(tree, modules, name, ledger)
 	}
 	if strings.HasPrefix(name, ".github/workflows/") {
 		return checkWorkflow(tree, name)
+	}
+	return nil
+}
+
+func checkGoEntry(tree fs.FS, modules []string, name, ledger string) error {
+	if strings.HasSuffix(name, "_test.go") {
+		if err := checkTestSource(tree, name); err != nil {
+			return err
+		}
+	}
+	if strings.HasPrefix(name, "goanalysis/") {
+		return checkAdapterSource(tree, name, ledger)
+	}
+	if inRootModule(name, modules) {
+		return checkSource(tree, name, ledger)
 	}
 	return nil
 }

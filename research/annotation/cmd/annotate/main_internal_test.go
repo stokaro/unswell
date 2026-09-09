@@ -1,5 +1,8 @@
 package main
 
+// White-box tests: Inject reader and writer failures and cancellation into the command runner;
+// the executable interface cannot supply these in-process I/O implementations.
+
 import (
 	"bytes"
 	"context"

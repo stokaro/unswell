@@ -1,4 +1,4 @@
-package annotation
+package annotation_test
 
 import (
 	"bytes"
@@ -11,6 +11,8 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
+
+	"github.com/stokaro/unswell/research/annotation"
 )
 
 func TestDecisionsBindInputWithoutExposingProse(t *testing.T) {
@@ -21,7 +23,7 @@ func TestDecisionsBindInputWithoutExposingProse(t *testing.T) {
 	data.Units[0].Origin.Evidence = "HIDDEN_ORIGIN"
 	data.Judgments[0].Rationale = "HIDDEN_RATIONALE"
 	input := encode(c, data)
-	round, err := Load(t.Context(), input)
+	round, err := annotation.Load(t.Context(), input)
 	c.Assert(err, qt.IsNil)
 	result, err := round.Decisions(t.Context())
 	c.Assert(err, qt.IsNil)
@@ -48,7 +50,7 @@ func TestDecisionOrderingAndRightsAreExplicit(t *testing.T) {
 	for i := range data.Judgments {
 		data.Judgments[i].Categories = []string{"wordiness", "empty_framing"}
 	}
-	before, err := Load(t.Context(), encode(c, data))
+	before, err := annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.IsNil)
 	want, err := before.Decisions(t.Context())
 	c.Assert(err, qt.IsNil)
@@ -57,7 +59,7 @@ func TestDecisionOrderingAndRightsAreExplicit(t *testing.T) {
 	slices.Reverse(data.Actors)
 	slices.Reverse(data.Judgments)
 	slices.Reverse(data.Judgments[0].Categories)
-	after, err := Load(t.Context(), encode(c, data))
+	after, err := annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.IsNil)
 	got, err := after.Decisions(t.Context())
 	c.Assert(err, qt.IsNil)
@@ -70,7 +72,7 @@ func TestDecisionOrderingAndRightsAreExplicit(t *testing.T) {
 func TestDecisionOwnershipAndCancellation(t *testing.T) {
 	c := qt.New(t)
 	data := decisionFixture(c)
-	round, err := Load(t.Context(), encode(c, data))
+	round, err := annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.IsNil)
 	want, err := round.Decisions(t.Context())
 	c.Assert(err, qt.IsNil)
@@ -98,10 +100,10 @@ func TestDecisionOwnershipAndCancellation(t *testing.T) {
 	cancel()
 	empty, err := round.Decisions(ctx)
 	c.Assert(err, qt.ErrorIs, context.Canceled)
-	c.Assert(empty, qt.DeepEquals, DecisionSet{})
-	var invalid *Round
+	c.Assert(empty, qt.DeepEquals, annotation.DecisionSet{})
+	var invalid *annotation.Round
 	_, err = invalid.Decisions(t.Context())
 	c.Assert(err, qt.ErrorMatches, "load a validated.*")
-	_, err = (&Round{}).Decisions(t.Context())
+	_, err = (&annotation.Round{}).Decisions(t.Context())
 	c.Assert(err, qt.ErrorMatches, "load a validated.*")
 }

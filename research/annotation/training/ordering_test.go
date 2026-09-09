@@ -1,22 +1,25 @@
-package training
+package training_test
 
 import (
 	"slices"
 	"testing"
 
 	qt "github.com/frankban/quicktest"
+
+	"github.com/stokaro/unswell/research/annotation/internal/testfixture"
+	"github.com/stokaro/unswell/research/annotation/training"
 )
 
 func TestFeatureOrderAndReturnedOwnership(t *testing.T) {
 	c := qt.New(t)
-	input := fixtureInput(t)
-	candidates, round := input.compile(t)
+	input := testfixture.Load(t, "testdata")
+	candidates, round := input.Compile(t)
 	options := fittingOptions()
 	options.Features = []string{"prose-words", "noun-token-ratio"}
-	first, err := Run(t.Context(), candidates, round, input.files, options)
+	first, err := training.Run(t.Context(), candidates, round, input.Files, options)
 	c.Assert(err, qt.IsNil)
 	slices.Reverse(options.Features)
-	second, err := Run(t.Context(), candidates, round, input.files, options)
+	second, err := training.Run(t.Context(), candidates, round, input.Files, options)
 	c.Assert(err, qt.IsNil)
 	c.Assert(first, qt.DeepEquals, second)
 	c.Assert(first.Options.Features, qt.DeepEquals, []string{"noun-token-ratio", "prose-words"})
@@ -31,7 +34,7 @@ func TestFeatureOrderAndReturnedOwnership(t *testing.T) {
 	first.Calibration.Scores[0] = 99
 	first.Partitions[0].Rows[0].UnitID = "changed"
 	options = second.Options
-	again, err := Run(t.Context(), candidates, round, input.files, options)
+	again, err := training.Run(t.Context(), candidates, round, input.Files, options)
 	c.Assert(err, qt.IsNil)
 	c.Assert(again, qt.DeepEquals, second)
 }

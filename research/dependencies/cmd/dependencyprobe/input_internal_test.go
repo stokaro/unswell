@@ -1,5 +1,8 @@
 package main
 
+// White-box tests: Probe private resource inventory, bounded readers, and command validation;
+// this research executable has no importable API for these resource boundaries.
+
 import (
 	"bytes"
 	"context"

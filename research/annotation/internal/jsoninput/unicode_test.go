@@ -1,9 +1,11 @@
-package jsoninput
+package jsoninput_test
 
 import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
+
+	"github.com/stokaro/unswell/research/annotation/internal/jsoninput"
 )
 
 func TestUnicodeEscapes(t *testing.T) {
@@ -21,7 +23,7 @@ func TestUnicodeEscapes(t *testing.T) {
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			c := qt.New(t)
-			c.Assert(validSurrogates([]byte(tc.value)) == nil, qt.Equals, tc.valid)
+			c.Assert(jsoninput.Check(t.Context(), []byte(tc.value), 1024) == nil, qt.Equals, tc.valid)
 		})
 	}
 }

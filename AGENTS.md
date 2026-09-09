@@ -14,6 +14,28 @@ Use standard testing and quicktest imported as `qt`; do not use testify. Maintai
 package and exported API comments. Keep the public package ledger current.
 Do not add blanket lint exclusions or weaken limits for an individual algorithm.
 
+Write blackbox tests by default, in `package <name>_test`, through the public API.
+Keep their filenames as `*_test.go`. Do not export production internals just to
+make them accessible to tests.
+
+Whitebox tests are exceptions. Each such file must use `*_internal_test.go` and
+include a `// White-box tests: ...` comment after the `package` clause and before
+imports or declarations. Explain the specific internal behavior under test and
+why the public API cannot provide the required evidence. A generic testing
+statement or shared test helper is not a justification. For example, in
+`objective_internal_test.go`:
+
+```go
+package model
+
+// White-box tests: Compare private gradients and Hessians with finite differences;
+// the public fitting API exposes only the fitted model, not these derivatives.
+```
+
+Repository checks enforce the package convention, exception filename, and the
+presence and placement of the explanation across all Go modules. Review must
+assess whether the explanation warrants whitebox access.
+
 Run `make check` before publishing. Run `make race` for concurrency changes.
 Every repository policy check needs a negative test proving it rejects a violation.
 Document alpha limitations and preserve later requirements in the roadmap.

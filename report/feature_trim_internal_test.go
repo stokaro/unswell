@@ -1,5 +1,8 @@
 package report
 
+// White-box tests: Exercise invalid segment combinations at the private trim validator;
+// report loading validates the surrounding document before these isolated span cases can reach it.
+
 import (
 	"testing"
 

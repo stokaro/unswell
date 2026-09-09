@@ -1,5 +1,8 @@
 package main
 
+// White-box tests: Verify registry composition with the example command private teamRule;
+// the command has no importable API for selecting this rule alongside a loaded ruleset.
+
 import (
 	"bytes"
 	"encoding/json"

@@ -1,5 +1,8 @@
 package selfcheck
 
+// White-box tests: Supply a false-pass MCP session directly to negative probe verification;
+// the public self-check entry point cannot receive an in-memory session.
+
 import (
 	"context"
 	"testing"

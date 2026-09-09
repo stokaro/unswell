@@ -1,5 +1,8 @@
 package main
 
+// White-box tests: Inject output failures and cancellation and probe bounded source readers;
+// package main has no importable command API or process flag for these I/O faults.
+
 import (
 	"bytes"
 	"context"

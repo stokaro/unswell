@@ -1,5 +1,8 @@
 package selfcheck
 
+// White-box tests: Inject an in-memory MCP session into batch verification and corrupt later replies;
+// the public self-check entry point starts a process and does not accept an existing session.
+
 import (
 	"context"
 	"fmt"

@@ -1,5 +1,8 @@
 package training
 
+// White-box tests: Inject unavailable and malformed measurements into row selection;
+// Run constructs those measurements internally and does not accept a precomputed join.
+
 import (
 	"math"
 	"testing"
@@ -9,6 +12,7 @@ import (
 	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/model"
 	"github.com/stokaro/unswell/research/annotation/corpus"
+	"github.com/stokaro/unswell/research/annotation/internal/testfixture"
 )
 
 func TestRunRejectsInvalidSelectionsAndLimits(t *testing.T) {
@@ -27,11 +31,11 @@ func TestRunRejectsInvalidSelectionsAndLimits(t *testing.T) {
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
-			input := fixtureInput(t)
-			candidates, round := input.compile(t)
+			input := testfixture.Load(t, "testdata")
+			candidates, round := input.Compile(t)
 			options := fittingOptions()
 			row.edit(&options)
-			result, err := Run(t.Context(), candidates, round, input.files, options)
+			result, err := Run(t.Context(), candidates, round, input.Files, options)
 			c.Assert(err, qt.IsNotNil)
 			c.Assert(result, qt.DeepEquals, Artifact{})
 		})
@@ -40,26 +44,26 @@ func TestRunRejectsInvalidSelectionsAndLimits(t *testing.T) {
 
 func TestNoParentLabelsAndNoPartialBudgetResult(t *testing.T) {
 	c := qt.New(t)
-	input := fixtureInput(t)
-	candidates, round := input.compile(t)
+	input := testfixture.Load(t, "testdata")
+	candidates, round := input.Compile(t)
 	options := fittingOptions()
 	options.Kind = "sentence"
-	result, err := Run(t.Context(), candidates, round, input.files, options)
+	result, err := Run(t.Context(), candidates, round, input.Files, options)
 	c.Assert(err, qt.ErrorMatches, "training partition: .*")
 	c.Assert(result, qt.DeepEquals, Artifact{})
 	options = fittingOptions()
 	options.Fit.MaxOperations = 1
-	result, err = Run(t.Context(), candidates, round, input.files, options)
+	result, err = Run(t.Context(), candidates, round, input.Files, options)
 	c.Assert(err, qt.ErrorIs, model.ErrBudget)
 	c.Assert(result, qt.DeepEquals, Artifact{})
 }
 
 func TestSelectionMakesMissingFeaturesExplicit(t *testing.T) {
 	c := qt.New(t)
-	input := fixtureInput(t)
-	candidates, round := input.compile(t)
+	input := testfixture.Load(t, "testdata")
+	candidates, round := input.Compile(t)
 	options := fittingOptions()
-	joined, err := corpus.Join(t.Context(), candidates, round, input.files, options.Features)
+	joined, err := corpus.Join(t.Context(), candidates, round, input.Files, options.Features)
 	c.Assert(err, qt.IsNil)
 	for i := range joined.Features.Sources[0].Units {
 		unit := &joined.Features.Sources[0].Units[i]

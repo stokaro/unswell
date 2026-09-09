@@ -1,5 +1,8 @@
 package main
 
+// White-box tests: Exercise private bounded artifact loading and inject an output writer failure;
+// these command internals have no importable API or writer injection through process arguments.
+
 import (
 	"bytes"
 	"io"

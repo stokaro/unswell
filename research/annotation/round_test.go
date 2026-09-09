@@ -1,4 +1,4 @@
-package annotation
+package annotation_test
 
 import (
 	"bytes"
@@ -12,18 +12,34 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
+
+	"github.com/stokaro/unswell/research/annotation"
 )
 
-func fixture(c *qt.C) roundData {
+type roundInput struct {
+	Version       string                    `json:"version"`
+	ID            string                    `json:"round_id"`
+	Purpose       string                    `json:"purpose"`
+	Rubric        string                    `json:"rubric"`
+	Profile       annotation.Profile        `json:"profile"`
+	Units         []annotation.Unit         `json:"units"`
+	Actors        []annotation.Actor        `json:"actors"`
+	Judgments     []annotation.Judgment     `json:"judgments"`
+	Adjudications []annotation.Adjudication `json:"adjudications"`
+}
+
+func fixture(c *qt.C) roundInput {
 	c.Helper()
 	data, err := os.ReadFile("testdata/tutorial.json")
 	c.Assert(err, qt.IsNil)
-	round, err := Load(context.Background(), data)
+	_, err = annotation.Load(context.Background(), data)
 	c.Assert(err, qt.IsNil)
-	return round.data
+	var input roundInput
+	c.Assert(json.Unmarshal(data, &input), qt.IsNil)
+	return input
 }
 
-func encode(c *qt.C, data roundData) []byte {
+func encode(c *qt.C, data roundInput) []byte {
 	c.Helper()
 	encoded, err := json.Marshal(data)
 	c.Assert(err, qt.IsNil)
@@ -38,7 +54,7 @@ func TestPacketBlindingAndOwnership(t *testing.T) {
 	data.Units[0].Rights.Evidence = "HIDDEN_RIGHTS"
 	data.Judgments[0].Rationale = "HIDDEN_JUDGMENT"
 	data.Adjudications[0].Rationale = "HIDDEN_DECISION"
-	round, err := Load(t.Context(), encode(c, data))
+	round, err := annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.IsNil)
 	packet, err := round.Packet(t.Context())
 	c.Assert(err, qt.IsNil)
@@ -56,19 +72,19 @@ func TestPacketBlindingAndOwnership(t *testing.T) {
 func TestAgreementIgnoresOriginAndAdjudication(t *testing.T) {
 	c := qt.New(t)
 	data := fixture(c)
-	round, err := Load(t.Context(), encode(c, data))
+	round, err := annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.IsNil)
 	before, err := round.Agreement(t.Context())
 	c.Assert(err, qt.IsNil)
 	c.Assert(before.Basis, qt.Equals, "simulation")
 	c.Assert(before.PrimaryRaters, qt.Equals, 2)
 	c.Assert(before.AuxiliaryJudgments, qt.Equals, 1)
-	data.Adjudications = []Adjudication{}
+	data.Adjudications = []annotation.Adjudication{}
 	data.Judgments = data.Judgments[:len(data.Judgments)-1]
-	data.Units[0].Origin = Origin{Label: "unknown", Scope: "repository", Evidence: "Unverified source-wide claim."}
+	data.Units[0].Origin = annotation.Origin{Label: "unknown", Scope: "repository", Evidence: "Unverified source-wide claim."}
 	slices.Reverse(data.Units)
 	slices.Reverse(data.Judgments)
-	round, err = Load(t.Context(), encode(c, data))
+	round, err = annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.IsNil)
 	after, err := round.Agreement(t.Context())
 	c.Assert(err, qt.IsNil)
@@ -79,40 +95,40 @@ func TestAgreementIgnoresOriginAndAdjudication(t *testing.T) {
 func TestRoundRejectsInvalidRecords(t *testing.T) {
 	cases := []struct {
 		name string
-		edit func(*roundData)
+		edit func(*roundInput)
 	}{
-		{"version", func(r *roundData) { r.Version = "unknown" }},
-		{"empty", func(r *roundData) { r.Units = nil }},
-		{"duplicate unit", func(r *roundData) { r.Units[1].ID = r.Units[0].ID }},
-		{"profile hash", func(r *roundData) { r.Profile.Instructions += "changed" }},
-		{"source span", func(r *roundData) { r.Units[0].Source.Segments[0].End++ }},
-		{"source language", func(r *roundData) { r.Units[0].Source.Language = "unknown" }},
-		{"unknown role", func(r *roundData) { r.Units[0].Role = "unknown" }},
-		{"source origin", func(r *roundData) { r.Units[0].Origin.Scope = "repository" }},
-		{"generation record", func(r *roundData) { r.Units[0].Origin.GenerationRecord = "" }},
-		{"protected boundary", func(r *roundData) { r.Units[0].Text += "\x00text" }},
-		{"human tutorial", func(r *roundData) { r.Actors[0].Kind = "human" }},
-		{"simulated corpus", func(r *roundData) { r.Purpose = "corpus" }},
-		{"single primary", func(r *roundData) { r.Actors[0].Kind = "assistant" }},
-		{"duplicate actor", func(r *roundData) { r.Actors[1].ID = r.Actors[0].ID }},
-		{"unknown actor", func(r *roundData) { r.Judgments[0].ActorID = "a999" }},
-		{"unknown unit", func(r *roundData) { r.Judgments[0].UnitID = "u999999" }},
-		{"duplicate judgment", func(r *roundData) { r.Judgments = append(r.Judgments, r.Judgments[0]) }},
-		{"missing category", func(r *roundData) { r.Judgments[0].Categories = nil }},
-		{"incompatible category", func(r *roundData) { r.Judgments[0].Label = "acceptable" }},
-		{"unknown category", func(r *roundData) { r.Judgments[0].Categories[0] = "origin" }},
-		{"context", func(r *roundData) { r.Judgments[0].Context = "insufficient" }},
-		{"timestamp", func(r *roundData) { r.Judgments[0].RecordedAt = "yesterday" }},
-		{"early decision", func(r *roundData) { r.Adjudications[0].RecordedAt = "2026-09-07T00:00:00Z" }},
-		{"assistant decision", func(r *roundData) { r.Adjudications[0].Reviewers = []string{"a003"} }},
-		{"duplicate decision", func(r *roundData) { r.Adjudications = append(r.Adjudications, r.Adjudications[0]) }},
+		{"version", func(r *roundInput) { r.Version = "unknown" }},
+		{"empty", func(r *roundInput) { r.Units = nil }},
+		{"duplicate unit", func(r *roundInput) { r.Units[1].ID = r.Units[0].ID }},
+		{"profile hash", func(r *roundInput) { r.Profile.Instructions += "changed" }},
+		{"source span", func(r *roundInput) { r.Units[0].Source.Segments[0].End++ }},
+		{"source language", func(r *roundInput) { r.Units[0].Source.Language = "unknown" }},
+		{"unknown role", func(r *roundInput) { r.Units[0].Role = "unknown" }},
+		{"source origin", func(r *roundInput) { r.Units[0].Origin.Scope = "repository" }},
+		{"generation record", func(r *roundInput) { r.Units[0].Origin.GenerationRecord = "" }},
+		{"protected boundary", func(r *roundInput) { r.Units[0].Text += "\x00text" }},
+		{"human tutorial", func(r *roundInput) { r.Actors[0].Kind = "human" }},
+		{"simulated corpus", func(r *roundInput) { r.Purpose = "corpus" }},
+		{"single primary", func(r *roundInput) { r.Actors[0].Kind = "assistant" }},
+		{"duplicate actor", func(r *roundInput) { r.Actors[1].ID = r.Actors[0].ID }},
+		{"unknown actor", func(r *roundInput) { r.Judgments[0].ActorID = "a999" }},
+		{"unknown unit", func(r *roundInput) { r.Judgments[0].UnitID = "u999999" }},
+		{"duplicate judgment", func(r *roundInput) { r.Judgments = append(r.Judgments, r.Judgments[0]) }},
+		{"missing category", func(r *roundInput) { r.Judgments[0].Categories = nil }},
+		{"incompatible category", func(r *roundInput) { r.Judgments[0].Label = "acceptable" }},
+		{"unknown category", func(r *roundInput) { r.Judgments[0].Categories[0] = "origin" }},
+		{"context", func(r *roundInput) { r.Judgments[0].Context = "insufficient" }},
+		{"timestamp", func(r *roundInput) { r.Judgments[0].RecordedAt = "yesterday" }},
+		{"early decision", func(r *roundInput) { r.Adjudications[0].RecordedAt = "2026-09-07T00:00:00Z" }},
+		{"assistant decision", func(r *roundInput) { r.Adjudications[0].Reviewers = []string{"a003"} }},
+		{"duplicate decision", func(r *roundInput) { r.Adjudications = append(r.Adjudications, r.Adjudications[0]) }},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			c := qt.New(t)
 			data := fixture(c)
 			tc.edit(&data)
-			_, err := Load(t.Context(), encode(c, data))
+			_, err := annotation.Load(t.Context(), encode(c, data))
 			c.Assert(err, qt.IsNotNil)
 		})
 	}
@@ -131,7 +147,7 @@ func TestLoadRejectsJSONAmbiguity(t *testing.T) {
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			c := qt.New(t)
-			_, err := Load(t.Context(), []byte(tc.value))
+			_, err := annotation.Load(t.Context(), []byte(tc.value))
 			c.Assert(err, qt.IsNotNil)
 		})
 	}
@@ -140,10 +156,10 @@ func TestLoadRejectsJSONAmbiguity(t *testing.T) {
 func TestMissingAnswersAndPermissions(t *testing.T) {
 	c := qt.New(t)
 	data := fixture(c)
-	data.Judgments = []Judgment{}
-	data.Adjudications = []Adjudication{}
+	data.Judgments = []annotation.Judgment{}
+	data.Adjudications = []annotation.Adjudication{}
 	data.Units[0].Rights.AllowedUses = []string{}
-	round, err := Load(t.Context(), encode(c, data))
+	round, err := annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.IsNil)
 	_, err = round.Packet(t.Context())
 	c.Assert(err, qt.ErrorMatches, ".*annotation permission.*")
@@ -158,15 +174,15 @@ func TestPacketBindingAndUnknownFields(t *testing.T) {
 	c := qt.New(t)
 	data := fixture(c)
 	data.Units[0].Context += " New context."
-	_, err := Load(t.Context(), encode(c, data))
+	_, err := annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.ErrorMatches, ".*frozen annotation packet.*")
 	data = fixture(c)
 	data.Adjudications[0].PacketSHA256 = strings.Repeat("0", 64)
-	_, err = Load(t.Context(), encode(c, data))
+	_, err = annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.ErrorMatches, ".*frozen annotation packet.*")
 	encoded := encode(c, fixture(c))
 	encoded = bytes.Replace(encoded, []byte(`"version":`), []byte(`"unknown":true,"version":`), 1)
-	_, err = Load(t.Context(), encoded)
+	_, err = annotation.Load(t.Context(), encoded)
 	c.Assert(err, qt.ErrorMatches, "(?s)annotation schema:.*additional properties.*")
 }
 
@@ -174,14 +190,14 @@ func TestPlannedHumanRoundDoesNotInventRatings(t *testing.T) {
 	c := qt.New(t)
 	data := fixture(c)
 	data.Purpose = "pilot"
-	data.Judgments = []Judgment{}
-	data.Adjudications = []Adjudication{}
+	data.Judgments = []annotation.Judgment{}
+	data.Adjudications = []annotation.Adjudication{}
 	for i := range data.Actors {
 		if data.Actors[i].Kind == "simulation" {
 			data.Actors[i].Kind = "human"
 		}
 	}
-	round, err := Load(t.Context(), encode(c, data))
+	round, err := annotation.Load(t.Context(), encode(c, data))
 	c.Assert(err, qt.IsNil)
 	result, err := round.Agreement(t.Context())
 	c.Assert(err, qt.IsNil)
@@ -194,8 +210,8 @@ func TestPlannedHumanRoundDoesNotInventRatings(t *testing.T) {
 func TestUnloadedRound(t *testing.T) {
 	cases := []struct {
 		name  string
-		round *Round
-	}{{"nil", nil}, {"zero", &Round{}}}
+		round *annotation.Round
+	}{{"nil", nil}, {"zero", &annotation.Round{}}}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
 			c := qt.New(t)
@@ -213,11 +229,11 @@ func TestStringRolesAndFragments(t *testing.T) {
 		t.Run(tc.role, func(t *testing.T) {
 			c := qt.New(t)
 			data := fixture(c)
-			data.Judgments = []Judgment{}
-			data.Adjudications = []Adjudication{}
+			data.Judgments = []annotation.Judgment{}
+			data.Adjudications = []annotation.Adjudication{}
 			data.Units[0].Kind = "fragment"
 			data.Units[0].Role = tc.role
-			round, err := Load(t.Context(), encode(c, data))
+			round, err := annotation.Load(t.Context(), encode(c, data))
 			c.Assert(err, qt.IsNil)
 			packet, err := round.Packet(t.Context())
 			c.Assert(err, qt.IsNil)
@@ -225,7 +241,7 @@ func TestStringRolesAndFragments(t *testing.T) {
 			c.Assert(packet.Units[0].Role, qt.Equals, tc.role)
 			result, err := round.Agreement(t.Context())
 			c.Assert(err, qt.IsNil)
-			found := slices.ContainsFunc(result.Groups, func(group GroupStats) bool { return group.Group == "role:"+tc.role })
+			found := slices.ContainsFunc(result.Groups, func(group annotation.GroupStats) bool { return group.Group == "role:"+tc.role })
 			c.Assert(found, qt.IsTrue)
 		})
 	}
@@ -249,15 +265,15 @@ func TestCancellationAndSize(t *testing.T) {
 	data := encode(c, fixture(c))
 	ctx, cancel := context.WithCancel(t.Context())
 	cancel()
-	_, err := Load(ctx, data)
+	_, err := annotation.Load(ctx, data)
 	c.Assert(err, qt.ErrorIs, context.Canceled)
-	round, err := Load(t.Context(), data)
+	round, err := annotation.Load(t.Context(), data)
 	c.Assert(err, qt.IsNil)
 	_, err = round.Packet(ctx)
 	c.Assert(err, qt.ErrorIs, context.Canceled)
 	_, err = round.Agreement(ctx)
 	c.Assert(err, qt.ErrorIs, context.Canceled)
-	_, err = Load(t.Context(), bytes.Repeat([]byte(" "), MaxBytes+1))
+	_, err = annotation.Load(t.Context(), bytes.Repeat([]byte(" "), annotation.MaxBytes+1))
 	c.Assert(err, qt.IsNotNil)
 }
 
@@ -269,7 +285,7 @@ func FuzzLoad(f *testing.F) {
 	f.Add(data)
 	f.Add([]byte(`{"version":null}`))
 	f.Fuzz(func(t *testing.T, input []byte) {
-		round, err := Load(t.Context(), input)
+		round, err := annotation.Load(t.Context(), input)
 		if err != nil {
 			return
 		}

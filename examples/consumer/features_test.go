@@ -1,4 +1,4 @@
-package main
+package main_test
 
 import (
 	"context"
@@ -11,6 +11,7 @@ import (
 	"github.com/stokaro/unswell"
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/feature"
+	"github.com/stokaro/unswell/nlp"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -21,10 +22,14 @@ type featureRule struct {
 
 // Descriptor requests common measurements with the existing token capabilities.
 func (r featureRule) Descriptor() rule.Descriptor {
-	d := teamRule{}.Descriptor()
-	d.ID, d.SharedFeatures = r.id, true
-	d.BlockObservations = true
-	return d
+	return rule.Descriptor{
+		ID: r.id, Version: "1", Summary: "Check public feature observations.",
+		Description: "A consumer of shared token measurements.", Limitations: "Fixture for the public feature contract.",
+		Scope: "sentence", Group: "team-policy", Status: "experimental", Contexts: []string{"paragraph"},
+		Requires: []nlp.Capability{nlp.Tokens, nlp.Sentences}, Parameters: []string{}, Examples: []rule.Example{},
+		SharedFeatures: true, BlockObservations: true,
+		Defaults: rule.Settings{Enabled: true, Severity: "warning", Gate: "forbid", Score: rule.Score{Weight: 10, Cap: 10}},
+	}
 }
 
 // Evaluate consumes the public feature set without rerunning extraction or NLP.

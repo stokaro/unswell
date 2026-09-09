@@ -1,5 +1,8 @@
 package main
 
+// White-box tests: Exercise the private comparison command runner and failing output writer;
+// a subprocess cannot receive the injected writer used to verify error propagation.
+
 import (
 	"bytes"
 	"context"
