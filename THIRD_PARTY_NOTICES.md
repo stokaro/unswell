@@ -36,6 +36,15 @@ not acquire the MCP SDK. Their notices are packaged with MCP distribution artifa
 | `golang.org/x/sys` | `v0.41.0` | [LICENSE](licenses/golang.org_x_sys_LICENSE) |
 | `golang.org/x/time` | `v0.15.0` | [LICENSE](licenses/golang.org_x_time_LICENSE) |
 
+## Grammar adapter
+
+The Bash scanner adapter in `extract/bash.go` follows the empty-value recognition
+in tree-sitter-bash revision `a06c2e4415e9bc0346c6b86d401879ffb44058f7`
+(copyright 2017 Max Brunsfeld, MIT). Its notice is preserved after the package
+clause and in [licenses/tree-sitter-bash_LICENSE](licenses/tree-sitter-bash_LICENSE).
+The adapter uses the existing embedded grammar and Go scanner; the C reference
+parser and Python research environment are not runtime dependencies.
+
 ## Model data
 
 - POS: Prose `tag/aptagmodel/en.bin`, SHA-256

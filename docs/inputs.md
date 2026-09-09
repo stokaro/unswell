@@ -76,7 +76,14 @@ prose context; language overrides replace that set.
 
 ## Alpha limits
 
-The pinned backend is gotreesitter 0.52.0. Grammar errors, partial parses and
+The pinned backend is gotreesitter 0.52.0. An owned Bash grammar instance preserves
+the grammar's empty-value token before whitespace, allowing commands such as
+`! A=x B= command` to parse. This also applies to the shared Bash subset used for
+POSIX shell and Zsh. The adapter retains substitutions, source ranges, and parser
+error checks; it does not execute shell code or modify gotreesitter's global
+grammar. See the [parser comparison](../research/parsers/bash-empty-values.md).
+
+Grammar errors, partial parses and
 unsupported string escapes produce incomplete analysis and CLI exit code 2.
 This is not a substitute for a compiler or a language-specific linter.
 
