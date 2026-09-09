@@ -47,7 +47,8 @@ func (r *sourceReader) literal(node *ts.Node) (document.MappedText, error) {
 	}
 	mapped := builder.Build()
 	if !utf8.ValidString(mapped.Text) {
-		return document.MappedText{}, fmt.Errorf("string at byte %d decodes to non-UTF-8 bytes", spec.span.Start)
+		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: syntaxSpan(node, 0), Reason: "non-utf8-literal"})
+		return document.MappedText{}, nil
 	}
 	return mapped, nil
 }

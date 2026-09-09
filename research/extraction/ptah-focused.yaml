@@ -1,0 +1,28 @@
+version: 1
+extends: [builtin:technical-v1]
+extraction:
+  exceptions:
+    - id: workflow-shell
+      paths: [".github/workflows/*.yml", ".github/workflows/*.yaml"]
+      formats: [yaml]
+      kinds: [string]
+      symbols: [run]
+      reason: "Workflow run fields contain shell programs."
+    - id: sql-values
+      paths: ["dbschema/*.go", "internal/parser/*.go", "internal/atlasschema/*.go"]
+      formats: [go]
+      kinds: [string]
+      symbols: [query, sql, SQL]
+      reason: "These named values contain SQL statements consumed by database or parser code."
+    - id: unicode-identifier-fixture
+      paths: ["internal/parser/parser_test.go"]
+      formats: [go]
+      kinds: [string]
+      symbols: [TestParser_ParseCreateTable_UnicodeIdentifiers]
+      reason: "This test's strings contain SQL and expected non-English identifier values."
+    - id: identifier-byte-fixtures
+      paths: ["core/renderer/identifier_bytes_test.go"]
+      formats: [go]
+      kinds: [string]
+      symbols: [asciiIdentifier, multiByteIdentifier, multiByteSchema, undecodableIdentifier]
+      reason: "These constants define exact identifier bytes for rendering tests."

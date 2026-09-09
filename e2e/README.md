@@ -46,6 +46,8 @@ Each directory in `testdata` contains:
 - `sample.go.txt` or another language fixture: source with inline `want` annotations.
 - `policy.yaml`, when the case overrides the shared two-rule policy.
 - `diagnostics.golden.json`: exact diagnostics, source spans, completion, and gate state.
+- `exclusions.golden.json`, when `exclusion_report` is requested: source names,
+  omitted ranges, and their reasons from the saved CLI report.
 - `stdout.golden` and `stderr.golden`: complete user-facing process output.
 - `features.golden.json`, when `feature_collection` is expected: requested values,
   absence reasons, source segments, and compatibility identities.

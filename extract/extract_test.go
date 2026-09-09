@@ -122,6 +122,7 @@ func FuzzSourceMap(f *testing.F) {
 		}
 		if format == document.Go {
 			f.Add(uint8(index), "package sample\n// unswell-disable-next-block rule.one -- Required contract wording.\n// Read the manual.\n")
+			f.Add(uint8(index), "package sample\n// Read the manual.\nconst data = \"\\xff\"\nconst text = \"caf\\xc3\\xa9\"\n")
 		}
 	}
 	f.Fuzz(func(t *testing.T, format uint8, text string) {
@@ -145,6 +146,9 @@ func assertMappedDocument(t *testing.T, doc document.Document, size int) {
 	c := qt.New(t)
 	for _, directive := range doc.Directives {
 		c.Assert(directive.Span.Valid(size), qt.IsTrue)
+	}
+	for _, excluded := range doc.Excluded {
+		c.Assert(excluded.Span.Valid(size), qt.IsTrue)
 	}
 	for _, block := range doc.Blocks {
 		c.Assert(block.Text, qt.HasLen, len(block.Map))

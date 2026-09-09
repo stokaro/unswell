@@ -77,6 +77,60 @@ and select `kinds: [string]`. Its comments remain checked. For a runtime file,
 prefer a named fixture or catalog field so neighboring strings remain checked.
 The repository's [.unswell.yaml](../.unswell.yaml) demonstrates both cases.
 
+## Literal data
+
+Selecting strings includes embedded SQL, JSON, scripts, identifiers, and protocol
+values. Unswell does not infer that a string is prose from its variable name or
+guess an embedded language from punctuation. Select known data with existing
+path, format, kind, and symbol exceptions. For example:
+
+```yaml
+version: 1
+extraction:
+  exceptions:
+    - id: sql-query
+      paths: ["src/database.go"]
+      formats: [go]
+      kinds: [string]
+      symbols: [query]
+      reason: "The query value is SQL consumed by the database driver."
+    - id: workflow-shell
+      paths: [".github/workflows/*.yaml"]
+      formats: [yaml]
+      kinds: [string]
+      symbols: [run]
+      reason: "Run fields contain shell programs rather than English prose."
+```
+
+These examples retain other strings and comments in the same files. A symbol
+names an enclosing declaration or keyed field; selecting a function selects all
+its string literals. Review that scope before using a function-wide exception.
+Use global or per-language context sets when the intended policy applies to every
+string in that scope. Disabling strings is an explicit choice, not the default.
+
+The following cases have distinct outcomes:
+
+| Input | Outcome |
+| --- | --- |
+| Source bytes are invalid UTF-8 or contain NUL | Operational error before selection |
+| Python byte literal or YAML non-string scalar | Existing typed-data exclusion |
+| A selected literal decodes to non-UTF-8 bytes | Whole literal excluded with `non-utf8-literal` and its original byte range |
+| Byte escapes form valid UTF-8 together | Text remains selected, with escape source mapping |
+| Valid text contains embedded code or fixed values | Checked unless an explicit exception selects it |
+| Source has invalid grammar | Operational error even when an exception would select its strings |
+| A selected literal has an unsupported escape | Operational error during decoding |
+
+A matching explicit exception takes precedence over the decoded-byte exclusion
+and retains the configured ID and reason. Valid control escapes retain protected
+boundaries; they do not turn neighboring words into one phrase. UTF-8 validity
+does not establish that text is English: the existing language applicability
+checks still apply to selected prose. When exclusions leave no applicable prose,
+the normal empty-scan gate applies, including CLI exit code 2 by default.
+
+The [literal regression cases](../e2e/testdata/non_utf8_literals/) preserve checked
+neighbors and exclusion ranges in CLI goldens. The
+[data-only case](../e2e/testdata/non_utf8_only/) requires an incomplete result.
+
 These exceptions select source regions, not individual rule findings. They apply
 to library calls and explicit CLI files as well as recursive scans. Source must
 still parse successfully. To omit a file from recursive discovery entirely, use
