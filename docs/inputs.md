@@ -87,10 +87,11 @@ Grammar errors, partial parses and
 unsupported string escapes produce incomplete analysis and CLI exit code 2.
 This is not a substitute for a compiler or a language-specific linter.
 
-A lone `|` after a Markdown table can leave orphaned delimiter tokens in the
-pinned grammar's tree ([#69](https://github.com/stokaro/unswell/issues/69)). Unswell
-rejects that incomplete tree instead of skipping the following text. Rows with
-two or more pipes support empty cells normally.
+A lone `|` after a Markdown table ends the table. Following prose retains its
+paragraph or list-item context, including inside quoted blocks. The scanner
+adapter handles this boundary without changing source bytes. Rows with two or
+more pipes still support empty cells. Incomplete trees with orphaned delimiters
+remain errors; see the [boundary investigation](../research/parsers/markdown-lone-pipe.md).
 
 There is no dedicated Zsh grammar in this backend. Zsh uses the Bash grammar;
 extended Zsh syntax can fail explicitly. Bash also has upstream parsing limits,

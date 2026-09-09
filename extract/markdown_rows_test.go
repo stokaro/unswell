@@ -20,6 +20,8 @@ func TestMarkdownEmptyDataRows(t *testing.T) {
 		{"repeated", "| | |\n|||\n|   |   |\n| Client | Output |\n"},
 		{"short row", "||\n| Client | Output |\n"},
 		{"wide row", "|||||\n| Client | Output |\n"},
+		{"one cell", "Ordinary prose.\n| Client | Output |\n"},
+		{"escaped pipe", "\\|\n| Client | Output |\n"},
 		{"no final newline", "| Input | Ready |\n| | |\n| Client | Output |"},
 	}
 	for _, tc := range cases {
@@ -105,12 +107,15 @@ func TestMarkdownEmptyRowsPreserveProtectedSpans(t *testing.T) {
 	}
 }
 
-func TestMarkdownOrphanedTableDelimitersFail(t *testing.T) {
+func TestMarkdownLonePipePreservesFollowingParagraph(t *testing.T) {
 	c := qt.New(t)
 	source := "| Name | Result |\n| --- | --- |\n| Client | Output |\n|\n| After | Table |\n"
-	_, err := extract.Parse(t.Context(), document.Source{Name: "table.md", Format: document.Markdown,
+	doc, err := extract.Parse(t.Context(), document.Source{Name: "table.md", Format: document.Markdown,
 		Bytes: []byte(source)}, extract.Options{})
-	c.Assert(err, qt.ErrorMatches, ".*orphaned table delimiter")
+	c.Assert(err, qt.IsNil)
+	c.Assert(doc.Blocks, qt.HasLen, 5)
+	c.Assert(doc.Blocks[4].Kind, qt.Equals, "paragraph")
+	c.Assert(doc.Blocks[4].Text, qt.Equals, "| | After | Table |")
 }
 
 func TestMarkdownEmptyRowsPreserveContextSelection(t *testing.T) {

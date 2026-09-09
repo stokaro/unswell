@@ -116,6 +116,8 @@ func FuzzSourceMap(f *testing.F) {
 		f.Add(uint8(index), seed)
 		if format == document.Markdown {
 			f.Add(uint8(index), "| Name | Result |\n| --- | --- |\n|||\n| | |\n| 😀 | Output &amp; `code` |\n")
+			f.Add(uint8(index), "| Name | Result |\r\n| --- | --- |\r\n| Client | Output |\r\n|\r\n"+
+				"| After | Keep café `code` and &amp; source ranges. |\r\n")
 			f.Add(uint8(index), "<!-- unswell-disable-next-block rule.one -- Required contract wording. -->\n\nRead the manual.")
 			f.Add(uint8(index), "| Name | Result |\n| --- | --- |\n|||\n\n"+
 				"<!-- unswell-disable-next-block rule.one -- Required contract wording. -->\n\nRead the manual.")

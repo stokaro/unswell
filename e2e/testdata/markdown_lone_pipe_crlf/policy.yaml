@@ -1,0 +1,11 @@
+version: 1
+extends: [builtin:custom-v1]
+analysis:
+  include_quotes: true
+rules:
+  filler.announced-importance:
+    enabled: true
+    severity: error
+    gate: forbid
+    parameters:
+      positions: [any]

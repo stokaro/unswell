@@ -108,9 +108,11 @@ The [empty table rows](testdata/markdown_empty_rows/sample.md.txt) case requires
 a detection on line 5 after a blank data row. Its
 [CRLF variant](testdata/markdown_empty_rows_crlf/sample.md.txt) covers repeated rows,
 different column counts, a BOM, Unicode, emphasis and protected code boundaries.
-The [orphaned delimiter](testdata/markdown_orphaned_delimiter/sample.md.txt) case
-requires exit code 2 for a known partial grammar tree, preserving the difference
-between an unsupported boundary and a completed clean scan.
+The [lone-pipe boundary](testdata/markdown_lone_pipe/sample.md.txt) case requires
+complete analysis and exact detections after a table, including quotes and lists.
+Its [CRLF variant](testdata/markdown_lone_pipe_crlf/sample.md.txt) also uses a BOM.
+Protected inline and fenced code must produce no detection. The extraction tests
+separately inject an incomplete tree and require an error.
 
 The [Markdown boundaries](testdata/markdown_boundaries/heading.md.txt) fixtures
 intentionally lack final newlines. They cover EOF headings and the first quote,

@@ -1,0 +1,603 @@
+{
+  "version": "unswell-markdown-boundary-comparison-v1",
+  "observed_at": "2026-09-09",
+  "purpose": "Structural parser comparison; no editorial or authorship labels.",
+  "references": {
+    "github": {
+      "endpoint": "POST https://api.github.com/markdown",
+      "mode": "gfm",
+      "context": "stokaro/unswell"
+    },
+    "pinned_go": "github.com/odvcencio/gotreesitter v0.52.0",
+    "upstream_go": "851945aa6fec19e1808acaf181334084127ec6be",
+    "c_grammar": "https://github.com/tree-sitter-grammars/tree-sitter-markdown/tree/f969cd3ae3f9fbd4e43205431d0ae286014c05b5",
+    "c_runtime": "Python tree-sitter 0.25.2"
+  },
+  "parser_input": "Prefix x\\n\\n and append a final newline if missing; no empty-row markers.",
+  "projection": "Recursive named kind/start/end/missing/children, sorted-key compact ASCII JSON; excludes anonymous tokens and field labels.",
+  "production_input": "Unchanged original source; public extract.Parse, IncludeQuotes and IncludeStructure true.",
+  "production_source_sha256": {
+    "extract/markdown_scanner.go": "5a7617fb2201f29b264c181c4c1f8ba7669be83effa2ce58c555bd20fd0f18af",
+    "extract/syntax.go": "0b6644495bf8f97554d9828df8043da249985fc46bd4340ba7a3404e7413ff28"
+  },
+  "raw_artifacts_sha256": {
+    "pinned-framed.jsonl": "ab0b8ea46063dcfc04948a0aa46290ff4bc6848bd4ffb52ba8ac24de6cbb5444",
+    "upstream-framed.jsonl": "ab0b8ea46063dcfc04948a0aa46290ff4bc6848bd4ffb52ba8ac24de6cbb5444",
+    "reference-framed.jsonl": "9a191cf356fb0cc8a3065e821571361aa58ff6d0b955e6e829690823e3d39366",
+    "wrapper-framed.jsonl": "f99cfb73bae48813dfabd9702fadb23e2f6495dc6ce66e037ce96e29bd11a55f",
+    "product.jsonl": "0335b9aa5217615199059907b8d33618ca1b97c78ac254618bc25967c9d7d4ed",
+    "main.go": "e8801121d3d5fb0c0640fec99e6c235f4fd840580983353b38ca60b12a970927",
+    "reference.py": "188925a7332b1bed5213d3fac2e6624e9d1ffa70854fd3c4201cde86ef5ac802",
+    "cases.json": "82ba4107a0c69b1731d979490c165856a0b893920aecfcd5eb93d4805f80cb54",
+    "framed.json": "1aeb7b270111a130bc98678fa701e67c901886bc51bdaaeb99afe41447fcfbb1"
+  },
+  "cases": [
+    {
+      "id": "single-pipe",
+      "source": "| Name | Result |\n| --- | --- |\n| Client | Output |\n|\n| After | It is important to note that café requests may fail. |\n",
+      "source_sha256": "584de1cf71710e99f786d86a81e63ab74d9cba9b8f61137cb777e1b3815d212f",
+      "github": {
+        "target_context": "paragraph",
+        "html": "<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>\n<p dir=\"auto\">|<br>\n| After | It is important to note that café requests may fail. |</p>",
+        "html_sha256": "6faf54821d4027062a48b58e915c7f97efd03f005deee0fca1b7731a2b79cfe4"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "absent",
+          "named_projection_sha256": "032532f9bbf8559bcf41292ced6255908267a81a69a8d1fd876c139d48aec7a9"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "absent",
+          "named_projection_sha256": "032532f9bbf8559bcf41292ced6255908267a81a69a8d1fd876c139d48aec7a9"
+        },
+        "c_reference": {
+          "missing_or_error": true,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "6c8c85773a09b0813c4e77dff10d88b68b56ce620a4a4fe3b3ddb7624586233f"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "ac4e4f994ac4dbdcc4bd66228fd6b3f0953cdcba49ed5e16304883f80fa674bc"
+        }
+      },
+      "extractor": {
+        "target_kind": "paragraph",
+        "target_text": "| | After | It is important to note that café requests may fail. |",
+        "target_span": {
+          "start": 52,
+          "end": 119
+        },
+        "table_cells": 4,
+        "excluded": [],
+        "document_sha256": "4281c3484019a9dab57be831281133baccc645f0a917d0cf35e4105ca28c5a3b"
+      }
+    },
+    {
+      "id": "surrounding-spaces",
+      "source": "| Name | Result |\n| --- | --- |\n| Client | Output |\n | \n| After | It is important to note that café requests may fail. |\n",
+      "source_sha256": "f11007b3a9a61c6cc380217369a680fcb1c91e8c5eff47244d214d26dbfe993e",
+      "github": {
+        "target_context": "paragraph",
+        "html": "<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>\n<p dir=\"auto\">|<br>\n| After | It is important to note that café requests may fail. |</p>",
+        "html_sha256": "6faf54821d4027062a48b58e915c7f97efd03f005deee0fca1b7731a2b79cfe4"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "76807eef1f744d681092f9976200ac489d4812556bb34074ae20eb740d3474d2"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "76807eef1f744d681092f9976200ac489d4812556bb34074ae20eb740d3474d2"
+        },
+        "c_reference": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "76807eef1f744d681092f9976200ac489d4812556bb34074ae20eb740d3474d2"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "e99d5f1bab0eb28bb4d1df142b4851d4c71f2e6e5cafdddb1992e7db2afb05e1"
+        }
+      },
+      "extractor": {
+        "target_kind": "paragraph",
+        "target_text": "|  | After | It is important to note that café requests may fail. |",
+        "target_span": {
+          "start": 53,
+          "end": 121
+        },
+        "table_cells": 4,
+        "excluded": [],
+        "document_sha256": "d2083b561f4f842a606a30d91da789a825207b93c86785c8c7f3497dd9383416"
+      }
+    },
+    {
+      "id": "surrounding-tabs",
+      "source": "| Name | Result |\n| --- | --- |\n| Client | Output |\n\t|\t\n| After | It is important to note that café requests may fail. |\n",
+      "source_sha256": "26e66362e71388ecfe18cbd37c5efaa06b27edacbaccadd728a42a0621c665eb",
+      "github": {
+        "target_context": "paragraph",
+        "html": "<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>\n<pre class=\"notranslate\"><code class=\"notranslate\">|\t\n</code></pre>\n<p dir=\"auto\">| After | It is important to note that café requests may fail. |</p>",
+        "html_sha256": "91bf864296ef9ac801ef4cdc0c8cf2ec6522ce832f670ccf83bb862adaf8f5aa"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "76807eef1f744d681092f9976200ac489d4812556bb34074ae20eb740d3474d2"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "76807eef1f744d681092f9976200ac489d4812556bb34074ae20eb740d3474d2"
+        },
+        "c_reference": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "76807eef1f744d681092f9976200ac489d4812556bb34074ae20eb740d3474d2"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "f99fea0b72fef9ac01a8b8e17d55e3e7863039da98ddf12cb7e2056167a4a50b"
+        }
+      },
+      "extractor": {
+        "target_kind": "paragraph",
+        "target_text": "| After | It is important to note that café requests may fail. |",
+        "target_span": {
+          "start": 56,
+          "end": 121
+        },
+        "table_cells": 4,
+        "excluded": [
+          {
+            "span": {
+              "start": 52,
+              "end": 56
+            },
+            "reason": "code"
+          }
+        ],
+        "document_sha256": "5ff3669d7fd59ee4db8c1a1659d84ee10a10c1cb90635956488e0cd29be9e13a"
+      }
+    },
+    {
+      "id": "two-pipes",
+      "source": "| Name | Result |\n| --- | --- |\n| Client | Output |\n||\n| After | It is important to note that café requests may fail. |\n",
+      "source_sha256": "1f53c39f34858c1aee88178d88d152a27d8321cf928f709e19ba99fdb494b814",
+      "github": {
+        "target_context": "table-cell",
+        "html": "<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n<tr>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>After</td>\n<td>It is important to note that café requests may fail.</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>",
+        "html_sha256": "873e9413a5a11b06bf4d3461c08f9b9ea98bad6a139b1d6e2c4528777912552a"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "absent",
+          "named_projection_sha256": "ee2b22fa6539e240fa5edbe586ab61665df82f7baae22f5865b913686269130d"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "absent",
+          "named_projection_sha256": "ee2b22fa6539e240fa5edbe586ab61665df82f7baae22f5865b913686269130d"
+        },
+        "c_reference": {
+          "missing_or_error": true,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "cfbe190d6501bdee42ce88bca11f29460f422e35f4b46e094511d54cb62748cc"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "absent",
+          "named_projection_sha256": "ee2b22fa6539e240fa5edbe586ab61665df82f7baae22f5865b913686269130d"
+        }
+      },
+      "extractor": {
+        "target_kind": "table-cell",
+        "target_text": "After",
+        "target_span": {
+          "start": 57,
+          "end": 62
+        },
+        "table_cells": 6,
+        "excluded": [],
+        "document_sha256": "d7e60d0bda21ce308140e24e74bdbee9f78f0ec72d7293eee2821341c2a9f16d"
+      }
+    },
+    {
+      "id": "three-pipes",
+      "source": "| Name | Result |\n| --- | --- |\n| Client | Output |\n|||\n| After | It is important to note that café requests may fail. |\n",
+      "source_sha256": "ac747f80fa565fb39184a7cd7396276ef28266448c13e1b41e30bc601bdacfe5",
+      "github": {
+        "target_context": "table-cell",
+        "html": "<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n<tr>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>After</td>\n<td>It is important to note that café requests may fail.</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>",
+        "html_sha256": "873e9413a5a11b06bf4d3461c08f9b9ea98bad6a139b1d6e2c4528777912552a"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "18106b051bd98f222857b0367f11eaa5bfbb223971e2a883024cd52ed527b7e3"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "18106b051bd98f222857b0367f11eaa5bfbb223971e2a883024cd52ed527b7e3"
+        },
+        "c_reference": {
+          "missing_or_error": true,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "d10a3b8da282d37471d49552f22880c30eb0ab861b12dc59574d15f7769d5138"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "18106b051bd98f222857b0367f11eaa5bfbb223971e2a883024cd52ed527b7e3"
+        }
+      },
+      "extractor": {
+        "target_kind": "table-cell",
+        "target_text": "After",
+        "target_span": {
+          "start": 58,
+          "end": 63
+        },
+        "table_cells": 6,
+        "excluded": [],
+        "document_sha256": "b52f44d498d1e4a5dde45ede3206eedf050034a913a0d2c31d7838ded24cdd77"
+      }
+    },
+    {
+      "id": "spaced-empty-cells",
+      "source": "| Name | Result |\n| --- | --- |\n| Client | Output |\n| | |\n| After | It is important to note that café requests may fail. |\n",
+      "source_sha256": "8f8be47dd716da525e7ee9ba5b6098a23fe97d1e33662c4b71a2fea3c2afdca4",
+      "github": {
+        "target_context": "table-cell",
+        "html": "<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n<tr>\n<td></td>\n<td></td>\n</tr>\n<tr>\n<td>After</td>\n<td>It is important to note that café requests may fail.</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>",
+        "html_sha256": "873e9413a5a11b06bf4d3461c08f9b9ea98bad6a139b1d6e2c4528777912552a"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "847c8437f8ff29c9682afca7667a700fa3ed3bea7bd713bbc27be518b2b37f5c"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "847c8437f8ff29c9682afca7667a700fa3ed3bea7bd713bbc27be518b2b37f5c"
+        },
+        "c_reference": {
+          "missing_or_error": true,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "d152528af39a13de5b52db36e3b8bd16723857816b4dcd794653282f441672e0"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "847c8437f8ff29c9682afca7667a700fa3ed3bea7bd713bbc27be518b2b37f5c"
+        }
+      },
+      "extractor": {
+        "target_kind": "table-cell",
+        "target_text": "After",
+        "target_span": {
+          "start": 60,
+          "end": 65
+        },
+        "table_cells": 6,
+        "excluded": [],
+        "document_sha256": "c4c6b1bbab04c2694545f871ec76d6bc7bb2a35928eb1071f45e7c9305841813"
+      }
+    },
+    {
+      "id": "blank-line",
+      "source": "| Name | Result |\n| --- | --- |\n| Client | Output |\n\n| After | It is important to note that café requests may fail. |\n",
+      "source_sha256": "999353b021837b407b89c62cec31f15fb325477766a20e218ba79ba348cc575f",
+      "github": {
+        "target_context": "paragraph",
+        "html": "<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>\n<p dir=\"auto\">| After | It is important to note that café requests may fail. |</p>",
+        "html_sha256": "63902ae6ac0d22d899c1a016f6e713566196bd77ccd050d4696d224bac4a3746"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "e7205e454b204418981b792e31a242240b8470afbce88e4bb75f0ae807fe983d"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "e7205e454b204418981b792e31a242240b8470afbce88e4bb75f0ae807fe983d"
+        },
+        "c_reference": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "e7205e454b204418981b792e31a242240b8470afbce88e4bb75f0ae807fe983d"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "e7205e454b204418981b792e31a242240b8470afbce88e4bb75f0ae807fe983d"
+        }
+      },
+      "extractor": {
+        "target_kind": "paragraph",
+        "target_text": "| After | It is important to note that café requests may fail. |",
+        "target_span": {
+          "start": 53,
+          "end": 118
+        },
+        "table_cells": 4,
+        "excluded": [],
+        "document_sha256": "178e3b2cb01acb2d2df5970b63e8d73f7f447757dbbe28e116849669a56cab70"
+      }
+    },
+    {
+      "id": "ordinary-one-cell-row",
+      "source": "| Name | Result |\n| --- | --- |\n| Client | Output |\nOrdinary prose.\n| After | It is important to note that café requests may fail. |\n",
+      "source_sha256": "4a1eef4ff3caadaf9ace846e981b4370a62d35ef2a9312ddca00eebd818ccc25",
+      "github": {
+        "target_context": "table-cell",
+        "html": "<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n<tr>\n<td>Ordinary prose.</td>\n<td></td>\n</tr>\n<tr>\n<td>After</td>\n<td>It is important to note that café requests may fail.</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>",
+        "html_sha256": "64fdfe0d9894bc550b82e057632031ed22358053b4f8d8568ba9d1827082a0c7"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "f87ae751a9a1bbf436af191e8bd896ffa774e01984646a642627b9d3020af932"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "f87ae751a9a1bbf436af191e8bd896ffa774e01984646a642627b9d3020af932"
+        },
+        "c_reference": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "f87ae751a9a1bbf436af191e8bd896ffa774e01984646a642627b9d3020af932"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "f87ae751a9a1bbf436af191e8bd896ffa774e01984646a642627b9d3020af932"
+        }
+      },
+      "extractor": {
+        "target_kind": "table-cell",
+        "target_text": "After",
+        "target_span": {
+          "start": 70,
+          "end": 75
+        },
+        "table_cells": 7,
+        "excluded": [],
+        "document_sha256": "851fb12409eca66e85cf9978e6b1912fee2f687815cb65c7f9e36c2bcc91ad19"
+      }
+    },
+    {
+      "id": "quote",
+      "source": "> | Name | Result |\n> | --- | --- |\n> | Client | Output |\n> |\n> | After | It is important to note that café requests may fail. |\n",
+      "source_sha256": "f199e42e1ad56e58e70ec1821aa1bc728ffcf68d4b69ec1715270024e2c1faf8",
+      "github": {
+        "target_context": "paragraph",
+        "html": "<blockquote>\n<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>\n<p dir=\"auto\">|<br>\n| After | It is important to note that café requests may fail. |</p>\n</blockquote>",
+        "html_sha256": "0124f77b87fad49fd574f4f26b23e822391d23506652b29c7c432913662538b0"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "b6297a326c3b38b1902f10e9b6b9987a0418023bd7f62b2a8753138d87db6ea1"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "b6297a326c3b38b1902f10e9b6b9987a0418023bd7f62b2a8753138d87db6ea1"
+        },
+        "c_reference": {
+          "missing_or_error": true,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "c74078869bf7a93ff6fdbc585e15d8ab7da270371c99dce828c6d581adf1ec58"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "961f85d630e947e4c3e19a734a906647efe24ea1d3577fbd415719fdf67a61f6"
+        }
+      },
+      "extractor": {
+        "target_kind": "paragraph",
+        "target_text": "| | After | It is important to note that café requests may fail. |",
+        "target_span": {
+          "start": 60,
+          "end": 129
+        },
+        "table_cells": 4,
+        "excluded": [],
+        "document_sha256": "1af5df1f3f31709021a4cf8afd85cecb1cadf600f6c775142d32a00d1c0c16af"
+      }
+    },
+    {
+      "id": "nested-quote",
+      "source": "> > | Name | Result |\n> > | --- | --- |\n> > | Client | Output |\n> > |\n> > | After | It is important to note that café requests may fail. |\n",
+      "source_sha256": "617cc3f4311a7695ea81522f0f7592110ba4986bdb38bab46843596d4df6113c",
+      "github": {
+        "target_context": "paragraph",
+        "html": "<blockquote>\n<blockquote>\n<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>\n<p dir=\"auto\">|<br>\n| After | It is important to note that café requests may fail. |</p>\n</blockquote>\n</blockquote>",
+        "html_sha256": "73019f3ef5926a1838706942dd0a61dad6eae0a368994d7b0f1a2b91bbdf2e83"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "251e70416538146f3e4d616e774408a139a10ee6a08fb0cd07101d40d5693412"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "251e70416538146f3e4d616e774408a139a10ee6a08fb0cd07101d40d5693412"
+        },
+        "c_reference": {
+          "missing_or_error": true,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "ac6ea7e8fa843db598e94d23b0f13fda9ba3e9e8cd5c2c044991fe29fe09f365"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "efa6f78eaad0c2263cb2761b11d398f3bcde75fb64ef0f564edf71735506e542"
+        }
+      },
+      "extractor": {
+        "target_kind": "paragraph",
+        "target_text": "| | After | It is important to note that café requests may fail. |",
+        "target_span": {
+          "start": 68,
+          "end": 139
+        },
+        "table_cells": 4,
+        "excluded": [],
+        "document_sha256": "9cb8ad82abe2486f410fda70adf0b5bd7ada4c48b1e5b30022289a4075993f2a"
+      }
+    },
+    {
+      "id": "list",
+      "source": "- Item.\n\n  | Name | Result |\n  | --- | --- |\n  | Client | Output |\n  |\n  | After | It is important to note that café requests may fail. |\n",
+      "source_sha256": "e7a245f5828369fad032af8e7d82d1474e7e208628110b40fc6439d45a8db33a",
+      "github": {
+        "target_context": "list-item",
+        "html": "<ul dir=\"auto\">\n<li>\n<p dir=\"auto\">Item.</p>\n<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>\n<p dir=\"auto\">|<br>\n| After | It is important to note that café requests may fail. |</p>\n</li>\n</ul>",
+        "html_sha256": "977891d5b1ae8d62b9f2532ecc8b653d74825c323129f18ffc4d1323b4946455"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "ff779bdbaff157da5c1ed8bc6712c19eae68a2c524a3896f684b13b3a046ed06"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "ff779bdbaff157da5c1ed8bc6712c19eae68a2c524a3896f684b13b3a046ed06"
+        },
+        "c_reference": {
+          "missing_or_error": true,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "8997ea0ad1a3ca00b55f38966bb227b40ecf66f17d85463ca50eb5eadd039f16"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "e3499c22028385b940a637abf86fdd60b65fee21a593ac0dd974dd0b2cfc777d"
+        }
+      },
+      "extractor": {
+        "target_kind": "list-item",
+        "target_text": "| | After | It is important to note that café requests may fail. |",
+        "target_span": {
+          "start": 69,
+          "end": 138
+        },
+        "table_cells": 4,
+        "excluded": [],
+        "document_sha256": "8ce5b507d81d96d5261ea771bf6460cc1edc1fc888081cf0151379ea5ac41035"
+      }
+    },
+    {
+      "id": "crlf",
+      "source": "| Name | Result |\r\n| --- | --- |\r\n| Client | Output |\r\n|\r\n| After | It is important to note that café requests may fail. |\r\n",
+      "source_sha256": "58c8dc3551c69f750b13535287f18f9e602092354155903e2f95b8589b92bf5a",
+      "github": {
+        "target_context": "paragraph",
+        "html": "<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>\n<p dir=\"auto\">|<br>\n| After | It is important to note that café requests may fail. |</p>",
+        "html_sha256": "6faf54821d4027062a48b58e915c7f97efd03f005deee0fca1b7731a2b79cfe4"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "absent",
+          "named_projection_sha256": "74022f77636a12d129193391f324e811679290f8dfaffd6ea48f261637675f15"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "absent",
+          "named_projection_sha256": "74022f77636a12d129193391f324e811679290f8dfaffd6ea48f261637675f15"
+        },
+        "c_reference": {
+          "missing_or_error": true,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "51a2546fd1d436f705fa59dc7eb3e6e3762e928f5879b4e090cd9a6514f8e501"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "85dc0dbc2bb9b67c34573ec95c33961e3de0d710b1944b15c1ef0393b11f5eed"
+        }
+      },
+      "extractor": {
+        "target_kind": "paragraph",
+        "target_text": "| | After | It is important to note that café requests may fail. |",
+        "target_span": {
+          "start": 55,
+          "end": 123
+        },
+        "table_cells": 4,
+        "excluded": [],
+        "document_sha256": "2a589c97db3d5a9c8a0d04131ef4f59fb372b4f90708c4ccaf33885b3f45c415"
+      }
+    },
+    {
+      "id": "no-final-newline",
+      "source": "| Name | Result |\n| --- | --- |\n| Client | Output |\n|\n| After | It is important to note that café requests may fail. |",
+      "source_sha256": "5efa6eeeb8209d2165845b2d0297d79935235db7fafaf3bdb2e17dbb8c99bb4a",
+      "github": {
+        "target_context": "paragraph",
+        "html": "<markdown-accessiblity-table><table role=\"table\">\n<thead>\n<tr>\n<th>Name</th>\n<th>Result</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Client</td>\n<td>Output</td>\n</tr>\n</tbody>\n</table></markdown-accessiblity-table>\n<p dir=\"auto\">|<br>\n| After | It is important to note that café requests may fail. |</p>",
+        "html_sha256": "6faf54821d4027062a48b58e915c7f97efd03f005deee0fca1b7731a2b79cfe4"
+      },
+      "parsers": {
+        "pinned_go": {
+          "missing_or_error": false,
+          "target_context": "absent",
+          "named_projection_sha256": "032532f9bbf8559bcf41292ced6255908267a81a69a8d1fd876c139d48aec7a9"
+        },
+        "upstream_go": {
+          "missing_or_error": false,
+          "target_context": "absent",
+          "named_projection_sha256": "032532f9bbf8559bcf41292ced6255908267a81a69a8d1fd876c139d48aec7a9"
+        },
+        "c_reference": {
+          "missing_or_error": true,
+          "target_context": "pipe_table_cell",
+          "named_projection_sha256": "6c8c85773a09b0813c4e77dff10d88b68b56ce620a4a4fe3b3ddb7624586233f"
+        },
+        "research_adapter": {
+          "missing_or_error": false,
+          "target_context": "paragraph",
+          "named_projection_sha256": "ac4e4f994ac4dbdcc4bd66228fd6b3f0953cdcba49ed5e16304883f80fa674bc"
+        }
+      },
+      "extractor": {
+        "target_kind": "paragraph",
+        "target_text": "| | After | It is important to note that café requests may fail. |",
+        "target_span": {
+          "start": 52,
+          "end": 119
+        },
+        "table_cells": 4,
+        "excluded": [],
+        "document_sha256": "930623e6a098cf90d272ff620c2749c1ac8703f710abc9fce5c4b37647c24957"
+      }
+    }
+  ]
+}
