@@ -15,7 +15,12 @@ Its fixtures are documented teaching data, not human annotation evidence.
 
 Run `go test ./e2e -count=1` from the repository root. The suite builds the real CLI
 with `CGO_ENABLED=0`, then launches it in a fresh directory for each scenario.
-The native CI matrix and `make check` run this package through `go test ./...`.
+The native CI matrix and `make check` run this package through the module runner
+with `-count=1`. This bypasses cached test results while retaining the Go build
+cache. The suite builds nested-module commands as subprocesses; changing those
+sources can otherwise leave a cached root e2e result valid. A plain
+`go test ./e2e` is insufficient when checking such changes. See the
+[reproduction](../docs/e2e-freshness.md).
 No installed Unswell binary, external service, or separate test framework is needed.
 
 ## Read a case

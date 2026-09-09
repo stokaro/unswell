@@ -5,7 +5,7 @@ operation=${1:?test or tidy required}
 shift
 while read -r directory role; do
   case "$operation:$role" in
-    test:runtime | test:consumer) (cd "$directory" && go test "$@" ./...) ;;
+    test:runtime | test:consumer) (cd "$directory" && go test -count=1 "$@" ./...) ;;
     test:tools) : ;; # Dependency-only module; tidy and pinned tool execution cover it.
     tidy:*) (cd "$directory" && go mod tidy "$@") ;;
     *)
