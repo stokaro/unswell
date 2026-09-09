@@ -62,10 +62,7 @@ func numericValues(values []feature.Value, columns []feature.Descriptor) ([]floa
 	missing := ""
 	for i, value := range values {
 		column := columns[i]
-		if value.ID != column.ID || value.Version != column.Version || value.Unit != column.Unit {
-			return nil, "", fmt.Errorf("training measurement does not match column %s", column.ID)
-		}
-		if err := validNumber(value); err != nil {
+		if err := validateColumnValue(value, column); err != nil {
 			return nil, "", err
 		}
 		if value.Number == nil {
@@ -80,6 +77,19 @@ func numericValues(values []feature.Value, columns []feature.Descriptor) ([]floa
 		return nil, missing, nil
 	}
 	return result, "", nil
+}
+
+func validateColumnValue(value feature.Value, column feature.Descriptor) error {
+	if value.ID != column.ID || value.Version != column.Version || value.Unit != column.Unit {
+		return fmt.Errorf("training measurement does not match column %s", column.ID)
+	}
+	if err := validNumber(value); err != nil {
+		return err
+	}
+	if column.Family == "rule-activation" {
+		return feature.ValidateActivation(value)
+	}
+	return nil
 }
 
 func validNumber(value feature.Value) error {

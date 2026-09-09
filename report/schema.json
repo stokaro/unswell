@@ -1134,6 +1134,46 @@
       ],
       "type": "object"
     },
+    "unswell.FeatureBlockBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "contract": {
+          "type": "string"
+        },
+        "segments": {
+          "items": {
+            "$ref": "#/$defs/document.Span"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "text_sha256": {
+          "type": "string"
+        },
+        "trimmed_segments": {
+          "items": {
+            "$ref": "#/$defs/document.Span"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "trimmed_sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contract",
+        "text_sha256",
+        "segments",
+        "trimmed_sha256",
+        "trimmed_segments"
+      ],
+      "type": "object"
+    },
     "unswell.FeatureCollection": {
       "additionalProperties": false,
       "properties": {
@@ -1231,6 +1271,16 @@
     "unswell.FeatureUnit": {
       "additionalProperties": false,
       "properties": {
+        "binding": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unswell.FeatureBlockBinding"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "context_hash": {
           "type": "string"
         },

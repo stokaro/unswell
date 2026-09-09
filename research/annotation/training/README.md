@@ -53,6 +53,7 @@ Missing, uncertain, and unresolved labels remain excluded, with recorded reasons
 | --- | --- | --- |
 | `--kind` | required | One prepared target kind |
 | `--feature` | required | Repeatable set of existing prepared IDs |
+| `--rule-config` | absent | Select rule activations with an explicit local inline policy, limited to 1 MiB |
 | `--missing-features` | `reject` | Fail on an unavailable feature; `exclude` records and omits the row |
 | `--calibration` | `none` | `isotonic` fits separate linear-score knots |
 | `--allow-simulation` | false | Permit a round that explicitly declares simulated raters |
@@ -88,6 +89,53 @@ parameters. Separate tests change calibration text without changing classifier
 weights. Fixed-order fitting requires no random optimizer seed; the frozen corpus
 manifest retains its split seed. Numerical tolerance applies across architectures.
 
-The rule-activation baseline, controlled comparisons, real independent annotation,
-held-out evaluation, and model qualification remain required under #21–#25 and #57.
+Controlled comparisons, real independent annotation, held-out evaluation, and
+model qualification remain required under #21–#25 and #57.
 See [ADR 0025](../../../docs/adr/0025-corpus-training.md) for integration boundaries.
+
+## Baseline using existing rules
+
+Pass `--rule-config` and activation IDs to use the ordinary engine's raw rule
+values. The same `plan` and `extract` commands above produce the input:
+
+```sh
+go run ./cmd/corpus train --root training/testdata/sources \
+  --round training/testdata/round.json --kind paragraph \
+  --feature activation/policy.banned-phrases \
+  --rule-config training/testdata/rules.yaml \
+  --calibration isotonic --allow-simulation \
+  < candidates.json > rule-training.json
+```
+
+The included policy supplies two phrases for the scripted fixture. The compiled
+e2e test verifies observed training values of 0 and 1 and separate calibration.
+These results establish mechanics only. Use a prospectively selected policy on
+real labeled data for a scientific comparison.
+
+`corpus join` also accepts `--rule-config` to inspect block values, source/policy
+identities, and every matched or unmatched target before fitting. The policy
+must be self-contained; external includes are not loaded. It must preserve the
+frozen corpus extraction policy. Requesting an activation does not enable its
+rule. Disabled rules retain `disabled`, and other unavailable values keep their
+reasons. `--missing-features reject` fails on a selected, resolved missing row;
+`exclude` records the reason. Neither setting replaces a missing value with zero.
+
+A target must match a complete original block after the shared outer-whitespace
+trim. Text, context, source hash, and all source segments must agree. A protected
+piece or a sentence inside a longer block cannot inherit the block's activation.
+This restriction also applies when the parent carries an annotation.
+
+The training identity declares `feature_source: rule_activations`, block-scoped
+columns, `context: source_document`, activation and binding contracts, actual NLP,
+ruleset, and effective policy hashes. `rule_config_sha256` records the exact
+supplied bytes; retain that policy with the experiment. Prepared-specific
+extraction/preparation hash fields are empty for this representation; the effective
+policy hash binds extraction. `include_structure` is true because block collection
+requests source structure. Source-level input hashes
+also bind surrounding document content. Compare coverage and common targets
+before comparing this baseline with isolated prepared-target features.
+
+Both paths use the same selection, training rights, numerical optimizer,
+normalization, and calibration code. Neither path consumes reserved labels or
+turns a numerical fit into a qualified probability. See
+[ADR 0026](../../../docs/adr/0026-rule-baseline-binding.md).

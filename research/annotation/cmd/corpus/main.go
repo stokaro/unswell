@@ -122,6 +122,9 @@ func annotatedOperation(ctx context.Context, name string, options options, artif
 	if err != nil {
 		return nil, err
 	}
+	if options.ruleConfig != "" {
+		return ruleOperation(ctx, name, options, artifact, round, files)
+	}
 	if name == "train" {
 		return training.Run(ctx, artifact, round, files, options.train)
 	}

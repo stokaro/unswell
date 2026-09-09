@@ -40,6 +40,12 @@ func (f Fit) numerical() model.FitOptions {
 // Identity binds the training target and effective representations. Columns use
 // the shared descriptor serialization; ColumnsSHA256 freezes its exact definition.
 type Identity struct {
+	FeatureSource        string               `json:"feature_source,omitempty"`
+	Context              string               `json:"context,omitempty"`
+	ActivationContract   string               `json:"activation_contract,omitempty"`
+	RulesetHash          string               `json:"ruleset_hash,omitempty"`
+	RuleConfigSHA256     string               `json:"rule_config_sha256,omitempty"`
+	Preprocessing        string               `json:"preprocessing,omitempty"`
 	Task                 string               `json:"task"`
 	Rubric               string               `json:"rubric"`
 	ProfileSHA256        string               `json:"profile_sha256"`

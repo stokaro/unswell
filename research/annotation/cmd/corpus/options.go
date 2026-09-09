@@ -14,6 +14,7 @@ import (
 
 type options struct {
 	root, round string
+	ruleConfig  string
 	features    []string
 	train       training.Options
 }
@@ -24,10 +25,13 @@ func commandOptions(args []string) (options, error) {
 	flags.SetOutput(io.Discard)
 	flags.StringVar(&result.root, "root", "", "Local directory containing exactly pinned source and notice files")
 	flags.StringVar(&result.round, "round", "", "Explicit local annotation round for join or train")
-	flags.Func("feature", "Prepared feature ID; repeat to select a set for join or train", func(value string) error {
+	flags.Func("feature", "Feature ID; repeat to select a set for join or train", func(value string) error {
 		result.features = append(result.features, value)
 		return nil
 	})
+	if args[0] == "join" || args[0] == "train" {
+		flags.StringVar(&result.ruleConfig, "rule-config", "", "Explicit inline policy file for original-block rule activations")
+	}
 	if args[0] == "train" {
 		trainingFlags(flags, &result.train)
 	}

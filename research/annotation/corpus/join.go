@@ -47,20 +47,7 @@ type JoinedArtifact struct {
 func Join(ctx context.Context, artifact Artifact, round *annotation.Round, files map[string][]byte,
 	features []string,
 ) (JoinedArtifact, error) {
-	verification, err := Verify(ctx, artifact, files)
-	if err != nil {
-		return JoinedArtifact{}, err
-	}
-	verification.Producer.Dependencies = slices.Clone(verification.Producer.Dependencies)
-	verification.Producer.NLP.Capabilities = slices.Clone(verification.Producer.NLP.Capabilities)
-	expected := make([]annotation.Unit, 0, len(artifact.Units))
-	for _, candidate := range artifact.Units {
-		expected = append(expected, candidate.Unit)
-	}
-	if err := round.MatchTargets(ctx, expected); err != nil {
-		return JoinedArtifact{}, err
-	}
-	decisions, err := round.Decisions(ctx)
+	verification, decisions, err := reproduceTargets(ctx, artifact, round, files)
 	if err != nil {
 		return JoinedArtifact{}, err
 	}
@@ -75,6 +62,25 @@ func Join(ctx context.Context, artifact Artifact, round *annotation.Round, files
 	result := JoinedArtifact{Version: JoinedVersion, Status: "verified_targets_with_measured_features",
 		HumanCorpus: "not_qualified", Verification: verification, Decisions: decisions, Features: collection, Bindings: bindings}
 	return finishJoin(ctx, result)
+}
+
+func reproduceTargets(ctx context.Context, artifact Artifact, round *annotation.Round, files map[string][]byte,
+) (Verification, annotation.DecisionSet, error) {
+	verification, err := Verify(ctx, artifact, files)
+	if err != nil {
+		return Verification{}, annotation.DecisionSet{}, err
+	}
+	verification.Producer.Dependencies = slices.Clone(verification.Producer.Dependencies)
+	verification.Producer.NLP.Capabilities = slices.Clone(verification.Producer.NLP.Capabilities)
+	expected := make([]annotation.Unit, 0, len(artifact.Units))
+	for _, candidate := range artifact.Units {
+		expected = append(expected, candidate.Unit)
+	}
+	if err := round.MatchTargets(ctx, expected); err != nil {
+		return Verification{}, annotation.DecisionSet{}, err
+	}
+	decisions, err := round.Decisions(ctx)
+	return verification, decisions, err
 }
 
 func finishJoin(ctx context.Context, result JoinedArtifact) (JoinedArtifact, error) {

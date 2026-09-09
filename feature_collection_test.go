@@ -128,6 +128,9 @@ func TestFeatureCollectionOwnsConcurrentResults(t *testing.T) {
 			got.Features.Sources[0].Capabilities[0] = "changed"
 			*got.Features.Sources[0].Units[0].Values[0].Number = -100
 			got.Features.Sources[0].Units[0].Segments[0].Start = 999
+			got.Features.Sources[0].Units[0].Binding.TextSHA256 = "changed"
+			got.Features.Sources[0].Units[0].Binding.Segments[0].Start = 999
+			got.Features.Sources[0].Units[0].Binding.TrimmedSegments[0].Start = 888
 		})
 	}
 }
