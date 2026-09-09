@@ -266,3 +266,7 @@ in [dependency research](../research/dependencies/README.md).
 CRLF, Markdown emphasis, and protected inline code. Its golden records complete
 target/context mappings and separate counted spans. The existing noun ambiguity
 fixtures keep both reported Go comments and their Markdown equivalents unchanged.
+
+`TestPreparedCollectionMatchesFrozenCorpusTargets` checks the engine collection
+against all 378 frozen Ptah targets, including source hashes, kinds, text/context
+hashes, and complete source segments. These remain unlabeled development inputs.
