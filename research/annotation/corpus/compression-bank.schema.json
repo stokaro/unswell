@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unswell:compression-bank:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "kind", "compression", "cohorts", "allow_simulation"],
+  "properties": {
+    "version": {"const": "unswell-compression-bank-v1"},
+    "kind": {"enum": ["sentence", "paragraph", "fragment"]},
+    "allow_simulation": {"type": "boolean"},
+    "compression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "max_input_bytes"],
+      "properties": {
+        "level": {"type": "integer", "minimum": 0, "maximum": 9},
+        "max_input_bytes": {"type": "integer", "minimum": 1, "maximum": 1048576}
+      }
+    },
+    "cohorts": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "origin", "unit_ids"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "\\S"},
+          "origin": {"enum": ["human", "generated", "mixed"]},
+          "unit_ids": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 128,
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "\\S"}
+          }
+        }
+      }
+    }
+  }
+}

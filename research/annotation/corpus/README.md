@@ -141,6 +141,52 @@ not prove reproduction. See [ADR 0024](../../../docs/adr/0024-corpus-feature-bin
 
 ## Reproduce and audit
 
+### Reserve compression references
+
+The `reference-bank` command builds an explicit developer artifact for the
+[compression experiment](../../../docs/adr/0033-compression-reference-bank.md):
+
+```sh
+corpus reference-bank --root ./sources --round ./round.json \
+  --selection ./selection.json < candidates.json > bank.json
+```
+
+The [selection schema](compression-bank.schema.json) requires the bank version,
+target `kind`, `compression.level`, `compression.max_input_bytes`, `cohorts`, and
+`allow_simulation`. Each cohort declares its `id`, endpoint policy `origin`, and
+ordered `unit_ids`. Supported policies are `human`, `generated`, and `mixed`.
+Mixed references contain both endpoint classes; topic and length matching are
+separate experimental requirements. Unit order is preserved, with LF separators.
+
+Sources, notices, candidates, and round targets are verified again. Each selected
+unit needs a training partition, the selected kind, declared training permission,
+and a unit-scoped endpoint claim from the round. Repository-level assertions,
+unknown origin, edited origin, and mixed-origin units are not endpoint labels.
+Editorial responses are not required and do not select reference membership.
+Tutorial rounds require `allow_simulation: true`; their bank remains simulated.
+
+The output contains reference prose, original source ranges, origin and rights
+declarations, notice identities, compressor identities, and hashes. It is not a
+blinded packet or a normal scan report. Training permission does not authorize
+redistribution. The tool validates declarations and byte reproduction, not their
+independent truth or scientific adequacy.
+
+`reserved_groups` is the union across all cohorts. `reserved_targets` includes
+every related candidate in those groups, including other unit kinds and targets
+not selected as seeds. Empty related sources remain in the group records.
+`remaining_training_units` counts unreserved training candidates of the selected
+kind; it may be zero. Future fitting must apply the same exclusion union to every
+cohort and baseline. This command does not train a model or alter the corpus plan.
+
+Limits are eight cohorts, 128 ordered IDs per cohort, a 256 KiB selection file,
+the primitive's 32 KiB prefix limit including separators, and a 4 MiB bank output.
+Oversized targets or metadata fail without truncation or partial output. The
+existing input limits and exit codes also apply. The root command test retains a
+[golden projection](../../../e2e/corpusdata/compression-bank.golden.json) of reference
+order, byte ranges, simulation status, and reserved source IDs.
+
+### Audit the source preparation
+
 After matching a round, the [`corpus train` workflow](../training/README.md) can fit
 the shared Go logistic model on permitted training targets and optionally calibrate
 it on the separate calibration partition. It retains development and final test
