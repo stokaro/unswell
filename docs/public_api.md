@@ -68,6 +68,13 @@ target verification, row selection, Go fitting, and calibration with prepared
 features. The artifact declares block measurement scope and source-document
 context; unmatched targets and disabled rules remain unavailable. See
 [ADR 0026](adr/0026-rule-baseline-binding.md).
+Research adds label-free `corpus.Measure` and `MeasureRules`, bounded numerical
+`training.Load`, frozen `training.Predict`/`LoadPredictions`, and the separate
+`evaluation` package. The developer commands `corpus predict` and `corpus evaluate`
+separate model execution from evaluation labels. They preserve explicit context,
+missing responses, and unqualified status. Existing joined/training artifacts
+retain their versions and fields; product model loading and reports are unchanged.
+See [ADR 0027](adr/0027-frozen-research-predictions.md).
 The root `e2e` directory contains only test code and fixtures. It exports no library
 API; the API snapshot records its package identity because it belongs to the root
 module.

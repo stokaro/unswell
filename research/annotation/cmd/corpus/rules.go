@@ -29,11 +29,15 @@ func ruleOperation(ctx context.Context, name string, options options, artifact c
 }
 
 func readRuleConfig(path string) ([]byte, error) {
+	return readLocalArtifact(path, maxRuleConfigBytes, "rule config")
+}
+
+func readLocalArtifact(path string, maximum int, description string) ([]byte, error) {
 	root, err := os.OpenRoot(filepath.Dir(path))
 	if err != nil {
 		return nil, err
 	}
-	data, readErr := readRootRuleConfig(root, filepath.Base(path))
+	data, readErr := readLocalRootFile(root, filepath.Base(path), maximum, description)
 	closeErr := root.Close()
 	if readErr != nil {
 		return nil, readErr
@@ -41,25 +45,25 @@ func readRuleConfig(path string) ([]byte, error) {
 	return data, closeErr
 }
 
-func readRootRuleConfig(root *os.Root, name string) ([]byte, error) {
+func readLocalRootFile(root *os.Root, name string, maximum int, description string) ([]byte, error) {
 	info, err := root.Lstat(name)
 	if err != nil {
 		return nil, err
 	}
-	if !info.Mode().IsRegular() || info.Size() > maxRuleConfigBytes {
-		return nil, fmt.Errorf("rule config must be a regular file within its byte limit")
+	if !info.Mode().IsRegular() || info.Size() > int64(maximum) {
+		return nil, fmt.Errorf("%s must be a regular file within its byte limit", description)
 	}
 	file, err := root.Open(name)
 	if err != nil {
 		return nil, err
 	}
-	data, readErr := io.ReadAll(io.LimitReader(file, maxRuleConfigBytes+1))
+	data, readErr := io.ReadAll(io.LimitReader(file, int64(maximum)+1))
 	closeErr := file.Close()
 	if readErr != nil {
 		return nil, readErr
 	}
-	if len(data) > maxRuleConfigBytes {
-		return nil, fmt.Errorf("rule config exceeds its byte limit")
+	if len(data) > maximum {
+		return nil, fmt.Errorf("%s exceeds its byte limit", description)
 	}
 	return data, closeErr
 }

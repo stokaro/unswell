@@ -1,0 +1,125 @@
+package training
+
+import (
+	"context"
+	"encoding/hex"
+	"fmt"
+	"slices"
+
+	"github.com/stokaro/unswell/model"
+	"github.com/stokaro/unswell/research/annotation/corpus"
+	"github.com/stokaro/unswell/research/annotation/internal/jsoninput"
+)
+
+// Load restores a bounded numerical artifact and verifies its digest and model
+// shape. It does not attest that fitting occurred or qualify editorial accuracy.
+func Load(ctx context.Context, data []byte) (Artifact, error) {
+	var result Artifact
+	limits := jsoninput.Limits{Array: corpus.MaxUnits, Object: 256,
+		Arrays: map[string]int{"scores": model.MaxCalibrationSamples, "responses": model.MaxCalibrationSamples}}
+	if err := jsoninput.Decode(ctx, data, MaxArtifactBytes, &result, limits); err != nil {
+		return Artifact{}, err
+	}
+	want := result.SHA256
+	result.SHA256 = ""
+	rebuilt, err := finish(ctx, result)
+	if err != nil {
+		return Artifact{}, err
+	}
+	if rebuilt.SHA256 != want {
+		return Artifact{}, fmt.Errorf("training artifact digest mismatch")
+	}
+	if err := validateRestored(rebuilt); err != nil {
+		return Artifact{}, err
+	}
+	return rebuilt, nil
+}
+
+func validateRestored(a Artifact) error {
+	if !validArtifactStatus(a) {
+		return fmt.Errorf("unsupported training artifact status or version")
+	}
+	if err := validateRestoredDigests(a); err != nil {
+		return err
+	}
+	if err := validateRestoredContract(a); err != nil {
+		return err
+	}
+	if err := validateRestoredPartitions(a); err != nil {
+		return err
+	}
+	_, _, err := restoreModels(a)
+	return err
+}
+
+func validArtifactStatus(a Artifact) bool {
+	return a.Version == Version && a.Status == "experimental_numerical_fit" && a.HumanCorpus == "not_qualified" &&
+		a.ProbabilityStatus == "unavailable_unqualified_model" &&
+		slices.Contains([]string{"simulation", "declared_human"}, a.Basis)
+}
+
+func validModelShape(a Artifact) bool {
+	return a.Identity.Task == "editorial_needs_revision" && a.Identity.Kind == a.Options.Kind && a.Identity.Rubric != "" &&
+		len(a.Identity.Columns) == len(a.Logistic.Weights) && len(a.Options.Features) == len(a.Identity.Columns) &&
+		a.Logistic.Algorithm == model.Algorithm
+}
+
+func validateRestoredContract(a Artifact) error {
+	if !validModelShape(a) {
+		return fmt.Errorf("training artifact has incompatible target, columns, or algorithm")
+	}
+	if !slices.Contains([]string{"sentence", "paragraph", "fragment"}, a.Options.Kind) ||
+		!slices.Contains([]string{"reject", "exclude"}, a.Options.MissingFeatures) {
+		return fmt.Errorf("training artifact has unsupported selection options")
+	}
+	columnsHash, err := hashJSON(a.Identity.Columns)
+	if err != nil || columnsHash != a.Identity.ColumnsSHA256 {
+		return fmt.Errorf("training column contract digest mismatch")
+	}
+	if err := a.Options.Fit.numerical().Validate(); err != nil {
+		return err
+	}
+	return validateColumnOrder(a)
+}
+
+func restoreModels(a Artifact) (*model.Logistic, *model.Isotonic, error) {
+	p := a.Logistic
+	classifier, err := model.NewLogistic(model.Parameters{Means: p.Means, Scales: p.Scales, Weights: p.Weights, Intercept: p.Intercept})
+	if err != nil {
+		return nil, nil, err
+	}
+	if a.Options.Calibration == "none" && a.Calibration == nil {
+		return classifier, nil, nil
+	}
+	c := a.Calibration
+	if a.Options.Calibration != "isotonic" || c == nil || c.Algorithm != model.IsotonicAlgorithm ||
+		c.ScoreKind != "linear_score" || !validDigest(c.InputSHA256) {
+		return nil, nil, fmt.Errorf("training artifact has incompatible calibration")
+	}
+	calibration, err := model.NewIsotonic(model.IsotonicParameters{Scores: c.Scores, Responses: c.Responses})
+	return classifier, calibration, err
+}
+
+func validDigest(value string) bool {
+	decoded, err := hex.DecodeString(value)
+	return err == nil && len(decoded) == 32 && hex.EncodeToString(decoded) == value
+}
+
+func validateRestoredDigests(a Artifact) error {
+	for _, value := range []string{a.CorpusSHA256, a.ManifestSHA256, a.RoundSHA256, a.JoinedSHA256,
+		a.Logistic.InputSHA256, a.Identity.ColumnsSHA256, a.Identity.ProfileSHA256} {
+		if !validDigest(value) {
+			return fmt.Errorf("training artifact requires complete SHA-256 identities")
+		}
+	}
+	return nil
+}
+
+func validateColumnOrder(a Artifact) error {
+	for i, id := range a.Options.Features {
+		if id != a.Identity.Columns[i].ID || (i > 0 && id <= a.Options.Features[i-1]) {
+			return fmt.Errorf("training features require matching sorted unique columns")
+		}
+	}
+	return nil
+}

@@ -11,9 +11,17 @@ import (
 func selectRuleRows(ctx context.Context, plan corpus.Plan, joined corpus.RuleJoinedArtifact,
 	options Options, configHash string,
 ) (selection, error) {
-	columns, err := ruleColumnIdentity(joined, options.Kind, configHash)
+	selector, bindings, err := ruleSelector(joined, options, configHash)
 	if err != nil {
 		return selection{}, err
+	}
+	return selectMeasuredRows(ctx, plan, joined.Decisions, bindings, selector)
+}
+
+func ruleSelector(joined corpus.RuleJoinedArtifact, options Options, configHash string) (rowSelector, []corpus.FeatureBinding, error) {
+	columns, err := ruleColumnIdentity(joined, options.Kind, configHash)
+	if err != nil {
+		return rowSelector{}, nil, err
 	}
 	sources := make(map[string]unswell.FeatureSource)
 	for _, source := range joined.Features.Sources {
@@ -24,7 +32,7 @@ func selectRuleRows(ctx context.Context, plan corpus.Plan, joined corpus.RuleJoi
 	for _, binding := range joined.Bindings {
 		unit, err := ruleMeasurement(binding, sources, columns)
 		if err != nil {
-			return selection{}, err
+			return rowSelector{}, nil, err
 		}
 		units[binding.UnitID] = unit
 		bindings = append(bindings, corpus.FeatureBinding{UnitID: binding.UnitID, SourceID: binding.SourceID,
@@ -34,7 +42,7 @@ func selectRuleRows(ctx context.Context, plan corpus.Plan, joined corpus.RuleJoi
 		unit, exists := units[binding.UnitID]
 		return unit, exists
 	}}
-	return selectMeasuredRows(ctx, plan, joined.Decisions, bindings, selector)
+	return selector, bindings, nil
 }
 
 func ruleMeasurement(binding corpus.RuleFeatureBinding, sources map[string]unswell.FeatureSource, columns Identity) (measurement, error) {
