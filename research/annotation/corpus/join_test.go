@@ -82,8 +82,14 @@ func TestJoinKeepsEveryCandidateAndMissingDecisions(t *testing.T) {
 	wantHash := got.SHA256
 	got.SHA256 = ""
 	c.Assert(hash(encoded(c, got)), qt.Equals, wantHash)
-	got.Verification.Producer.Dependencies[0].Version = "changed"
+	// Test binaries can omit module dependencies; the NLP identity is always present.
+	for i := range got.Verification.Producer.Dependencies {
+		got.Verification.Producer.Dependencies[i].Version = "changed"
+	}
 	c.Assert(artifact.Pipeline.Dependencies, qt.DeepEquals, again.Verification.Producer.Dependencies)
+	c.Assert(got.Verification.Producer.NLP.Capabilities, qt.Not(qt.HasLen), 0)
+	got.Verification.Producer.NLP.Capabilities[0] = "changed"
+	c.Assert(artifact.Pipeline.NLP.Capabilities, qt.DeepEquals, again.Verification.Producer.NLP.Capabilities)
 	got.Features.Sources[0].Units[0].Binding.Segments[0].Start++
 	c.Assert(again.Features.Sources[0].Units[0].Binding.Segments, qt.Not(qt.DeepEquals), got.Features.Sources[0].Units[0].Binding.Segments)
 }
