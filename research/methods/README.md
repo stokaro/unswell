@@ -3,7 +3,7 @@
 This directory implements the design record for
 [#55](https://github.com/stokaro/unswell/issues/55), under
 [#59](https://github.com/stokaro/unswell/issues/59). It contains source review and
-a fixed [comparison protocol](protocol-v1.md), with no experiment outputs.
+a fixed [comparison protocol](protocol-v1.md), with links to subsequent evidence.
 The [ADR](../../docs/adr/0015-research-methodology.md) defines the product boundary.
 
 [`registry-v1.json`](registry-v1.json) uses format `unswell-method-registry-v1`.
@@ -17,7 +17,10 @@ reason. A repository license is not permission for its models or source datasets
 digests and byte sizes of the small upstream files read on September 8, 2026.
 Each URL includes the reviewed Git commit. These are source-review identities,
 not hashes of downloaded model packs or datasets. No upstream code, weights,
-tables, or corpus data is bundled here, and no reviewed code was executed.
+tables, or corpus data is bundled in this directory. The original September 8
+review did not execute upstream code. The later
+[LLMDet component experiment](../llmdet/README.md) runs its pinned proxy function
+and classifier on authored numerical controls; it does not reproduce text detection.
 Downloading and hashing a README is not reproduction of its scientific results.
 
 For each method, track these evidence fields independently:
@@ -42,7 +45,7 @@ detector or authorize data redistribution. The current decisions are:
 | Method | Decision and scope | Next evidence |
 | --- | --- | --- |
 | StyloAI / stylometry | Adopt compact feature comparison; defer upstream reproduction | #50 and #56; locate an authoritative code/model release |
-| LLMDet | Experimental limited Go-port candidate | #51; pin resources/terms, reproduce, then check parity and coverage |
+| LLMDet | Experimental numerical component parity | #51; resolve pack terms, reproduce tokenization and tables, then measure prose coverage |
 | Fast-DetectGPT | Experimental reference only | #53/#57; isolated fixed-budget model run |
 | Binoculars | Defer optional reference execution | #53; justify the two-model budget and tokenizer/model terms |
 | DivEye | Defer code use and execution | #53; resolve component terms and the model dependency |

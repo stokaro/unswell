@@ -1,9 +1,9 @@
 {
   "format": "unswell-method-registry-v1",
-  "revision": 1,
-  "reviewed_on": "2026-09-08",
+  "revision": 2,
+  "reviewed_on": "2026-09-09",
   "protocol": "unswell-research-v1",
-  "scope": "Source review and scoped decisions; no experiment, Go port, or model qualification.",
+  "scope": "Source review, scoped decisions, and linked numerical component evidence; no qualified product model.",
   "resources": "reviewed-resources-v1.json",
   "methods": [
     {
@@ -114,7 +114,7 @@
       "evidence": {
         "reviewed": {
           "status": "complete",
-          "reason": "Publication and the listed source files inspected; no experiment executed.",
+          "reason": "Pinned source and component inventory inspected; subsequent numeric component execution is recorded in research/llmdet.",
           "resources": [
             "https://raw.githubusercontent.com/TrustedLLM/LLMDet/5d038354006ca0c8e6aa0dadb75e8840accb51a8/README.md",
             "https://raw.githubusercontent.com/TrustedLLM/LLMDet/5d038354006ca0c8e6aa0dadb75e8840accb51a8/LICENSE",
@@ -123,11 +123,11 @@
         },
         "reproduced": {
           "status": "not_run",
-          "reason": "No original experiment or predictions generated."
+          "reason": "Full text detector not reproduced. Fifteen authored proxy controls and 328 finite classifier vectors were executed; see research/llmdet/reference-v1.json."
         },
         "ported": {
           "status": "not_run",
-          "reason": "No Go/reference parity evidence."
+          "reason": "Full token/table parity not run. Numeric component parity passed; see research/llmdet/parity-v1.json. Tokenizer and full-table compatibility remain unverified."
         },
         "qualified": {
           "status": "not_run",
@@ -137,13 +137,13 @@
       "decision": {
         "value": "experimental",
         "scope": "Limited offline Go-port research; no product model adoption.",
-        "reason": "The paper and detector use stored n-gram probabilities, tokenizer outputs, and a classifier rather than generative-model inference during scoring. Reproduce one permitted pack before attempting a port."
+        "reason": "Retain numerical research only. Component parity passed; permitted assets, tokenizer/table parity, prose coverage, resource budgets, and editorial evaluation remain open."
       },
       "compute": {
         "requirements": "Python reference uses NumPy, tokenizers, probability tables, and LightGBM; proposed Go inference needs bounded tables and data-only tree traversal.",
         "measured_runtime_seconds": null,
         "measured_peak_memory_bytes": null,
-        "reason": "Desk review; compute cost has not been measured by Unswell."
+        "reason": "Full detector runtime and peak memory have not been measured. Numerical component execution does not establish product resource costs."
       },
       "components": [
         {
@@ -176,11 +176,11 @@
         {
           "kind": "classifier",
           "license": null,
-          "reference": null,
-          "sha256": null,
-          "bytes": null,
-          "status": "not_acquired",
-          "reason": "No component bytes acquired; terms and redistribution remain unverified."
+          "reference": "https://huggingface.co/datasets/TryMore/n_grams_probability/resolve/84373525f034e98d0a568c7a5e5c1518ef90a1ee/LightGBM_model.zip",
+          "sha256": "6c32734450773f3a0d07a05abf0c31ac343ba7a23e7d2384865ee1a109434028",
+          "bytes": 629160,
+          "status": "acquired_terms_unresolved",
+          "reason": "Archive acquired and executed through pinned LightGBM on authored numeric vectors. Dataset card names openrail without complete component terms; weights are not bundled. Extracted model hash is recorded in research/llmdet/resources-v1.json."
         },
         {
           "kind": "training_and_evaluation_data",

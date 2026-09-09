@@ -1,0 +1,323 @@
+{
+  "version": "unswell-llmdet-component-parity-v1",
+  "status": "passed",
+  "reference_sha256": "67b44d7734cc7acfe0ccaf92463996cb5bd5966c8655dfbbdd8db3d4ecacdf6a",
+  "probe_sha256": "2428a3079c52276a9f3a746d98fad38850b6fc21b11a1db02a7496b78ba3360d",
+  "script_sha256": "cfaaee955b011e2904c764130a47af7f2367704c73337504e3fe1bc566239b6b",
+  "proxy_controls": 15,
+  "classifier_controls": 328,
+  "absolute_tolerance": 1e-12,
+  "relative_tolerance": 1e-12,
+  "maximum_absolute_error": {
+    "proxy": 0.0,
+    "raw": 0.0,
+    "responses": 1.1102230246251565e-16
+  },
+  "proxy_results": [
+    {
+      "id": "four-gram",
+      "result": {
+        "reference_score": 0.5,
+        "value": 0.5,
+        "possible": 1,
+        "matched": 1,
+        "evaluated": 1,
+        "orders": [
+          0,
+          0,
+          1
+        ],
+        "residual": 0,
+        "skipped": 0,
+        "context_coverage": 1,
+        "value_coverage": 1
+      }
+    },
+    {
+      "id": "three-gram",
+      "result": {
+        "reference_score": 1,
+        "value": 1,
+        "possible": 1,
+        "matched": 1,
+        "evaluated": 1,
+        "orders": [
+          0,
+          1,
+          0
+        ],
+        "residual": 0,
+        "skipped": 0,
+        "context_coverage": 1,
+        "value_coverage": 1
+      }
+    },
+    {
+      "id": "two-gram",
+      "result": {
+        "reference_score": 1.5,
+        "value": 1.5,
+        "possible": 1,
+        "matched": 1,
+        "evaluated": 1,
+        "orders": [
+          1,
+          0,
+          0
+        ],
+        "residual": 0,
+        "skipped": 0,
+        "context_coverage": 1,
+        "value_coverage": 1
+      }
+    },
+    {
+      "id": "highest-context-first",
+      "result": {
+        "reference_score": 0.5,
+        "value": 0.5,
+        "possible": 1,
+        "matched": 1,
+        "evaluated": 1,
+        "orders": [
+          0,
+          0,
+          1
+        ],
+        "residual": 0,
+        "skipped": 0,
+        "context_coverage": 1,
+        "value_coverage": 1
+      }
+    },
+    {
+      "id": "residual-before-backoff",
+      "result": {
+        "reference_score": 2.4036774610288023,
+        "value": 2.4036774610288023,
+        "possible": 1,
+        "matched": 1,
+        "evaluated": 1,
+        "orders": [
+          0,
+          0,
+          1
+        ],
+        "residual": 1,
+        "skipped": 0,
+        "context_coverage": 1,
+        "value_coverage": 1
+      }
+    },
+    {
+      "id": "retained-zero",
+      "result": {
+        "reference_score": 0,
+        "value": null,
+        "reason": "no_evaluated_probability",
+        "possible": 1,
+        "matched": 1,
+        "evaluated": 0,
+        "orders": [
+          0,
+          0,
+          1
+        ],
+        "residual": 0,
+        "skipped": 1,
+        "context_coverage": 1,
+        "value_coverage": 0
+      }
+    },
+    {
+      "id": "saturated-residual",
+      "result": {
+        "reference_score": 0,
+        "value": null,
+        "reason": "no_evaluated_probability",
+        "possible": 1,
+        "matched": 1,
+        "evaluated": 0,
+        "orders": [
+          0,
+          0,
+          1
+        ],
+        "residual": 1,
+        "skipped": 1,
+        "context_coverage": 1,
+        "value_coverage": 0
+      }
+    },
+    {
+      "id": "no-context",
+      "result": {
+        "reference_score": 0,
+        "value": null,
+        "reason": "no_matching_context",
+        "possible": 1,
+        "matched": 0,
+        "evaluated": 0,
+        "orders": [
+          0,
+          0,
+          0
+        ],
+        "residual": 0,
+        "skipped": 0,
+        "context_coverage": 0,
+        "value_coverage": 0
+      }
+    },
+    {
+      "id": "too-short",
+      "result": {
+        "reference_score": 0,
+        "value": null,
+        "reason": "insufficient_tokens",
+        "possible": 0,
+        "matched": 0,
+        "evaluated": 0,
+        "orders": [
+          0,
+          0,
+          0
+        ],
+        "residual": 0,
+        "skipped": 0,
+        "context_coverage": 0,
+        "value_coverage": 0
+      }
+    },
+    {
+      "id": "empty-input",
+      "result": {
+        "reference_score": 0,
+        "value": null,
+        "reason": "insufficient_tokens",
+        "possible": 0,
+        "matched": 0,
+        "evaluated": 0,
+        "orders": [
+          0,
+          0,
+          0
+        ],
+        "residual": 0,
+        "skipped": 0,
+        "context_coverage": 0,
+        "value_coverage": 0
+      }
+    },
+    {
+      "id": "mixed-orders",
+      "result": {
+        "reference_score": 1.5,
+        "value": 1.5,
+        "possible": 3,
+        "matched": 3,
+        "evaluated": 3,
+        "orders": [
+          1,
+          1,
+          1
+        ],
+        "residual": 0,
+        "skipped": 0,
+        "context_coverage": 1,
+        "value_coverage": 1
+      }
+    },
+    {
+      "id": "partial-coverage",
+      "result": {
+        "reference_score": 0.5,
+        "value": 0.5,
+        "possible": 4,
+        "matched": 1,
+        "evaluated": 1,
+        "orders": [
+          0,
+          0,
+          1
+        ],
+        "residual": 0,
+        "skipped": 0,
+        "context_coverage": 0.25,
+        "value_coverage": 0.25
+      }
+    },
+    {
+      "id": "zero-in-denominator",
+      "result": {
+        "reference_score": 0.3333333333333333,
+        "value": 0.3333333333333333,
+        "possible": 2,
+        "matched": 2,
+        "evaluated": 1,
+        "orders": [
+          1,
+          0,
+          1
+        ],
+        "residual": 0,
+        "skipped": 1,
+        "context_coverage": 1,
+        "value_coverage": 0.5
+      }
+    },
+    {
+      "id": "token-zero",
+      "result": {
+        "reference_score": 1.9689635318695062,
+        "value": 1.9689635318695062,
+        "possible": 2,
+        "matched": 2,
+        "evaluated": 2,
+        "orders": [
+          2,
+          0,
+          0
+        ],
+        "residual": 1,
+        "skipped": 0,
+        "context_coverage": 1,
+        "value_coverage": 1
+      }
+    },
+    {
+      "id": "uniform-row",
+      "result": {
+        "reference_score": 2,
+        "value": 2,
+        "possible": 1,
+        "matched": 1,
+        "evaluated": 1,
+        "orders": [
+          0,
+          0,
+          1
+        ],
+        "residual": 1,
+        "skipped": 0,
+        "context_coverage": 1,
+        "value_coverage": 1
+      }
+    }
+  ],
+  "go_source_sha256": {
+    "research/annotation/cmd/llmdetprobe/main.go": "de2eb3e0adcdc378e3aa8aabd132e72ae1711e88cbe8bed76ab12d5602f8c03c",
+    "research/annotation/internal/commandio/io.go": "35160f3411e47f8b6f4ccfb77658a2a43930369bf3ee5c82b76e10f9cabbc8cb",
+    "research/annotation/internal/jsoninput/check.go": "19502d0167798c1cd7f33651214fd0878ed31c2d391f48ed4fad01acc207f452",
+    "research/annotation/internal/jsoninput/schema.go": "28f91a674b683b343ec858fb5690064a303ff475f930a919a5b7dd0785a37917",
+    "research/annotation/internal/jsoninput/unicode.go": "da4dd0f191183590e7f348fc56928dcfc0b1cce61575a1d613cc61b76f1be0cb",
+    "research/annotation/internal/llmdetcommand/run.go": "9db9952be62d4933f08ffd29e368099ac137305c94ad6dc961b32c3adbb202b2",
+    "research/annotation/llmdet/ensemble.go": "3eb52169b2df45c85ba98e9cc7671f53b5ea6e973adc9d8b8cf1fe7dac89cc67",
+    "research/annotation/llmdet/ensemble.schema.json": "262f3c7572268bbe3098993b8d823b9bea81b2c4488fa429e45994fa3652808e",
+    "research/annotation/llmdet/load.go": "11815df033679c40af440ef25dde9452c1e07b00dc539c1f4615d3fe1dadb926",
+    "research/annotation/llmdet/proxy.go": "b89740e93d7b60562c2b1fb7f5d507cb184b1701dd284635ec32f2598ae09951",
+    "research/annotation/llmdet/proxy.schema.json": "45d53cdba1eac2be837ebdedb5f156be1a9a6866f8f2e93433b42b86a0adb181",
+    "research/annotation/llmdet/tree.go": "0c751ad322ae50e44f6ffe4b4d5988eee29d6cc35e206eb8a3e28f3253f51fca"
+  },
+  "scope": "Numeric component controls only; tokenizer, full probability tables, text detection, and qualification not run."
+}

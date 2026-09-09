@@ -1,0 +1,105 @@
+# LLMDet numerical component experiment
+
+This increment of [#51](https://github.com/stokaro/unswell/issues/51) checks two
+bounded components: the published proxy calculation on authored probability rows,
+and Go execution of the published numeric classifier on finite vectors. It does
+not provide a text detector or establish editorial usefulness.
+
+The [paper](https://aclanthology.org/2023.findings-emnlp.139/) describes proxy
+perplexity from stored n-gram probabilities. The source revision is
+[`5d038354`](https://github.com/TrustedLLM/LLMDet/tree/5d038354006ca0c8e6aa0dadb75e8840accb51a8).
+[ADR 0029](../../docs/adr/0029-llmdet-numerical-parity.md) places the numerical
+implementation in the existing research module. It shares bounded JSON loading
+with other research tools. The product engine and default gate do not consume it.
+
+## Measured compatibility
+
+The reference ran with Python 3.12.13, LightGBM 4.6.0, NumPy 2.2.6, and SciPy
+1.15.3 on macOS ARM64. [`reference-v1.json`](reference-v1.json) records exact
+source, classifier, script, and output hashes. [`parity-v1.json`](parity-v1.json)
+records the Go comparison and coverage for each authored proxy input.
+
+| Comparison | Controls | Maximum absolute error |
+| --- | ---: | ---: |
+| Pinned proxy function against Go | 15 | 0 |
+| Native classifier margins against Go | 328 vectors, 9 classes | 0 |
+| Native classifier responses against Go | 328 vectors, 9 classes | 1.11e-16 |
+
+Absolute and relative tolerances were fixed at `1e-12` before comparison. The
+classifier controls comprise eight constant vectors, 128 vectors with seed 5101,
+and values below, at, and above the first 64 tree-root thresholds. They do not
+cover every branch or show accuracy on prose. The actual classifier has 11 input
+features, 9 output classes, 1,800 trees, and 11,594 splits. All observed splits use
+numeric `<=` with no missing-value mode; leaf values already include shrinkage.
+Go rejects missing/nonfinite features instead of claiming compatibility there.
+
+## Reference semantics
+
+The proxy starts at token index 2 and examines `max(0, token_count - 3)` positions,
+even when only bigram contexts exist. It selects a four-gram context, then a
+trigram, then a bigram. Once a context exists, an unlisted continuation uses its
+residual probability; it does not trigger a shorter-context lookup.
+
+Matched contexts increment the denominator even when a nonpositive likelihood
+is skipped. The result is the negative sum of base-2 log probabilities divided
+by `matched + 1`. This port retains that reference behavior without exponentiating
+or silently correcting it. The numerical vocabulary size is an explicit argument;
+it is not inferred from a tokenizer.
+
+`reference_score` preserves the raw calculation. `value` is null when input is
+too short, no context matches, or no likelihood contributes. Each case has a
+machine-readable reason. `orders` counts matched bigram, trigram, and four-gram
+contexts; `residual` includes unlisted continuations whose likelihood was skipped.
+Context coverage and evaluated-likelihood coverage use possible positions as
+their denominator. Present values are numerical features, not qualified scores.
+
+These controls use float64 rows. Dtypes and rounding behavior of the unavailable
+full table pack have not been verified. Probability validation rejects nonfinite
+values, values outside `[0, 1]`, duplicate IDs/contexts, and mass above `1 + 1e-12`.
+Mass within that tolerance is not renormalized. Fully enumerated rows use their
+retained values; an empty row uses uniform residual probability.
+
+## Local reproduction
+
+Keep external inputs and generated real-model exports outside tracked files.
+Acquire the exact source and classifier identified in
+[`resources-v1.json`](resources-v1.json). The source hash is checked before its
+numerical function executes. The reference does not fetch or unpickle table data.
+The classifier archive contains `nine_LightGBM_model.txt`; verify its recorded
+digest after extraction. The experiment does not grant redistribution rights.
+
+From the repository root, with a separately created Python 3.12 environment:
+
+```sh
+python -m pip install -r research/llmdet/reference-requirements.txt
+python research/llmdet/reference.py \
+  --source /absolute/research/detector.py \
+  --classifier /absolute/research/nine_LightGBM_model.txt \
+  --output /absolute/research/reference
+(cd research/annotation && CGO_ENABLED=0 go build -o /tmp/llmdetprobe ./cmd/llmdetprobe)
+python research/llmdet/verify.py \
+  --probe /tmp/llmdetprobe --reference /absolute/research/reference \
+  --output /absolute/research/parity.json
+```
+
+Ordinary `go test` uses frozen authored proxy controls and authored tree cases.
+It also builds and executes the Go probe to check its output and exit codes.
+No Python package, tokenizer, model service, GPU, or downloaded classifier is
+required. The probe accepts explicit local JSON packs and JSON batches on stdin.
+Invalid packs or incomplete numeric vectors return exit 2; cancellation returns
+130. No policy decision or source scanning happens in this command.
+
+## Limits and next decision
+
+The Hugging Face inventory advertises a 4,818,741,741-byte compressed table archive.
+Those bytes were not acquired; its advertised LFS digest is recorded separately
+from measured hashes. The dataset card names `openrail` without supplying complete
+component terms. Tokenizers and their permissions remain unreviewed. No weights,
+table archive, or exported real ensemble is committed here.
+
+The full method stays `not_run` for reproduction and port acceptance in the
+registry. The component receipts narrow the remaining work: permitted resources,
+at least one compatible tokenizer/table set, intermediate token/feature parity,
+coverage on technical prose, cold-start and memory measurements, and comparison
+with the shared editorial baselines. No human labels, held-out accuracy, model
+qualification, or product resource budget has been established by this experiment.
