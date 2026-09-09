@@ -10,6 +10,7 @@ import (
 
 func repetitionPattern(id, summary string, weight int, examples ...rule.Example) rule.Descriptor {
 	d := experimentalPattern(id, summary, "repetition", examples...)
+	d.BlockObservations = true
 	d.Defaults.Score = rule.Score{Weight: weight, Cap: weight * 2}
 	d.Defaults.Parameters.MinWords = 12
 	d.Defaults.Parameters.ProtectNegation = true

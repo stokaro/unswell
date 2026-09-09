@@ -9,6 +9,7 @@ import (
 )
 
 func headingEcho(ctx context.Context, view rule.View, emit rule.Emitter) error {
+	observations := newCandidateObservations(view, headingProseBlock)
 	budget := repetitionBudget{ctx, view.MaxCandidates}
 	gaps := newProseGapIndex(view.Document.Excluded)
 	var previous *document.Block
@@ -17,7 +18,7 @@ func headingEcho(ctx context.Context, view rule.View, emit rule.Emitter) error {
 		blocked := gaps.between(previous, block)
 		if previous != nil && previous.Kind == "heading" && block.Kind == "paragraph" && !blocked &&
 			adjacentProse(view.Document, previous, block, true) {
-			if err := compareHeading(view, *previous, *block, &budget, emit); err != nil {
+			if err := compareHeading(view, *previous, *block, &budget, emit, observations); err != nil {
 				return err
 			}
 		}
@@ -26,21 +27,28 @@ func headingEcho(ctx context.Context, view rule.View, emit rule.Emitter) error {
 			return err
 		}
 	}
-	return ctx.Err()
+	return observations.finish(ctx, view)
 }
 
-func compareHeading(view rule.View, heading, paragraph document.Block, budget *repetitionBudget, emit rule.Emitter) error {
-	left, ok, err := makeLexicalUnit(view, heading, 0, budget)
+func headingProseBlock(block document.Block) bool {
+	return block.Kind == "heading" || block.Kind == "paragraph"
+}
+
+func compareHeading(view rule.View, heading, paragraph document.Block, budget *repetitionBudget, emit rule.Emitter,
+	observations *candidateObservations) error {
+	left, ok, err := makeLexicalUnit(view, heading, 0, budget, observations)
 	if err != nil || !ok {
 		return err
 	}
-	right, ok, err := makeLexicalUnit(view, paragraph, 1, budget)
+	right, ok, err := makeLexicalUnit(view, paragraph, 1, budget, observations)
 	if err != nil || !ok {
 		return err
 	}
 	if err := budget.spend(left.words.Len() + right.words.Len()); err != nil {
 		return err
 	}
+	observations.advance(heading.ID, candidateEvaluated)
+	observations.advance(paragraph.ID, candidateEvaluated)
 	if left.signature != right.signature {
 		return nil
 	}

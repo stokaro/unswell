@@ -10,9 +10,10 @@ import (
 )
 
 func syntaxTemplates(ctx context.Context, view rule.View, emit rule.Emitter) error {
+	observations := newCandidateObservations(view, proseBlock)
 	budget := repetitionBudget{ctx, view.MaxCandidates}
 	groups := make(map[string][]repetitionSentence)
-	for _, item := range repetitionSentences(view) {
+	for _, item := range repetitionSentences(view, observations) {
 		if err := budget.spend(len(item.sentence.Tokens)); err != nil {
 			return err
 		}
@@ -21,6 +22,7 @@ func syntaxTemplates(ctx context.Context, view rule.View, emit rule.Emitter) err
 			return err
 		}
 		if key != "" {
+			observations.advance(item.sentence.BlockID, candidateEvaluated)
 			groups[key] = append(groups[key], item)
 		}
 	}
@@ -34,7 +36,7 @@ func syntaxTemplates(ctx context.Context, view rule.View, emit rule.Emitter) err
 			return err
 		}
 	}
-	return ctx.Err()
+	return observations.finish(ctx, view)
 }
 
 func syntaxTemplate(ctx context.Context, view rule.View, sentence document.Sentence) (string, error) {

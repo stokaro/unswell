@@ -14,12 +14,13 @@ type overlapEdge struct {
 }
 
 type overlapAnalysis struct {
-	view      rule.View
-	budget    repetitionBudget
-	units     []lexicalUnit
-	parents   []int
-	edges     []overlapEdge
-	summaries bool
+	view         rule.View
+	budget       repetitionBudget
+	units        []lexicalUnit
+	parents      []int
+	edges        []overlapEdge
+	summaries    bool
+	observations *candidateObservations
 }
 
 func paragraphOverlap(ctx context.Context, view rule.View, emit rule.Emitter) error {
@@ -32,7 +33,8 @@ func summaryEcho(ctx context.Context, view rule.View, emit rule.Emitter) error {
 
 func analyzeOverlap(ctx context.Context, view rule.View, emit rule.Emitter, summaries bool) error {
 	a := overlapAnalysis{view: view, budget: repetitionBudget{ctx, view.MaxCandidates}, summaries: summaries}
-	units, err := overlapUnits(view, summaries, &a.budget)
+	a.observations = newCandidateObservations(view, proseBlock)
+	units, err := overlapUnits(view, summaries, &a.budget, a.observations)
 	if err != nil {
 		return err
 	}
@@ -43,7 +45,10 @@ func analyzeOverlap(ctx context.Context, view rule.View, emit rule.Emitter, summ
 	if err := a.compare(); err != nil {
 		return err
 	}
-	return a.emit(emit)
+	if err := a.emit(emit); err != nil {
+		return err
+	}
+	return a.observations.finish(ctx, view)
 }
 
 func (a *overlapAnalysis) compare() error {
@@ -89,7 +94,12 @@ func (a *overlapAnalysis) pair(left, right int) error {
 	if err := a.budget.spend(u.words.Len() + v.words.Len()); err != nil {
 		return err
 	}
-	if u.block.Kind != v.block.Kind || u.signature != v.signature {
+	if u.block.Kind != v.block.Kind {
+		return nil
+	}
+	a.observations.advance(u.block.ID, candidateEvaluated)
+	a.observations.advance(v.block.ID, candidateEvaluated)
+	if u.signature != v.signature {
 		return nil
 	}
 	overlap, err := feature.CompareWords(a.budget.ctx, u.words, v.words)

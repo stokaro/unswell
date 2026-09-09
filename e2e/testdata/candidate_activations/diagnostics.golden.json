@@ -1,0 +1,587 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "repetition.heading-echo",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "section",
+      "message": "The first paragraph closely echoes its heading; check whether it adds information.",
+      "primary": {
+        "path": "heading.md",
+        "span": {
+          "start": 53,
+          "end": 102
+        },
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 50
+        },
+        "segments": [
+          {
+            "start": 53,
+            "end": 81
+          },
+          {
+            "start": 83,
+            "end": 91
+          },
+          {
+            "start": 93,
+            "end": 102
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "heading.md",
+          "span": {
+            "start": 5,
+            "end": 49
+          },
+          "start": {
+            "line": 1,
+            "column": 4
+          },
+          "end": {
+            "line": 1,
+            "column": 48
+          },
+          "segments": [
+            {
+              "start": 5,
+              "end": 49
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "format.list-fragmentation",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "section",
+      "message": "Several short lists fragment this section; check whether the grouping helps readers.",
+      "primary": {
+        "path": "lists.md",
+        "span": {
+          "start": 43,
+          "end": 58
+        },
+        "start": {
+          "line": 3,
+          "column": 3
+        },
+        "end": {
+          "line": 3,
+          "column": 18
+        },
+        "segments": [
+          {
+            "start": 43,
+            "end": 49
+          },
+          {
+            "start": 51,
+            "end": 58
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "lists.md",
+          "span": {
+            "start": 106,
+            "end": 122
+          },
+          "start": {
+            "line": 4,
+            "column": 3
+          },
+          "end": {
+            "line": 4,
+            "column": 19
+          },
+          "segments": [
+            {
+              "start": 106,
+              "end": 122
+            }
+          ]
+        },
+        {
+          "path": "lists.md",
+          "span": {
+            "start": 160,
+            "end": 177
+          },
+          "start": {
+            "line": 8,
+            "column": 3
+          },
+          "end": {
+            "line": 8,
+            "column": 20
+          },
+          "segments": [
+            {
+              "start": 160,
+              "end": 177
+            }
+          ]
+        },
+        {
+          "path": "lists.md",
+          "span": {
+            "start": 181,
+            "end": 203
+          },
+          "start": {
+            "line": 9,
+            "column": 3
+          },
+          "end": {
+            "line": 9,
+            "column": 25
+          },
+          "segments": [
+            {
+              "start": 181,
+              "end": 203
+            }
+          ]
+        },
+        {
+          "path": "lists.md",
+          "span": {
+            "start": 246,
+            "end": 258
+          },
+          "start": {
+            "line": 13,
+            "column": 3
+          },
+          "end": {
+            "line": 13,
+            "column": 15
+          },
+          "segments": [
+            {
+              "start": 246,
+              "end": 258
+            }
+          ]
+        },
+        {
+          "path": "lists.md",
+          "span": {
+            "start": 262,
+            "end": 277
+          },
+          "start": {
+            "line": 14,
+            "column": 3
+          },
+          "end": {
+            "line": 14,
+            "column": 18
+          },
+          "segments": [
+            {
+              "start": 262,
+              "end": 277
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "repetition.near-sentence",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "These sentences have high lexical overlap; check for repeated information.",
+      "primary": {
+        "path": "near.md",
+        "span": {
+          "start": 3,
+          "end": 113
+        },
+        "start": {
+          "line": 1,
+          "column": 2
+        },
+        "end": {
+          "line": 1,
+          "column": 112
+        },
+        "segments": [
+          {
+            "start": 3,
+            "end": 35
+          },
+          {
+            "start": 37,
+            "end": 44
+          },
+          {
+            "start": 46,
+            "end": 113
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "near.md",
+          "span": {
+            "start": 158,
+            "end": 266
+          },
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 109
+          },
+          "segments": [
+            {
+              "start": 158,
+              "end": 266
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "repetition.ngram-density",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "This phrase recurs in a short prose window; check whether each use is needed.",
+      "primary": {
+        "path": "ngrams.md",
+        "span": {
+          "start": 7,
+          "end": 30
+        },
+        "start": {
+          "line": 1,
+          "column": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 29
+        },
+        "segments": [
+          {
+            "start": 7,
+            "end": 12
+          },
+          {
+            "start": 15,
+            "end": 22
+          },
+          {
+            "start": 25,
+            "end": 30
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "ngrams.md",
+          "span": {
+            "start": 130,
+            "end": 149
+          },
+          "start": {
+            "line": 3,
+            "column": 5
+          },
+          "end": {
+            "line": 3,
+            "column": 24
+          },
+          "segments": [
+            {
+              "start": 130,
+              "end": 135
+            },
+            {
+              "start": 136,
+              "end": 143
+            },
+            {
+              "start": 144,
+              "end": 149
+            }
+          ]
+        },
+        {
+          "path": "ngrams.md",
+          "span": {
+            "start": 209,
+            "end": 228
+          },
+          "start": {
+            "line": 5,
+            "column": 7
+          },
+          "end": {
+            "line": 5,
+            "column": 26
+          },
+          "segments": [
+            {
+              "start": 209,
+              "end": 214
+            },
+            {
+              "start": 215,
+              "end": 222
+            },
+            {
+              "start": 223,
+              "end": 228
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "repetition.paragraph-overlap",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "These prose blocks have high lexical overlap; check for repeated information.",
+      "primary": {
+        "path": "overlap.md",
+        "span": {
+          "start": 3,
+          "end": 90
+        },
+        "start": {
+          "line": 1,
+          "column": 2
+        },
+        "end": {
+          "line": 1,
+          "column": 89
+        },
+        "segments": [
+          {
+            "start": 3,
+            "end": 90
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "overlap.md",
+          "span": {
+            "start": 139,
+            "end": 228
+          },
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 90
+          },
+          "segments": [
+            {
+              "start": 139,
+              "end": 228
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "repetition.near-sentence",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "These sentences have high lexical overlap; check for repeated information.",
+      "primary": {
+        "path": "sample.go",
+        "span": {
+          "start": 296,
+          "end": 389
+        },
+        "start": {
+          "line": 8,
+          "column": 16
+        },
+        "end": {
+          "line": 8,
+          "column": 109
+        },
+        "segments": [
+          {
+            "start": 296,
+            "end": 389
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "sample.go",
+          "span": {
+            "start": 443,
+            "end": 533
+          },
+          "start": {
+            "line": 9,
+            "column": 17
+          },
+          "end": {
+            "line": 9,
+            "column": 107
+          },
+          "segments": [
+            {
+              "start": 443,
+              "end": 533
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "repetition.summary-echo",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "section",
+      "message": "This summary has high lexical overlap with preceding prose; check what it adds.",
+      "primary": {
+        "path": "summary.md",
+        "span": {
+          "start": 107,
+          "end": 196
+        },
+        "start": {
+          "line": 5,
+          "column": 1
+        },
+        "end": {
+          "line": 5,
+          "column": 90
+        },
+        "segments": [
+          {
+            "start": 107,
+            "end": 196
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "summary.md",
+          "span": {
+            "start": 3,
+            "end": 90
+          },
+          "start": {
+            "line": 1,
+            "column": 2
+          },
+          "end": {
+            "line": 1,
+            "column": 89
+          },
+          "segments": [
+            {
+              "start": 3,
+              "end": 90
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "repetition.syntax-template",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "Several sentences repeat a POS shape; check whether the structure serves the text.",
+      "primary": {
+        "path": "templates.md",
+        "span": {
+          "start": 3,
+          "end": 77
+        },
+        "start": {
+          "line": 1,
+          "column": 2
+        },
+        "end": {
+          "line": 1,
+          "column": 76
+        },
+        "segments": [
+          {
+            "start": 3,
+            "end": 77
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "templates.md",
+          "span": {
+            "start": 122,
+            "end": 196
+          },
+          "start": {
+            "line": 2,
+            "column": 1
+          },
+          "end": {
+            "line": 2,
+            "column": 75
+          },
+          "segments": [
+            {
+              "start": 122,
+              "end": 196
+            }
+          ]
+        },
+        {
+          "path": "templates.md",
+          "span": {
+            "start": 198,
+            "end": 274
+          },
+          "start": {
+            "line": 3,
+            "column": 1
+          },
+          "end": {
+            "line": 3,
+            "column": 77
+          },
+          "segments": [
+            {
+              "start": 198,
+              "end": 274
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

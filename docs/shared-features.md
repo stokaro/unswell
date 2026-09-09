@@ -67,10 +67,10 @@ remove terms from descriptive word counts. Extraction exclusions and protected
 tokens remain excluded. Suppressions and baseline acceptance affect later policy;
 they do not change these raw measurements.
 
-The remaining #56 work covers shared repetition computations, raw rule activation
-features with applicability, optional LLMDet contracts, and engine collection for
-Go training, inference, and explanations. It must use this package and the existing
-`RunResult`; reporters and MCP must not compute independent feature vectors.
+The APIs below share repetition computations and collect block measurements and
+raw rule activations through the existing `RunResult`. Reporters and MCP consume
+that collection. Model input contracts, Go training/inference integration, and
+optional LLMDet features remain work under #56.
 
 ## Lexical overlap
 
@@ -102,11 +102,11 @@ Numerical overlap does not override a difference in negation, a numerical limit,
 or any other condition protected by the rule. Existing evidence values and
 coordinates retain their definitions.
 
-This shared preprocessing remains separate from the pending collection API.
-Persisted training and inference vectors must identify their source, NLP,
+This shared preprocessing remains separate from persisted numeric measurements.
+Collected rule activations record their identities and applicability as described
+below. Model-specific overlap vectors must also identify their source, NLP,
 normalization, and selection policies; normalized word sets alone do not establish
-that compatibility. Raw rule activations and the remaining #56 collection work
-still need integration.
+that compatibility.
 
 ## N-grams and surface templates
 
@@ -143,7 +143,8 @@ two sentences say the same thing.
 `PatternCatalog` defines these string preprocessing outputs under
 `unswell-pattern-features-v1`. They are separate from numeric `Value` measurements.
 Keys explicitly expose source-derived text and are not added to saved reports or
-MCP responses. Repetition/model-specific collection remains part of #56.
+MCP responses. Repetition rule activations use the numeric collection below;
+exporting model-specific lexical or template representations remains part of #56.
 
 ## Collect block measurements
 
@@ -187,8 +188,9 @@ Start MCP with the same repeated `--feature` flags to fix its requested set.
 collection. A client cannot select a different set or policy in a check request.
 No source words or template keys are added to reports by collection.
 
-See [ADR 0017](adr/0017-feature-collection.md). Repetition/model vectors still
-require integration; collection does not qualify a model or provide probabilities.
+See [ADR 0017](adr/0017-feature-collection.md) and the rule activation contract
+below. Training and inference still need compatible model input contracts;
+collection does not qualify a model or provide probabilities.
 
 ## Collect rule activations
 
@@ -324,13 +326,53 @@ calculation retains the provider's `Word` flags; protected code words are omitte
 while other words in the same sentence remain eligible. This differs from exact
 repetition's rejection of the whole protected sentence.
 
-Near-repetition, extended repetition, and list rules still need complete
-observations before their silent blocks can supply dense negative inputs for training. The complete #56 work and
-model qualification remain open. See [ADR 0018](adr/0018-rule-activation-features.md).
+The remaining seven builtin rules record their actual candidate comparisons:
+
+| Rule | Eligible input |
+| --- | --- |
+| `repetition.near-sentence` | Two prepared sentences reached by the existing shared-bigram index. All extracted block kinds retain their scope. |
+| `repetition.paragraph-overlap` | Prepared prose blocks of the same kind reached by the content-key index within `window_blocks`. |
+| `repetition.summary-echo` | An indexed comparison from an earlier nonsummary block to a later block under a selected summary heading. |
+| `repetition.heading-echo` | A selected heading and its adjacent paragraph, both meeting the lexical requirements without an excluded boundary between them. |
+| `repetition.ngram-density` | A nonexempt n-gram accepted by the existing scanner in a supported sentence meeting `min_words`. |
+| `repetition.syntax-template` | A nonempty key from the existing POS-template computation in a supported sentence meeting `min_words`. |
+| `format.list-fragmentation` | An item in a complete, eligible short unordered list that fits an inspected `window_blocks` window. |
+
+For pair rules, preparing one unit is insufficient to supply a numeric zero. No
+indexed partner, an expired comparison window, an excluded heading, or a missing
+summary scope leaves `inapplicable/no_eligible_pair`. An actual candidate rejected
+by the technical-contrast signature is evaluated with zero; different obligations
+such as `may retry` and `must retry` retain their protection. Near repetition also
+evaluates exact-copy candidates without emitting a near-match finding.
+
+N-gram and template keys supply evaluated zeros below the occurrence threshold,
+including singleton keys. Template groups still require distinct lexical
+realizations to produce evidence. These grouping rules differ from pair rules:
+counting an accepted key is itself their comparison opportunity.
+
+List observations apply only to extracted list items. Ordered, task, procedural,
+reference, protected, or incomplete lists yield `inapplicable/no_eligible_list`.
+A complete eligible list that cannot fit its configured window yields
+`inapplicable/no_eligible_window`. Allowed list counts yield zero. A code-only item
+omitted by extraction has no feature unit; any surviving items still have to meet
+the existing complete-list requirement.
+
+Each rule retains its own sentence/block minimum, term exemptions, token checks,
+and source boundaries. Unsupported units, empty sentences, insufficient words,
+and rejected token/key candidates retain explicit absence reasons. A later
+ineligible sentence cannot erase an earlier evaluated comparison in the same
+block. Observations add no new candidate comparisons and do not change evidence,
+scoring, or finding versions.
+
+All 40 currently implemented builtins declare complete block observations.
+External rules without observations still use `applicability_unknown`. This
+completes applicability accounting for the current catalog; the broader shared
+feature work in #56 and model qualification remain open. See
+[ADR 0018](adr/0018-rule-activation-features.md).
 
 The number of blocks times requested values must fit `analysis.max_candidates`
 for each source. Exceeding this output bound is an operational error; values are
 not sampled or silently dropped. Repository CLI/MCP self-checks collect readability,
 phrase, section-announcement, stacked-hedging, noun-stack, and all six window
-activations, plus exact-repetition and opener activations, alongside word counts
-and lexical diversity.
+activations, exact-repetition and opener activations, and these seven candidate
+activations, alongside word counts and lexical diversity.

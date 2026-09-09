@@ -1,0 +1,24 @@
+version: 1
+extends: [builtin:custom]
+overrides:
+  - files: [near.md, sample.go]
+    rules:
+      repetition.near-sentence: {enabled: true, gate: forbid}
+  - files: [ngrams.md]
+    rules:
+      repetition.ngram-density: {enabled: true, gate: forbid}
+  - files: [templates.md]
+    rules:
+      repetition.syntax-template: {enabled: true, gate: forbid}
+  - files: [overlap.md]
+    rules:
+      repetition.paragraph-overlap: {enabled: true, gate: forbid}
+  - files: [heading.md]
+    rules:
+      repetition.heading-echo: {enabled: true, gate: forbid}
+  - files: [summary.md]
+    rules:
+      repetition.summary-echo: {enabled: true, gate: forbid}
+  - files: [lists.md]
+    rules:
+      format.list-fragmentation: {enabled: true, gate: forbid}

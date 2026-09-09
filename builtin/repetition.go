@@ -35,6 +35,7 @@ func repetitionRules() []rule.Rule {
 	)
 	near.Requires = append(near.Requires, nlp.POS)
 	near.Version = "2"
+	near.BlockObservations = true
 	near.Description = "Compares indexed sentence candidates with set Jaccard and a shared technical-contrast signature."
 	near.Limitations += " Modal, condition, and state cues are retained in token order."
 	near.Limitations += " Numeric-unit protection retains the token after a number, not a complete unit expression."
@@ -153,8 +154,9 @@ func openers(ctx context.Context, view rule.View, emit rule.Emitter, paragraphs 
 }
 
 func nearRepetition(ctx context.Context, view rule.View, emit rule.Emitter) error {
+	observations := newCandidateObservations(view, nil)
 	sentences := allSentences(view.Document)
-	parents, err := linkNearCandidates(ctx, view, sentences)
+	parents, err := linkNearCandidates(ctx, view, sentences, observations)
 	if err != nil {
 		return err
 	}
@@ -163,10 +165,14 @@ func nearRepetition(ctx context.Context, view rule.View, emit rule.Emitter) erro
 		key := fmt.Sprint(leader(parents, i))
 		groups[key] = append(groups[key], sentenceOccurrence(sentence))
 	}
-	return emitGroups(groups, 1, 2, "heuristic", emit)
+	if err := emitGroups(groups, 1, 2, "heuristic", emit); err != nil {
+		return err
+	}
+	return observations.finish(ctx, view)
 }
 
-func linkNearCandidates(ctx context.Context, view rule.View, sentences []document.Sentence) ([]int, error) {
+func linkNearCandidates(ctx context.Context, view rule.View, sentences []document.Sentence,
+	observations *candidateObservations) ([]int, error) {
 	units := make([]nearSentence, len(sentences))
 	index := candidateIndex{postings: make(map[string][]int), remaining: view.MaxCandidates}
 	parents := make([]int, len(sentences))
@@ -177,21 +183,19 @@ func linkNearCandidates(ctx context.Context, view rule.View, sentences []documen
 		if err := ctx.Err(); err != nil {
 			return nil, err
 		}
-		if sentence.Words < view.Parameters.MinWords || sentenceKey(sentence) == "" {
-			continue
-		}
-		words := normalizedWords(sentence)
-		set, err := makeWordSet(ctx, words, len(sentence.Text))
+		unit, shingles, err := makeNearCandidate(ctx, view, sentence, observations)
 		if err != nil {
 			return nil, err
 		}
-		units[i] = nearSentence{key: sentenceKey(sentence), signature: repetitionSignature(view, sentence), words: set}
-		shingles := bigrams(words)
+		if unit.key == "" {
+			continue
+		}
+		units[i] = unit
 		ordered, err := index.candidates(ctx, shingles)
 		if err != nil {
 			return nil, err
 		}
-		if err := joinNearPairs(ctx, units, i, ordered, parents, view.Parameters.Similarity); err != nil {
+		if err := joinNearPairs(ctx, units, i, ordered, parents, view.Parameters.Similarity, observations); err != nil {
 			return nil, err
 		}
 		for _, shingle := range shingles {
@@ -199,6 +203,27 @@ func linkNearCandidates(ctx context.Context, view rule.View, sentences []documen
 		}
 	}
 	return parents, nil
+}
+
+func makeNearCandidate(ctx context.Context, view rule.View, sentence document.Sentence,
+	observations *candidateObservations) (nearSentence, []string, error) {
+	observations.advance(sentence.BlockID, candidateInsufficientWords)
+	if sentence.Words < view.Parameters.MinWords {
+		return nearSentence{}, nil, nil
+	}
+	observations.advance(sentence.BlockID, candidateNoTokens)
+	key := sentenceKey(sentence)
+	if key == "" {
+		return nearSentence{}, nil, nil
+	}
+	words := normalizedWords(sentence)
+	set, err := makeWordSet(ctx, words, len(sentence.Text))
+	if err != nil {
+		return nearSentence{}, nil, err
+	}
+	observations.advance(sentence.BlockID, candidatePrepared)
+	unit := nearSentence{key: key, signature: repetitionSignature(view, sentence), words: set, blockID: sentence.BlockID}
+	return unit, bigrams(words), nil
 }
 
 type candidateIndex struct {
@@ -231,13 +256,17 @@ func (index *candidateIndex) candidates(ctx context.Context, shingles []string) 
 type nearSentence struct {
 	key, signature string
 	words          feature.WordSet
+	blockID        int
 }
 
-func joinNearPairs(ctx context.Context, units []nearSentence, index int, candidates, parents []int, similarity float64) error {
+func joinNearPairs(ctx context.Context, units []nearSentence, index int, candidates, parents []int, similarity float64,
+	observations *candidateObservations) error {
 	for _, candidate := range candidates {
 		if err := ctx.Err(); err != nil {
 			return err
 		}
+		observations.advance(units[index].blockID, candidateEvaluated)
+		observations.advance(units[candidate].blockID, candidateEvaluated)
 		matches, err := nearPair(ctx, units[index], units[candidate], similarity)
 		if err != nil {
 			return err
