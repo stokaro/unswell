@@ -6,7 +6,8 @@ official MCP Registry. These routes all use the same engine and policy model.
 
 The first alpha archives, containers, MCP Registry entry, and Action tag are
 published. The tap's versioned formula is merged on main.
-A configured workflow alone does not establish successful publication.
+See the [alpha distribution evidence](alpha-distribution-evidence.md) for the
+verified versions and remaining automation work.
 
 ## Homebrew
 
@@ -24,10 +25,11 @@ Its tests require clean prose to pass, bad
 prose to return 1, and malformed C# to return 2. The installed executable also
 checks the tap's own Markdown, YAML and Python scripts in CI.
 
-After archive publication and the three public Action consumer checks succeed,
-the release workflow requests updates in both distribution repositories. The tap
-verifies all four Unix archive hashes and opens a PR for the formula. GitHub
-automatically merges it after the four required installation checks pass.
+The tap's current `Update formula` workflow accepts an existing release tag,
+verifies all four Unix archive hashes, prepares a formula branch, and starts its
+installation checks. A maintainer creates and merges the PR after those checks
+and the required review pass. Automatic PR creation and merging are still tracked
+in [#66](https://github.com/stokaro/unswell/issues/66).
 
 ## GitHub Action
 
@@ -59,11 +61,10 @@ that bad prose and malformed source fail their action steps, with the expected
 codes and report contents. Unit tests against local archives do not replace this
 public download check.
 
-The Action updater verifies all six archives and opens a PR that updates the
-CLI default in action metadata, package metadata, and the executable. Its CI
-runs both local integration tests and published-release consumers on three
-operating systems. A successful main-branch CI run publishes the Action version;
-existing version tags are preserved.
+The proposed Action updater verifies all six archives and opens a PR for the
+default CLI version. Its implementation and automatic tag publication are still
+under review in [Action PR #2](https://github.com/stokaro/unswell-action/pull/2).
+Do not rely on automatic updates until #66 records a successful release cycle.
 
 ## Archives, containers and MCP Registry
 
@@ -90,12 +91,16 @@ workflow artifacts alongside the release's immutable version and source commit.
 
 ## Publishing app setup
 
-`Update distributions` can be dispatched on main with an existing release tag to
-retry delivery. Each receiving repository also has a manual update workflow.
-Repeated requests do not create new commits when the release is already selected.
-An existing update branch must match the regenerated files before reuse. A stale
-or conflicting branch may require a fresh run or maintainer review; it is never
-force-pushed over unrelated changes.
+The following setup belongs to the automation proposed in #66. The receiving
+workflows are still under review in
+[tap PR #2](https://github.com/stokaro/homebrew-unswell/pull/2) and Action PR #2.
+The checked-in `Update distributions` workflow alone does not prove delivery.
+Its successful end-to-end execution remains an acceptance requirement.
+
+After those workflows and settings are available, `Update distributions` accepts
+an existing release tag to retry delivery. Repeated requests must preserve an
+already selected release. An existing update branch must match the regenerated
+files before reuse; unrelated changes must not be overwritten.
 
 The organization variable `PUBLISH_APP_ID` and secret `PUBLISH_APP_KEY` must be
 available to Unswell, the tap, and the Action repository. The app needs Contents
