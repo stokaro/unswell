@@ -10,9 +10,9 @@ Work proceeds in the order below. An issue is complete only after its acceptance
 evidence passes on the merged commit. Human annotation and measured quality require
 real data; implementation alone cannot satisfy those requirements.
 
-During alpha implementation, race detection and active fuzzing are deferred.
+During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. Run #123 last, after the other
-implementation tasks have a recorded disposition, to restore both CI checks and
+implementation tasks have a recorded disposition, to restore these CI checks and
 fix discovered issues. An earlier audit must keep this final validation outstanding.
 Alpha API compatibility with previous releases is not required; current schemas,
 consumer tests, and the public package ledger remain maintained.
@@ -61,7 +61,7 @@ consumer tests, and the public package ledger remain maintained.
 | [#28](https://github.com/stokaro/unswell/issues/28) | Stage 4: establish reproducible performance and resource limits |
 | [#29](https://github.com/stokaro/unswell/issues/29) | Stage 4: verify SARIF consumers and reproducible release artifacts |
 | [#30](https://github.com/stokaro/unswell/issues/30) | Stage 4: close the product documentation and acceptance audit |
-| [#123](https://github.com/stokaro/unswell/issues/123) | Final task: restore race detection and active fuzzing, fix findings, and record acceptance evidence |
+| [#123](https://github.com/stokaro/unswell/issues/123) | Final task: restore race detection, active fuzzing, and coverage; fix findings and record acceptance evidence |
 
 ## Alpha acceptance: stages 0 and 1
 
@@ -146,7 +146,7 @@ experiments is reported as a completed benchmark.
 - Verify SARIF import in a real consumer, release reproducibility, current API consumers,
   all report/input formats and platform behavior.
 - Complete the full documentation set, model/data notices and release inventory.
-- Finally, restore race detection and active fuzzing in CI, fix findings, and retain
+- Finally, restore race detection, active fuzzing, and coverage in CI, fix findings, and retain
   passing evidence for the merged commit as required by #123.
 
 Additional filler/hype signals and repeated rhetorical patterns are available as

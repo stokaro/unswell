@@ -52,7 +52,7 @@ jobs:
           bash scripts/setup-mcp-publisher.sh
           make check-registry
       - run: make check
-      # Restore race detection and active fuzzing in the final validation task (#123).
+      # Restore race detection, active fuzzing, and coverage in final validation (#123).
       - name: Vulnerability check
         shell: bash
         run: |
@@ -62,13 +62,10 @@ jobs:
               (cd "$directory" && "$checker" ./...)
             fi
           done <.gomodules
-      - name: Coverage evidence
-        run: bash scripts/modules.sh test -coverprofile=coverage.out
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
           name: quality-evidence
           path: |
-            **/coverage.out
             artifacts/dogfood/
           if-no-files-found: ignore
