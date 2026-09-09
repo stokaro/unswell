@@ -139,3 +139,17 @@ Both paths use the same selection, training rights, numerical optimizer,
 normalization, and calibration code. Neither path consumes reserved labels or
 turns a numerical fit into a qualified probability. See
 [ADR 0026](../../../docs/adr/0026-rule-baseline-binding.md).
+
+## Frozen predictions and evaluation
+
+`corpus predict` restores this numerical artifact without fitting weights or
+calibration. It requires a frozen plan, matching protocol bytes, and the original
+candidate corpus and sources. It accepts no annotation round. Rule predictions
+require the exact inline configuration used for fitting. Prepared prediction
+measures target features after NLP analyzes the enclosing eligible piece; rule
+prediction retains source-document context.
+
+`corpus evaluate` reads saved predictions and an independent annotation round.
+It requires no source root, model file, or model execution. See the
+[evaluation guide](../evaluation/README.md) for the two-stage command contract,
+metric denominators, simulation handling, and remaining scientific acceptance.

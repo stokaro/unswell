@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"strings"
 
 	"github.com/stokaro/unswell"
 	"github.com/stokaro/unswell/research/annotation"
@@ -52,33 +51,17 @@ type RuleJoinedArtifact struct {
 func JoinRules(ctx context.Context, artifact Artifact, round *annotation.Round, files map[string][]byte,
 	features []string, configuration []byte,
 ) (RuleJoinedArtifact, error) {
-	if len(configuration) == 0 || len(features) == 0 {
-		return RuleJoinedArtifact{}, fmt.Errorf("rule binding requires explicit configuration and activation IDs")
-	}
-	for _, id := range features {
-		if !strings.HasPrefix(id, "activation/") {
-			return RuleJoinedArtifact{}, fmt.Errorf("rule binding accepts only activation IDs")
-		}
-	}
-	engine, err := unswell.New(unswell.Options{Config: configuration, Features: features, Jobs: 1, AllowEmpty: true})
+	measured, err := MeasureRules(ctx, artifact, files, features, configuration)
 	if err != nil {
 		return RuleJoinedArtifact{}, err
 	}
-	verification, decisions, err := reproduceTargets(ctx, artifact, round, files)
-	if err != nil {
-		return RuleJoinedArtifact{}, err
-	}
-	collection, err := measureRuleSources(ctx, engine, artifact.Plan, files)
-	if err != nil {
-		return RuleJoinedArtifact{}, err
-	}
-	bindings, err := bindRuleCandidates(ctx, artifact, collection)
+	decisions, err := targetDecisions(ctx, artifact, round)
 	if err != nil {
 		return RuleJoinedArtifact{}, err
 	}
 	result := RuleJoinedArtifact{Version: RuleJoinedVersion, Status: "verified_targets_with_block_activations",
-		HumanCorpus: "not_qualified", Context: "source_document", Verification: verification, Decisions: decisions,
-		Rules: engine.Catalog(), Features: collection, Bindings: bindings}
+		HumanCorpus: "not_qualified", Context: "source_document", Verification: measured.Verification, Decisions: decisions,
+		Rules: measured.Rules, Features: measured.Features, Bindings: measured.Bindings}
 	return finishRuleJoin(ctx, result)
 }
 

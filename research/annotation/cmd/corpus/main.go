@@ -35,8 +35,11 @@ func mainCode() int {
 }
 
 func run(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
+	if len(args) > 0 && (args[0] == "predict" || args[0] == "evaluate") {
+		return runEvaluation(ctx, args, input, output)
+	}
 	if len(args) == 0 || !slices.Contains([]string{"plan", "extract", "verify", "join", "train"}, args[0]) {
-		return fmt.Errorf("usage: corpus {plan|extract|verify|join|train} [options] < artifact.json")
+		return fmt.Errorf("usage: corpus {plan|extract|verify|join|train|predict|evaluate} [options] < artifact.json")
 	}
 	options, err := commandOptions(args)
 	if err != nil {
@@ -61,6 +64,9 @@ func writeResult(ctx context.Context, name string, result any, output io.Writer)
 	maximum := corpus.MaxArtifactBytes
 	if name == "train" {
 		maximum = training.MaxArtifactBytes
+	}
+	if name == "predict" || name == "evaluate" {
+		maximum = training.MaxPredictionBytes
 	}
 	if len(encoded) >= maximum {
 		return fmt.Errorf("output exceeds artifact size limit")
