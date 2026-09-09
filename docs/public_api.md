@@ -72,6 +72,12 @@ Training v3 requires an explicit `Options.Estimator` and one options/model pair:
 must be nil. Prediction v2 distinguishes forest responses from logistic scores.
 Older training and prediction versions are rejected. Both estimators share corpus
 selection, frozen predictions, and evaluation; see [ADR 0031](adr/0031-forest-numerical-core.md).
+`feature.NewCompression`, `Compression.Measure`, and `CompressionCatalog` add an
+optional reference-dependent primitive over those same prepared targets. Results
+retain compressor/reference identities, full source bindings, raw byte sizes,
+and absent values at compression boundaries. It is not registered in model-free
+feature collection or the product gate. Reference-pack selection, training, and
+qualification remain separate work; see [ADR 0032](adr/0032-compression-measurements.md).
 `corpus.JoinRules`, `training.RunRules`, and `--rule-config` add the existing
 engine's raw activations as an explicit research feature source. They share
 target verification, row selection, Go fitting, and calibration with prepared

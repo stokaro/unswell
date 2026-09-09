@@ -1,6 +1,6 @@
 {
   "format": "unswell-method-registry-v1",
-  "revision": 2,
+  "revision": 3,
   "reviewed_on": "2026-09-09",
   "protocol": "unswell-research-v1",
   "scope": "Source review, scoped decisions, and linked numerical component evidence; no qualified product model.",
@@ -694,6 +694,84 @@
       "follow_up_issues": [
         57,
         53
+      ]
+    },
+    {
+      "id": "compression-zippy",
+      "name": "Compression similarity / ZipPy",
+      "publication": {
+        "url": "https://github.com/thinkst/zippy",
+        "status": "Engineering research project; no peer-reviewed publication asserted."
+      },
+      "unit": "Whole supplied text in ZipPy; the proposed Go primitive measures one shared prepared target.",
+      "code": {
+        "repository": "https://github.com/thinkst/zippy",
+        "revision": "37fe2b2424fa9c24174283fe8827fee35ce7e91a",
+        "scope": "Reviewed the ZlibLlmDetector path and license. Other engines and the bundled corpus were not evaluated."
+      },
+      "evidence": {
+        "reviewed": {
+          "status": "complete",
+          "reason": "Pinned zlib implementation and license inspected; no upstream code executed.",
+          "resources": [
+            "https://raw.githubusercontent.com/thinkst/zippy/37fe2b2424fa9c24174283fe8827fee35ce7e91a/zippy/zippy.py",
+            "https://raw.githubusercontent.com/thinkst/zippy/37fe2b2424fa9c24174283fe8827fee35ce7e91a/LICENSE"
+          ]
+        },
+        "reproduced": {
+          "status": "not_run",
+          "reason": "No ZipPy detector run or supplied corpus evaluation."
+        },
+        "ported": {
+          "status": "not_run",
+          "reason": "Unswell specifies a distinct incremental-size primitive, not a compatible ZipPy port."
+        },
+        "qualified": {
+          "status": "not_run",
+          "reason": "No independent human-labeled evaluation or added-value measurement."
+        }
+      },
+      "decision": {
+        "value": "experimental",
+        "scope": "Shared pure-Go byte-compression measurements under #52; no origin labels or default gate.",
+        "reason": "Test reference-dependent increments with explicit compressor identities and raw sizes before any controlled classifier experiment."
+      },
+      "compute": {
+        "requirements": "Bounded Go compress/zlib streams over a caller-supplied reference and prepared target; no language model or external runtime.",
+        "measured_runtime_seconds": null,
+        "measured_peak_memory_bytes": null,
+        "reason": "No warm/cold timing or peak-memory study has been completed."
+      },
+      "components": [
+        {
+          "kind": "code",
+          "license": "MIT",
+          "reference": "https://raw.githubusercontent.com/thinkst/zippy/37fe2b2424fa9c24174283fe8827fee35ce7e91a/LICENSE",
+          "sha256": "3545f67ff2fa538b6bad183ff59e1d0293a0aeebbb919c4ec5a319034d3f2f3c",
+          "bytes": 1081,
+          "status": "license_file_reviewed",
+          "reason": "Only the source license is identified; no upstream code is bundled or reused."
+        },
+        {
+          "kind": "reference_corpus",
+          "license": null,
+          "reference": "https://raw.githubusercontent.com/thinkst/zippy/37fe2b2424fa9c24174283fe8827fee35ce7e91a/zippy/ai-generated.txt",
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "The supplied reference text was not downloaded or reviewed for provenance, permissions, or domain suitability."
+        }
+      ],
+      "limitations": [
+        "Compression gain is not perplexity, semantic equivalence, or an origin probability.",
+        "Go compressed bytes can change with the toolchain; feature/model compatibility must bind the actual implementation.",
+        "Reserve reference groups within training and exclude their related targets from classifier fitting to prevent self-reference.",
+        "Human, AI, and matched mixed reference comparisons, short-input stability, resource costs, and editorial ablations remain unmeasured."
+      ],
+      "follow_up_issues": [
+        52,
+        56,
+        57
       ]
     }
   ]
