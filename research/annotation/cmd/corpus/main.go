@@ -35,11 +35,17 @@ func mainCode() int {
 }
 
 func run(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
-	if len(args) > 0 && (args[0] == "predict" || args[0] == "evaluate") {
+	if len(args) == 0 {
+		return fmt.Errorf("usage: corpus {plan|extract|verify|join|train|predict|evaluate|compare} [options] < artifact.json")
+	}
+	if args[0] == "compare" {
+		return runComparison(ctx, args, input, output)
+	}
+	if args[0] == "predict" || args[0] == "evaluate" {
 		return runEvaluation(ctx, args, input, output)
 	}
-	if len(args) == 0 || !slices.Contains([]string{"plan", "extract", "verify", "join", "train"}, args[0]) {
-		return fmt.Errorf("usage: corpus {plan|extract|verify|join|train|predict|evaluate} [options] < artifact.json")
+	if !slices.Contains([]string{"plan", "extract", "verify", "join", "train"}, args[0]) {
+		return fmt.Errorf("unknown corpus command %q", args[0])
 	}
 	options, err := commandOptions(args)
 	if err != nil {
@@ -65,7 +71,7 @@ func writeResult(ctx context.Context, name string, result any, output io.Writer)
 	if name == "train" {
 		maximum = training.MaxArtifactBytes
 	}
-	if name == "predict" || name == "evaluate" {
+	if name == "predict" || name == "evaluate" || name == "compare" {
 		maximum = training.MaxPredictionBytes
 	}
 	if len(encoded) >= maximum {

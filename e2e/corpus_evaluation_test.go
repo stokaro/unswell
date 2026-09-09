@@ -42,7 +42,9 @@ func TestCorpusFrozenPredictionAndEvaluation(t *testing.T) {
 			predictions := researchCommand(t, binary, predictArgs, corpus, 0)
 			c.Assert(researchCommand(t, binary, predictArgs, corpus, 0), qt.DeepEquals, predictions)
 			c.Assert(researchCommand(t, binary, append(predictArgs, "--round", fixture+"round.json"), corpus, 2), qt.HasLen, 0)
+			comparator := comparisonPrediction(t, binary, directory, predictArgs, corpus, args, row.rules)
 			c.Assert(os.Remove(filepath.Join(directory, "model.json")), qt.IsNil)
+			checkCorpusComparison(t, binary, directory, predictions, comparator)
 			evaluateArgs := []string{"evaluate", "--corpus", filepath.Join(directory, "corpus.json"), "--round", fixture + "round.json"}
 			c.Assert(researchCommand(t, binary, evaluateArgs, predictions, 2), qt.HasLen, 0)
 			evaluateArgs = append(evaluateArgs, "--allow-simulation")
