@@ -38,12 +38,14 @@ type Format struct {
 
 // Description exposes the same catalog and effective policy used for checking.
 type Description struct {
-	Features       []string          `json:"features,omitempty"`
-	BaselineLoaded bool              `json:"baseline_loaded"`
-	GateMode       string            `json:"gate_mode"`
-	Version        string            `json:"version"`
-	Commit         string            `json:"commit"`
-	Formats        []Format          `json:"formats"`
-	Policy         config.Policy     `json:"policy"`
-	Rules          []rule.Descriptor `json:"rules"`
+	PreparedFeatures []string          `json:"prepared_features,omitempty"`
+	PreparedKinds    []string          `json:"prepared_kinds,omitempty"`
+	Features         []string          `json:"features,omitempty"`
+	BaselineLoaded   bool              `json:"baseline_loaded"`
+	GateMode         string            `json:"gate_mode"`
+	Version          string            `json:"version"`
+	Commit           string            `json:"commit"`
+	Formats          []Format          `json:"formats"`
+	Policy           config.Policy     `json:"policy"`
+	Rules            []rule.Descriptor `json:"rules"`
 }

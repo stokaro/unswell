@@ -261,3 +261,8 @@ The JSON includes full trees for inspection. These are model predictions, not
 human labels: the `server` finding in `technical-3.txt` deliberately preserves a
 questionable parse reproduced by Python. The experiment and its limitations are
 in [dependency research](../research/dependencies/README.md).
+
+`prepared_collection` checks sentence, paragraph, and fragment measurements with
+CRLF, Markdown emphasis, and protected inline code. Its golden records complete
+target/context mappings and separate counted spans. The existing noun ambiguity
+fixtures keep both reported Go comments and their Markdown equivalents unchanged.

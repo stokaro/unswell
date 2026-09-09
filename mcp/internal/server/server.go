@@ -17,13 +17,15 @@ import (
 
 // Options fixes policy and resource limits for the lifetime of a server.
 type Options struct {
-	Features     []string
-	Baseline     []byte
-	GateMode     string
-	Config       []byte
-	ConfigBundle *config.Bundle
-	NLP          nlp.Provider
-	Timeout      time.Duration
+	PreparedFeatures []string
+	PreparedKinds    []string
+	Features         []string
+	Baseline         []byte
+	GateMode         string
+	Config           []byte
+	ConfigBundle     *config.Bundle
+	NLP              nlp.Provider
+	Timeout          time.Duration
 }
 
 type checker struct {
@@ -42,6 +44,7 @@ func New(options Options) (*mcp.Server, error) {
 		return nil, fmt.Errorf("timeout must be positive and at most five minutes")
 	}
 	engine, err := unswell.New(unswell.Options{Features: options.Features,
+		PreparedFeatures: options.PreparedFeatures, PreparedKinds: options.PreparedKinds,
 		Config: options.Config, ConfigBundle: options.ConfigBundle, NLP: options.NLP,
 		Baseline: options.Baseline, GateMode: options.GateMode})
 	if err != nil {
@@ -78,7 +81,8 @@ func tool(name, description string) *mcp.Tool {
 }
 
 func describePolicy(engine *unswell.Engine) (Description, error) {
-	result := Description{Features: engine.FeatureIDs(), Version: unswell.Version, Commit: unswell.BuildCommit,
+	result := Description{PreparedFeatures: engine.PreparedFeatureIDs(), PreparedKinds: engine.PreparedUnitKinds(),
+		Features: engine.FeatureIDs(), Version: unswell.Version, Commit: unswell.BuildCommit,
 		Formats: []Format{}, Rules: engine.Catalog()}
 	policy, err := engine.PolicyForFile("")
 	if err != nil {

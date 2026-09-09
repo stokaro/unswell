@@ -176,20 +176,21 @@ type Suppression struct {
 // RunResult is the immutable input shared by every reporter.
 // Returned slices are owned by the caller and do not alias the engine.
 type RunResult struct {
-	Features         *FeatureCollection   `json:"features,omitempty"`
-	PolicyComparison *PolicyComparison    `json:"policy_comparison,omitempty"`
-	Changes          *ChangeSelection     `json:"changes,omitempty"`
-	BaselineSnapshot *baseline.Snapshot   `json:"baseline_snapshot,omitempty"`
-	Baseline         *baseline.Comparison `json:"baseline,omitempty"`
-	SchemaVersion    string               `json:"schema_version"`
-	Status           string               `json:"status"`
-	Manifest         Manifest             `json:"manifest"`
-	Documents        []DocumentResult     `json:"documents"`
-	Findings         []Finding            `json:"findings"`
-	Assessments      []Assessment         `json:"assessments"`
-	Gate             GateDecision         `json:"gate"`
-	Errors           []RunError           `json:"errors"`
-	Suppressions     []Suppression        `json:"suppressions,omitempty"`
+	PreparedFeatures *PreparedFeatureCollection `json:"prepared_features,omitempty"`
+	Features         *FeatureCollection         `json:"features,omitempty"`
+	PolicyComparison *PolicyComparison          `json:"policy_comparison,omitempty"`
+	Changes          *ChangeSelection           `json:"changes,omitempty"`
+	BaselineSnapshot *baseline.Snapshot         `json:"baseline_snapshot,omitempty"`
+	Baseline         *baseline.Comparison       `json:"baseline,omitempty"`
+	SchemaVersion    string                     `json:"schema_version"`
+	Status           string                     `json:"status"`
+	Manifest         Manifest                   `json:"manifest"`
+	Documents        []DocumentResult           `json:"documents"`
+	Findings         []Finding                  `json:"findings"`
+	Assessments      []Assessment               `json:"assessments"`
+	Gate             GateDecision               `json:"gate"`
+	Errors           []RunError                 `json:"errors"`
+	Suppressions     []Suppression              `json:"suppressions,omitempty"`
 }
 
 // Result is the same report contract restricted to one source by Analyze.

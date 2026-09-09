@@ -22,7 +22,7 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source, iden
 		ctx,
 		source,
 		extract.Options{
-			IncludeStructure: e.collectBaseline || identities != nil || e.requiresStructure(),
+			IncludeStructure: e.extractionStructure() || identities != nil,
 			IncludeQuotes:    e.policy.Analysis.IncludeQuotes,
 			MaxBytes:         e.policy.Analysis.MaxFileBytes,
 			MaxBlocks:        e.policy.Analysis.MaxBlocks,
@@ -40,7 +40,7 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source, iden
 		return result, err
 	}
 	result.Documents = append(result.Documents, e.documentResult(doc))
-	if err := e.evaluateRules(ctx, &doc, &result); err != nil {
+	if err := e.evaluateRules(ctx, &doc, &result, e.extractionStructure() || identities != nil); err != nil {
 		return result, err
 	}
 	sortFindings(result.Findings)
@@ -60,6 +60,8 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source, iden
 	return result, suppressionErr
 }
 
+func (e *Engine) extractionStructure() bool { return e.collectBaseline || e.requiresStructure() }
+
 func (e *Engine) requiresStructure() bool {
 	if len(e.featureIDs) > 0 {
 		return true
@@ -73,7 +75,10 @@ func (e *Engine) requiresStructure() bool {
 	return false
 }
 
-func (e *Engine) evaluateRules(ctx context.Context, doc *document.Document, result *RunResult) error {
+func (e *Engine) evaluateRules(ctx context.Context, doc *document.Document, result *RunResult, structure bool) error {
+	if err := e.capturePreparedFeatures(ctx, doc, result, structure); err != nil {
+		return err
+	}
 	features, err := e.sharedFeatures(ctx, doc)
 	if err != nil {
 		return err

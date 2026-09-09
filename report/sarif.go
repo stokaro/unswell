@@ -130,6 +130,9 @@ func runProperties(result unswell.RunResult) map[string]any {
 		"changes": result.Changes, "policy_comparison": result.PolicyComparison,
 		"baseline": result.Baseline, "baseline_snapshot": result.BaselineSnapshot,
 		"manifest": result.Manifest, "file_policies": filePolicies(result), "suppressions": result.Suppressions}
+	if result.PreparedFeatures != nil {
+		properties["prepared_features"] = result.PreparedFeatures
+	}
 	if result.Features != nil {
 		properties["features"] = result.Features
 	}

@@ -94,7 +94,7 @@ func analyzeInputs(ctx context.Context, environment Environment, options checkOp
 		return unswell.RunResult{}, nil, err
 	}
 	engine, err := unswell.New(
-		unswell.Options{Features: options.features,
+		unswell.Options{Features: options.features, PreparedFeatures: options.preparedFeatures, PreparedKinds: options.preparedKinds,
 			Baseline: baselineData, CollectBaseline: options.collectBaseline, GateMode: options.gateMode,
 			ConfigBundle:  &loaded.Bundle,
 			Rules:         registry,

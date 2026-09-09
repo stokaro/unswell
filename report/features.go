@@ -32,6 +32,10 @@ func featureRows(result unswell.RunResult) []featureRow {
 }
 
 func featureLines(result unswell.RunResult) []string {
+	return append(blockFeatureLines(result), preparedLines(result)...)
+}
+
+func blockFeatureLines(result unswell.RunResult) []string {
 	if result.Features == nil {
 		return nil
 	}

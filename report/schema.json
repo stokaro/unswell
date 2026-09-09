@@ -377,6 +377,62 @@
       ],
       "type": "object"
     },
+    "nlp.UnitBinding": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "type": "integer"
+        },
+        "block_kind": {
+          "type": "string"
+        },
+        "context_segments": {
+          "items": {
+            "$ref": "#/$defs/document.Span"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "context_sha256": {
+          "type": "string"
+        },
+        "contract": {
+          "type": "string"
+        },
+        "grammar_sha256": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "segments": {
+          "items": {
+            "$ref": "#/$defs/document.Span"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "text_sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contract",
+        "kind",
+        "block_id",
+        "block_kind",
+        "text_sha256",
+        "context_sha256",
+        "grammar_sha256",
+        "segments",
+        "context_segments"
+      ],
+      "type": "object"
+    },
     "rule.Descriptor": {
       "additionalProperties": false,
       "properties": {
@@ -1598,6 +1654,160 @@
       ],
       "type": "object"
     },
+    "unswell.PreparedFeatureCollection": {
+      "additionalProperties": false,
+      "properties": {
+        "feature_contract": {
+          "type": "string"
+        },
+        "kinds": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "requested": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "sources": {
+          "items": {
+            "$ref": "#/$defs/unswell.PreparedFeatureSource"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "unit_contract": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "feature_contract",
+        "unit_contract",
+        "requested",
+        "kinds",
+        "sources"
+      ],
+      "type": "object"
+    },
+    "unswell.PreparedFeatureSource": {
+      "additionalProperties": false,
+      "properties": {
+        "capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "extraction_policy_hash": {
+          "type": "string"
+        },
+        "include_quotes": {
+          "type": "boolean"
+        },
+        "include_structure": {
+          "type": "boolean"
+        },
+        "nlp": {
+          "$ref": "#/$defs/nlp.Identity"
+        },
+        "path": {
+          "type": "string"
+        },
+        "policy_hash": {
+          "type": "string"
+        },
+        "preparation_hash": {
+          "type": "string"
+        },
+        "source_hash": {
+          "type": "string"
+        },
+        "target_count": {
+          "type": "integer"
+        },
+        "units": {
+          "items": {
+            "$ref": "#/$defs/unswell.PreparedFeatureUnit"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "vocabulary_hash": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_count",
+        "path",
+        "source_hash",
+        "policy_hash",
+        "vocabulary_hash",
+        "extraction_policy_hash",
+        "preparation_hash",
+        "include_quotes",
+        "include_structure",
+        "nlp",
+        "capabilities",
+        "units"
+      ],
+      "type": "object"
+    },
+    "unswell.PreparedFeatureUnit": {
+      "additionalProperties": false,
+      "properties": {
+        "binding": {
+          "$ref": "#/$defs/nlp.UnitBinding"
+        },
+        "input_hash": {
+          "type": "string"
+        },
+        "segments": {
+          "items": {
+            "$ref": "#/$defs/document.Span"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
+        "values": {
+          "items": {
+            "$ref": "#/$defs/feature.Value"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "binding",
+        "input_hash",
+        "segments",
+        "values"
+      ],
+      "type": "object"
+    },
     "unswell.RunError": {
       "additionalProperties": false,
       "properties": {
@@ -1703,6 +1913,16 @@
           "anyOf": [
             {
               "$ref": "#/$defs/unswell.PolicyComparison"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "prepared_features": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unswell.PreparedFeatureCollection"
             },
             {
               "type": "null"

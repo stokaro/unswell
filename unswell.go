@@ -28,6 +28,10 @@ import (
 // a nonnil slice replaces that catalog. RuleSets adds declarative YAML packs to
 // the registry. Config and RuleSets contain bytes, never filenames.
 type Options struct {
+	// PreparedFeatures and PreparedKinds select descriptive target measurements.
+	// Both sets are required when either is nonempty; collection is off by default.
+	PreparedFeatures []string
+	PreparedKinds    []string
 	// Features selects block measurements for the result. IDs form a set; unknown
 	// or repeated IDs are errors. Nil or empty disables result collection.
 	Features []string
@@ -51,6 +55,9 @@ type Options struct {
 // Engine is immutable after construction and supports concurrent calls. Custom
 // rule and NLP implementations must uphold their documented concurrency contract.
 type Engine struct {
+	preparedIDs           []string
+	preparedKinds         []string
+	preparedCapabilities  []nlp.Capability
 	activationIndices     map[string]int
 	featureIDs            []string
 	featureDefinitions    []feature.Descriptor
@@ -110,7 +117,7 @@ func New(options Options) (*Engine, error) {
 	if err := e.planCapabilities(); err != nil {
 		return nil, err
 	}
-	if err := e.configureBaseline(options); err != nil {
+	if err := e.configureResultCollection(options); err != nil {
 		return nil, err
 	}
 	return e, nil
@@ -259,6 +266,7 @@ func (e *Engine) analyzeAll(ctx context.Context, sources []document.Source, iden
 	workers.Wait()
 	for i, part := range partials {
 		result.appendFeatureSources(part.Features)
+		result.appendPreparedSources(part.PreparedFeatures)
 		result.Documents = append(result.Documents, part.Documents...)
 		result.Findings = append(result.Findings, part.Findings...)
 		result.Assessments = append(result.Assessments, part.Assessments...)
@@ -297,14 +305,15 @@ func batchIdentity(identities []sourceIdentities, index int) *sourceIdentities {
 
 func (e *Engine) emptyResult() RunResult {
 	result := RunResult{
-		Features:      e.featureCollection(),
-		SchemaVersion: SchemaVersion,
-		Status:        "complete",
-		Documents:     []DocumentResult{},
-		Findings:      []Finding{},
-		Assessments:   []Assessment{},
-		Errors:        []RunError{},
-		Gate:          GateDecision{Passed: true, Reasons: []GateReason{}},
+		PreparedFeatures: e.preparedCollection(),
+		Features:         e.featureCollection(),
+		SchemaVersion:    SchemaVersion,
+		Status:           "complete",
+		Documents:        []DocumentResult{},
+		Findings:         []Finding{},
+		Assessments:      []Assessment{},
+		Errors:           []RunError{},
+		Gate:             GateDecision{Passed: true, Reasons: []GateReason{}},
 		Manifest: Manifest{
 			GateMode:        e.selectedGateMode(),
 			ToolVersion:     Version,

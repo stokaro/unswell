@@ -16,7 +16,8 @@ import (
 func batchFixture(t *testing.T) (*unswell.Engine, unswell.RunResult) {
 	t.Helper()
 	c := qt.New(t)
-	engine, err := unswell.New(unswell.Options{IncludeSource: true, Features: []string{"prose-words", "type-token-ratio"}})
+	engine, err := unswell.New(unswell.Options{IncludeSource: true, Features: []string{"prose-words", "type-token-ratio"},
+		PreparedFeatures: []string{"prose-words"}, PreparedKinds: []string{"sentence", "paragraph"}})
 	c.Assert(err, qt.IsNil)
 	sources := make([]document.Source, server.MaxSources+1)
 	for i := range sources {
@@ -53,7 +54,8 @@ func batchSession(t *testing.T, instance *mcp.Server) *mcp.ClientSession {
 func TestRepositoryBatchesPreserveEveryDocumentAndSuppression(t *testing.T) {
 	c := qt.New(t)
 	_, expected := batchFixture(t)
-	instance, err := server.New(server.Options{Features: expected.Features.Requested})
+	instance, err := server.New(server.Options{Features: expected.Features.Requested,
+		PreparedFeatures: expected.PreparedFeatures.Requested, PreparedKinds: expected.PreparedFeatures.Kinds})
 	c.Assert(err, qt.IsNil)
 	batches, err := verifyBatches(t.Context(), batchSession(t, instance), expected)
 	c.Assert(err, qt.IsNil)
@@ -66,13 +68,17 @@ func TestRepositoryBatchesPreserveEveryDocumentAndSuppression(t *testing.T) {
 	c.Assert(batches[0].Result.Features.Sources, qt.HasLen, server.MaxSources)
 	c.Assert(batches[1].Result.Features.Sources, qt.HasLen, 1)
 	c.Assert(expected.Features.Sources, qt.HasLen, server.MaxSources+1)
+	c.Assert(batches[0].Result.PreparedFeatures.Sources, qt.HasLen, server.MaxSources)
+	c.Assert(batches[1].Result.PreparedFeatures.Sources, qt.HasLen, 1)
+	c.Assert(expected.PreparedFeatures.Sources, qt.HasLen, server.MaxSources+1)
 	c.Assert(expected.Documents[0].Source, qt.Equals, "The client opens connections.")
 	c.Assert(expected.Findings[0].Primary.Snippet, qt.Not(qt.Equals), "")
 	c.Assert(expected.Suppressions[0].Directive.Snippet, qt.Not(qt.Equals), "")
 }
 
 func TestRepositoryBatchesRejectLaterMismatch(t *testing.T) {
-	for _, defect := range []string{"missing document", "changed manifest", "missing features", "changed feature value"} {
+	for _, defect := range []string{"missing document", "changed manifest", "missing features", "changed feature value",
+		"missing prepared features", "changed prepared value"} {
 		t.Run(defect, func(t *testing.T) {
 			c := qt.New(t)
 			engine, expected := batchFixture(t)
@@ -104,6 +110,10 @@ func corruptBatch(result *unswell.RunResult, defect string) {
 		result.Manifest.ConfigHash = "wrong-policy"
 	case "missing features":
 		result.Features = nil
+	case "missing prepared features":
+		result.PreparedFeatures = nil
+	case "changed prepared value":
+		*result.PreparedFeatures.Sources[0].Units[0].Values[0].Number += 1
 	case "changed feature value":
 		*result.Features.Sources[0].Units[0].Values[0].Number += 1
 	}

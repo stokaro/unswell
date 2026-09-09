@@ -70,6 +70,8 @@ build-mcp:
 dogfood-mcp: dogfood build-mcp
 	cd mcp && go run ./cmd/mcp-selfcheck --expected ../artifacts/dogfood/result.json \
 	  --output ../artifacts/dogfood/mcp-result.json -- ../bin/unswell-mcp --config ../.unswell.yaml \
+	  --prepared-feature prose-words --prepared-feature noun-token-ratio \
+	  --prepared-kind sentence --prepared-kind paragraph --prepared-kind fragment \
 	  --feature prose-words --feature type-token-ratio --feature activation/readability.long-paragraph \
 	  --feature activation/filler.announced-importance --feature activation/syntax.noun-stack \
 	  --feature activation/filler.section-announcement --feature activation/filler.stacked-hedging \
