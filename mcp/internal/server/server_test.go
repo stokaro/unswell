@@ -8,7 +8,6 @@ import (
 	"time"
 
 	qt "github.com/frankban/quicktest"
-	"github.com/modelcontextprotocol/go-sdk/jsonrpc"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 
 	"github.com/stokaro/unswell"
@@ -20,6 +19,12 @@ import (
 
 func connect(c *qt.C, ctx context.Context, options server.Options) *mcp.ClientSession {
 	c.Helper()
+	left, right := mcp.NewInMemoryTransports()
+	return connectTransports(c, ctx, options, left, right)
+}
+
+func connectTransports(c *qt.C, ctx context.Context, options server.Options, left, right mcp.Transport) *mcp.ClientSession {
+	c.Helper()
 	// testing.T.Context is canceled before cleanup. Keep the transport alive
 	// until the explicit session shutdown has finished reading pending replies.
 	ctx, cancel := context.WithCancel(context.WithoutCancel(ctx))
@@ -27,20 +32,15 @@ func connect(c *qt.C, ctx context.Context, options server.Options) *mcp.ClientSe
 	instance, err := server.New(options)
 	c.Assert(err, qt.IsNil)
 	client := mcp.NewClient(&mcp.Implementation{Name: "unswell-test", Version: "1"}, nil)
-	left, right := mcp.NewInMemoryTransports()
 	serverSession, err := instance.Connect(ctx, left, nil)
 	c.Assert(err, qt.IsNil)
 	session, err := client.Connect(ctx, right, nil)
 	c.Assert(err, qt.IsNil)
 	c.Cleanup(func() {
-		// Stop server work while the client can still read. Closing the client
-		// first can interrupt a canceled request's pending response write.
+		// Cancellation tests must drain the response before closing either end.
 		c.Assert(serverSession.Close(), qt.IsNil)
 		c.Assert(session.Close(), qt.IsNil)
-		if err := serverSession.Wait(); err != nil {
-			// The SDK may reject that response after its explicit shutdown starts.
-			c.Assert(err, qt.ErrorIs, &jsonrpc.Error{Code: -32004})
-		}
+		c.Assert(serverSession.Wait(), qt.IsNil)
 	})
 	return session
 }
@@ -182,7 +182,11 @@ func TestClientCancellationReachesEngine(t *testing.T) {
 	backend, err := english.New()
 	c.Assert(err, qt.IsNil)
 	provider := waitingNLP{Provider: backend, started: make(chan struct{}), canceled: make(chan struct{})}
-	session := connect(c, t.Context(), server.Options{NLP: provider})
+	left, right := mcp.NewInMemoryTransports()
+	barrier := newResponseBarrier(left)
+	session := connectTransports(c, t.Context(), server.Options{NLP: provider}, barrier, right)
+	barrier.armed.Store(true)
+	c.Cleanup(barrier.unblock)
 	ctx, cancel := context.WithCancel(t.Context())
 	defer cancel()
 	finished := make(chan error, 1)
@@ -195,7 +199,25 @@ func TestClientCancellationReachesEngine(t *testing.T) {
 	awaitSignal(c, provider.started)
 	cancel()
 	awaitSignal(c, provider.canceled)
-	c.Assert(<-finished, qt.ErrorIs, context.Canceled)
+	c.Assert(awaitError(c, finished), qt.ErrorIs, context.Canceled)
+	// The client has returned, but deliberately hold the response write open.
+	// Neither the provider's cancellation nor CallTool returning drains it.
+	awaitSignal(c, barrier.started)
+	barrier.unblock()
+	c.Assert(awaitError(c, barrier.finished), qt.IsNil)
+	_, err = session.ListTools(t.Context(), nil)
+	c.Assert(err, qt.IsNil)
+}
+
+func awaitError(c *qt.C, channel <-chan error) error {
+	c.Helper()
+	select {
+	case err := <-channel:
+		return err
+	case <-time.After(5 * time.Second):
+		c.Fatal("timed out waiting for MCP request completion")
+		return nil
+	}
 }
 
 func awaitSignal(c *qt.C, channel <-chan struct{}) {
