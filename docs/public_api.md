@@ -49,6 +49,12 @@ unresolved reasons, original input identities, and detached target references.
 It shares primary-response selection with agreement calculations. The existing
 round schema and product reports retain their contracts. See
 [ADR 0019](adr/0019-editorial-decision-export.md).
+`annotation.Round.MatchTargets` and `corpus.Join` bind decisions to reproduced
+corpus targets and measurements from the public engine. The separate
+`unswell-corpus-feature-bindings-v1` artifact retains unqualified decisions,
+source-group partitions, and complete prepared mappings. It does not change
+product results or qualify training data. See
+[ADR 0024](adr/0024-corpus-feature-bindings.md).
 The root `e2e` directory contains only test code and fixtures. It exports no library
 API; the API snapshot records its package identity because it belongs to the root
 module.
