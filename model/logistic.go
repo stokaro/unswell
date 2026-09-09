@@ -9,7 +9,7 @@ import (
 	"slices"
 )
 
-// MaxFeatures bounds the dense training Hessian and inference vector width.
+// MaxFeatures bounds numerical vector width and the dense logistic Hessian.
 const MaxFeatures = 128
 
 // Parameters describes a logistic model over centered and scaled numeric inputs.

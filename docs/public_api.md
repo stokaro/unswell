@@ -31,6 +31,11 @@ numeric vectors. A sigmoid response is uncalibrated; the parameter snapshot does
 not establish feature compatibility, corpus qualification, or a usable probability
 gate. Existing engine results and `calibration.model: none` retain their contracts.
 See [ADR 0020](adr/0020-logistic-numerical-core.md) and [model documentation](../model/README.md).
+`Forest`, `NewForest`, and `FitForest` add the bounded nonlinear candidate in #50.
+Snapshots contain complete preorder trees; inference returns owned paths and leaf
+class fractions. `ForestOptions` records randomization and resource limits.
+Forest responses are uncalibrated and are distinct from logistic linear scores.
+See [ADR 0031](adr/0031-forest-numerical-core.md) and the [forest contract](../model/forest.md).
 `FitOptions.Validate` exposes the same numerical option checks used by fitting,
 so callers can reject invalid limits before preparing rows. It does not inspect data.
 `Isotonic` and `FitIsotonic` add a separate monotonic calibration candidate over
@@ -59,9 +64,14 @@ product results or qualify training data. See
 [ADR 0024](adr/0024-corpus-feature-bindings.md).
 The research `training` package and `corpus train` command connect these reproduced
 targets to Go fitting with separate training and calibration partitions. Their
-`unswell-editorial-training-v2` artifact records unqualified numerical experiments;
+`unswell-editorial-training-v3` artifact records unqualified numerical experiments;
 it does not extend the engine's model loading or probability contract. See
 [ADR 0025](adr/0025-corpus-training.md).
+Training v3 requires an explicit `Options.Estimator` and one options/model pair:
+`Fit`/`Logistic` or `Forest`/`Forest`. These fields are pointers, and the unused pair
+must be nil. Prediction v2 distinguishes forest responses from logistic scores.
+Older training and prediction versions are rejected. Both estimators share corpus
+selection, frozen predictions, and evaluation; see [ADR 0031](adr/0031-forest-numerical-core.md).
 `corpus.JoinRules`, `training.RunRules`, and `--rule-config` add the existing
 engine's raw activations as an explicit research feature source. They share
 target verification, row selection, Go fitting, and calibration with prepared

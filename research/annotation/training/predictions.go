@@ -3,12 +3,12 @@ package training
 import "github.com/stokaro/unswell/research/annotation/corpus"
 
 // PredictionVersion identifies the frozen plan and label-free predictions.
-const PredictionVersion = "unswell-research-predictions-v1"
+const PredictionVersion = "unswell-research-predictions-v2"
 
 // PredictionPlan freezes a numerical trial before its evaluation labels are read.
 // ProtocolSHA256 binds separately retained protocol bytes; it is not an attestation
 // of pre-registration or a substitute for the research protocol's full run manifest.
-// Context is prepared_piece or source_document. Response is logistic or isotonic.
+// Context is prepared_piece or source_document. Response is logistic, forest, or isotonic.
 type PredictionPlan struct {
 	Version        string   `json:"version"`
 	ID             string   `json:"id"`
@@ -33,6 +33,7 @@ type Prediction struct {
 	Reason           string   `json:"reason"`
 	LinearScore      *float64 `json:"linear_score"`
 	LogisticResponse *float64 `json:"logistic_response"`
+	ForestResponse   *float64 `json:"forest_response"`
 	Response         *float64 `json:"response"`
 	Positive         *bool    `json:"positive"`
 }

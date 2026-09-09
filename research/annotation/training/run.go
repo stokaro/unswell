@@ -39,11 +39,11 @@ func Run(ctx context.Context, candidates corpus.Artifact, round *annotation.Roun
 func fitSelected(ctx context.Context, candidates corpus.Artifact, decisions annotation.DecisionSet,
 	joinedHash string, options Options, selected selection,
 ) (Artifact, error) {
-	fit, err := model.FitLogistic(ctx, selected.training, options.Fit.numerical())
+	fitted, err := fitClassifier(ctx, selected.training, options)
 	if err != nil {
 		return Artifact{}, fmt.Errorf("training partition: %w", err)
 	}
-	calibration, err := fitCalibration(ctx, fit.Model, selected.calibration, options.Calibration)
+	calibration, err := fitCalibration(ctx, fitted.classifier, selected.calibration, options.Calibration)
 	if err != nil {
 		return Artifact{}, err
 	}
@@ -51,7 +51,7 @@ func fitSelected(ctx context.Context, candidates corpus.Artifact, decisions anno
 		ProbabilityStatus: "unavailable_unqualified_model", Basis: decisions.Basis,
 		CorpusSHA256: candidates.SHA256, ManifestSHA256: candidates.Plan.ManifestSHA256,
 		RoundSHA256: decisions.RoundSHA256, JoinedSHA256: joinedHash, Options: options,
-		Identity: selected.identity, Partitions: selected.partitions, Logistic: logisticResult(fit), Calibration: calibration}
+		Identity: selected.identity, Partitions: selected.partitions, Logistic: fitted.logistic, Forest: fitted.forest, Calibration: calibration}
 	return finish(ctx, result)
 }
 
@@ -69,7 +69,7 @@ func validateOptions(ctx context.Context, candidates corpus.Artifact, options Op
 	if options.Calibration != "none" && options.Calibration != "isotonic" {
 		return fmt.Errorf("calibration must be none or isotonic")
 	}
-	return options.Fit.numerical().Validate()
+	return validateEstimatorOptions(options)
 }
 
 func logisticResult(fit model.FitResult) Logistic {
@@ -79,29 +79,30 @@ func logisticResult(fit model.FitResult) Logistic {
 		Loss: fit.Loss, GradientNorm: fit.GradientNorm}
 }
 
-func fitCalibration(ctx context.Context, classifier *model.Logistic, examples []model.Example, method string) (*Calibration, error) {
+func fitCalibration(ctx context.Context, classifier numericalClassifier, examples []model.Example, method string) (*Calibration, error) {
 	if method == "none" {
 		return nil, nil
 	}
 	samples := make([]model.CalibrationSample, 0, len(examples))
 	for _, example := range examples {
-		value, err := classifier.Evaluate(ctx, example.Values)
+		value, err := classifier.evaluate(ctx, example.Values)
 		if err != nil {
 			return nil, err
 		}
-		samples = append(samples, model.CalibrationSample{Score: value.LinearScore, Label: example.Label})
+		samples = append(samples, model.CalibrationSample{Score: value.score, Label: example.Label})
 	}
 	fit, err := model.FitIsotonic(ctx, samples)
 	if err != nil {
 		return nil, fmt.Errorf("calibration partition: %w", err)
 	}
 	p := fit.Model.Parameters()
-	return &Calibration{Algorithm: fit.Algorithm, InputSHA256: fit.InputSHA256, ScoreKind: "linear_score",
+	return &Calibration{Algorithm: fit.Algorithm, InputSHA256: fit.InputSHA256, ScoreKind: classifier.scoreKind,
 		Scores: p.Scores, Responses: p.Responses, Samples: fit.Samples, DistinctScores: fit.DistinctScores,
 		Pools: fit.Pools, MeanSquaredError: fit.MeanSquaredError}, nil
 }
 
 func finish(ctx context.Context, result Artifact) (Artifact, error) {
+	result.Options = copyEstimatorOptions(result.Options)
 	encoded, err := json.Marshal(result)
 	if err != nil {
 		return Artifact{}, err

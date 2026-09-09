@@ -11,7 +11,7 @@ builds and tests use no Python, Node.js, model service, or GPU.
 
 ## Freeze a prediction plan
 
-Store a JSON plan with version `unswell-research-predictions-v1` and these fields:
+Store a JSON plan with version `unswell-research-predictions-v2` and these fields:
 
 | Field | Meaning |
 | --- | --- |
@@ -21,12 +21,16 @@ Store a JSON plan with version `unswell-research-predictions-v1` and these field
 | `corpus_sha256` | Embedded `sha256` from the frozen candidate artifact |
 | `partition` | `development` or `final_test`; never training or calibration |
 | `context` | `prepared_piece` for NLP over the enclosing eligible piece, `source_document` for rule activations |
-| `response` | `logistic` for uncalibrated sigmoid response, or `isotonic` for the separately fitted mapping |
+| `response` | `logistic` for the sigmoid response, `forest` for mean leaf fractions, or `isotonic` for the separate mapping |
 | `threshold` | Explicit number in [0, 1]; positive means response greater than or equal to this value |
 
 All digests are 64 lowercase hexadecimal characters. Unknown fields, missing
 thresholds, unsupported contexts, and incompatible model artifacts are errors.
-The plan cannot request isotonic output from a model without that mapping.
+The raw channel must match the fitted estimator. The plan cannot request isotonic
+output from a model without that mapping. Forest calibration consumes mean leaf
+fractions; logistic calibration consumes linear scores. Prediction v2 retains
+null logistic fields for a forest and a null forest response for logistic models.
+Earlier saved prediction formats are rejected.
 No threshold search, normalization, model selection, or fitting runs during
 prediction. A protocol change requires a different digest and trial record.
 

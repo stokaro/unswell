@@ -1,4 +1,7 @@
-# Numerical logistic models
+# Numerical models
+
+The [bounded forest candidate](forest.md) supplies a nonlinear comparison for #50.
+Its leaf responses and tree paths are distinct from logistic scores and contributions.
 
 This package also supplies a [separate isotonic calibration candidate](calibration.md).
 Selecting and qualifying an editorial calibration method requires corpus evidence.

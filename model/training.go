@@ -13,8 +13,8 @@ const Algorithm = "unswell-logistic-newton-v1"
 // ErrConvergence means the requested gradient tolerance was not reached.
 var ErrConvergence = errors.New("logistic optimization did not converge")
 
-// ErrBudget means the requested operation budget was exhausted.
-var ErrBudget = errors.New("logistic operation budget exhausted")
+// ErrBudget means a numerical fitting work or allocation budget was exhausted.
+var ErrBudget = errors.New("model fitting budget exhausted")
 
 // ErrNumerical means finite arithmetic or a positive-definite Newton step failed.
 var ErrNumerical = errors.New("logistic numerical failure")

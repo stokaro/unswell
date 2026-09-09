@@ -13,7 +13,7 @@ import (
 
 func FuzzResearchPredictionInputs(f *testing.F) {
 	f.Add([]byte(`{}`))
-	f.Add([]byte(`{"version":"unswell-research-predictions-v1","threshold":null}`))
+	f.Add([]byte(`{"version":"unswell-research-predictions-v2","threshold":null}`))
 	f.Add([]byte(`{"rows":[{"response":0,"positive":null}]}`))
 	f.Fuzz(func(t *testing.T, data []byte) {
 		c := qt.New(t)

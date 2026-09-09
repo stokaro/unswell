@@ -80,6 +80,7 @@ func TestUnresolvedDecisionsDoNotBecomeNegativeRows(t *testing.T) {
 }
 
 func fittingOptions() Options {
-	return Options{Kind: "paragraph", Features: []string{"prose-words"}, MissingFeatures: "reject", Calibration: "isotonic",
-		AllowSimulation: true, Fit: Fit{L2: 1, Tolerance: 1e-8, MaxIterations: 100, MaxOperations: 10_000_000}}
+	return Options{Estimator: "logistic", Kind: "paragraph", Features: []string{"prose-words"},
+		MissingFeatures: "reject", Calibration: "isotonic",
+		AllowSimulation: true, Fit: &Fit{L2: 1, Tolerance: 1e-8, MaxIterations: 100, MaxOperations: 10_000_000}}
 }

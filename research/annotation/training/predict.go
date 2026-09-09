@@ -89,7 +89,7 @@ func predictionMeasurements(ctx context.Context, candidates corpus.Artifact, fil
 type targetPredictor struct {
 	fitted      Artifact
 	plan        PredictionPlan
-	classifier  *model.Logistic
+	classifier  numericalClassifier
 	calibration *model.Isotonic
 	measure     func(corpus.FeatureBinding) (measurement, bool)
 	targets     map[string]corpus.Candidate
@@ -143,14 +143,14 @@ func (p targetPredictor) one(ctx context.Context, binding corpus.FeatureBinding)
 		row.Reason = "feature/" + reason
 		return row, nil
 	}
-	value, err := p.classifier.Evaluate(ctx, values)
+	value, err := p.classifier.evaluate(ctx, values)
 	if err != nil {
 		return Prediction{}, err
 	}
-	row.LinearScore, row.LogisticResponse = &value.LinearScore, &value.Response
-	response := value.Response
+	row.LinearScore, row.LogisticResponse, row.ForestResponse = value.linear, value.logistic, value.forest
+	response := value.response
 	if p.plan.Response == "isotonic" {
-		response, err = p.calibration.Evaluate(ctx, value.LinearScore)
+		response, err = p.calibration.Evaluate(ctx, value.score)
 		if errors.Is(err, model.ErrCalibrationRange) {
 			row.Reason = "calibration/out_of_range"
 			return row, nil

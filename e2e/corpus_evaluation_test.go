@@ -63,15 +63,18 @@ func frozenPredictionFiles(t *testing.T, directory string, corpus, model []byte,
 		SHA256 string `json:"sha256"`
 	}
 	var fitted struct {
-		SHA256 string `json:"sha256"`
+		SHA256  string `json:"sha256"`
+		Options struct {
+			Estimator string `json:"estimator"`
+		} `json:"options"`
 	}
 	c.Assert(json.Unmarshal(corpus, &artifact), qt.IsNil)
 	c.Assert(json.Unmarshal(model, &fitted), qt.IsNil)
 	protocol := []byte("Scripted test of frozen prediction and independent evaluation. No scientific qualification.\n")
-	plan := map[string]any{"version": "unswell-research-predictions-v1", "id": "scripted-e2e-v1",
+	plan := map[string]any{"version": "unswell-research-predictions-v2", "id": "scripted-e2e-v1",
 		"protocol_sha256": fmt.Sprintf("%x", sha256.Sum256(protocol)), "model_sha256": fitted.SHA256,
 		"corpus_sha256": artifact.SHA256, "partition": "final_test", "context": context,
-		"response": "logistic", "threshold": 0.5}
+		"response": fitted.Options.Estimator, "threshold": 0.5}
 	encoded, err := json.Marshal(plan)
 	c.Assert(err, qt.IsNil)
 	for name, data := range map[string][]byte{"plan.json": encoded, "corpus.json": corpus, "model.json": model, "protocol.md": protocol} {

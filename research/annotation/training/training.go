@@ -9,20 +9,23 @@ import (
 )
 
 // Version identifies the experimental training artifact and selection semantics.
-const Version = "unswell-editorial-training-v2"
+const Version = "unswell-editorial-training-v3"
 
 // MaxArtifactBytes bounds the compact serialized training result.
 const MaxArtifactBytes = 16 << 20
 
 // Options selects one scope and declares fitting, missing-data, and simulation policy.
 // MissingFeatures accepts reject or exclude; Calibration accepts none or isotonic.
+// Estimator requires logistic with Fit, or forest with Forest; the other is nil.
 type Options struct {
-	Kind            string   `json:"kind"`
-	Features        []string `json:"features"`
-	MissingFeatures string   `json:"missing_features"`
-	Calibration     string   `json:"calibration"`
-	AllowSimulation bool     `json:"allow_simulation"`
-	Fit             Fit      `json:"fit"`
+	Kind            string               `json:"kind"`
+	Features        []string             `json:"features"`
+	MissingFeatures string               `json:"missing_features"`
+	Calibration     string               `json:"calibration"`
+	AllowSimulation bool                 `json:"allow_simulation"`
+	Estimator       string               `json:"estimator"`
+	Fit             *Fit                 `json:"fit,omitempty"`
+	Forest          *model.ForestOptions `json:"forest,omitempty"`
 }
 
 // Fit is the serialized configuration of the shared numerical optimizer.
@@ -99,7 +102,7 @@ type Logistic struct {
 	GradientNorm float64   `json:"gradient_norm"`
 }
 
-// Calibration records a fit over separate linear scores, never held-out quality.
+// Calibration records a fit over a named score channel, never held-out quality.
 type Calibration struct {
 	Algorithm        string    `json:"algorithm"`
 	InputSHA256      string    `json:"input_sha256"`
@@ -128,7 +131,8 @@ type Artifact struct {
 	Options           Options      `json:"options"`
 	Identity          Identity     `json:"identity"`
 	Partitions        []Partition  `json:"partitions"`
-	Logistic          Logistic     `json:"logistic"`
+	Logistic          *Logistic    `json:"logistic,omitempty"`
+	Forest            *Forest      `json:"forest,omitempty"`
 	Calibration       *Calibration `json:"calibration"`
 	Lexical           *Vocabulary  `json:"lexical,omitempty"`
 }
