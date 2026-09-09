@@ -306,12 +306,31 @@ satisfy it together. A visited block with no sentence reaching that minimum is
 and unsupported units retain explicit reasons. POS candidates still do not
 establish grammatical voice or editorial quality.
 
-Repetition and list rules still need complete observations before their silent
-blocks can supply dense negative inputs for training. The complete #56 work and
+Three repetition rules report the eligibility of their existing grouping keys:
+
+| Rule | Eligible input |
+| --- | --- |
+| `repetition.exact-sentence` | A sentence meeting `min_words` with a nonempty exact key. Any protected token invalidates that sentence's key. All extracted block kinds retain their existing scope. |
+| `repetition.sentence-openers` | A sentence in a paragraph meeting `min_words` with at least `opener_words` normalized words. |
+| `repetition.paragraph-openers` | The same requirements, applied only to the paragraph's first sentence. A later sentence cannot make that paragraph eligible. |
+
+A grouping key below the occurrence threshold yields zero, including a singleton.
+Clusters activate their occurrence blocks. Adding an unrelated eligible paragraph
+does not reduce existing activations. Suppressions keep the raw cluster and its
+activations. No sentences, no inspected sentence meeting the word minimum, and no
+eligible key produce `no_sentences`, `insufficient_words`, and `no_eligible_tokens`.
+Opener rules report `unsupported_unit` outside paragraphs. Their word-prefix
+calculation retains the provider's `Word` flags; protected code words are omitted
+while other words in the same sentence remain eligible. This differs from exact
+repetition's rejection of the whole protected sentence.
+
+Near-repetition, extended repetition, and list rules still need complete
+observations before their silent blocks can supply dense negative inputs for training. The complete #56 work and
 model qualification remain open. See [ADR 0018](adr/0018-rule-activation-features.md).
 
 The number of blocks times requested values must fit `analysis.max_candidates`
 for each source. Exceeding this output bound is an operational error; values are
 not sampled or silently dropped. Repository CLI/MCP self-checks collect readability,
 phrase, section-announcement, stacked-hedging, noun-stack, and all six window
-activations alongside word counts and lexical diversity.
+activations, plus exact-repetition and opener activations, alongside word counts
+and lexical diversity.

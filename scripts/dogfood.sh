@@ -9,6 +9,8 @@ bin/unswell check . --config .unswell.yaml --include-source \
   --feature activation/syntax.not-only-density --feature activation/syntax.paired-contrast-density \
   --feature activation/syntax.triad-density --feature activation/syntax.whether-preface-density \
   --feature activation/syntax.rhetorical-question-density --feature activation/syntax.passive-candidate-density \
+  --feature activation/repetition.exact-sentence --feature activation/repetition.sentence-openers \
+  --feature activation/repetition.paragraph-openers \
   --report text:- \
   --report json:artifacts/dogfood/result.json \
   --report sarif:artifacts/dogfood/result.sarif \

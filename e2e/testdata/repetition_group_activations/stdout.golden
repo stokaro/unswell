@@ -1,0 +1,53 @@
+sample.go:3:4: warning [repetition.exact-sentence] This sentence is repeated; consider whether every occurrence is needed.
+  related: sample.go:6:18
+sample.md:5:1: warning [repetition.exact-sentence] This sentence is repeated; consider whether every occurrence is needed.
+  related: sample.md:5:92
+sample.md:7:1: warning [repetition.sentence-openers] Several sentences repeat the same opening; consider removing repeated setup.
+  related: sample.md:7:52
+  related: sample.md:7:91
+sample.md:9:1: warning [repetition.paragraph-openers] Several paragraphs repeat the same opening formula.
+  related: sample.md:11:1
+  related: sample.md:13:1
+sample.md:9:1: warning [repetition.sentence-openers] Several sentences repeat the same opening; consider removing repeated setup.
+  related: sample.md:11:1
+  related: sample.md:13:1
+PASS: 2 documents, 5 findings; analysis complete.
+Shared measurements: unswell-feature-collection-v1 / unswell-block-features-v1; analysis complete.
+Rule activations: unswell-rule-activations-v1; values are signals, not probabilities.
+sample.go [block 0, comment] activation/repetition.exact-sentence: 1 ratio
+sample.go [block 0, comment] activation/repetition.paragraph-openers: unavailable (inapplicable/unsupported_unit) ratio
+sample.go [block 0, comment] activation/repetition.sentence-openers: unavailable (inapplicable/unsupported_unit) ratio
+sample.go [block 1, string] activation/repetition.exact-sentence: 1 ratio
+sample.go [block 1, string] activation/repetition.paragraph-openers: unavailable (inapplicable/unsupported_unit) ratio
+sample.go [block 1, string] activation/repetition.sentence-openers: unavailable (inapplicable/unsupported_unit) ratio
+sample.md [block 0, heading] activation/repetition.exact-sentence: unavailable (inapplicable/insufficient_words) ratio
+sample.md [block 0, heading] activation/repetition.paragraph-openers: unavailable (inapplicable/unsupported_unit) ratio
+sample.md [block 0, heading] activation/repetition.sentence-openers: unavailable (inapplicable/unsupported_unit) ratio
+sample.md [block 1, paragraph] activation/repetition.exact-sentence: 0 ratio
+sample.md [block 1, paragraph] activation/repetition.paragraph-openers: 0 ratio
+sample.md [block 1, paragraph] activation/repetition.sentence-openers: 0 ratio
+sample.md [block 2, paragraph] activation/repetition.exact-sentence: 1 ratio
+sample.md [block 2, paragraph] activation/repetition.paragraph-openers: 0 ratio
+sample.md [block 2, paragraph] activation/repetition.sentence-openers: 0 ratio
+sample.md [block 3, paragraph] activation/repetition.exact-sentence: unavailable (inapplicable/insufficient_words) ratio
+sample.md [block 3, paragraph] activation/repetition.paragraph-openers: 0 ratio
+sample.md [block 3, paragraph] activation/repetition.sentence-openers: 0.333 ratio
+sample.md [block 4, paragraph] activation/repetition.exact-sentence: unavailable (inapplicable/insufficient_words) ratio
+sample.md [block 4, paragraph] activation/repetition.paragraph-openers: 0.333 ratio
+sample.md [block 4, paragraph] activation/repetition.sentence-openers: 0.333 ratio
+sample.md [block 5, paragraph] activation/repetition.exact-sentence: unavailable (inapplicable/insufficient_words) ratio
+sample.md [block 5, paragraph] activation/repetition.paragraph-openers: 0.333 ratio
+sample.md [block 5, paragraph] activation/repetition.sentence-openers: 0.333 ratio
+sample.md [block 6, paragraph] activation/repetition.exact-sentence: unavailable (inapplicable/insufficient_words) ratio
+sample.md [block 6, paragraph] activation/repetition.paragraph-openers: 0.333 ratio
+sample.md [block 6, paragraph] activation/repetition.sentence-openers: 0.333 ratio
+sample.md [block 7, paragraph] activation/repetition.exact-sentence: 0 ratio
+sample.md [block 7, paragraph] activation/repetition.paragraph-openers: unavailable (inapplicable/insufficient_words) ratio
+sample.md [block 7, paragraph] activation/repetition.sentence-openers: 0 ratio
+sample.md [block 8, paragraph] activation/repetition.exact-sentence: unavailable (inapplicable/no_eligible_tokens) ratio
+sample.md [block 8, paragraph] activation/repetition.paragraph-openers: 0 ratio
+sample.md [block 8, paragraph] activation/repetition.sentence-openers: 0 ratio
+sample.md [block 9, paragraph] activation/repetition.exact-sentence: unavailable (inapplicable/insufficient_words) ratio
+sample.md [block 9, paragraph] activation/repetition.paragraph-openers: unavailable (inapplicable/insufficient_words) ratio
+sample.md [block 9, paragraph] activation/repetition.sentence-openers: unavailable (inapplicable/insufficient_words) ratio
+Revision probability: unavailable (no calibrated alpha model).

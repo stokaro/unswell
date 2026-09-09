@@ -1,7 +1,6 @@
 package unswell_test
 
 import (
-	"context"
 	"slices"
 	"testing"
 
@@ -75,32 +74,6 @@ func TestWindowActivationsRetainBoundaries(t *testing.T) {
 }
 
 func TestWindowActivationsRetainCancellationAndConcurrentOwnership(t *testing.T) {
-	c := qt.New(t)
-	options := unswell.Options{}
-	config := "version: 1\nextends: [builtin:custom]\nrules:\n"
-	for _, id := range windowActivationIDs() {
-		options.Features = append(options.Features, "activation/"+id)
-		config += "  " + id + ": {enabled: true}\n"
-	}
-	options.Config = []byte(config)
-	engine, err := unswell.New(options)
-	c.Assert(err, qt.IsNil)
-	source := document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(
-		"It not only reads but writes. It not only checks but validates.\n\nThe result? A better experience. The benefit? A brighter future.")}
-	ctx, cancel := context.WithCancel(t.Context())
-	cancel()
-	_, err = engine.Analyze(ctx, source)
-	c.Assert(err, qt.ErrorIs, context.Canceled)
-	want, err := engine.Analyze(t.Context(), source)
-	c.Assert(err, qt.IsNil)
-	c.Assert(want.Findings, qt.HasLen, 2)
-	for range 4 {
-		t.Run("shared engine", func(t *testing.T) {
-			t.Parallel()
-			c := qt.New(t)
-			got, err := engine.Analyze(t.Context(), source)
-			c.Assert(err, qt.IsNil)
-			c.Assert(got, qt.DeepEquals, want)
-		})
-	}
+	checkConcurrentActivations(t, windowActivationIDs(),
+		"It not only reads but writes. It not only checks but validates.\n\nThe result? A better experience. The benefit? A brighter future.", 2)
 }

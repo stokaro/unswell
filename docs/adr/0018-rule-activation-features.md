@@ -159,6 +159,22 @@ requested. No second NLP pass, extraction path, or scoring calculation is added.
 The six descriptor declarations change the catalog hash without changing finding
 versions. Repetition and list observations remain open work under #56.
 
+Exact-sentence and sentence/paragraph-opener rules now report whether their
+existing grouping loop accepted a key. The exact rule visits blocks in the same
+order instead of first allocating a flattened sentence slice. It retains every
+extracted block kind, the sentence word minimum, and rejection of any protected
+token. Opener rules retain paragraph-only scope and the existing normalized word
+prefix; paragraph-openers examines only the first sentence. Group counts, sorting,
+evidence, and thresholds remain unchanged.
+
+A singleton key supplies a measured zero because its count is below the configured
+threshold. Missing sentences, a missed sentence word minimum, or no key supply
+explicit absence reasons. Unsupported opener block kinds remain absent. Scalar
+state is local to each block and adds no observation map or second NLP pass.
+Observer errors and cancellation propagate before grouped evidence is emitted.
+Only the three descriptor declarations change catalog identity; finding versions
+stay unchanged. Near/extended repetition and list observations remain open.
+
 Acceptance includes positive and zero activations, each absence state, disabled
 rules, uninstrumented external rules, ignored observer errors, partial failures,
 cluster occurrences and duplicates, policy overrides, source protection,

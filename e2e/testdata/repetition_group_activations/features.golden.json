@@ -1,0 +1,1150 @@
+{
+  "activation_contract": "unswell-rule-activations-v1",
+  "version": "unswell-feature-collection-v1",
+  "block_contract": "unswell-block-features-v1",
+  "requested": [
+    "activation/repetition.exact-sentence",
+    "activation/repetition.paragraph-openers",
+    "activation/repetition.sentence-openers"
+  ],
+  "sources": [
+    {
+      "ruleset_hash": "0f5f1877b6ce5331e54dc3b673e946ef173e5a6bd5c9468b341ca5f24133c4e3",
+      "path": "sample.go",
+      "source_hash": "a7a53ab5e2b5b2ed54b4dcfbfb8c9f6c85476b650e1f06ede55f79e2201fd4c2",
+      "policy_hash": "229c15b2759c92524f429d68cb1ed4e4a04e831b2758ea2491f6a9873c1635ec",
+      "vocabulary_hash": "229c15b2759c92524f429d68cb1ed4e4a04e831b2758ea2491f6a9873c1635ec",
+      "preprocessing": "extracted-provider-tokens-v1",
+      "nlp": {
+        "name": "builtin-en",
+        "version": "prose-v3.2.1/chunks-v1",
+        "model": "prose/aptagmodel/en.bin",
+        "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+        "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+        "license": "MIT",
+        "capabilities": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ]
+      },
+      "capabilities": [
+        "sentences",
+        "tokens"
+      ],
+      "units": [
+        {
+          "scope": "block",
+          "unit_id": 0,
+          "kind": "comment",
+          "context_hash": "8535991e0b9755a9f24731af77490bffae35fa19036800499070da62aa35b967",
+          "span": {
+            "start": 23,
+            "end": 160
+          },
+          "segments": [
+            {
+              "start": 24,
+              "end": 27
+            },
+            {
+              "start": 28,
+              "end": 35
+            },
+            {
+              "start": 36,
+              "end": 44
+            },
+            {
+              "start": 45,
+              "end": 50
+            },
+            {
+              "start": 51,
+              "end": 57
+            },
+            {
+              "start": 58,
+              "end": 66
+            },
+            {
+              "start": 67,
+              "end": 69
+            },
+            {
+              "start": 70,
+              "end": 73
+            },
+            {
+              "start": 74,
+              "end": 82
+            },
+            {
+              "start": 83,
+              "end": 90
+            },
+            {
+              "start": 91,
+              "end": 94
+            },
+            {
+              "start": 95,
+              "end": 101
+            },
+            {
+              "start": 102,
+              "end": 105
+            },
+            {
+              "start": 106,
+              "end": 114
+            },
+            {
+              "start": 115,
+              "end": 121
+            }
+          ],
+          "input_hash": "8bba4982f2f6508bdb074bec107802781e8872100127e8319e24d2d8cbfcde3b",
+          "values": [
+            {
+              "id": "activation/repetition.exact-sentence",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            },
+            {
+              "id": "activation/repetition.paragraph-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/unsupported_unit"
+            },
+            {
+              "id": "activation/repetition.sentence-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/unsupported_unit"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 1,
+          "kind": "string",
+          "context_hash": "b8e4d53cd0a7766beb8d18b0240d8e732a30022835d6a57991b8db6b09fca08e",
+          "span": {
+            "start": 196,
+            "end": 294
+          },
+          "segments": [
+            {
+              "start": 196,
+              "end": 199
+            },
+            {
+              "start": 200,
+              "end": 207
+            },
+            {
+              "start": 208,
+              "end": 216
+            },
+            {
+              "start": 217,
+              "end": 222
+            },
+            {
+              "start": 223,
+              "end": 229
+            },
+            {
+              "start": 230,
+              "end": 238
+            },
+            {
+              "start": 239,
+              "end": 241
+            },
+            {
+              "start": 242,
+              "end": 245
+            },
+            {
+              "start": 246,
+              "end": 254
+            },
+            {
+              "start": 255,
+              "end": 262
+            },
+            {
+              "start": 263,
+              "end": 266
+            },
+            {
+              "start": 267,
+              "end": 273
+            },
+            {
+              "start": 274,
+              "end": 277
+            },
+            {
+              "start": 278,
+              "end": 286
+            },
+            {
+              "start": 287,
+              "end": 293
+            }
+          ],
+          "input_hash": "b46d6cf28a5fd07aed4f3a6c3b857b3583755428c0742b7447f0dcf0dea43e9e",
+          "values": [
+            {
+              "id": "activation/repetition.exact-sentence",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            },
+            {
+              "id": "activation/repetition.paragraph-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/unsupported_unit"
+            },
+            {
+              "id": "activation/repetition.sentence-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/unsupported_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ruleset_hash": "0f5f1877b6ce5331e54dc3b673e946ef173e5a6bd5c9468b341ca5f24133c4e3",
+      "path": "sample.md",
+      "source_hash": "1767f3ab7c6cfaddd2b6ef1d8c799e443b09a519f0054f60fdf0211c904ebe70",
+      "policy_hash": "229c15b2759c92524f429d68cb1ed4e4a04e831b2758ea2491f6a9873c1635ec",
+      "vocabulary_hash": "229c15b2759c92524f429d68cb1ed4e4a04e831b2758ea2491f6a9873c1635ec",
+      "preprocessing": "extracted-provider-tokens-v1",
+      "nlp": {
+        "name": "builtin-en",
+        "version": "prose-v3.2.1/chunks-v1",
+        "model": "prose/aptagmodel/en.bin",
+        "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+        "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+        "license": "MIT",
+        "capabilities": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ]
+      },
+      "capabilities": [
+        "sentences",
+        "tokens"
+      ],
+      "units": [
+        {
+          "scope": "block",
+          "unit_id": 0,
+          "kind": "heading",
+          "context_hash": "7069c64c05fecf427c9970929db309197e19a1bd43722461e0109e1e443bc5f0",
+          "span": {
+            "start": 5,
+            "end": 22
+          },
+          "segments": null,
+          "values": [
+            {
+              "id": "activation/repetition.exact-sentence",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "activation/repetition.paragraph-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/unsupported_unit"
+            },
+            {
+              "id": "activation/repetition.sentence-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/unsupported_unit"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 1,
+          "kind": "paragraph",
+          "context_hash": "7069c64c05fecf427c9970929db309197e19a1bd43722461e0109e1e443bc5f0",
+          "span": {
+            "start": 26,
+            "end": 124
+          },
+          "segments": [
+            {
+              "start": 26,
+              "end": 30
+            },
+            {
+              "start": 31,
+              "end": 41
+            },
+            {
+              "start": 42,
+              "end": 45
+            },
+            {
+              "start": 46,
+              "end": 47
+            },
+            {
+              "start": 48,
+              "end": 55
+            },
+            {
+              "start": 56,
+              "end": 60
+            },
+            {
+              "start": 61,
+              "end": 64
+            },
+            {
+              "start": 65,
+              "end": 71
+            },
+            {
+              "start": 72,
+              "end": 78
+            },
+            {
+              "start": 79,
+              "end": 85
+            },
+            {
+              "start": 86,
+              "end": 93
+            },
+            {
+              "start": 94,
+              "end": 101
+            },
+            {
+              "start": 102,
+              "end": 109
+            },
+            {
+              "start": 110,
+              "end": 112
+            },
+            {
+              "start": 113,
+              "end": 116
+            },
+            {
+              "start": 117,
+              "end": 123
+            }
+          ],
+          "input_hash": "c4aca86d31fef35ba065efbd7bad265092262bbc222779a0d0cc51205e584c0e",
+          "values": [
+            {
+              "id": "activation/repetition.exact-sentence",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/repetition.paragraph-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/repetition.sentence-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 2,
+          "kind": "paragraph",
+          "context_hash": "7069c64c05fecf427c9970929db309197e19a1bd43722461e0109e1e443bc5f0",
+          "span": {
+            "start": 128,
+            "end": 309
+          },
+          "segments": [
+            {
+              "start": 128,
+              "end": 131
+            },
+            {
+              "start": 132,
+              "end": 139
+            },
+            {
+              "start": 140,
+              "end": 147
+            },
+            {
+              "start": 148,
+              "end": 149
+            },
+            {
+              "start": 150,
+              "end": 157
+            },
+            {
+              "start": 158,
+              "end": 162
+            },
+            {
+              "start": 163,
+              "end": 166
+            },
+            {
+              "start": 167,
+              "end": 173
+            },
+            {
+              "start": 174,
+              "end": 177
+            },
+            {
+              "start": 178,
+              "end": 183
+            },
+            {
+              "start": 184,
+              "end": 187
+            },
+            {
+              "start": 188,
+              "end": 196
+            },
+            {
+              "start": 197,
+              "end": 201
+            },
+            {
+              "start": 202,
+              "end": 205
+            },
+            {
+              "start": 206,
+              "end": 217
+            },
+            {
+              "start": 219,
+              "end": 222
+            },
+            {
+              "start": 223,
+              "end": 230
+            },
+            {
+              "start": 231,
+              "end": 238
+            },
+            {
+              "start": 239,
+              "end": 240
+            },
+            {
+              "start": 241,
+              "end": 248
+            },
+            {
+              "start": 249,
+              "end": 253
+            },
+            {
+              "start": 254,
+              "end": 257
+            },
+            {
+              "start": 258,
+              "end": 264
+            },
+            {
+              "start": 265,
+              "end": 268
+            },
+            {
+              "start": 269,
+              "end": 274
+            },
+            {
+              "start": 275,
+              "end": 278
+            },
+            {
+              "start": 279,
+              "end": 287
+            },
+            {
+              "start": 288,
+              "end": 292
+            },
+            {
+              "start": 293,
+              "end": 296
+            },
+            {
+              "start": 297,
+              "end": 308
+            }
+          ],
+          "input_hash": "fa0b9c414323ae1e0e1094ebe4fe3688ab46ea86069249e02df7ba30947926d9",
+          "values": [
+            {
+              "id": "activation/repetition.exact-sentence",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            },
+            {
+              "id": "activation/repetition.paragraph-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/repetition.sentence-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 3,
+          "kind": "paragraph",
+          "context_hash": "7069c64c05fecf427c9970929db309197e19a1bd43722461e0109e1e443bc5f0",
+          "span": {
+            "start": 349,
+            "end": 481
+          },
+          "segments": [
+            {
+              "start": 349,
+              "end": 352
+            },
+            {
+              "start": 355,
+              "end": 361
+            },
+            {
+              "start": 364,
+              "end": 369
+            },
+            {
+              "start": 370,
+              "end": 371
+            },
+            {
+              "start": 372,
+              "end": 382
+            },
+            {
+              "start": 383,
+              "end": 385
+            },
+            {
+              "start": 386,
+              "end": 389
+            },
+            {
+              "start": 390,
+              "end": 398
+            },
+            {
+              "start": 400,
+              "end": 403
+            },
+            {
+              "start": 404,
+              "end": 410
+            },
+            {
+              "start": 411,
+              "end": 416
+            },
+            {
+              "start": 417,
+              "end": 418
+            },
+            {
+              "start": 419,
+              "end": 423
+            },
+            {
+              "start": 424,
+              "end": 428
+            },
+            {
+              "start": 429,
+              "end": 432
+            },
+            {
+              "start": 433,
+              "end": 437
+            },
+            {
+              "start": 439,
+              "end": 442
+            },
+            {
+              "start": 443,
+              "end": 449
+            },
+            {
+              "start": 450,
+              "end": 455
+            },
+            {
+              "start": 456,
+              "end": 457
+            },
+            {
+              "start": 458,
+              "end": 465
+            },
+            {
+              "start": 466,
+              "end": 468
+            },
+            {
+              "start": 469,
+              "end": 472
+            },
+            {
+              "start": 473,
+              "end": 480
+            }
+          ],
+          "input_hash": "abc6febfa66994e93b8f1537476283db89514923c5b9282334cad286d1cbab91",
+          "values": [
+            {
+              "id": "activation/repetition.exact-sentence",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "activation/repetition.paragraph-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/repetition.sentence-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.333
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 4,
+          "kind": "paragraph",
+          "context_hash": "7069c64c05fecf427c9970929db309197e19a1bd43722461e0109e1e443bc5f0",
+          "span": {
+            "start": 523,
+            "end": 591
+          },
+          "segments": [
+            {
+              "start": 523,
+              "end": 524
+            },
+            {
+              "start": 525,
+              "end": 531
+            },
+            {
+              "start": 532,
+              "end": 539
+            },
+            {
+              "start": 540,
+              "end": 543
+            },
+            {
+              "start": 544,
+              "end": 552
+            },
+            {
+              "start": 553,
+              "end": 559
+            },
+            {
+              "start": 560,
+              "end": 563
+            },
+            {
+              "start": 564,
+              "end": 568
+            },
+            {
+              "start": 569,
+              "end": 578
+            },
+            {
+              "start": 579,
+              "end": 582
+            },
+            {
+              "start": 583,
+              "end": 590
+            }
+          ],
+          "input_hash": "97f7cc7dee13d95b5a774e9ec34307d0bd843ce14e4746f5fbeaeb14b6797955",
+          "values": [
+            {
+              "id": "activation/repetition.exact-sentence",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "activation/repetition.paragraph-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.333
+            },
+            {
+              "id": "activation/repetition.sentence-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.333
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 5,
+          "kind": "paragraph",
+          "context_hash": "7069c64c05fecf427c9970929db309197e19a1bd43722461e0109e1e443bc5f0",
+          "span": {
+            "start": 664,
+            "end": 729
+          },
+          "segments": [
+            {
+              "start": 664,
+              "end": 665
+            },
+            {
+              "start": 666,
+              "end": 672
+            },
+            {
+              "start": 673,
+              "end": 680
+            },
+            {
+              "start": 681,
+              "end": 684
+            },
+            {
+              "start": 685,
+              "end": 691
+            },
+            {
+              "start": 692,
+              "end": 698
+            },
+            {
+              "start": 699,
+              "end": 702
+            },
+            {
+              "start": 703,
+              "end": 710
+            },
+            {
+              "start": 711,
+              "end": 716
+            },
+            {
+              "start": 717,
+              "end": 720
+            },
+            {
+              "start": 721,
+              "end": 728
+            }
+          ],
+          "input_hash": "80c4f0364707fa97dc8148d3011d09a9f17e4451a9be155bbad9f5f0de031d10",
+          "values": [
+            {
+              "id": "activation/repetition.exact-sentence",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "activation/repetition.paragraph-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.333
+            },
+            {
+              "id": "activation/repetition.sentence-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.333
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 6,
+          "kind": "paragraph",
+          "context_hash": "7069c64c05fecf427c9970929db309197e19a1bd43722461e0109e1e443bc5f0",
+          "span": {
+            "start": 733,
+            "end": 799
+          },
+          "segments": [
+            {
+              "start": 733,
+              "end": 734
+            },
+            {
+              "start": 735,
+              "end": 741
+            },
+            {
+              "start": 742,
+              "end": 749
+            },
+            {
+              "start": 750,
+              "end": 753
+            },
+            {
+              "start": 754,
+              "end": 762
+            },
+            {
+              "start": 763,
+              "end": 769
+            },
+            {
+              "start": 770,
+              "end": 773
+            },
+            {
+              "start": 774,
+              "end": 779
+            },
+            {
+              "start": 780,
+              "end": 785
+            },
+            {
+              "start": 786,
+              "end": 789
+            },
+            {
+              "start": 790,
+              "end": 798
+            }
+          ],
+          "input_hash": "baca53428e30e9e2b4abe2c5b2d559edd25d9e0a093422f583274e6b25f47cc8",
+          "values": [
+            {
+              "id": "activation/repetition.exact-sentence",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "activation/repetition.paragraph-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.333
+            },
+            {
+              "id": "activation/repetition.sentence-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.333
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 7,
+          "kind": "paragraph",
+          "context_hash": "7069c64c05fecf427c9970929db309197e19a1bd43722461e0109e1e443bc5f0",
+          "span": {
+            "start": 803,
+            "end": 903
+          },
+          "segments": [
+            {
+              "start": 803,
+              "end": 806
+            },
+            {
+              "start": 807,
+              "end": 808
+            },
+            {
+              "start": 809,
+              "end": 812
+            },
+            {
+              "start": 813,
+              "end": 821
+            },
+            {
+              "start": 822,
+              "end": 830
+            },
+            {
+              "start": 831,
+              "end": 837
+            },
+            {
+              "start": 838,
+              "end": 843
+            },
+            {
+              "start": 844,
+              "end": 846
+            },
+            {
+              "start": 847,
+              "end": 851
+            },
+            {
+              "start": 852,
+              "end": 855
+            },
+            {
+              "start": 856,
+              "end": 863
+            },
+            {
+              "start": 864,
+              "end": 869
+            },
+            {
+              "start": 870,
+              "end": 877
+            },
+            {
+              "start": 878,
+              "end": 881
+            },
+            {
+              "start": 882,
+              "end": 887
+            },
+            {
+              "start": 888,
+              "end": 896
+            },
+            {
+              "start": 897,
+              "end": 902
+            }
+          ],
+          "input_hash": "db1c2314dd9ff203f5e7e2c7eb5fff5cf9f750f4fcc3e4bca7cb2099c1270145",
+          "values": [
+            {
+              "id": "activation/repetition.exact-sentence",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/repetition.paragraph-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "activation/repetition.sentence-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 8,
+          "kind": "paragraph",
+          "context_hash": "7069c64c05fecf427c9970929db309197e19a1bd43722461e0109e1e443bc5f0",
+          "span": {
+            "start": 907,
+            "end": 1022
+          },
+          "segments": [
+            {
+              "start": 907,
+              "end": 910
+            },
+            {
+              "start": 920,
+              "end": 930
+            },
+            {
+              "start": 931,
+              "end": 936
+            },
+            {
+              "start": 937,
+              "end": 942
+            },
+            {
+              "start": 943,
+              "end": 948
+            },
+            {
+              "start": 949,
+              "end": 956
+            },
+            {
+              "start": 957,
+              "end": 964
+            },
+            {
+              "start": 965,
+              "end": 973
+            },
+            {
+              "start": 974,
+              "end": 975
+            },
+            {
+              "start": 976,
+              "end": 984
+            },
+            {
+              "start": 985,
+              "end": 989
+            },
+            {
+              "start": 990,
+              "end": 993
+            },
+            {
+              "start": 994,
+              "end": 1004
+            },
+            {
+              "start": 1005,
+              "end": 1013
+            },
+            {
+              "start": 1014,
+              "end": 1021
+            }
+          ],
+          "input_hash": "6a77798ef63e84dcdef9b2565559e247ed67f8249b7ebb6f853e9bae8693cfc4",
+          "values": [
+            {
+              "id": "activation/repetition.exact-sentence",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_tokens"
+            },
+            {
+              "id": "activation/repetition.paragraph-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/repetition.sentence-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 9,
+          "kind": "paragraph",
+          "context_hash": "7069c64c05fecf427c9970929db309197e19a1bd43722461e0109e1e443bc5f0",
+          "span": {
+            "start": 1026,
+            "end": 1043
+          },
+          "segments": [
+            {
+              "start": 1026,
+              "end": 1029
+            },
+            {
+              "start": 1030,
+              "end": 1036
+            },
+            {
+              "start": 1037,
+              "end": 1042
+            }
+          ],
+          "input_hash": "b8a917d82dbf3f51cd1a8bf41134e3259a1ffdc86a6fca1ac04479ce65873001",
+          "values": [
+            {
+              "id": "activation/repetition.exact-sentence",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "activation/repetition.paragraph-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "activation/repetition.sentence-openers",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
