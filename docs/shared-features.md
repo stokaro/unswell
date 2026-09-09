@@ -370,9 +370,31 @@ completes applicability accounting for the current catalog; the broader shared
 feature work in #56 and model qualification remain open. See
 [ADR 0018](adr/0018-rule-activation-features.md).
 
-The number of blocks times requested values must fit `analysis.max_candidates`
-for each source. Exceeding this output bound is an operational error; values are
+The number of blocks times requested values, plus the full and trimmed binding
+segment counts, must fit `analysis.max_candidates` for each source. Exceeding
+this output bound is an operational error; values are
 not sampled or silently dropped. Repository CLI/MCP self-checks collect readability,
 phrase, section-announcement, stacked-hedging, noun-stack, and all six window
 activations, exact-repetition and opener activations, and these seven candidate
 activations, alongside word counts and lexical diversity.
+
+## Match labels to original block activations
+
+Each collected block includes an optional `binding` under `mapped-block-v1`.
+`text_sha256` and `segments` describe the complete mapped input used by rules.
+`trimmed_sha256` and `trimmed_segments` remove only outer Unicode whitespace,
+using the same boundary calculation as prepared corpus targets. Both retain
+punctuation, Markdown mapping gaps, and protected separators. Counted token spans
+alone cannot establish equality with a labeled target.
+
+The research rule baseline compares a reproduced target's text, context, source
+hash, and complete segments with the trimmed whole block. A Go comment's leading
+space can differ; an excluded code span or partial sentence cannot disappear to
+force a match. Original raw input remains part of the measured input hash.
+Unmatched targets record `no_complete_block_match`; their block values are absent.
+
+Document rules retain source-document context. Block scope stays on the feature
+descriptor even when a full block also matches an annotated sentence or paragraph.
+The original prepared target kind is retained separately. See the
+[training workflow](../research/annotation/training/README.md) for explicit
+policy selection, missing-value handling, and qualification boundaries.

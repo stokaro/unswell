@@ -8,6 +8,7 @@ import (
 	"slices"
 
 	"github.com/stokaro/unswell"
+	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/nlp"
 )
@@ -138,11 +139,13 @@ func validateFeatureUnits(
 		return fmt.Errorf("feature source does not cover its extracted blocks")
 	}
 	for i, unit := range source.Units {
-		if unit.UnitID != i || unit.Scope != "block" || !unit.Span.Valid(doc.Bytes) ||
-			len(unit.Kind) > 128 || !hashString(unit.ContextHash) {
+		if !validFeatureUnit(unit, i, doc.Bytes) {
 			return fmt.Errorf("invalid feature unit identity or range")
 		}
 		if err := validateFeatureSegments(unit); err != nil {
+			return err
+		}
+		if err := validateBlockBinding(unit); err != nil {
 			return err
 		}
 		if err := validateFeatureValues(unit, definitions, source.Capabilities, complete); err != nil {
@@ -150,6 +153,11 @@ func validateFeatureUnits(
 		}
 	}
 	return nil
+}
+
+func validFeatureUnit(unit unswell.FeatureUnit, index, bytes int) bool {
+	return unit.UnitID == index && unit.Scope == "block" && unit.Span.Valid(bytes) &&
+		len(unit.Kind) <= 128 && hashString(unit.ContextHash)
 }
 
 func validateFeatureSegments(unit unswell.FeatureUnit) error {
@@ -166,6 +174,58 @@ func validateFeatureSegments(unit unswell.FeatureUnit) error {
 	for _, span := range unit.Segments {
 		if span.Start < last || !span.Valid(unit.Span.End) {
 			return fmt.Errorf("invalid counted feature segment")
+		}
+		last = span.End
+	}
+	return nil
+}
+
+func validateBlockBinding(unit unswell.FeatureUnit) error {
+	if unit.Binding == nil {
+		return nil
+	}
+	binding := unit.Binding
+	if binding.Contract != unswell.FeatureBlockBindingContract || !hashString(binding.TextSHA256) || !hashString(binding.TrimmedSHA256) {
+		return fmt.Errorf("invalid mapped block binding identity")
+	}
+	if err := validateBindingSpans(binding.Segments, unit.Span); err != nil {
+		return err
+	}
+	if err := validateBindingSpans(binding.TrimmedSegments, unit.Span); err != nil {
+		return err
+	}
+	return validateTrimmedBinding(binding.Segments, binding.TrimmedSegments)
+}
+
+func validateTrimmedBinding(original, trimmed []document.Span) error {
+	if len(trimmed) == 0 {
+		return nil
+	}
+	start := slices.IndexFunc(original, func(span document.Span) bool {
+		return span.Start <= trimmed[0].Start && trimmed[0].Start < span.End
+	})
+	if start < 0 || start+len(trimmed) > len(original) {
+		return fmt.Errorf("trimmed binding must retain an original mapped interval")
+	}
+	for i, span := range trimmed {
+		full := original[start+i]
+		if !validTrimmedSegment(span, full, i, len(trimmed)) {
+			return fmt.Errorf("trimmed binding cannot change interior source segments")
+		}
+	}
+	return nil
+}
+
+func validTrimmedSegment(span, full document.Span, index, count int) bool {
+	return span.Start >= full.Start && span.End <= full.End &&
+		(index == 0 || span.Start == full.Start) && (index == count-1 || span.End == full.End)
+}
+
+func validateBindingSpans(segments []document.Span, bounds document.Span) error {
+	last := bounds.Start
+	for _, span := range segments {
+		if span.Start < last || !span.Valid(bounds.End) || span.Start == span.End {
+			return fmt.Errorf("invalid mapped block binding segments")
 		}
 		last = span.End
 	}

@@ -62,6 +62,12 @@ targets to Go fitting with separate training and calibration partitions. Their
 `unswell-editorial-training-v1` artifact records unqualified numerical experiments;
 it does not extend the engine's model loading or probability contract. See
 [ADR 0025](adr/0025-corpus-training.md).
+`corpus.JoinRules`, `training.RunRules`, and `--rule-config` add the existing
+engine's raw activations as an explicit research feature source. They share
+target verification, row selection, Go fitting, and calibration with prepared
+features. The artifact declares block measurement scope and source-document
+context; unmatched targets and disabled rules remain unavailable. See
+[ADR 0026](adr/0026-rule-baseline-binding.md).
 The root `e2e` directory contains only test code and fixtures. It exports no library
 API; the API snapshot records its package identity because it belongs to the root
 module.
@@ -117,6 +123,16 @@ travel with the numeric values; incomplete runs remain incomplete model inputs.
 The additive field is omitted by default. Old reports remain readable; strict
 older readers need an update when collection is explicitly requested. See
 [ADR 0017](adr/0017-feature-collection.md) for compatibility and remaining scope.
+
+Optional `FeatureUnit.Binding` adds `FeatureBlockBinding` and
+`FeatureBlockBindingContract`. The `mapped-block-v1` binding contains full mapped
+text and outer-whitespace-trimmed hashes, with separate complete source maps.
+It includes punctuation and protected separators that counted token spans omit.
+Readers accept legacy reports without it and validate present bindings, including
+preservation of interior segments after trimming. Strict older readers need an
+update for this additive field. Full and trimmed maps count against the existing
+collection budget. No rule values or prepared-target semantics change.
+See [ADR 0026](adr/0026-rule-baseline-binding.md).
 
 `nlp.PrepareUnits`, `PreparedUnit`, `UnitBinding`, `UnitOptions`, and `UnitLimits`
 add shared sentence/paragraph/fragment preparation under `nlp.UnitContract`.

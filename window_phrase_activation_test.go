@@ -32,7 +32,10 @@ func TestWindowPhraseActivationsPreserveCatalogExamples(t *testing.T) {
 func TestWindowPhraseActivationFailuresAndConcurrentCalls(t *testing.T) {
 	c := qt.New(t)
 	config := "version: 1\nextends: [builtin:custom]\nrules:\n  filler.section-announcement: {enabled: true}\n"
-	options := unswell.Options{NoGate: true, Config: []byte(config + "analysis: {max_candidates: 1}\n"),
+	// The collection fits three entries; four phrase attempts still exhaust the rule budget.
+	failure := "version: 1\nextends: [builtin:custom]\nanalysis: {max_candidates: 3}\nrules:\n" +
+		"  filler.section-announcement: {enabled: true, parameters: {phrases: [in alpha, in beta, in gamma, in delta]}}\n"
+	options := unswell.Options{NoGate: true, Config: []byte(failure),
 		Features: []string{"activation/filler.section-announcement"}}
 	engine, err := unswell.New(options)
 	c.Assert(err, qt.IsNil)

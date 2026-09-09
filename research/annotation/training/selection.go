@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/stokaro/unswell"
+	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/model"
 	"github.com/stokaro/unswell/research/annotation"
 	"github.com/stokaro/unswell/research/annotation/corpus"
@@ -21,31 +21,27 @@ type selection struct {
 
 type rowSelector struct {
 	options   Options
-	columns   Identity
 	decisions map[string]annotation.EditorialDecision
-	sources   map[string]unswell.PreparedFeatureSource
-	units     map[string]unswell.PreparedFeatureUnit
+	measure   func(corpus.FeatureBinding) (measurement, bool)
 	result    selection
 }
 
-func selectRows(ctx context.Context, plan corpus.Plan, joined corpus.JoinedArtifact, options Options) (selection, error) {
-	columns, err := columnIdentity(joined, options.Kind)
-	if err != nil {
-		return selection{}, err
-	}
-	selector := rowSelector{options: options, columns: columns, decisions: make(map[string]annotation.EditorialDecision),
-		sources: make(map[string]unswell.PreparedFeatureSource), units: make(map[string]unswell.PreparedFeatureUnit),
-		result: selection{partitions: partitionCounts(plan)}}
-	for _, decision := range joined.Decisions.Units {
+type measurement struct {
+	kind     string
+	identity Identity
+	values   []feature.Value
+	reason   string
+}
+
+func selectMeasuredRows(ctx context.Context, plan corpus.Plan, decisions annotation.DecisionSet,
+	bindings []corpus.FeatureBinding, selector rowSelector,
+) (selection, error) {
+	selector.decisions = make(map[string]annotation.EditorialDecision)
+	selector.result = selection{partitions: partitionCounts(plan)}
+	for _, decision := range decisions.Units {
 		selector.decisions[decision.UnitID] = decision
 	}
-	for _, source := range joined.Features.Sources {
-		selector.sources[source.Path] = source
-		for _, unit := range source.Units {
-			selector.units[measurementKey(source.Path, unit.InputHash)] = unit
-		}
-	}
-	bindings := slices.Clone(joined.Bindings)
+	bindings = slices.Clone(bindings)
 	slices.SortFunc(bindings, func(a, b corpus.FeatureBinding) int { return strings.Compare(a.UnitID, b.UnitID) })
 	for _, binding := range bindings {
 		if err := ctx.Err(); err != nil {
@@ -70,11 +66,11 @@ func (s *rowSelector) add(binding corpus.FeatureBinding) error {
 		partition.Excluded["reserved_partition"]++
 		return nil
 	}
-	unit, exists := s.units[measurementKey(binding.Path, binding.FeatureInputHash)]
+	unit, exists := s.measure(binding)
 	if !exists {
 		return fmt.Errorf("missing reproduced measurement for %s", binding.UnitID)
 	}
-	if unit.Binding.Kind != s.options.Kind {
+	if unit.kind != s.options.Kind {
 		partition.Excluded["unselected_kind"]++
 		return nil
 	}
@@ -90,7 +86,7 @@ func (s *rowSelector) add(binding corpus.FeatureBinding) error {
 	return s.addResolved(binding, unit, decision, partition)
 }
 
-func (s *rowSelector) addResolved(binding corpus.FeatureBinding, unit unswell.PreparedFeatureUnit,
+func (s *rowSelector) addResolved(binding corpus.FeatureBinding, unit measurement,
 	decision annotation.EditorialDecision, partition *Partition,
 ) error {
 	if !slices.Contains(decision.Target.AllowedUses, "training") {
@@ -100,20 +96,18 @@ func (s *rowSelector) addResolved(binding corpus.FeatureBinding, unit unswell.Pr
 	if err != nil {
 		return err
 	}
-	identity := sourceIdentity(s.columns, s.sources[binding.Path])
-	if err := s.acceptIdentity(identity); err != nil {
+	if unit.reason != "" {
+		return s.unavailable(binding.UnitID, "target/"+unit.reason, partition)
+	}
+	if err := s.acceptIdentity(unit.identity); err != nil {
 		return err
 	}
-	values, reason, err := numericValues(unit.Values, identity.Columns)
+	values, reason, err := numericValues(unit.values, unit.identity.Columns)
 	if err != nil {
 		return err
 	}
 	if reason != "" {
-		if s.options.MissingFeatures == "reject" {
-			return fmt.Errorf("unit %s has unavailable feature %s", binding.UnitID, reason)
-		}
-		partition.Excluded["feature/"+reason]++
-		return nil
+		return s.unavailable(binding.UnitID, "feature/"+reason, partition)
 	}
 	example := model.Example{Values: values, Label: label}
 	if binding.Partition == "training" {
@@ -124,6 +118,15 @@ func (s *rowSelector) addResolved(binding corpus.FeatureBinding, unit unswell.Pr
 	partition.Rows = append(partition.Rows, Row{UnitID: binding.UnitID, SourceID: binding.SourceID,
 		GroupID: binding.GroupID, FeatureInputHash: binding.FeatureInputHash})
 	partition.Classes[*decision.Label]++
+	return nil
+}
+
+func (s *rowSelector) unavailable(id, reason string, partition *Partition) error {
+	if s.options.MissingFeatures == "reject" {
+		category, detail, _ := strings.Cut(reason, "/")
+		return fmt.Errorf("unit %s has unavailable %s %s", id, category, detail)
+	}
+	partition.Excluded[reason]++
 	return nil
 }
 

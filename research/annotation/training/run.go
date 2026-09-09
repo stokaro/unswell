@@ -33,6 +33,12 @@ func Run(ctx context.Context, candidates corpus.Artifact, round *annotation.Roun
 	if err != nil {
 		return Artifact{}, err
 	}
+	return fitSelected(ctx, candidates, joined.Decisions, joined.SHA256, options, selected)
+}
+
+func fitSelected(ctx context.Context, candidates corpus.Artifact, decisions annotation.DecisionSet,
+	joinedHash string, options Options, selected selection,
+) (Artifact, error) {
 	fit, err := model.FitLogistic(ctx, selected.training, options.Fit.numerical())
 	if err != nil {
 		return Artifact{}, fmt.Errorf("training partition: %w", err)
@@ -42,9 +48,9 @@ func Run(ctx context.Context, candidates corpus.Artifact, round *annotation.Roun
 		return Artifact{}, err
 	}
 	result := Artifact{Version: Version, Status: "experimental_numerical_fit", HumanCorpus: "not_qualified",
-		ProbabilityStatus: "unavailable_unqualified_model", Basis: joined.Decisions.Basis,
+		ProbabilityStatus: "unavailable_unqualified_model", Basis: decisions.Basis,
 		CorpusSHA256: candidates.SHA256, ManifestSHA256: candidates.Plan.ManifestSHA256,
-		RoundSHA256: joined.Decisions.RoundSHA256, JoinedSHA256: joined.SHA256, Options: options,
+		RoundSHA256: decisions.RoundSHA256, JoinedSHA256: joinedHash, Options: options,
 		Identity: selected.identity, Partitions: selected.partitions, Logistic: logisticResult(fit), Calibration: calibration}
 	return finish(ctx, result)
 }

@@ -10,6 +10,7 @@ import (
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/feature"
+	"github.com/stokaro/unswell/internal/textutil"
 )
 
 func (e *Engine) selectFeatures(ids []string) error {
@@ -69,6 +70,7 @@ func (e *Engine) captureFeatures(ctx context.Context, doc *document.Document, se
 	if len(e.activationIndices) > 0 {
 		source.RulesetHash = e.rulesetHash
 	}
+	budget := e.policy.Analysis.MaxCandidates - len(doc.Blocks)*len(e.featureIDs)
 	for _, block := range doc.Blocks {
 		if err := ctx.Err(); err != nil {
 			return err
@@ -77,6 +79,10 @@ func (e *Engine) captureFeatures(ctx context.Context, doc *document.Document, se
 		if err != nil {
 			return err
 		}
+		budget -= len(unit.Binding.Segments) + len(unit.Binding.TrimmedSegments)
+		if budget < 0 {
+			return fmt.Errorf("collected block mappings exceed max_candidates")
+		}
 		source.Units = append(source.Units, unit)
 	}
 	result.Features.Sources = append(result.Features.Sources, source)
@@ -84,7 +90,11 @@ func (e *Engine) captureFeatures(ctx context.Context, doc *document.Document, se
 }
 
 func (e *Engine) captureBlock(block document.Block, set *feature.Set) (FeatureUnit, error) {
-	unit := FeatureUnit{Scope: "block", UnitID: block.ID, Kind: block.Kind, Span: block.Span}
+	start, end := textutil.TrimSpaceBounds(block.Text)
+	unit := FeatureUnit{Scope: "block", UnitID: block.ID, Kind: block.Kind, Span: block.Span,
+		Binding: &FeatureBlockBinding{Contract: FeatureBlockBindingContract,
+			TextSHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(block.Text))), Segments: block.Spans(0, len(block.Text)),
+			TrimmedSHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(block.Text[start:end]))), TrimmedSegments: block.Spans(start, end)}}
 	contextBytes, err := json.Marshal(block.Context)
 	if err != nil {
 		return unit, err

@@ -39,6 +39,11 @@ func TestCorpusTrainingUsesSeparateFrozenPartitions(t *testing.T) {
 
 func checkTrainingResult(t *testing.T, output []byte) {
 	t.Helper()
+	checkFittedResult(t, output, 6, 3)
+}
+
+func checkFittedResult(t *testing.T, output []byte, mean, scale float64) {
+	t.Helper()
 	c := qt.New(t)
 	var result struct {
 		Status            string                            `json:"status"`
@@ -62,9 +67,9 @@ func checkTrainingResult(t *testing.T, output []byte) {
 	c.Assert(result.Basis, qt.Equals, "simulation")
 	c.Assert(result.HumanCorpus, qt.Equals, "not_qualified")
 	c.Assert(result.ProbabilityStatus, qt.Equals, "unavailable_unqualified_model")
-	c.Assert(result.Logistic.Means, qt.DeepEquals, []float64{6})
+	c.Assert(result.Logistic.Means, qt.DeepEquals, []float64{mean})
 	c.Assert(result.Logistic.Scales, qt.HasLen, 1)
-	c.Assert(math.Abs(result.Logistic.Scales[0]-3) < 1e-12, qt.IsTrue)
+	c.Assert(math.Abs(result.Logistic.Scales[0]-scale) < 1e-12, qt.IsTrue)
 	c.Assert(result.Calibration.Samples, qt.Equals, 2)
 	c.Assert(result.Calibration.Responses, qt.DeepEquals, []float64{0, 1})
 	c.Assert(result.Partitions, qt.HasLen, 4)

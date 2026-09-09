@@ -69,6 +69,15 @@ func TestFeatureReportsRejectIncompatibleOrMisleadingValues(t *testing.T) {
 		{"missing capability", func(r *unswell.RunResult) { r.Features.Sources[0].Capabilities = nil }},
 		{"missing block", func(r *unswell.RunResult) { r.Features.Sources[0].Units = nil }},
 		{"context text", func(r *unswell.RunResult) { r.Features.Sources[0].Units[0].ContextHash = "Heading" }},
+		{"block contract", func(r *unswell.RunResult) { r.Features.Sources[0].Units[0].Binding.Contract = "future" }},
+		{"block text hash", func(r *unswell.RunResult) { r.Features.Sources[0].Units[0].Binding.TextSHA256 = "invalid" }},
+		{"trimmed text hash", func(r *unswell.RunResult) { r.Features.Sources[0].Units[0].Binding.TrimmedSHA256 = "invalid" }},
+		{"block map", func(r *unswell.RunResult) { r.Features.Sources[0].Units[0].Binding.Segments[0].Start = -1 }},
+		{"trimmed map", func(r *unswell.RunResult) { r.Features.Sources[0].Units[0].Binding.TrimmedSegments[0].Start = -1 }},
+		{"empty block segment", func(r *unswell.RunResult) {
+			s := &r.Features.Sources[0].Units[0].Binding.Segments[0]
+			s.End = s.Start
+		}},
 		{"invalid range", func(r *unswell.RunResult) { r.Features.Sources[0].Units[1].Segments[0].End = 999 }},
 		{"wrong definition", func(r *unswell.RunResult) { r.Features.Sources[0].Units[1].Values[0].Version = "99" }},
 		{"missing value", func(r *unswell.RunResult) { r.Features.Sources[0].Units[1].Values[0].Number = nil }},

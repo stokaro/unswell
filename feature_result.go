@@ -9,6 +9,23 @@ import (
 // FeatureCollectionVersion identifies the optional saved collection structure.
 const FeatureCollectionVersion = "unswell-feature-collection-v1"
 
+// FeatureBlockBindingContract identifies complete mapped-text block bindings.
+const FeatureBlockBindingContract = "mapped-block-v1"
+
+// FeatureBlockBinding identifies every mapped byte of an original extracted block.
+// TextSHA256 includes whitespace, punctuation, and protected separators. Segments
+// cover mapped text, including the source ranges of protected placeholders, not
+// only counted tokens. Missing bindings cannot be inferred from token segments.
+// Trimmed fields apply the same outer-whitespace trim as corpus unit preparation;
+// original fields retain the actual input used by rules.
+type FeatureBlockBinding struct {
+	Contract        string          `json:"contract"`
+	TextSHA256      string          `json:"text_sha256"`
+	Segments        []document.Span `json:"segments"`
+	TrimmedSHA256   string          `json:"trimmed_sha256"`
+	TrimmedSegments []document.Span `json:"trimmed_segments"`
+}
+
 // FeatureCollection contains requested descriptive measurements, not model scores.
 // The enclosing RunResult completion state applies: partial runs are not complete
 // training or inference inputs. Values never include normalized words or keys.
@@ -38,12 +55,13 @@ type FeatureSource struct {
 // unsupported measurement kind has no input hash or counted segments. Rule
 // activations retain the source, context, and rule identities instead.
 type FeatureUnit struct {
-	Scope       string          `json:"scope"`
-	UnitID      int             `json:"unit_id"`
-	Kind        string          `json:"kind"`
-	ContextHash string          `json:"context_hash"`
-	Span        document.Span   `json:"span"`
-	Segments    []document.Span `json:"segments"`
-	InputHash   string          `json:"input_hash,omitempty"`
-	Values      []feature.Value `json:"values"`
+	Binding     *FeatureBlockBinding `json:"binding,omitempty"`
+	Scope       string               `json:"scope"`
+	UnitID      int                  `json:"unit_id"`
+	Kind        string               `json:"kind"`
+	ContextHash string               `json:"context_hash"`
+	Span        document.Span        `json:"span"`
+	Segments    []document.Span      `json:"segments"`
+	InputHash   string               `json:"input_hash,omitempty"`
+	Values      []feature.Value      `json:"values"`
 }

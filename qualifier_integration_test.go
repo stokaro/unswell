@@ -28,8 +28,8 @@ func TestQualifierActivationsDoNotRestoreExcludedProse(t *testing.T) {
 func TestQualifierActivationsRetainFailuresAndConcurrentOwnership(t *testing.T) {
 	c := qt.New(t)
 	engine, err := unswell.New(unswell.Options{NoGate: true, Features: []string{"activation/hype.vague-praise"}, Config: []byte(
-		"version: 1\nextends: [builtin:custom]\nanalysis: {max_candidates: 1}\nrules:\n" +
-			"  hype.vague-praise: {enabled: true, parameters: {phrases: [alpha beta, alpha gamma]}}\n")})
+		"version: 1\nextends: [builtin:custom]\nanalysis: {max_candidates: 3}\nrules:\n" +
+			"  hype.vague-praise: {enabled: true, parameters: {phrases: [alpha beta, alpha gamma, alpha delta, alpha epsilon]}}\n")})
 	c.Assert(err, qt.IsNil)
 	result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte("Alpha")})
 	c.Assert(err, qt.ErrorMatches, ".*editorial pattern checks exceed max_candidates.*")

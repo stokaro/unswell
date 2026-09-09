@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"slices"
 	"strings"
-	"unicode"
 
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/internal/textutil"
 )
 
 func preparePieces(ctx context.Context, block document.Block, provider Provider, options UnitOptions) ([]PreparedUnit, error) {
@@ -23,8 +23,8 @@ func preparePieces(ctx context.Context, block document.Block, provider Provider,
 		if err := ctx.Err(); err != nil {
 			return nil, err
 		}
-		left := len(part) - len(strings.TrimLeftFunc(part, unicode.IsSpace))
-		text := strings.TrimSpace(part)
+		left, right := textutil.TrimSpaceBounds(part)
+		text := part[left:right]
 		if text != "" {
 			piece := document.MappedText{Text: text, Map: block.Map[start+left : start+left+len(text)]}
 			units, visits, err := preparePiece(ctx, block, piece, kind, provider, options, binding)

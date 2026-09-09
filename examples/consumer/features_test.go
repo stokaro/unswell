@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/sha256"
 	"fmt"
 	"testing"
 
@@ -87,6 +88,11 @@ func TestSharedFeaturesThroughPublicEngine(t *testing.T) {
 	c.Assert(m.Spans(), qt.DeepEquals, []document.Span{{Start: 0, End: 3}, {Start: 6, End: 9}, {Start: 12, End: 17}})
 	c.Assert(result.Features.Sources[0].Units[0].InputHash, qt.Equals, m.Hash())
 	c.Assert(result.Features.Sources[0].Units[0].Segments, qt.DeepEquals, m.Spans())
+	hash := fmt.Sprintf("%x", sha256.Sum256([]byte("One two three  \x00 .")))
+	segments := []document.Span{{Start: 0, End: 4}, {Start: 6, End: 9}, {Start: 11, End: 33}}
+	c.Assert(result.Features.Sources[0].Units[0].Binding, qt.DeepEquals, &unswell.FeatureBlockBinding{
+		Contract: unswell.FeatureBlockBindingContract, TextSHA256: hash, Segments: segments,
+		TrimmedSHA256: hash, TrimmedSegments: segments})
 	c.Assert(*result.Features.Sources[0].Units[0].Values[0].Number, qt.Equals, float64(0))
 	c.Assert(*result.Features.Sources[0].Units[0].Values[1].Number, qt.Equals, float64(3))
 }
