@@ -22,10 +22,12 @@ mkdir -p ../../artifacts/annotation
 go run ./cmd/annotate validate < testdata/tutorial.json
 go run ./cmd/annotate packet < testdata/tutorial.json > ../../artifacts/annotation/packet.json
 go run ./cmd/annotate agreement < testdata/tutorial.json > ../../artifacts/annotation/agreement.json
+go run ./cmd/annotate decisions < testdata/tutorial.json > ../../artifacts/annotation/decisions.json
 ```
 
 `validate` reports structural validity, not corpus acceptance. `packet` emits the
 reviewer's target/context view. `agreement` measures original primary responses.
+`decisions` exports selected labels and unresolved states for later corpus work.
 Successful commands exit 0; input, permission, and output errors exit 2.
 Interrupting a command exits 130. Output goes to stdout and errors to stderr.
 Redirect output to a new file and publish it only after the command succeeds.
@@ -120,6 +122,42 @@ These point estimates do not include sampling intervals. The
 requires grouped intervals for corpus publication. No universal acceptance
 threshold is built into this command.
 
+## Editorial decision export
+
+`Round.Decisions(ctx)` and `annotate decisions` produce
+`unswell-editorial-decisions-v1`. Every assigned primary rater must answer a unit
+before a label can be selected. Missing answers produce `missing_judgments`, even
+when an adjudication based on two other responses is recorded. Auxiliary assistant
+responses are counted separately and cannot fill that gap.
+
+Once primary responses are complete, a recorded adjudication takes precedence.
+Otherwise the quality label and the set of reason categories must agree.
+Disagreement produces `judgment_disagreement` and a null label; no majority vote
+or union of categories is inferred. A selected `uncertain` retains that label and
+an unresolved status. Acceptable or revision-required selections have `resolved`
+status and record the `unanimous` or `adjudication` basis.
+
+The export binds the exact input round bytes, frozen packet, rubric, and profile.
+It retains target/context hashes, original source segments, source identity,
+extraction policy, and recorded allowed uses. It omits prose, rationales, author
+identities, and origin claims. Archive the original round for individual answers,
+timestamps, and explanations. Reformatting its JSON changes `round_sha256`, even
+when the selected decisions remain identical. The export's own hash covers compact
+Go JSON with its `sha256` field omitted.
+
+Tutorial output has `basis: simulation`; pilot/corpus output records
+`basis: declared_human`. Both retain `human_corpus: not_qualified`. These records
+alone cannot authenticate participants, verify source extraction or permissions,
+establish independent splits, or qualify a training corpus. A resolved label does
+not override the recorded allowed uses. The later corpus/feature join must verify
+the actual target and context; block measurements cannot be assigned to a shorter
+sentence merely because their ranges overlap.
+
+The library performs no I/O and returns detached values. Cancellation or failure
+returns no partial export. Compact output is limited to 64 MiB. See
+[ADR 0019](../../docs/adr/0019-editorial-decision-export.md) for the contract and
+remaining training/evaluation requirements.
+
 ## Teaching fixtures
 
 `testdata/tutorial.json` contains 17 teaching units, with source files under
@@ -140,8 +178,8 @@ fulfill the pilot, 5,000-unit minimum, independent-rater requirement, or final t
 Permission to reuse an example does not change its status as a teaching fixture.
 
 Root [e2e tests](../../e2e/annotation_test.go) build the command with cgo disabled,
-verify the full blinded packet against a golden, and check the agreement summary
-and rejection exits. Module tests cover the schema, provenance boundaries,
+verify the blinded packet and decision export against goldens, and check the
+agreement summary and rejection exits. Module tests cover the schema, provenance boundaries,
 missingness, source references, cancellation, writer/read failures, and published
 numeric examples. Ordinary CI tests, lint, race, fuzz, and coverage include this
 module through `.gomodules`; no separate runtime exemption is added.

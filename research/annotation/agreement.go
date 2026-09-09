@@ -73,21 +73,12 @@ func (r *Round) Agreement(ctx context.Context) (Agreement, error) {
 		Purpose: r.data.Purpose, Basis: r.data.primaryKind(), Rubric: r.data.Rubric,
 		ProfileSHA256: r.data.Profile.SHA256, SamplingIntervals: "not_estimated"}
 	result.PacketSHA256 = r.data.packetSHA256
-	actors := make(map[string]bool)
-	for _, actor := range r.data.Actors {
-		if actor.Kind == r.data.primaryKind() && actor.Role == "rater" {
-			actors[actor.ID] = true
-			result.PrimaryRaters++
-		}
+	responses, err := r.data.responses(ctx)
+	if err != nil {
+		return Agreement{}, err
 	}
-	byUnit := make(map[string][]Judgment)
-	for _, judgment := range r.data.Judgments {
-		if actors[judgment.ActorID] {
-			byUnit[judgment.UnitID] = append(byUnit[judgment.UnitID], judgment)
-		} else {
-			result.AuxiliaryJudgments++
-		}
-	}
+	result.PrimaryRaters = len(responses.raters)
+	result.AuxiliaryJudgments = responses.auxTotal
 	primaryRatings := len(r.data.Judgments) - result.AuxiliaryJudgments
 	result.MissingAnswers = len(r.data.Units)*result.PrimaryRaters - primaryRatings
 	groups := r.groupUnits()
@@ -95,7 +86,7 @@ func (r *Round) Agreement(ctx context.Context) (Agreement, error) {
 		if err := ctx.Err(); err != nil {
 			return Agreement{}, err
 		}
-		result.Groups = append(result.Groups, summarizeGroup(name, groups[name], byUnit))
+		result.Groups = append(result.Groups, summarizeGroup(name, groups[name], responses.byUnit))
 	}
 	return result, nil
 }

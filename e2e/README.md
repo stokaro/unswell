@@ -9,9 +9,11 @@ invented human-corpus status must fail. See the
 have no human labels and all belong to development.
 
 The [annotation protocol test](annotation_test.go) builds the research command,
-checks a blinded packet golden and agreement summary, and requires exit 2 for
+checks packet and decision goldens and an agreement summary, and requires exit 2 for
 ambiguous JSON or attempts to count simulated responses as a human corpus.
 Its fixtures are documented teaching data, not human annotation evidence.
+The decision golden preserves simulation status, unresolved labels, source
+bindings, and adjudication selections without copying target prose or rationales.
 
 Run `go test ./e2e -count=1` from the repository root. The suite builds the real CLI
 with `CGO_ENABLED=0`, then launches it in a fresh directory for each scenario.

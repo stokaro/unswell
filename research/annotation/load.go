@@ -2,6 +2,7 @@ package annotation
 
 import (
 	"context"
+	"crypto/sha256"
 	_ "embed"
 	"encoding/json"
 	"fmt"
@@ -31,5 +32,6 @@ func Load(ctx context.Context, data []byte) (*Round, error) {
 	if err := round.data.validate(ctx); err != nil {
 		return nil, err
 	}
+	round.inputSHA256 = fmt.Sprintf("%x", sha256.Sum256(data))
 	return &round, nil
 }

@@ -23,7 +23,7 @@ func TestCommandFailures(t *testing.T) {
 	c.Assert(run(t.Context(), nil, brokenIO{}, io.Discard), qt.ErrorMatches, "usage:.*")
 	c.Assert(run(t.Context(), []string{"unknown"}, brokenIO{}, io.Discard), qt.ErrorMatches, "unknown annotation command.*")
 	c.Assert(run(t.Context(), []string{"validate"}, brokenIO{}, io.Discard), qt.ErrorIs, io.ErrUnexpectedEOF)
-	cases := []struct{ command string }{{"validate"}, {"packet"}, {"agreement"}}
+	cases := []struct{ command string }{{"validate"}, {"packet"}, {"agreement"}, {"decisions"}}
 	for _, tc := range cases {
 		t.Run(tc.command, func(t *testing.T) {
 			c := qt.New(t)

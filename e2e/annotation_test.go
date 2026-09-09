@@ -26,6 +26,13 @@ func TestAnnotationProtocol(t *testing.T) {
 		c.Assert(err, qt.IsNil)
 		c.Assert(output, qt.DeepEquals, expected)
 	})
+	t.Run("editorial decisions", func(t *testing.T) {
+		c := qt.New(t)
+		output := annotationCommand(t, binary, "decisions", data, 0)
+		expected, err := os.ReadFile("annotationdata/decisions.golden.json")
+		c.Assert(err, qt.IsNil)
+		c.Assert(output, qt.DeepEquals, expected)
+	})
 	t.Run("agreement", func(t *testing.T) {
 		c := qt.New(t)
 		output := annotationCommand(t, binary, "agreement", data, 0)
@@ -56,6 +63,7 @@ func TestAnnotationProtocol(t *testing.T) {
 	t.Run("simulated labels cannot count as corpus", func(t *testing.T) {
 		invalid := bytes.Replace(data, []byte(`"purpose": "tutorial"`), []byte(`"purpose": "corpus"`), 1)
 		annotationCommand(t, binary, "validate", invalid, 2)
+		annotationCommand(t, binary, "decisions", invalid, 2)
 	})
 }
 

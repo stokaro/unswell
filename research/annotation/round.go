@@ -12,7 +12,8 @@ const Rubric = "unswell-editorial-v1"
 // Round preserves administrative metadata, original judgments, and adjudication.
 // Only Packet may be distributed to blinded annotators.
 type Round struct {
-	data roundData
+	data        roundData
+	inputSHA256 string
 }
 
 type roundData struct {
