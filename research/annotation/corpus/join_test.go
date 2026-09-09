@@ -165,7 +165,10 @@ func TestJoinPreservesInheritedContextsAndExceptionDefaults(t *testing.T) {
 		policy extract.Policy
 		units  int
 	}{
-		{"inherit", extract.Policy{Languages: map[document.Format]extract.LanguagePolicy{document.Go: {}}}, 3},
+		{"global defaults", extract.Policy{}, 3},
+		{"comments", extract.Policy{Languages: map[document.Format]extract.LanguagePolicy{
+			document.Go: {Contexts: []string{"comment"}},
+		}}, 2},
 		{"exception", extract.Policy{Exceptions: []extract.Exception{{ID: "omit-string", Paths: []string{"sample.go"},
 			Kinds: []string{"string"}, Reason: "Exercise an exception with omitted optional selectors."}}}, 2},
 	} {

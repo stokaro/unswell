@@ -127,7 +127,8 @@ editorial targets, but changing text, context, source metadata, extraction, or
 rights requires a matching new candidate artifact.
 
 Instruction, policy, extraction, preparation, NLP, and feature hashes keep distinct
-meanings. Nil extraction context fields inherit; empty sets disable extraction.
+meanings. An unset global context set uses defaults. Per-language overrides
+require an explicit set; empty sets disable extraction.
 Matching uses every original segment and both target/context hashes. A bounding
 span or equal unit ID alone is insufficient. An incomplete measurement fails the
 whole operation; no partial JSON is written. Exit codes remain 0, 2, and 130.

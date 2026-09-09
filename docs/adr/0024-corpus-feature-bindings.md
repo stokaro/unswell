@@ -41,8 +41,9 @@ hash; no origin metadata is supplied as a numerical feature.
 The annotation profile hash identifies the human instructions. Engine policy,
 vocabulary, extraction, preparation, NLP, and feature identities keep their own
 meanings. Configuration rejects null overrides, so nil extraction fields are
-omitted when constructing it. Explicit empty context sets are retained: they
-disable extraction. The complete target comparison checks the resulting behavior.
+omitted when constructing it. An unset global context set uses defaults;
+per-language overrides require an explicit set. Empty sets disable extraction.
+The complete target comparison checks the resulting behavior.
 
 `unswell-corpus-feature-bindings-v1` is a separate research artifact. Its status is
 `verified_targets_with_measured_features`, and `human_corpus` remains
