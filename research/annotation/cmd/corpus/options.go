@@ -13,10 +13,12 @@ import (
 )
 
 type options struct {
-	root, round string
-	ruleConfig  string
-	features    []string
-	train       training.Options
+	root, round    string
+	ruleConfig     string
+	features       []string
+	train          training.Options
+	lexical        bool
+	lexicalOptions training.LexicalOptions
 }
 
 func commandOptions(args []string) (options, error) {
@@ -34,8 +36,12 @@ func commandOptions(args []string) (options, error) {
 	}
 	if args[0] == "train" {
 		trainingFlags(flags, &result.train)
+		lexicalFlags(flags, &result)
 	}
 	if err := flags.Parse(args[1:]); err != nil {
+		return options{}, err
+	}
+	if err := validateLexicalFlags(flags, result); err != nil {
 		return options{}, err
 	}
 	if flags.NArg() != 0 || (args[0] == "plan") != (result.root == "") {
@@ -47,15 +53,16 @@ func commandOptions(args []string) (options, error) {
 
 func (result options) validate(name string) error {
 	if name == "join" || name == "train" {
-		if result.round == "" || len(result.features) == 0 {
+		if result.round == "" || (len(result.features) == 0 && !result.lexical) {
 			return fmt.Errorf("join and train require --round and at least one --feature")
 		}
 	} else if result.round != "" || len(result.features) != 0 {
 		return fmt.Errorf("only join and train accept --round and --feature")
 	}
-	if name == "train" && result.train.Kind == "" {
-		return fmt.Errorf("train requires --kind")
+	if err := result.validateLexical(name); err != nil {
+		return err
 	}
+
 	return nil
 }
 

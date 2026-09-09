@@ -134,6 +134,9 @@ func annotatedOperation(ctx context.Context, name string, options options, artif
 	if err != nil {
 		return nil, err
 	}
+	if options.lexical {
+		return training.RunLexical(ctx, artifact, round, files, options.train, options.lexicalOptions)
+	}
 	if options.ruleConfig != "" {
 		return ruleOperation(ctx, name, options, artifact, round, files)
 	}
