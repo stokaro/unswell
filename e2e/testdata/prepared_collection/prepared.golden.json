@@ -1,0 +1,392 @@
+{
+  "version": "unswell-prepared-feature-collection-v1",
+  "feature_contract": "unswell-prepared-unit-features-v1",
+  "unit_contract": "eligible-piece-v1",
+  "requested": [
+    "noun-token-ratio",
+    "prose-words"
+  ],
+  "kinds": [
+    "fragment",
+    "paragraph",
+    "sentence"
+  ],
+  "sources": [
+    {
+      "target_count": 6,
+      "path": "sample.md",
+      "source_hash": "f6eac9d905885d7506cc9afa9a984cf06fb4e042d6374c133f52e6f2db8602ab",
+      "policy_hash": "3d3d3be4c4d593325fa7c9608ef26424424cb1c73b5fc7984fc5f4adab584d2c",
+      "vocabulary_hash": "3d3d3be4c4d593325fa7c9608ef26424424cb1c73b5fc7984fc5f4adab584d2c",
+      "extraction_policy_hash": "b05edbaa278258e29777292dbb45d2b96d763b93120e54d50a3878dfe9ada445",
+      "preparation_hash": "5a8928f2d5037fd2f075fb512507972987a818ea9c25907a67b46023ab8febed",
+      "include_quotes": false,
+      "include_structure": false,
+      "nlp": {
+        "name": "builtin-en",
+        "version": "prose-v3.2.1/chunks-v1",
+        "model": "prose/aptagmodel/en.bin",
+        "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+        "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+        "license": "MIT",
+        "capabilities": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ]
+      },
+      "capabilities": [
+        "pos",
+        "sentences",
+        "tokens"
+      ],
+      "units": [
+        {
+          "binding": {
+            "contract": "eligible-piece-v1",
+            "kind": "fragment",
+            "block_id": 0,
+            "block_kind": "heading",
+            "text_sha256": "fe59f1a17d2e41d063650e9efafb26cb194f1db7f604853e62f2e39f11a86d67",
+            "context_sha256": "fe59f1a17d2e41d063650e9efafb26cb194f1db7f604853e62f2e39f11a86d67",
+            "grammar_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "segments": [
+              {
+                "start": 2,
+                "end": 17
+              }
+            ],
+            "context_segments": [
+              {
+                "start": 2,
+                "end": 17
+              }
+            ]
+          },
+          "input_hash": "7745d10c83cd1672b73717792e5924a26bd9f6601175d097618056bba8138627",
+          "segments": [
+            {
+              "start": 2,
+              "end": 9
+            },
+            {
+              "start": 10,
+              "end": 17
+            }
+          ],
+          "values": [
+            {
+              "id": "noun-token-ratio",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.5
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 2
+            }
+          ]
+        },
+        {
+          "binding": {
+            "contract": "eligible-piece-v1",
+            "kind": "sentence",
+            "block_id": 1,
+            "block_kind": "paragraph",
+            "text_sha256": "3dd3ca42b089ce464d23ce6ef02c5e50cff108ef3435c5f02ab04e8a967482c5",
+            "context_sha256": "f00b9c01d5532dc60c4c4bb6349e993719deea06bb4753af1a936baa1b05d120",
+            "grammar_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "segments": [
+              {
+                "start": 21,
+                "end": 25
+              },
+              {
+                "start": 27,
+                "end": 32
+              },
+              {
+                "start": 34,
+                "end": 43
+              }
+            ],
+            "context_segments": [
+              {
+                "start": 21,
+                "end": 25
+              },
+              {
+                "start": 27,
+                "end": 32
+              },
+              {
+                "start": 34,
+                "end": 63
+              }
+            ]
+          },
+          "input_hash": "55cfb3f7c30c942004e01fe88441ff9627a34cd9ab9a0816d66565a129fd8cf9",
+          "segments": [
+            {
+              "start": 21,
+              "end": 24
+            },
+            {
+              "start": 27,
+              "end": 32
+            },
+            {
+              "start": 35,
+              "end": 42
+            }
+          ],
+          "values": [
+            {
+              "id": "noun-token-ratio",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.3333333333333333
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 3
+            }
+          ]
+        },
+        {
+          "binding": {
+            "contract": "eligible-piece-v1",
+            "kind": "sentence",
+            "block_id": 1,
+            "block_kind": "paragraph",
+            "text_sha256": "0fb8ac9f5d1ebf01fffe4a6cea8d3ffeddba9485ea5c0608d7d81beb503dcb9a",
+            "context_sha256": "f00b9c01d5532dc60c4c4bb6349e993719deea06bb4753af1a936baa1b05d120",
+            "grammar_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "segments": [
+              {
+                "start": 44,
+                "end": 63
+              }
+            ],
+            "context_segments": [
+              {
+                "start": 21,
+                "end": 25
+              },
+              {
+                "start": 27,
+                "end": 32
+              },
+              {
+                "start": 34,
+                "end": 63
+              }
+            ]
+          },
+          "input_hash": "cedfed6ea4c378eac9172601bf3f26fd8f167f87fef34c5f50f93b14a94b685c",
+          "segments": [
+            {
+              "start": 44,
+              "end": 47
+            },
+            {
+              "start": 48,
+              "end": 54
+            },
+            {
+              "start": 55,
+              "end": 62
+            }
+          ],
+          "values": [
+            {
+              "id": "noun-token-ratio",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.6666666666666666
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 3
+            }
+          ]
+        },
+        {
+          "binding": {
+            "contract": "eligible-piece-v1",
+            "kind": "paragraph",
+            "block_id": 1,
+            "block_kind": "paragraph",
+            "text_sha256": "f00b9c01d5532dc60c4c4bb6349e993719deea06bb4753af1a936baa1b05d120",
+            "context_sha256": "f00b9c01d5532dc60c4c4bb6349e993719deea06bb4753af1a936baa1b05d120",
+            "grammar_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "segments": [
+              {
+                "start": 21,
+                "end": 25
+              },
+              {
+                "start": 27,
+                "end": 32
+              },
+              {
+                "start": 34,
+                "end": 63
+              }
+            ],
+            "context_segments": [
+              {
+                "start": 21,
+                "end": 25
+              },
+              {
+                "start": 27,
+                "end": 32
+              },
+              {
+                "start": 34,
+                "end": 63
+              }
+            ]
+          },
+          "input_hash": "254517434b309655c7bf16f972d9965e86f8477fc1584856c2a48cc5e7a5a87b",
+          "segments": [
+            {
+              "start": 21,
+              "end": 24
+            },
+            {
+              "start": 27,
+              "end": 32
+            },
+            {
+              "start": 35,
+              "end": 42
+            },
+            {
+              "start": 44,
+              "end": 47
+            },
+            {
+              "start": 48,
+              "end": 54
+            },
+            {
+              "start": 55,
+              "end": 62
+            }
+          ],
+          "values": [
+            {
+              "id": "noun-token-ratio",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.5
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 6
+            }
+          ]
+        },
+        {
+          "binding": {
+            "contract": "eligible-piece-v1",
+            "kind": "fragment",
+            "block_id": 2,
+            "block_kind": "paragraph",
+            "text_sha256": "a151ceb1711aad529a7704248f03333990022ebbfa07a7f04c004d70c167919f",
+            "context_sha256": "a151ceb1711aad529a7704248f03333990022ebbfa07a7f04c004d70c167919f",
+            "grammar_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "segments": [
+              {
+                "start": 67,
+                "end": 72
+              }
+            ],
+            "context_segments": [
+              {
+                "start": 67,
+                "end": 72
+              }
+            ]
+          },
+          "input_hash": "3b26225ec80c95e12daae8d9015b9d6975bd78d7d9723a7d5aada84ccab1c25b",
+          "segments": [
+            {
+              "start": 67,
+              "end": 72
+            }
+          ],
+          "values": [
+            {
+              "id": "noun-token-ratio",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 1
+            }
+          ]
+        },
+        {
+          "binding": {
+            "contract": "eligible-piece-v1",
+            "kind": "fragment",
+            "block_id": 2,
+            "block_kind": "paragraph",
+            "text_sha256": "d1b67ae35c731cbb315ef7dfcb2ab22c6472bbadec28902e2222faf4f227e735",
+            "context_sha256": "d1b67ae35c731cbb315ef7dfcb2ab22c6472bbadec28902e2222faf4f227e735",
+            "grammar_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "segments": [
+              {
+                "start": 82,
+                "end": 87
+              }
+            ],
+            "context_segments": [
+              {
+                "start": 82,
+                "end": 87
+              }
+            ]
+          },
+          "input_hash": "c86893752d2eb267fd8cf3abc5c416e95f12fdfa24b9e7f15d7dd2ea6e029c51",
+          "segments": [
+            {
+              "start": 82,
+              "end": 86
+            }
+          ],
+          "values": [
+            {
+              "id": "noun-token-ratio",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

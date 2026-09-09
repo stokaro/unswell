@@ -12,7 +12,7 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 </style></head><body>
 <header><h1>Unswell: {{.Verdict}}</h1><p>{{len .Result.Documents}} documents · {{len .Result.Findings}} findings · analysis {{.Result.Status}}</p>
 <p>Revision probability: <strong>unavailable</strong>. This alpha has no calibrated revision model. Index values are points out of 100.</p>
-<nav aria-label="Report sections"><ul><li><a href="#gate">Gate</a></li><li><a href="#files">Files and coverage</a></li><li><a href="#findings">Findings</a></li><li><a href="#paragraphs">Paragraph scores</a></li>{{if .Result.Suppressions}}<li><a href="#suppressions">Source permissions</a></li>{{end}}{{if .Result.Features}}<li><a href="#features">Shared measurements</a></li>{{end}}<li><a href="#manifest">Analysis manifest</a></li></ul></nav></header>
+<nav aria-label="Report sections"><ul><li><a href="#gate">Gate</a></li><li><a href="#files">Files and coverage</a></li><li><a href="#findings">Findings</a></li><li><a href="#paragraphs">Paragraph scores</a></li>{{if .Result.Suppressions}}<li><a href="#suppressions">Source permissions</a></li>{{end}}{{if .Result.Features}}<li><a href="#features">Shared measurements</a></li>{{end}}{{if .Result.PreparedFeatures}}<li><a href="#prepared-features">Prepared measurements</a></li>{{end}}<li><a href="#manifest">Analysis manifest</a></li></ul></nav></header>
 <main><section id="gate"><h2>Gate decision</h2>{{range .Result.Gate.Reasons}}<p><a href="#finding-{{.FindingID}}">{{.Path}}</a>: {{.Message}}</p>{{else}}<p>No editorial gate failures.</p>{{end}}
 {{range .Result.Errors}}<p class="error">Operational error: {{.Path}} — {{.Message}}</p>{{end}}</section>
 {{if .Result.Baseline}}<section id="baseline"><h2>Baseline debt</h2>
@@ -71,6 +71,10 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 <p>Rule activations: {{.Result.Features.ActivationContract}}. Values are signals, not probabilities.</p>{{end}}
 <table><thead><tr><th>Location</th><th>Feature</th><th>Value</th><th>Unit</th></tr></thead><tbody>
 {{range .FeatureRows}}<tr><td>{{.Location}}</td><td>{{.ID}}</td><td>{{.Value}}</td><td>{{.Unit}}</td></tr>{{end}}
+</tbody></table></section>{{end}}{{if .Result.PreparedFeatures}}<section id="prepared-features"><h2>Prepared measurements</h2>
+<p>{{.Result.PreparedFeatures.Version}} / {{.Result.PreparedFeatures.FeatureContract}}. These descriptive values share the analysis completion state.</p>
+<table><thead><tr><th>Location</th><th>Feature</th><th>Value</th><th>Unit</th></tr></thead><tbody>
+{{range .PreparedRows}}<tr><td>{{.Location}}</td><td>{{.ID}}</td><td>{{.Value}}</td><td>{{.Unit}}</td></tr>{{end}}
 </tbody></table></section>{{end}}<section id="manifest"><h2>Analysis manifest</h2><p>Unswell {{.Result.Manifest.ToolVersion}} · {{.Result.Manifest.ScoringProfile}} · {{.Result.Manifest.NLP.Version}}</p>
 <p>Config hash: <code>{{.Result.Manifest.ConfigHash}}</code></p><p>Ruleset hash: <code>{{.Result.Manifest.RulesetHash}}</code></p>
 {{if .Result.Manifest.ConfigIdentity}}<p>Config identity: {{.Result.Manifest.ConfigIdentity}}</p>{{end}}

@@ -22,7 +22,9 @@ import (
 func Run(ctx context.Context, args []string, stderr io.Writer, transport mcp.Transport) error {
 	flags := flag.NewFlagSet("unswell-mcp", flag.ContinueOnError)
 	flags.SetOutput(stderr)
-	var features []string
+	var features, preparedFeatures, preparedKinds []string
+	flags.Func("prepared-feature", "collect a prepared target feature; repeat for a set", appendFlag(&preparedFeatures))
+	flags.Func("prepared-kind", "select sentence, paragraph, or fragment; repeat for a set", appendFlag(&preparedKinds))
 	flags.Func("feature", "collect a shared block feature by ID; repeat to select a set", func(id string) error {
 		features = append(features, id)
 		return nil
@@ -57,7 +59,8 @@ func Run(ctx context.Context, args []string, stderr io.Writer, transport mcp.Tra
 	if err != nil {
 		return err
 	}
-	instance, err := server.New(server.Options{Features: features, ConfigBundle: &loaded.Bundle,
+	instance, err := server.New(server.Options{Features: features,
+		PreparedFeatures: preparedFeatures, PreparedKinds: preparedKinds, ConfigBundle: &loaded.Bundle,
 		Timeout: *timeout, Baseline: accepted, GateMode: *gateMode})
 	if err != nil {
 		return err
@@ -82,4 +85,11 @@ func readBaseline(path string) ([]byte, error) {
 		return nil, fmt.Errorf("baseline exceeds %d bytes", baseline.MaxBytes)
 	}
 	return data, nil
+}
+
+func appendFlag(values *[]string) func(string) error {
+	return func(value string) error {
+		*values = append(*values, value)
+		return nil
+	}
 }

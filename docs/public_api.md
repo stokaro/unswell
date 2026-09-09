@@ -114,6 +114,15 @@ They verify the actual provider and requested capabilities. Existing block
 collection, rule activations, and saved reports keep their contracts. See
 [prepared units](prepared-units.md) and [ADR 0022](adr/0022-shared-prose-units.md).
 
+`Options.PreparedFeatures` and `PreparedKinds` select prepared target collection;
+`Engine.PreparedFeatureIDs` and `PreparedUnitKinds` expose owned canonical sets.
+`RunResult.PreparedFeatures` contains `PreparedFeatureCollection`,
+`PreparedFeatureSource`, and `PreparedFeatureUnit` under
+`PreparedFeatureCollectionVersion`. Target/context bindings, counted segments,
+actual capabilities, and separate policy/extraction identities accompany the
+numeric values. This optional additive field leaves default saved output and
+block collection semantics unchanged. See [ADR 0023](adr/0023-prepared-feature-collection.md).
+
 The additive `rule.Parameters.MaxAnswerWords` field configures the experimental
 question/answer pattern. Its zero value is omitted from saved parameter objects;
 enabled use requires a value from 1 through 100. The report schema includes the

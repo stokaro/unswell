@@ -14,12 +14,16 @@ import (
 func TestFeatureCollectionMatchesThePublicEngine(t *testing.T) {
 	c := qt.New(t)
 	ids := []string{"prose-words", "noun-token-ratio", "activation/readability.long-paragraph"}
-	session := connect(c, t.Context(), server.Options{Features: ids})
-	engine, err := unswell.New(unswell.Options{Features: ids})
+	session := connect(c, t.Context(), server.Options{Features: ids,
+		PreparedFeatures: []string{"prose-words"}, PreparedKinds: []string{"sentence", "paragraph"}})
+	engine, err := unswell.New(unswell.Options{Features: ids,
+		PreparedFeatures: []string{"prose-words"}, PreparedKinds: []string{"sentence", "paragraph"}})
 	c.Assert(err, qt.IsNil)
 	response, err := session.CallTool(t.Context(), &mcp.CallToolParams{Name: "unswell_describe", Arguments: server.DescribeInput{}})
 	c.Assert(err, qt.IsNil)
 	c.Assert(output[server.Description](c, response).Features, qt.DeepEquals, engine.FeatureIDs())
+	c.Assert(output[server.Description](c, response).PreparedFeatures, qt.DeepEquals, engine.PreparedFeatureIDs())
+	c.Assert(output[server.Description](c, response).PreparedKinds, qt.DeepEquals, engine.PreparedUnitKinds())
 	const prose = "# Heading\n\nThe cache expires.\n"
 	response, err = session.CallTool(t.Context(), &mcp.CallToolParams{Name: "unswell_check", Arguments: server.CheckInput{
 		Sources: []server.Source{{Name: "guide.md", Format: document.Markdown, Text: prose}},
@@ -31,4 +35,6 @@ func TestFeatureCollectionMatchesThePublicEngine(t *testing.T) {
 	c.Assert(err, qt.IsNil)
 	c.Assert(checked.Result, qt.DeepEquals, direct)
 	c.Assert(checked.Result.Features, qt.IsNotNil)
+	c.Assert(checked.Result.PreparedFeatures, qt.IsNotNil)
+	c.Assert(checked.Result.PreparedFeatures.Sources[0].Units, qt.HasLen, 2)
 }

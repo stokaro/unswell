@@ -13,6 +13,9 @@ import (
 )
 
 func validateFeatures(result unswell.RunResult) error {
+	if err := validatePreparedFeatures(result); err != nil {
+		return err
+	}
 	collection := result.Features
 	if collection == nil {
 		return nil

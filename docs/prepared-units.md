@@ -27,6 +27,50 @@ Missing POS remains absent. The measurement hash covers these identities and the
 complete target/context binding. `UnitCatalog` describes the selected scope;
 the existing block `Catalog` and `FeatureCollection` retain their meaning.
 
+The engine collects these measurements when both `Options.PreparedFeatures` and
+`Options.PreparedKinds` are supplied. Each is a set; unknown or duplicate entries
+fail construction. `Engine.PreparedFeatureIDs` and `PreparedUnitKinds` return the
+canonical selections. Supported kinds are `sentence`, `paragraph`, and `fragment`.
+Rule activations remain in the block collection and cannot be requested here.
+
+For CLI checks, repeat the flags to choose measurements and kinds:
+
+```sh
+unswell check README.md \
+  --prepared-feature prose-words --prepared-feature noun-token-ratio \
+  --prepared-kind sentence --prepared-kind paragraph \
+  --report json:result.json
+```
+
+The MCP server accepts the same flags at startup. `unswell_describe` exposes the
+fixed selections, and `unswell_check` returns `RunResult.PreparedFeatures` through
+the common engine. All five report formats consume the collection. Saved reports
+can be rendered without loading the source files, NLP provider, or a model.
+
+The collection has its own version and is omitted by default. Source records
+separate the full policy hash, extraction policy hash, and preparation hash. The
+last hash also binds quote/structure switches and `eligible-piece-v1`. Feature
+input hashes use it as the preprocessing identity. Complete target and context
+segments remain distinct from counted token segments. Grammar scope hashes are
+not hashes of the prose shown to annotators. Target counts record the selected
+units; excluded contexts and punctuation-only pieces do not become targets.
+
+Existing block NLP and scoring inputs stay unchanged. This optional collection
+performs a separate preparation pass over the already extracted blocks; sentence
+and paragraph targets share the analysis of their enclosing eligible piece.
+Per-source `analysis.max_candidates` charges measurements, mapped segments, and
+measured token visits. Preparation also caps each block at 10,000 targets, each
+context at 65,536 bytes, and target/context maps at 4,096 segments. Existing input
+limits still apply. A required collection error makes the run incomplete even
+with `--no-gate`; partial source evidence is not a complete training input.
+
+Reader validation checks the recorded contracts, identities, ranges, counts, and
+values. It cannot reconstruct feature input hashes without the original inputs.
+An annotation join must verify those inputs and the extraction settings rather
+than trust matching field names or a parent block ID. This collection supplies
+descriptive values, not human labels, qualified models, or probabilities. See
+[ADR 0023](adr/0023-prepared-feature-collection.md).
+
 Limits bound bytes, context size, targets, tokens and source segments. Failed
 preparation returns no partial set. Prepared units own their data; returned blocks,
 bindings, provider metadata and capability slices can be changed by their caller

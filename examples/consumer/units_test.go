@@ -5,6 +5,7 @@ import (
 
 	qt "github.com/frankban/quicktest"
 
+	"github.com/stokaro/unswell"
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/extract"
 	"github.com/stokaro/unswell/feature"
@@ -33,5 +34,19 @@ func TestPrepareAndMeasureSameTarget(t *testing.T) {
 		c.Assert(err, qt.IsNil)
 		c.Assert(measurements.Counts().Words, qt.Equals, words)
 		c.Assert(unit.Binding().Segments, qt.DeepEquals, unit.Block().Spans(0, len(unit.Block().Text)))
+	}
+}
+
+func TestCollectPreparedTargetsThroughPublicEngine(t *testing.T) {
+	c := qt.New(t)
+	engine, err := unswell.New(unswell.Options{PreparedFeatures: []string{"prose-words"},
+		PreparedKinds: []string{"sentence", "paragraph"}})
+	c.Assert(err, qt.IsNil)
+	result, err := engine.Analyze(t.Context(), document.Source{Name: "example.txt", Format: document.Plain,
+		Bytes: []byte("The cache may retry. The service cannot wait.")})
+	c.Assert(err, qt.IsNil)
+	c.Assert(result.PreparedFeatures.Sources[0].Units, qt.HasLen, 3)
+	for i, words := range []float64{4, 4, 8} {
+		c.Assert(*result.PreparedFeatures.Sources[0].Units[i].Values[0].Number, qt.Equals, words)
 	}
 }

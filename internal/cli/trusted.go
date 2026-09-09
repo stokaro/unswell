@@ -32,6 +32,7 @@ func analyzeTrusted(
 		return unswell.RunResult{}, nil, err
 	}
 	engine, err := unswell.New(unswell.Options{Features: options.features,
+		PreparedFeatures: options.preparedFeatures, PreparedKinds: options.preparedKinds,
 		ConfigBundle: &inputs.loaded.Bundle, Rules: append(builtin.Rules(), inputs.rules...), Baseline: inputs.baseline,
 		Jobs: options.jobs, IncludeSource: options.includeSource, NoGate: options.noGate, AllowEmpty: options.allowEmpty,
 	})

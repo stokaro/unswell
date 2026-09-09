@@ -54,6 +54,7 @@ func expectedBatch(expected unswell.RunResult, documents []unswell.DocumentResul
 		expected.Suppressions = nil // Empty suppressions are omitted by the wire schema.
 	}
 	expected.Features = batchFeatures(expected.Features, paths)
+	expected.PreparedFeatures = batchPreparedFeatures(expected.PreparedFeatures, paths)
 	return expected
 }
 
@@ -63,6 +64,17 @@ func batchFeatures(collection *unswell.FeatureCollection, paths map[string]bool)
 	}
 	batch := *collection
 	batch.Sources = slices.DeleteFunc(slices.Clone(collection.Sources), func(source unswell.FeatureSource) bool {
+		return !paths[source.Path]
+	})
+	return &batch
+}
+
+func batchPreparedFeatures(collection *unswell.PreparedFeatureCollection, paths map[string]bool) *unswell.PreparedFeatureCollection {
+	if collection == nil {
+		return nil
+	}
+	batch := *collection
+	batch.Sources = slices.DeleteFunc(slices.Clone(collection.Sources), func(source unswell.PreparedFeatureSource) bool {
 		return !paths[source.Path]
 	})
 	return &batch
