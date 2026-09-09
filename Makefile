@@ -25,6 +25,7 @@ fuzz:
 	cd research/annotation && go test ./corpus -run '^$$' -fuzz '^FuzzLoadArtifact$$' -fuzztime 10s -parallel 2
 	cd research/annotation && go test . -run '^$$' -fuzz FuzzLoad -fuzztime 10s -parallel 2
 	go test ./nlp -run '^$$' -fuzz FuzzDependencyTree -fuzztime 10s -parallel 2
+	go test ./nlp -run '^$$' -fuzz FuzzPrepareUnits -fuzztime 10s -parallel 2
 	go test ./baseline -run '^$$' -fuzz FuzzLoad -fuzztime 10s -parallel 2
 	go test ./extract -run '^$$' -fuzz Fuzz -fuzztime 10s -parallel 2
 	go test ./report -run '^$$' -fuzz Fuzz -fuzztime 10s -parallel 2

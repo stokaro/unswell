@@ -1,4 +1,4 @@
-// Package nlp defines the backend contract without exposing vendor types.
+// Package nlp defines backend capabilities and prepares mapped prose units.
 package nlp
 
 import (

@@ -7,7 +7,6 @@ import (
 	"runtime/debug"
 	"slices"
 	"strings"
-	"unicode"
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/extract"
@@ -147,77 +146,28 @@ func sourceUnits(ctx context.Context, provider *english.Provider, source Source,
 	kinds []string, group Group, policyHash string,
 ) ([]Candidate, error) {
 	result := []Candidate{}
+	options := nlp.UnitOptions{Kinds: kinds, Capabilities: []nlp.Capability{nlp.Tokens, nlp.Sentences},
+		Limits: nlp.UnitLimits{MaxBytes: MaxSourceBytes, MaxContextBytes: 65536, MaxUnits: MaxUnits,
+			MaxTokens: 1000000, MaxSegments: 1024}}
 	for _, block := range doc.Blocks {
-		kind := "fragment"
-		if !strings.ContainsRune(block.Text, 0) && slices.Contains([]string{"paragraph", "comment"}, block.Kind) {
-			kind = "paragraph"
+		units, err := nlp.PrepareUnits(ctx, block, provider, options)
+		if err != nil {
+			return nil, err
 		}
-		for _, piece := range pieces(block.MappedText) {
-			if err := ctx.Err(); err != nil {
-				return nil, err
-			}
-			units, err := pieceUnits(ctx, provider, source, block.Kind, kind, piece, kinds, group, policyHash)
+		for _, unit := range units {
+			binding, target := unit.Binding(), unit.Block()
+			candidate, err := candidate(source, group, binding.BlockKind, binding.Kind, target.Text,
+				unit.Context(), binding.Segments, target.Words, policyHash)
 			if err != nil {
 				return nil, err
 			}
-			result = append(result, units...)
+			result = append(result, candidate)
 			if len(result) > MaxUnits {
 				return nil, fmt.Errorf("source exceeds candidate limit")
 			}
 		}
 	}
 	return result, nil
-}
-
-func pieces(mapped document.MappedText) []document.MappedText {
-	result := []document.MappedText{}
-	start := 0
-	for part := range strings.SplitSeq(mapped.Text, "\x00") {
-		left := len(part) - len(strings.TrimLeftFunc(part, unicode.IsSpace))
-		trimmed := strings.TrimSpace(part)
-		if trimmed != "" {
-			result = append(result, document.MappedText{Text: trimmed, Map: mapped.Map[start+left : start+left+len(trimmed)]})
-		}
-		start += len(part) + 1
-	}
-	return result
-}
-
-func pieceUnits(ctx context.Context, provider *english.Provider, source Source, blockKind, kind string,
-	piece document.MappedText, kinds []string, group Group, policyHash string,
-) ([]Candidate, error) {
-	sentences, err := analyzePiece(ctx, provider, piece)
-	if err != nil {
-		return nil, err
-	}
-	result := []Candidate{}
-	words := 0
-	for _, sentence := range sentences {
-		words += sentence.Words
-		if kind != "paragraph" || !slices.Contains(kinds, "sentence") || sentence.Words == 0 {
-			continue
-		}
-		unit, err := candidate(source, group, blockKind, "sentence", sentence.Text, piece.Text, sentence.Spans, sentence.Words, policyHash)
-		if err != nil {
-			return nil, err
-		}
-		result = append(result, unit)
-	}
-	if slices.Contains(kinds, kind) && words > 0 {
-		unit, err := candidate(source, group, blockKind, kind, piece.Text, piece.Text, piece.Spans(0, len(piece.Text)), words, policyHash)
-		if err != nil {
-			return nil, err
-		}
-		result = append(result, unit)
-	}
-	return result, nil
-}
-
-func analyzePiece(ctx context.Context, provider *english.Provider, piece document.MappedText) ([]document.Sentence, error) {
-	if len(piece.Text) > 65536 {
-		return nil, fmt.Errorf("eligible context exceeds 65536 bytes")
-	}
-	return provider.Analyze(ctx, piece, []nlp.Capability{nlp.Tokens, nlp.Sentences})
 }
 
 func candidate(source Source, group Group, blockKind, kind, target, surrounding string,
@@ -237,7 +187,7 @@ func candidate(source Source, group Group, blockKind, kind, target, surrounding 
 			Source: annotation.Source{DocumentID: source.Document, RepositoryID: source.Repository,
 				RelatedGroup: group.ID, Reference: source.Reference, SHA256: source.SHA256, Bytes: source.Bytes,
 				Language: source.Format, ProseLanguage: source.ProseLanguage, Segments: spans},
-			Extraction: annotation.Extraction{Identity: pipelineVersion, PolicySHA256: policyHash, ContextPolicy: "eligible-piece-v1"},
+			Extraction: annotation.Extraction{Identity: pipelineVersion, PolicySHA256: policyHash, ContextPolicy: nlp.UnitContract},
 			Origin:     origin, Rights: source.Rights}}, nil
 }
 
