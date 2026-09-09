@@ -5,7 +5,7 @@ mkdir -p artifacts/dogfood
 bin/unswell check . --config .unswell.yaml --include-source \
   --feature prose-words --feature type-token-ratio --feature activation/readability.long-paragraph \
   --feature activation/filler.announced-importance --feature activation/syntax.noun-stack \
-  --feature activation/filler.section-announcement \
+  --feature activation/filler.section-announcement --feature activation/filler.stacked-hedging \
   --report text:- \
   --report json:artifacts/dogfood/result.json \
   --report sarif:artifacts/dogfood/result.sarif \

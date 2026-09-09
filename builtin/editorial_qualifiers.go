@@ -11,6 +11,7 @@ import (
 
 func editorialClaims(ctx context.Context, view rule.View, emit rule.Emitter) error {
 	m := newEditorialMatcher(ctx, view)
+	m.collectPhraseObservations()
 	for _, block := range view.Document.Blocks {
 		if !proseBlock(block) {
 			continue
@@ -21,7 +22,7 @@ func editorialClaims(ctx context.Context, view rule.View, emit rule.Emitter) err
 			}
 		}
 	}
-	return ctx.Err()
+	return m.observePhraseBlocks()
 }
 
 func (m *editorialMatcher) claims(sentence document.Sentence, emit rule.Emitter) error {
@@ -43,82 +44,37 @@ func (m *editorialMatcher) claims(sentence document.Sentence, emit rule.Emitter)
 	return nil
 }
 
-func weakIntensifiers(ctx context.Context, view rule.View, emit rule.Emitter) error {
-	m := newEditorialMatcher(ctx, view)
-	for _, block := range view.Document.Blocks {
-		if !proseBlock(block) || block.Words < max(1, view.Parameters.MinWords) {
-			continue
-		}
-		occurrences, err := m.intensifiers(block)
-		if err != nil {
-			return err
-		}
-		rate := float64(len(occurrences)) * 100 / float64(block.Words)
-		p := view.Parameters
-		if rate <= float64(p.Onset) {
-			continue
-		}
-		level := min(1000, int((rate-float64(p.Onset))*1000/float64(p.Saturation-p.Onset)))
-		evidence := rule.Evidence{Kind: "heuristic", Activation: level, Occurrences: occurrences,
-			Metrics: []rule.Metric{
-				{Name: "intensifier-density", Value: rate, Unit: "matches/100-prose-words", Onset: float64(p.Onset), Saturation: float64(p.Saturation)},
-				{Name: "intensifiers", Value: float64(len(occurrences)), Unit: "tokens"},
-				{Name: "prose-length", Value: float64(block.Words), Unit: "prose-words"},
-			}}
-		if err := emit.Emit(evidence); err != nil {
-			return err
-		}
-	}
-	return ctx.Err()
-}
-
-func (m *editorialMatcher) intensifiers(block document.Block) ([]rule.Occurrence, error) {
-	var occurrences []rule.Occurrence
-	for _, sentence := range block.Sentences {
-		for i := 0; i+1 < len(sentence.Tokens); i++ {
-			if err := m.ctx.Err(); err != nil {
-				return nil, err
-			}
-			if !m.isIntensifier(sentence, i) {
-				continue
-			}
-			if err := m.spend(); err != nil {
-				return nil, err
-			}
-			occurrences = append(occurrences, tokenOccurrence(sentence, i, i+1))
-		}
-	}
-	return occurrences, nil
-}
-
-func (m *editorialMatcher) isIntensifier(sentence document.Sentence, i int) bool {
-	token, next := sentence.Tokens[i], sentence.Tokens[i+1]
-	if !m.words[token.Normal] || token.Protected || next.Protected || m.view.Exempts(sentence, i, i+1) {
-		return false
-	}
-	if slices.Contains([]string{"first", "last", "same", "next", "previous"}, next.Normal) {
-		return false
-	}
-	return strings.HasPrefix(token.Tag, "RB") && (strings.HasPrefix(next.Tag, "JJ") || strings.HasPrefix(next.Tag, "RB"))
-}
-
 func stackedHedging(ctx context.Context, view rule.View, emit rule.Emitter) error {
 	m := newEditorialMatcher(ctx, view)
 	for _, block := range view.Document.Blocks {
-		if !proseBlock(block) {
-			continue
-		}
-		for _, sentence := range block.Sentences {
-			if err := m.hedges(sentence, emit); err != nil {
-				return err
-			}
+		if err := m.hedgeBlock(block, emit); err != nil {
+			return err
 		}
 	}
 	return ctx.Err()
 }
 
-func (m *editorialMatcher) hedges(sentence document.Sentence, emit rule.Emitter) error {
+func (m *editorialMatcher) hedgeBlock(block document.Block, emit rule.Emitter) error {
+	if err := m.ctx.Err(); err != nil {
+		return err
+	}
+	if !proseBlock(block) {
+		return observeBlock(m.view, block, "unsupported_unit")
+	}
+	evaluated := false
+	for _, sentence := range block.Sentences {
+		compared, err := m.hedges(sentence, emit)
+		if err != nil {
+			return err
+		}
+		evaluated = evaluated || compared
+	}
+	return observeBlock(m.view, block, tokenBlockReason(block, evaluated, len(m.words) > 0))
+}
+
+func (m *editorialMatcher) hedges(sentence document.Sentence, emit rule.Emitter) (bool, error) {
 	var occurrences []rule.Occurrence
+	evaluated := false
 	seen := make(map[string]bool)
 	flush := func() error {
 		p := m.view.Parameters
@@ -129,23 +85,25 @@ func (m *editorialMatcher) hedges(sentence document.Sentence, emit rule.Emitter)
 	}
 	for i, token := range sentence.Tokens {
 		if err := m.ctx.Err(); err != nil {
-			return err
+			return evaluated, err
 		}
 		if clauseBoundary(token) {
 			if err := flush(); err != nil {
-				return err
+				return evaluated, err
 			}
 			continue
 		}
-		if !seen[token.Normal] && m.isHedge(sentence, i) {
-			if err := m.spend(); err != nil {
-				return err
-			}
-			seen[token.Normal] = true
-			occurrences = append(occurrences, tokenOccurrence(sentence, i, i+1))
+		evaluated = evaluated || m.view.Observer != nil && !m.view.Exempts(sentence, i, i+1)
+		if seen[token.Normal] || !m.isHedge(sentence, i) {
+			continue
 		}
+		if err := m.spend(); err != nil {
+			return evaluated, err
+		}
+		seen[token.Normal] = true
+		occurrences = append(occurrences, tokenOccurrence(sentence, i, i+1))
 	}
-	return flush()
+	return evaluated, flush()
 }
 
 func (m *editorialMatcher) isHedge(sentence document.Sentence, i int) bool {

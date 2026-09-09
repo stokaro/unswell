@@ -1,0 +1,848 @@
+{
+  "activation_contract": "unswell-rule-activations-v1",
+  "version": "unswell-feature-collection-v1",
+  "block_contract": "unswell-block-features-v1",
+  "requested": [
+    "activation/filler.stacked-hedging",
+    "activation/filler.weak-intensifiers",
+    "activation/hype.absolute-claim",
+    "activation/hype.vague-praise"
+  ],
+  "sources": [
+    {
+      "ruleset_hash": "25c1b7bad1afae685834c1beaffcf662291d4cd4c00ec941b5c1056ced15a208",
+      "path": "sample.go",
+      "source_hash": "bdff8a4037041fab8405e7db264976c9e1ab604a1a16d5cc5fecb29a78ec538f",
+      "policy_hash": "eeaae5331a105af4e010d048074bb0a694a07729653ca6d6bc2e27d6b243b610",
+      "vocabulary_hash": "eeaae5331a105af4e010d048074bb0a694a07729653ca6d6bc2e27d6b243b610",
+      "preprocessing": "extracted-provider-tokens-v1",
+      "nlp": {
+        "name": "builtin-en",
+        "version": "prose-v3.2.1/chunks-v1",
+        "model": "prose/aptagmodel/en.bin",
+        "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+        "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+        "license": "MIT",
+        "capabilities": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ]
+      },
+      "capabilities": [
+        "pos",
+        "sentences",
+        "tokens"
+      ],
+      "units": [
+        {
+          "scope": "block",
+          "unit_id": 0,
+          "kind": "comment",
+          "context_hash": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "span": {
+            "start": 5,
+            "end": 77
+          },
+          "segments": [
+            {
+              "start": 6,
+              "end": 9
+            },
+            {
+              "start": 10,
+              "end": 17
+            },
+            {
+              "start": 18,
+              "end": 28
+            },
+            {
+              "start": 29,
+              "end": 37
+            },
+            {
+              "start": 38,
+              "end": 44
+            }
+          ],
+          "input_hash": "f52fbc5a05bb2e2f3c3ab1ced915586894564cd140ee26ee2fc6ae521a04dffa",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 1,
+          "kind": "string",
+          "context_hash": "003066deadf9abad5f038f639ffb7011f742c6a119b377a40b40d536d4088e48",
+          "span": {
+            "start": 112,
+            "end": 151
+          },
+          "segments": [
+            {
+              "start": 112,
+              "end": 115
+            },
+            {
+              "start": 116,
+              "end": 122
+            },
+            {
+              "start": 123,
+              "end": 126
+            },
+            {
+              "start": 127,
+              "end": 135
+            },
+            {
+              "start": 136,
+              "end": 143
+            },
+            {
+              "start": 144,
+              "end": 150
+            }
+          ],
+          "input_hash": "a09d7939bbc722efb9f11a223c6368707e5db692906de87cf32d5340a6417ecf",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.333
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ruleset_hash": "25c1b7bad1afae685834c1beaffcf662291d4cd4c00ec941b5c1056ced15a208",
+      "path": "sample.md",
+      "source_hash": "ee82a70d702952a8a8a15536d2d98bcb4c57a0678df70498b5eba7b42aa48056",
+      "policy_hash": "eeaae5331a105af4e010d048074bb0a694a07729653ca6d6bc2e27d6b243b610",
+      "vocabulary_hash": "eeaae5331a105af4e010d048074bb0a694a07729653ca6d6bc2e27d6b243b610",
+      "preprocessing": "extracted-provider-tokens-v1",
+      "nlp": {
+        "name": "builtin-en",
+        "version": "prose-v3.2.1/chunks-v1",
+        "model": "prose/aptagmodel/en.bin",
+        "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+        "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+        "license": "MIT",
+        "capabilities": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ]
+      },
+      "capabilities": [
+        "pos",
+        "sentences",
+        "tokens"
+      ],
+      "units": [
+        {
+          "scope": "block",
+          "unit_id": 0,
+          "kind": "heading",
+          "context_hash": "5de68c73db231224a52479fb24c21532054394502ced1fa2ba9ad2a3a8c6ef99",
+          "span": {
+            "start": 5,
+            "end": 15
+          },
+          "segments": null,
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/unsupported_unit"
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/unsupported_unit"
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/unsupported_unit"
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/unsupported_unit"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 1,
+          "kind": "paragraph",
+          "context_hash": "5de68c73db231224a52479fb24c21532054394502ced1fa2ba9ad2a3a8c6ef99",
+          "span": {
+            "start": 19,
+            "end": 45
+          },
+          "segments": [
+            {
+              "start": 19,
+              "end": 22
+            },
+            {
+              "start": 23,
+              "end": 29
+            },
+            {
+              "start": 30,
+              "end": 35
+            },
+            {
+              "start": 36,
+              "end": 44
+            }
+          ],
+          "input_hash": "58fd2a810b8a122e7f1e6a2a2707bdcde55494ddaf2d5b21eb2851560c8d0706",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 2,
+          "kind": "paragraph",
+          "context_hash": "5de68c73db231224a52479fb24c21532054394502ced1fa2ba9ad2a3a8c6ef99",
+          "span": {
+            "start": 49,
+            "end": 82
+          },
+          "segments": [
+            {
+              "start": 49,
+              "end": 53
+            },
+            {
+              "start": 54,
+              "end": 56
+            },
+            {
+              "start": 57,
+              "end": 58
+            },
+            {
+              "start": 59,
+              "end": 72
+            },
+            {
+              "start": 73,
+              "end": 81
+            }
+          ],
+          "input_hash": "6bd4b97796974089f03ae1e9400efbe8ca6b6e1f8b37b1c4b4800dd4458a4ff1",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 3,
+          "kind": "paragraph",
+          "context_hash": "5de68c73db231224a52479fb24c21532054394502ced1fa2ba9ad2a3a8c6ef99",
+          "span": {
+            "start": 114,
+            "end": 153
+          },
+          "segments": [
+            {
+              "start": 114,
+              "end": 117
+            },
+            {
+              "start": 118,
+              "end": 125
+            },
+            {
+              "start": 126,
+              "end": 136
+            },
+            {
+              "start": 137,
+              "end": 145
+            },
+            {
+              "start": 146,
+              "end": 152
+            }
+          ],
+          "input_hash": "e0c01df6eb52c288bd3fe7f08cc7182f0ec477bb2929718025dc408d627e7fbe",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 4,
+          "kind": "paragraph",
+          "context_hash": "5de68c73db231224a52479fb24c21532054394502ced1fa2ba9ad2a3a8c6ef99",
+          "span": {
+            "start": 187,
+            "end": 228
+          },
+          "segments": [
+            {
+              "start": 187,
+              "end": 190
+            },
+            {
+              "start": 198,
+              "end": 202
+            },
+            {
+              "start": 203,
+              "end": 204
+            },
+            {
+              "start": 205,
+              "end": 218
+            },
+            {
+              "start": 219,
+              "end": 227
+            }
+          ],
+          "input_hash": "5dda35c82d32921ab57c76c39710d93425550529fbf0b9ca64291383df84272f",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 5,
+          "kind": "paragraph",
+          "context_hash": "5de68c73db231224a52479fb24c21532054394502ced1fa2ba9ad2a3a8c6ef99",
+          "span": {
+            "start": 260,
+            "end": 285
+          },
+          "segments": null,
+          "input_hash": "5fac5fac0c393445a8ad1da774338534471833b34868bf617858d9bd85e08961",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_tokens"
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_prose_words"
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 6,
+          "kind": "paragraph",
+          "context_hash": "5de68c73db231224a52479fb24c21532054394502ced1fa2ba9ad2a3a8c6ef99",
+          "span": {
+            "start": 289,
+            "end": 352
+          },
+          "segments": [
+            {
+              "start": 289,
+              "end": 294
+            },
+            {
+              "start": 295,
+              "end": 300
+            },
+            {
+              "start": 301,
+              "end": 311
+            },
+            {
+              "start": 313,
+              "end": 316
+            },
+            {
+              "start": 317,
+              "end": 324
+            },
+            {
+              "start": 325,
+              "end": 335
+            },
+            {
+              "start": 336,
+              "end": 344
+            },
+            {
+              "start": 345,
+              "end": 351
+            }
+          ],
+          "input_hash": "ec7d635d74358a8d11f046769de1be7d94807b02fd02c3bac920e271c1b91169",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 7,
+          "kind": "paragraph",
+          "context_hash": "5de68c73db231224a52479fb24c21532054394502ced1fa2ba9ad2a3a8c6ef99",
+          "span": {
+            "start": 356,
+            "end": 374
+          },
+          "segments": [
+            {
+              "start": 356,
+              "end": 360
+            },
+            {
+              "start": 363,
+              "end": 371
+            }
+          ],
+          "input_hash": "1c6700b95eeea4abc99a098e99912ac0e3f05106a3a59a0065dfe9109a0285fa",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 1
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 8,
+          "kind": "paragraph",
+          "context_hash": "5de68c73db231224a52479fb24c21532054394502ced1fa2ba9ad2a3a8c6ef99",
+          "span": {
+            "start": 413,
+            "end": 452
+          },
+          "segments": [
+            {
+              "start": 413,
+              "end": 416
+            },
+            {
+              "start": 417,
+              "end": 423
+            },
+            {
+              "start": 424,
+              "end": 427
+            },
+            {
+              "start": 428,
+              "end": 436
+            },
+            {
+              "start": 437,
+              "end": 444
+            },
+            {
+              "start": 445,
+              "end": 451
+            }
+          ],
+          "input_hash": "71f5009a0b612191a27d70e413de7fe7061cf0a2d61c091be30375bad891df06",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0.333
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 9,
+          "kind": "paragraph",
+          "context_hash": "5de68c73db231224a52479fb24c21532054394502ced1fa2ba9ad2a3a8c6ef99",
+          "span": {
+            "start": 489,
+            "end": 516
+          },
+          "segments": [
+            {
+              "start": 489,
+              "end": 492
+            },
+            {
+              "start": 500,
+              "end": 508
+            },
+            {
+              "start": 509,
+              "end": 516
+            }
+          ],
+          "input_hash": "82733e8f1d99241ab4d277b3c70bf9aa09de0dd6f15e938cc7bc9807a12dc615",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 10,
+          "kind": "paragraph",
+          "context_hash": "5de68c73db231224a52479fb24c21532054394502ced1fa2ba9ad2a3a8c6ef99",
+          "span": {
+            "start": 520,
+            "end": 533
+          },
+          "segments": [
+            {
+              "start": 520,
+              "end": 522
+            },
+            {
+              "start": 523,
+              "end": 526
+            },
+            {
+              "start": 527,
+              "end": 533
+            }
+          ],
+          "input_hash": "28c069c84e44cda85a25f2bd786e3d912c9234ccc5d2625e12f5d91de7f9fbc1",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_tokens"
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            }
+          ]
+        },
+        {
+          "scope": "block",
+          "unit_id": 11,
+          "kind": "paragraph",
+          "context_hash": "5de68c73db231224a52479fb24c21532054394502ced1fa2ba9ad2a3a8c6ef99",
+          "span": {
+            "start": 537,
+            "end": 541
+          },
+          "segments": [
+            {
+              "start": 537,
+              "end": 541
+            }
+          ],
+          "input_hash": "8ef92acb96cca1fb20afae19a400a91992aab8cfa2957cdd483f950af2626320",
+          "values": [
+            {
+              "id": "activation/filler.stacked-hedging",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "activation/filler.weak-intensifiers",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/hype.absolute-claim",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            },
+            {
+              "id": "activation/hype.vague-praise",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/no_eligible_window"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

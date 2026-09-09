@@ -118,6 +118,28 @@ window grouping, source boundaries, and finding versions remain unchanged. No
 observer means no eligibility scans or observation map. Paired rhetoric, other
 editorial rules, repetition, and lists still require their own observations.
 
+Vague-praise and absolute-claim observations use the same phrase eligibility
+accounting after the existing question/qualification screen. A block without an
+unqualified eligible window remains inapplicable. Their matcher protects each
+candidate window rather than excluding an entire sentence containing code;
+collection must preserve that distinction from windowed rules. A phrase beside
+code may still match, while protected tokens cannot join a candidate. Prose that
+extraction omitted never becomes a synthetic zero-valued unit.
+
+Weak-intensifier observations require the existing prose-kind and word minimum,
+a nonempty dictionary, and an inspected adjacent pair. Both tokens must be
+unprotected, the first must be outside an approved term, and the second cannot
+be one of the excluded successor words. The unchanged dictionary/POS test then
+decides whether that candidate contributes to the density. With no eligible pair,
+the block is inapplicable; an eligible count below the onset is zero.
+
+Stacked-hedging observations require a nonempty dictionary and a nonexempt token
+inside a clause inspected by the existing matcher. Protected tokens, punctuation,
+conjunctions, and configured clause markers retain their boundaries. The same
+distinct-cue count and threshold determine the activation. Empty candidate scopes
+retain no-pattern/no-sentence/no-eligible-token reasons. These four descriptors
+change the catalog hash but retain their finding versions, evidence, and scoring.
+
 Acceptance includes positive and zero activations, each absence state, disabled
 rules, uninstrumented external rules, ignored observer errors, partial failures,
 cluster occurrences and duplicates, policy overrides, source protection,

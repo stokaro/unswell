@@ -196,6 +196,11 @@ numeric units, modalities, terminology, resource budgets, and concurrent reuse.
 
 `surface_patterns` covers all eight experimental syntax/readability and
 formatting rules with file-specific policies, CRLF, a BOM, emphasis, and entities.
+`qualifier_activations` covers seven annotated detections from vague praise,
+absolute claims, weak intensifiers, and stacked hedging. Feature goldens distinguish
+clean zeros from inapplicable headings, qualifications, short fragments, and code.
+Go comments/strings and Markdown retain their BOM/CRLF and emphasis coordinates.
+
 `window_phrase_activations` checks repeated section announcements, empty transitions,
 and metaphors. Annotated detections and feature goldens cover cluster membership,
 an allowed occurrence, clean zeros, protected sentences, headings, short fragments,
