@@ -31,6 +31,8 @@ numeric vectors. A sigmoid response is uncalibrated; the parameter snapshot does
 not establish feature compatibility, corpus qualification, or a usable probability
 gate. Existing engine results and `calibration.model: none` retain their contracts.
 See [ADR 0020](adr/0020-logistic-numerical-core.md) and [model documentation](../model/README.md).
+`FitOptions.Validate` exposes the same numerical option checks used by fitting,
+so callers can reject invalid limits before preparing rows. It does not inspect data.
 `Isotonic` and `FitIsotonic` add a separate monotonic calibration candidate over
 frozen scores and binary labels. Snapshots contain ordered knots; inference
 interpolates only inside their range. `ErrCalibrationRange` is a numerical
@@ -55,6 +57,11 @@ corpus targets and measurements from the public engine. The separate
 source-group partitions, and complete prepared mappings. It does not change
 product results or qualify training data. See
 [ADR 0024](adr/0024-corpus-feature-bindings.md).
+The research `training` package and `corpus train` command connect these reproduced
+targets to Go fitting with separate training and calibration partitions. Their
+`unswell-editorial-training-v1` artifact records unqualified numerical experiments;
+it does not extend the engine's model loading or probability contract. See
+[ADR 0025](adr/0025-corpus-training.md).
 The root `e2e` directory contains only test code and fixtures. It exports no library
 API; the API snapshot records its package identity because it belongs to the root
 module.

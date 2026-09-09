@@ -1,4 +1,4 @@
-// Command corpus plans source groups and prepares or verifies unlabeled candidates.
+// Command corpus prepares source groups, binds annotations, and fits research models.
 package main
 
 import (
@@ -13,6 +13,7 @@ import (
 
 	"github.com/stokaro/unswell/research/annotation/corpus"
 	"github.com/stokaro/unswell/research/annotation/internal/commandio"
+	"github.com/stokaro/unswell/research/annotation/training"
 )
 
 func main() { os.Exit(mainCode()) }
@@ -34,8 +35,8 @@ func mainCode() int {
 }
 
 func run(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
-	if len(args) == 0 || !slices.Contains([]string{"plan", "extract", "verify", "join"}, args[0]) {
-		return fmt.Errorf("usage: corpus {plan|extract|verify|join} [options] < artifact.json")
+	if len(args) == 0 || !slices.Contains([]string{"plan", "extract", "verify", "join", "train"}, args[0]) {
+		return fmt.Errorf("usage: corpus {plan|extract|verify|join|train} [options] < artifact.json")
 	}
 	options, err := commandOptions(args)
 	if err != nil {
@@ -49,11 +50,19 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 	if err != nil {
 		return err
 	}
+	return writeResult(ctx, args[0], result, output)
+}
+
+func writeResult(ctx context.Context, name string, result any, output io.Writer) error {
 	encoded, err := json.MarshalIndent(result, "", "  ")
 	if err != nil {
 		return err
 	}
-	if len(encoded) >= corpus.MaxArtifactBytes {
+	maximum := corpus.MaxArtifactBytes
+	if name == "train" {
+		maximum = training.MaxArtifactBytes
+	}
+	if len(encoded) >= maximum {
 		return fmt.Errorf("output exceeds artifact size limit")
 	}
 	count, err := commandio.Await(ctx, func() (int, error) { return output.Write(append(encoded, '\n')) })
@@ -100,12 +109,21 @@ func operation(ctx context.Context, name string, options options, data []byte) (
 	if name == "verify" {
 		return corpus.Verify(ctx, artifact, files)
 	}
-	if name == "join" {
-		round, err := loadRound(ctx, options.round)
-		if err != nil {
-			return nil, err
-		}
-		return corpus.Join(ctx, artifact, round, files, options.features)
+	if name == "join" || name == "train" {
+		return annotatedOperation(ctx, name, options, artifact, files)
 	}
 	return corpus.Build(ctx, plan, files)
+}
+
+func annotatedOperation(ctx context.Context, name string, options options, artifact corpus.Artifact,
+	files map[string][]byte,
+) (any, error) {
+	round, err := loadRound(ctx, options.round)
+	if err != nil {
+		return nil, err
+	}
+	if name == "train" {
+		return training.Run(ctx, artifact, round, files, options.train)
+	}
+	return corpus.Join(ctx, artifact, round, files, options.features)
 }
