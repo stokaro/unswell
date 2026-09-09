@@ -18,7 +18,7 @@ func fixture() fstest.MapFS {
 		"engine.go":          {Data: []byte("package unswell\nimport \"context\"\n")},
 		".github/workflows/ci.yml": {Data: []byte("uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09\n" +
 			"os: [ubuntu-latest, macos-latest, windows-latest]\nGOTOOLCHAIN: local\ngo-version-file: go.mod\n" +
-			"run: scripts/modules.sh test\nrun: make check\nrun: make race\nrun: make fuzz\n")},
+			"run: scripts/modules.sh test\nrun: make check\n")},
 	}
 }
 

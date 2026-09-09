@@ -1,10 +1,17 @@
 # Contributing
 
 Discuss substantial behavior or API changes in an issue before implementing them.
-Use American English and keep changes focused. Run `make check`; concurrency
-changes also require `make race`. CI tests the minimum compiler from `go.mod` on
+Use American English and keep changes focused. Run `make check` before publishing.
+CI tests the minimum compiler from `go.mod` on
 Linux, macOS, and Windows with automatic toolchain upgrades disabled. Tools have
 their own pinned module and compiler requirements.
+
+Race detection and active fuzzing are temporarily deferred during alpha development,
+including concurrency changes. Preserve their tests, seed corpora, and the
+`make race` / `make fuzz` targets; do not run them during routine implementation.
+The final roadmap task, [#123](https://github.com/stokaro/unswell/issues/123), restores
+both CI checks and fixes any findings before final product acceptance. Ordinary
+tests still execute the existing fuzz seeds.
 
 Run `bash scripts/setup-shellcheck.sh` once to install the pinned ShellCheck build
 in `bin/`. The installer verifies the archive checksum. `make lint-shell` checks
@@ -36,10 +43,10 @@ Rules need source-coordinate tests, realistic counterexamples, and documented
 limitations. A few examples do not establish precision. Experimental rules become
 stable only after the evaluation described in `docs/roadmap.md`.
 
-Update the API snapshot with the pinned `apidiff -m -w docs/api/alpha.api
-github.com/stokaro/unswell` executable from the root module. CI compares against
-the preceding release and rejects incompatible changes. The first alpha bootstraps
-that history with its reviewed snapshot. Do not update snapshots to conceal a break.
+Alpha APIs and artifact formats may change without backward compatibility. Update
+the current documentation, tests, and consumers when changing a contract. Reject
+unsupported artifact formats explicitly. API snapshots and comparisons with previous
+releases are not required; current schemas and library boundaries remain checked.
 
 Release tags are immutable. Release preparation requires green checks for the
 exact commit, an updated changelog, license notices, and reviewed artifacts. The

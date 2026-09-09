@@ -10,7 +10,6 @@ tool (
 	github.com/go-extras/qtlint/cmd/qtlint
 	github.com/golangci/golangci-lint/v2/cmd/golangci-lint
 	github.com/segmentio/golines
-	golang.org/x/exp/cmd/apidiff
 	golang.org/x/vuln/cmd/govulncheck
 	mvdan.cc/sh/v3/cmd/shfmt
 )

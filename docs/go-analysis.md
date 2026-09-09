@@ -107,9 +107,11 @@ with exact byte-range assertions.
 The [driver test](../goanalysis/driver_test.go) builds the executable and runs real
 `go vet -vettool` checks: comment and string violations fail; the edited source
 passes; source bytes stay unchanged. An external consumer compiles the public API.
-Module inventory drives native-platform, minimum-compiler, race, lint, and
-vulnerability checks. The adapter has its own API snapshot and library-boundary
-checks, including a negative test for importing Unswell internals.
+Module inventory drives native-platform, minimum-compiler, lint, and vulnerability
+checks. Library-boundary checks include a negative test for importing Unswell
+internals. Race detection and active fuzzing are deferred until the final validation
+task, [#123](https://github.com/stokaro/unswell/issues/123). Alpha API compatibility
+with previous releases is not required.
 
 The adapter does not register itself with stock golangci-lint or gopls. A future
 golangci-lint Module Plugin System wrapper can use this API while owning its own
