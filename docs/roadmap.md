@@ -31,6 +31,7 @@ consumer tests, and the public package ledger remain maintained.
 | [#36](https://github.com/stokaro/unswell/issues/36) | MCP Registry: publish and verify the Unswell server |
 | [#37](https://github.com/stokaro/unswell/issues/37) | Distribution: publish and verify a dedicated Homebrew tap |
 | [#38](https://github.com/stokaro/unswell/issues/38) | Distribution: publish and verify the Unswell GitHub Action |
+| [#66](https://github.com/stokaro/unswell/issues/66) | Distribution: verify automatic release update PRs, checked merges, and Action publication |
 | [#48](https://github.com/stokaro/unswell/issues/48) | Release: distinguish the project license from bundled notices in SBOM metadata |
 | [#9](https://github.com/stokaro/unswell/issues/9) | Alpha: verify and publish the first prerelease |
 | [#10](https://github.com/stokaro/unswell/issues/10) | Stage 2: add the bounded custom rule DSL |
@@ -82,6 +83,10 @@ consumer tests, and the public package ledger remain maintained.
 | Project quality | Strict lint, qtlint, nolintguard, architecture/API/module gates and their negative tests; reproducible `make check` |
 | Native platforms and release | Linux/macOS/Windows test results, minimum Go compiler without auto-upgrade, release binaries, checksums and SBOM |
 | Dogfooding | The built CLI checks owned Markdown, Go code and Bash scripts with the committed strict policy; CI retains reports and proves a negative case fails |
+
+The [alpha distribution evidence](alpha-distribution-evidence.md) records the
+published version and its verified installation paths. Automatic updates remain
+open in #66; later changes on main do not alter the published alpha.
 
 Acceptance is unproven until the listed evidence exists for the released commit.
 Passing a subset of local unit tests does not establish release readiness.
