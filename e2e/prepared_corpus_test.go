@@ -65,7 +65,7 @@ func preparedCorpusInputs(t *testing.T) ([]document.Source, map[string]string, [
 	var sources []document.Source
 	paths := make(map[string]string)
 	for _, source := range manifest.Sources {
-		data, err := os.ReadFile(filepath.Join("../research/annotation/corpus/testdata/ptah", source.Path))
+		data, err := os.ReadFile(filepath.Join("..", "research", "annotation", "corpus", "testdata", "ptah", source.Path))
 		c.Assert(err, qt.IsNil)
 		c.Assert(fmt.Sprintf("%x", sha256.Sum256(data)), qt.Equals, source.SHA256)
 		sources = append(sources, document.Source{Name: source.Path, Format: source.Format, Bytes: data})
