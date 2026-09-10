@@ -37,10 +37,14 @@ func connectTransports(c *qt.C, ctx context.Context, options server.Options, lef
 	session, err := client.Connect(ctx, right, nil)
 	c.Assert(err, qt.IsNil)
 	c.Cleanup(func() {
-		// Cancellation tests must drain the response before closing either end.
-		c.Assert(serverSession.Close(), qt.IsNil)
+		// Close the client first. The server then ends its loop on end of input
+		// and reports no error. Closing the server first races its own shutdown
+		// against the client's remaining transport writes, which surfaced as a
+		// closed-pipe error from Wait. Cancellation tests release their held
+		// response in an earlier cleanup, so nothing is left to drain here.
 		c.Assert(session.Close(), qt.IsNil)
 		c.Assert(serverSession.Wait(), qt.IsNil)
+		c.Assert(serverSession.Close(), qt.IsNil)
 	})
 	return session
 }
