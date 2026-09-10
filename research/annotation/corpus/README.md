@@ -28,6 +28,48 @@ The library receives source and notice bytes from its caller. Neither it nor the
 command fetches references, executes imported code, or invokes another analyzer.
 Module acquisition and compiler setup happen before running the built command.
 
+## Acquire a repository snapshot
+
+The `acquire` command turns a local checkout of one pinned repository
+snapshot into a shard manifest by predefined rules:
+
+```sh
+corpus acquire --root ./work/example --record ./records/example.json > ./shards/example.json
+```
+
+The record uses format `unswell-corpus-acquisition-v1`. A research script
+obtains the checkout and the dating evidence before this command runs. The
+command reads regular files beneath the root, skips version-control metadata,
+and reaches no network.
+
+| Record part | Content |
+| --- | --- |
+| `manifest` | The shard header: ID, seed, weights, extraction policy, and unit kinds |
+| `repository` | Name, reference, commit, topic, purpose, ecosystem, origin, rights, notice paths, and snapshot |
+| `selection` | Source cap, sources and bytes per shard, byte cap, documentation roots, source extensions, excluded segments and basenames, generated markers, and translation hints |
+
+Every file gets a role or a reason. `README` becomes `readme`, and a
+changelog becomes `release_note`. Markdown or text under a documentation
+root or at the top level becomes `documentation`, and a source file with a
+listed extension becomes `comment`. Everything else is excluded with one of
+these reasons:
+
+- `notice`, `outside_byte_limit`, `not_utf8`, or `unportable_path`;
+- `excluded_segment` for a path segment such as `vendor`;
+- `excluded_basename` for a file such as a code of conduct;
+- `translation_hint` for a directory named after a language;
+- `generated_marker` for a file that says it was generated;
+- `unselected_kind` for a format or a location outside the rules.
+
+When more files pass than the cap allows, a seeded draw over whole files
+keeps the cap, and the record keeps the seed and the dropped paths. A
+repository with more sources than `shard_sources`, or more source bytes than
+`shard_bytes`, spans numbered manifests that share its repository key, so a
+dataset plan keeps them in one group and no extraction exceeds the unit limit.
+Every source repeats the repository's origin, rights, notices, and snapshot,
+so each manifest validates and plans like any other. The rules never depend
+on what a rule finds in the text.
+
 ## Freeze the inputs
 
 [manifest.schema.json](manifest.schema.json) defines the strict JSON input.
@@ -131,8 +173,9 @@ corpus dataset verify --root ./dataset --pinned ./pinned < dataset-plan.json
 `plan` reads every shard beneath the root by its declared path and digest. It
 rejects a shard whose header differs from the dataset. It connects sources
 across all shards with the keys a single manifest uses and assigns whole
-global components with the same algorithm. A source ID or path appears in one
-shard only, and a notice shared by shards must agree everywhere. The plan
+global components with the same algorithm. A source ID appears in one shard
+only; paths and notices are checked within each shard, because every shard
+may have its own source root. The plan
 lists each global group with the shards it spans, and each source with its
 group and partition. A group may span shards and never spans partitions.
 
@@ -142,7 +185,7 @@ existing file is never overwritten. The ordinary `plan`, `extract`, and
 `verify` commands then run on each pinned shard, and their local components
 inherit the global partition through the pins. `verify` recomputes the
 dataset plan from the original shards. With `--pinned` it also checks every
-pinned copy against its recorded digest. Limits are 64 shards and 200,000
+pinned copy against its recorded digest. Limits are 256 shards and 200,000
 sources; each shard keeps the manifest limits above.
 
 ## Units and source ranges
@@ -229,6 +272,11 @@ Derived and suppressed findings are counted apart and enter no candidate.
 Each document records its prose words, blocks, and counts by rule; each unit
 records its cohort, kind, role, and words. The artifact pins the policy's
 configuration hash, ruleset hash, scoring profile, and rule descriptors.
+
+A run can fail on one file, for example when a rule runs out of budget. That
+file keeps the status `failed` with the error and zero counts, its units are
+marked unmeasured, and the artifact counts it under `failed_documents`. It is
+a gap in coverage, never a file without findings.
 
 The output is `unswell-corpus-findings-v1` and keeps
 `human_corpus: not_qualified`. A count is a rule outcome under that policy:

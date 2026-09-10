@@ -31,21 +31,25 @@ type FindingRecord struct {
 
 // UnitFindings lists the findings located within one candidate. Nested
 // candidates share a finding; an analysis chooses the unit kind it reports.
+// Unmeasured marks a unit of a document the policy run could not finish.
 type UnitFindings struct {
-	UnitID    string          `json:"unit_id"`
-	SourceID  string          `json:"source_id"`
-	GroupID   string          `json:"group_id"`
-	Partition string          `json:"partition"`
-	Cohort    string          `json:"cohort,omitempty"`
-	Kind      string          `json:"kind"`
-	Role      string          `json:"role"`
-	Words     int             `json:"words"`
-	Findings  []FindingRecord `json:"findings"`
+	UnitID     string          `json:"unit_id"`
+	SourceID   string          `json:"source_id"`
+	GroupID    string          `json:"group_id"`
+	Partition  string          `json:"partition"`
+	Cohort     string          `json:"cohort,omitempty"`
+	Kind       string          `json:"kind"`
+	Role       string          `json:"role"`
+	Words      int             `json:"words"`
+	Unmeasured bool            `json:"unmeasured,omitempty"`
+	Findings   []FindingRecord `json:"findings"`
 }
 
 // DocumentFindings counts every retained finding of one source, whether or not
 // a candidate contains it. Derived and suppressed findings are counted apart
-// and never enter a candidate.
+// and never enter a candidate. A document whose policy run failed keeps the
+// status "failed" with the error and zero counts; it is a coverage gap, never
+// a document without findings.
 type DocumentFindings struct {
 	SourceID   string         `json:"source_id"`
 	Path       string         `json:"path"`
@@ -53,6 +57,8 @@ type DocumentFindings struct {
 	Partition  string         `json:"partition"`
 	Cohort     string         `json:"cohort,omitempty"`
 	Role       string         `json:"role"`
+	Status     string         `json:"status"`
+	Error      string         `json:"error,omitempty"`
 	ProseWords int            `json:"prose_words"`
 	Blocks     int            `json:"blocks"`
 	Findings   int            `json:"findings"`
@@ -81,6 +87,7 @@ type FindingsArtifact struct {
 	HumanCorpus  string             `json:"human_corpus"`
 	Verification Verification       `json:"verification"`
 	Policy       PolicyIdentity     `json:"policy"`
+	Failed       int                `json:"failed_documents"`
 	Documents    []DocumentFindings `json:"documents"`
 	Units        []UnitFindings     `json:"units"`
 }
@@ -117,23 +124,10 @@ func LoadFindings(ctx context.Context, data []byte) (FindingsArtifact, error) {
 func MeasureFindings(ctx context.Context, artifact Artifact, files map[string][]byte,
 	configuration []byte,
 ) (FindingsArtifact, error) {
-	if len(configuration) == 0 {
-		return FindingsArtifact{}, fmt.Errorf("finding measurement requires an explicit policy")
-	}
-	engine, err := unswell.New(unswell.Options{Config: configuration, Jobs: 1, AllowEmpty: true})
+	engine, frozen, result, err := prepareFindings(ctx, artifact, files, configuration)
 	if err != nil {
 		return FindingsArtifact{}, err
 	}
-	verification, err := verifyMeasurements(ctx, artifact, files)
-	if err != nil {
-		return FindingsArtifact{}, err
-	}
-	frozen, err := frozenPlan(engine, artifact.Plan)
-	if err != nil {
-		return FindingsArtifact{}, err
-	}
-	result := FindingsArtifact{Version: FindingsVersion, Status: "verified_targets_with_policy_findings",
-		HumanCorpus: "not_qualified", Verification: verification, Documents: []DocumentFindings{}}
 	var bySource map[string][]boundedUnit
 	result.Units, bySource = candidateFindings(artifact)
 	groups := sourceGroups(artifact.Plan)
@@ -142,14 +136,13 @@ func MeasureFindings(ctx context.Context, artifact Artifact, files map[string][]
 		if err := ctx.Err(); err != nil {
 			return FindingsArtifact{}, err
 		}
-		run, err := analyzeFindingSource(ctx, engine, frozen, source, files[source.Path])
+		if err := checkFrozenExtraction(engine, frozen, source); err != nil {
+			return FindingsArtifact{}, err
+		}
+		doc, err := measurePolicySource(ctx, engine, &result, source, files[source.Path], groups[source.ID], bySource[source.ID])
 		if err != nil {
 			return FindingsArtifact{}, err
 		}
-		if err := result.Policy.adopt(run.Manifest, engine.Catalog()); err != nil {
-			return FindingsArtifact{}, err
-		}
-		doc := bindFindings(run, source, groups[source.ID], bySource[source.ID], result.Units)
 		result.Documents = append(result.Documents, doc)
 		records += doc.Findings - doc.Unbound
 		if records > MaxFindingRecords {
@@ -157,6 +150,72 @@ func MeasureFindings(ctx context.Context, artifact Artifact, files map[string][]
 		}
 	}
 	return finishFindings(ctx, result)
+}
+
+// prepareFindings builds the engine, reproduces the corpus, compiles the
+// frozen extraction policy, and takes the policy identity from a run on an
+// empty document, so an artifact whose every source fails still names the
+// policy it ran under.
+func prepareFindings(ctx context.Context, artifact Artifact, files map[string][]byte,
+	configuration []byte,
+) (*unswell.Engine, *config.Plan, FindingsArtifact, error) {
+	if len(configuration) == 0 {
+		return nil, nil, FindingsArtifact{}, fmt.Errorf("finding measurement requires an explicit policy")
+	}
+	engine, err := unswell.New(unswell.Options{Config: configuration, Jobs: 1, AllowEmpty: true})
+	if err != nil {
+		return nil, nil, FindingsArtifact{}, err
+	}
+	verification, err := verifyMeasurements(ctx, artifact, files)
+	if err != nil {
+		return nil, nil, FindingsArtifact{}, err
+	}
+	frozen, err := frozenPlan(engine, artifact.Plan)
+	if err != nil {
+		return nil, nil, FindingsArtifact{}, err
+	}
+	result := FindingsArtifact{Version: FindingsVersion, Status: "verified_targets_with_policy_findings",
+		HumanCorpus: "not_qualified", Verification: verification, Documents: []DocumentFindings{}}
+	probe, err := engine.AnalyzeAll(ctx, []document.Source{{Name: "identity.md", Format: document.Markdown}})
+	if err != nil {
+		return nil, nil, FindingsArtifact{}, err
+	}
+	if err := result.Policy.adopt(probe.Manifest, engine.Catalog()); err != nil {
+		return nil, nil, FindingsArtifact{}, err
+	}
+	return engine, frozen, result, nil
+}
+
+// measurePolicySource runs the policy over one source. An operational failure of
+// the run is recorded on the document, not hidden and not fatal, so the
+// document stays in the artifact as a coverage gap.
+func measurePolicySource(ctx context.Context, engine *unswell.Engine, result *FindingsArtifact, source Source, data []byte,
+	group Group, candidates []boundedUnit,
+) (DocumentFindings, error) {
+	run, err := analyzeFindingSource(ctx, engine, source, data)
+	if err != nil {
+		if ctx.Err() != nil {
+			return DocumentFindings{}, ctx.Err()
+		}
+		result.Failed++
+		return failedDocument(source, group, err, candidates, result.Units), nil
+	}
+	if err := result.Policy.adopt(run.Manifest, engine.Catalog()); err != nil {
+		return DocumentFindings{}, err
+	}
+	return bindFindings(run, source, group, candidates, result.Units), nil
+}
+
+func failedDocument(source Source, group Group, cause error, candidates []boundedUnit, units []UnitFindings) DocumentFindings {
+	doc := DocumentFindings{SourceID: source.ID, Path: source.Path, GroupID: group.ID, Partition: group.Partition,
+		Role: source.Role, Status: "failed", Error: cause.Error(), ByRule: map[string]int{}}
+	if source.Snapshot != nil {
+		doc.Cohort = source.Snapshot.Cohort
+	}
+	for _, candidate := range candidates {
+		units[candidate.index].Unmeasured = true
+	}
+	return doc
 }
 
 // frozenPlan compiles the corpus extraction policy so a measurement can prove
@@ -188,18 +247,17 @@ func checkFrozenExtraction(engine *unswell.Engine, expected *config.Plan, source
 	return nil
 }
 
-func analyzeFindingSource(ctx context.Context, engine *unswell.Engine, expected *config.Plan, source Source,
-	data []byte,
-) (unswell.RunResult, error) {
-	if err := checkFrozenExtraction(engine, expected, source); err != nil {
-		return unswell.RunResult{}, err
-	}
+func analyzeFindingSource(ctx context.Context, engine *unswell.Engine, source Source, data []byte) (unswell.RunResult, error) {
 	run, err := engine.AnalyzeAll(ctx, []document.Source{{Name: source.Path, Format: source.Format, Bytes: data}})
 	if err != nil {
 		return unswell.RunResult{}, err
 	}
 	if !run.Manifest.Complete || len(run.Documents) != 1 || len(run.Errors) != 0 {
-		return unswell.RunResult{}, fmt.Errorf("incomplete policy run for %s", source.ID)
+		message := "incomplete policy run"
+		if len(run.Errors) > 0 {
+			message = run.Errors[0].Message
+		}
+		return unswell.RunResult{}, fmt.Errorf("%s: %s", source.ID, message)
 	}
 	return run, nil
 }
@@ -242,7 +300,7 @@ func bindFindings(run unswell.RunResult, source Source, group Group, candidates 
 	units []UnitFindings,
 ) DocumentFindings {
 	doc := DocumentFindings{SourceID: source.ID, Path: source.Path, GroupID: group.ID, Partition: group.Partition,
-		Role: source.Role, ProseWords: run.Documents[0].ProseWords, Blocks: run.Documents[0].Blocks,
+		Role: source.Role, Status: "measured", ProseWords: run.Documents[0].ProseWords, Blocks: run.Documents[0].Blocks,
 		ByRule: map[string]int{}}
 	if source.Snapshot != nil {
 		doc.Cohort = source.Snapshot.Cohort

@@ -21,8 +21,9 @@ are those whose role the rule class admits, and the provenance components they
 span. They report prose words, findings, and documents with at least one
 finding. They report the document-level prevalence with its interval, the
 findings per 1,000 words, and the share of units of each kind with a finding.
-A cohort summary gives the whole-profile load. A document without a cohort is
-counted as unassigned and enters no table.
+A cohort summary gives the whole-profile load and the failed documents,
+whose policy run did not finish and which enter no table. A document without
+a cohort is counted as unassigned and enters no table.
 
 The unit of independence is the provenance component. Intervals come from a
 cluster bootstrap with 10,000 replicates, PCG seed 17, and percentile bounds

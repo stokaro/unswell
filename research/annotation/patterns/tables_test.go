@@ -46,6 +46,8 @@ func fixture() corpus.FindingsArtifact {
 			doc("c1", "A", "controlled", "documentation", 50, 1, 0),
 			doc("s1", "B", "historical", "string", 10, 5, 5),
 			doc("u1", "D", "", "documentation", 10, 1, 1),
+			{SourceID: "f1", Path: "f1.md", GroupID: "E", Partition: "training", Cohort: "historical",
+				Role: "documentation", Status: "failed", Error: "budget exceeded", ByRule: map[string]int{}},
 		},
 		Units: []corpus.UnitFindings{
 			{UnitID: "u-h1-p", SourceID: "h1", Cohort: "historical", Kind: "paragraph", Findings: []corpus.FindingRecord{{RuleID: "a.rule"}}},
@@ -70,8 +72,10 @@ func TestTablesReproduceTheReferenceExample(t *testing.T) {
 	for _, item := range tables.Cohorts {
 		summary[item.Cohort] = item
 	}
-	// The string document counts in the cohort summary and in no prose rule.
+	// The string document counts in the cohort summary and in no prose rule;
+	// the failed document is a coverage gap outside every count.
 	c.Assert(summary["historical"].Documents, qt.Equals, 5)
+	c.Assert(summary["historical"].FailedDocuments, qt.Equals, 1)
 	c.Assert(summary["historical"].Components, qt.Equals, 3)
 	c.Assert(summary["historical"].Findings, qt.Equals, 13)
 	c.Assert(summary["historical"].Units, qt.Equals, 3)
@@ -109,9 +113,17 @@ func TestTablesReproduceTheReferenceExample(t *testing.T) {
 	c.Assert(a.Contrasts[0].Difference.Status, qt.Equals, "fewer_than_two_components")
 	c.Assert(*a.Contrasts[0].Ratio, qt.Equals, 2.0)
 	c.Assert(a.Contrasts[0].RatioStatus, qt.Equals, "defined")
-	// b.rule never fires: the zero bound over three components is 1-0.025^(1/3).
+}
+
+// b.rule never fires: the zero bound over three components is 1-0.025^(1/3),
+// the ratio stays undefined, and the same inputs give the same tables.
+func TestTablesReportZeroCountsAndStayDeterministic(t *testing.T) {
+	c := qt.New(t)
+	tables, err := patterns.Analyze(t.Context(), []corpus.FindingsArtifact{fixture()}, classes(), patterns.Options{})
+	c.Assert(err, qt.IsNil)
 	b := tables.Rules[1]
-	rows = map[string]patterns.RuleCohort{}
+	c.Assert(b.RuleID, qt.Equals, "b.rule")
+	rows := map[string]patterns.RuleCohort{}
 	for _, row := range b.Cohorts {
 		rows[row.Cohort] = row
 	}
@@ -120,7 +132,6 @@ func TestTablesReproduceTheReferenceExample(t *testing.T) {
 	c.Assert(math.Abs(*rows["historical"].ZeroUpperBound-(1-math.Pow(0.025, 1.0/3))) < 1e-12, qt.IsTrue)
 	c.Assert(b.Contrasts[0].Ratio, qt.IsNil)
 	c.Assert(b.Contrasts[0].RatioStatus, qt.Equals, "undefined")
-	// The same inputs give the same tables.
 	again, err := patterns.Analyze(t.Context(), []corpus.FindingsArtifact{fixture()}, classes(), patterns.Options{})
 	c.Assert(err, qt.IsNil)
 	c.Assert(again, qt.DeepEquals, tables)
