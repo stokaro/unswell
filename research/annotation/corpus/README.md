@@ -90,6 +90,35 @@ manifest before extracting units. Do not repeatedly change the seed or inputs to
 select a favorable final test. Publish independent document/repository/group counts
 alongside fragment counts; nested sentences and paragraphs are related observations.
 
+## Plan a sharded dataset
+
+One manifest holds at most 10,000 sources. A larger corpus is a dataset of
+shard manifests that repeat one seed, weight set, extraction policy, and unit
+kind set, with a pinned rule-class hash:
+
+```sh
+corpus dataset plan --root ./dataset < dataset.json > dataset-plan.json
+corpus dataset pin --root ./dataset --output ./pinned < dataset-plan.json
+corpus dataset verify --root ./dataset --pinned ./pinned < dataset-plan.json
+```
+
+`plan` reads every shard beneath the root by its declared path and digest. It
+rejects a shard whose header differs from the dataset. It connects sources
+across all shards with the keys a single manifest uses and assigns whole
+global components with the same algorithm. A source ID or path appears in one
+shard only, and a notice shared by shards must agree everywhere. The plan
+lists each global group with the shards it spans, and each source with its
+group and partition. A group may span shards and never spans partitions.
+
+`pin` writes a copy of each shard with every partition set to its global
+value. The copy uses a fixed encoding whose digest the plan records, and an
+existing file is never overwritten. The ordinary `plan`, `extract`, and
+`verify` commands then run on each pinned shard, and their local components
+inherit the global partition through the pins. `verify` recomputes the
+dataset plan from the original shards. With `--pinned` it also checks every
+pinned copy against its recorded digest. Limits are 64 shards and 200,000
+sources; each shard keeps the manifest limits above.
+
 ## Units and source ranges
 
 Extraction uses the frozen policy, source bytes, and existing English sentence and

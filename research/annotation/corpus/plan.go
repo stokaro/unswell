@@ -91,7 +91,10 @@ func (d disjoint) join(a, b int) {
 	d.parent[max(a, b)] = min(a, b)
 }
 
-func connectSources(ctx context.Context, m Manifest) (disjoint, error) {
+// maxManifestKeys bounds the distinct grouping keys of one manifest.
+const maxManifestKeys = 100000
+
+func connectSources(ctx context.Context, m Manifest, maxKeys int) (disjoint, error) {
 	sets := disjoint{parent: make([]int, len(m.Sources))}
 	owners := make(map[string]int)
 	for i, source := range m.Sources {
@@ -106,15 +109,19 @@ func connectSources(ctx context.Context, m Manifest) (disjoint, error) {
 				owners[key] = i
 			}
 		}
-		if len(owners) > 100000 {
-			return disjoint{}, fmt.Errorf("grouping exceeds 100000 distinct keys")
+		if len(owners) > maxKeys {
+			return disjoint{}, fmt.Errorf("grouping exceeds %d distinct keys", maxKeys)
 		}
 	}
 	return sets, nil
 }
 
 func components(ctx context.Context, m Manifest) ([]Group, error) {
-	sets, err := connectSources(ctx, m)
+	return componentsWithin(ctx, m, maxManifestKeys)
+}
+
+func componentsWithin(ctx context.Context, m Manifest, maxKeys int) ([]Group, error) {
+	sets, err := connectSources(ctx, m, maxKeys)
 	if err != nil {
 		return nil, err
 	}

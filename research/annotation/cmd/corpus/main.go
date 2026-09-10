@@ -38,7 +38,7 @@ func mainCode() int {
 func run(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
 	if len(args) == 0 {
 		return fmt.Errorf("usage: corpus" +
-			" {plan|extract|verify|join|measure|train|predict|evaluate|compare|reference-bank|pack|figures}" +
+			" {plan|extract|verify|join|measure|train|predict|evaluate|compare|reference-bank|pack|figures|dataset}" +
 			" [options] < artifact.json")
 	}
 	if command := dedicated(args[0]); command != nil {
@@ -75,6 +75,8 @@ func dedicated(name string) func(context.Context, []string, io.Reader, io.Writer
 		return runEvaluation
 	case "figures":
 		return runFigures
+	case "dataset":
+		return runDataset
 	}
 	return nil
 }
