@@ -362,3 +362,11 @@ keeps the existing model-free status of results. Loading a pack establishes
 neither corpus qualification nor a usable probability gate; engine integration,
 calibrated gating, and acceptance remain separate work. See
 [ADR 0034](adr/0034-probability-pack.md).
+
+`Options.Model`, `check --model`, and `calibration.model: pack` connect that pack
+to the engine. `Assessment.ProbabilityStatus` now carries the decided status,
+`ProbabilityDetail` names an unavailable column, and `Manifest.Probability`
+records the pack's declarations. `config.Policy.Calibration` is absent unless a
+policy requests a model, so model-free identities, accepted debt, and existing
+reports are unchanged. Estimates do not affect findings, the index, or the gate.
+Every writer and `unswell-mcp --model` report the same decisions.

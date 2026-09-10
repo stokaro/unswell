@@ -50,14 +50,29 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source, iden
 		return result, err
 	}
 	suppressionErr := e.applySuppressions(ctx, &result, doc, plan, builder)
-	e.assess(&result, doc)
+	if err := e.summarizeSource(ctx, &result, doc, identities, builder); err != nil {
+		return result, err
+	}
+	return result, suppressionErr
+}
+
+// summarizeSource scores units, decides revision probabilities, records source
+// identities, and evaluates the gate for one already analyzed document.
+func (e *Engine) summarizeSource(ctx context.Context, result *RunResult, doc document.Document,
+	identities *sourceIdentities, builder *debtBuilder,
+) error {
+	estimates, err := e.estimateProbability(ctx, &doc, e.extractionStructure() || identities != nil)
+	if err != nil {
+		return err
+	}
+	e.assess(result, doc, estimates)
 	if builder != nil {
-		if err := e.identifySource(ctx, &result, doc, identities, builder); err != nil {
-			return result, err
+		if err := e.identifySource(ctx, result, doc, identities, builder); err != nil {
+			return err
 		}
 	}
-	e.decide(&result, doc)
-	return result, suppressionErr
+	e.decide(result, doc)
+	return nil
 }
 
 func (e *Engine) extractionStructure() bool { return e.collectBaseline || e.requiresStructure() }

@@ -73,5 +73,8 @@ func (e *Engine) configureResultCollection(options Options) error {
 	if err := e.selectPreparedFeatures(options.PreparedFeatures, options.PreparedKinds); err != nil {
 		return err
 	}
+	if err := e.configureProbability(options); err != nil {
+		return err
+	}
 	return e.configureBaseline(options)
 }

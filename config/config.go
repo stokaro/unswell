@@ -57,6 +57,16 @@ type Suppressions struct {
 	RejectUnused  bool `json:"reject_unused" yaml:"reject_unused"`
 }
 
+// Calibration selects an explicitly supplied revision-probability pack. It is
+// absent unless a policy requests one, so model-free identities are unchanged.
+// OnIncompatible chooses between an unavailable estimate and an operational
+// failure when a source's effective measurement inputs differ from the pack.
+type Calibration struct {
+	Model              string `json:"model"`
+	OnIncompatible     string `json:"on_incompatible"`
+	AcceptExperimental bool   `json:"accept_experimental"`
+}
+
 // Policy is an effective policy with provenance and a canonical content hash.
 type Policy struct {
 	Identity         string                   `json:"identity"`
@@ -74,6 +84,7 @@ type Policy struct {
 	RuleSets         []rule.Origin            `json:"rule_sets,omitempty"`
 	Vocabulary       Vocabulary               `json:"vocabulary"`
 	Suppressions     Suppressions             `json:"suppressions"`
+	Calibration      *Calibration             `json:"calibration,omitempty"`
 	Sources          []SourceIdentity         `json:"sources,omitempty"`
 	Overrides        []OverrideIdentity       `json:"overrides,omitempty"`
 	AppliedOverrides []string                 `json:"applied_overrides,omitempty"`
@@ -93,8 +104,9 @@ type input struct {
 	Suppressions yaml.Node            `yaml:"suppressions"`
 	Overrides    []overrideInput      `yaml:"overrides"`
 	Calibration  struct {
-		Model          string `yaml:"model"`
-		OnIncompatible string `yaml:"on_incompatible"`
+		Model              string `yaml:"model"`
+		OnIncompatible     string `yaml:"on_incompatible"`
+		AcceptExperimental bool   `yaml:"accept_experimental"`
 	} `yaml:"calibration"`
 }
 
@@ -183,13 +195,7 @@ func validateInput(raw input) error {
 	if raw.Language != "" && raw.Language != "en" {
 		return fmt.Errorf("unsupported language %q", raw.Language)
 	}
-	if raw.Calibration.Model != "" && raw.Calibration.Model != "none" {
-		return fmt.Errorf("calibration model %q is unavailable in this alpha", raw.Calibration.Model)
-	}
-	if raw.Calibration.OnIncompatible != "" && raw.Calibration.OnIncompatible != "unavailable" {
-		return fmt.Errorf("invalid calibration unavailable policy")
-	}
-	return nil
+	return validateCalibration(raw)
 }
 
 func decode(data []byte, target any) error {
@@ -349,7 +355,44 @@ func applyNodes(raw input, policy *Policy, catalog []rule.Descriptor) error {
 		policy.Rules[id] = settings
 		policy.Origins["rules."+id] = "project configuration"
 	}
-	return applyPolicyNodes(raw, policy)
+	if err := applyPolicyNodes(raw, policy); err != nil {
+		return err
+	}
+	applyCalibration(raw, policy)
+	return nil
+}
+
+// applyCalibration keeps an absent model out of the policy identity, so
+// model-free runs preserve their existing hashes and accepted debt.
+func applyCalibration(raw input, policy *Policy) {
+	switch raw.Calibration.Model {
+	case "pack":
+		policy.Calibration = &Calibration{Model: "pack", OnIncompatible: incompatibilityPolicy(raw.Calibration.OnIncompatible),
+			AcceptExperimental: raw.Calibration.AcceptExperimental}
+	case "none":
+		policy.Calibration = nil
+	}
+}
+
+func incompatibilityPolicy(value string) string {
+	if value == "" {
+		return "unavailable"
+	}
+	return value
+}
+
+func validateCalibration(raw input) error {
+	calibration := raw.Calibration
+	if !slices.Contains([]string{"", "none", "pack"}, calibration.Model) {
+		return fmt.Errorf("unsupported calibration model %q", calibration.Model)
+	}
+	if !slices.Contains([]string{"", "unavailable", "fail"}, calibration.OnIncompatible) {
+		return fmt.Errorf("invalid calibration incompatibility policy %q", calibration.OnIncompatible)
+	}
+	if calibration.Model != "pack" && (calibration.OnIncompatible != "" || calibration.AcceptExperimental) {
+		return fmt.Errorf("calibration options require an explicit model")
+	}
+	return nil
 }
 
 func validateRuleNode(id string, node yaml.Node, catalog []rule.Descriptor) error {

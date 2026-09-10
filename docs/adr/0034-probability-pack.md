@@ -43,6 +43,7 @@ Applicability is decided per unit, before any number is reported:
 | `insufficient_evidence` | The unit has fewer words than the pack's declared minimum |
 | `missing_feature` | A required column has no value; the detail names the column and the measurement's own reason |
 | `calibration_range` | The linear score lies outside the fitted knots |
+| `incompatible_model` | The source's effective measurement inputs differ from the pack |
 | `calibration_unavailable` | No pack applies to the run; this is the existing model-free status |
 
 The minimum word count comes from the pack, not from a constant in this
@@ -57,6 +58,40 @@ requires. Corrupt bytes, an altered digest, an unsupported contract, and an
 inconsistent declaration are errors for the same reason. Errors and cancellation
 return no partial estimate.
 
+## Engine and command integration
+
+`Options.Model` carries one pack as bytes, and `check --model` reads the named
+file: the library still opens nothing. A pack requires `calibration.model: pack`,
+and analysis under that policy requires a pack, so neither is silently ignored.
+Construction still succeeds without the pack, so configuration inspection can
+diagnose the policy; the run itself fails instead of abstaining silently. A pack that
+declares experimental status needs `calibration.accept_experimental`, which keeps
+an unqualified research model out of a default run. The policy records
+`calibration` only when a model is requested, so model-free runs keep their
+existing identities and accepted debt. Accepted debt records the pack identity,
+because a different model changes the estimates behind a scored unit.
+
+Preparation for the probability channel runs separately from optional feature
+collection, with exactly the pack's declared capabilities and its single kind,
+so measured columns match the pack contract instead of whatever a run happens to
+collect. Compatibility is decided per source, because per-file overrides can
+change extraction and quote handling. `on_incompatible: unavailable` reports
+`incompatible_model` for that source; `on_incompatible: fail` makes it an
+operational failure, which cannot pass a gate.
+
+Estimates never change findings, the index, or the gate decision in this
+increment. A unit whose kind the pack does not qualify, and a unit for which this
+build prepared no target, both report `unsupported_unit` rather than an invented
+value.
+
+Every output carries the same decisions. JSON and SARIF already serialize the
+assessments and the manifest. The text, Markdown, and HTML writers replace their
+fixed "no calibrated model" sentence with the configured pack, its declared
+status and corpus, and how many units of its kind were estimated; they keep the
+existing sentence when no pack applies. Declared pack values are data, so each
+format escapes them. `unswell-mcp --model` mirrors `check --model`, so the server
+and the CLI agree.
+
 ## Acceptance and follow-up
 
 Blackbox tests must cover strict decoding, digest verification, contract and
@@ -64,15 +99,11 @@ column rejection, capability requirements, declaration consistency, each
 applicability status, calibrated values with their uncalibrated score, mismatched
 vectors, cancellation, detached snapshots, and concurrent estimates.
 
-The remaining work under #24 is engine and interface integration: an explicit
-`Options.Model`, a policy that names a pack instead of `calibration.model: none`,
-per-assessment status and value in results, the pack identity in the manifest and
-in accepted-debt compatibility, and library, CLI, MCP, JSON, SARIF, HTML, and
-Markdown parity. Calibrated gating follows: a gate that requires a probability
-cannot pass while that estimate is absent, an explicitly requested incompatible
-pack fails as an operational error, and exit codes 0, 1, 2, and 130 keep their
-meanings. Reserved reasons such as unsupported domain and dictionary coverage
-need inputs the engine does not yet carry.
+The remaining work under #24 is calibrated gating: a gate that requires a
+probability cannot pass while that estimate is absent, and exit codes 0, 1, 2,
+and 130 keep their meanings. Reserved reasons such as unsupported
+domain and dictionary coverage need inputs the engine does not yet carry. A
+command that builds a pack from a research training artifact is separate work.
 
 A loadable pack is not a qualified model. Held-out evaluation (#25), corpus
 qualification (#22), and the product decision to gate on a probability remain

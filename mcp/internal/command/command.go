@@ -16,6 +16,7 @@ import (
 	"github.com/stokaro/unswell/baseline"
 	"github.com/stokaro/unswell/internal/appconfig"
 	"github.com/stokaro/unswell/mcp/internal/server"
+	"github.com/stokaro/unswell/probability"
 )
 
 // Run starts the server on a supplied transport. Only protocol messages use that transport.
@@ -31,6 +32,7 @@ func Run(ctx context.Context, args []string, stderr io.Writer, transport mcp.Tra
 	})
 	configPath := flags.String("config", "", "explicit Unswell policy file; omitted uses builtin defaults")
 	baselinePath := flags.String("baseline", "", "explicit local baseline loaded once at startup; tools cannot update it")
+	modelPath := flags.String("model", "", "explicit revision-probability pack loaded once at startup")
 	gateMode := flags.String("gate-mode", "", "override gate mode: all or new (new requires a baseline)")
 	projectRoot := flags.String("project-root", "", "root for local policy dependencies and logical source names")
 	allowOutside := flags.Bool("allow-config-outside-root", false, "explicitly permit local configuration outside the project root")
@@ -55,20 +57,24 @@ func Run(ctx context.Context, args []string, stderr io.Writer, transport mcp.Tra
 	if err != nil {
 		return err
 	}
-	accepted, err := readBaseline(*baselinePath)
+	accepted, err := readLocalArtifact(*baselinePath, baseline.MaxBytes, "baseline")
+	if err != nil {
+		return err
+	}
+	pack, err := readLocalArtifact(*modelPath, probability.MaxBytes, "probability pack")
 	if err != nil {
 		return err
 	}
 	instance, err := server.New(server.Options{Features: features,
 		PreparedFeatures: preparedFeatures, PreparedKinds: preparedKinds, ConfigBundle: &loaded.Bundle,
-		Timeout: *timeout, Baseline: accepted, GateMode: *gateMode})
+		Timeout: *timeout, Baseline: accepted, Model: pack, GateMode: *gateMode})
 	if err != nil {
 		return err
 	}
 	return instance.Run(ctx, transport)
 }
 
-func readBaseline(path string) ([]byte, error) {
+func readLocalArtifact(path string, maximum int, name string) ([]byte, error) {
 	if path == "" {
 		return nil, nil
 	}
@@ -77,12 +83,12 @@ func readBaseline(path string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	data, readErr := io.ReadAll(io.LimitReader(file, baseline.MaxBytes+1))
+	data, readErr := io.ReadAll(io.LimitReader(file, int64(maximum)+1))
 	if err := errors.Join(readErr, file.Close()); err != nil {
 		return nil, err
 	}
-	if len(data) > baseline.MaxBytes {
-		return nil, fmt.Errorf("baseline exceeds %d bytes", baseline.MaxBytes)
+	if len(data) > maximum {
+		return nil, fmt.Errorf("%s exceeds %d bytes", name, maximum)
 	}
 	return data, nil
 }

@@ -24,6 +24,7 @@ type htmlData struct {
 	FeatureRows  []featureRow
 	Result       unswell.RunResult
 	Verdict      string
+	Probability  string
 	Findings     []unswell.Finding
 	Paragraphs   []paragraph
 	Omitted      int
@@ -31,7 +32,8 @@ type htmlData struct {
 
 func htmlReport(writer io.Writer, result unswell.RunResult, options Options) error {
 	data := htmlData{PreparedRows: preparedRows(result), FeatureRows: featureRows(result),
-		Result: result, Verdict: verdict(result), Findings: visible(result, options)}
+		Result: result, Verdict: verdict(result), Probability: probabilitySummary(result, func(value string) string { return value }),
+		Findings: visible(result, options)}
 	data.Omitted = len(result.Findings) - len(data.Findings)
 	for _, assessment := range result.Assessments {
 		if assessment.Scope != "paragraph" || assessment.SlopScore == 0 {

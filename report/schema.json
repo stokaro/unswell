@@ -900,6 +900,9 @@
         "path": {
           "type": "string"
         },
+        "probability_detail": {
+          "type": "string"
+        },
         "probability_status": {
           "type": "string"
         },
@@ -1601,6 +1604,16 @@
         "no_gate": {
           "type": "boolean"
         },
+        "probability": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unswell.ProbabilityModel"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "rules": {
           "items": {
             "$ref": "#/$defs/rule.Descriptor"
@@ -1855,6 +1868,53 @@
         "input_hash",
         "segments",
         "values"
+      ],
+      "type": "object"
+    },
+    "unswell.ProbabilityModel": {
+      "additionalProperties": false,
+      "properties": {
+        "declared_status": {
+          "type": "string"
+        },
+        "evaluation": {
+          "type": "string"
+        },
+        "human_corpus": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "min_words": {
+          "type": "integer"
+        },
+        "pack_id": {
+          "type": "string"
+        },
+        "rubric": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        },
+        "task": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pack_id",
+        "sha256",
+        "version",
+        "task",
+        "rubric",
+        "kind",
+        "declared_status",
+        "human_corpus",
+        "min_words"
       ],
       "type": "object"
     },

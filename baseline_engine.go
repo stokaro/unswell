@@ -35,7 +35,7 @@ func (e *Engine) configureBaseline(options Options) error {
 	e.baselineCompatibility = baseline.Compatibility{
 		PolicyHash: hasher.hash(baselinePolicy(e.policy)), RulesHash: e.baselineRulesHash(hasher),
 		NLPHash: hasher.hash(e.nlp.Identity()), FeatureContract: "unswell-features-v1",
-		ScoringContract: "unswell-local-fixed-point-v1", ModelHash: hasher.hash("calibration.model:none"),
+		ScoringContract: "unswell-local-fixed-point-v1", ModelHash: e.probabilityModelHash(hasher),
 	}
 	return hasher.err
 }
