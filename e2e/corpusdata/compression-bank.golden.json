@@ -1,0 +1,52 @@
+{
+  "basis": "simulation",
+  "cohorts": [
+    {
+      "id": "human",
+      "origin": "human",
+      "reference": "Retry failed requests.",
+      "units": [
+        {
+          "source_id": "d000001",
+          "start": 0,
+          "end": 22
+        }
+      ]
+    },
+    {
+      "id": "generated",
+      "origin": "generated",
+      "reference": "It is important to note that clients may retry.",
+      "units": [
+        {
+          "source_id": "d000002",
+          "start": 0,
+          "end": 47
+        }
+      ]
+    },
+    {
+      "id": "mixed",
+      "origin": "mixed",
+      "reference": "It is important to note that clients may retry.\nRetry failed requests.",
+      "units": [
+        {
+          "source_id": "d000002",
+          "start": 0,
+          "end": 47
+        },
+        {
+          "source_id": "d000001",
+          "start": 48,
+          "end": 70
+        }
+      ]
+    }
+  ],
+  "human_corpus": "not_qualified",
+  "remaining_training_units": 0,
+  "reserved_sources": [
+    "d000001",
+    "d000002"
+  ]
+}

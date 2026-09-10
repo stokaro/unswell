@@ -78,6 +78,11 @@ retain compressor/reference identities, full source bindings, raw byte sizes,
 and absent values at compression boundaries. It is not registered in model-free
 feature collection or the product gate. Reference-pack selection, training, and
 qualification remain separate work; see [ADR 0032](adr/0032-compression-measurements.md).
+`annotation.Round.Origins` exports separately curated, source-bound origin claims.
+`corpus.BuildCompressionBank` assembles explicit ordered training references over
+the same prepared targets and records the common connected-group exclusion union.
+The bank contains source prose and remains unqualified. Consumers must apply its
+reservations before fitting; see [ADR 0033](adr/0033-compression-reference-bank.md).
 `corpus.JoinRules`, `training.RunRules`, and `--rule-config` add the existing
 engine's raw activations as an explicit research feature source. They share
 target verification, row selection, Go fitting, and calibration with prepared

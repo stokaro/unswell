@@ -36,7 +36,11 @@ func mainCode() int {
 
 func run(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: corpus {plan|extract|verify|join|train|predict|evaluate|compare} [options] < artifact.json")
+		return fmt.Errorf("usage: corpus {plan|extract|verify|join|train|predict|evaluate|compare|reference-bank}" +
+			" [options] < artifact.json")
+	}
+	if args[0] == "reference-bank" {
+		return runCompressionBank(ctx, args, input, output)
 	}
 	if args[0] == "compare" {
 		return runComparison(ctx, args, input, output)
@@ -68,6 +72,9 @@ func writeResult(ctx context.Context, name string, result any, output io.Writer)
 		return err
 	}
 	maximum := corpus.MaxArtifactBytes
+	if name == "reference-bank" {
+		maximum = corpus.MaxCompressionBankBytes
+	}
 	if name == "train" {
 		maximum = training.MaxArtifactBytes
 	}
