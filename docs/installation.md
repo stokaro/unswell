@@ -119,3 +119,10 @@ rules allow only the publish app to merge without manual approval; required CI
 checks and resolved conversations still apply. Keep one approving review for
 other authors and keep force pushes and main deletion disabled. Organization-wide
 permission for GitHub Actions to approve PRs is not needed.
+
+`scripts/verify-release-artifacts.sh` audits a published release. It checks every
+asset against the release manifest. It checks that each archive bundles the
+license and the notices, that each build record names a trimmed build without
+cgo, and that each archive has its own SBOM. With `--rebuild` and the released
+commit it rebuilds each binary and compares digests. The recorded result is in
+[reproducible builds](reproducible-builds.md).
