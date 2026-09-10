@@ -1,0 +1,57 @@
+{
+  "builds": [
+    {
+      "architecture": "amd64",
+      "equal": true,
+      "platform": "linux",
+      "repeated_sha256": "07431d083a073b73be525605039227e886a2e72d137afaebeba54d83e1eeaf40",
+      "sha256": "07431d083a073b73be525605039227e886a2e72d137afaebeba54d83e1eeaf40"
+    },
+    {
+      "architecture": "arm64",
+      "equal": true,
+      "platform": "linux",
+      "repeated_sha256": "2f3789fb8c2b0a910d41c46ed7ca3515b482466aa1eb2521893c34e1a52c860d",
+      "sha256": "2f3789fb8c2b0a910d41c46ed7ca3515b482466aa1eb2521893c34e1a52c860d"
+    },
+    {
+      "architecture": "amd64",
+      "equal": true,
+      "platform": "darwin",
+      "repeated_sha256": "c7f7122be9c4fa998c1bcbf0b8b72fc30d8bdb4b9d307623f7e550c03424fa26",
+      "sha256": "c7f7122be9c4fa998c1bcbf0b8b72fc30d8bdb4b9d307623f7e550c03424fa26"
+    },
+    {
+      "architecture": "arm64",
+      "equal": true,
+      "platform": "darwin",
+      "repeated_sha256": "308af0cf05b518bb9369fbe9829ea0eaa0395d025c1fed65969f37acdaf18a93",
+      "sha256": "308af0cf05b518bb9369fbe9829ea0eaa0395d025c1fed65969f37acdaf18a93"
+    },
+    {
+      "architecture": "amd64",
+      "equal": true,
+      "platform": "windows",
+      "repeated_sha256": "14177be37a3d49944739b1315e52ca566371d1c2411b1d5fc19d44cf3d740ecb",
+      "sha256": "14177be37a3d49944739b1315e52ca566371d1c2411b1d5fc19d44cf3d740ecb"
+    },
+    {
+      "architecture": "arm64",
+      "equal": true,
+      "platform": "windows",
+      "repeated_sha256": "38ee63a1ebcfe52be7c8399f085a6ccb64303921cb84f58002c08ac290d7b172",
+      "sha256": "38ee63a1ebcfe52be7c8399f085a6ccb64303921cb84f58002c08ac290d7b172"
+    }
+  ],
+  "cgo_enabled": false,
+  "cross_host_match": "All six digests equal the other recorded host at the same commit and compiler.",
+  "flags": "-trimpath -buildvcs=false -ldflags '-s -w -X github.com/stokaro/unswell.BuildCommit=<commit>'",
+  "format": "unswell-reproducible-build-check-v1",
+  "go_version": "go version go1.25.0 darwin/arm64",
+  "host_goarch": "arm64",
+  "host_goos": "darwin",
+  "mismatched": 0,
+  "note": "The digests depend on the Go sources and on the commit string embedded by -ldflags, not on documentation. Rebuilding this branch with --commit fee5caaf396e009ca01154caad8dd5a0c41fc5ef reproduces them after later documentation edits.",
+  "runtime_commit": "fee5caaf396e009ca01154caad8dd5a0c41fc5ef",
+  "scope": "Two builds of one source, one toolchain, one host. It makes no claim about other compilers."
+}

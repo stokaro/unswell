@@ -151,7 +151,9 @@ experiments is reported as a completed benchmark.
   and one such measurement are in [scan cost](performance.md); real corpora and
   other architectures remain open.
 - Verify SARIF import in a real consumer, release reproducibility, current API consumers,
-  all report/input formats and platform behavior.
+  all report/input formats and platform behavior. Release binaries already
+  reproduce byte for byte across hosts with a pinned compiler; see
+  [reproducible builds](reproducible-builds.md).
 - Complete the full documentation set, model/data notices and release inventory.
 - Finally, restore race detection, active fuzzing, and coverage in CI, fix findings, and retain
   passing evidence for the merged commit as required by #123.
