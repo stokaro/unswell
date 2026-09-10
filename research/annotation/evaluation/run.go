@@ -13,9 +13,9 @@ import (
 )
 
 // Version identifies saved binary-event metric and exclusion semantics. Version
-// 2 added the risk-coverage curve; version 3 adds recall at fixed false-positive
-// limits and prevalence sensitivity to the full-flow summary.
-const Version = "unswell-research-evaluation-v3"
+// 2 added the risk-coverage curve, version 3 recall at fixed false-positive
+// limits and prevalence sensitivity, and version 4 the per-stratum breakdown.
+const Version = "unswell-research-evaluation-v4"
 
 // Result binds a numerical summary to exact saved predictions and an independent
 // annotation round. No inference or training runs while computing this report.
@@ -37,6 +37,7 @@ type Result struct {
 	Excluded          map[string]int          `json:"excluded_labels"`
 	TrainingConstant  float64                 `json:"training_constant"`
 	Summary           Summary                 `json:"summary"`
+	Strata            []Stratum               `json:"strata"`
 }
 
 // Run joins independent editorial decisions to saved predictions. Corpus and
@@ -68,13 +69,29 @@ func Run(ctx context.Context, data []byte, candidates corpus.Artifact,
 	if err != nil {
 		return Result{}, err
 	}
+	strata, err := Stratify(ctx, rows, candidateAttributes(candidates), constant)
+	if err != nil {
+		return Result{}, err
+	}
 	result := Result{Version: Version, Status: "experimental_metrics", HumanCorpus: "not_qualified",
 		ProbabilityStatus: "unavailable_unqualified_model", Basis: decisions.Basis, TrainingBasis: predictions.Model.Basis,
 		PredictionsSHA256: predictions.SHA256, PlanSHA256: predictions.PlanSHA256,
 		Plan: predictions.Plan, Identity: predictions.Model.Identity,
 		DecisionsSHA256: decisions.SHA256, RoundSHA256: decisions.RoundSHA256, Candidates: len(predictions.Rows),
-		Excluded: excluded, TrainingConstant: constant, Summary: summary}
+		Excluded: excluded, TrainingConstant: constant, Summary: summary, Strata: strata}
 	return finish(ctx, result)
+}
+
+// candidateAttributes reads the facts the corpus already records about each
+// unit; nothing here is inferred from text.
+func candidateAttributes(candidates corpus.Artifact) map[string]Attributes {
+	attributes := make(map[string]Attributes, len(candidates.Units))
+	for _, candidate := range candidates.Units {
+		attributes[candidate.Unit.ID] = Attributes{Words: candidate.Words, Role: candidate.Unit.Role,
+			Language: string(candidate.Unit.Source.Language), ProseLanguage: candidate.Unit.Source.ProseLanguage,
+			Origin: candidate.Unit.Origin.Label}
+	}
+	return attributes
 }
 
 func finish(ctx context.Context, result Result) (Result, error) {
