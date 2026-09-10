@@ -36,12 +36,12 @@ Repository checks enforce the package convention, exception filename, and the
 presence and placement of the explanation across all Go modules. Review must
 assess whether the explanation warrants whitebox access.
 
-Run `make check` before publishing. Race detection, active fuzzing, and coverage are deferred
-during alpha implementation, including concurrency changes. Do not run them as
-routine validation. Preserve the tests, fuzz seeds, and explicit `make race` and
-`make fuzz` targets. Do not repeat ordinary tests just to collect coverage during
-implementation. Restore these checks and fix their findings as the final roadmap
-task, [#123](https://github.com/stokaro/unswell/issues/123).
+Run `make check` before publishing. It measures coverage in place of the plain test
+run, so the module suite executes once and the area targets in
+[`docs/validation.md`](docs/validation.md) gate the result. Run `make race` for
+concurrency changes and `make fuzz` when changing parsers, decoders, or other
+input handling. `scripts/fuzz.sh` discovers targets with `go test -list`, so a new
+`Fuzz` function joins the campaign without editing a list.
 
 Backward compatibility is not required during alpha development. Change APIs and
 artifact formats when needed, update their documentation and consumers, and reject

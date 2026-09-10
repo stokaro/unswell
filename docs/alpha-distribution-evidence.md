@@ -50,6 +50,5 @@ publication. The current tap workflow prepares a branch for maintainer review.
 
 This record does not establish stable-rule precision, a qualified probability
 model, or final product acceptance. Those requirements remain in the
-[roadmap](roadmap.md). Race detection, active fuzzing, and coverage collection for
-ongoing alpha development remain deferred to final task
-[#123](https://github.com/stokaro/unswell/issues/123).
+[roadmap](roadmap.md). Race detection, active fuzzing, and coverage collection are
+restored; [`validation.md`](validation.md) records their budgets and results.

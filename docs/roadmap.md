@@ -11,7 +11,7 @@ evidence passes on the merged commit. Human annotation and measured quality requ
 real data; implementation alone cannot satisfy those requirements.
 
 Research work runs on two branches since September 10, 2026. The active branch,
-[#154](https://github.com/stokaro/unswell/issues/154), is to collect
+[#154](https://github.com/stokaro/unswell/issues/154), collects
 LLM-associated pattern evidence without human labels under
 [ADR 0036](adr/0036-llm-pattern-evidence.md). Stage A fixed its scope. Stage
 B measured five dated cohorts. Stage C waits on a recorded budget. The
@@ -21,12 +21,10 @@ resource reasons with its acceptance criteria unchanged, and the issues that
 need its labeled corpus wait with it. Cohort measurements from the active
 branch never count toward those criteria.
 
-During alpha implementation, race detection, active fuzzing, and coverage are deferred.
-Their tests and commands remain available. Run #123 last, after the other
-implementation tasks have a recorded disposition, to restore these CI checks and
-fix discovered issues. An earlier audit must keep this final validation outstanding.
-Alpha API compatibility with previous releases is not required; current schemas,
-consumer tests, and the public package ledger remain maintained.
+Race detection, active fuzzing, and coverage collection are restored in CI and in
+`make check`; [`docs/validation.md`](validation.md) records their budgets, targets,
+and results. Alpha API compatibility with previous releases is not required;
+current schemas, consumer tests, and the public package ledger remain maintained.
 
 | Issue | Work |
 | --- | --- |
@@ -173,8 +171,8 @@ experiments is reported as a completed benchmark.
   reproduce byte for byte across hosts with a pinned compiler; see
   [reproducible builds](reproducible-builds.md).
 - Complete the full documentation set, model/data notices and release inventory.
-- Finally, restore race detection, active fuzzing, and coverage in CI, fix findings, and retain
-  passing evidence for the merged commit as required by #123.
+- Race detection, active fuzzing, and coverage run in CI on every change; #123
+  records the restored budgets, findings, and evidence.
 
 Additional filler/hype signals and repeated rhetorical patterns are available as
 [opt-in experiments](editorial-patterns.md); their corpus qualification remains open.

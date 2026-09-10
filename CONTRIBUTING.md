@@ -1,18 +1,17 @@
 # Contributing
 
 Discuss substantial behavior or API changes in an issue before implementing them.
-Use American English and keep changes focused. Run `make check` before publishing.
-CI tests the minimum compiler from `go.mod` on
-Linux, macOS, and Windows with automatic toolchain upgrades disabled. Tools have
-their own pinned module and compiler requirements.
+Use American English and keep changes focused. Run `make check` before publishing;
+concurrency changes also require `make race`. CI tests the minimum compiler from
+`go.mod` on Linux, macOS, and Windows with automatic toolchain upgrades disabled.
+Tools have their own pinned module and compiler requirements.
 
-Race detection, active fuzzing, and coverage collection are deferred during alpha development,
-including concurrency changes. Preserve their tests, seed corpora, and the
-`make race` / `make fuzz` targets; do not run them during routine implementation.
-The final roadmap task, [#123](https://github.com/stokaro/unswell/issues/123), restores
-these CI checks and fixes any findings before final product acceptance. Ordinary
-tests still execute the existing fuzz seeds.
-Coverage collection must not add a second test run during implementation.
+`make check` collects coverage during its single test run and fails when an area
+falls below the target recorded in [`docs/validation.md`](docs/validation.md).
+Instrumentation makes that run slower, so use `make test` while iterating. `make fuzz`
+runs every `Fuzz` function found by `go test -list` for a fixed budget; keep the
+minimized inputs Go writes under `testdata/fuzz` as regression cases. CI runs
+`make check`, `make race`, and `make fuzz` on every pull request.
 
 Run `bash scripts/setup-shellcheck.sh` once to install the pinned ShellCheck build
 in `bin/`. The installer verifies the archive checksum. `make lint-shell` checks

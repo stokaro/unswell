@@ -1,9 +1,9 @@
 SHELL := /bin/bash
 
-.PHONY: check test race fuzz lint lint-shell tidy policy build build-mcp release fmt schema dogfood dogfood-mcp
+.PHONY: check test cover race fuzz lint lint-shell tidy policy build build-mcp release fmt schema dogfood dogfood-mcp
 .PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible
+check: policy tidy cover lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible
 
 check-sbom-policy:
 	bash scripts/prepare-sbom.sh --self-test
@@ -41,24 +41,19 @@ check-registry:
 test:
 	bash scripts/modules.sh test
 
-# Retained for final validation (#123); deferred from routine alpha development.
+# Coverage replaces the plain test run inside `check`; the module suite executes once.
+cover:
+	bash scripts/coverage.sh --self-test
+	bash scripts/coverage.sh
+
+# Race instrumentation multiplies runtime; the default 10 minute panic threshold is
+# not enough for the root package on a shared runner.
 race:
-	bash scripts/modules.sh test -race
+	bash scripts/modules.sh test -race -timeout 40m
 
 fuzz:
-	go test ./feature -run '^$$' -fuzz '^FuzzLexicalKey$$' -fuzztime 10s -parallel 2
-	cd research/annotation && go test ./llmdet -run '^$$' -fuzz '^FuzzLoadNumericalPack$$' -fuzztime 10s -parallel 2
-	cd research/annotation && go test ./corpus -run '^$$' -fuzz '^FuzzLoadManifest$$' -fuzztime 10s -parallel 2
-	cd research/annotation && go test ./corpus -run '^$$' -fuzz '^FuzzLoadArtifact$$' -fuzztime 10s -parallel 2
-	cd research/annotation && go test . -run '^$$' -fuzz FuzzLoad -fuzztime 10s -parallel 2
-	go test ./nlp -run '^$$' -fuzz FuzzDependencyTree -fuzztime 10s -parallel 2
-	go test ./nlp -run '^$$' -fuzz FuzzPrepareUnits -fuzztime 10s -parallel 2
-	go test ./baseline -run '^$$' -fuzz FuzzLoad -fuzztime 10s -parallel 2
-	go test ./extract -run '^$$' -fuzz Fuzz -fuzztime 10s -parallel 2
-	go test ./report -run '^$$' -fuzz Fuzz -fuzztime 10s -parallel 2
-	go test ./config -run '^$$' -fuzz Fuzz -fuzztime 10s -parallel 2
-	go test ./ruleset -run '^$$' -fuzz FuzzLoad -fuzztime 10s -parallel 2
-	go test ./internal/suppress -run '^$$' -fuzz FuzzDirectives -fuzztime 10s -parallel 2
+	bash scripts/fuzz.sh --self-test
+	bash scripts/fuzz.sh
 
 lint:
 	bash scripts/lint.sh

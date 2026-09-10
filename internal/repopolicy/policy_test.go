@@ -1,6 +1,7 @@
 package repopolicy_test
 
 import (
+	"strings"
 	"testing"
 	"testing/fstest"
 
@@ -18,7 +19,8 @@ func fixture() fstest.MapFS {
 		"engine.go":          {Data: []byte("package unswell\nimport \"context\"\n")},
 		".github/workflows/ci.yml": {Data: []byte("uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09\n" +
 			"os: [ubuntu-latest, macos-latest, windows-latest]\nGOTOOLCHAIN: local\ngo-version-file: go.mod\n" +
-			"run: scripts/modules.sh test\nrun: make check\n")},
+			"run: scripts/modules.sh test\nrun: make check\nrun: make race\nrun: make fuzz\n" +
+			"artifacts/coverage/\n")},
 	}
 }
 
@@ -44,6 +46,29 @@ func TestRepositoryPolicy(t *testing.T) {
 			tree := fixture()
 			c.Assert(repopolicy.Check(tree), qt.IsNil)
 			tree[row.file] = &fstest.MapFile{Data: []byte(row.content)}
+			c.Assert(repopolicy.Check(tree), qt.ErrorMatches, row.want)
+		})
+	}
+}
+
+// An empty workflow proves the check runs; each required step also needs its own
+// negative case so a single deleted line cannot pass unnoticed.
+func TestCIPolicyRejectsRemovedRequiredSteps(t *testing.T) {
+	for _, row := range []struct{ name, line, want string }{
+		{"tests", "run: scripts/modules.sh test", "missing CI coverage: scripts/modules.sh test"},
+		{"check", "run: make check", "missing CI coverage: make check"},
+		{"race", "run: make race", "missing CI coverage: make race"},
+		{"fuzz", "run: make fuzz", "missing CI coverage: make fuzz"},
+		{"coverage evidence", "artifacts/coverage/", "missing CI coverage: artifacts/coverage/"},
+	} {
+		t.Run(row.name, func(t *testing.T) {
+			c := qt.New(t)
+			tree := fixture()
+			c.Assert(repopolicy.Check(tree), qt.IsNil)
+			workflow := string(tree[".github/workflows/ci.yml"].Data)
+			reduced := strings.ReplaceAll(workflow, row.line+"\n", "")
+			c.Assert(reduced, qt.Not(qt.Equals), workflow)
+			tree[".github/workflows/ci.yml"] = &fstest.MapFile{Data: []byte(reduced)}
 			c.Assert(repopolicy.Check(tree), qt.ErrorMatches, row.want)
 		})
 	}

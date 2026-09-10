@@ -237,7 +237,8 @@ func checkWorkflow(tree fs.FS, name string) error {
 func checkCICoverage(workflow string) error {
 	for _, required := range []string{
 		"ubuntu-latest", "macos-latest", "windows-latest", "GOTOOLCHAIN: local",
-		"go-version-file: go.mod", "scripts/modules.sh test", "make check",
+		"go-version-file: go.mod", "scripts/modules.sh test", "make check", "make race", "make fuzz",
+		"artifacts/coverage/",
 	} {
 		if !strings.Contains(workflow, required) {
 			return fmt.Errorf("missing CI coverage: %s", required)
