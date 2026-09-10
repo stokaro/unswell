@@ -89,7 +89,9 @@ published version and its verified installation paths. Automatic updates remain
 open in #66; later changes on main do not alter the published alpha.
 
 Acceptance is unproven until the listed evidence exists for the released commit.
-Passing a subset of local unit tests does not establish release readiness.
+Passing a subset of local unit tests does not establish release readiness. The
+[acceptance audit](acceptance.md) records the current state of every requirement
+on this page and links the evidence for each one.
 
 ## Stage 2: context and integration policy
 

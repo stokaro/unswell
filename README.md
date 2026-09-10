@@ -197,8 +197,11 @@ The [repetition catalog](docs/repetition-signals.md) adds bounded phrase, POS-te
 paragraph, heading, and summary comparisons with measured overlap evidence.
 The [surface catalog](docs/surface-signals.md) adds opt-in syntax, readability, and
 formatting measurements with explicit counting protocols and protected boundaries.
+The research pipeline that fits and evaluates those models is a separate
+developer workflow; see [training and evaluation](docs/training.md).
 The [roadmap](docs/roadmap.md) preserves the remaining requirements:
 calibrated revision probabilities and qualified editorial defaults.
+The [acceptance audit](docs/acceptance.md) records the state of each one.
 The alpha does not silently claim those capabilities.
 
 Code, URLs, front matter, directives and quoted Markdown blocks are excluded from
