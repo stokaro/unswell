@@ -27,12 +27,12 @@ type RepositoryAppearance struct {
 }
 
 // AppearanceFilter names, for a later cohort, every unit of one kind whose
-// text is not repeated from an earlier cohort of the same repository. An
-// unchanged paragraph that a later snapshot repeats is not a new observation;
-// an analysis restricted to the listed units counts text at its first
-// evidenced appearance. Units of a repository without an earlier snapshot are
-// excluded as well, because none of them can be told from repeated ones. Keys
-// are "<source id>#<unit id>", sorted.
+// text the earlier cohort of the same repository does not hold. An unchanged
+// paragraph that a later snapshot repeats adds no observation; an analysis
+// over the listed units counts text at its first evidenced appearance. The
+// filter also leaves out every unit of a repository without an earlier
+// snapshot, because nothing tells those units from repeated ones. Keys have
+// the form "<source id>#<unit id>" and come sorted.
 type AppearanceFilter struct {
 	Version        string                 `json:"version"`
 	Kind           string                 `json:"kind"`

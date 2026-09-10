@@ -174,9 +174,10 @@ func TestTablesRejectInconsistentInputs(t *testing.T) {
 }
 
 // unitFixture gives every unit a word count and adds paragraphs so that the
-// historical cohort spans two components: h1 (one a.rule finding), h2 (none),
-// and h4 (two). The controlled document has one paragraph with a finding and
-// one without. A paragraph of the failed document stays unmeasured.
+// historical cohort spans two components. Paragraph h1 carries one a.rule
+// finding, h2 none, and h4 two. The controlled document has one paragraph
+// with a finding and one without. A paragraph of the failed document stays
+// unmeasured.
 func unitFixture() corpus.FindingsArtifact {
 	art := fixture()
 	for i := range art.Units {

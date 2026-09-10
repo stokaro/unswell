@@ -205,12 +205,12 @@ done
 "$corpus_tool" analyze --classes "$classes" "${findings_args[@]}" >"$output/tables.json"
 printf 'tables: %s\n' "$output/tables.json"
 
-# The unit analyses count paragraphs and sentences instead of documents. For
-# every cohort beside the baseline, a first-appearance filter drops the units
-# whose text the baseline snapshot of the same repository already holds, so
-# the filtered tables count text at its first evidenced appearance. Only
-# shards with findings enter a filter, because the analysis checks that every
-# listed unit was measured.
+# The unit analyses count paragraphs and sentences, not documents. For each
+# cohort beside the baseline, a first-appearance filter drops the units whose
+# text the baseline snapshot of the same repository already holds. The
+# filtered tables then count text at its first evidenced appearance. Only
+# shards with findings enter a filter: the analysis checks that every listed
+# unit was measured.
 baseline=historical
 candidate_args() {
   local side=$1 cohort=$2 pinned name
