@@ -119,12 +119,31 @@ labels on the prediction command, and changes only final labels to test separati
 Unit tests use hand-computed metric examples and numerical/absence boundary cases.
 All tutorial observations and raters are explicitly simulated.
 
+## Figures
+
+`corpus figures` renders one chart from a saved evaluation record and writes SVG
+to standard output. It computes nothing: every value comes from the record, so a
+published figure cannot disagree with the numbers beside it.
+
+```sh
+corpus figures --plot reliability < metrics.json > reliability.svg
+corpus figures --plot risk-coverage < metrics.json > risk-coverage.svg
+```
+
+The reliability chart plots observed positive rate against mean response for
+each nonempty bin, with the perfect-calibration diagonal and each bin's count. It
+omits an empty bin rather than drawing it at zero. The risk-coverage chart plots
+the error rate among accepted decisions against the share of eligible targets
+they cover. A record with no covered decision produces a chart that says so,
+because a blank plot area would read as a perfect result. The command refuses a
+record from another evaluation version.
+
 ## Remaining acceptance
 
 The executable path covers the current prepared-feature and rule-activation
 logistic fits. It does not claim the full A–G comparison or a qualified D feature
 set. Qualified FPR bounds,
-predeclared subgroups, figures, lexical models, ablations, LLMDet/reference adapters,
+predeclared subgroups, lexical models, ablations, LLMDet/reference adapters,
 and measured resource accounting retain their existing research requirements.
 Unexecuted methods remain unverified in the method registry. Human acquisition,
 independent annotation, final-test custody, calibration selection, and scientific

@@ -405,7 +405,9 @@ The research `evaluation.RiskPoint` adds a risk-coverage curve to the full-flow
 summary. It sorts covered decisions by confidence. At each reachable threshold it
 gives the error rate among the accepted prefix. A reader can then see where a
 selective model stops being right. Saved records now carry
-`unswell-research-evaluation-v2`.
+`unswell-research-evaluation-v2`. A new `figures` package and `corpus figures`
+render that record as SVG. Both read the saved values and compute nothing, so a
+chart cannot disagree with the metrics beside it.
 
 The `feature` catalog adds a repetition family: `peak-word-frequency-ratio`,
 `repeated-bigram-ratio`, `sentence-opener-repeat-ratio` and
