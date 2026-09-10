@@ -89,6 +89,7 @@ func checkEvaluation(t *testing.T, output []byte, positive bool) {
 	t.Helper()
 	c := qt.New(t)
 	var result struct {
+		Version           string  `json:"version"`
 		Status            string  `json:"status"`
 		Basis             string  `json:"basis"`
 		ProbabilityStatus string  `json:"probability_status"`
@@ -102,8 +103,15 @@ func checkEvaluation(t *testing.T, output []byte, positive bool) {
 					TP       int `json:"true_positive"`
 					FN       int `json:"false_negative"`
 				} `json:"counts"`
-				FPR   *float64 `json:"false_positive_rate"`
-				Brier *float64 `json:"brier"`
+				FPR          *float64 `json:"false_positive_rate"`
+				Brier        *float64 `json:"brier"`
+				RiskCoverage []struct {
+					Coverage          float64 `json:"coverage"`
+					Accepted          int     `json:"accepted"`
+					Errors            int     `json:"errors"`
+					Risk              float64 `json:"risk"`
+					MinimumConfidence float64 `json:"minimum_confidence"`
+				} `json:"risk_coverage"`
 			} `json:"micro"`
 		} `json:"summary"`
 	}
@@ -119,6 +127,13 @@ func checkEvaluation(t *testing.T, output []byte, positive bool) {
 	c.Assert(result.Summary.Micro.Counts.FN == 1, qt.Equals, !positive)
 	c.Assert(result.Summary.Micro.Brier, qt.IsNotNil)
 	c.Assert(result.Summary.Micro.FPR, qt.IsNil)
+	c.Assert(result.Version, qt.Equals, "unswell-research-evaluation-v2")
+	c.Assert(result.Summary.Micro.RiskCoverage, qt.HasLen, 1)
+	point := result.Summary.Micro.RiskCoverage[0]
+	c.Assert(point.Coverage, qt.Equals, 1.0)
+	c.Assert(point.Accepted, qt.Equals, 1)
+	c.Assert(point.Errors == 0, qt.Equals, positive)
+	c.Assert(point.MinimumConfidence >= 0.5, qt.IsTrue)
 }
 
 func checkChangedEvaluationLabels(t *testing.T, binary, directory string, args []string, predictions, before []byte) {
