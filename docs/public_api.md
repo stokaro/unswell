@@ -16,6 +16,7 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell/extract` | Source-preserving input extractors | alpha |
 | `github.com/stokaro/unswell/feature` | Versioned prose measurements and repetition preprocessing | alpha |
 | `github.com/stokaro/unswell/model` | Immutable numerical classifiers, separate calibration, and deterministic Go fitting | alpha |
+| `github.com/stokaro/unswell/probability` | Explicit revision-probability packs, compatibility, and per-unit applicability | alpha |
 | `github.com/stokaro/unswell/nlp` | Neutral providers, capabilities, and shared target preparation | alpha |
 | `github.com/stokaro/unswell/nlp/english` | Default pure-Go English backend | alpha |
 | `github.com/stokaro/unswell/report` | Writers and saved-result decoding | alpha |
@@ -350,3 +351,14 @@ bytes remain unchanged. Learned lexical dictionaries have their own identity,
 separate from the engine's policy/vocabulary identity. Predictions, evaluation,
 and comparison use the existing commands and retain unqualified status. See
 [ADR 0030](adr/0030-lexical-research-baseline.md).
+
+The `probability` package decodes one explicitly supplied revision-probability
+pack and decides applicability per unit. `Load` validates the contract, columns,
+capabilities, digest, and author declarations; `Compatible` compares only the run
+inputs that change measured values; `Estimate` returns a calibrated value for an
+applicable unit and an explicit abstention status otherwise. A missing measurement
+is never imputed, and a mismatched vector is a caller error. `StatusUnavailable`
+keeps the existing model-free status of results. Loading a pack establishes
+neither corpus qualification nor a usable probability gate; engine integration,
+calibrated gating, and acceptance remain separate work. See
+[ADR 0034](adr/0034-probability-pack.md).
