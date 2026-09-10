@@ -220,6 +220,16 @@ func TestAcquisitionSplitsARepositoryIntoNumberedShards(t *testing.T) {
 	c.Assert(err, qt.IsNil)
 	c.Assert(plan.Groups, qt.HasLen, 1)
 	c.Assert(plan.Groups[0].Shards, qt.HasLen, 2)
+	// Another snapshot of the same repository gets distinct source IDs, so both
+	// snapshots can share one dataset and one component.
+	later := record
+	later.Repository.Commit = "def456"
+	later.Manifest.ID = "shard-fixture-later"
+	other, err := corpus.Acquire(t.Context(), later, checkout())
+	c.Assert(err, qt.IsNil)
+	for i := range other.Manifests[0].Sources {
+		c.Assert(other.Manifests[0].Sources[i].ID, qt.Not(qt.Equals), result.Manifests[0].Sources[i].ID)
+	}
 	// A byte budget cuts shards too, and a file above it stands alone.
 	record.Selection.ShardSources = 10
 	record.Selection.ShardBytes = 120

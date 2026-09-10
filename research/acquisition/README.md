@@ -15,11 +15,21 @@ check out and the record that dates the release: a PyPI, npm, crates.io, or
 Maven Central version, or a GitHub release. Tags and dates in the list are
 claims that the script verifies at run time.
 
-`bash scripts/acquire-corpus.sh` clones each snapshot at its tag, reads the
-commit and its date, asks the named record for the publication date, and
-writes an acquisition record. GitHub release lookups use `GITHUB_TOKEN` when
-it is set; without it the anonymous limit of sixty requests per hour turns
-later entries into `vcs_only`, which the log shows. A date the record confirms makes the snapshot
+[`sources-contemporary-v1.json`](sources-contemporary-v1.json) names the same
+repositories at their latest published GitHub release, so each contemporary
+snapshot shares a provenance component with its historical one and the E4
+temporal check compares like with like. A contemporary snapshot dated before
+November 30, 2022 is skipped, and its origin stays unknown.
+
+`bash scripts/acquire-corpus.sh --cohort historical|contemporary` clones
+each snapshot at its tag, reads the commit and its date, asks the named
+record for the publication date, and writes an acquisition record. A tag
+named `latest` resolves to the latest published GitHub release, and the log
+records the resolved tag. Outputs go to `artifacts/acquisition/<cohort>` and
+checkouts to a per-cohort work directory outside the repository. GitHub
+release lookups use `GITHUB_TOKEN` when it is set; without it the anonymous
+limit of sixty requests per hour turns later entries into `vcs_only`, which
+the log shows. A date the record confirms makes the snapshot
 `corroborated`; a snapshot without a readable record stays `vcs_only`, and
 one dated after the boundary is skipped and logged. The offline
 `corpus acquire` command then applies the fixed selection rules and writes
@@ -27,10 +37,12 @@ the shard manifest with every exclusion. The script records every outcome
 in `acquisition-log.json` under `artifacts/acquisition`, including clone
 failures and missing notices, and it never edits a checkout.
 
-`bash scripts/measure-corpus.sh` runs the shard manifests through
-`corpus dataset plan`, `pin`, and `verify`, then per shard through `plan`,
-`extract`, `verify`, and `measure` under `policy-e1.yaml`, and `corpus analyze`
-builds the E1 tables from every finding artifact. A shard that fails a step
+`bash scripts/measure-corpus.sh` runs every cohort's shard manifests under
+`artifacts/acquisition` through one `corpus dataset plan`, `pin`, and
+`verify`, then per shard through `plan`, `extract`, `verify`, and `measure`
+under `policy-e1.yaml`, and `corpus analyze` builds the E1 tables, with a
+contrast for every cohort beside the historical baseline, from every finding
+artifact. A shard that fails a step
 twice is skipped and written to `failed-shards.json`. `--only SHARD` repeats
 one shard, and `--resume` continues a run that stopped, skipping shards
 that already have findings; a full run starts from empty outputs. An acquisition proves that exact bytes existed at a dated

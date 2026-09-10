@@ -11,13 +11,19 @@ root=$PWD
 # the root Go module and the module policy.
 sources=research/acquisition/sources-v1.json
 work=${UNSWELL_ACQUISITION_WORK:-$HOME/.cache/unswell/acquisition/work}
-output=artifacts/acquisition
+output=
+cohort=historical
 boundary=
 dry_run=0
 only=
 
+# Cohort windows follow the protocol: historical snapshots are dated on or
+# before the boundary, contemporary snapshots on or after the public ChatGPT
+# release; a snapshot between the two belongs to neither and is skipped.
+contemporary_start=2022-11-30
+
 usage() {
-  printf 'Usage: bash scripts/acquire-corpus.sh [--sources FILE] [--work DIR] [--output DIR] [--boundary YYYY-MM-DD] [--only NAME] [--dry-run]\n' >&2
+  printf 'Usage: bash scripts/acquire-corpus.sh [--sources FILE] [--cohort historical|contemporary] [--work DIR] [--output DIR] [--boundary YYYY-MM-DD] [--only NAME] [--dry-run]\n' >&2
 }
 
 while [[ $# -gt 0 ]]; do
@@ -32,6 +38,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --output)
       output=$2
+      shift 2
+      ;;
+    --cohort)
+      cohort=$2
       shift 2
       ;;
     --boundary)
@@ -60,6 +70,13 @@ for tool in git curl jq; do
   }
 done
 
+if [[ "$cohort" != historical && "$cohort" != contemporary ]]; then
+  printf 'cohort must be historical or contemporary\n' >&2
+  exit 2
+fi
+if [[ -z "$output" ]]; then
+  output=artifacts/acquisition/$cohort
+fi
 if [[ -z "$boundary" ]]; then
   boundary=$(jq -r '.boundary' "$sources")
 fi
@@ -140,6 +157,10 @@ publication_date() {
       body=$(fetch "https://api.github.com/repos/$name/releases/tags/$tag")
       jq -r '.published_at // empty | .[0:10]' <<<"$body"
       ;;
+    github-release-latest)
+      body=$(fetch "https://api.github.com/repos/$name/releases/latest")
+      jq -r '.published_at // empty | .[0:10]' <<<"$body"
+      ;;
     *)
       printf ''
       ;;
@@ -209,10 +230,21 @@ for ((i = 0; i < count; i++)); do
   ecosystem=$(jq -r '.ecosystem' <<<"$entry")
   license=$(jq -r '.license' <<<"$entry")
   slug=${name//\//__}
-  checkout=$work/$slug
+  checkout=$work/$cohort/$slug
   if [[ "$dry_run" == 1 ]]; then
     printf 'would clone %s at %s into %s\n' "$url" "$tag" "$checkout"
     continue
+  fi
+  # A source that names no tag takes the latest published release, resolved
+  # from the same record that dates it; the resolved tag is logged.
+  if [[ "$tag" == latest ]]; then
+    body=$(fetch "https://api.github.com/repos/$name/releases/latest")
+    tag=$(jq -r '.tag_name // empty' <<<"$body")
+    if [[ -z "$tag" ]]; then
+      record_status "$name" no_latest_release '{}'
+      printf 'no latest release: %s\n' "$name"
+      continue
+    fi
   fi
   if [[ ! -d "$checkout/.git" ]]; then
     if ! git clone --quiet --depth 1 --branch "$tag" "$url" "$checkout" 2>"$output/results/$slug.clone.log"; then
@@ -245,10 +277,15 @@ for ((i = 0; i < count; i++)); do
     snapshot_date=$commit_date
     evidence="commit $commit is dated $commit_date; no independent publication record was read"
   fi
-  detail=$(jq -n --arg c "$commit" --arg d "$snapshot_date" --arg k "$confidence" '{commit: $c, date: $d, confidence: $k}')
-  if [[ "$snapshot_date" > "$boundary" ]]; then
+  detail=$(jq -n --arg c "$commit" --arg d "$snapshot_date" --arg k "$confidence" --arg t "$tag" '{commit: $c, tag: $t, date: $d, confidence: $k}')
+  if [[ "$cohort" == historical && "$snapshot_date" > "$boundary" ]]; then
     record_status "$name" outside_boundary "$detail"
     printf 'outside boundary: %s dated %s\n' "$name" "$snapshot_date"
+    continue
+  fi
+  if [[ "$cohort" == contemporary && "$snapshot_date" < "$contemporary_start" ]]; then
+    record_status "$name" outside_boundary "$detail"
+    printf 'before the contemporary window: %s dated %s\n' "$name" "$snapshot_date"
     continue
   fi
   notice=$(notice_file "$checkout")
@@ -262,7 +299,7 @@ for ((i = 0; i < count; i++)); do
   extensions=$(extensions_for "$ecosystem")
   record=$output/records/$slug.json
   jq -n \
-    --arg id "historical-$slug" --arg seed "$seed" --arg name "$name" --arg commit "$commit" \
+    --arg id "$cohort-$slug" --arg seed "$seed" --arg name "$name" --arg commit "$commit" --arg cohort "$cohort" \
     --arg reference "https://github.com/$name/blob/$commit" --arg topic "$topic" \
     --arg purpose "$purpose" --arg ecosystem "$ecosystem" --arg license "$license" \
     --arg notice "$notice" --arg date "$snapshot_date" --arg confidence "$confidence" --arg evidence "$evidence" \
@@ -276,10 +313,10 @@ for ((i = 0; i < count; i++)); do
         extraction_policy: {contexts: ["comment", "string", "paragraph", "heading", "list-item", "table-cell"], languages: {}, exceptions: []},
         unit_kinds: ["sentence", "paragraph", "fragment"]},
       repository: {name: $name, reference: $reference, commit: $commit, topic: $topic, purpose: $purpose, ecosystem: $ecosystem,
-        origin: {label: "unknown", scope: "repository", evidence: "Historical snapshot; no unit-level authorship record.", generation_record: ""},
+        origin: {label: "unknown", scope: "repository", evidence: "Dated snapshot; no unit-level authorship record.", generation_record: ""},
         rights: {license: $license, evidence: ("Retained notice " + $notice + " at commit " + $commit), allowed_uses: ["annotation", "evaluation", "training"]},
         notices: [$notice],
-        snapshot: {date: $date, confidence: $confidence, evidence: $evidence, cohort: "historical"}},
+        snapshot: {date: $date, confidence: $confidence, evidence: $evidence, cohort: $cohort}},
       selection: {max_sources: 400, shard_sources: 40, shard_bytes: 393216, max_source_bytes: 1048576, document_roots: $roots,
         source_extensions: $extensions,
         excluded_segments: $segments, excluded_basenames: $basenames, generated_markers: $markers, translation_hints: $hints}
@@ -292,7 +329,7 @@ for ((i = 0; i < count; i++)); do
   fi
   # A repository with many sources spans numbered shards; each is one file
   # named after its manifest ID, and stale shards of the same repository go.
-  rm -f "$output/shards/historical-$slug".json "$output/shards/historical-$slug"-[0-9][0-9][0-9].json
+  rm -f "$output/shards/$cohort-$slug".json "$output/shards/$cohort-$slug"-[0-9][0-9][0-9].json
   shard_count=$(jq '.manifests | length' "$result")
   for ((s = 0; s < shard_count; s++)); do
     shard_id=$(jq -r ".manifests[$s].id" "$result")
@@ -300,8 +337,8 @@ for ((i = 0; i < count; i++)); do
   done
   selected=$(jq '.selected' "$result")
   excluded=$(jq '.excluded | length' "$result")
-  detail=$(jq -n --arg c "$commit" --arg d "$snapshot_date" --arg k "$confidence" --argjson s "$selected" --argjson e "$excluded" \
-    --argjson n "$shard_count" '{commit: $c, date: $d, confidence: $k, selected: $s, excluded: $e, shards: $n}')
+  detail=$(jq -n --arg c "$commit" --arg d "$snapshot_date" --arg k "$confidence" --arg t "$tag" --argjson s "$selected" --argjson e "$excluded" \
+    --argjson n "$shard_count" '{commit: $c, tag: $t, date: $d, confidence: $k, selected: $s, excluded: $e, shards: $n}')
   record_status "$name" acquired "$detail"
   printf 'acquired %s at %s (%s, %s): %s sources in %s shards, %s excluded\n' "$name" "$tag" "$snapshot_date" "$confidence" "$selected" "$shard_count" "$excluded"
 done

@@ -7,7 +7,10 @@ root=$PWD
 # one dataset plan, pinned shards, per-shard extraction and verification,
 # label-free findings under one policy, and the E1 tables. Every step writes a
 # file that the next step reads, so a reviewer can rerun any of them.
-shards=artifacts/acquisition/shards
+# Shards live under one directory per cohort: acquisition/<cohort>/shards.
+# The dataset root is the acquisition directory, so shard paths stay relative
+# and every cohort enters one global plan.
+acquisition=artifacts/acquisition
 work=${UNSWELL_ACQUISITION_WORK:-$HOME/.cache/unswell/acquisition/work}
 output=artifacts/measurement
 policy=research/acquisition/policy-e1.yaml
@@ -17,13 +20,13 @@ only=()
 resume=0
 
 usage() {
-  printf 'Usage: bash scripts/measure-corpus.sh [--shards DIR] [--work DIR] [--output DIR] [--policy FILE] [--classes FILE] [--only SHARD]... [--resume]\n' >&2
+  printf 'Usage: bash scripts/measure-corpus.sh [--acquisition DIR] [--work DIR] [--output DIR] [--policy FILE] [--classes FILE] [--only SHARD]... [--resume]\n' >&2
 }
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --shards)
-      shards=$2
+    --acquisition)
+      acquisition=$2
       shift 2
       ;;
     --work)
@@ -82,11 +85,10 @@ mkdir -p "$root/artifacts/corpus" "$output/plans" "$output/candidates" "$output/
 
 # The dataset manifest lists every shard by digest and repeats the header of
 # the first shard; the plan then checks that every shard repeats it.
-shard_root=$(dirname "$shards")
-shard_dir=$(basename "$shards")
-shard_files=("$shards"/*.json)
+shard_root=$acquisition
+shard_files=("$acquisition"/*/shards/*.json)
 if [[ ! -f "${shard_files[0]}" ]]; then
-  printf 'no shard manifests under %s\n' "$shards" >&2
+  printf 'no shard manifests under %s\n' "$acquisition" >&2
   exit 1
 fi
 first=${shard_files[0]}
@@ -94,11 +96,11 @@ seed=$(jq -r '.seed' "$first")
 classes_digest=$(digest "$classes")
 entries='[]'
 for shard in "${shard_files[@]}"; do
-  name=$(basename "$shard")
+  relative=${shard#"$acquisition"/}
   sum=$(digest "$shard")
   size=$(wc -c <"$shard")
   size=${size// /}
-  entries=$(jq --arg p "$shard_dir/$name" --arg s "$sum" --argjson b "$size" '. + [{path: $p, sha256: $s, bytes: $b}]' <<<"$entries")
+  entries=$(jq --arg p "$relative" --arg s "$sum" --argjson b "$size" '. + [{path: $p, sha256: $s, bytes: $b}]' <<<"$entries")
 done
 jq --arg seed "$seed" --arg classes "$classes_digest" --argjson shards "$entries" \
   '{version: "unswell-corpus-dataset-v1", id: "historical-pilot", seed: $seed, weights: .weights,
@@ -157,7 +159,7 @@ run_step() {
 }
 
 step_ok=0
-for pinned in "$output/pinned/$shard_dir"/*.json; do
+for pinned in "$output/pinned"/*/shards/*.json; do
   name=$(basename "$pinned" .json)
   if [[ ${#only[@]} -gt 0 ]]; then
     selected=0
@@ -171,9 +173,10 @@ for pinned in "$output/pinned/$shard_dir"/*.json; do
   fi
   rm -f "$output/results-$name-"*.log
   # Every source of a shard comes from one repository, whose checkout lives
-  # under the work directory by its slug.
+  # under the work directory by cohort and slug.
   repository=$(jq -r '.sources[0].repository' "$pinned")
-  checkout=$work/${repository//\//__}
+  shard_cohort=$(jq -r '.sources[0].snapshot.cohort' "$pinned")
+  checkout=$work/$shard_cohort/${repository//\//__}
   if [[ ! -d "$checkout" ]]; then
     printf 'missing checkout for %s\n' "$name" >&2
     exit 1
