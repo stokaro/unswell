@@ -240,16 +240,24 @@ func adjacentComments(gap []byte) bool {
 	return strings.TrimSpace(text) == "" && strings.Count(text, "\n") <= 1
 }
 
+// commentContent narrows a comment span to its text. A terminator belongs to the
+// block comment that opened it. A line comment that ends with the same bytes
+// keeps them. A comment whose opener and terminator overlap, such as "/*/",
+// leaves an empty span rather than an inverted one.
 func commentContent(source []byte, span document.Span) document.Span {
 	text := string(source[span.Start:span.End])
+	opener := ""
 	for _, marker := range []string{"///", "//!", "//", "/*", "<#", "#"} {
 		if strings.HasPrefix(text, marker) {
 			span.Start += len(marker)
+			opener = marker
 			break
 		}
 	}
-	if strings.HasSuffix(text, "*/") || strings.HasSuffix(text, "#>") {
-		span.End -= 2
+	terminators := map[string]string{"/*": "*/", "<#": "#>"}
+	if terminator := terminators[opener]; terminator != "" &&
+		len(text) >= len(opener)+len(terminator) && strings.HasSuffix(text, terminator) {
+		span.End -= len(terminator)
 	}
 	return span
 }
