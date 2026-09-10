@@ -76,7 +76,12 @@ product results or qualify training data. See
 policy over a reproduced corpus and attach each finding to the candidates that
 contain its primary span. The `unswell-corpus-findings-v1` artifact records
 counts per document and per unit under that policy's identity; it carries no
-label and no rate. See [ADR 0036](adr/0036-llm-pattern-evidence.md).
+label and no rate. `corpus.MakeDatasetPlan`, `corpus.PinShards`, and the
+`corpus dataset` commands assign whole components across shard manifests and
+pin each shard with the global partition; `corpus.DetectDuplicates` and the
+`corpus duplicates` command report near-duplicate sources for curation and
+can add their cluster keys to a manifest. See
+[ADR 0036](adr/0036-llm-pattern-evidence.md).
 The research `training` package and `corpus train` command connect these reproduced
 targets to Go fitting with separate training and calibration partitions. Their
 `unswell-editorial-training-v3` artifact records unqualified numerical experiments;
