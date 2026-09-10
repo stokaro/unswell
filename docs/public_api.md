@@ -81,9 +81,10 @@ label and no rate. `corpus.MakeDatasetPlan`, `corpus.PinShards`, and the
 pin each shard with the global partition; `corpus.DetectDuplicates` and the
 `corpus duplicates` command report near-duplicate sources for curation and
 can add their cluster keys to a manifest. `corpus analyze` and the research
-`patterns` package build the `unswell-pattern-tables-v1` E1 tables from
-finding artifacts and the rule classes, with cluster bootstrap intervals over
-provenance components; they decide nothing. `corpus acquire` builds a shard
+`patterns` package build the `unswell-pattern-tables-v1` E1 tables by
+document or unit kind. Their intervals are a cluster bootstrap over
+provenance components; they decide nothing. `corpus first-appearance` writes
+the `unswell-first-appearance-v1` filter of a later cohort's new units. `corpus acquire` builds a shard
 manifest from a checkout by the fixed rules of a record and lists every file
 left out; `scripts/acquire-corpus.sh` does the network work. See
 [ADR 0036](adr/0036-llm-pattern-evidence.md).

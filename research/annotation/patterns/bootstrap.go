@@ -47,12 +47,12 @@ func intervalFor(draws [][]int, tallies, baseline []counts, components int) Esti
 	if ok {
 		estimate.Value = &point
 	}
-	if components < minimumCount {
-		estimate.Status = "fewer_than_two_components"
+	if !ok {
+		estimate.Status = "nothing_counted"
 		return estimate
 	}
-	if !ok {
-		estimate.Status = "no_applicable_documents"
+	if components < minimumCount {
+		estimate.Status = "fewer_than_two_components"
 		return estimate
 	}
 	values := make([]float64, 0, len(draws))
@@ -88,19 +88,19 @@ func statistic(multiplicity []int, tallies, baseline []counts) (float64, bool) {
 }
 
 func prevalence(multiplicity []int, tallies []counts) (float64, bool) {
-	documents, withFinding := 0, 0
+	counted, withFinding := 0, 0
 	for i, tally := range tallies {
 		weight := 1
 		if multiplicity != nil {
 			weight = multiplicity[i]
 		}
-		documents += weight * tally.documents
+		counted += weight * tally.counted
 		withFinding += weight * tally.withFinding
 	}
-	if documents == 0 {
+	if counted == 0 {
 		return math.NaN(), false
 	}
-	return float64(withFinding) / float64(documents), true
+	return float64(withFinding) / float64(counted), true
 }
 
 // percentile interpolates with h=(n-1)*p between sorted observations, the
