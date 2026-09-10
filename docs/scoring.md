@@ -32,5 +32,56 @@ units, including permitted findings with zero points and `source-suppression`.
 Gates use effective values; document summary statistics remain raw. Derived gate
 diagnostics are generated after suppressions and cannot themselves be suppressed.
 
-Probability is `null` with `calibration_unavailable`; a source permission does not
-adjust a probability. Baseline debt acceptance remains a separate roadmap item.
+A source permission does not adjust a probability. Baseline debt acceptance
+remains a separate roadmap item.
+
+## Revision probability
+
+The index is not a probability. Without a model, `slop_probability` is `null`
+with `probability_status: calibration_unavailable`, and nothing else changes.
+
+A run estimates revision probability only from an explicitly supplied pack:
+
+```yaml
+calibration:
+  model: pack
+  accept_experimental: false
+  on_incompatible: unavailable
+```
+
+```sh
+unswell check --model ./editorial-pack.json docs
+```
+
+Both halves are required: a pack without `model: pack` is refused, and analysis
+under `model: pack` without a pack fails instead of quietly abstaining.
+`unswell doctor` still reports such a configuration so it can be diagnosed. A pack that declares
+experimental status is refused unless `accept_experimental` is true, which keeps
+an unqualified research model out of a default run.
+
+Each pack qualifies one unit kind, declares the columns it needs, and declares
+the minimum words below which it abstains. A unit therefore reports one status:
+
+| `probability_status` | Meaning |
+| --- | --- |
+| `available` | `slop_probability` holds the calibrated estimate for that unit |
+| `unsupported_unit` | The pack does not qualify this unit kind, or no target was prepared |
+| `insufficient_evidence` | The unit has fewer words than the pack's declared minimum |
+| `missing_feature` | A required measurement is unavailable; `probability_detail` names it |
+| `calibration_range` | The score falls outside the fitted calibration range |
+| `incompatible_model` | This source's extraction, quoting, or provider differs from the pack |
+| `calibration_unavailable` | No pack is configured |
+
+A missing measurement is never treated as zero, and an abstention never carries a
+value. `on_incompatible: fail` turns an incompatible source into an operational
+failure, which cannot pass a gate. Estimates do not change findings, the index,
+or the gate decision; probability gating is not implemented yet.
+
+`unswell-mcp --model` accepts the same pack, so the server and the CLI agree.
+The text, Markdown, and HTML reports name the configured pack and how many units
+of its kind were estimated; JSON and SARIF carry the per-unit statuses.
+
+The manifest records the pack's own declarations, including whether its author
+declared it accepted and whether it names a qualified corpus. Unswell checks that
+these declarations are consistent and that the pack matches the run; it cannot
+verify that a corpus was qualified or that an evaluation exists.

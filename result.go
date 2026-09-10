@@ -65,7 +65,9 @@ type Contribution struct {
 	Reason     string  `json:"reason"`
 }
 
-// Assessment is a local, nondilutable index. Probability is unavailable in alpha.
+// Assessment is a local, nondilutable index. A revision probability is present
+// only when a compatible pack qualifies the unit; ProbabilityStatus always
+// explains an unavailable estimate, and an index is never a probability.
 type Assessment struct {
 	ChangeState            string         `json:"change_state,omitempty"`
 	ChangeFingerprint      string         `json:"change_fingerprint,omitempty"`
@@ -80,6 +82,7 @@ type Assessment struct {
 	EffectiveSlopScore     float64        `json:"effective_slop_score"`
 	SlopProbability        *float64       `json:"slop_probability"`
 	ProbabilityStatus      string         `json:"probability_status"`
+	ProbabilityDetail      string         `json:"probability_detail,omitempty"`
 	Status                 string         `json:"status"`
 	Contributions          []Contribution `json:"contributions"`
 	EffectiveContributions []Contribution `json:"effective_contributions,omitempty"`
@@ -118,6 +121,7 @@ type Manifest struct {
 	RulesetHash     string                    `json:"ruleset_hash"`
 	ScoringProfile  string                    `json:"scoring_profile"`
 	FeatureContract string                    `json:"feature_contract"`
+	Probability     *ProbabilityModel         `json:"probability,omitempty"`
 	NLP             nlp.Identity              `json:"nlp"`
 	Rules           []rule.Descriptor         `json:"rules"`
 	SelectionMode   string                    `json:"selection_mode"`

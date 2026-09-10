@@ -29,6 +29,9 @@ const (
 	StatusInsufficientEvidence = "insufficient_evidence"
 	StatusMissingFeature       = "missing_feature"
 	StatusCalibrationRange     = "calibration_range"
+	// StatusIncompatible reports that a pack does not match a source's
+	// effective measurement inputs and was therefore not evaluated.
+	StatusIncompatible = "incompatible_model"
 	// StatusUnavailable is the model-free status of existing results. It stays
 	// the reported status when no pack is configured for a run.
 	StatusUnavailable = "calibration_unavailable"

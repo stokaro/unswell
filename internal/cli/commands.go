@@ -16,6 +16,7 @@ import (
 	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/nlp/english"
+	"github.com/stokaro/unswell/probability"
 	"github.com/stokaro/unswell/report"
 	"github.com/stokaro/unswell/rule"
 )
@@ -90,13 +91,22 @@ func doctorCommand(environment Environment) *cobra.Command {
 			map[string]any{"version": unswell.Version, "schema_version": unswell.SchemaVersion, "nlp": provider.Identity(),
 				"rule_count": len(policy.Rules), "rule_sets": policy.RuleSets, "config_hash": policy.Hash,
 				"config_sources": policy.Sources, "config_overrides": policy.Overrides,
-				"probability_status": "calibration_unavailable", "calibration_model": nil},
+				"probability_status": probabilityStatus(policy), "calibration_model": policy.Calibration},
 		)
 	}}
 	command.Flags().StringVar(&options.config, "config", "", "Exact configuration path")
 	command.Flags().StringArrayVar(&options.ruleSets, "ruleset", nil, "Local ruleset file or directory")
 	configurationFlags(command, &options, false)
 	return command
+}
+
+// probabilityStatus reports what this configuration can produce. With a pack,
+// applicability is decided per unit and cannot be summarized here.
+func probabilityStatus(policy config.Policy) string {
+	if policy.Calibration == nil {
+		return probability.StatusUnavailable
+	}
+	return "decided_per_unit"
 }
 
 func reportCommand(environment Environment) *cobra.Command {

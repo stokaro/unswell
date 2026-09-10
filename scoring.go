@@ -13,14 +13,14 @@ type localFinding struct {
 	points  int
 }
 
-func (e *Engine) assess(result *RunResult, doc document.Document) {
+func (e *Engine) assess(result *RunResult, doc document.Document, estimates probabilityRun) {
 	for _, block := range doc.Blocks {
 		if block.Words == 0 {
 			continue
 		}
 		result.Assessments = append(
 			result.Assessments,
-			e.assessment(result.Findings, doc.Name, "paragraph", block.ID, block.Span, block.Words),
+			e.assessment(result.Findings, estimates, assessedUnit{doc.Name, "paragraph", block.ID, block.Span, block.Words}),
 		)
 		for _, sentence := range block.Sentences {
 			if sentence.Words == 0 {
@@ -28,24 +28,37 @@ func (e *Engine) assess(result *RunResult, doc document.Document) {
 			}
 			result.Assessments = append(
 				result.Assessments,
-				e.assessment(result.Findings, doc.Name, "sentence", sentence.ID, sentence.Span, sentence.Words),
+				e.assessment(result.Findings, estimates,
+					assessedUnit{doc.Name, "sentence", sentence.ID, sentence.Span, sentence.Words}),
 			)
 		}
 	}
 	e.summarize(result)
 }
 
-func (e *Engine) assessment(findings []Finding, path, scope string, id int, span document.Span, words int) Assessment {
+// assessedUnit names one scored target without widening the scoring signature.
+type assessedUnit struct {
+	path, scope string
+	id          int
+	span        document.Span
+	words       int
+}
+
+func (e *Engine) assessment(findings []Finding, estimates probabilityRun, unit assessedUnit) Assessment {
+	value, status, detail := estimates.probabilityFor(unit.scope, unit.span)
 	assessment := Assessment{
-		Path:              path,
-		Scope:             scope,
-		UnitID:            id,
-		Span:              span,
-		Words:             words,
+		Path:              unit.path,
+		Scope:             unit.scope,
+		UnitID:            unit.id,
+		Span:              unit.span,
+		Words:             unit.words,
 		Status:            "available",
-		ProbabilityStatus: "calibration_unavailable",
+		SlopProbability:   value,
+		ProbabilityStatus: status,
+		ProbabilityDetail: detail,
 		Contributions:     []Contribution{},
 	}
+	scope, id := unit.scope, unit.id
 	locals := e.localFindings(findings, scope, id)
 	assessment.SlopScore, assessment.Contributions = e.scoreLocals(locals)
 	assessment.EffectiveSlopScore = assessment.SlopScore

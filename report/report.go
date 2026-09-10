@@ -170,7 +170,11 @@ func text(writer io.Writer, result unswell.RunResult, options Options) error {
 	for _, line := range append(auditLines(result), featureLines(result)...) {
 		fmt.Fprintf(&output, "%s\n", terminal(line))
 	}
-	output.WriteString("Revision probability: unavailable (no calibrated alpha model).\n")
+	if summary := probabilitySummary(result, terminal); summary != "" {
+		fmt.Fprintf(&output, "Revision probability: %s\n", summary)
+	} else {
+		output.WriteString("Revision probability: unavailable (no calibrated alpha model).\n")
+	}
 	if len(result.Manifest.ConfigSources) > 1 || len(result.Manifest.ConfigOverrides) > 0 {
 		fmt.Fprintf(&output, "Configuration: %s (%s).\n", terminal(result.Manifest.ConfigHash), terminal(result.Manifest.ConfigIdentity))
 	}
@@ -216,13 +220,39 @@ func markdown(writer io.Writer, result unswell.RunResult, options Options) error
 	for _, line := range append(auditLines(result), featureLines(result)...) {
 		fmt.Fprintf(&output, "\n%s\n", markdownEscape(line))
 	}
-	output.WriteString("\nRevision probability: unavailable; this alpha has no calibrated model.\n")
+	if summary := probabilitySummary(result, markdownEscape); summary != "" {
+		fmt.Fprintf(&output, "\nRevision probability: %s\n", summary)
+	} else {
+		output.WriteString("\nRevision probability: unavailable; this alpha has no calibrated model.\n")
+	}
 	if len(result.Manifest.ConfigSources) > 1 || len(result.Manifest.ConfigOverrides) > 0 {
 		fmt.Fprintf(&output, "\nConfiguration: %s (%s).\n",
 			markdownEscape(result.Manifest.ConfigHash), markdownEscape(result.Manifest.ConfigIdentity))
 	}
 	_, err := io.WriteString(writer, output.String())
 	return err
+}
+
+// probabilitySummary describes a configured model and how many units it
+// estimated. It is empty when no pack applies, keeping model-free wording.
+// The caller supplies the escaping its format needs for declared values.
+func probabilitySummary(result unswell.RunResult, escape func(string) string) string {
+	model := result.Manifest.Probability
+	if model == nil {
+		return ""
+	}
+	estimated, total := 0, 0
+	for _, assessment := range result.Assessments {
+		if assessment.Scope != model.Kind {
+			continue
+		}
+		total++
+		if assessment.SlopProbability != nil {
+			estimated++
+		}
+	}
+	return fmt.Sprintf("%s (%s, corpus %s); estimated for %d of %d %s units, and every other unit keeps a status.",
+		escape(model.PackID), escape(model.DeclaredStatus), escape(model.HumanCorpus), estimated, total, escape(model.Kind))
 }
 
 func markdownEscape(text string) string {

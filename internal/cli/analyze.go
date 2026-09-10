@@ -14,6 +14,7 @@ import (
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/extract"
 	"github.com/stokaro/unswell/internal/appconfig"
+	"github.com/stokaro/unswell/probability"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -93,9 +94,13 @@ func analyzeInputs(ctx context.Context, environment Environment, options checkOp
 	if err != nil {
 		return unswell.RunResult{}, nil, err
 	}
+	modelData, modelPaths, err := modelInput(environment, options)
+	if err != nil {
+		return unswell.RunResult{}, nil, err
+	}
 	engine, err := unswell.New(
 		unswell.Options{Features: options.features, PreparedFeatures: options.preparedFeatures, PreparedKinds: options.preparedKinds,
-			Baseline: baselineData, CollectBaseline: options.collectBaseline, GateMode: options.gateMode,
+			Baseline: baselineData, CollectBaseline: options.collectBaseline, GateMode: options.gateMode, Model: modelData,
 			ConfigBundle:  &loaded.Bundle,
 			Rules:         registry,
 			Jobs:          options.jobs,
@@ -119,7 +124,18 @@ func analyzeInputs(ctx context.Context, environment Environment, options checkOp
 	result.Manifest.SelectionMode = mode
 	paths = append(paths, loaded.Paths...)
 	paths = append(paths, baselinePaths...)
+	paths = append(paths, modelPaths...)
 	return result, append(paths, rulePaths...), err
+}
+
+// modelInput reads one explicitly named pack. The library never opens files.
+func modelInput(environment Environment, options checkOptions) ([]byte, []string, error) {
+	if options.model == "" {
+		return nil, nil, nil
+	}
+	path := absoluteArguments(environment.Dir, []string{options.model})[0]
+	data, err := readLimited(path, probability.MaxBytes)
+	return data, []string{path}, err
 }
 
 func baselineInput(environment Environment, options checkOptions) ([]byte, []string, error) {

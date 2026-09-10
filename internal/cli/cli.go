@@ -96,6 +96,7 @@ type checkOptions struct {
 	policyFromBase     bool
 	changedFrom        string
 	baseline           string
+	model              string
 	gateMode           string
 	collectBaseline    bool
 	config             string
@@ -151,6 +152,8 @@ func checkFlags(command *cobra.Command, options *checkOptions) {
 	flags.StringVar(&options.changedFrom, "changed-from", "",
 		"Check committed changes from merge-base(REF, HEAD) with clean-source verification")
 	flags.StringVar(&options.baseline, "baseline", "", "Read accepted debt from this local baseline; checking never writes it")
+	flags.StringVar(&options.model, "model", "",
+		"Read the revision-probability pack from this local file (requires calibration.model: pack)")
 	flags.StringVar(&options.gateMode, "gate-mode", "", "Override gate mode: all or new (new requires --baseline)")
 	flags.StringVar(&options.config, "config", "", "Use this exact YAML configuration file")
 	configurationFlags(command, options, false)
