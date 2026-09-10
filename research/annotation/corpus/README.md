@@ -90,6 +90,32 @@ manifest before extracting units. Do not repeatedly change the seed or inputs to
 select a favorable final test. Publish independent document/repository/group counts
 alongside fragment counts; nested sentences and paragraphs are related observations.
 
+## Find near duplicates before grouping
+
+The planner connects only the keys a manifest declares and cannot discover an
+unrecorded copy. The `duplicates` command supplies that evidence for curation:
+
+```sh
+corpus duplicates --root ./sources < manifest.json > duplicates.json
+corpus duplicates --root ./sources --apply < manifest.json > manifest-related.json
+```
+
+Detector `unswell-near-duplicates-v1` lowercases each source, keeps letters
+and digits, hashes every run of eight words, and signs the set with 128
+MinHash values. Sources that agree on one of 32 bands become candidate pairs,
+and each candidate pair gets its exact Jaccard similarity from the full sets.
+Pairs at or above the threshold, 0.5 unless the command says otherwise, form
+clusters, and each cluster receives the key `near-duplicate-v1:` followed by
+a digest of its member IDs. Sources with fewer than eight words are listed as
+too short. The report records the manifest digest, the parameters, every
+compared pair, and the clusters.
+
+`--apply` writes the manifest with each cluster key added to the
+related-version keys of its members, so the planner puts the cluster in one
+component. The threshold and the detector version are part of the frozen
+dataset record. The detector sees copied prose; it cannot see a paraphrase or
+a shared template that changes most words, and curator review stays required.
+
 ## Plan a sharded dataset
 
 One manifest holds at most 10,000 sources. A larger corpus is a dataset of
