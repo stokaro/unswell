@@ -3,13 +3,19 @@ SHELL := /bin/bash
 .PHONY: check test race fuzz lint lint-shell tidy policy build build-mcp release fmt schema dogfood dogfood-mcp
 .PHONY: check-registry check-mirror-policy check-sbom-policy
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp
+check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance
 
 check-sbom-policy:
 	bash scripts/prepare-sbom.sh --self-test
 
 check-mirror-policy:
 	bash scripts/check-image-mirrors.sh --self-test
+
+check-performance: build
+	bash scripts/measure-performance.sh --words 2000 --self-test
+
+performance: build
+	bash scripts/measure-performance.sh --words 100000 --label local
 
 check-registry:
 	bash scripts/check-registry.sh

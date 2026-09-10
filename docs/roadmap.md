@@ -147,7 +147,9 @@ experiments is reported as a completed benchmark.
 - Meet the stated coverage goals: 90% for engine/rules/scoring/config/source mapping
   and 85% overall, without hiding difficult packages.
 - Publish repeatable performance measurements against the proposed 100,000 words
-  in 10 seconds and 512 MiB target on a specified 2-vCPU Linux host.
+  in 10 seconds and 512 MiB target on a specified 2-vCPU Linux host. The harness
+  and one such measurement are in [scan cost](performance.md); real corpora and
+  other architectures remain open.
 - Verify SARIF import in a real consumer, release reproducibility, current API consumers,
   all report/input formats and platform behavior.
 - Complete the full documentation set, model/data notices and release inventory.
