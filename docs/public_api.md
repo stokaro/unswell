@@ -397,3 +397,9 @@ into a pack the engine loads. They copy its numerical parameters and measurement
 contract and add only an identifier, an applicability floor, the estimation
 target, and an acceptance a maintainer states. A simulated artifact cannot
 produce an accepted pack.
+The `feature` catalog adds a repetition family: `peak-word-frequency-ratio`,
+`repeated-bigram-ratio`, `sentence-opener-repeat-ratio` and
+`duplicate-sentence-ratio`. They join the existing contract, so earlier
+descriptors keep their definitions and positions, while measurement identities
+change because they cover the descriptor set. See
+[ADR 0016](adr/0016-shared-features.md).

@@ -93,8 +93,21 @@ Token/byte limits, cancellation, and explicit normalization apply to both APIs.
 Input tokens must remain unchanged during a call; no token or source buffers are
 retained. Source-map validation remains in the existing document/engine boundary.
 
-The complete #56 contract also needs shared repetition computations and a neutral
-adapter for raw rule activations. Activation features are computed after rule
+The repetition family completes the shared repetition computations this contract
+called for. Four ratios describe how much one unit repeats itself: the highest
+word frequency, adjacent word pairs that occur more than once, sentences whose
+first word repeats another opener, and sentences whose word sequence repeats
+another. Adjacent pairs never cross a sentence boundary, and a sequence identity
+is a digest rather than retained prose. They are descriptive: technical prose
+repeats terms for good reasons, and a high ratio is not a defect.
+
+These descriptors join the existing contract rather than replacing it. Every
+earlier descriptor keeps its definition and position, so a consumer that pins its
+columns and their digest is unaffected. Measurement identities do change, because
+this contract has always included the descriptor definitions, so a cached vector
+from before the addition is not reused.
+
+The complete #56 contract also needs a neutral adapter for raw rule activations. Activation features are computed after rule
 evaluation, before policy suppression; they must not depend on derived threshold
 findings. A disabled, incomplete, or inapplicable rule does not establish zero
 activation. Keep this stage separate from pre-rule measurements to avoid a cycle.

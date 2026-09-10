@@ -166,5 +166,12 @@ func definitions() []definition {
 		{"adjective-token-ratio", "pos", "ratio", "Eligible tokens with tag prefix JJ / eligible words.", 1},
 		{"adverb-token-ratio", "pos", "ratio", "Eligible tokens with tag prefix RB / eligible words.", 1},
 		{"automated-readability-index", "readability", "ARI-formula-units", "4.71 * characters / words + 0.5 * words / sentences - 21.43.", 1},
+		{"peak-word-frequency-ratio", "repetition", "ratio", "Highest normalized eligible word frequency / eligible words.", 1},
+		{"repeated-bigram-ratio", "repetition", "ratio",
+			"Adjacent normalized word pairs that occur more than once / adjacent pairs within sentences.", 2},
+		{"sentence-opener-repeat-ratio", "repetition", "ratio",
+			"Sentences whose first normalized word repeats another sentence's first word / sentences.", 1},
+		{"duplicate-sentence-ratio", "repetition", "ratio",
+			"Sentences whose normalized word sequence repeats another sentence's sequence / sentences.", 1},
 	}
 }

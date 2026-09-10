@@ -96,7 +96,7 @@ func TestCapabilityAbsenceAndUnsupportedUnit(t *testing.T) {
 func TestCatalogOwnershipAndPresentZero(t *testing.T) {
 	c := qt.New(t)
 	first := feature.Catalog()
-	c.Assert(first, qt.HasLen, 14)
+	c.Assert(first, qt.HasLen, 18)
 	first[0].Requires[0] = nlp.Dependencies
 	first[0].Formula = "changed"
 	c.Assert(feature.Catalog()[0].Requires, qt.DeepEquals, []nlp.Capability{nlp.Tokens, nlp.Sentences})
