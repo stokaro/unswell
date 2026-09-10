@@ -43,6 +43,18 @@ type Bin struct {
 	PositiveRate *float64 `json:"positive_rate"`
 }
 
+// RiskPoint is one selective-prediction operating point: the error rate among
+// the most confident decisions a confidence threshold can accept. Coverage
+// counts eligible targets, so abstention lowers it and a model cannot reach full
+// coverage by refusing to answer.
+type RiskPoint struct {
+	Coverage          float64 `json:"coverage"`
+	Accepted          int     `json:"accepted"`
+	Errors            int     `json:"errors"`
+	Risk              float64 `json:"risk"`
+	MinimumConfidence float64 `json:"minimum_confidence"`
+}
+
 // Metrics describes eligible-flow coverage and quality on its covered subset.
 // Undefined denominators produce null, never a perfect score or zero risk.
 type Metrics struct {
@@ -56,6 +68,9 @@ type Metrics struct {
 	ConstantBrier *float64 `json:"training_constant_brier"`
 	ECE           *float64 `json:"ece"`
 	Bins          []Bin    `json:"reliability"`
+	// RiskCoverage is reported for the full eligible flow only. Per-group curves
+	// would multiply the record without adding a decision anyone makes per group.
+	RiskCoverage []RiskPoint `json:"risk_coverage,omitempty"`
 }
 
 // GroupMetrics retains per-component denominators for later paired comparisons.
@@ -100,9 +115,9 @@ func Summarize(ctx context.Context, rows []Observation, constant float64) (Summa
 		group.add(row, constant)
 		all.add(row, constant)
 	}
-	result := Summary{Micro: all.finish(len(groups)), Groups: []GroupMetrics{}}
+	result := Summary{Micro: all.finish(len(groups), true), Groups: []GroupMetrics{}}
 	for id, group := range groups {
-		result.Groups = append(result.Groups, GroupMetrics{id, group.finish(1)})
+		result.Groups = append(result.Groups, GroupMetrics{id, group.finish(1, false)})
 	}
 	slices.SortFunc(result.Groups, func(a, b GroupMetrics) int { return strings.Compare(a.GroupID, b.GroupID) })
 	if err := ctx.Err(); err != nil {

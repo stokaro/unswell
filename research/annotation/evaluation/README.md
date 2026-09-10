@@ -99,6 +99,12 @@ or denominator yields `null`, including FPR on a positive-only set.
   except the final bin includes 1. Each term is the bin's sample share times the
   absolute difference between mean response and observed positive rate. Empty bins
   have null rates. This is event-probability calibration, not top-class confidence.
+- The risk-coverage curve orders covered decisions by confidence, the larger of
+  the response and its complement, and reports the error rate among the most
+  confident prefix at each reachable threshold. Coverage divides that prefix by
+  eligible targets, so abstention lowers it. A prefix that would split two equally
+  confident decisions is omitted, because no threshold separates them. The curve
+  is reported for the full flow only, at most twenty points plus the last.
 - The same counts and metrics are retained for each source group, in sorted order.
   These group results are not confidence intervals or automatic independence proof.
 
