@@ -80,7 +80,10 @@ label and no rate. `corpus.MakeDatasetPlan`, `corpus.PinShards`, and the
 `corpus dataset` commands assign whole components across shard manifests and
 pin each shard with the global partition; `corpus.DetectDuplicates` and the
 `corpus duplicates` command report near-duplicate sources for curation and
-can add their cluster keys to a manifest. See
+can add their cluster keys to a manifest. `corpus analyze` and the research
+`patterns` package build the `unswell-pattern-tables-v1` E1 tables from
+finding artifacts and the rule classes, with cluster bootstrap intervals over
+provenance components; they decide nothing. See
 [ADR 0036](adr/0036-llm-pattern-evidence.md).
 The research `training` package and `corpus train` command connect these reproduced
 targets to Go fitting with separate training and calibration partitions. Their

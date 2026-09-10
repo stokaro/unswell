@@ -233,8 +233,9 @@ configuration hash, ruleset hash, scoring profile, and rule descriptors.
 The output is `unswell-corpus-findings-v1` and keeps
 `human_corpus: not_qualified`. A count is a rule outcome under that policy:
 neither a quality judgment, nor a false-positive rate, nor recall, because no
-record says whether the construction is present. The pattern protocol's E1
-baseline map reads these artifacts; see the
+record says whether the construction is present. The
+[pattern tables](../patterns/README.md) read these artifacts together with the
+[rule classes](../../methods/rule-classes-v1.json); see the
 [protocol](../../methods/llm-patterns-v1.md).
 
 ## Reproduce and audit
