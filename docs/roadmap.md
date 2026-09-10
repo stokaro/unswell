@@ -10,6 +10,16 @@ Work proceeds in the order below. An issue is complete only after its acceptance
 evidence passes on the merged commit. Human annotation and measured quality require
 real data; implementation alone cannot satisfy those requirements.
 
+Research work runs on two branches since September 10, 2026. The active branch,
+[#154](https://github.com/stokaro/unswell/issues/154), is to collect
+LLM-associated pattern evidence without human labels under
+[ADR 0036](adr/0036-llm-pattern-evidence.md); stage A fixes its scope, and no
+corpus exists yet. The human-validation branch stays
+open: [#22](https://github.com/stokaro/unswell/issues/22) is on hold for
+resource reasons with its acceptance criteria unchanged, and the issues that
+need its labeled corpus wait with it. Cohort measurements from the active
+branch never count toward those criteria.
+
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. Run #123 last, after the other
 implementation tasks have a recorded disposition, to restore these CI checks and
@@ -48,7 +58,7 @@ consumer tests, and the public package ledger remain maintained.
 | [#21](https://github.com/stokaro/unswell/issues/21) | Stage 3: define the editorial annotation and data protocol |
 | [#55](https://github.com/stokaro/unswell/issues/55) | Research: fix targets, methodology, and a versioned method registry |
 | [#56](https://github.com/stokaro/unswell/issues/56) | Research: share versioned features across rules, training, and inference |
-| [#22](https://github.com/stokaro/unswell/issues/22) | Stage 3: collect and validate the human-labeled corpus |
+| [#22](https://github.com/stokaro/unswell/issues/22) | Stage 3: collect and validate the human-labeled corpus (on hold; see #154) |
 | [#57](https://github.com/stokaro/unswell/issues/57) | Research: execute reproducible comparisons with grouped evaluation |
 | [#50](https://github.com/stokaro/unswell/issues/50) | Research: compare lexical and stylometric quality baselines |
 | [#23](https://github.com/stokaro/unswell/issues/23) | Stage 3: implement reproducible Go training and calibration |
@@ -62,6 +72,7 @@ consumer tests, and the public package ledger remain maintained.
 | [#28](https://github.com/stokaro/unswell/issues/28) | Stage 4: establish reproducible performance and resource limits |
 | [#29](https://github.com/stokaro/unswell/issues/29) | Stage 4: verify SARIF consumers and reproducible release artifacts |
 | [#30](https://github.com/stokaro/unswell/issues/30) | Stage 4: close the product documentation and acceptance audit |
+| [#154](https://github.com/stokaro/unswell/issues/154) | Research: collect empirical evidence for LLM-associated patterns in technical English (active branch, stages A–E) |
 | [#123](https://github.com/stokaro/unswell/issues/123) | Final task: restore race detection, active fuzzing, and coverage; fix findings and record acceptance evidence |
 
 ## Alpha acceptance: stages 0 and 1
@@ -120,6 +131,10 @@ The [corpus preparation tool](../research/annotation/corpus/README.md) supplies
 source manifests, grouped partition plans, original ranges, and re-extraction
 verification for #22. Its 378 Ptah candidates remain unlabeled and entirely in
 development. The human-labeled corpus and final-test acceptance remain open.
+#22 is on hold until annotation resources exist. The active
+[pattern branch](research.md) reuses the same planner and candidates to count
+patterns by cohort. Those counts are not labels and satisfy none of the
+requirements below.
 
 - Publish an editorial annotation rubric, data provenance and licenses.
 - Collect at least 5,000 labeled sentence/paragraph units, including good

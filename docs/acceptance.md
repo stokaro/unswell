@@ -51,14 +51,18 @@ Each row uses one of three states.
 | Requirement | State | Evidence |
 | --- | --- | --- |
 | Annotation rubric, provenance and licenses | Met | [editorial annotation](editorial-annotation.md) and [ADR 0013](adr/0013-annotation-protocol.md) |
-| Labeled corpus of at least 5,000 units | Open | The protocol, tooling and validation exist; no human-labeled corpus has been collected |
+| Labeled corpus of at least 5,000 units | Open | The protocol, tooling and validation exist; no human-labeled corpus has been collected. [#22](https://github.com/stokaro/unswell/issues/22) is on hold for resource reasons with this requirement unchanged |
 | Held-out splits by document, repository and template family | Partly met | [ADR 0014](adr/0014-corpus-acquisition.md) and the corpus commands freeze the partitions; no real corpus has been split |
 | Reproducible Go training and separate calibration | Met | [ADR 0020](adr/0020-logistic-numerical-core.md), [ADR 0021](adr/0021-isotonic-calibration.md), [ADR 0025](adr/0025-corpus-training.md) and [training and evaluation](training.md) |
 | Published probability evaluation | Partly met | The harness reports the #25 metrics, a risk-coverage curve and generated figures, and measures its own stage cost; the numbers require the corpus above |
 | Applicability and calibrated gating | Partly met | [ADR 0034](adr/0034-probability-pack.md) and [scoring](scoring.md) define the pack, the statuses and the gate; no accepted pack exists, so no build is gated |
 
 Quality and origin stay independent. The [origin channel](adr/0035-origin-channel.md)
-is opt-in, ungated and experimental.
+is opt-in, ungated and experimental. [ADR 0036](adr/0036-llm-pattern-evidence.md)
+defines the active research branch in
+[#154](https://github.com/stokaro/unswell/issues/154) to measure pattern
+prevalence by cohort. No measurement exists yet, and its results, when they
+exist, are association evidence that satisfies no row in this table.
 
 ## Stage 4: first product release
 

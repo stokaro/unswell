@@ -1,0 +1,271 @@
+{
+  "format": "unswell-llm-patterns-sources-v1",
+  "revision": 2,
+  "verified_on": "2026-09-10",
+  "protocol": "unswell-llm-patterns-v1",
+  "scope": "Primary sources reviewed for the LLM-associated pattern branch (#154). Each entry records what the listed pages showed on the verification date. Reading a paper is recorded separately from access to its data and from that data's terms. No result from any entry is an Unswell measurement.",
+  "fetch_notes": [
+    "https://doi.org/10.1073/pnas.2422455122 redirected to pnas.org, which returned HTTP 403; PNAS-side dates and the data availability statement were not read.",
+    "https://doi.org/10.1126/sciadv.adt3813 redirected to science.org, which returned HTTP 403; journal metadata comes from the arXiv journal reference and the Europe PMC record (PMID 40601754, PMCID PMC12219543).",
+    "ACL Anthology pages for RAID and DetectRL-X were read; their PDFs were not fetched.",
+    "The Patterns page linked from arXiv:2304.02819 was not fetched."
+  ],
+  "sources": [
+    {
+      "id": "reinhart-2025",
+      "citation": "Reinhart, Markey, Laudenbach, Pantusen, Yurko, Weinberg, Brown. Do LLMs write like humans? Variation in grammatical and rhetorical styles. PNAS 122 (2025), e2422455122.",
+      "pinned": {
+        "url": "https://arxiv.org/abs/2410.16107v2",
+        "version": "arXiv v2, submitted 2025-08-21; v1 2024-10-21",
+        "doi": "10.1073/pnas.2422455122",
+        "venue": "Proceedings of the National Academy of Sciences 122 (2025), e2422455122, as stated in the arXiv journal reference",
+        "status": "peer-reviewed journal article; PNAS page not fetched",
+        "preprint_license": "CC BY-NC-ND 4.0 (arXiv text only)"
+      },
+      "target": "Whether LLM-generated English differs from human English in grammatical, lexical, and rhetorical style, and whether LLMs differ from each other, using Biber's 66 linguistic categories and author classifiers.",
+      "unit_of_analysis": "Text chunks in parallel human and LLM corpora; per-text rates of 66 Biber categories.",
+      "data": {
+        "used": "HAP-E (six registers: academic, news, fiction, spoken, blogs, TV and movie scripts; 8,290 texts after filtering; 66,320 chunks; 14,535 test chunks), CAP derived from COCA (76,920 chunks), M4 arXiv preprints for generalization; GPT-4o, GPT-4o Mini, Llama 3 8B, 70B, and their Instruct variants.",
+        "availability": "unknown; the arXiv HTML shows no repository, availability statement, or code link, only an SI Appendix reference",
+        "terms": "unknown; COCA terms not read",
+        "reused_by_unswell": false
+      },
+      "method": "Parallel corpora, Biber tagging, paired Wilcoxon signed-rank tests with Bonferroni correction and Cohen's d, random forest and logistic regression author classifiers, out-of-domain test on M4.",
+      "relevant_findings": [
+        "GPT-4o: present participial clauses about 5.3x the human rate (d=1.38), nominalizations 2.1x (d=1.23), that-clauses as subject 2.6x (d=0.77), phrasal coordination 1.9x (d=0.81), agentless passives about half the human rate.",
+        "Instruction-tuned models overuse specific words ('tapestry' in 23% and 'amidst' in 27% of GPT-4o outputs).",
+        "Pairwise LLM-versus-human random forests reach 93-98% on the parallel corpora and fall to chance on arXiv preprints for Llama base models."
+      ],
+      "limitations": [
+        "General registers only; no code comments or technical documentation.",
+        "Out-of-domain transfer collapsed on arXiv preprints, so rates are register-specific.",
+        "Numbers were read from the arXiv HTML and not rechecked against the PDF."
+      ],
+      "decision": {
+        "value": "adapt",
+        "scope": "The grammatical findings become candidate constructions in E1 and E3 where the shared feature contract can express them; participial and that-clause candidates wait for a real dependency backend. Lexical overuse is a candidate for the frozen phrase baseline. Data and classifiers are not reused.",
+        "reason": "Closest study to the target task: it measures constructions instead of comparing detectors. Its register-specific rates cannot be transferred to technical prose."
+      }
+    },
+    {
+      "id": "kobak-2025",
+      "citation": "Kobak, González-Márquez, Horvát, Lause. Delving into LLM-assisted writing in biomedical publications through excess vocabulary. Science Advances 11(27), 2025.",
+      "pinned": {
+        "url": "https://arxiv.org/abs/2406.07016v5",
+        "version": "arXiv v5, submitted 2025-07-03 (comments: reverting to v3)",
+        "doi": "10.1126/sciadv.adt3813",
+        "venue": "Science Advances, Vol. 11, No. 27, first published 2025-07-02 (Europe PMC)",
+        "status": "peer-reviewed journal article, open access, CC BY per Europe PMC; science.org page not fetched",
+        "preprint_license": "CC BY-SA 4.0 (arXiv text only)"
+      },
+      "target": "Excess word usage in 2024 PubMed abstracts relative to a counterfactual extrapolated from 2021-2022, and a lower bound on the share of abstracts processed with LLMs by discipline, country, and journal.",
+      "unit_of_analysis": "Yearly corpus-level word frequency; share of abstracts containing selected excess style words.",
+      "data": {
+        "used": "15,103,888 PubMed English abstracts, 2010-2024.",
+        "availability": "PubMed bulk download is public; analysis code and a 362,442 x 15 yearly word-occurrence matrix are stated to be at https://github.com/berenslab/llm-excess-vocab (repository not fetched)",
+        "terms": "repository license unknown; article text CC BY",
+        "reused_by_unswell": false
+      },
+      "method": "Counterfactual expected frequency q = p(-2) + 2 * max{p(-2) - p(-3), 0}, a one-sided projection from the two preceding baseline years that never falls below the last baseline value (arXiv HTML v5, statistical analysis); frequency gap delta = p - q and frequency ratio r = p / q; excess words satisfy delta > 0.01 or log10 r > (log10 2 / 4) * log10 p (arXiv HTML v5, section 2.1); style versus content annotation; lower-bound share from abstracts containing selected style words.",
+      "relevant_findings": [
+        "454 excess words in 2024 versus 190 during Covid; the 2024 set is dominated by style words.",
+        "Examples with values: delves (r=28.0), underscores (r=13.8), showcasing (r=10.7), potential (delta=0.052), findings (delta=0.041), crucial (delta=0.037).",
+        "Lower bound of at least 13.5% of 2024 abstracts processed with LLMs, up to about 40% in some subcorpora."
+      ],
+      "limitations": [
+        "Lower bound only; abstracts without the selected style words are missed.",
+        "The method cannot separate causes of a frequency change or attribute a change to one model.",
+        "Biomedical abstracts only; no grammatical or rhetorical measures.",
+        "The projection floor max{., 0} makes the excess conservative for words whose frequency was falling; an adaptation in E4 must keep that term."
+      ],
+      "decision": {
+        "value": "adapt",
+        "scope": "E4 uses the counterfactual-trend method for word and construction frequencies across historical periods and contemporary snapshots. Population-level shifts are reported as prevalence, never as a document label or a share of AI-authored text. Biomedical data is not reused.",
+        "reason": "A tested temporal method with an explicit lower-bound reading; its domain and its authorship-share estimate do not transfer."
+      },
+      "verified_facts": [
+        "Formulas quoted from https://arxiv.org/html/2406.07016v5 on 2026-09-10: q = p(-2) + 2 * max{p(-2) - p(-3), 0}; excess when delta > 0.01 or log10 r > (log10 2 / 4) * log10 p."
+      ]
+    },
+    {
+      "id": "raid-2024",
+      "citation": "Dugan, Hwang, Trhlík, Zhu, Ludan, Xu, Ippolito, Callison-Burch. RAID: A Shared Benchmark for Robust Evaluation of Machine-Generated Text Detectors. ACL 2024, pages 12463-12492.",
+      "pinned": {
+        "url": "https://aclanthology.org/2024.acl-long.674/",
+        "version": "ACL Anthology 2024.acl-long.674, August 2024",
+        "doi": "10.18653/v1/2024.acl-long.674",
+        "venue": "Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+        "status": "peer-reviewed; PDF not fetched",
+        "preprint_license": "paper CC BY 4.0 as an ACL Anthology material; dataset terms not shown"
+      },
+      "target": "Robustness of machine-generated text detectors across models, domains, adversarial attacks, and decoding strategies.",
+      "unit_of_analysis": "Individual generations (over 6 million; 11 models, 8 domains, 11 attacks, 4 decoding strategies); granularity not stated on the page.",
+      "data": {
+        "used": "The RAID benchmark; the authors state they release the data with a leaderboard.",
+        "availability": "not shown on the Anthology page; the method registry (registry-v1.json) pins the repository https://github.com/liamdugan/raid at a reviewed revision with its README and LICENSE recorded in reviewed-resources-v1.json",
+        "terms": "recorded per component in registry-v1.json; dataset execution stays deferred there",
+        "reused_by_unswell": false
+      },
+      "method": "Benchmark construction with controlled variation, then evaluation of 8 open and 4 closed detectors.",
+      "relevant_findings": [
+        "Detectors are easily fooled by adversarial attacks, sampling variations, repetition penalties, and unseen generators (abstract).",
+        "No grammatical, rhetorical, or lexical difference is reported on the page."
+      ],
+      "limitations": [
+        "Domains are not named on the page; no technical documentation is mentioned.",
+        "Only the abstract was read."
+      ],
+      "decision": {
+        "value": "adopt",
+        "scope": "Design dimensions only: generator family, decoding, and unseen-generator holdouts in the partition plan. Dataset execution stays deferred as recorded in the method registry.",
+        "reason": "Already adopted for robustness dimensions under #55; no new evidence changes that decision."
+      }
+    },
+    {
+      "id": "detectrl-x-2026",
+      "citation": "Wu, Liu, Zhu, Zhang, Wu, Shi, Du, Wang, Luo, Su, Wong. DetectRL-X: Towards Reliable Multilingual and Real-World LLM-Generated Text Detection. ACL 2026, pages 38247-38294.",
+      "pinned": {
+        "url": "https://aclanthology.org/2026.acl-long.1773/",
+        "version": "ACL Anthology 2026.acl-long.1773, July 2026",
+        "doi": "10.18653/v1/2026.acl-long.1773",
+        "venue": "Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+        "status": "peer-reviewed; PDF and checklist not fetched",
+        "preprint_license": "not shown; dataset terms conflict as recorded in the method registry"
+      },
+      "target": "Multilingual detector evaluation across 8 dimensions, including polishing, expanding, condensing, text length, paraphrase and perturbation attacks.",
+      "unit_of_analysis": "Human-written and LLM-generated texts from 6 domains in 8 languages with 4 commercial LLMs; exact unit and size not stated on the page.",
+      "data": {
+        "used": "The DetectRL-X benchmark.",
+        "availability": "no code or data link on the Anthology page",
+        "terms": "the repository README names Apache 2.0 and also restricts use to noncommercial academic research (registry-v1.json); unresolved",
+        "reused_by_unswell": false
+      },
+      "method": "Benchmark construction with AI-assisted operations and attacks, then evaluation of state-of-the-art detectors by domain, generator, attack, length, and operation.",
+      "relevant_findings": [
+        "Domain, generator, attack strategy, text length, and refinement operation influence detection differently across languages (abstract).",
+        "No feature-level analysis is described on the page."
+      ],
+      "limitations": [
+        "Domains and languages are not named on the page; no technical documentation is mentioned.",
+        "Only the abstract was read."
+      ],
+      "decision": {
+        "value": "adopt",
+        "scope": "The operation taxonomy (polish, expand, condense) and the length dimension define the controlled experiment's operations. Dataset and code use stay deferred until the conflicting terms are resolved.",
+        "reason": "Already adopted for editing scenarios under #55; the operations are design choices that need no data reuse."
+      }
+    },
+    {
+      "id": "liang-2023",
+      "citation": "Liang, Yuksekgonul, Mao, Wu, Zou. GPT detectors are biased against non-native English writers. arXiv:2304.02819v3, 2023; published version in Patterns.",
+      "pinned": {
+        "url": "https://arxiv.org/abs/2304.02819v3",
+        "version": "arXiv v3, revised 2023-07-10; v1 2023-04-06",
+        "doi": "10.48550/arXiv.2304.02819",
+        "venue": "arXiv preprint; the abstract links http://www.cell.com/patterns/fulltext/S2666-3899(23)00130-7 as the published version",
+        "status": "published version not fetched; peer-review status not confirmed here",
+        "preprint_license": "not read"
+      },
+      "target": "Whether widely used GPT detectors misclassify writing by non-native English writers as AI-generated, and whether simple prompting changes the outcome.",
+      "unit_of_analysis": "Writing samples from native and non-native English writers; genre and counts not on the abstract page.",
+      "data": {
+        "used": "Not named on the abstract page.",
+        "availability": "no data or code link on the arXiv page",
+        "terms": "unknown",
+        "reused_by_unswell": false
+      },
+      "method": "Empirical evaluation of several detectors on the two groups; prompting experiments that both reduce the bias and bypass detectors.",
+      "relevant_findings": [
+        "Detectors consistently misclassify non-native writing samples as AI-generated while native samples are identified (abstract).",
+        "The abstract attributes the effect to constrained linguistic expression; no numbers on the page."
+      ],
+      "limitations": [
+        "Essay data, not technical prose.",
+        "Detector names, sample sizes, and rates were not read."
+      ],
+      "decision": {
+        "value": "adopt",
+        "scope": "A named limitation check: any subgroup analysis by language background requires independently confirmed, permitted metadata; no background is inferred from prose or names, and an absent check is recorded as an open limitation, not as absence of bias.",
+        "reason": "The risk it documents applies directly to lexical-diversity and simplicity features; the study supplies no method to reuse."
+      }
+    },
+    {
+      "id": "rallapalli-2026",
+      "citation": "Rallapalli, Gallagher, Yurko, Brooks, Loughin, Sezgin, Turri. Interpretable Stylistic Variation in Human and LLM Writing Across Genres, Models, and Decoding Strategies. arXiv:2604.14111v1, 2026.",
+      "pinned": {
+        "url": "https://arxiv.org/abs/2604.14111v1",
+        "version": "arXiv v1, submitted 2026-04-15; only version",
+        "doi": "10.48550/arXiv.2604.14111",
+        "venue": "arXiv (cs.CL); no journal reference or comments line",
+        "status": "preprint; publication status to be rechecked before protocol version 2",
+        "preprint_license": "CC BY-NC-SA 4.0 (arXiv text only)"
+      },
+      "target": "Stylistic variation between human text and outputs of 11 LLMs across 8 genres and 4 decoding strategies, with Biber's lexicogrammatical and functional features.",
+      "unit_of_analysis": "Not stated on the abstract page.",
+      "data": {
+        "used": "Human text and outputs of 11 LLMs; genres and human corpora not named on the page.",
+        "availability": "no data or code link on the arXiv page",
+        "terms": "unknown",
+        "reused_by_unswell": false
+      },
+      "method": "Large-scale feature analysis under varied prompts, availability of human text to continue, models, and decoding strategies; statistics not described on the page.",
+      "relevant_findings": [
+        "Key differentiators appear robust to generation conditions (abstract).",
+        "Genre exerts a stronger influence on stylistic features than the source; chat variants of a model cluster together; model matters more than decoding strategy, with exceptions."
+      ],
+      "limitations": [
+        "Preprint without a listed venue; no numbers or unit sizes on the page.",
+        "Whether any genre is technical documentation is unknown."
+      ],
+      "decision": {
+        "value": "adapt",
+        "scope": "Three design hypotheses: stratify by role before comparing sources; treat chat variants of one model as one family; hold out one generator family. No data or feature implementation is reused.",
+        "reason": "Directly motivates the role-first design; its own results stay hypotheses until the technical corpus is measured."
+      }
+    }
+  ],
+  "methodological_references": [
+    {
+      "id": "efron-tibshirani-1993",
+      "citation": "Efron, B., Tibshirani, R. J. An Introduction to the Bootstrap. Chapman and Hall, 1993.",
+      "used_for": "Percentile and BCa bootstrap intervals.",
+      "verified": false,
+      "note": "Bibliographic entry; not fetched on the verification date."
+    },
+    {
+      "id": "davison-hinkley-1997",
+      "citation": "Davison, A. C., Hinkley, D. V. Bootstrap Methods and Their Application. Cambridge University Press, 1997.",
+      "used_for": "Resampling by cluster with dependent observations inside a cluster.",
+      "verified": false,
+      "note": "Bibliographic entry; not fetched on the verification date."
+    },
+    {
+      "id": "cameron-gelbach-miller-2008",
+      "citation": "Cameron, A. C., Gelbach, J. B., Miller, D. L. Bootstrap-Based Improvements for Inference with Clustered Errors. Review of Economics and Statistics 90(3), 414-427, 2008.",
+      "used_for": "Behavior of cluster bootstrap inference with few clusters; motivates the 20-component minimum and the coverage check below 30.",
+      "verified": false,
+      "note": "Bibliographic entry; not fetched on the verification date."
+    },
+    {
+      "id": "clopper-pearson-1934",
+      "citation": "Clopper, C. J., Pearson, E. S. The Use of Confidence or Fiducial Limits Illustrated in the Case of the Binomial. Biometrika 26(4), 404-413, 1934.",
+      "used_for": "One-sided exact upper bound for a zero count over components.",
+      "verified": false,
+      "note": "Bibliographic entry; not fetched on the verification date."
+    },
+    {
+      "id": "benjamini-hochberg-1995",
+      "citation": "Benjamini, Y., Hochberg, Y. Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing. Journal of the Royal Statistical Society B 57(1), 289-300, 1995.",
+      "used_for": "Exploratory screening at FDR 0.10.",
+      "verified": false,
+      "note": "Bibliographic entry; not fetched on the verification date."
+    },
+    {
+      "id": "holm-1979",
+      "citation": "Holm, S. A Simple Sequentially Rejective Multiple Test Procedure. Scandinavian Journal of Statistics 6(2), 65-70, 1979.",
+      "used_for": "Confirmatory correction at 0.05 across the frozen list.",
+      "verified": false,
+      "note": "Bibliographic entry; not fetched on the verification date."
+    }
+  ]
+}

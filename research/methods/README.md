@@ -59,6 +59,15 @@ Record that unresolved conflict before importing any data. The
 [DivEye license](https://github.com/IBM/diveye/blob/ee7d53abfb56ea4dc4cac2cb24e17beec0146e5e/LICENSE)
 is CC BY-NC-SA 4.0; its code is not a permissive runtime dependency.
 
+The [pattern protocol](llm-patterns-v1.md) is a second protocol under
+[ADR 0036](../../docs/adr/0036-llm-pattern-evidence.md) for
+[#154](https://github.com/stokaro/unswell/issues/154). It counts constructions
+by cohort without human labels and follows the same source-review discipline.
+Its [sources record](llm-patterns-sources-v1.json) pins the six studies it
+reviewed, and its [prompts](prompts/README.md) hold the verbatim pilot
+conditions. The table above does not change: that protocol adopts the RAID
+and DetectRL-X design dimensions already listed and reuses no dataset.
+
 To extend the registry, inspect pinned primary sources, record separate terms for
 code, tokenizers, weights/classifiers, tables, and data, and add hashes only for
 bytes actually obtained. Preserve prior run references when updating decisions.
