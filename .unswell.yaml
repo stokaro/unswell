@@ -25,6 +25,10 @@ extraction:
       paths: ["**/*_test.go"]
       kinds: [string]
       reason: "Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+    - id: measurement-corpus
+      paths: ["scripts/measure-performance.sh"]
+      kinds: [string]
+      reason: "The generator stores fixed sentences used as a measurement workload, not prose for readers."
     - id: phrase-catalog
       paths: ["builtin/phrase.go"]
       kinds: [string]
