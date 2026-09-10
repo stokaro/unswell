@@ -374,3 +374,7 @@ Every writer and `unswell-mcp --model` report the same decisions.
 configures it, requires an accepted pack, and produces the derived
 `gate.<kind>-probability` and `gate.<kind>-probability-unavailable` diagnostics.
 Estimates still do not change findings or the index.
+`report.ValidateSARIF` and `report.SARIFSchemaVersion` check one SARIF report
+against the published 2.1.0 schema, embedded so validation reads no external
+resource. A valid document is well formed; it is not evidence that a particular
+consumer accepts it. See [SARIF output and consumers](sarif.md).
