@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"io"
 	"strings"
 	"testing"
 
@@ -48,9 +49,30 @@ func TestEveryWriterReturnsErrors(t *testing.T) {
 		document.Source{Name: "a.txt", Format: document.Plain, Bytes: []byte("A clean sentence.")},
 	)
 	c.Assert(err, qt.IsNil)
-	for _, format := range []string{"json", "sarif", "html", "markdown", "text"} {
+	for _, format := range report.Formats() {
 		c.Check(report.Write(failedWriter{}, format, result, report.Options{}), qt.IsNotNil, qt.Commentf("%s", format))
 	}
+}
+
+// Formats is the list callers iterate, so it must match what Write accepts. A
+// writer added to the switch but not to the list would never be offered, and a
+// name in the list without a writer would fail only at run time.
+func TestFormatsMatchTheAcceptedWriters(t *testing.T) {
+	c := qt.New(t)
+	engine, err := unswell.New(unswell.Options{})
+	c.Assert(err, qt.IsNil)
+	result, err := engine.Analyze(
+		t.Context(),
+		document.Source{Name: "a.txt", Format: document.Plain, Bytes: []byte("Certainly! Let us dive into the details.")},
+	)
+	c.Assert(err, qt.IsNil)
+	c.Assert(report.Formats(), qt.HasLen, 5)
+	for _, format := range report.Formats() {
+		var written bytes.Buffer
+		c.Assert(report.Write(&written, format, result, report.Options{}), qt.IsNil, qt.Commentf("%s", format))
+		c.Assert(written.Len() > 0, qt.IsTrue, qt.Commentf("%s", format))
+	}
+	c.Assert(report.Write(io.Discard, "yaml", result, report.Options{}), qt.ErrorMatches, `unknown report format "yaml"`)
 }
 
 func FuzzSavedResult(f *testing.F) {
