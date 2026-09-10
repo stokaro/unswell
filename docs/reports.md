@@ -31,3 +31,6 @@ The CLI writes regular-file reports through temporary files in the destination
 directory and renames them after successful serialization. It rejects duplicate
 destinations, direct input overwrites, symlink destinations and existing hard-link
 aliases to inputs. A failed requested output gives exit code 2.
+
+[SARIF output and consumers](sarif.md) records how the SARIF report is checked
+against the published schema and against the reference consumer.
