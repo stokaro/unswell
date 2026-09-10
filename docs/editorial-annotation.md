@@ -73,10 +73,11 @@ Technical counterexamples require attention:
 | `fragment` | A coherent source fragment, such as a short string or list item | Record this kind explicitly. It is not a sentence solely to satisfy a model's minimum length. |
 
 Input roles are `documentation`, `readme`, `api_reference`, `doc_comment`, `comment`,
-`release_note`, `error_message`, `log_message`, `ui_text`, `other_string`, and
-`string`. Use the specific string role when known; `string` records an unknown
-subtype. Keep those roles separate in sampling and error analysis, as required by
-#22. Record prose language separately from source syntax.
+`release_note`, `error_message`, `log_message`, `ui_text`, `other_string`,
+`string`, and `unknown`. Use the specific string role when known; `string`
+records an unknown subtype, and `unknown` records a source whose role nobody
+could determine. Keep those roles separate in sampling and error analysis, as
+required by #22. Record prose language separately from source syntax.
 Version 1 handles English prose only. Source syntax uses the existing
 `document.Format` values, including Markdown, code languages, shells, and YAML.
 

@@ -435,7 +435,8 @@
               "error_message",
               "log_message",
               "ui_text",
-              "other_string"
+              "other_string",
+              "unknown"
             ]
           },
           "role_regions": {
@@ -477,7 +478,8 @@
                         "error_message",
                         "log_message",
                         "ui_text",
-                        "other_string"
+                        "other_string",
+                        "unknown"
                       ]
                     }
                   },
@@ -610,6 +612,44 @@
               "development",
               "calibration",
               "final_test"
+            ]
+          },
+          "snapshot": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "date": {
+                "type": "string",
+                "maxLength": 10
+              },
+              "confidence": {
+                "type": "string",
+                "enum": [
+                  "corroborated",
+                  "vcs_only",
+                  "unknown"
+                ]
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "cohort": {
+                "type": "string",
+                "enum": [
+                  "historical",
+                  "controlled",
+                  "natural",
+                  "contemporary"
+                ]
+              }
+            },
+            "required": [
+              "date",
+              "confidence",
+              "evidence",
+              "cohort"
             ]
           }
         },
