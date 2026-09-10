@@ -22,13 +22,25 @@ type Threshold struct {
 	MinWords int `json:"min_words" yaml:"min_words"`
 }
 
+// ProbabilityGate fails a run on a calibrated revision probability. It is absent
+// unless a policy configures it, so gate identities are otherwise unchanged.
+// Require covers an absent estimate that the pack's own applicability policy
+// does not explain, such as an unavailable column or a score outside the fitted
+// calibration range. Declared limits, a short unit or another unit kind, stay
+// expected abstentions and never fail this gate.
+type ProbabilityGate struct {
+	FailAt  float64 `json:"fail_at" yaml:"fail_at"`
+	Require bool    `json:"require" yaml:"require"`
+}
+
 // Gate is independent of reporter filtering and severity.
 type Gate struct {
-	Mode             string    `json:"mode"              yaml:"mode"`
-	Sentence         Threshold `json:"sentence_score"     yaml:"sentence_score"`
-	Paragraph        Threshold `json:"paragraph_score"    yaml:"paragraph_score"`
-	FailOnEmpty      bool      `json:"fail_on_empty"      yaml:"fail_on_empty"`
-	FailOnIncomplete bool      `json:"fail_on_incomplete" yaml:"fail_on_incomplete"`
+	Mode             string           `json:"mode"              yaml:"mode"`
+	Sentence         Threshold        `json:"sentence_score"     yaml:"sentence_score"`
+	Paragraph        Threshold        `json:"paragraph_score"    yaml:"paragraph_score"`
+	Probability      *ProbabilityGate `json:"probability,omitempty" yaml:"probability,omitempty"`
+	FailOnEmpty      bool             `json:"fail_on_empty"      yaml:"fail_on_empty"`
+	FailOnIncomplete bool             `json:"fail_on_incomplete" yaml:"fail_on_incomplete"`
 }
 
 // Analysis bounds the amount of work performed on untrusted documents.

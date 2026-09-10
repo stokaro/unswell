@@ -370,3 +370,7 @@ records the pack's declarations. `config.Policy.Calibration` is absent unless a
 policy requests a model, so model-free identities, accepted debt, and existing
 reports are unchanged. Estimates do not affect findings, the index, or the gate.
 Every writer and `unswell-mcp --model` report the same decisions.
+`config.Gate.Probability` adds the calibrated gate. It is absent unless a policy
+configures it, requires an accepted pack, and produces the derived
+`gate.<kind>-probability` and `gate.<kind>-probability-unavailable` diagnostics.
+Estimates still do not change findings or the index.
