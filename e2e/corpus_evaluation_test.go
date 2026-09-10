@@ -103,8 +103,14 @@ func checkEvaluation(t *testing.T, output []byte, positive bool) {
 					TP       int `json:"true_positive"`
 					FN       int `json:"false_negative"`
 				} `json:"counts"`
-				FPR          *float64 `json:"false_positive_rate"`
-				Brier        *float64 `json:"brier"`
+				FPR                         *float64 `json:"false_positive_rate"`
+				Brier                       *float64 `json:"brier"`
+				RecallAtFalsePositiveLimits []struct {
+					FalsePositiveLimit float64 `json:"false_positive_limit"`
+				} `json:"recall_at_false_positive_limits"`
+				PrevalenceSensitivity []struct {
+					Prevalence float64 `json:"prevalence"`
+				} `json:"prevalence_sensitivity"`
 				RiskCoverage []struct {
 					Coverage          float64 `json:"coverage"`
 					Accepted          int     `json:"accepted"`
@@ -127,13 +133,15 @@ func checkEvaluation(t *testing.T, output []byte, positive bool) {
 	c.Assert(result.Summary.Micro.Counts.FN == 1, qt.Equals, !positive)
 	c.Assert(result.Summary.Micro.Brier, qt.IsNotNil)
 	c.Assert(result.Summary.Micro.FPR, qt.IsNil)
-	c.Assert(result.Version, qt.Equals, "unswell-research-evaluation-v2")
+	c.Assert(result.Version, qt.Equals, "unswell-research-evaluation-v3")
 	c.Assert(result.Summary.Micro.RiskCoverage, qt.HasLen, 1)
 	point := result.Summary.Micro.RiskCoverage[0]
 	c.Assert(point.Coverage, qt.Equals, 1.0)
 	c.Assert(point.Accepted, qt.Equals, 1)
 	c.Assert(point.Errors == 0, qt.Equals, positive)
 	c.Assert(point.MinimumConfidence >= 0.5, qt.IsTrue)
+	c.Assert(result.Summary.Micro.RecallAtFalsePositiveLimits, qt.HasLen, 4)
+	c.Assert(result.Summary.Micro.PrevalenceSensitivity, qt.HasLen, 5)
 }
 
 func checkChangedEvaluationLabels(t *testing.T, binary, directory string, args []string, predictions, before []byte) {
