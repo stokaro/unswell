@@ -37,6 +37,17 @@ func TestManifestRejectsInvalidAcquisition(t *testing.T) {
 		{"invalid role region", func(m *corpus.Manifest) {
 			m.Sources[0].Roles = []corpus.RoleRegion{{Span: document.Span{Start: 10, End: 1}, Role: "comment"}}
 		}},
+		{"snapshot cohort", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("2019-06-30", "corroborated", "pre-llm") }},
+		{"snapshot confidence", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("2019-06-30", "guessed", "historical") }},
+		{"snapshot date form", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("30/06/2019", "corroborated", "historical") }},
+		{"snapshot calendar", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("2019-02-30", "corroborated", "historical") }},
+		{"undated corroboration", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("", "vcs_only", "contemporary") }},
+		{"undated historical", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("", "unknown", "historical") }},
+		{"snapshot evidence", func(m *corpus.Manifest) {
+			m.Sources[0].Snapshot = snapshot("2019-06-30", "corroborated", "historical")
+			m.Sources[0].Snapshot.Evidence = " "
+		}},
+		{"controlled human origin", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("2026-09-10", "corroborated", "controlled") }},
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
@@ -161,4 +172,49 @@ func TestCollectionLimitsBeforeCorpusDecoding(t *testing.T) {
 	units := []byte(`{"Units":[` + strings.Repeat("{},", corpus.MaxUnits) + `{}]}`)
 	_, err = corpus.LoadArtifact(t.Context(), units)
 	c.Assert(err, qt.ErrorMatches, `research JSON array "Units" exceeds 10000 entries`)
+}
+
+func snapshot(date, confidence, cohort string) *corpus.Snapshot {
+	return &corpus.Snapshot{Date: date, Confidence: confidence, Evidence: "Fixture dating evidence", Cohort: cohort}
+}
+
+func TestSnapshotCohortsReachCandidates(t *testing.T) {
+	c := qt.New(t)
+	m, files := sample()
+	m.Sources[0].Snapshot = snapshot("2019-06-30", "corroborated", "historical")
+	m.Sources[1].Snapshot = snapshot("", "unknown", "contemporary")
+	m.Sources[0].Role = "unknown"
+	loaded, err := corpus.LoadManifest(t.Context(), encoded(c, m))
+	c.Assert(err, qt.IsNil)
+	c.Assert(loaded.Sources[0].Snapshot, qt.DeepEquals, m.Sources[0].Snapshot)
+	p, err := corpus.MakePlan(t.Context(), m)
+	c.Assert(err, qt.IsNil)
+	a, err := corpus.Build(t.Context(), p, files)
+	c.Assert(err, qt.IsNil)
+	cohorts := map[string]string{}
+	for _, candidate := range a.Units {
+		cohorts[candidate.SourceID] = candidate.Cohort
+		if candidate.SourceID == "d0" {
+			c.Assert(candidate.Unit.Role, qt.Equals, "unknown")
+		}
+		// A snapshot dates bytes; it never becomes a unit origin label.
+		c.Assert(candidate.Unit.Origin.Label, qt.Equals, "unknown")
+	}
+	c.Assert(cohorts, qt.DeepEquals, map[string]string{"d0": "historical", "d1": "contemporary"})
+	// A generated source may join the controlled cohort; a source without a
+	// snapshot keeps an empty cohort in its candidates.
+	m.Sources[1].Origin = annotation.Origin{Label: "generated", Scope: "document", Evidence: "Fixture",
+		GenerationRecord: "Fixture generation record"}
+	m.Sources[1].Snapshot = snapshot("2026-09-10", "corroborated", "controlled")
+	m.Sources[0].Snapshot = nil
+	p, err = corpus.MakePlan(t.Context(), m)
+	c.Assert(err, qt.IsNil)
+	a, err = corpus.Build(t.Context(), p, files)
+	c.Assert(err, qt.IsNil)
+	cohorts = map[string]string{}
+	for _, candidate := range a.Units {
+		cohorts[candidate.SourceID] = candidate.Cohort
+	}
+	c.Assert(cohorts, qt.DeepEquals, map[string]string{"d0": "", "d1": "controlled"})
+	c.Assert(a.Plan.Manifest.Sources[0].Snapshot, qt.IsNil)
 }

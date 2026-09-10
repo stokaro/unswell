@@ -191,7 +191,11 @@ func candidate(source Source, group Group, blockKind, kind, target, surrounding 
 	}
 	origin := source.Origin
 	origin.Label = "unknown"
-	return Candidate{SourceID: source.ID, GroupID: group.ID, Partition: group.Partition, Words: words,
+	cohort := ""
+	if source.Snapshot != nil {
+		cohort = source.Snapshot.Cohort
+	}
+	return Candidate{SourceID: source.ID, GroupID: group.ID, Partition: group.Partition, Cohort: cohort, Words: words,
 		Unit: annotation.Unit{Kind: kind, Role: role, Text: target, Context: surrounding,
 			Source: annotation.Source{DocumentID: source.Document, RepositoryID: source.Repository,
 				RelatedGroup: group.ID, Reference: source.Reference, SHA256: source.SHA256, Bytes: source.Bytes,

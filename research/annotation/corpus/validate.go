@@ -10,6 +10,7 @@ import (
 	"path"
 	"slices"
 	"strings"
+	"time"
 	"unicode"
 	"unicode/utf8"
 
@@ -128,6 +129,9 @@ func (s Source) validate() error {
 	if err := s.validateOrigin(); err != nil {
 		return err
 	}
+	if err := s.validateSnapshot(); err != nil {
+		return err
+	}
 	return s.validateRoles()
 }
 
@@ -202,6 +206,42 @@ func (s Source) validateOrigin() error {
 	}
 	if s.Origin.Label != "human" && s.Origin.Label != "unknown" && !text(s.Origin.GenerationRecord) {
 		return fmt.Errorf("generated or edited source provenance requires a generation record")
+	}
+	return nil
+}
+
+func (s Source) validateSnapshot() error {
+	snapshot := s.Snapshot
+	if snapshot == nil {
+		return nil
+	}
+	if !slices.Contains(cohorts(), snapshot.Cohort) || !slices.Contains(dateConfidences(), snapshot.Confidence) ||
+		!text(snapshot.Evidence) {
+		return fmt.Errorf("snapshot requires a known cohort, a known date confidence, and evidence")
+	}
+	if err := snapshot.validateDate(); err != nil {
+		return err
+	}
+	// An undated source cannot represent any period; a controlled output must
+	// carry the generation provenance the origin contract already requires.
+	if snapshot.Cohort == "historical" && snapshot.Confidence == "unknown" {
+		return fmt.Errorf("historical cohort membership requires a dated snapshot")
+	}
+	if snapshot.Cohort == "controlled" && slices.Contains([]string{"human", "unknown"}, s.Origin.Label) {
+		return fmt.Errorf("controlled cohort membership requires generated or edited origin")
+	}
+	return nil
+}
+
+func (snapshot Snapshot) validateDate() error {
+	if snapshot.Date == "" {
+		if snapshot.Confidence != "unknown" {
+			return fmt.Errorf("a corroborated or vcs_only snapshot requires a date")
+		}
+		return nil
+	}
+	if _, err := time.Parse(time.DateOnly, snapshot.Date); err != nil || len(snapshot.Date) != len(time.DateOnly) {
+		return fmt.Errorf("snapshot date must use the YYYY-MM-DD form")
 	}
 	return nil
 }
@@ -298,8 +338,12 @@ func partitions() []string { return []string{"training", "development", "calibra
 
 func roles() []string {
 	return []string{"documentation", "readme", "api_reference", "doc_comment", "comment", "release_note",
-		"string", "error_message", "log_message", "ui_text", "other_string"}
+		"string", "error_message", "log_message", "ui_text", "other_string", "unknown"}
 }
+
+func cohorts() []string { return []string{"historical", "controlled", "natural", "contemporary"} }
+
+func dateConfidences() []string { return []string{"corroborated", "vcs_only", "unknown"} }
 
 func digest(value any) (string, error) {
 	data, err := json.Marshal(value)

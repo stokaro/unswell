@@ -42,6 +42,7 @@ are errors. The schema and semantic checks run together.
 | `extraction_policy` | Existing `extract.Policy`: global contexts, per-language overrides, and exceptions |
 | `unit_kinds` | Nonempty set of `sentence`, `paragraph`, and `fragment` |
 | `sources` | Exact original files with context, group metadata, rights, and retained notices |
+| `sources[].snapshot` | Optional dating of the exact bytes: `date`, `confidence`, `evidence`, and research `cohort` |
 
 Each source records a relative path, SHA-256, byte count, pinned reference, source
 format, declared prose language, topic, purpose, repository, and document ID.
@@ -49,6 +50,19 @@ Optional author/template/related-version/generation-task lists hold globally sco
 IDs; empty lists mean unknown. Author-language metadata needs an independent basis.
 The current contract accepts declared English prose; it does not infer fluency or
 a writer's language background.
+
+A `snapshot` dates the bytes for the temporal cohorts of the
+[pattern protocol](../../methods/llm-patterns-v1.md). Its `date` uses the
+`YYYY-MM-DD` form. `confidence` is `corroborated` when an independently
+published release or archive agrees with the version-control date, `vcs_only`
+when only version-control metadata exists, and `unknown` otherwise. Only an
+unknown confidence permits an empty date. `cohort` is `historical`,
+`controlled`, `natural`, or `contemporary`. A historical source
+needs a dated snapshot, and a controlled source needs generated or edited
+origin with its generation record. Candidates repeat the cohort of their
+source; a source without a snapshot yields candidates with an empty cohort and
+enters no temporal analysis. A snapshot dates bytes and says nothing about
+authorship or quality.
 
 Permission evidence and at least one retained notice are required. Allowed uses
 are explicit; annotation permission alone does not authorize training or publication.
@@ -90,7 +104,9 @@ count, component, partition, source identity, and extraction-policy hash. Escape
 strings and Markdown transformations retain their original ranges. The output also
 keeps extraction exclusions. Reviewed `role_regions` can distinguish doc comments,
 error messages, logs, UI text, and other strings. A region cutting through a unit
-is an error. Otherwise, code comments and strings retain generic roles.
+is an error. Otherwise, code comments and strings retain generic roles. A
+source whose role cannot be determined declares `unknown`, and its prose units
+keep that value.
 
 Whole-source provenance remains in the manifest. Candidate origin is always
 `unknown` until independent unit evidence is supplied. A repository-level AI-use

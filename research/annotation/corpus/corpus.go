@@ -67,6 +67,17 @@ type Source struct {
 	Rights              annotation.Rights `json:"rights"`
 	Notices             []Notice          `json:"notices"`
 	Partition           string            `json:"partition"`
+	Snapshot            *Snapshot         `json:"snapshot,omitempty"`
+}
+
+// Snapshot dates the exact bytes of a source and names its research cohort.
+// A date never proves authorship; Confidence says what corroborates it. A
+// source without a snapshot has no cohort and enters no temporal analysis.
+type Snapshot struct {
+	Date       string `json:"date"`
+	Confidence string `json:"confidence"`
+	Evidence   string `json:"evidence"`
+	Cohort     string `json:"cohort"`
 }
 
 // Notice identifies a local permission/copyright record retained with the source.
@@ -119,11 +130,13 @@ type Dependency struct {
 	Sum     string `json:"sum"`
 }
 
-// Candidate is unlabeled prose with acquisition and split identities.
+// Candidate is unlabeled prose with acquisition and split identities. Cohort
+// repeats the source snapshot's cohort and is empty without a snapshot.
 type Candidate struct {
 	SourceID  string          `json:"source_id"`
 	GroupID   string          `json:"group_id"`
 	Partition string          `json:"partition"`
+	Cohort    string          `json:"cohort,omitempty"`
 	Words     int             `json:"words"`
 	Unit      annotation.Unit `json:"unit"`
 }
