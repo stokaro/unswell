@@ -115,6 +115,12 @@ or denominator yields `null`, including FPR on a positive-only set.
   rate can be read under a repository's own base rate. It needs both rates.
 - The same counts and metrics are retained for each source group, in sorted order.
   These group results are not confidence intervals or automatic independence proof.
+- Strata repeat the counts and metrics for every value of five dimensions the
+  corpus artifact records: prose words in fixed buckets (1–19, 20–49, 50–99,
+  100–199, 200+), unit role, source language, prose language, and origin label.
+  An absent value reads `unknown`. The counts are the sample size; a sparse stratum
+  is reported with that size rather than hidden. Domain, generator family, editing
+  workflow and non-native subsets are not corpus fields, so they are not strata.
 
 The response kind remains explicit. A Brier/ECE calculation on uncalibrated
 sigmoid outputs does not make them calibrated product probabilities. Both
@@ -167,9 +173,10 @@ capacity promise and say nothing about model quality.
 
 The executable path covers the current prepared-feature and rule-activation
 logistic fits. It does not claim the full A–G comparison or a qualified D feature
-set. Qualified FPR bounds, predeclared subgroups, lexical models, ablations, and
-LLMDet or reference adapters keep their research requirements. Stage cost is
-measured. Qualifying a budget against a real corpus is not.
+set. Qualified FPR bounds, lexical models, ablations, and LLMDet or reference
+adapters keep their research requirements, and so do subgroups the corpus does
+not record: domain, generator family, editing workflow and non-native English.
+Stage cost is measured. Qualifying a budget against a real corpus is not.
 Unexecuted methods remain unverified in the method registry. Human acquisition,
 independent annotation, final-test custody, calibration selection, and scientific
 qualification require real evidence; these simulated tests cannot supply it.
