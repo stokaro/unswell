@@ -1,0 +1,574 @@
+{
+  "format": "unswell-rule-classes-v1",
+  "revision": 1,
+  "decided_on": "2026-09-10",
+  "protocol": "unswell-llm-patterns-v1",
+  "scope": "Input to experiment E1. Each rule of the pinned catalog carries one class before any cohort is measured. A class change is a protocol amendment. Roles list where the rule's count enters a prevalence table; string roles stay in a separate layer.",
+  "classes": {
+    "general_style": "A general editing or readability rule kept whether or not it separates cohorts.",
+    "explicit_prohibition": "A user-configured prohibition with no cohort hypothesis.",
+    "llm_associated_candidate": "A rule whose construction the branch tests for association with LLM cohorts; a candidate is a hypothesis, not a result."
+  },
+  "rules": [
+    {
+      "rule_id": "density.connective-overuse",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Repeated transitions are a general clarity matter in any prose."
+    },
+    {
+      "rule_id": "filler.announced-importance",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Announcing importance instead of stating the fact is a claimed LLM template; untested here."
+    },
+    {
+      "rule_id": "filler.empty-transition",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Empty opening transitions are a claimed LLM template; untested here."
+    },
+    {
+      "rule_id": "filler.modern-world-opening",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "The generic modern-world opening is a claimed LLM template; untested here."
+    },
+    {
+      "rule_id": "filler.section-announcement",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Section announcements are a claimed LLM template; untested here."
+    },
+    {
+      "rule_id": "filler.stacked-hedging",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Stacked hedges are a claimed LLM template; untested here."
+    },
+    {
+      "rule_id": "filler.weak-intensifiers",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": "kobak-2025",
+      "reason": "Weak intensifiers are a claimed LLM lexical marker; Kobak et al. report excess style words, so the branch tests the lexicon."
+    },
+    {
+      "rule_id": "filler.wordy-phrase",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Wordy phrases predate LLM writing and are a general style matter."
+    },
+    {
+      "rule_id": "format.em-dash-density",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Em dash density is a general punctuation matter; the branch tests whether it separates cohorts."
+    },
+    {
+      "rule_id": "format.list-fragmentation",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "List fragmentation is a general layout matter."
+    },
+    {
+      "rule_id": "hype.absolute-claim",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Absolute claims are a claimed LLM marketing template; untested here."
+    },
+    {
+      "rule_id": "hype.metaphor-cluster",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Clustered stock metaphors are a claimed LLM template; untested here."
+    },
+    {
+      "rule_id": "hype.modifier-cluster",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Clustered evaluative modifiers are a claimed LLM template; untested here."
+    },
+    {
+      "rule_id": "hype.vague-praise",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Vague praise is a claimed LLM template; untested here."
+    },
+    {
+      "rule_id": "policy.banned-phrases",
+      "class": "explicit_prohibition",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "A phrase list is an explicit user prohibition; it carries no cohort hypothesis."
+    },
+    {
+      "rule_id": "readability.grade-metric",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "A readability formula is a general audience matter, not a construction."
+    },
+    {
+      "rule_id": "readability.long-paragraph",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Paragraph length is a general layout matter."
+    },
+    {
+      "rule_id": "repetition.exact-sentence",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Exact repetition is a general editing matter; necessary technical repetition is a counterexample class."
+    },
+    {
+      "rule_id": "repetition.heading-echo",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Heading echo is a general structure matter."
+    },
+    {
+      "rule_id": "repetition.near-sentence",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Near repetition is a general editing matter."
+    },
+    {
+      "rule_id": "repetition.ngram-density",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Phrase recurrence is a general editing matter."
+    },
+    {
+      "rule_id": "repetition.paragraph-openers",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Repeated paragraph openers are a general structure matter; the branch tests whether they separate cohorts."
+    },
+    {
+      "rule_id": "repetition.paragraph-overlap",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Paragraph overlap is a general editing matter."
+    },
+    {
+      "rule_id": "repetition.sentence-openers",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Repeated sentence openers are a general structure matter; the branch tests whether they separate cohorts."
+    },
+    {
+      "rule_id": "repetition.summary-echo",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Summary echo is a general structure matter; the branch tests whether it separates cohorts."
+    },
+    {
+      "rule_id": "repetition.syntax-template",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Repeated POS shapes are a general structure matter; the branch tests whether they separate cohorts."
+    },
+    {
+      "rule_id": "scaffold.ai-self-reference",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "An assistant self-reference is a direct chat artifact; the branch measures its prevalence, not its meaning."
+    },
+    {
+      "rule_id": "scaffold.chat-preamble",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "A conversational acknowledgment is a direct chat artifact."
+    },
+    {
+      "rule_id": "scaffold.dive-in",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Announcing the explanation is a claimed chat artifact."
+    },
+    {
+      "rule_id": "scaffold.follow-up-offer",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "A follow-up offer is a direct chat artifact."
+    },
+    {
+      "rule_id": "syntax.long-sentence",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Sentence length is a general readability matter and a length control in the protocol."
+    },
+    {
+      "rule_id": "syntax.nominalization-chain",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": "reinhart-2025",
+      "reason": "Nominalization is a general style matter; Reinhart et al. report higher rates in LLM output, so the branch tests it."
+    },
+    {
+      "rule_id": "syntax.not-only-density",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Repeated paired contrasts are a claimed LLM rhetorical template; untested here."
+    },
+    {
+      "rule_id": "syntax.noun-stack",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Noun stacks are a general clarity matter; established technical terms are a counterexample class."
+    },
+    {
+      "rule_id": "syntax.paired-contrast-density",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Repeated paired contrasts are a claimed LLM rhetorical template; untested here."
+    },
+    {
+      "rule_id": "syntax.parenthetical-load",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Parenthetical load is a general clarity matter."
+    },
+    {
+      "rule_id": "syntax.passive-candidate-density",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": "reinhart-2025",
+      "reason": "Passive density is a general voice matter; Reinhart et al. report fewer agentless passives in LLM output, so the branch tests the direction."
+    },
+    {
+      "rule_id": "syntax.rhetorical-question-density",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Question-and-answer transitions are a claimed LLM rhetorical template; untested here."
+    },
+    {
+      "rule_id": "syntax.triad-density",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Triads of evaluative modifiers are a claimed LLM rhetorical template; untested here."
+    },
+    {
+      "rule_id": "syntax.whether-preface-density",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "hypothesis_source": null,
+      "reason": "Whether-you prefaces are a claimed LLM rhetorical template; untested here."
+    }
+  ]
+}
