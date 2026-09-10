@@ -55,6 +55,24 @@ type RiskPoint struct {
 	MinimumConfidence float64 `json:"minimum_confidence"`
 }
 
+// RecallPoint is the highest recall any response threshold reaches while keeping
+// the false-positive rate at or below a stated limit. Nil recall means no
+// threshold satisfies the limit, or the set has no positives or no negatives.
+type RecallPoint struct {
+	FalsePositiveLimit float64  `json:"false_positive_limit"`
+	Recall             *float64 `json:"recall"`
+	FalsePositiveRate  *float64 `json:"false_positive_rate"`
+	Threshold          *float64 `json:"threshold"`
+}
+
+// PrevalencePoint is the precision the covered recall and false-positive rate
+// imply at an assumed prevalence. A reader can then judge false alerts under
+// their own base rate instead of the evaluation set's.
+type PrevalencePoint struct {
+	Prevalence float64  `json:"prevalence"`
+	Precision  *float64 `json:"precision"`
+}
+
 // Metrics describes eligible-flow coverage and quality on its covered subset.
 // Undefined denominators produce null, never a perfect score or zero risk.
 type Metrics struct {
@@ -71,6 +89,9 @@ type Metrics struct {
 	// RiskCoverage is reported for the full eligible flow only. Per-group curves
 	// would multiply the record without adding a decision anyone makes per group.
 	RiskCoverage []RiskPoint `json:"risk_coverage,omitempty"`
+	// The two tables below are also full-flow only, for the same reason.
+	RecallAtFalsePositiveLimits []RecallPoint     `json:"recall_at_false_positive_limits,omitempty"`
+	PrevalenceSensitivity       []PrevalencePoint `json:"prevalence_sensitivity,omitempty"`
 }
 
 // GroupMetrics retains per-component denominators for later paired comparisons.

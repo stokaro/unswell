@@ -13,8 +13,9 @@ import (
 )
 
 // Version identifies saved binary-event metric and exclusion semantics. Version
-// 2 adds the risk-coverage curve to the full-flow summary.
-const Version = "unswell-research-evaluation-v2"
+// 2 added the risk-coverage curve; version 3 adds recall at fixed false-positive
+// limits and prevalence sensitivity to the full-flow summary.
+const Version = "unswell-research-evaluation-v3"
 
 // Result binds a numerical summary to exact saved predictions and an independent
 // annotation round. No inference or training runs while computing this report.

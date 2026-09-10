@@ -105,6 +105,14 @@ or denominator yields `null`, including FPR on a positive-only set.
   eligible targets, so abstention lowers it. A prefix that would split two equally
   confident decisions is omitted, because no threshold separates them. The curve
   is reported for the full flow only, at most twenty points plus the last.
+- Recall at fixed false-positive limits (1%, 2%, 5% and 10%) sweeps a response
+  threshold downward and keeps, for each limit, the highest recall reached without
+  exceeding it, with the threshold that reached it. Equal responses are accepted
+  together, because no threshold separates them. A set without positives or
+  without negatives reports null recall.
+- Prevalence sensitivity restates precision at assumed prevalences of 1%, 5%, 10%,
+  25% and 50% from the covered recall and false-positive rate, so a false-alert
+  rate can be read under a repository's own base rate. It needs both rates.
 - The same counts and metrics are retained for each source group, in sorted order.
   These group results are not confidence intervals or automatic independence proof.
 
