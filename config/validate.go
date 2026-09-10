@@ -25,6 +25,9 @@ func validate(policy Policy, catalog []rule.Descriptor) error {
 	if err := validateGate(policy.Gate); err != nil {
 		return err
 	}
+	if err := validateProbabilityGate(policy); err != nil {
+		return err
+	}
 	for _, descriptor := range catalog {
 		if err := validateSettings(policy.Rules[descriptor.ID], descriptor.Parameters); err != nil {
 			return fmt.Errorf("%s: %w", descriptor.ID, err)
@@ -84,6 +87,25 @@ func validateGate(gate Gate) error {
 		if threshold.FailAt < 1 || threshold.FailAt > 100 || threshold.MinWords < 0 {
 			return fmt.Errorf("invalid score threshold")
 		}
+	}
+	return nil
+}
+
+// validateProbabilityGate keeps a probability gate tied to an accepted model.
+// An experimental pack may report estimates; it cannot decide a build.
+func validateProbabilityGate(policy Policy) error {
+	gate := policy.Gate.Probability
+	if gate == nil {
+		return nil
+	}
+	if gate.FailAt <= 0 || gate.FailAt > 1 {
+		return fmt.Errorf("gate.probability.fail_at must be greater than 0 and at most 1")
+	}
+	if policy.Calibration == nil || policy.Calibration.Model != "pack" {
+		return fmt.Errorf("gate.probability requires calibration.model: pack")
+	}
+	if policy.Calibration.AcceptExperimental {
+		return fmt.Errorf("gate.probability requires an accepted pack; calibration.accept_experimental cannot gate a build")
 	}
 	return nil
 }

@@ -92,6 +92,28 @@ existing sentence when no pack applies. Declared pack values are data, so each
 format escapes them. `unswell-mcp --model` mirrors `check --model`, so the server
 and the CLI agree.
 
+## Calibrated gating
+
+`gate.probability` fails a run on an estimate at or above its threshold. It
+requires `calibration.model: pack` and refuses `calibration.accept_experimental`:
+an experimental pack may report estimates for research, but it cannot decide a
+build. Since an experimental pack is otherwise refused without that opt-in, a
+gate can only ever run against a pack whose author declared it accepted.
+
+`require: true` covers an absent estimate the pack did not predict, such as an
+unavailable column, a score outside the fitted calibration range, or a source
+whose measurement inputs do not match the pack. It never fails on the pack's own
+declared limits, because a unit below the declared minimum words, or of another
+kind, is an abstention the pack states in advance. A gate that failed on those
+would fail on ordinary short sentences and would say nothing about the model.
+
+The channel keeps the existing exit codes. A gate failure is a policy failure,
+`--no-gate` records the reason without changing the decision, and an explicitly
+requested incompatible pack under `on_incompatible: fail` stays an operational
+failure that no gate mode can pass. Gate reasons carry derived diagnostics named
+`gate.<kind>-probability` and `gate.<kind>-probability-unavailable`, which are
+generated after suppressions and are never fed back into the index.
+
 ## Acceptance and follow-up
 
 Blackbox tests must cover strict decoding, digest verification, contract and
@@ -99,11 +121,10 @@ column rejection, capability requirements, declaration consistency, each
 applicability status, calibrated values with their uncalibrated score, mismatched
 vectors, cancellation, detached snapshots, and concurrent estimates.
 
-The remaining work under #24 is calibrated gating: a gate that requires a
-probability cannot pass while that estimate is absent, and exit codes 0, 1, 2,
-and 130 keep their meanings. Reserved reasons such as unsupported
-domain and dictionary coverage need inputs the engine does not yet carry. A
-command that builds a pack from a research training artifact is separate work.
+Reserved reasons such as unsupported domain and dictionary coverage need inputs
+the engine does not yet carry. A command that builds a pack from a research
+training artifact is separate work, and so is the qualification that would let a
+real pack declare the acceptance a gate requires.
 
 A loadable pack is not a qualified model. Held-out evaluation (#25), corpus
 qualification (#22), and the product decision to gate on a probability remain

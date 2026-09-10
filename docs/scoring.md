@@ -81,6 +81,32 @@ or the gate decision; probability gating is not implemented yet.
 The text, Markdown, and HTML reports name the configured pack and how many units
 of its kind were estimated; JSON and SARIF carry the per-unit statuses.
 
+### Gating on a probability
+
+A probability can fail a run only when the pack declares acceptance:
+
+```yaml
+gate:
+  probability:
+    fail_at: 0.85
+    require: false
+```
+
+`fail_at` is a probability above 0 and at most 1. A unit whose estimate reaches
+it fails the gate with a `gate.<kind>-probability` diagnostic. The gate requires
+`calibration.model: pack` and refuses `calibration.accept_experimental`, so an
+experimental research pack cannot decide a build.
+
+`require: true` also fails on an absent estimate the pack did not predict: an
+unavailable column, a score outside the fitted calibration range, or a source
+whose measurement inputs differ from the pack. It does not fail on the pack's own
+declared limits, so a unit below the declared minimum words, or of another kind,
+still passes. Those abstentions are the policy the pack states in advance.
+
+Exit codes keep their meanings. A gate failure exits 1, an operational failure
+such as an incompatible pack under `on_incompatible: fail` exits 2, and
+`--no-gate` records the reasons without changing the decision.
+
 The manifest records the pack's own declarations, including whether its author
 declared it accepted and whether it names a qualified corpus. Unswell checks that
 these declarations are consistent and that the pack matches the run; it cannot
