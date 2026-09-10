@@ -18,7 +18,7 @@ const DatasetVersion = "unswell-corpus-dataset-v1"
 // Dataset limits bound the union of shards without raising any shard's limit.
 const (
 	MaxDatasetBytes   = 4 << 20
-	MaxShards         = 64
+	MaxShards         = 256
 	MaxDatasetSources = 200000
 	maxDatasetKeys    = 2000000
 )
@@ -310,13 +310,13 @@ func sameHeader(dataset Dataset, manifest Manifest) error {
 }
 
 // unionSources joins every shard's sources into one manifest in ID order and
-// records which shard owns each source. IDs and paths are unique across shards
-// and shared notices must agree everywhere.
+// records which shard owns each source. IDs are unique across shards; paths
+// and notices are checked within each shard, because every shard may have
+// its own source root.
 func unionSources(ctx context.Context, dataset Dataset, manifests map[string]Manifest) (Manifest, map[string]string, error) {
 	union := Manifest{Version: Version, ID: dataset.ID, Seed: dataset.Seed, Weights: dataset.Weights,
 		Policy: dataset.Policy, UnitKinds: dataset.UnitKinds}
 	owners := make(map[string]string)
-	paths := make(map[string]Notice)
 	for _, shard := range dataset.Shards {
 		manifest := manifests[shard.Path]
 		for _, source := range manifest.Sources {
@@ -327,9 +327,6 @@ func unionSources(ctx context.Context, dataset Dataset, manifests map[string]Man
 				return Manifest{}, nil, fmt.Errorf("source %s appears in more than one shard", source.ID)
 			}
 			owners[source.ID] = shard.Path
-			if err := declareFiles(paths, source); err != nil {
-				return Manifest{}, nil, err
-			}
 			union.Sources = append(union.Sources, source)
 		}
 		if len(union.Sources) > MaxDatasetSources {
@@ -338,18 +335,6 @@ func unionSources(ctx context.Context, dataset Dataset, manifests map[string]Man
 	}
 	slices.SortFunc(union.Sources, func(a, b Source) int { return strings.Compare(a.ID, b.ID) })
 	return union, owners, nil
-}
-
-func declareFiles(paths map[string]Notice, source Source) error {
-	files := append([]Notice{{Path: source.Path, SHA256: source.SHA256, Bytes: source.Bytes}}, source.Notices...)
-	for i, file := range files {
-		previous, found := paths[file.Path]
-		if found && (previous != file || i == 0) {
-			return fmt.Errorf("conflicting or repeated file declarations for %s", file.Path)
-		}
-		paths[file.Path] = file
-	}
-	return nil
 }
 
 func datasetGroups(groups []Group, owners map[string]string) ([]DatasetGroup, []DatasetSource) {

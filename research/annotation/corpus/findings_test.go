@@ -2,6 +2,7 @@ package corpus_test
 
 import (
 	"context"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -131,4 +132,80 @@ func TestFindingsRequireFrozenExtractionAndReproduction(t *testing.T) {
 	_, err = corpus.MeasureFindings(ctx, a, files, []byte(findingsPolicy))
 	c.Assert(err, qt.IsNotNil)
 	_ = annotation.Unit{}
+}
+
+// A document the engine cannot finish under the policy stays in the artifact
+// as a failed coverage gap; the other documents are measured as usual.
+func TestFindingsRecordOperationalFailuresPerDocument(t *testing.T) {
+	c := qt.New(t)
+	m, files := sample()
+	var bomb strings.Builder
+	bomb.WriteString("# Bomb\n\n")
+	for i := range 2000 {
+		bomb.WriteString("The cache retries the lookup number ")
+		bomb.WriteString(strconv.Itoa(i))
+		bomb.WriteString(" after the configured delay expires.\n\n")
+	}
+	files["bomb.md"] = []byte(bomb.String())
+	m.Sources = append(m.Sources, corpus.Source{ID: "d9", Path: "bomb.md", SHA256: hash(files["bomb.md"]),
+		Bytes: len(files["bomb.md"]), Format: document.Markdown, ProseLanguage: "en", Repository: "bomb-project",
+		Document: "bomb-project/bomb.md", Reference: "fixture:bomb.md", Topic: "cache", Purpose: "Exhaust a rule budget",
+		Role: "documentation", Origin: m.Sources[0].Origin, Rights: m.Sources[0].Rights, Notices: m.Sources[0].Notices})
+	p, err := corpus.MakePlan(t.Context(), m)
+	c.Assert(err, qt.IsNil)
+	a, err := corpus.Build(t.Context(), p, files)
+	c.Assert(err, qt.IsNil)
+	policy := "version: 1\nextends: [builtin:custom]\nrules:\n  repetition.near-sentence: {enabled: true}\n"
+	result, err := corpus.MeasureFindings(t.Context(), a, files, []byte(policy))
+	c.Assert(err, qt.IsNil)
+	c.Assert(result.Failed, qt.Equals, 1)
+	statuses := map[string]string{}
+	for _, doc := range result.Documents {
+		statuses[doc.SourceID] = doc.Status
+		if doc.SourceID == "d9" {
+			c.Assert(doc.Error, qt.Contains, "budget")
+			c.Assert(doc.Findings, qt.Equals, 0)
+		}
+	}
+	c.Assert(statuses, qt.DeepEquals, map[string]string{"d0": "measured", "d1": "measured", "d9": "failed"})
+	for _, unit := range result.Units {
+		c.Assert(unit.Unmeasured, qt.Equals, unit.SourceID == "d9")
+	}
+	c.Assert(result.Policy.ConfigHash, qt.Not(qt.Equals), "")
+}
+
+// An artifact whose only source fails still names the policy it ran under.
+func TestFindingsKeepThePolicyIdentityWhenEverySourceFails(t *testing.T) {
+	c := qt.New(t)
+	files := map[string][]byte{"LICENSE": []byte("Test-owned source and notice fixture.\n")}
+	var bomb strings.Builder
+	bomb.WriteString("# Bomb\n\n")
+	for i := range 2000 {
+		bomb.WriteString("The cache retries the lookup number ")
+		bomb.WriteString(strconv.Itoa(i))
+		bomb.WriteString(" after the configured delay expires.\n\n")
+	}
+	files["bomb.md"] = []byte(bomb.String())
+	notice := corpus.Notice{Path: "LICENSE", SHA256: hash(files["LICENSE"]), Bytes: len(files["LICENSE"])}
+	m := corpus.Manifest{Version: corpus.Version, ID: "bomb-only", Seed: "frozen-seed",
+		Weights:   corpus.Weights{Training: 6000, Development: 1500, Calibration: 1500, FinalTest: 1000},
+		UnitKinds: []string{"paragraph", "sentence", "fragment"},
+		Sources: []corpus.Source{{ID: "d9", Path: "bomb.md", SHA256: hash(files["bomb.md"]), Bytes: len(files["bomb.md"]),
+			Format: document.Markdown, ProseLanguage: "en", Repository: "bomb-project", Document: "bomb-project/bomb.md",
+			Reference: "fixture:bomb.md", Topic: "cache", Purpose: "Exhaust a rule budget", Role: "documentation",
+			Origin:  annotation.Origin{Label: "unknown", Scope: "repository", Evidence: "Teaching fixture; origin is not a quality label."},
+			Rights:  annotation.Rights{License: "test-fixture", Evidence: "Test-owned bytes", AllowedUses: []string{"annotation"}},
+			Notices: []corpus.Notice{notice}}}}
+	p, err := corpus.MakePlan(t.Context(), m)
+	c.Assert(err, qt.IsNil)
+	a, err := corpus.Build(t.Context(), p, files)
+	c.Assert(err, qt.IsNil)
+	policy := "version: 1\nextends: [builtin:custom]\nrules:\n  repetition.near-sentence: {enabled: true}\n"
+	result, err := corpus.MeasureFindings(t.Context(), a, files, []byte(policy))
+	c.Assert(err, qt.IsNil)
+	c.Assert(result.Failed, qt.Equals, 1)
+	c.Assert(result.Documents, qt.HasLen, 1)
+	c.Assert(result.Documents[0].Status, qt.Equals, "failed")
+	c.Assert(result.Policy.ConfigHash, qt.Not(qt.Equals), "")
+	c.Assert(len(result.Policy.Rules) > 0, qt.IsTrue)
 }

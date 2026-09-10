@@ -22,7 +22,7 @@ const Version = "unswell-pattern-tables-v1"
 const DefaultBaseline = "historical"
 
 // MaxInputs bounds the finding artifacts one analysis joins.
-const MaxInputs = 64
+const MaxInputs = 256
 
 // Options selects the baseline cohort of the contrasts.
 type Options struct {
@@ -78,10 +78,12 @@ type RuleTable struct {
 	Contrasts []Contrast   `json:"contrasts"`
 }
 
-// CohortSummary is the whole-profile load of one cohort.
+// CohortSummary is the whole-profile load of one cohort. Failed documents
+// are those whose policy run did not finish; they enter no table.
 type CohortSummary struct {
 	Cohort               string   `json:"cohort"`
 	Documents            int      `json:"documents"`
+	FailedDocuments      int      `json:"failed_documents"`
 	Units                int      `json:"units"`
 	Words                int      `json:"words"`
 	Components           int      `json:"components"`
@@ -169,6 +171,7 @@ type frame struct {
 	components []component
 	cohorts    []string
 	unassigned int
+	failedBy   map[string]int
 	unitsBy    map[string]int
 	byID       map[string]int
 	cohortSet  map[string]bool
@@ -176,7 +179,8 @@ type frame struct {
 }
 
 func buildFrame(ctx context.Context, inputs []corpus.FindingsArtifact, classes corpus.RuleClasses) (*frame, error) {
-	result := &frame{unitsBy: map[string]int{}, byID: map[string]int{}, cohortSet: map[string]bool{}, known: map[string]bool{}}
+	result := &frame{unitsBy: map[string]int{}, failedBy: map[string]int{}, byID: map[string]int{}, cohortSet: map[string]bool{},
+		known: map[string]bool{}}
 	for _, class := range classes.Rules {
 		result.known[class.RuleID] = true
 	}
@@ -217,6 +221,10 @@ func (f *frame) addInput(input corpus.FindingsArtifact) error {
 			continue
 		}
 		f.cohortSet[doc.Cohort] = true
+		if doc.Status == "failed" {
+			f.failedBy[doc.Cohort]++
+			continue
+		}
 		index := f.componentIndex(doc.GroupID)
 		record := document{role: doc.Role, words: doc.ProseWords, byRule: doc.ByRule, total: doc.Findings,
 			units: unitsBySource[doc.SourceID]}
@@ -256,7 +264,7 @@ func unitRecord(item corpus.UnitFindings) unit {
 func (f *frame) summaries() []CohortSummary {
 	result := make([]CohortSummary, 0, len(f.cohorts))
 	for _, cohort := range f.cohorts {
-		summary := CohortSummary{Cohort: cohort, Units: f.unitsBy[cohort]}
+		summary := CohortSummary{Cohort: cohort, Units: f.unitsBy[cohort], FailedDocuments: f.failedBy[cohort]}
 		for _, item := range f.components {
 			docs := item.documents[cohort]
 			if len(docs) == 0 {

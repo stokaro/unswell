@@ -83,7 +83,9 @@ pin each shard with the global partition; `corpus.DetectDuplicates` and the
 can add their cluster keys to a manifest. `corpus analyze` and the research
 `patterns` package build the `unswell-pattern-tables-v1` E1 tables from
 finding artifacts and the rule classes, with cluster bootstrap intervals over
-provenance components; they decide nothing. See
+provenance components; they decide nothing. `corpus acquire` builds a shard
+manifest from a checkout by the fixed rules of a record and lists every file
+left out; `scripts/acquire-corpus.sh` does the network work. See
 [ADR 0036](adr/0036-llm-pattern-evidence.md).
 The research `training` package and `corpus train` command connect these reproduced
 targets to Go fitting with separate training and calibration partitions. Their

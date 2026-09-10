@@ -1,0 +1,5454 @@
+{
+  "version": "unswell-pattern-tables-v1",
+  "human_corpus": "not_qualified",
+  "baseline": "historical",
+  "policy": {
+    "config_hash": "928269cf6586a4a22ed563c380783e6228589eadd2d15a377ca81a4f2369a56d",
+    "ruleset_hash": "554c01192fd28df96bb54294c764e031d3cefebee311ef2c50cde1919ad1a7c7",
+    "scoring_profile": "strict-v1",
+    "rules": [
+      {
+        "block_observations": true,
+        "id": "density.connective-overuse",
+        "version": "1",
+        "summary": "Remove repeated transitions where the connection is already clear.",
+        "description": "Remove repeated transitions where the connection is already clear.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "paragraph",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "rhetorical-patterns",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 20,
+            "cap": 40
+          },
+          "parameters": {
+            "phrases": [
+              "moreover",
+              "furthermore",
+              "additionally"
+            ],
+            "positions": null,
+            "min_words": 30,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 1,
+            "saturation": 4,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases",
+          "min_words",
+          "onset",
+          "saturation"
+        ],
+        "examples": [
+          {
+            "text": "Moreover, word word word word word word word word word word word word word word word word ends. Furthermore, word word word word word word word word word word word word word word word word ends.",
+            "match": true
+          },
+          {
+            "text": "Furthermore, the server may close the connection.",
+            "match": false
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "filler.announced-importance",
+        "version": "1",
+        "summary": "State the fact without announcing its importance.",
+        "description": "State the fact without announcing its importance.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "scaffolding",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 15,
+            "cap": 30
+          },
+          "parameters": {
+            "phrases": [
+              "It is important to note that",
+              "It is worth noting that",
+              "It is crucial to note that"
+            ],
+            "positions": [
+              "sentence-start"
+            ],
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases",
+          "positions"
+        ],
+        "examples": [
+          {
+            "text": "It is important to note that the client opens connections.",
+            "match": true
+          },
+          {
+            "text": "The client opens connections.",
+            "match": false
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "filler.empty-transition",
+        "version": "1",
+        "summary": "Check whether these repeated opening transitions add information.",
+        "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "scaffolding",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": [
+              "with that being said",
+              "that being said",
+              "it goes without saying"
+            ],
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 8,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 4,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "window_sentences",
+          "allowed_occurrences",
+          "saturation_occurrences",
+          "phrases"
+        ],
+        "examples": [
+          {
+            "text": "With that being said, the server starts. It goes without saying that the client waits.",
+            "match": true,
+            "config": "version: 1\nrules:\n  filler.empty-transition: {enabled: true}\n"
+          },
+          {
+            "text": "With that being said, the client must still validate the response.",
+            "match": false,
+            "config": "version: 1\nrules:\n  filler.empty-transition: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "filler.modern-world-opening",
+        "version": "1",
+        "summary": "Replace the generic opening with the document's subject.",
+        "description": "Replace the generic opening with the document's subject.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "scaffolding",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 15,
+            "cap": 30
+          },
+          "parameters": {
+            "phrases": [
+              "In today's rapidly evolving digital landscape",
+              "In today's fast-paced digital world"
+            ],
+            "positions": [
+              "sentence-start"
+            ],
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases",
+          "positions"
+        ],
+        "examples": [
+          {
+            "text": "In today's rapidly evolving digital landscape the client opens connections.",
+            "match": true
+          },
+          {
+            "text": "The client opens connections.",
+            "match": false
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "filler.section-announcement",
+        "version": "1",
+        "summary": "Replace repeated section announcements with their subject.",
+        "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "scaffolding",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": [
+              "in this section, we will",
+              "in this section we will",
+              "this section will discuss"
+            ],
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 8,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 4,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "window_sentences",
+          "allowed_occurrences",
+          "saturation_occurrences",
+          "phrases"
+        ],
+        "examples": [
+          {
+            "text": "In this section, we will describe setup. In this section, we will describe deployment.",
+            "match": true,
+            "config": "version: 1\nrules:\n  filler.section-announcement: {enabled: true}\n"
+          },
+          {
+            "text": "In this section, we will explain the retry protocol.",
+            "match": false,
+            "config": "version: 1\nrules:\n  filler.section-announcement: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "filler.stacked-hedging",
+        "version": "1",
+        "summary": "Check whether each hedge expresses a distinct uncertainty; retain needed qualifications.",
+        "description": "Counts distinct configured modal/adverb cues in one clause; commas, punctuation, conjunctions, and code end a clause.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. A token boundary is not a dependency parse. Multiple independent uncertainties can be justified.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "inflation",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": [
+              "may",
+              "might",
+              "could",
+              "perhaps",
+              "possibly",
+              "potentially",
+              "apparently"
+            ],
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 2,
+            "saturation": 5,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases",
+          "onset",
+          "saturation"
+        ],
+        "examples": [
+          {
+            "text": "The result may possibly perhaps change.",
+            "match": true,
+            "config": "version: 1\nrules:\n  filler.stacked-hedging: {enabled: true}\n"
+          },
+          {
+            "text": "The request may fail, and the server might retry.",
+            "match": false,
+            "config": "version: 1\nrules:\n  filler.stacked-hedging: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "filler.weak-intensifiers",
+        "version": "1",
+        "summary": "Check whether these intensifiers add a measurable distinction.",
+        "description": "Counts configured adverbs before adjectives/adverbs per 100 prose words, after the minimum word count.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. POS roles are heuristic. The rule does not require deleting distinctions with technical meaning.",
+        "scope": "paragraph",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "inflation",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": [
+              "very",
+              "really",
+              "incredibly",
+              "extremely",
+              "highly"
+            ],
+            "positions": null,
+            "min_words": 20,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 4,
+            "saturation": 12,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases",
+          "min_words",
+          "onset",
+          "saturation"
+        ],
+        "examples": [
+          {
+            "text": "The very powerful client provides a really seamless workflow and an incredibly innovative interface for every person using the service.",
+            "match": true,
+            "config": "version: 1\nrules:\n  filler.weak-intensifiers: {enabled: true}\n"
+          },
+          {
+            "text": "The client really needs the exact identifier to retry safely.",
+            "match": false,
+            "config": "version: 1\nrules:\n  filler.weak-intensifiers: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "filler.wordy-phrase",
+        "version": "1",
+        "summary": "Consider a shorter phrase that preserves the condition or meaning.",
+        "description": "Consider a shorter phrase that preserves the condition or meaning.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "scaffolding",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 15,
+            "cap": 30
+          },
+          "parameters": {
+            "phrases": [
+              "due to the fact that",
+              "in order to",
+              "at this point in time"
+            ],
+            "positions": [
+              "any"
+            ],
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases",
+          "positions"
+        ],
+        "examples": [
+          {
+            "text": "due to the fact that the client opens connections.",
+            "match": true
+          },
+          {
+            "text": "The client opens connections.",
+            "match": false
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "format.em-dash-density",
+        "version": "1",
+        "summary": "Em dashes exceed the selected local density; punctuation can be intentional.",
+        "description": "Counts U+2014 in selected prose per 100 prose words, with mapped source ranges including encoded Markdown entities.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship.",
+        "scope": "paragraph",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "readability",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 0,
+            "cap": 0
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 40,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 0,
+            "onset": 2,
+            "saturation": 6,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "min_words",
+          "onset",
+          "saturation",
+          "allowed_occurrences"
+        ],
+        "examples": [
+          {
+            "text": "The client opens the connection — then checks the reply from the server. The client opens the connection — then checks the reply from the server. The client opens the connection — then checks the reply from the server. The client opens the connection — then checks the reply from the server. ",
+            "match": true,
+            "config": "version: 1\nrules:\n  format.em-dash-density: {enabled: true}\n"
+          },
+          {
+            "text": "The client opens a connection — then waits. The server sends the response. The server sends the response. The server sends the response. The server sends the response. The server sends the response. The server sends the response. The server sends the response. The server sends the response. ",
+            "match": false,
+            "config": "version: 1\nrules:\n  format.em-dash-density: {enabled: true}\n"
+          }
+        ]
+      },
+      {
+        "block_observations": true,
+        "id": "format.list-fragmentation",
+        "version": "1",
+        "summary": "Several short lists fragment this section; check whether the grouping helps readers.",
+        "description": "Counts complete short flat unordered lists in a bounded section window using grammar-derived list ownership.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Ordered/task/nested lists, sentence items, procedure openings, identifiers, and selected reference headings are excluded.",
+        "scope": "section",
+        "contexts": [
+          "heading",
+          "paragraph",
+          "list-item"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "readability",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 0,
+            "cap": 0
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 2,
+            "saturation_occurrences": 5,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false,
+            "window_blocks": 32,
+            "max_item_words": 10,
+            "max_list_items": 3
+          }
+        },
+        "parameters": [
+          "window_blocks",
+          "max_item_words",
+          "max_list_items",
+          "allowed_occurrences",
+          "saturation_occurrences"
+        ],
+        "examples": [
+          {
+            "text": "The release offers these benefits.\n\n- Clear reports\n- Useful summaries\n\nIts output has these traits.\n\n- Simple navigation\n- Consistent terminology\n\nThe workflow has these qualities.\n\n- Quick checks\n- Direct feedback",
+            "match": true,
+            "config": "version: 1\nrules:\n  format.list-fragmentation: {enabled: true}\n",
+            "format": "markdown"
+          },
+          {
+            "text": "Follow these steps.\n\n1. Open the connection\n2. Send the request\n3. Check the response",
+            "match": false,
+            "config": "version: 1\nrules:\n  format.list-fragmentation: {enabled: true}\n",
+            "format": "markdown"
+          }
+        ],
+        "term_exemptions": true,
+        "requires_structure": true
+      },
+      {
+        "block_observations": true,
+        "id": "hype.absolute-claim",
+        "version": "1",
+        "summary": "Check whether this guarantee has conditions or exceptions.",
+        "description": "Matches configured phrases in affirmative prose, excluding questions and explicit qualifications conservatively.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This lexical screen does not determine truth, semantic vagueness, or whether every condition is stated.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "inflation",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 0,
+            "cap": 0
+          },
+          "parameters": {
+            "phrases": [
+              "guarantees complete safety",
+              "eliminates all risk",
+              "guarantees zero downtime",
+              "works in every environment"
+            ],
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases"
+        ],
+        "examples": [
+          {
+            "text": "The service guarantees complete safety.",
+            "match": true,
+            "config": "version: 1\nrules:\n  hype.absolute-claim: {enabled: true}\n"
+          },
+          {
+            "text": "Under these conditions, the service guarantees complete safety.",
+            "match": false,
+            "config": "version: 1\nrules:\n  hype.absolute-claim: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "hype.metaphor-cluster",
+        "version": "1",
+        "summary": "Replace clustered stock metaphors with specific properties.",
+        "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "inflation",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": [
+              "rich tapestry of possibilities",
+              "journey of innovation",
+              "ever-evolving digital landscape",
+              "unlock a world of possibilities"
+            ],
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 8,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 4,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "window_sentences",
+          "allowed_occurrences",
+          "saturation_occurrences",
+          "phrases"
+        ],
+        "examples": [
+          {
+            "text": "The service offers a rich tapestry of possibilities. Start a journey of innovation with the client.",
+            "match": true,
+            "config": "version: 1\nrules:\n  hype.metaphor-cluster: {enabled: true}\n"
+          },
+          {
+            "text": "The renderer loads a landscape texture. The travel API returns the journey duration.",
+            "match": false,
+            "config": "version: 1\nrules:\n  hype.metaphor-cluster: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "hype.modifier-cluster",
+        "version": "1",
+        "summary": "Replace the cluster of evaluative modifiers with specific properties.",
+        "description": "Replace the cluster of evaluative modifiers with specific properties.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ],
+        "group": "inflation",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 24,
+            "cap": 48
+          },
+          "parameters": {
+            "phrases": [
+              "powerful",
+              "seamless",
+              "robust",
+              "innovative",
+              "transformative",
+              "unparalleled"
+            ],
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 2,
+            "saturation": 5,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases",
+          "onset",
+          "saturation"
+        ],
+        "examples": [
+          {
+            "text": "The powerful, seamless, innovative platform offers a robust, transformative experience.",
+            "match": true
+          },
+          {
+            "text": "The robust estimator tolerates outliers.",
+            "match": false
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "hype.vague-praise",
+        "version": "1",
+        "summary": "Replace general praise with a specific property or measured result.",
+        "description": "Matches configured phrases in affirmative prose, excluding questions and explicit qualifications conservatively.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This lexical screen does not determine truth, semantic vagueness, or whether every condition is stated.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "inflation",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": [
+              "game-changing solution",
+              "unparalleled experience",
+              "unprecedented excellence"
+            ],
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases"
+        ],
+        "examples": [
+          {
+            "text": "This is a game-changing solution for the team.",
+            "match": true,
+            "config": "version: 1\nrules:\n  hype.vague-praise: {enabled: true}\n"
+          },
+          {
+            "text": "The robust estimator tolerates outliers.",
+            "match": false,
+            "config": "version: 1\nrules:\n  hype.vague-praise: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "policy.banned-phrases",
+        "version": "1",
+        "summary": "Remove a phrase forbidden by this editorial policy.",
+        "description": "Remove a phrase forbidden by this editorial policy.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "scaffolding",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "error",
+          "gate": "forbid",
+          "score": {
+            "weight": 15,
+            "cap": 30
+          },
+          "parameters": {
+            "phrases": [],
+            "positions": [
+              "any"
+            ],
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases",
+          "positions"
+        ],
+        "examples": [
+          {
+            "text": "This is a magic solution.",
+            "match": true,
+            "config": "version: 1\nrules:\n  policy.banned-phrases:\n    parameters:\n      phrases: [magic solution]\n"
+          },
+          {
+            "text": "This is a pragmatic solution.",
+            "match": false,
+            "config": "version: 1\nrules:\n  policy.banned-phrases:\n    parameters:\n      phrases: [magic solution]\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "readability.grade-metric",
+        "version": "1",
+        "summary": "The ARI formula exceeds the selected level; consider the audience and keep necessary technical terms.",
+        "description": "Applies 4.71*characters/words + 0.5*words/sentences - 21.43 to local extracted prose using explicit token counts.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Characters are Unicode letters and digits within prose tokens. No age, comprehension, quality, or authorship is predicted.",
+        "scope": "paragraph",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "readability",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 0,
+            "cap": 0
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 50,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 12,
+            "saturation": 20,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false,
+            "min_sentences": 2
+          }
+        },
+        "parameters": [
+          "min_words",
+          "min_sentences",
+          "onset",
+          "saturation"
+        ],
+        "examples": [
+          {
+            "text": "The implementation requires comprehensive configuration, systematic verification, and consistent documentation of operational prerequisites before production deployment. The implementation requires comprehensive configuration, systematic verification, and consistent documentation of operational prerequisites before production deployment. The implementation requires comprehensive configuration, systematic verification, and consistent documentation of operational prerequisites before production deployment. The implementation requires comprehensive configuration, systematic verification, and consistent documentation of operational prerequisites before production deployment. ",
+            "match": true,
+            "config": "version: 1\nrules:\n  readability.grade-metric: {enabled: true}\n"
+          },
+          {
+            "text": "The client opens a link. The server sends a reply. The client opens a link. The server sends a reply. The client opens a link. The server sends a reply. The client opens a link. The server sends a reply. The client opens a link. The server sends a reply. The client opens a link. The server sends a reply. ",
+            "match": false,
+            "config": "version: 1\nrules:\n  readability.grade-metric: {enabled: true}\n"
+          }
+        ],
+        "shared_features": true
+      },
+      {
+        "block_observations": true,
+        "id": "readability.long-paragraph",
+        "version": "1",
+        "summary": "Consider paragraph boundaries while keeping each condition with the statement it qualifies.",
+        "description": "Requires both paragraph length and a configured count of long sentences; reports local descriptive measurements.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Length, lexical diversity, and POS ratios are descriptive; reference material can justify them.",
+        "scope": "paragraph",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "readability",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 8,
+            "cap": 16
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 120,
+            "saturation": 240,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false,
+            "sentence_words": 25,
+            "min_long_sentences": 2
+          }
+        },
+        "parameters": [
+          "onset",
+          "saturation",
+          "sentence_words",
+          "min_long_sentences"
+        ],
+        "examples": [
+          {
+            "text": "The client carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully waits. The client carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully waits. The client carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully waits. The client carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully waits. ",
+            "match": true,
+            "config": "version: 1\nrules:\n  readability.long-paragraph: {enabled: true}\n"
+          },
+          {
+            "text": "The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. ",
+            "match": false,
+            "config": "version: 1\nrules:\n  readability.long-paragraph: {enabled: true}\n"
+          }
+        ],
+        "shared_features": true
+      },
+      {
+        "block_observations": true,
+        "id": "repetition.exact-sentence",
+        "version": "1",
+        "summary": "This sentence is repeated; consider whether every occurrence is needed.",
+        "description": "This sentence is repeated; consider whether every occurrence is needed.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "repetition",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 30,
+            "cap": 60
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 12,
+            "similarity": 0,
+            "window": "document",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "min_words",
+          "window"
+        ],
+        "examples": [
+          {
+            "text": "The client opens a connection to the server and sends the request with its credentials. The client opens a connection to the server and sends the request with its credentials.",
+            "match": true
+          },
+          {
+            "text": "The client opens a connection to the server and sends the request with its credentials.",
+            "match": false
+          }
+        ]
+      },
+      {
+        "block_observations": true,
+        "id": "repetition.heading-echo",
+        "version": "1",
+        "summary": "The first paragraph closely echoes its heading; check whether it adds information.",
+        "description": "Compares a selected heading with its immediately following paragraph using exact set Jaccard.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Short definitions may be useful; code and intervening blocks break adjacency.",
+        "scope": "section",
+        "contexts": [
+          "heading",
+          "paragraph"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "repetition",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 6,
+            "cap": 12
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 6,
+            "similarity": 0.85,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 4,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": true,
+            "protect_numbers": true,
+            "protect_identifiers": true
+          }
+        },
+        "parameters": [
+          "min_words",
+          "similarity",
+          "protect_negation",
+          "protect_numbers",
+          "protect_identifiers"
+        ],
+        "examples": [
+          {
+            "text": "# A practical approach to the delivery process\n\nA practical approach to the delivery process.",
+            "match": true,
+            "config": "version: 1\nrules:\n  repetition.heading-echo: {enabled: true}\n",
+            "format": "markdown"
+          },
+          {
+            "text": "# Retry budget\n\nThe retry budget limits the total time spent reconnecting after a transport failure.",
+            "match": false,
+            "config": "version: 1\nrules:\n  repetition.heading-echo: {enabled: true}\n",
+            "format": "markdown"
+          }
+        ],
+        "term_exemptions": true,
+        "requires_structure": true
+      },
+      {
+        "block_observations": true,
+        "id": "repetition.near-sentence",
+        "version": "2",
+        "summary": "These sentences have high lexical overlap; check for repeated information.",
+        "description": "Compares indexed sentence candidates with set Jaccard and a shared technical-contrast signature.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Modal, condition, and state cues are retained in token order. Numeric-unit protection retains the token after a number, not a complete unit expression. Equal signatures do not establish semantic equivalence.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "repetition",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 22,
+            "cap": 44
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 12,
+            "similarity": 0.85,
+            "window": "document",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": true,
+            "protect_numbers": true,
+            "protect_identifiers": true
+          }
+        },
+        "parameters": [
+          "min_words",
+          "similarity",
+          "window",
+          "protect_negation",
+          "protect_numbers",
+          "protect_identifiers"
+        ],
+        "examples": [
+          {
+            "text": "The client opens a connection to the server and sends the request with its credentials. The client creates a connection to the server and sends the request with its credentials.",
+            "match": true
+          },
+          {
+            "text": "The client opens a connection to the server and sends the request with its credentials. The client never opens a connection to the server and sends the request with its credentials.",
+            "match": false
+          },
+          {
+            "text": "The client may retry the failed request after the server closes the connection and releases all resources. The client must retry the failed request after the server closes the connection and releases all resources.",
+            "match": false
+          }
+        ]
+      },
+      {
+        "block_observations": true,
+        "id": "repetition.ngram-density",
+        "version": "1",
+        "summary": "This phrase recurs in a short prose window; check whether each use is needed.",
+        "description": "Groups repeated consecutive prose n-grams in sentence windows; longer covering phrases take precedence.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Activation counts occurrences; reported coverage uses the prose words between the first and last matching sentence.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "repetition",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 12,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 8,
+            "allowed_occurrences": 2,
+            "saturation_occurrences": 5,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": true,
+            "protect_numbers": true,
+            "protect_identifiers": true,
+            "min_ngram_words": 3,
+            "max_ngram_words": 8
+          }
+        },
+        "parameters": [
+          "window_sentences",
+          "allowed_occurrences",
+          "saturation_occurrences",
+          "min_words",
+          "protect_negation",
+          "protect_numbers",
+          "protect_identifiers",
+          "min_ngram_words",
+          "max_ngram_words"
+        ],
+        "examples": [
+          {
+            "text": "We describe the delivery process and its approach to dependable service for the team. They review the delivery process and its approach to dependable service for the reader. You explain the delivery process and its approach to dependable service for the group.",
+            "match": true,
+            "config": "version: 1\nrules:\n  repetition.ngram-density: {enabled: true}\n"
+          },
+          {
+            "text": "The timeout is thirty seconds for a connection attempt, and the client waits for its response.",
+            "match": false,
+            "config": "version: 1\nrules:\n  repetition.ngram-density: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "repetition.paragraph-openers",
+        "version": "1",
+        "summary": "Several paragraphs repeat the same opening formula.",
+        "description": "Several paragraphs repeat the same opening formula.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "repetition",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 18,
+            "cap": 36
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 8,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 2,
+            "saturation_occurrences": 5,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 3,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "min_words",
+          "opener_words",
+          "allowed_occurrences",
+          "saturation_occurrences"
+        ],
+        "examples": [
+          {
+            "text": "The client opens a connection to the database.\n\nThe client opens a file from the disk.\n\nThe client opens a channel to the service.",
+            "match": true
+          },
+          {
+            "text": "The client opens connections.\n\nThe client opens files.",
+            "match": false
+          }
+        ]
+      },
+      {
+        "block_observations": true,
+        "id": "repetition.paragraph-overlap",
+        "version": "1",
+        "summary": "These prose blocks have high lexical overlap; check for repeated information.",
+        "description": "Builds connected clusters of Jaccard-qualified block pairs through an expiring inverted index.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. The block window bounds each pair, not the complete cluster; not every pair in a connected cluster must qualify.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "repetition",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 18,
+            "cap": 36
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 12,
+            "similarity": 0.85,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 4,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": true,
+            "protect_numbers": true,
+            "protect_identifiers": true,
+            "window_blocks": 8
+          }
+        },
+        "parameters": [
+          "min_words",
+          "window_blocks",
+          "similarity",
+          "allowed_occurrences",
+          "saturation_occurrences",
+          "protect_negation",
+          "protect_numbers",
+          "protect_identifiers"
+        ],
+        "examples": [
+          {
+            "text": "The client opens a connection to the server and sends the request with its credentials.\n\nThe client creates a connection to the server and sends the request with its credentials.",
+            "match": true,
+            "config": "version: 1\nrules:\n  repetition.paragraph-overlap: {enabled: true}\n"
+          },
+          {
+            "text": "The client opens a connection to the server and sends the request with its credentials.\n\nThe client never opens a connection to the server and sends the request with its credentials.",
+            "match": false,
+            "config": "version: 1\nrules:\n  repetition.paragraph-overlap: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "repetition.sentence-openers",
+        "version": "1",
+        "summary": "Several sentences repeat the same opening; consider removing repeated setup.",
+        "description": "Several sentences repeat the same opening; consider removing repeated setup.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "repetition",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 15,
+            "cap": 30
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 8,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 2,
+            "saturation_occurrences": 5,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 3,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "min_words",
+          "opener_words",
+          "allowed_occurrences",
+          "saturation_occurrences"
+        ],
+        "examples": [
+          {
+            "text": "The client opens a connection to the database. The client opens a file from the disk. The client opens a channel to the service.",
+            "match": true
+          },
+          {
+            "text": "Open the file. Open the connection. Open the channel.",
+            "match": false
+          }
+        ]
+      },
+      {
+        "block_observations": true,
+        "id": "repetition.summary-echo",
+        "version": "1",
+        "summary": "This summary has high lexical overlap with preceding prose; check what it adds.",
+        "description": "Compares paragraphs under explicitly configured selected summary headings with preceding nonsummary paragraphs.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Summary scope follows grammar-derived heading ancestry. Other titles require configuration; lexical overlap can be intentional.",
+        "scope": "section",
+        "contexts": [
+          "heading",
+          "paragraph"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "repetition",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": [
+              "summary",
+              "conclusion",
+              "conclusions"
+            ],
+            "positions": null,
+            "min_words": 12,
+            "similarity": 0.85,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 4,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": true,
+            "protect_numbers": true,
+            "protect_identifiers": true,
+            "window_blocks": 8
+          }
+        },
+        "parameters": [
+          "min_words",
+          "window_blocks",
+          "similarity",
+          "allowed_occurrences",
+          "saturation_occurrences",
+          "protect_negation",
+          "protect_numbers",
+          "protect_identifiers",
+          "phrases"
+        ],
+        "examples": [
+          {
+            "text": "The client opens a connection to the server and sends the request with its credentials.\n\n## Summary\n\nThe client creates a connection to the server and sends the request with its credentials.",
+            "match": true,
+            "config": "version: 1\nrules:\n  repetition.summary-echo: {enabled: true}\n",
+            "format": "markdown"
+          },
+          {
+            "text": "The client opens a connection to the server and sends the request with its credentials.\n\n## Details\n\nThe client creates a connection to the server and sends the request with its credentials.",
+            "match": false,
+            "config": "version: 1\nrules:\n  repetition.summary-echo: {enabled: true}\n",
+            "format": "markdown"
+          }
+        ],
+        "term_exemptions": true,
+        "requires_structure": true
+      },
+      {
+        "block_observations": true,
+        "id": "repetition.syntax-template",
+        "version": "1",
+        "summary": "Several sentences repeat a POS shape; check whether the structure serves the text.",
+        "description": "Groups complete normalized POS shapes with at least two lexical realizations; imperative openings and lists are excluded.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. POS grouping is a surface heuristic, not a dependency analysis or a claim that the facts are duplicated.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "repetition",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 6,
+            "cap": 12
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 12,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 8,
+            "allowed_occurrences": 2,
+            "saturation_occurrences": 5,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": true,
+            "protect_numbers": true,
+            "protect_identifiers": true
+          }
+        },
+        "parameters": [
+          "window_sentences",
+          "allowed_occurrences",
+          "saturation_occurrences",
+          "min_words",
+          "protect_negation",
+          "protect_numbers",
+          "protect_identifiers"
+        ],
+        "examples": [
+          {
+            "text": "The careful writer describes the simple process for the entire local team. The curious reader reviews the clear procedure for the entire small group. The skilled editor explains the useful approach for the entire new audience.",
+            "match": true,
+            "config": "version: 1\nrules:\n  repetition.syntax-template: {enabled: true}\n"
+          },
+          {
+            "text": "Open the connection to the server and wait for the complete response. Close the connection to the server and wait for the complete response. Check the connection to the server and wait for the complete response.",
+            "match": false,
+            "config": "version: 1\nrules:\n  repetition.syntax-template: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "scaffold.ai-self-reference",
+        "version": "1",
+        "summary": "Remove the assistant's self-reference.",
+        "description": "Remove the assistant's self-reference.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "scaffolding",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "error",
+          "gate": "forbid",
+          "score": {
+            "weight": 15,
+            "cap": 30
+          },
+          "parameters": {
+            "phrases": [
+              "As an AI language model",
+              "As an AI assistant"
+            ],
+            "positions": [
+              "sentence-start"
+            ],
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases",
+          "positions"
+        ],
+        "examples": [
+          {
+            "text": "As an AI language model the client opens connections.",
+            "match": true
+          },
+          {
+            "text": "The client opens connections.",
+            "match": false
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "scaffold.chat-preamble",
+        "version": "1",
+        "summary": "Start with the subject instead of a conversational acknowledgment.",
+        "description": "Start with the subject instead of a conversational acknowledgment.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "scaffolding",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "error",
+          "gate": "forbid",
+          "score": {
+            "weight": 15,
+            "cap": 30
+          },
+          "parameters": {
+            "phrases": [
+              "Certainly!",
+              "Great question!",
+              "Absolutely!"
+            ],
+            "positions": [
+              "document-start"
+            ],
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases",
+          "positions"
+        ],
+        "examples": [
+          {
+            "text": "Certainly! the client opens connections.",
+            "match": true
+          },
+          {
+            "text": "The client opens connections.",
+            "match": false
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "scaffold.dive-in",
+        "version": "1",
+        "summary": "Start with the subject instead of announcing the explanation.",
+        "description": "Start with the subject instead of announcing the explanation.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "scaffolding",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 15,
+            "cap": 30
+          },
+          "parameters": {
+            "phrases": [
+              "Let's dive in",
+              "Let's dive into",
+              "Let's delve into"
+            ],
+            "positions": [
+              "sentence-start"
+            ],
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases",
+          "positions"
+        ],
+        "examples": [
+          {
+            "text": "Let's dive in the client opens connections.",
+            "match": true
+          },
+          {
+            "text": "The client opens connections.",
+            "match": false
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "scaffold.follow-up-offer",
+        "version": "1",
+        "summary": "Remove the conversational follow-up offer from this document.",
+        "description": "Remove the conversational follow-up offer from this document.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "scaffolding",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 15,
+            "cap": 30
+          },
+          "parameters": {
+            "phrases": [
+              "Let me know if you'd like",
+              "Let me know if you need"
+            ],
+            "positions": [
+              "document-end"
+            ],
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "phrases",
+          "positions"
+        ],
+        "examples": [
+          {
+            "text": "Let me know if you'd like the client opens connections.",
+            "match": true
+          },
+          {
+            "text": "The client opens connections.",
+            "match": false
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "syntax.long-sentence",
+        "version": "1",
+        "summary": "Consider splitting this long sentence without losing its conditions.",
+        "description": "Consider splitting this long sentence without losing its conditions.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "syntax-load",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 30,
+            "cap": 60
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 35,
+            "saturation": 65,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "onset",
+          "saturation"
+        ],
+        "examples": [
+          {
+            "text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ends.",
+            "match": true
+          },
+          {
+            "text": "The client may retry if the connection closes.",
+            "match": false
+          }
+        ]
+      },
+      {
+        "block_observations": true,
+        "id": "syntax.nominalization-chain",
+        "version": "1",
+        "summary": "Consider a direct verb while preserving the subject, conditions, and technical meaning.",
+        "description": "Matches a configured weak verb, a configured common noun, and an of-complement with a common-noun head.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Inflected verb forms are explicit dictionary entries. Suffixes alone never activate this rule.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "syntax-load",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false,
+            "verbs": [
+              "perform",
+              "performs",
+              "performed",
+              "performing",
+              "conduct",
+              "conducts",
+              "conducted",
+              "conducting",
+              "undertake",
+              "undertakes",
+              "undertook",
+              "undertaken",
+              "make",
+              "makes",
+              "made",
+              "making"
+            ],
+            "nouns": [
+              "analysis",
+              "assessment",
+              "evaluation",
+              "examination",
+              "inspection",
+              "investigation",
+              "measurement",
+              "review",
+              "verification",
+              "validation",
+              "consideration"
+            ]
+          }
+        },
+        "parameters": [
+          "verbs",
+          "nouns"
+        ],
+        "examples": [
+          {
+            "text": "We perform an evaluation of the implementation before the release.",
+            "match": true,
+            "config": "version: 1\nrules:\n  syntax.nominalization-chain: {enabled: true}\n"
+          },
+          {
+            "text": "The evaluation of the implementation found a defect. The client performs an operation.",
+            "match": false,
+            "config": "version: 1\nrules:\n  syntax.nominalization-chain: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "syntax.not-only-density",
+        "version": "2",
+        "summary": "Repeated paired contrasts make this passage formulaic.",
+        "description": "Counts ordered not-only/not-just followed by but in bounded prose windows, allowing one matching sentence.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Version 2 stops at structural/protected boundaries and requires the contrast markers in source order.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string",
+          "heading",
+          "list-item",
+          "table-cell"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "rhetorical-patterns",
+        "status": "experimental",
+        "defaults": {
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 18,
+            "cap": 36
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 8,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 4,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "window_sentences",
+          "allowed_occurrences",
+          "saturation_occurrences"
+        ],
+        "examples": [
+          {
+            "text": "It not only reads but also writes. It not only checks but also validates.",
+            "match": true
+          },
+          {
+            "text": "The service not only validates requests but also checks permissions.",
+            "match": false
+          }
+        ]
+      },
+      {
+        "block_observations": true,
+        "id": "syntax.noun-stack",
+        "version": "3",
+        "summary": "Review this common-noun sequence; keep established technical terms.",
+        "description": "Counts NN modifiers followed by an NN/NNS head within a shallow NP chunk, stopping at terms and identifiers.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. A shallow NP is not a dependency tree, and a noun sequence can be an appropriate domain term. Interior NNS tags cause abstention: they can be plural modifiers or misclassified finite verbs. The negative modal \"cannot\" breaks a noun run even when tagged NN; other tagging ambiguity remains possible.",
+        "scope": "sentence",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ],
+        "group": "syntax-load",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 8,
+            "cap": 16
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 0,
+            "saturation_occurrences": 0,
+            "onset": 3,
+            "saturation": 7,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "onset",
+          "saturation"
+        ],
+        "examples": [
+          {
+            "text": "The service request response status code changes.",
+            "match": true,
+            "config": "version: 1\nrules:\n  syntax.noun-stack: {enabled: true}\n"
+          },
+          {
+            "text": "The access control policy requirements apply.",
+            "match": true,
+            "config": "version: 1\nrules:\n  syntax.noun-stack: {enabled: true}\n"
+          },
+          {
+            "text": "Package document defines source coordinates and the neutral prose model.",
+            "match": false,
+            "config": "version: 1\nrules:\n  syntax.noun-stack: {enabled: true}\n"
+          },
+          {
+            "text": "Emit latches validation failures even when a custom rule ignores the error.",
+            "match": false,
+            "config": "version: 1\nrules:\n  syntax.noun-stack: {enabled: true}\n"
+          },
+          {
+            "text": "A binary origin probability cannot measure the fraction of words written by AI.",
+            "match": false,
+            "config": "version: 1\nrules:\n  syntax.noun-stack: {enabled: true}\n"
+          },
+          {
+            "text": "The request has a status code. The client uses TransportCacheEntry.",
+            "match": false,
+            "config": "version: 1\nrules:\n  syntax.noun-stack: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "syntax.paired-contrast-density",
+        "version": "1",
+        "summary": "Check whether repeated paired contrasts carry distinct information.",
+        "description": "Counts adjacent 'It is not about'/'It is about' sentence pairs, including contractions, in bounded prose windows.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only the declared opening structures are recognized; no semantic equivalence is inferred.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "rhetorical-patterns",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 8,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 4,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "window_sentences",
+          "allowed_occurrences",
+          "saturation_occurrences"
+        ],
+        "examples": [
+          {
+            "text": "It is not about speed. It is about impact. It is not about tools. It is about outcomes.",
+            "match": true,
+            "config": "version: 1\nrules:\n  syntax.paired-contrast-density: {enabled: true}\n"
+          },
+          {
+            "text": "It is not about throughput. It is about the latency bound.",
+            "match": false,
+            "config": "version: 1\nrules:\n  syntax.paired-contrast-density: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "syntax.parenthetical-load",
+        "version": "1",
+        "summary": "Review the load of balanced insertions; retain conditions, qualifications, and necessary definitions.",
+        "description": "Measures nonexempt words, pair count, and nesting of balanced parentheses and square brackets within a prose block.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Unbalanced or protected-crossing frames are not matched. Depth is capped at 256 with an explicit error.",
+        "scope": "paragraph",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "syntax-load",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 8,
+            "cap": 16
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 20,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 0,
+            "allowed_occurrences": 2,
+            "saturation_occurrences": 5,
+            "onset": 12,
+            "saturation": 36,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false,
+            "allowed_depth": 1,
+            "saturation_depth": 4
+          }
+        },
+        "parameters": [
+          "min_words",
+          "onset",
+          "saturation",
+          "allowed_occurrences",
+          "saturation_occurrences",
+          "allowed_depth",
+          "saturation_depth"
+        ],
+        "examples": [
+          {
+            "text": "The client (which may retry after a temporary failure when the configured budget still permits another attempt) opens a connection to the server.",
+            "match": true,
+            "config": "version: 1\nrules:\n  syntax.parenthetical-load: {enabled: true}\n"
+          },
+          {
+            "text": "The application programming interface (API) lets the client send requests to the server and receive responses.",
+            "match": false,
+            "config": "version: 1\nrules:\n  syntax.parenthetical-load: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "syntax.passive-candidate-density",
+        "version": "1",
+        "summary": "Several sentences contain be-plus-participle candidates; review voice only where the meaning allows it.",
+        "description": "Counts sentences containing a be verb, up to four adverbs, and VBN in bounded contiguous prose windows.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. The same POS shape can describe a state. This rule is not syntax.passive-density and does not establish grammatical voice.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "syntax-load",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 6,
+            "cap": 12
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 8,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 8,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 4,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "min_words",
+          "window_sentences",
+          "allowed_occurrences",
+          "saturation_occurrences"
+        ],
+        "examples": [
+          {
+            "text": "The request is carefully validated by the server before execution. The response is securely recorded by the client after completion.",
+            "match": true,
+            "config": "version: 1\nrules:\n  syntax.passive-candidate-density: {enabled: true}\n"
+          },
+          {
+            "text": "The request must be validated before execution. The client is ready for the next request.",
+            "match": false,
+            "config": "version: 1\nrules:\n  syntax.passive-candidate-density: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "syntax.rhetorical-question-density",
+        "version": "1",
+        "summary": "Check repeated question-and-short-answer transitions.",
+        "description": "Counts configured complete questions followed in the same block by a short nonquestion answer.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Arbitrary questions are not classified. Numeric/code answers are excluded; disable for FAQ paths.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "rhetorical-patterns",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": [
+              "the result?",
+              "the outcome?",
+              "the benefit?",
+              "why does this matter?"
+            ],
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 8,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 4,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false,
+            "max_answer_words": 12
+          }
+        },
+        "parameters": [
+          "window_sentences",
+          "allowed_occurrences",
+          "saturation_occurrences",
+          "phrases",
+          "max_answer_words"
+        ],
+        "examples": [
+          {
+            "text": "The result? A better experience. The benefit? A brighter future.",
+            "match": true,
+            "config": "version: 1\nrules:\n  syntax.rhetorical-question-density: {enabled: true}\n"
+          },
+          {
+            "text": "Does the client retry? Yes. Does it cache errors? No.",
+            "match": false,
+            "config": "version: 1\nrules:\n  syntax.rhetorical-question-density: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "syntax.triad-density",
+        "version": "1",
+        "summary": "Check repeated triads of evaluative modifiers against specific properties.",
+        "description": "Counts three-item lists from the evaluative dictionary with at least two adjective tags; one triad is allowed.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. One noun tag is tolerated for an ambiguous modifier. This is a POS/dictionary heuristic, not a dependency parse.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "group": "inflation",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": [
+              "powerful",
+              "seamless",
+              "robust",
+              "innovative",
+              "transformative",
+              "unparalleled"
+            ],
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 8,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 4,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "window_sentences",
+          "allowed_occurrences",
+          "saturation_occurrences",
+          "phrases"
+        ],
+        "examples": [
+          {
+            "text": "A powerful, seamless, innovative platform starts. A robust, transformative, unparalleled experience follows.",
+            "match": true,
+            "config": "version: 1\nrules:\n  syntax.triad-density: {enabled: true}\n"
+          },
+          {
+            "text": "The request requires authentication, authorization, and a valid checksum.",
+            "match": false,
+            "config": "version: 1\nrules:\n  syntax.triad-density: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      },
+      {
+        "block_observations": true,
+        "id": "syntax.whether-preface-density",
+        "version": "1",
+        "summary": "Reduce repeated whether-you prefaces while preserving alternatives.",
+        "description": "Counts whether-you-are prefaces containing 'or' before a comma within 32 tokens; one occurrence is allowed.",
+        "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Recognizes one opening template, not arbitrary conditional clauses.",
+        "scope": "document",
+        "contexts": [
+          "paragraph",
+          "comment",
+          "string"
+        ],
+        "requires": [
+          "tokens",
+          "sentences"
+        ],
+        "group": "rhetorical-patterns",
+        "status": "experimental",
+        "defaults": {
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "score": {
+            "weight": 12,
+            "cap": 24
+          },
+          "parameters": {
+            "phrases": null,
+            "positions": null,
+            "min_words": 0,
+            "similarity": 0,
+            "window": "",
+            "window_sentences": 8,
+            "allowed_occurrences": 1,
+            "saturation_occurrences": 4,
+            "onset": 0,
+            "saturation": 0,
+            "opener_words": 0,
+            "protect_negation": false,
+            "protect_numbers": false,
+            "protect_identifiers": false
+          }
+        },
+        "parameters": [
+          "window_sentences",
+          "allowed_occurrences",
+          "saturation_occurrences"
+        ],
+        "examples": [
+          {
+            "text": "Whether you are a beginner or an expert, the tool helps. Whether you're a writer or a reader, the tool fits.",
+            "match": true,
+            "config": "version: 1\nrules:\n  syntax.whether-preface-density: {enabled: true}\n"
+          },
+          {
+            "text": "Whether you are using HTTP or HTTPS, validate the certificate policy.",
+            "match": false,
+            "config": "version: 1\nrules:\n  syntax.whether-preface-density: {enabled: true}\n"
+          }
+        ],
+        "term_exemptions": true
+      }
+    ]
+  },
+  "rule_classes": "unswell-rule-classes-v1 revision 1",
+  "inputs": [
+    {
+      "sha256": "a8d450c949ce349638e2391ebfa23e50caaea4c0e58e56221d952c6fa1c64fd5",
+      "documents": 13,
+      "units": 657
+    },
+    {
+      "sha256": "2cd343d49162072ffdb3f42600d018cab4bd4ae8fda205c036bec7fd3558e1f0",
+      "documents": 40,
+      "units": 1907
+    },
+    {
+      "sha256": "0c04278033f1ee8a2c24ec6ca8739ffe65760963ba4c1558286634e34d77b723",
+      "documents": 10,
+      "units": 272
+    },
+    {
+      "sha256": "b919e286bbddeeaeae6f12bade9a7ca07506844b58b402637dff1c0a9891f486",
+      "documents": 15,
+      "units": 884
+    },
+    {
+      "sha256": "97aa437099c02da87bc8e9517bc3dfc69c614fbd4774f51eb21af10ef79f13a7",
+      "documents": 40,
+      "units": 3663
+    },
+    {
+      "sha256": "c574241220eaeb16a7c2a3cfdcdabd964217dbedb33441d5df07c33b56eec2ce",
+      "documents": 40,
+      "units": 524
+    },
+    {
+      "sha256": "46065a41ff8917200ca0a0b780c132748030cdb58e750a96ea6366529b76cb0f",
+      "documents": 40,
+      "units": 303
+    },
+    {
+      "sha256": "8e5a37398085ff93bc05e85535f0bd105c538910d1538c715221e28230ce79c4",
+      "documents": 2,
+      "units": 4
+    },
+    {
+      "sha256": "6a849060420d62ec78ac217bd6a94a12919b7aef144dc2c4cccaf7f87b07fbe6",
+      "documents": 11,
+      "units": 464
+    },
+    {
+      "sha256": "2be64f7dfcf332e7e69155be3702e3664341b6f392933614d69550abda0c6080",
+      "documents": 34,
+      "units": 4909
+    },
+    {
+      "sha256": "89a5888b431bac93aa45c75768c9e78737881947601268a221bdaa66a20994e6",
+      "documents": 15,
+      "units": 5600
+    },
+    {
+      "sha256": "f41a467f12b5d22f6723c47d2d0d1e4bde31ef157cdba3e2c416a66a41fa1335",
+      "documents": 23,
+      "units": 2933
+    },
+    {
+      "sha256": "8f77473a32d6f494b2af40eb8c7980a205391e4b37502027f0ca6aa8f76309fb",
+      "documents": 40,
+      "units": 762
+    },
+    {
+      "sha256": "83adf6b82606b9fcba833c0faa4412d290b06c1652d519fa3fb18a9eb7ca3759",
+      "documents": 40,
+      "units": 1059
+    },
+    {
+      "sha256": "1c610e603292ad42240b56b4b9658a04dc70b76e88f8f820caeaba0300f7c6e0",
+      "documents": 40,
+      "units": 874
+    },
+    {
+      "sha256": "88fb44f5b656d5f4f6bc8fc1843f7a7f81bc5f9397baf6375acc1c5a44c121e9",
+      "documents": 40,
+      "units": 270
+    },
+    {
+      "sha256": "5f8aed622d7e2eec3aeca543387a068dac7fb612c75ec586be4ecce77b3fef5b",
+      "documents": 40,
+      "units": 120
+    },
+    {
+      "sha256": "1b1673573bef81e8215afc4c39fcedee55ac9505c9f036ba6540f9b08250fa8a",
+      "documents": 40,
+      "units": 120
+    },
+    {
+      "sha256": "b227bf38127d6171589bffe7dfe9cb39e0032a92b5cf1af8a8b7e2337705ae41",
+      "documents": 40,
+      "units": 311
+    },
+    {
+      "sha256": "40ba3589d309803b32fa79fccd7a657e20f2d6f32f4cc60b1d82a5b26d331918",
+      "documents": 40,
+      "units": 419
+    },
+    {
+      "sha256": "fb1fbb18894be97c736ef833cdba6e0a66db65437b348160e4f67ec162fc0ba4",
+      "documents": 40,
+      "units": 908
+    },
+    {
+      "sha256": "8088625109ad8b3310d58b5eef3c815b3c97056ba8cdd04b794db7af3c9fa8ae",
+      "documents": 40,
+      "units": 674
+    },
+    {
+      "sha256": "3fa5dcefdd2bf5a1c8bf40c23793737bdcd3fab538d7f776edc7db2aea071c2d",
+      "documents": 5,
+      "units": 1042
+    },
+    {
+      "sha256": "6b5ecd4cb9c27b7192cce6f6a233509c96ae9a4eda3c2e975b889803f8ec07a9",
+      "documents": 40,
+      "units": 4345
+    },
+    {
+      "sha256": "b876b9f76879db98e043e9f2892511843d4dc317b48b2b7cab3682792cb26630",
+      "documents": 24,
+      "units": 1817
+    },
+    {
+      "sha256": "f17a877cf8847dd0d5a0abf76068a74f7e235cca928643b98444f13c0d6c6342",
+      "documents": 6,
+      "units": 286
+    },
+    {
+      "sha256": "76c7aa9600f7ce52776e4337fb491ce7b37cbbd2c7a15af80a3a655bafc8d522",
+      "documents": 16,
+      "units": 462
+    },
+    {
+      "sha256": "133854a724b03bce15787e98ce7e5804908431e1173983be8f6655a01c754886",
+      "documents": 40,
+      "units": 1468
+    },
+    {
+      "sha256": "919c7ba5c79c94eefc1606c481650e5625a404d273757d2109dc2cdf1b406259",
+      "documents": 22,
+      "units": 1913
+    },
+    {
+      "sha256": "a3d28a012a9da880d79465179aa0fcdfcdaebe2ef554fad48a50f17591d742fd",
+      "documents": 40,
+      "units": 2596
+    },
+    {
+      "sha256": "ed9a702eb54c14291a9cf948832124fb8efdf3466019745621f856b32484b206",
+      "documents": 40,
+      "units": 1467
+    },
+    {
+      "sha256": "763c19968950cb2a64ae6ca26ab7f111111f4b0a69871643a37ea24915213961",
+      "documents": 20,
+      "units": 1082
+    },
+    {
+      "sha256": "1ef4852fe5cb4368d79c23fd803265aa3cecf73ed22f2eeb14a344de9a90aa9c",
+      "documents": 19,
+      "units": 597
+    },
+    {
+      "sha256": "c92edc5fe14f75b4a3d670efb23164906d958e8148953edb490263d5ac3a099e",
+      "documents": 16,
+      "units": 3108
+    },
+    {
+      "sha256": "0c409909793696cd1f6b1d747b1a9e099af4fa971740c643b4837370ca158678",
+      "documents": 40,
+      "units": 1182
+    },
+    {
+      "sha256": "ca7e1f44c54a82d18a3552100330e1476e6f75b348c70dceb489e200c0aa9565",
+      "documents": 40,
+      "units": 661
+    },
+    {
+      "sha256": "ce21e551dfc35dfaf52afa61f58274b05c4677fdf06f17a8fbc370f0b16bd0e5",
+      "documents": 40,
+      "units": 1039
+    },
+    {
+      "sha256": "b2ba191420838e753f81986993dbe320985611c9371ae1c383ff503fb730a50e",
+      "documents": 40,
+      "units": 822
+    },
+    {
+      "sha256": "360a5f9ad287ab09fa267b141d5d8a80a37a7345728a89279ce4e868248e7762",
+      "documents": 40,
+      "units": 540
+    },
+    {
+      "sha256": "8d27f7f3fd548b47b11fadebda47395bec2df05cb8f365f4a3cc91fd039c228b",
+      "documents": 40,
+      "units": 396
+    },
+    {
+      "sha256": "f27bdf6b9787c830b15b4a9dddb46ee2e6c8fa2d803f6418042ae644ee4555a3",
+      "documents": 40,
+      "units": 428
+    },
+    {
+      "sha256": "a4914b61e8497fe67a364f04797aee9f8fb3ced4a3dea9079356c794691b9cf0",
+      "documents": 40,
+      "units": 1108
+    },
+    {
+      "sha256": "8215d42070b6f9c18973c3604d2f1bd0be584a60de44ff8c37cc3c067dac7a0c",
+      "documents": 40,
+      "units": 1340
+    },
+    {
+      "sha256": "d2260cf67945136ef027d19ea0d2b9352fad511671dfe243e7ba617e0b9d6b5a",
+      "documents": 40,
+      "units": 944
+    },
+    {
+      "sha256": "9687b4546294e7ea0bca631ae330787a6c5ea1e61e1d96c98c476232da62173c",
+      "documents": 40,
+      "units": 511
+    },
+    {
+      "sha256": "135c89615488116f6edf5bb82493eaed245a2870df59e16d2880af919a869488",
+      "documents": 40,
+      "units": 1261
+    },
+    {
+      "sha256": "8207a2b66095fa9b3a7c801e3420a766b1551b75004c8814bdcda417329cccf7",
+      "documents": 26,
+      "units": 841
+    },
+    {
+      "sha256": "95b500785068bb0c594dc254782ebe8daa4d528046c7a59bb7074dc0a8d77d55",
+      "documents": 18,
+      "units": 1250
+    },
+    {
+      "sha256": "a1626f94b6c80bd3157ddae0806938c1f72fc4366a191797433f3547e316a2d7",
+      "documents": 1,
+      "units": 7159
+    },
+    {
+      "sha256": "ce6e6c6f90427b38fee182c5fd758d7d279d1f0e55eee1065dae933222be7273",
+      "documents": 2,
+      "units": 768
+    },
+    {
+      "sha256": "72d4ca6fccb74fd266e46ae685ee70bfe17cecc0d87c6236abb04f45d2232a1f",
+      "documents": 4,
+      "units": 459
+    },
+    {
+      "sha256": "a2d320cd1d32479b7a4971aba12b40af92e267df469e714e792fddc5ce80e3ed",
+      "documents": 40,
+      "units": 3704
+    },
+    {
+      "sha256": "1a961c5222fbf54b26e6d1c04a358b3c1d15a36b13cae3f9842ba38fd69fc053",
+      "documents": 40,
+      "units": 423
+    },
+    {
+      "sha256": "3344408d97ca5cfee8954e69357bb50307b60a654e10c53500db7d558d4ac892",
+      "documents": 40,
+      "units": 1011
+    },
+    {
+      "sha256": "b30012b3c54ec0d205b97800cd53d1564ecf320bd6c6b596ab2b86e84e4222e9",
+      "documents": 40,
+      "units": 3262
+    },
+    {
+      "sha256": "6786d25748f34a2e23676450007c1afac7487b56e48e0c9ac3745c66729a8a2a",
+      "documents": 5,
+      "units": 88
+    },
+    {
+      "sha256": "df0ef6b3e738691251ce04e6da7b9d6706a6923e36a2d4f5385b5d51b106cd86",
+      "documents": 40,
+      "units": 1568
+    },
+    {
+      "sha256": "8697574f8d66573259f2dde3d5ac8e667b839e41b5eb3456724ee71ee56e37ec",
+      "documents": 2,
+      "units": 179
+    },
+    {
+      "sha256": "ff4e26bfefa8b344c303f993a153e39a27c97654ba8b7f6c168ac2fa7e2b25a3",
+      "documents": 31,
+      "units": 1838
+    },
+    {
+      "sha256": "025cda23b3c7a674790837299672abd2042a23e81a2b812ca0eea628b9f32d9d",
+      "documents": 40,
+      "units": 2209
+    },
+    {
+      "sha256": "02e5a635d344dd1ff4b5899103b6e7100b67b2496c39723b1fbf42cdea8d9d21",
+      "documents": 40,
+      "units": 1105
+    },
+    {
+      "sha256": "7de2b75b540f30ef23d1460a9d6609737490ed79a537ddb564504610a786074d",
+      "documents": 23,
+      "units": 969
+    },
+    {
+      "sha256": "3eecccbfcd449ebeabc1d0def06fcbfbc148907b01b124a7b8ed03b7a7bf8547",
+      "documents": 11,
+      "units": 767
+    },
+    {
+      "sha256": "a9d3dc98ef2815aafbbe04699ab5a24f6d87555c0c7f05985fe8edd6a340f769",
+      "documents": 40,
+      "units": 2006
+    },
+    {
+      "sha256": "54d57be3f10c307c4924fd04fc4be24e73e7ddb869fd79d72f80a9e541f004bd",
+      "documents": 40,
+      "units": 688
+    },
+    {
+      "sha256": "23f70a3a37b608d7689e28342a9b3daf7321b8c4c3d52f0c5f85d433f3224a04",
+      "documents": 40,
+      "units": 616
+    },
+    {
+      "sha256": "8902801e5289c75dbcd7503469a7ef5a3e866665cc3b958cef96458cc82e7918",
+      "documents": 23,
+      "units": 1166
+    },
+    {
+      "sha256": "a0a0c5f651516facab4c37bac6100b050b7f31c9520cad5bc26e0c02c29cc84d",
+      "documents": 22,
+      "units": 6003
+    },
+    {
+      "sha256": "5198b409b91982c64ff861f5197250f71de7e3a5bc0e43f86e5ea18a54009661",
+      "documents": 3,
+      "units": 79
+    },
+    {
+      "sha256": "c4703b8712d670a64743f6b09252a9b1fe9e57f4ca2be4f85bdba61cc0356dd1",
+      "documents": 17,
+      "units": 2083
+    },
+    {
+      "sha256": "16902bb92b88ecf56d9013eb503d0640c783d15497fc290e3ce1a7ef13233036",
+      "documents": 23,
+      "units": 2781
+    },
+    {
+      "sha256": "aa8f2079239e64cebbf0c8c793b7a2498a2ff5bac0409715dfb4d551847fb1b7",
+      "documents": 40,
+      "units": 1592
+    },
+    {
+      "sha256": "026ae01d0d6dec7dc1feb55c4801b723eefccd05a2bdb2427a2661cea324ab10",
+      "documents": 20,
+      "units": 2724
+    },
+    {
+      "sha256": "ba39fadc37797d0ec4edd6aa935f84fcb36c449afd4ba78ac82996c9f99f3dad",
+      "documents": 25,
+      "units": 2461
+    },
+    {
+      "sha256": "0a83be7fe331d9c642cb15a4b0a1b90cdf6dc8f4d51c1e21576345d262e239f7",
+      "documents": 40,
+      "units": 1379
+    },
+    {
+      "sha256": "b6816231eee4c7f9afa1b1bb293f82de90730bbd35f1cfaf65f28618ef9e1d86",
+      "documents": 21,
+      "units": 3138
+    },
+    {
+      "sha256": "b7820c9f814ed0821dff0d380b1d8f617d88b04cbb51db30de5afbbb5ed1454b",
+      "documents": 14,
+      "units": 4175
+    },
+    {
+      "sha256": "0a34933b0e2e5c2b19b09707f8651bf8be9a015c6f460c6c22c345effe012488",
+      "documents": 24,
+      "units": 3382
+    },
+    {
+      "sha256": "dfaea71668e6505e69b76dd38db5164cfc65f3a050773063d9c896ec01b43dcc",
+      "documents": 6,
+      "units": 1598
+    },
+    {
+      "sha256": "cd891a4f0e36836c927a2cdaf18c10dd1a90a9bfc73a31763601251c81eadcc0",
+      "documents": 15,
+      "units": 965
+    },
+    {
+      "sha256": "026ec1e3ad466c396fd4c7ebf5939f9bc4b32ebbdf20841b29393270d1d8226b",
+      "documents": 37,
+      "units": 3290
+    },
+    {
+      "sha256": "f7ab1d9da4deef5a19fa36147ae6b479e0fedc59c50d938a0d1f47fbc866ec5b",
+      "documents": 7,
+      "units": 2950
+    },
+    {
+      "sha256": "205960b015ccd6cf39d2ba25e43aab9d08794b72cc8e2de5c537ef38c3491bd3",
+      "documents": 12,
+      "units": 3646
+    },
+    {
+      "sha256": "a5d845c64eec4364206c6a3e73af110dd44a919cb5b795a1b628694f66da3f73",
+      "documents": 19,
+      "units": 6186
+    },
+    {
+      "sha256": "03b79154ccfc8dbd342b2aa9b97b6664020067529dd7b1f7d98d5f2a647a8667",
+      "documents": 1,
+      "units": 78
+    },
+    {
+      "sha256": "26bc2ab6b7b1789cfc2b3a656a4a8ecceeaa5fcad18b65ab922356acfe975124",
+      "documents": 40,
+      "units": 3414
+    },
+    {
+      "sha256": "46d0b4d53870e961e5d1e53c0e265744c01e60a2b5bd204b902ca1b179f9be2f",
+      "documents": 40,
+      "units": 3690
+    },
+    {
+      "sha256": "221b0588af2393c467fee4085507bd26c57424817f6498345f5a4aeef45a93fd",
+      "documents": 4,
+      "units": 637
+    },
+    {
+      "sha256": "69f6f1a21dac1c83337109a1cdf26a6f829e6aebc190012b1e8896d7be5ae361",
+      "documents": 35,
+      "units": 3689
+    },
+    {
+      "sha256": "b2e579a1a5501a50f40c0469341bc3d2262d2eb903c0b5044c830d6885bb0ebe",
+      "documents": 7,
+      "units": 1527
+    },
+    {
+      "sha256": "14f85a76fefd6ecd28040b0dc13bd476be162a092ae3f12a3e2b75b5a68679b9",
+      "documents": 34,
+      "units": 1870
+    },
+    {
+      "sha256": "d7ecc951fa87a2d461f673790981a1455d112ae94e342e06f5e125feca42044d",
+      "documents": 4,
+      "units": 430
+    },
+    {
+      "sha256": "3a90515f7f1015bcc76d1ea3d713782cc6a0aca1777d65afab9eef083b3b28ff",
+      "documents": 40,
+      "units": 1120
+    },
+    {
+      "sha256": "6707acac952c810a437f5d324dc9b6cd6a28a64c9c1164e4e46b1a12bf0c604b",
+      "documents": 40,
+      "units": 1076
+    },
+    {
+      "sha256": "1e7c6dbec593266c3306e04123d7d72b3ed3ff7a97d0c39d1c903fe8dff503c8",
+      "documents": 17,
+      "units": 323
+    },
+    {
+      "sha256": "19eeaf0578330835174c27bf131499056cdb3416920c06122ca03d00ec82df0c",
+      "documents": 40,
+      "units": 1638
+    },
+    {
+      "sha256": "679128d05c9047a3313f61da37b8345cb6253d9c390f2cef9e52188fc3258794",
+      "documents": 6,
+      "units": 305
+    },
+    {
+      "sha256": "f6297ba1404a5c0eb3bade8922fd4264fe0eff57392ef8f0715cea1f8e38a05a",
+      "documents": 36,
+      "units": 2881
+    },
+    {
+      "sha256": "8a66ff7ff11a520270be78ce9901503073ac71e95a77c58d8a86c64d167c23f2",
+      "documents": 27,
+      "units": 1961
+    },
+    {
+      "sha256": "a4365ca10227d1068883d791f83c109fad11947d6f2ff225e514e848aaf473c5",
+      "documents": 40,
+      "units": 2784
+    },
+    {
+      "sha256": "cde1441d55dd7b4082fa504a33d90ecf3fb0f9c17b1d559e8bde217e6270b965",
+      "documents": 39,
+      "units": 760
+    },
+    {
+      "sha256": "89e36056e0946cff6f42a71d1e1fe6b028f926cee768faaf342d00c1f8f7fe1a",
+      "documents": 28,
+      "units": 3705
+    },
+    {
+      "sha256": "392dcc1dd4923658aa5de9838ca835329e544805e19109372c5ba81692bfd5b6",
+      "documents": 7,
+      "units": 383
+    },
+    {
+      "sha256": "53b2bf86769797309c105faa3a2de85e19482f39ad4289e743e88bf744ad0dd4",
+      "documents": 40,
+      "units": 3536
+    },
+    {
+      "sha256": "4b47faf704cf9f3ce8f76666fd847d6370d0b8152ee3e99d8c803ea4c2db8da1",
+      "documents": 40,
+      "units": 4664
+    },
+    {
+      "sha256": "7ef43849e7c73ce596133985d39541412134e2b0107beff521f72efe538dcbf8",
+      "documents": 40,
+      "units": 2834
+    },
+    {
+      "sha256": "a9944d1ccc273efeb061217eca969c7cce810db2fdffaaf6c9d462a6450b8144",
+      "documents": 40,
+      "units": 210
+    },
+    {
+      "sha256": "6dd55280b310949463f35407dc7d8383f3872f6e75a532ec7ac734a95d673cc2",
+      "documents": 40,
+      "units": 212
+    },
+    {
+      "sha256": "9c2d36ff6b2b13496c33390961ef47d9da0567848935ca854c065577750009a1",
+      "documents": 40,
+      "units": 172
+    },
+    {
+      "sha256": "5757a4bcbd974beacdb401fd39dbe41100bba0d7dab9c810c0b0f008967bb06a",
+      "documents": 40,
+      "units": 248
+    },
+    {
+      "sha256": "0c8b94d79a8f6ebe49f418dc330646483fb9f7e594630c05045e26c6f418fb09",
+      "documents": 40,
+      "units": 332
+    },
+    {
+      "sha256": "85b016d61cd12400968592e1e8cd489ffb5cbda11a503f1ff0858b6578bd3ff2",
+      "documents": 38,
+      "units": 570
+    },
+    {
+      "sha256": "58bee53968242bf0cbfa4e358f4925a545609a11dcb9556bf9ecef022cc6c149",
+      "documents": 26,
+      "units": 2234
+    },
+    {
+      "sha256": "394cfd9afd095a3b61a84e58c9d51c8e4858ccd0f64313d6c21e8bed5c6e3d37",
+      "documents": 40,
+      "units": 3655
+    },
+    {
+      "sha256": "6de1036e3cd9f3dbb329fa58efd4c550e64adc3a4a983ef62cc5bedb8d3d3b4a",
+      "documents": 16,
+      "units": 1243
+    },
+    {
+      "sha256": "9ec5724f052e16374803bc5dc3c2f61e9542d5081ae5274dd0eafbc159378640",
+      "documents": 40,
+      "units": 2190
+    },
+    {
+      "sha256": "db382e8913515c9a67d730d2d05a88027fcda31492a66da06df00b05b7a3b973",
+      "documents": 23,
+      "units": 994
+    }
+  ],
+  "cohorts": [
+    {
+      "cohort": "historical",
+      "documents": 3327,
+      "failed_documents": 3,
+      "units": 193925,
+      "words": 972852,
+      "components": 116,
+      "findings": 5958,
+      "documents_with_finding": 1206,
+      "per_thousand_words": 6.124261449840263
+    }
+  ],
+  "unassigned_documents": 0,
+  "rules": [
+    {
+      "rule_id": "density.connective-overuse",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "filler.announced-importance",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "filler.empty-transition",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "filler.modern-world-opening",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "filler.section-announcement",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "filler.stacked-hedging",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "filler.weak-intensifiers",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 23,
+          "documents_with_finding": 18,
+          "prevalence": {
+            "value": 0.005410279531109108,
+            "lower": 0.00258542683166722,
+            "upper": 0.008925727668050778,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.023641828356214513,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 8,
+              "prevalence": 0.00007991848314718986
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 15,
+              "prevalence": 0.0003924030764401193
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 15,
+              "prevalence": 0.0003150664790270747
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "filler.wordy-phrase",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 109,
+          "documents_with_finding": 80,
+          "prevalence": {
+            "value": 0.024045686804929366,
+            "lower": 0.016587953106234305,
+            "upper": 0.0331326358509015,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.11204170829684268,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 35,
+              "prevalence": 0.00034964336376895567
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 74,
+              "prevalence": 0.0019358551771045886
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 74,
+              "prevalence": 0.0015543279632002352
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "format.em-dash-density",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "format.list-fragmentation",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "hype.absolute-claim",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "hype.metaphor-cluster",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "hype.modifier-cluster",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "hype.vague-praise",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "policy.banned-phrases",
+      "class": "explicit_prohibition",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "readability.grade-metric",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 990,
+          "documents_with_finding": 701,
+          "prevalence": {
+            "value": 0.21070033062819357,
+            "lower": 0.14580000245704078,
+            "upper": 0.28002497123199777,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 1.017626524897929,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 230,
+              "prevalence": 0.0022976563904817085
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 729,
+              "prevalence": 0.0190707895149898
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 729,
+              "prevalence": 0.015312230880715831
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "readability.long-paragraph",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 94,
+          "documents_with_finding": 60,
+          "prevalence": {
+            "value": 0.018034265103697024,
+            "lower": 0.009900841658378732,
+            "upper": 0.02808341834956124,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.096623124586268,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 77,
+              "prevalence": 0.0007692154002917024
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 11,
+              "prevalence": 0.00028776225605608747
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 11,
+              "prevalence": 0.00023104875128652147
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "repetition.exact-sentence",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 505,
+          "documents_with_finding": 206,
+          "prevalence": {
+            "value": 0.06191764352269312,
+            "lower": 0.04873856257191174,
+            "upper": 0.07618460929080038,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.5190923182560143,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 121,
+              "prevalence": 0.0012087670576012468
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 324,
+              "prevalence": 0.008475906451106578
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 354,
+              "prevalence": 0.007435568905038963
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "repetition.heading-echo",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "repetition.near-sentence",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 126,
+          "documents_with_finding": 82,
+          "prevalence": {
+            "value": 0.0246468289750526,
+            "lower": 0.017479553707617695,
+            "upper": 0.03265171972179396,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.12951610316882733,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 42,
+              "prevalence": 0.0004195720365227468
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 82,
+              "prevalence": 0.002145136817872652
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 83,
+              "prevalence": 0.00174336785061648
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "repetition.ngram-density",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 186,
+          "documents_with_finding": 73,
+          "prevalence": {
+            "value": 0.021941689209498048,
+            "lower": 0.015371109712417655,
+            "upper": 0.029385508934088304,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.19119043801112606,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 34,
+              "prevalence": 0.00033965355337555695
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 56,
+              "prevalence": 0.0014649714853764454
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 57,
+              "prevalence": 0.001197252620302884
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "repetition.paragraph-openers",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 56,
+          "documents_with_finding": 37,
+          "prevalence": {
+            "value": 0.011121130147279832,
+            "lower": 0.005710737454264216,
+            "upper": 0.017394246540403564,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.05756271251947881,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 5,
+              "prevalence": 0.00004994905196699367
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 29,
+              "prevalence": 0.0007586459477842306
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 29,
+              "prevalence": 0.0006091285261190111
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "repetition.paragraph-overlap",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 216,
+          "documents_with_finding": 129,
+          "prevalence": {
+            "value": 0.0387736699729486,
+            "lower": 0.029324326954994585,
+            "upper": 0.04922160379529095,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.22202760543227543,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 51,
+              "prevalence": 0.0005094803300633354
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 165,
+              "prevalence": 0.004316433840841312
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 165,
+              "prevalence": 0.003465731269297822
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "repetition.sentence-openers",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 84,
+          "documents_with_finding": 49,
+          "prevalence": {
+            "value": 0.014727983168019236,
+            "lower": 0.008002311796087729,
+            "upper": 0.022667190429424354,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.08634406877921821,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 12,
+              "prevalence": 0.0001198777247207848
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 46,
+              "prevalence": 0.0012033694344163659
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 46,
+              "prevalence": 0.0009662038690163625
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "repetition.summary-echo",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "repetition.syntax-template",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 4,
+          "documents_with_finding": 4,
+          "prevalence": {
+            "value": 0.0012022843402464682,
+            "lower": 0.00028644882291003245,
+            "upper": 0.002451769127110081,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.0041116223228199154,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 1,
+              "prevalence": 0.000009989810393398733
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 3,
+              "prevalence": 0.00007848061528802385
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 3,
+              "prevalence": 0.00006301329580541494
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "scaffold.ai-self-reference",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "scaffold.chat-preamble",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "scaffold.dive-in",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "scaffold.follow-up-offer",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "syntax.long-sentence",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 1949,
+          "documents_with_finding": 822,
+          "prevalence": {
+            "value": 0.24706943192064923,
+            "lower": 0.18438139276155502,
+            "upper": 0.3143678543709327,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 2.0033879767940035,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 310,
+              "prevalence": 0.0030968412219536073
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 1267,
+              "prevalence": 0.033144979856642075
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 1273,
+              "prevalence": 0.026738641853431073
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "syntax.nominalization-chain",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 2,
+          "documents_with_finding": 2,
+          "prevalence": {
+            "value": 0.0006011421701232341,
+            "lower": 0,
+            "upper": 0.0015432575653527441,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.0020558111614099577,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 1,
+              "prevalence": 0.000009989810393398733
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 1,
+              "prevalence": 0.000026160205096007953
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 1,
+              "prevalence": 0.000021004431935138316
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "syntax.not-only-density",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "syntax.noun-stack",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 72,
+          "documents_with_finding": 56,
+          "prevalence": {
+            "value": 0.016831980763450556,
+            "lower": 0.012075666296786376,
+            "upper": 0.022222396159465665,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.07400920181075847,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 35,
+              "prevalence": 0.00034964336376895567
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 35,
+              "prevalence": 0.0009156071783602783
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 35,
+              "prevalence": 0.000735155117729841
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "syntax.paired-contrast-density",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "syntax.parenthetical-load",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 700,
+          "documents_with_finding": 278,
+          "prevalence": {
+            "value": 0.08355876164712954,
+            "lower": 0.0650781445075613,
+            "upper": 0.10356386553232885,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.7195339064934851,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 404,
+              "prevalence": 0.0040358833989330885
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 296,
+              "prevalence": 0.007743420708418354
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 296,
+              "prevalence": 0.006217311852800941
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "syntax.passive-candidate-density",
+      "class": "general_style",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 842,
+          "documents_with_finding": 332,
+          "prevalence": {
+            "value": 0.09978960024045687,
+            "lower": 0.07988839864872437,
+            "upper": 0.12193017307939777,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0.8654964989535922,
+          "zero_upper_bound": null,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 339,
+              "prevalence": 0.0033865457233621704
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 415,
+              "prevalence": 0.0108564851148433
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 417,
+              "prevalence": 0.008758848116952676
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "syntax.rhetorical-question-density",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "syntax.triad-density",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    },
+    {
+      "rule_id": "syntax.whether-preface-density",
+      "class": "llm_associated_candidate",
+      "roles": [
+        "documentation",
+        "readme",
+        "api_reference",
+        "doc_comment",
+        "comment",
+        "release_note"
+      ],
+      "cohorts": [
+        {
+          "cohort": "historical",
+          "documents": 3327,
+          "components": 116,
+          "words": 972852,
+          "findings": 0,
+          "documents_with_finding": 0,
+          "prevalence": {
+            "value": 0,
+            "lower": 0,
+            "upper": 0,
+            "status": "cluster_percentile",
+            "valid_replicates": 10000
+          },
+          "per_thousand_words": 0,
+          "zero_upper_bound": 0.03130036074329001,
+          "units": [
+            {
+              "kind": "fragment",
+              "units": 100102,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "paragraph",
+              "units": 38226,
+              "with_finding": 0,
+              "prevalence": 0
+            },
+            {
+              "kind": "sentence",
+              "units": 47609,
+              "with_finding": 0,
+              "prevalence": 0
+            }
+          ]
+        }
+      ],
+      "contrasts": []
+    }
+  ]
+}
