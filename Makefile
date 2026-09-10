@@ -18,7 +18,10 @@ performance: build
 	bash scripts/measure-performance.sh --words 100000 --label local
 
 check-reproducible:
-	bash scripts/verify-reproducible-build.sh --platforms "linux/amd64"
+	bash scripts/verify-reproducible-build.sh
+
+audit-release:
+	bash scripts/verify-release-artifacts.sh --platforms "linux/amd64"
 
 reproducible:
 	bash scripts/verify-reproducible-build.sh

@@ -8,22 +8,39 @@ is checked and what the check establishes.
 `scripts/verify-reproducible-build.sh` builds each release target twice from the
 same source, with the flags `scripts/release.sh` uses, and compares SHA-256
 digests. The toolchain comes from the environment, so the caller decides which
-compiler the check reports. Released builds use the compiler named in `go.mod`
-with no automatic upgrade:
+compiler the check reports.
+
+Released builds use the compiler pinned in `tools/go.mod`, which the release
+workflow selects, and not the minimum compiler in `go.mod` that the native test
+jobs use. Match the release by naming that toolchain:
 
 ```sh
-GOTOOLCHAIN=go1.25.0 bash scripts/verify-reproducible-build.sh --output check.json
+GOTOOLCHAIN=go1.27.1 bash scripts/verify-reproducible-build.sh --output check.json
 ```
 
 `make check` runs the same script for one target, which catches a regression
 without building twelve binaries. `make reproducible` runs all six.
 
+## The published alpha rebuilt from its tag
+
+`scripts/verify-release-artifacts.sh --rebuild` rebuilds each published binary
+from the source its tag names and compares the result with the archive. For
+`v0.1.0-alpha.1` at `247fe6f673cb8cad08850c05694a874b71e538e7`, all six binaries
+matched, rebuilt on a different machine from the one that released them. The
+[recorded audit](release/v0.1.0-alpha.1-audit.json) holds that result together
+with the digests, bundled notices, build records and SBOM licenses it checked.
+
+This is the strongest form of the claim: a published artifact, its stated
+source, and an independent machine produce the same bytes.
+
 ## Measured across two hosts
 
-The six release targets were built from commit
-`fee5caaf396e009ca01154caad8dd5a0c41fc5ef` with Go 1.25.0 on two hosts: macOS on
-ARM64, and Debian 12 on AMD64 in a container. All six digests matched across both
-hosts, and each host also reproduced its own build byte for byte.
+The six targets were also built from commit
+`fee5caaf396e009ca01154caad8dd5a0c41fc5ef` on two hosts: macOS on ARM64, and
+Debian 12 on AMD64 in a container. Both runs used Go 1.25.0, the lowest version
+this project supports. All six digests matched across the two hosts, and each
+host also repeated its own build byte for byte. These digests come from that
+lower compiler, so they differ from the released binaries.
 
 | Target | SHA-256 |
 | --- | --- |
