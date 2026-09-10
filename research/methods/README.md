@@ -68,6 +68,16 @@ reviewed, and its [prompts](prompts/README.md) hold the verbatim pilot
 conditions. The table above does not change: that protocol adopts the RAID
 and DetectRL-X design dimensions already listed and reuses no dataset.
 
+[`rule-classes-v1.json`](rule-classes-v1.json) is the input of that protocol's
+experiment E1. It gives every rule of the pinned catalog one class before any
+cohort is measured: `general_style`, `explicit_prohibition`, or
+`llm_associated_candidate`. Each entry names the roles whose counts enter a
+prevalence table. A candidate with a published hypothesis names the
+sources-record entry behind it. A candidate is a hypothesis, never a result. The corpus
+package loads the file with `corpus.LoadRuleClasses` and checks that it covers
+the builtin catalog exactly, so a new rule cannot enter E1 unclassified. A
+class change is a protocol amendment.
+
 To extend the registry, inspect pinned primary sources, record separate terms for
 code, tokenizers, weights/classifiers, tables, and data, and add hashes only for
 bytes actually obtained. Preserve prior run references when updating decisions.
