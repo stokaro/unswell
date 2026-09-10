@@ -1,0 +1,96 @@
+{
+  "fuzztime": "300s",
+  "targets": [
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/baseline",
+      "seconds": 302,
+      "target": "FuzzLoad"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/config",
+      "seconds": 304,
+      "target": "FuzzPolicy"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/extract",
+      "seconds": 304,
+      "target": "FuzzSourceMap"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/feature",
+      "seconds": 302,
+      "target": "FuzzLexicalKey"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/internal/suppress",
+      "seconds": 301,
+      "target": "FuzzDirectives"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/nlp",
+      "seconds": 303,
+      "target": "FuzzDependencyTree"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/nlp",
+      "seconds": 302,
+      "target": "FuzzPrepareUnits"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/report",
+      "seconds": 305,
+      "target": "FuzzSavedResult"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/ruleset",
+      "seconds": 303,
+      "target": "FuzzLoad"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/research/annotation",
+      "seconds": 303,
+      "target": "FuzzLoad"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/research/annotation/corpus",
+      "seconds": 303,
+      "target": "FuzzLoadArtifact"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/research/annotation/corpus",
+      "seconds": 304,
+      "target": "FuzzLoadManifest"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/research/annotation/evaluation",
+      "seconds": 303,
+      "target": "FuzzComparisonPlan"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/research/annotation/llmdet",
+      "seconds": 302,
+      "target": "FuzzLoadNumericalPack"
+    },
+    {
+      "outcome": "pass",
+      "package": "github.com/stokaro/unswell/research/annotation/training",
+      "seconds": 304,
+      "target": "FuzzResearchPredictionInputs"
+    }
+  ],
+  "workers": 2
+}

@@ -1,9 +1,11 @@
 # Execute current CLI code in e2e checks
 
 The module runner uses `go test -count=1` for runtime and consumer modules.
-`make test`, `make check`, `make race`, native CI, and coverage runs use this
-runner. Additional test flags still pass through. The Go build cache remains
-enabled; successful test results are not reused by these required checks.
+`make test`, `make race`, and native CI use this runner. `scripts/coverage.sh`
+keeps its own loop, because each module needs its own profile path, and applies
+the same `-count=1` rule to the instrumented run `make check` uses.
+Additional test flags still pass through. The Go build cache remains enabled;
+successful test results are not reused by these required checks.
 
 Root e2e tests build research commands from nested modules using `os/exec`.
 Those source files are outside the parent test package's import graph. Editing
