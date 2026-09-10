@@ -378,3 +378,8 @@ Estimates still do not change findings or the index.
 against the published 2.1.0 schema, embedded so validation reads no external
 resource. A valid document is well formed; it is not evidence that a particular
 consumer accepts it. See [SARIF output and consumers](sarif.md).
+`probability.TaskOrigin` and `Pack.Task` add the separate origin target, and
+`Options.OriginModel`, `config.Origin`, `Assessment.OriginEstimate`,
+`OriginStatus`, `OriginDetail` and `Manifest.Origin` carry it through the engine
+and the reports. The channel is absent unless a policy configures it, and no
+gate consults it. See [ADR 0035](adr/0035-origin-channel.md).

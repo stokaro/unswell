@@ -12,8 +12,14 @@ import (
 // Version identifies the pack contract. A training artifact is not a pack.
 const Version = "unswell-probability-pack-v1"
 
-// Task is the only supported estimation target. Origin research stays separate.
-const Task = "editorial_needs_revision"
+// Task names what a pack estimates. The two targets are independent: a revision
+// probability answers whether a unit needs editing, and an origin estimate is a
+// similarity to a defined training class. Neither implies the other, and an
+// origin estimate is never a percentage of a text written by any tool.
+const (
+	Task       = "editorial_needs_revision"
+	TaskOrigin = "origin_endpoint"
+)
 
 // MaxBytes bounds one decoded pack. MaxColumns bounds its numerical width.
 const (

@@ -13,14 +13,14 @@ type localFinding struct {
 	points  int
 }
 
-func (e *Engine) assess(result *RunResult, doc document.Document, estimates probabilityRun) {
+func (e *Engine) assess(result *RunResult, doc document.Document, estimates, origins probabilityRun) {
 	for _, block := range doc.Blocks {
 		if block.Words == 0 {
 			continue
 		}
 		result.Assessments = append(
 			result.Assessments,
-			e.assessment(result.Findings, estimates, assessedUnit{doc.Name, "paragraph", block.ID, block.Span, block.Words}),
+			e.assessment(result.Findings, estimates, origins, assessedUnit{doc.Name, "paragraph", block.ID, block.Span, block.Words}),
 		)
 		for _, sentence := range block.Sentences {
 			if sentence.Words == 0 {
@@ -28,7 +28,7 @@ func (e *Engine) assess(result *RunResult, doc document.Document, estimates prob
 			}
 			result.Assessments = append(
 				result.Assessments,
-				e.assessment(result.Findings, estimates,
+				e.assessment(result.Findings, estimates, origins,
 					assessedUnit{doc.Name, "sentence", sentence.ID, sentence.Span, sentence.Words}),
 			)
 		}
@@ -44,8 +44,9 @@ type assessedUnit struct {
 	words       int
 }
 
-func (e *Engine) assessment(findings []Finding, estimates probabilityRun, unit assessedUnit) Assessment {
+func (e *Engine) assessment(findings []Finding, estimates, origins probabilityRun, unit assessedUnit) Assessment {
 	value, status, detail := estimates.probabilityFor(unit.scope, unit.span)
+	origin, originStatus, originDetail := origins.probabilityFor(unit.scope, unit.span)
 	assessment := Assessment{
 		Path:              unit.path,
 		Scope:             unit.scope,
@@ -56,6 +57,9 @@ func (e *Engine) assessment(findings []Finding, estimates probabilityRun, unit a
 		SlopProbability:   value,
 		ProbabilityStatus: status,
 		ProbabilityDetail: detail,
+		OriginEstimate:    origin,
+		OriginStatus:      originStatus,
+		OriginDetail:      originDetail,
 		Contributions:     []Contribution{},
 	}
 	scope, id := unit.scope, unit.id

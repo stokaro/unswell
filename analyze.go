@@ -61,11 +61,16 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source, iden
 func (e *Engine) summarizeSource(ctx context.Context, result *RunResult, doc document.Document,
 	identities *sourceIdentities, builder *debtBuilder,
 ) error {
-	estimates, err := e.estimateProbability(ctx, &doc, e.extractionStructure() || identities != nil)
+	structure := e.extractionStructure() || identities != nil
+	estimates, err := e.estimateChannel(ctx, &doc, structure, e.revision)
 	if err != nil {
 		return err
 	}
-	e.assess(result, doc, estimates)
+	origins, err := e.estimateChannel(ctx, &doc, structure, e.origin)
+	if err != nil {
+		return err
+	}
+	e.assess(result, doc, estimates, origins)
 	if builder != nil {
 		if err := e.identifySource(ctx, result, doc, identities, builder); err != nil {
 			return err

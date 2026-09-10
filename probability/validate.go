@@ -23,7 +23,7 @@ func validate(file File) error {
 	if file.Version != Version {
 		return fmt.Errorf("unsupported probability pack version %q", file.Version)
 	}
-	if file.Task != Task {
+	if !slices.Contains([]string{Task, TaskOrigin}, file.Task) {
 		return fmt.Errorf("unsupported probability pack task %q", file.Task)
 	}
 	if err := validateDeclarations(file); err != nil {

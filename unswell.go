@@ -21,7 +21,6 @@ import (
 	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/nlp"
 	"github.com/stokaro/unswell/nlp/english"
-	"github.com/stokaro/unswell/probability"
 	"github.com/stokaro/unswell/rule"
 	"github.com/stokaro/unswell/ruleset"
 )
@@ -40,6 +39,9 @@ type Options struct {
 	// Model contains one explicitly selected revision-probability pack. It
 	// requires calibration.model: pack and is rejected without it.
 	Model []byte
+	// OriginModel contains one explicitly selected origin pack. It requires
+	// origin.model: pack, is rejected without it, and never affects the gate.
+	OriginModel []byte
 	// Baseline contains an explicitly selected artifact; nil disables comparison.
 	Baseline []byte
 	// CollectBaseline requests a validated snapshot for explicit create or update.
@@ -64,10 +66,8 @@ type Engine struct {
 	preparedKinds         []string
 	preparedCapabilities  []nlp.Capability
 	activationIndices     map[string]int
-	pack                  *probability.Pack
-	packMissing           bool
-	packColumns           []feature.Descriptor
-	packCapabilities      []nlp.Capability
+	revision              modelChannel
+	origin                modelChannel
 	featureIDs            []string
 	featureDefinitions    []feature.Descriptor
 	trustedSources        map[string]sourceIdentities
@@ -249,7 +249,7 @@ func (e *Engine) AnalyzeAll(ctx context.Context, sources []document.Source) (Run
 
 func (e *Engine) analyzeAll(ctx context.Context, sources []document.Source, identify bool) (RunResult, []sourceIdentities, error) {
 	result := e.emptyResult()
-	if err := cmp.Or(ctx.Err(), e.requireProbabilityModel()); err != nil {
+	if err := cmp.Or(ctx.Err(), e.requireModels()); err != nil {
 		return incompleteBatch(result, err)
 	}
 	sources = slices.Clone(sources)
@@ -335,6 +335,7 @@ func (e *Engine) emptyResult() RunResult {
 			ScoringProfile:  e.policy.Profile,
 			FeatureContract: "unswell-features-v1",
 			Probability:     e.ProbabilityModelIdentity(),
+			Origin:          e.OriginModelIdentity(),
 			NLP:             e.nlp.Identity(),
 			Rules:           cloneDescriptors(e.descriptors),
 			SelectionMode:   "explicit",

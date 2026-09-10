@@ -33,6 +33,7 @@ func Run(ctx context.Context, args []string, stderr io.Writer, transport mcp.Tra
 	configPath := flags.String("config", "", "explicit Unswell policy file; omitted uses builtin defaults")
 	baselinePath := flags.String("baseline", "", "explicit local baseline loaded once at startup; tools cannot update it")
 	modelPath := flags.String("model", "", "explicit revision-probability pack loaded once at startup")
+	originPath := flags.String("origin-model", "", "explicit experimental origin pack loaded once at startup")
 	gateMode := flags.String("gate-mode", "", "override gate mode: all or new (new requires a baseline)")
 	projectRoot := flags.String("project-root", "", "root for local policy dependencies and logical source names")
 	allowOutside := flags.Bool("allow-config-outside-root", false, "explicitly permit local configuration outside the project root")
@@ -65,9 +66,13 @@ func Run(ctx context.Context, args []string, stderr io.Writer, transport mcp.Tra
 	if err != nil {
 		return err
 	}
+	originPack, err := readLocalArtifact(*originPath, probability.MaxBytes, "origin pack")
+	if err != nil {
+		return err
+	}
 	instance, err := server.New(server.Options{Features: features,
 		PreparedFeatures: preparedFeatures, PreparedKinds: preparedKinds, ConfigBundle: &loaded.Bundle,
-		Timeout: *timeout, Baseline: accepted, Model: pack, GateMode: *gateMode})
+		Timeout: *timeout, Baseline: accepted, Model: pack, OriginModel: originPack, GateMode: *gateMode})
 	if err != nil {
 		return err
 	}

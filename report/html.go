@@ -25,14 +25,19 @@ type htmlData struct {
 	Result       unswell.RunResult
 	Verdict      string
 	Probability  string
+	Origin       string
 	Findings     []unswell.Finding
 	Paragraphs   []paragraph
 	Omitted      int
 }
 
+// identityEscape passes values through; html/template escapes on output.
+func identityEscape(value string) string { return value }
+
 func htmlReport(writer io.Writer, result unswell.RunResult, options Options) error {
 	data := htmlData{PreparedRows: preparedRows(result), FeatureRows: featureRows(result),
-		Result: result, Verdict: verdict(result), Probability: probabilitySummary(result, func(value string) string { return value }),
+		Result: result, Verdict: verdict(result), Probability: probabilitySummary(result, identityEscape),
+		Origin:   originSummary(result, identityEscape),
 		Findings: visible(result, options)}
 	data.Omitted = len(result.Findings) - len(data.Findings)
 	for _, assessment := range result.Assessments {

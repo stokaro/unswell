@@ -83,6 +83,9 @@ type Assessment struct {
 	SlopProbability        *float64       `json:"slop_probability"`
 	ProbabilityStatus      string         `json:"probability_status"`
 	ProbabilityDetail      string         `json:"probability_detail,omitempty"`
+	OriginEstimate         *float64       `json:"origin_estimate,omitempty"`
+	OriginStatus           string         `json:"origin_status,omitempty"`
+	OriginDetail           string         `json:"origin_detail,omitempty"`
 	Status                 string         `json:"status"`
 	Contributions          []Contribution `json:"contributions"`
 	EffectiveContributions []Contribution `json:"effective_contributions,omitempty"`
@@ -122,6 +125,7 @@ type Manifest struct {
 	ScoringProfile  string                    `json:"scoring_profile"`
 	FeatureContract string                    `json:"feature_contract"`
 	Probability     *ProbabilityModel         `json:"probability,omitempty"`
+	Origin          *ProbabilityModel         `json:"origin,omitempty"`
 	NLP             nlp.Identity              `json:"nlp"`
 	Rules           []rule.Descriptor         `json:"rules"`
 	SelectionMode   string                    `json:"selection_mode"`

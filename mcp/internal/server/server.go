@@ -22,6 +22,7 @@ type Options struct {
 	Features         []string
 	Baseline         []byte
 	Model            []byte
+	OriginModel      []byte
 	GateMode         string
 	Config           []byte
 	ConfigBundle     *config.Bundle
@@ -47,7 +48,7 @@ func New(options Options) (*mcp.Server, error) {
 	engine, err := unswell.New(unswell.Options{Features: options.Features,
 		PreparedFeatures: options.PreparedFeatures, PreparedKinds: options.PreparedKinds,
 		Config: options.Config, ConfigBundle: options.ConfigBundle, NLP: options.NLP,
-		Baseline: options.Baseline, Model: options.Model, GateMode: options.GateMode})
+		Baseline: options.Baseline, Model: options.Model, OriginModel: options.OriginModel, GateMode: options.GateMode})
 	if err != nil {
 		return nil, err
 	}

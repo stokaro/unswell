@@ -24,7 +24,7 @@ const modelConfig = "version: 1\nextends: [builtin:strict-v1]\ncalibration:\n  m
 
 // commandPack writes a loadable pack for the configuration under test. Its
 // numerical parameters are fixtures and carry no editorial meaning.
-func commandPack(c *qt.C, root, name, config string) string {
+func commandPack(c *qt.C, root, name, config, task string) string {
 	c.Helper()
 	catalog, err := feature.UnitCatalog("sentence")
 	c.Assert(err, qt.IsNil)
@@ -39,7 +39,7 @@ func commandPack(c *qt.C, root, name, config string) string {
 	provider, err := english.New()
 	c.Assert(err, qt.IsNil)
 	file := probability.File{Version: probability.Version, ID: "command-fixture", DeclaredStatus: "experimental",
-		HumanCorpus: "not_qualified", Task: probability.Task, Rubric: "fixture-rubric-v1", Kind: "sentence",
+		HumanCorpus: "not_qualified", Task: task, Rubric: "fixture-rubric-v1", Kind: "sentence",
 		Contract: probability.Contract{FeatureContract: feature.UnitContract, UnitContract: nlp.UnitContract,
 			Columns: columns, ColumnsSHA256: fmt.Sprintf("%x", sha256.Sum256(encoded)), NLP: provider.Identity(),
 			Capabilities: []nlp.Capability{nlp.Tokens, nlp.Sentences}, PreparationHash: commandPreparation(c, config)},
@@ -79,7 +79,7 @@ func TestCheckReportsProbabilityFromAnExplicitPack(t *testing.T) {
 	c.Assert(os.WriteFile(filepath.Join(root, "draft.md"),
 		[]byte("The client retries after a transport failure.\n"), 0o600), qt.IsNil)
 	c.Assert(os.WriteFile(filepath.Join(root, "model.yaml"), []byte(modelConfig), 0o600), qt.IsNil)
-	pack := commandPack(c, root, "pack.json", modelConfig)
+	pack := commandPack(c, root, "pack.json", modelConfig, probability.Task)
 	var out, stderr bytes.Buffer
 	environment := cli.Environment{Dir: root, In: bytes.NewReader(nil), Out: &out, Err: &stderr}
 	code := cli.Run(t.Context(), []string{"check", "draft.md", "--config", "model.yaml", "--model", pack, "--report", "json:-"},
@@ -108,7 +108,7 @@ func TestCheckRejectsUnusableModelSelections(t *testing.T) {
 	c.Assert(os.WriteFile(filepath.Join(root, "draft.md"), []byte("The client retries.\n"), 0o600), qt.IsNil)
 	c.Assert(os.WriteFile(filepath.Join(root, "model.yaml"), []byte(modelConfig), 0o600), qt.IsNil)
 	c.Assert(os.WriteFile(filepath.Join(root, "broken.json"), []byte("{}"), 0o600), qt.IsNil)
-	pack := commandPack(c, root, "pack.json", modelConfig)
+	pack := commandPack(c, root, "pack.json", modelConfig, probability.Task)
 	var out, stderr bytes.Buffer
 	environment := cli.Environment{Dir: root, In: bytes.NewReader(nil), Out: &out, Err: &stderr}
 	for _, args := range [][]string{
@@ -122,6 +122,39 @@ func TestCheckRejectsUnusableModelSelections(t *testing.T) {
 		c.Assert(cli.Run(t.Context(), args, environment), qt.Equals, 2, qt.Commentf("%v", args))
 		c.Assert(stderr.String(), qt.Not(qt.Equals), "")
 	}
+}
+
+func TestCheckReportsTheOriginChannelSeparately(t *testing.T) {
+	c := qt.New(t)
+	root := t.TempDir()
+	c.Assert(os.WriteFile(filepath.Join(root, "draft.md"),
+		[]byte("The client retries after a transport failure.\n"), 0o600), qt.IsNil)
+	policy := "version: 1\nextends: [builtin:strict-v1]\norigin:\n  model: pack\n  accept_experimental: true\n"
+	c.Assert(os.WriteFile(filepath.Join(root, "origin.yaml"), []byte(policy), 0o600), qt.IsNil)
+	pack := commandPack(c, root, "origin-pack.json", policy, "origin_endpoint")
+	var out, stderr bytes.Buffer
+	environment := cli.Environment{Dir: root, In: bytes.NewReader(nil), Out: &out, Err: &stderr}
+	code := cli.Run(t.Context(), []string{"check", "draft.md", "--config", "origin.yaml", "--origin-model", pack,
+		"--report", "json:-"}, environment)
+	c.Assert(code, qt.Equals, 0, qt.Commentf("%s", stderr.String()))
+	var result unswell.RunResult
+	c.Assert(json.Unmarshal(out.Bytes(), &result), qt.IsNil)
+	c.Assert(result.Manifest.Origin, qt.IsNotNil)
+	c.Assert(result.Manifest.Origin.Task, qt.Equals, "origin_endpoint")
+	c.Assert(result.Manifest.Probability, qt.IsNil)
+	c.Assert(result.Gate.Passed, qt.IsTrue)
+	estimated := 0
+	for _, assessment := range result.Assessments {
+		if assessment.OriginEstimate != nil {
+			estimated++
+			c.Assert(assessment.Scope, qt.Equals, "sentence")
+			c.Assert(assessment.SlopProbability, qt.IsNil)
+		}
+	}
+	c.Assert(estimated, qt.Equals, 1)
+	out.Reset()
+	stderr.Reset()
+	c.Assert(cli.Run(t.Context(), []string{"check", "draft.md", "--origin-model", pack}, environment), qt.Equals, 2)
 }
 
 func TestDoctorReportsTheConfiguredCalibration(t *testing.T) {

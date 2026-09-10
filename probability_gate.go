@@ -19,7 +19,7 @@ var expectedAbstentions = []string{probability.StatusUnsupportedUnit, probabilit
 // configured threshold, and on an absent estimate the pack did not predict.
 func (e *Engine) decideProbability(result *RunResult, doc document.Document, assessment Assessment) {
 	gate := e.policy.Gate.Probability
-	if gate == nil || e.pack == nil || assessment.Scope != e.pack.Kind() {
+	if gate == nil || e.revision.pack == nil || assessment.Scope != e.revision.pack.Kind() {
 		return
 	}
 	if assessment.SlopProbability != nil {
