@@ -138,13 +138,30 @@ they cover. A record with no covered decision produces a chart that says so,
 because a blank plot area would read as a perfect result. The command refuses a
 record from another evaluation version.
 
+## Cost
+
+`scripts/measure-research-cost.sh` measures each pipeline stage on the tutorial
+fixture. It prints one JSON observation with wall time, peak resident set and
+exit code per stage. A single total would hide which stage a method makes
+expensive. A stage that starts failing would look like a faster run, so each
+stage declares the exit code it expects.
+
+```sh
+make research-cost
+```
+
+`make check` runs the harness self-test, which measures every stage and proves a
+refused stage fails the run. The full measurement stays separate because it is
+host-specific. The numbers describe this fixture on this host; they are not a
+capacity promise and say nothing about model quality.
+
 ## Remaining acceptance
 
 The executable path covers the current prepared-feature and rule-activation
 logistic fits. It does not claim the full A–G comparison or a qualified D feature
-set. Qualified FPR bounds,
-predeclared subgroups, lexical models, ablations, LLMDet/reference adapters,
-and measured resource accounting retain their existing research requirements.
+set. Qualified FPR bounds, predeclared subgroups, lexical models, ablations, and
+LLMDet or reference adapters keep their research requirements. Stage cost is
+measured. Qualifying a budget against a real corpus is not.
 Unexecuted methods remain unverified in the method registry. Human acquisition,
 independent annotation, final-test custody, calibration selection, and scientific
 qualification require real evidence; these simulated tests cannot supply it.
