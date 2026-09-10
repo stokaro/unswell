@@ -29,13 +29,18 @@ The separate Homebrew tap currently requires four native installation checks and
 one approving review. The Action repository currently requires three native test
 checks and one approving review. Both protect main from force pushes and deletion.
 
-The distribution automation needs auto-merge enabled in both repositories and a
-review exception for the `ptah-publish` app alone. Other authors retain the review
-requirement. The Action's three published-release consumer checks must also become
-required. These configuration changes are pending explicit authorization; the
-workflow implementation does not establish that the settings are already active.
-The org secret and variable currently select only Ptah, and the installed app
-still needs Pull requests write access. See [publishing setup](installation.md#publishing-app-setup).
+The distribution automation does not merge. The `ptah-publish` app opens a
+verified update pull request, the required checks run on it unattended, and a
+maintainer approves and squash-merges by hand. Auto-merge stays disabled in all
+three repositories and no author, including the app, has a review exception:
+enabling auto-merge without one would only park the pull request, because
+auto-merge waits for every requirement including the approving review. The
+Action's three published-release consumer checks must still become required, but
+only after its update workflow reaches main, since the job that reports them does
+not exist on main yet. The org secret `PUBLISH_APP_KEY` and variable
+`PUBLISH_APP_ID` now select all three repositories, and the installed app has
+Contents and Pull requests write access. See
+[publishing setup](installation.md#publishing-app-setup).
 
 Repository administrators can change these settings. CI code in pull requests is
 not a security boundary against a maintainer who can replace it. Workflow tokens
