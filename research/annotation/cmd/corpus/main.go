@@ -37,7 +37,8 @@ func mainCode() int {
 
 func run(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: corpus {plan|extract|verify|join|train|predict|evaluate|compare|reference-bank|pack}" +
+		return fmt.Errorf("usage: corpus" +
+			" {plan|extract|verify|join|train|predict|evaluate|compare|reference-bank|pack|figures}" +
 			" [options] < artifact.json")
 	}
 	if command := dedicated(args[0]); command != nil {
@@ -72,6 +73,8 @@ func dedicated(name string) func(context.Context, []string, io.Reader, io.Writer
 		return runComparison
 	case "predict", "evaluate":
 		return runEvaluation
+	case "figures":
+		return runFigures
 	}
 	return nil
 }
@@ -86,6 +89,8 @@ func outputLimit(name string) int {
 	case "train":
 		return training.MaxArtifactBytes
 	case "predict", "evaluate", "compare":
+		return training.MaxPredictionBytes
+	case "figures":
 		return training.MaxPredictionBytes
 	}
 	return corpus.MaxArtifactBytes
