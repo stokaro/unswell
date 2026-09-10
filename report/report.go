@@ -17,6 +17,10 @@ type Options struct {
 	MaxFindings int
 }
 
+// Formats returns the supported report names in a stable order. Write accepts
+// exactly these names and rejects every other value.
+func Formats() []string { return []string{"text", "json", "sarif", "html", "markdown"} }
+
 // Write serializes a saved result to one of text, json, sarif, html, or markdown.
 // It returns every serialization and I/O error to the caller.
 func Write(writer io.Writer, format string, result unswell.RunResult, options Options) error {

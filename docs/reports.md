@@ -34,3 +34,15 @@ aliases to inputs. A failed requested output gives exit code 2.
 
 [SARIF output and consumers](sarif.md) records how the SARIF report is checked
 against the published schema and against the reference consumer.
+
+## Verified formats and platforms
+
+The end-to-end suite scans every input format in `document.Formats()`. A format
+without an executed scenario fails its own test.
+
+One analysis writes all five reports named by `report.Formats()`. The saved JSON
+decodes through `report.Read`. The SARIF document validates against the
+published schema. The text, Markdown and HTML reports carry the finding.
+
+The native CI job runs this package on Linux, macOS and Windows. CI checks the
+formats on each of them, not on one machine.

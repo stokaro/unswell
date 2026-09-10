@@ -397,6 +397,10 @@ into a pack the engine loads. They copy its numerical parameters and measurement
 contract and add only an identifier, an applicability floor, the estimation
 target, and an acceptance a maintainer states. A simulated artifact cannot
 produce an accepted pack.
+`report.Formats` names the five report writers in a stable order. Callers that
+offer every format no longer repeat the list, and a writer that is added without
+being listed fails its own contract test.
+
 The `feature` catalog adds a repetition family: `peak-word-frequency-ratio`,
 `repeated-bigram-ratio`, `sentence-opener-repeat-ratio` and
 `duplicate-sentence-ratio`. They join the existing contract, so earlier
