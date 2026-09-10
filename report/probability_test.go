@@ -48,6 +48,30 @@ func TestHumanReportsDescribeAConfiguredProbabilityModel(t *testing.T) {
 	}
 }
 
+func TestHumanReportsSeparateTheOriginChannel(t *testing.T) {
+	c := qt.New(t)
+	value, origin := 0.5, 0.7
+	result := modelResult(&value)
+	result.Manifest.Origin = &unswell.ProbabilityModel{PackID: "origin-fixture", SHA256: "0",
+		Version: "unswell-probability-pack-v1", Task: "origin_endpoint", Rubric: "fixture-origin-classes-v1",
+		Kind: "sentence", DeclaredStatus: "experimental", HumanCorpus: "not_qualified", MinWords: 5}
+	result.Assessments[0].OriginEstimate, result.Assessments[0].OriginStatus = &origin, "available"
+	result.Assessments[1].OriginStatus = "insufficient_evidence"
+	for _, format := range []string{"text", "markdown", "html"} {
+		var output bytes.Buffer
+		c.Assert(report.Write(&output, format, result, report.Options{}), qt.IsNil)
+		c.Assert(output.String(), qt.Contains, "Origin estimate:")
+		c.Assert(output.String(), qt.Contains, "estimated for 1 of 2 sentence units")
+		c.Assert(output.String(), qt.Contains, "not a quality judgment")
+	}
+	result.Manifest.Origin = nil
+	for _, format := range []string{"text", "markdown", "html"} {
+		var output bytes.Buffer
+		c.Assert(report.Write(&output, format, result, report.Options{}), qt.IsNil)
+		c.Assert(output.String(), qt.Not(qt.Contains), "Origin estimate:")
+	}
+}
+
 func TestHumanReportsKeepModelFreeWording(t *testing.T) {
 	c := qt.New(t)
 	result := modelResult(nil)

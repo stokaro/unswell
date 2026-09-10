@@ -897,6 +897,22 @@
         "effective_slop_score": {
           "type": "number"
         },
+        "origin_detail": {
+          "type": "string"
+        },
+        "origin_estimate": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "origin_status": {
+          "type": "string"
+        },
         "path": {
           "type": "string"
         },
@@ -1603,6 +1619,16 @@
         },
         "no_gate": {
           "type": "boolean"
+        },
+        "origin": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/unswell.ProbabilityModel"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "probability": {
           "anyOf": [

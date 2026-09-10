@@ -79,6 +79,16 @@ type Calibration struct {
 	AcceptExperimental bool   `json:"accept_experimental"`
 }
 
+// Origin selects an explicitly supplied origin pack. The channel is off unless a
+// policy requests it. An origin estimate is a similarity to a defined training
+// class, never a quality judgment and never a share of a text written by a tool.
+// It cannot decide a gate, so this section has no threshold.
+type Origin struct {
+	Model              string `json:"model"`
+	OnIncompatible     string `json:"on_incompatible"`
+	AcceptExperimental bool   `json:"accept_experimental"`
+}
+
 // Policy is an effective policy with provenance and a canonical content hash.
 type Policy struct {
 	Identity         string                   `json:"identity"`
@@ -97,6 +107,7 @@ type Policy struct {
 	Vocabulary       Vocabulary               `json:"vocabulary"`
 	Suppressions     Suppressions             `json:"suppressions"`
 	Calibration      *Calibration             `json:"calibration,omitempty"`
+	Origin           *Origin                  `json:"origin,omitempty"`
 	Sources          []SourceIdentity         `json:"sources,omitempty"`
 	Overrides        []OverrideIdentity       `json:"overrides,omitempty"`
 	AppliedOverrides []string                 `json:"applied_overrides,omitempty"`
@@ -120,6 +131,11 @@ type input struct {
 		OnIncompatible     string `yaml:"on_incompatible"`
 		AcceptExperimental bool   `yaml:"accept_experimental"`
 	} `yaml:"calibration"`
+	Origin struct {
+		Model              string `yaml:"model"`
+		OnIncompatible     string `yaml:"on_incompatible"`
+		AcceptExperimental bool   `yaml:"accept_experimental"`
+	} `yaml:"origin"`
 }
 
 // Load returns the base policy for a single in-memory configuration. Use
@@ -207,7 +223,10 @@ func validateInput(raw input) error {
 	if raw.Language != "" && raw.Language != "en" {
 		return fmt.Errorf("unsupported language %q", raw.Language)
 	}
-	return validateCalibration(raw)
+	if err := validateCalibration(raw); err != nil {
+		return err
+	}
+	return validateOrigin(raw)
 }
 
 func decode(data []byte, target any) error {
@@ -371,7 +390,20 @@ func applyNodes(raw input, policy *Policy, catalog []rule.Descriptor) error {
 		return err
 	}
 	applyCalibration(raw, policy)
+	applyOrigin(raw, policy)
 	return nil
+}
+
+// applyOrigin keeps an absent origin channel out of the policy identity, so a
+// run without it preserves its existing hashes and accepted debt.
+func applyOrigin(raw input, policy *Policy) {
+	switch raw.Origin.Model {
+	case "pack":
+		policy.Origin = &Origin{Model: "pack", OnIncompatible: incompatibilityPolicy(raw.Origin.OnIncompatible),
+			AcceptExperimental: raw.Origin.AcceptExperimental}
+	case "none":
+		policy.Origin = nil
+	}
 }
 
 // applyCalibration keeps an absent model out of the policy identity, so
@@ -391,6 +423,22 @@ func incompatibilityPolicy(value string) string {
 		return "unavailable"
 	}
 	return value
+}
+
+// validateOrigin accepts the same explicit shape as calibration. The channel is
+// experimental research and never gates, so it has no threshold to validate.
+func validateOrigin(raw input) error {
+	origin := raw.Origin
+	if !slices.Contains([]string{"", "none", "pack"}, origin.Model) {
+		return fmt.Errorf("unsupported origin model %q", origin.Model)
+	}
+	if !slices.Contains([]string{"", "unavailable", "fail"}, origin.OnIncompatible) {
+		return fmt.Errorf("invalid origin incompatibility policy %q", origin.OnIncompatible)
+	}
+	if origin.Model != "pack" && (origin.OnIncompatible != "" || origin.AcceptExperimental) {
+		return fmt.Errorf("origin options require an explicit model")
+	}
+	return nil
 }
 
 func validateCalibration(raw input) error {

@@ -107,6 +107,32 @@ Exit codes keep their meanings. A gate failure exits 1, an operational failure
 such as an incompatible pack under `on_incompatible: fail` exits 2, and
 `--no-gate` records the reasons without changing the decision.
 
+## The separate origin channel
+
+An origin estimate answers a different question: how similar a unit is to a
+defined training class. It is off unless a policy asks for it, and it decides no
+gate.
+
+```yaml
+origin:
+  model: pack
+  accept_experimental: true
+```
+
+```sh
+unswell check --origin-model ./origin-pack.json docs
+```
+
+The pack must declare the origin target; a revision pack is refused here, and an
+origin pack is refused by `calibration.model`. Units report `origin_status` and,
+when applicable, `origin_estimate`, using the same abstention reasons as the
+revision channel. Without the channel those fields are absent entirely.
+
+An origin estimate is not a quality judgment, is not evidence that a unit needs
+revision, and is never a share of a text written by any tool. It applies to one
+unit kind, so a document estimate never becomes a sentence estimate. See
+[ADR 0035](adr/0035-origin-channel.md).
+
 The manifest records the pack's own declarations, including whether its author
 declared it accepted and whether it names a qualified corpus. Unswell checks that
 these declarations are consistent and that the pack matches the run; it cannot

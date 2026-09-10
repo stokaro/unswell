@@ -170,11 +170,8 @@ func text(writer io.Writer, result unswell.RunResult, options Options) error {
 	for _, line := range append(auditLines(result), featureLines(result)...) {
 		fmt.Fprintf(&output, "%s\n", terminal(line))
 	}
-	if summary := probabilitySummary(result, terminal); summary != "" {
-		fmt.Fprintf(&output, "Revision probability: %s\n", summary)
-	} else {
-		output.WriteString("Revision probability: unavailable (no calibrated alpha model).\n")
-	}
+	writeModelLines(&output, result, terminal, "Revision probability: unavailable (no calibrated alpha model).\n",
+		"Revision probability: %s\n", "Origin estimate: %s\n")
 	if len(result.Manifest.ConfigSources) > 1 || len(result.Manifest.ConfigOverrides) > 0 {
 		fmt.Fprintf(&output, "Configuration: %s (%s).\n", terminal(result.Manifest.ConfigHash), terminal(result.Manifest.ConfigIdentity))
 	}
@@ -220,11 +217,8 @@ func markdown(writer io.Writer, result unswell.RunResult, options Options) error
 	for _, line := range append(auditLines(result), featureLines(result)...) {
 		fmt.Fprintf(&output, "\n%s\n", markdownEscape(line))
 	}
-	if summary := probabilitySummary(result, markdownEscape); summary != "" {
-		fmt.Fprintf(&output, "\nRevision probability: %s\n", summary)
-	} else {
-		output.WriteString("\nRevision probability: unavailable; this alpha has no calibrated model.\n")
-	}
+	writeModelLines(&output, result, markdownEscape, "\nRevision probability: unavailable; this alpha has no calibrated model.\n",
+		"\nRevision probability: %s\n", "\nOrigin estimate: %s\n")
 	if len(result.Manifest.ConfigSources) > 1 || len(result.Manifest.ConfigOverrides) > 0 {
 		fmt.Fprintf(&output, "\nConfiguration: %s (%s).\n",
 			markdownEscape(result.Manifest.ConfigHash), markdownEscape(result.Manifest.ConfigIdentity))
@@ -253,6 +247,44 @@ func probabilitySummary(result unswell.RunResult, escape func(string) string) st
 	}
 	return fmt.Sprintf("%s (%s, corpus %s); estimated for %d of %d %s units, and every other unit keeps a status.",
 		escape(model.PackID), escape(model.DeclaredStatus), escape(model.HumanCorpus), estimated, total, escape(model.Kind))
+}
+
+// writeModelLines states both model channels in one place, so the text and
+// Markdown writers describe them identically.
+func writeModelLines(output *strings.Builder, result unswell.RunResult, escape func(string) string,
+	modelFree, revision, origin string,
+) {
+	if summary := probabilitySummary(result, escape); summary != "" {
+		fmt.Fprintf(output, revision, summary)
+	} else {
+		output.WriteString(modelFree)
+	}
+	if summary := originSummary(result, escape); summary != "" {
+		fmt.Fprintf(output, origin, summary)
+	}
+}
+
+// originSummary describes the separate experimental origin channel. It is empty
+// unless a policy configures one, and it never reports a share of a text.
+func originSummary(result unswell.RunResult, escape func(string) string) string {
+	model := result.Manifest.Origin
+	if model == nil {
+		return ""
+	}
+	estimated, total := 0, 0
+	for _, assessment := range result.Assessments {
+		if assessment.Scope != model.Kind {
+			continue
+		}
+		total++
+		if assessment.OriginEstimate != nil {
+			estimated++
+		}
+	}
+	return fmt.Sprintf("%s (%s, corpus %s); estimated for %d of %d %s units. "+
+		"It is similarity to a training class, not a quality judgment, and it decides no gate.",
+		escape(model.PackID), escape(model.DeclaredStatus), escape(model.HumanCorpus), estimated, total,
+		escape(model.Kind))
 }
 
 func markdownEscape(text string) string {

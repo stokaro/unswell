@@ -88,6 +88,10 @@ func (p *Pack) SHA256() string { return p.file.SHA256 }
 // Kind returns the single unit kind this pack estimates.
 func (p *Pack) Kind() string { return p.file.Kind }
 
+// Task reports what this pack estimates. A revision probability and an origin
+// estimate are separate channels; a caller must not substitute one for the other.
+func (p *Pack) Task() string { return p.file.Task }
+
 // Accepted reports the author's acceptance declaration. This package cannot
 // verify a corpus, an evaluation, or a product decision behind it.
 func (p *Pack) Accepted() bool { return p.file.DeclaredStatus == "accepted" }

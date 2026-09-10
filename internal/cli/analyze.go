@@ -98,9 +98,13 @@ func analyzeInputs(ctx context.Context, environment Environment, options checkOp
 	if err != nil {
 		return unswell.RunResult{}, nil, err
 	}
+	originData, originPaths, err := localArtifact(environment, options.originModel, probability.MaxBytes)
+	if err != nil {
+		return unswell.RunResult{}, nil, err
+	}
 	engine, err := unswell.New(
 		unswell.Options{Features: options.features, PreparedFeatures: options.preparedFeatures, PreparedKinds: options.preparedKinds,
-			Baseline: baselineData, CollectBaseline: options.collectBaseline, GateMode: options.gateMode, Model: modelData,
+			Baseline: baselineData, CollectBaseline: options.collectBaseline, GateMode: options.gateMode, Model: modelData, OriginModel: originData,
 			ConfigBundle:  &loaded.Bundle,
 			Rules:         registry,
 			Jobs:          options.jobs,
@@ -125,16 +129,21 @@ func analyzeInputs(ctx context.Context, environment Environment, options checkOp
 	paths = append(paths, loaded.Paths...)
 	paths = append(paths, baselinePaths...)
 	paths = append(paths, modelPaths...)
+	paths = append(paths, originPaths...)
 	return result, append(paths, rulePaths...), err
 }
 
 // modelInput reads one explicitly named pack. The library never opens files.
 func modelInput(environment Environment, options checkOptions) ([]byte, []string, error) {
-	if options.model == "" {
+	return localArtifact(environment, options.model, probability.MaxBytes)
+}
+
+func localArtifact(environment Environment, name string, maximum int) ([]byte, []string, error) {
+	if name == "" {
 		return nil, nil, nil
 	}
-	path := absoluteArguments(environment.Dir, []string{options.model})[0]
-	data, err := readLimited(path, probability.MaxBytes)
+	path := absoluteArguments(environment.Dir, []string{name})[0]
+	data, err := readLimited(path, maximum)
 	return data, []string{path}, err
 }
 

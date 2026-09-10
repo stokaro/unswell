@@ -12,6 +12,7 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 </style></head><body>
 <header><h1>Unswell: {{.Verdict}}</h1><p>{{len .Result.Documents}} documents · {{len .Result.Findings}} findings · analysis {{.Result.Status}}</p>
 {{if .Probability}}<p>Revision probability: {{.Probability}} Index values are points out of 100.</p>{{else}}<p>Revision probability: <strong>unavailable</strong>. This alpha has no calibrated revision model. Index values are points out of 100.</p>{{end}}
+{{if .Origin}}<p>Origin estimate: {{.Origin}}</p>{{end}}
 <nav aria-label="Report sections"><ul><li><a href="#gate">Gate</a></li><li><a href="#files">Files and coverage</a></li><li><a href="#findings">Findings</a></li><li><a href="#paragraphs">Paragraph scores</a></li>{{if .Result.Suppressions}}<li><a href="#suppressions">Source permissions</a></li>{{end}}{{if .Result.Features}}<li><a href="#features">Shared measurements</a></li>{{end}}{{if .Result.PreparedFeatures}}<li><a href="#prepared-features">Prepared measurements</a></li>{{end}}<li><a href="#manifest">Analysis manifest</a></li></ul></nav></header>
 <main><section id="gate"><h2>Gate decision</h2>{{range .Result.Gate.Reasons}}<p><a href="#finding-{{.FindingID}}">{{.Path}}</a>: {{.Message}}</p>{{else}}<p>No editorial gate failures.</p>{{end}}
 {{range .Result.Errors}}<p class="error">Operational error: {{.Path}} — {{.Message}}</p>{{end}}</section>
