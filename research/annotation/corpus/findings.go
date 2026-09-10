@@ -8,6 +8,7 @@ import (
 	"github.com/stokaro/unswell"
 	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/research/annotation/internal/jsoninput"
 	"github.com/stokaro/unswell/rule"
 )
 
@@ -82,6 +83,30 @@ type FindingsArtifact struct {
 	Policy       PolicyIdentity     `json:"policy"`
 	Documents    []DocumentFindings `json:"documents"`
 	Units        []UnitFindings     `json:"units"`
+}
+
+// LoadFindings decodes a strict finding artifact and checks its digest, so an
+// analysis cannot read an edited artifact as a measurement.
+func LoadFindings(ctx context.Context, data []byte) (FindingsArtifact, error) {
+	var artifact FindingsArtifact
+	limits := jsoninput.Limits{Array: MaxFindingRecords, Object: MaxUnits}
+	if err := jsoninput.Decode(ctx, data, MaxArtifactBytes, &artifact, limits); err != nil {
+		return FindingsArtifact{}, err
+	}
+	if artifact.Version != FindingsVersion || artifact.HumanCorpus != "not_qualified" {
+		return FindingsArtifact{}, fmt.Errorf("unsupported finding artifact version or corpus claim")
+	}
+	expected := artifact.SHA256
+	artifact.SHA256 = ""
+	encoded, err := json.Marshal(artifact)
+	if err != nil {
+		return FindingsArtifact{}, err
+	}
+	if hashBytes(encoded) != expected {
+		return FindingsArtifact{}, fmt.Errorf("finding artifact digest does not match its content")
+	}
+	artifact.SHA256 = expected
+	return artifact, nil
 }
 
 // MeasureFindings reproduces the corpus, runs the supplied policy over every
