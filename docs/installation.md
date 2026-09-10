@@ -102,10 +102,17 @@ an existing release tag to retry delivery. Repeated requests must preserve an
 already selected release. An existing update branch must match the regenerated
 files before reuse; unrelated changes must not be overwritten.
 
-The organization variable `PUBLISH_APP_ID` and secret `PUBLISH_APP_KEY` must be
-available to Unswell, the tap, and the Action repository. The app needs Contents
-and Pull requests write access. Each job requests a short-lived installation
-token limited to its target repositories and required permissions.
+The organization variable `PUBLISH_APP_ID` and secret `PUBLISH_APP_KEY` are
+available to Unswell, the tap, and the Action repository, and the app has
+Contents and Pull requests write access. Each job requests a short-lived
+installation token limited to its target repositories and required permissions.
+
+The app opens the update pull request; it never merges one. Required checks run
+on that pull request without anyone touching it, and a code-owner entry routes
+the review request to a maintainer, who approves and squash-merges. Auto-merge
+stays disabled and main's review bypass list stays empty in both receiving
+repositories, so the app is subject to the same approving review as any other
+author.
 
 Enable auto-merge in the tap and Action repositories. Their main-branch review
 rules allow only the publish app to merge without manual approval; required CI
