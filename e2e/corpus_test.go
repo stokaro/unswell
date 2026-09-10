@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"os"
+	"path/filepath"
 	"testing"
 
 	qt "github.com/frankban/quicktest"
@@ -58,6 +59,45 @@ func TestCorpusSourcePreparation(t *testing.T) {
 	c.Assert(verification.HumanCorpus, qt.Equals, "not_qualified")
 	c.Assert(verification.Units, qt.Equals, 378)
 	c.Assert(verification.SourceCount, qt.Equals, 8)
+	policy := filepath.Join(t.TempDir(), "policy.yaml")
+	c.Assert(os.WriteFile(policy, []byte("version: 1\nextends: [builtin:custom]\nrules:\n"+
+		"  policy.banned-phrases: {enabled: true, parameters: {phrases: [schema]}}\n"), 0o600), qt.IsNil)
+	measured := researchCommand(t, binary, []string{"measure", "--root", root, "--policy", policy}, output, 0)
+	var findings struct {
+		Status      string `json:"status"`
+		HumanCorpus string `json:"human_corpus"`
+		Documents   []struct {
+			SourceID string         `json:"source_id"`
+			Findings int            `json:"findings"`
+			Unbound  int            `json:"unbound"`
+			ByRule   map[string]int `json:"by_rule"`
+		} `json:"documents"`
+		Units []struct {
+			UnitID   string `json:"unit_id"`
+			Findings []struct {
+				RuleID string `json:"rule_id"`
+			} `json:"findings"`
+		} `json:"units"`
+	}
+	c.Assert(json.Unmarshal(measured, &findings), qt.IsNil)
+	c.Assert(findings.Status, qt.Equals, "verified_targets_with_policy_findings")
+	c.Assert(findings.HumanCorpus, qt.Equals, "not_qualified")
+	c.Assert(findings.Documents, qt.HasLen, 8)
+	c.Assert(findings.Units, qt.HasLen, 378)
+	total := 0
+	for _, doc := range findings.Documents {
+		c.Assert(doc.Unbound <= doc.Findings, qt.IsTrue)
+		for rule, count := range doc.ByRule {
+			c.Assert(rule, qt.Equals, "policy.banned-phrases")
+			total += count
+		}
+	}
+	c.Assert(total > 0, qt.IsTrue)
+	bound := 0
+	for _, unit := range findings.Units {
+		bound += len(unit.Findings)
+	}
+	c.Assert(bound > 0, qt.IsTrue)
 	conflict := bytes.Replace(manifest, []byte(`"partition": "development"`), []byte(`"partition": "final_test"`), 1)
 	researchCommand(t, binary, []string{"plan"}, conflict, 2)
 	corrupt := bytes.Replace(output, []byte(`"unlabeled_candidates"`), []byte(`"human_labeled"`), 1)

@@ -155,6 +155,33 @@ ranges, group metadata, and numerical features. It is not a blinded packet or a
 training authorization. Keep the original inputs: a saved artifact's digest does
 not prove reproduction. See [ADR 0024](../../../docs/adr/0024-corpus-feature-bindings.md).
 
+## Measure findings without labels
+
+The `measure` command runs one pinned policy over every source of a verified
+candidate artifact and records where each finding lands:
+
+```sh
+corpus measure --root ./sources --policy ./policy.yaml < candidates.json > findings.json
+```
+
+The command verifies sources and notices again first, and the policy's
+extraction must equal the frozen corpus policy. Each finding attaches to every
+candidate whose original segments contain its primary span, so a sentence
+finding also counts for the paragraph around it; an analysis picks the unit
+kind it reports.
+Findings outside every candidate stay in the document totals as `unbound`.
+Derived and suppressed findings are counted apart and enter no candidate.
+Each document records its prose words, blocks, and counts by rule; each unit
+records its cohort, kind, role, and words. The artifact pins the policy's
+configuration hash, ruleset hash, scoring profile, and rule descriptors.
+
+The output is `unswell-corpus-findings-v1` and keeps
+`human_corpus: not_qualified`. A count is a rule outcome under that policy:
+neither a quality judgment, nor a false-positive rate, nor recall, because no
+record says whether the construction is present. The pattern protocol's E1
+baseline map reads these artifacts; see the
+[protocol](../../methods/llm-patterns-v1.md).
+
 ## Reproduce and audit
 
 ### Reserve compression references

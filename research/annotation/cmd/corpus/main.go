@@ -38,13 +38,13 @@ func mainCode() int {
 func run(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
 	if len(args) == 0 {
 		return fmt.Errorf("usage: corpus" +
-			" {plan|extract|verify|join|train|predict|evaluate|compare|reference-bank|pack|figures}" +
+			" {plan|extract|verify|join|measure|train|predict|evaluate|compare|reference-bank|pack|figures}" +
 			" [options] < artifact.json")
 	}
 	if command := dedicated(args[0]); command != nil {
 		return command(ctx, args, input, output)
 	}
-	if !slices.Contains([]string{"plan", "extract", "verify", "join", "train"}, args[0]) {
+	if !slices.Contains([]string{"plan", "extract", "verify", "join", "measure", "train"}, args[0]) {
 		return fmt.Errorf("unknown corpus command %q", args[0])
 	}
 	options, err := commandOptions(args)
@@ -148,13 +148,25 @@ func operation(ctx context.Context, name string, options options, data []byte) (
 	if err != nil {
 		return nil, err
 	}
-	if name == "verify" {
+	switch name {
+	case "verify":
 		return corpus.Verify(ctx, artifact, files)
-	}
-	if name == "join" || name == "train" {
+	case "measure":
+		return measureOperation(ctx, options, artifact, files)
+	case "join", "train":
 		return annotatedOperation(ctx, name, options, artifact, files)
 	}
 	return corpus.Build(ctx, plan, files)
+}
+
+func measureOperation(ctx context.Context, options options, artifact corpus.Artifact,
+	files map[string][]byte,
+) (any, error) {
+	policy, err := commandio.Await(ctx, func() ([]byte, error) { return readPolicy(options.policy) })
+	if err != nil {
+		return nil, err
+	}
+	return corpus.MeasureFindings(ctx, artifact, files, policy)
 }
 
 func annotatedOperation(ctx context.Context, name string, options options, artifact corpus.Artifact,
