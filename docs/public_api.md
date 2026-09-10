@@ -22,6 +22,15 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell/report` | Writers and saved-result decoding | alpha |
 | `github.com/stokaro/unswell/goanalysis` | Go analysis adapter in a separate module | alpha |
 
+`scripts/verify-published-module.sh` builds and tests the consumer module
+against a published version with no local replacement, using the consumer
+sources from the same tag. It also names the public packages the working tree's
+consumer imports that the published module does not contain, so a passing check
+never implies that the current API shipped. The
+[recorded check](release/v0.1.0-alpha.1-module-check.json) resolved
+`v0.1.0-alpha.1` with module sum `h1:ZA6hvY4AxndacjiwGGnN5hiFSjn5iKi6QultXJjuY50=`
+and passed, while listing seven packages added since that release.
+
 Packages under `internal/` are implementation details. `cmd/unswell` is an
 executable, not an importable library. The tools module isolates build dependencies
 from the runtime module and its minimum compiler. The consumer module is an

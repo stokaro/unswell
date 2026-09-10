@@ -21,7 +21,10 @@ check-reproducible:
 	bash scripts/verify-reproducible-build.sh
 
 audit-release:
-	bash scripts/verify-release-artifacts.sh --platforms "linux/amd64"
+	bash scripts/verify-release-artifacts.sh
+
+check-published-module:
+	bash scripts/verify-published-module.sh --platforms "linux/amd64"
 
 reproducible:
 	bash scripts/verify-reproducible-build.sh
