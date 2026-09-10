@@ -46,15 +46,21 @@ func Write(writer io.Writer, format string, result unswell.RunResult, options Op
 	}
 }
 
+// MaxBytes bounds one saved result that Read accepts. A repository scan
+// that saves every prepared and activation feature with its source text
+// grows with the repository; the bound keeps the reader finite without
+// cutting such a scan short.
+const MaxBytes = 256 << 20
+
 // Read decodes one bounded, versioned saved result. Source files are never read.
 func Read(reader io.Reader) (unswell.RunResult, error) {
 	var result unswell.RunResult
-	data, err := io.ReadAll(io.LimitReader(reader, (128<<20)+1))
+	data, err := io.ReadAll(io.LimitReader(reader, MaxBytes+1))
 	if err != nil {
 		return result, err
 	}
-	if len(data) > 128<<20 {
-		return result, fmt.Errorf("saved result exceeds 128 MiB")
+	if len(data) > MaxBytes {
+		return result, fmt.Errorf("saved result exceeds %d MiB", MaxBytes>>20)
 	}
 	decoder := json.NewDecoder(strings.NewReader(string(data)))
 	decoder.DisallowUnknownFields()

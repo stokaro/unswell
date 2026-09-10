@@ -414,7 +414,9 @@ target, and an acceptance a maintainer states. A simulated artifact cannot
 produce an accepted pack.
 `report.Formats` names the five report writers in a stable order. Callers that
 offer every format no longer repeat the list, and a writer that is added without
-being listed fails its own contract test.
+being listed fails its own contract test. `report.MaxBytes` is the bound a saved
+result must fit for `report.Read` and `unswell report`; it rose from 128 to 256
+MiB when the full-feature scan of this repository reached the old bound.
 
 The research `evaluation.RiskPoint` adds a risk-coverage curve to the full-flow
 summary. It sorts covered decisions by confidence. At each reachable threshold it

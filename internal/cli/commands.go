@@ -120,7 +120,7 @@ func reportCommand(environment Environment) *cobra.Command {
 			if !filepath.IsAbs(path) {
 				path = filepath.Join(environment.Dir, path)
 			}
-			data, err := readLimited(path, 128<<20)
+			data, err := readLimited(path, report.MaxBytes)
 			if err != nil {
 				return err
 			}
