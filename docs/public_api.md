@@ -392,3 +392,8 @@ consumer accepts it. See [SARIF output and consumers](sarif.md).
 `OriginStatus`, `OriginDetail` and `Manifest.Origin` carry it through the engine
 and the reports. The channel is absent unless a policy configures it, and no
 gate consults it. See [ADR 0035](adr/0035-origin-channel.md).
+The research `training.BuildPack` and `corpus pack` convert one fitted artifact
+into a pack the engine loads. They copy its numerical parameters and measurement
+contract and add only an identifier, an applicability floor, the estimation
+target, and an acceptance a maintainer states. A simulated artifact cannot
+produce an accepted pack.

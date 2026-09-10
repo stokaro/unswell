@@ -185,6 +185,26 @@ existing input limits and exit codes also apply. The root command test retains a
 [golden projection](../../../e2e/corpusdata/compression-bank.golden.json) of reference
 order, byte ranges, simulation status, and reserved source IDs.
 
+### Build a product pack
+
+The `pack` command converts one fitted artifact into the pack the engine loads:
+
+```sh
+corpus pack --id editorial-paragraph-v1 --min-words 30 < training.json > pack.json
+```
+
+It copies the numerical parameters and the measurement contract the artifact
+already records, and adds only what an artifact cannot hold: an identifier, the
+applicability floor chosen from validation data, the estimation target, and any
+acceptance a maintainer is prepared to state. `--task origin_endpoint` builds a
+pack for the separate origin channel instead.
+
+Only a logistic artifact with separate isotonic calibration becomes a pack. The
+result declares `experimental` unless the artifact records a qualified corpus and
+`--accepted` names a published evaluation, so a simulated tutorial run cannot
+produce a pack that claims acceptance. Every generated pack is loaded back
+through the engine's own contract before it is written.
+
 ### Audit the source preparation
 
 After matching a round, the [`corpus train` workflow](../training/README.md) can fit

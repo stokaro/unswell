@@ -11,6 +11,7 @@ import (
 	"os/signal"
 	"slices"
 
+	"github.com/stokaro/unswell/probability"
 	"github.com/stokaro/unswell/research/annotation/corpus"
 	"github.com/stokaro/unswell/research/annotation/internal/commandio"
 	"github.com/stokaro/unswell/research/annotation/training"
@@ -36,17 +37,11 @@ func mainCode() int {
 
 func run(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
 	if len(args) == 0 {
-		return fmt.Errorf("usage: corpus {plan|extract|verify|join|train|predict|evaluate|compare|reference-bank}" +
+		return fmt.Errorf("usage: corpus {plan|extract|verify|join|train|predict|evaluate|compare|reference-bank|pack}" +
 			" [options] < artifact.json")
 	}
-	if args[0] == "reference-bank" {
-		return runCompressionBank(ctx, args, input, output)
-	}
-	if args[0] == "compare" {
-		return runComparison(ctx, args, input, output)
-	}
-	if args[0] == "predict" || args[0] == "evaluate" {
-		return runEvaluation(ctx, args, input, output)
+	if command := dedicated(args[0]); command != nil {
+		return command(ctx, args, input, output)
 	}
 	if !slices.Contains([]string{"plan", "extract", "verify", "join", "train"}, args[0]) {
 		return fmt.Errorf("unknown corpus command %q", args[0])
@@ -66,22 +61,42 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 	return writeResult(ctx, args[0], result, output)
 }
 
+// dedicated returns the commands that own their own flags and input handling.
+func dedicated(name string) func(context.Context, []string, io.Reader, io.Writer) error {
+	switch name {
+	case "pack":
+		return runPack
+	case "reference-bank":
+		return runCompressionBank
+	case "compare":
+		return runComparison
+	case "predict", "evaluate":
+		return runEvaluation
+	}
+	return nil
+}
+
+// outputLimit bounds each command's serialized result.
+func outputLimit(name string) int {
+	switch name {
+	case "pack":
+		return probability.MaxBytes
+	case "reference-bank":
+		return corpus.MaxCompressionBankBytes
+	case "train":
+		return training.MaxArtifactBytes
+	case "predict", "evaluate", "compare":
+		return training.MaxPredictionBytes
+	}
+	return corpus.MaxArtifactBytes
+}
+
 func writeResult(ctx context.Context, name string, result any, output io.Writer) error {
 	encoded, err := json.MarshalIndent(result, "", "  ")
 	if err != nil {
 		return err
 	}
-	maximum := corpus.MaxArtifactBytes
-	if name == "reference-bank" {
-		maximum = corpus.MaxCompressionBankBytes
-	}
-	if name == "train" {
-		maximum = training.MaxArtifactBytes
-	}
-	if name == "predict" || name == "evaluate" || name == "compare" {
-		maximum = training.MaxPredictionBytes
-	}
-	if len(encoded) >= maximum {
+	if len(encoded) >= outputLimit(name) {
 		return fmt.Errorf("output exceeds artifact size limit")
 	}
 	count, err := commandio.Await(ctx, func() (int, error) { return output.Write(append(encoded, '\n')) })
@@ -95,6 +110,9 @@ func readInput(ctx context.Context, name string, input io.Reader) ([]byte, error
 	maximum := corpus.MaxArtifactBytes
 	if name == "plan" || name == "extract" {
 		maximum = corpus.MaxManifestBytes
+	}
+	if name == "pack" {
+		maximum = training.MaxArtifactBytes
 	}
 	return commandio.Await(ctx, func() ([]byte, error) {
 		return io.ReadAll(io.LimitReader(input, int64(maximum)+1))
