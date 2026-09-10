@@ -32,18 +32,32 @@ func TestCommandPlansExtractsAndVerifies(t *testing.T) {
 	c.Assert(run(t.Context(), []string{"plan"}, bytes.NewReader(manifest(c)), &plan), qt.IsNil)
 	root := "../../corpus/testdata/ptah"
 	c.Assert(run(t.Context(), []string{"extract", "--root", root}, &plan, &artifact), qt.IsNil)
+	candidates := bytes.Clone(artifact.Bytes())
 	c.Assert(run(t.Context(), []string{"verify", "--root", root}, &artifact, &verification), qt.IsNil)
 	var result corpus.Verification
 	c.Assert(json.Unmarshal(verification.Bytes(), &result), qt.IsNil)
 	c.Assert(result.Units, qt.Equals, 378)
 	c.Assert(result.HumanCorpus, qt.Equals, "not_qualified")
+	policy := filepath.Join(t.TempDir(), "policy.yaml")
+	c.Assert(os.WriteFile(policy, []byte("version: 1\nextends: [builtin:custom]\nrules:\n"+
+		"  policy.banned-phrases: {enabled: true, parameters: {phrases: [schema]}}\n"), 0o600), qt.IsNil)
+	var measured bytes.Buffer
+	c.Assert(run(t.Context(), []string{"measure", "--root", root, "--policy", policy},
+		bytes.NewReader(candidates), &measured), qt.IsNil)
+	var findings corpus.FindingsArtifact
+	c.Assert(json.Unmarshal(measured.Bytes(), &findings), qt.IsNil)
+	c.Assert(findings.Version, qt.Equals, corpus.FindingsVersion)
+	c.Assert(findings.HumanCorpus, qt.Equals, "not_qualified")
+	c.Assert(findings.Documents, qt.HasLen, 8)
+	c.Assert(findings.Units, qt.HasLen, 378)
 }
 
 func TestCommandRejectsBadInputs(t *testing.T) {
 	for _, args := range [][]string{nil, {"bad"}, {"plan", "extra"}, {"extract"}, {"plan", "--root", "."}, {"plan", "--bad"},
 		{"join"}, {"join", "--root", "."}, {"join", "--root", ".", "--round", "round.json"},
 		{"join", "--root", ".", "--feature", "prose-words"}, {"plan", "--round", "round.json"},
-		{"verify", "--root", ".", "--feature", "prose-words"}} {
+		{"verify", "--root", ".", "--feature", "prose-words"}, {"measure"}, {"measure", "--root", "."},
+		{"verify", "--root", ".", "--policy", "policy.yaml"}} {
 		t.Run(strings.Join(args, " "), func(t *testing.T) {
 			c := qt.New(t)
 			var output bytes.Buffer

@@ -32,6 +32,10 @@ func readRuleConfig(path string) ([]byte, error) {
 	return readLocalArtifact(path, maxRuleConfigBytes, "rule config")
 }
 
+func readPolicy(path string) ([]byte, error) {
+	return readLocalArtifact(path, maxRuleConfigBytes, "policy")
+}
+
 func readLocalArtifact(path string, maximum int, description string) ([]byte, error) {
 	root, err := os.OpenRoot(filepath.Dir(path))
 	if err != nil {

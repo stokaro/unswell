@@ -15,6 +15,7 @@ import (
 type options struct {
 	root, round    string
 	ruleConfig     string
+	policy         string
 	features       []string
 	train          training.Options
 	lexical        bool
@@ -25,19 +26,7 @@ func commandOptions(args []string) (options, error) {
 	var result options
 	flags := flag.NewFlagSet("corpus", flag.ContinueOnError)
 	flags.SetOutput(io.Discard)
-	flags.StringVar(&result.root, "root", "", "Local directory containing exactly pinned source and notice files")
-	flags.StringVar(&result.round, "round", "", "Explicit local annotation round for join or train")
-	flags.Func("feature", "Feature ID; repeat to select a set for join or train", func(value string) error {
-		result.features = append(result.features, value)
-		return nil
-	})
-	if args[0] == "join" || args[0] == "train" {
-		flags.StringVar(&result.ruleConfig, "rule-config", "", "Explicit inline policy file for original-block rule activations")
-	}
-	if args[0] == "train" {
-		trainingFlags(flags, &result.train)
-		lexicalFlags(flags, &result)
-	}
+	registerFlags(args[0], flags, &result)
 	if err := flags.Parse(args[1:]); err != nil {
 		return options{}, err
 	}
@@ -50,24 +39,51 @@ func commandOptions(args []string) (options, error) {
 		return options{}, err
 	}
 	if flags.NArg() != 0 || (args[0] == "plan") != (result.root == "") {
-		return options{}, fmt.Errorf("extract, verify, join, and train require --root; plan does not accept it")
+		return options{}, fmt.Errorf("extract, verify, join, measure, and train require --root; plan does not accept it")
 	}
 	result.train.Features = result.features
 	return result, result.validate(args[0])
 }
 
+func registerFlags(name string, flags *flag.FlagSet, result *options) {
+	flags.StringVar(&result.root, "root", "", "Local directory containing exactly pinned source and notice files")
+	flags.StringVar(&result.round, "round", "", "Explicit local annotation round for join or train")
+	flags.Func("feature", "Feature ID; repeat to select a set for join or train", func(value string) error {
+		result.features = append(result.features, value)
+		return nil
+	})
+	switch name {
+	case "join":
+		flags.StringVar(&result.ruleConfig, "rule-config", "", "Explicit inline policy file for original-block rule activations")
+	case "measure":
+		flags.StringVar(&result.policy, "policy", "", "Pinned policy file whose rule findings are measured over every candidate")
+	case "train":
+		flags.StringVar(&result.ruleConfig, "rule-config", "", "Explicit inline policy file for original-block rule activations")
+		trainingFlags(flags, &result.train)
+		lexicalFlags(flags, result)
+	}
+}
+
 func (result options) validate(name string) error {
+	if err := result.validateSelectors(name); err != nil {
+		return err
+	}
+	if name == "measure" && result.policy == "" {
+		return fmt.Errorf("measure requires --policy")
+	}
+	return result.validateLexical(name)
+}
+
+func (result options) validateSelectors(name string) error {
 	if name == "join" || name == "train" {
 		if result.round == "" || (len(result.features) == 0 && !result.lexical) {
 			return fmt.Errorf("join and train require --round and at least one --feature")
 		}
-	} else if result.round != "" || len(result.features) != 0 {
+		return nil
+	}
+	if result.round != "" || len(result.features) != 0 {
 		return fmt.Errorf("only join and train accept --round and --feature")
 	}
-	if err := result.validateLexical(name); err != nil {
-		return err
-	}
-
 	return nil
 }
 

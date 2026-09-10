@@ -72,6 +72,11 @@ corpus targets and measurements from the public engine. The separate
 source-group partitions, and complete prepared mappings. It does not change
 product results or qualify training data. See
 [ADR 0024](adr/0024-corpus-feature-bindings.md).
+`corpus.MeasureFindings` and the `corpus measure` command run one pinned
+policy over a reproduced corpus and attach each finding to the candidates that
+contain its primary span. The `unswell-corpus-findings-v1` artifact records
+counts per document and per unit under that policy's identity; it carries no
+label and no rate. See [ADR 0036](adr/0036-llm-pattern-evidence.md).
 The research `training` package and `corpus train` command connect these reproduced
 targets to Go fitting with separate training and calibration partitions. Their
 `unswell-editorial-training-v3` artifact records unqualified numerical experiments;

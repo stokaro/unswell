@@ -17,12 +17,7 @@ import (
 func measureRuleSources(ctx context.Context, engine *unswell.Engine, plan Plan,
 	files map[string][]byte,
 ) (unswell.FeatureCollection, error) {
-	configuration, err := measurementConfig(plan)
-	if err != nil {
-		return unswell.FeatureCollection{}, err
-	}
-	expected, _, err := config.CompileBundle(config.Bundle{Root: ".unswell.yaml",
-		Files: map[string][]byte{".unswell.yaml": configuration}}, engine.Catalog())
+	expected, err := frozenPlan(engine, plan)
 	if err != nil {
 		return unswell.FeatureCollection{}, err
 	}
@@ -55,16 +50,8 @@ func measureRuleSources(ctx context.Context, engine *unswell.Engine, plan Plan,
 func measureRuleSource(ctx context.Context, engine *unswell.Engine, expected *config.Plan, source Source,
 	data []byte,
 ) (*unswell.FeatureCollection, error) {
-	policy, err := engine.PolicyForFile(source.Path)
-	if err != nil {
+	if err := checkFrozenExtraction(engine, expected, source); err != nil {
 		return nil, err
-	}
-	frozen, err := expected.ForFile(source.Path)
-	if err != nil {
-		return nil, err
-	}
-	if policy.Analysis.IncludeQuotes || !sameRuleExtraction(policy.Extraction, frozen.Extraction) {
-		return nil, fmt.Errorf("rule extraction differs from frozen corpus policy for %s", source.ID)
 	}
 	result, err := engine.AnalyzeAll(ctx, []document.Source{{Name: source.Path, Format: source.Format, Bytes: data}})
 	if err != nil {
