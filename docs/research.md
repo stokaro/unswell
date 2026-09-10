@@ -25,7 +25,46 @@ source groups before extraction and verifies candidates against exact originals.
 Its eight pinned Ptah files produce 378 unlabeled development candidates; they
 provide workflow tests, with no human judgments or independent final-test evidence.
 
-## Execution order
+## Two research branches
+
+Research now runs on two branches. The active branch collects pattern
+association evidence without human labels. The deferred branch keeps every
+requirement that needs human judgment and waits for annotation resources.
+[ADR 0036](adr/0036-llm-pattern-evidence.md) fixes the boundary between them.
+
+### Active: LLM-associated patterns
+
+[#154](https://github.com/stokaro/unswell/issues/154) counts how often
+defined constructions occur in four cohorts. The cohorts are old technical
+English, saved LLM outputs under known conditions, AI-heavy projects, and
+current text. It also measures how much an LLM operation changes them. The
+[pattern protocol](../research/methods/llm-patterns-v1.md) fixes the cohorts,
+the date boundary, the experiment, the partitions, the measures, the
+statistics, and the budget caps for the pilot. The
+[sources record](../research/methods/llm-patterns-sources-v1.json) pins the
+six reviewed studies with their data terms and decisions.
+
+| Stage | Deliverable |
+| --- | --- |
+| A. Scope | ADR 0036, protocol version 1 with budget caps, sources record, pilot prompts, #22 on hold |
+| B. Historical corpus | Dated sources with confidence levels, a global plan, verified shards, and baseline rule measurements |
+| C. Comparable experiment | Saved permitted generation records, pilot tables, sample size, and protocol version 2 |
+| D. Confirmatory study | Executed comparisons, holdouts, intervals, ablations, and negative results |
+| E. Evidence release | Versioned data set, data card, report, table reproduction, and evidence cards |
+
+This branch produces prevalence, absolute differences, prevalence ratios,
+paired changes, and warning load per cohort. It produces no editorial label,
+no origin estimate, and no probability, and its artifacts keep
+`human_corpus: not_qualified`. No paid generation is authorized until a
+maintainer records a budget in the protocol.
+
+### Deferred: human validation
+
+[#22](https://github.com/stokaro/unswell/issues/22) is on hold with its text
+and acceptance criteria unchanged. The table below lists the branch. #55 and
+#21 are complete, and #22 is the labeled corpus itself. The remaining issues
+need that corpus and stay open until it exists; the
+[acceptance audit](acceptance.md) records their implementation.
 
 | Step | Issue | Deliverable |
 | --- | --- | --- |
@@ -47,7 +86,8 @@ and selected strings, with results reported separately by role and length. Inclu
 good technical English from non-native writers, mixed editing workflows, unseen
 generators, and later data. Keep related documents, authors, prompts, templates, and
 rewrites in the same partition. Human annotation requirements remain those in the
-[roadmap](roadmap.md); generated labels cannot fulfill them.
+[roadmap](roadmap.md); generated labels cannot fulfill them, and neither can the
+cohort measurements of the active branch.
 
 The first comparison uses inexpensive features and measures whether they add value
 beyond the phrase catalog. LLMDet then tests the value of stored probability tables.
