@@ -108,6 +108,7 @@ type FrequencyTables struct {
 	MinComponents int                `json:"min_components"`
 	Top           int                `json:"top"`
 	NLP           nlp.Identity       `json:"nlp"`
+	Pairing       *FrequencyPairing  `json:"pairing,omitempty"`
 	Inputs        []Input            `json:"inputs"`
 	Strata        []Stratum          `json:"strata"`
 	Measures      []FrequencyMeasure `json:"measures"`
@@ -126,6 +127,7 @@ type Frequencies struct {
 	counts   map[string]map[string][]int
 	selected map[string]map[string]bool
 	support  map[string]map[string][]map[string]bool
+	pairs    *pairing
 }
 
 // NewFrequencies prepares an accumulator with the English provider.
@@ -180,7 +182,7 @@ func (f *Frequencies) Add(ctx context.Context, artifact corpus.Artifact) error {
 		if candidate.Unit.Kind != frequencyUnit || candidate.Cohort == "" {
 			continue
 		}
-		i, err := f.stratum(candidate.Cohort, candidate.Unit.Role)
+		i, err := f.stratum(f.pairs.label(candidate), candidate.Unit.Role)
 		if err != nil {
 			return err
 		}
@@ -349,7 +351,7 @@ func (f *Frequencies) Support(ctx context.Context, artifact corpus.Artifact) err
 }
 
 func (f *Frequencies) supportUnit(ctx context.Context, candidate corpus.Candidate) error {
-	i := f.index[stratumKey(candidate.Cohort, candidate.Unit.Role)]
+	i := f.index[stratumKey(f.pairs.label(candidate), candidate.Unit.Role)]
 	keys, err := f.keys(ctx, candidate.Unit.Text)
 	if err != nil {
 		return err
@@ -384,7 +386,7 @@ func (f *Frequencies) Tables() FrequencyTables {
 	tables := FrequencyTables{Version: FrequencyVersion, HumanCorpus: "not_qualified", Unit: frequencyUnit,
 		Baseline: f.options.Baseline, Targets: f.targets(), MinCount: f.options.MinCount,
 		MinComponents: f.options.MinComponents, Top: f.options.Top, NLP: f.provider.Identity(),
-		Inputs: f.inputs, Strata: slices.Clone(f.strata), Measures: []FrequencyMeasure{}}
+		Pairing: f.pairs.summary(), Inputs: f.inputs, Strata: slices.Clone(f.strata), Measures: []FrequencyMeasure{}}
 	for _, measure := range frequencyMeasures {
 		tables.Measures = append(tables.Measures, f.measure(measure))
 	}

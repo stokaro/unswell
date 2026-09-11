@@ -112,3 +112,6 @@ that selection.
 - [September 12, 2026, specification](runs/2026-09-12-specification/README.md):
   the first full measurement under Amendment 2, with the RFC texts as a
   specification stratum and every text inside the candidate budget.
+- [September 12, 2026, paired frequencies](runs/2026-09-12-paired-frequencies/README.md):
+  the responses of both generation runs against the sentences of the
+  paragraphs they answer, by arm, with the repository mix removed.

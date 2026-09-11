@@ -125,6 +125,14 @@ by target count, and `--top` cuts each list. The items of a measure are
 the keys that enter a contrast, with their cell in every stratum where
 they reach the minimum.
 
+`--pair-tasks` and `--pair-records`, given once per generation run in the
+same order, relabel the strata of that run. A response whose task is in
+the set counts under `controlled-<operation>`, and the sentences of the
+paragraph a task names count under `<cohort>-paired`. Every other unit
+keeps its cohort. With `--baseline historical-paired` the contrasts put
+the responses against the sentences they answer, so the repository and
+language mix of the tasks drops out. The output names the pairing.
+
 The command reads the artifacts twice: once for the counts, once for the
 component support of the kept keys. It holds one artifact and the counts
 in memory. A high ratio is a proposal to read the sentences behind it. It

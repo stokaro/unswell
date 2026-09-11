@@ -13,6 +13,8 @@ import (
 
 type frequenciesOptions struct {
 	candidates    []string
+	pairTasks     []string
+	pairRecords   []string
 	baseline      string
 	targets       []string
 	minCount      int
@@ -35,6 +37,9 @@ func runFrequencies(ctx context.Context, args []string, _ io.Reader, output io.W
 	if err != nil {
 		return err
 	}
+	if err := pairRuns(ctx, frequencies, options); err != nil {
+		return err
+	}
 	if err := eachCandidateArtifact(ctx, options.candidates, frequencies.Add); err != nil {
 		return err
 	}
@@ -43,6 +48,25 @@ func runFrequencies(ctx context.Context, args []string, _ io.Reader, output io.W
 		return err
 	}
 	return writeResult(ctx, "frequencies", frequencies.Tables(), output)
+}
+
+// pairRuns registers each generation run's tasks and records, in order, so
+// the responses and the paragraphs they answer form their own strata.
+func pairRuns(ctx context.Context, frequencies *patterns.Frequencies, options frequenciesOptions) error {
+	for i, path := range options.pairTasks {
+		tasks, _, err := loadTasks(ctx, path)
+		if err != nil {
+			return err
+		}
+		records, err := loadGeneration(ctx, options.pairRecords[i])
+		if err != nil {
+			return err
+		}
+		if err := frequencies.Pair(tasks, records); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // eachCandidateArtifact loads the candidate artifacts one at a time, so the
@@ -79,6 +103,14 @@ func frequenciesFlags(args []string) (frequenciesOptions, error) {
 			options.targets = append(options.targets, value)
 			return nil
 		})
+	flags.Func("pair-tasks", "Task set of a generation run; pair with --pair-records in the same order", func(value string) error {
+		options.pairTasks = append(options.pairTasks, value)
+		return nil
+	})
+	flags.Func("pair-records", "Generation record of the run named by the matching --pair-tasks", func(value string) error {
+		options.pairRecords = append(options.pairRecords, value)
+		return nil
+	})
 	flags.Func("candidates", "Candidate artifact; repeat for every shard", func(value string) error {
 		options.candidates = append(options.candidates, value)
 		return nil
@@ -90,6 +122,9 @@ func frequenciesFlags(args []string) (frequenciesOptions, error) {
 		options.minCount < 0 || options.minComponents < 0 || options.top < 0 {
 		return frequenciesOptions{}, fmt.Errorf("frequencies requires 1 through %d --candidates and non-negative bounds",
 			patterns.MaxInputs)
+	}
+	if len(options.pairTasks) != len(options.pairRecords) {
+		return frequenciesOptions{}, fmt.Errorf("every --pair-tasks needs one --pair-records in the same order")
 	}
 	return options, nil
 }

@@ -7,6 +7,7 @@ import (
 
 	"github.com/stokaro/unswell/research/annotation"
 	"github.com/stokaro/unswell/research/annotation/corpus"
+	"github.com/stokaro/unswell/research/annotation/generation"
 	"github.com/stokaro/unswell/research/annotation/patterns"
 )
 
@@ -142,4 +143,51 @@ func TestFrequenciesRefuseSupportBeforeSelection(t *testing.T) {
 	c.Assert(tables.MinComponents, qt.Equals, 3)
 	c.Assert(tables.Top, qt.Equals, 200)
 	c.Assert(tables.Measures, qt.HasLen, 5)
+}
+
+// A task names the paragraph of h1 and h2; a generated response answers it.
+// Paired, those two sentences count under historical-paired and the response
+// under controlled-generate, while every other unit keeps its cohort.
+func TestFrequenciesPairTasksAndResponses(t *testing.T) {
+	c := qt.New(t)
+	inputs := frequencyFixture()
+	paragraph := "The client opens a connection to the server.  The server closes the connection after a timeout."
+	inputs[0].Units[0].Unit.Context = paragraph
+	inputs[0].Units[1].Unit.Context = paragraph
+	inputs[0].Units[1].SourceID = "h1"
+	response := sentence("r1", "R", "controlled", "comment", "The client opens a connection and waits.", 7)
+	response.Unit.Source.Reference = "generation:run/r1"
+	inputs[1].Units = append(inputs[1].Units, response)
+	frequencies, err := patterns.NewFrequencies(patterns.FrequencyOptions{Baseline: "historical-paired", MinCount: 1, MinComponents: 1})
+	c.Assert(err, qt.IsNil)
+	tasks := generation.Tasks{Cohort: "historical", Tasks: []generation.Task{{ID: "t1", SourceID: "h1", UnitID: "p1", Text: paragraph}}}
+	records := generation.Generation{Records: []generation.Record{{ResponseID: "r1", TaskID: "t1", Operation: "generate"}}}
+	c.Assert(frequencies.Pair(tasks, records), qt.IsNil)
+	stray := generation.Generation{Records: []generation.Record{{ResponseID: "r2", TaskID: "t9", Operation: "polish"}}}
+	c.Assert(frequencies.Pair(tasks, stray), qt.ErrorMatches, "record r2 names task t9 .*")
+	for _, artifact := range inputs {
+		c.Assert(frequencies.Add(t.Context(), artifact), qt.IsNil)
+	}
+	frequencies.Select()
+	for _, artifact := range inputs {
+		c.Assert(frequencies.Support(t.Context(), artifact), qt.IsNil)
+	}
+	tables := frequencies.Tables()
+	c.Assert(tables.Pairing, qt.DeepEquals, &patterns.FrequencyPairing{Cohort: "historical", Tasks: 2, Responses: 1})
+	sizes := map[string]int{}
+	for _, stratum := range tables.Strata {
+		sizes[stratum.Cohort+"/"+stratum.Role] = stratum.Sentences
+	}
+	c.Assert(sizes, qt.DeepEquals, map[string]int{"historical-paired/comment": 2, "historical/comment": 1, "historical/readme": 1,
+		"contemporary/comment": 4, "controlled-generate/comment": 1})
+	c.Assert(tables.Targets, qt.DeepEquals, []string{"contemporary", "controlled-generate", "historical"})
+	var opener patterns.FrequencyContrast
+	for _, contrast := range tables.Measures[3].Contrasts {
+		if contrast.Cohort == "controlled-generate" && contrast.Key == "the client opens" {
+			opener = contrast
+		}
+	}
+	c.Assert(opener.Key, qt.Equals, "the client opens")
+	c.Assert(opener.Baseline.Count, qt.Equals, 1)
+	c.Assert(opener.Target.Count, qt.Equals, 1)
 }
