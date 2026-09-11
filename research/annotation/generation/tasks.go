@@ -104,8 +104,8 @@ type Reader func(path string) ([]byte, error)
 
 // Add indexes the eligible paragraphs of one candidate artifact. A unit is
 // eligible when it is a paragraph of an admitted role in the cohort and an
-// admitted partition, and when a fact sheet can be read from the source
-// bytes after it. Files are read on demand through the reader.
+// admitted partition, and when the source bytes after it yield a fact
+// sheet. The reader loads files on demand.
 func (s *Sampler) Add(ctx context.Context, artifact corpus.Artifact, read Reader) error {
 	if artifact.Version != corpus.Version {
 		return fmt.Errorf("unsupported candidate artifact version")

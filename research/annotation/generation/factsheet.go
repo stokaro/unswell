@@ -60,11 +60,11 @@ func ExtractFactSheet(source []byte, end int, original string) (FactSheet, bool)
 	return sheet, true
 }
 
-// declarationAfter returns the declaration header that starts within the
-// first three non-empty lines after the unit and runs to the first line that
-// ends the header: a line ending in "{", ":", ";", "=", or ")", or the end of
-// the block. Comment lines between the unit and the declaration are skipped;
-// a blank line before any declaration means none follows.
+// declarationAfter returns the declaration header after the unit. The header
+// must start within the first three non-empty lines. It runs to the first
+// line that ends in "{", ":", ";", "=", or ")", or to the end of the block.
+// Comment lines before the declaration are skipped. A blank line before any
+// declaration means none follows.
 func declarationAfter(rest string) (string, bool) {
 	lines := strings.Split(rest, "\n")
 	if len(lines) > 0 && strings.TrimSpace(lines[0]) != "" && !strings.Contains(lines[0], "*/") {

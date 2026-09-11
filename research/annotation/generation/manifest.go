@@ -31,11 +31,10 @@ type ImportOptions struct {
 }
 
 // BuildManifests turns every complete response into a source of the
-// controlled cohort. A response inherits its task's repository, topic,
-// purpose, rights, and notices, carries the generation record as its
-// origin evidence, and lists its task as a generation-task link. Refused,
-// truncated, and failed responses produce no source; they stay in the
-// record as coverage.
+// controlled cohort. A source takes the repository, topic, purpose, rights,
+// and notices of its task. Its origin names the generation record, and its
+// task link names the task. Refused, truncated, and failed responses produce
+// no source; they stay in the record as coverage.
 func BuildManifests(generation Generation, tasks Tasks, options ImportOptions) ([]Imported, error) {
 	byTask := map[string]Task{}
 	for _, task := range tasks.Tasks {

@@ -88,10 +88,10 @@ type generationsOptions struct {
 	tasks, requests, responses, records, work, output, historical string
 }
 
-// runGenerations joins a run's responses with its requests and tasks, writes
-// the generation record, and imports every complete response as a source of
-// the controlled cohort: one file per response under the cohort's checkout
-// directory and one shard manifest per repository.
+// runGenerations joins a run's responses with its requests and tasks and
+// writes the generation record. Every complete response becomes a source of
+// the controlled cohort. The import writes one file per response under the
+// cohort's checkout directory and one shard manifest per repository.
 func runGenerations(ctx context.Context, args []string, _ io.Reader, output io.Writer) error {
 	options, err := generationsFlags(args[1:])
 	if err != nil {
