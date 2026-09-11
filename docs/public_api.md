@@ -86,7 +86,11 @@ document or unit kind. Their intervals are a cluster bootstrap over
 provenance components; they decide nothing. `corpus first-appearance` writes
 the `unswell-first-appearance-v1` filter of a later cohort's new units, and
 `corpus dedupe` the `unswell-unit-selection-v1` selection that keeps each
-unit text once across cohorts. Manifest snapshots may name the dated
+unit text once across cohorts. Research `generation` samples documentation
+tasks with deterministic fact sheets and builds request texts. Saved
+responses become `unswell-generation-v1` records and controlled-cohort
+shards through `corpus tasks`, `requests`, and `generations`; no command
+calls a model. Manifest snapshots may name the dated
 historical periods `historical-2012`, `historical-2016`, and
 `historical-2018`; a dataset holds up to 512 shards. `corpus acquire` builds a shard
 manifest from a checkout by the fixed rules of a record and lists every file

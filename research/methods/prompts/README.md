@@ -7,7 +7,9 @@ changed prompt gets a new file with a new version suffix, and the old file
 stays in place for the runs that used it.
 
 Each prompt receives the task material in a separate message and asks for one
-document of a stated length. Neither prompt names a construction under study,
+document of a stated length. Under amendment 1, an agent run puts the
+operation line, the body, and the material in one message with a separator,
+and the request record stores that message. Neither prompt names a construction under study,
 asks for typical AI text, or asks the model to avoid any pattern. The tooling
 picks the opening line for the operation from the table below; the shared
 body follows it.
