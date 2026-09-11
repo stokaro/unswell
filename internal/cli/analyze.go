@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"io"
@@ -44,7 +45,15 @@ func readLimited(path string, limit int) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	data, readErr := io.ReadAll(io.LimitReader(file, int64(limit)+1))
+	// Size the buffer from the file once. Growing it by doubling from a few
+	// hundred bytes cost a scan of hundreds of files more reads than parsing.
+	capacity := 512
+	if info, statErr := file.Stat(); statErr == nil && info.Size() >= 0 && info.Size() <= int64(limit) {
+		capacity = int(info.Size()) + 1
+	}
+	buffer := bytes.NewBuffer(make([]byte, 0, capacity))
+	_, readErr := buffer.ReadFrom(io.LimitReader(file, int64(limit)+1))
+	data := buffer.Bytes()
 	closeErr := file.Close()
 	if readErr != nil {
 		return nil, readErr
@@ -233,7 +242,7 @@ func readSources(
 		if err != nil {
 			return nil, err
 		}
-		policy, err := engine.PolicyForFile(filepath.ToSlash(name))
+		policy, err := engine.ResolvedPolicy(filepath.ToSlash(name))
 		if err != nil {
 			return nil, err
 		}

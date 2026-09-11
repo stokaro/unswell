@@ -7,6 +7,7 @@ import (
 	"regexp"
 	"slices"
 	"strings"
+	"sync"
 
 	"go.yaml.in/yaml/v3"
 
@@ -41,14 +42,16 @@ type fileLayer struct {
 	patterns []*regexp.Regexp
 }
 
-// Plan is an immutable compiled configuration graph. Returned policies are owned
-// snapshots; callers may modify them without changing subsequent resolutions.
+// Plan is an immutable compiled configuration graph. Policy returns an owned
+// snapshot that callers may modify. ForFile returns the shared resolution of
+// one override combination, which callers read and never modify in place.
 type Plan struct {
 	base         Policy
 	catalog      []rule.Descriptor
 	overrides    []fileLayer
 	dictionaries map[string][]string
 	enabled      map[string]bool
+	resolved     sync.Map
 }
 
 type bundleCompiler struct {
@@ -330,32 +333,84 @@ func (p *Plan) Policy() (Policy, error) {
 
 // ForFile resolves ordered overrides for a project-relative logical source name.
 // It validates the complete selected combination before prose analysis begins.
+// The returned policy is an owned snapshot that the caller may modify.
 func (p *Plan) ForFile(name string) (Policy, error) {
-	policy, err := p.Policy()
+	resolved, err := p.resolution(name)
 	if err != nil {
 		return Policy{}, err
 	}
-	if len(p.overrides) == 0 || name == "" {
-		return policy, nil
-	}
-	name, err = resourceName(name, false)
+	var owned Policy
+	err = json.Unmarshal(resolved.data, &owned)
+	return owned, err
+}
+
+// Resolution returns the shared policy of a source name. Its override
+// combination is resolved once per plan, so a scan of many files pays one map
+// lookup per file instead of a copy of the whole policy. Callers read the
+// result and never modify its maps or slices; ForFile returns an owned copy
+// of the same resolution.
+func (p *Plan) Resolution(name string) (Policy, error) {
+	resolved, err := p.resolution(name)
 	if err != nil {
-		return Policy{}, fmt.Errorf("override source name: %w", err)
+		return Policy{}, err
 	}
-	for _, override := range p.overrides {
-		if !pathglob.Matches(name, override.patterns) {
-			continue
+	return resolved.policy, nil
+}
+
+// resolution holds one resolved override combination and its serialized form,
+// from which owned copies are decoded.
+type resolution struct {
+	policy Policy
+	data   []byte
+}
+
+func (p *Plan) resolution(name string) (resolution, error) {
+	var selected []fileLayer
+	if len(p.overrides) > 0 && name != "" {
+		resource, err := resourceName(name, false)
+		if err != nil {
+			return resolution{}, fmt.Errorf("override source name: %w", err)
 		}
+		for _, override := range p.overrides {
+			if pathglob.Matches(resource, override.patterns) {
+				selected = append(selected, override)
+			}
+		}
+	}
+	key := make([]string, 0, len(selected))
+	for _, override := range selected {
+		key = append(key, override.identity.ID)
+	}
+	return p.resolve(strings.Join(key, "\x00"), selected)
+}
+
+// resolve returns one override combination, computing it on the first request.
+// A failed resolution is not remembered, so the error repeats.
+func (p *Plan) resolve(key string, selected []fileLayer) (resolution, error) {
+	if cached, ok := p.resolved.Load(key); ok {
+		return cached.(resolution), nil
+	}
+	policy, err := p.Policy()
+	if err != nil {
+		return resolution{}, err
+	}
+	for _, override := range selected {
 		if err := applyLayer(override.raw, &policy, p.catalog, override.identity.ID); err != nil {
-			return Policy{}, err
+			return resolution{}, err
 		}
 		policy.AppliedOverrides = append(policy.AppliedOverrides, override.identity.ID)
 	}
-	if len(policy.AppliedOverrides) == 0 {
-		return policy, nil
+	if len(policy.AppliedOverrides) > 0 {
+		if err := p.finish(&policy); err != nil {
+			return resolution{}, err
+		}
 	}
-	err = p.finish(&policy)
-	return policy, err
+	data, err := json.Marshal(policy)
+	if err != nil {
+		return resolution{}, err
+	}
+	stored, _ := p.resolved.LoadOrStore(key, resolution{policy: policy, data: data})
+	return stored.(resolution), nil
 }
 
 func (p *Plan) finish(policy *Policy) error {

@@ -3,6 +3,7 @@ package extract
 import (
 	"context"
 	"fmt"
+	"sync"
 	"sync/atomic"
 	"time"
 
@@ -44,27 +45,56 @@ func invalidSyntax(name string) error {
 	return fmt.Errorf("parse %s: %s grammar returned an incomplete or invalid syntax tree", name, name)
 }
 
+// parsers keeps idle parsers by grammar name. Building a parser derives tables
+// from its language that cost more than parsing a short block, and a Markdown
+// document parses every inline block on its own. A fresh parser per block
+// dominated the scan of a documentation tree; a parser that finished cleanly
+// is kept for the next block of the same grammar instead.
+var parsers sync.Map
+
+func acquireParser(name string) (*ts.Parser, error) {
+	pool, _ := parsers.LoadOrStore(name, &sync.Pool{})
+	if parser, ok := pool.(*sync.Pool).Get().(*ts.Parser); ok {
+		return parser, nil
+	}
+	lang, err := syntaxLanguage(name)
+	if err != nil {
+		return nil, err
+	}
+	parser := ts.NewParser(lang)
+	parser.SetLogger(nil)
+	return parser, nil
+}
+
+// releaseParser returns a parser whose parse completed. A parser that timed
+// out, was canceled, or failed is dropped: nothing in this package relies on
+// its state after such a run, and a fresh one costs less than doubt.
+func releaseParser(name string, parser *ts.Parser) {
+	parser.SetCancellationFlag(nil)
+	if pool, ok := parsers.Load(name); ok {
+		pool.(*sync.Pool).Put(parser)
+	}
+}
+
 // parseSyntaxTree preserves error nodes only for bounded grammar normalization.
 // Callers must validate the complete final tree before extracting any prose.
 func parseSyntaxTree(ctx context.Context, source []byte, name string) (syntaxTree, error) {
 	if err := ctx.Err(); err != nil {
 		return syntaxTree{}, err
 	}
-	lang, err := syntaxLanguage(name)
+	parser, err := acquireParser(name)
 	if err != nil {
 		return syntaxTree{}, err
 	}
-	parser := ts.NewParser(lang)
-	parser.SetLogger(nil)
 	// #nosec G115 -- The budget is a positive duration computed from a non-negative size.
 	parser.SetTimeoutMicros(uint64(parseBudget(len(source)) / time.Microsecond))
 	var canceled uint32
 	parser.SetCancellationFlag(&canceled)
 	stop := context.AfterFunc(ctx, func() { atomic.StoreUint32(&canceled, 1) })
-	defer stop()
 	// Use each grammar's DFA and attached scanner. The registry's C-family
 	// token factory misclassifies C++ raw literals as concatenated strings.
 	tree, err := parser.ParseStrict(source)
+	stop()
 	if ctx.Err() != nil {
 		err = ctx.Err()
 	}
@@ -77,6 +107,8 @@ func parseSyntaxTree(ctx context.Context, source []byte, name string) (syntaxTre
 		}
 		return syntaxTree{}, fmt.Errorf("parse %s: %w", name, err)
 	}
+	lang := parser.Language()
+	releaseParser(name, parser)
 	return syntaxTree{tree: tree, lang: lang}, nil
 }
 

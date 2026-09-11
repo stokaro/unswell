@@ -79,7 +79,7 @@ func captureBaseline(ctx context.Context, environment Environment, options check
 	if err := ctx.Err(); err != nil {
 		return err
 	}
-	if err := atomicWrite(path, data); err != nil {
+	if err := atomicWrite(path, writeBytes(data)); err != nil {
 		return err
 	}
 	_, err = fmt.Fprintf(environment.Out, "Baseline %s: %d accepted entries across %d documents.\n",

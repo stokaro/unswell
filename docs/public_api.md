@@ -269,7 +269,9 @@ the same. See [custom rules](custom-rules.md) for the versioned YAML contract.
 Configuration inheritance adds `config.Bundle`, `Reference`, `SourceIdentity`,
 `OverrideIdentity`, `Vocabulary`, and immutable `Plan`, plus `CompileBundle`,
 `References`, and `ResolveReference`. Plans return owned base and per-file policies
-and a conservative list of possibly enabled rule IDs. `Options.ConfigBundle`,
+and a conservative list of possibly enabled rule IDs. `Plan.Resolution` and
+`Engine.ResolvedPolicy` return the shared, read-only resolution of a file's
+override combination for callers that only read it. `Options.ConfigBundle`,
 `Engine.PolicyForFile`, and `Engine.Catalog` expose those capabilities through the
 engine. The caller grants any outside-root permission explicitly; the library still
 performs no filesystem access.

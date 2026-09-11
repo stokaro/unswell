@@ -17,7 +17,7 @@ import (
 )
 
 func (e *Engine) analyzeSource(ctx context.Context, source document.Source, identities *sourceIdentities) (RunResult, error) {
-	result := e.emptyResult()
+	result := e.partialResult()
 	doc, err := extract.Parse(
 		ctx,
 		source,
