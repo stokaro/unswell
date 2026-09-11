@@ -96,3 +96,36 @@ prevalence ratio, which stays `undefined` when either cohort has no finding.
 A difference is an association between cohorts under this policy. It is not
 a false-positive rate, not recall, and not a decision. The protocol's
 evidence-card rules decide a state from these numbers at a later stage.
+
+## Frequency tables
+
+`corpus frequencies --candidates ...` counts constructions instead of
+findings. The corpus can then propose candidates that no rule names yet.
+The command reads the sentence units of the candidate artifacts and tags
+them with the English provider. It counts five measures per cohort and
+role: word unigrams, bigrams, and trigrams of lowercase alphabetic words,
+the first three words of a sentence, and the part-of-speech template of
+the sentence. A number, an identifier, or a punctuation mark breaks the
+n-gram window. The template holds the coarse tags of the words, cut at
+twelve. The output is `unswell-frequency-tables-v1`.
+
+A stratum is one cohort and role with its sentences, words, and
+provenance components. Each measure lists contrasts for every target
+stratum against the same role of the baseline. The targets are the
+cohorts named by `--target`, or every cohort but the baseline. A key
+enters a contrast when it reaches `--min-count` in the target stratum
+and appears in `--min-components` of its components. A contrast holds
+both counts, both rates per 1,000 words, and both component supports. It
+holds the ratio of the rates only when the baseline also reaches the
+minimum count. Otherwise its status says whether the baseline holds the
+key below the minimum or not at all.
+
+Defined ratios sort first, descending. The other statuses follow, sorted
+by target count, and `--top` cuts each list. The items of a measure are
+the keys that enter a contrast, with their cell in every stratum where
+they reach the minimum.
+
+The command reads the artifacts twice: once for the counts, once for the
+component support of the kept keys. It holds one artifact and the counts
+in memory. A high ratio is a proposal to read the sentences behind it. It
+is not a rule, not a defect, and not a claim about who wrote the text.
