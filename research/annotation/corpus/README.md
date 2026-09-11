@@ -189,11 +189,12 @@ pinned copy against its recorded digest. Limits are 512 shards and 200,000
 sources; each shard keeps the manifest limits above.
 
 `union` joins the pinned sources of chosen shards into one manifest, so a
-corpus can span cohorts. `--cohort`, `--repository`, and `--role` pick sources,
-`--unit-kind` narrows the kinds, `--max-per-checkout` keeps the first N
-sources of each checkout in ID order except in an `--uncapped-cohort`,
-`--max-source-bytes` drops files above a size, `--exclude-source` leaves out
-named sources, and `--id` names the result. Each source and
+corpus can span cohorts. `--cohort`, `--repository`, and `--role` pick
+sources, and an `--every-role-cohort` enters whatever its roles. `--unit-kind`
+narrows the kinds. `--max-per-checkout` keeps the first N sources of each
+checkout in ID order except in an `--uncapped-cohort`. `--max-source-bytes`
+drops files above a size, `--exclude-source` leaves out named sources, and
+`--id` names the result. Each source and
 notice path gains the prefix `cohort/owner__repo`. That is the checkout layout
 the acquisition driver writes, so `plan` and `extract --root` read all cohorts
 from the work directory. Partitions stay pinned to the dataset's assignment.
