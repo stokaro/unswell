@@ -42,8 +42,11 @@ func readFiles(ctx context.Context, root *os.Root, required []corpus.Notice) (ma
 	return files, nil
 }
 
+// readFile reads one declared file through the root. A symbolic link is
+// followed only inside the root, so a notice kept as a link into the
+// checkout is read while a link that leaves it is refused.
 func readFile(root *os.Root, declared corpus.Notice) ([]byte, error) {
-	info, err := root.Lstat(declared.Path)
+	info, err := root.Stat(declared.Path)
 	if err != nil {
 		return nil, err
 	}

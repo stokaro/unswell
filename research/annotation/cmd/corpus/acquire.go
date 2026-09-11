@@ -45,7 +45,7 @@ func runAcquire(ctx context.Context, args []string, _ io.Reader, output io.Write
 	if err != nil {
 		return err
 	}
-	files, skipped, err := walkCheckout(ctx, options.root, record.Selection)
+	files, skipped, err := walkCheckout(ctx, options.root, record)
 	if err != nil {
 		return err
 	}
@@ -81,12 +81,12 @@ func acquireFlags(args []string) (acquireOptions, error) {
 // and returns the directories it did not enter. Files above the record's byte
 // cap are read to the cap plus one byte so the library can exclude them by
 // rule; version-control metadata and excluded segments are never entered.
-func walkCheckout(ctx context.Context, directory string, rules corpus.SelectionRules) (map[string][]byte, []string, error) {
+func walkCheckout(ctx context.Context, directory string, record corpus.Acquisition) (map[string][]byte, []string, error) {
 	root, err := os.OpenRoot(directory)
 	if err != nil {
 		return nil, nil, err
 	}
-	walk, walkErr := walkRoot(ctx, root, rules)
+	walk, walkErr := walkRoot(ctx, root, record.Selection, record.Repository.Notices)
 	closeErr := root.Close()
 	if walkErr != nil {
 		return nil, nil, walkErr
@@ -99,13 +99,18 @@ type checkoutWalk struct {
 	limit    int
 	total    int
 	excluded []string
+	notices  []string
 	files    map[string][]byte
 	skipped  []string
 }
 
-func walkRoot(ctx context.Context, root *os.Root, rules corpus.SelectionRules) (*checkoutWalk, error) {
+// walkRoot reads every regular file of the checkout. A symbolic link is
+// followed only when it is a declared notice and resolves to a regular file
+// inside the root; every other link is left out, so a linked document
+// cannot enter a shard twice under two names.
+func walkRoot(ctx context.Context, root *os.Root, rules corpus.SelectionRules, notices []string) (*checkoutWalk, error) {
 	walk := &checkoutWalk{root: root, limit: max(rules.MaxSourceBytes, corpus.MaxSourceBytes) + 1,
-		excluded: rules.ExcludedSegments, files: map[string][]byte{}}
+		excluded: rules.ExcludedSegments, notices: notices, files: map[string][]byte{}}
 	err := fs.WalkDir(root.FS(), ".", func(name string, entry fs.DirEntry, err error) error {
 		if err != nil {
 			return err
@@ -121,6 +126,19 @@ func walkRoot(ctx context.Context, root *os.Root, rules corpus.SelectionRules) (
 	return walk, nil
 }
 
+// readable reports whether an entry is a regular file, or a declared notice
+// linked to a regular file inside the root.
+func (walk *checkoutWalk) readable(name string, entry fs.DirEntry) bool {
+	if entry.Type().IsRegular() {
+		return true
+	}
+	if entry.Type()&fs.ModeSymlink == 0 || !slices.Contains(walk.notices, name) {
+		return false
+	}
+	info, err := walk.root.Stat(name)
+	return err == nil && info.Mode().IsRegular()
+}
+
 func (walk *checkoutWalk) visit(name string, entry fs.DirEntry) error {
 	if entry.IsDir() {
 		base := path.Base(name)
@@ -133,7 +151,7 @@ func (walk *checkoutWalk) visit(name string, entry fs.DirEntry) error {
 		}
 		return nil
 	}
-	if !entry.Type().IsRegular() {
+	if !walk.readable(name, entry) {
 		return nil
 	}
 	if len(walk.files) >= maxAcquireFiles {

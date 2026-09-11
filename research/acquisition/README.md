@@ -33,7 +33,8 @@ the log shows. A date the record confirms makes the snapshot
 `corroborated`; a snapshot without a readable record stays `vcs_only`, and
 one dated after the boundary is skipped and logged. The offline
 `corpus acquire` command then applies the fixed selection rules and writes
-the shard manifest with every exclusion. The script records every outcome
+the shard manifest with every exclusion. A notice kept as a link into the
+checkout is read; any other link is left out. The script records every outcome
 in `acquisition-log.json` under `artifacts/acquisition`, including clone
 failures and missing notices, and it never edits a checkout.
 
