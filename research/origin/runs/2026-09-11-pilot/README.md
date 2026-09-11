@@ -56,6 +56,22 @@ isotonic map saturates near zero and abstains on most of the development
 partition. The confirmation partition has ten provenance components.
 `evaluation-final_test.json` carries the per-group and per-stratum metrics.
 
+The intervals resample those ten components 10,000 times with the fixed
+seed. The development partition is one component, so it has none.
+
+| Confirmation metric | Estimate | Interval |
+| --- | --- | --- |
+| Coverage | 99.4% | 99.0% to 99.9% |
+| Recall | 0 | 0 to 0 |
+| False-positive rate | 0 | none: no component flags anything |
+| Brier | 0.0226 | 0.0071 to 0.0497, against a constant of 0.0225 |
+
+The strata by generation arm come from the pilot's records. All 36 endpoints
+of the confirmation partition are `generate` responses of one family, 16
+under the `neutral` prompt and 20 under `plain`; every one is missed. The
+`polish` arm has no stratum, because its responses are unresolved under the
+origin profile and counted as exclusions.
+
 ## What this run does not show
 
 The fit saw 26 endpoints. That is not a test of the origin channel. It is the
@@ -66,9 +82,8 @@ different fit.
 
 Every endpoint is a Markdown document and every negative a code comment, so a
 model that separated them could be reading the source format. The strata by
-prompt condition and generator family that #179 asks for need a join with the
-generation records; the evaluation stratifies by role, language, words, and
-declared origin only. One family (`claude-opus-5` through session agents) ran;
-every other family is untested. The generator may have seen the historical
-text, and the generation records flag verbatim overlap. Nothing here is an
-authorship verdict or a share of text written by a tool.
+prompt condition and family hold 16 and 20 endpoints, too few to compare the
+prompts. One family (`claude-opus-5` through session agents) ran; every other
+family is untested. The generator may have seen the historical text, and the
+generation records flag verbatim overlap. Nothing here is an authorship
+verdict or a share of text written by a tool.
