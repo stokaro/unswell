@@ -72,5 +72,6 @@ One corpus on one host does not qualify this tool's speed. Real corpora differ
 in format mix, in sentence length, and in how many repetition candidates they
 carry. A document with many findings also pays more to write its reports. This
 run used a build from the recorded commit, not a published release binary.
-Measurements on other architectures, on real project corpora, and with a
-configured probability model remain open under #28.
+Measurements on other architectures, on real project corpora, with published
+release binaries, and with a configured probability model are tracked in
+[#174](https://github.com/stokaro/unswell/issues/174).
