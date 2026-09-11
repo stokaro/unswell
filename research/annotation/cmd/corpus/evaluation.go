@@ -15,7 +15,7 @@ import (
 
 type evaluationOptions struct {
 	root, model, plan, protocol, rules, corpus, round string
-	labels                                            string
+	labels, generation                                string
 	allowSimulation                                   bool
 }
 
@@ -58,6 +58,7 @@ func evaluationFlags(args []string) (evaluationOptions, error) {
 		flags.StringVar(&options.corpus, "corpus", "", "Frozen candidate artifact used by prediction")
 		flags.StringVar(&options.round, "round", "", "Independent evaluation annotation round")
 		flags.StringVar(&options.labels, "labels", "", "Label source instead of a round: provenance or cohort, from the corpus")
+		flags.StringVar(&options.generation, "generation", "", "Generation records whose arms add operation, prompt, and family strata")
 		flags.BoolVar(&options.allowSimulation, "allow-simulation", false, "Allow explicitly simulated tutorial labels")
 	}
 	if err := flags.Parse(args[1:]); err != nil {
@@ -144,18 +145,37 @@ func evaluateOperation(ctx context.Context, options evaluationOptions, data []by
 	if err != nil {
 		return evaluation.Result{}, err
 	}
+	settings, err := evaluationSettings(ctx, options, candidates)
+	if err != nil {
+		return evaluation.Result{}, err
+	}
 	if options.labels != "" {
 		decisions, err := labelDecisions(ctx, options.labels, candidates)
 		if err != nil {
 			return evaluation.Result{}, err
 		}
-		return evaluation.RunDecisions(ctx, data, candidates, decisions, options.allowSimulation)
+		return evaluation.EvaluateDecisions(ctx, data, candidates, decisions, settings)
 	}
 	round, err := loadRound(ctx, options.round)
 	if err != nil {
 		return evaluation.Result{}, err
 	}
-	return evaluation.Run(ctx, data, candidates, round, options.allowSimulation)
+	return evaluation.Evaluate(ctx, data, candidates, round, settings)
+}
+
+// evaluationSettings reads the optional generation records and maps their
+// arms onto the corpus, so the strata can name each controlled source's arm.
+func evaluationSettings(ctx context.Context, options evaluationOptions, candidates corpus.Artifact) (evaluation.Options, error) {
+	settings := evaluation.Options{AllowSimulation: options.allowSimulation}
+	if options.generation == "" {
+		return settings, nil
+	}
+	records, err := loadGeneration(ctx, options.generation)
+	if err != nil {
+		return evaluation.Options{}, err
+	}
+	settings.Arms, err = evaluation.ArmsFromRecords(candidates, records)
+	return settings, err
 }
 
 func loadLocalArtifact(ctx context.Context, path string, maximum int, description string) ([]byte, error) {

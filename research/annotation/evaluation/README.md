@@ -115,12 +115,21 @@ or denominator yields `null`, including FPR on a positive-only set.
   rate can be read under a repository's own base rate. It needs both rates.
 - The same counts and metrics are retained for each source group, in sorted order.
   These group results are not confidence intervals or automatic independence proof.
-- Strata repeat the counts and metrics for every value of five dimensions the
-  corpus artifact records: prose words in fixed buckets (1–19, 20–49, 50–99,
-  100–199, 200+), unit role, source language, prose language, and origin label.
-  An absent value reads `unknown`. The counts are the sample size; a sparse stratum
-  is reported with that size rather than hidden. Domain, generator family, editing
-  workflow and non-native subsets are not corpus fields, so they are not strata.
+- Strata repeat the counts and metrics for every value of eight dimensions.
+  Five come from the corpus artifact: prose words in fixed buckets (1–19,
+  20–49, 50–99, 100–199, 200+), unit role, source language, prose language,
+  and origin label. Three come from a source's generation record when
+  `evaluate --generation` names the records: operation, prompt condition, and
+  generator family. An absent corpus value reads `unknown`; a source without
+  a generation record reads `none`. The counts are the sample size; a sparse
+  stratum is reported with that size rather than hidden. Domain, editing
+  workflow, and non-native subsets are not corpus fields, so they are not
+  strata.
+- Intervals resample the source groups of the one trial 10,000 times with the
+  fixed seed 17. That is the paired procedure with the trial on both sides.
+  Every metric gets its unit-weighted and group-averaged estimate with a
+  percentile interval. Fewer than two groups give no interval. An interval
+  over declared groups is not independence proof.
 
 The response kind remains explicit. A Brier/ECE calculation on uncalibrated
 sigmoid outputs does not make them calibrated product probabilities. Both

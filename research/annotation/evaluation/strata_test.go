@@ -27,14 +27,20 @@ func TestStratifyBreaksDownByRecordedAttributes(t *testing.T) {
 		observed("c", "two", 1, 0.4), {UnitID: "d", GroupID: "two", Label: 0},
 	}
 	attributes := map[string]evaluation.Attributes{
-		"a": {Words: 12, Role: "paragraph", Language: "markdown", ProseLanguage: "en", Origin: "human"},
+		"a": {Words: 12, Role: "paragraph", Language: "markdown", ProseLanguage: "en", Origin: "human",
+			Operation: "generate", Prompt: "neutral", Family: "anthropic-claude"},
 		"b": {Words: 30, Role: "paragraph", Language: "go", ProseLanguage: "en", Origin: "human"},
 		"c": {Words: 250, Role: "comment", Language: "go", ProseLanguage: "en"},
 		"d": {Words: 200, Role: "comment", Language: "go", ProseLanguage: "en", Origin: "machine"},
 	}
 	strata, err := evaluation.Stratify(t.Context(), rows, attributes, 0.5)
 	c.Assert(err, qt.IsNil)
-	c.Assert(strata, qt.HasLen, 11)
+	c.Assert(strata, qt.HasLen, 17)
+	generated := stratumFor(strata, "operation", "generate")
+	c.Assert(generated, qt.IsNotNil)
+	c.Assert(generated.Metrics.Counts.Eligible, qt.Equals, 1)
+	c.Assert(stratumFor(strata, "prompt", "none").Metrics.Counts.Eligible, qt.Equals, 3)
+	c.Assert(stratumFor(strata, "family", "anthropic-claude").Metrics.Counts.TP, qt.Equals, 1)
 	short := stratumFor(strata, "words", "1-19")
 	c.Assert(short, qt.IsNotNil)
 	c.Assert(short.Metrics.Counts.Eligible, qt.Equals, 1)

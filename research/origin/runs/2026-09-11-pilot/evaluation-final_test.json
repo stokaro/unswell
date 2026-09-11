@@ -1,19 +1,19 @@
 {
-  "version": "unswell-research-evaluation-v4",
-  "sha256": "208f66ff4dfae1367228c5e885be535a3b33c57c70657f6efbf4db233aaa331e",
+  "version": "unswell-research-evaluation-v5",
+  "sha256": "89cff64ecdd6dbaddc49930755300dc450362f41394d8dbb0cb754b5a0ffefb1",
   "status": "experimental_metrics",
   "human_corpus": "not_qualified",
   "probability_status": "unavailable_unqualified_model",
   "basis": "declared_provenance",
   "training_basis": "declared_provenance",
-  "predictions_sha256": "605b86b4cd3ab9afadb07b1017c05a654900a9af840ddcea8a2ab2458f9d21db",
-  "plan_sha256": "f22e557f746718c30290eecede757048725543c6cbede3b4e917fa0362986a73",
+  "predictions_sha256": "195df336452c8c4d94635cf268158c19a9d9d60e62599b640603032aa3179e28",
+  "plan_sha256": "3731a2cf09094cb7ecb3512bb41d80b08372d727c2794fba7408acfbff6c3e16",
   "plan": {
     "version": "unswell-research-predictions-v2",
     "id": "origin-pilot-v1-final_test",
     "protocol_sha256": "04dba5e3b802188cef316d530f23253ca809ab503cab3d8fc900c71028ea8b41",
-    "model_sha256": "a5376547a9332bbfc0bbf712d941e08da967e08537ae1e855e9d242e6cbd31d4",
-    "corpus_sha256": "19d65e1bf847cb1b22701148da0116149f0456abdf38aa79c3767f6958bbde55",
+    "model_sha256": "307d31ac398c3e69e1d4f8359fb722e3c71b95a3cecdfc9356778623cd997790",
+    "corpus_sha256": "0fc7c3746dbf4c33872e9acd8a5d1d28e911d888c5a6a0a5ab09f1b9e267a7c6",
     "partition": "final_test",
     "context": "prepared_piece",
     "response": "isotonic",
@@ -297,8 +297,8 @@
     "include_quotes": false,
     "include_structure": false
   },
-  "decisions_sha256": "c5d903555da6e9557924270e8d70a30eadfbcbecb2c2c49a9d416c7552a7a55b",
-  "round_sha256": "19d65e1bf847cb1b22701148da0116149f0456abdf38aa79c3767f6958bbde55",
+  "decisions_sha256": "57290df565f9181de87bb1b74b803773f0c3b0ab42f843e51219da75eab2d1c1",
+  "round_sha256": "0fc7c3746dbf4c33872e9acd8a5d1d28e911d888c5a6a0a5ab09f1b9e267a7c6",
   "candidates": 1608,
   "excluded_labels": {
     "decision/polished_response": 27
@@ -1418,7 +1418,452 @@
       }
     ]
   },
+  "intervals": {
+    "method": "source-group-pcg17-percentile-v1",
+    "replicates": 10000,
+    "seed": 17,
+    "groups": 10,
+    "metrics": [
+      {
+        "id": "coverage",
+        "micro": {
+          "value": 0.9943074003795066,
+          "defined_groups": 10,
+          "interval": {
+            "status": "numerical_percentile",
+            "reason": "",
+            "lower": 0.989736633048278,
+            "upper": 0.9991251284804434,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 0.99374243580251,
+          "defined_groups": 10,
+          "interval": {
+            "status": "numerical_percentile",
+            "reason": "",
+            "lower": 0.9880920292984449,
+            "upper": 0.9988764044943821,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "precision",
+        "micro": {
+          "value": null,
+          "defined_groups": 0,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 10000
+          }
+        },
+        "group_macro": {
+          "value": null,
+          "defined_groups": 0,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 10000
+          }
+        }
+      },
+      {
+        "id": "recall",
+        "micro": {
+          "value": 0,
+          "defined_groups": 8,
+          "interval": {
+            "status": "numerical_percentile",
+            "reason": "",
+            "lower": 0,
+            "upper": 0,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 0,
+          "defined_groups": 8,
+          "interval": {
+            "status": "numerical_percentile",
+            "reason": "",
+            "lower": 0,
+            "upper": 0,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "false_positive_rate",
+        "micro": {
+          "value": 0,
+          "defined_groups": 10,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "zero_observed_false_flags_require_separate_risk_bound",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 0,
+          "defined_groups": 10,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "zero_observed_false_flags_require_separate_risk_bound",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "full_flow_recall",
+        "micro": {
+          "value": 0,
+          "defined_groups": 8,
+          "interval": {
+            "status": "numerical_percentile",
+            "reason": "",
+            "lower": 0,
+            "upper": 0,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 0,
+          "defined_groups": 8,
+          "interval": {
+            "status": "numerical_percentile",
+            "reason": "",
+            "lower": 0,
+            "upper": 0,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "full_flow_false_flag_rate",
+        "micro": {
+          "value": 0,
+          "defined_groups": 10,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "zero_observed_false_flags_require_separate_risk_bound",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 0,
+          "defined_groups": 10,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "zero_observed_false_flags_require_separate_risk_bound",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "brier",
+        "micro": {
+          "value": 0.02258804089833592,
+          "defined_groups": 10,
+          "interval": {
+            "status": "numerical_percentile",
+            "reason": "",
+            "lower": 0.007069497379259938,
+            "upper": 0.04968741378032676,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 0.03104597881002575,
+          "defined_groups": 10,
+          "interval": {
+            "status": "numerical_percentile",
+            "reason": "",
+            "lower": 0.011256323605889863,
+            "upper": 0.054184327430431244,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "training_constant_brier",
+        "micro": {
+          "value": 0.02252636597550984,
+          "defined_groups": 10,
+          "interval": {
+            "status": "numerical_percentile",
+            "reason": "",
+            "lower": 0.007183899629499193,
+            "upper": 0.049299979503404985,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 0.03095027932953524,
+          "defined_groups": 10,
+          "interval": {
+            "status": "numerical_percentile",
+            "reason": "",
+            "lower": 0.011408360234383266,
+            "upper": 0.05367356769395424,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "ece",
+        "micro": {
+          "value": 0.01665978956055294,
+          "defined_groups": 10,
+          "interval": {
+            "status": "numerical_percentile",
+            "reason": "",
+            "lower": 0.001828408301961255,
+            "upper": 0.04259668639615872,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 0.025394596269319454,
+          "defined_groups": 10,
+          "interval": {
+            "status": "numerical_percentile",
+            "reason": "",
+            "lower": 0.007185562612503034,
+            "upper": 0.04661496874628899,
+            "valid_replicates": 10000,
+            "invalid_replicates": 0
+          }
+        }
+      }
+    ]
+  },
   "strata": [
+    {
+      "dimension": "family",
+      "value": "anthropic-claude",
+      "metrics": {
+        "counts": {
+          "eligible": 36,
+          "covered": 36,
+          "groups": 8,
+          "true_positive": 0,
+          "false_positive": 0,
+          "true_negative": 0,
+          "false_negative": 36,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": null,
+        "recall": 0,
+        "false_positive_rate": null,
+        "full_flow_recall": 0,
+        "brier": 0.9792630468306144,
+        "training_constant_brier": 0.9788107069570248,
+        "ece": 0.9894894894894894,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 36,
+            "mean_response": 0.010510510510510511,
+            "positive_rate": 1
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "family",
+      "value": "none",
+      "metrics": {
+        "counts": {
+          "eligible": 1545,
+          "covered": 1536,
+          "groups": 10,
+          "true_positive": 0,
+          "false_positive": 0,
+          "true_negative": 1536,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 9
+        },
+        "coverage": 0.9941747572815534,
+        "precision": null,
+        "recall": null,
+        "false_positive_rate": 0,
+        "full_flow_recall": null,
+        "brier": 0.00016597044679814981,
+        "training_constant_brier": 0.0001134517337556337,
+        "ece": 0.006140906531531529,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 1536,
+            "mean_response": 0.006140906531531529,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
     {
       "dimension": "language",
       "value": "c",
@@ -2293,6 +2738,200 @@
       }
     },
     {
+      "dimension": "operation",
+      "value": "generate",
+      "metrics": {
+        "counts": {
+          "eligible": 36,
+          "covered": 36,
+          "groups": 8,
+          "true_positive": 0,
+          "false_positive": 0,
+          "true_negative": 0,
+          "false_negative": 36,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": null,
+        "recall": 0,
+        "false_positive_rate": null,
+        "full_flow_recall": 0,
+        "brier": 0.9792630468306144,
+        "training_constant_brier": 0.9788107069570248,
+        "ece": 0.9894894894894894,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 36,
+            "mean_response": 0.010510510510510511,
+            "positive_rate": 1
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "operation",
+      "value": "none",
+      "metrics": {
+        "counts": {
+          "eligible": 1545,
+          "covered": 1536,
+          "groups": 10,
+          "true_positive": 0,
+          "false_positive": 0,
+          "true_negative": 1536,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 9
+        },
+        "coverage": 0.9941747572815534,
+        "precision": null,
+        "recall": null,
+        "false_positive_rate": 0,
+        "full_flow_recall": null,
+        "brier": 0.00016597044679814981,
+        "training_constant_brier": 0.0001134517337556337,
+        "ece": 0.006140906531531529,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 1536,
+            "mean_response": 0.006140906531531529,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
       "dimension": "origin",
       "value": "unknown",
       "metrics": {
@@ -2322,6 +2961,297 @@
             "count": 1572,
             "mean_response": 0.006240973798225698,
             "positive_rate": 0.022900763358778626
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "prompt",
+      "value": "neutral",
+      "metrics": {
+        "counts": {
+          "eligible": 16,
+          "covered": 16,
+          "groups": 6,
+          "true_positive": 0,
+          "false_positive": 0,
+          "true_negative": 0,
+          "false_negative": 16,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": null,
+        "recall": 0,
+        "false_positive_rate": null,
+        "full_flow_recall": 0,
+        "brier": 0.9833363769174581,
+        "training_constant_brier": 0.9788107069570251,
+        "ece": 0.9915540540540541,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 16,
+            "mean_response": 0.008445945945945946,
+            "positive_rate": 1
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "prompt",
+      "value": "none",
+      "metrics": {
+        "counts": {
+          "eligible": 1545,
+          "covered": 1536,
+          "groups": 10,
+          "true_positive": 0,
+          "false_positive": 0,
+          "true_negative": 1536,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 9
+        },
+        "coverage": 0.9941747572815534,
+        "precision": null,
+        "recall": null,
+        "false_positive_rate": 0,
+        "full_flow_recall": null,
+        "brier": 0.00016597044679814981,
+        "training_constant_brier": 0.0001134517337556337,
+        "ece": 0.006140906531531529,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 1536,
+            "mean_response": 0.006140906531531529,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "prompt",
+      "value": "plain",
+      "metrics": {
+        "counts": {
+          "eligible": 20,
+          "covered": 20,
+          "groups": 6,
+          "true_positive": 0,
+          "false_positive": 0,
+          "true_negative": 0,
+          "false_negative": 20,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": null,
+        "recall": 0,
+        "false_positive_rate": null,
+        "full_flow_recall": 0,
+        "brier": 0.9760043827611394,
+        "training_constant_brier": 0.9788107069570249,
+        "ece": 0.9878378378378379,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 20,
+            "mean_response": 0.012162162162162163,
+            "positive_rate": 1
           },
           {
             "lower": 0.1,

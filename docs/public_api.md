@@ -438,10 +438,12 @@ The research `evaluation.RiskPoint` adds a risk-coverage curve to the full-flow
 summary. It sorts covered decisions by confidence. At each reachable threshold it
 gives the error rate among the accepted prefix. A reader can then see where a
 selective model stops being right. Saved records now carry
-`unswell-research-evaluation-v4`, which also carries recall at fixed
-false-positive limits, a prevalence-sensitivity table, and a per-stratum
-breakdown by recorded corpus attributes (`evaluation.RecallPoint`,
-`evaluation.PrevalencePoint`, `evaluation.Stratify`). A new `figures` package and `corpus figures`
+`unswell-research-evaluation-v5`, which also carries recall at fixed
+false-positive limits, a prevalence-sensitivity table, a per-stratum
+breakdown by recorded corpus attributes and generation arms, and cluster
+bootstrap intervals over source groups (`evaluation.RecallPoint`,
+`evaluation.PrevalencePoint`, `evaluation.Stratify`, `evaluation.ArmsFromRecords`,
+`evaluation.SingleIntervals`). A new `figures` package and `corpus figures`
 render that record as SVG. Both read the saved values and compute nothing, so a
 chart cannot disagree with the metrics beside it.
 
