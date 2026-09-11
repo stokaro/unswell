@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"sync/atomic"
+	"time"
 
 	ts "github.com/odvcencio/gotreesitter"
 	"github.com/odvcencio/gotreesitter/grammars"
@@ -25,6 +26,20 @@ func parseSyntax(ctx context.Context, source []byte, name string) (syntaxTree, e
 	return syntax, err
 }
 
+// Parser budgets. The C# grammar spends about two seconds on a 19 KB file on
+// an idle machine, so a fixed five seconds failed such files under load. The
+// budget grows with the input and stays a bound: a file gets the floor plus
+// half a second for every KiB of source.
+const (
+	parseBudgetFloor  = 5 * time.Second
+	parseBudgetPerKiB = 500 * time.Millisecond
+)
+
+// parseBudget returns the parser timeout for one source of the given size.
+func parseBudget(size int) time.Duration {
+	return parseBudgetFloor + time.Duration(size/1024)*parseBudgetPerKiB
+}
+
 func invalidSyntax(name string) error {
 	return fmt.Errorf("parse %s: %s grammar returned an incomplete or invalid syntax tree", name, name)
 }
@@ -41,7 +56,8 @@ func parseSyntaxTree(ctx context.Context, source []byte, name string) (syntaxTre
 	}
 	parser := ts.NewParser(lang)
 	parser.SetLogger(nil)
-	parser.SetTimeoutMicros(5_000_000)
+	// #nosec G115 -- The budget is a positive duration computed from a non-negative size.
+	parser.SetTimeoutMicros(uint64(parseBudget(len(source)) / time.Microsecond))
 	var canceled uint32
 	parser.SetCancellationFlag(&canceled)
 	stop := context.AfterFunc(ctx, func() { atomic.StoreUint32(&canceled, 1) })
