@@ -71,3 +71,14 @@ snapshot of the same repository does not hold. Their contrast is against
 the earlier cohort. Last, `corpus dedupe` keeps each unit text once across
 every cohort in that order. The driver builds the unit tables restricted to
 that selection.
+
+## Run records
+
+- [September 10, 2026](runs/2026-09-10/README.md): the historical pilot, 42
+  repositories at releases dated on or before December 31, 2020.
+- [September 11, 2026](runs/2026-09-11/README.md): the same repositories at
+  their latest release beside the historical cohort, with the first
+  appearance and one-count-per-text analyses.
+- [September 11, 2026, periods](runs/2026-09-11-periods/README.md): five dated
+  cohorts under one plan, with the placebo comparisons at the 2012 and 2016
+  pseudo-boundaries and the H1 boundary of 2018.

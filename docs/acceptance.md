@@ -61,8 +61,18 @@ Quality and origin stay independent. The [origin channel](adr/0035-origin-channe
 is opt-in, ungated and experimental. [ADR 0036](adr/0036-llm-pattern-evidence.md)
 defines the active research branch in
 [#154](https://github.com/stokaro/unswell/issues/154) to measure pattern
-prevalence by cohort. No measurement exists yet, and its results, when they
-exist, are association evidence that satisfies no row in this table.
+prevalence by cohort. Its measurements are association evidence that
+satisfies no row in this table; the stages below record their state.
+
+### Research stages of #154
+
+| Stage | State | Evidence |
+| --- | --- | --- |
+| A. Scope and methodology | Met | [ADR 0036](adr/0036-llm-pattern-evidence.md), the [protocol](../research/methods/llm-patterns-v1.md), the [sources record](../research/methods/llm-patterns-sources-v1.json), the [prompts](../research/methods/prompts/README.md); #22 on hold |
+| B. Historical corpus | Met | Five dated cohorts of 43 repositories under one global plan, verifiable shards, baseline measurements, first-appearance and one-count-per-text analyses, and placebo comparisons in the [run records](../research/acquisition/README.md) |
+| C. Comparable experiment | Open | Needs a recorded budget amendment before any paid generation; the protocol's money cap is zero until a maintainer records one. A locally run open-weights model family under the same protocol would cost nothing and is a maintainer decision on generation conditions |
+| D. Confirmatory study | Open | Waits on stage C |
+| E. Evidence release | Open | Waits on stage D; the stage B records and their digests are published already |
 
 ## Stage 4: first product release
 

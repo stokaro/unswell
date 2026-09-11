@@ -13,8 +13,9 @@ real data; implementation alone cannot satisfy those requirements.
 Research work runs on two branches since September 10, 2026. The active branch,
 [#154](https://github.com/stokaro/unswell/issues/154), is to collect
 LLM-associated pattern evidence without human labels under
-[ADR 0036](adr/0036-llm-pattern-evidence.md); stage A fixes its scope, and no
-corpus exists yet. The human-validation branch stays
+[ADR 0036](adr/0036-llm-pattern-evidence.md). Stage A fixed its scope. Stage
+B measured five dated cohorts. Stage C waits on a recorded budget. The
+human-validation branch stays
 open: [#22](https://github.com/stokaro/unswell/issues/22) is on hold for
 resource reasons with its acceptance criteria unchanged, and the issues that
 need its labeled corpus wait with it. Cohort measurements from the active
