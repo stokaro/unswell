@@ -54,8 +54,8 @@ Each row uses one of three states.
 | Labeled corpus of at least 5,000 units | Open | The protocol, tooling and validation exist; no human-labeled corpus has been collected. [#22](https://github.com/stokaro/unswell/issues/22) is on hold for resource reasons with this requirement unchanged |
 | Held-out splits by document, repository and template family | Partly met | [ADR 0014](adr/0014-corpus-acquisition.md) and the corpus commands freeze the partitions; no real corpus has been split |
 | Reproducible Go training and separate calibration | Met | [ADR 0020](adr/0020-logistic-numerical-core.md), [ADR 0021](adr/0021-isotonic-calibration.md), [ADR 0025](adr/0025-corpus-training.md) and [training and evaluation](training.md) |
-| Published probability evaluation | Partly met | The harness reports the #25 metrics, a risk-coverage curve and generated figures, and measures its own stage cost; the numbers require the corpus above |
-| Applicability and calibrated gating | Partly met | [ADR 0034](adr/0034-probability-pack.md) and [scoring](scoring.md) define the pack, the statuses and the gate; no accepted pack exists, so no build is gated |
+| Published probability evaluation | Deferred | The harness reports the #25 metrics, a risk-coverage curve and generated figures, and measures its own stage cost; the numbers need the human-labeled corpus, on hold with [#22](https://github.com/stokaro/unswell/issues/22) and [#25](https://github.com/stokaro/unswell/issues/25) |
+| Applicability and calibrated gating | Met | [ADR 0034](adr/0034-probability-pack.md) and [scoring](scoring.md) define the pack, the statuses and the gate; no accepted pack exists, so revision probability stays unavailable with a reason and no build is gated, which is the required behavior |
 
 Quality and origin stay independent. The [origin channel](adr/0035-origin-channel.md)
 is opt-in, ungated and experimental. [ADR 0036](adr/0036-llm-pattern-evidence.md)
@@ -70,7 +70,7 @@ satisfies no row in this table; the stages below record their state.
 | --- | --- | --- |
 | A. Scope and methodology | Met | [ADR 0036](adr/0036-llm-pattern-evidence.md), the [protocol](../research/methods/llm-patterns-v1.md), the [sources record](../research/methods/llm-patterns-sources-v1.json), the [prompts](../research/methods/prompts/README.md); #22 on hold |
 | B. Historical corpus | Met | Five dated cohorts of 43 repositories under one global plan, verifiable shards, baseline measurements, first-appearance and one-count-per-text analyses, and placebo comparisons in the [run records](../research/acquisition/README.md) |
-| C. Comparable experiment | Open | Needs a recorded budget amendment before any paid generation; the protocol's money cap is zero until a maintainer records one. A locally run open-weights model family under the same protocol would cost nothing and is a maintainer decision on generation conditions |
+| C. Comparable experiment | In progress | Amendment 1 of the protocol runs generation through session agents with no paid call; the [pilot record](../research/generation/runs/2026-09-11-pilot/README.md) holds 240 saved responses of one family, the controlled cohort's shards, and the paired tables. A second family and protocol version 2 remain open |
 | D. Confirmatory study | Open | Waits on stage C |
 | E. Evidence release | Open | Waits on stage D; the stage B records and their digests are published already |
 
@@ -78,7 +78,7 @@ satisfies no row in this table; the stages below record their state.
 
 | Requirement | State | Evidence |
 | --- | --- | --- |
-| Stable rule qualification against a real corpus | Open | Needs the labeled corpus; the alpha claims no precision figure |
+| Stable rule qualification against a real corpus | Deferred | Needs a human decision per finding on a labeled corpus, on hold with [#22](https://github.com/stokaro/unswell/issues/22) and [#26](https://github.com/stokaro/unswell/issues/26); the alpha claims no precision figure |
 | Coverage and failure-path targets | Partly met | Failure-path tests and the [measurement recorded on #27](https://github.com/stokaro/unswell/issues/27): configuration 91.9%, engine and scoring 91.9%, rules 92.7%, source mapping 90.9%, 86.7% overall; the CI gate that enforces them is deferred to #123 |
 | Reproducible performance and resource limits | Met | [scan cost](performance.md) and its [measurement](performance/linux-amd64-2vcpu-512mib.json) |
 | SARIF consumers, reproducible releases and formats | Met | [SARIF](sarif.md), [reproducible builds](reproducible-builds.md), the [release audit](release/v0.1.0-alpha.1-audit.json) and the format checks in [reports](reports.md) |

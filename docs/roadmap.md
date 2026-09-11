@@ -11,15 +11,27 @@ evidence passes on the merged commit. Human annotation and measured quality requ
 real data; implementation alone cannot satisfy those requirements.
 
 Research work runs on two branches since September 10, 2026. The active branch,
-[#154](https://github.com/stokaro/unswell/issues/154), is to collect
+[#154](https://github.com/stokaro/unswell/issues/154), collects
 LLM-associated pattern evidence without human labels under
 [ADR 0036](adr/0036-llm-pattern-evidence.md). Stage A fixed its scope. Stage
-B measured five dated cohorts. Stage C waits on a recorded budget. The
-human-validation branch stays
-open: [#22](https://github.com/stokaro/unswell/issues/22) is on hold for
-resource reasons with its acceptance criteria unchanged, and the issues that
-need its labeled corpus wait with it. Cohort measurements from the active
-branch never count toward those criteria.
+B measured five dated cohorts. Stage C runs through session agents under
+amendment 1 of the protocol. The mirrored experiments
+[#176](https://github.com/stokaro/unswell/issues/176),
+[#177](https://github.com/stokaro/unswell/issues/177),
+[#178](https://github.com/stokaro/unswell/issues/178), and
+[#179](https://github.com/stokaro/unswell/issues/179) ask the association
+questions of the research plan on that evidence base.
+
+The human-validation branch is on hold indefinitely, by the maintainer's
+decision of September 11, 2026. Its acceptance criteria are unchanged. It
+holds [#22](https://github.com/stokaro/unswell/issues/22), the umbrella
+[#59](https://github.com/stokaro/unswell/issues/59), the held-out
+evaluation of #25, the rule qualification of #26, and the editorial
+comparisons of #50, #51, #52, and #58. Their engineering parts are closed
+with evidence. What waits is human judgment. Without a qualified pack the
+product reports revision probability as unavailable with a reason and
+enables no probability gate. Cohort measurements from the active branch
+never count toward those criteria.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. Run #123 last, after the other
