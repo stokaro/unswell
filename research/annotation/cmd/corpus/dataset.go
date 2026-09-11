@@ -91,6 +91,7 @@ func unionFlags(flags *flag.FlagSet, options *corpus.UnionOptions) {
 	flags.Func("uncapped-cohort", "Cohort whose checkouts keep every source under the limit; repeat for a set",
 		appendTo(&options.UncappedCohorts))
 	flags.IntVar(&options.MaxSourceBytes, "max-source-bytes", 0, "Drop sources above this many bytes; 0 keeps all")
+	flags.Func("exclude-source", "Source ID to leave out; repeat for a set", appendTo(&options.ExcludedSources))
 }
 
 func datasetOperation(ctx context.Context, name string, options datasetOptions, data []byte) (any, error) {

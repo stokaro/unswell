@@ -26,6 +26,9 @@ type UnionOptions struct {
 	MaxPerCheckout  int
 	UncappedCohorts []string
 	MaxSourceBytes  int
+	// ExcludedSources names sources left out by ID, such as the sources an
+	// earlier measurement could not analyze; the record lists them.
+	ExcludedSources []string
 }
 
 // UnionManifest joins the pinned sources of chosen shards into one manifest.
@@ -149,6 +152,9 @@ func selected(source Source, options UnionOptions) bool {
 		return false
 	}
 	if options.MaxSourceBytes > 0 && source.Bytes > options.MaxSourceBytes {
+		return false
+	}
+	if slices.Contains(options.ExcludedSources, source.ID) {
 		return false
 	}
 	if len(options.Roles) > 0 && !slices.Contains(options.Roles, source.Role) {

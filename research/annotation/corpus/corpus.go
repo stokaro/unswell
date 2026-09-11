@@ -20,6 +20,14 @@ const (
 	MaxTotalBytes    = 64 << 20
 	MaxSources       = 10000
 	MaxUnits         = 10000
+	// MaxRuleBlocks bounds the blocks a rule collection records. Every block
+	// of a source carries activations. A corpus at the unit limit has three
+	// to four blocks per candidate, so the bound is five per unit.
+	// MaxRuleCollectionBytes bounds the collection itself. Forty activations
+	// per block over such a corpus take most of the artifact. The decisions
+	// and bindings fill the rest.
+	MaxRuleBlocks          = 5 * MaxUnits
+	MaxRuleCollectionBytes = MaxArtifactBytes / 4 * 3
 )
 
 // Manifest freezes acquisition assertions before source grouping and extraction.

@@ -14,6 +14,16 @@ func consistentTask(identity Identity) bool {
 	return err == nil && task == identity.Task
 }
 
+// zeroPolicyForRules refuses the zero missing-feature policy on every feature
+// source but rule activations: an unavailable measurement is not zero, while a
+// rule that cannot fire on a unit has no activation there.
+func zeroPolicyForRules(options Options, source string) error {
+	if options.MissingFeatures == "zero" && source != "rule_activations" {
+		return fmt.Errorf("the zero missing-feature policy applies to rule activations only")
+	}
+	return nil
+}
+
 // classLabel maps one resolved decision to the binary class of a task.
 func classLabel(task string, decision annotation.EditorialDecision) (int, error) {
 	negative, positive, err := annotation.Labels(task)

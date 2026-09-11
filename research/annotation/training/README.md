@@ -54,7 +54,7 @@ Missing, uncertain, and unresolved labels remain excluded, with recorded reasons
 | `--kind` | required | One prepared target kind |
 | `--feature` | required | Repeatable set of existing prepared IDs |
 | `--rule-config` | absent | Select rule activations with an explicit local inline policy, limited to 1 MiB |
-| `--missing-features` | `reject` | Fail on an unavailable feature; `exclude` records and omits the row |
+| `--missing-features` | `reject` | Fail on an unavailable feature; `exclude` records and omits the row; `zero`, for rule activations only, counts a rule that cannot fire as zero and records how often per feature and reason |
 | `--calibration` | `none` | `isotonic` fits knots for the selected score channel |
 | `--allow-simulation` | false | Permit a round that explicitly declares simulated raters |
 | `--estimator` | `logistic` | `logistic` or `forest`; use the same selection and partitions |
