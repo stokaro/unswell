@@ -142,7 +142,7 @@ func checkEvaluation(t *testing.T, output []byte, positive bool) {
 	c.Assert(result.Summary.Micro.Counts.FN == 1, qt.Equals, !positive)
 	c.Assert(result.Summary.Micro.Brier, qt.IsNotNil)
 	c.Assert(result.Summary.Micro.FPR, qt.IsNil)
-	c.Assert(result.Version, qt.Equals, "unswell-research-evaluation-v4")
+	c.Assert(result.Version, qt.Equals, "unswell-research-evaluation-v5")
 	c.Assert(result.Summary.Micro.RiskCoverage, qt.HasLen, 1)
 	point := result.Summary.Micro.RiskCoverage[0]
 	c.Assert(point.Coverage, qt.Equals, 1.0)
@@ -151,7 +151,7 @@ func checkEvaluation(t *testing.T, output []byte, positive bool) {
 	c.Assert(point.MinimumConfidence >= 0.5, qt.IsTrue)
 	c.Assert(result.Summary.Micro.RecallAtFalsePositiveLimits, qt.HasLen, 4)
 	c.Assert(result.Summary.Micro.PrevalenceSensitivity, qt.HasLen, 5)
-	c.Assert(result.Strata, qt.HasLen, 5)
+	c.Assert(result.Strata, qt.HasLen, 8)
 	for _, stratum := range result.Strata {
 		c.Assert(stratum.Metrics.Counts.Eligible, qt.Equals, 1, qt.Commentf("%s=%s", stratum.Dimension, stratum.Value))
 	}

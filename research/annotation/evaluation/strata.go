@@ -16,7 +16,14 @@ type Attributes struct {
 	Language      string
 	ProseLanguage string
 	Origin        string
+	Operation     string
+	Prompt        string
+	Family        string
 }
+
+// dimensions are the strata every evaluation reports. The last three come
+// from generation records and read none for a source without one.
+var dimensions = []string{"words", "role", "language", "prose_language", "origin", "operation", "prompt", "family"}
 
 // Stratum is the full metric set for one subgroup. Counts inside it are the
 // sample size; a sparse stratum reports its numbers with that size beside them
@@ -92,9 +99,22 @@ func dimensionValue(dimension string, attributes Attributes) string {
 		return labelOrUnknown(attributes.Language)
 	case "prose_language":
 		return labelOrUnknown(attributes.ProseLanguage)
+	case "operation":
+		return armOrNone(attributes.Operation)
+	case "prompt":
+		return armOrNone(attributes.Prompt)
+	case "family":
+		return armOrNone(attributes.Family)
 	default:
 		return labelOrUnknown(attributes.Origin)
 	}
+}
+
+func armOrNone(value string) string {
+	if value == "" {
+		return "none"
+	}
+	return value
 }
 
 // Stratify computes the metric set for every value of every dimension. A row
@@ -107,7 +127,7 @@ func Stratify(ctx context.Context, rows []Observation, attributes map[string]Att
 		return nil, fmt.Errorf("constant baseline must be finite and within [0,1]")
 	}
 	strata := []Stratum{}
-	for _, dimension := range []string{"words", "role", "language", "prose_language", "origin"} {
+	for _, dimension := range dimensions {
 		if err := ctx.Err(); err != nil {
 			return nil, err
 		}

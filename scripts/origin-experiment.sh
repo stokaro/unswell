@@ -13,6 +13,7 @@ work=${UNSWELL_ACQUISITION_WORK:-$HOME/.cache/unswell/acquisition/work}
 acquisition=artifacts/acquisition
 dataset_plan=artifacts/measurement/dataset-plan.json
 tasks=research/generation/runs/2026-09-11-pilot/tasks.json
+generation=research/generation/runs/2026-09-11-pilot/records.json
 protocol=research/methods/llm-patterns-v1.md
 output=artifacts/origin
 record=""
@@ -36,6 +37,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --tasks)
       tasks=$2
+      shift 2
+      ;;
+    --generation)
+      generation=$2
       shift 2
       ;;
     --protocol)
@@ -68,7 +73,7 @@ while [[ $# -gt 0 ]]; do
       ;;
     *)
       printf 'Usage: %s OPTIONS\n' "$0" >&2
-      printf 'Options: --work DIR, --acquisition DIR, --dataset-plan FILE, --tasks FILE, --protocol FILE, --output DIR, --record DIR, --id ID, --cap N, --max-source-bytes N, --threshold T\n' >&2
+      printf 'Options: --work DIR, --acquisition DIR, --dataset-plan FILE, --tasks FILE, --generation FILE, --protocol FILE, --output DIR, --record DIR, --id ID, --cap N, --max-source-bytes N, --threshold T\n' >&2
       exit 2
       ;;
   esac
@@ -136,7 +141,7 @@ for partition in development final_test; do
 PLAN
   "$corpus_tool" predict --root "$work" --model "$output/model.json" --plan "$output/plan-$partition.json" \
     --protocol "$protocol" <"$output/candidates.json" >"$output/predictions-$partition.json"
-  "$corpus_tool" evaluate --corpus "$output/candidates.json" --labels provenance \
+  "$corpus_tool" evaluate --corpus "$output/candidates.json" --labels provenance --generation "$generation" \
     <"$output/predictions-$partition.json" >"$output/evaluation-$partition.json"
 done
 

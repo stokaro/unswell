@@ -111,6 +111,9 @@ go run ./cmd/corpus dataset union --root artifacts/acquisition --id origin-pilot
   < artifacts/measurement/dataset-plan.json > union.json
 ```
 
+`evaluate --generation records.json` reads the generation records. Each
+controlled source then gets three strata: operation, prompt, and family. Every
+evaluation also carries bootstrap intervals over its source groups.
 `scripts/origin-experiment.sh` runs the whole sequence, from the union to the
 scored partitions, and [research/origin](../research/origin/README.md) records
 each run with its digests and what it does not establish.

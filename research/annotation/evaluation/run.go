@@ -14,8 +14,9 @@ import (
 
 // Version identifies saved binary-event metric and exclusion semantics. Version
 // 2 added the risk-coverage curve, version 3 recall at fixed false-positive
-// limits and prevalence sensitivity, and version 4 the per-stratum breakdown.
-const Version = "unswell-research-evaluation-v4"
+// limits and prevalence sensitivity, version 4 the per-stratum breakdown, and
+// version 5 the generation-arm strata and the cluster bootstrap intervals.
+const Version = "unswell-research-evaluation-v5"
 
 // Result binds a numerical summary to exact saved predictions and an independent
 // annotation round. No inference or training runs while computing this report.
@@ -37,6 +38,7 @@ type Result struct {
 	Excluded          map[string]int          `json:"excluded_labels"`
 	TrainingConstant  float64                 `json:"training_constant"`
 	Summary           Summary                 `json:"summary"`
+	Intervals         Intervals               `json:"intervals"`
 	Strata            []Stratum               `json:"strata"`
 }
 
@@ -45,6 +47,14 @@ type Result struct {
 // exclusions. Simulated rounds require explicit opt-in and remain unqualified.
 func Run(ctx context.Context, data []byte, candidates corpus.Artifact,
 	round *annotation.Round, allowSimulation bool,
+) (Result, error) {
+	return Evaluate(ctx, data, candidates, round, Options{AllowSimulation: allowSimulation})
+}
+
+// Evaluate is Run with every option: the arms of the generation records add
+// the operation, prompt, and family strata.
+func Evaluate(ctx context.Context, data []byte, candidates corpus.Artifact, round *annotation.Round,
+	options Options,
 ) (Result, error) {
 	predictions, err := training.LoadPredictions(ctx, data)
 	if err != nil {
@@ -57,7 +67,7 @@ func Run(ctx context.Context, data []byte, candidates corpus.Artifact,
 	if err != nil {
 		return Result{}, err
 	}
-	return scoreDecisions(ctx, predictions, candidates, decisions, allowSimulation)
+	return scoreDecisions(ctx, predictions, candidates, decisions, options)
 }
 
 // RunDecisions scores saved predictions against a prepared decision set, such
@@ -65,6 +75,13 @@ func Run(ctx context.Context, data []byte, candidates corpus.Artifact,
 // same candidates the predictions were frozen on; the metrics are the same.
 func RunDecisions(ctx context.Context, data []byte, candidates corpus.Artifact,
 	decisions annotation.DecisionSet, allowSimulation bool,
+) (Result, error) {
+	return EvaluateDecisions(ctx, data, candidates, decisions, Options{AllowSimulation: allowSimulation})
+}
+
+// EvaluateDecisions is RunDecisions with every option.
+func EvaluateDecisions(ctx context.Context, data []byte, candidates corpus.Artifact,
+	decisions annotation.DecisionSet, options Options,
 ) (Result, error) {
 	predictions, err := training.LoadPredictions(ctx, data)
 	if err != nil {
@@ -76,13 +93,13 @@ func RunDecisions(ctx context.Context, data []byte, candidates corpus.Artifact,
 	if err := corpus.MatchDecisionTargets(ctx, candidates, decisions); err != nil {
 		return Result{}, err
 	}
-	return scoreDecisions(ctx, predictions, candidates, decisions, allowSimulation)
+	return scoreDecisions(ctx, predictions, candidates, decisions, options)
 }
 
 func scoreDecisions(ctx context.Context, predictions training.Predictions, candidates corpus.Artifact,
-	decisions annotation.DecisionSet, allowSimulation bool,
+	decisions annotation.DecisionSet, options Options,
 ) (Result, error) {
-	if err := checkDecisions(decisions, predictions.Model, allowSimulation); err != nil {
+	if err := checkDecisions(decisions, predictions.Model, options.AllowSimulation); err != nil {
 		return Result{}, err
 	}
 	rows, excluded, err := labeledRows(ctx, predictions, decisions)
@@ -97,7 +114,11 @@ func scoreDecisions(ctx context.Context, predictions training.Predictions, candi
 	if err != nil {
 		return Result{}, err
 	}
-	strata, err := Stratify(ctx, rows, candidateAttributes(candidates), constant)
+	intervals, err := SingleIntervals(ctx, rows, constant)
+	if err != nil {
+		return Result{}, err
+	}
+	strata, err := Stratify(ctx, rows, candidateAttributes(candidates, options.Arms), constant)
 	if err != nil {
 		return Result{}, err
 	}
@@ -106,18 +127,20 @@ func scoreDecisions(ctx context.Context, predictions training.Predictions, candi
 		PredictionsSHA256: predictions.SHA256, PlanSHA256: predictions.PlanSHA256,
 		Plan: predictions.Plan, Identity: predictions.Model.Identity,
 		DecisionsSHA256: decisions.SHA256, RoundSHA256: decisions.RoundSHA256, Candidates: len(predictions.Rows),
-		Excluded: excluded, TrainingConstant: constant, Summary: summary, Strata: strata}
+		Excluded: excluded, TrainingConstant: constant, Summary: summary, Intervals: intervals, Strata: strata}
 	return finish(ctx, result)
 }
 
 // candidateAttributes reads the facts the corpus already records about each
-// unit; nothing here is inferred from text.
-func candidateAttributes(candidates corpus.Artifact) map[string]Attributes {
+// unit and the arm of its generation record; nothing here is inferred from
+// text.
+func candidateAttributes(candidates corpus.Artifact, arms map[string]Arm) map[string]Attributes {
 	attributes := make(map[string]Attributes, len(candidates.Units))
 	for _, candidate := range candidates.Units {
+		arm := arms[candidate.SourceID]
 		attributes[candidate.Unit.ID] = Attributes{Words: candidate.Words, Role: candidate.Unit.Role,
 			Language: string(candidate.Unit.Source.Language), ProseLanguage: candidate.Unit.Source.ProseLanguage,
-			Origin: candidate.Unit.Origin.Label}
+			Origin: candidate.Unit.Origin.Label, Operation: arm.Operation, Prompt: arm.Prompt, Family: arm.Family}
 	}
 	return attributes
 }
