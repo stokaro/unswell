@@ -185,7 +185,7 @@ existing file is never overwritten. The ordinary `plan`, `extract`, and
 `verify` commands then run on each pinned shard, and their local components
 inherit the global partition through the pins. `verify` recomputes the
 dataset plan from the original shards. With `--pinned` it also checks every
-pinned copy against its recorded digest. Limits are 256 shards and 200,000
+pinned copy against its recorded digest. Limits are 512 shards and 200,000
 sources; each shard keeps the manifest limits above.
 
 ## Units and source ranges

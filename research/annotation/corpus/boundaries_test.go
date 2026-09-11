@@ -43,6 +43,8 @@ func TestManifestRejectsInvalidAcquisition(t *testing.T) {
 		{"snapshot calendar", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("2019-02-30", "corroborated", "historical") }},
 		{"undated corroboration", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("", "vcs_only", "contemporary") }},
 		{"undated historical", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("", "unknown", "historical") }},
+		{"undated period", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("", "unknown", "historical-2016") }},
+		{"unknown period", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("2014-06-30", "corroborated", "historical-2014") }},
 		{"snapshot evidence", func(m *corpus.Manifest) {
 			m.Sources[0].Snapshot = snapshot("2019-06-30", "corroborated", "historical")
 			m.Sources[0].Snapshot.Evidence = " "
@@ -181,6 +183,12 @@ func snapshot(date, confidence, cohort string) *corpus.Snapshot {
 func TestSnapshotCohortsReachCandidates(t *testing.T) {
 	c := qt.New(t)
 	m, files := sample()
+	// The dated historical periods are cohorts of their own.
+	for _, cohort := range []string{"historical-2012", "historical-2016", "historical-2018"} {
+		m.Sources[0].Snapshot = snapshot("2012-06-30", "corroborated", cohort)
+		_, err := corpus.LoadManifest(t.Context(), encoded(c, m))
+		c.Assert(err, qt.IsNil, qt.Commentf("%s", cohort))
+	}
 	m.Sources[0].Snapshot = snapshot("2019-06-30", "corroborated", "historical")
 	m.Sources[1].Snapshot = snapshot("", "unknown", "contemporary")
 	m.Sources[0].Role = "unknown"

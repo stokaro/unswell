@@ -205,13 +205,18 @@ done
 "$corpus_tool" analyze --classes "$classes" "${findings_args[@]}" >"$output/tables.json"
 printf 'tables: %s\n' "$output/tables.json"
 
-# The unit analyses count paragraphs and sentences, not documents. For each
-# cohort beside the baseline, a first-appearance filter drops the units whose
-# text the baseline snapshot of the same repository already holds. The
-# filtered tables then count text at its first evidenced appearance. Only
-# shards with findings enter a filter: the analysis checks that every listed
-# unit was measured.
-baseline=historical
+# The unit analyses count paragraphs and sentences, not documents. Cohorts
+# are ordered by period: the placebo boundaries of 2012 and 2016, the H1
+# boundary of 2018, the H0 baseline, the contemporary snapshots, then
+# natural and controlled text. For each consecutive pair, a first-appearance
+# filter drops the later cohort's units whose text the earlier snapshot of the
+# same repository already holds, and the filtered tables contrast the pair.
+# Only shards with findings enter a filter or selection: the analysis checks
+# that every listed unit was measured.
+present=()
+for cohort in historical-2012 historical-2016 historical-2018 historical contemporary natural controlled; do
+  if [[ -d "$output/pinned/$cohort" ]]; then present+=("$cohort"); fi
+done
 candidate_args() {
   local side=$1 cohort=$2 pinned name
   for pinned in "$output/pinned/$cohort"/shards/*.json; do
@@ -224,31 +229,31 @@ candidate_args() {
 for kind in paragraph sentence; do
   "$corpus_tool" analyze --classes "$classes" "${findings_args[@]}" --unit-kind "$kind" >"$output/tables-$kind.json"
   printf 'tables: %s\n' "$output/tables-$kind.json"
-  if [[ ! -d "$output/pinned/$baseline" ]]; then continue; fi
-  for cohort_dir in "$output/pinned"/*/; do
-    cohort=$(basename "$cohort_dir")
-    if [[ "$cohort" == "$baseline" ]]; then continue; fi
+  for ((i = 1; i < ${#present[@]}; i++)); do
+    earlier=${present[i - 1]}
+    later=${present[i]}
     appearance_args=()
-    candidate_args earlier "$baseline" >"$output/appearance-args.txt"
-    candidate_args later "$cohort" >>"$output/appearance-args.txt"
+    candidate_args earlier "$earlier" >"$output/appearance-args.txt"
+    candidate_args later "$later" >>"$output/appearance-args.txt"
     while IFS= read -r line; do appearance_args+=("$line"); done <"$output/appearance-args.txt"
     rm -f "$output/appearance-args.txt"
-    filter=$output/first-appearance-$cohort-$kind.json
+    filter=$output/first-appearance-$later-vs-$earlier-$kind.json
     "$corpus_tool" first-appearance --unit-kind "$kind" "${appearance_args[@]}" >"$filter"
-    "$corpus_tool" analyze --classes "$classes" "${findings_args[@]}" --unit-kind "$kind" --first-appearance "$filter" \
-      >"$output/tables-first-appearance-$cohort-$kind.json"
+    "$corpus_tool" analyze --classes "$classes" "${findings_args[@]}" --unit-kind "$kind" --baseline "$earlier" \
+      --first-appearance "$filter" >"$output/tables-first-appearance-$later-vs-$earlier-$kind.json"
     new_units=$(jq '.new_units' "$filter")
     later_units=$(jq '.later_units' "$filter")
-    printf 'first appearance: %s new of %s %s units in %s; tables: %s\n' "$new_units" "$later_units" "$kind" "$cohort" \
-      "$output/tables-first-appearance-$cohort-$kind.json"
+    printf 'first appearance: %s new of %s %s units in %s against %s; tables: %s\n' "$new_units" "$later_units" "$kind" \
+      "$later" "$earlier" "$output/tables-first-appearance-$later-vs-$earlier-$kind.json"
   done
-  # The unit selection counts each unit text once across every cohort, the
-  # baseline first, whatever repository a copy sits in.
-  order=$baseline
+  # The unit selection counts each unit text once across every cohort in
+  # period order, whatever repository a copy sits in.
+  order=$(
+    IFS=,
+    printf '%s' "${present[*]}"
+  )
   selection_args=()
-  for cohort_dir in "$output/pinned"/*/; do
-    cohort=$(basename "$cohort_dir")
-    if [[ "$cohort" != "$baseline" ]]; then order="$order,$cohort"; fi
+  for cohort in "${present[@]}"; do
     candidate_args candidates "$cohort" >>"$output/selection-args.txt"
   done
   while IFS= read -r line; do selection_args+=("$line"); done <"$output/selection-args.txt"

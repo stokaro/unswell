@@ -22,7 +22,7 @@ const Version = "unswell-pattern-tables-v1"
 const DefaultBaseline = "historical"
 
 // MaxInputs bounds the finding artifacts one analysis joins.
-const MaxInputs = 256
+const MaxInputs = 512
 
 // Options selects the baseline cohort of the contrasts, what one count is,
 // and an optional first-appearance filter. An empty UnitKind counts

@@ -18,7 +18,7 @@ const DatasetVersion = "unswell-corpus-dataset-v1"
 // Dataset limits bound the union of shards without raising any shard's limit.
 const (
 	MaxDatasetBytes   = 4 << 20
-	MaxShards         = 256
+	MaxShards         = 512
 	MaxDatasetSources = 200000
 	maxDatasetKeys    = 2000000
 )
