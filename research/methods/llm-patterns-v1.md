@@ -474,3 +474,41 @@ independent groups that nobody has measured, and the report shows both the
 frozen and the amended value. A change to a confirmatory hypothesis after
 viewing the confirmation partition requires new independent groups. The
 budget section changes only through a recorded authorization.
+
+### Amendment 1, September 11, 2026
+
+Document version 1.1. The identifier `unswell-llm-patterns-v1` stays,
+because every record keys on it. Reason: the maintainer instructed that
+controlled generation run through separate Claude agents of the flat-rate
+Claude subscription. No paid API call and no separate money budget are
+involved, and the stage C pilot proceeds that way.
+
+Changed fields:
+
+- Budget. The money cap stays zero, and no tooling makes a paid call. Agent
+  invocations replace requests in the caps; the request, token, retry, and
+  time caps of the table stand. The authorizer is the maintainer, by the
+  instruction above.
+- Families. The pilot runs one family, Anthropic Claude, through the
+  session's agents; the protocol asked for at least two. Every other family
+  carries the status `untested` until a second family runs. Protocol version
+  2 keeps its three-family requirement.
+- Identity fields. An agent run supplies the family, the model identifier
+  the harness reports for the session, the date, and the agent type. It
+  cannot supply decoding parameters, a remote request identifier, a cost, or
+  a fingerprint; each record says `unavailable` for those, as instructed,
+  rather than guessing.
+- Delivery. An agent receives one message, so the operation line, the
+  shared prompt body, and the material travel in that one message with a
+  separator; the record stores the whole message. The prompt files are
+  unchanged.
+- Agent context. Every agent runs the harness's instruction-free search
+  agent type. Its system prompt describes a read-only role and carries none
+  of the repository's writing instructions. One harness line after the
+  request tells the agent to use no tools and to return the document text;
+  the record stores that line as its own message. The agent type is part of
+  each record.
+
+Partitions viewed at the time: the E1 tables of stage B report every
+partition in aggregate, and no confirmatory hypothesis list is frozen yet.
+No threshold or minimum moves with this amendment.

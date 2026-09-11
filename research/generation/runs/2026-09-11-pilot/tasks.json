@@ -1,0 +1,1757 @@
+{
+  "version": "unswell-tasks-v1",
+  "protocol": "unswell-llm-patterns-v1",
+  "seed": "unswell-llm-patterns-v1",
+  "cohort": "historical",
+  "partitions": [
+    "training",
+    "development"
+  ],
+  "roles": [
+    "comment"
+  ],
+  "requested": 60,
+  "strata": [
+    {
+      "ecosystem": "c",
+      "role": "comment",
+      "eligible": 43,
+      "selected": 2
+    },
+    {
+      "ecosystem": "cpp",
+      "role": "comment",
+      "eligible": 11,
+      "selected": 1
+    },
+    {
+      "ecosystem": "csharp",
+      "role": "comment",
+      "eligible": 392,
+      "selected": 9
+    },
+    {
+      "ecosystem": "go",
+      "role": "comment",
+      "eligible": 774,
+      "selected": 17
+    },
+    {
+      "ecosystem": "java",
+      "role": "comment",
+      "eligible": 12,
+      "selected": 1
+    },
+    {
+      "ecosystem": "javascript",
+      "role": "comment",
+      "eligible": 906,
+      "selected": 19
+    },
+    {
+      "ecosystem": "python",
+      "role": "comment",
+      "eligible": 100,
+      "selected": 3
+    },
+    {
+      "ecosystem": "rust",
+      "role": "comment",
+      "eligible": 364,
+      "selected": 8
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t0021cea4d1a25d0d",
+      "source_id": "b8a558e93861502a248418cd",
+      "unit_id": "u000600",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerFilterConfiguration.cs",
+      "role": "comment",
+      "words": 27,
+      "text": "\u003csummary\u003e  Filter out log events that match a predicate.  \u003c/summary\u003e  \u003cparam name=\"exclusionPredicate\"\u003eFunction that returns true when an event  should be excluded (silenced).\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e",
+      "text_sha256": "daef139fb9d543f976e119abca0c9e15b2de2c894cf30820e180b89692351aa9",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration ByExcluding(Func\u003cLogEvent, bool\u003e exclusionPredicate)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "ByExcluding",
+          "Func",
+          "LogEvent",
+          "exclusionPredicate"
+        ],
+        "parameters": "Func\u003cLogEvent, bool\u003e exclusionPredicate",
+        "numbers": [],
+        "sha256": "74ad6852ddb1eaddb734ef1b15b714de8287a5e41e4f89219ba69a00239df643"
+      }
+    },
+    {
+      "id": "t01a690447b980a00",
+      "source_id": "68e3624bd8ccf6f62933f33b",
+      "unit_id": "u000560",
+      "group_id": "abf1c44e822aa465d684e46fd1cf0efa3c7c203157621d853e6d564bc1a2a552",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "go-chi/chi",
+      "ecosystem": "go",
+      "path": "_examples/rest/main.go",
+      "role": "comment",
+      "words": 19,
+      "text": "SearchArticles searches the Articles data for a matching article.  It's just a stub, but you get the idea.",
+      "text_sha256": "0853becf379dace9f0b1f9abd1df13d393d274f155597b16d0add3c85727b772",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func SearchArticles(w http.ResponseWriter, r *http.Request)",
+        "identifiers": [
+          "SearchArticles",
+          "http",
+          "ResponseWriter",
+          "Request"
+        ],
+        "parameters": "w http.ResponseWriter, r *http.Request",
+        "numbers": [],
+        "sha256": "15c005dc2d878fb569116933bb9d25a8f0bb39ad305dc3c1f1595344e7ec16d9"
+      }
+    },
+    {
+      "id": "t0bb265abd56504b3",
+      "source_id": "f3fa0b30ccbde73c4114d2a0",
+      "unit_id": "u001217",
+      "group_id": "9224b64d7ac6a722bc2c26324a53c52a2bbea7766c32e65ea318a07fd6d7bb3e",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lib/fp/build-modules.js",
+      "role": "comment",
+      "words": 22,
+      "text": "@private  @param {string} name The name to check.  @returns {boolean} Returns `true` if `name` is of a pass thru method,   else `false`.",
+      "text_sha256": "e0742340148117b1b43c2b141a3dfa1adc7d236c2e2b02a21787c3872463bf5b",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function isThru(name)",
+        "identifiers": [
+          "isThru",
+          "name"
+        ],
+        "parameters": "name",
+        "numbers": [],
+        "sha256": "7cb646b454c189bf49786be32fcbe11c85258f380250a7f7ebf77868b07845c7"
+      }
+    },
+    {
+      "id": "t145512c5ab1b625e",
+      "source_id": "dd78049d4773aa49bc54c657",
+      "unit_id": "u003548",
+      "group_id": "3f98bc964acaad744507f210a9efc6988c578e2426abcb5dfcc9e8e7d5fbf076",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "serde-rs/json",
+      "ecosystem": "rust",
+      "path": "src/io/core.rs",
+      "role": "comment",
+      "words": 15,
+      "text": "IO errors can never occur in no-std mode. All our no-std IO implementations  are infallible.",
+      "text_sha256": "8608a1ca0cb3ff9cb092a39010d50cfe350bf835788051a97d2d6e031189ec51",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "pub struct Error",
+        "identifiers": [
+          "Error"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "a571e05a3a877cb9a299edec188b82d02942909ba13e7eb998120dbdb732f753"
+      }
+    },
+    {
+      "id": "t16083a9082688967",
+      "source_id": "88375c00a437026f393064af",
+      "unit_id": "u001659",
+      "group_id": "8cd48761679ddb58fa30f65697f769cf341c2861f6d48fe32f334e5dbb8e007d",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "pytest-dev/pytest",
+      "ecosystem": "python",
+      "path": "src/_pytest/recwarn.py",
+      "role": "comment",
+      "words": 17,
+      "text": "Type ignored because it doesn't exactly warnings.catch_warnings.__enter__  -- it returns a List but we only emulate one.",
+      "text_sha256": "004231ae3e22b07e87ce467ede13306e3afddb7635cb976ba060dc44e7bc0da6",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "def __enter__(self) -\u003e \"WarningsRecorder\"",
+        "identifiers": [
+          "__enter__",
+          "WarningsRecorder"
+        ],
+        "parameters": "self",
+        "numbers": [],
+        "sha256": "ce28680098f9068691ba09ee8cdbb0e4c7b2addbbaa880ede096f7e4829e846a"
+      }
+    },
+    {
+      "id": "t17cdea5d6f150661",
+      "source_id": "53afa7ea0e65d2fdc949ca72",
+      "unit_id": "u001362",
+      "group_id": "cc7a4a73ee24d64d53c5627ad9fc2dd7d560b36a14320fa08314b982320b8b10",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "clap-rs/clap",
+      "ecosystem": "rust",
+      "path": "src/args/group.rs",
+      "role": "comment",
+      "words": 17,
+      "text": "Creates a new instance of `ArgGroup` using a unique string name. The name will be used to",
+      "text_sha256": "b1f41a03493d3bc42baae92ffef5924e415a5db6b8c63b78327848d7e8df2fad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "pub fn with_name(n: \u0026'a str) -\u003e Self",
+        "identifiers": [
+          "with_name",
+          "str",
+          "Self"
+        ],
+        "parameters": "n: \u0026'a str",
+        "numbers": [],
+        "sha256": "c28acc04e5d07cdb04b4e77ddc2ed67f64925e9dc115971a92ffbfdfa8c7003b"
+      }
+    },
+    {
+      "id": "t1ec5e2877a13145c",
+      "source_id": "5327f0f08733e72ed2faa1ef",
+      "unit_id": "u000320",
+      "group_id": "3ab7d3cb53b712366397f0166c8bf6959c3ce0024b8ca0aec5f13c430c8d131a",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "square/okhttp",
+      "ecosystem": "java",
+      "path": "samples/guide/src/main/java/okhttp3/recipes/PrintEventsNonConcurrent.java",
+      "role": "comment",
+      "words": 25,
+      "text": "This prints events for a single in-flight call. It won't work for multiple concurrent calls  because we don't know what callStartNanos refers to.",
+      "text_sha256": "8042f606cc9600de9b54a4a1e22316eb460dea600c11faffe69affe1111b8863",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public final class PrintEventsNonConcurrent",
+        "identifiers": [
+          "PrintEventsNonConcurrent"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "c247e0f82918c4c2b6b6514afddd7392a44095baf395d6aac88751807f1c69da"
+      }
+    },
+    {
+      "id": "t1fb23fd21a4aa74b",
+      "source_id": "1be2c90fddee50f8154ec93f",
+      "unit_id": "u000164",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "mock/mock.go",
+      "role": "comment",
+      "words": 22,
+      "text": "AssertExpectations asserts that everything specified with On and Return was  in fact called as expected.  Calls may have occurred in any order.",
+      "text_sha256": "31996f2236ed2fc38e49f10b6236be4b8e251118ae82638e85cc95c4724ebb5b",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func (m *Mock) AssertExpectations(t TestingT) bool",
+        "identifiers": [
+          "Mock",
+          "AssertExpectations",
+          "TestingT"
+        ],
+        "parameters": "t TestingT",
+        "numbers": [],
+        "sha256": "e6ded87ad7bb86d07ee971a35dc2bb8afcb11de23a73df1176a65719f87204b6"
+      }
+    },
+    {
+      "id": "t217feeadf0c6455f",
+      "source_id": "ce6300cbbfc8732a89d25683",
+      "unit_id": "u000118",
+      "group_id": "bbd6de43a568f60eed361e0ffd5a6fff85eac4658071441236b35e4fdcf6bbf4",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "axios/axios",
+      "ecosystem": "javascript",
+      "path": "lib/utils.js",
+      "role": "comment",
+      "words": 17,
+      "text": "@param {Object} val The value to test  @returns {boolean} True if value is an Array, otherwise false",
+      "text_sha256": "444182d34f610647c277446dd07b193ee992a5a15c67bf05d04a439ec9f64700",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function isArray(val)",
+        "identifiers": [
+          "isArray",
+          "val"
+        ],
+        "parameters": "val",
+        "numbers": [],
+        "sha256": "910d9e8b3bde772720c8b87e6db28103b1614b638767485a46e75a59ebb5a1f6"
+      }
+    },
+    {
+      "id": "t21a8547f31099e98",
+      "source_id": "1c723da92a0607cc022c9d27",
+      "unit_id": "u000630",
+      "group_id": "cc7a4a73ee24d64d53c5627ad9fc2dd7d560b36a14320fa08314b982320b8b10",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "clap-rs/clap",
+      "ecosystem": "rust",
+      "path": "src/osstringext.rs",
+      "role": "comment",
+      "words": 13,
+      "text": "A starts-with implementation that does not panic when the OsStr contains  invalid Unicode.",
+      "text_sha256": "e404a88250204f84c4fbceadba18cc183657482f61844cecef916d1427ce18c0",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "fn windows_osstr_starts_with(osstr: \u0026OsStr, prefix: \u0026[u8]) -\u003e bool",
+        "identifiers": [
+          "windows_osstr_starts_with",
+          "osstr",
+          "OsStr",
+          "prefix",
+          "u8"
+        ],
+        "parameters": "osstr: \u0026OsStr, prefix: \u0026[u8]",
+        "numbers": [],
+        "sha256": "bfb7ae59c7bf936d685c935b81ac686a29de9a000585ba992b9dacd82c031b98"
+      }
+    },
+    {
+      "id": "t2cc8676c6369d829",
+      "source_id": "f34d812aee71797dbaf93943",
+      "unit_id": "u001080",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+      "role": "comment",
+      "words": 47,
+      "text": "\u003csummary\u003e  Write log events to the specified \u003csee cref=\"ILogEventSink\"/\u003e.  \u003c/summary\u003e  \u003cparam name=\"logEventSink\"\u003eThe sink.\u003c/param\u003e  \u003cparam name=\"restrictedToMinimumLevel\"\u003eThe minimum level for  events passed through the sink. Ignored when \u003cparamref name=\"levelSwitch\"/\u003e is specified.\u003c/param\u003e  \u003cparam name=\"levelSwitch\"\u003eA switch allowing the pass-through minimum level  to be changed at runtime.\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e",
+      "text_sha256": "c9fe694ecd4dad0a5848659600f47bd584fe77c521d891af07f9dba97ba4d45c",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration Sink( ILogEventSink logEventSink, LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum, // ReSharper disable once MethodOverloadWithOptionalParameter LoggingLevelSwitch levelSwitch = null)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "Sink",
+          "ILogEventSink",
+          "logEventSink",
+          "LogEventLevel",
+          "restrictedToMinimumLevel",
+          "LevelAlias",
+          "Minimum",
+          "ReSharper",
+          "disable",
+          "once",
+          "MethodOverloadWithOptionalParameter",
+          "LoggingLevelSwitch",
+          "levelSwitch",
+          "null"
+        ],
+        "parameters": "ILogEventSink logEventSink, LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum, // ReSharper disable once MethodOverloadWithOptionalParameter LoggingLevelSwitch levelSwitch = null",
+        "numbers": [],
+        "sha256": "312372670265e7208b2b19c9fc79ea4cf559a3d32a52d4b8269eb36f2afc8073"
+      }
+    },
+    {
+      "id": "t2df32cbef59ff5b4",
+      "source_id": "9a06cfb12a3fa005159707e3",
+      "unit_id": "u001084",
+      "group_id": "43fda08df6e074c7dc95cb3b3bb5d5af4b4e2750363bd37c13716f0e408bb34a",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "libuv/libuv",
+      "ecosystem": "c",
+      "path": "src/inet.c",
+      "role": "comment",
+      "words": 17,
+      "text": "Since some memmove()'s erroneously fail to handle  overlapping regions, we'll do the shift by hand.",
+      "text_sha256": "9860b828d946a7500a1260941433d5e9f38ea61cf16d322322b6be894f2bed05",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "const int n = tp - colonp",
+        "identifiers": [
+          "tp",
+          "colonp"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "daac29a99843b42dec68bf7bd86a6382c4d3748a3f3467dcc995f2432cdcd7a5"
+      }
+    },
+    {
+      "id": "t32d685ba1622ad43",
+      "source_id": "ded8af12f14128a8b0c1631a",
+      "unit_id": "u000856",
+      "group_id": "acf507ee378798288b78085c572f407ee9891dfcfbc7c10eca76e786dcb048ab",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "JamesNK/Newtonsoft.Json",
+      "ecosystem": "csharp",
+      "path": "Src/Newtonsoft.Json/Bson/BsonWriter.cs",
+      "role": "comment",
+      "words": 17,
+      "text": "\u003csummary\u003e  Writes a comment \u003cc\u003e/*...*/\u003c/c\u003e containing the specified text.  \u003c/summary\u003e  \u003cparam name=\"text\"\u003eText to place inside the comment.\u003c/param\u003e",
+      "text_sha256": "7060b24a9d2e29a3b8712b003f3d9cd29c26f0d0b719b7cfc2a2333241dba2a1",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public override void WriteComment(string text)",
+        "identifiers": [
+          "WriteComment",
+          "text"
+        ],
+        "parameters": "string text",
+        "numbers": [],
+        "sha256": "f83b2b7acc6976898f2d15ce31fae6a107cc0ec241353167f32d1de13cb66f0d"
+      }
+    },
+    {
+      "id": "t3cd5c9469d387f40",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u006057",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 21,
+      "text": "@static  @memberOf _  @since 4.0.0  @category String  @param {string} [string=''] The string to convert.  @returns {string} Returns the lower cased string.  @example",
+      "text_sha256": "505e4121b4172c338738aaf7c213301c7ab2c7c1672715181fc1d38dac21d380",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "var lowerCase = createCompounder(function(result, word, index)",
+        "identifiers": [
+          "lowerCase",
+          "createCompounder",
+          "result",
+          "word",
+          "index"
+        ],
+        "parameters": "function(result, word, index)",
+        "numbers": [
+          "4.0",
+          "0"
+        ],
+        "sha256": "1b4171c58b392fb23c486ea59a1badafcd8b8adefed5bb2b0c53b09739bf318b"
+      }
+    },
+    {
+      "id": "t3f769d6709ec361d",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u000823",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 24,
+      "text": "@private  @param {Object} object The object to query.  @param {Array} props The property names to get values for.  @returns {Object} Returns the key-value pairs.",
+      "text_sha256": "97a58dc4bca3ef793eb4c048b9622b3859d5422912bcf827308ae25612315c36",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function baseToPairs(object, props)",
+        "identifiers": [
+          "baseToPairs",
+          "object",
+          "props"
+        ],
+        "parameters": "object, props",
+        "numbers": [],
+        "sha256": "18d292f027dcde32eb5394adcbde920b69e8be3a4ac2fafc5c0709856b25a72b"
+      }
+    },
+    {
+      "id": "t40f3e4e758625458",
+      "source_id": "f2eed4785c099845e5d49b56",
+      "unit_id": "u002489",
+      "group_id": "8d5c70dd38c0e139cfb1f982ab8b3514dee5a9c39a7fe3c089a51cfe827df216",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "gorilla/mux",
+      "ecosystem": "go",
+      "path": "route.go",
+      "role": "comment",
+      "words": 17,
+      "text": "Here, the routes registered in the subrouter won't be tested if the host  doesn't match.",
+      "text_sha256": "832dd46d634b0c45fa9b04736b7b0261c3abbddb23073567bd5d7f99ab14abad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func (r *Route) Subrouter() *Router",
+        "identifiers": [
+          "Route",
+          "Subrouter",
+          "Router"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "2e73c1e36531c6364064f1c56819ba3eea88a94673e60921a2aade5bacbefc83"
+      }
+    },
+    {
+      "id": "t418f4e8aca80828a",
+      "source_id": "bd9c1d4058bf3fcf6dede61f",
+      "unit_id": "u002976",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "require/require_forward.go",
+      "role": "comment",
+      "words": 14,
+      "text": "LessOrEqual asserts that the first element is less than or equal to the second",
+      "text_sha256": "3bc27ba944a829cf2c11afbb667496f12fb3f3688ac4e1d48a2d248cf887b663",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func (a *Assertions) LessOrEqual(e1 interface{}, e2 interface{}, msgAndArgs ...interface{})",
+        "identifiers": [
+          "Assertions",
+          "LessOrEqual",
+          "e1",
+          "e2",
+          "msgAndArgs"
+        ],
+        "parameters": "e1 interface{}, e2 interface{}, msgAndArgs ...interface{}",
+        "numbers": [],
+        "sha256": "bdf53209590e2207cae65a15bf6f0f8688bb3dedf8ca07adaf7518dba172b24f"
+      }
+    },
+    {
+      "id": "t4599f50ed3aa4632",
+      "source_id": "7177d3d0c56f96c39b82e165",
+      "unit_id": "u000349",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerMinimumLevelConfiguration.cs",
+      "role": "comment",
+      "words": 18,
+      "text": "\u003csummary\u003e  Internal system events that aren't necessarily  observable from the outside.  \u003c/summary\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e",
+      "text_sha256": "0028bfec342f8ff87ebf7bad6170784ce056774c3c4c8a4f3d3bbc52322f05f3",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration Debug() =\u003e Is(LogEventLevel.Debug)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "Debug",
+          "Is",
+          "LogEventLevel"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "3016195079267fe3ea42bcc384850007b32fa8d41cf9704a745172750323bc92"
+      }
+    },
+    {
+      "id": "t4c83b68d855ab884",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u004961",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 23,
+      "text": "@static  @memberOf _  @since 0.1.0  @category Lang  @param {*} value The value to check.  @returns {boolean} Returns `true` if `value` is `null`, else `false`.  @example",
+      "text_sha256": "efad95b58f7e28430757c78f9d890fffb8ff63240325b82e27fb6f7d69d95617",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function isNull(value)",
+        "identifiers": [
+          "isNull",
+          "value"
+        ],
+        "parameters": "value",
+        "numbers": [
+          "0.1",
+          "0"
+        ],
+        "sha256": "674b0b1c3d968014710cb9e55991d672606e725d79f0a4dd129712f6b1c251cb"
+      }
+    },
+    {
+      "id": "t50932b9db88f230d",
+      "source_id": "e9f1a1d977b4989809b65fa8",
+      "unit_id": "u002910",
+      "group_id": "cc7a4a73ee24d64d53c5627ad9fc2dd7d560b36a14320fa08314b982320b8b10",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "clap-rs/clap",
+      "ecosystem": "rust",
+      "path": "src/suggestions.rs",
+      "role": "comment",
+      "words": 15,
+      "text": "Returns a suffix that can be empty, or is the standard 'did you mean' phrase",
+      "text_sha256": "ac572f2a43d3fc95fdd82b9ac5c82a3e358d14270ef6e9b1f29e9f170ec13b79",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "pub fn did_you_mean_value_suffix\u003c'z, T, I\u003e(arg: \u0026str, values: I) -\u003e (String, Option\u003c\u0026'z str\u003e)",
+        "identifiers": [
+          "did_you_mean_value_suffix",
+          "arg",
+          "str",
+          "values",
+          "String",
+          "Option"
+        ],
+        "parameters": "arg: \u0026str, values: I",
+        "numbers": [],
+        "sha256": "ab6689851f2eac89679554dd9ada69dbdfd3514e1efb5a7e01cd3ca18a0061b5"
+      }
+    },
+    {
+      "id": "t52821591ffda2cc3",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u006273",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 47,
+      "text": "Use a sourceURL for easier debugging.  The sourceURL gets injected into the source that's eval-ed, so be careful  to normalize all kinds of whitespace, so e.g. newlines (and unicode versions of it) can't sneak in  and escape the comment, thus injecting code that gets evaled.",
+      "text_sha256": "0d91fa63d1606d932b091e00c26d027d541554bcb0b7e3ab78b8b2e8f9c7ced6",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "var sourceURL = '//# sourceURL=' + (hasOwnProperty.call(options, 'sourceURL')",
+        "identifiers": [
+          "sourceURL",
+          "hasOwnProperty",
+          "call",
+          "options"
+        ],
+        "parameters": "options, 'sourceURL'",
+        "numbers": [],
+        "sha256": "3ae86a75d2ee0efec912158f553c828e5fb3ae57ace511e5468acebb73caf2f7"
+      }
+    },
+    {
+      "id": "t5430f227f1779293",
+      "source_id": "b4ee723ae20497d69401f4aa",
+      "unit_id": "u000870",
+      "group_id": "8f20bdcb4330c910cdb2ed4d924f7bd18783258b691eb77d3ead590eb2a82795",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "JamesNK/Newtonsoft.Json",
+      "ecosystem": "csharp",
+      "path": "Src/Newtonsoft.Json/JsonDictionaryAttribute.cs",
+      "role": "comment",
+      "words": 20,
+      "text": "\u003csummary\u003e  Initializes a new instance of the \u003csee cref=\"JsonDictionaryAttribute\"/\u003e class with the specified container Id.  \u003c/summary\u003e  \u003cparam name=\"id\"\u003eThe container Id.\u003c/param\u003e",
+      "text_sha256": "b6bfb181d58224ccca023841d1536f37164ca6342a164048b3c8930bcc026dac",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public JsonDictionaryAttribute(string id)",
+        "identifiers": [
+          "JsonDictionaryAttribute",
+          "id"
+        ],
+        "parameters": "string id",
+        "numbers": [],
+        "sha256": "2310707b1efbecb88de8bf67fdee0dcd4bf705bba35cc51133ae96edb501166b"
+      }
+    },
+    {
+      "id": "t57978ac1d2812cde",
+      "source_id": "37b186c50293a709f0caa60d",
+      "unit_id": "u000161",
+      "group_id": "8f20bdcb4330c910cdb2ed4d924f7bd18783258b691eb77d3ead590eb2a82795",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "JamesNK/Newtonsoft.Json",
+      "ecosystem": "csharp",
+      "path": "Src/Newtonsoft.Json/Converters/VersionConverter.cs",
+      "role": "comment",
+      "words": 31,
+      "text": "\u003csummary\u003e  Determines whether this instance can convert the specified object type.  \u003c/summary\u003e  \u003cparam name=\"objectType\"\u003eType of the object.\u003c/param\u003e  \u003creturns\u003e  \t\u003cc\u003etrue\u003c/c\u003e if this instance can convert the specified object type; otherwise, \u003cc\u003efalse\u003c/c\u003e.  \u003c/returns\u003e",
+      "text_sha256": "c919a482f9adee26a6519dc050b4509c4de776c66b9f4ee59e2b77156995b908",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public override bool CanConvert(Type objectType)",
+        "identifiers": [
+          "CanConvert",
+          "Type",
+          "objectType"
+        ],
+        "parameters": "Type objectType",
+        "numbers": [],
+        "sha256": "c1d4f375a17a3c629f61cf200f899316769659860790d2ce8899c6301e26dd09"
+      }
+    },
+    {
+      "id": "t5c91d4ebe2653261",
+      "source_id": "f00e873cfa7a42f2ddb59188",
+      "unit_id": "u001140",
+      "group_id": "8f20bdcb4330c910cdb2ed4d924f7bd18783258b691eb77d3ead590eb2a82795",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "JamesNK/Newtonsoft.Json",
+      "ecosystem": "csharp",
+      "path": "Src/Newtonsoft.Json/Converters/StringEnumConverter.cs",
+      "role": "comment",
+      "words": 13,
+      "text": "\u003csummary\u003e  Converts an \u003csee cref=\"Enum\"/\u003e to and from its name string value.  \u003c/summary\u003e",
+      "text_sha256": "707f880d832b05f91bc1baa8df2925e7fb24e3240dc2cdfb7cc47b0f0e0c5eda",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public class StringEnumConverter : JsonConverter",
+        "identifiers": [
+          "StringEnumConverter",
+          "JsonConverter"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "b51d759f32d837b79175f6edb85cfbccb150cc5b16a8e138acb6c7f5435d3b5a"
+      }
+    },
+    {
+      "id": "t5d4786a452dc2695",
+      "source_id": "bd9c1d4058bf3fcf6dede61f",
+      "unit_id": "u002935",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "require/require_forward.go",
+      "role": "comment",
+      "words": 22,
+      "text": "InDeltaMapValues is the same as InDelta, but it compares all values between two maps. Both maps must have exactly the same keys.",
+      "text_sha256": "88bac9a928590e36984e3561cad01d07a6d6ab230c383223090530ebcdab6658",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func (a *Assertions) InDeltaMapValues(expected interface{}, actual interface{}, delta float64, msgAndArgs ...interface{})",
+        "identifiers": [
+          "Assertions",
+          "InDeltaMapValues",
+          "expected",
+          "actual",
+          "delta",
+          "float64",
+          "msgAndArgs"
+        ],
+        "parameters": "expected interface{}, actual interface{}, delta float64, msgAndArgs ...interface{}",
+        "numbers": [],
+        "sha256": "a4a44280507a714ce79087301513fda56231184f0a31b94f3d864d7219191bdc"
+      }
+    },
+    {
+      "id": "t5e320efde15608cd",
+      "source_id": "83b75b1dcb86191521d991a4",
+      "unit_id": "u000497",
+      "group_id": "972f2bb3b4bd4292ae876a7f5b156585f79e295bc4cb5c5d8bfbd4b7e8c2c8d3",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "libuv/libuv",
+      "ecosystem": "c",
+      "path": "src/win/snprintf.c",
+      "role": "comment",
+      "words": 12,
+      "text": "Emulate snprintf() on MSVC\u003c2015, _snprintf() doesn't zero-terminate the buffer  on overflow...",
+      "text_sha256": "aa05ae4850db9fd615eb6d955f1c50d9e434cda12e59c9f634a9130303a77aa6",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "int snprintf(char* buf, size_t len, const char* fmt, ...)",
+        "identifiers": [
+          "snprintf",
+          "buf",
+          "len",
+          "fmt"
+        ],
+        "parameters": "char* buf, size_t len, const char* fmt, ...",
+        "numbers": [
+          "2015"
+        ],
+        "sha256": "7efa237acdc997975a18794bed919c40cbbc60fb2c99bd50f3c4dab51bbe4be6"
+      }
+    },
+    {
+      "id": "t641edaf9463f609a",
+      "source_id": "1be2c90fddee50f8154ec93f",
+      "unit_id": "u000306",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "mock/mock.go",
+      "role": "comment",
+      "words": 30,
+      "text": "diff returns a diff of both values as long as both are of the same type and  are a struct, map, slice or array. Otherwise it returns an empty string.",
+      "text_sha256": "535fa56908991ff7b2675f3c45621bb43deef29b525b724b395495e18f1df9a1",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func diff(expected interface{}, actual interface{}) string",
+        "identifiers": [
+          "diff",
+          "expected",
+          "actual"
+        ],
+        "parameters": "expected interface{}, actual interface{}",
+        "numbers": [],
+        "sha256": "0bb659191a54bba74f9035d9cb83a4a5274ce503642fd7005d7d95bda3ce1d74"
+      }
+    },
+    {
+      "id": "t6a696e6b4903b672",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u005320",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 34,
+      "text": "@static  @memberOf _  @since 4.0.0  @category Object  @param {Object} object The destination object.  @param {...Object} sources The source objects.  @param {Function} [customizer] The function to customize assigned values.  @returns {Object} Returns `object`.  @see _.assignInWith  @example",
+      "text_sha256": "339dbec43e1ba75375eaf8e5017dc16a1245c7fdf90e7dbaf5439785d66db29d",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "var assignWith = createAssigner(function(object, source, srcIndex, customizer)",
+        "identifiers": [
+          "assignWith",
+          "createAssigner",
+          "object",
+          "source",
+          "srcIndex",
+          "customizer"
+        ],
+        "parameters": "function(object, source, srcIndex, customizer)",
+        "numbers": [
+          "4.0",
+          "0"
+        ],
+        "sha256": "0c21fcce4464ffcd1bfbb873d80ec09337f038241fa48098e6ffd48c1e14a4e0"
+      }
+    },
+    {
+      "id": "t6fe6410783e85c59",
+      "source_id": "8631cdee6c3f126273ba75b3",
+      "unit_id": "u001453",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "assert/assertion_forward.go",
+      "role": "comment",
+      "words": 15,
+      "text": "EqualValues asserts that two objects are equal or convertable to the same types  and equal.",
+      "text_sha256": "2beadaee0566251673a60586388fac43a609aeef7190d3290d39abf66fcaadee",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func (a *Assertions) EqualValues(expected interface{}, actual interface{}, msgAndArgs ...interface{}) bool",
+        "identifiers": [
+          "Assertions",
+          "EqualValues",
+          "expected",
+          "actual",
+          "msgAndArgs"
+        ],
+        "parameters": "expected interface{}, actual interface{}, msgAndArgs ...interface{}",
+        "numbers": [],
+        "sha256": "1053c6681b3cdafe6281e60e17b10c3696eadb514a30f073fec6554d666b09a5"
+      }
+    },
+    {
+      "id": "t756b20fffe344342",
+      "source_id": "3754d650adef4e5b66ffaf7c",
+      "unit_id": "u000410",
+      "group_id": "5e0d6c95368a05e23d8eb66fb7c28bb85ebc7c874c0f3238a8a46f489de71c80",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "sirupsen/logrus",
+      "ecosystem": "go",
+      "path": "entry.go",
+      "role": "comment",
+      "words": 21,
+      "text": "getPackageName reduces a fully qualified function name to the package name  There really ought to be to be a better way...",
+      "text_sha256": "597a208aaf4f3a76f5c6c6e67e6a57d39fa22b088a64a95518b82c2a581551a6",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func getPackageName(f string) string",
+        "identifiers": [
+          "getPackageName"
+        ],
+        "parameters": "f string",
+        "numbers": [],
+        "sha256": "cb61fe8d1915ee5af8b1a4712fb92c47db241c91134be87dc208dafb06bc31a6"
+      }
+    },
+    {
+      "id": "t79b4e14035950bd3",
+      "source_id": "1be2c90fddee50f8154ec93f",
+      "unit_id": "u000215",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "mock/mock.go",
+      "role": "comment",
+      "words": 32,
+      "text": "IsType returns an IsTypeArgument object containing the type to check for.  You can provide a zero-value of the type to check.  This is an  alternative to AnythingOfType.  Used in Diff and Assert.",
+      "text_sha256": "d106765dae01f57763c9855852cda07d96abd37a41bc8ba5efb12aa08d42a7a7",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func IsType(t interface{}) *IsTypeArgument",
+        "identifiers": [
+          "IsType",
+          "IsTypeArgument"
+        ],
+        "parameters": "t interface{}",
+        "numbers": [],
+        "sha256": "0060b01d46f73bdbfac39881c1c9b6c005b90e6a9c410741b88b23cc9f9f60b8"
+      }
+    },
+    {
+      "id": "t7cd39278b04cabe6",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u001653",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 19,
+      "text": "@private  @param {*} value The value to check.  @returns {boolean} Returns `true` if `value` is a typed array, else `false`.",
+      "text_sha256": "7ccc97a7eaaa13e39d158723a62fc55cb2335a58ad8b86b9e6186044e561c882",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function baseIsTypedArray(value)",
+        "identifiers": [
+          "baseIsTypedArray",
+          "value"
+        ],
+        "parameters": "value",
+        "numbers": [],
+        "sha256": "99ad5b16d7735263bfba1966be779842e260b081591af917333cdddfb4bc0c1f"
+      }
+    },
+    {
+      "id": "t7fa313f2946a691a",
+      "source_id": "ce6300cbbfc8732a89d25683",
+      "unit_id": "u000133",
+      "group_id": "bbd6de43a568f60eed361e0ffd5a6fff85eac4658071441236b35e4fdcf6bbf4",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "axios/axios",
+      "ecosystem": "javascript",
+      "path": "lib/utils.js",
+      "role": "comment",
+      "words": 17,
+      "text": "@param {Object} val The value to test  @returns {boolean} True if value is an ArrayBuffer, otherwise false",
+      "text_sha256": "888e64f52422220cf013bfb9b55e6232ca0b7a7303ea4b7882154bf1b3a7a4bf",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function isArrayBuffer(val)",
+        "identifiers": [
+          "isArrayBuffer",
+          "val"
+        ],
+        "parameters": "val",
+        "numbers": [],
+        "sha256": "26fb7cd83fef6f9729199eef9a7364f16853bcd2c1855bd4f2061e5b75d5c7de"
+      }
+    },
+    {
+      "id": "t837234f6054b3314",
+      "source_id": "f2eed4785c099845e5d49b56",
+      "unit_id": "u002527",
+      "group_id": "8d5c70dd38c0e139cfb1f982ab8b3514dee5a9c39a7fe3c089a51cfe827df216",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "gorilla/mux",
+      "ecosystem": "go",
+      "path": "route.go",
+      "role": "comment",
+      "words": 38,
+      "text": "GetPathTemplate returns the template used to build the  route match.  This is useful for building simple REST API documentation and for instrumentation  against third-party services.  An error will be returned if the route does not define a path.",
+      "text_sha256": "4bdc8aa4407d1892f2cb974474b3398e3c7e5bf5dc5be4630875df9e2aa94b4d",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func (r *Route) GetPathTemplate() (string, error)",
+        "identifiers": [
+          "Route",
+          "GetPathTemplate",
+          "error"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "c69f2b9775d025835cea2c4725afb90e16a9a389a902aade31be7bd01eb938ac"
+      }
+    },
+    {
+      "id": "t859ec6a1ea979296",
+      "source_id": "f5f304b27df6fdcb17688594",
+      "unit_id": "u001001",
+      "group_id": "99a47506460d5f4a19f953563205df84bfeec1ffec15b3fede051bc77b1ce8af",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Formatting/Json/JsonFormatter.cs",
+      "role": "comment",
+      "words": 22,
+      "text": "\u003csummary\u003e  Formats log events in a simple JSON structure. Instances of this class  are safe for concurrent access by multiple threads.  \u003c/summary\u003e",
+      "text_sha256": "c8836b112763de96533d089284b8fcf30875f7325251470686e929b28c52a519",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public class JsonFormatter : ITextFormatter",
+        "identifiers": [
+          "JsonFormatter",
+          "ITextFormatter"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "4a32d55e069ea93be10530e2de5f5ff0f763d3bb2944d6ee76e9472393ae7c35"
+      }
+    },
+    {
+      "id": "t8d6c02ea7197454c",
+      "source_id": "a53e9cfcb7b3c8c3ed72c7b7",
+      "unit_id": "u000804",
+      "group_id": "93acb33bce84317d731bf008c0b2ddcc584d22eb7df6d02e8ed0c71d4bc6216b",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serde-rs/serde",
+      "ecosystem": "rust",
+      "path": "serde_derive/src/internals/attr.rs",
+      "role": "comment",
+      "words": 14,
+      "text": "Whether this enum represents the fields of a struct or the variants of an",
+      "text_sha256": "c27af2865264af824ae05bb90e0a17707e4b6f60bc7c88c40af78dbc37a974b9",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "pub enum Identifier",
+        "identifiers": [
+          "Identifier"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "fa10c6bee30ecb91c1b9a10ef52f627ef65f60f3de610379ffd467b7837fe25e"
+      }
+    },
+    {
+      "id": "t900d2980ec481c05",
+      "source_id": "8f72d65787991ecee860546c",
+      "unit_id": "u001732",
+      "group_id": "3472d53c4f3e64661013ecd1db06133eec763af67abb7fc9db112cabcea453f4",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "psf/requests",
+      "ecosystem": "python",
+      "path": "requests/sessions.py",
+      "role": "comment",
+      "words": 17,
+      "text": "It's possible that users might accidentally send a Request object.  Guard against that specific failure case.",
+      "text_sha256": "a5e904990457d44bf80282c54e6ff1fb000b7291ad04e3b7b782cd286b861859",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "if isinstance(request, Request)",
+        "identifiers": [
+          "if",
+          "isinstance",
+          "request",
+          "Request"
+        ],
+        "parameters": "request, Request",
+        "numbers": [],
+        "sha256": "04ade524ee11a0f5fb0bc2c474847f691d6d013b28462f456ae7969a94798e30"
+      }
+    },
+    {
+      "id": "t91d29ffe663b6604",
+      "source_id": "2623fd542b06d8980380c103",
+      "unit_id": "u000049",
+      "group_id": "bcdfc3b6074e61b22700df045248310cd740cb889602587154bcc145c83fb30d",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "date-fns/date-fns",
+      "ecosystem": "javascript",
+      "path": "src/formatISO9075/index.js",
+      "role": "comment",
+      "words": 23,
+      "text": "@example  // Represent 18 September 2019 in ISO 9075 format, time only:  const result = formatISO9075(new Date(2019, 8, 18, 19, 0, 52), { representation: 'time' })  //=\u003e '19:00:52'",
+      "text_sha256": "81121d82a3bbc8df15b5ee6987a2cce6ab6d45103d1cccb4b61f58d4ac4fafaf",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "export default function formatISO9075(dirtyDate, dirtyOptions)",
+        "identifiers": [
+          "default",
+          "formatISO9075",
+          "dirtyDate",
+          "dirtyOptions"
+        ],
+        "parameters": "dirtyDate, dirtyOptions",
+        "numbers": [
+          "18",
+          "2019",
+          "9075",
+          "8",
+          "19",
+          "0",
+          "52",
+          "00"
+        ],
+        "sha256": "eaee9cd8f2610efe6a606d0a1f4240d57518c901222409dfd62b92e2454f12ea"
+      }
+    },
+    {
+      "id": "t956406a58ee83f42",
+      "source_id": "f90095e0e45e21652c7e1386",
+      "unit_id": "u003320",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "assert/errors.go",
+      "role": "comment",
+      "words": 38,
+      "text": "AnError is an error instance useful for testing.  If the code does not care  about error specifics, and only needs to return the error for example, this  error should be used to make the test code more readable.",
+      "text_sha256": "7847b2a3712f0a53134b5f177587576e098eb73ecdac93521f6a116db36e0339",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "var AnError = errors.New(\"assert.AnError general error for testing\")",
+        "identifiers": [
+          "AnError",
+          "errors",
+          "New",
+          "assert",
+          "general",
+          "error",
+          "for",
+          "testing"
+        ],
+        "parameters": "\"assert.AnError general error for testing\"",
+        "numbers": [],
+        "sha256": "1a69b48aa334ad8ade622720632dbf000c8b364ab4cf5bb3e43631e40955d5f2"
+      }
+    },
+    {
+      "id": "t9e047c916d8016ec",
+      "source_id": "838c7a5f087d4b73df543627",
+      "unit_id": "u001060",
+      "group_id": "25fbf3acb58a3259a09355f867597a0f656059857ed7b0d784646986d4d972f2",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "psf/black",
+      "ecosystem": "python",
+      "path": "src/black/__init__.py",
+      "role": "comment",
+      "words": 31,
+      "text": "if the leaves in the parsed string include a PERCENT, we need to  make sure the initial LPAR is NOT preceded by an operator with  higher or equal precedence to PERCENT",
+      "text_sha256": "d894bf8d2b429e231334c679b4408cdf902279733bb39bee13931b70275f8b58",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "if is_valid_index(idx - 2)",
+        "identifiers": [
+          "if",
+          "is_valid_index",
+          "idx"
+        ],
+        "parameters": "idx - 2",
+        "numbers": [],
+        "sha256": "aa6aadafefeb4f1f8315972922be3d9c6fa5bf66126b32819b0b820e86fc3443"
+      }
+    },
+    {
+      "id": "ta96bf14c42f288ef",
+      "source_id": "fd7e27363682219fec2e85f9",
+      "unit_id": "u003593",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "require/require.go",
+      "role": "comment",
+      "words": 19,
+      "text": "Pointer variable equality is determined based on the equality of the  referenced values (as opposed to the memory addresses).",
+      "text_sha256": "02aebecdf079fdbffd37bd5b0f40474443bf8214a2273433d52dd668f8f71df5",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func NotEqual(t TestingT, expected interface{}, actual interface{}, msgAndArgs ...interface{})",
+        "identifiers": [
+          "NotEqual",
+          "TestingT",
+          "expected",
+          "actual",
+          "msgAndArgs"
+        ],
+        "parameters": "t TestingT, expected interface{}, actual interface{}, msgAndArgs ...interface{}",
+        "numbers": [],
+        "sha256": "8af496c58958bac5fc605c026a6ada077505c549281d3a9032463eb273acb0e2"
+      }
+    },
+    {
+      "id": "tb491902b8f13c509",
+      "source_id": "f59d81d97cf3d2be580fad73",
+      "unit_id": "u001853",
+      "group_id": "10bf4452b953e9c931da61d53b0b7aec41c7a335bfaf33ea9ca6ec4ea8fd8999",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "tj/commander.js",
+      "ecosystem": "javascript",
+      "path": "index.js",
+      "role": "comment",
+      "words": 12,
+      "text": "make it a little easier for callers by supporting various argv conventions",
+      "text_sha256": "607c992ef4bc206f4628c693262f25b8e99b1e463d1890a0d3033a188ab1a1c9",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "let userArgs",
+        "identifiers": [
+          "userArgs"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "38dda3f39eb00bca48d552171a7466ab6810705349e4d6ce71e4f6468af8b804"
+      }
+    },
+    {
+      "id": "tb5251c70220c5915",
+      "source_id": "8631cdee6c3f126273ba75b3",
+      "unit_id": "u001588",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "assert/assertion_forward.go",
+      "role": "comment",
+      "words": 22,
+      "text": "InDeltaMapValuesf is the same as InDelta, but it compares all values between two maps. Both maps must have exactly the same keys.",
+      "text_sha256": "5708e0182875b1006c0e09629d7da20e865ceaae162b08a6dd9fdbe1f956d976",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func (a *Assertions) InDeltaMapValuesf(expected interface{}, actual interface{}, delta float64, msg string, args ...interface{}) bool",
+        "identifiers": [
+          "Assertions",
+          "InDeltaMapValuesf",
+          "expected",
+          "actual",
+          "delta",
+          "float64",
+          "msg",
+          "args"
+        ],
+        "parameters": "expected interface{}, actual interface{}, delta float64, msg string, args ...interface{}",
+        "numbers": [],
+        "sha256": "774c16a60de8289354d942859bffdc1fcc30d25b3f6c9d2d8ed4c7cc4272868b"
+      }
+    },
+    {
+      "id": "tb5bd3281d0696694",
+      "source_id": "615a7cca54d64125658bf725",
+      "unit_id": "u000500",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "assert/assertion_format.go",
+      "role": "comment",
+      "words": 24,
+      "text": "NotEmptyf asserts that the specified object is NOT empty.  I.e. not nil, \"\", false, 0 or either  a slice or a channel with len == 0.",
+      "text_sha256": "41751761f08c71a07cd97083c23ffce5c67d6145bc39c702f8038cd656d35efd",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func NotEmptyf(t TestingT, object interface{}, msg string, args ...interface{}) bool",
+        "identifiers": [
+          "NotEmptyf",
+          "TestingT",
+          "object",
+          "msg",
+          "args"
+        ],
+        "parameters": "t TestingT, object interface{}, msg string, args ...interface{}",
+        "numbers": [
+          "0"
+        ],
+        "sha256": "de0fc82391a878c8918f2c8b0cdce5252430efb92eed5611471cd27d105626eb"
+      }
+    },
+    {
+      "id": "tbc38accc05e7d5f4",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u002430",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 41,
+      "text": "@private  @param {number} start The start of the view.  @param {number} end The end of the view.  @param {Array} transforms The transformations to apply to the view.  @returns {Object} Returns an object containing the `start` and `end`   positions of the view.",
+      "text_sha256": "b79a24062f2861505e636a99d1cf8958d4fd0ef8e16b8f8318f788f3570d4743",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function getView(start, end, transforms)",
+        "identifiers": [
+          "getView",
+          "start",
+          "end",
+          "transforms"
+        ],
+        "parameters": "start, end, transforms",
+        "numbers": [],
+        "sha256": "9c86fead71d931ea21b0d5ec3d65537ae02b410af11e72f2cc8c2a20f95953ba"
+      }
+    },
+    {
+      "id": "tbe2b6ed51c1dcb04",
+      "source_id": "fd7e27363682219fec2e85f9",
+      "unit_id": "u003331",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "require/require.go",
+      "role": "comment",
+      "words": 16,
+      "text": "Containsf asserts that the specified string, list(array, slice...) or map contains the  specified substring or element.",
+      "text_sha256": "d20a2e86a91725c6d5f36b28c0fdd6f5de9bbabe98e6803b12a7b858746de8fa",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func Containsf(t TestingT, s interface{}, contains interface{}, msg string, args ...interface{})",
+        "identifiers": [
+          "Containsf",
+          "TestingT",
+          "contains",
+          "msg",
+          "args"
+        ],
+        "parameters": "t TestingT, s interface{}, contains interface{}, msg string, args ...interface{}",
+        "numbers": [],
+        "sha256": "0e2ad9fc7b6cb7c7ca791a97bab2a80da87b23add6a08b8a2a5f6cec8791d8b7"
+      }
+    },
+    {
+      "id": "tcf3867e0419df4ed",
+      "source_id": "8be455c21b348a1e88a1bebe",
+      "unit_id": "u001108",
+      "group_id": "36d806b6aaa35f0059423d39d85d08d1dba06c1f32c673928677a3a3c5c8f4ee",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "serde-rs/json",
+      "ecosystem": "rust",
+      "path": "src/value/mod.rs",
+      "role": "comment",
+      "words": 13,
+      "text": "Takes the value out of the `Value`, leaving a `Null` in its place.",
+      "text_sha256": "56fd62b53468541a1b78510947fda8d4fe528f1e3844658c19b099d5017562fe",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "pub fn take(\u0026mut self) -\u003e Value",
+        "identifiers": [
+          "take",
+          "mut",
+          "Value"
+        ],
+        "parameters": "\u0026mut self",
+        "numbers": [],
+        "sha256": "b3736e9efe0a3c12f555e63efa41e658b19469bbf17429374b03c537fe13aef3"
+      }
+    },
+    {
+      "id": "tcff52e63b5a3b686",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u004450",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 24,
+      "text": "// Invoke `renewToken` when the click event is fired, but not more than once every 5 minutes.  var throttled = _.throttle(renewToken, 300000, { 'trailing': false });  jQuery(element).on('click', throttled);",
+      "text_sha256": "105d1df9fd518d050607ecb6aa47ddaac54aa12621a3e3f8fe257aaf157ad13d",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function throttle(func, wait, options)",
+        "identifiers": [
+          "throttle",
+          "wait",
+          "options"
+        ],
+        "parameters": "func, wait, options",
+        "numbers": [
+          "5",
+          "300000"
+        ],
+        "sha256": "6423fa06d987f07a917f50d05c066492edc04625851b4ba83988e2e42a247c27"
+      }
+    },
+    {
+      "id": "td219acbb2596729e",
+      "source_id": "ded8af12f14128a8b0c1631a",
+      "unit_id": "u000847",
+      "group_id": "acf507ee378798288b78085c572f407ee9891dfcfbc7c10eca76e786dcb048ab",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "JamesNK/Newtonsoft.Json",
+      "ecosystem": "csharp",
+      "path": "Src/Newtonsoft.Json/Bson/BsonWriter.cs",
+      "role": "comment",
+      "words": 18,
+      "text": "\u003csummary\u003e  Initializes a new instance of the \u003csee cref=\"BsonWriter\"/\u003e class.  \u003c/summary\u003e  \u003cparam name=\"writer\"\u003eThe \u003csee cref=\"BinaryWriter\"/\u003e to write to.\u003c/param\u003e",
+      "text_sha256": "094426b25372cdde35f861396a056c0a066774a2c5b4861cbb7eb469689c2583",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public BsonWriter(BinaryWriter writer)",
+        "identifiers": [
+          "BsonWriter",
+          "BinaryWriter",
+          "writer"
+        ],
+        "parameters": "BinaryWriter writer",
+        "numbers": [],
+        "sha256": "b82181e41fd1673f2ce844c13d05b35b12dcb47eee9774850f9d0010bf075ebc"
+      }
+    },
+    {
+      "id": "td8b8c3d1959bf565",
+      "source_id": "e1e53fcd937265cb2e87cdcc",
+      "unit_id": "u000485",
+      "group_id": "27765dd4d8e204771077840a040a232b902622873de0453cd385c04e3d42f3f3",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "catchorg/Catch2",
+      "ecosystem": "cpp",
+      "path": "include/internal/catch_capture_matchers.cpp",
+      "role": "comment",
+      "words": 34,
+      "text": "This is the general overload that takes a any string matcher  There is another overload, in catch_assertionhandler.h/.cpp, that only takes a string and infers  the Equals matcher (so the header does not mention matchers)",
+      "text_sha256": "37d32b28ccae8fadb238199efe1ee2823fd8a56420f16c7dd49947f5667b6fc6",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "void handleExceptionMatchExpr( AssertionHandler\u0026 handler, StringMatcher const\u0026 matcher, StringRef const\u0026 matcherString  )",
+        "identifiers": [
+          "handleExceptionMatchExpr",
+          "AssertionHandler",
+          "handler",
+          "StringMatcher",
+          "matcher",
+          "StringRef",
+          "matcherString"
+        ],
+        "parameters": "AssertionHandler\u0026 handler, StringMatcher const\u0026 matcher, StringRef const\u0026 matcherString",
+        "numbers": [],
+        "sha256": "b1f325a1948023d47a2e5c5a038a326521c6a82cf8f1587cc2aef4c832d50ee5"
+      }
+    },
+    {
+      "id": "te34dd927562e114c",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u002372",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 13,
+      "text": "@private  @param {Function} func The function to inspect.  @returns {*} Returns the placeholder value.",
+      "text_sha256": "216172c6d31d257319f5c7a12846ce311600d83e7930aa783146f562fc838eb0",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function getHolder(func)",
+        "identifiers": [
+          "getHolder"
+        ],
+        "parameters": "func",
+        "numbers": [],
+        "sha256": "c9dd831f4ceb5baf21ab46bfae0295820673dde7798513e7b9a2321f4093d6ae"
+      }
+    },
+    {
+      "id": "teb93f3103b70b676",
+      "source_id": "fd7e27363682219fec2e85f9",
+      "unit_id": "u003347",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "require/require.go",
+      "role": "comment",
+      "words": 13,
+      "text": "assert.ElementsMatchf(t, [1, 3, 2, 3], [1, 3, 3, 2], \"error message %s\", \"formatted\")",
+      "text_sha256": "f02354c96cc737a72d25bc33704912f94157f2ca204ddec2c8beb9d1b2915aa4",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func ElementsMatchf(t TestingT, listA interface{}, listB interface{}, msg string, args ...interface{})",
+        "identifiers": [
+          "ElementsMatchf",
+          "TestingT",
+          "listA",
+          "listB",
+          "msg",
+          "args"
+        ],
+        "parameters": "t TestingT, listA interface{}, listB interface{}, msg string, args ...interface{}",
+        "numbers": [
+          "1",
+          "3",
+          "2"
+        ],
+        "sha256": "50127766a6a12d50971043e1bbb528852cd58d4d28c6242f9713f5a7629db605"
+      }
+    },
+    {
+      "id": "tf19e7d6e01a551e6",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u001360",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 13,
+      "text": "The base implementation of `_.assign` without support for multiple sources  or `customizer` functions.",
+      "text_sha256": "1f5a5ebee465e6ba93e7e0d7bdba7c13c48e7bcba4edd222e5f535a6795144ee",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function baseAssign(object, source)",
+        "identifiers": [
+          "baseAssign",
+          "object",
+          "source"
+        ],
+        "parameters": "object, source",
+        "numbers": [],
+        "sha256": "33f5d6b4133c6e11c3ad7ddd875822e18b4114b09c3b8f069f25797a8fd283a6"
+      }
+    },
+    {
+      "id": "tf1d4e6b0803ec4da",
+      "source_id": "932db6220fbbcb3ad6028175",
+      "unit_id": "u000330",
+      "group_id": "1f7073c393cd9912a213b3b6ad3788eac1bfa9c44f167fa3ce00b33901b788cb",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "date-fns/date-fns",
+      "ecosystem": "javascript",
+      "path": "src/startOfSecond/index.js",
+      "role": "comment",
+      "words": 18,
+      "text": "@param {Date|Number} date - the original date  @returns {Date} the start of a second  @throws {TypeError} 1 argument required",
+      "text_sha256": "38f2b2962159845f535a5379489f00a32c39e1b90c2f965f58aa4e99588e3ead",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "export default function startOfSecond(dirtyDate)",
+        "identifiers": [
+          "default",
+          "startOfSecond",
+          "dirtyDate"
+        ],
+        "parameters": "dirtyDate",
+        "numbers": [
+          "1"
+        ],
+        "sha256": "ce77424ec361572f629ea61efda6cd8ac7d7d232476bcef7bb6d52e5593660c2"
+      }
+    },
+    {
+      "id": "tf20e9eca0e94a150",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u002689",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 23,
+      "text": "@private  @returns {Array} details The details to modify.  @param {number} bitmask The bitmask flags. See `createWrap` for more details.  @returns {Array} Returns `details`.",
+      "text_sha256": "e443d564632a8dd057f9f75721eb0df1af710bed5e09dd83cb3419f5514f68ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function updateWrapDetails(details, bitmask)",
+        "identifiers": [
+          "updateWrapDetails",
+          "details",
+          "bitmask"
+        ],
+        "parameters": "details, bitmask",
+        "numbers": [],
+        "sha256": "fab6a6b16c392c5079d21370f8dc1611f4a6c3e6c3f418b34933970afa40a2d0"
+      }
+    },
+    {
+      "id": "tf4bbf70a757c6ed5",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u002035",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 42,
+      "text": "@private  @param {Array} args The provided arguments.  @param {Array} partials The arguments to prepend to those provided.  @param {Array} holders The `partials` placeholder indexes.  @params {boolean} [isCurried] Specify composing for a curried function.  @returns {Array} Returns the new array of composed arguments.",
+      "text_sha256": "945f08a2aa46ac8957a4df4c27a260f7d1806f916a7d2fa48a3dfe26085018e8",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function composeArgs(args, partials, holders, isCurried)",
+        "identifiers": [
+          "composeArgs",
+          "args",
+          "partials",
+          "holders",
+          "isCurried"
+        ],
+        "parameters": "args, partials, holders, isCurried",
+        "numbers": [],
+        "sha256": "fb163814dd66bac35b218e54509b8632caa6557939a635bfffcad4bcab857ab7"
+      }
+    },
+    {
+      "id": "tf7f57e1bc25e288e",
+      "source_id": "50f5f0c04e54c9cf889c47ca",
+      "unit_id": "u002105",
+      "group_id": "5452d87fc162103ab8a2d70391ed5c9fc0fd71f87a034ae028aa163e58382367",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "lodash/lodash",
+      "ecosystem": "javascript",
+      "path": "lodash.js",
+      "role": "comment",
+      "words": 20,
+      "text": "@private  @param {string} methodName The name of the `String` case method to use.  @returns {Function} Returns the new case function.",
+      "text_sha256": "b45cffec665de8e70ad25274c60568c955b8acc46dfa444a44d63f2ece3dbd5a",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function createCaseFirst(methodName)",
+        "identifiers": [
+          "createCaseFirst",
+          "methodName"
+        ],
+        "parameters": "methodName",
+        "numbers": [],
+        "sha256": "287735525f25568e79ed58a4c22883374d05c3568447629a05314801845addee"
+      }
+    },
+    {
+      "id": "tfbf296388be535c5",
+      "source_id": "7156311a7af09ff1f6f63f3a",
+      "unit_id": "u000427",
+      "group_id": "93acb33bce84317d731bf008c0b2ddcc584d22eb7df6d02e8ed0c71d4bc6216b",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serde-rs/serde",
+      "ecosystem": "rust",
+      "path": "serde_derive/src/try.rs",
+      "role": "comment",
+      "words": 45,
+      "text": "None of our generated code requires the `From::from` error conversion  performed by the standard library's `try!` macro. With this simplified macro  we see a significant improvement in type checking and borrow checking time of  the generated code and a slight improvement in binary size.",
+      "text_sha256": "3cb4f7a82d2e425261f65272713bec01d15394edcc280da137db68d2c1a8cc1b",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "pub fn replacement() -\u003e TokenStream",
+        "identifiers": [
+          "replacement",
+          "TokenStream"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "c9d166c7e76381089a51938e71aeb6b2e2886b3058fd24432ae6d0c865dcca6e"
+      }
+    },
+    {
+      "id": "tfc910d59f1af71ff",
+      "source_id": "fd7e27363682219fec2e85f9",
+      "unit_id": "u003595",
+      "group_id": "1d7dda50807a0bfb5a975ed78dfbfd0d3354f014c6f37714569cfb02daa056db",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "require/require.go",
+      "role": "comment",
+      "words": 15,
+      "text": "NotEqualValues asserts that two objects are not equal even when converted to the same type",
+      "text_sha256": "963626cb8e4adbafe78574518deb140841b233e9c8f05786318cf6f65f51235e",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func NotEqualValues(t TestingT, expected interface{}, actual interface{}, msgAndArgs ...interface{})",
+        "identifiers": [
+          "NotEqualValues",
+          "TestingT",
+          "expected",
+          "actual",
+          "msgAndArgs"
+        ],
+        "parameters": "t TestingT, expected interface{}, actual interface{}, msgAndArgs ...interface{}",
+        "numbers": [],
+        "sha256": "cb9f92806db5fc1ae27d630470050b5fe417d61d6047121ff83b7aab6ca9354b"
+      }
+    },
+    {
+      "id": "tfef9379771ece95a",
+      "source_id": "06f9ae8199f1c314509e62d6",
+      "unit_id": "u000047",
+      "group_id": "662320b3d90a9b5e80a4223d8c73e5371d2c79986ef45b4130c48656f03673a1",
+      "partition": "development",
+      "cohort": "historical",
+      "repository": "clap-rs/clap",
+      "ecosystem": "rust",
+      "path": "src/args/arg.rs",
+      "role": "comment",
+      "words": 12,
+      "text": "be displayed when the user prints the usage/help information of the program.",
+      "text_sha256": "033b2fceb6b7bef03ecd26419537ff5d3de0ca1546409757d843508867bb3d6b",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "pub fn with_name(n: \u0026'a str) -\u003e Self",
+        "identifiers": [
+          "with_name",
+          "str",
+          "Self"
+        ],
+        "parameters": "n: \u0026'a str",
+        "numbers": [],
+        "sha256": "c28acc04e5d07cdb04b4e77ddc2ed67f64925e9dc115971a92ffbfdfa8c7003b"
+      }
+    }
+  ]
+}

@@ -1,0 +1,862 @@
+{
+  "version": "unswell-corpus-v1",
+  "id": "controlled-clap-rs__clap",
+  "seed": "unswell-llm-patterns-v1",
+  "weights": {
+    "training": 5000,
+    "development": 1500,
+    "calibration": 1500,
+    "final_test": 2000
+  },
+  "extraction_policy": {
+    "contexts": [
+      "comment",
+      "string",
+      "paragraph",
+      "heading",
+      "list-item",
+      "table-cell"
+    ],
+    "languages": {},
+    "exceptions": []
+  },
+  "unit_kinds": [
+    "sentence",
+    "paragraph",
+    "fragment"
+  ],
+  "sources": [
+    {
+      "id": "1d0dc1e123a32b71eac231d8",
+      "path": "generated/rce9b47d98af1196d.md",
+      "sha256": "ccbb4cbde3c8396ea6db50971ab70b93133912e943f446692adf5115fb128953",
+      "bytes": 91,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/rce9b47d98af1196d.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t21a8547f31099e98"
+      ],
+      "reference": "generation:2026-09-11-pilot/rce9b47d98af1196d",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response rce9b47d98af1196d of run 2026-09-11-pilot: polish under prompt neutral by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#rce9b47d98af1196d"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "3851404a519cf76fcde27c8b",
+      "path": "generated/r5fe797f7c028c8b6.md",
+      "sha256": "6f4211a444e9a67f057f1e7801c63815b594b1e6222b42f7f520938a6022f481",
+      "bytes": 90,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r5fe797f7c028c8b6.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t17cdea5d6f150661"
+      ],
+      "reference": "generation:2026-09-11-pilot/r5fe797f7c028c8b6",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r5fe797f7c028c8b6 of run 2026-09-11-pilot: polish under prompt neutral by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r5fe797f7c028c8b6"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "39661ea1ecd77e0af6b0ced7",
+      "path": "generated/r04afaf27db351ecc.md",
+      "sha256": "3b8097eef161aa798eaa0012f1fa1d583566013a4ce706ffa9aa387552b59a42",
+      "bytes": 77,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r04afaf27db351ecc.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t50932b9db88f230d"
+      ],
+      "reference": "generation:2026-09-11-pilot/r04afaf27db351ecc",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r04afaf27db351ecc of run 2026-09-11-pilot: polish under prompt neutral by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r04afaf27db351ecc"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "39e8f702b20f0aaee1667848",
+      "path": "generated/r9ada0bb2c58d5f5f.md",
+      "sha256": "014c7b78e18e2b158fe6087ad424769644fcbe92158826a6469f0f4a4acbcf9d",
+      "bytes": 77,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r9ada0bb2c58d5f5f.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t50932b9db88f230d"
+      ],
+      "reference": "generation:2026-09-11-pilot/r9ada0bb2c58d5f5f",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r9ada0bb2c58d5f5f of run 2026-09-11-pilot: polish under prompt plain by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r9ada0bb2c58d5f5f"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "40dbcc5d9ec9be2dd3db91f7",
+      "path": "generated/r281632d84f2707e5.md",
+      "sha256": "7e9e6fb256e9bef837b1daf60a92890a5251023f63894ef3d37753fda9293916",
+      "bytes": 68,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r281632d84f2707e5.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tfef9379771ece95a"
+      ],
+      "reference": "generation:2026-09-11-pilot/r281632d84f2707e5",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r281632d84f2707e5 of run 2026-09-11-pilot: generate under prompt plain by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r281632d84f2707e5"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "6fb33e660e2d548da988c842",
+      "path": "generated/r804eab2dbb27676f.md",
+      "sha256": "09c8e7742b4f6ab438e8f40f2a4670ead41706625265d8b8af10614891d865b9",
+      "bytes": 119,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r804eab2dbb27676f.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t17cdea5d6f150661"
+      ],
+      "reference": "generation:2026-09-11-pilot/r804eab2dbb27676f",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r804eab2dbb27676f of run 2026-09-11-pilot: generate under prompt neutral by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r804eab2dbb27676f"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "7f74cb4bb1baf03590c85d41",
+      "path": "generated/r8c72600199b57f6f.md",
+      "sha256": "b5f35493cf989eb83b2e5640d7a38e9be000817524f8cb4a8e77a04e9f1260ac",
+      "bytes": 75,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r8c72600199b57f6f.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tfef9379771ece95a"
+      ],
+      "reference": "generation:2026-09-11-pilot/r8c72600199b57f6f",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r8c72600199b57f6f of run 2026-09-11-pilot: polish under prompt neutral by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r8c72600199b57f6f"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "9221a72c14c0568c16b511e5",
+      "path": "generated/r355ad57c83cf6fa8.md",
+      "sha256": "bf13013ee2bfa2d240b40f492fd48bd18f4ca9c22cfd42123df8e2d4dbab9823",
+      "bytes": 82,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r355ad57c83cf6fa8.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t21a8547f31099e98"
+      ],
+      "reference": "generation:2026-09-11-pilot/r355ad57c83cf6fa8",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r355ad57c83cf6fa8 of run 2026-09-11-pilot: generate under prompt neutral by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r355ad57c83cf6fa8"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "98b98007f1bf31f5ea136732",
+      "path": "generated/r47fc6727e1c202a0.md",
+      "sha256": "8e75446b3599cb314b6df71cfb40394c020ed3154787a3a3e4508d5ae7b832b2",
+      "bytes": 126,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r47fc6727e1c202a0.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t50932b9db88f230d"
+      ],
+      "reference": "generation:2026-09-11-pilot/r47fc6727e1c202a0",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r47fc6727e1c202a0 of run 2026-09-11-pilot: generate under prompt neutral by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r47fc6727e1c202a0"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "9b9841327ba277838736f430",
+      "path": "generated/r76c6b21682cb5904.md",
+      "sha256": "bf2eabe0afdea93dc5be7ad4d5514fad9658e0367886b68ab23ed74459ff7036",
+      "bytes": 84,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r76c6b21682cb5904.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t17cdea5d6f150661"
+      ],
+      "reference": "generation:2026-09-11-pilot/r76c6b21682cb5904",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r76c6b21682cb5904 of run 2026-09-11-pilot: generate under prompt plain by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r76c6b21682cb5904"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "b2541186924cad9c88cb03ea",
+      "path": "generated/rbc9a968064291965.md",
+      "sha256": "15f7504722b2787598cf070b7cc314f28a4e03f971106a9f57d5a4230ad18c25",
+      "bytes": 68,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/rbc9a968064291965.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tfef9379771ece95a"
+      ],
+      "reference": "generation:2026-09-11-pilot/rbc9a968064291965",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rbc9a968064291965 of run 2026-09-11-pilot: generate under prompt neutral by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#rbc9a968064291965"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "c77d6cf900f597bc3bdb60ec",
+      "path": "generated/r9fbbf461e00a2739.md",
+      "sha256": "71cc0db2b881604e26467f2a10d45f32e409ea6bf943a0391a9d38703981d08f",
+      "bytes": 81,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r9fbbf461e00a2739.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t21a8547f31099e98"
+      ],
+      "reference": "generation:2026-09-11-pilot/r9fbbf461e00a2739",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r9fbbf461e00a2739 of run 2026-09-11-pilot: generate under prompt plain by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r9fbbf461e00a2739"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "da5ffb63ad421c22eb6e6644",
+      "path": "generated/r61c2a90773d8c019.md",
+      "sha256": "b5f35493cf989eb83b2e5640d7a38e9be000817524f8cb4a8e77a04e9f1260ac",
+      "bytes": 75,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r61c2a90773d8c019.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tfef9379771ece95a"
+      ],
+      "reference": "generation:2026-09-11-pilot/r61c2a90773d8c019",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r61c2a90773d8c019 of run 2026-09-11-pilot: polish under prompt plain by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r61c2a90773d8c019"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "e9e0dd3fad6f0caf75b5d838",
+      "path": "generated/r91d07f9f44584c4c.md",
+      "sha256": "77416fd82087dd7d1edf2b617b9d659e6c0e667b0e7fd694adde51f7c137d0bb",
+      "bytes": 90,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r91d07f9f44584c4c.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t21a8547f31099e98"
+      ],
+      "reference": "generation:2026-09-11-pilot/r91d07f9f44584c4c",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r91d07f9f44584c4c of run 2026-09-11-pilot: polish under prompt plain by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r91d07f9f44584c4c"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "f477b1a5eb6803cd3dd9c023",
+      "path": "generated/r60872bf399f05c08.md",
+      "sha256": "f0745fb2bf7d040513ea1c3c7971d795a9ec3842e3d816a92622722429a03412",
+      "bytes": 89,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r60872bf399f05c08.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t17cdea5d6f150661"
+      ],
+      "reference": "generation:2026-09-11-pilot/r60872bf399f05c08",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r60872bf399f05c08 of run 2026-09-11-pilot: polish under prompt plain by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r60872bf399f05c08"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "fc336363b22429ab0b3ea8b3",
+      "path": "generated/r762a815f98d793d0.md",
+      "sha256": "345818234363eb8d2e7b5a434c0e75cb403dbe2f12a14332253331488d1dd538",
+      "bytes": 94,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "clap-rs/clap",
+      "document": "clap-rs/clap/generated/r762a815f98d793d0.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t50932b9db88f230d"
+      ],
+      "reference": "generation:2026-09-11-pilot/r762a815f98d793d0",
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r762a815f98d793d0 of run 2026-09-11-pilot: generate under prompt plain by anthropic-claude (claude-opus-5); record artifacts/generation/2026-09-11-pilot/records.json",
+        "generation_record": "artifacts/generation/2026-09-11-pilot/records.json#r762a815f98d793d0"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of clap-rs/clap at 33bebeda52b52c6f643b4ed6fa880671ba0ab80a under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE-MIT",
+          "sha256": "6725d1437fc6c77301f2ff0e7d52914cf4f9509213e1078dc77d9356dbe6eac5",
+          "bytes": 1086
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-11",
+        "confidence": "corroborated",
+        "evidence": "Generation record artifacts/generation/2026-09-11-pilot/records.json dates the response",
+        "cohort": "controlled"
+      }
+    }
+  ]
+}
