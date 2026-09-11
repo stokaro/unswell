@@ -35,6 +35,12 @@ a rule never fires in a cohort, the row carries the one-sided 97.5%
 Clopper-Pearson upper bound `1 - 0.025^(1/n)` on the share of the `n`
 components that could carry the construction.
 
+Every row also carries `roles`: the same counts and the same interval for
+each document role the rule admits, so a comment, a README, and a
+reference page are not compared against one pooled rate. A stratum's
+components are those that hold documents of the role in that cohort. The
+strata add up to the row.
+
 One count is one document unless the command names a unit kind. The
 `unit` field of the output says which.
 

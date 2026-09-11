@@ -119,6 +119,54 @@ func TestTablesReproduceTheReferenceExample(t *testing.T) {
 	c.Assert(a.Contrasts[0].RatioStatus, qt.Equals, "defined")
 }
 
+// Every row carries its document roles as strata. Two comment documents in
+// components B and C join the documentation documents under b.rule, and the
+// strata add up to the row.
+func TestTablesCarryRoleStrata(t *testing.T) {
+	c := qt.New(t)
+	art := fixture()
+	art.Documents = append(art.Documents,
+		doc("m1", "B", "historical", "comment", 60, 0, 1),
+		doc("m2", "C", "historical", "comment", 40, 0, 0))
+	tables, err := patterns.Analyze(t.Context(), []corpus.FindingsArtifact{art}, classes(), patterns.Options{})
+	c.Assert(err, qt.IsNil)
+	b := tables.Rules[1]
+	c.Assert(b.RuleID, qt.Equals, "b.rule")
+	var historical patterns.RuleCohort
+	for _, row := range b.Cohorts {
+		if row.Cohort == "historical" {
+			historical = row
+		}
+	}
+	c.Assert(historical.Documents, qt.Equals, 6)
+	c.Assert(historical.Findings, qt.Equals, 1)
+	c.Assert(historical.Roles, qt.HasLen, 2)
+	comment, documentation := historical.Roles[0], historical.Roles[1]
+	c.Assert(comment.Role, qt.Equals, "comment")
+	c.Assert(comment.Documents, qt.Equals, 2)
+	c.Assert(comment.Components, qt.Equals, 2)
+	c.Assert(comment.Words, qt.Equals, 100)
+	c.Assert(comment.Findings, qt.Equals, 1)
+	c.Assert(comment.Counted, qt.Equals, 2)
+	c.Assert(comment.CountedWithFinding, qt.Equals, 1)
+	c.Assert(*comment.Prevalence.Value, qt.Equals, 0.5)
+	c.Assert(comment.Prevalence.Status, qt.Equals, "cluster_percentile")
+	c.Assert(*comment.PerThousandWords, qt.Equals, 10.0)
+	c.Assert(documentation.Role, qt.Equals, "documentation")
+	c.Assert(documentation.Documents, qt.Equals, 4)
+	c.Assert(documentation.Components, qt.Equals, 3)
+	c.Assert(documentation.Findings, qt.Equals, 0)
+	c.Assert(*documentation.Prevalence.Value, qt.Equals, 0.0)
+	c.Assert(comment.Documents+documentation.Documents, qt.Equals, historical.Documents)
+	c.Assert(comment.Words+documentation.Words, qt.Equals, historical.Words)
+	// a.rule admits documentation only, so its rows carry one stratum.
+	for _, row := range tables.Rules[0].Cohorts {
+		c.Assert(row.Roles, qt.HasLen, 1)
+		c.Assert(row.Roles[0].Role, qt.Equals, "documentation")
+		c.Assert(row.Roles[0].Documents, qt.Equals, row.Documents)
+	}
+}
+
 // b.rule never fires: the zero bound over three components is 1-0.025^(1/3),
 // the ratio stays undefined, and the same inputs give the same tables.
 func TestTablesReportZeroCountsAndStayDeterministic(t *testing.T) {
