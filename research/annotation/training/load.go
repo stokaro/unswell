@@ -87,7 +87,10 @@ func validateRestoredContract(a Artifact) error {
 	if err := validateLexicalArtifact(a); err != nil {
 		return err
 	}
-	return validateCompressionArtifact(a)
+	if err := validateCompressionArtifact(a); err != nil {
+		return err
+	}
+	return validateLLMDetArtifact(a)
 }
 
 func validSelectionOptions(a Artifact) bool {

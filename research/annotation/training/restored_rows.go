@@ -33,9 +33,11 @@ func validateRestoredPartition(task string, partition Partition, options Options
 	if err := validateFittedCounts(task, partition); err != nil {
 		return err
 	}
-	for _, count := range partition.ZeroFilled {
-		if count < 0 {
-			return fmt.Errorf("training artifact has a negative zero-filled count")
+	for _, counts := range []map[string]int{partition.ZeroFilled, partition.Unavailable} {
+		for _, count := range counts {
+			if count < 0 {
+				return fmt.Errorf("training artifact has a negative abstention count")
+			}
 		}
 	}
 	for _, row := range partition.Rows {

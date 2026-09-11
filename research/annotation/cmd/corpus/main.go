@@ -12,6 +12,7 @@ import (
 	"slices"
 
 	"github.com/stokaro/unswell/probability"
+	"github.com/stokaro/unswell/research/annotation"
 	"github.com/stokaro/unswell/research/annotation/corpus"
 	"github.com/stokaro/unswell/research/annotation/internal/commandio"
 	"github.com/stokaro/unswell/research/annotation/training"
@@ -178,12 +179,8 @@ func annotatedOperation(ctx context.Context, name string, options options, artif
 	if err := options.reserve(ctx); err != nil {
 		return nil, err
 	}
-	if options.compressionBank != "" {
-		bank, err := loadBank(ctx, options.compressionBank)
-		if err != nil {
-			return nil, err
-		}
-		return training.RunCompression(ctx, artifact, round, files, options.train, bank)
+	if options.compressionBank != "" || options.llmdetPack != "" {
+		return referenceOperation(ctx, options, artifact, files, round, annotation.DecisionSet{})
 	}
 	if options.lexical {
 		return training.RunLexical(ctx, artifact, round, files, options.train, options.lexicalOptions)
@@ -195,6 +192,31 @@ func annotatedOperation(ctx context.Context, name string, options options, artif
 		return training.Run(ctx, artifact, round, files, options.train)
 	}
 	return corpus.Join(ctx, artifact, round, files, options.features)
+}
+
+// referenceOperation fits a reference source, the compression bank or the
+// LLMDet pack, from a round or from a decision set.
+func referenceOperation(ctx context.Context, options options, artifact corpus.Artifact, files map[string][]byte,
+	round *annotation.Round, decisions annotation.DecisionSet,
+) (any, error) {
+	if options.compressionBank != "" {
+		bank, err := loadBank(ctx, options.compressionBank)
+		if err != nil {
+			return nil, err
+		}
+		if round != nil {
+			return training.RunCompression(ctx, artifact, round, files, options.train, bank)
+		}
+		return training.RunCompressionDecisions(ctx, artifact, decisions, files, options.train, bank)
+	}
+	pack, err := training.LoadLLMDetPack(ctx, options.llmdetPack)
+	if err != nil {
+		return nil, err
+	}
+	if round != nil {
+		return training.RunLLMDet(ctx, artifact, round, files, options.train, pack)
+	}
+	return training.RunLLMDetDecisions(ctx, artifact, decisions, files, options.train, pack)
 }
 
 // reserve binds the reserved groups of a bank named by --reserve-bank to the
@@ -233,12 +255,8 @@ func provenanceOperation(ctx context.Context, name string, options options, arti
 	if err := options.reserve(ctx); err != nil {
 		return nil, err
 	}
-	if options.compressionBank != "" {
-		bank, err := loadBank(ctx, options.compressionBank)
-		if err != nil {
-			return nil, err
-		}
-		return training.RunCompressionDecisions(ctx, artifact, decisions, files, options.train, bank)
+	if options.compressionBank != "" || options.llmdetPack != "" {
+		return referenceOperation(ctx, options, artifact, files, nil, decisions)
 	}
 	if options.lexical {
 		return training.RunLexicalDecisions(ctx, artifact, decisions, files, options.train, options.lexicalOptions)

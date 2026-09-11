@@ -90,7 +90,12 @@ copyright 2023 Kangxi Wu, Liang Pang, TryMore Group, under the MIT License.
 The source notice follows `package`; the full notice is preserved in
 [licenses/LLMDet_LICENSE](licenses/LLMDet_LICENSE). The numerical package is
 outside the product module. Its isolated reference environment pins LightGBM,
-NumPy, and SciPy; none is required by normal Go builds or tests. Classifier weights,
-probability tables, and tokenizer assets are not distributed. Their observed
-metadata and unresolved terms are recorded in the
+NumPy, and SciPy; none is required by normal Go builds or tests. Classifier weights
+and probability tables are not distributed. Their observed metadata and
+unresolved terms are recorded in the
 [resource inventory](research/llmdet/resources-v1.json).
+
+The research `llmdet` tokenizer tests read the GPT-2 vocabulary and merge
+list, copyright 2019 OpenAI, under the Modified MIT License preserved in
+[licenses/GPT-2_LICENSE](licenses/GPT-2_LICENSE). The files are compressed
+test data of the research module; no product build or scan reads them.

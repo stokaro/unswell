@@ -21,6 +21,7 @@ import (
 type PredictionResources struct {
 	Configuration []byte
 	Bank          *corpus.CompressionBank
+	LLMDet        *LLMDetPack
 }
 
 // Predict restores a frozen model and measures reserved corpus targets without
@@ -78,9 +79,12 @@ func predictionMeasurements(ctx context.Context, candidates corpus.Artifact, fil
 	if fitted.Identity.FeatureSource == "lexical_ngrams" {
 		return lexicalPredictionMeasurements(ctx, candidates, files, fitted, configuration, partition)
 	}
-	if fitted.Identity.FeatureSource == "compression_bank" {
+	if fitted.Identity.FeatureSource == "compression_bank" || fitted.Identity.FeatureSource == "llmdet_tables" {
 		if len(configuration) != 0 {
-			return rowSelector{}, nil, corpus.Verification{}, fmt.Errorf("compression prediction rejects rule configuration")
+			return rowSelector{}, nil, corpus.Verification{}, fmt.Errorf("reference prediction rejects rule configuration")
+		}
+		if fitted.Identity.FeatureSource == "llmdet_tables" {
+			return llmdetPredictionMeasurements(ctx, candidates, files, fitted, resources.LLMDet)
 		}
 		return compressionPredictionMeasurements(ctx, candidates, files, fitted, resources.Bank)
 	}
@@ -243,6 +247,9 @@ func validatePredictionResources(fitted Artifact, resources PredictionResources)
 	}
 	if resources.Bank != nil && fitted.Identity.FeatureSource != "compression_bank" {
 		return fmt.Errorf("only compression prediction takes a reference bank")
+	}
+	if resources.LLMDet != nil && fitted.Identity.FeatureSource != "llmdet_tables" {
+		return fmt.Errorf("only LLMDet prediction takes a table pack")
 	}
 	return nil
 }

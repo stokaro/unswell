@@ -160,7 +160,7 @@ func TestRunCompressionDecisionsRefusesOtherBanks(t *testing.T) {
 		{"activation", func(o *training.Options, _ *corpus.CompressionBank) {
 			o.Features = []string{"activation/hype.vague-praise"}
 		},
-			"compression training adds reference columns to prepared features only"},
+			"reference training adds reference columns to prepared features only"},
 		{"other-kind", func(_ *training.Options, b *corpus.CompressionBank) { b.Options.Kind = "sentence" },
 			"compression training requires a sealed bank.*"},
 		{"other-corpus", func(_ *training.Options, b *corpus.CompressionBank) {

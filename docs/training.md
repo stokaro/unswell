@@ -125,6 +125,9 @@ records those runs. `scripts/compression-experiment.sh` adds the compression
 arms: `reference-bank --labels cohort` seeds a bank from one training group,
 `train --compression-bank` measures every target against its cohorts, and
 `train --reserve-bank` keeps the compared baselines on the same rows.
+`scripts/llmdet-experiment.sh` does the same for the LLMDet port: `train
+--llmdet-pack` measures every paragraph against the dictionary tables the
+[LLMDet experiment](../research/llmdet/README.md) converted.
 
 The artifact records task `origin_endpoint` and rubric
 `unswell-origin-endpoint-v1`, its class counts use the two labels above, and

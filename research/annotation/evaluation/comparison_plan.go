@@ -93,8 +93,8 @@ func compatibleComparisonIdentity(a, b training.Identity) bool {
 }
 
 // The supported lexical model changes feature formulas and learns its dictionary,
-// and the compression model reads its columns from a reference bank. All
-// source-policy, preparation, NLP, and editorial identities still compare.
+// and the reference models read their columns from a bank or a table pack.
+// All source-policy, preparation, NLP, and editorial identities still compare.
 func comparisonRepresentation(identity training.Identity) training.Identity {
 	switch identity.FeatureSource {
 	case "lexical_ngrams":
@@ -105,6 +105,10 @@ func comparisonRepresentation(identity training.Identity) training.Identity {
 		identity.FeatureSource, identity.Context, identity.Preprocessing = "", "", ""
 		identity.FeatureContract = feature.UnitContract
 		identity.CompressionBankHash = ""
+	case "llmdet_tables":
+		identity.FeatureSource, identity.Context, identity.Preprocessing = "", "", ""
+		identity.FeatureContract = feature.UnitContract
+		identity.LLMDetPackHash = ""
 	}
 	return identity
 }

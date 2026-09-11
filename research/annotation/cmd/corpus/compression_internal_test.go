@@ -29,15 +29,30 @@ func TestCompressionBankOptionsStandApart(t *testing.T) {
 		args := append([]string{"train", "--root", ".", "--labels", "cohort", "--compression-bank", "bank.json",
 			"--kind", "paragraph"}, extra...)
 		_, err = commandOptions(args)
-		c.Assert(err, qt.ErrorMatches, "--compression-bank excludes --lexical, --rule-config, and --reserve-bank")
+		c.Assert(err, qt.ErrorMatches, "--compression-bank excludes --lexical, --rule-config, --reserve-bank, and --llmdet-pack")
 	}
 	_, err = commandOptions([]string{"join", "--root", ".", "--labels", "cohort", "--compression-bank", "bank.json"})
 	c.Assert(err, qt.IsNotNil)
+	_, err = commandOptions([]string{"train", "--root", ".", "--labels", "cohort", "--llmdet-pack", "pack.json", "--kind", "paragraph"})
+	c.Assert(err, qt.IsNil)
+	_, err = commandOptions([]string{"train", "--root", ".", "--labels", "cohort", "--llmdet-pack", "pack.json",
+		"--feature", "prose-words", "--kind", "paragraph"})
+	c.Assert(err, qt.IsNil)
+	_, err = commandOptions([]string{"train", "--root", ".", "--labels", "cohort", "--llmdet-pack", "pack.json", "--lexical",
+		"--kind", "paragraph"})
+	c.Assert(err, qt.ErrorMatches, "--llmdet-pack excludes --lexical and --rule-config")
+	_, err = commandOptions([]string{"train", "--root", ".", "--labels", "cohort", "--llmdet-pack", "pack.json",
+		"--compression-bank", "bank.json", "--kind", "paragraph"})
+	c.Assert(err, qt.ErrorMatches, "--compression-bank excludes .*--llmdet-pack")
 
 	options, err := evaluationFlags([]string{"predict", "--root", ".", "--model", "m.json", "--plan", "p.json",
 		"--protocol", "m.md", "--compression-bank", "bank.json"})
 	c.Assert(err, qt.IsNil)
 	c.Assert(options.bank, qt.Equals, "bank.json")
+	options, err = evaluationFlags([]string{"predict", "--root", ".", "--model", "m.json", "--plan", "p.json",
+		"--protocol", "m.md", "--llmdet-pack", "pack.json"})
+	c.Assert(err, qt.IsNil)
+	c.Assert(options.llmdetPack, qt.Equals, "pack.json")
 
 	_, err = compressionBankFlags([]string{"reference-bank", "--root", ".", "--labels", "cohort", "--selection", "s.json"})
 	c.Assert(err, qt.IsNil)

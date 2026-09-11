@@ -57,8 +57,8 @@ contexts; `residual` includes unlisted continuations whose likelihood was skippe
 Context coverage and evaluated-likelihood coverage use possible positions as
 their denominator. Present values are numerical features, not qualified scores.
 
-These controls use float64 rows. Dtypes and rounding behavior of the unavailable
-full table pack have not been verified. Probability validation rejects nonfinite
+These controls use float64 rows. The tables below carry the archive's own
+16-bit values and rounding. Probability validation rejects nonfinite
 values, values outside `[0, 1]`, duplicate IDs/contexts, and mass above `1 + 1e-12`.
 Mass within that tolerance is not renormalized. Fully enumerated rows use their
 retained values; an empty row uses uniform residual probability.
@@ -93,17 +93,69 @@ required. The probe accepts explicit local JSON packs and JSON batches on stdin.
 Invalid packs or incomplete numeric vectors return exit 2; cancellation returns
 130. No policy decision or source scanning happens in this command.
 
+## Tables and tokenizers
+
+The second increment runs the proxy on prose. The published archive was
+acquired and hashed. Its digest matches the advertised one, and
+[`resources-v1.json`](resources-v1.json) records every member and file.
+
+The archive holds one dictionary per model. Each is a pickled object array
+of six Python dictionaries: the continuations and the probabilities of the
+unigram, bigram, and trigram contexts. The `gpt2` dictionary retains 2,000
+continuations for each of 24,935 unigram contexts, 1,000 for each of 70,000
+bigram contexts, and 100 for each of 320,000 trigram contexts. That is 152
+million values, far outside the bounds of the row proxy.
+
+[`tables.py`](tables.py) converts one dictionary into a binary table in the
+`unswell-llmdet-table-v1` form. The table keeps every context and every
+retained value. Contexts are sorted for binary search, tokens take 16 bits,
+and probabilities keep their original 16-bit form. Nothing is sampled or
+rounded. `llmdet.LoadTable` reads a table into memory, about 600 MB per
+model, and checks its sizes and probabilities. It measures token sequences
+with the same arithmetic as the row proxy, and a test holds the two forms to
+identical results on the parity controls.
+
+Two details of the reference carry over on purpose. First, the vocabulary
+size the reference passes for a model enters the residual mass only, and the
+archive's tokens run past that number for OPT, so a table keeps any 16-bit
+token. Second, the residual mass sums the retained probabilities one at a
+time in 16-bit floats, as the reference's Python `sum` over NumPy scalars
+does. The Go table rounds the same way. A 64-bit sum differs in the third
+decimal on 2,000 values.
+
+The reference tokenizes with each model's published tokenizer. Six of the
+eleven models share one algorithm, the byte-level byte-pair encoding of
+GPT-2: `gpt2`, `gpt2_large`, `neo`, `opt`, `opt_3b`, and `bart`. They use
+two vocabularies over the same merge list, GPT-2's own and the RoBERTa-style
+one of OPT and BART. `llmdet.LoadBPE` reads a vocabulary and a merge list.
+`Encode` reproduces the reference pre-tokenization without a backtracking
+regular expression. The tests hold it to encodings that `tiktoken` produced
+from the same files: whitespace runs, contractions, digits, punctuation, and
+non-Latin text. The GPT-2 files are compressed test data under OpenAI's
+license. Every other tokenizer file stays outside the repository.
+
+Five models stay untested. UniLM uses WordPiece, and LLaMA, Vicuna, and T5
+use SentencePiece; none of those is ported. Bloom's vocabulary has 250,880
+tokens, which does not fit the 16-bit table.
+
+A pack manifest in the `unswell-llmdet-pack-v1` form names the tables and
+tokenizer files of a run with their digests. `corpus train --llmdet-pack`
+measures every prepared paragraph against each model. Each model yields a
+proxy perplexity and a context coverage, with the reference's abstention
+reasons. `scripts/llmdet-experiment.sh` runs the comparison of
+[#177](https://github.com/stokaro/unswell/issues/177) on the corpus of the
+baseline pilot, and [research/baselines](../baselines/README.md) records
+the runs.
+
 ## Limits and next decision
 
-The Hugging Face inventory advertises a 4,818,741,741-byte compressed table archive.
-Those bytes were not acquired; its advertised LFS digest is recorded separately
-from measured hashes. The dataset card names `openrail` without supplying complete
-component terms. Tokenizers and their permissions remain unreviewed. No weights,
-table archive, or exported real ensemble is committed here.
+The dataset card names `openrail` without complete component terms. The
+OPT tokenizer files carry the OPT model license. Nothing from the archive is
+committed, and neither is any weight file or exported real ensemble. The
+classifier stage of the reference needs all eleven proxies, so it has not
+run on prose.
 
-The full method stays `not_run` for reproduction and port acceptance in the
-registry. The component receipts narrow the remaining work: permitted resources,
-at least one compatible tokenizer/table set, intermediate token/feature parity,
-coverage on technical prose, cold-start and memory measurements, and comparison
-with the shared editorial baselines. No human labels, held-out accuracy, model
-qualification, or product resource budget has been established by this experiment.
+The remaining work is the five unported tokenizers, the classifier stage,
+and a product resource budget. This experiment establishes no human labels,
+no held-out accuracy, no model qualification, and no product resource
+budget.

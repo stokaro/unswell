@@ -15,7 +15,7 @@ import (
 
 type evaluationOptions struct {
 	root, model, plan, protocol, rules, corpus, round string
-	labels, generation, bank                          string
+	labels, generation, bank, llmdetPack              string
 	allowSimulation                                   bool
 }
 
@@ -55,6 +55,7 @@ func evaluationFlags(args []string) (evaluationOptions, error) {
 		flags.StringVar(&options.protocol, "protocol", "", "Protocol bytes matching the plan digest")
 		flags.StringVar(&options.rules, "rule-config", "", "Exact inline configuration for the rule baseline")
 		flags.StringVar(&options.bank, "compression-bank", "", "Reference bank of the compression baseline")
+		flags.StringVar(&options.llmdetPack, "llmdet-pack", "", "Table pack of the LLMDet baseline")
 	} else {
 		flags.StringVar(&options.corpus, "corpus", "", "Frozen candidate artifact used by prediction")
 		flags.StringVar(&options.round, "round", "", "Independent evaluation annotation round")
@@ -133,20 +134,36 @@ func predictionResources(ctx context.Context, options evaluationOptions,
 	if err != nil {
 		return training.Artifact{}, resources, err
 	}
+	resources, err = predictionReferences(ctx, options)
+	return fitted, resources, err
+}
+
+// predictionReferences loads the resources a restored model may need: the
+// rule configuration, the compression bank, and the LLMDet pack.
+func predictionReferences(ctx context.Context, options evaluationOptions) (training.PredictionResources, error) {
+	var resources training.PredictionResources
+	var err error
 	if options.rules != "" {
 		resources.Configuration, err = loadLocalArtifact(ctx, options.rules, maxRuleConfigBytes, "rule config")
 		if err != nil {
-			return training.Artifact{}, resources, err
+			return resources, err
 		}
 	}
 	if options.bank != "" {
 		bank, err := loadBank(ctx, options.bank)
 		if err != nil {
-			return training.Artifact{}, resources, err
+			return resources, err
 		}
 		resources.Bank = &bank
 	}
-	return fitted, resources, nil
+	if options.llmdetPack != "" {
+		pack, err := training.LoadLLMDetPack(ctx, options.llmdetPack)
+		if err != nil {
+			return resources, err
+		}
+		resources.LLMDet = &pack
+	}
+	return resources, nil
 }
 
 func evaluateOperation(ctx context.Context, options evaluationOptions, data []byte) (evaluation.Result, error) {
