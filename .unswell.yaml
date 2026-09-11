@@ -49,6 +49,10 @@ extraction:
       kinds: [string]
       symbols: [negative_prose]
       reason: "The shell probe supplies a deliberate violation to verify the project policy."
+    - id: embedded-source
+      paths: ["scripts/coverage.sh", "scripts/fuzz.sh"]
+      kinds: [string]
+      reason: "The self-tests and the report writer embed Python and Go source in here-documents, which are code, not prose."
     - id: custom-policy-examples
       paths: ["examples/rules/company.yaml"]
       kinds: [string]
