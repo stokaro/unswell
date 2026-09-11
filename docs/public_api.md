@@ -93,7 +93,8 @@ shards through `corpus tasks`, `requests`, and `generations`; no command
 calls a model. `corpus.OriginDecisions` labels the origin task from declared
 cohorts and origins, `JoinDecisions`, `training.RunDecisions`, and
 `evaluation.RunDecisions` take a decision set in place of a round, and
-`annotation.Labels` names each task's classes. Manifest snapshots may name the dated
+`annotation.Labels` names each task's classes. `corpus dataset union` joins
+selected pinned shards into one manifest whose paths name their checkouts. Manifest snapshots may name the dated
 historical periods `historical-2012`, `historical-2016`, and
 `historical-2018`; a dataset holds up to 512 shards. `corpus acquire` builds a shard
 manifest from a checkout by the fixed rules of a record and lists every file
