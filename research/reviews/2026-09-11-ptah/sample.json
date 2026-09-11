@@ -1,0 +1,1151 @@
+{
+ "version": "unswell-review-sample-v1",
+ "reviewer": "agent session of the maintainer, 2026-09-11; the maintainer's confirmation is pending",
+ "seed": 7,
+ "per_rule": 10,
+ "rows": [
+  {
+   "index": 0,
+   "rule": "syntax.long-sentence",
+   "path": "internal/cli/inference/hold.go",
+   "fingerprint": "a9169830d01dd6265fc1ce85dca1b2764470869a341f270c99df6bbca4c5260a",
+   "snippet": "The worker fenced by the pause is not necessarily gone: a resume that left the token where the pause put it would return the run to running with that worker sti",
+   "justified": true,
+   "note": "a prose sentence over the limit"
+  },
+  {
+   "index": 1,
+   "rule": "syntax.long-sentence",
+   "path": "integration/atlascmd/strict_compat_process_test.go",
+   "fingerprint": "b31098ae16efc9afef22c9a7a3e2b7d4bd6042035b04961ebc9127755533efee",
+   "snippet": "SELECT    (SELECT count(*) FROM information_schema.tables WHERE table_schema = current_schema() AND table_name = 'users') +    (SELECT count(*) FROM pg_class c ",
+   "justified": false,
+   "note": "SQL in a string literal, not prose"
+  },
+  {
+   "index": 2,
+   "rule": "syntax.long-sentence",
+   "path": "internal/dbschema/sqlite/virtual_table_test.go",
+   "fingerprint": "7ccacadf86ef13ed1421559a4529074eeaf43e48c7aa939db2fc9ce50b1aea2e",
+   "snippet": "On master this case did not merely emit a wrong statement, it failed the // whole read: `pragma_table_xinfo` has to load the module to answer, so one // such ta",
+   "justified": true,
+   "note": "a prose sentence over the limit"
+  },
+  {
+   "index": 3,
+   "rule": "syntax.long-sentence",
+   "path": "core/renderer/capability_gating_916_test.go",
+   "fingerprint": "58732c7edb95cd84ca45affd28fe548148ff3e8217b6b3c6749a10d751d0aec2",
+   "snippet": "SQLite gained the // clause in 3.25; below that a rename is a table rebuild, which is a different // plan than this node describes, so the statement is replaced",
+   "justified": true,
+   "note": "a prose sentence over the limit"
+  },
+  {
+   "index": 4,
+   "rule": "syntax.long-sentence",
+   "path": "core/schemamodel/types.go",
+   "fingerprint": "c4f23dfb44610a1b6f5ab1684ea718f2680800ebac82b6e255dc2fc2aee55c3c",
+   "snippet": "The function definition supports various PostgreSQL function attributes: //   - Parameters: Function parameter definitions (e.g., \"tenant_id_param TEXT, user_id",
+   "justified": false,
+   "note": "a bulleted list inside a comment read as one sentence"
+  },
+  {
+   "index": 5,
+   "rule": "syntax.long-sentence",
+   "path": "migration/dbtest/external_posix_test.go",
+   "fingerprint": "91320bf413da631ff632e5f54a1fd7a03e9cc9d8b5e924efc9fbcf8df077a806",
+   "snippet": "Equality with the whole literal is the discriminator, and it is exact for  // a reason: through a shell, `echo` would receive only `a` before the  // separator ",
+   "justified": true,
+   "note": "a prose sentence over the limit"
+  },
+  {
+   "index": 6,
+   "rule": "syntax.long-sentence",
+   "path": "docs/conformance.md",
+   "fingerprint": "eebb3399b63c8998cbbbed3805e7728c1067a75993d2eaf652b591932955aae4",
+   "snippet": "Atlas CE reads one by executing every file in filename order against the dev database, so a file that declares an object an earlier file already declared is an ",
+   "justified": true,
+   "note": "a prose sentence over the limit"
+  },
+  {
+   "index": 7,
+   "rule": "syntax.long-sentence",
+   "path": "internal/dbschema/clickhouse/rbac_internal_test.go",
+   "fingerprint": "6752e82b211dedeb280f7fc7d6e07096969208fa4639e20af5dba3b2d6982bdd",
+   "snippet": "The description must also SAY it did not look, which is the half that keeps // the degradation from being a silent one: a reader returning the tables and an // ",
+   "justified": true,
+   "note": "a prose sentence over the limit"
+  },
+  {
+   "index": 8,
+   "rule": "syntax.long-sentence",
+   "path": "migration/planner/object_capability_agreement_test.go",
+   "fingerprint": "717687119b38262e402e27565709b423fb29adac9a92e2c31b1061bec1f96902",
+   "snippet": "The gate is still  // exercised on both sides -- by the MySQL family, where MySQL refuses and  // MariaDB accepts -- and what Spanner exercises here now is the ",
+   "justified": true,
+   "note": "a prose sentence over the limit"
+  },
+  {
+   "index": 9,
+   "rule": "syntax.long-sentence",
+   "path": "core/renderer/internal/dialects/oracle/functions.go",
+   "fingerprint": "770c568e4ca4a11d44938d896550ca037cf4b21ed74760ac1bdc16c651058234",
+   "snippet": "It // creates a routine that does not exist yet, so it is the create as well as the // replace -- and it is also what a declaration asking for IF NOT EXISTS get",
+   "justified": true,
+   "note": "a prose sentence over the limit"
+  },
+  {
+   "index": 10,
+   "rule": "readability.grade-metric",
+   "path": "scripts/ci-diff-scope.sh",
+   "fingerprint": "a46fb31371d17e13fc6b8426c3da0826f4aacda6de3d2aacb74e8944b36654a8",
+   "snippet": "Ordinary documentation sources and the site package are inert for the Go # contours even though the documentation workflow gates them.",
+   "justified": false,
+   "note": "identifiers, keywords, and references drive the formula, not the prose"
+  },
+  {
+   "index": 11,
+   "rule": "readability.grade-metric",
+   "path": "internal/capabilityprobe/cells.go",
+   "fingerprint": "6767f032201225c997411ebebf5570727fd1493bcf27f102d3e39ac58c502363",
+   "snippet": "The vendor states a duration rather than a date (docs: three latest  // stable releases are supported; LTS releases are supported for a year  // after release),",
+   "justified": true,
+   "note": "a dense paragraph a reader could simplify"
+  },
+  {
+   "index": 12,
+   "rule": "readability.grade-metric",
+   "path": "core/query/doc.go",
+   "fingerprint": "0af29696c5ffbecb7732e9e3538b013dab0ccd96544711c8f04aa7168af9c78b",
+   "snippet": "This package models a SELECT with a FROM table, INNER / LEFT / RIGHT / FULL // OUTER joins, a composable WHERE expression tree, DISTINCT, GROUP BY, HAVING, // a",
+   "justified": false,
+   "note": "identifiers, keywords, and references drive the formula, not the prose"
+  },
+  {
+   "index": 13,
+   "rule": "readability.grade-metric",
+   "path": "docs/public_api_approvals.txt",
+   "fingerprint": "d6309885453f20d8102fcdd29321f407a0abbfedb8c27c82bd90a6c940decbf2",
+   "snippet": "# The §9 contract fixes of #2246.",
+   "justified": false,
+   "note": "identifiers, keywords, and references drive the formula, not the prose"
+  },
+  {
+   "index": 14,
+   "rule": "readability.grade-metric",
+   "path": "migration/diffpolicy/example_test.go",
+   "fingerprint": "135db5ac6bf3d8dafaeb525c9c6b134d10ccd0d1a2f189b646a05ce832f14d5b",
+   "snippet": "ExampleApplyForDialect skips index drops for a PostgreSQL target, where // index names are schema-scoped.",
+   "justified": false,
+   "note": "identifiers, keywords, and references drive the formula, not the prose"
+  },
+  {
+   "index": 15,
+   "rule": "readability.grade-metric",
+   "path": "internal/sqlitevirtual/sqlitevirtual.go",
+   "fingerprint": "c17938584a3646468927074f8d1bd17a0d05571afcf35093847e709d8cdfcefe",
+   "snippet": "It does NOT cover a rebuild.",
+   "justified": false,
+   "note": "identifiers, keywords, and references drive the formula, not the prose"
+  },
+  {
+   "index": 16,
+   "rule": "readability.grade-metric",
+   "path": "docs/adr/0014-the-outbox-boundary-is-a-transaction-and-the-order-is-a-sequence.md",
+   "fingerprint": "08d961721dcf2b7d04c3447b6b26d952273f8f6291723581ad145366b5579110",
+   "snippet": "PostgreSQL assigns a transaction its identity at its first write **anywhere**.",
+   "justified": true,
+   "note": "a dense paragraph a reader could simplify"
+  },
+  {
+   "index": 17,
+   "rule": "readability.grade-metric",
+   "path": "internal/cli/atlas/internal/schematests/schema_plan_output_flags_test.go",
+   "fingerprint": "b1e7ee287442367bba6aa3911be3c1eac82783e573bc4c7cb37a3d1459971356",
+   "snippet": "Each case names the layer that refuses it, so the test cannot pass  // because planning failed for some unrelated reason.",
+   "justified": false,
+   "note": "identifiers, keywords, and references drive the formula, not the prose"
+  },
+  {
+   "index": 18,
+   "rule": "readability.grade-metric",
+   "path": "docs/site/scripts/check-page-health.mjs",
+   "fingerprint": "f7eab6b22626a568adcb19ba17d3443d4728452a83a737761dac0f300baebc60",
+   "snippet": "collectPages is the library's, not a walk and not a second route function:   // it asks git for the pages, models the route the way Astro builds it -- a   // fr",
+   "justified": true,
+   "note": "a dense paragraph a reader could simplify"
+  },
+  {
+   "index": 19,
+   "rule": "readability.grade-metric",
+   "path": "internal/sqlschema/mysql_element_order_test.go",
+   "fingerprint": "05c34017087db6bcf1b2291279929456bc46c596fbcc1a58f8d15880f8ac0e22",
+   "snippet": "A fluent builder is the other way a CreateTableNode is made, and the naming // pass has to answer for it too.",
+   "justified": false,
+   "note": "identifiers, keywords, and references drive the formula, not the prose"
+  },
+  {
+   "index": 20,
+   "rule": "syntax.passive-candidate-density",
+   "path": "core/schemamodel/types.go",
+   "fingerprint": "f9602e4f15e182b8699460aaad5943490937f4dd3611eb4f860375061b8fdf53",
+   "snippet": "is printed",
+   "justified": true,
+   "note": "a be-plus-participle form is present; whether to change the voice is a separate editorial call in reference prose"
+  },
+  {
+   "index": 21,
+   "rule": "syntax.passive-candidate-density",
+   "path": "docs/site/src/content/docs/versioned/maintain-history.md",
+   "fingerprint": "a156ed526c791d0cfad4b494592c432d6c9ad50298bbb227f0c27e308d4c727c",
+   "snippet": "are checked",
+   "justified": true,
+   "note": "a be-plus-participle form is present; whether to change the voice is a separate editorial call in reference prose"
+  },
+  {
+   "index": 22,
+   "rule": "syntax.passive-candidate-density",
+   "path": "internal/cli/assist/explain.go",
+   "fingerprint": "b1fbeb21d8eaa7319ba199e24bde6e06f23fee498bc8fc83c0c4d27df949b6eb",
+   "snippet": "is asked",
+   "justified": true,
+   "note": "a be-plus-participle form is present; whether to change the voice is a separate editorial call in reference prose"
+  },
+  {
+   "index": 23,
+   "rule": "syntax.passive-candidate-density",
+   "path": "core/schemasource/schemasource.go",
+   "fingerprint": "e91dbbe0afb49017167ba3c83be856193c97c1875c13af371bf0c3e57ba3d27c",
+   "snippet": "was produced",
+   "justified": true,
+   "note": "a be-plus-participle form is present; whether to change the voice is a separate editorial call in reference prose"
+  },
+  {
+   "index": 24,
+   "rule": "syntax.passive-candidate-density",
+   "path": "internal/planner/dialects/mysql/rls.go",
+   "fingerprint": "443248727f45e0640eab2cab18547c5f86e14147beb183decf08a408011480fc",
+   "snippet": "is  // declared",
+   "justified": true,
+   "note": "a be-plus-participle form is present; whether to change the voice is a separate editorial call in reference prose"
+  },
+  {
+   "index": 25,
+   "rule": "syntax.passive-candidate-density",
+   "path": "core/renderer/internal/dialects/postgres/postgres.go",
+   "fingerprint": "53c4b7e16c0db9cdc9e0e5af8ab9b3ccbc80ce5b9452ee5feca87a65757b1714",
+   "snippet": "be rewritten",
+   "justified": true,
+   "note": "a be-plus-participle form is present; whether to change the voice is a separate editorial call in reference prose"
+  },
+  {
+   "index": 26,
+   "rule": "syntax.passive-candidate-density",
+   "path": "internal/capabilityprobe/probe.go",
+   "fingerprint": "d9f9f57dbf6cb9b20d911bbd6a66d33db3c9285be65071e4a3479ba1e38b6bec",
+   "snippet": "be credited",
+   "justified": true,
+   "note": "a be-plus-participle form is present; whether to change the voice is a separate editorial call in reference prose"
+  },
+  {
+   "index": 27,
+   "rule": "syntax.passive-candidate-density",
+   "path": "core/renderer/internal/dialects/mysqllike/mysqllike.go",
+   "fingerprint": "b9d9a452b67c29246e99c0932f845f770f95a1175d1cfce557ee7dd3699fca92",
+   "snippet": "is dropped",
+   "justified": true,
+   "note": "a be-plus-participle form is present; whether to change the voice is a separate editorial call in reference prose"
+  },
+  {
+   "index": 28,
+   "rule": "syntax.passive-candidate-density",
+   "path": "integration/atlascmd/schema_apply_rls_table_spelling_live_test.go",
+   "fingerprint": "a8fae299bfd9725d7fe70749b4c31dbe112cbf3599c14b5937b980df6aa61ebf",
+   "snippet": "was answered",
+   "justified": true,
+   "note": "a be-plus-participle form is present; whether to change the voice is a separate editorial call in reference prose"
+  },
+  {
+   "index": 29,
+   "rule": "syntax.passive-candidate-density",
+   "path": "internal/cli/schema/inspect.go",
+   "fingerprint": "1f194fdec472e3c3fae36617bc721bb70383ab605178076f1a9abadc6e132148",
+   "snippet": "are used",
+   "justified": true,
+   "note": "a be-plus-participle form is present; whether to change the voice is a separate editorial call in reference prose"
+  },
+  {
+   "index": 30,
+   "rule": "syntax.parenthetical-load",
+   "path": "migration/lint/atlas_alias.go",
+   "fingerprint": "0b45a5234add0131888ee97cd46e844851e915e00eb083123a1cb4c473a30f43",
+   "snippet": "(members.go)",
+   "justified": false,
+   "note": "code, SQL, a citation key, or an enumeration marker in parentheses"
+  },
+  {
+   "index": 31,
+   "rule": "syntax.parenthetical-load",
+   "path": "integration/inference_cli_e2e_test.go",
+   "fingerprint": "1167dd0f1a82cb895795217665e941e105fea4aaaef33f995e6d9e83eec0be23",
+   "snippet": "(    identity, spec_digest, spec_document, reproducibility, dimension,    target_schema, target_table, target_column,    source_schema, source_table, consistenc",
+   "justified": false,
+   "note": "code, SQL, a citation key, or an enumeration marker in parentheses"
+  },
+  {
+   "index": 32,
+   "rule": "syntax.parenthetical-load",
+   "path": "integration/dbml_convergence_e2e_test.go",
+   "fingerprint": "36c4e2db34b077c48e17cbda4fe770ba93cdf2b2d66802cda9d9f7ceec4ba1af",
+   "snippet": "[pk]",
+   "justified": false,
+   "note": "code, SQL, a citation key, or an enumeration marker in parentheses"
+  },
+  {
+   "index": 33,
+   "rule": "syntax.parenthetical-load",
+   "path": "internal/examples/ast_demo/ast_example.go",
+   "fingerprint": "391654c921d1ce477cfb7b055b04faac5350eba6ef499febcbd48cbcf028f705",
+   "snippet": "(\"id\", \"SERIAL\")",
+   "justified": false,
+   "note": "code, SQL, a citation key, or an enumeration marker in parentheses"
+  },
+  {
+   "index": 34,
+   "rule": "syntax.parenthetical-load",
+   "path": "internal/atlashcl/sqlrawexpr_test.go",
+   "fingerprint": "686d0fe680c1fc3d87664bb9d119142a127e3db848993aac362c891a4abf7c42",
+   "snippet": "(sql(\"n > 0\"))",
+   "justified": false,
+   "note": "code, SQL, a citation key, or an enumeration marker in parentheses"
+  },
+  {
+   "index": 35,
+   "rule": "syntax.parenthetical-load",
+   "path": "docs/conformance.md",
+   "fingerprint": "6084ef4f991c914cf8928e78e6187532ff85b6285fea2eec207f3c33d04b80a8",
+   "snippet": "(rule (c))",
+   "justified": true,
+   "note": "a nested or long insertion in prose"
+  },
+  {
+   "index": 36,
+   "rule": "syntax.parenthetical-load",
+   "path": "internal/atlasmigrate/diff.go",
+   "fingerprint": "e0b4942834ed2a93fea4e063d1c57771eeada8126dc62fc6389ff8030d57be43",
+   "snippet": "(measured on the pinned v1.3.0: `migrate diff sub/name` exits 0 on a  // synced directory and 1 on one with changes)",
+   "justified": true,
+   "note": "a nested or long insertion in prose"
+  },
+  {
+   "index": 37,
+   "rule": "syntax.parenthetical-load",
+   "path": "internal/schemacensus/emission.go",
+   "fingerprint": "624c6e0c3cca4fe5aae0e6c82ba13a4a2361f25dd9232b6b4bc20bb4e5651989",
+   "snippet": "('CREATE SCHEMA [app]')",
+   "justified": false,
+   "note": "code, SQL, a citation key, or an enumeration marker in parentheses"
+  },
+  {
+   "index": 38,
+   "rule": "syntax.parenthetical-load",
+   "path": "docs/adr/0001-canonical-schema-state-and-pipeline-boundaries.md",
+   "fingerprint": "4d9041599c7fb9f7c170e081fa94dc6ae6db2f959b96fe9c162ae1dcce875dc1",
+   "snippet": "(a)",
+   "justified": false,
+   "note": "code, SQL, a citation key, or an enumeration marker in parentheses"
+  },
+  {
+   "index": 39,
+   "rule": "syntax.parenthetical-load",
+   "path": "core/renderer/internal/dialects/clickhouse/clickhouse.go",
+   "fingerprint": "45ec049ec528245cf04431cd3c22af99a6be03f72c5d740cf5e957d43c3ff5e4",
+   "snippet": "(e.g. `tuple(a, b)`, `intDiv(ts, 86400)`, `toYYYYMM(created_at)`)",
+   "justified": false,
+   "note": "code, SQL, a citation key, or an enumeration marker in parentheses"
+  },
+  {
+   "index": 40,
+   "rule": "format.em-dash-density",
+   "path": "migration/importer/importer.go",
+   "fingerprint": "69a68b4a1539af39419a64403d3b9f2e53039df77073bb3a79685aecc4fb5bd8",
+   "snippet": "—",
+   "justified": true,
+   "note": "em dashes at the measured density"
+  },
+  {
+   "index": 41,
+   "rule": "format.em-dash-density",
+   "path": "core/schemasource/schemasource.go",
+   "fingerprint": "22a7ef0fafdcc6b8d6f866898fee92180a969d76a5b2e87e01736effd6356a8d",
+   "snippet": "—",
+   "justified": true,
+   "note": "em dashes at the measured density"
+  },
+  {
+   "index": 42,
+   "rule": "format.em-dash-density",
+   "path": "docs/site/src/content/docs/databases/postgresql.md",
+   "fingerprint": "ce00dff5c7d6b77e55af033063f1c5d329a3bf679a8b0e3575a5721ef0ac8866",
+   "snippet": "—",
+   "justified": true,
+   "note": "em dashes at the measured density"
+  },
+  {
+   "index": 43,
+   "rule": "format.em-dash-density",
+   "path": "internal/embedgen/version_order_test.go",
+   "fingerprint": "e240866653aa1325e804ef4f60864806ea789fd64dd07e6a9ecf6a9ae3fbb2cd",
+   "snippet": "—",
+   "justified": true,
+   "note": "em dashes at the measured density"
+  },
+  {
+   "index": 44,
+   "rule": "format.em-dash-density",
+   "path": "internal/schemaload/schemadir_test.go",
+   "fingerprint": "87e2d958be55261789092f10a14ef6da0cf79a7c96c2127afb8811ebf717fb1a",
+   "snippet": "—",
+   "justified": true,
+   "note": "em dashes at the measured density"
+  },
+  {
+   "index": 45,
+   "rule": "format.em-dash-density",
+   "path": "internal/cli/atlas/migrate_integrity.go",
+   "fingerprint": "d71225ce64950cda2551a9a1f1d691ce53b103689a4125ec501c0cdf4877b4f8",
+   "snippet": "—",
+   "justified": true,
+   "note": "em dashes at the measured density"
+  },
+  {
+   "index": 46,
+   "rule": "format.em-dash-density",
+   "path": "integration/migrator/atlas_integration_test.go",
+   "fingerprint": "dd6cd0ac75338f0b95686488fb314ca3302e152c9a9dfd4e3f2b1dcd567a71a2",
+   "snippet": "—",
+   "justified": true,
+   "note": "em dashes at the measured density"
+  },
+  {
+   "index": 47,
+   "rule": "format.em-dash-density",
+   "path": "internal/cli/oci/fetch_internal_test.go",
+   "fingerprint": "76f027ea9ea4b209367adff2d31d95c1c644d3dc6e926e872d64051dbe270015",
+   "snippet": "—",
+   "justified": true,
+   "note": "em dashes at the measured density"
+  },
+  {
+   "index": 48,
+   "rule": "format.em-dash-density",
+   "path": "migration/migrator/revisions.go",
+   "fingerprint": "6105e8f0b08e319a97b052191574b8fd8254ca663e3732fec73b2b5565f89914",
+   "snippet": "—",
+   "justified": true,
+   "note": "em dashes at the measured density"
+  },
+  {
+   "index": 49,
+   "rule": "format.em-dash-density",
+   "path": "internal/cli/internal/serverversion/serverversion.go",
+   "fingerprint": "70207aecec7beee87a49e0888bd96af9e7f5eecfc1877253a4352a9d68d39b3b",
+   "snippet": "—",
+   "justified": true,
+   "note": "em dashes at the measured density"
+  },
+  {
+   "index": 50,
+   "rule": "repetition.exact-sentence",
+   "path": "internal/cli/schema/export_source_test.go",
+   "fingerprint": "d7c47a98ce79649dece6cb8ec54a8b2ee15161e7ea9059a0f56fc5c2a6490c8f",
+   "snippet": "use --to openapi-v3, graphql, protobuf, markdown, html, or dbml to export a schema file",
+   "justified": false,
+   "note": "a repeated string literal: SQL, a help text, a regex, or an expected error"
+  },
+  {
+   "index": 51,
+   "rule": "repetition.exact-sentence",
+   "path": "internal/capabilityprobe/plans.go",
+   "fingerprint": "745eabee7e3b0906878941c59cb3980be6f3af33721d3ac6b2ef5069818b767f",
+   "snippet": "ALTER TABLE fkp_c2 ADD CONSTRAINT fkp_s2 FOREIGN KEY (k) REFERENCES fkp_none (k)",
+   "justified": false,
+   "note": "a repeated string literal: SQL, a help text, a regex, or an expected error"
+  },
+  {
+   "index": 52,
+   "rule": "repetition.exact-sentence",
+   "path": "internal/agentsurface/verbs.go",
+   "fingerprint": "f58559edb62b832250f48c303bacbd4ca0b028069f4ebd8bd355d652b263649e",
+   "snippet": "runs declarative test cases against the database named by `--db-url`, whose own help",
+   "justified": false,
+   "note": "a repeated string literal: SQL, a help text, a regex, or an expected error"
+  },
+  {
+   "index": 53,
+   "rule": "repetition.exact-sentence",
+   "path": "docs/agent-surface.md",
+   "fingerprint": "28b09e3252de5b8a521156b71c050d0355d39075f7ca30d33a7e47bcf9297746",
+   "snippet": "asks a registry which metadata artifacts refer to one subject and prints them",
+   "justified": true,
+   "note": "a repeated sentence in prose"
+  },
+  {
+   "index": 54,
+   "rule": "repetition.exact-sentence",
+   "path": "integration/migrator/rolled_back_progress_integration_test.go",
+   "fingerprint": "1478a2be66accf54b80864d81796792cc45e7b10cf08517511e613363d96e0db",
+   "snippet": ".*pinned MySQL-family session contains temporary table .* that shadows Ptah's migration metadata; retry on a clean session.*",
+   "justified": false,
+   "note": "a repeated string literal: SQL, a help text, a regex, or an expected error"
+  },
+  {
+   "index": 55,
+   "rule": "repetition.exact-sentence",
+   "path": "core/platform/capability/capability_measured_lines_test.go",
+   "fingerprint": "5d66611affc4880eb06542f832f0a5abdccc4fc64fd1b1563a3b44767f81b9c3",
+   "snippet": "REFUSED INSERT INTO fk_child (id) VALUES (99) -> Error 1452 (23000), with the valid child row ACCEPTED",
+   "justified": false,
+   "note": "a repeated string literal: SQL, a help text, a regex, or an expected error"
+  },
+  {
+   "index": 56,
+   "rule": "repetition.exact-sentence",
+   "path": "internal/capabilityprobe/plans.go",
+   "fingerprint": "3db43169535da483c4a9aa1b49f5b4068b3435a741bfea9d885e417beaa14706",
+   "snippet": "A server without it answers with a syntax error, which is the same   // answer this experiment records anywhere else.",
+   "justified": true,
+   "note": "a repeated sentence in prose"
+  },
+  {
+   "index": 57,
+   "rule": "repetition.exact-sentence",
+   "path": "migration/planner/oracle_routine_test.go",
+   "fingerprint": "fafc58a0e0a12596bb6cbf18b4e1bf5cfdef1a795d9ee7f2c63f45e042aaa2ad",
+   "snippet": "CREATE OR REPLACE FUNCTION fn_double(p IN NUMBER) RETURN NUMBER AUTHID DEFINER IS",
+   "justified": false,
+   "note": "a repeated string literal: SQL, a help text, a regex, or an expected error"
+  },
+  {
+   "index": 58,
+   "rule": "repetition.exact-sentence",
+   "path": "migration/lint/atlasgaps_test.go",
+   "fingerprint": "8f28ae795f976ecad578c017fd2fd342cf1b8ee9de075317adc6a9ea6524dbeb",
+   "snippet": "ALTER TABLE orders ADD COLUMN seq int NOT NULL AUTO_INCREMENT, ADD KEY (seq);",
+   "justified": false,
+   "note": "a repeated string literal: SQL, a help text, a regex, or an expected error"
+  },
+  {
+   "index": 59,
+   "rule": "repetition.exact-sentence",
+   "path": "internal/cli/atlas/internal/schematests/schema_plan_output_flags_test.go",
+   "fingerprint": "d297abbfeb62fc3875ade5c87139ab2b4b79a97771d02e9809ed9c036604c184",
+   "snippet": "CREATE TABLE keep_me (id INTEGER PRIMARY KEY);\\nCREATE TABLE victim (id INTEGER);",
+   "justified": false,
+   "note": "a repeated string literal: SQL, a help text, a regex, or an expected error"
+  },
+  {
+   "index": 60,
+   "rule": "syntax.noun-stack",
+   "path": "internal/sqlitekey/sqlitekey_test.go",
+   "fingerprint": "23db77c9ae672ec08b217f01275372e716493751bdad7292dfadce8ea98df205",
+   "snippet": "rowid table integer key",
+   "justified": false,
+   "note": "a test name or an established technical term"
+  },
+  {
+   "index": 61,
+   "rule": "syntax.noun-stack",
+   "path": "internal/cli/schema/test_test.go",
+   "fingerprint": "da476ac346a5650e51522b1af37300e7e94c8bff9ee89516c3c31f400e3da2bd",
+   "snippet": "default seed directory works",
+   "justified": false,
+   "note": "a test name or an established technical term"
+  },
+  {
+   "index": 62,
+   "rule": "syntax.noun-stack",
+   "path": "core/platform/capability/example_test.go",
+   "fingerprint": "dc5c685dcc7d91494fe57a07e268437ecdf65250fd9b1a8674ec7134cab18997",
+   "snippet": "dialect concurrent index builds",
+   "justified": false,
+   "note": "a test name or an established technical term"
+  },
+  {
+   "index": 63,
+   "rule": "syntax.noun-stack",
+   "path": "docs/system_design.md",
+   "fingerprint": "5805f415895a99c937450f02b6f764242a918bcdfc4718565787d9047e50f154",
+   "snippet": "database schema management tool",
+   "justified": false,
+   "note": "a test name or an established technical term"
+  },
+  {
+   "index": 64,
+   "rule": "syntax.noun-stack",
+   "path": "migration/schemadiff/target_foreign_key_validation_test.go",
+   "fingerprint": "8f9ccb72503bf1c343f86f9018d1220a25a76321ba773b93f5acbca36be864be",
+   "snippet": "sql server cascade cycle",
+   "justified": false,
+   "note": "a test name or an established technical term"
+  },
+  {
+   "index": 65,
+   "rule": "syntax.noun-stack",
+   "path": "internal/parser/parser.go",
+   "fingerprint": "f87973fcc4549e4f27a5fe367d3743c94425e8f54db62c497681b28e0d2cf7bf",
+   "snippet": "index storage parameter value",
+   "justified": false,
+   "note": "a test name or an established technical term"
+  },
+  {
+   "index": 66,
+   "rule": "syntax.noun-stack",
+   "path": "internal/atlasmigrate/apply.go",
+   "fingerprint": "d98184005c079c17f99ebebe19b61c2b44274c34d3ea037d33457ef2f14a7125",
+   "snippet": "migrate apply amount argument",
+   "justified": false,
+   "note": "a test name or an established technical term"
+  },
+  {
+   "index": 67,
+   "rule": "syntax.noun-stack",
+   "path": "internal/devdocker/provision.go",
+   "fingerprint": "cd11eef82ef68f347dad2c0420f89a03d482c23645cfecd6612a7fe8708748b8",
+   "snippet": "generate dev database container name",
+   "justified": false,
+   "note": "a test name or an established technical term"
+  },
+  {
+   "index": 68,
+   "rule": "syntax.noun-stack",
+   "path": "integration/migratebaseline/migratebaseline_live_test.go",
+   "fingerprint": "239e247ca46fbf785332574012513659b26b337b2036a914a03e44072da42d23",
+   "snippet": "baseline shadow verification test",
+   "justified": false,
+   "note": "a test name or an established technical term"
+  },
+  {
+   "index": 69,
+   "rule": "syntax.noun-stack",
+   "path": "migration/migrationfile/name_test.go",
+   "fingerprint": "f576489098316830e9bff19f803d1a9bbcddb582cfb7c08c8b5fa72551a2a194",
+   "snippet": "migration file name format",
+   "justified": false,
+   "note": "a test name or an established technical term"
+  },
+  {
+   "index": 70,
+   "rule": "readability.long-paragraph",
+   "path": "internal/cli/atlas/internal/migratetests/migrate_apply_flyway_source_order_test.go",
+   "fingerprint": "8526ea07a12d1b40b5af5cc228b0d01ec2ef67fd6478b31dd791fb91d75983e9",
+   "snippet": "WHICH GUARD SPEAKS.",
+   "justified": true,
+   "note": "a long comment block with long sentences"
+  },
+  {
+   "index": 71,
+   "rule": "readability.long-paragraph",
+   "path": ".github/workflows/publish-action.yml",
+   "fingerprint": "3ce2dd6db0b8a227174582c13a247c755d5b1aca8b05537be1af20812be817c7",
+   "snippet": "set -euo pipefail           # --delete so a file removed here is removed there.",
+   "justified": false,
+   "note": "a shell comment in a workflow and a one-line help text"
+  },
+  {
+   "index": 72,
+   "rule": "readability.long-paragraph",
+   "path": "internal/dbschema/postgres/reader_roles_internal_test.go",
+   "fingerprint": "7aa7d44d6e42097d7c727b74cbb5e6e7ae9d12159f364ab3a4c0900d8e015f09",
+   "snippet": "The fake evaluates the membership predicate rather than recognizing a token // in it, and it holds its own literal copy of the two predicates it knows how // to",
+   "justified": true,
+   "note": "a long comment block with long sentences"
+  },
+  {
+   "index": 73,
+   "rule": "readability.long-paragraph",
+   "path": "config/projectconfig/config.go",
+   "fingerprint": "7b4f66f2bd479249d1bf7a77e83ba08e8e3261f59bc698de01cc0537c852b5b5",
+   "snippet": "The name is decoded and type-checked because the pinned community binary // decodes it -- `repo { name = 1 }` is refused with `value of attr \"name\" // cannot be",
+   "justified": true,
+   "note": "a long comment block with long sentences"
+  },
+  {
+   "index": 74,
+   "rule": "readability.long-paragraph",
+   "path": "migration/generator/reverse_constraints.go",
+   "fingerprint": "f36b4ebf800b92fb323f444b3c5f0a0fe67bba09126deb4e85fc1bec5d288a60",
+   "snippet": "An ordinary index removal reverses into an index addition, which the down // path resolves from the introspected schema.",
+   "justified": true,
+   "note": "a long comment block with long sentences"
+  },
+  {
+   "index": 75,
+   "rule": "readability.long-paragraph",
+   "path": "internal/cli/oci/verify.go",
+   "fingerprint": "6e2d81fcdc5e4283ccabdcbe203225dacab45e54a426752ef05868ecd674b47f",
+   "snippet": "Check an artifact against a verification policy before it is consumed.",
+   "justified": false,
+   "note": "a shell comment in a workflow and a one-line help text"
+  },
+  {
+   "index": 76,
+   "rule": "readability.long-paragraph",
+   "path": "internal/cli/schema/inspect_oci_test.go",
+   "fingerprint": "54d1ae3939b008c0fad21498473abea89c248231db29667ebdbbeab3240b8051",
+   "snippet": "It also pins the order of the two remote steps, which is a decision and not an // accident.",
+   "justified": true,
+   "note": "a long comment block with long sentences"
+  },
+  {
+   "index": 77,
+   "rule": "readability.long-paragraph",
+   "path": "migration/lint/unique.go",
+   "fingerprint": "fd100fd8054ec0585117f8440d93a7ad2e8ca9becdc649370c700b496ffb2f84",
+   "snippet": "What the file does not know is the data.",
+   "justified": true,
+   "note": "a long comment block with long sentences"
+  },
+  {
+   "index": 78,
+   "rule": "readability.long-paragraph",
+   "path": "migration/schemadiff/internal/compare/field_constraints.go",
+   "fingerprint": "d476a692713135678ed753472c220ded0d9f9b5830c61637f3a01eceb3f95e9e",
+   "snippet": "PostgreSQL exposes NOT NULL declarations as synthetic CHECK rows in   // information_schema with a `<table>_<column>_not_null` naming   // convention (and, in P",
+   "justified": true,
+   "note": "a long comment block with long sentences"
+  },
+  {
+   "index": 79,
+   "rule": "readability.long-paragraph",
+   "path": "internal/atlashclrender/atlas_refused_blocks.go",
+   "fingerprint": "6fd6a860662c63e342ce3b2c3d5344b2b341a2b8274901e1f4fa6fb9b41f12f2",
+   "snippet": "The NAME question is asked first, and the ordering is what keeps each // diagnostic true rather than a preference between them.",
+   "justified": true,
+   "note": "a long comment block with long sentences"
+  },
+  {
+   "index": 80,
+   "rule": "repetition.near-sentence",
+   "path": "internal/atlasscript/cursor_order_test.go",
+   "fingerprint": "bd3594cc21774c914709614563eb94aa72cc60a013b5dcb06c5ebb42341a2a60",
+   "snippet": "script \"loop\" \"purge\" {   iterator \"keyset\" {     cursor {       alpha   = string       bravo   = int       charlie = string       delta   = int       echo    =",
+   "justified": false,
+   "note": "near-duplicate string literals: HCL, SQL, error and regex texts"
+  },
+  {
+   "index": 81,
+   "rule": "repetition.near-sentence",
+   "path": "internal/cli/atlas/atlas_test.go",
+   "fingerprint": "6299ba0adf27db254f604605ef16f4f38f029e40a06e3eed827bc1134e2d2fe7",
+   "snippet": "invalid argument \"destructive\" for \"--var\" flag: variables must be format as key=value, got: \"destructive\"",
+   "justified": false,
+   "note": "near-duplicate string literals: HCL, SQL, error and regex texts"
+  },
+  {
+   "index": 82,
+   "rule": "repetition.near-sentence",
+   "path": "internal/sqlschema/mysql_index_names_test.go",
+   "fingerprint": "3bf23efbd0a9c28261241eebe3026cb8b4e69c4f615ee73dc288efb7a9d32705",
+   "snippet": "CREATE TABLE u (id BIGINT NOT NULL PRIMARY KEY, a INT NOT NULL, b INT NOT NULL, KEY a (b), KEY (a));",
+   "justified": false,
+   "note": "near-duplicate string literals: HCL, SQL, error and regex texts"
+  },
+  {
+   "index": 83,
+   "rule": "repetition.near-sentence",
+   "path": "internal/planner/dialects/postgres/object_identity_sites_test.go",
+   "fingerprint": "0684211cd9468aafd5e7ac167f2bcd02855c878fe946c66891c3d950a8469c81",
+   "snippet": "a range type qualified in the change and bare in the operand",
+   "justified": true,
+   "note": "near-duplicate comment sentences"
+  },
+  {
+   "index": 84,
+   "rule": "repetition.near-sentence",
+   "path": "core/ast/nodes.go",
+   "fingerprint": "61eff41fcafc1006356a75fe36164d2797b40364c2c37972e19e4d96d7a482ec",
+   "snippet": "Function removal should be done carefully as other database objects may depend on the function.",
+   "justified": true,
+   "note": "near-duplicate doc comments across similar declarations"
+  },
+  {
+   "index": 85,
+   "rule": "repetition.near-sentence",
+   "path": "core/astbuilder/schemabuilder.go",
+   "fingerprint": "76980755fed21fe8c1c7f81a8d7718cf7a83da3bfb6ce8be3da01e6ea9438bc9",
+   "snippet": "When the table definition is complete, calling End() // on the table builder will add the table to the schema and return to this SchemaBuilder.",
+   "justified": true,
+   "note": "near-duplicate doc comments across similar declarations"
+  },
+  {
+   "index": 86,
+   "rule": "repetition.near-sentence",
+   "path": "internal/atlashcl/sqlrawexpr_test.go",
+   "fingerprint": "91d783e0f78ff7e304f253aeec6ff439a834c6e52b1ac47f232866cd91ddf729",
+   "snippet": ".*attribute \"expr\": sql\\(\\) must be the whole attribute value, not part of a larger expression",
+   "justified": false,
+   "note": "near-duplicate string literals: HCL, SQL, error and regex texts"
+  },
+  {
+   "index": 87,
+   "rule": "repetition.near-sentence",
+   "path": "internal/protobufrender/reconcile.go",
+   "fingerprint": "46c68d277d1caffbd9472d79410ce90d6472627b8d2a33fcac04ec5a576de233",
+   "snippet": "message %q was removed from the source schema and retained as a tombstone",
+   "justified": false,
+   "note": "near-duplicate string literals: HCL, SQL, error and regex texts"
+  },
+  {
+   "index": 88,
+   "rule": "repetition.near-sentence",
+   "path": "core/ast/nodes.go",
+   "fingerprint": "d50227ec79c0956127399f854b128a26f4cb45fc719ab27d4d8ec8a6467f674c",
+   "snippet": "SetKind marks this routine as a function or a procedure and returns the node // for chaining.",
+   "justified": true,
+   "note": "near-duplicate doc comments across similar declarations"
+  },
+  {
+   "index": 89,
+   "rule": "repetition.near-sentence",
+   "path": "core/ast/nodes.go",
+   "fingerprint": "2e42dd86d3a5c7cd9faa39507b421b3f5971271828f68e2dcff36791c7f1f6dc",
+   "snippet": "This makes the statement safe to execute even if the index doesn't exist.",
+   "justified": true,
+   "note": "near-duplicate doc comments across similar declarations"
+  },
+  {
+   "index": 90,
+   "rule": "repetition.sentence-openers",
+   "path": "docs/site/src/content/docs/atlas/migrate-commands.md",
+   "fingerprint": "7afcd92ee1555eabd3836760743d0cf2bd811d266373e7a33056c84dc9b3ca46",
+   "snippet": "Ptah rejects a transaction-mode header placed before `-- atlas:txtar`; this safety check prevents the archive from being executed as one plain SQL stream.",
+   "justified": true,
+   "note": "documents that open several sentences with the same words, mostly per-command templates"
+  },
+  {
+   "index": 91,
+   "rule": "repetition.sentence-openers",
+   "path": "docs/site/src/content/docs/reference/hcl-schema.md",
+   "fingerprint": "c0246031a9e64c6bbbf7b7f215cec50fa99f896f6ed2834d1106b7d3755ad5ba",
+   "snippet": "Ptah does not refresh materialized views: one is populated when it is created, a changed `as` body is reconciled as a drop and a create that populates it again,",
+   "justified": true,
+   "note": "documents that open several sentences with the same words, mostly per-command templates"
+  },
+  {
+   "index": 92,
+   "rule": "repetition.sentence-openers",
+   "path": "docs/site/src/content/docs/reference/atlas-commands.md",
+   "fingerprint": "f77b8efec6828b355f835424db1a43d4813a58bfaecfe5fb85e9032081c687d3",
+   "snippet": "Native twin: [`ptah migrations status`](../native-commands/), which keeps its own block — only the compatibility surface is a contract with an existing pipeline",
+   "justified": true,
+   "note": "documents that open several sentences with the same words, mostly per-command templates"
+  },
+  {
+   "index": 93,
+   "rule": "repetition.sentence-openers",
+   "path": "docs/site/src/content/docs/atlas/docs-coverage.md",
+   "fingerprint": "59d02184a8023309308c62db7fe74c2ce64773f0198314288be3396e4472f7af",
+   "snippet": "Measured by native command tests and Atlas-compatibility tests that verify `ptah-compat migrate checkpoint` forwards to the native implementation.",
+   "justified": true,
+   "note": "documents that open several sentences with the same words, mostly per-command templates"
+  },
+  {
+   "index": 94,
+   "rule": "repetition.sentence-openers",
+   "path": "docs/site/src/content/docs/databases/postgresql.md",
+   "fingerprint": "898dd53f19db5935292f0d830cbb483a7f5bb1babb54b1067a7756adf569e1dc",
+   "snippet": "A table that is being dropped is not disabled first.",
+   "justified": true,
+   "note": "documents that open several sentences with the same words, mostly per-command templates"
+  },
+  {
+   "index": 95,
+   "rule": "repetition.sentence-openers",
+   "path": "docs/site/src/content/docs/atlas/retained-divergences.md",
+   "fingerprint": "355167d85b581d9d59a367b2f77048bd51f86eea5052786ce2ef6c1086ca10a7",
+   "snippet": "The refusal names the version and both checksums, and `--allow-dirty` is not involved.",
+   "justified": true,
+   "note": "documents that open several sentences with the same words, mostly per-command templates"
+  },
+  {
+   "index": 96,
+   "rule": "repetition.sentence-openers",
+   "path": "docs/adr/0009-remote-transport-authentication.md",
+   "fingerprint": "97934c25d56d22292f8a65f971ede372845b8a0527d286a7ee44976e54ea4bd4",
+   "snippet": "The cost is that an operator wanting Ptah served to a client on another machine has no answer but to run it there.",
+   "justified": true,
+   "note": "documents that open several sentences with the same words, mostly per-command templates"
+  },
+  {
+   "index": 97,
+   "rule": "repetition.sentence-openers",
+   "path": "docs/site/src/content/docs/reference/atlas-commands.md",
+   "fingerprint": "3c23998de7ec18ba022b2193ab5f2c2506136ea6f3cdc57eef2ed63d6ba32c80",
+   "snippet": "An unrecognized `--dir` query key is ignored here and named on standard error, as it is on the other seven verbs that accept a `--dir` query — `apply`, `diff`, ",
+   "justified": true,
+   "note": "documents that open several sentences with the same words, mostly per-command templates"
+  },
+  {
+   "index": 98,
+   "rule": "repetition.sentence-openers",
+   "path": "docs/oci_registry.md",
+   "fingerprint": "878471af2c22433347d0e955783b4652f56cbc168df565e81667fe9d21328452",
+   "snippet": "It does not implement the Atlas Cloud API or the `atlas://` scheme, and it does not change the Atlas-compatible command boundary of the `ptah-compat` binary.",
+   "justified": true,
+   "note": "documents that open several sentences with the same words, mostly per-command templates"
+  },
+  {
+   "index": 99,
+   "rule": "repetition.sentence-openers",
+   "path": "docs/conformance.md",
+   "fingerprint": "f1129820cda69327c6e8de0bc56031d973f57f5ff253d77f27b1268bbd8dd2d8",
+   "snippet": "A reader that accepts a file establishes only the first, and a subset that runs establishes only the second for the constructs it covers.",
+   "justified": true,
+   "note": "documents that open several sentences with the same words, mostly per-command templates"
+  },
+  {
+   "index": 100,
+   "rule": "filler.wordy-phrase",
+   "path": "internal/countsubjectguard/doc.go",
+   "fingerprint": "d5a0c9eae49daca983973c6c32f63622e828149febcead73b58520ac4ecfa107",
+   "snippet": "in order to",
+   "justified": true,
+   "note": "the phrase in use"
+  },
+  {
+   "index": 101,
+   "rule": "filler.wordy-phrase",
+   "path": "docs/STYLE_GUIDE.md",
+   "fingerprint": "6d5965c25ba6e670541f923e3112572be437eb23d6f48ff9ec7dd2fa3fcd2d58",
+   "snippet": "in order to",
+   "justified": false,
+   "note": "the phrase mentioned by a style guide or a style-check script, not used"
+  },
+  {
+   "index": 102,
+   "rule": "filler.wordy-phrase",
+   "path": "internal/cli/atlas/migrate_status.go",
+   "fingerprint": "1fbfaed596e73be18eff50ec7b081c6b4d93dd8b994e6b04d24157296de2e6b7",
+   "snippet": "in order to",
+   "justified": true,
+   "note": "the phrase in use"
+  },
+  {
+   "index": 103,
+   "rule": "filler.wordy-phrase",
+   "path": "docs/STYLE_GUIDE.md",
+   "fingerprint": "21b20602bdd7b181a40b2cdba12700c052edac5b2d55943998489f4f10b0d435",
+   "snippet": "in order to",
+   "justified": false,
+   "note": "the phrase mentioned by a style guide or a style-check script, not used"
+  },
+  {
+   "index": 104,
+   "rule": "filler.wordy-phrase",
+   "path": "docs/site/scripts/check-style.mjs",
+   "fingerprint": "085ceba90c7a30b04cfa56699da58a6ed331337f20b718dc04811c692cd00e14",
+   "snippet": "in order to",
+   "justified": false,
+   "note": "the phrase mentioned by a style guide or a style-check script, not used"
+  },
+  {
+   "index": 105,
+   "rule": "filler.wordy-phrase",
+   "path": "integration/generator/concurrent_index_lint_postgres_live_test.go",
+   "fingerprint": "68fa2174752855a484225b98c3fd3cc782e68144c30a8503478a05173fad6b0a",
+   "snippet": "in order to",
+   "justified": true,
+   "note": "the phrase in use"
+  },
+  {
+   "index": 106,
+   "rule": "filler.wordy-phrase",
+   "path": "docs/site/scripts/check-style.mjs",
+   "fingerprint": "d32af14d120ee443be1cc0002f0a6f24ac50e9bf2a2701537cd3a7496a3386a1",
+   "snippet": "in order to",
+   "justified": false,
+   "note": "the phrase mentioned by a style guide or a style-check script, not used"
+  },
+  {
+   "index": 107,
+   "rule": "filler.wordy-phrase",
+   "path": "docs/site/scripts/check-terminology.mjs",
+   "fingerprint": "5ecb7d5b80907ee00a6d0d956e3c4cf25b909d250566a900efffa7c756f9109a",
+   "snippet": "in order to",
+   "justified": false,
+   "note": "the phrase mentioned by a style guide or a style-check script, not used"
+  },
+  {
+   "index": 108,
+   "rule": "filler.wordy-phrase",
+   "path": "internal/atlasmigrate/diff_root_unix_test.go",
+   "fingerprint": "e74c15aed5d67e94dea6f60655235418f9477082a5e84ccf7b725f7047d8be66",
+   "snippet": "in order to",
+   "justified": true,
+   "note": "the phrase in use"
+  },
+  {
+   "index": 109,
+   "rule": "filler.wordy-phrase",
+   "path": "internal/countsubjectguard/countsubjectguard_test.go",
+   "fingerprint": "5355bf0df71ae552f7ae9b3196bcf2ed31d4e19c4e1700053cb0f6e835629553",
+   "snippet": "in order to",
+   "justified": true,
+   "note": "the phrase in use"
+  },
+  {
+   "index": 110,
+   "rule": "repetition.paragraph-openers",
+   "path": "docs/site/src/content/docs/reference/extension-variables.md",
+   "fingerprint": "3841aac5e86f568c00035f14ace38642ec92c7bf59ac53ba6a71a698f668fc0c",
+   "snippet": "By default, a PostgreSQL read describes only the roles the inspected schemas use, because roles are cluster-wide and a description of one database is not a plac",
+   "justified": true,
+   "note": "paragraphs opening with the same words in one document"
+  },
+  {
+   "index": 111,
+   "rule": "repetition.paragraph-openers",
+   "path": "docs/adr/0013-inference-state-transitions-answer-with-their-provenance.md",
+   "fingerprint": "ea7663ec7e6c1d12e4b4d8e4ccb35d2d7cf334d28173ff25fdcbf0c1bc87adc5",
+   "snippet": "This answers ADR 0010 §5.1 and §5.2 together.",
+   "justified": true,
+   "note": "paragraphs opening with the same words in one document"
+  },
+  {
+   "index": 112,
+   "rule": "repetition.paragraph-openers",
+   "path": "docs/conformance.md",
+   "fingerprint": "62db9881758e8eaf999fd11f82692b0aebefdd663da467e4f21e85ae33bfebf9",
+   "snippet": "Measured on PostgreSQL 17.10, `fillfactor`, `deduplicate_items`, `buffering`, `fastupdate`, `gin_pending_list_limit` and `autosummarize` have no slot on that HC",
+   "justified": true,
+   "note": "paragraphs opening with the same words in one document"
+  },
+  {
+   "index": 113,
+   "rule": "repetition.paragraph-openers",
+   "path": "docs/site/src/content/docs/atlas/retained-divergences.md",
+   "fingerprint": "ba3519eb1c7ad4fb6283b1dcf51d671adaf01409ae92f770b8f00af5c94d0f6e",
+   "snippet": "Measured on SQLite, one hashed migration directory shared by every row:",
+   "justified": true,
+   "note": "paragraphs opening with the same words in one document"
+  },
+  {
+   "index": 114,
+   "rule": "repetition.paragraph-openers",
+   "path": "docs/site/src/content/docs/extend/components.md",
+   "fingerprint": "809459548317a5662ef1f7c1b318dc733b46d4e44dc86c090ccf63317157df76",
+   "snippet": "Use this when a Go package owns the desired schema.",
+   "justified": true,
+   "note": "paragraphs opening with the same words in one document"
+  },
+  {
+   "index": 115,
+   "rule": "repetition.paragraph-openers",
+   "path": "docs/public_api.md",
+   "fingerprint": "88fa0b57697c17954ad1cc40cf823b3158e47c99bc4f56b74a85665a75032533",
+   "snippet": "`migration/schemadiff/difftypes.RLSPolicyRef` and `RLSPolicyDiff` carry a `Desired` policy and a `TableSchema`, both off the wire.",
+   "justified": true,
+   "note": "paragraphs opening with the same words in one document"
+  },
+  {
+   "index": 116,
+   "rule": "repetition.paragraph-openers",
+   "path": "docs/site/src/content/docs/reference/atlas-commands.md",
+   "fingerprint": "be42c374560279e7dd2f87b8b855ba5b403e85702d31f6d2b68ba3076a2a7b3f",
+   "snippet": "Native twin: [`ptah migrations status`](../native-commands/), which keeps its own block — only the compatibility surface is a contract with an existing pipeline",
+   "justified": true,
+   "note": "paragraphs opening with the same words in one document"
+  },
+  {
+   "index": 117,
+   "rule": "repetition.paragraph-openers",
+   "path": "docs/site/src/content/docs/reference/atlas-commands.md",
+   "fingerprint": "95a65d5dcf2a2ed3ed1240814ca56420fead9ef8834a9e380d3dac382ecfbffb",
+   "snippet": "Atlas keeps `migrate checkpoint` in its Pro build — the pinned CE binary registers the verb but aborts with \"not supported by the community version\" and registe",
+   "justified": true,
+   "note": "paragraphs opening with the same words in one document"
+  },
+  {
+   "index": 118,
+   "rule": "repetition.syntax-template",
+   "path": "migration/generator/bidirectional_test.go",
+   "fingerprint": "89f39b1f812b6e5f74fb7f959954348f3ad6cf88bcbf76d5cbac558be43acedd",
+   "snippet": "CREATE INDEX CONCURRENTLY requested by diff\\.concurrent_index\\.create cannot be generated for dialect \"sqlite\": target capability create_index_concurrently is u",
+   "justified": false,
+   "note": "error strings and test names of one shape"
+  },
+  {
+   "index": 119,
+   "rule": "repetition.syntax-template",
+   "path": "internal/atlashclrender/render.go",
+   "fingerprint": "f84688770b6a99ab861010fa9b21df6594c98f0c2859476f9433eefd39007997",
+   "snippet": "Nil means not yet built, which is  // distinguishable from \"built and empty\" because a document with no tables  // still answers every lookup.",
+   "justified": true,
+   "note": "comment sentences of one shape"
+  },
+  {
+   "index": 120,
+   "rule": "repetition.syntax-template",
+   "path": "internal/atlashcl/redeclaration_test.go",
+   "fingerprint": "2501ba51d49dda96c150916d488b441ad479152068d6cd837acf02662dd981a2",
+   "snippet": "a materialized view declared twice is read at exit 0 like the binary reads it",
+   "justified": false,
+   "note": "error strings and test names of one shape"
+  },
+  {
+   "index": 121,
+   "rule": "repetition.syntax-template",
+   "path": "internal/atlascompatpolicy/policy_test.go",
+   "fingerprint": "f0eca12e349d7d76436d0767a16226b2209b1b1245be8ab57f5143b334492612",
+   "snippet": "Atlas Community Edition strict compatibility does not support Ptah pre-migration checks in 1_users.sql",
+   "justified": false,
+   "note": "error strings and test names of one shape"
+  },
+  {
+   "index": 122,
+   "rule": "filler.weak-intensifiers",
+   "path": "internal/atlasmigrateimport/importer.go",
+   "fingerprint": "c1d0c8a89e35c741e5732ac9250e817736f1fd7607ff912a6e3204d909bf157c",
+   "snippet": "very",
+   "justified": true,
+   "note": "an intensifier in a comment"
+  },
+  {
+   "index": 123,
+   "rule": "filler.weak-intensifiers",
+   "path": "internal/sqlitevirtual/sqlitevirtual.go",
+   "fingerprint": "d620df6839d7fab776a9805d8cd3f049db4ae32c2bbc55d2a8629fde9414cb10",
+   "snippet": "very",
+   "justified": true,
+   "note": "an intensifier in a comment"
+  },
+  {
+   "index": 124,
+   "rule": "filler.weak-intensifiers",
+   "path": "integration/gonative/function_property_roundtrip_mysql_family_integration_test.go",
+   "fingerprint": "fc19b62b70b880ddd22f7b04e1d754fc22204fc7458d690403a5d4f403a1df9a",
+   "snippet": "really",
+   "justified": true,
+   "note": "an intensifier in a comment"
+  },
+  {
+   "index": 125,
+   "rule": "gate.paragraph-score",
+   "path": "internal/capabilityprobe/plans.go",
+   "fingerprint": "7763fa484f6d3755b75d2f24c87f6fdccaff118d385a4ec667b74a50d0cf6125",
+   "snippet": " The probe connects as ONE account and cannot ask whether a privilege   // EXISTS without being able to grant it: a server that refuses   // `GRANT SHOW_ROUTINE",
+   "justified": true,
+   "note": "derived gate diagnostics, not a construction"
+  },
+  {
+   "index": 126,
+   "rule": "gate.paragraph-score",
+   "path": "internal/capabilityprobe/plans.go",
+   "fingerprint": "8a3f5ff4c7f319fb7c99ee8e357e98d6d5079f316ea711f221682343460c3deb",
+   "snippet": " The probe connects as ONE account and cannot ask whether a privilege   // EXISTS without being able to grant it: a server that refuses   // `GRANT SHOW_ROUTINE",
+   "justified": true,
+   "note": "derived gate diagnostics, not a construction"
+  }
+ ]
+}

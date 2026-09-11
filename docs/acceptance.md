@@ -85,7 +85,7 @@ state.
 | Regression fixtures per rule | Met | `builtin/testdata/rewrites-v1.json` holds one pair for every builtin rule: a text that carries the construction and a rewrite that keeps its identifiers, numbers, and at least half of its words. `TestRewriteFixturesStopFiringAfterTheRewrite` in the root package asserts that the rule fires on the first and stays silent on the second in ordinary CI |
 | Role stratum | Open | The prevalence tables admit roles as a filter and carry no stratum |
 | Frequency command | Open | No command counts constructions per cohort and role |
-| Review on real texts | Open | No review record exists |
+| Review on real texts | Partly met | The [Ptah review](../research/reviews/2026-09-11-ptah/README.md) runs every catalog rule on one real repository and judges a sample of ten findings per rule; the 800 controlled responses and this repository's own documentation remain |
 | Sources beyond repositories | Open | The corpus holds GitHub repositories only |
 
 ## Stage 4: first product release

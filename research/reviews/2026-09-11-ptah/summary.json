@@ -1,0 +1,315 @@
+{
+ "version": "unswell-review-summary-v1",
+ "subject": {
+  "repository": "stokaro/ptah",
+  "commit": "7b47e7cfb",
+  "checkout": "local working copy, tracked files only",
+  "documents": 4110
+ },
+ "tool": {
+  "commit": "d3c9f231f372694c2f38307e209e65503bf3b1e1",
+  "command": "unswell check . --config <config> --no-gate --include-source --timeout 20m --jobs 4"
+ },
+ "runs": {
+  "default": {
+   "status": "incomplete",
+   "documents": 4110,
+   "prose_words": {
+    "docs": 327002,
+    "other": 110746,
+    "go": 1015871,
+    "go_test": 1110959
+   },
+   "findings": 11067,
+   "errors": [
+    {
+     "path": "internal/parser/parser_test.go",
+     "message": "block is inapplicable to configured English analysis (predominantly non-Latin prose)"
+    },
+    {
+     "path": "",
+     "message": "block is inapplicable to configured English analysis (predominantly non-Latin prose)"
+    }
+   ],
+   "rules": {
+    "syntax.long-sentence": {
+     "total": 10279,
+     "docs": 938,
+     "other": 445,
+     "go": 5044,
+     "go_test": 3852
+    },
+    "repetition.exact-sentence": {
+     "total": 564,
+     "other": 6,
+     "go_test": 318,
+     "go": 179,
+     "docs": 61
+    },
+    "repetition.near-sentence": {
+     "total": 148,
+     "other": 1,
+     "go": 63,
+     "go_test": 80,
+     "docs": 4
+    },
+    "repetition.sentence-openers": {
+     "total": 39,
+     "docs": 39
+    },
+    "filler.wordy-phrase": {
+     "total": 27,
+     "docs": 5,
+     "other": 5,
+     "go_test": 6,
+     "go": 11
+    },
+    "repetition.paragraph-openers": {
+     "total": 8,
+     "docs": 8
+    },
+    "gate.paragraph-score": {
+     "total": 2,
+     "go": 2
+    }
+   }
+  },
+  "all": {
+   "status": "complete",
+   "documents": 4110,
+   "prose_words": {
+    "docs": 327002,
+    "other": 110746,
+    "go": 1015871,
+    "go_test": 1110959
+   },
+   "findings": 24227,
+   "errors": [],
+   "rules": {
+    "syntax.long-sentence": {
+     "total": 10279,
+     "docs": 938,
+     "other": 445,
+     "go": 5044,
+     "go_test": 3852
+    },
+    "readability.grade-metric": {
+     "total": 8331,
+     "docs": 902,
+     "other": 315,
+     "go": 4180,
+     "go_test": 2934
+    },
+    "syntax.passive-candidate-density": {
+     "total": 2163,
+     "docs": 208,
+     "other": 78,
+     "go": 1230,
+     "go_test": 647
+    },
+    "syntax.parenthetical-load": {
+     "total": 1042,
+     "other": 42,
+     "docs": 30,
+     "go_test": 409,
+     "go": 561
+    },
+    "format.em-dash-density": {
+     "total": 613,
+     "other": 8,
+     "go": 200,
+     "go_test": 174,
+     "docs": 231
+    },
+    "repetition.exact-sentence": {
+     "total": 564,
+     "other": 6,
+     "go_test": 318,
+     "go": 179,
+     "docs": 61
+    },
+    "repetition.ngram-density": {
+     "total": 287,
+     "other": 6,
+     "go_test": 148,
+     "go": 98,
+     "docs": 35
+    },
+    "syntax.noun-stack": {
+     "total": 269,
+     "other": 11,
+     "docs": 18,
+     "go": 117,
+     "go_test": 123
+    },
+    "repetition.paragraph-overlap": {
+     "total": 231,
+     "other": 4,
+     "go": 74,
+     "go_test": 153
+    },
+    "readability.long-paragraph": {
+     "total": 216,
+     "other": 27,
+     "docs": 28,
+     "go": 133,
+     "go_test": 28
+    },
+    "repetition.near-sentence": {
+     "total": 148,
+     "other": 1,
+     "go": 63,
+     "go_test": 80,
+     "docs": 4
+    },
+    "repetition.sentence-openers": {
+     "total": 39,
+     "docs": 39
+    },
+    "filler.wordy-phrase": {
+     "total": 27,
+     "docs": 5,
+     "other": 5,
+     "go_test": 6,
+     "go": 11
+    },
+    "repetition.paragraph-openers": {
+     "total": 8,
+     "docs": 8
+    },
+    "repetition.syntax-template": {
+     "total": 4,
+     "go_test": 3,
+     "go": 1
+    },
+    "filler.weak-intensifiers": {
+     "total": 3,
+     "go_test": 1,
+     "go": 2
+    },
+    "gate.paragraph-score": {
+     "total": 3,
+     "go": 3
+    }
+   }
+  },
+  "comments": {
+   "status": "complete",
+   "documents": 4110,
+   "prose_words": {
+    "docs": 327002,
+    "other": 63908,
+    "go": 852291,
+    "go_test": 679434
+   },
+   "findings": 22160,
+   "errors": [],
+   "rules": {
+    "syntax.long-sentence": {
+     "total": 9810,
+     "docs": 938,
+     "other": 370,
+     "go": 4847,
+     "go_test": 3655
+    },
+    "readability.grade-metric": {
+     "total": 8204,
+     "docs": 902,
+     "other": 284,
+     "go": 4101,
+     "go_test": 2917
+    },
+    "syntax.passive-candidate-density": {
+     "total": 2072,
+     "docs": 208,
+     "other": 64,
+     "go": 1155,
+     "go_test": 645
+    },
+    "syntax.parenthetical-load": {
+     "total": 651,
+     "other": 9,
+     "docs": 30,
+     "go_test": 159,
+     "go": 453
+    },
+    "format.em-dash-density": {
+     "total": 609,
+     "other": 6,
+     "go": 199,
+     "go_test": 173,
+     "docs": 231
+    },
+    "repetition.exact-sentence": {
+     "total": 225,
+     "other": 2,
+     "go": 127,
+     "go_test": 35,
+     "docs": 61
+    },
+    "repetition.ngram-density": {
+     "total": 154,
+     "other": 2,
+     "go_test": 38,
+     "go": 79,
+     "docs": 35
+    },
+    "readability.long-paragraph": {
+     "total": 153,
+     "other": 10,
+     "docs": 28,
+     "go": 87,
+     "go_test": 28
+    },
+    "syntax.noun-stack": {
+     "total": 88,
+     "docs": 18,
+     "go": 48,
+     "go_test": 21,
+     "other": 1
+    },
+    "repetition.paragraph-overlap": {
+     "total": 68,
+     "other": 1,
+     "go": 45,
+     "go_test": 22
+    },
+    "repetition.near-sentence": {
+     "total": 46,
+     "go": 39,
+     "docs": 4,
+     "go_test": 3
+    },
+    "repetition.sentence-openers": {
+     "total": 39,
+     "docs": 39
+    },
+    "filler.wordy-phrase": {
+     "total": 26,
+     "docs": 5,
+     "other": 4,
+     "go_test": 6,
+     "go": 11
+    },
+    "repetition.paragraph-openers": {
+     "total": 8,
+     "docs": 8
+    },
+    "filler.weak-intensifiers": {
+     "total": 3,
+     "go_test": 1,
+     "go": 2
+    },
+    "repetition.syntax-template": {
+     "total": 2,
+     "go": 1,
+     "go_test": 1
+    },
+    "gate.paragraph-score": {
+     "total": 2,
+     "go": 2
+    }
+   }
+  }
+ }
+}
