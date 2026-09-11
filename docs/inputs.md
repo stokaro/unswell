@@ -50,6 +50,11 @@ escape. Interpolation expressions and command substitutions insert protected
 boundaries so words on either side cannot form a false phrase. Strings nested
 inside an interpolation are checked as separate literals.
 
+C and C++ accept a function-like macro used as a statement with a block and
+no semicolon, such as `list_for_each(pos, head) { ... }`. The call is blanked
+in a copy, so the block keeps its offsets. That holds only when the call
+contains no comment or string; any other incomplete tree stays an error.
+
 Go retains its standard parser's comment grouping and generated-file, directive
 and cgo metadata. The syntax tree validates source structure and supplies strings.
 Import paths and Go struct tags are excluded as technical metadata. Recognized
