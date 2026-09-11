@@ -108,7 +108,7 @@ func (s *rowSelector) addResolved(binding corpus.FeatureBinding, unit measuremen
 	if err := s.acceptIdentity(unit.identity); err != nil {
 		return err
 	}
-	values, reason, err := numericValues(unit.values, unit.identity.Columns)
+	values, reason, err := s.values(unit, partition)
 	if err != nil {
 		return err
 	}
@@ -125,6 +125,28 @@ func (s *rowSelector) addResolved(binding corpus.FeatureBinding, unit measuremen
 		GroupID: binding.GroupID, FeatureInputHash: binding.FeatureInputHash})
 	partition.Classes[*decision.Label]++
 	return nil
+}
+
+// values resolves a unit's vector under the missing-feature policy. The zero
+// policy fills unavailable activations with zero and counts them on the
+// partition by feature and reason.
+func (s *rowSelector) values(unit measurement, partition *Partition) ([]float64, string, error) {
+	values, reason, err := numericValues(unit.values, unit.identity.Columns)
+	if err != nil {
+		return nil, "", err
+	}
+	if reason != "" && s.options.MissingFeatures == "zero" {
+		var filled map[string]int
+		values, filled = zeroValues(unit.values)
+		if partition.ZeroFilled == nil {
+			partition.ZeroFilled = make(map[string]int)
+		}
+		for key, count := range filled {
+			partition.ZeroFilled[key] += count
+		}
+		reason = ""
+	}
+	return values, reason, nil
 }
 
 func (s *rowSelector) unavailable(id, reason string, partition *Partition) error {

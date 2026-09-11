@@ -59,7 +59,9 @@ go run ./cmd/corpus train --root sources --round round.json \
 `--feature` to select the columns. `--estimator` chooses `logistic` (the default)
 or `forest`. `--calibration` chooses `none` or `isotonic`; calibration is fitted
 separately from the estimator, on its own partition. `--missing-features`
-decides whether an absent column rejects the run or excludes the target.
+decides whether an absent column rejects the run or excludes the target; for
+rule activations, `zero` counts a rule that cannot fire as zero and the
+artifact records how often per feature and reason.
 `--l2`, `--tolerance` and `--max-iterations` bound the logistic fit, and the
 `--forest-*` options bound the forest. `--rule-config` supplies the exact inline
 policy when a feature is a rule activation.
@@ -117,6 +119,9 @@ evaluation also carries bootstrap intervals over its source groups.
 `scripts/origin-experiment.sh` runs the whole sequence, from the union to the
 scored partitions, and [research/origin](../research/origin/README.md) records
 each run with its digests and what it does not establish.
+`scripts/baseline-experiment.sh` runs the five baseline arms on cohort
+membership the same way, and [research/baselines](../research/baselines/README.md)
+records those runs.
 
 The artifact records task `origin_endpoint` and rubric
 `unswell-origin-endpoint-v1`, its class counts use the two labels above, and

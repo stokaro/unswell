@@ -192,8 +192,8 @@ sources; each shard keeps the manifest limits above.
 corpus can span cohorts. `--cohort`, `--repository`, and `--role` pick sources,
 `--unit-kind` narrows the kinds, `--max-per-checkout` keeps the first N
 sources of each checkout in ID order except in an `--uncapped-cohort`,
-`--max-source-bytes` drops files above a size, and `--id` names the result.
-Each source and
+`--max-source-bytes` drops files above a size, `--exclude-source` leaves out
+named sources, and `--id` names the result. Each source and
 notice path gains the prefix `cohort/owner__repo`. That is the checkout layout
 the acquisition driver writes, so `plan` and `extract --root` read all cohorts
 from the work directory. Partitions stay pinned to the dataset's assignment.
@@ -275,7 +275,10 @@ artifact with its exact target and that the set's digest names the artifact.
 The basis is `declared_provenance`; it establishes no authorship.
 `--labels cohort` binds `CohortDecisions` instead: `contemporary_snapshot`
 against `historical_snapshot`, with controlled and natural units unresolved,
-for the comparison of feature families on the pattern cohorts.
+for the comparison of feature families on the pattern cohorts. A
+rule-activation binding records every original block of every source, so its
+block bound is five times the unit limit and its byte bound three quarters of
+the artifact limit.
 
 ## Measure findings without labels
 

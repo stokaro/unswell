@@ -135,7 +135,7 @@ func (p targetPredictor) one(ctx context.Context, binding corpus.FeatureBinding)
 	if !reflect.DeepEqual(unit.identity, p.fitted.Identity) {
 		return Prediction{}, fmt.Errorf("prediction has incompatible feature, policy, or NLP identity")
 	}
-	values, reason, err := numericValues(unit.values, p.fitted.Identity.Columns)
+	values, reason, err := p.values(unit)
 	if err != nil {
 		return Prediction{}, err
 	}
@@ -162,6 +162,20 @@ func (p targetPredictor) one(ctx context.Context, binding corpus.FeatureBinding)
 	positive := response >= *p.plan.Threshold
 	row.Status, row.Response, row.Positive = "available", &response, &positive
 	return row, nil
+}
+
+// values resolves a unit's vector under the fitted artifact's missing-feature
+// policy, so prediction fills the same zeros the fit did.
+func (p targetPredictor) values(unit measurement) ([]float64, string, error) {
+	values, reason, err := numericValues(unit.values, p.fitted.Identity.Columns)
+	if err != nil {
+		return nil, "", err
+	}
+	if reason != "" && p.fitted.Options.MissingFeatures == "zero" {
+		values, _ = zeroValues(unit.values)
+		reason = ""
+	}
+	return values, reason, nil
 }
 
 func restorePredictionInputs(ctx context.Context, candidates corpus.Artifact, fitted Artifact,

@@ -33,6 +33,11 @@ func validateRestoredPartition(task string, partition Partition, options Options
 	if err := validateFittedCounts(task, partition); err != nil {
 		return err
 	}
+	for _, count := range partition.ZeroFilled {
+		if count < 0 {
+			return fmt.Errorf("training artifact has a negative zero-filled count")
+		}
+	}
 	for _, row := range partition.Rows {
 		if !validFittedRow(row) || seen[row.UnitID] {
 			return fmt.Errorf("fitted rows require unique IDs and valid source/group/input identities")

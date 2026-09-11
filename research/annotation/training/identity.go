@@ -84,6 +84,24 @@ func numericValues(values []feature.Value, columns []feature.Descriptor) ([]floa
 	return result, "", nil
 }
 
+// zeroValues returns the vector with every unavailable value as zero. It
+// also counts the filled values by feature and reason. Only rule activations
+// take this path. A rule that cannot fire on a unit has no activation there,
+// and zero says so. An unavailable measurement is not zero.
+func zeroValues(values []feature.Value) ([]float64, map[string]int) {
+	result := make([]float64, 0, len(values))
+	filled := make(map[string]int)
+	for _, value := range values {
+		if value.Number == nil {
+			filled[value.ID+"/"+value.Reason]++
+			result = append(result, 0)
+			continue
+		}
+		result = append(result, *value.Number)
+	}
+	return result, filled
+}
+
 func validateColumnValue(value feature.Value, column feature.Descriptor) error {
 	if value.ID != column.ID || value.Version != column.Version || value.Unit != column.Unit {
 		return fmt.Errorf("training measurement does not match column %s", column.ID)

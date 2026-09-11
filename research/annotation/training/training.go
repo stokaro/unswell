@@ -15,7 +15,8 @@ const Version = "unswell-editorial-training-v3"
 const MaxArtifactBytes = 16 << 20
 
 // Options selects one scope and declares fitting, missing-data, and simulation policy.
-// MissingFeatures accepts reject or exclude; Calibration accepts none or isotonic.
+// MissingFeatures accepts reject, exclude, or zero, the last for rule activations
+// only; Calibration accepts none or isotonic.
 // Estimator requires logistic with Fit, or forest with Forest; the other is nil.
 type Options struct {
 	Kind            string               `json:"kind"`
@@ -77,13 +78,17 @@ type Row struct {
 }
 
 // Partition reports selection and exclusions. Class counts describe fitted rows
-// only; reserved partitions have no class statistics or predictions.
+// only; reserved partitions have no class statistics or predictions. ZeroFilled
+// counts the activation values the zero policy set to zero, by feature and
+// reason, so a fit on rule activations shows how much of its input was an
+// abstention.
 type Partition struct {
 	Name       string         `json:"name"`
 	Candidates int            `json:"candidates"`
 	Sources    int            `json:"sources"`
 	Groups     int            `json:"groups"`
 	Excluded   map[string]int `json:"excluded"`
+	ZeroFilled map[string]int `json:"zero_filled,omitempty"`
 	Rows       []Row          `json:"rows"`
 	Classes    map[string]int `json:"classes"`
 }

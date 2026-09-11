@@ -69,7 +69,8 @@ func validateRestoredContract(a Artifact) error {
 		return fmt.Errorf("training artifact has incompatible target, columns, or algorithm")
 	}
 	if !slices.Contains([]string{"sentence", "paragraph", "fragment"}, a.Options.Kind) ||
-		!slices.Contains([]string{"reject", "exclude"}, a.Options.MissingFeatures) {
+		!slices.Contains([]string{"reject", "exclude", "zero"}, a.Options.MissingFeatures) ||
+		(a.Options.MissingFeatures == "zero" && a.Identity.FeatureSource != "rule_activations") {
 		return fmt.Errorf("training artifact has unsupported selection options")
 	}
 	columnsHash, err := hashJSON(a.Identity.Columns)

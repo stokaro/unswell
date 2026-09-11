@@ -49,6 +49,9 @@ func fitJoined(ctx context.Context, candidates corpus.Artifact, joined corpus.Jo
 	if joined.Decisions.Basis == "simulation" && !options.AllowSimulation {
 		return Artifact{}, fmt.Errorf("tutorial training requires explicit allow_simulation")
 	}
+	if err := zeroPolicyForRules(options, "prepared_features"); err != nil {
+		return Artifact{}, err
+	}
 	options.Features = slices.Clone(joined.Features.Requested)
 	selected, err := selectRows(ctx, candidates.Plan, joined, options)
 	if err != nil {
@@ -84,8 +87,8 @@ func validateOptions(ctx context.Context, candidates corpus.Artifact, options Op
 		!slices.Contains(candidates.Plan.Manifest.UnitKinds, options.Kind) {
 		return fmt.Errorf("training kind must select one kind present in the frozen corpus plan")
 	}
-	if options.MissingFeatures != "reject" && options.MissingFeatures != "exclude" {
-		return fmt.Errorf("missing_features must be reject or exclude")
+	if !slices.Contains([]string{"reject", "exclude", "zero"}, options.MissingFeatures) {
+		return fmt.Errorf("missing_features must be reject, exclude, or zero")
 	}
 	if options.Calibration != "none" && options.Calibration != "isotonic" {
 		return fmt.Errorf("calibration must be none or isotonic")

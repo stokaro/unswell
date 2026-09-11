@@ -27,7 +27,7 @@ func TestCorpusRuleTrainingUsesExplicitPolicy(t *testing.T) {
 	checkRuleTrainingIdentity(t, output)
 	for _, row := range []struct{ flag, value string }{
 		{"--rule-config", fixture + "absent.yaml"}, {"--feature", "prose-words"},
-		{"--missing-features", "zero"}, {"--allow-simulation", "false"},
+		{"--missing-features", "drop"}, {"--allow-simulation", "false"},
 	} {
 		t.Run(row.flag, func(t *testing.T) {
 			c := qt.New(t)
@@ -35,6 +35,8 @@ func TestCorpusRuleTrainingUsesExplicitPolicy(t *testing.T) {
 			c.Assert(researchCommand(t, binary, changed, artifact, 2), qt.HasLen, 0)
 		})
 	}
+	zero := append(slices.Clone(args), "--missing-features=zero")
+	c.Assert(string(researchCommand(t, binary, zero, artifact, 0)), qt.Contains, `"missing_features": "zero"`)
 	join := []string{"join", "--root", fixture + "sources", "--round", fixture + "round.json",
 		"--feature", "activation/policy.banned-phrases", "--rule-config", fixture + "rules.yaml"}
 	bindings := researchCommand(t, binary, join, artifact, 0)

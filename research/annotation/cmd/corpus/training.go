@@ -15,7 +15,8 @@ func trainingFlags(flags *flag.FlagSet, options *training.Options) {
 	flags.StringVar(&options.Estimator, "estimator", "logistic", "Numerical estimator: logistic or forest")
 	forestFlags(flags, options.Forest)
 	flags.StringVar(&options.Kind, "kind", "", "One corpus target kind: sentence, paragraph, or fragment")
-	flags.StringVar(&options.MissingFeatures, "missing-features", "reject", "Missing feature policy: reject or exclude")
+	flags.StringVar(&options.MissingFeatures, "missing-features", "reject",
+		"Missing feature policy: reject, exclude, or zero (rule activations only: a rule that cannot fire counts as zero)")
 	flags.StringVar(&options.Calibration, "calibration", "none", "Separate calibration: none or isotonic")
 	flags.BoolVar(&options.AllowSimulation, "allow-simulation", false, "Allow explicitly simulated tutorial fitting")
 	flags.Float64Var(&options.Fit.L2, "l2", 1, "Logistic weight regularization; the intercept is unpenalized")

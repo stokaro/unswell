@@ -38,7 +38,7 @@ func measureRuleSources(ctx context.Context, engine *unswell.Engine, plan Plan,
 			return unswell.FeatureCollection{}, err
 		}
 		bytes, blocks = bytes+len(encoded), blocks+len(record.Units)
-		if bytes > MaxArtifactBytes/2 || blocks > MaxUnits {
+		if bytes > MaxRuleCollectionBytes || blocks > MaxRuleBlocks {
 			return unswell.FeatureCollection{}, fmt.Errorf("rule corpus exceeds byte or block limit")
 		}
 		collection.Sources = append(collection.Sources, record)

@@ -115,6 +115,10 @@ func TestUnionManifestSelectsAndRefuses(t *testing.T) {
 	c.Assert(err, qt.ErrorMatches, "the per-checkout limit cannot be negative")
 	smallest := plan.Sources[0]
 	_ = smallest
+	union, err = corpus.UnionManifest(c.Context(), plan, pinned, corpus.UnionOptions{ID: "u", ExcludedSources: []string{"d0", "d2"}})
+	c.Assert(err, qt.IsNil)
+	c.Assert(union.Sources, qt.HasLen, 1)
+	c.Assert(union.Sources[0].ID, qt.Equals, "d1")
 	union, err = corpus.UnionManifest(c.Context(), plan, pinned, corpus.UnionOptions{ID: "u", MaxSourceBytes: 120})
 	c.Assert(err, qt.IsNil)
 	for _, source := range union.Sources {

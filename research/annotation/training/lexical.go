@@ -21,11 +21,8 @@ func RunLexical(ctx context.Context, candidates corpus.Artifact, round *annotati
 	if err := validateOptions(ctx, candidates, options); err != nil {
 		return Artifact{}, err
 	}
-	if err := lexical.validate(); err != nil {
+	if err := lexicalGuards(options, lexical); err != nil {
 		return Artifact{}, err
-	}
-	if len(options.Features) != 0 {
-		return Artifact{}, fmt.Errorf("lexical training learns columns; do not supply features")
 	}
 	prepared, err := corpus.Prepare(ctx, candidates, files)
 	if err != nil {
@@ -48,6 +45,18 @@ func RunLexical(ctx context.Context, candidates corpus.Artifact, round *annotati
 	return fitLexical(ctx, candidates, prepared, decisions, options, lexical)
 }
 
+// lexicalGuards checks what lexical fitting cannot take: explicit features, an
+// invalid vocabulary, and the zero policy of rule activations.
+func lexicalGuards(options Options, lexical LexicalOptions) error {
+	if err := lexical.validate(); err != nil {
+		return err
+	}
+	if len(options.Features) != 0 {
+		return fmt.Errorf("lexical training learns columns; do not supply features")
+	}
+	return zeroPolicyForRules(options, "lexical_ngrams")
+}
+
 // RunLexicalDecisions fits the lexical baseline from a prepared decision set,
 // such as the provenance labels of the origin task, instead of a round.
 func RunLexicalDecisions(ctx context.Context, candidates corpus.Artifact, decisions annotation.DecisionSet,
@@ -56,11 +65,8 @@ func RunLexicalDecisions(ctx context.Context, candidates corpus.Artifact, decisi
 	if err := validateOptions(ctx, candidates, options); err != nil {
 		return Artifact{}, err
 	}
-	if err := lexical.validate(); err != nil {
+	if err := lexicalGuards(options, lexical); err != nil {
 		return Artifact{}, err
-	}
-	if len(options.Features) != 0 {
-		return Artifact{}, fmt.Errorf("lexical training learns columns; do not supply features")
 	}
 	if err := corpus.MatchDecisionTargets(ctx, candidates, decisions); err != nil {
 		return Artifact{}, err
