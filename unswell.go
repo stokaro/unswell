@@ -165,6 +165,14 @@ func (e *Engine) PolicyForFile(name string) (config.Policy, error) {
 	return e.plan.ForFile(name)
 }
 
+// ResolvedPolicy returns the shared policy resolved for a source name. It
+// costs one lookup per call after the first file of its override combination,
+// where PolicyForFile copies the whole policy. The result is read-only: the
+// engine and every other caller of the same combination share its maps.
+func (e *Engine) ResolvedPolicy(name string) (config.Policy, error) {
+	return e.plan.Resolution(name)
+}
+
 // Catalog returns owned descriptors for the complete registered rule catalog.
 func (e *Engine) Catalog() []rule.Descriptor {
 	return cloneDescriptors(e.descriptors)
@@ -273,6 +281,7 @@ func (e *Engine) analyzeAll(ctx context.Context, sources []document.Source, iden
 		})
 	}
 	workers.Wait()
+	result.reserve(partials)
 	for i, part := range partials {
 		result.appendFeatureSources(part.Features)
 		result.appendPreparedSources(part.PreparedFeatures)
@@ -291,6 +300,20 @@ func (e *Engine) analyzeAll(ctx context.Context, sources []document.Source, iden
 	}
 	result, err = e.finishBaseline(ctx, result, errors.Join(errorsBySource...))
 	return result, identities, err
+}
+
+// reserve sizes the merged slices once. Growing them by doubling while
+// appending tens of thousands of assessments held twice their final size.
+func (r *RunResult) reserve(partials []RunResult) {
+	documents, findings, assessments := 0, 0, 0
+	for _, part := range partials {
+		documents += len(part.Documents)
+		findings += len(part.Findings)
+		assessments += len(part.Assessments)
+	}
+	r.Documents = slices.Grow(r.Documents, documents)
+	r.Findings = slices.Grow(r.Findings, findings)
+	r.Assessments = slices.Grow(r.Assessments, assessments)
 }
 
 func newBatchIdentities(identify bool, count int) []sourceIdentities {
@@ -313,6 +336,15 @@ func batchIdentity(identities []sourceIdentities, index int) *sourceIdentities {
 }
 
 func (e *Engine) emptyResult() RunResult {
+	result := e.partialResult()
+	result.Manifest = e.manifest()
+	return result
+}
+
+// partialResult starts the result of one source inside a batch. The batch
+// result carries the manifest; a partial never does, so a run over a thousand
+// sources does not hold a thousand copies of the rule catalog until it merges.
+func (e *Engine) partialResult() RunResult {
 	result := RunResult{
 		PreparedFeatures: e.preparedCollection(),
 		Features:         e.featureCollection(),
@@ -323,33 +355,36 @@ func (e *Engine) emptyResult() RunResult {
 		Assessments:      []Assessment{},
 		Errors:           []RunError{},
 		Gate:             GateDecision{Passed: true, Reasons: []GateReason{}},
-		Manifest: Manifest{
-			GateMode:        e.selectedGateMode(),
-			ToolVersion:     Version,
-			ToolCommit:      BuildCommit,
-			ConfigHash:      e.policy.Hash,
-			ConfigIdentity:  e.policy.Identity,
-			ConfigSources:   slices.Clone(e.policy.Sources),
-			ConfigOverrides: cloneOverrides(e.policy.Overrides),
-			RulesetHash:     e.rulesetHash,
-			ScoringProfile:  e.policy.Profile,
-			FeatureContract: "unswell-features-v1",
-			Probability:     e.ProbabilityModelIdentity(),
-			Origin:          e.OriginModelIdentity(),
-			NLP:             e.nlp.Identity(),
-			Rules:           cloneDescriptors(e.descriptors),
-			SelectionMode:   "explicit",
-			Complete:        true,
-			NoGate:          e.noGate,
-			IncludeSource:   e.includeSource,
-			SkippedRules:    []string{},
-		},
 	}
 	if e.collectBaseline {
 		result.BaselineSnapshot = &baseline.Snapshot{Complete: true, Compatibility: e.baselineCompatibility,
 			Documents: []baseline.Document{}, Candidates: []baseline.Identity{}}
 	}
 	return result
+}
+
+func (e *Engine) manifest() Manifest {
+	return Manifest{
+		GateMode:        e.selectedGateMode(),
+		ToolVersion:     Version,
+		ToolCommit:      BuildCommit,
+		ConfigHash:      e.policy.Hash,
+		ConfigIdentity:  e.policy.Identity,
+		ConfigSources:   slices.Clone(e.policy.Sources),
+		ConfigOverrides: cloneOverrides(e.policy.Overrides),
+		RulesetHash:     e.rulesetHash,
+		ScoringProfile:  e.policy.Profile,
+		FeatureContract: "unswell-features-v1",
+		Probability:     e.ProbabilityModelIdentity(),
+		Origin:          e.OriginModelIdentity(),
+		NLP:             e.nlp.Identity(),
+		Rules:           cloneDescriptors(e.descriptors),
+		SelectionMode:   "explicit",
+		Complete:        true,
+		NoGate:          e.noGate,
+		IncludeSource:   e.includeSource,
+		SkippedRules:    []string{},
+	}
 }
 
 func (e *Engine) prepareSources(ctx context.Context, sources []document.Source) ([]*Engine, error) {
@@ -363,7 +398,7 @@ func (e *Engine) prepareSources(ctx context.Context, sources []document.Source) 
 		if i > 0 && sources[i-1].Name == source.Name {
 			return nil, fmt.Errorf("duplicate source name %q", source.Name)
 		}
-		policy, err := e.PolicyForFile(source.Name)
+		policy, err := e.ResolvedPolicy(source.Name)
 		if err != nil {
 			return nil, fmt.Errorf("%s: %w", source.Name, err)
 		}

@@ -106,8 +106,8 @@ corpus, with few large documents, is the cheap case. FastAPI's three operational
 errors and date-fns's five stay in the records. They come from a YAML file of
 non-Latin link titles, one Markdown and three TypeScript files the grammars
 could not parse, and one JavaScript file of locale names.
-Bounding memory and time on such trees is tracked in
-[#181](https://github.com/stokaro/unswell/issues/181).
+[#181](https://github.com/stokaro/unswell/issues/181) bounded memory and time
+on such trees; the section after the arm64 host records the same scans again.
 
 ## Measured on an arm64 host
 
@@ -122,6 +122,47 @@ scan, so the two hosts are not compared with each other.
 | [pytest](performance/darwin-arm64-2threads-pytest.json) | 137,373 | 304 | 4.303 s | 3.668 s | 473,956,352 bytes | complete; gate failed (exit 1) |
 | [FastAPI](performance/darwin-arm64-2threads-fastapi.json) | 121,028 | 700 | 6.257 s | 6.232 s | 502,431,744 bytes | incomplete; 3 errors |
 | [date-fns](performance/darwin-arm64-2threads-date-fns.json) | 106,594 | 1,151 | 6.651 s | 5.534 s | 738,721,792 bytes | incomplete; 5 errors |
+
+## Measured after the bounds of #181
+
+Profiles on the 2-vCPU host put the cost of the failing trees in four places,
+none of them in analysis. Every parse built a fresh parser, and a Markdown
+document parses every inline block on its own. Resolving the policy of a file
+copied it through JSON twice per file. Every per-source partial result carried
+its own copy of the rule catalog until the merge. Writing a file report
+serialized it into memory as a whole first.
+
+The extractor now keeps parsers per grammar. A plan resolves each override
+combination once. Only the batch result carries the manifest, and file reports
+stream to disk. The runtime also keeps its total memory under a soft limit of
+384 MiB unless `GOMEMLIMIT` is set, so the heap no longer grows to twice its
+live size. Results, hashes, and reports of an unchanged tree are the same bytes
+as before.
+
+The same four scans ran again on the same 2-vCPU host with a build of that
+change. Each record names the commit and the tree hash of the build; the tree
+hash survives the squash merge that renames the commit.
+
+| Corpus | Prose words | Documents | Cold | Warm | Peak resident | Outcome |
+| --- | --- | --- | --- | --- | --- | --- |
+| [synthetic](performance/linux-amd64-2vcpu-512mib-synthetic-bounded.json) | 102,005 | 57 | 1.939 s | 1.932 s | 233,537,536 bytes | pass |
+| [pytest](performance/linux-amd64-2vcpu-512mib-pytest-bounded.json) | 137,373 | 304 | 6.405 s | 6.343 s | 347,471,872 bytes | complete; gate failed (exit 1) |
+| [FastAPI](performance/linux-amd64-2vcpu-512mib-fastapi-bounded.json) | 121,028 | 700 | 7.689 s | 7.756 s | 402,526,208 bytes | incomplete; 3 errors |
+| [date-fns](performance/linux-amd64-2vcpu-512mib-date-fns-bounded.json) | 106,594 | 1,151 | 5.235 s | 7.348 s | 408,363,008 bytes | incomplete; 5 errors |
+
+Every measured tree now completes within the target on the recorded host.
+FastAPI fell from 13.2 s to 7.7 s. date-fns, killed before, completes in five
+to seven seconds with a 408 MB peak. The peak of a document-heavy tree still
+sits near 400 MB: the soft limit holds the heap, and the mapped binary and the
+runtime's own bookkeeping add the rest.
+
+The arm64 host ran the same four scans with the same build
+([synthetic](performance/darwin-arm64-2threads-synthetic-bounded.json),
+[pytest](performance/darwin-arm64-2threads-pytest-bounded.json),
+[FastAPI](performance/darwin-arm64-2threads-fastapi-bounded.json),
+[date-fns](performance/darwin-arm64-2threads-date-fns-bounded.json)): 0.890 s,
+2.935 s, 3.415 s, and 2.484 s cold. Its resident figures stay above the Linux
+ones for the same scans and are not compared with them.
 
 ## Limits of this evidence
 

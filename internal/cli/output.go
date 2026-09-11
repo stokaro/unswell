@@ -1,9 +1,11 @@
 package cli
 
 import (
+	"bufio"
 	"bytes"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
@@ -28,19 +30,22 @@ func writeReports(environment Environment, options checkOptions, result unswell.
 	}
 	var failures []error
 	for _, target := range targets {
-		var buffer bytes.Buffer
-		err := report.Write(
-			&buffer,
-			target.format,
-			result,
-			report.Options{MinSeverity: options.minSeverity, MaxFindings: options.maxFindings},
-		)
-		if err == nil {
-			if target.path == "-" {
+		write := func(writer io.Writer) error {
+			return report.Write(writer, target.format, result,
+				report.Options{MinSeverity: options.minSeverity, MaxFindings: options.maxFindings})
+		}
+		var err error
+		if target.path == "-" {
+			// Standard output receives a report in one write, so a failed
+			// serialization leaves nothing behind on a shared stream.
+			var buffer bytes.Buffer
+			if err = write(&buffer); err == nil {
 				_, err = environment.Out.Write(buffer.Bytes())
-			} else {
-				err = atomicWrite(target.path, buffer.Bytes())
 			}
+		} else {
+			// A file report streams to disk. A large result is never held a
+			// second time as serialized bytes.
+			err = atomicWrite(target.path, write)
 		}
 		if err != nil {
 			failures = append(failures, fmt.Errorf("write %s report: %w", target.format, err))
@@ -101,7 +106,9 @@ func protectInputs(output string, inputs []string) error {
 	return nil
 }
 
-func atomicWrite(path string, data []byte) (err error) {
+// atomicWrite streams one output into a temporary file beside the target and
+// renames it into place. A failed write leaves no partial file behind.
+func atomicWrite(path string, write func(io.Writer) error) (err error) {
 	if err := os.MkdirAll(filepath.Dir(path), 0o750); err != nil {
 		return err
 	}
@@ -115,10 +122,19 @@ func atomicWrite(path string, data []byte) (err error) {
 			err = errors.Join(err, removeErr)
 		}
 	}()
-	_, writeErr := file.Write(data)
+	buffered := bufio.NewWriterSize(file, 1<<20)
+	writeErr := write(buffered)
+	flushErr := buffered.Flush()
 	closeErr := file.Close()
-	if err := errors.Join(writeErr, closeErr); err != nil {
+	if err := errors.Join(writeErr, flushErr, closeErr); err != nil {
 		return err
 	}
 	return os.Rename(name, path)
+}
+
+func writeBytes(data []byte) func(io.Writer) error {
+	return func(writer io.Writer) error {
+		_, err := writer.Write(data)
+		return err
+	}
 }

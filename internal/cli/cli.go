@@ -40,6 +40,7 @@ func (w *trackedWriter) Write(data []byte) (int, error) {
 // Run returns 0 for a complete pass, 1 for a complete policy failure, and 2 for
 // operational errors. Cancellation returns 130. It never exits the process.
 func Run(ctx context.Context, args []string, environment Environment) int {
+	applyMemoryEnvelope()
 	out := &trackedWriter{writer: environment.Out}
 	errOut := &trackedWriter{writer: environment.Err}
 	environment.Out = out
