@@ -5,6 +5,7 @@ package main
 // alternatives, never combined or omitted together.
 
 import (
+	"slices"
 	"testing"
 
 	qt "github.com/frankban/quicktest"
@@ -23,9 +24,20 @@ func TestProvenanceLabelsReplaceARound(t *testing.T) {
 	_, err = commandOptions([]string{"join", "--root", ".", "--labels", "guess", "--feature", "prose-words"})
 	c.Assert(err, qt.ErrorMatches, "--labels accepts provenance")
 	_, err = commandOptions([]string{"train", "--root", ".", "--labels", "provenance", "--lexical", "--kind", "paragraph"})
-	c.Assert(err, qt.ErrorMatches, "provenance labels take the prepared-feature path only")
+	c.Assert(err, qt.IsNil)
+	_, err = commandOptions([]string{"train", "--root", ".", "--labels", "provenance", "--rule-config", "rules.yaml",
+		"--feature", "policy.banned-phrases", "--kind", "paragraph"})
+	c.Assert(err, qt.IsNil)
 	_, err = commandOptions([]string{"measure", "--root", ".", "--policy", "p.yaml", "--labels", "provenance"})
 	c.Assert(err, qt.ErrorMatches, "only join and train accept --round, --labels, and --feature")
+
+	common := []string{"compare", "--plan", "p.json", "--protocol", "m.md", "--comparator", "b.json", "--corpus", "c.json"}
+	_, err = comparisonFlags(append(slices.Clone(common), "--labels", "provenance"))
+	c.Assert(err, qt.IsNil)
+	_, err = comparisonFlags(append(slices.Clone(common), "--labels", "provenance", "--round", "r.json"))
+	c.Assert(err, qt.ErrorMatches, "compare requires .*either --round or --labels")
+	_, err = comparisonFlags(append(slices.Clone(common), "--labels", "guess"))
+	c.Assert(err, qt.ErrorMatches, "--labels accepts provenance")
 
 	_, err = evaluationFlags([]string{"evaluate", "--corpus", "c.json", "--labels", "provenance"})
 	c.Assert(err, qt.IsNil)

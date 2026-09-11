@@ -188,13 +188,27 @@ func annotatedOperation(ctx context.Context, name string, options options, artif
 }
 
 // provenanceOperation labels the artifact from its declared cohorts and
-// origins and takes the same join or train path a round would.
+// origins and takes the same join or train path a round would, including the
+// lexical and rule-activation baselines.
 func provenanceOperation(ctx context.Context, name string, options options, artifact corpus.Artifact,
 	files map[string][]byte,
 ) (any, error) {
 	decisions, err := corpus.OriginDecisions(ctx, artifact)
 	if err != nil {
 		return nil, err
+	}
+	if options.lexical {
+		return training.RunLexicalDecisions(ctx, artifact, decisions, files, options.train, options.lexicalOptions)
+	}
+	if options.ruleConfig != "" {
+		configuration, err := commandio.Await(ctx, func() ([]byte, error) { return readRuleConfig(options.ruleConfig) })
+		if err != nil {
+			return nil, err
+		}
+		if name == "train" {
+			return training.RunRulesDecisions(ctx, artifact, decisions, files, options.train, configuration)
+		}
+		return corpus.JoinRulesDecisions(ctx, artifact, decisions, files, options.features, configuration)
 	}
 	if name == "train" {
 		return training.RunDecisions(ctx, artifact, decisions, files, options.train)

@@ -65,6 +65,24 @@ func JoinRules(ctx context.Context, artifact Artifact, round *annotation.Round, 
 	return finishRuleJoin(ctx, result)
 }
 
+// JoinRulesDecisions binds a prepared decision set to block activations
+// instead of a round; the decisions must name this artifact and its targets.
+func JoinRulesDecisions(ctx context.Context, artifact Artifact, decisions annotation.DecisionSet, files map[string][]byte,
+	features []string, configuration []byte,
+) (RuleJoinedArtifact, error) {
+	if err := MatchDecisionTargets(ctx, artifact, decisions); err != nil {
+		return RuleJoinedArtifact{}, err
+	}
+	measured, err := MeasureRules(ctx, artifact, files, features, configuration)
+	if err != nil {
+		return RuleJoinedArtifact{}, err
+	}
+	result := RuleJoinedArtifact{Version: RuleJoinedVersion, Status: "verified_targets_with_block_activations",
+		HumanCorpus: "not_qualified", Context: "source_document", Verification: measured.Verification, Decisions: decisions,
+		Rules: measured.Rules, Features: measured.Features, Bindings: measured.Bindings}
+	return finishRuleJoin(ctx, result)
+}
+
 func finishRuleJoin(ctx context.Context, result RuleJoinedArtifact) (RuleJoinedArtifact, error) {
 	encoded, err := json.Marshal(result)
 	if err != nil {

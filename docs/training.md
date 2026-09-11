@@ -79,6 +79,10 @@ go run ./cmd/corpus train --root sources --labels provenance \
   --kind paragraph --feature prose-words --calibration isotonic < corpus.json > origin-model.json
 ```
 
+The same flag serves the lexical baseline (`--lexical`), the rule-activation
+baseline (`--rule-config`), and `compare`, so every arm of a comparison can
+fit and score on the same provenance labels.
+
 The rule is frozen as `annotation.OriginProfile`, and its digest fills the
 profile field of the decision set. A unit of a controlled source whose origin
 is `generated` with document scope is `endpoint_generated`. A unit of a

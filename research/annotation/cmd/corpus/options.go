@@ -87,20 +87,13 @@ func (result options) validateSelectors(name string) error {
 	return nil
 }
 
-// validateLabelSource requires exactly one of a round and a label source, and
-// keeps provenance labels on the prepared-feature path.
+// validateLabelSource requires exactly one of a round and a label source.
 func (result options) validateLabelSource() error {
 	if (result.round == "") == (result.labels == "") || (len(result.features) == 0 && !result.lexical) {
 		return fmt.Errorf("join and train require --round or --labels, and at least one --feature")
 	}
-	if result.labels == "" {
-		return nil
-	}
-	if result.labels != "provenance" {
+	if result.labels != "" && result.labels != "provenance" {
 		return fmt.Errorf("--labels accepts provenance")
-	}
-	if result.lexical || result.ruleConfig != "" {
-		return fmt.Errorf("provenance labels take the prepared-feature path only")
 	}
 	return nil
 }

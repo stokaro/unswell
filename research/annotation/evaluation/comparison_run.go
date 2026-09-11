@@ -65,6 +65,44 @@ func RunComparison(ctx context.Context, data, comparator []byte, plan Comparison
 	if err != nil {
 		return ComparisonResult{}, err
 	}
+	return compareLoaded(ctx, a, b, plan, planHash, decisions)
+}
+
+// RunComparisonDecisions summarizes paired outcomes against a prepared
+// decision set, such as the provenance labels of the origin task, instead of
+// a round. The decisions must bind the shared corpus of both trials.
+func RunComparisonDecisions(ctx context.Context, data, comparator []byte, plan ComparisonPlan,
+	candidates corpus.Artifact, decisions annotation.DecisionSet, allowSimulation bool,
+) (ComparisonResult, error) {
+	a, err := training.LoadPredictions(ctx, data)
+	if err != nil {
+		return ComparisonResult{}, err
+	}
+	b, err := training.LoadPredictions(ctx, comparator)
+	if err != nil {
+		return ComparisonResult{}, err
+	}
+	planHash, err := comparisonPlanIdentity(ctx, plan, a, b)
+	if err != nil {
+		return ComparisonResult{}, err
+	}
+	for _, predictions := range []training.Predictions{a, b} {
+		if err := validateTargets(ctx, candidates, predictions, nil); err != nil {
+			return ComparisonResult{}, err
+		}
+	}
+	if err := corpus.MatchDecisionTargets(ctx, candidates, decisions); err != nil {
+		return ComparisonResult{}, err
+	}
+	if err := checkDecisions(decisions, a.Model, allowSimulation); err != nil {
+		return ComparisonResult{}, err
+	}
+	return compareLoaded(ctx, a, b, plan, planHash, decisions)
+}
+
+func compareLoaded(ctx context.Context, a, b training.Predictions, plan ComparisonPlan, planHash string,
+	decisions annotation.DecisionSet,
+) (ComparisonResult, error) {
 	rows, excluded, err := comparisonRows(ctx, a, b, decisions)
 	if err != nil {
 		return ComparisonResult{}, err
