@@ -131,12 +131,12 @@ one of OPT and BART. `llmdet.LoadBPE` reads a vocabulary and a merge list.
 `Encode` reproduces the reference pre-tokenization without a backtracking
 regular expression. The tests hold it to encodings that `tiktoken` produced
 from the same files: whitespace runs, contractions, digits, punctuation, and
-non-Latin text. The GPT-2 files are compressed test data under OpenAI's
+non-Latin text. The GPT-2 files ship as compressed test data under OpenAI's
 license. Every other tokenizer file stays outside the repository.
 
 Five models stay untested. UniLM uses WordPiece, and LLaMA, Vicuna, and T5
-use SentencePiece; none of those is ported. Bloom's vocabulary has 250,880
-tokens, which does not fit the 16-bit table.
+use SentencePiece; the port covers neither algorithm. Bloom's vocabulary has
+250,880 tokens, which does not fit the 16-bit table.
 
 A pack manifest in the `unswell-llmdet-pack-v1` form names the tables and
 tokenizer files of a run with their digests. `corpus train --llmdet-pack`
