@@ -89,6 +89,19 @@ reason: `polished_response` for `human_ai_edited`, `contemporary_snapshot`,
 without a generation record. Those units are counted as exclusions, and the
 rule reads nothing from the text.
 
+A corpus that spans cohorts comes from `corpus dataset union`. It joins the
+pinned sources of selected shards into one manifest and keeps every partition
+the dataset assigned. It narrows the unit kinds and prefixes each path with the
+checkout directory the acquisition driver uses. `plan` and `extract --root`
+then read every cohort from the work directory:
+
+```sh
+go run ./cmd/corpus dataset union --root artifacts/acquisition --id origin-pilot \
+  --cohort controlled --cohort historical --role comment --unit-kind paragraph \
+  --max-per-checkout 40 --uncapped-cohort controlled --max-source-bytes 102400 \
+  < artifacts/measurement/dataset-plan.json > union.json
+```
+
 The artifact records task `origin_endpoint` and rubric
 `unswell-origin-endpoint-v1`, its class counts use the two labels above, and
 `pack --task origin_endpoint` accepts only such an artifact. An artifact

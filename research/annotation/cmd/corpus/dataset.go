@@ -14,14 +14,17 @@ import (
 
 type datasetOptions struct {
 	root, output, pinned string
+	union                corpus.UnionOptions
 }
 
-// runDataset plans, pins, and verifies a sharded dataset. Shard manifests are
-// read beneath --root by their declared paths; pinned copies are written
-// beneath --output and never overwrite an existing file.
+// runDataset plans, pins, verifies, and unites a sharded dataset. Shard
+// manifests are read beneath --root by their declared paths; pinned copies are
+// written beneath --output and never overwrite an existing file; a union is
+// one manifest of selected shards whose paths name their checkouts.
 func runDataset(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
 	if len(args) < 2 {
-		return fmt.Errorf("usage: corpus dataset {plan|pin|verify} --root DIR [--output DIR] [--pinned DIR] < input.json")
+		return fmt.Errorf("usage: corpus dataset {plan|pin|verify|union} --root DIR [--output DIR] [--pinned DIR] " +
+			"[--id ID] [--cohort NAME]... [--repository NAME]... [--unit-kind KIND]... < input.json")
 	}
 	options, err := datasetFlags(args[1], args[2:])
 	if err != nil {
@@ -50,6 +53,8 @@ func datasetFlags(name string, args []string) (datasetOptions, error) {
 		flags.StringVar(&options.output, "output", "", "Directory that receives the pinned shard manifests")
 	case "verify":
 		flags.StringVar(&options.pinned, "pinned", "", "Optional directory holding pinned shard copies to check")
+	case "union":
+		unionFlags(flags, &options.union)
 	case "plan":
 	default:
 		return datasetOptions{}, fmt.Errorf("unknown dataset command %q", name)
@@ -57,10 +62,35 @@ func datasetFlags(name string, args []string) (datasetOptions, error) {
 	if err := flags.Parse(args); err != nil {
 		return datasetOptions{}, err
 	}
+	return options, validateDatasetFlags(name, flags, options)
+}
+
+func validateDatasetFlags(name string, flags *flag.FlagSet, options datasetOptions) error {
 	if flags.NArg() != 0 || options.root == "" || (name == "pin") != (options.output != "") {
-		return datasetOptions{}, fmt.Errorf("dataset commands require --root; pin requires --output")
+		return fmt.Errorf("dataset commands require --root; pin requires --output")
 	}
-	return options, nil
+	if name == "union" && options.union.ID == "" {
+		return fmt.Errorf("dataset union requires --id")
+	}
+	return nil
+}
+
+func unionFlags(flags *flag.FlagSet, options *corpus.UnionOptions) {
+	flags.StringVar(&options.ID, "id", "", "Identifier of the union manifest")
+	appendTo := func(target *[]string) func(string) error {
+		return func(value string) error {
+			*target = append(*target, value)
+			return nil
+		}
+	}
+	flags.Func("cohort", "Cohort to include; repeat for a set, omit for all", appendTo(&options.Cohorts))
+	flags.Func("repository", "Repository to include; repeat for a set, omit for all", appendTo(&options.Repositories))
+	flags.Func("role", "Source role to include; repeat for a set, omit for all", appendTo(&options.Roles))
+	flags.Func("unit-kind", "Unit kind to keep; repeat for a set, omit for the dataset's kinds", appendTo(&options.UnitKinds))
+	flags.IntVar(&options.MaxPerCheckout, "max-per-checkout", 0, "Keep the first N sources of each checkout in ID order; 0 keeps all")
+	flags.Func("uncapped-cohort", "Cohort whose checkouts keep every source under the limit; repeat for a set",
+		appendTo(&options.UncappedCohorts))
+	flags.IntVar(&options.MaxSourceBytes, "max-source-bytes", 0, "Drop sources above this many bytes; 0 keeps all")
 }
 
 func datasetOperation(ctx context.Context, name string, options datasetOptions, data []byte) (any, error) {
@@ -85,6 +115,13 @@ func datasetOperation(ctx context.Context, name string, options datasetOptions, 
 	}
 	if name == "pin" {
 		return pinDataset(ctx, plan, shards, options.output)
+	}
+	if name == "union" {
+		pinned, err := corpus.PinShards(ctx, plan, shards)
+		if err != nil {
+			return nil, err
+		}
+		return corpus.UnionManifest(ctx, plan, pinned, options.union)
 	}
 	return verifyDataset(ctx, plan, shards, options.pinned)
 }
