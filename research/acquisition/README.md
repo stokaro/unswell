@@ -84,3 +84,6 @@ that selection.
   pseudo-boundaries and the H1 boundary of 2018.
 - [September 11, 2026, roles](runs/2026-09-11-roles/README.md): the tables of
   the current measurement with a stratum per document role in every row.
+- [September 11, 2026, frequencies](runs/2026-09-11-frequencies/README.md):
+  word n-grams, sentence openers, and part-of-speech templates counted per
+  cohort and role, with each stratum contrasted against the baseline.
