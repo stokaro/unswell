@@ -175,6 +175,16 @@ func annotatedOperation(ctx context.Context, name string, options options, artif
 	if err != nil {
 		return nil, err
 	}
+	if err := options.reserve(ctx); err != nil {
+		return nil, err
+	}
+	if options.compressionBank != "" {
+		bank, err := loadBank(ctx, options.compressionBank)
+		if err != nil {
+			return nil, err
+		}
+		return training.RunCompression(ctx, artifact, round, files, options.train, bank)
+	}
 	if options.lexical {
 		return training.RunLexical(ctx, artifact, round, files, options.train, options.lexicalOptions)
 	}
@@ -187,6 +197,29 @@ func annotatedOperation(ctx context.Context, name string, options options, artif
 	return corpus.Join(ctx, artifact, round, files, options.features)
 }
 
+// reserve binds the reserved groups of a bank named by --reserve-bank to the
+// training options, so a compared baseline trains on the same rows as the
+// compression fit.
+func (o *options) reserve(ctx context.Context) error {
+	if o.reserveBank == "" {
+		return nil
+	}
+	bank, err := loadBank(ctx, o.reserveBank)
+	if err != nil {
+		return err
+	}
+	o.train.Reservation = training.BankReservation(bank)
+	return nil
+}
+
+func loadBank(ctx context.Context, path string) (corpus.CompressionBank, error) {
+	data, err := loadLocalArtifact(ctx, path, corpus.MaxCompressionBankBytes, "compression bank")
+	if err != nil {
+		return corpus.CompressionBank{}, err
+	}
+	return corpus.LoadCompressionBank(ctx, data)
+}
+
 // provenanceOperation labels the artifact from its declared cohorts and
 // origins and takes the same join or train path a round would, including the
 // lexical and rule-activation baselines.
@@ -196,6 +229,16 @@ func provenanceOperation(ctx context.Context, name string, options options, arti
 	decisions, err := labelDecisions(ctx, options.labels, artifact)
 	if err != nil {
 		return nil, err
+	}
+	if err := options.reserve(ctx); err != nil {
+		return nil, err
+	}
+	if options.compressionBank != "" {
+		bank, err := loadBank(ctx, options.compressionBank)
+		if err != nil {
+			return nil, err
+		}
+		return training.RunCompressionDecisions(ctx, artifact, decisions, files, options.train, bank)
 	}
 	if options.lexical {
 		return training.RunLexicalDecisions(ctx, artifact, decisions, files, options.train, options.lexicalOptions)

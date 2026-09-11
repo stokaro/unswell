@@ -121,7 +121,10 @@ scored partitions, and [research/origin](../research/origin/README.md) records
 each run with its digests and what it does not establish.
 `scripts/baseline-experiment.sh` runs the five baseline arms on cohort
 membership the same way, and [research/baselines](../research/baselines/README.md)
-records those runs.
+records those runs. `scripts/compression-experiment.sh` adds the compression
+arms: `reference-bank --labels cohort` seeds a bank from one training group,
+`train --compression-bank` measures every target against its cohorts, and
+`train --reserve-bank` keeps the compared baselines on the same rows.
 
 The artifact records task `origin_endpoint` and rubric
 `unswell-origin-endpoint-v1`, its class counts use the two labels above, and

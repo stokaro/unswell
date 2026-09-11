@@ -45,13 +45,18 @@ func TestComparisonRejectsUnmatchedScopes(t *testing.T) {
 			plan, a, b := comparisonInputs()
 			_, err := comparisonPlanIdentity(t.Context(), plan, a, b)
 			c.Assert(err, qt.IsNil)
-			for _, lexical := range []bool{false, true} {
+			for _, source := range []string{"", "lexical_ngrams", "compression_bank"} {
 				left, right := a, b
 				left.Model.Identity.FeatureContract, right.Model.Identity.FeatureContract = feature.UnitContract, feature.UnitContract
-				if lexical {
-					right.Model.Identity.FeatureSource = "lexical_ngrams"
+				switch source {
+				case "lexical_ngrams":
+					right.Model.Identity.FeatureSource = source
 					right.Model.Identity.FeatureContract = feature.LexicalCountContract
 					right.Model.Identity.LexicalVocabularyHash = strings.Repeat("f", 64)
+				case "compression_bank":
+					right.Model.Identity.FeatureSource, right.Model.Identity.Context = source, "prepared_piece"
+					right.Model.Identity.FeatureContract = feature.CompressionContract
+					right.Model.Identity.CompressionBankHash = strings.Repeat("f", 64)
 				}
 				_, err := comparisonPlanIdentity(t.Context(), plan, left, right)
 				c.Assert(err, qt.IsNil)
@@ -62,6 +67,20 @@ func TestComparisonRejectsUnmatchedScopes(t *testing.T) {
 			}
 		})
 	}
+}
+
+// Two trials compare only under one reservation, because the reserved groups
+// define the rows both fits saw.
+func TestComparisonRequiresOneReservation(t *testing.T) {
+	c := qt.New(t)
+	plan, a, b := comparisonInputs()
+	reservation := &training.Reservation{BankSHA256: strings.Repeat("a", 64), Groups: []string{"g1"}}
+	a.Model.Options.Reservation = reservation
+	_, err := comparisonPlanIdentity(t.Context(), plan, a, b)
+	c.Assert(err, qt.ErrorMatches, "compared trials require the same reservation")
+	b.Model.Options.Reservation = &training.Reservation{BankSHA256: strings.Repeat("a", 64), Groups: []string{"g1"}}
+	_, err = comparisonPlanIdentity(t.Context(), plan, a, b)
+	c.Assert(err, qt.IsNil)
 }
 
 func TestComparisonAllowsDifferentModelFeatures(t *testing.T) {

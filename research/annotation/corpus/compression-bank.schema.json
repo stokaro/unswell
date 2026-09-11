@@ -27,7 +27,7 @@
         "required": ["id", "origin", "unit_ids"],
         "properties": {
           "id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "\\S"},
-          "origin": {"enum": ["human", "generated", "mixed"]},
+          "origin": {"enum": ["human", "generated", "historical", "contemporary", "mixed"]},
           "unit_ids": {
             "type": "array",
             "minItems": 1,
