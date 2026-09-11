@@ -102,6 +102,10 @@ go run ./cmd/corpus dataset union --root artifacts/acquisition --id origin-pilot
   < artifacts/measurement/dataset-plan.json > union.json
 ```
 
+`scripts/origin-experiment.sh` runs the whole sequence, from the union to the
+scored partitions, and [research/origin](../research/origin/README.md) records
+each run with its digests and what it does not establish.
+
 The artifact records task `origin_endpoint` and rubric
 `unswell-origin-endpoint-v1`, its class counts use the two labels above, and
 `pack --task origin_endpoint` accepts only such an artifact. An artifact
