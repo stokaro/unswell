@@ -1,0 +1,216 @@
+{
+  "version": "unswell-rewrite-fixtures-v1",
+  "purpose": "One pair per builtin rule: a text that carries the construction and a rewrite that keeps its facts, identifiers, and numbers without the construction. The rule must fire on before and stay silent on after.",
+  "fixtures": [
+    {
+      "rule": "policy.banned-phrases",
+      "config": "    parameters:\n      phrases: [magic solution]\n",
+      "before": "The QueryCache is a magic solution for slow reads on the orders table.",
+      "after": "The QueryCache serves repeated reads on the orders table from memory, so the slow path runs once per key."
+    },
+    {
+      "rule": "scaffold.chat-preamble",
+      "before": "Certainly! The client retries the request after ECONNRESET, up to 3 times.",
+      "after": "The client retries the request after ECONNRESET, up to 3 times."
+    },
+    {
+      "rule": "scaffold.ai-self-reference",
+      "before": "As an AI language model, I recommend setting MaxRetries to 3 for this client.",
+      "after": "Set MaxRetries to 3 for this client.",
+      "dropped": [
+        "AI"
+      ]
+    },
+    {
+      "rule": "scaffold.follow-up-offer",
+      "before": "The client retries the request after ECONNRESET, up to 3 times. Let me know if you'd like more examples.",
+      "after": "The client retries the request after ECONNRESET, up to 3 times."
+    },
+    {
+      "rule": "scaffold.dive-in",
+      "before": "Let's dive into the retry loop of Fetch and its 3 attempts.",
+      "after": "The retry loop of Fetch makes 3 attempts."
+    },
+    {
+      "rule": "filler.announced-importance",
+      "before": "It is important to note that Close releases the socket before it returns.",
+      "after": "Close releases the socket before it returns."
+    },
+    {
+      "rule": "filler.modern-world-opening",
+      "before": "In today's rapidly evolving digital landscape, the Resolver caches DNS answers for 30 seconds.",
+      "after": "The Resolver caches DNS answers for 30 seconds."
+    },
+    {
+      "rule": "filler.wordy-phrase",
+      "before": "The client waits due to the fact that the server closes idle connections after 60 seconds.",
+      "after": "The client waits because the server closes idle connections after 60 seconds."
+    },
+    {
+      "rule": "syntax.long-sentence",
+      "before": "When the connection to the primary server fails during the initial handshake, the client waits for the backoff interval, which starts at 200 milliseconds and doubles after every failed attempt up to the configured limit of 8 attempts, and then it tries the secondary server before it reports the error to the caller.",
+      "after": "When the connection to the primary server fails during the initial handshake, the client waits for the backoff interval. The interval starts at 200 milliseconds and doubles after every failed attempt, up to the configured limit of 8 attempts. Then the client tries the secondary server before it reports the error to the caller."
+    },
+    {
+      "rule": "hype.modifier-cluster",
+      "before": "The powerful, seamless, innovative Gateway offers a robust, transformative experience for every team.",
+      "after": "The Gateway batches requests, keeps connections open between calls, and exposes one client type for every team."
+    },
+    {
+      "rule": "syntax.not-only-density",
+      "before": "The Parser not only reads the header but also validates it. The Writer not only checks the buffer but also flushes it.",
+      "after": "The Parser reads the header and validates it. The Writer checks the buffer and flushes it."
+    },
+    {
+      "rule": "density.connective-overuse",
+      "before": "Moreover, the client caches the token for 300 seconds so that repeated calls skip the login step. Furthermore, the cache is cleared when Logout runs, so a stale token never reaches the server. Additionally, the cache holds at most 64 tokens.",
+      "after": "The client caches the token for 300 seconds, so repeated calls skip the login step. Logout clears the cache, so a stale token never reaches the server. The cache holds at most 64 tokens."
+    },
+    {
+      "rule": "repetition.exact-sentence",
+      "before": "The client opens a connection to the server and sends the request with its credentials. The server validates the SessionToken. The client opens a connection to the server and sends the request with its credentials.",
+      "after": "The client opens a connection to the server and sends the request with its credentials. The server validates the SessionToken."
+    },
+    {
+      "rule": "repetition.near-sentence",
+      "before": "The client opens a connection to the server and sends the request with its credentials. The client creates a connection to the server and sends the request with its credentials.",
+      "after": "The client opens a connection to the server and sends the request with its credentials. It then waits for the response and closes the connection."
+    },
+    {
+      "rule": "repetition.sentence-openers",
+      "before": "The client opens a connection to the database. The client opens a file from the disk. The client opens a channel to the service.",
+      "after": "The client opens a connection to the database, a file from the disk, and a channel to the service."
+    },
+    {
+      "rule": "repetition.paragraph-openers",
+      "format": "markdown",
+      "before": "The client opens a connection to the database.\n\nThe client opens a file from the disk.\n\nThe client opens a channel to the service.",
+      "after": "The client opens a connection to the database.\n\nNext, it reads a file from the disk.\n\nFinally, it opens a channel to the service."
+    },
+    {
+      "rule": "filler.section-announcement",
+      "before": "In this section, we will describe the setup of the Cache. In this section, we will describe the deployment of the Cache.",
+      "after": "The setup of the Cache comes first. The deployment of the Cache follows."
+    },
+    {
+      "rule": "filler.empty-transition",
+      "before": "With that being said, the server starts. It goes without saying that the client waits for the Ready signal.",
+      "after": "The server starts. The client waits for the Ready signal."
+    },
+    {
+      "rule": "hype.metaphor-cluster",
+      "before": "The service offers a rich tapestry of possibilities for the Scheduler. Start a journey of innovation with the Client.",
+      "after": "The service exposes the Scheduler for delayed jobs and the Client for direct calls."
+    },
+    {
+      "rule": "hype.vague-praise",
+      "before": "This is a game-changing solution for the Ingest team.",
+      "after": "This cuts the Ingest team's nightly run from four hours to one."
+    },
+    {
+      "rule": "hype.absolute-claim",
+      "before": "The Vault service guarantees complete safety of stored keys.",
+      "after": "The Vault service encrypts stored keys at rest and rotates them every 90 days."
+    },
+    {
+      "rule": "syntax.paired-contrast-density",
+      "before": "It is not about speed. It is about impact. It is not about tools. It is about outcomes.",
+      "after": "The impact of a change matters more than its speed. The outcome matters more than the tools."
+    },
+    {
+      "rule": "syntax.triad-density",
+      "before": "A powerful, seamless, innovative platform starts the Worker. A robust, transformative, unparalleled experience follows.",
+      "after": "The platform starts the Worker in under a second. The Worker then serves requests without a restart."
+    },
+    {
+      "rule": "syntax.whether-preface-density",
+      "before": "Whether you are a beginner or an expert, the Linter helps. Whether you're a writer or a reader, the Linter fits.",
+      "after": "The Linter runs the same checks for every user. Writers and readers get the same report."
+    },
+    {
+      "rule": "syntax.rhetorical-question-density",
+      "before": "The result? A faster Build. The benefit? A shorter Deploy.",
+      "after": "The Build is faster, and the Deploy is shorter."
+    },
+    {
+      "rule": "filler.weak-intensifiers",
+      "before": "The very powerful client provides a really seamless workflow and an incredibly innovative interface for every person using the Service.",
+      "after": "The client provides one workflow and one interface for every person using the Service."
+    },
+    {
+      "rule": "filler.stacked-hedging",
+      "before": "The result may possibly perhaps change after Reload runs.",
+      "after": "The result may change after Reload runs."
+    },
+    {
+      "rule": "repetition.ngram-density",
+      "before": "We describe the delivery process and its approach to dependable service for the team. They review the delivery process and its approach to dependable service for the reader. You explain the delivery process and its approach to dependable service for the group.",
+      "after": "We describe the delivery process and its approach to dependable service for the team. They review it for the reader, and you explain it for the group."
+    },
+    {
+      "rule": "repetition.syntax-template",
+      "before": "The careful writer describes the simple process for the entire local team. The curious reader reviews the clear procedure for the entire small group. The skilled editor explains the useful approach for the entire new audience.",
+      "after": "The careful writer describes the simple process for the entire local team. The reader reviews it, and the editor explains the approach to a new audience."
+    },
+    {
+      "rule": "repetition.paragraph-overlap",
+      "format": "markdown",
+      "before": "The client opens a connection to the server and sends the request with its credentials.\n\nThe client creates a connection to the server and sends the request with its credentials.",
+      "after": "The client opens a connection to the server and sends the request with its credentials.\n\nThe server checks the credentials and returns a session token that expires after 15 minutes."
+    },
+    {
+      "rule": "repetition.heading-echo",
+      "format": "markdown",
+      "before": "# A practical approach to the delivery process\n\nA practical approach to the delivery process.",
+      "after": "# A practical approach to the delivery process\n\nDeliver in small batches, verify each one, and keep the rollback path ready."
+    },
+    {
+      "rule": "repetition.summary-echo",
+      "format": "markdown",
+      "before": "The client opens a connection to the server and sends the request with its credentials.\n\n## Summary\n\nThe client creates a connection to the server and sends the request with its credentials.",
+      "after": "The client opens a connection to the server and sends the request with its credentials.\n\n## Summary\n\nOne connection, one authenticated request, and one response per call."
+    },
+    {
+      "rule": "syntax.nominalization-chain",
+      "before": "We perform an evaluation of the implementation before the release of build 42.",
+      "after": "We evaluate the implementation before the release of build 42."
+    },
+    {
+      "rule": "syntax.noun-stack",
+      "before": "The service request response status code changes after a retry.",
+      "after": "The status code of the response to a service request changes after a retry."
+    },
+    {
+      "rule": "syntax.passive-candidate-density",
+      "before": "The request is carefully validated by the server before execution. The response is securely recorded by the client after completion.",
+      "after": "The server validates the request before execution. The client records the response after completion."
+    },
+    {
+      "rule": "syntax.parenthetical-load",
+      "before": "The client (which may retry after a temporary failure when the configured RetryBudget still permits another attempt) opens a connection to the server.",
+      "after": "The client opens a connection to the server. It may retry after a temporary failure when the configured RetryBudget still permits another attempt."
+    },
+    {
+      "rule": "readability.long-paragraph",
+      "format": "markdown",
+      "before": "The Scheduler keeps every pending job in a priority queue that is ordered by the deadline of the job, and when a worker asks for work the Scheduler hands out the job with the earliest deadline, records the worker identity next to the job, and starts a lease timer of 30 seconds for that assignment. If the lease expires before the worker reports completion, the Scheduler returns the job to the queue, increments the RetryCount of the job, and refuses to hand it to the same worker again until 2 other workers have asked for work, which keeps a single broken worker from starving one job. A job whose RetryCount reaches 5 moves to the dead-letter queue, where an operator can inspect it. The dead-letter queue is bounded at 1000 entries.",
+      "after": "The Scheduler keeps every pending job in a priority queue ordered by deadline. When a worker asks for work, the Scheduler hands out the job with the earliest deadline. It records the worker identity next to the job and starts a lease timer of 30 seconds for that assignment.\n\nIf the lease expires before the worker reports completion, the Scheduler returns the job to the queue and increments the RetryCount of the job. It refuses to hand the job to the same worker again until 2 other workers have asked for work. That keeps a single broken worker from starving one job. A job whose RetryCount reaches 5 moves to the dead-letter queue, where an operator can inspect it. The dead-letter queue is bounded at 1000 entries."
+    },
+    {
+      "rule": "readability.grade-metric",
+      "before": "Comprehensive configuration, systematic verification, and consistent documentation of operational prerequisites precede production deployment of the Orchestrator. Insufficient verification of infrastructure prerequisites jeopardizes deployment reliability and complicates subsequent incident investigation considerably. Organizations therefore institutionalize verification procedures, documentation responsibilities, and configuration governance before authorizing production deployment. Inadequate institutionalization of these responsibilities correspondingly increases operational unpredictability throughout subsequent maintenance windows.",
+      "after": "Configure, verify, and document the prerequisites before you deploy the Orchestrator to production. If you skip the checks, the deployment can fail, and the next incident is harder to investigate. Teams therefore fix who verifies, who documents, and who owns the configuration before they approve a deployment. When nobody owns those tasks, later maintenance windows become hard to predict."
+    },
+    {
+      "rule": "format.em-dash-density",
+      "before": "The client opens the connection — then checks the reply from the server — and closes it — unless KeepAlive is set — after the reply arrives. The pool keeps at most 16 idle connections — one per host — and drops the oldest one — after 90 seconds of silence — when a new host appears.",
+      "after": "The client opens the connection, checks the reply from the server, and closes it after the reply arrives, unless KeepAlive is set. The pool keeps at most 16 idle connections, one per host. When a new host appears, it drops the oldest connection after 90 seconds of silence."
+    },
+    {
+      "rule": "format.list-fragmentation",
+      "format": "markdown",
+      "before": "The release offers these benefits.\n\n- Clear reports\n- Useful summaries\n\nIts output has these traits.\n\n- Simple navigation\n- Consistent terminology\n\nThe workflow has these qualities.\n\n- Quick checks\n- Direct feedback",
+      "after": "The release offers clear reports and useful summaries. Its output has simple navigation and consistent terminology, and the workflow gives quick checks with direct feedback."
+    }
+  ]
+}
