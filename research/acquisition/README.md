@@ -51,6 +51,22 @@ release record as usual. The cohorts `historical-2012` and
 `historical-2018` is the H1 sensitivity boundary. The walk needs
 `GITHUB_TOKEN`.
 
+[`sources-documents-v1.json`](sources-documents-v1.json) names the first
+document sets from outside a repository. They are RFC texts, and an RFC
+text does not change after it is published.
+`bash scripts/acquire-documents.sh` fetches the index and each text. It
+reads the month of publication from the index entry and from the header
+of the text, and it takes the last day of that month as the snapshot
+date. A text whose two statements disagree is skipped and logged.
+
+The script drops page headers, footers, form feeds, and the dotted table
+of contents. The texts sit at the top level of a set directory, so the
+corpus tool reads them as documentation. A `LICENSE` holds the copyright
+sections of the texts. The commit identity of the set digests the raw
+texts, and the record names each raw digest, so a reviewer can fetch the
+same bytes. The sets join the historical cohort under the same selection
+rules, one text per shard.
+
 `bash scripts/measure-corpus.sh` runs every cohort's shard manifests under
 `artifacts/acquisition` through one `corpus dataset plan`, `pin`, and
 `verify`, then per shard through `plan`, `extract`, `verify`, and `measure`
@@ -87,3 +103,6 @@ that selection.
 - [September 11, 2026, frequencies](runs/2026-09-11-frequencies/README.md):
   word n-grams, sentence openers, and part-of-speech templates counted per
   cohort and role, with each stratum contrasted against the baseline.
+- [September 11, 2026, documents](runs/2026-09-11-documents/README.md):
+  the first sources outside a repository, three sets of RFC texts in the
+  historical cohort, with the tables after they joined.

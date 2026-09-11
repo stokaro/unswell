@@ -86,7 +86,7 @@ state.
 | Role stratum | Met | Every row of the pattern tables carries `roles`, the same counts and interval per document role; the [role run](../research/acquisition/runs/2026-09-11-roles/README.md) records the tables of the current measurement with it |
 | Frequency command | Met | `corpus frequencies` counts constructions per cohort and role and contrasts each stratum with its baseline; the [frequency run](../research/acquisition/runs/2026-09-11-frequencies/README.md) records the output on the current corpus |
 | Review on real texts | Met | Three records under `research/reviews/` cover [Ptah](../research/reviews/2026-09-11-ptah/README.md), the [controlled responses](../research/reviews/2026-09-11-responses/README.md), and [this repository](../research/reviews/2026-09-11-unswell/README.md), each with every catalog rule, one reader, and judged findings; the maintainer's confirmation is pending |
-| Sources beyond repositories | Open | The corpus holds GitHub repositories only |
+| Sources beyond repositories | Met | `scripts/acquire-documents.sh` brings published specifications into the historical cohort under the corpus contract; the [document run](../research/acquisition/runs/2026-09-11-documents/README.md) records three RFC sets of eight texts with their tables |
 
 ## Stage 4: first product release
 
