@@ -36,6 +36,15 @@ including that an exceeded `analysis.max_file_bytes` limit exits 2 and does not
 report a complete analysis. `make check` runs that self-test; the full
 measurement is deliberately separate, because it is slow and host-specific.
 
+`--corpus DIR` measures a real project tree instead. The script copies the tree
+without its version-control metadata and writes a policy that keeps the default
+file selection, so the tree's own format mix is what gets measured. Each
+`--exclude` pattern is added to the policy and listed in the observation. A real
+tree is measured as it is; nothing sizes it to the target. `--timeout` bounds
+the analysis and defaults to ten minutes, so a slow tree is measured rather than
+cut off at the tool's default deadline. A scan the kernel kills leaves no
+report; the observation then records the exit code with zero counts.
+
 ## Measured on a 2-vCPU Linux host
 
 [The recorded observation](performance/linux-amd64-2vcpu-512mib.json) binds the
@@ -66,12 +75,61 @@ truncation. A scan whose input passes `analysis.max_file_bytes` exits 2, reports
 an incomplete analysis, and cannot pass a gate. The self-test asserts that
 outcome on every `make check`.
 
+## Measured on real project trees
+
+The same 2-vCPU Linux host, under the same limits, scanned three trees from the
+research corpus with a build of the recorded commit. The
+[rerun of the synthetic corpus](performance/linux-amd64-2vcpu-512mib-rerun.json)
+on that build took 2.451 s cold with a 226 MB peak, close to the first record.
+Each tree kept the default file selection. The policy excludes directories
+whose content is not English prose by design, and each record lists them. For
+FastAPI they are the Japanese and Chinese translation trees; for date-fns the
+locale data; for pytest one test file of non-Latin test strings. Each record
+also names the snapshot commit of its tree.
+
+| Tree | Prose words | Documents | Bytes | Cold | Warm | Peak resident | Outcome |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| [pytest](performance/linux-amd64-2vcpu-512mib-pytest.json) | 137,373 | 304 | 6.8 MB | 8.016 s | 7.649 s | 398,409,728 bytes | complete; the gate failed on findings (exit 1) |
+| [FastAPI](performance/linux-amd64-2vcpu-512mib-fastapi.json) | 121,028 | 700 | 7.5 MB | 13.213 s | 15.006 s | 401,010,688 bytes | incomplete; 3 operational errors (exit 2) |
+| [date-fns](performance/linux-amd64-2vcpu-512mib-date-fns.json) | not reported | not reported | 11.2 MB | killed after 10.618 s | killed after 10.789 s | 547,254,272 bytes at the kill | killed by the memory limit (exit 137) |
+
+The target holds for pytest. It does not hold for FastAPI, which needs 13 s for
+121 thousand words. It does not hold for date-fns: the scan crossed the 512 MiB
+limit after ten seconds and the kernel killed it, so it reported nothing. On the
+arm64 host below, which enforces no limit, the same date-fns scan completed in
+6.7 s with a 739 MB peak and counted 106,594 prose words in 1,151 documents.
+
+Both failing trees carry far more documents and bytes than the synthetic corpus:
+7.5 MB in 700 documents and 11.2 MB in 1,151 against 0.7 MB in 57. Peak memory
+follows the documents and bytes scanned, not the prose words. The synthetic
+corpus, with few large documents, is the cheap case. FastAPI's three operational
+errors and date-fns's five stay in the records. They come from a YAML file of
+non-Latin link titles, one Markdown and three TypeScript files the grammars
+could not parse, and one JavaScript file of locale names.
+Bounding memory and time on such trees is tracked in
+[#181](https://github.com/stokaro/unswell/issues/181).
+
+## Measured on an arm64 host
+
+The same script ran on an Apple M3 Pro under macOS 26.5 with `GOMAXPROCS=2` and
+no memory limit. The host enforces nothing, so its peak figures show what each
+scan took. Resident figures on macOS run higher than on Linux for the same
+scan, so the two hosts are not compared with each other.
+
+| Corpus | Prose words | Documents | Cold | Warm | Peak resident | Outcome |
+| --- | --- | --- | --- | --- | --- | --- |
+| [synthetic](performance/darwin-arm64-2threads.json) | 102,005 | 57 | 1.164 s | 1.123 s | 278,921,216 bytes | pass |
+| [pytest](performance/darwin-arm64-2threads-pytest.json) | 137,373 | 304 | 4.303 s | 3.668 s | 473,956,352 bytes | complete; gate failed (exit 1) |
+| [FastAPI](performance/darwin-arm64-2threads-fastapi.json) | 121,028 | 700 | 6.257 s | 6.232 s | 502,431,744 bytes | incomplete; 3 errors |
+| [date-fns](performance/darwin-arm64-2threads-date-fns.json) | 106,594 | 1,151 | 6.651 s | 5.534 s | 738,721,792 bytes | incomplete; 5 errors |
+
 ## Limits of this evidence
 
-One corpus on one host does not qualify this tool's speed. Real corpora differ
-in format mix, in sentence length, and in how many repetition candidates they
-carry. A document with many findings also pays more to write its reports. This
-run used a build from the recorded commit, not a published release binary.
-Measurements on other architectures, on real project corpora, with published
-release binaries, and with a configured probability model are tracked in
+Three real trees on two hosts do not qualify this tool's speed. Real trees
+differ in format mix, in sentence length, and in how many repetition candidates
+they carry, and the three measured ones already span the target on one side and
+the other. The exclusions are a policy choice a maintainer would make for an
+English scan; each record lists them. Every run used a build from the recorded
+commit, not a published release binary, and none used a probability model.
+Those two measurements are tracked in
 [#174](https://github.com/stokaro/unswell/issues/174).
