@@ -23,6 +23,11 @@ func cohortArtifact(t *testing.T, cohort, date string, edit func(*corpus.Manifes
 	if edit != nil {
 		edit(&m, files)
 	}
+	// Each cohort is its own snapshot, so its source IDs differ from the
+	// other cohort's as they would under one dataset plan.
+	for i := range m.Sources {
+		m.Sources[i].ID = cohort[:1] + m.Sources[i].ID
+	}
 	plan, err := corpus.MakePlan(t.Context(), m)
 	c.Assert(err, qt.IsNil)
 	artifact, err := corpus.Build(t.Context(), plan, files)
@@ -35,7 +40,12 @@ func cohortArtifact(t *testing.T, cohort, date string, edit func(*corpus.Manifes
 func laterEdit(m *corpus.Manifest, files map[string][]byte) {
 	files["readme.md"] = []byte("# Cache\n\nThe **cache** may retry &amp; wait.\n\nA later snapshot adds this paragraph.\n")
 	m.Sources[0].SHA256, m.Sources[0].Bytes = hash(files["readme.md"]), len(files["readme.md"])
-	files["other.md"] = []byte("# Other\n\nThis repository has no earlier snapshot in the dataset.\n")
+	addOther(m, files, "# Other\n\nThis repository has no earlier snapshot in the dataset.\n")
+}
+
+// addOther adds a document from a second repository with the given text.
+func addOther(m *corpus.Manifest, files map[string][]byte, content string) {
+	files["other.md"] = []byte(content)
 	template := m.Sources[0]
 	m.Sources = append(m.Sources, corpus.Source{ID: "d2", Path: "other.md", SHA256: hash(files["other.md"]),
 		Bytes: len(files["other.md"]), Format: document.Markdown, ProseLanguage: "en", Repository: "other-project",

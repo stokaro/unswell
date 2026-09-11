@@ -53,8 +53,11 @@ func laterRoot(t *testing.T) (string, func(*corpus.Manifest)) {
 	data = append(data, []byte("\nA later snapshot adds this paragraph about sequence ownership.\n")...)
 	// #nosec G703 -- The test writes into the fixture copy it just made under its temporary directory.
 	c.Assert(os.WriteFile(target, data, 0o600), qt.IsNil)
+	// The later cohort is its own snapshot, so its source IDs differ from
+	// the earlier ones as they would under one dataset plan.
 	return root, func(m *corpus.Manifest) {
 		for i := range m.Sources {
+			m.Sources[i].ID = "c" + m.Sources[i].ID
 			if m.Sources[i].Path == "docs/sequences.md" {
 				m.Sources[i].SHA256, m.Sources[i].Bytes = sha(data), len(data)
 			}
@@ -123,4 +126,41 @@ func TestFirstAppearanceCommandFeedsTheUnitAnalysis(t *testing.T) {
 		nil, &tables), qt.IsNotNil)
 	c.Assert(run(t.Context(), []string{"analyze", "--classes", classes, "--findings", findings[0], "--unit-kind", "paragraph",
 		"--first-appearance", filepath.Join(t.TempDir(), "missing.json")}, nil, &tables), qt.IsNotNil)
+}
+
+func TestDedupeCommandFeedsTheUnitAnalysis(t *testing.T) {
+	c := qt.New(t)
+	earlierRoot := "../../corpus/testdata/ptah"
+	earlier := cohortCandidates(t, earlierRoot, "historical", "2019-06-30", nil)
+	root, edit := laterRoot(t)
+	later := cohortCandidates(t, root, "contemporary", "2024-01-15", edit)
+	var output bytes.Buffer
+	c.Assert(run(t.Context(), []string{"dedupe", "--unit-kind", "paragraph", "--order", "historical, contemporary",
+		"--candidates", earlier, "--candidates", later}, nil, &output), qt.IsNil)
+	selection, err := corpus.LoadUnitSelection(t.Context(), output.Bytes())
+	c.Assert(err, qt.IsNil)
+	c.Assert(selection.Cohorts, qt.HasLen, 2)
+	c.Assert(selection.Cohorts[1].Kept, qt.Equals, 1)
+	c.Assert(selection.Cohorts[1].RepeatedEarlier, qt.Equals, selection.Cohorts[1].Units-1)
+	path := filepath.Join(t.TempDir(), "selection.json")
+	c.Assert(os.WriteFile(path, output.Bytes(), 0o600), qt.IsNil)
+	classes := "../../../methods/rule-classes-v1.json"
+	findings := []string{measured(t, earlierRoot, earlier), measured(t, root, later)}
+	var tables bytes.Buffer
+	c.Assert(run(t.Context(), []string{"analyze", "--classes", classes, "--findings", findings[0], "--findings", findings[1],
+		"--unit-kind", "paragraph", "--selection", path}, nil, &tables), qt.IsNil)
+	var decoded patterns.Tables
+	c.Assert(json.Unmarshal(tables.Bytes(), &decoded), qt.IsNil)
+	c.Assert(decoded.Selection.Cohorts[0].Kept, qt.Equals, selection.Cohorts[0].Kept)
+	c.Assert(decoded.Selection.Cohorts[1].Excluded, qt.Equals, selection.Cohorts[1].RepeatedEarlier)
+	// Missing flags, a cohort outside the order, and a selection without a
+	// unit analysis are refused.
+	for _, args := range [][]string{{"dedupe"}, {"dedupe", "--unit-kind", "paragraph", "--candidates", earlier},
+		{"dedupe", "--order", "historical", "--candidates", earlier}, {"dedupe", "--unit-kind", "paragraph", "--order", "historical",
+			"--candidates", earlier, "--candidates", later}, {"dedupe", "--unit-kind", "paragraph", "--order", "historical",
+			"--candidates", earlier, "extra"}} {
+		c.Assert(run(t.Context(), args, nil, &output), qt.IsNotNil, qt.Commentf("%v", args))
+	}
+	c.Assert(run(t.Context(), []string{"analyze", "--classes", classes, "--findings", findings[0], "--selection", path},
+		nil, &tables), qt.IsNotNil)
 }

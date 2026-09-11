@@ -242,4 +242,22 @@ for kind in paragraph sentence; do
     printf 'first appearance: %s new of %s %s units in %s; tables: %s\n' "$new_units" "$later_units" "$kind" "$cohort" \
       "$output/tables-first-appearance-$cohort-$kind.json"
   done
+  # The unit selection counts each unit text once across every cohort, the
+  # baseline first, whatever repository a copy sits in.
+  order=$baseline
+  selection_args=()
+  for cohort_dir in "$output/pinned"/*/; do
+    cohort=$(basename "$cohort_dir")
+    if [[ "$cohort" != "$baseline" ]]; then order="$order,$cohort"; fi
+    candidate_args candidates "$cohort" >>"$output/selection-args.txt"
+  done
+  while IFS= read -r line; do selection_args+=("$line"); done <"$output/selection-args.txt"
+  rm -f "$output/selection-args.txt"
+  selection=$output/unit-selection-$kind.json
+  "$corpus_tool" dedupe --unit-kind "$kind" --order "$order" "${selection_args[@]}" >"$selection"
+  "$corpus_tool" analyze --classes "$classes" "${findings_args[@]}" --unit-kind "$kind" --selection "$selection" \
+    >"$output/tables-unique-$kind.json"
+  kept_units=$(jq '[.cohorts[].kept] | add' "$selection")
+  all_units=$(jq '[.cohorts[].units] | add' "$selection")
+  printf 'unique: %s kept of %s %s units; tables: %s\n' "$kept_units" "$all_units" "$kind" "$output/tables-unique-$kind.json"
 done

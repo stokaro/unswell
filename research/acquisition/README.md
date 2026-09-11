@@ -51,4 +51,6 @@ snapshot under a stated license. It proves nothing about who wrote them.
 After the tables, the driver counts paragraphs and sentences as units. For
 every cohort beside the baseline it writes a `corpus first-appearance`
 filter. It then builds the unit tables restricted to the units that the
-baseline snapshot of the same repository does not hold.
+baseline snapshot of the same repository does not hold. Last, `corpus
+dedupe` keeps each unit text once across every cohort, the baseline first,
+and the driver builds the unit tables restricted to that selection.

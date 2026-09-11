@@ -69,6 +69,20 @@ appearance. The filter compares snapshots of one repository. Copies of one
 text across repositories, and repeated text inside one snapshot, are not
 collapsed by it.
 
+`corpus dedupe --unit-kind paragraph --order historical,contemporary
+--candidates ...` writes an `unswell-unit-selection-v1` selection instead.
+It keeps the first occurrence of each unit text across every cohort in the
+stated order, whatever repository a copy sits in. Within a cohort the first
+occurrence is the first by repository, source, and unit ID. Each cohort
+reports its kept units, the units that repeat text kept earlier in the same
+cohort, and the units that repeat text kept in an earlier cohort. `corpus
+analyze --unit-kind paragraph --selection selection.json` then keeps the
+listed units in every cohort, which must be exactly the cohorts of the
+inputs, and reports the kept and excluded counts under `selection`. That is
+the protocol's rule of one count per content hash across snapshots, copies,
+and identical document versions. A selection and a first-appearance filter
+cannot apply together.
+
 Each non-baseline cohort gets a contrast with the baseline, `historical`
 unless the command says otherwise. The contrast holds the absolute difference
 of document-level prevalence with a joint-resampling interval and the

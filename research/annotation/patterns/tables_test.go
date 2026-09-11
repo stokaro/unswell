@@ -313,3 +313,60 @@ func TestUnitTablesApplyTheFirstAppearanceFilter(t *testing.T) {
 		patterns.Options{UnitKind: "paragraph", FirstAppearance: filter()})
 	c.Assert(err, qt.IsNotNil)
 }
+
+func selection() *corpus.UnitSelection {
+	return &corpus.UnitSelection{Version: corpus.SelectionVersion, Kind: "paragraph", Order: []string{"historical", "controlled"},
+		Cohorts: []corpus.CohortSelection{{Cohort: "historical", Units: 4, Kept: 2, RepeatedWithin: 2},
+			{Cohort: "controlled", Units: 2, Kept: 1, RepeatedEarlier: 1}},
+		Kept: []string{"c1#u-c1-q", "h1#u-h1-p", "h4#u-h4-p"}}
+}
+
+func TestUnitTablesApplyTheUnitSelection(t *testing.T) {
+	c := qt.New(t)
+	tables, err := patterns.Analyze(t.Context(), []corpus.FindingsArtifact{unitFixture()}, classes(),
+		patterns.Options{UnitKind: "paragraph", Selection: selection()})
+	c.Assert(err, qt.IsNil)
+	c.Assert(tables.FirstAppearance, qt.IsNil)
+	c.Assert(tables.Selection, qt.DeepEquals, &patterns.Selection{Kind: "paragraph", Order: []string{"historical", "controlled"},
+		Cohorts: []patterns.SelectionCohort{{Cohort: "historical", Kept: 2, Excluded: 2}, {Cohort: "controlled", Kept: 1, Excluded: 1}}})
+	summary := map[string]patterns.CohortSummary{}
+	for _, item := range tables.Cohorts {
+		summary[item.Cohort] = item
+	}
+	// h2's paragraph and the failed document's paragraph are excluded on the
+	// historical side; the failed one was never measured anyway.
+	c.Assert(summary["historical"].Units, qt.Equals, 2)
+	c.Assert(summary["historical"].Excluded, qt.Equals, 2)
+	c.Assert(summary["historical"].Words, qt.Equals, 60)
+	c.Assert(summary["controlled"].Units, qt.Equals, 1)
+	c.Assert(summary["controlled"].Excluded, qt.Equals, 1)
+	historical := rowsOf(tables.Rules[0])["historical"]
+	c.Assert(historical.Counted, qt.Equals, 2)
+	c.Assert(historical.CountedWithFinding, qt.Equals, 2)
+	c.Assert(*historical.Prevalence.Value, qt.Equals, 1.0)
+	c.Assert(rowsOf(tables.Rules[0])["controlled"].Counted, qt.Equals, 1)
+	// A selection and a filter cannot apply together; a selection must match
+	// the analysis kind, cover exactly the input cohorts, and list units the
+	// inputs hold once.
+	_, err = patterns.Analyze(t.Context(), []corpus.FindingsArtifact{unitFixture()}, classes(),
+		patterns.Options{UnitKind: "paragraph", Selection: selection(), FirstAppearance: filter()})
+	c.Assert(err, qt.IsNotNil)
+	_, err = patterns.Analyze(t.Context(), []corpus.FindingsArtifact{unitFixture()}, classes(), patterns.Options{Selection: selection()})
+	c.Assert(err, qt.IsNotNil)
+	partial := selection()
+	partial.Cohorts = partial.Cohorts[:1]
+	partial.Kept = []string{"h1#u-h1-p", "h4#u-h4-p"}
+	_, err = patterns.Analyze(t.Context(), []corpus.FindingsArtifact{unitFixture()}, classes(),
+		patterns.Options{UnitKind: "paragraph", Selection: partial})
+	c.Assert(err, qt.IsNotNil)
+	absent := selection()
+	absent.Cohorts[1].Cohort = "natural"
+	_, err = patterns.Analyze(t.Context(), []corpus.FindingsArtifact{unitFixture()}, classes(),
+		patterns.Options{UnitKind: "paragraph", Selection: absent})
+	c.Assert(err, qt.IsNotNil)
+	unknown := selection()
+	unknown.Kept = []string{"c1#u-c1-q", "h1#u-h1-p", "h4#missing"}
+	_, err = patterns.Analyze(t.Context(), []corpus.FindingsArtifact{unitFixture()}, classes(),
+		patterns.Options{UnitKind: "paragraph", Selection: unknown})
+	c.Assert(err, qt.IsNotNil)
+}
