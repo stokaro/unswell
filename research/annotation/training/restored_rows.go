@@ -33,18 +33,25 @@ func validateRestoredPartition(task string, partition Partition, options Options
 	if err := validateFittedCounts(task, partition); err != nil {
 		return err
 	}
-	for _, counts := range []map[string]int{partition.ZeroFilled, partition.Unavailable} {
-		for _, count := range counts {
-			if count < 0 {
-				return fmt.Errorf("training artifact has a negative abstention count")
-			}
-		}
+	if err := validateAbstentionCounts(partition); err != nil {
+		return err
 	}
 	for _, row := range partition.Rows {
 		if !validFittedRow(row) || seen[row.UnitID] {
 			return fmt.Errorf("fitted rows require unique IDs and valid source/group/input identities")
 		}
 		seen[row.UnitID] = true
+	}
+	return nil
+}
+
+func validateAbstentionCounts(partition Partition) error {
+	for _, counts := range []map[string]int{partition.ZeroFilled, partition.Unavailable} {
+		for _, count := range counts {
+			if count < 0 {
+				return fmt.Errorf("training artifact has a negative abstention count")
+			}
+		}
 	}
 	return nil
 }

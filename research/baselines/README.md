@@ -54,6 +54,19 @@ selection, not its bytes.
 bash scripts/compression-experiment.sh --record research/baselines/runs/<run>
 ```
 
+`scripts/llmdet-experiment.sh` runs the LLMDet part for
+[#177](https://github.com/stokaro/unswell/issues/177) on the same union.
+`train --llmdet-pack` measures every paragraph against the dictionary
+tables of a local pack, a proxy perplexity and a context coverage per
+model, alone or joined with the structural features. The
+[LLMDet experiment](../llmdet/README.md) describes the tables, the
+tokenizer port, and the pack; a record keeps the pack manifest with its
+digests, not the tables.
+
+```sh
+bash scripts/llmdet-experiment.sh --record research/baselines/runs/<run>
+```
+
 ## What a run does not establish
 
 A cohort difference is a difference between two sets of snapshots. It carries
@@ -70,3 +83,4 @@ number here is an authorship verdict or a share of text written by a tool.
 | --- | --- | --- |
 | 2026-09-11 pilot | First fit of the five arms on the documentation, readme, and release-note paragraphs of both cohorts, four sources per checkout, threshold frozen at 0.5 | [runs/2026-09-11-pilot](runs/2026-09-11-pilot/README.md) |
 | 2026-09-11 compression | The reference columns of one bank, alone and joined with the structural features, against the structural features and the n-grams on the pilot's corpus | [runs/2026-09-11-compression](runs/2026-09-11-compression/README.md) |
+| 2026-09-11 LLMDet | The proxy perplexity and context coverage of six ported models, alone and joined with the structural features, against the structural features and the n-grams on the pilot's corpus | [runs/2026-09-11-llmdet](runs/2026-09-11-llmdet/README.md) |

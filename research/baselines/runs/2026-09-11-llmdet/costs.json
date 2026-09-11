@@ -1,0 +1,33 @@
+{
+  "format": "unswell-baseline-experiment-costs-v1",
+  "tool_commit": "949e724943fae3fb3859cd1a5ba91dee8cb9c802",
+  "host": "Darwin arm64",
+  "stages": [
+    {"stage": "plan", "seconds": 0.030, "maximum_resident_bytes": 21299200, "exit_code": 0},
+    {"stage": "extract", "seconds": 3.741, "maximum_resident_bytes": 290390016, "exit_code": 0},
+    {"stage": "verify", "seconds": 3.743, "maximum_resident_bytes": 258916352, "exit_code": 0},
+    {"stage": "train-prepared", "seconds": 8.361, "maximum_resident_bytes": 361644032, "exit_code": 0},
+    {"stage": "predict-prepared-development", "seconds": 8.303, "maximum_resident_bytes": 323616768, "exit_code": 0},
+    {"stage": "evaluate-prepared-development", "seconds": 0.205, "maximum_resident_bytes": 76546048, "exit_code": 0},
+    {"stage": "predict-prepared-final_test", "seconds": 8.238, "maximum_resident_bytes": 292077568, "exit_code": 0},
+    {"stage": "evaluate-prepared-final_test", "seconds": 0.241, "maximum_resident_bytes": 94863360, "exit_code": 0},
+    {"stage": "train-lexical", "seconds": 4.601, "maximum_resident_bytes": 379305984, "exit_code": 0},
+    {"stage": "predict-lexical-development", "seconds": 4.259, "maximum_resident_bytes": 341737472, "exit_code": 0},
+    {"stage": "evaluate-lexical-development", "seconds": 0.203, "maximum_resident_bytes": 75513856, "exit_code": 0},
+    {"stage": "predict-lexical-final_test", "seconds": 4.377, "maximum_resident_bytes": 350224384, "exit_code": 0},
+    {"stage": "evaluate-lexical-final_test", "seconds": 0.243, "maximum_resident_bytes": 78299136, "exit_code": 0},
+    {"stage": "train-llmdet", "seconds": 72.344, "maximum_resident_bytes": 2382790656, "exit_code": 0},
+    {"stage": "predict-llmdet-development", "seconds": 67.423, "maximum_resident_bytes": 2132656128, "exit_code": 0},
+    {"stage": "evaluate-llmdet-development", "seconds": 0.198, "maximum_resident_bytes": 71729152, "exit_code": 0},
+    {"stage": "predict-llmdet-final_test", "seconds": 76.044, "maximum_resident_bytes": 2093072384, "exit_code": 0},
+    {"stage": "evaluate-llmdet-final_test", "seconds": 0.245, "maximum_resident_bytes": 100057088, "exit_code": 0},
+    {"stage": "train-prepared-llmdet", "seconds": 76.249, "maximum_resident_bytes": 2279718912, "exit_code": 0},
+    {"stage": "predict-prepared-llmdet-development", "seconds": 75.307, "maximum_resident_bytes": 2214150144, "exit_code": 0},
+    {"stage": "evaluate-prepared-llmdet-development", "seconds": 0.201, "maximum_resident_bytes": 98975744, "exit_code": 0},
+    {"stage": "predict-prepared-llmdet-final_test", "seconds": 75.324, "maximum_resident_bytes": 2222571520, "exit_code": 0},
+    {"stage": "evaluate-prepared-llmdet-final_test", "seconds": 0.231, "maximum_resident_bytes": 75907072, "exit_code": 0},
+    {"stage": "compare-llmdet-vs-prepared", "seconds": 0.429, "maximum_resident_bytes": 100024320, "exit_code": 0},
+    {"stage": "compare-joint-vs-prepared", "seconds": 0.371, "maximum_resident_bytes": 101826560, "exit_code": 0},
+    {"stage": "compare-joint-vs-lexical", "seconds": 0.362, "maximum_resident_bytes": 101711872, "exit_code": 0}
+  ]
+}
