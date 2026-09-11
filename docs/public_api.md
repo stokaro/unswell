@@ -91,12 +91,11 @@ tasks with deterministic fact sheets and builds request texts. Saved
 responses become `unswell-generation-v1` records and controlled-cohort
 shards through `corpus tasks`, `requests`, and `generations`; no command
 calls a model. `corpus.OriginDecisions` labels the origin task from declared
-cohorts and origins; `JoinDecisions`, `JoinRulesDecisions`,
-`training.RunDecisions`, `RunLexicalDecisions`, `RunRulesDecisions`,
-`evaluation.RunDecisions`, and `RunComparisonDecisions` take a decision set in
-place of a round; and
-`annotation.Labels` names each task's classes. `corpus dataset union` joins
-selected pinned shards into one manifest whose paths name their checkouts. Manifest snapshots may name the dated
+cohorts and origins, and `corpus.CohortDecisions` labels the cohort task. The
+join, training, evaluation, and comparison paths have `Decisions` variants
+that take such a set in place of a round. `annotation.Labels` names each
+task's classes. `corpus dataset union` joins selected pinned shards into one
+manifest whose paths name their checkouts. Manifest snapshots may name the dated
 historical periods `historical-2012`, `historical-2016`, and
 `historical-2018`; a dataset holds up to 512 shards. `corpus acquire` builds a shard
 manifest from a checkout by the fixed rules of a record and lists every file

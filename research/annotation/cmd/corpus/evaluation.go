@@ -57,7 +57,7 @@ func evaluationFlags(args []string) (evaluationOptions, error) {
 	} else {
 		flags.StringVar(&options.corpus, "corpus", "", "Frozen candidate artifact used by prediction")
 		flags.StringVar(&options.round, "round", "", "Independent evaluation annotation round")
-		flags.StringVar(&options.labels, "labels", "", "Label source instead of a round: provenance labels the origin task from the corpus")
+		flags.StringVar(&options.labels, "labels", "", "Label source instead of a round: provenance or cohort, from the corpus")
 		flags.BoolVar(&options.allowSimulation, "allow-simulation", false, "Allow explicitly simulated tutorial labels")
 	}
 	if err := flags.Parse(args[1:]); err != nil {
@@ -85,10 +85,7 @@ func (options evaluationOptions) validateLabelSource() error {
 	if options.corpus == "" || (options.round == "") == (options.labels == "") {
 		return fmt.Errorf("evaluate requires --corpus and either --round or --labels")
 	}
-	if options.labels != "" && options.labels != "provenance" {
-		return fmt.Errorf("--labels accepts provenance")
-	}
-	return nil
+	return validateLabels(options.labels)
 }
 
 func predictOperation(ctx context.Context, options evaluationOptions, data []byte) (training.Predictions, error) {
@@ -148,7 +145,7 @@ func evaluateOperation(ctx context.Context, options evaluationOptions, data []by
 		return evaluation.Result{}, err
 	}
 	if options.labels != "" {
-		decisions, err := corpus.OriginDecisions(ctx, candidates)
+		decisions, err := labelDecisions(ctx, options.labels, candidates)
 		if err != nil {
 			return evaluation.Result{}, err
 		}

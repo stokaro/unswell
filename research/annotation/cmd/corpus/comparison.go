@@ -28,7 +28,7 @@ func comparisonFlags(args []string) (comparisonOptions, error) {
 	flags.StringVar(&options.comparator, "comparator", "", "Saved comparator predictions")
 	flags.StringVar(&options.corpus, "corpus", "", "Frozen corpus shared by both trials")
 	flags.StringVar(&options.round, "round", "", "Independent evaluation annotation round")
-	flags.StringVar(&options.labels, "labels", "", "Label source instead of a round: provenance labels the origin task from the corpus")
+	flags.StringVar(&options.labels, "labels", "", "Label source instead of a round: provenance or cohort, from the corpus")
 	flags.BoolVar(&options.allowSimulation, "allow-simulation", false, "Allow explicitly simulated tutorial labels")
 	if err := flags.Parse(args[1:]); err != nil {
 		return comparisonOptions{}, err
@@ -40,10 +40,7 @@ func comparisonFlags(args []string) (comparisonOptions, error) {
 		(options.round == "") == (options.labels == "") {
 		return comparisonOptions{}, fmt.Errorf("compare requires --plan, --protocol, --comparator, --corpus, and either --round or --labels")
 	}
-	if options.labels != "" && options.labels != "provenance" {
-		return comparisonOptions{}, fmt.Errorf("--labels accepts provenance")
-	}
-	return options, nil
+	return options, validateLabels(options.labels)
 }
 
 func runComparison(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
@@ -82,7 +79,7 @@ func comparisonOperation(ctx context.Context, options comparisonOptions, data []
 		return evaluation.ComparisonResult{}, err
 	}
 	if options.labels != "" {
-		decisions, err := corpus.OriginDecisions(ctx, candidates)
+		decisions, err := labelDecisions(ctx, options.labels, candidates)
 		if err != nil {
 			return evaluation.ComparisonResult{}, err
 		}

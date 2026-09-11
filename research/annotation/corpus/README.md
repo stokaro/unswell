@@ -273,6 +273,9 @@ everything else stays unresolved with a reason. `JoinDecisions` and
 `JoinRulesDecisions` check that every decision names a candidate of the
 artifact with its exact target and that the set's digest names the artifact.
 The basis is `declared_provenance`; it establishes no authorship.
+`--labels cohort` binds `CohortDecisions` instead: `contemporary_snapshot`
+against `historical_snapshot`, with controlled and natural units unresolved,
+for the comparison of feature families on the pattern cohorts.
 
 ## Measure findings without labels
 

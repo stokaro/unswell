@@ -6,8 +6,10 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"slices"
 
 	"github.com/stokaro/unswell/research/annotation"
+	"github.com/stokaro/unswell/research/annotation/corpus"
 	"github.com/stokaro/unswell/research/annotation/internal/commandio"
 	"github.com/stokaro/unswell/research/annotation/training"
 )
@@ -50,7 +52,7 @@ func registerFlags(name string, flags *flag.FlagSet, result *options) {
 	flags.StringVar(&result.root, "root", "", "Local directory containing exactly pinned source and notice files")
 	flags.StringVar(&result.round, "round", "", "Explicit local annotation round for join or train")
 	flags.StringVar(&result.labels, "labels", "",
-		"Label source instead of a round: provenance labels the origin task from declared cohorts and origins")
+		"Label source instead of a round: provenance labels the origin task, cohort the cohort task, from the corpus")
 	flags.Func("feature", "Feature ID; repeat to select a set for join or train", func(value string) error {
 		result.features = append(result.features, value)
 		return nil
@@ -92,10 +94,30 @@ func (result options) validateLabelSource() error {
 	if (result.round == "") == (result.labels == "") || (len(result.features) == 0 && !result.lexical) {
 		return fmt.Errorf("join and train require --round or --labels, and at least one --feature")
 	}
-	if result.labels != "" && result.labels != "provenance" {
-		return fmt.Errorf("--labels accepts provenance")
+	return validateLabels(result.labels)
+}
+
+// labelSources are the decision sets a command can build from the corpus
+// itself: provenance labels the origin task, cohort labels the cohort task.
+var labelSources = []string{"provenance", "cohort"}
+
+func validateLabels(source string) error {
+	if source != "" && !slices.Contains(labelSources, source) {
+		return fmt.Errorf("--labels accepts provenance or cohort")
 	}
 	return nil
+}
+
+// labelDecisions builds the decision set a label source names from the
+// artifact's declared cohorts and origins.
+func labelDecisions(ctx context.Context, source string, artifact corpus.Artifact) (annotation.DecisionSet, error) {
+	switch source {
+	case "provenance":
+		return corpus.OriginDecisions(ctx, artifact)
+	case "cohort":
+		return corpus.CohortDecisions(ctx, artifact)
+	}
+	return annotation.DecisionSet{}, fmt.Errorf("--labels accepts provenance or cohort")
 }
 
 func loadRound(ctx context.Context, path string) (*annotation.Round, error) {
