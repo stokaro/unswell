@@ -7,6 +7,14 @@ set -euo pipefail
 script_directory=$(dirname "$0")
 cd "$script_directory/.."
 root=$PWD
+# sha prints the SHA-256 digest of a file with the tool this host has.
+sha() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$1" | cut -c1-64
+  else
+    shasum -a 256 "$1" | cut -c1-64
+  fi
+}
 
 words=100000
 output=""
@@ -15,6 +23,8 @@ corpus_source=""
 excludes=()
 timeout=10m
 self_test=false
+binary=""
+origin_model=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --words)
@@ -41,12 +51,20 @@ while [[ $# -gt 0 ]]; do
       timeout=$2
       shift 2
       ;;
+    --binary)
+      binary=$2
+      shift 2
+      ;;
+    --origin-model)
+      origin_model=$2
+      shift 2
+      ;;
     --self-test)
       self_test=true
       shift
       ;;
     *)
-      printf 'Usage: %s [--words N] [--corpus DIR] [--exclude GLOB]... [--timeout DURATION] [--output FILE] [--label NAME] [--self-test]\n' "$0" >&2
+      printf 'Usage: %s [--words N] [--corpus DIR] [--exclude GLOB]... [--timeout DURATION] [--binary FILE] [--origin-model FILE] [--output FILE] [--label NAME] [--self-test]\n' "$0" >&2
       exit 2
       ;;
   esac
@@ -68,11 +86,18 @@ fi
 # write_policy writes the scan policy of the measured tree. The synthetic corpus
 # selects the formats it generates. A real corpus keeps the default file
 # selection, so its own format mix is what gets measured, and it repeats the
-# default exclusions because an exclude list in a policy replaces them.
+# default exclusions because an exclude list in a policy replaces them. With
+# an origin model the policy enables the origin channel and accepts an
+# experimental pack, so the scan pays for the estimate.
 write_policy() {
   local directory=$1 pattern
   {
-    printf 'version: 1\nextends: [builtin:strict-v1]\nlanguage: en\nfiles:\n'
+    printf 'version: 1\nextends: [builtin:strict-v1]\nlanguage: en\n'
+    if [[ -n "$origin_model" ]]; then
+      printf 'origin:\n  model: pack\n  accept_experimental: true\nfiles:\n'
+    else
+      printf 'files:\n'
+    fi
     if [[ -z "$corpus_source" ]]; then
       printf '  include:\n    - "**/*.md"\n    - "**/*.go"\n    - "**/*.yaml"\n    - "**/*.sh"\n'
     else
@@ -173,13 +198,17 @@ measure() {
     return 2
   fi
   started=$(date +%s.%N)
-  "${time_tool[@]}" "$root/bin/unswell" check "$directory" \
-    --project-root "$directory" --config "$directory/.unswell.yaml" --timeout "$timeout" \
+  # The scan runs from the corpus and names it as ".", so a binary without
+  # --project-root takes the corpus as its root and resolves the policy's
+  # patterns against it.
+  (cd "$directory" && "${time_tool[@]}" "$tool" check "${scan_target/PLACEHOLDER/$directory}" \
+    ${root_flags[@]+"${root_flags[@]/PLACEHOLDER/$directory}"} --config "$directory/.unswell.yaml" --timeout "$timeout" \
+    ${origin_flags[@]+"${origin_flags[@]}"} \
     --report "json:$reports/result.json" \
     --report "sarif:$reports/result.sarif" \
     --report "html:$reports/result.html" \
     --report "markdown:$reports/result.md" \
-    --report "text:$reports/result.txt" >/dev/null 2>"$reports/stderr.txt" || status=$?
+    --report "text:$reports/result.txt" >/dev/null 2>"$reports/stderr.txt") || status=$?
   ended=$(date +%s.%N)
   local elapsed
   elapsed=$(awk -v a="$started" -v b="$ended" 'BEGIN { printf "%.3f", b - a }')
@@ -204,8 +233,9 @@ peak_bytes() {
 count_prose_words() {
   local directory=$1 reports=$2
   mkdir -p "$reports"
-  "$root/bin/unswell" check "$directory" --project-root "$directory" --timeout "$timeout" \
-    --config "$directory/.unswell.yaml" --no-gate --report "json:$reports/count.json" >/dev/null 2>&1 || true
+  (cd "$directory" && "$tool" check "${scan_target/PLACEHOLDER/$directory}" ${root_flags[@]+"${root_flags[@]/PLACEHOLDER/$directory}"} --timeout "$timeout" \
+    --config "$directory/.unswell.yaml" --no-gate ${origin_flags[@]+"${origin_flags[@]}"} \
+    --report "json:$reports/count.json" >/dev/null 2>&1) || true
   awk '/"prose_words"/ { gsub(/[^0-9]/, "", $2); total += $2 } END { print total + 0 }' "$reports/count.json"
 }
 
@@ -213,10 +243,52 @@ workspace=$(mktemp -d)
 trap 'rm -rf "$workspace"' EXIT
 corpus=$workspace/corpus
 
-if [[ ! -x bin/unswell ]]; then
-  printf 'Build the CLI first: make build.\n' >&2
+# The measured tool is the repository build unless --binary names another
+# executable, such as a published release asset; the record carries its
+# digest either way.
+# absolute prints the absolute path of a file that exists.
+absolute() {
+  local directory
+  directory=$(dirname "$1")
+  directory=$(cd "$directory" && pwd)
+  printf '%s/%s' "$directory" "$(basename "$1")"
+}
+tool=$root/bin/unswell
+if [[ -n "$binary" ]]; then
+  tool=$(absolute "$binary")
+fi
+if [[ ! -x "$tool" ]]; then
+  printf 'Build the CLI first (make build) or name an executable with --binary.\n' >&2
   exit 2
 fi
+# An older published binary may lack a flag this script passes. The record
+# names every flag it left out, and a requested origin model without its flag
+# is an error rather than a silent scan without the model.
+supported_flags=$("$tool" check --help 2>&1 || true)
+root_flags=(--project-root "PLACEHOLDER")
+omitted_flags=""
+scan_target=PLACEHOLDER
+if [[ "$supported_flags" != *"--project-root"* ]]; then
+  root_flags=()
+  omitted_flags="--project-root"
+  scan_target=.
+fi
+if [[ -n "$origin_model" && "$supported_flags" != *"--origin-model"* ]]; then
+  printf 'The measured binary does not accept --origin-model.\n' >&2
+  exit 2
+fi
+origin_flags=()
+origin_model_sha256=""
+if [[ -n "$origin_model" ]]; then
+  if [[ ! -f "$origin_model" ]]; then
+    printf 'The origin model %s does not exist.\n' "$origin_model" >&2
+    exit 2
+  fi
+  origin_model=$(absolute "$origin_model")
+  origin_flags=(--origin-model "$origin_model")
+  origin_model_sha256=$(sha "$origin_model")
+fi
+tool_sha256=$(sha "$tool")
 
 if [[ -n "$corpus_source" ]]; then
   # A real corpus is measured as it is; nothing sizes it to the target.
@@ -278,7 +350,7 @@ for pattern in ${excludes[@]+"${excludes[@]}"}; do
 done
 corpus_bytes=$(find "$corpus" -type f -exec cat {} + >"$workspace/corpus.bytes" && wc -c <"$workspace/corpus.bytes")
 corpus_bytes=${corpus_bytes// /}
-tool_version=$("$root/bin/unswell" --version 2>/dev/null || printf 'unknown')
+tool_version=$("$tool" --version 2>/dev/null || printf 'unknown')
 tool_version=${tool_version%%$'\n'*}
 system_name=$(uname -s)
 machine_name=$(uname -m)
@@ -294,6 +366,9 @@ report=$(
   "excludes": [$exclude_list],
   "analysis_timeout": "$timeout",
   "tool_version": "$tool_version",
+  "tool_sha256": "$tool_sha256",
+  "omitted_flags": "$omitted_flags",
+  "origin_model_sha256": "$origin_model_sha256",
   "requested_words": $requested_words,
   "measured_prose_words": $measured_words,
   "documents": $documents,
@@ -340,8 +415,8 @@ if [[ "$self_test" == true ]]; then
   mkdir -p "$bounded"
   sed 's/^extends:.*/&\nanalysis:\n  max_file_bytes: 64/' "$corpus/.unswell.yaml" >"$corpus/bounded.yaml"
   bounded_status=0
-  "$root/bin/unswell" check "$corpus" --project-root "$corpus" --config "$corpus/bounded.yaml" \
-    --report "json:$bounded/result.json" >"$bounded/stdout.txt" 2>"$bounded/stderr.txt" || bounded_status=$?
+  (cd "$corpus" && "$tool" check "${scan_target/PLACEHOLDER/$corpus}" ${root_flags[@]+"${root_flags[@]/PLACEHOLDER/$corpus}"} --config "$corpus/bounded.yaml" \
+    --report "json:$bounded/result.json" >"$bounded/stdout.txt" 2>"$bounded/stderr.txt") || bounded_status=$?
   if ((bounded_status != 2)); then
     printf 'An exceeded max_file_bytes limit must exit 2; it exited %s.\n' "$bounded_status" >&2
     exit 1
