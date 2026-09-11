@@ -28,6 +28,7 @@ func comparisonFlags(args []string) (comparisonOptions, error) {
 	flags.StringVar(&options.comparator, "comparator", "", "Saved comparator predictions")
 	flags.StringVar(&options.corpus, "corpus", "", "Frozen corpus shared by both trials")
 	flags.StringVar(&options.round, "round", "", "Independent evaluation annotation round")
+	flags.StringVar(&options.labels, "labels", "", "Label source instead of a round: provenance labels the origin task from the corpus")
 	flags.BoolVar(&options.allowSimulation, "allow-simulation", false, "Allow explicitly simulated tutorial labels")
 	if err := flags.Parse(args[1:]); err != nil {
 		return comparisonOptions{}, err
@@ -35,8 +36,12 @@ func comparisonFlags(args []string) (comparisonOptions, error) {
 	if flags.NArg() != 0 {
 		return comparisonOptions{}, fmt.Errorf("compare accepts no positional arguments")
 	}
-	if slices.Contains([]string{options.plan, options.protocol, options.comparator, options.corpus, options.round}, "") {
-		return comparisonOptions{}, fmt.Errorf("compare requires --plan, --protocol, --comparator, --corpus, and --round")
+	if slices.Contains([]string{options.plan, options.protocol, options.comparator, options.corpus}, "") ||
+		(options.round == "") == (options.labels == "") {
+		return comparisonOptions{}, fmt.Errorf("compare requires --plan, --protocol, --comparator, --corpus, and either --round or --labels")
+	}
+	if options.labels != "" && options.labels != "provenance" {
+		return comparisonOptions{}, fmt.Errorf("--labels accepts provenance")
 	}
 	return options, nil
 }
@@ -75,6 +80,13 @@ func comparisonOperation(ctx context.Context, options comparisonOptions, data []
 	candidates, err := corpus.LoadArtifact(ctx, encoded)
 	if err != nil {
 		return evaluation.ComparisonResult{}, err
+	}
+	if options.labels != "" {
+		decisions, err := corpus.OriginDecisions(ctx, candidates)
+		if err != nil {
+			return evaluation.ComparisonResult{}, err
+		}
+		return evaluation.RunComparisonDecisions(ctx, data, other, plan, candidates, decisions, options.allowSimulation)
 	}
 	round, err := loadRound(ctx, options.round)
 	if err != nil {

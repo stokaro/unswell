@@ -269,10 +269,10 @@ not prove reproduction. See [ADR 0024](../../../docs/adr/0024-corpus-feature-bin
 of a round. It labels the origin task from each candidate's cohort and its
 source's declared origin. A generated controlled source with a generation
 record gives `endpoint_generated`; a historical unit gives `human_snapshot`;
-everything else stays unresolved with a reason. `JoinDecisions` checks that
-every decision names a candidate of the artifact with its exact target and
-that the set's digest names the artifact. The basis is `declared_provenance`;
-it establishes no authorship.
+everything else stays unresolved with a reason. `JoinDecisions` and
+`JoinRulesDecisions` check that every decision names a candidate of the
+artifact with its exact target and that the set's digest names the artifact.
+The basis is `declared_provenance`; it establishes no authorship.
 
 ## Measure findings without labels
 

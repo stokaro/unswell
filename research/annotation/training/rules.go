@@ -24,6 +24,27 @@ func RunRules(ctx context.Context, candidates corpus.Artifact, round *annotation
 	if err != nil {
 		return Artifact{}, err
 	}
+	return fitRules(ctx, candidates, joined, options, configuration)
+}
+
+// RunRulesDecisions fits the rule-activation baseline from a prepared decision
+// set, such as the provenance labels of the origin task, instead of a round.
+func RunRulesDecisions(ctx context.Context, candidates corpus.Artifact, decisions annotation.DecisionSet,
+	files map[string][]byte, options Options, configuration []byte,
+) (Artifact, error) {
+	if err := validateOptions(ctx, candidates, options); err != nil {
+		return Artifact{}, err
+	}
+	joined, err := corpus.JoinRulesDecisions(ctx, candidates, decisions, files, options.Features, configuration)
+	if err != nil {
+		return Artifact{}, err
+	}
+	return fitRules(ctx, candidates, joined, options, configuration)
+}
+
+func fitRules(ctx context.Context, candidates corpus.Artifact, joined corpus.RuleJoinedArtifact, options Options,
+	configuration []byte,
+) (Artifact, error) {
 	if joined.Decisions.Basis == "simulation" && !options.AllowSimulation {
 		return Artifact{}, fmt.Errorf("tutorial training requires explicit allow_simulation")
 	}

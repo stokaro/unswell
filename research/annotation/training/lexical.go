@@ -48,6 +48,33 @@ func RunLexical(ctx context.Context, candidates corpus.Artifact, round *annotati
 	return fitLexical(ctx, candidates, prepared, decisions, options, lexical)
 }
 
+// RunLexicalDecisions fits the lexical baseline from a prepared decision set,
+// such as the provenance labels of the origin task, instead of a round.
+func RunLexicalDecisions(ctx context.Context, candidates corpus.Artifact, decisions annotation.DecisionSet,
+	files map[string][]byte, options Options, lexical LexicalOptions,
+) (Artifact, error) {
+	if err := validateOptions(ctx, candidates, options); err != nil {
+		return Artifact{}, err
+	}
+	if err := lexical.validate(); err != nil {
+		return Artifact{}, err
+	}
+	if len(options.Features) != 0 {
+		return Artifact{}, fmt.Errorf("lexical training learns columns; do not supply features")
+	}
+	if err := corpus.MatchDecisionTargets(ctx, candidates, decisions); err != nil {
+		return Artifact{}, err
+	}
+	prepared, err := corpus.Prepare(ctx, candidates, files)
+	if err != nil {
+		return Artifact{}, err
+	}
+	if decisions.Basis == "simulation" && !options.AllowSimulation {
+		return Artifact{}, fmt.Errorf("tutorial training requires explicit allow_simulation")
+	}
+	return fitLexical(ctx, candidates, prepared, decisions, options, lexical)
+}
+
 func fitLexical(ctx context.Context, candidates corpus.Artifact, prepared corpus.Prepared,
 	decisions annotation.DecisionSet, options Options, lexical LexicalOptions,
 ) (Artifact, error) {
