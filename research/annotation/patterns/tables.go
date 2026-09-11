@@ -33,6 +33,22 @@ type Options struct {
 	Baseline        string
 	UnitKind        string
 	FirstAppearance *corpus.AppearanceFilter
+	Selection       *corpus.UnitSelection
+}
+
+// Selection records the unit selection an analysis applied to every cohort:
+// each unit text counted once, at its first occurrence in the stated order.
+type Selection struct {
+	Kind    string            `json:"kind"`
+	Order   []string          `json:"order"`
+	Cohorts []SelectionCohort `json:"cohorts"`
+}
+
+// SelectionCohort counts one cohort's kept and excluded units.
+type SelectionCohort struct {
+	Cohort   string `json:"cohort"`
+	Kept     int    `json:"kept_units"`
+	Excluded int    `json:"excluded_units"`
 }
 
 // FirstAppearance records the filter an analysis applied to its later cohort.
@@ -134,6 +150,7 @@ type Tables struct {
 	Baseline        string                `json:"baseline"`
 	Unit            string                `json:"unit"`
 	FirstAppearance *FirstAppearance      `json:"first_appearance,omitempty"`
+	Selection       *Selection            `json:"selection,omitempty"`
 	Policy          corpus.PolicyIdentity `json:"policy"`
 	Classes         string                `json:"rule_classes"`
 	Inputs          []Input               `json:"inputs"`
@@ -161,6 +178,10 @@ func Analyze(ctx context.Context, inputs []corpus.FindingsArtifact, classes corp
 		tables.Unit = options.UnitKind
 	}
 	tables.FirstAppearance, err = frame.appearance()
+	if err != nil {
+		return Tables{}, err
+	}
+	tables.Selection, err = frame.selection()
 	if err != nil {
 		return Tables{}, err
 	}
@@ -194,10 +215,31 @@ func checkAnalysis(inputs []corpus.FindingsArtifact, classes corpus.RuleClasses,
 }
 
 func checkOptions(options Options) error {
-	filter := options.FirstAppearance
-	if filter == nil {
-		return nil
+	if options.FirstAppearance != nil && options.Selection != nil {
+		return fmt.Errorf("a first-appearance filter and a unit selection cannot apply together")
 	}
+	if options.Selection != nil {
+		return checkSelection(options)
+	}
+	if options.FirstAppearance != nil {
+		return checkFilter(options)
+	}
+	return nil
+}
+
+func checkSelection(options Options) error {
+	selection := options.Selection
+	if options.UnitKind == "" || selection.Kind != options.UnitKind {
+		return fmt.Errorf("a unit selection applies to a unit analysis of its own kind %q", selection.Kind)
+	}
+	if !strictlySorted(selection.Kept) {
+		return fmt.Errorf("the unit selection lists a unit twice")
+	}
+	return nil
+}
+
+func checkFilter(options Options) error {
+	filter := options.FirstAppearance
 	if options.UnitKind == "" || filter.Kind != options.UnitKind {
 		return fmt.Errorf("a first-appearance filter applies to a unit analysis of its own kind %q", filter.Kind)
 	}
@@ -244,6 +286,7 @@ type unit struct {
 type frame struct {
 	options    Options
 	keep       map[string]bool
+	filtered   map[string]bool
 	matched    int
 	inputs     []Input
 	components []component
@@ -265,9 +308,14 @@ func buildFrame(ctx context.Context, inputs []corpus.FindingsArtifact, classes c
 		result.known[class.RuleID] = true
 	}
 	if options.FirstAppearance != nil {
-		result.keep = make(map[string]bool, len(options.FirstAppearance.New))
-		for _, key := range options.FirstAppearance.New {
-			result.keep[key] = true
+		result.keep = keySet(options.FirstAppearance.New)
+		result.filtered = map[string]bool{options.FirstAppearance.Later: true}
+	}
+	if options.Selection != nil {
+		result.keep = keySet(options.Selection.Kept)
+		result.filtered = map[string]bool{}
+		for _, cohort := range options.Selection.Cohorts {
+			result.filtered[cohort.Cohort] = true
 		}
 	}
 	for _, input := range inputs {
@@ -321,15 +369,22 @@ func (f *frame) addInput(input corpus.FindingsArtifact) error {
 	return nil
 }
 
+func keySet(keys []string) map[string]bool {
+	set := make(map[string]bool, len(keys))
+	for _, key := range keys {
+		set[key] = true
+	}
+	return set
+}
+
 // retain decides whether a unit enters the analysis. A document analysis
 // keeps every unit for the per-kind breakdown. A unit analysis keeps the
-// chosen kind and, under a first-appearance filter, only the later cohort's
-// listed units.
+// chosen kind and, in a filtered cohort, only the listed units.
 func (f *frame) retain(item corpus.UnitFindings) (unit, bool) {
 	if f.options.UnitKind != "" && item.Kind != f.options.UnitKind {
 		return unit{}, false
 	}
-	if f.keep != nil && item.Cohort == f.options.FirstAppearance.Later {
+	if f.keep != nil && f.filtered[item.Cohort] {
 		if !f.keep[corpus.UnitKey(item.SourceID, item.UnitID)] {
 			f.excluded[item.Cohort]++
 			return unit{}, false
@@ -355,6 +410,32 @@ func (f *frame) appearance() (*FirstAppearance, error) {
 	}
 	return &FirstAppearance{Earlier: filter.Earlier, Later: filter.Later, Kind: filter.Kind, Kept: f.matched,
 		Excluded: f.excluded[filter.Later], LaterOnly: slices.Clone(filter.LaterOnly)}, nil
+}
+
+// selection checks that the selection's cohorts are exactly the cohorts of
+// the inputs and that every kept unit was found exactly once.
+func (f *frame) selection() (*Selection, error) {
+	selection := f.options.Selection
+	if selection == nil {
+		return nil, nil
+	}
+	if len(f.filtered) != len(f.cohortSet) {
+		return nil, fmt.Errorf("the unit selection covers %d cohorts but the inputs hold %d", len(f.filtered), len(f.cohortSet))
+	}
+	result := &Selection{Kind: selection.Kind, Order: slices.Clone(selection.Order)}
+	kept := 0
+	for _, cohort := range selection.Cohorts {
+		if !f.cohortSet[cohort.Cohort] {
+			return nil, fmt.Errorf("the unit selection names cohort %q absent from the inputs", cohort.Cohort)
+		}
+		result.Cohorts = append(result.Cohorts, SelectionCohort{Cohort: cohort.Cohort, Kept: cohort.Kept,
+			Excluded: f.excluded[cohort.Cohort]})
+		kept += cohort.Kept
+	}
+	if f.matched != len(f.keep) || kept != f.matched {
+		return nil, fmt.Errorf("the unit selection lists %d units but the inputs matched %d", len(f.keep), f.matched)
+	}
+	return result, nil
 }
 
 func (f *frame) componentIndex(group string) int {

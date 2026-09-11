@@ -39,7 +39,7 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 	if len(args) == 0 {
 		return fmt.Errorf("usage: corpus" +
 			" {acquire|plan|extract|verify|join|measure|analyze|train|predict|evaluate|compare|reference-bank|pack|figures" +
-			"|dataset|duplicates|first-appearance} [options] < artifact.json")
+			"|dataset|duplicates|first-appearance|dedupe} [options] < artifact.json")
 	}
 	if command := dedicated(args[0]); command != nil {
 		return command(ctx, args, input, output)
@@ -67,7 +67,7 @@ func dedicated(name string) func(context.Context, []string, io.Reader, io.Writer
 	commands := map[string]func(context.Context, []string, io.Reader, io.Writer) error{
 		"pack": runPack, "reference-bank": runCompressionBank, "compare": runComparison, "predict": runEvaluation,
 		"evaluate": runEvaluation, "figures": runFigures, "dataset": runDataset, "duplicates": runDuplicates,
-		"analyze": runAnalyze, "acquire": runAcquire, "first-appearance": runFirstAppearance,
+		"analyze": runAnalyze, "acquire": runAcquire, "first-appearance": runFirstAppearance, "dedupe": runDedupe,
 	}
 	return commands[name]
 }

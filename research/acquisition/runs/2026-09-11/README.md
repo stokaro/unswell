@@ -158,7 +158,66 @@ artifacts of this run. It also regenerated the document tables. Their
 numbers are unchanged. They now name their unit and carry the counted
 totals. A rerun of `scripts/measure-corpus.sh --resume` on the merged
 commit reproduces the seven files byte for byte; their digests are in
-[`digests.json`](digests.json).
+[`digests.json`](digests.json). The same holds for the four files of the
+next section.
+
+## One count per text
+
+The protocol counts a unit once per content hash across snapshots, copies,
+and identical document versions. The first appearance filter above compares
+each repository with its own earlier snapshot only. The unit selection goes
+further. It keeps the first occurrence of each unit text across both
+cohorts, the historical one first, whatever repository a copy sits in.
+Within a cohort the first occurrence is the first by repository, source,
+and unit ID.
+
+| Kind | Cohort | Units | Kept | Repeated within the cohort | Repeated from the historical cohort |
+| --- | --- | --- | --- | --- | --- |
+| Paragraph | Historical | 40,627 | 29,118 | 11,509 | 0 |
+| Paragraph | Contemporary | 41,974 | 17,121 | 4,259 | 20,594 |
+| Sentence | Historical | 51,916 | 35,611 | 16,305 | 0 |
+| Sentence | Contemporary | 53,164 | 20,476 | 4,872 | 27,816 |
+
+More than a quarter of the historical paragraphs repeat text already kept
+in that cohort. License headers, copied doc comments, and shared templates
+are the usual sources. The [unique paragraph tables](tables-unique-paragraph.json)
+and [unique sentence tables](tables-unique-sentence.json) count only the
+kept units on both sides.
+
+| Rule | Historical, unique | Contemporary, unique and new | Difference | 95% interval | Ratio |
+| --- | --- | --- | --- | --- | --- |
+| `syntax.passive-candidate-density` | 396 of 26,962 (1.5%) | 346 of 17,005 (2.0%) | +0.6 points | -0.2 to +1.4 | 1.39 |
+| `readability.grade-metric` | 277 of 26,962 (1.0%) | 264 of 17,005 (1.6%) | +0.5 points | -0.2 to +1.4 | 1.51 |
+| `syntax.long-sentence` | 370 of 26,962 (1.4%) | 290 of 17,005 (1.7%) | +0.3 points | -0.4 to +1.1 | 1.24 |
+| `syntax.parenthetical-load` | 294 of 26,962 (1.1%) | 240 of 17,005 (1.4%) | +0.3 points | -0.4 to +1.1 | 1.29 |
+| `syntax.noun-stack` | 33 of 26,962 (0.1%) | 36 of 17,005 (0.2%) | +0.1 points | -0.0 to +0.2 | 1.73 |
+| `format.em-dash-density` | 0 of 26,962 (0.0%) | 8 of 17,005 (0.0%) | +0.0 points | +0.0 to +0.1 | undefined |
+
+The same rules at sentence level:
+
+| Rule | Historical, unique | Contemporary, unique and new | Difference | 95% interval | Ratio |
+| --- | --- | --- | --- | --- | --- |
+| `syntax.passive-candidate-density` | 386 of 32,862 (1.2%) | 302 of 20,343 (1.5%) | +0.3 points | -0.2 to +0.9 | 1.26 |
+| `readability.grade-metric` | 236 of 32,862 (0.7%) | 226 of 20,343 (1.1%) | +0.4 points | -0.1 to +1.0 | 1.55 |
+| `syntax.long-sentence` | 370 of 32,862 (1.1%) | 303 of 20,343 (1.5%) | +0.4 points | -0.3 to +1.0 | 1.32 |
+| `syntax.parenthetical-load` | 289 of 32,862 (0.9%) | 227 of 20,343 (1.1%) | +0.2 points | -0.3 to +0.8 | 1.27 |
+| `syntax.noun-stack` | 33 of 32,862 (0.1%) | 33 of 20,343 (0.2%) | +0.1 points | -0.0 to +0.1 | 1.62 |
+| `format.em-dash-density` | 0 of 32,862 (0.0%) | 8 of 20,343 (0.0%) | +0.0 points | +0.0 to +0.1 | undefined |
+
+Removing repeated text changes the historical side most. Its share of
+paragraphs with a long sentence falls from 3.3% to 1.4%. The repeated text
+carried long sentences out of proportion. The one contrast that excluded
+zero in the first appearance analysis does not survive. Under one count per
+text the long-sentence difference is +0.3 points. Its interval runs from
+-0.4 to +1.1. Two intervals still exclude zero. The wordy-phrase rule falls
+by 0.1 points. The em-dash rule fires in 8 kept contemporary paragraphs and
+in no historical one. The passive, grade, and parenthetical rules keep their
+direction, and each moves by under one point. Files in this directory:
+
+- `unit-selection-paragraph.json` and `unit-selection-sentence.json` list
+  the kept units.
+- `tables-unique-paragraph.json` and `tables-unique-sentence.json` are the
+  restricted tables.
 
 ## What is not in this directory
 
