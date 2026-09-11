@@ -1,0 +1,36 @@
+{
+  "format": "unswell-acquisition-document-sources-v1",
+  "revision": 1,
+  "decided_on": "2026-09-11",
+  "protocol": "unswell-llm-patterns-v1",
+  "boundary": "2020-12-31",
+  "scope": "Sampling frame of the first document sets outside repositories: published specifications whose text is frozen at publication, whose publication month two records state, and whose copyright statement permits copying. Selection looked at the publisher's index, the license, and the topic, never at the text. Dates are claims that the acquisition script verifies at run time against the publisher's index and the document header; a set whose records disagree is skipped, and a set dated after the boundary is skipped.",
+  "publisher": {
+    "name": "RFC Editor",
+    "index": "https://www.rfc-editor.org/rfc-index.txt",
+    "documents": "https://www.rfc-editor.org/rfc"
+  },
+  "sets": [
+    {
+      "name": "ietf/http-1.1-1999",
+      "documents": [2616],
+      "license": "RFC 2616 Full Copyright Statement (The Internet Society, 1999)",
+      "topic": "HTTP",
+      "purpose": "HTTP/1.1 specification, 1999 edition"
+    },
+    {
+      "name": "ietf/http-1.1-2014",
+      "documents": [7230, 7231, 7232, 7233, 7234, 7235],
+      "license": "IETF Trust Legal Provisions (BCP 78)",
+      "topic": "HTTP",
+      "purpose": "HTTP/1.1 specification, 2014 edition in six parts"
+    },
+    {
+      "name": "ietf/tls-1.3-2018",
+      "documents": [8446],
+      "license": "IETF Trust Legal Provisions (BCP 78)",
+      "topic": "TLS",
+      "purpose": "TLS 1.3 specification"
+    }
+  ]
+}
