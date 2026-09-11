@@ -1,0 +1,74 @@
+{
+  "version": "unswell-review-summary-v1",
+  "subject": {
+    "corpus": "controlled cohort: the 800 responses of the pilot and the second generation run, one Markdown file per response",
+    "checkout": "~/.cache/unswell/acquisition/work/controlled/<owner>__<repo>/generated/<response_id>.md, copied into a scratch root",
+    "documents": 800,
+    "prose_words": 15920,
+    "arms": {
+      "generate": 400,
+      "polish": 400
+    }
+  },
+  "tool": {
+    "commit": "a1c6d7af67a89ab573997aba9cec7b51a09f4dbb",
+    "command": "unswell check . --config <config> --no-gate --include-source --timeout 20m --jobs 4"
+  },
+  "runs": {
+    "all": {
+      "status": "complete",
+      "documents": 800,
+      "findings": 39,
+      "errors": [],
+      "rules": {
+        "syntax.long-sentence": {
+          "total": 13,
+          "polish": 13,
+          "justified": 4,
+          "not_justified": 9
+        },
+        "syntax.passive-candidate-density": {
+          "total": 7,
+          "generate": 3,
+          "justified": 7,
+          "polish": 4
+        },
+        "syntax.parenthetical-load": {
+          "total": 6,
+          "polish": 6,
+          "not_justified": 6
+        },
+        "filler.wordy-phrase": {
+          "total": 3,
+          "polish": 3,
+          "justified": 3
+        },
+        "readability.grade-metric": {
+          "total": 3,
+          "polish": 3,
+          "justified": 3
+        },
+        "repetition.ngram-density": {
+          "total": 3,
+          "polish": 3,
+          "not_justified": 3
+        },
+        "repetition.sentence-openers": {
+          "total": 2,
+          "polish": 2,
+          "not_justified": 2
+        },
+        "filler.weak-intensifiers": {
+          "total": 1,
+          "polish": 1,
+          "justified": 1
+        },
+        "syntax.noun-stack": {
+          "total": 1,
+          "generate": 1,
+          "justified": 1
+        }
+      }
+    }
+  }
+}

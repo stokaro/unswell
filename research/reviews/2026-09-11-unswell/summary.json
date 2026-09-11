@@ -1,0 +1,70 @@
+{
+  "version": "unswell-review-summary-v1",
+  "subject": {
+    "repository": "stokaro/unswell",
+    "commit": "a1c6d7af67a89ab573997aba9cec7b51a09f4dbb",
+    "checkout": "local working copy, tracked files under the repository's own file selection",
+    "documents": 785
+  },
+  "tool": {
+    "commit": "a1c6d7af67a89ab573997aba9cec7b51a09f4dbb",
+    "command": "unswell check . --config <config> --no-gate --include-source --timeout 20m --jobs 4"
+  },
+  "runs": {
+    "all": {
+      "status": "complete",
+      "documents": 785,
+      "prose_words": {
+        "other": 7226,
+        "docs": 97772,
+        "go_test": 5885,
+        "go": 38274
+      },
+      "findings": 488,
+      "errors": [],
+      "rules": {
+        "readability.grade-metric": {
+          "total": 365,
+          "docs": 348,
+          "go": 11,
+          "go_test": 1,
+          "other": 5
+        },
+        "syntax.passive-candidate-density": {
+          "total": 73,
+          "docs": 67,
+          "go_test": 1,
+          "go": 5
+        },
+        "syntax.long-sentence": {
+          "total": 19,
+          "docs": 10,
+          "go": 1,
+          "go_test": 1,
+          "other": 7
+        },
+        "syntax.noun-stack": {
+          "total": 16,
+          "docs": 9,
+          "go_test": 2,
+          "go": 3,
+          "other": 2
+        },
+        "syntax.parenthetical-load": {
+          "total": 10,
+          "other": 6,
+          "docs": 3,
+          "go_test": 1
+        },
+        "repetition.sentence-openers": {
+          "total": 4,
+          "docs": 4
+        },
+        "readability.long-paragraph": {
+          "total": 1,
+          "docs": 1
+        }
+      }
+    }
+  }
+}
