@@ -81,6 +81,22 @@ type KindPrevalence struct {
 	Prevalence  float64 `json:"prevalence"`
 }
 
+// RolePrevalence is one rule on one cohort within one document role. The
+// counts follow the row's unit: documents in a document analysis, retained
+// units of the chosen kind in a unit analysis. The interval is the same
+// cluster bootstrap over the components that hold documents of the role.
+type RolePrevalence struct {
+	Role               string   `json:"role"`
+	Documents          int      `json:"documents"`
+	Components         int      `json:"components"`
+	Words              int      `json:"words"`
+	Findings           int      `json:"findings"`
+	Counted            int      `json:"counted"`
+	CountedWithFinding int      `json:"counted_with_finding"`
+	Prevalence         Estimate `json:"prevalence"`
+	PerThousandWords   *float64 `json:"per_thousand_words"`
+}
+
 // RuleCohort is one rule measured on one cohort. Counted is what the
 // prevalence divides: the applicable documents, or in a unit analysis the
 // retained units of the chosen kind inside them. Words and findings cover
@@ -98,6 +114,7 @@ type RuleCohort struct {
 	PerThousandWords     *float64         `json:"per_thousand_words"`
 	ZeroUpperBound       *float64         `json:"zero_upper_bound"`
 	Units                []KindPrevalence `json:"units"`
+	Roles                []RolePrevalence `json:"roles"`
 }
 
 // Contrast compares one cohort with the baseline for one rule.
@@ -535,7 +552,7 @@ func (f *frame) ruleTable(class corpus.RuleClass, baseline string, draws [][]int
 	table := RuleTable{RuleID: class.RuleID, Class: class.Class, Roles: class.Roles, Cohorts: []RuleCohort{}, Contrasts: []Contrast{}}
 	tallies := make(map[string][]counts, len(f.cohorts))
 	for _, cohort := range f.cohorts {
-		row, tally := f.cohortRow(class, cohort)
+		row, tally, roles := f.cohortRow(class, cohort)
 		tallies[cohort] = tally
 		for _, item := range tally {
 			row.Counted += item.counted
@@ -546,66 +563,130 @@ func (f *frame) ruleTable(class corpus.RuleClass, baseline string, draws [][]int
 			bound := zeroUpperBound(row.Components)
 			row.ZeroUpperBound = &bound
 		}
+		row.Roles = roleRows(roles, draws)
 		table.Cohorts = append(table.Cohorts, row)
 	}
 	table.Contrasts = contrasts(f.cohorts, baseline, tallies, draws, table.Cohorts)
 	return table
 }
 
-// cohortRow tallies one rule on one cohort per component and in total.
-func (f *frame) cohortRow(class corpus.RuleClass, cohort string) (RuleCohort, []counts) {
+// load is what one applicable document adds to a row or a role stratum.
+type load struct {
+	documents, words, findings, documentsWithFinding int
+}
+
+func (l *load) add(other load) {
+	l.documents += other.documents
+	l.words += other.words
+	l.findings += other.findings
+	l.documentsWithFinding += other.documentsWithFinding
+}
+
+// roleTally accumulates one role of one cohort per component.
+type roleTally struct {
+	load    load
+	tally   []counts
+	present []bool
+}
+
+// cohortRow tallies one rule on one cohort per component, in total, and per
+// document role.
+func (f *frame) cohortRow(class corpus.RuleClass, cohort string) (RuleCohort, []counts, map[string]*roleTally) {
 	tally := make([]counts, len(f.components))
-	row := RuleCohort{Cohort: cohort, Units: []KindPrevalence{}}
+	row := RuleCohort{Cohort: cohort, Units: []KindPrevalence{}, Roles: []RolePrevalence{}}
+	var total load
 	kinds := map[string]*KindPrevalence{}
+	roles := map[string]*roleTally{}
 	for i, item := range f.components {
 		present := false
 		for _, doc := range item.documents[cohort] {
-			if !slices.Contains(class.Roles, doc.role) || !f.tallyDocument(&row, &tally[i], doc, class.RuleID) {
+			if !slices.Contains(class.Roles, doc.role) {
+				continue
+			}
+			var added load
+			var count counts
+			if !f.tallyDocument(&added, &count, doc, class.RuleID) {
 				continue
 			}
 			present = true
+			total.add(added)
+			tally[i].counted += count.counted
+			tally[i].withFinding += count.withFinding
+			stratum, found := roles[doc.role]
+			if !found {
+				stratum = &roleTally{tally: make([]counts, len(f.components)), present: make([]bool, len(f.components))}
+				roles[doc.role] = stratum
+			}
+			stratum.load.add(added)
+			stratum.tally[i].counted += count.counted
+			stratum.tally[i].withFinding += count.withFinding
+			stratum.present[i] = true
 			tallyUnits(kinds, doc.units, class.RuleID)
 		}
 		if present {
 			row.Components++
 		}
 	}
+	row.Documents, row.Words, row.Findings, row.DocumentsWithFinding = total.documents, total.words, total.findings,
+		total.documentsWithFinding
 	row.PerThousandWords = perThousand(row.Findings, row.Words)
 	row.Units = sortedKinds(kinds)
-	return row, tally
+	return row, tally, roles
 }
 
-// tallyDocument adds one applicable document to a row and reports whether it
-// contributed. A document analysis counts the document; a unit analysis
+// roleRows turns the per-role tallies into sorted strata with the same
+// interval the cohort row carries.
+func roleRows(roles map[string]*roleTally, draws [][]int) []RolePrevalence {
+	result := make([]RolePrevalence, 0, len(roles))
+	for role, stratum := range roles {
+		item := RolePrevalence{Role: role, Documents: stratum.load.documents, Words: stratum.load.words,
+			Findings: stratum.load.findings}
+		for i, count := range stratum.tally {
+			item.Counted += count.counted
+			item.CountedWithFinding += count.withFinding
+			if stratum.present[i] {
+				item.Components++
+			}
+		}
+		item.Prevalence = intervalFor(draws, stratum.tally, nil, item.Components)
+		item.PerThousandWords = perThousand(item.Findings, item.Words)
+		result = append(result, item)
+	}
+	slices.SortFunc(result, func(a, b RolePrevalence) int { return strings.Compare(a.Role, b.Role) })
+	return result
+}
+
+// tallyDocument adds one applicable document to a load and reports whether
+// it contributed. A document analysis counts the document; a unit analysis
 // counts each retained unit, and a document without one contributes nothing.
-func (f *frame) tallyDocument(row *RuleCohort, tally *counts, doc document, rule string) bool {
+func (f *frame) tallyDocument(added *load, tally *counts, doc document, rule string) bool {
 	if f.options.UnitKind == "" {
 		tally.counted++
-		row.Documents++
-		row.Words += doc.words
-		row.Findings += doc.byRule[rule]
+		added.documents++
+		added.words += doc.words
+		added.findings += doc.byRule[rule]
 		if doc.byRule[rule] > 0 {
 			tally.withFinding++
-			row.DocumentsWithFinding++
+			added.documentsWithFinding++
 		}
 		return true
 	}
 	if len(doc.units) == 0 {
 		return false
 	}
-	row.Documents++
+	added.documents++
 	hit := false
 	for _, item := range doc.units {
 		tally.counted++
-		row.Words += item.words
-		row.Findings += item.byRule[rule]
+		added.words += item.words
+		added.findings += item.byRule[rule]
 		if item.byRule[rule] > 0 {
 			tally.withFinding++
 			hit = true
 		}
 	}
 	if hit {
-		row.DocumentsWithFinding++
+		added.documentsWithFinding++
 	}
 	return true
 }

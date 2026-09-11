@@ -82,3 +82,5 @@ that selection.
 - [September 11, 2026, periods](runs/2026-09-11-periods/README.md): five dated
   cohorts under one plan, with the placebo comparisons at the 2012 and 2016
   pseudo-boundaries and the H1 boundary of 2018.
+- [September 11, 2026, roles](runs/2026-09-11-roles/README.md): the tables of
+  the current measurement with a stratum per document role in every row.
