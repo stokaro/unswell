@@ -21,7 +21,7 @@ func TestAcquireCommandBuildsAShardFromACheckout(t *testing.T) {
 	c := qt.New(t)
 	checkout := t.TempDir()
 	for name, content := range map[string]string{
-		"LICENSE":          "MIT License\n",
+		"legal/LICENSE":    "MIT License\n",
 		"README.md":        "# Fixture\n\nThe cache retries a failed lookup after the delay expires.\n",
 		"docs/guide.md":    "# Guide\n\nThe cache retries a failed lookup after the delay expires.\n",
 		"main.go":          "// Package main starts the cache.\npackage main\n",
@@ -33,6 +33,13 @@ func TestAcquireCommandBuildsAShardFromACheckout(t *testing.T) {
 		c.Assert(os.MkdirAll(filepath.Dir(full), 0o750), qt.IsNil)
 		c.Assert(os.WriteFile(full, []byte(content), 0o600), qt.IsNil)
 	}
+	// The declared notice is a link into the checkout, as some repositories
+	// keep it; a linked document and a link that leaves the root are not read.
+	c.Assert(os.Symlink(filepath.Join("legal", "LICENSE"), filepath.Join(checkout, "LICENSE")), qt.IsNil)
+	c.Assert(os.Symlink(filepath.Join("docs", "guide.md"), filepath.Join(checkout, "docs", "linked.md")), qt.IsNil)
+	outside := filepath.Join(t.TempDir(), "outside.md")
+	c.Assert(os.WriteFile(outside, []byte("# Outside\n"), 0o600), qt.IsNil)
+	c.Assert(os.Symlink(outside, filepath.Join(checkout, "NOTICE")), qt.IsNil)
 	record := corpus.Acquisition{Version: corpus.AcquisitionVersion,
 		Manifest: corpus.AcquisitionHeader{ID: "shard-fixture", Seed: "unswell-research-v1",
 			Weights: corpus.Weights{Training: 5000, Development: 1500, Calibration: 1500, FinalTest: 2000},
@@ -60,6 +67,9 @@ func TestAcquireCommandBuildsAShardFromACheckout(t *testing.T) {
 		paths = append(paths, source.Path)
 	}
 	c.Assert(paths, qt.DeepEquals, []string{"README.md", "docs/guide.md", "main.go"})
+	c.Assert(result.Manifests[0].Sources[0].Notices, qt.HasLen, 1)
+	c.Assert(result.Manifests[0].Sources[0].Notices[0].Path, qt.Equals, "LICENSE")
+	c.Assert(result.Manifests[0].Sources[0].Notices[0].SHA256, qt.Equals, sha([]byte("MIT License\n")))
 	reasons := map[string]string{}
 	for _, item := range result.Excluded {
 		reasons[item.Path] = item.Reason
@@ -70,6 +80,11 @@ func TestAcquireCommandBuildsAShardFromACheckout(t *testing.T) {
 	c.Assert(reasons["docs/ja/guide.md"], qt.Equals, "translation_hint")
 	_, walked := reasons[".git/HEAD"]
 	c.Assert(walked, qt.IsFalse)
+	for _, link := range []string{"docs/linked.md", "NOTICE"} {
+		_, read := reasons[link]
+		c.Assert(read, qt.IsFalse, qt.Commentf("%s", link))
+		c.Assert(paths, qt.Not(qt.Contains), link)
+	}
 	// The manifest the command wrote plans and extracts with the ordinary commands.
 	manifest, err := json.Marshal(result.Manifests[0])
 	c.Assert(err, qt.IsNil)

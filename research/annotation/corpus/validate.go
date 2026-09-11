@@ -224,7 +224,7 @@ func (s Source) validateSnapshot() error {
 	}
 	// An undated source cannot represent any period; a controlled output must
 	// carry the generation provenance the origin contract already requires.
-	if snapshot.Cohort == "historical" && snapshot.Confidence == "unknown" {
+	if strings.HasPrefix(snapshot.Cohort, "historical") && snapshot.Confidence == "unknown" {
 		return fmt.Errorf("historical cohort membership requires a dated snapshot")
 	}
 	if snapshot.Cohort == "controlled" && slices.Contains([]string{"human", "unknown"}, s.Origin.Label) {
@@ -341,7 +341,12 @@ func roles() []string {
 		"string", "error_message", "log_message", "ui_text", "other_string", "unknown"}
 }
 
-func cohorts() []string { return []string{"historical", "controlled", "natural", "contemporary"} }
+// cohorts lists the protocol's cohorts. The dated historical periods are the
+// placebo pseudo-boundaries of December 31, 2012 and 2016 and the H1
+// sensitivity boundary of December 31, 2018; "historical" is H0.
+func cohorts() []string {
+	return []string{"historical", "historical-2012", "historical-2016", "historical-2018", "controlled", "natural", "contemporary"}
+}
 
 func dateConfidences() []string { return []string{"corroborated", "vcs_only", "unknown"} }
 

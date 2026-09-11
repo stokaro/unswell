@@ -23,7 +23,7 @@ only=
 contemporary_start=2022-11-30
 
 usage() {
-  printf 'Usage: bash scripts/acquire-corpus.sh [--sources FILE] [--cohort historical|contemporary] [--work DIR] [--output DIR] [--boundary YYYY-MM-DD] [--only NAME] [--dry-run]\n' >&2
+  printf 'Usage: bash scripts/acquire-corpus.sh [--sources FILE] [--cohort historical|historical-YYYY|contemporary] [--work DIR] [--output DIR] [--boundary YYYY-MM-DD] [--only NAME] [--dry-run]\n' >&2
 }
 
 while [[ $# -gt 0 ]]; do
@@ -70,10 +70,13 @@ for tool in git curl jq; do
   }
 done
 
-if [[ "$cohort" != historical && "$cohort" != contemporary ]]; then
-  printf 'cohort must be historical or contemporary\n' >&2
-  exit 2
-fi
+case "$cohort" in
+  historical | historical-2012 | historical-2016 | historical-2018 | contemporary) ;;
+  *)
+    printf 'cohort must be historical, historical-2012, historical-2016, historical-2018, or contemporary\n' >&2
+    exit 2
+    ;;
+esac
 if [[ -z "$output" ]]; then
   output=artifacts/acquisition/$cohort
 fi
@@ -167,6 +170,64 @@ publication_date() {
   esac
 }
 
+# graphql_tags prints one page of the repository's tags with their commit
+# dates, newest commit first, as tab-separated lines, followed by one line
+# "next <cursor>" when another page exists. It needs GITHUB_TOKEN.
+graphql_tags() {
+  local owner=$1 repo=$2 cursor=$3 query body
+  if [[ -z "${GITHUB_TOKEN:-}" ]]; then
+    return 0
+  fi
+  # The dollar signs are GraphQL variables, bound through the JSON body.
+  # shellcheck disable=SC2016
+  query='query($owner:String!, $name:String!, $cursor:String) { repository(owner:$owner, name:$name) {'
+  # shellcheck disable=SC2016
+  query+=' refs(refPrefix:"refs/tags/", first:100, after:$cursor, orderBy:{field:TAG_COMMIT_DATE, direction:DESC}) {'
+  query+=' pageInfo { hasNextPage endCursor } nodes { name target { __typename ... on Commit { committedDate }'
+  query+=' ... on Tag { target { ... on Commit { committedDate } } } } } } } }'
+  body=$(jq -n --arg q "$query" --arg owner "$owner" --arg name "$repo" --arg cursor "$cursor" \
+    '{query: $q, variables: {owner: $owner, name: $name, cursor: (if $cursor == "" then null else $cursor end)}}' |
+    curl --silent --fail --max-time 60 -H "Authorization: Bearer $GITHUB_TOKEN" -H 'User-Agent: unswell-research' \
+      -H 'Content-Type: application/json' --data @- https://api.github.com/graphql || true)
+  jq -r '.data.repository.refs as $r | ($r.nodes[] | [.name, (.target.committedDate // .target.target.committedDate // "")] | @tsv),
+    (if $r.pageInfo.hasNextPage then "next\t" + $r.pageInfo.endCursor else empty end)' <<<"$body" 2>/dev/null || true
+}
+
+# tag_before prints the newest release tag whose commit is dated on or before
+# the boundary, then a tab and its version. A release tag is an optional
+# prefix from the entry, an optional "v", and a dotted version. A PyPI-style
+# beta such as 18.9b0 counts only when the repository has no other release
+# tag before the boundary. The walk stops at the first match, because tags
+# arrive newest commit first.
+tag_before() {
+  local name=$1 prefix=$2 owner=${1%%/*} repo=${1##*/} cursor="" tag date stable="" beta="" listing
+  local pattern="^(${prefix})?v?([0-9]+(\.[0-9]+)+)$" beta_pattern="^(${prefix})?v?([0-9]+(\.[0-9]+)*b[0-9]+)$"
+  listing=$(mktemp)
+  for _ in 1 2 3 4 5 6 7 8 9 10; do
+    graphql_tags "$owner" "$repo" "$cursor" >"$listing"
+    cursor=""
+    while IFS=$'\t' read -r tag date; do
+      if [[ "$tag" == next ]]; then
+        cursor=$date
+        continue
+      fi
+      if [[ -z "$tag" || -z "$date" || "${date:0:10}" > "$boundary" ]]; then
+        continue
+      fi
+      if [[ -z "$stable" && "$tag" =~ $pattern ]]; then
+        stable=$tag$'\t'${BASH_REMATCH[2]}
+      elif [[ -z "$beta" && "$tag" =~ $beta_pattern ]]; then
+        beta=$tag$'\t'${BASH_REMATCH[2]}
+      fi
+    done <"$listing"
+    if [[ -n "$stable" || -z "$cursor" ]]; then
+      break
+    fi
+  done
+  rm -f "$listing"
+  printf '%s' "${stable:-$beta}"
+}
+
 # http_date_to_iso converts an HTTP date such as "Fri, 04 Oct 2019 18:55:00 GMT"
 # to YYYY-MM-DD, or prints nothing for any other input.
 http_date_to_iso() {
@@ -236,7 +297,9 @@ for ((i = 0; i < count; i++)); do
     continue
   fi
   # A source that names no tag takes the latest published release, resolved
-  # from the same record that dates it; the resolved tag is logged.
+  # from the same record that dates it; the resolved tag is logged. A source
+  # tagged "before" takes the newest release tag committed on or before the
+  # boundary, and its version corroborates it against the entry's registry.
   if [[ "$tag" == latest ]]; then
     body=$(fetch "https://api.github.com/repos/$name/releases/latest")
     tag=$(jq -r '.tag_name // empty' <<<"$body")
@@ -245,6 +308,18 @@ for ((i = 0; i < count; i++)); do
       printf 'no latest release: %s\n' "$name"
       continue
     fi
+  elif [[ "$tag" == before ]]; then
+    tag_prefix=$(jq -r '.registry.tag_prefix // empty' <<<"$entry")
+    resolved=$(tag_before "$name" "$tag_prefix")
+    tag=${resolved%%$'\t'*}
+    version=${resolved#*$'\t'}
+    if [[ -z "$tag" ]]; then
+      record_status "$name" no_release_before_boundary '{}'
+      printf 'no release tag before %s: %s\n' "$boundary" "$name"
+      continue
+    fi
+    entry=$(jq --arg v "$version" '.registry.version = $v' <<<"$entry")
+    printf 'resolved %s before %s: %s (version %s)\n' "$name" "$boundary" "$tag" "$version"
   fi
   if [[ ! -d "$checkout/.git" ]]; then
     if ! git clone --quiet --depth 1 --branch "$tag" "$url" "$checkout" 2>"$output/results/$slug.clone.log"; then
@@ -278,7 +353,7 @@ for ((i = 0; i < count; i++)); do
     evidence="commit $commit is dated $commit_date; no independent publication record was read"
   fi
   detail=$(jq -n --arg c "$commit" --arg d "$snapshot_date" --arg k "$confidence" --arg t "$tag" '{commit: $c, tag: $t, date: $d, confidence: $k}')
-  if [[ "$cohort" == historical && "$snapshot_date" > "$boundary" ]]; then
+  if [[ "$cohort" == historical* && "$snapshot_date" > "$boundary" ]]; then
     record_status "$name" outside_boundary "$detail"
     printf 'outside boundary: %s dated %s\n' "$name" "$snapshot_date"
     continue

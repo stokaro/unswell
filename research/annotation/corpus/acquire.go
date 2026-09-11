@@ -405,17 +405,20 @@ func hasMarker(data []byte, markers []string) bool {
 func sourceFor(record Acquisition, name string, data []byte, role string, format document.Format, notices []Notice) Source {
 	r := record.Repository
 	snapshot := r.Snapshot
-	return Source{ID: sourceID(r.Name, r.Commit, name), Path: name, SHA256: hashBytes(data), Bytes: len(data), Format: format,
+	return Source{ID: sourceID(r.Name, snapshot.Cohort, r.Commit, name), Path: name, SHA256: hashBytes(data), Bytes: len(data),
+		Format:        format,
 		ProseLanguage: "en", Repository: r.Name, Document: r.Name + "/" + name, Authors: []string{}, Templates: []string{},
 		Related: []string{}, GenerationTasks: []string{}, Reference: strings.TrimSuffix(r.Reference, "/") + "/" + name,
 		Topic: r.Topic, Purpose: r.Purpose, Role: role, Roles: []RoleRegion{}, Origin: r.Origin, Rights: r.Rights,
 		Notices: slices.Clone(notices), Snapshot: &snapshot}
 }
 
-// sourceID names one file of one snapshot; the commit keeps two snapshots of
-// the same repository, and so the same paths, apart in one dataset.
-func sourceID(repository, commit, name string) string {
-	sum := sha256.Sum256([]byte(repository + "\x00" + commit + "\x00" + name))
+// sourceID names one file of one snapshot. The commit keeps two snapshots
+// of the same repository, and so the same paths, apart in one dataset. The
+// cohort keeps two periods that resolve to the same release apart. An
+// unchanged later snapshot then enters its cohort as repeated text.
+func sourceID(repository, cohort, commit, name string) string {
+	sum := sha256.Sum256([]byte(repository + "\x00" + cohort + "\x00" + commit + "\x00" + name))
 	return fmt.Sprintf("%x", sum[:12])
 }
 

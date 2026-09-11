@@ -1,0 +1,51 @@
+# Experiment E1 measures every catalog rule under one pinned policy, including
+# the experimental rules the builtin profiles disable. Gates do not matter
+# here: a finding is counted, never judged. policy.banned-phrases carries no
+# phrase list in this branch and stays off.
+version: 1
+extends: [builtin:strict-v1]
+language: en
+extraction:
+  contexts: [comment, string, paragraph, heading, list-item, table-cell]
+calibration:
+  model: none
+rules:
+  density.connective-overuse: {enabled: true}
+  filler.announced-importance: {enabled: true}
+  filler.empty-transition: {enabled: true}
+  filler.modern-world-opening: {enabled: true}
+  filler.section-announcement: {enabled: true}
+  filler.stacked-hedging: {enabled: true}
+  filler.weak-intensifiers: {enabled: true}
+  filler.wordy-phrase: {enabled: true}
+  format.em-dash-density: {enabled: true}
+  format.list-fragmentation: {enabled: true}
+  hype.absolute-claim: {enabled: true}
+  hype.metaphor-cluster: {enabled: true}
+  hype.modifier-cluster: {enabled: true}
+  hype.vague-praise: {enabled: true}
+  readability.grade-metric: {enabled: true}
+  readability.long-paragraph: {enabled: true}
+  repetition.exact-sentence: {enabled: true}
+  repetition.heading-echo: {enabled: true}
+  repetition.near-sentence: {enabled: true}
+  repetition.ngram-density: {enabled: true}
+  repetition.paragraph-openers: {enabled: true}
+  repetition.paragraph-overlap: {enabled: true}
+  repetition.sentence-openers: {enabled: true}
+  repetition.summary-echo: {enabled: true}
+  repetition.syntax-template: {enabled: true}
+  scaffold.ai-self-reference: {enabled: true}
+  scaffold.chat-preamble: {enabled: true}
+  scaffold.dive-in: {enabled: true}
+  scaffold.follow-up-offer: {enabled: true}
+  syntax.long-sentence: {enabled: true}
+  syntax.nominalization-chain: {enabled: true}
+  syntax.not-only-density: {enabled: true}
+  syntax.noun-stack: {enabled: true}
+  syntax.paired-contrast-density: {enabled: true}
+  syntax.parenthetical-load: {enabled: true}
+  syntax.passive-candidate-density: {enabled: true}
+  syntax.rhetorical-question-density: {enabled: true}
+  syntax.triad-density: {enabled: true}
+  syntax.whether-preface-density: {enabled: true}
