@@ -74,6 +74,20 @@ satisfies no row in this table; the stages below record their state.
 | D. Confirmatory study | Open | Waits on stage C |
 | E. Evidence release | Open | Waits on stage D; the stage B records and their digests are published already |
 
+## Next stage: diagnostics on real texts
+
+[ADR 0037](adr/0037-diagnostics-not-authorship.md) names this stage and
+the [roadmap](roadmap.md) carries its table. The rows below record its
+state.
+
+| Item | State | Evidence |
+| --- | --- | --- |
+| Regression fixtures per rule | Met | `builtin/testdata/rewrites-v1.json` holds one pair for every builtin rule: a text that carries the construction and a rewrite that keeps its identifiers, numbers, and at least half of its words. `TestRewriteFixturesStopFiringAfterTheRewrite` in the root package asserts that the rule fires on the first and stays silent on the second in ordinary CI |
+| Role stratum | Open | The prevalence tables admit roles as a filter and carry no stratum |
+| Frequency command | Open | No command counts constructions per cohort and role |
+| Review on real texts | Open | No review record exists |
+| Sources beyond repositories | Open | The corpus holds GitHub repositories only |
+
 ## Stage 4: first product release
 
 | Requirement | State | Evidence |
