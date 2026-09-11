@@ -15,3 +15,8 @@ the construction it names.
 
 - [2026-09-11-ptah](2026-09-11-ptah/README.md): every rule on the Ptah
   repository, one reader, ten findings per rule.
+- [2026-09-11-responses](2026-09-11-responses/README.md): every rule on
+  the 800 controlled responses, one reader, every finding judged.
+- [2026-09-11-unswell](2026-09-11-unswell/README.md): every rule on this
+  repository under its own file selection, one reader, ten findings per
+  rule.

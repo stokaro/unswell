@@ -1,0 +1,88 @@
+version: 1
+extends: [builtin:technical]
+calibration:
+  model: none
+rules:
+  filler.empty-transition: {enabled: true}
+  filler.section-announcement: {enabled: true}
+  filler.stacked-hedging: {enabled: true}
+  filler.weak-intensifiers: {enabled: true}
+  format.em-dash-density: {enabled: true}
+  format.list-fragmentation: {enabled: true}
+  hype.absolute-claim: {enabled: true}
+  hype.metaphor-cluster: {enabled: true}
+  hype.vague-praise: {enabled: true}
+  readability.grade-metric: {enabled: true}
+  readability.long-paragraph: {enabled: true}
+  repetition.heading-echo: {enabled: true}
+  repetition.ngram-density: {enabled: true}
+  repetition.paragraph-overlap: {enabled: true}
+  repetition.summary-echo: {enabled: true}
+  repetition.syntax-template: {enabled: true}
+  syntax.nominalization-chain: {enabled: true}
+  syntax.noun-stack: {enabled: true}
+  syntax.paired-contrast-density: {enabled: true}
+  syntax.parenthetical-load: {enabled: true}
+  syntax.passive-candidate-density: {enabled: true}
+  syntax.rhetorical-question-density: {enabled: true}
+  syntax.triad-density: {enabled: true}
+  syntax.whether-preface-density: {enabled: true}
+analysis:
+  max_candidates: 2000000
+files:
+  include:
+    - "*.md"
+    - "docs/**/*.md"
+    - "e2e/**/*.md"
+    - "research/**/*.md"
+    - "**/*.go"
+    - "scripts/**/*.sh"
+    - "**/*.yaml"
+    - "**/*.yml"
+  exclude:
+    - ".git/**"
+    - "vendor/**"
+    - "licenses/**"
+    - "**/testdata/**"
+    - "artifacts/**"
+    - "dist/**"
+extraction:
+  exceptions:
+    - id: regression-inputs
+      paths: ["**/*_test.go"]
+      kinds: [string]
+      reason: "Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+    - id: measurement-corpus
+      paths: ["scripts/measure-performance.sh"]
+      kinds: [string]
+      reason: "The generator stores fixed sentences used as a measurement workload, not prose for readers."
+    - id: phrase-catalog
+      paths: ["builtin/phrase.go"]
+      kinds: [string]
+      symbols: [definitions]
+      reason: "The phrase catalog stores the wording that the rules must detect."
+    - id: rule-examples
+      paths: ["builtin/context.go", "builtin/repetition.go", "builtin/editorial_catalog.go", "builtin/repetition_catalog.go", "builtin/surface_catalog.go"]
+      kinds: [string]
+      symbols: [Text]
+      reason: "Executable rule examples contain both matching and nonmatching prose."
+    - id: editorial-pattern-vocabulary
+      paths: ["builtin/editorial_catalog.go"]
+      kinds: [string]
+      symbols: [Phrases]
+      reason: "Configured phrase lists contain the exact wording that the experimental rules must detect."
+    - id: shell-gate-fixture
+      paths: ["scripts/dogfood.sh", "scripts/check-containers.sh"]
+      kinds: [string]
+      symbols: [negative_prose]
+      reason: "The shell probe supplies a deliberate violation to verify the project policy."
+    - id: custom-policy-examples
+      paths: ["examples/rules/company.yaml"]
+      kinds: [string]
+      symbols: [values, fail]
+      reason: "The custom policy stores matcher phrases and deliberate failing examples."
+    - id: mcp-gate-fixtures
+      paths: ["mcp/internal/selfcheck/probes.go"]
+      kinds: [string]
+      symbols: [probes]
+      reason: "The MCP client sends deliberate violations and malformed source to verify server outcomes."
