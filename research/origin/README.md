@@ -53,3 +53,4 @@ written by a tool.
 | --- | --- | --- |
 | 2026-09-11 pilot | First fit on the pilot generation run of #154: 145 controlled paragraphs against the comment paragraphs of the nineteen task repositories, structural features, threshold frozen at 0.5 | [runs/2026-09-11-pilot](runs/2026-09-11-pilot/README.md) |
 | 2026-09-11 documentation | The same endpoints against the documentation, readme, and release-note paragraphs of the same repositories, so the negatives share the endpoints' format | [runs/2026-09-11-documentation](runs/2026-09-11-documentation/README.md) |
+| 2026-09-11 enlarged | The pilot's fit repeated after the second generation run: 132 training endpoints and 58 confirmation endpoints across 25 repositories, threshold frozen at 0.5 | [runs/2026-09-11-enlarged](runs/2026-09-11-enlarged/README.md) |
