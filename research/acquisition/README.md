@@ -47,3 +47,8 @@ twice is skipped and written to `failed-shards.json`. `--only SHARD` repeats
 one shard, and `--resume` continues a run that stopped, skipping shards
 that already have findings; a full run starts from empty outputs. An acquisition proves that exact bytes existed at a dated
 snapshot under a stated license. It proves nothing about who wrote them.
+
+After the tables, the driver counts paragraphs and sentences as units. For
+every cohort beside the baseline it writes a `corpus first-appearance`
+filter. It then builds the unit tables restricted to the units that the
+baseline snapshot of the same repository does not hold.

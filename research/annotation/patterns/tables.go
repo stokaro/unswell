@@ -24,9 +24,27 @@ const DefaultBaseline = "historical"
 // MaxInputs bounds the finding artifacts one analysis joins.
 const MaxInputs = 256
 
-// Options selects the baseline cohort of the contrasts.
+// Options selects the baseline cohort of the contrasts, what one count is,
+// and an optional first-appearance filter. An empty UnitKind counts
+// documents; a unit kind counts every retained unit of that kind inside the
+// applicable documents. FirstAppearance requires that kind and keeps, of its
+// later cohort, only the listed units.
 type Options struct {
-	Baseline string
+	Baseline        string
+	UnitKind        string
+	FirstAppearance *corpus.AppearanceFilter
+}
+
+// FirstAppearance records the filter an analysis applied to its later cohort.
+// Excluded units repeat earlier text or belong to a repository without an
+// earlier snapshot; they enter no table.
+type FirstAppearance struct {
+	Earlier   string   `json:"earlier"`
+	Later     string   `json:"later"`
+	Kind      string   `json:"kind"`
+	Kept      int      `json:"kept_units"`
+	Excluded  int      `json:"excluded_units"`
+	LaterOnly []string `json:"later_only_repositories"`
 }
 
 // Estimate is a point value with a cluster bootstrap interval over provenance
@@ -47,7 +65,10 @@ type KindPrevalence struct {
 	Prevalence  float64 `json:"prevalence"`
 }
 
-// RuleCohort is one rule measured on one cohort.
+// RuleCohort is one rule measured on one cohort. Counted is what the
+// prevalence divides: the applicable documents, or in a unit analysis the
+// retained units of the chosen kind inside them. Words and findings cover
+// the same set.
 type RuleCohort struct {
 	Cohort               string           `json:"cohort"`
 	Documents            int              `json:"documents"`
@@ -55,6 +76,8 @@ type RuleCohort struct {
 	Words                int              `json:"words"`
 	Findings             int              `json:"findings"`
 	DocumentsWithFinding int              `json:"documents_with_finding"`
+	Counted              int              `json:"counted"`
+	CountedWithFinding   int              `json:"counted_with_finding"`
 	Prevalence           Estimate         `json:"prevalence"`
 	PerThousandWords     *float64         `json:"per_thousand_words"`
 	ZeroUpperBound       *float64         `json:"zero_upper_bound"`
@@ -79,12 +102,15 @@ type RuleTable struct {
 }
 
 // CohortSummary is the whole-profile load of one cohort. Failed documents
-// are those whose policy run did not finish; they enter no table.
+// are those whose policy run did not finish; they enter no table. In a unit
+// analysis the units, words, and findings are those of the retained units,
+// and Excluded counts the units a first-appearance filter removed.
 type CohortSummary struct {
 	Cohort               string   `json:"cohort"`
 	Documents            int      `json:"documents"`
 	FailedDocuments      int      `json:"failed_documents"`
 	Units                int      `json:"units"`
+	Excluded             int      `json:"excluded_units"`
 	Words                int      `json:"words"`
 	Components           int      `json:"components"`
 	Findings             int      `json:"findings"`
@@ -99,40 +125,45 @@ type Input struct {
 	Units     int    `json:"units"`
 }
 
-// Tables is the complete E1 output. Documents without a cohort are counted
-// under Unassigned and enter no table.
+// Tables is the complete E1 output. Unit names what one count is: "document"
+// or a unit kind. Documents without a cohort are counted under Unassigned and
+// enter no table.
 type Tables struct {
-	Version     string                `json:"version"`
-	HumanCorpus string                `json:"human_corpus"`
-	Baseline    string                `json:"baseline"`
-	Policy      corpus.PolicyIdentity `json:"policy"`
-	Classes     string                `json:"rule_classes"`
-	Inputs      []Input               `json:"inputs"`
-	Cohorts     []CohortSummary       `json:"cohorts"`
-	Unassigned  int                   `json:"unassigned_documents"`
-	Rules       []RuleTable           `json:"rules"`
+	Version         string                `json:"version"`
+	HumanCorpus     string                `json:"human_corpus"`
+	Baseline        string                `json:"baseline"`
+	Unit            string                `json:"unit"`
+	FirstAppearance *FirstAppearance      `json:"first_appearance,omitempty"`
+	Policy          corpus.PolicyIdentity `json:"policy"`
+	Classes         string                `json:"rule_classes"`
+	Inputs          []Input               `json:"inputs"`
+	Cohorts         []CohortSummary       `json:"cohorts"`
+	Unassigned      int                   `json:"unassigned_documents"`
+	Rules           []RuleTable           `json:"rules"`
 }
 
 // Analyze joins finding artifacts measured under one policy and builds the
 // tables. The unit of independence is the provenance component; intervals
 // resample components jointly across cohorts.
 func Analyze(ctx context.Context, inputs []corpus.FindingsArtifact, classes corpus.RuleClasses, options Options) (Tables, error) {
-	if len(inputs) == 0 || len(inputs) > MaxInputs {
-		return Tables{}, fmt.Errorf("analysis requires 1 through %d finding artifacts", MaxInputs)
-	}
-	if options.Baseline == "" {
-		options.Baseline = DefaultBaseline
-	}
-	if err := classes.Cover(inputs[0].Policy.Rules); err != nil {
-		return Tables{}, err
-	}
-	frame, err := buildFrame(ctx, inputs, classes)
+	options, err := checkAnalysis(inputs, classes, options)
 	if err != nil {
 		return Tables{}, err
 	}
-	tables := Tables{Version: Version, HumanCorpus: "not_qualified", Baseline: options.Baseline, Policy: inputs[0].Policy,
-		Classes: fmt.Sprintf("%s revision %d", classes.Format, classes.Revision), Inputs: frame.inputs,
-		Unassigned: frame.unassigned}
+	frame, err := buildFrame(ctx, inputs, classes, options)
+	if err != nil {
+		return Tables{}, err
+	}
+	tables := Tables{Version: Version, HumanCorpus: "not_qualified", Baseline: options.Baseline, Unit: "document",
+		Policy: inputs[0].Policy, Classes: fmt.Sprintf("%s revision %d", classes.Format, classes.Revision),
+		Inputs: frame.inputs, Unassigned: frame.unassigned}
+	if options.UnitKind != "" {
+		tables.Unit = options.UnitKind
+	}
+	tables.FirstAppearance, err = frame.appearance()
+	if err != nil {
+		return Tables{}, err
+	}
 	tables.Cohorts = frame.summaries()
 	draws, err := drawComponents(ctx, len(frame.components))
 	if err != nil {
@@ -147,12 +178,54 @@ func Analyze(ctx context.Context, inputs []corpus.FindingsArtifact, classes corp
 	return tables, ctx.Err()
 }
 
+// checkAnalysis fills the default baseline and refuses inputs, classes, or
+// options an analysis cannot use.
+func checkAnalysis(inputs []corpus.FindingsArtifact, classes corpus.RuleClasses, options Options) (Options, error) {
+	if len(inputs) == 0 || len(inputs) > MaxInputs {
+		return options, fmt.Errorf("analysis requires 1 through %d finding artifacts", MaxInputs)
+	}
+	if options.Baseline == "" {
+		options.Baseline = DefaultBaseline
+	}
+	if err := checkOptions(options); err != nil {
+		return options, err
+	}
+	return options, classes.Cover(inputs[0].Policy.Rules)
+}
+
+func checkOptions(options Options) error {
+	filter := options.FirstAppearance
+	if filter == nil {
+		return nil
+	}
+	if options.UnitKind == "" || filter.Kind != options.UnitKind {
+		return fmt.Errorf("a first-appearance filter applies to a unit analysis of its own kind %q", filter.Kind)
+	}
+	if filter.Later == options.Baseline {
+		return fmt.Errorf("the first-appearance filter's later cohort cannot be the baseline")
+	}
+	if !strictlySorted(filter.New) {
+		return fmt.Errorf("the first-appearance filter lists a unit twice")
+	}
+	return nil
+}
+
+func strictlySorted(keys []string) bool {
+	for i := 1; i < len(keys); i++ {
+		if keys[i] <= keys[i-1] {
+			return false
+		}
+	}
+	return true
+}
+
 // component holds one provenance component's documents per cohort.
 type component struct {
 	id        string
 	documents map[string][]document
 }
 
+// document is one measured document with the units the analysis retained.
 type document struct {
 	role   string
 	words  int
@@ -163,26 +236,39 @@ type document struct {
 
 type unit struct {
 	kind   string
+	words  int
+	total  int
 	byRule map[string]int
 }
 
 type frame struct {
+	options    Options
+	keep       map[string]bool
+	matched    int
 	inputs     []Input
 	components []component
 	cohorts    []string
 	unassigned int
 	failedBy   map[string]int
 	unitsBy    map[string]int
+	excluded   map[string]int
 	byID       map[string]int
 	cohortSet  map[string]bool
 	known      map[string]bool
 }
 
-func buildFrame(ctx context.Context, inputs []corpus.FindingsArtifact, classes corpus.RuleClasses) (*frame, error) {
-	result := &frame{unitsBy: map[string]int{}, failedBy: map[string]int{}, byID: map[string]int{}, cohortSet: map[string]bool{},
-		known: map[string]bool{}}
+func buildFrame(ctx context.Context, inputs []corpus.FindingsArtifact, classes corpus.RuleClasses, options Options,
+) (*frame, error) {
+	result := &frame{options: options, unitsBy: map[string]int{}, failedBy: map[string]int{}, excluded: map[string]int{},
+		byID: map[string]int{}, cohortSet: map[string]bool{}, known: map[string]bool{}}
 	for _, class := range classes.Rules {
 		result.known[class.RuleID] = true
+	}
+	if options.FirstAppearance != nil {
+		result.keep = make(map[string]bool, len(options.FirstAppearance.New))
+		for _, key := range options.FirstAppearance.New {
+			result.keep[key] = true
+		}
 	}
 	for _, input := range inputs {
 		if err := ctx.Err(); err != nil {
@@ -207,8 +293,10 @@ func (f *frame) addInput(input corpus.FindingsArtifact) error {
 	f.inputs = append(f.inputs, Input{SHA256: input.SHA256, Documents: len(input.Documents), Units: len(input.Units)})
 	unitsBySource := map[string][]unit{}
 	for _, item := range input.Units {
-		unitsBySource[item.SourceID] = append(unitsBySource[item.SourceID], unitRecord(item))
 		f.unitsBy[item.Cohort]++
+		if record, retained := f.retain(item); retained {
+			unitsBySource[item.SourceID] = append(unitsBySource[item.SourceID], record)
+		}
 	}
 	for _, doc := range input.Documents {
 		for rule := range doc.ByRule {
@@ -231,6 +319,42 @@ func (f *frame) addInput(input corpus.FindingsArtifact) error {
 		f.components[index].documents[doc.Cohort] = append(f.components[index].documents[doc.Cohort], record)
 	}
 	return nil
+}
+
+// retain decides whether a unit enters the analysis. A document analysis
+// keeps every unit for the per-kind breakdown. A unit analysis keeps the
+// chosen kind and, under a first-appearance filter, only the later cohort's
+// listed units.
+func (f *frame) retain(item corpus.UnitFindings) (unit, bool) {
+	if f.options.UnitKind != "" && item.Kind != f.options.UnitKind {
+		return unit{}, false
+	}
+	if f.keep != nil && item.Cohort == f.options.FirstAppearance.Later {
+		if !f.keep[corpus.UnitKey(item.SourceID, item.UnitID)] {
+			f.excluded[item.Cohort]++
+			return unit{}, false
+		}
+		f.matched++
+	}
+	return unitRecord(item), true
+}
+
+// appearance checks that the filter's cohorts are present and that every
+// listed unit was found exactly once, so a filter built from other artifacts
+// cannot silently pass.
+func (f *frame) appearance() (*FirstAppearance, error) {
+	filter := f.options.FirstAppearance
+	if filter == nil {
+		return nil, nil
+	}
+	if !f.cohortSet[filter.Earlier] || !f.cohortSet[filter.Later] {
+		return nil, fmt.Errorf("the first-appearance filter names cohorts absent from the inputs")
+	}
+	if f.matched != len(f.keep) {
+		return nil, fmt.Errorf("the first-appearance filter lists %d units but the inputs matched %d", len(f.keep), f.matched)
+	}
+	return &FirstAppearance{Earlier: filter.Earlier, Later: filter.Later, Kind: filter.Kind, Kept: f.matched,
+		Excluded: f.excluded[filter.Later], LaterOnly: slices.Clone(filter.LaterOnly)}, nil
 }
 
 func (f *frame) componentIndex(group string) int {
@@ -258,32 +382,58 @@ func unitRecord(item corpus.UnitFindings) unit {
 	for _, finding := range item.Findings {
 		counts[finding.RuleID]++
 	}
-	return unit{kind: item.Kind, byRule: counts}
+	return unit{kind: item.Kind, words: item.Words, total: len(item.Findings), byRule: counts}
 }
 
 func (f *frame) summaries() []CohortSummary {
 	result := make([]CohortSummary, 0, len(f.cohorts))
 	for _, cohort := range f.cohorts {
-		summary := CohortSummary{Cohort: cohort, Units: f.unitsBy[cohort], FailedDocuments: f.failedBy[cohort]}
+		summary := CohortSummary{Cohort: cohort, FailedDocuments: f.failedBy[cohort], Excluded: f.excluded[cohort]}
+		if f.options.UnitKind == "" {
+			summary.Units = f.unitsBy[cohort]
+		}
 		for _, item := range f.components {
-			docs := item.documents[cohort]
-			if len(docs) == 0 {
-				continue
+			present := false
+			for _, doc := range item.documents[cohort] {
+				present = f.load(&summary, doc) || present
 			}
-			summary.Components++
-			for _, doc := range docs {
-				summary.Documents++
-				summary.Words += doc.words
-				summary.Findings += doc.total
-				if doc.total > 0 {
-					summary.DocumentsWithFinding++
-				}
+			if present {
+				summary.Components++
 			}
 		}
 		summary.PerThousandWords = perThousand(summary.Findings, summary.Words)
 		result = append(result, summary)
 	}
 	return result
+}
+
+// load adds one measured document to a cohort summary and reports whether it
+// held anything to count. A unit analysis counts only retained units.
+func (f *frame) load(summary *CohortSummary, doc document) bool {
+	if f.options.UnitKind == "" {
+		summary.Documents++
+		summary.Words += doc.words
+		summary.Findings += doc.total
+		if doc.total > 0 {
+			summary.DocumentsWithFinding++
+		}
+		return true
+	}
+	if len(doc.units) == 0 {
+		return false
+	}
+	summary.Documents++
+	hit := false
+	for _, item := range doc.units {
+		summary.Units++
+		summary.Words += item.words
+		summary.Findings += item.total
+		hit = hit || item.total > 0
+	}
+	if hit {
+		summary.DocumentsWithFinding++
+	}
+	return true
 }
 
 func perThousand(findings, words int) *float64 {
@@ -294,9 +444,10 @@ func perThousand(findings, words int) *float64 {
 	return &value
 }
 
-// counts holds one rule's applicable-document tallies of one component.
+// counts holds one rule's tallies of one component: what was counted and
+// how much of it carried a finding.
 type counts struct {
-	documents, withFinding int
+	counted, withFinding int
 }
 
 func (f *frame) ruleTable(class corpus.RuleClass, baseline string, draws [][]int) RuleTable {
@@ -305,6 +456,10 @@ func (f *frame) ruleTable(class corpus.RuleClass, baseline string, draws [][]int
 	for _, cohort := range f.cohorts {
 		row, tally := f.cohortRow(class, cohort)
 		tallies[cohort] = tally
+		for _, item := range tally {
+			row.Counted += item.counted
+			row.CountedWithFinding += item.withFinding
+		}
 		row.Prevalence = intervalFor(draws, tally, nil, row.Components)
 		if row.Findings == 0 && row.Components > 0 {
 			bound := zeroUpperBound(row.Components)
@@ -324,18 +479,10 @@ func (f *frame) cohortRow(class corpus.RuleClass, cohort string) (RuleCohort, []
 	for i, item := range f.components {
 		present := false
 		for _, doc := range item.documents[cohort] {
-			if !slices.Contains(class.Roles, doc.role) {
+			if !slices.Contains(class.Roles, doc.role) || !f.tallyDocument(&row, &tally[i], doc, class.RuleID) {
 				continue
 			}
 			present = true
-			tally[i].documents++
-			row.Documents++
-			row.Words += doc.words
-			row.Findings += doc.byRule[class.RuleID]
-			if doc.byRule[class.RuleID] > 0 {
-				tally[i].withFinding++
-				row.DocumentsWithFinding++
-			}
 			tallyUnits(kinds, doc.units, class.RuleID)
 		}
 		if present {
@@ -345,6 +492,41 @@ func (f *frame) cohortRow(class corpus.RuleClass, cohort string) (RuleCohort, []
 	row.PerThousandWords = perThousand(row.Findings, row.Words)
 	row.Units = sortedKinds(kinds)
 	return row, tally
+}
+
+// tallyDocument adds one applicable document to a row and reports whether it
+// contributed. A document analysis counts the document; a unit analysis
+// counts each retained unit, and a document without one contributes nothing.
+func (f *frame) tallyDocument(row *RuleCohort, tally *counts, doc document, rule string) bool {
+	if f.options.UnitKind == "" {
+		tally.counted++
+		row.Documents++
+		row.Words += doc.words
+		row.Findings += doc.byRule[rule]
+		if doc.byRule[rule] > 0 {
+			tally.withFinding++
+			row.DocumentsWithFinding++
+		}
+		return true
+	}
+	if len(doc.units) == 0 {
+		return false
+	}
+	row.Documents++
+	hit := false
+	for _, item := range doc.units {
+		tally.counted++
+		row.Words += item.words
+		row.Findings += item.byRule[rule]
+		if item.byRule[rule] > 0 {
+			tally.withFinding++
+			hit = true
+		}
+	}
+	if hit {
+		row.DocumentsWithFinding++
+	}
+	return true
 }
 
 func tallyUnits(kinds map[string]*KindPrevalence, units []unit, rule string) {

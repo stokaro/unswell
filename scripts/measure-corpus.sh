@@ -204,3 +204,42 @@ for findings in "$output/findings"/*.json; do
 done
 "$corpus_tool" analyze --classes "$classes" "${findings_args[@]}" >"$output/tables.json"
 printf 'tables: %s\n' "$output/tables.json"
+
+# The unit analyses count paragraphs and sentences, not documents. For each
+# cohort beside the baseline, a first-appearance filter drops the units whose
+# text the baseline snapshot of the same repository already holds. The
+# filtered tables then count text at its first evidenced appearance. Only
+# shards with findings enter a filter: the analysis checks that every listed
+# unit was measured.
+baseline=historical
+candidate_args() {
+  local side=$1 cohort=$2 pinned name
+  for pinned in "$output/pinned/$cohort"/shards/*.json; do
+    name=$(basename "$pinned" .json)
+    if [[ -s "$output/candidates/$name.json" && -s "$output/findings/$name.json" ]]; then
+      printf -- '--%s\n%s\n' "$side" "$output/candidates/$name.json"
+    fi
+  done
+}
+for kind in paragraph sentence; do
+  "$corpus_tool" analyze --classes "$classes" "${findings_args[@]}" --unit-kind "$kind" >"$output/tables-$kind.json"
+  printf 'tables: %s\n' "$output/tables-$kind.json"
+  if [[ ! -d "$output/pinned/$baseline" ]]; then continue; fi
+  for cohort_dir in "$output/pinned"/*/; do
+    cohort=$(basename "$cohort_dir")
+    if [[ "$cohort" == "$baseline" ]]; then continue; fi
+    appearance_args=()
+    candidate_args earlier "$baseline" >"$output/appearance-args.txt"
+    candidate_args later "$cohort" >>"$output/appearance-args.txt"
+    while IFS= read -r line; do appearance_args+=("$line"); done <"$output/appearance-args.txt"
+    rm -f "$output/appearance-args.txt"
+    filter=$output/first-appearance-$cohort-$kind.json
+    "$corpus_tool" first-appearance --unit-kind "$kind" "${appearance_args[@]}" >"$filter"
+    "$corpus_tool" analyze --classes "$classes" "${findings_args[@]}" --unit-kind "$kind" --first-appearance "$filter" \
+      >"$output/tables-first-appearance-$cohort-$kind.json"
+    new_units=$(jq '.new_units' "$filter")
+    later_units=$(jq '.later_units' "$filter")
+    printf 'first appearance: %s new of %s %s units in %s; tables: %s\n' "$new_units" "$later_units" "$kind" "$cohort" \
+      "$output/tables-first-appearance-$cohort-$kind.json"
+  done
+done

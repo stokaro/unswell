@@ -39,7 +39,7 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 	if len(args) == 0 {
 		return fmt.Errorf("usage: corpus" +
 			" {acquire|plan|extract|verify|join|measure|analyze|train|predict|evaluate|compare|reference-bank|pack|figures" +
-			"|dataset|duplicates} [options] < artifact.json")
+			"|dataset|duplicates|first-appearance} [options] < artifact.json")
 	}
 	if command := dedicated(args[0]); command != nil {
 		return command(ctx, args, input, output)
@@ -64,27 +64,12 @@ func run(ctx context.Context, args []string, input io.Reader, output io.Writer) 
 
 // dedicated returns the commands that own their own flags and input handling.
 func dedicated(name string) func(context.Context, []string, io.Reader, io.Writer) error {
-	switch name {
-	case "pack":
-		return runPack
-	case "reference-bank":
-		return runCompressionBank
-	case "compare":
-		return runComparison
-	case "predict", "evaluate":
-		return runEvaluation
-	case "figures":
-		return runFigures
-	case "dataset":
-		return runDataset
-	case "duplicates":
-		return runDuplicates
-	case "analyze":
-		return runAnalyze
-	case "acquire":
-		return runAcquire
+	commands := map[string]func(context.Context, []string, io.Reader, io.Writer) error{
+		"pack": runPack, "reference-bank": runCompressionBank, "compare": runComparison, "predict": runEvaluation,
+		"evaluate": runEvaluation, "figures": runFigures, "dataset": runDataset, "duplicates": runDuplicates,
+		"analyze": runAnalyze, "acquire": runAcquire, "first-appearance": runFirstAppearance,
 	}
-	return nil
+	return commands[name]
 }
 
 // outputLimit bounds each command's serialized result.
