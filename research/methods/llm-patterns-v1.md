@@ -512,3 +512,28 @@ Changed fields:
 Partitions viewed at the time: the E1 tables of stage B report every
 partition in aggregate, and no confirmatory hypothesis list is frozen yet.
 No threshold or minimum moves with this amendment.
+
+### Amendment 2, September 11, 2026
+
+Document version 1.2. The identifier stays. Reason: the first document
+sets outside repositories, three sets of RFC texts, entered the historical
+cohort, and two limits showed. Their texts carried the documentation role,
+so a specification pooled with repository documentation in every stratum.
+And the four texts of 26,000 words or more exhausted the default candidate
+budget of the frozen E1 policy on the em-dash rule and failed whole.
+
+Changed fields:
+
+- Roles. The corpus admits a `specification` role. An acquisition record
+  declares it for its documentation files through `document_role`; README
+  files and change logs keep their roles. Revision 2 of the rule classes
+  admits the role beside documentation in every rule that admits
+  documentation, and no class changes.
+- Policy. `policy-e1.yaml` sets `analysis.max_candidates` to 2,000,000, the
+  value the Ptah review used to complete a scan. Every finding artifact
+  carries the policy identity, so the tables after this amendment come
+  from one full measurement under the amended policy, never from a mix.
+
+The partitions viewed at this time are the ones Amendment 1 named:
+aggregate E1 tables and no frozen confirmatory list. This amendment moves
+no threshold and no minimum.

@@ -10,7 +10,7 @@
         rights: {license: $license, evidence: "Retained notice LICENSE compiled from the copyright sections of the texts", allowed_uses: ["annotation", "evaluation", "training"]},
         notices: ["LICENSE"],
         snapshot: {date: $date, confidence: "corroborated", evidence: $evidence, cohort: $cohort}},
-      selection: {max_sources: 400, shard_sources: 1, shard_bytes: 1048576, max_source_bytes: 1048576, document_roots: [],
+      selection: {max_sources: 400, shard_sources: 1, shard_bytes: 1048576, max_source_bytes: 1048576, document_roots: [], document_role: "specification",
         source_extensions: [],
         excluded_segments: $segments, excluded_basenames: $basenames, generated_markers: $markers, translation_hints: $hints}
     }

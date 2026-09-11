@@ -247,3 +247,23 @@ func TestAcquisitionSplitsARepositoryIntoNumberedShards(t *testing.T) {
 	}
 	c.Assert(total, qt.Equals, 4)
 }
+
+func TestAcquireDeclaredDocumentRole(t *testing.T) {
+	c := qt.New(t)
+	record := acquisitionRecord()
+	record.Selection.DocumentRole = "specification"
+	loaded, err := corpus.LoadAcquisition(t.Context(), encoded(c, record))
+	c.Assert(err, qt.IsNil)
+	result, err := corpus.Acquire(t.Context(), loaded, checkout())
+	c.Assert(err, qt.IsNil)
+	roles := map[string]string{}
+	for _, source := range result.Manifests[0].Sources {
+		roles[source.Path] = source.Role
+	}
+	// The declared role replaces documentation only; README, change logs, and code keep theirs.
+	c.Assert(roles, qt.DeepEquals, map[string]string{"README.md": "readme", "CHANGELOG.md": "release_note",
+		"docs/guide.md": "specification", "main.go": "comment"})
+	record.Selection.DocumentRole = "poem"
+	_, err = corpus.LoadAcquisition(t.Context(), encoded(c, record))
+	c.Assert(err, qt.ErrorMatches, ".*unknown document role.*")
+}

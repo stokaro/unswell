@@ -5,6 +5,11 @@
 version: 1
 extends: [builtin:strict-v1]
 language: en
+# Amendment 2 of the protocol, September 11, 2026: the candidate budget rises
+# from the default of 100,000 so a text of 26,000 words or more is measured
+# instead of failing whole.
+analysis:
+  max_candidates: 2000000
 extraction:
   contexts: [comment, string, paragraph, heading, list-item, table-cell]
 calibration:
