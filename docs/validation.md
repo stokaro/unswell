@@ -27,9 +27,9 @@ and are left out of the totals. The gate fails when an area misses its target.
 | Source mapping | `extract`, `document`, `internal/mapping` | 90% |
 | Overall | every measured package in every module | 85% |
 
-The measurement on `82c26019` reached 91.9% for engine and scoring, 92.7% for
-rules, 91.9% for configuration, 91.1% for source mapping, and 86.6% across every
-measured package in every module.
+The measurement on `8456194c` reached 91.9% for engine and scoring, 92.7% for
+rules, 91.9% for configuration, 91.2% for source mapping, and 87.1% across the
+48 measured packages in every module.
 
 The targets come from the September 7, 2026 specification through
 [#27](https://github.com/stokaro/unswell/issues/27). Nothing is excluded to reach
@@ -90,9 +90,17 @@ The campaign then ran again on `82c26019` with Go 1.27.1 on darwin/arm64. Every
 one of the 15 targets fuzzed for 300 seconds with two workers, 4,545 seconds in
 total, and found nothing further.
 
-Coverage meets the targets. [`validation/coverage.json`](validation/coverage.json)
-records the measured areas, every measured package, and the commit, compiler and
-platform the measurement used. `make cover` regenerates it as
+The final campaign ran on `8456194c`, the commit that restores the checks on
+top of every other roadmap item, with Go 1.27.1 on darwin/arm64. Race detection
+found no data race across the 37 packages that have tests in the runtime and
+consumer modules, in 1,049 seconds of test time; the root package alone took
+353 seconds under instrumentation. Every one of the 15 fuzz
+targets fuzzed for 300 seconds with two workers, 4,541 seconds in total, and
+found nothing. Coverage met every target.
+
+[`validation/coverage.json`](validation/coverage.json) records the measured
+areas, every measured package, and the commit, compiler and platform the
+measurement used. `make cover` regenerates it as
 `artifacts/coverage/summary.json`, and every CI run uploads that directory with
 the raw profiles. [`validation/fuzz-campaign.json`](validation/fuzz-campaign.json)
 records each fuzz target and the time it ran.

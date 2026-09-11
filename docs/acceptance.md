@@ -29,7 +29,7 @@ Each row uses one of three states.
 | Reports | Met | [reports](reports.md), [SARIF](sarif.md) and the end-to-end format checks on the three native platforms |
 | Operational behavior | Met | Cancellation, byte and block limits, empty input and failed-output tests in `extract`, `internal/cli` and the root package |
 | Determinism and ownership | Met | Root package tests for reordered inputs, worker counts and concurrent calls |
-| Project quality | Partly met | `make check`, the repository policy tests and their negative cases; race detection, active fuzzing and coverage collection stay deferred to [#123](https://github.com/stokaro/unswell/issues/123), the last roadmap item |
+| Project quality | Met | `make check`, the repository policy tests and their negative cases; race detection, active fuzzing and coverage collection run in CI again, with the campaign recorded in [validation](validation.md) for [#123](https://github.com/stokaro/unswell/issues/123) |
 | Native platforms and release | Met | The three native CI jobs, the [release audit](release/v0.1.0-alpha.1-audit.json) and [reproducible builds](reproducible-builds.md) |
 | Dogfooding | Met | The built CLI checks the repository's own Markdown, Go and Bash in every CI run; the MCP self-check compares the same evidence |
 
@@ -79,13 +79,13 @@ satisfies no row in this table; the stages below record their state.
 | Requirement | State | Evidence |
 | --- | --- | --- |
 | Stable rule qualification against a real corpus | Open | Needs the labeled corpus; the alpha claims no precision figure |
-| Coverage and failure-path targets | Partly met | Failure-path tests and the [measurement recorded on #27](https://github.com/stokaro/unswell/issues/27): configuration 91.9%, engine and scoring 91.9%, rules 92.7%, source mapping 90.9%, 86.7% overall; the CI gate that enforces them is deferred to #123 |
+| Coverage and failure-path targets | Met | Failure-path tests and the gate in [validation](validation.md): configuration 91.9%, engine and scoring 91.9%, rules 92.7%, source mapping 91.2%, 87.1% overall on `8456194c`; `make check` and CI fail when an area misses its target |
 | Reproducible performance and resource limits | Met | [scan cost](performance.md) and its [measurement](performance/linux-amd64-2vcpu-512mib.json) |
 | SARIF consumers, reproducible releases and formats | Met | [SARIF](sarif.md), [reproducible builds](reproducible-builds.md), the [release audit](release/v0.1.0-alpha.1-audit.json) and the format checks in [reports](reports.md) |
 | Documentation set | Met | [configuration](configuration.md), [custom rules](custom-rules.md), [API policy](public_api.md), [MCP](mcp.md), [containers](containers.md), [research](research.md), [editorial annotation](editorial-annotation.md), [training and evaluation](training.md), [reports](reports.md) and [installation](installation.md) |
 | Release inventory and notices | Met | [SBOM and notices](sbom.md) and the [release audit](release/v0.1.0-alpha.1-audit.json) |
 | Acceptance audit | Met | This page, kept current with the [roadmap](roadmap.md) |
-| Race detection, active fuzzing and coverage in CI | Open | Deferred by design to [#123](https://github.com/stokaro/unswell/issues/123), which runs after every other issue has a recorded disposition |
+| Race detection, active fuzzing and coverage in CI | Met | Restored as the last roadmap item, [#123](https://github.com/stokaro/unswell/issues/123), after every other issue received a disposition; [validation](validation.md) records the campaign and the policy tests reject a workflow without the steps |
 
 ## What this alpha does not claim
 
