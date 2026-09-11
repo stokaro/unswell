@@ -1,0 +1,2321 @@
+{
+  "version": "unswell-research-evaluation-v5",
+  "sha256": "855a70e9923287ad4f8cbba116638049756c3eccbb8f045f99f65e872fac2104",
+  "status": "experimental_metrics",
+  "human_corpus": "not_qualified",
+  "probability_status": "unavailable_unqualified_model",
+  "basis": "declared_provenance",
+  "training_basis": "declared_provenance",
+  "predictions_sha256": "b555c91fcc2b4a1fbc0f1137a99637a017bbaa7c63666ac55b2fd35ca771589c",
+  "plan_sha256": "99070be2175bf15c99b3b9fea8a81e9d2ff4ded369c3b376226cd6bf8335ac5b",
+  "plan": {
+    "version": "unswell-research-predictions-v2",
+    "id": "e3-pilot-v1-rules-all-development",
+    "protocol_sha256": "04dba5e3b802188cef316d530f23253ca809ab503cab3d8fc900c71028ea8b41",
+    "model_sha256": "24e6b27882d7e88387b54ba7f1dede213fa06a3433dff983a06bbb6172a2edef",
+    "corpus_sha256": "4df8adaf3f48de223f8cbd2acf988f5762f420db4557564dec7fc9bd5cf9ca4a",
+    "partition": "development",
+    "context": "source_document",
+    "response": "isotonic",
+    "threshold": 0.5
+  },
+  "identity": {
+    "feature_source": "rule_activations",
+    "context": "source_document",
+    "activation_contract": "unswell-rule-activations-v1",
+    "ruleset_hash": "554c01192fd28df96bb54294c764e031d3cefebee311ef2c50cde1919ad1a7c7",
+    "rule_config_sha256": "ce1b05d35eb30e1f3484ca62d0f52a1fc60ff3c283c9c37047169711278608dc",
+    "preprocessing": "extracted-provider-tokens-v1",
+    "task": "cohort_membership",
+    "rubric": "unswell-cohort-membership-v1",
+    "profile_sha256": "abed75206e954218ac8da79e87362fa018b6c74f7f4a9971d849b7593c39c6f2",
+    "kind": "paragraph",
+    "feature_contract": "unswell-block-features-v1",
+    "unit_contract": "mapped-block-v1",
+    "columns": [
+      {
+        "ID": "activation/density.connective-overuse",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/filler.announced-importance",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/filler.empty-transition",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/filler.modern-world-opening",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/filler.section-announcement",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/filler.stacked-hedging",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/filler.weak-intensifiers",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/filler.wordy-phrase",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/format.em-dash-density",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/format.list-fragmentation",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/hype.absolute-claim",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/hype.metaphor-cluster",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/hype.modifier-cluster",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/hype.vague-praise",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/readability.grade-metric",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/readability.long-paragraph",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/repetition.exact-sentence",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/repetition.heading-echo",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/repetition.near-sentence",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/repetition.ngram-density",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/repetition.paragraph-openers",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/repetition.paragraph-overlap",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/repetition.sentence-openers",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/repetition.summary-echo",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/repetition.syntax-template",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/scaffold.ai-self-reference",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/scaffold.chat-preamble",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/scaffold.dive-in",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/scaffold.follow-up-offer",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/syntax.long-sentence",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/syntax.nominalization-chain",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/syntax.not-only-density",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/syntax.noun-stack",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/syntax.paired-contrast-density",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/syntax.parenthetical-load",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/syntax.passive-candidate-density",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/syntax.rhetorical-question-density",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/syntax.triad-density",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences",
+          "pos"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      },
+      {
+        "ID": "activation/syntax.whether-preface-density",
+        "Version": "1",
+        "Family": "rule-activation",
+        "Type": "number",
+        "Unit": "ratio",
+        "Scope": "block",
+        "Formula": "Maximum raw evidence activation among this rule's occurrences in the block, divided by 1000.",
+        "Normalization": "Uses the existing fixed-point evidence; no weights, caps, suppressions, or derived findings.",
+        "Limitations": "A policy-dependent signal, not a probability or a quality label. Rule capabilities and versions remain required.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Disabled, incomplete, inapplicable, unobserved, or unreached evaluation never establishes zero."
+      }
+    ],
+    "columns_sha256": "43929a131e2e5c5a87ccab0a60b8aeef38562b4206bc867d2ba09c76bad29f79",
+    "nlp": {
+      "name": "builtin-en",
+      "version": "prose-v3.2.1/chunks-v1",
+      "model": "prose/aptagmodel/en.bin",
+      "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+      "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+      "license": "MIT",
+      "capabilities": [
+        "tokens",
+        "sentences",
+        "pos",
+        "chunks"
+      ]
+    },
+    "capabilities": [
+      "chunks",
+      "pos",
+      "sentences",
+      "tokens"
+    ],
+    "policy_hash": "928269cf6586a4a22ed563c380783e6228589eadd2d15a377ca81a4f2369a56d",
+    "vocabulary_hash": "928269cf6586a4a22ed563c380783e6228589eadd2d15a377ca81a4f2369a56d",
+    "extraction_policy_hash": "",
+    "preparation_hash": "",
+    "include_quotes": false,
+    "include_structure": true
+  },
+  "decisions_sha256": "7eadad645a74909d19aef74180171d27d96f62ff80ce4e0dea637281bbf6764c",
+  "round_sha256": "4df8adaf3f48de223f8cbd2acf988f5762f420db4557564dec7fc9bd5cf9ca4a",
+  "candidates": 18,
+  "excluded_labels": {},
+  "training_constant": 0.4516380655226209,
+  "summary": {
+    "micro": {
+      "counts": {
+        "eligible": 18,
+        "covered": 18,
+        "groups": 1,
+        "true_positive": 0,
+        "false_positive": 18,
+        "true_negative": 0,
+        "false_negative": 0,
+        "abstained_positive": 0,
+        "abstained_negative": 0
+      },
+      "coverage": 1,
+      "precision": 0,
+      "recall": null,
+      "false_positive_rate": 1,
+      "full_flow_recall": null,
+      "brier": 0.4453865627693191,
+      "training_constant_brier": 0.20397694222901522,
+      "ece": 0.6673728813559324,
+      "reliability": [
+        {
+          "lower": 0,
+          "upper": 0.1,
+          "count": 0,
+          "mean_response": null,
+          "positive_rate": null
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "count": 0,
+          "mean_response": null,
+          "positive_rate": null
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 0,
+          "mean_response": null,
+          "positive_rate": null
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 0,
+          "mean_response": null,
+          "positive_rate": null
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 0,
+          "mean_response": null,
+          "positive_rate": null
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "count": 0,
+          "mean_response": null,
+          "positive_rate": null
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "count": 18,
+          "mean_response": 0.6673728813559324,
+          "positive_rate": 0
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "count": 0,
+          "mean_response": null,
+          "positive_rate": null
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "count": 0,
+          "mean_response": null,
+          "positive_rate": null
+        },
+        {
+          "lower": 0.9,
+          "upper": 1,
+          "count": 0,
+          "mean_response": null,
+          "positive_rate": null
+        }
+      ],
+      "risk_coverage": [
+        {
+          "coverage": 1,
+          "accepted": 18,
+          "errors": 18,
+          "risk": 1,
+          "minimum_confidence": 0.6673728813559322
+        }
+      ],
+      "recall_at_false_positive_limits": [
+        {
+          "false_positive_limit": 0.01,
+          "recall": null,
+          "false_positive_rate": null,
+          "threshold": null
+        },
+        {
+          "false_positive_limit": 0.02,
+          "recall": null,
+          "false_positive_rate": null,
+          "threshold": null
+        },
+        {
+          "false_positive_limit": 0.05,
+          "recall": null,
+          "false_positive_rate": null,
+          "threshold": null
+        },
+        {
+          "false_positive_limit": 0.1,
+          "recall": null,
+          "false_positive_rate": null,
+          "threshold": null
+        }
+      ],
+      "prevalence_sensitivity": [
+        {
+          "prevalence": 0.01,
+          "precision": null
+        },
+        {
+          "prevalence": 0.05,
+          "precision": null
+        },
+        {
+          "prevalence": 0.1,
+          "precision": null
+        },
+        {
+          "prevalence": 0.25,
+          "precision": null
+        },
+        {
+          "prevalence": 0.5,
+          "precision": null
+        }
+      ]
+    },
+    "groups": [
+      {
+        "group_id": "caf1b6e6e0a88038cf6e9a57a4a0917b514573d7ced940e002508174b8da2877",
+        "metrics": {
+          "counts": {
+            "eligible": 18,
+            "covered": 18,
+            "groups": 1,
+            "true_positive": 0,
+            "false_positive": 18,
+            "true_negative": 0,
+            "false_negative": 0,
+            "abstained_positive": 0,
+            "abstained_negative": 0
+          },
+          "coverage": 1,
+          "precision": 0,
+          "recall": null,
+          "false_positive_rate": 1,
+          "full_flow_recall": null,
+          "brier": 0.4453865627693191,
+          "training_constant_brier": 0.20397694222901522,
+          "ece": 0.6673728813559324,
+          "reliability": [
+            {
+              "lower": 0,
+              "upper": 0.1,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 18,
+              "mean_response": 0.6673728813559324,
+              "positive_rate": 0
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "intervals": {
+    "method": "source-group-pcg17-percentile-v1",
+    "replicates": 10000,
+    "seed": 17,
+    "groups": 1,
+    "metrics": [
+      {
+        "id": "coverage",
+        "micro": {
+          "value": 1,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 1,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "precision",
+        "micro": {
+          "value": 0,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 0,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "recall",
+        "micro": {
+          "value": null,
+          "defined_groups": 0,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": null,
+          "defined_groups": 0,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "false_positive_rate",
+        "micro": {
+          "value": 1,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 1,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "full_flow_recall",
+        "micro": {
+          "value": null,
+          "defined_groups": 0,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": null,
+          "defined_groups": 0,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "full_flow_false_flag_rate",
+        "micro": {
+          "value": 1,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 1,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "brier",
+        "micro": {
+          "value": 0.4453865627693191,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 0.4453865627693191,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "training_constant_brier",
+        "micro": {
+          "value": 0.20397694222901522,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 0.20397694222901522,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        }
+      },
+      {
+        "id": "ece",
+        "micro": {
+          "value": 0.6673728813559324,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        },
+        "group_macro": {
+          "value": 0.6673728813559324,
+          "defined_groups": 1,
+          "interval": {
+            "status": "insufficient_evidence",
+            "reason": "fewer_than_two_defined_groups",
+            "lower": null,
+            "upper": null,
+            "valid_replicates": 0,
+            "invalid_replicates": 0
+          }
+        }
+      }
+    ]
+  },
+  "strata": [
+    {
+      "dimension": "family",
+      "value": "none",
+      "metrics": {
+        "counts": {
+          "eligible": 18,
+          "covered": 18,
+          "groups": 1,
+          "true_positive": 0,
+          "false_positive": 18,
+          "true_negative": 0,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": 0,
+        "recall": null,
+        "false_positive_rate": 1,
+        "full_flow_recall": null,
+        "brier": 0.4453865627693191,
+        "training_constant_brier": 0.20397694222901522,
+        "ece": 0.6673728813559324,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 18,
+            "mean_response": 0.6673728813559324,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "language",
+      "value": "markdown",
+      "metrics": {
+        "counts": {
+          "eligible": 18,
+          "covered": 18,
+          "groups": 1,
+          "true_positive": 0,
+          "false_positive": 18,
+          "true_negative": 0,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": 0,
+        "recall": null,
+        "false_positive_rate": 1,
+        "full_flow_recall": null,
+        "brier": 0.4453865627693191,
+        "training_constant_brier": 0.20397694222901522,
+        "ece": 0.6673728813559324,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 18,
+            "mean_response": 0.6673728813559324,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "operation",
+      "value": "none",
+      "metrics": {
+        "counts": {
+          "eligible": 18,
+          "covered": 18,
+          "groups": 1,
+          "true_positive": 0,
+          "false_positive": 18,
+          "true_negative": 0,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": 0,
+        "recall": null,
+        "false_positive_rate": 1,
+        "full_flow_recall": null,
+        "brier": 0.4453865627693191,
+        "training_constant_brier": 0.20397694222901522,
+        "ece": 0.6673728813559324,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 18,
+            "mean_response": 0.6673728813559324,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "origin",
+      "value": "unknown",
+      "metrics": {
+        "counts": {
+          "eligible": 18,
+          "covered": 18,
+          "groups": 1,
+          "true_positive": 0,
+          "false_positive": 18,
+          "true_negative": 0,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": 0,
+        "recall": null,
+        "false_positive_rate": 1,
+        "full_flow_recall": null,
+        "brier": 0.4453865627693191,
+        "training_constant_brier": 0.20397694222901522,
+        "ece": 0.6673728813559324,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 18,
+            "mean_response": 0.6673728813559324,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "prompt",
+      "value": "none",
+      "metrics": {
+        "counts": {
+          "eligible": 18,
+          "covered": 18,
+          "groups": 1,
+          "true_positive": 0,
+          "false_positive": 18,
+          "true_negative": 0,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": 0,
+        "recall": null,
+        "false_positive_rate": 1,
+        "full_flow_recall": null,
+        "brier": 0.4453865627693191,
+        "training_constant_brier": 0.20397694222901522,
+        "ece": 0.6673728813559324,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 18,
+            "mean_response": 0.6673728813559324,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "prose_language",
+      "value": "en",
+      "metrics": {
+        "counts": {
+          "eligible": 18,
+          "covered": 18,
+          "groups": 1,
+          "true_positive": 0,
+          "false_positive": 18,
+          "true_negative": 0,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": 0,
+        "recall": null,
+        "false_positive_rate": 1,
+        "full_flow_recall": null,
+        "brier": 0.4453865627693191,
+        "training_constant_brier": 0.20397694222901522,
+        "ece": 0.6673728813559324,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 18,
+            "mean_response": 0.6673728813559324,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "role",
+      "value": "documentation",
+      "metrics": {
+        "counts": {
+          "eligible": 10,
+          "covered": 10,
+          "groups": 1,
+          "true_positive": 0,
+          "false_positive": 10,
+          "true_negative": 0,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": 0,
+        "recall": null,
+        "false_positive_rate": 1,
+        "full_flow_recall": null,
+        "brier": 0.4453865627693191,
+        "training_constant_brier": 0.20397694222901525,
+        "ece": 0.6673728813559323,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 10,
+            "mean_response": 0.6673728813559323,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "role",
+      "value": "readme",
+      "metrics": {
+        "counts": {
+          "eligible": 8,
+          "covered": 8,
+          "groups": 1,
+          "true_positive": 0,
+          "false_positive": 8,
+          "true_negative": 0,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": 0,
+        "recall": null,
+        "false_positive_rate": 1,
+        "full_flow_recall": null,
+        "brier": 0.44538656276931915,
+        "training_constant_brier": 0.20397694222901522,
+        "ece": 0.6673728813559323,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 8,
+            "mean_response": 0.6673728813559323,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "words",
+      "value": "1-19",
+      "metrics": {
+        "counts": {
+          "eligible": 16,
+          "covered": 16,
+          "groups": 1,
+          "true_positive": 0,
+          "false_positive": 16,
+          "true_negative": 0,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": 0,
+        "recall": null,
+        "false_positive_rate": 1,
+        "full_flow_recall": null,
+        "brier": 0.44538656276931915,
+        "training_constant_brier": 0.20397694222901522,
+        "ece": 0.6673728813559324,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 16,
+            "mean_response": 0.6673728813559324,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "words",
+      "value": "20-49",
+      "metrics": {
+        "counts": {
+          "eligible": 1,
+          "covered": 1,
+          "groups": 1,
+          "true_positive": 0,
+          "false_positive": 1,
+          "true_negative": 0,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": 0,
+        "recall": null,
+        "false_positive_rate": 1,
+        "full_flow_recall": null,
+        "brier": 0.44538656276931915,
+        "training_constant_brier": 0.20397694222901522,
+        "ece": 0.6673728813559322,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 1,
+            "mean_response": 0.6673728813559322,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    },
+    {
+      "dimension": "words",
+      "value": "50-99",
+      "metrics": {
+        "counts": {
+          "eligible": 1,
+          "covered": 1,
+          "groups": 1,
+          "true_positive": 0,
+          "false_positive": 1,
+          "true_negative": 0,
+          "false_negative": 0,
+          "abstained_positive": 0,
+          "abstained_negative": 0
+        },
+        "coverage": 1,
+        "precision": 0,
+        "recall": null,
+        "false_positive_rate": 1,
+        "full_flow_recall": null,
+        "brier": 0.44538656276931915,
+        "training_constant_brier": 0.20397694222901522,
+        "ece": 0.6673728813559322,
+        "reliability": [
+          {
+            "lower": 0,
+            "upper": 0.1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.1,
+            "upper": 0.2,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.2,
+            "upper": 0.3,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.3,
+            "upper": 0.4,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.4,
+            "upper": 0.5,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.5,
+            "upper": 0.6,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.6,
+            "upper": 0.7,
+            "count": 1,
+            "mean_response": 0.6673728813559322,
+            "positive_rate": 0
+          },
+          {
+            "lower": 0.7,
+            "upper": 0.8,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.8,
+            "upper": 0.9,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          },
+          {
+            "lower": 0.9,
+            "upper": 1,
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
+          }
+        ]
+      }
+    }
+  ]
+}
