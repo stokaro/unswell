@@ -81,6 +81,11 @@ prose context; language overrides replace that set.
 
 ## Alpha limits
 
+Each grammar parse has a time bound of five seconds plus half a second per
+KiB of source. A large file under load therefore does not fail as a parse
+timeout, and a runaway parse still stops. The C# grammar is the slowest:
+about two seconds for a 19 KB file on an idle machine.
+
 The pinned backend is gotreesitter 0.52.0. An owned Bash grammar instance preserves
 the grammar's empty-value token before whitespace, allowing commands such as
 `! A=x B= command` to parse. This also applies to the shared Bash subset used for
