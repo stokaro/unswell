@@ -68,9 +68,7 @@ func validateRestoredContract(a Artifact) error {
 	if !validModelShape(a) {
 		return fmt.Errorf("training artifact has incompatible target, columns, or algorithm")
 	}
-	if !slices.Contains([]string{"sentence", "paragraph", "fragment"}, a.Options.Kind) ||
-		!slices.Contains([]string{"reject", "exclude", "zero"}, a.Options.MissingFeatures) ||
-		(a.Options.MissingFeatures == "zero" && a.Identity.FeatureSource != "rule_activations") {
+	if !validSelectionOptions(a) {
 		return fmt.Errorf("training artifact has unsupported selection options")
 	}
 	columnsHash, err := hashJSON(a.Identity.Columns)
@@ -83,7 +81,27 @@ func validateRestoredContract(a Artifact) error {
 	if err := validateColumnOrder(a); err != nil {
 		return err
 	}
-	return validateLexicalArtifact(a)
+	if err := validateRestoredReservation(a.Options.Reservation); err != nil {
+		return err
+	}
+	if err := validateLexicalArtifact(a); err != nil {
+		return err
+	}
+	return validateCompressionArtifact(a)
+}
+
+func validSelectionOptions(a Artifact) bool {
+	return slices.Contains([]string{"sentence", "paragraph", "fragment"}, a.Options.Kind) &&
+		slices.Contains([]string{"reject", "exclude", "zero"}, a.Options.MissingFeatures) &&
+		(a.Options.MissingFeatures != "zero" || a.Identity.FeatureSource == "rule_activations")
+}
+
+func validateRestoredReservation(r *Reservation) error {
+	if r != nil && (!validDigest(r.BankSHA256) || len(r.Groups) == 0 ||
+		!slices.IsSorted(r.Groups) || len(slices.Compact(slices.Clone(r.Groups))) != len(r.Groups)) {
+		return fmt.Errorf("training artifact has an invalid reservation")
+	}
+	return nil
 }
 
 func validDigest(value string) bool {

@@ -27,6 +27,15 @@ type Options struct {
 	Estimator       string               `json:"estimator"`
 	Fit             *Fit                 `json:"fit,omitempty"`
 	Forest          *model.ForestOptions `json:"forest,omitempty"`
+	Reservation     *Reservation         `json:"reservation,omitempty"`
+}
+
+// Reservation names the source groups a compression reference bank reserved.
+// A fit that carries one excludes every row of those groups, whatever its
+// feature source, so the arms of one comparison train on the same rows.
+type Reservation struct {
+	BankSHA256 string   `json:"bank_sha256"`
+	Groups     []string `json:"groups"`
 }
 
 // Fit is the serialized configuration of the shared numerical optimizer.
@@ -45,6 +54,7 @@ func (f Fit) numerical() model.FitOptions {
 // the shared descriptor serialization; ColumnsSHA256 freezes its exact definition.
 type Identity struct {
 	LexicalVocabularyHash string               `json:"lexical_vocabulary_hash,omitempty"`
+	CompressionBankHash   string               `json:"compression_bank_hash,omitempty"`
 	FeatureSource         string               `json:"feature_source,omitempty"`
 	Context               string               `json:"context,omitempty"`
 	ActivationContract    string               `json:"activation_contract,omitempty"`

@@ -54,6 +54,8 @@ Missing, uncertain, and unresolved labels remain excluded, with recorded reasons
 | `--kind` | required | One prepared target kind |
 | `--feature` | required | Repeatable set of existing prepared IDs |
 | `--rule-config` | absent | Select rule activations with an explicit local inline policy, limited to 1 MiB |
+| `--compression-bank` | absent | Measure every target against the cohorts of a reference bank built on this corpus; its reserved groups leave the fit, and `--feature` may add prepared features to the same rows |
+| `--reserve-bank` | absent | Exclude the reserved groups of a bank without its columns, so a compared baseline trains on the same rows |
 | `--missing-features` | `reject` | Fail on an unavailable feature; `exclude` records and omits the row; `zero`, for rule activations only, counts a rule that cannot fire as zero and records how often per feature and reason |
 | `--calibration` | `none` | `isotonic` fits knots for the selected score channel |
 | `--allow-simulation` | false | Permit a round that explicitly declares simulated raters |
@@ -146,7 +148,8 @@ turns a numerical fit into a qualified probability. See
 `corpus predict` restores this numerical artifact without fitting weights or
 calibration. It requires a frozen plan, matching protocol bytes, and the original
 candidate corpus and sources. It accepts no annotation round. Rule predictions
-require the exact inline configuration used for fitting. Prepared prediction
+require the exact inline configuration used for fitting, and compression
+predictions the fitted bank (`--compression-bank`). Prepared prediction
 measures target features after NLP analyzes the enclosing eligible piece; rule
 prediction retains source-document context.
 

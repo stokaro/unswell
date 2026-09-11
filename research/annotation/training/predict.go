@@ -15,6 +15,14 @@ import (
 	"github.com/stokaro/unswell/research/annotation/corpus"
 )
 
+// PredictionResources are the inputs a restored model needs beyond the corpus:
+// the exact rule configuration of a rule baseline and the reference bank of a
+// compression baseline. Every other model takes neither.
+type PredictionResources struct {
+	Configuration []byte
+	Bank          *corpus.CompressionBank
+}
+
 // Predict restores a frozen model and measures reserved corpus targets without
 // reading an annotation round or fitting any parameters. Configuration is required
 // only for the rule baseline and must match its recorded bytes and effective policy.
@@ -22,11 +30,18 @@ import (
 func Predict(ctx context.Context, candidates corpus.Artifact, files map[string][]byte,
 	fitted Artifact, plan PredictionPlan, configuration []byte,
 ) (Predictions, error) {
-	fitted, plan, err := restorePredictionInputs(ctx, candidates, fitted, plan, configuration)
+	return PredictWith(ctx, candidates, files, fitted, plan, PredictionResources{Configuration: configuration})
+}
+
+// PredictWith is Predict with every resource a restored model may need.
+func PredictWith(ctx context.Context, candidates corpus.Artifact, files map[string][]byte,
+	fitted Artifact, plan PredictionPlan, resources PredictionResources,
+) (Predictions, error) {
+	fitted, plan, err := restorePredictionInputs(ctx, candidates, fitted, plan, resources)
 	if err != nil {
 		return Predictions{}, err
 	}
-	selector, bindings, verification, err := predictionMeasurements(ctx, candidates, files, fitted, configuration, plan.Partition)
+	selector, bindings, verification, err := predictionMeasurements(ctx, candidates, files, fitted, resources, plan.Partition)
 	if err != nil {
 		return Predictions{}, err
 	}
@@ -57,10 +72,17 @@ func Predict(ctx context.Context, candidates corpus.Artifact, files map[string][
 }
 
 func predictionMeasurements(ctx context.Context, candidates corpus.Artifact, files map[string][]byte,
-	fitted Artifact, configuration []byte, partition string,
+	fitted Artifact, resources PredictionResources, partition string,
 ) (rowSelector, []corpus.FeatureBinding, corpus.Verification, error) {
+	configuration := resources.Configuration
 	if fitted.Identity.FeatureSource == "lexical_ngrams" {
 		return lexicalPredictionMeasurements(ctx, candidates, files, fitted, configuration, partition)
+	}
+	if fitted.Identity.FeatureSource == "compression_bank" {
+		if len(configuration) != 0 {
+			return rowSelector{}, nil, corpus.Verification{}, fmt.Errorf("compression prediction rejects rule configuration")
+		}
+		return compressionPredictionMeasurements(ctx, candidates, files, fitted, resources.Bank)
 	}
 	// Only frozen rubric/profile identity enters this adapter, with no decisions.
 	identity := annotation.DecisionSet{Rubric: fitted.Identity.Rubric, ProfileSHA256: fitted.Identity.ProfileSHA256}
@@ -179,7 +201,7 @@ func (p targetPredictor) values(unit measurement) ([]float64, string, error) {
 }
 
 func restorePredictionInputs(ctx context.Context, candidates corpus.Artifact, fitted Artifact,
-	plan PredictionPlan, configuration []byte,
+	plan PredictionPlan, resources PredictionResources,
 ) (Artifact, PredictionPlan, error) {
 	encoded, err := json.Marshal(fitted)
 	if err != nil {
@@ -203,14 +225,26 @@ func restorePredictionInputs(ctx context.Context, candidates corpus.Artifact, fi
 	if !samePredictionCorpus(candidates, fitted, plan) {
 		return Artifact{}, PredictionPlan{}, fmt.Errorf("prediction requires the frozen training corpus and split manifest")
 	}
-	if fitted.Identity.FeatureSource == "rule_activations" &&
-		fmt.Sprintf("%x", sha256.Sum256(configuration)) != fitted.Identity.RuleConfigSHA256 {
-		return Artifact{}, PredictionPlan{}, fmt.Errorf("prediction rule configuration digest mismatch")
+	if err := validatePredictionResources(fitted, resources); err != nil {
+		return Artifact{}, PredictionPlan{}, err
 	}
 	if err := validateFittedTargets(fitted, candidates); err != nil {
 		return Artifact{}, PredictionPlan{}, err
 	}
 	return fitted, plan, nil
+}
+
+// validatePredictionResources binds a rule model to its exact configuration
+// and keeps a reference bank to compression models.
+func validatePredictionResources(fitted Artifact, resources PredictionResources) error {
+	if fitted.Identity.FeatureSource == "rule_activations" &&
+		fmt.Sprintf("%x", sha256.Sum256(resources.Configuration)) != fitted.Identity.RuleConfigSHA256 {
+		return fmt.Errorf("prediction rule configuration digest mismatch")
+	}
+	if resources.Bank != nil && fitted.Identity.FeatureSource != "compression_bank" {
+		return fmt.Errorf("only compression prediction takes a reference bank")
+	}
+	return nil
 }
 
 func samePredictionCorpus(candidates corpus.Artifact, fitted Artifact, plan PredictionPlan) bool {

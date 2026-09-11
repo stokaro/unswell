@@ -60,8 +60,12 @@ func validateCompressionCohorts(cohorts []CompressionCohort) error {
 	return nil
 }
 
+// compressionPolicies are the endpoint policies a cohort may declare. Which of
+// them a bank accepts depends on its label source.
+var compressionPolicies = []string{"human", "generated", "historical", "contemporary", "mixed"}
+
 func (c CompressionCohort) validate() error {
-	if !slices.Contains([]string{"human", "generated", "mixed"}, c.Origin) || len(c.UnitIDs) == 0 || len(c.UnitIDs) > 128 {
+	if !slices.Contains(compressionPolicies, c.Origin) || len(c.UnitIDs) == 0 || len(c.UnitIDs) > 128 {
 		return fmt.Errorf("compression cohort requires an endpoint policy and 1 to 128 unit IDs")
 	}
 	seen := make(map[string]bool)

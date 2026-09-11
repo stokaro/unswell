@@ -70,6 +70,9 @@ func matchingComparisonScope(plan ComparisonPlan, a, b training.Predictions) err
 	if a.Plan.CorpusSHA256 != b.Plan.CorpusSHA256 || a.Plan.Partition != b.Plan.Partition || a.Plan.Context != b.Plan.Context {
 		return fmt.Errorf("compared trials require identical corpus, partition, and available context")
 	}
+	if !reflect.DeepEqual(a.Model.Options.Reservation, b.Model.Options.Reservation) {
+		return fmt.Errorf("compared trials require the same reservation")
+	}
 	if !compatibleComparisonIdentity(a.Model.Identity, b.Model.Identity) {
 		return fmt.Errorf("compared trials have different targets, rubric, profile, preprocessing, or NLP")
 	}
@@ -89,13 +92,19 @@ func compatibleComparisonIdentity(a, b training.Identity) bool {
 	return reflect.DeepEqual(a, b)
 }
 
-// The supported lexical model changes feature formulas and learns its dictionary.
-// All source-policy, preparation, NLP, and editorial identities still compare.
+// The supported lexical model changes feature formulas and learns its dictionary,
+// and the compression model reads its columns from a reference bank. All
+// source-policy, preparation, NLP, and editorial identities still compare.
 func comparisonRepresentation(identity training.Identity) training.Identity {
-	if identity.FeatureSource == "lexical_ngrams" {
+	switch identity.FeatureSource {
+	case "lexical_ngrams":
 		identity.FeatureSource, identity.Context, identity.Preprocessing = "", "", ""
 		identity.FeatureContract = feature.UnitContract
 		identity.LexicalVocabularyHash = ""
+	case "compression_bank":
+		identity.FeatureSource, identity.Context, identity.Preprocessing = "", "", ""
+		identity.FeatureContract = feature.UnitContract
+		identity.CompressionBankHash = ""
 	}
 	return identity
 }

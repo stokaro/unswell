@@ -12,24 +12,35 @@ import (
 	"github.com/stokaro/unswell/research/annotation"
 )
 
+// compressionLabels is the class of every unit a bank may seed with, under
+// one label source: unit-scoped human or generated claims of a round, or the
+// historical and contemporary labels of a cohort decision set.
+type compressionLabels struct {
+	basis, round, set string
+	units             map[string]string
+	origins           map[string]annotation.Origin
+	policies          []string
+	missing           string
+}
+
 type compressionBankBuilder struct {
 	result   CompressionBank
 	targets  map[string]Candidate
 	prepared map[string]nlp.PreparedUnit
-	origins  map[string]annotation.Origin
+	labels   compressionLabels
 	sources  map[string]Source
 	reserved map[string]bool
 	bytes    int
 }
 
-func newCompressionBankBuilder(artifact Artifact, prepared Prepared, origins annotation.OriginSet,
+func newCompressionBankBuilder(artifact Artifact, prepared Prepared, labels compressionLabels,
 	options CompressionBankOptions,
 ) *compressionBankBuilder {
 	b := &compressionBankBuilder{
-		result: CompressionBank{Version: CompressionBankVersion, HumanCorpus: "not_qualified", Basis: origins.Basis,
-			RoundSHA256: origins.RoundSHA256, OriginsSHA256: origins.SHA256, Verification: prepared.Verification,
+		result: CompressionBank{Version: CompressionBankVersion, HumanCorpus: "not_qualified", Basis: labels.basis,
+			RoundSHA256: labels.round, OriginsSHA256: labels.set, Verification: prepared.Verification,
 			Options: options, Cohorts: []CompressionReference{}, ReservedGroups: []Group{}, ReservedTargets: []CompressionReservation{}},
-		targets: make(map[string]Candidate), prepared: make(map[string]nlp.PreparedUnit), origins: make(map[string]annotation.Origin),
+		targets: make(map[string]Candidate), prepared: make(map[string]nlp.PreparedUnit), labels: labels,
 		sources: make(map[string]Source), reserved: make(map[string]bool), bytes: MaxCompressionSelectionBytes,
 	}
 	for _, target := range artifact.Units {
@@ -37,9 +48,6 @@ func newCompressionBankBuilder(artifact Artifact, prepared Prepared, origins ann
 	}
 	for _, target := range prepared.Targets {
 		b.prepared[target.UnitID] = target.Unit
-	}
-	for _, claim := range origins.Units {
-		b.origins[claim.UnitID] = claim.Origin
 	}
 	for _, source := range artifact.Plan.Manifest.Sources {
 		b.sources[source.ID] = source
@@ -66,10 +74,11 @@ func (b *compressionBankBuilder) addCohort(ctx context.Context, cohort Compressi
 			return err
 		}
 		result.Units = append(result.Units, entry)
-		labels[entry.Origin.Label], b.reserved[entry.GroupID] = true, true
+		labels[entry.Label], b.reserved[entry.GroupID] = true, true
 	}
 	if cohort.Origin == "mixed" && len(labels) != 2 {
-		return fmt.Errorf("mixed reference cohort %s requires both human and generated targets", cohort.ID)
+		return fmt.Errorf("mixed reference cohort %s requires both %s and %s targets", cohort.ID,
+			b.labels.policies[0], b.labels.policies[1])
 	}
 	result.Reference = reference.String()
 	if err := b.charge(result.Reference); err != nil {
@@ -89,12 +98,15 @@ func (b *compressionBankBuilder) referenceUnit(id, policy string) (CompressionRe
 	if !exists || target.Partition != "training" || target.Unit.Kind != b.result.Options.Kind {
 		return CompressionReferenceUnit{}, "", fmt.Errorf("reference %s requires a training target of the selected kind", id)
 	}
-	claim, exists := b.origins[id]
-	if !exists || claim.Scope != "unit" || !slices.Contains([]string{"human", "generated"}, claim.Label) {
-		return CompressionReferenceUnit{}, "", fmt.Errorf("reference %s requires a curated unit-scoped endpoint claim", id)
+	label, exists := b.labels.units[id]
+	if !exists {
+		return CompressionReferenceUnit{}, "", fmt.Errorf("reference %s requires %s", id, b.labels.missing)
 	}
-	if policy != "mixed" && policy != claim.Label {
+	if policy != "mixed" && policy != label {
 		return CompressionReferenceUnit{}, "", fmt.Errorf("reference %s does not match cohort origin %s", id, policy)
+	}
+	if policy == "mixed" && !slices.Contains(b.labels.policies, label) {
+		return CompressionReferenceUnit{}, "", fmt.Errorf("reference %s is outside the classes of the bank's label source", id)
 	}
 	if !slices.Contains(target.Unit.Rights.AllowedUses, "training") {
 		return CompressionReferenceUnit{}, "", fmt.Errorf("reference %s lacks a declared training permission", id)
@@ -102,7 +114,7 @@ func (b *compressionBankBuilder) referenceUnit(id, policy string) (CompressionRe
 	source := b.sources[target.SourceID]
 	unit := b.prepared[id]
 	entry := CompressionReferenceUnit{UnitID: id, SourceID: target.SourceID, GroupID: target.GroupID,
-		Path: source.Path, Source: target.Unit.Source, Binding: unit.Binding(), Origin: claim,
+		Path: source.Path, Source: target.Unit.Source, Binding: unit.Binding(), Origin: b.labels.origins[id], Label: label,
 		Rights: target.Unit.Rights, Notices: source.Notices}
 	return entry, unit.Block().Text, nil
 }

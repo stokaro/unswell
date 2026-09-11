@@ -52,12 +52,16 @@ func validateFittedTargets(a Artifact, candidates corpus.Artifact) error {
 	for _, candidate := range candidates.Units {
 		targets[candidate.Unit.ID] = candidate
 	}
+	reserved := reservedGroups(a.Options)
 	for _, partition := range a.Partitions {
 		for _, row := range partition.Rows {
 			target, exists := targets[row.UnitID]
 			if !exists || target.Partition != partition.Name || target.Unit.Kind != a.Options.Kind ||
 				target.SourceID != row.SourceID || target.GroupID != row.GroupID {
 				return fmt.Errorf("fitted row is inconsistent with the frozen source-group partition")
+			}
+			if reserved[row.GroupID] {
+				return fmt.Errorf("fitted row %s belongs to a reserved group", row.UnitID)
 			}
 		}
 	}

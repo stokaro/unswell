@@ -15,7 +15,7 @@ import (
 
 type evaluationOptions struct {
 	root, model, plan, protocol, rules, corpus, round string
-	labels, generation                                string
+	labels, generation, bank                          string
 	allowSimulation                                   bool
 }
 
@@ -54,6 +54,7 @@ func evaluationFlags(args []string) (evaluationOptions, error) {
 		flags.StringVar(&options.plan, "plan", "", "Frozen prediction plan")
 		flags.StringVar(&options.protocol, "protocol", "", "Protocol bytes matching the plan digest")
 		flags.StringVar(&options.rules, "rule-config", "", "Exact inline configuration for the rule baseline")
+		flags.StringVar(&options.bank, "compression-bank", "", "Reference bank of the compression baseline")
 	} else {
 		flags.StringVar(&options.corpus, "corpus", "", "Frozen candidate artifact used by prediction")
 		flags.StringVar(&options.round, "round", "", "Independent evaluation annotation round")
@@ -102,7 +103,7 @@ func predictOperation(ctx context.Context, options evaluationOptions, data []byt
 	if err != nil {
 		return training.Predictions{}, err
 	}
-	fitted, configuration, err := predictionResources(ctx, options, plan)
+	fitted, resources, err := predictionResources(ctx, options, plan)
 	if err != nil {
 		return training.Predictions{}, err
 	}
@@ -110,30 +111,42 @@ func predictOperation(ctx context.Context, options evaluationOptions, data []byt
 	if err != nil {
 		return training.Predictions{}, err
 	}
-	return training.Predict(ctx, candidates, files, fitted, plan, configuration)
+	return training.PredictWith(ctx, candidates, files, fitted, plan, resources)
 }
 
-func predictionResources(ctx context.Context, options evaluationOptions, plan training.PredictionPlan) (training.Artifact, []byte, error) {
+func predictionResources(ctx context.Context, options evaluationOptions,
+	plan training.PredictionPlan,
+) (training.Artifact, training.PredictionResources, error) {
+	var resources training.PredictionResources
 	protocol, err := loadLocalArtifact(ctx, options.protocol, 1<<20, "research protocol")
 	if err != nil {
-		return training.Artifact{}, nil, err
+		return training.Artifact{}, resources, err
 	}
 	if fmt.Sprintf("%x", sha256.Sum256(protocol)) != plan.ProtocolSHA256 {
-		return training.Artifact{}, nil, fmt.Errorf("research protocol digest mismatch")
+		return training.Artifact{}, resources, fmt.Errorf("research protocol digest mismatch")
 	}
 	data, err := loadLocalArtifact(ctx, options.model, training.MaxArtifactBytes, "training artifact")
 	if err != nil {
-		return training.Artifact{}, nil, err
+		return training.Artifact{}, resources, err
 	}
 	fitted, err := training.Load(ctx, data)
 	if err != nil {
-		return training.Artifact{}, nil, err
+		return training.Artifact{}, resources, err
 	}
-	var configuration []byte
 	if options.rules != "" {
-		configuration, err = loadLocalArtifact(ctx, options.rules, maxRuleConfigBytes, "rule config")
+		resources.Configuration, err = loadLocalArtifact(ctx, options.rules, maxRuleConfigBytes, "rule config")
+		if err != nil {
+			return training.Artifact{}, resources, err
+		}
 	}
-	return fitted, configuration, err
+	if options.bank != "" {
+		bank, err := loadBank(ctx, options.bank)
+		if err != nil {
+			return training.Artifact{}, resources, err
+		}
+		resources.Bank = &bank
+	}
+	return fitted, resources, nil
 }
 
 func evaluateOperation(ctx context.Context, options evaluationOptions, data []byte) (evaluation.Result, error) {

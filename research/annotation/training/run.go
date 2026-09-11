@@ -93,7 +93,31 @@ func validateOptions(ctx context.Context, candidates corpus.Artifact, options Op
 	if options.Calibration != "none" && options.Calibration != "isotonic" {
 		return fmt.Errorf("calibration must be none or isotonic")
 	}
+	if err := validateReservation(options.Reservation, candidates); err != nil {
+		return err
+	}
 	return validateEstimatorOptions(options)
+}
+
+// validateReservation checks that a reservation names a bank digest and
+// sorted, distinct groups of the frozen plan.
+func validateReservation(reservation *Reservation, candidates corpus.Artifact) error {
+	if reservation == nil {
+		return nil
+	}
+	if !validDigest(reservation.BankSHA256) || len(reservation.Groups) == 0 || !slices.IsSorted(reservation.Groups) {
+		return fmt.Errorf("a reservation requires a bank digest and sorted reserved groups")
+	}
+	known := make(map[string]bool, len(candidates.Plan.Groups))
+	for _, group := range candidates.Plan.Groups {
+		known[group.ID] = true
+	}
+	for i, group := range reservation.Groups {
+		if !known[group] || (i > 0 && reservation.Groups[i-1] == group) {
+			return fmt.Errorf("reservation names a group outside the frozen plan or twice")
+		}
+	}
+	return nil
 }
 
 func logisticResult(fit model.FitResult) Logistic {

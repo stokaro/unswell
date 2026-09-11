@@ -15,14 +15,16 @@ import (
 )
 
 type options struct {
-	root, round    string
-	labels         string
-	ruleConfig     string
-	policy         string
-	features       []string
-	train          training.Options
-	lexical        bool
-	lexicalOptions training.LexicalOptions
+	root, round     string
+	labels          string
+	ruleConfig      string
+	policy          string
+	features        []string
+	train           training.Options
+	lexical         bool
+	lexicalOptions  training.LexicalOptions
+	compressionBank string
+	reserveBank     string
 }
 
 func commandOptions(args []string) (options, error) {
@@ -64,6 +66,10 @@ func registerFlags(name string, flags *flag.FlagSet, result *options) {
 		flags.StringVar(&result.policy, "policy", "", "Pinned policy file whose rule findings are measured over every candidate")
 	case "train":
 		flags.StringVar(&result.ruleConfig, "rule-config", "", "Explicit inline policy file for original-block rule activations")
+		flags.StringVar(&result.compressionBank, "compression-bank", "",
+			"Reference bank built on this corpus; its cohorts become columns and its reserved groups leave the fit")
+		flags.StringVar(&result.reserveBank, "reserve-bank", "",
+			"Reference bank whose reserved groups leave the fit without adding columns, for a compared baseline")
 		trainingFlags(flags, &result.train)
 		lexicalFlags(flags, result)
 	}
@@ -91,10 +97,23 @@ func (result options) validateSelectors(name string) error {
 
 // validateLabelSource requires exactly one of a round and a label source.
 func (result options) validateLabelSource() error {
-	if (result.round == "") == (result.labels == "") || (len(result.features) == 0 && !result.lexical) {
+	if (result.round == "") == (result.labels == "") ||
+		(len(result.features) == 0 && !result.lexical && result.compressionBank == "") {
 		return fmt.Errorf("join and train require --round or --labels, and at least one --feature")
 	}
-	return validateLabels(result.labels)
+	if err := validateLabels(result.labels); err != nil {
+		return err
+	}
+	return result.validateBanks()
+}
+
+// validateBanks keeps the compression baseline apart from the lexical and
+// rule baselines, and a reservation apart from the bank that defines it.
+func (result options) validateBanks() error {
+	if result.compressionBank != "" && (result.lexical || result.ruleConfig != "" || result.reserveBank != "") {
+		return fmt.Errorf("--compression-bank excludes --lexical, --rule-config, and --reserve-bank")
+	}
+	return nil
 }
 
 // labelSources are the decision sets a command can build from the corpus

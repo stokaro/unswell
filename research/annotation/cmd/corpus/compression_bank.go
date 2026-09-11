@@ -9,7 +9,7 @@ import (
 	"github.com/stokaro/unswell/research/annotation/corpus"
 )
 
-type compressionBankOptions struct{ root, round, selection string }
+type compressionBankOptions struct{ root, round, labels, selection string }
 
 func compressionBankFlags(args []string) (compressionBankOptions, error) {
 	var options compressionBankOptions
@@ -17,14 +17,17 @@ func compressionBankFlags(args []string) (compressionBankOptions, error) {
 	flags.SetOutput(io.Discard)
 	flags.StringVar(&options.root, "root", "", "Root containing declared source and notice files")
 	flags.StringVar(&options.round, "round", "", "Validated round with independently curated unit origins")
+	flags.StringVar(&options.labels, "labels", "",
+		"Label source instead of a round: cohort seeds historical and contemporary cohorts from the corpus")
 	flags.StringVar(&options.selection, "selection", "", "Explicit ordered cohorts and compressor settings")
 	if err := flags.Parse(args[1:]); err != nil {
 		return compressionBankOptions{}, err
 	}
-	if flags.NArg() != 0 || options.root == "" || options.round == "" || options.selection == "" {
-		return compressionBankOptions{}, fmt.Errorf("reference-bank requires --root, --round, --selection, and no positional arguments")
+	if flags.NArg() != 0 || options.root == "" || (options.round == "") == (options.labels == "") || options.selection == "" {
+		return compressionBankOptions{}, fmt.Errorf(
+			"reference-bank requires --root, --selection, either --round or --labels, and no positional arguments")
 	}
-	return options, nil
+	return options, validateLabels(options.labels)
 }
 
 func runCompressionBank(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
@@ -56,11 +59,18 @@ func compressionBankOperation(ctx context.Context, options compressionBankOption
 	if err != nil {
 		return corpus.CompressionBank{}, err
 	}
-	round, err := loadRound(ctx, options.round)
+	files, err := loadFiles(ctx, options.root, artifact.Plan)
 	if err != nil {
 		return corpus.CompressionBank{}, err
 	}
-	files, err := loadFiles(ctx, options.root, artifact.Plan)
+	if options.labels != "" {
+		decisions, err := labelDecisions(ctx, options.labels, artifact)
+		if err != nil {
+			return corpus.CompressionBank{}, err
+		}
+		return corpus.BuildCompressionBankDecisions(ctx, artifact, decisions, files, settings)
+	}
+	round, err := loadRound(ctx, options.round)
 	if err != nil {
 		return corpus.CompressionBank{}, err
 	}

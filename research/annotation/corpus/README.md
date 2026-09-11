@@ -328,9 +328,12 @@ corpus reference-bank --root ./sources --round ./round.json \
 The [selection schema](compression-bank.schema.json) requires the bank version,
 target `kind`, `compression.level`, `compression.max_input_bytes`, `cohorts`, and
 `allow_simulation`. Each cohort declares its `id`, endpoint policy `origin`, and
-ordered `unit_ids`. Supported policies are `human`, `generated`, and `mixed`.
-Mixed references contain both endpoint classes; topic and length matching are
-separate experimental requirements. Unit order is preserved, with LF separators.
+ordered `unit_ids`. Under a round the policies are `human`, `generated`, and
+`mixed`. Under `--labels cohort`, which replaces `--round`, they are
+`historical`, `contemporary`, and `mixed`, and a unit's class is its resolved
+snapshot label. Mixed references contain both classes; topic and length
+matching are separate experimental requirements. Unit order is preserved,
+with LF separators. Each reference unit records the class it matched.
 
 Sources, notices, candidates, and round targets are verified again. Each selected
 unit needs a training partition, the selected kind, declared training permission,
@@ -349,8 +352,11 @@ independent truth or scientific adequacy.
 every related candidate in those groups, including other unit kinds and targets
 not selected as seeds. Empty related sources remain in the group records.
 `remaining_training_units` counts unreserved training candidates of the selected
-kind; it may be zero. Future fitting must apply the same exclusion union to every
-cohort and baseline. This command does not train a model or alter the corpus plan.
+kind; it may be zero. A fit applies the same exclusion union to every cohort
+and baseline: `train --compression-bank` measures each target against the
+cohorts and drops the reserved groups, and `train --reserve-bank` drops them
+from a compared baseline. This command does not train a model or alter the
+corpus plan.
 
 Limits are eight cohorts, 128 ordered IDs per cohort, a 256 KiB selection file,
 the primitive's 32 KiB prefix limit including separators, and a 4 MiB bank output.

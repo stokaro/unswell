@@ -24,6 +24,7 @@ type rowSelector struct {
 	task      string
 	decisions map[string]annotation.EditorialDecision
 	measure   func(corpus.FeatureBinding) (measurement, bool)
+	reserved  map[string]bool
 	result    selection
 }
 
@@ -43,6 +44,7 @@ func selectMeasuredRows(ctx context.Context, plan corpus.Plan, decisions annotat
 	}
 	selector.task = task
 	selector.decisions = make(map[string]annotation.EditorialDecision)
+	selector.reserved = reservedGroups(selector.options)
 	selector.result = selection{partitions: partitionCounts(plan)}
 	for _, decision := range decisions.Units {
 		selector.decisions[decision.UnitID] = decision
@@ -67,9 +69,7 @@ func (s *rowSelector) add(binding corpus.FeatureBinding) error {
 	}
 	partition := &s.result.partitions[index]
 	partition.Candidates++
-	if binding.Partition == "development" || binding.Partition == "final_test" ||
-		(binding.Partition == "calibration" && s.options.Calibration == "none") {
-		partition.Excluded["reserved_partition"]++
+	if s.reservedRow(binding, partition) {
 		return nil
 	}
 	unit, exists := s.measure(binding)
@@ -90,6 +90,21 @@ func (s *rowSelector) add(binding corpus.FeatureBinding) error {
 		return nil
 	}
 	return s.addResolved(binding, unit, decision, partition)
+}
+
+// reservedRow counts a row of a reserved partition or a reserved reference
+// group and reports whether it stays out.
+func (s *rowSelector) reservedRow(binding corpus.FeatureBinding, partition *Partition) bool {
+	if binding.Partition == "development" || binding.Partition == "final_test" ||
+		(binding.Partition == "calibration" && s.options.Calibration == "none") {
+		partition.Excluded["reserved_partition"]++
+		return true
+	}
+	if s.reserved[binding.GroupID] {
+		partition.Excluded["reserved_reference_group"]++
+		return true
+	}
+	return false
 }
 
 func (s *rowSelector) addResolved(binding corpus.FeatureBinding, unit measurement,
@@ -156,6 +171,19 @@ func (s *rowSelector) unavailable(id, reason string, partition *Partition) error
 	}
 	partition.Excluded[reason]++
 	return nil
+}
+
+// reservedGroups is the set of source groups a fit excludes under its
+// reservation; a fit without one excludes nothing.
+func reservedGroups(options Options) map[string]bool {
+	if options.Reservation == nil {
+		return nil
+	}
+	result := make(map[string]bool, len(options.Reservation.Groups))
+	for _, group := range options.Reservation.Groups {
+		result[group] = true
+	}
+	return result
 }
 
 func measurementKey(path, hash string) string { return path + "\x00" + hash }
