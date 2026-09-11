@@ -81,7 +81,12 @@ go run ./cmd/corpus train --root sources --labels provenance \
 
 The same flag serves the lexical baseline (`--lexical`), the rule-activation
 baseline (`--rule-config`), and `compare`, so every arm of a comparison can
-fit and score on the same provenance labels.
+fit and score on the same provenance labels. `--labels cohort` labels the
+cohort task instead: `contemporary_snapshot` against `historical_snapshot`.
+Controlled responses and natural snapshots stay unresolved. Its rule is
+`annotation.CohortProfile`, and such an artifact records task
+`cohort_membership` and never becomes a pack. It serves the comparison of
+feature families on the pattern cohorts.
 
 The rule is frozen as `annotation.OriginProfile`, and its digest fills the
 profile field of the decision set. A unit of a controlled source whose origin

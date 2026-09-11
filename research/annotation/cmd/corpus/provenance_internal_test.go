@@ -22,7 +22,7 @@ func TestProvenanceLabelsReplaceARound(t *testing.T) {
 	_, err = commandOptions([]string{"join", "--root", ".", "--feature", "prose-words"})
 	c.Assert(err, qt.ErrorMatches, "join and train require --round or --labels, and at least one --feature")
 	_, err = commandOptions([]string{"join", "--root", ".", "--labels", "guess", "--feature", "prose-words"})
-	c.Assert(err, qt.ErrorMatches, "--labels accepts provenance")
+	c.Assert(err, qt.ErrorMatches, "--labels accepts provenance or cohort")
 	_, err = commandOptions([]string{"train", "--root", ".", "--labels", "provenance", "--lexical", "--kind", "paragraph"})
 	c.Assert(err, qt.IsNil)
 	_, err = commandOptions([]string{"train", "--root", ".", "--labels", "provenance", "--rule-config", "rules.yaml",
@@ -37,12 +37,12 @@ func TestProvenanceLabelsReplaceARound(t *testing.T) {
 	_, err = comparisonFlags(append(slices.Clone(common), "--labels", "provenance", "--round", "r.json"))
 	c.Assert(err, qt.ErrorMatches, "compare requires .*either --round or --labels")
 	_, err = comparisonFlags(append(slices.Clone(common), "--labels", "guess"))
-	c.Assert(err, qt.ErrorMatches, "--labels accepts provenance")
+	c.Assert(err, qt.ErrorMatches, "--labels accepts provenance or cohort")
 
 	_, err = evaluationFlags([]string{"evaluate", "--corpus", "c.json", "--labels", "provenance"})
 	c.Assert(err, qt.IsNil)
 	_, err = evaluationFlags([]string{"evaluate", "--corpus", "c.json", "--labels", "provenance", "--round", "r.json"})
 	c.Assert(err, qt.ErrorMatches, "evaluate requires --corpus and either --round or --labels")
 	_, err = evaluationFlags([]string{"evaluate", "--corpus", "c.json", "--labels", "guess"})
-	c.Assert(err, qt.ErrorMatches, "--labels accepts provenance")
+	c.Assert(err, qt.ErrorMatches, "--labels accepts provenance or cohort")
 }

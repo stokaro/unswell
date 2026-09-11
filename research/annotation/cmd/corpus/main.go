@@ -193,7 +193,7 @@ func annotatedOperation(ctx context.Context, name string, options options, artif
 func provenanceOperation(ctx context.Context, name string, options options, artifact corpus.Artifact,
 	files map[string][]byte,
 ) (any, error) {
-	decisions, err := corpus.OriginDecisions(ctx, artifact)
+	decisions, err := labelDecisions(ctx, options.labels, artifact)
 	if err != nil {
 		return nil, err
 	}
