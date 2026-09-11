@@ -104,9 +104,9 @@ type checkoutWalk struct {
 	skipped  []string
 }
 
-// walkRoot reads every regular file of the checkout. A symbolic link is
-// followed only when it is a declared notice and resolves to a regular file
-// inside the root; every other link is left out, so a linked document
+// walkRoot reads every regular file of the checkout. It follows a symbolic
+// link only when the link is a declared notice that resolves to a regular
+// file inside the root. Every other link stays out, so a linked document
 // cannot enter a shard twice under two names.
 func walkRoot(ctx context.Context, root *os.Root, rules corpus.SelectionRules, notices []string) (*checkoutWalk, error) {
 	walk := &checkoutWalk{root: root, limit: max(rules.MaxSourceBytes, corpus.MaxSourceBytes) + 1,

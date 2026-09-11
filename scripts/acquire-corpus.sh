@@ -195,7 +195,7 @@ graphql_tags() {
 
 # tag_before prints the newest release tag whose commit is dated on or before
 # the boundary, then a tab and its version. A release tag is an optional
-# prefix from the entry, an optional "v", and a dotted version; a PyPI-style
+# prefix from the entry, an optional "v", and a dotted version. A PyPI-style
 # beta such as 18.9b0 counts only when the repository has no other release
 # tag before the boundary. The walk stops at the first match, because tags
 # arrive newest commit first.

@@ -205,14 +205,14 @@ done
 "$corpus_tool" analyze --classes "$classes" "${findings_args[@]}" >"$output/tables.json"
 printf 'tables: %s\n' "$output/tables.json"
 
-# The unit analyses count paragraphs and sentences, not documents. Cohorts
-# are ordered by period: the placebo boundaries of 2012 and 2016, the H1
-# boundary of 2018, the H0 baseline, the contemporary snapshots, then
-# natural and controlled text. For each consecutive pair, a first-appearance
-# filter drops the later cohort's units whose text the earlier snapshot of the
-# same repository already holds, and the filtered tables contrast the pair.
-# Only shards with findings enter a filter or selection: the analysis checks
-# that every listed unit was measured.
+# The unit analyses count paragraphs and sentences, not documents. The
+# period order is: the placebo boundaries of 2012 and 2016, the H1 boundary
+# of 2018, the H0 baseline, the contemporary snapshots, then natural and
+# controlled text. Each consecutive pair gets a first-appearance filter. It
+# drops the later cohort's units whose text the earlier snapshot of the same
+# repository already holds. The filtered tables then contrast the pair. Only
+# shards with findings enter a filter or selection: the analysis checks that
+# every listed unit was measured.
 present=()
 for cohort in historical-2012 historical-2016 historical-2018 historical contemporary natural controlled; do
   if [[ -d "$output/pinned/$cohort" ]]; then present+=("$cohort"); fi

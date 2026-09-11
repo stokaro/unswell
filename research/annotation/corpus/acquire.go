@@ -413,10 +413,10 @@ func sourceFor(record Acquisition, name string, data []byte, role string, format
 		Notices: slices.Clone(notices), Snapshot: &snapshot}
 }
 
-// sourceID names one file of one snapshot. The commit keeps two snapshots of
-// the same repository, and so the same paths, apart in one dataset; the
-// cohort keeps two periods that resolve to the same release apart, so an
-// unchanged later snapshot enters its cohort as repeated text.
+// sourceID names one file of one snapshot. The commit keeps two snapshots
+// of the same repository, and so the same paths, apart in one dataset. The
+// cohort keeps two periods that resolve to the same release apart. An
+// unchanged later snapshot then enters its cohort as repeated text.
 func sourceID(repository, cohort, commit, name string) string {
 	sum := sha256.Sum256([]byte(repository + "\x00" + cohort + "\x00" + commit + "\x00" + name))
 	return fmt.Sprintf("%x", sum[:12])
