@@ -4,6 +4,49 @@ Unswell aims to reduce formulaic AI-style wording in code and documents. Good
 AI-assisted prose should pass; poor human-written prose should receive actionable
 findings. Quality and provenance need separate labels and evaluation targets.
 
+## Purpose and non-goals
+
+The product finds concrete constructions in technical prose and explains
+what to rewrite: stock phrases, rhetorical templates, repeated sentence
+shapes, and their density in a passage. The reader usually knows already
+that a text came from an AI agent. [ADR 0037](adr/0037-diagnostics-not-authorship.md)
+records the goal, the audit behind it, and the next stage.
+
+It is not an authorship detector, not a generic generation detector, and
+not a judge of literary quality. A clean scan of a generated text is a
+correct result. A finding on a human-written text is not a false positive
+by that fact. An error is a diagnostic the stated rule does not justify.
+No index, score, or estimate stands for a probability that a tool wrote
+the text.
+
+The historical corpus is the comparison base and a source of candidate
+constructions, not a norm. Rarity in old text is not a defect, and a new
+term earns no finding for being new. Contemporary generations show which
+constructions today's models use more often, more uniformly, or in less
+fitting places than the historical texts of the same kind. "Unusual
+against the historical corpus" and "frequent in generations" are two
+observations; neither proves the other.
+
+## What the recorded experiments show
+
+The E3 runs of [#176](https://github.com/stokaro/unswell/issues/176),
+[#177](https://github.com/stokaro/unswell/issues/177), and
+[#178](https://github.com/stokaro/unswell/issues/178) fit classifiers of
+cohort membership, and the origin runs of
+[#179](https://github.com/stokaro/unswell/issues/179) fit a classifier of
+generation endpoints. Every one is negative: no feature family, no
+compression reference, and no probability table separates the cohorts.
+Those are answers to classification questions. They say nothing about
+whether a rule names a construction worth rewriting, and they retire no
+rule. The records stay in [research/baselines](../research/baselines/README.md)
+and [research/origin](../research/origin/README.md) as negative results.
+
+The historical corpus measures the existing rules by cohort and period,
+with placebo boundaries and paired changes. It proposes nothing yet. Six
+papers and the catalog fixed every studied construction in advance, the
+prevalence tables carry no role stratum, and the corpus holds GitHub
+repositories only. The next stage in the ADR fills those gaps.
+
 The following tasks are experiments. No model training, comparative benchmark, or
 production accuracy result is claimed by this plan.
 

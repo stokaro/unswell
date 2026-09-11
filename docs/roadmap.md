@@ -14,13 +14,15 @@ Research work runs on two branches since September 10, 2026. The active branch,
 [#154](https://github.com/stokaro/unswell/issues/154), collects
 LLM-associated pattern evidence without human labels under
 [ADR 0036](adr/0036-llm-pattern-evidence.md). Stage A fixed its scope. Stage
-B measured five dated cohorts. Stage C runs through session agents under
-amendment 1 of the protocol. The mirrored experiments
+B measured five dated cohorts. Stage C has two runs through session agents
+under amendment 1 of the protocol. The mirrored experiments
 [#176](https://github.com/stokaro/unswell/issues/176),
-[#177](https://github.com/stokaro/unswell/issues/177),
-[#178](https://github.com/stokaro/unswell/issues/178), and
-[#179](https://github.com/stokaro/unswell/issues/179) ask the association
-questions of the research plan on that evidence base.
+[#177](https://github.com/stokaro/unswell/issues/177), and
+[#178](https://github.com/stokaro/unswell/issues/178) asked classification
+questions on that evidence base and closed with negative results;
+[#179](https://github.com/stokaro/unswell/issues/179), the origin fit, left
+the mandatory path under [ADR 0037](adr/0037-diagnostics-not-authorship.md).
+The stage that follows is the one in the next section.
 
 The human-validation branch is on hold indefinitely, by the maintainer's
 decision of September 11, 2026. Its acceptance criteria are unchanged. It
@@ -87,6 +89,28 @@ consumer tests, and the public package ledger remain maintained.
 | [#30](https://github.com/stokaro/unswell/issues/30) | Stage 4: close the product documentation and acceptance audit |
 | [#154](https://github.com/stokaro/unswell/issues/154) | Research: collect empirical evidence for LLM-associated patterns in technical English (active branch, stages A–E) |
 | [#123](https://github.com/stokaro/unswell/issues/123) | Final task: restore race detection, active fuzzing, and coverage; fix findings and record acceptance evidence |
+
+## Next stage: diagnostics on real texts
+
+The maintainer restated the goal on September 11, 2026, and
+[ADR 0037](adr/0037-diagnostics-not-authorship.md) records the audit
+against it. Unswell finds concrete constructions and explains the edit; it
+does not establish authorship. This stage improves named diagnostics on
+texts the project already has. It builds no platform and claims no
+precision figure.
+
+| Item | Deliverable | Acceptance |
+| --- | --- | --- |
+| Regression fixtures per rule | A match, a near miss from ordinary technical prose, and a rewritten text that must not fire, for every catalog rule | The fixtures run in ordinary CI on frozen inputs |
+| Role stratum | Prevalence by role inside the pattern tables | The tables of the acquisition runs carry it |
+| Frequency command | Word n-grams, sentence openers, and part-of-speech templates counted per cohort and role, with rates per 1,000 words and cohort ratios | The command runs on the committed candidates and its output is recorded |
+| Review on real texts | Every catalog rule on the 800 controlled responses and the repository's own documentation; per rule, the findings a reader judged justified under the rule's statement and the ones not, with examples | The review record exists |
+| Sources beyond repositories | Documentation sets and specifications with a verifiable historical version and license under the corpus contract | At least one such source is acquired |
+
+The human-labeled corpus, calibrated probability, the origin channel, and
+the detector comparisons stay on hold with their records. None of them is
+on the path to a release unless a concrete diagnostic needs it and that
+need is written down.
 
 ## Alpha acceptance: stages 0 and 1
 

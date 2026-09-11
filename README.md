@@ -12,6 +12,12 @@ The checks apply to text regardless of its author. They enforce a chosen editori
 policy through concrete findings and explainable scores. Unswell runs locally as
 a Go library and CLI, without sending source text to an AI service.
 
+Unswell is not an authorship detector. A clean scan of a generated text is a
+correct result, and a finding on a human-written text is a finding about the
+wording. No score is a probability that a tool wrote the text; see
+[ADR 0037](docs/adr/0037-diagnostics-not-authorship.md) for the goal and its
+non-goals.
+
 **Development alpha.** The current implementation targets stages 0–1 of the
 [technical roadmap](docs/roadmap.md). Rules and defaults are experimental.
 Revision probability is unavailable until a labeled corpus and compatible
