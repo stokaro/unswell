@@ -44,7 +44,9 @@ func TestManifestRejectsInvalidAcquisition(t *testing.T) {
 		{"undated corroboration", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("", "vcs_only", "contemporary") }},
 		{"undated historical", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("", "unknown", "historical") }},
 		{"undated period", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("", "unknown", "historical-2016") }},
-		{"unknown period", func(m *corpus.Manifest) { m.Sources[0].Snapshot = snapshot("2014-06-30", "corroborated", "historical-2014") }},
+		{"unknown period", func(m *corpus.Manifest) {
+			m.Sources[0].Snapshot = snapshot("2014-06-30", "corroborated", "historical-2014")
+		}},
 		{"snapshot evidence", func(m *corpus.Manifest) {
 			m.Sources[0].Snapshot = snapshot("2019-06-30", "corroborated", "historical")
 			m.Sources[0].Snapshot.Evidence = " "
