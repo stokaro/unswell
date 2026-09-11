@@ -1,0 +1,34 @@
+version: 1
+extends: [builtin:technical]
+calibration:
+  model: none
+rules:
+  filler.empty-transition: {enabled: true}
+  filler.section-announcement: {enabled: true}
+  filler.stacked-hedging: {enabled: true}
+  filler.weak-intensifiers: {enabled: true}
+  format.em-dash-density: {enabled: true}
+  format.list-fragmentation: {enabled: true}
+  hype.absolute-claim: {enabled: true}
+  hype.metaphor-cluster: {enabled: true}
+  hype.vague-praise: {enabled: true}
+  readability.grade-metric: {enabled: true}
+  readability.long-paragraph: {enabled: true}
+  repetition.heading-echo: {enabled: true}
+  repetition.ngram-density: {enabled: true}
+  repetition.paragraph-overlap: {enabled: true}
+  repetition.summary-echo: {enabled: true}
+  repetition.syntax-template: {enabled: true}
+  syntax.nominalization-chain: {enabled: true}
+  syntax.noun-stack: {enabled: true}
+  syntax.paired-contrast-density: {enabled: true}
+  syntax.parenthetical-load: {enabled: true}
+  syntax.passive-candidate-density: {enabled: true}
+  syntax.rhetorical-question-density: {enabled: true}
+  syntax.triad-density: {enabled: true}
+  syntax.whether-preface-density: {enabled: true}
+analysis:
+  max_candidates: 2000000
+files:
+  exclude:
+    - "internal/parser/parser_test.go"
