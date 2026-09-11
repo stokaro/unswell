@@ -23,9 +23,12 @@ type Imported struct {
 }
 
 // ImportOptions names the run and where its records live, and supplies the
-// historical acquisition record and notice bytes of each repository.
+// historical acquisition record and notice bytes of each repository. Suffix
+// ends every manifest ID, so the shards of a later run sit beside an earlier
+// run's shards of the same repositories instead of replacing them.
 type ImportOptions struct {
 	RecordsPath string
+	Suffix      string
 	Historical  func(repository string) (corpus.Acquisition, error)
 	Notice      func(repository, notice string) ([]byte, error)
 }
@@ -77,7 +80,7 @@ func repositoryImport(repositories map[string]*Imported, repository string, opti
 	}
 	slug := strings.ReplaceAll(repository, "/", "__")
 	imported := &Imported{Repository: repository, Slug: slug, Files: map[string][]byte{},
-		Manifest: corpus.Manifest{Version: corpus.Version, ID: "controlled-" + slug, Seed: record.Manifest.Seed,
+		Manifest: corpus.Manifest{Version: corpus.Version, ID: "controlled-" + slug + options.Suffix, Seed: record.Manifest.Seed,
 			Weights: record.Manifest.Weights, Policy: record.Manifest.Policy, UnitKinds: slices.Clone(record.Manifest.UnitKinds),
 			Sources: []corpus.Source{}}}
 	for _, notice := range record.Repository.Notices {

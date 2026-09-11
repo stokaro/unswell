@@ -111,3 +111,39 @@ func TestSamplerRefusesBadOptionsAndEmptyPools(t *testing.T) {
 	failing := func(string) ([]byte, error) { return nil, fmt.Errorf("gone") }
 	c.Assert(sampler.Add(t.Context(), art, failing), qt.ErrorMatches, "h0.go: gone")
 }
+
+// A task set of an earlier run leaves the pool, so a later draw under the
+// same seed takes new tasks and counts what it left out.
+func TestSamplerExcludesEarlierTasks(t *testing.T) {
+	c := qt.New(t)
+	goArt, goFiles := fixtureArtifact("historical", 10, "org/go-lib")
+	ids := map[string]string{}
+	for _, unit := range goArt.Units {
+		ids[unit.SourceID] = "training"
+	}
+	options := generation.Options{Protocol: "unswell-llm-patterns-v1", Seed: "seed-a", Cohort: "historical",
+		Partitions: []string{"training"}, Roles: []string{"comment"}, Count: 4, Ecosystems: map[string]string{"org/go-lib": "go"}}
+	draw := func(excluded map[string]bool) generation.Tasks {
+		options.Excluded = excluded
+		sampler, err := generation.NewSampler(options, plan(ids))
+		c.Assert(err, qt.IsNil)
+		c.Assert(sampler.Add(t.Context(), goArt, func(p string) ([]byte, error) { return goFiles[p], nil }), qt.IsNil)
+		tasks, err := sampler.Sample()
+		c.Assert(err, qt.IsNil)
+		return tasks
+	}
+	first := draw(nil)
+	c.Assert(first.Tasks, qt.HasLen, 4)
+	c.Assert(first.Excluded, qt.Equals, 0)
+	excluded := map[string]bool{}
+	for _, task := range first.Tasks {
+		excluded[task.ID] = true
+	}
+	second := draw(excluded)
+	c.Assert(second.Tasks, qt.HasLen, 4)
+	c.Assert(second.Excluded, qt.Equals, 4)
+	c.Assert(second.Strata[0].Eligible, qt.Equals, 6)
+	for _, task := range second.Tasks {
+		c.Assert(excluded[task.ID], qt.IsFalse)
+	}
+}

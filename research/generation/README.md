@@ -26,6 +26,12 @@ corpus paired --records records.json --tasks tasks.json \
   --classes research/methods/rule-classes-v1.json --findings ... > paired.json
 ```
 
+A later run passes the earlier task sets to `corpus tasks --exclude-tasks`,
+so no task is drawn twice, and names its shards with
+`corpus generations --shard-suffix`, so its shards sit beside the earlier
+run's shards of the same repositories. `bash scripts/measure-corpus.sh
+--resume` then measures the new shards only and rebuilds the tables.
+
 ## Tasks
 
 `corpus tasks` draws documentation units of the historical cohort. The draw
@@ -77,3 +83,5 @@ H0 documents of the same role.
 
 - [2026-09-11-pilot](runs/2026-09-11-pilot/README.md): the development
   pilot under amendment 1, one family through session agents.
+- [2026-09-11-run2](runs/2026-09-11-run2/README.md): the second run of the
+  same family on 140 new tasks, drawn without the pilot's tasks.

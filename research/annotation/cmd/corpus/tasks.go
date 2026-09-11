@@ -16,6 +16,7 @@ import (
 )
 
 type tasksOptions struct {
+	exclude    []string
 	plan       string
 	sources    string
 	work       string
@@ -44,9 +45,13 @@ func runTasks(ctx context.Context, args []string, _ io.Reader, output io.Writer)
 	if err != nil {
 		return err
 	}
+	excluded, err := excludedTasks(ctx, options.exclude)
+	if err != nil {
+		return err
+	}
 	sampler, err := generation.NewSampler(generation.Options{Protocol: options.protocol, Seed: options.seed,
 		Cohort: options.cohort, Partitions: strings.Split(options.partitions, ","), Roles: strings.Split(options.roles, ","),
-		Count: options.count, Ecosystems: ecosystems}, plan)
+		Count: options.count, Ecosystems: ecosystems, Excluded: excluded}, plan)
 	if err != nil {
 		return err
 	}
@@ -146,6 +151,10 @@ func tasksFlags(args []string) (tasksOptions, error) {
 		options.candidates = append(options.candidates, value)
 		return nil
 	})
+	flags.Func("exclude-tasks", "Task set of an earlier run whose tasks leave the pool; repeat for a set", func(value string) error {
+		options.exclude = append(options.exclude, value)
+		return nil
+	})
 	if err := flags.Parse(args); err != nil {
 		return tasksOptions{}, err
 	}
@@ -155,4 +164,19 @@ func tasksFlags(args []string) (tasksOptions, error) {
 			corpus.MaxShards)
 	}
 	return options, nil
+}
+
+// excludedTasks collects the task IDs of earlier runs' task sets.
+func excludedTasks(ctx context.Context, paths []string) (map[string]bool, error) {
+	excluded := map[string]bool{}
+	for _, path := range paths {
+		tasks, _, err := loadTasks(ctx, path)
+		if err != nil {
+			return nil, err
+		}
+		for _, task := range tasks.Tasks {
+			excluded[task.ID] = true
+		}
+	}
+	return excluded, nil
 }
