@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Measure one complete scan against the stage 4 target: 100,000 prose words
-# within 10 seconds and 512 MiB. The corpus is synthetic and deterministic, so
-# the numbers describe this tool on this host, not editorial quality.
+# within 10 seconds and 512 MiB. The default corpus is synthetic and
+# deterministic, so the numbers describe this tool on this host, not editorial
+# quality. With --corpus the same harness scans a real project tree instead.
 set -euo pipefail
 script_directory=$(dirname "$0")
 cd "$script_directory/.."
@@ -10,6 +11,9 @@ root=$PWD
 words=100000
 output=""
 label=""
+corpus_source=""
+excludes=()
+timeout=10m
 self_test=false
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -25,12 +29,24 @@ while [[ $# -gt 0 ]]; do
       label=$2
       shift 2
       ;;
+    --corpus)
+      corpus_source=$2
+      shift 2
+      ;;
+    --exclude)
+      excludes+=("$2")
+      shift 2
+      ;;
+    --timeout)
+      timeout=$2
+      shift 2
+      ;;
     --self-test)
       self_test=true
       shift
       ;;
     *)
-      printf 'Usage: %s [--words N] [--output FILE] [--label NAME] [--self-test]\n' "$0" >&2
+      printf 'Usage: %s [--words N] [--corpus DIR] [--exclude GLOB]... [--timeout DURATION] [--output FILE] [--label NAME] [--self-test]\n' "$0" >&2
       exit 2
       ;;
   esac
@@ -40,6 +56,44 @@ if ! [[ "$words" =~ ^[0-9]+$ ]] || ((words < 100)); then
   printf 'Requested word count must be an integer of at least 100.\n' >&2
   exit 2
 fi
+if [[ -n "$corpus_source" && "$self_test" == true ]]; then
+  printf 'The self-test measures the synthetic corpus; it does not take --corpus.\n' >&2
+  exit 2
+fi
+if [[ -n "$corpus_source" && ! -d "$corpus_source" ]]; then
+  printf 'The corpus directory %s does not exist.\n' "$corpus_source" >&2
+  exit 2
+fi
+
+# write_policy writes the scan policy of the measured tree. The synthetic corpus
+# selects the formats it generates. A real corpus keeps the default file
+# selection, so its own format mix is what gets measured, and it repeats the
+# default exclusions because an exclude list in a policy replaces them.
+write_policy() {
+  local directory=$1 pattern
+  {
+    printf 'version: 1\nextends: [builtin:strict-v1]\nlanguage: en\nfiles:\n'
+    if [[ -z "$corpus_source" ]]; then
+      printf '  include:\n    - "**/*.md"\n    - "**/*.go"\n    - "**/*.yaml"\n    - "**/*.sh"\n'
+    else
+      printf '  exclude:\n'
+      for pattern in ".git/**" "vendor/**" "testdata/**" "artifacts/**" "dist/**" "rules/**" "**/*.generated.go" \
+        ${excludes[@]+"${excludes[@]}"}; do
+        printf '    - "%s"\n' "$pattern"
+      done
+    fi
+  } >"$directory/.unswell.yaml"
+}
+
+# prepare_corpus copies a real project tree into the workspace without its
+# version control metadata. The scan then reads the tree a checkout holds, and
+# the policy the measurement adds never touches the source directory.
+prepare_corpus() {
+  local source=$1 directory=$2
+  mkdir -p "$directory"
+  cp -R "$source/." "$directory/"
+  rm -rf "$directory/.git"
+}
 
 # generate_corpus writes deterministic technical prose across every scanned
 # format. Sentences repeat by design: the measurement needs a fixed workload,
@@ -49,17 +103,7 @@ generate_corpus() {
   mkdir -p "$directory/docs" "$directory/service" "$directory/config" "$directory/scripts"
   # The corpus carries its own policy: the repository's own file selection is
   # written for the repository, not for a generated tree.
-  cat >"$directory/.unswell.yaml" <<'POLICY'
-version: 1
-extends: [builtin:strict-v1]
-language: en
-files:
-  include:
-    - "**/*.md"
-    - "**/*.go"
-    - "**/*.yaml"
-    - "**/*.sh"
-POLICY
+  write_policy "$directory"
   UNSWELL_CORPUS_DIRECTORY=$directory UNSWELL_CORPUS_WORDS=$target awk '
     BEGIN {
       directory = ENVIRON["UNSWELL_CORPUS_DIRECTORY"]
@@ -130,7 +174,7 @@ measure() {
   fi
   started=$(date +%s.%N)
   "${time_tool[@]}" "$root/bin/unswell" check "$directory" \
-    --project-root "$directory" --config "$directory/.unswell.yaml" \
+    --project-root "$directory" --config "$directory/.unswell.yaml" --timeout "$timeout" \
     --report "json:$reports/result.json" \
     --report "sarif:$reports/result.sarif" \
     --report "html:$reports/result.html" \
@@ -160,7 +204,7 @@ peak_bytes() {
 count_prose_words() {
   local directory=$1 reports=$2
   mkdir -p "$reports"
-  "$root/bin/unswell" check "$directory" --project-root "$directory" \
+  "$root/bin/unswell" check "$directory" --project-root "$directory" --timeout "$timeout" \
     --config "$directory/.unswell.yaml" --no-gate --report "json:$reports/count.json" >/dev/null 2>&1 || true
   awk '/"prose_words"/ { gsub(/[^0-9]/, "", $2); total += $2 } END { print total + 0 }' "$reports/count.json"
 }
@@ -174,25 +218,33 @@ if [[ ! -x bin/unswell ]]; then
   exit 2
 fi
 
-# Calibrate the generated size against the counted size, so the measurement
-# covers at least the requested number of words rather than an estimate.
-generated=$words
-for attempt in 1 2 3; do
-  rm -rf "$corpus"
-  generate_corpus "$corpus" "$generated"
-  counted=$(count_prose_words "$corpus" "$workspace/calibration")
-  if ((counted >= words)); then
-    break
-  fi
-  if ((counted <= 0)); then
-    printf 'The generated corpus produced no prose words.\n' >&2
-    exit 1
-  fi
-  generated=$((generated * words * 102 / (counted * 100) + 1))
-  if ((attempt == 3)); then
-    printf 'Calibration reached %s prose words for a %s word request.\n' "$counted" "$words" >&2
-  fi
-done
+if [[ -n "$corpus_source" ]]; then
+  # A real corpus is measured as it is; nothing sizes it to the target.
+  prepare_corpus "$corpus_source" "$corpus"
+  write_policy "$corpus"
+  requested_words=0
+else
+  # Calibrate the generated size against the counted size, so the measurement
+  # covers at least the requested number of words rather than an estimate.
+  requested_words=$words
+  generated=$words
+  for attempt in 1 2 3; do
+    rm -rf "$corpus"
+    generate_corpus "$corpus" "$generated"
+    counted=$(count_prose_words "$corpus" "$workspace/calibration")
+    if ((counted >= words)); then
+      break
+    fi
+    if ((counted <= 0)); then
+      printf 'The generated corpus produced no prose words.\n' >&2
+      exit 1
+    fi
+    generated=$((generated * words * 102 / (counted * 100) + 1))
+    if ((attempt == 3)); then
+      printf 'Calibration reached %s prose words for a %s word request.\n' "$counted" "$words" >&2
+    fi
+  done
+fi
 
 cold_result=$(measure "$corpus" "$workspace/cold" "$workspace/cold.time")
 read -r cold_seconds cold_status <<<"$cold_result"
@@ -201,12 +253,29 @@ warm_result=$(measure "$corpus" "$workspace/warm" "$workspace/warm.time")
 read -r warm_seconds warm_status <<<"$warm_result"
 warm_peak=$(peak_bytes "$workspace/warm.time")
 
+# A scan the kernel killed leaves no report. The observation then records the
+# exit code the time tool saw, with zero counts and an unknown outcome.
+for report_file in result.json result.txt; do
+  [[ -f "$workspace/cold/$report_file" ]] || : >"$workspace/cold/$report_file"
+done
 measured_words=$(awk '/"prose_words"/ { gsub(/[^0-9]/, "", $2); total += $2 } END { print total + 0 }' \
   "$workspace/cold/result.json")
-# The text report states the counts the run itself reached.
-summary=$(tail -20 "$workspace/cold/result.txt" | sed -n 's/^[A-Z]*: \([0-9]*\) documents, \([0-9]*\) findings.*/\1 \2/p' | tail -1)
-documents=${summary%% *}
-findings=${summary##* }
+# The text report states the counts and the outcome the run itself reached,
+# and lists every operational error of a scan that did not complete.
+summary=$(sed -n 's/^\([A-Z]*\): \([0-9]*\) documents, \([0-9]*\) findings.*/\1 \2 \3/p' "$workspace/cold/result.txt" | tail -1)
+read -r outcome documents findings <<<"${summary:-unknown 0 0}"
+errors=$(grep -c '^  error: ' "$workspace/cold/result.txt" || true)
+if [[ -n "$corpus_source" ]]; then
+  corpus_name=$(basename "$corpus_source")
+  scope="Real project tree $corpus_name; measures this build on this host on that tree, not editorial quality."
+else
+  corpus_name=synthetic
+  scope="Synthetic deterministic corpus; measures this build on this host, not editorial quality."
+fi
+exclude_list=""
+for pattern in ${excludes[@]+"${excludes[@]}"}; do
+  exclude_list="${exclude_list:+$exclude_list, }\"$pattern\""
+done
 corpus_bytes=$(find "$corpus" -type f -exec cat {} + >"$workspace/corpus.bytes" && wc -c <"$workspace/corpus.bytes")
 corpus_bytes=${corpus_bytes// /}
 tool_version=$("$root/bin/unswell" --version 2>/dev/null || printf 'unknown')
@@ -220,12 +289,17 @@ report=$(
 {
   "format": "unswell-scan-cost-observation-v1",
   "label": "${label:-unlabeled}",
-  "scope": "Synthetic deterministic corpus; measures this build on this host, not editorial quality.",
+  "scope": "$scope",
+  "corpus": "$corpus_name",
+  "excludes": [$exclude_list],
+  "analysis_timeout": "$timeout",
   "tool_version": "$tool_version",
-  "requested_words": $words,
+  "requested_words": $requested_words,
   "measured_prose_words": $measured_words,
   "documents": $documents,
   "findings": $findings,
+  "errors": $errors,
+  "outcome": "$outcome",
   "corpus_bytes": $corpus_bytes,
   "goos": "$system_name",
   "goarch": "$machine_name",
