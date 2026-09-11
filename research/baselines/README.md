@@ -40,6 +40,20 @@ artifact records how often. A comparison stays inside one input context. The
 rule arms compare with each other, and the prepared arms compare with each
 other, as the evaluation contract requires.
 
+`scripts/compression-experiment.sh` runs the compression part of the same
+experiment for [#178](https://github.com/stokaro/unswell/issues/178) on the
+same union. `corpus reference-bank --labels cohort` seeds a historical, a
+contemporary, and a mixed reference from one training group. `train
+--compression-bank` measures every paragraph against each reference, alone
+or joined with the structural features, and `train --reserve-bank` keeps
+the compared baselines on the same rows, without the group the bank
+reserved. The bank holds source prose, so a record keeps its digest and
+selection, not its bytes.
+
+```sh
+bash scripts/compression-experiment.sh --record research/baselines/runs/<run>
+```
+
 ## What a run does not establish
 
 A cohort difference is a difference between two sets of snapshots. It carries
@@ -55,3 +69,4 @@ number here is an authorship verdict or a share of text written by a tool.
 | Run | What it covers | Record |
 | --- | --- | --- |
 | 2026-09-11 pilot | First fit of the five arms on the documentation, readme, and release-note paragraphs of both cohorts, four sources per checkout, threshold frozen at 0.5 | [runs/2026-09-11-pilot](runs/2026-09-11-pilot/README.md) |
+| 2026-09-11 compression | The reference columns of one bank, alone and joined with the structural features, against the structural features and the n-grams on the pilot's corpus | [runs/2026-09-11-compression](runs/2026-09-11-compression/README.md) |
