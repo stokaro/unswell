@@ -71,11 +71,22 @@ func TestCorpusPackConvertsAFittedArtifact(t *testing.T) {
 			c.Assert(researchCommand(t, binary, changed, trained, 2), qt.HasLen, 0)
 		})
 	}
-	// An origin pack from the same artifact keeps the same contract.
-	origin := researchCommand(t, binary, append(slices.Clone(args), "--task", "origin_endpoint"), trained, 0)
+	// An artifact fitted for the editorial task cannot become an origin pack.
+	c.Assert(researchCommand(t, binary, append(slices.Clone(args), "--task", "origin_endpoint"), trained, 2), qt.HasLen, 0)
+
+	// An origin pack comes from an artifact fitted on provenance labels, and it
+	// keeps the same contract in the other channel.
+	originManifest, originRoot := originFixture(t)
+	originPlan := researchCommand(t, binary, []string{"plan"}, originManifest, 0)
+	originArtifact := researchCommand(t, binary, []string{"extract", "--root", originRoot}, originPlan, 0)
+	originTrained := researchCommand(t, binary, []string{"train", "--root", originRoot, "--labels", "provenance",
+		"--kind", "paragraph", "--feature", "prose-words", "--calibration", "isotonic"}, originArtifact, 0)
+	origin := researchCommand(t, binary, append(slices.Clone(args), "--task", "origin_endpoint"), originTrained, 0)
 	c.Assert(json.Unmarshal(origin, &pack), qt.IsNil)
 	c.Assert(pack.Task, qt.Equals, "origin_endpoint")
-	c.Assert(origin, qt.Not(qt.DeepEquals), output)
+	c.Assert(pack.DeclaredStatus, qt.Equals, "experimental")
+	c.Assert(pack.HumanCorpus, qt.Equals, "not_qualified")
+	c.Assert(researchCommand(t, binary, args, originTrained, 2), qt.HasLen, 0)
 	checkPackLoadsInTheEngine(t, output, origin)
 }
 

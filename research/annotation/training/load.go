@@ -56,11 +56,11 @@ func validArtifactStatus(a Artifact) bool {
 	return a.Version == Version && a.Status == "experimental_numerical_fit" &&
 		a.HumanCorpus == "not_qualified" &&
 		a.ProbabilityStatus == "unavailable_unqualified_model" &&
-		slices.Contains([]string{"simulation", "declared_human"}, a.Basis)
+		slices.Contains([]string{"simulation", "declared_human", "declared_provenance"}, a.Basis)
 }
 
 func validModelShape(a Artifact) bool {
-	return a.Identity.Task == "editorial_needs_revision" && a.Identity.Kind == a.Options.Kind && a.Identity.Rubric != "" &&
+	return consistentTask(a.Identity) && a.Identity.Kind == a.Options.Kind && a.Identity.Rubric != "" &&
 		len(a.Options.Features) == len(a.Identity.Columns)
 }
 

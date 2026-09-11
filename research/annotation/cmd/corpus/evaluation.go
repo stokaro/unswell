@@ -15,6 +15,7 @@ import (
 
 type evaluationOptions struct {
 	root, model, plan, protocol, rules, corpus, round string
+	labels                                            string
 	allowSimulation                                   bool
 }
 
@@ -56,6 +57,7 @@ func evaluationFlags(args []string) (evaluationOptions, error) {
 	} else {
 		flags.StringVar(&options.corpus, "corpus", "", "Frozen candidate artifact used by prediction")
 		flags.StringVar(&options.round, "round", "", "Independent evaluation annotation round")
+		flags.StringVar(&options.labels, "labels", "", "Label source instead of a round: provenance labels the origin task from the corpus")
 		flags.BoolVar(&options.allowSimulation, "allow-simulation", false, "Allow explicitly simulated tutorial labels")
 	}
 	if err := flags.Parse(args[1:]); err != nil {
@@ -71,8 +73,20 @@ func (options evaluationOptions) validate(name string) error {
 	if name == "predict" && (options.root == "" || options.model == "" || options.plan == "" || options.protocol == "") {
 		return fmt.Errorf("predict requires --root, --model, --plan, and --protocol")
 	}
-	if name == "evaluate" && (options.corpus == "" || options.round == "") {
-		return fmt.Errorf("evaluate requires --corpus and --round")
+	if name == "evaluate" {
+		return options.validateLabelSource()
+	}
+	return nil
+}
+
+// validateLabelSource requires the frozen corpus and exactly one of a round
+// and a label source.
+func (options evaluationOptions) validateLabelSource() error {
+	if options.corpus == "" || (options.round == "") == (options.labels == "") {
+		return fmt.Errorf("evaluate requires --corpus and either --round or --labels")
+	}
+	if options.labels != "" && options.labels != "provenance" {
+		return fmt.Errorf("--labels accepts provenance")
 	}
 	return nil
 }
@@ -132,6 +146,13 @@ func evaluateOperation(ctx context.Context, options evaluationOptions, data []by
 	candidates, err := corpus.LoadArtifact(ctx, encoded)
 	if err != nil {
 		return evaluation.Result{}, err
+	}
+	if options.labels != "" {
+		decisions, err := corpus.OriginDecisions(ctx, candidates)
+		if err != nil {
+			return evaluation.Result{}, err
+		}
+		return evaluation.RunDecisions(ctx, data, candidates, decisions, options.allowSimulation)
 	}
 	round, err := loadRound(ctx, options.round)
 	if err != nil {

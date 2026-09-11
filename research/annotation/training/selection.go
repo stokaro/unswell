@@ -21,6 +21,7 @@ type selection struct {
 
 type rowSelector struct {
 	options   Options
+	task      string
 	decisions map[string]annotation.EditorialDecision
 	measure   func(corpus.FeatureBinding) (measurement, bool)
 	result    selection
@@ -36,6 +37,11 @@ type measurement struct {
 func selectMeasuredRows(ctx context.Context, plan corpus.Plan, decisions annotation.DecisionSet,
 	bindings []corpus.FeatureBinding, selector rowSelector,
 ) (selection, error) {
+	task, err := annotation.TaskForRubric(decisions.Rubric)
+	if err != nil {
+		return selection{}, err
+	}
+	selector.task = task
 	selector.decisions = make(map[string]annotation.EditorialDecision)
 	selector.result = selection{partitions: partitionCounts(plan)}
 	for _, decision := range decisions.Units {
@@ -92,7 +98,7 @@ func (s *rowSelector) addResolved(binding corpus.FeatureBinding, unit measuremen
 	if !slices.Contains(decision.Target.AllowedUses, "training") {
 		return fmt.Errorf("unit %s lacks a declared training permission", binding.UnitID)
 	}
-	label, err := binaryLabel(decision)
+	label, err := classLabel(s.task, decision)
 	if err != nil {
 		return err
 	}
@@ -128,18 +134,6 @@ func (s *rowSelector) unavailable(id, reason string, partition *Partition) error
 	}
 	partition.Excluded[reason]++
 	return nil
-}
-
-func binaryLabel(decision annotation.EditorialDecision) (int, error) {
-	if decision.Label != nil {
-		switch *decision.Label {
-		case "acceptable":
-			return 0, nil
-		case "needs_revision":
-			return 1, nil
-		}
-	}
-	return 0, fmt.Errorf("resolved unit %s requires an acceptable or needs_revision label", decision.UnitID)
 }
 
 func measurementKey(path, hash string) string { return path + "\x00" + hash }

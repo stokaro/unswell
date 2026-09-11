@@ -75,7 +75,7 @@ func TestUnresolvedDecisionsDoNotBecomeNegativeRows(t *testing.T) {
 	c.Assert(selected.training, qt.HasLen, 1)
 	c.Assert(selected.training[0].Label, qt.Equals, 1)
 	c.Assert(selected.partitions[0].Excluded["decision/uncertain"], qt.Equals, 1)
-	_, err = binaryLabel(annotation.EditorialDecision{Status: "resolved"})
+	_, err = classLabel(annotation.TaskEditorial, annotation.EditorialDecision{Status: "resolved"})
 	c.Assert(err, qt.IsNotNil)
 }
 

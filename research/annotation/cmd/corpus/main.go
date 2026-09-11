@@ -168,6 +168,9 @@ func measureOperation(ctx context.Context, options options, artifact corpus.Arti
 func annotatedOperation(ctx context.Context, name string, options options, artifact corpus.Artifact,
 	files map[string][]byte,
 ) (any, error) {
+	if options.labels != "" {
+		return provenanceOperation(ctx, name, options, artifact, files)
+	}
 	round, err := loadRound(ctx, options.round)
 	if err != nil {
 		return nil, err
@@ -182,4 +185,19 @@ func annotatedOperation(ctx context.Context, name string, options options, artif
 		return training.Run(ctx, artifact, round, files, options.train)
 	}
 	return corpus.Join(ctx, artifact, round, files, options.features)
+}
+
+// provenanceOperation labels the artifact from its declared cohorts and
+// origins and takes the same join or train path a round would.
+func provenanceOperation(ctx context.Context, name string, options options, artifact corpus.Artifact,
+	files map[string][]byte,
+) (any, error) {
+	decisions, err := corpus.OriginDecisions(ctx, artifact)
+	if err != nil {
+		return nil, err
+	}
+	if name == "train" {
+		return training.RunDecisions(ctx, artifact, decisions, files, options.train)
+	}
+	return corpus.JoinDecisions(ctx, artifact, decisions, files, options.features)
 }

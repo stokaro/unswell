@@ -98,6 +98,13 @@ func (r *Round) Decisions(ctx context.Context) (DecisionSet, error) {
 	return finishDecisions(ctx, result)
 }
 
+// FinishDecisions seals a decision set built outside a round, such as one
+// labeled from declared provenance. It bounds the export and records its
+// digest; it checks nothing about the labels.
+func FinishDecisions(ctx context.Context, result DecisionSet) (DecisionSet, error) {
+	return finishDecisions(ctx, result)
+}
+
 func finishDecisions(ctx context.Context, result DecisionSet) (DecisionSet, error) {
 	data, err := json.Marshal(result)
 	if err != nil {

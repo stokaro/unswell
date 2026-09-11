@@ -53,8 +53,36 @@ func Run(ctx context.Context, data []byte, candidates corpus.Artifact,
 	if err := validateTargets(ctx, candidates, predictions, round); err != nil {
 		return Result{}, err
 	}
-	decisions, err := evaluationDecisions(ctx, round, predictions.Model, allowSimulation)
+	decisions, err := round.Decisions(ctx)
 	if err != nil {
+		return Result{}, err
+	}
+	return scoreDecisions(ctx, predictions, candidates, decisions, allowSimulation)
+}
+
+// RunDecisions scores saved predictions against a prepared decision set, such
+// as the provenance labels of the origin task. The decisions must bind the
+// same candidates the predictions were frozen on; the metrics are the same.
+func RunDecisions(ctx context.Context, data []byte, candidates corpus.Artifact,
+	decisions annotation.DecisionSet, allowSimulation bool,
+) (Result, error) {
+	predictions, err := training.LoadPredictions(ctx, data)
+	if err != nil {
+		return Result{}, err
+	}
+	if err := validateTargets(ctx, candidates, predictions, nil); err != nil {
+		return Result{}, err
+	}
+	if err := corpus.MatchDecisionTargets(ctx, candidates, decisions); err != nil {
+		return Result{}, err
+	}
+	return scoreDecisions(ctx, predictions, candidates, decisions, allowSimulation)
+}
+
+func scoreDecisions(ctx context.Context, predictions training.Predictions, candidates corpus.Artifact,
+	decisions annotation.DecisionSet, allowSimulation bool,
+) (Result, error) {
+	if err := checkDecisions(decisions, predictions.Model, allowSimulation); err != nil {
 		return Result{}, err
 	}
 	rows, excluded, err := labeledRows(ctx, predictions, decisions)
@@ -131,6 +159,9 @@ func validateTargets(ctx context.Context, candidates corpus.Artifact, prediction
 	if err := matchPredictionTargets(targets, predictions.Rows); err != nil {
 		return err
 	}
+	if round == nil {
+		return nil
+	}
 	return round.MatchTargets(ctx, units)
 }
 
@@ -149,6 +180,10 @@ func matchPredictionTargets(targets map[string]corpus.Candidate, rows []training
 
 func labeledRows(ctx context.Context, predictions training.Predictions, decisions annotation.DecisionSet,
 ) ([]Observation, map[string]int, error) {
+	negative, positive, err := annotation.Labels(predictions.Model.Identity.Task)
+	if err != nil {
+		return nil, nil, err
+	}
 	byID := make(map[string]annotation.EditorialDecision, len(decisions.Units))
 	for _, decision := range decisions.Units {
 		byID[decision.UnitID] = decision
@@ -167,27 +202,41 @@ func labeledRows(ctx context.Context, predictions training.Predictions, decision
 			excluded["decision/"+decision.Reason]++
 			continue
 		}
-		if !slices.Contains(decision.Target.AllowedUses, "evaluation") {
-			return nil, nil, fmt.Errorf("unit %s lacks a declared evaluation permission", row.UnitID)
+		observation, err := observe(row, decision, negative, positive)
+		if err != nil {
+			return nil, nil, err
 		}
-		if decision.Label == nil || !slices.Contains([]string{"acceptable", "needs_revision"}, *decision.Label) {
-			return nil, nil, fmt.Errorf("evaluation requires a resolved binary editorial label")
-		}
-		label := 0
-		if *decision.Label == "needs_revision" {
-			label = 1
-		}
-		rows = append(rows, Observation{row.UnitID, row.GroupID, label, row.Response, row.Positive})
+		rows = append(rows, observation)
 	}
 	return rows, excluded, nil
 }
 
+// observe pairs one resolved decision with its saved prediction. The unit must
+// permit evaluation and carry one of the task's two labels.
+func observe(row training.Prediction, decision annotation.EditorialDecision, negative, positive string) (Observation, error) {
+	if !slices.Contains(decision.Target.AllowedUses, "evaluation") {
+		return Observation{}, fmt.Errorf("unit %s lacks a declared evaluation permission", row.UnitID)
+	}
+	if decision.Label == nil || !slices.Contains([]string{negative, positive}, *decision.Label) {
+		return Observation{}, fmt.Errorf("evaluation requires a resolved %s or %s label", negative, positive)
+	}
+	label := 0
+	if *decision.Label == positive {
+		label = 1
+	}
+	return Observation{row.UnitID, row.GroupID, label, row.Response, row.Positive}, nil
+}
+
 func trainingConstant(fitted training.Artifact) (float64, error) {
+	negativeLabel, positiveLabel, err := annotation.Labels(fitted.Identity.Task)
+	if err != nil {
+		return 0, err
+	}
 	for _, partition := range fitted.Partitions {
 		if partition.Name != "training" {
 			continue
 		}
-		positive, negative := partition.Classes["needs_revision"], partition.Classes["acceptable"]
+		positive, negative := partition.Classes[positiveLabel], partition.Classes[negativeLabel]
 		if positive < 0 || negative < 0 || positive+negative == 0 || positive+negative != len(partition.Rows) {
 			return 0, fmt.Errorf("training artifact requires consistent fitted class counts")
 		}
@@ -196,18 +245,12 @@ func trainingConstant(fitted training.Artifact) (float64, error) {
 	return 0, fmt.Errorf("training artifact has no training partition")
 }
 
-func evaluationDecisions(ctx context.Context, round *annotation.Round, fitted training.Artifact,
-	allowSimulation bool,
-) (annotation.DecisionSet, error) {
-	decisions, err := round.Decisions(ctx)
-	if err != nil {
-		return annotation.DecisionSet{}, err
-	}
+func checkDecisions(decisions annotation.DecisionSet, fitted training.Artifact, allowSimulation bool) error {
 	if decisions.Rubric != fitted.Identity.Rubric || decisions.ProfileSHA256 != fitted.Identity.ProfileSHA256 {
-		return annotation.DecisionSet{}, fmt.Errorf("evaluation rubric or profile differs from the frozen model")
+		return fmt.Errorf("evaluation rubric or profile differs from the frozen model")
 	}
 	if decisions.Basis == "simulation" && !allowSimulation {
-		return annotation.DecisionSet{}, fmt.Errorf("tutorial evaluation requires explicit allow_simulation")
+		return fmt.Errorf("tutorial evaluation requires explicit allow_simulation")
 	}
-	return decisions, nil
+	return nil
 }

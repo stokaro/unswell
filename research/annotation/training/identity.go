@@ -10,6 +10,7 @@ import (
 
 	"github.com/stokaro/unswell"
 	"github.com/stokaro/unswell/feature"
+	"github.com/stokaro/unswell/research/annotation"
 	"github.com/stokaro/unswell/research/annotation/corpus"
 )
 
@@ -30,7 +31,11 @@ func columnIdentity(joined corpus.JoinedArtifact, kind string) (Identity, error)
 	if err != nil {
 		return Identity{}, err
 	}
-	return Identity{Task: "editorial_needs_revision", Rubric: joined.Decisions.Rubric, ProfileSHA256: joined.Decisions.ProfileSHA256,
+	task, err := annotation.TaskForRubric(joined.Decisions.Rubric)
+	if err != nil {
+		return Identity{}, err
+	}
+	return Identity{Task: task, Rubric: joined.Decisions.Rubric, ProfileSHA256: joined.Decisions.ProfileSHA256,
 		Kind: kind, FeatureContract: joined.Features.FeatureContract, UnitContract: joined.Features.UnitContract,
 		Columns: columns, ColumnsSHA256: fmt.Sprintf("%x", sha256.Sum256(encoded))}, nil
 }

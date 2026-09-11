@@ -67,6 +67,36 @@ policy when a feature is a rule activation.
 The artifact records the feature contract, the model and NLP identities, the
 seeds and the split manifest, so the same inputs produce the same bytes.
 
+## Provenance labels for the origin task
+
+The origin channel of [ADR 0035](adr/0035-origin-channel.md) estimates a
+different target: whether a unit is the endpoint of a generation record. Its
+labels come from provenance the corpus declares, never from a blinded round.
+`--labels provenance` replaces `--round` on `join`, `train`, and `evaluate`:
+
+```sh
+go run ./cmd/corpus train --root sources --labels provenance \
+  --kind paragraph --feature prose-words --calibration isotonic < corpus.json > origin-model.json
+```
+
+The rule is frozen as `annotation.OriginProfile`, and its digest fills the
+profile field of the decision set. A unit of a controlled source whose origin
+is `generated` with document scope is `endpoint_generated`. A unit of a
+historical cohort with origin `human` or `unknown` is `human_snapshot`, a dated
+snapshot from before the boundary. Every other unit stays unresolved with a
+reason: `polished_response` for `human_ai_edited`, `contemporary_snapshot`,
+`natural_cohort`, a declared mixed or edited origin, or a controlled source
+without a generation record. Those units are counted as exclusions, and the
+rule reads nothing from the text.
+
+The artifact records task `origin_endpoint` and rubric
+`unswell-origin-endpoint-v1`, its class counts use the two labels above, and
+`pack --task origin_endpoint` accepts only such an artifact. An artifact
+fitted for one task cannot become a pack for the other. Nothing here
+qualifies an origin model: the labels are declared provenance, the generator
+may have seen the historical text, and the generation records flag verbatim
+overlap.
+
 ## Frozen prediction and evaluation
 
 Prediction is frozen: a plan declares the protocol, the model, the corpus, the
