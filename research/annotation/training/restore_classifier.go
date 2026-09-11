@@ -72,7 +72,7 @@ func validateForestFit(a Artifact) error {
 	if err := validateForestFitLimits(*p, *o); err != nil {
 		return err
 	}
-	rows, positive, err := forestTrainingCounts(a.Partitions[0])
+	rows, positive, err := forestTrainingCounts(a.Identity.Task, a.Partitions[0])
 	if err != nil {
 		return err
 	}
@@ -92,8 +92,12 @@ func validateForestFit(a Artifact) error {
 	return nil
 }
 
-func forestTrainingCounts(partition Partition) (int, int, error) {
-	rows, positive := len(partition.Rows), partition.Classes["needs_revision"]
+func forestTrainingCounts(task string, partition Partition) (int, int, error) {
+	_, positive, err := classCounts(task, partition)
+	if err != nil {
+		return 0, 0, err
+	}
+	rows := len(partition.Rows)
 	if rows < 2 || positive == 0 || positive == rows {
 		return 0, 0, fmt.Errorf("forest fitting requires both training classes")
 	}

@@ -40,8 +40,12 @@ func lexicalIdentity(candidates corpus.Artifact, prepared corpus.Prepared, decis
 	if err != nil {
 		return Identity{}, err
 	}
+	task, err := annotation.TaskForRubric(decisions.Rubric)
+	if err != nil {
+		return Identity{}, err
+	}
 	return Identity{FeatureSource: "lexical_ngrams", Context: "prepared_piece", Preprocessing: lexicalPreprocessing,
-		Task: "editorial_needs_revision", Rubric: decisions.Rubric, ProfileSHA256: decisions.ProfileSHA256,
+		Task: task, Rubric: decisions.Rubric, ProfileSHA256: decisions.ProfileSHA256,
 		Kind: options.Kind, FeatureContract: feature.LexicalCountContract, UnitContract: nlp.UnitContract,
 		Columns: columns, ColumnsSHA256: columnHash, NLP: candidates.Pipeline.NLP,
 		Capabilities: []nlp.Capability{nlp.Tokens, nlp.Sentences}, PolicyHash: prepared.Policy.Hash,

@@ -93,7 +93,14 @@ func comparisonDecisions(ctx context.Context, candidates corpus.Artifact, round 
 			return annotation.DecisionSet{}, err
 		}
 	}
-	return evaluationDecisions(ctx, round, a.Model, simulation)
+	decisions, err := round.Decisions(ctx)
+	if err != nil {
+		return annotation.DecisionSet{}, err
+	}
+	if err := checkDecisions(decisions, a.Model, simulation); err != nil {
+		return annotation.DecisionSet{}, err
+	}
+	return decisions, nil
 }
 
 func comparisonRows(ctx context.Context, a, b training.Predictions, decisions annotation.DecisionSet,

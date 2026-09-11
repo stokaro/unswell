@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"slices"
 
+	"github.com/stokaro/unswell/research/annotation"
 	"github.com/stokaro/unswell/research/annotation/corpus"
 )
 
@@ -17,19 +18,19 @@ func validateRestoredPartitions(a Artifact) error {
 		if partition.Name != names[i] || partition.Candidates < 0 || partition.Sources < 0 || partition.Groups < 0 {
 			return fmt.Errorf("training artifact has invalid partition counts or order")
 		}
-		if err := validateRestoredPartition(partition, a.Options, seen); err != nil {
+		if err := validateRestoredPartition(a.Identity.Task, partition, a.Options, seen); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func validateRestoredPartition(partition Partition, options Options, seen map[string]bool) error {
+func validateRestoredPartition(task string, partition Partition, options Options, seen map[string]bool) error {
 	reserved := partitionReserved(partition.Name, options)
 	if reserved && (len(partition.Rows) != 0 || len(partition.Classes) != 0) {
 		return fmt.Errorf("reserved partition cannot contain fitted rows or class statistics")
 	}
-	if err := validateFittedCounts(partition); err != nil {
+	if err := validateFittedCounts(task, partition); err != nil {
 		return err
 	}
 	for _, row := range partition.Rows {
@@ -58,10 +59,14 @@ func validateFittedTargets(a Artifact, candidates corpus.Artifact) error {
 	return nil
 }
 
-func validateFittedCounts(partition Partition) error {
+func validateFittedCounts(task string, partition Partition) error {
+	negative, positive, err := annotation.Labels(task)
+	if err != nil {
+		return err
+	}
 	count := 0
 	for label, value := range partition.Classes {
-		if value < 0 || value > len(partition.Rows) || !slices.Contains([]string{"acceptable", "needs_revision"}, label) {
+		if value < 0 || value > len(partition.Rows) || !slices.Contains([]string{negative, positive}, label) {
 			return fmt.Errorf("training artifact has invalid fitted class counts")
 		}
 		count += value

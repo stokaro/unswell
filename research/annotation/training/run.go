@@ -25,6 +25,27 @@ func Run(ctx context.Context, candidates corpus.Artifact, round *annotation.Roun
 	if err != nil {
 		return Artifact{}, err
 	}
+	return fitJoined(ctx, candidates, joined, options)
+}
+
+// RunDecisions fits from a prepared decision set instead of a round, such as
+// the provenance labels of the origin task. Everything after the join is the
+// same path, so the artifact records the same identities and partitions and
+// stays as unqualified as one fitted from a round.
+func RunDecisions(ctx context.Context, candidates corpus.Artifact, decisions annotation.DecisionSet,
+	files map[string][]byte, options Options,
+) (Artifact, error) {
+	if err := validateOptions(ctx, candidates, options); err != nil {
+		return Artifact{}, err
+	}
+	joined, err := corpus.JoinDecisions(ctx, candidates, decisions, files, options.Features)
+	if err != nil {
+		return Artifact{}, err
+	}
+	return fitJoined(ctx, candidates, joined, options)
+}
+
+func fitJoined(ctx context.Context, candidates corpus.Artifact, joined corpus.JoinedArtifact, options Options) (Artifact, error) {
 	if joined.Decisions.Basis == "simulation" && !options.AllowSimulation {
 		return Artifact{}, fmt.Errorf("tutorial training requires explicit allow_simulation")
 	}

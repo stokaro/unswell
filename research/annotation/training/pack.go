@@ -20,6 +20,19 @@ type PackOptions struct {
 	Evaluation string
 }
 
+// validatePackTask requires a known estimation target that matches the task
+// the artifact was fitted for, so editorial rows never ship as origin
+// estimates and origin rows never ship as revision estimates.
+func validatePackTask(artifact Artifact, options PackOptions) error {
+	if !slices.Contains([]string{probability.Task, probability.TaskOrigin}, options.Task) {
+		return fmt.Errorf("a pack estimates %s or %s", probability.Task, probability.TaskOrigin)
+	}
+	if options.Task != artifact.Identity.Task {
+		return fmt.Errorf("the artifact was fitted for %s, not %s", artifact.Identity.Task, options.Task)
+	}
+	return nil
+}
+
 // BuildPack converts one fitted artifact into a product pack. It copies the
 // numerical parameters and the measurement contract the artifact already
 // records, and refuses to invent anything else. A pack it produces is
@@ -68,8 +81,8 @@ func BuildPack(ctx context.Context, artifact Artifact, options PackOptions) (pro
 }
 
 func validatePackInput(artifact Artifact, options PackOptions) error {
-	if !slices.Contains([]string{probability.Task, probability.TaskOrigin}, options.Task) {
-		return fmt.Errorf("a pack estimates %s or %s", probability.Task, probability.TaskOrigin)
+	if err := validatePackTask(artifact, options); err != nil {
+		return err
 	}
 	if artifact.Options.Estimator != "logistic" || artifact.Logistic == nil {
 		return fmt.Errorf("only a logistic artifact becomes a pack; this one used %q", artifact.Options.Estimator)

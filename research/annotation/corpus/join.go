@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"reflect"
 
 	"github.com/stokaro/unswell"
 	"github.com/stokaro/unswell/research/annotation"
@@ -58,6 +59,52 @@ func Join(ctx context.Context, artifact Artifact, round *annotation.Round, files
 		HumanCorpus: "not_qualified", Verification: measured.Verification, Decisions: decisions,
 		Features: measured.Features, Bindings: measured.Bindings}
 	return finishJoin(ctx, result)
+}
+
+// JoinDecisions binds a prepared decision set instead of a round. Every
+// decision must name a candidate of the artifact and carry its exact target;
+// candidates without a decision stay unlabeled. Provenance labels take this
+// path, because they never come from a blinded round.
+func JoinDecisions(ctx context.Context, artifact Artifact, decisions annotation.DecisionSet, files map[string][]byte,
+	features []string,
+) (JoinedArtifact, error) {
+	if err := MatchDecisionTargets(ctx, artifact, decisions); err != nil {
+		return JoinedArtifact{}, err
+	}
+	measured, err := Measure(ctx, artifact, files, features)
+	if err != nil {
+		return JoinedArtifact{}, err
+	}
+	result := JoinedArtifact{Version: JoinedVersion, Status: "verified_targets_with_measured_features",
+		HumanCorpus: "not_qualified", Verification: measured.Verification, Decisions: decisions,
+		Features: measured.Features, Bindings: measured.Bindings}
+	return finishJoin(ctx, result)
+}
+
+// MatchDecisionTargets checks that a decision set binds this artifact: its
+// digest names the artifact, and every decision names a candidate and carries
+// that candidate's exact target. It establishes nothing about the labels.
+func MatchDecisionTargets(ctx context.Context, artifact Artifact, decisions annotation.DecisionSet) error {
+	if decisions.Basis == "" || decisions.Rubric == "" || len(decisions.Units) == 0 {
+		return fmt.Errorf("decisions must carry a basis, a rubric, and at least one unit")
+	}
+	if decisions.RoundSHA256 != artifact.SHA256 {
+		return fmt.Errorf("decisions bind a different candidate artifact")
+	}
+	units := make(map[string]annotation.Unit, len(artifact.Units))
+	for _, candidate := range artifact.Units {
+		units[candidate.Unit.ID] = candidate.Unit
+	}
+	for _, decision := range decisions.Units {
+		if err := ctx.Err(); err != nil {
+			return err
+		}
+		unit, exists := units[decision.UnitID]
+		if !exists || !reflect.DeepEqual(annotation.TargetOf(unit), decision.Target) {
+			return fmt.Errorf("decision %s does not match a candidate target", decision.UnitID)
+		}
+	}
+	return nil
 }
 
 func targetDecisions(ctx context.Context, artifact Artifact, round *annotation.Round) (annotation.DecisionSet, error) {
