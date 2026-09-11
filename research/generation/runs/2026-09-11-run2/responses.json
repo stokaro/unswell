@@ -1,0 +1,3373 @@
+{
+  "version": "unswell-responses-v1",
+  "run": "2026-09-11-run2",
+  "family": "anthropic-claude",
+  "model": "claude-opus-5",
+  "model_basis": "the model field of every agent transcript written by the harness",
+  "harness": "Claude Code session and workflow agents, one per request, flat-rate subscription, no API call",
+  "agent_type": "Explore",
+  "generated_on": "2026-09-11",
+  "parameters": "unavailable",
+  "responses": [
+    {
+      "request_id": "r47f8e57410ecc34d",
+      "text": "MustParse parses the string s into a UUID and returns it, panicking if the string cannot be parsed as a valid UUID.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r23406c0f46c3d22e",
+      "text": "MustParse parses s as a UUID and returns it, panicking if s is not a valid UUID string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb167a2e0a82428ac",
+      "text": "MustParse behaves like Parse but panics if the string cannot be parsed. It simplifies the safe initialization of global variables holding compiled UUIDs.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5680685c5db05358",
+      "text": "MustParse is like Parse but panics if the string cannot be parsed. It simplifies safe initialization of global variables holding compiled UUIDs.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra463986b4c617eab",
+      "text": "`binary_exp` holds the difference between `theor_exp` and `real_exp`, that is, the theoretical exponent minus the real exponent, expressed in base 10.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r63bc322013fadd46",
+      "text": "The binary exponent is the theoretical exponent minus the real exponent, giving the base-10 shift needed to reconcile them.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r321833022febe4d0",
+      "text": "Since the radix is 10, a power of two can be removed. Both sides of the equation are on opposite sides, so a power of two can be factored out.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r445434ef74990052",
+      "text": "Since the radix is 10, a power of two can be removed: both sides of the equation share a factor of two, which can be factored out.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4dd2c6875cfd18f4",
+      "text": "## eachDayOfInterval\n\n`export default function eachDayOfInterval(dirtyInterval, options)`\n\nReturns an array of Date objects, one for each day within the given interval. `dirtyInterval` supplies the start and end boundaries; `options` adjusts behavior. An interval spanning 6–9 October 2014 yields days 06, 07, 08 and 09, each at 00 hours.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9b60d8a223d085f9",
+      "text": "export default function eachDayOfInterval(dirtyInterval, options)\n\nReturns an array of Date objects representing each day within the supplied interval, including the interval's start and end days, ordered from the start. Takes two parameters: dirtyInterval, the interval to expand, and options, an object of additional settings.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r25cbb59405c3d849",
+      "text": "@example  // Each day between 6 October 2014 and 10 October 2014:  var result = eachDayOfInterval({    start: new Date(2014, 9, 6),    end: new Date(2014, 9, 10)  })  //=> [  //   Mon Oct 06 2014 00:00:00,  //   Tue Oct 07 2014 00:00:00,  //   Wed Oct 08 2014 00:00:00,  //   Thu Oct 09 2014 00:00:00,  //   Fri Oct 10 2014 00:00:00  // ]",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r750b5e11f604c2e9",
+      "text": "@example\n```js\n// Each day between 6 October 2014 and 10 October 2014:\nconst result = eachDayOfInterval({\n  start: new Date(2014, 9, 6),\n  end: new Date(2014, 9, 10)\n})\n//=> [\n//   Mon Oct 06 2014 00:00:00,\n//   Tue Oct 07 2014 00:00:00,\n//   Wed Oct 08 2014 00:00:00,\n//   Thu Oct 09 2014 00:00:00,\n//   Fri Oct 10 2014 00:00:00\n// ]\n```",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc9dfec0800bf36c7",
+      "text": "Builds the `syn::Generics` for the generated implementation from the container's generics, applying the lifetimes described by `borrowed`. Takes the container metadata `cont` and the borrowed lifetime set `borrowed` by reference, returning a new `syn::Generics` value suitable for splitting into impl, type, and where clauses.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ref9b0f508ea5ae81",
+      "text": "Builds the `syn::Generics` for a generated impl from the container `cont` and the `borrowed` lifetimes, returning the generics to apply to the implementation.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ref6d6457e592f492",
+      "text": "All the generics from the input, plus a `T: Deserialize` bound for each generic field type that we deserialize, plus a `T: Default` bound for each generic field type that is set to a default value.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb209e393fe6a7d02",
+      "text": "All generics from the input, plus a `T: Deserialize` bound on each generic field type that we deserialize, plus a `T: Default` bound on each generic field type that is set to a default value.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rca96f78c48cc5618",
+      "text": "TearDownTest runs after each test in SuiteTester, taking no parameters and returning nothing.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd3ba453fea7388fe",
+      "text": "TearDownTest runs after each test in the suite, performing per-test cleanup.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r53aa604fbf2aba09",
+      "text": "The TearDownTest method runs after each test in the suite.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3c5a28c2220af396",
+      "text": "TearDownTest runs after every test in the suite.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1b2a7b1458f8f31e",
+      "text": "Converts an `ExtendedFloat` into a native floating-point value of type `F`, which implements `Float`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5c3bf32b3e14551d",
+      "text": "Converts an `ExtendedFloat` into a native float type `F` implementing `Float`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc2f0a9cb2573e022",
+      "text": "The extended-precision float must use the native float representation, with overflow and underflow handled appropriately.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r991f9bff34fd742d",
+      "text": "The extended-precision float must use native float representation, with overflow and underflow handled appropriately.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc23a938e2b6265e0",
+      "text": "Determines whether the given value `val` is a `FormData` object, returning a boolean result.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8bb04c40a294ec4d",
+      "text": "Checks whether `val` is a `FormData` instance, returning `true` if so and `false` otherwise.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rbc9a6cd2d3d9294e",
+      "text": "@param {Object} val The value to test\n@returns {boolean} True if the value is a FormData, otherwise false",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r74a9a48ed9d60d20",
+      "text": "@param {Object} val The value to test\n@returns {boolean} True if the value is a FormData, otherwise false",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9d6bf09d03ee6fdc",
+      "text": "handle registers the given handler for the HTTP method and pattern in the Mux routing tree, returning the resulting node.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r533f334a54dd84e6",
+      "text": "handle registers the given handler for the method and pattern in the Mux, returning the resulting node.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rea62d999212ebe1d",
+      "text": "handle registers an http.Handler in the routing tree for a particular HTTP method and routing pattern.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r49495c1fe0375fa1",
+      "text": "handle registers an http.Handler in the routing tree for a specific HTTP method and routing pattern.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0e52602647500135",
+      "text": "Declares a mutable `cwd` variable initialized to an empty string, to hold the current working directory path.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4c3e0f7e6c509df9",
+      "text": "Mutable module-level string holding the current working directory path, initialized to an empty string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r44b6f64ddda41e8f",
+      "text": "Yargs supports environment variables with prefixes, such as `MY_APP_FOO` and `MY_APP_BAR`. Environment variables are also used to detect the locale.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re3b8d831ff7e708e",
+      "text": "Yargs supports environment variables with prefixes, such as MY_APP_FOO and MY_APP_BAR. Environment variables also determine the locale.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0738d24aefee6a27",
+      "text": "paginate is HTTP middleware that wraps the next http.Handler, returning an http.Handler which applies pagination handling before delegating the request to next.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r98a9845582b57561",
+      "text": "paginate is HTTP middleware that wraps the next http.Handler, returning a handler which applies pagination before delegating the request to next.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5c49c5e045434f5e",
+      "text": "`paginate` is a stub, but the middleware logic to handle request parameters for a paginated request is very possible to implement.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r69b8e8a557447916",
+      "text": "`paginate` is a stub, but the middleware logic to handle request parameters for a paginated request is straightforward to implement.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0eb093e3fc550c18",
+      "text": "Returns the position of the next token without consuming it, leaving the reader unchanged.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r45d147c740093884",
+      "text": "Returns the current `Position` without consuming it, leaving the reader's state unchanged.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re08b37f68dcf7f32",
+      "text": "The most recent call was probably peek() rather than next(), but this method",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r41c2ac6d8d5b3dfa",
+      "text": "The most recent call was probably peek() rather than next(), but this method",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfb514ed84c207ed7",
+      "text": "The `default_role` setting defaults to `\"any\"`, permitting any role when none is explicitly specified.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re1ff0cd78f5c93e6",
+      "text": "Sets the default role to `any`, applying when no explicit role is specified.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "redf2d03b3f9771b4",
+      "text": "The reST default role (the markup used for `text`) to apply to all documents.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r92ab15820d80eb78",
+      "text": "The reST default role (used for markup like `text`) to apply in all documents.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r86a5d40dd3522242",
+      "text": "Module-level cache holding the generated help message, initially `undefined` until first computed and reused on subsequent calls.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0d39ce94de6629c6",
+      "text": "Module-level cache holding the generated help message text; `undefined` until first computed, then reused for subsequent requests.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc565dec6135efcfe",
+      "text": "If yargs is executing an async handler, we take a snapshot of the help message to display on failure:",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1fe5a2b450515ed5",
+      "text": "When yargs runs an async handler, we snapshot the help message so it can be displayed if the handler fails:",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r518493b632f0db97",
+      "text": "App::new(\"myapp\") creates a new application definition, returning a builder bound to `matches`. The string argument \"myapp\" names the application. Chain configuration onto the returned value to describe the application before use; the binding `matches` holds the result of the call.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc5baf168faa43a62",
+      "text": "Creates a new `App` instance named `myapp` and binds the result to `matches`. The string `\"myapp\"` is the application name parameter passed to `App::new`. The value assigned to `matches` is the result of this construction expression.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re004259095e93778",
+      "text": "That is why the second method exists: you can simply get a `T` or `Vec<T>` back, or be sure the program will exit gracefully. The catch is that the second method should *only* be used on required arguments, because it exits if the argument isn't found. Just FYI.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7a8b40c0b3fa92de",
+      "text": "That is why the second method exists: you get a `T` or `Vec<T>` back, or the program exits gracefully. The catch is that the second method should *only* be used on required arguments, because it exits if the argument isn't found. Just so you know.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r954b7c6a7c36da98",
+      "text": "NodeID returns the 6-byte node ID encoded in the UUID. It returns nil if the UUID is not version 1 or 2, since only those versions contain a node ID.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1a9eea40b509bc92",
+      "text": "NodeID returns the 6-byte node ID encoded in the UUID. It returns nil if the UUID is not version 1 or 2. The returned slice is a copy of the UUID's node ID.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2efb0d4b29ebff15",
+      "text": "NodeID returns the 6-byte node ID encoded in uuid. It returns nil if uuid is not valid. The node ID is only well defined for version 1 and 2 UUIDs.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r598102169ddc83b7",
+      "text": "NodeID returns the 6-byte node ID encoded in uuid, or nil if uuid is not valid. The node ID is only well defined for version 1 and 2 UUIDs.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb2a5abb0e4170553",
+      "text": "Copies bytes from `r` to `w` until `delimiter_byte` is read, returning a `CopyUntilResult`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd10124b0e78b07db",
+      "text": "Copies bytes from reader to writer until the delimiter byte is found, returning `CopyUntilResult`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r71e4c4266a1b0e4e",
+      "text": "Copies bytes from a reader to a writer until a delimiter byte is encountered.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r02fd83b7bffba2e7",
+      "text": "Copies bytes from a reader into a writer, stopping after the delimiter byte is found.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd9950b71c7efc838",
+      "text": "isEmpty reports whether the file or directory at the given path contains no content.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r67e8e904664e1a2e",
+      "text": "isEmpty reports whether the file or directory at path contains no data or entries.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5366d56dd2c4ea7f",
+      "text": "isEmpty checks whether a given path is empty. Hidden files in the path are ignored.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb68520528cc3d6fb",
+      "text": "isEmpty reports whether the given path is empty, ignoring hidden files within it.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc339c04e2445ebe9",
+      "text": "Sets the \"about\" text for this item, accepting any value convertible into a string slice.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r10930e3804d4a8c9",
+      "text": "Sets the `About` string displayed in help output; accepts any type convertible into `&str`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r098be7cf15a920ce",
+      "text": "**NOTE:** Only [`App::about`] is used in completion script generation, in order to be",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r033a33f33c02eeca",
+      "text": "**NOTE:** Only [`App::about`] is used in completion script generation, in order to be",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5e4869746e23bc0a",
+      "text": "WithinDurationf asserts that the two times are within duration delta of each other.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcde5a2fc5a3ac3f3",
+      "text": "WithinDurationf asserts that two times are within a duration of each other.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb947f1cf741646c0",
+      "text": "WithinDurationf asserts that the two times are within the given duration delta of each other.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra6295f4d3ee30e12",
+      "text": "WithinDurationf asserts that the two times are within the duration delta of each other.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r971866c08c8cba33",
+      "text": "Iterates over an object's own properties, invoking the callback `fn` for each entry in `obj`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcabd68564e5d06b1",
+      "text": "Iterates over an object or array, invoking `fn` for each entry in `obj`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3ff0552cf73290e9",
+      "text": "If `obj` is an Array, the callback will be called with the value, index, and complete array for each item.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8f915577811be535",
+      "text": "If `obj` is an Array, the callback is called for each item, passing the value, the index, and the complete array.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5a605fe81c76d613",
+      "text": "SetRand sets the source of randomness to r, which must read from a random source. It reads from the reader r rather than the default system random source.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r93ec90a4f14e77c7",
+      "text": "SetRand sets the random source used for generation to r. Pass an io.Reader to control randomness; this is primarily useful for producing deterministic output in tests.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra6369b844ffab83b",
+      "text": "SetRand sets the package's random number generator to r, an io.Reader. If r.Read returns an error when the package requests random data, the package panics.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf826264049c81bba",
+      "text": "SetRand sets the random number generator to r, which implements io.Reader. If r.Read returns an error when the package requests random data, the package panics.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0727891a2b49a0c4",
+      "text": "HTTPBodyNotContains asserts that a specified handler returns a body that does not contain a string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r75cd3845edca67f0",
+      "text": "HTTPBodyNotContains asserts that the handler response body for the given request does not contain str.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd93fd3121d2dc82d",
+      "text": "HTTPBodyNotContains asserts that a specified handler returns a body that does not contain a string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd3b0f013a02bd516",
+      "text": "HTTPBodyNotContains asserts that the body returned by the specified handler does not contain a string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1f25ae59549bf59a",
+      "text": "Returns a mutable reference to the value at the given index, or `None` if absent.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf4eedb07ae8da710",
+      "text": "Returns a mutable reference to the value at the given index, or `None`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7a8c2ebc042d2ce8",
+      "text": "number. Also returns `None` if the given key does not exist in the map.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8983588b4ccdc239",
+      "text": "Also returns `None` if the given key does not exist in the map.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rddbc532aca006678",
+      "text": "Delete registers a handler for the pattern that responds to HTTP DELETE requests, using the given handler function.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf7005ce3fb4481c3",
+      "text": "Delete registers a handler for the HTTP DELETE method on the given pattern.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r21f7b8517620940f",
+      "text": "Delete adds the route `pattern`, which matches the DELETE HTTP method, to execute the `handlerFn` http.HandlerFunc.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r248475bce57b034d",
+      "text": "Delete registers the route `pattern` to handle DELETE requests by executing the `handlerFn` http.HandlerFunc.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb15b0f9f0a38c101",
+      "text": "Writes the given arguments to the output, returning an `io::Result` indicating success or failure.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3d4472df1492959b",
+      "text": "Writes the given ordered arguments, returning an I/O result; accepts any iterator over `ArgWithOrder` references.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "raa400bd14ee20d30",
+      "text": "Sorts arguments by length and display order, then writes their help text to the wrapped stream.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8871113400a3942e",
+      "text": "Sorts arguments by length and display order, then writes their help to the wrapped stream.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "raf4dd1c1ef9653f9",
+      "text": "TestChildSameName verifies behavior when a child shares the same name as another node. It is a standard Go test function accepting the testing framework's `*testing.T` parameter.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd2558dafc2541823",
+      "text": "TestChildSameName verifies behavior when a child has the same name as its parent. It takes a `*testing.T` and follows the standard Go test function signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1effc21c43f8da13",
+      "text": "TestChildSameName verifies the correct behavior of cobra when an application named \"foo\" with a subcommand also named \"foo\" is executed with the arguments \"foo foo\".",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2fded541c529e097",
+      "text": "TestChildSameName verifies cobra's behavior when an application named \"foo\" with a subcommand also named \"foo\" is executed with the arguments \"foo foo\".",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r40ae7b64f626decc",
+      "text": "Sets the terminal width used for wrapping output, returning the modified value for chaining.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf33cffb5ce997029",
+      "text": "Sets the terminal width in characters used for wrapping output, returning the modified builder.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r86609b4822f7fe0a",
+      "text": "Even on those platforms, this setting is useful if the terminal width is wrong for any reason.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra5a361b32b4df352",
+      "text": "Even on those platforms, this setting helps if the terminal width is reported incorrectly.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfa0cff945615f65b",
+      "text": "`reflect.Value` — a function with no parameters returning a `reflect.Value`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0464cb916a5f27d1",
+      "text": "Returns a reflect.Value; takes no parameters.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rccd1fa732891e538",
+      "text": "`fn` is a function that accepts one argument and returns a boolean.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc1641fc564833f63",
+      "text": "`fn` is a function that accepts one argument and returns a bool.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r830b31fef249ff5f",
+      "text": "Returns the value as a `u64`, or `None` if the conversion is not applicable.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "reb9c785be56ec08d",
+      "text": "Returns the value as a `u64`, or `None` if it is not representable.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r98c0aea00a005998",
+      "text": "If the `Value` is an integer, represent it as a `u64` if possible. Returns",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd877463e84adc708",
+      "text": "If the `Value` is an integer, represent it as a `u64` if possible. Returns",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r821fa79ba2e59d43",
+      "text": "Determines whether the specified URL is absolute, meaning it begins with a scheme followed by `//` or is protocol-relative.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r72f1705597286c04",
+      "text": "Determines whether the given URL is absolute — that is, whether it begins with a scheme or protocol-relative prefix.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0aac9dd496277c6a",
+      "text": "@param {string} url The URL to test\n@returns {boolean} True if the specified URL is absolute, false otherwise",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rafc8a8cc8e03d0d4",
+      "text": "@param {string} url The URL to test.\n@returns {boolean} `true` if the URL is absolute, otherwise `false`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2a7bee3bf3892515",
+      "text": "eachQuarterOfInterval\n\nReturns an array of dates representing the start of each quarter within the given interval.\n\n```js\nexport default function eachQuarterOfInterval(dirtyInterval)\n```\n\nParameters: `dirtyInterval` — the interval to traverse, for example from 6 November 2014 00:00 through 10 July 2014 01:00.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5cbea44c84faf940",
+      "text": "Returns an array of dates representing the start of each quarter within the given interval.\n\n```js\n// Each quarter within interval 6 February 2014 - 10 August 2014:\nconst result = eachQuarterOfInterval({\n  start: new Date(2014, 1, 6),\n  end: new Date(2014, 7, 10),\n});\n//=> [\n//   Wed Jan 01 2014 00:00:00,\n//   Tue Apr 01 2014 00:00:00,\n//   Tue Jul 01 2014 00:00:00\n// ]\n```",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9da47a3bc4e4c61b",
+      "text": "@example\n```js\n// Each quarter within the interval 6 February 2014 - 10 August 2014:\nvar result = eachQuarterOfInterval({\n  start: new Date(2014, 1, 6),\n  end: new Date(2014, 7, 10)\n})\n//=> [\n//   Wed Jan 01 2014 00:00:00,\n//   Tue Apr 01 2014 00:00:00,\n//   Tue Jul 01 2014 00:00:00,\n// ]\n```",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r61522cb30d77716a",
+      "text": "@example\n// Each quarter within the interval 6 February 2014 - 10 August 2014:\nvar result = eachQuarterOfInterval({\n  start: new Date(2014, 1, 6),\n  end: new Date(2014, 7, 10)\n})\n//=> [\n//   Wed Jan 01 2014 00:00:00,\n//   Tue Apr 01 2014 00:00:00,\n//   Tue Jul 01 2014 00:00:00,\n// ]",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r55e3131f4612f731",
+      "text": "If `arg.val_terminator()` returns `Some(t)`, the bound value `t` is the terminator for that argument; otherwise no terminator is configured and the branch is skipped.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra7a5283993e5d52f",
+      "text": "Returns the value terminator for the argument, if one is set, binding it to `t` for use within the `if let` block.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r301564b75e47d23b",
+      "text": "@TODO @docs @p4: the documentation for indices should note that a terminator is not a value and therefore is not reported in indices.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8581ca9feb974ddd",
+      "text": "@TODO @docs @p4: index documentation should note that a terminator is not a value and therefore is not reported in indices.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r42f09d5fc424f9f3",
+      "text": "The `load_yaml!` macro loads a YAML file at compile time, returning a `yml` value used to build the CLI.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc1dba0c0e921d330",
+      "text": "Loads the YAML file `17_yaml.yml` at compile time via `load_yaml!`, binding the parsed result to `yml`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb7b9b842db1e7dcd",
+      "text": "Finally, we call `get_matches()` to start the parsing process. We then use the matches just as we normally would.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5e8fa7f94db9bce8",
+      "text": "Finally, we call `get_matches()` to start parsing. The returned matches are used just as you normally would.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra11526c891ef43af",
+      "text": "NewSHA1 returns a new UUID derived from the SHA-1 hash of the space UUID and the data, following version 5 of the UUID specification.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6bb1db25995ae795",
+      "text": "NewSHA1 returns a UUID based on the SHA-1 hash of the space UUID and data, conforming to version 5.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2111c1b0432abceb",
+      "text": "NewSHA1 returns a new SHA1 (Version 5) UUID based on the supplied name space and data. It is the same as calling:",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb015868b101b5497",
+      "text": "NewSHA1 returns a new SHA1 (Version 5) UUID based on the supplied namespace and data. It is equivalent to calling:",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7c22a44ce4a17a77",
+      "text": "HasHelpSubCommands reports whether the Command has any subcommands that are not help commands, returning true when at least one such subcommand exists on this command.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r10603041bb679287",
+      "text": "HasHelpSubCommands reports whether the command has any subcommands that are not marked as hidden or deprecated, indicating help should list available subcommands.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "redc0d2a36b405f02",
+      "text": "HasHelpSubCommands determines whether a command has any available 'help' subcommands that should be shown in the default usage/help template under 'additional help topics'.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7c975e0820893783",
+      "text": "HasHelpSubCommands reports whether a command has any available help subcommands that should be listed in the default usage/help template under \"Additional help topics\".",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5cf07c6700ed962a",
+      "text": "NoDirExists checks that the path does not exist or, if it does exist, is not a directory. Optional msgAndArgs supply an additional message for reported failures.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfbaa44146c8acf61",
+      "text": "NoDirExists checks that the path does not exist or, if it does, that it is not a directory, failing the test otherwise.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r392432d82bea325d",
+      "text": "NoDirExists checks whether a directory does not exist at the given path. It fails only if the path points to an existing directory.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra301e44e64f37bb0",
+      "text": "NoDirExists checks that no directory exists at the given path. It fails only if the path points to an existing _directory_.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r17cc7ee00aa5fb34",
+      "text": "Subsetf asserts that list contains all elements in subset, with a formatted failure message from msg and args.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5c20c206cb2f847d",
+      "text": "Subsetf asserts that list contains all elements of subset, formatting msg and args as the failure message.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdbf11b5e50e97518",
+      "text": "Subsetf asserts that the specified list (array, slice, ...) contains all elements in the specified subset (array, slice, ...).",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4ad29d10054b1852",
+      "text": "Subsetf asserts that the specified list (array, slice...) contains all elements in the given subset (array, slice...).",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r03ba636bb2c1d6ca",
+      "text": "Checks whether the first line, `lines[0]`, fits within the configured maximum width by calling `is_line_short_enough` with `line_length` set to `mode.line_length`. The `if` guard lets the caller take the short-form path only when that first line already satisfies the mode's line length constraint.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r89df834bbc49ef6a",
+      "text": "Checks whether the first line fits within the configured line length. `is_line_short_enough` is called with `lines[0]` and `line_length=mode.line_length`, taking the limit from the current mode. The result gates the branch, so the code path only runs when that first line stays within the limit.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfe25da864504d00a",
+      "text": "Note: this check can only determine whether the first line of the *current* transformation fits within the line length. This holds only for simple cases. All others require running more transforms via `transform_line()`, and this check cannot know whether those would succeed.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r01af4abf92fb261f",
+      "text": "Note: this check can only determine whether the first line of the *current* transformation fits within the line length. That holds only for simple cases. All others require running more transforms via `transform_line()`, and this check cannot know whether those would succeed.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r36112e7b09c47698",
+      "text": "Equalf asserts that two objects are equal, formatting the failure message using msg and args. It takes expected and actual as interface{} values on the Assertions receiver.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r971d8036edc345c4",
+      "text": "Equalf asserts that expected and actual are equal, failing the test with the message formatted from msg and args if they are not.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re909d6819a1b2bf3",
+      "text": "Pointer variable equality is determined by the equality of the referenced values rather than the memory addresses. Function equality cannot be determined and will always fail.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r04dfa552a130d75f",
+      "text": "Pointer variable equality is based on the equality of the referenced values, not the memory addresses. Function equality cannot be determined and always fails.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9c714f9cd0d9b020",
+      "text": "HasAlias determines if a given string is an alias of the command.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r37df73eaae7d1375",
+      "text": "HasAlias determines if a given string is an alias of the command.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3782b35384c0676e",
+      "text": "HasAlias reports whether a given string is an alias of the command.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r75718df178fa48fa",
+      "text": "HasAlias reports whether the given string is an alias of the command.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb77e0c7be17587b8",
+      "text": "Sets the help text displayed after the auto-generated help output, returning `Self`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r233520b111ee1aca",
+      "text": "Sets the help text displayed after the auto-generated help output.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rffb4c02fdd2f62e0",
+      "text": "to describe how to use the arguments, or any caveats worth noting.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2b6ff2730dfc5d9a",
+      "text": "to describe argument usage, or any caveats worth noting.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r216f9bdfd594d778",
+      "text": "Sets the maximum terminal width used for wrapping help output, returning `Self`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3765d2b4e3fdf87c",
+      "text": "Sets the maximum terminal width used for wrapping output, returning the modified builder.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r77c206219e3a88a0",
+      "text": "Automatic terminal width detection is supported only on Unix, Linux, macOS, and Windows.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0d430dcf03faf56a",
+      "text": "Automatic terminal width detection is supported only on Unix, Linux, macOS, and Windows.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra1f7b9a57a8d7cd0",
+      "text": "URLFormat is a middleware that parses the URL extension from the request path and stores it in the request context.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ref2ee537b52d15a1",
+      "text": "URLFormat is a middleware that parses a URL path suffix as a file-format extension, forwarding to next.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9d4373a87a233c4f",
+      "text": "```go\nswitch urlFormat {\ncase \"json\":\n\trender.JSON(w, r, articles)\ncase \"xml\":\n\trender.XML(w, r, articles)\ndefault:\n\trender.JSON(w, r, articles)\n}\n```",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re7f1ec598a8ffc78",
+      "text": "```go\nswitch urlFormat {\ncase \"json\":\n\trender.JSON(w, r, articles)\ncase \"xml\":\n\trender.XML(w, r, articles)\ndefault:\n\trender.JSON(w, r, articles)\n}\n```",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcc77aa0162c541a7",
+      "text": "Sets the day of the year of the given date. Accepts `dirtyDate` and `dirtyDayOfYear` as its two parameters and is exported as the module's default binding, `setDayOfYear`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcda8b74923478df4",
+      "text": "Sets the day of the year of the given date. Accepts `dirtyDate` and `dirtyDayOfYear` as its two arguments and returns the resulting date, leaving the original date unchanged.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r88a69ab4fec5ba3c",
+      "text": "@param {Date|Number} date - the date to change\n@param {Number} dayOfYear - the day of the year of the new date\n@returns {Date} the new date with the day of the year set\n@throws {TypeError} 2 arguments required",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6af570491de891a0",
+      "text": "@param {Date|Number} date - the date to change\n@param {Number} dayOfYear - the day of the year of the new date\n@returns {Date} the new date with the day of the year set\n@throws {TypeError} 2 arguments required",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r60b81f31fc30d31b",
+      "text": "Creates a new instance configured with `defaultConfig`, which supplies the default configuration values used by that instance.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd613c34bd64b1921",
+      "text": "Creates a new instance configured with `defaultConfig`, which supplies the instance's default configuration values.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0a89cbdf6dbb4da3",
+      "text": "@param {Object} defaultConfig The default config for the instance\n@return {Axios} A new Axios instance",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re7429dac910e949c",
+      "text": "@param {Object} defaultConfig The default config for the new instance\n@return {Axios} A new Axios instance",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0c74fca0af6450f0",
+      "text": "AllowContentEncoding returns middleware that permits only the listed content encodings, responding 415 Unsupported Media Type otherwise.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4934a42f27b104d3",
+      "text": "AllowContentEncoding returns middleware that rejects requests with unlisted Content-Encoding values, responding 415 Unsupported Media Type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rebe789a7a02ae6dd",
+      "text": "AllowContentEncoding enforces a whitelist of request Content-Encoding values, otherwise responding with a 415 Unsupported Media Type status.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1a1cefb47d6660a3",
+      "text": "AllowContentEncoding enforces a whitelist of request Content-Encoding values, responding with 415 Unsupported Media Type otherwise.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc08f0e511ded7458",
+      "text": "HTTPBodyContains asserts that a specified handler returns a body that contains a string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6b60d15b0435ee95",
+      "text": "HTTPBodyContains asserts that the handler's response body for the request contains the given string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdf775b576c37fff6",
+      "text": "HTTPBodyContains asserts that the body returned by a specified handler contains a given string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdc7b58dd65757423",
+      "text": "HTTPBodyContains asserts that a specified handler returns a body containing the given string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8dcdd5f3c72e5cb8",
+      "text": "appendIfNotPresent returns s with stringToAppend appended, unless s already contains stringToAppend, in which case s is returned unchanged.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9e4c2b41d13a6253",
+      "text": "appendIfNotPresent returns s with stringToAppend appended, unless s already contains stringToAppend, in which case s is returned unchanged.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re4e3d644e7d25416",
+      "text": "appendIfNotPresent appends stringToAppend to the end of s, but only if it is not already present in s.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r31fc37d85845f3b7",
+      "text": "appendIfNotPresent appends stringToAppend to the end of s, but only if s does not already contain it.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb552b24776c98862",
+      "text": "Checks whether the token following the next index exists and matches an expected type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1ba4a0c5baf955fe",
+      "text": "Checks whether the next token exists and matches one of the given types.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rbdf3603397a14e2e",
+      "text": "RPAR must not be followed by anything with precedence higher than PERCENT.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r40ddad2e83285789",
+      "text": "RPAR must not be followed by anything with precedence higher than PERCENT.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra7602bfe8c06f023",
+      "text": "Adds a reference to an existing `Arg` to the list of valid possibilities.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r33a5fb3263c6d107",
+      "text": "Adds a reference to an existing `Arg` to the list of valid arguments.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9a243275e605ed70",
+      "text": "Actually adds the arguments, but from a borrow, which means we have to do some cloning.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r188d914d91d92596",
+      "text": "Adds the arguments, but from a borrow, which means some cloning is required.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5b4752a48b1e27da",
+      "text": "NotPanicsf asserts that the code inside the specified PanicTestFunc does not panic.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r25a3cb64ace32ab7",
+      "text": "NotPanicsf asserts that the code inside the specified PanicTestFunc does not panic.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0340583101ca321a",
+      "text": "NotPanicsf asserts that the code inside the specified PanicTestFunc does not panic.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r31243ce0d931f988",
+      "text": "NotPanicsf asserts that the code inside the specified PanicTestFunc does not panic.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2714188451b777ca",
+      "text": "eachMonthOfInterval returns an array containing one Date for the start of each month within the given time interval.\n\nParameters\ndirtyInterval — the interval whose start and end bound the returned months.\n\nReturns\nThe array of months.\n\nDeclaration\nexport default function eachMonthOfInterval(dirtyInterval)\n\nThe function is the module's default export, so it may be imported under any local name.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rde5bb313caf26ef9",
+      "text": "Returns the array of months within the specified interval. `dirtyInterval` is the interval. Returns an array of `Date` objects marking the start of each month, from the month of the interval start to the month of the interval end. Throws `TypeError` if the argument is missing, `RangeError` if the interval start is after its end or a date is invalid.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9302223b7ff9328c",
+      "text": "@example  // Each month between 6 February 2014 and 10 August 2014:  var result = eachMonthOfInterval({    start: new Date(2014, 1, 6),    end: new Date(2014, 7, 10)  })  //=> [  //   Sat Feb 01 2014 00:00:00,  //   Sat Mar 01 2014 00:00:00,  //   Tue Apr 01 2014 00:00:00,  //   Thu May 01 2014 00:00:00,  //   Sun Jun 01 2014 00:00:00,  //   Tue Jul 01 2014 00:00:00,  //   Fri Aug 01 2014 00:00:00  // ]",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfce4b17c3bcfc2de",
+      "text": "@example  // Each month between 6 February 2014 and 10 August 2014:  var result = eachMonthOfInterval({    start: new Date(2014, 1, 6),    end: new Date(2014, 7, 10)  })  //=> [  //   Sat Feb 01 2014 00:00:00,  //   Sat Mar 01 2014 00:00:00,  //   Tue Apr 01 2014 00:00:00,  //   Thu May 01 2014 00:00:00,  //   Sun Jun 01 2014 00:00:00,  //   Tue Jul 01 2014 00:00:00,  //   Fri Aug 01 2014 00:00:00  // ]",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb016ed0c830032b3",
+      "text": "RegisterMethod registers the given HTTP method string, making it available for subsequent use.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r042785bf3a478c7c",
+      "text": "RegisterMethod registers the named HTTP method, where method is the method string to register.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r751d0575b0e18e55",
+      "text": "RegisterMethod adds support for custom HTTP method handlers, available via Router#Method and Router#MethodFunc.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r44a99bcfa7f4df55",
+      "text": "RegisterMethod adds support for custom HTTP methods, available via Router#Method and Router#MethodFunc.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3eec44b74b2fdc8a",
+      "text": "Sets the list of argument names that cannot be used together with this argument, replacing any previously configured conflicts.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb57f8db701bc7d58",
+      "text": "Sets multiple conflicting arguments by name; each listed argument cannot be used together with this one.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9a134bd138d49ceb",
+      "text": "// because we used an argument from the group, and the group conflicts with either \"-v\" or \"-d\"",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r53b5ddcda1368147",
+      "text": "// because we used an arg from the group, and the group conflicts with either \"-v\" or \"-d\"",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb19e8648c64886f5",
+      "text": "Use appends middlewares to the Mux's middleware stack. Each middleware is a `func(http.Handler) http.Handler`, receiving the next handler in the chain and returning a handler that wraps it. The variadic `middlewares` parameter accepts one or more such functions.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4372deb70869464c",
+      "text": "Use appends middlewares to the Mux's middleware stack. Each middleware is a `func(http.Handler) http.Handler` that wraps the next handler in the chain.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r951b49b408fa8cee",
+      "text": "A Mux's middleware stack runs before the router matches a request to a specific handler, providing an opportunity to respond early, alter the course of request execution, or set request-scoped values for the next http.Handler.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5ec3ddae2402ed7a",
+      "text": "A Mux runs its middleware stack before matching a route to a handler. This gives middleware the chance to respond early, alter the course of request execution, or set request-scoped values for the next http.Handler.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r26674f4de91fd8fe",
+      "text": "Determines the lifetimes borrowed by a container's fields, returning a `BorrowedLifetimes` value describing the borrows found in `cont`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1840656f17ba5aab",
+      "text": "Returns the `BorrowedLifetimes` for the given container `cont`, describing the lifetimes borrowed by the `Container`'s fields.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc3bc712e1534e470",
+      "text": "If any borrowed lifetime is `'static`, then `'de: 'static` is redundant, so we use plain `'static` instead of `'de`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb68e04e0dd2fa34f",
+      "text": "If any borrowed lifetime is `'static`, then `'de: 'static` is redundant, so we use plain `'static` instead of `'de`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r72ae91492677ea00",
+      "text": "ElementsMatchf asserts that the specified listA (array, slice...) is equal to specified listB (array, slice...) ignoring the order of the elements. If there are duplicate elements, the number of appearances of each of them in both lists should match. The msg and args parameters format the failure message.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7fb91977c10439a0",
+      "text": "ElementsMatchf asserts that listA and listB contain the same elements, ignoring order. It formats the failure message from msg and args, and returns a bool indicating whether the assertion succeeded.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9d221280d026d551",
+      "text": "ElementsMatchf asserts that the specified listA (array, slice, etc.) is equal to the specified listB (array, slice, etc.), ignoring the order of the elements. If there are duplicate elements, the number of appearances of each of them in both lists should match.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rde9e3a7335e7c555",
+      "text": "ElementsMatchf asserts that the specified listA (array, slice...) is equal to the specified listB (array, slice...), ignoring the order of the elements. If there are duplicate elements, the number of appearances of each of them in both lists must match.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4c809c7347eab164",
+      "text": "`emplace` constructs an element in place from the arguments `\"B\"` and `\"c\"`, returning the result as `res2`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r188dec834aea0087",
+      "text": "Constructs an element in place with key `\"B\"` and value `\"c\"`, returning the result as `res2`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r967bb16813376d42",
+      "text": "The following call will not add an object, because a value is already stored at key \"B\".",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd028fc966f80b4e7",
+      "text": "The following call will not add an object, because a value is already stored at key \"B\".",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r351be8d3bde61dd3",
+      "text": "Compares a JSON Pointer segment against a name, optionally case-sensitively, returning whether they match.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re005c7ea1561a107",
+      "text": "Compares a JSON pointer segment against a name, optionally case-sensitively, returning whether they match.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r187fd62b8ff4490e",
+      "text": "Compares the next path element of two JSON pointers; two NULL pointers are considered unequal.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r81fef4da4cdd991a",
+      "text": "Compares the next path element of two JSON pointers; two NULL pointers are considered unequal.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb40b5ed2f1b29b84",
+      "text": "NotZero asserts that i is not the zero value for its type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcb9f748095e4cdff",
+      "text": "NotZero asserts that i is not the zero value for its type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdc0a02ab244ce122",
+      "text": "NotZero asserts that i is not the zero value for its type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2deecc70c7dd5482",
+      "text": "NotZero asserts that i is not the zero value for its type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r165be1ed129731da",
+      "text": "Retrieves the optional input file path argument from parsed command-line matches, binding it to `in_file`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r09cacec95df3bb0c",
+      "text": "Binds the optional `input` argument value to `in_file` when present.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3d624b9ef3124f51",
+      "text": "Note: if multiple() is specified, only the _FIRST_ occurrence is returned.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb8e4bd47226ebeef",
+      "text": "Note: with multiple() specified, this returns only the first occurrence.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7792c4b96e09f410",
+      "text": "Lenf asserts that the specified object has the specific length, with a formatted message. It takes object, length, msg, and args parameters on Assertions.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rbd4238bbc7d270e9",
+      "text": "Asserts that the specified object has the specific length, using a formatted message with arguments. Lenf fails the test if the length differs.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rda51881849fced54",
+      "text": "`Lenf` asserts that the specified object has a specific length. It also fails if the object has a type that `len()` does not accept.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra52df98aab49e131",
+      "text": "`lenf` asserts that the given object has a specific length. It also fails if the object's type is not accepted by `len()`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r64db8bc512b7ce7d",
+      "text": "Sets the Retry-After header on the response when throttling requires it, based on ctxDone.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3c842343517c6d17",
+      "text": "Sets the Retry-After header on the response when throttling requires it, considering context completion.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8c02490a2d8a5124",
+      "text": "setRetryAfterHeaderIfNeeded sets the Retry-After HTTP header if the throttler's corresponding retryAfterFn option is initialized.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "reccaae7dfa34fbe6",
+      "text": "setRetryAfterHeaderIfNeeded sets the Retry-After header when the throttler's retryAfterFn option is configured.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc9099e03ff4ccb60",
+      "text": "`should_long` is a closure bound with `let should_long = |v: &Base|`. It accepts a single argument `v`, a shared reference to a `Base`, and takes no other parameters. Because the reference is borrowed rather than owned, the caller keeps the original `Base` value after the closure runs.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r226872cf01d2a2ec",
+      "text": "`should_long` is a closure taking a reference to a `Base` value and returning whether the long form should be used. It takes no parameters beyond that borrowed `Base` argument, and its body determines the result from that value alone.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfe2c2579d1cd8b38",
+      "text": "In this case, both must be checked. This preserves the original formatting while ensuring that the actual `-h` or `--help` specified by the user is passed through. If `HiddenShortHelp` is not included, then items specified with `hidden_short_help` will also be hidden.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra80e6031eb60e67b",
+      "text": "Both must be checked. This preserves the original formatting while ensuring that the actual `-h` or `--help` specified by the user is passed through. If `HiddenShortHelp` is not included, items specified with `hidden_short_help` will also be hidden.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8c879e193670f12b",
+      "text": "CompDebug writes a debug message. The `msg` parameter holds the message text to emit. The `printToStdErr` parameter controls the destination: when true, the message is written to standard error. Use it to record diagnostic output from the surrounding code path.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1bc578f881f17e7f",
+      "text": "CompDebug writes a debug message. The `msg` parameter holds the message text. When `printToStdErr` is true, the message is also printed to standard error; otherwise it is only recorded through the normal debug output path.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r562e9190e928e005",
+      "text": "CompDebug prints the given string to the same file where the completion script writes its logs. Note that completion output must never go to stdout, because the completion script would misinterpret it as actual completion choices.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "reffaf80658658eac",
+      "text": "CompDebug prints the given string to the same file the completion script writes its logs to. Note that completion output must never go to stdout, because the completion script would misinterpret it as actual completion choices.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r206b330b5a78617a",
+      "text": "ParseBytes parses the byte slice b as a UUID, returning the UUID or an error.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9b616654ddfec441",
+      "text": "ParseBytes parses a byte slice into a UUID, returning the UUID and an error.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6f67777d7a597fad",
+      "text": "ParseBytes is like Parse, except that it parses a byte slice instead of a string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r96acd7bcb0241c60",
+      "text": "ParseBytes behaves like Parse, but parses a byte slice instead of a string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r260049835a2de2c6",
+      "text": "SuiteRequireTwice is a test suite type that embeds Suite for verifying repeated Require calls.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9afb6ed0c722cd28",
+      "text": "SuiteRequireTwice embeds Suite to verify Require returns the same instance on repeated calls.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "raf609bbbf758b042",
+      "text": "SuiteRequireTwice tests the use of suite.Require in two different tests.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3067013989cc07a8",
+      "text": "SuiteRequireTwice tests the use of suite.Require across two different tests.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r700081a1c7ca74c7",
+      "text": "`external_sub_command` defines a subcommand named `foo` using `clap_app!` with the `@subcommand` designator, declaring one argument `bar` via `@arg` with short flag `-b` and help text \"Bar\".",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rae09361d3b19aa27",
+      "text": "Defines `external_sub_command` using `clap_app!` with the `@subcommand` `foo`, which declares one argument, `@arg bar: -b \"Bar\"`, labeled `Bar`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rced7caf0da0f221e",
+      "text": "This subcommand may live in an external module. If it does, a function is required to access it; we recommend `fn clap() -> Clap::SubCommand`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r747c35690a97bdcb",
+      "text": "This subcommand may live in an external module. If so, a function is required to access it; we recommend `fn clap() -> Clap::SubCommand`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r77505ca551c3d80e",
+      "text": "Skips the own-setattr fix when the class already has its own setattr but inherits `__attrs_own_setattr__` as False.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r616a0e3f07b8c7dc",
+      "text": "Skips the setattr-slots rewrite when the class already defines its own `__setattr__` via `__attrs_own_setattr__`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r36b44bcfc2036c91",
+      "text": "If we inherited an attrs `__setattr__` and do not define our own, reset it to `object`'s.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r27f0933d7468e56d",
+      "text": "If we inherited an attrs `__setattr__` and do not define our own, reset it to `object`'s.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re8cef72ee11962db",
+      "text": "InitDefaultVersionFlag adds the default version flag to the Command if it is not already defined. It takes no parameters. Call it on a Command to ensure the version flag is initialized before use.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r816f9228395b85f2",
+      "text": "InitDefaultVersionFlag adds a default version flag to the command if it is not already defined. The flag is only added when the command has a version set, and it applies to the root command.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3f606e4df72b5a77",
+      "text": "InitDefaultVersionFlag adds a default version flag to c. It is called automatically when c is executed. If c already has a version flag, it does nothing. If c.Version is empty, it does nothing.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1828f33c70552ad4",
+      "text": "InitDefaultVersionFlag adds a default version flag to c. It is called automatically when c is executed. It does nothing if c already has a version flag, or if c.Version is empty.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc50030f9af1e1c9c",
+      "text": "Parses a raw HTTP headers string into an object keyed by header name.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "red123369a56e4e92",
+      "text": "Parses a raw header string into an object mapping header names to values.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfe93330ee47b302f",
+      "text": "```\nDate: Wed, 27 Aug 2014 08:58:49 GMT\nContent-Type: application/json\nConnection: keep-alive\nTransfer-Encoding: chunked\n```",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1dbb20de1d97d456",
+      "text": "Date: Wed, 27 Aug 2014 08:58:49 GMT; Content-Type: application/json; Connection: keep-alive; Transfer-Encoding: chunked",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r47067df05275b5a3",
+      "text": "Creating a new `App` instance is the entry point for defining a command-line interface. The `App::new` constructor takes the application name as its single parameter — here, `\"MyApp\"` — and returns a builder you continue configuring before parsing. The result is bound to `matches`:\n\n```rust\nlet matches = App::new(\"MyApp\")\n```\n\nThe name supplied to `App::new` identifies the application. Additional builder calls are chained onto the value returned by `App::new` prior to the final binding into `matches`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6cd568d814a088ef",
+      "text": "`let matches = App::new(\"MyApp\")` constructs an application definition and binds the result to `matches`.\n\n`App::new` is the constructor associated with the `App` type. It takes a single parameter, the string `\"MyApp\"`, which names the application.\n\nBecause the statement uses `let`, `matches` is a binding that holds the value produced by the expression and is available for the remainder of the enclosing scope.\n\nSubstitute `\"MyApp\"` with the name of your own application.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rec972a58f3ea67eb",
+      "text": "For this example, assume you have created an application that accepts three arguments (plus two generated by clap): a flag that enables debugging information, triggered with `-d` or `--debug`; an option that specifies a custom configuration file to use, triggered with `-c file`, `--config file`, or `--config=file`; and finally a positional argument for the input file we want to work with, which is the only required argument.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re6e24dee097cea2e",
+      "text": "In this example, you build an app that takes three arguments (plus two generated by clap): a debug flag, enabled with `-d` or `--debug`; an option that specifies a custom configuration file, given as `-c file`, `--config file`, or `--config=file`; and a positional argument naming the input file to work with. The positional input file is the only required argument.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9567ee1ebfb960d1",
+      "text": "ClockSequence returns the clock sequence encoded in uuid. It returns zero if uuid is not valid in either version 1 or version 2.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra4407e14f41db2f5",
+      "text": "ClockSequence returns the clock sequence encoded in uuid. It returns zero if uuid is not valid in Version 1 or Version 2.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6fa75e9107fb6665",
+      "text": "ClockSequence returns the clock sequence encoded in uuid. The clock sequence is only well defined for version 1 and 2 UUIDs.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r168b47563ba80bcc",
+      "text": "ClockSequence returns the clock sequence encoded in uuid. The clock sequence is only well defined for version 1 and 2 UUIDs.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfe2e44b2d92cdb4d",
+      "text": "Returns the number of leading zero bits in `x` as `nlz`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r52fcdfb1c98d84e5",
+      "text": "Returns the number of leading zero bits in `x`, as `nlz`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra655e8c916a47bda",
+      "text": "To avoid overflow, compute the total number of bits minus the leading zero bits.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re8caf80588abc7f3",
+      "text": "To avoid overflow, compute total bit count minus the number of leading zero bits.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "reb0dd39136c95a34",
+      "text": "Returns a mutable reference to the value for the given key, if present.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r60ce8b5aab4c5edc",
+      "text": "Returns a mutable reference to the value for the given key, if present.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra12f01d3ec3f74d7",
+      "text": "The ordering on the borrowed form *must* match the ordering on the key type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb00b660079986eec",
+      "text": "The ordering on the borrowed form must match the ordering on the key type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ree8ea465fe2ecd25",
+      "text": "A context object used to collect and report errors during derive macro processing.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd01103c405d07364",
+      "text": "Shared compilation context that accumulates errors during derive macro processing and reports them together.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf6d5353833da9077",
+      "text": "Dropping this object causes a panic; it must be consumed using `check`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc4471d7a0ade09e7",
+      "text": "Dropping this object panics. Consume it with `check` instead.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5baf5ea1586c9cd2",
+      "text": "URN returns the RFC 2141 URN form of uuid, such as the prefixed string representation of UUID.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r63bb4764f17da4c3",
+      "text": "URN returns the RFC 2141 URN form of the UUID as a string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd18e94860b36e464",
+      "text": "URN returns the RFC 2141 URN form of uuid, urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx, or \"\" if uuid is invalid.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r321e26b7b0b533e7",
+      "text": "URN returns the RFC 2141 URN form of uuid, urn:uuid:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx, or \"\" if uuid is invalid.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdcb6277e75c14bcb",
+      "text": "Returns a suggestion from `possible_values` closely matching `v`, or `None` if no candidate is similar enough.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3c8f0d87c58100c9",
+      "text": "Returns the closest match to `v` from `possible_values`, or `None` if no suggestion is found.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf59d5f95c412c2b4",
+      "text": "Produces a string from a list of possible values that is most similar to",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r036c70c8df82ac4b",
+      "text": "Produces a string from a given list of possible values that closely resembles a target string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0c4952d23ea4e8aa",
+      "text": "ElementsMatch asserts that listA and listB contain the same elements, ignoring order. It takes a TestingT value t, the two lists as interface{} values, and optional msgAndArgs variadic interface{} arguments for the failure message.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rad2326ba139352f0",
+      "text": "ElementsMatch asserts that listA and listB contain the same elements, ignoring order. It reports a failure through t if the lists differ. Additional msgAndArgs values are included in the failure message.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc6789b48a205738d",
+      "text": "ElementsMatch asserts that the specified listA (array, slice, etc.) is equal to the specified listB (array, slice, etc.), ignoring the order of the elements. If there are duplicate elements, the number of appearances of each of them in both lists must match.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r38d61aef9fcc3b63",
+      "text": "ElementsMatch asserts that the specified listA (array, slice, etc.) is equal to the specified listB (array, slice, etc.), ignoring the order of the elements. If there are duplicate elements, the number of appearances of each in both lists must match.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r085f8d405f1dace5",
+      "text": "Reads the yargs `populate--` configuration flag, coercing it to a boolean stored in `populateDoubleDash`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc490bd1903946c7a",
+      "text": "Checks whether yargs configuration enables the `populate--` option, coercing the result to a boolean.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4d7966f2cd7da745",
+      "text": "To simplify parsing positionals in commands, we temporarily populate `--` rather than `_` with arguments.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc8b5337adad07121",
+      "text": "To simplify parsing of positional arguments in commands, we temporarily populate `--` rather than `_`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r03d3df512fc25468",
+      "text": "Creates a new instance of an application requiring a name string to be provided for it.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2ba83833f8ab4c00",
+      "text": "Creates a new `App` instance with the given `name`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9022aef048371d86",
+      "text": "Creates a new subcommand instance, which requires a name. The name is displayed",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8ef0de9a1bc87291",
+      "text": "Creates a new subcommand instance with a required name. The name appears in displayed output.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r68d6eef1e22d4b73",
+      "text": "Checks whether the `test` subcommand was invoked; `subcommand_matches` returns `Some(matches)` with that subcommand's own argument matches, binding them to `matches` inside the block.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r63a8f37df45a8da9",
+      "text": "Handles the `test` subcommand by matching on `matches.subcommand_matches(\"test\")`, binding the resulting `Some(matches)` value for use within the block.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r75be024d39183482",
+      "text": "You can check for the existence of subcommands and, if one is found, use its matches just as you would those of the top-level app.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb3fe9252c00c1133",
+      "text": "You can check whether subcommands exist and, if they do, use their matches exactly as you would the top-level app's.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra7fbb7ac68afe363",
+      "text": "HasAvailableLocalFlags reports whether the Command has local flags that are not hidden, returning true when any exist.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r62df25b37221f042",
+      "text": "HasAvailableLocalFlags reports whether the command has local flags that are not hidden.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r26c21ed5a550c50a",
+      "text": "HasAvailableLocalFlags reports whether the command has locally declared flags that are neither hidden nor deprecated.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1c4c9cbeb4e74d9d",
+      "text": "HasAvailableLocalFlags reports whether the command has locally declared flags that are neither hidden nor deprecated.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r52fe96bbfd45c81f",
+      "text": "http2FancyWriter is a struct type. It wraps a writer to provide extended HTTP/2 response-writing capability, embedding the underlying writer so that additional interface methods are exposed alongside the basic write operation.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcfdedd3d01f420e3",
+      "text": "http2FancyWriter is a struct type. It wraps a writer to provide extended functionality beyond the basic write interface.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r04600ede16cf1be4",
+      "text": "http2FancyWriter is an HTTP/2 writer that additionally satisfies http.Flusher and io.ReaderFrom. It exists for the common case of wrapping the http.ResponseWriter that package http gives you, in order to make the proxied object support the full method set of the proxied object.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2c91be9093d0fa0f",
+      "text": "http2FancyWriter is an HTTP/2 writer that also implements http.Flusher and io.ReaderFrom. It exists for the common case of wrapping the http.ResponseWriter that package http provides, so the proxying object supports the full method set of the proxied object.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r448214833c8438c0",
+      "text": "Creates a full request URL by combining `baseURL` with `requestedURL`. Exported directly as `module.exports`, the `buildFullPath` function takes the two parameters and returns the resulting path.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r08e178186a19ad5f",
+      "text": "Creates an absolute request URL by combining `baseURL` with `requestedURL`. Exported directly as a module function taking `baseURL` and `requestedURL` as parameters.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0c0b89839b7864cc",
+      "text": "Creates a new URL by combining the baseURL with the requestedURL, but only when the requestedURL is not already absolute. If the requestedURL is absolute, this function returns it unchanged.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "redacc1f849c33145",
+      "text": "Creates a new URL by combining the baseURL with the requestedURL, but only when the requestedURL is not already absolute. If the requestedURL is absolute, the function returns it unchanged.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rbc6c3d0b36b0ad28",
+      "text": "Filters displayed groups to exclude the positional group, yielding short switches used.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r00522a983904633c",
+      "text": "Filters displayed groups to short switches, excluding the positional group by name.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rca02e0a30290cc94",
+      "text": "If some options use short switches, indent options that have only long switches (see #1403).",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1206f05813086d42",
+      "text": "If any options use short switches, indent options that have only long switches (see #1403).",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd0a750e58d6cc978",
+      "text": "PrintErr writes the given values to the command's error output, formatting them with default formatting like fmt.Print.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8ecbe1b150bb46d7",
+      "text": "PrintErr writes the given arguments to the command's error output, formatting them with default `fmt` rules.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5c689255a51a8a88",
+      "text": "PrintErr is a convenience method that prints to the configured Err output, falling back to Stderr if none is set.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re89ab3f5a9f00f83",
+      "text": "PrintErr is a convenience method that prints to the configured Err output, falling back to Stderr when it is unset.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r55de60c4cad8367b",
+      "text": "MousetrapDisplayDuration defines how long the Windows mousetrap message stays on screen before the program exits. It is declared as a package-level variable of type `time.Duration`, set to `5 * time.Second`, so callers can override it to lengthen, shorten, or otherwise adjust the display delay.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5f686f9ce128beae",
+      "text": "MousetrapDisplayDuration sets how long the Windows mousetrap message is displayed before the program exits. It defaults to 5 seconds (`5 * time.Second`). Set it to zero to display the message without any delay, in which case the program exits immediately after printing.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r81c05c71527671d1",
+      "text": "MousetrapDisplayDuration controls how long the MousetrapHelpText message is shown on Windows when the CLI is started from explorer.exe. Set it to 0 to wait until the return key is pressed. To disable the mousetrap entirely, set MousetrapHelpText to an empty string (\"\"). Works only on Microsoft Windows.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8462257bc1a429dd",
+      "text": "MousetrapDisplayDuration sets how long the MousetrapHelpText message is shown on Windows when the CLI is launched from explorer.exe. Set it to 0 to wait until the return key is pressed. To disable the mousetrap entirely, set MousetrapHelpText to an empty string (\"\"). This works only on Microsoft Windows.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7dce659be9cfe3b8",
+      "text": "The condition `if len(self.leaves) < 2` checks whether the `leaves` attribute of `self` contains fewer than two elements, using `len` to measure its length and branching when that count falls below two.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r82c9889e5610913d",
+      "text": "Returns early when the tree holds fewer than two leaves, since `self.leaves` must contain at least two entries for the operation to proceed.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2cfe313d730eb539",
+      "text": "Comments on optional parentheses wrapping a single leaf should belong to the wrapped node, unless the comment is a type comment. Pinning the comment this way avoids unstable formatting caused by comment migration.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r62e6b7bebe6398b7",
+      "text": "Comments on optional parentheses wrapping a single leaf should belong to the wrapped node, unless the comment is a type comment. Pinning the comment this way avoids unstable formatting caused by comment migration.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6ae5ff044ab3c65f",
+      "text": "Article represents a single article, defined as a Go struct type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r778f16fa79435a14",
+      "text": "Article represents a single article, defined as a Go struct type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r16c715dd9f3d742a",
+      "text": "Article is a runtime object and is not meant to be sent over REST.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r196df56017b13bdb",
+      "text": "Article is a runtime object and is not intended to be sent over REST.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra266f2e572fbe492",
+      "text": "Contains asserts that the specified string, list(array, slice...), or map contains the specified substring or element.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra17376a148ac7a2e",
+      "text": "Contains asserts that the specified string, list, or map contains the specified substring or element.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r98b2972331a7412e",
+      "text": "Contains asserts that the specified string, list (array, slice, etc.) or map contains the specified substring or element.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdea9d43436327ec0",
+      "text": "Contains asserts that the specified string, list (array, slice, etc.) or map contains the specified substring or element.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6f52fabdb8b05b92",
+      "text": "WithinDurationf asserts that the two times are within duration delta of each other.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r01032c8f59e90606",
+      "text": "WithinDurationf asserts that two times differ by at most delta, with a formatted message.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6b939ea5dbea73b2",
+      "text": "WithinDurationf asserts that the two times are within the duration delta of each other.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r70039254d5af1cbc",
+      "text": "WithinDurationf asserts that the two times are within the given duration of each other.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r86307dceffd20083",
+      "text": "Heartbeat returns middleware that responds to GET and HEAD requests on the given endpoint path, allowing monitoring services to check application liveness without invoking downstream handlers.\n\n```go\nfunc Heartbeat(endpoint string) func(http.Handler) http.Handler\n```",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9825cbd0cb8fdb7b",
+      "text": "Heartbeat returns middleware that responds to GET and HEAD requests on the given endpoint path with a 200 OK \".\" response. Requests to other paths pass through to the next http.Handler.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r444a96cecbcd3406",
+      "text": "Heartbeat endpoint middleware, useful for setting up a path such as `/ping` that load balancers or external uptime-testing services can request before any routes are hit. It is also convenient to place above ACL middlewares.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0f41a891f90a996e",
+      "text": "Heartbeat endpoint middleware, useful for setting up a path like `/ping` that load balancers or external uptime-testing services can request before hitting any routes. It is also convenient to place this above ACL middlewares.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6acd454a336ae609",
+      "text": "TestingSuite is an interface that defines the methods a testing suite must implement.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0505bde005fe301a",
+      "text": "TestingSuite is the interface implemented by test suites that run with the testify suite runner.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6ebf7a13372328d4",
+      "text": "TestingSuite can store and return the current `*testing.T` context created by `go test`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5490d54bdf235334",
+      "text": "TestingSuite stores and returns the current *testing.T context created by `go test`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd13b3ca24ac11f99",
+      "text": "DirExists checks whether the given path exists and is a directory, reporting a test failure if it does not. The optional msgAndArgs values supply an additional message included with the failure output.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r97d9aca980645d3e",
+      "text": "DirExists checks that the given path exists and is a directory, failing the test if it does not. Optional msgAndArgs supply a custom failure message. Method of Assertions.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re45e76add7b2ee48",
+      "text": "DirExists reports whether a directory exists at the given path. It also fails if the path points to a file rather than a directory, or if an error occurs while checking for existence.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8b628af3656bbcc3",
+      "text": "DirExists reports whether a directory exists at the given path. It also fails if the path points to a file rather than a directory, or if an error occurs while checking for existence.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8f627547a29c9e54",
+      "text": "Match reports whether method and path match a registered route in mx, storing routing results in rctx.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r185d140eb5141895",
+      "text": "Match reports whether the mux has a route registered for the given method and path, storing routing context in rctx.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re15988a73f170a35",
+      "text": "Note: the `*Context` state is updated during execution, so manage the state carefully or create a new `NewRouteContext()`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfb7d6bf6da44e769",
+      "text": "Note: the `*Context` state is updated during execution, so manage the state carefully or create a `NewRouteContext()`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6c6d754ff629f71a",
+      "text": "NotSame asserts that two pointers do not reference the same object, reporting failure with optional message arguments and returning whether the assertion passed.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf8977f4767aa9e72",
+      "text": "NotSame asserts that two pointers do not reference the same object, failing the test otherwise. Accepts optional message arguments and returns whether the assertion passed.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r41bfd73bb7949715",
+      "text": "Both arguments must be pointer variables. Two pointer variables are considered the same when both their type and value are equal.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rda43d4af09feabd3",
+      "text": "Both arguments must be pointer variables. Two pointer variables are the same when both their type and value are equal.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb9528ba4e5444c66",
+      "text": "`pkgUp` walks upward from `rootPath` if provided, otherwise from `cwd`, returning the resulting object as `obj`. The parameter expression `rootPath || cwd` selects the starting directory for the lookup.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rbdc6c20f9516e180",
+      "text": "`pkgUp(rootPath || cwd)` locates the nearest package.json, starting from `rootPath` when provided and falling back to `cwd` otherwise. The resulting object is assigned to `obj`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r861033a92536e6c0",
+      "text": "Prefer `cwd` over `require-main-filename` in this method, since we are looking for the consumer's config (for example, \"nyc\" config in an nyc consumer) rather than \"yargs\" config in nyc, where nyc is the main filename.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfc3d56351aa7f2e7",
+      "text": "In this method, prefer cwd over require-main-filename: we want the consumer's config (e.g. \"nyc\" config in an nyc consumer) rather than \"yargs\" config in nyc, where nyc is the main filename.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r557d62adf0973424",
+      "text": "NoFileExistsf asserts that the file or directory at the given path does not exist, formatting msg with args as the failure message. It returns true if the assertion passes.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r279c8ccf3e83dbf6",
+      "text": "NoFileExistsf asserts that the file or directory at path does not exist, failing the test with the formatted message if it does.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1559f12779f29199",
+      "text": "NoFileExistsf checks that no file exists at the given path. It fails only if the path points to an existing _file_.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb6a5851099044d04",
+      "text": "NoFileExistsf checks that no file exists at the given path. It fails only if the path points to an existing file.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r94867f59b6c1a18f",
+      "text": "Bind implements the render.Binder interface for UserPayload, receiving the incoming *http.Request and returning an error if post-decode processing of the request fails.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7552f175a536aca0",
+      "text": "Bind implements the render.Binder interface for UserPayload, preparing the decoded request body from the given *http.Request and returning an error on failure.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3123d43f42b6ec24",
+      "text": "`Bind` on `UserPayload` runs after unmarshalling completes, making it a good place for post-processing after decoding.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3facbcf7d90b2119",
+      "text": "Bind on UserPayload runs after unmarshalling completes, making it a good place for post-processing that depends on the decoded value.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re43fc3393d6a5284",
+      "text": "Implements the `Index` trait for `Value`, allowing indexing with any type `I` that implements the crate's own `Index` trait. Written as `impl<I> ops::Index<I> for Value where I: Index`, this bound distinguishes the standard library's `ops::Index` being implemented from the local `Index` trait constraining the index type. The implementation takes no additional parameters.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r18ca49c73172c245",
+      "text": "Implements `ops::Index<I>` for `Value`, where `I` satisfies the `Index` trait. This lets you index a `Value` directly with the indexing operator, using any type that implements `Index` as the key. The implementation forwards indexing to the `Index` trait, so the set of valid key types is determined entirely by which types implement `Index`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r04f3fbb45a09853c",
+      "text": "The use cases that would be well served by panicking here are better served by one of the other approaches: `get` and `get_mut`, `as_array`, or `match`. The value of this impl is that it adds a way of working with `Value` that the existing approaches do not serve well: concise and careless — and sometimes that is exactly what you want.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r113dbaa118873344",
+      "text": "The use cases that would be well served by panicking here are better served by one of the other approaches: `get` and `get_mut`, `as_array`, or `match`. The value of this impl is that it adds a way of working with `Value` that the existing approaches do not serve well: concise and careless, and sometimes that is exactly what you want.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8bd9aea2910e3932",
+      "text": "GenYamlTree creates YAML documentation for the given command and all of its descendants in the specified directory.\n\n```go\nfunc GenYamlTree(cmd *cobra.Command, dir string) error\n```\n\nIt walks the command tree rooted at `cmd`, generating 1 YAML file per command and writing the files into `dir`. It returns an `error` if any file cannot be created or written.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7c5463ed0dbd8b1a",
+      "text": "GenYamlTree creates YAML documentation for the given command and all of its children, writing the files into the directory `dir`. Each command produces 1 file, and the tree is walked recursively so subcommands are documented alongside their parent. It takes `cmd *cobra.Command` and `dir string`, and returns an `error` if generation or file writing fails.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2edb39f180218975",
+      "text": "GenYamlTree creates YAML-structured reference files for this command and all its descendants in the given directory. This function may not work correctly if your command names contain `-`. If you have `cmd` with two subcommands, `sub` and `sub-third`, and `sub` has a subcommand called `third`, it is undefined which help output ends up in the file `cmd-sub-third.1`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "raf3f6b70007e9cda",
+      "text": "GenYamlTree generates YAML-structured reference files for this command and all of its descendants in the given directory. This function may behave incorrectly if your command names contain `-`. If you have `cmd` with two subcommands, `sub` and `sub-third`, and `sub` itself has a subcommand called `third`, it is undefined which help output ends up in the file `cmd-sub-third.1`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5c6ddfa33301863d",
+      "text": "Locale is an empty object literal assigned to the variable `Locale`. Declared with `var`, it is function-scoped and hoisted, and it takes no parameters. The object starts with no properties, serving as a container to which locale-related entries can be attached later. Its declaration is simply `var Locale = {}`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r80a30539b82437fd",
+      "text": "Locale is an empty object literal assigned to the variable `Locale`. It is declared with `var`, so it is function-scoped or, at the top level, a global. It takes no parameters and holds no initial properties; members are added to it after declaration. Reference it by the identifier `Locale`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra14a72a13c4b52ab",
+      "text": "@throws {RangeError} `locale` must contain a `localize` property. Thrown by `format` and `formatRelative`\n@throws {RangeError} `locale` must contain a `formatLong` property. Thrown by `format` and `formatRelative`\n@throws {RangeError} `locale` must contain a `formatRelative` property. Thrown by `formatRelative`\n@throws {RangeError} `locale` must contain a `formatDistance` property. Thrown by `formatDistance` and `formatDistanceStrict`\n@throws {RangeError} `locale` must contain a `match` property. Thrown by `parse`",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r14d80809bb917cd9",
+      "text": "@throws {RangeError} `locale` must contain a `localize` property. Thrown by `format` and `formatRelative`\n@throws {RangeError} `locale` must contain a `formatLong` property. Thrown by `format` and `formatRelative`\n@throws {RangeError} `locale` must contain a `formatRelative` property. Thrown by `formatRelative`\n@throws {RangeError} `locale` must contain a `formatDistance` property. Thrown by `formatDistance` and `formatDistanceStrict`\n@throws {RangeError} `locale` must contain a `match` property. Thrown by `parse`",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd2d2aef903a9acb6",
+      "text": "Suite groups related tests, providing shared setup and teardown so each test runs against a consistent environment.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ree3d0b3d07668758",
+      "text": "Suite groups related tests, holding shared setup and configuration that individual test cases within it use.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "raa10b65148fc3c8b",
+      "text": "Suite is a basic testing suite with methods for storing and retrieving the current *testing.T context.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8cbcd8be3db255d2",
+      "text": "Suite is a basic testing suite with methods for storing and retrieving the current *testing.T context.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1fee3e792af78d86",
+      "text": "Returns whether the two given dates fall within the same calendar year. Accepts `dirtyDateLeft` and `dirtyDateRight` as its 2 parameters and is exported as the module's default export, `isSameYear`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2a5b6c40c6b8971f",
+      "text": "Returns `true` if the two given dates are in the same year. Accepts `dirtyDateLeft` and `dirtyDateRight` as its 2 parameters and is exported as the module's default export.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf7c79c99a039217a",
+      "text": "@param {Date|Number} dateLeft - the first date to compare\n@param {Date|Number} dateRight - the second date to compare\n@returns {Boolean} whether the dates are in the same year\n@throws {TypeError} 2 arguments required",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdc416e39d91f7043",
+      "text": "@param {Date|Number} dateLeft - the first date to compare\n@param {Date|Number} dateRight - the second date to compare\n@returns {Boolean} whether the dates fall in the same year\n@throws {TypeError} thrown when fewer than 2 arguments are provided",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r89a0b02a75065b14",
+      "text": "Computes `len` as the largest of three extents: `z0.len()`, `m + z1.len()`, and `2 * m + z2.len()`, using chained `max` calls so the result covers every offset segment.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra74519de02755dad",
+      "text": "Computes `len` as the maximum of `z0.len()`, `m + z1.len()`, and `2 * m + z2.len()`, giving the length needed to hold all three shifted parts.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1268302a63cf7fe0",
+      "text": "Construct the result, which in little-endian order equals [z0, z1 - z2 - z0, z2]. Shift z1 left by m digits (2^(32m)) and shift z2 left by 2*m digits (2^(64m)).",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r455a36a22a0c883f",
+      "text": "Assemble the result in little-endian order as [z0, z1 - z2 - z0, z2], where z1 is shifted by m digits (2^(32m)) and z2 is shifted by 2m digits (2^(64m)).",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd459d2b83f5228b7",
+      "text": "SetArgs sets the arguments for the Command, replacing any previously configured ones. It accepts a single parameter `a`, a slice of strings.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rde1474a59972c890",
+      "text": "SetArgs sets the arguments for the command. By default it uses `os.Args[1:]`; overriding is useful primarily for testing.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r743340787707c0f5",
+      "text": "SetArgs sets the command's arguments. It defaults to os.Args[1:], but can be overridden if desired, which is particularly useful when testing.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4517259a1f47ae31",
+      "text": "SetArgs sets the command's arguments. It defaults to os.Args[1:], but can be overridden if desired, which is particularly useful when testing.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2210644e813be175",
+      "text": "HTTPBodyNotContains asserts that a handler's response body for the given method, URL, and values does not contain str.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1f9b1466577106ad",
+      "text": "HTTPBodyNotContains asserts that the handler's response body for the given request does not contain str.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9a45096528db4870",
+      "text": "HTTPBodyNotContains asserts that the body returned by a specified handler does not contain a string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc9263e12bc87c0cc",
+      "text": "HTTPBodyNotContains asserts that the body returned by the specified handler does not contain a string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc120c8b48c3a9e7a",
+      "text": "Regular expression matching long formatting tokens, including P/p sequences, quoted literal segments with escaped quotes, and single characters.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r525929466704cadf",
+      "text": "Regular expression matching long format tokens, including P and p sequences, quoted literals, and any single character.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rbc96ea80280c9d75",
+      "text": "This regular expression matches symbols escaped by quotes, as well as sequences of the symbols P and p, such as `PPPPPPPppppp`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rac9c4e1183e97d77",
+      "text": "This regular expression matches symbols escaped by quotes, plus sequences of the symbols `P` and `p`, such as `PPPPPPPppppp`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdba164fc41000bd3",
+      "text": "WrapResponseWriter is an interface for wrapping an http.ResponseWriter, allowing the wrapper to intercept and observe the response as it is written.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r15deac95999ec910",
+      "text": "WrapResponseWriter is an interface for wrapping an HTTP response writer, allowing inspection or modification of the response as it is written.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re6a2cc3619dd3e7a",
+      "text": "WrapResponseWriter is a proxy around an http.ResponseWriter that lets you hook into various parts of the response process.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re248d853b59cd36e",
+      "text": "WrapResponseWriter is a proxy around an http.ResponseWriter that lets you hook into various parts of the response process.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0380f0bc3b4fe2c2",
+      "text": "LessOrEqual asserts that the first element is less than or equal to the second.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r17142deabaca3c9a",
+      "text": "LessOrEqual asserts that the first element is less than or equal to the second.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd60b817b5f8f7546",
+      "text": "LessOrEqual asserts that the first element is less than or equal to the second.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4d64f3027b1f7f4d",
+      "text": "LessOrEqual asserts that the first element is less than or equal to the second.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8fbd2c14e3b1ec30",
+      "text": "Value implements the driver.Valuer interface, returning the UUID as a driver.Value suitable for use as a database query parameter, along with an error if conversion fails.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re0aca13fa4d27cef",
+      "text": "Value implements the driver.Valuer interface, returning the UUID as a driver.Value along with an error, so UUIDs can be written to SQL databases.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r469e91343b076755",
+      "text": "Value implements sql.Valuer so that UUIDs can be written to databases transparently. Currently, UUIDs map to strings. Please consult the documentation for your database driver for matching types.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1b4643a9292bb0a8",
+      "text": "Value implements sql.Valuer so UUIDs can be written to databases transparently. UUIDs currently map to strings; consult your database-specific driver documentation for the matching types.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra592519d5b2a769c",
+      "text": "Creates a new instance that reads from the provided `read` source.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r672ab036468f99b7",
+      "text": "Creates a new instance that reads from the given reader `read`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r904f997a208736bf",
+      "text": "It is usually more convenient to use one of these methods instead:",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r698ba3de1d843ea3",
+      "text": "Usually one of these methods is more convenient to use instead:",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd037b4a556e4ec63",
+      "text": "Returns the decade of the given date, represented as a number, for the supplied `dirtyDate` argument.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8d219b242207be3b",
+      "text": "Returns the decade of the given date as a number, for example 1930 for 1935.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r91c3c96a9915c6be",
+      "text": "@param {Date|Number} date - the given date  @returns {Number} the year of the decade  @throws {TypeError} 1 argument required",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r16f3c4b38b556f73",
+      "text": "@param {Date|Number} date - the given date @returns {Number} the year of the decade @throws {TypeError} 1 argument required",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2648ddb1e7f00956",
+      "text": "`let mut start = 0` declares a mutable binding named `start`. The `mut` keyword permits later reassignment of `start`; without it, the binding would be immutable.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r12680879798dbb32",
+      "text": "Declares `start` as a mutable binding, initialized to zero, so it can be reassigned later as the loop or scan advances through the input.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4f6c1d7197ff3808",
+      "text": "This is effectively grade-school multiplication between two numbers, except that we split on `y` and the intermediate step is a Karatsuba multiplication.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7c0df7362f1457d9",
+      "text": "This is essentially grade-school multiplication of two numbers, except we split on `y` and the intermediate step is a Karatsuba multiplication.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rbb9ecb1e66925129",
+      "text": "Mount attaches another http.Handler along the routing tree at the given pattern string. The handler receives requests whose paths match that pattern, letting you compose a sub-router or any http.Handler into the Mux mx as a nested routing subtree.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4a6ac52a87cc83a1",
+      "text": "Mount attaches a sub-router along the given pattern, registering handler to serve all requests matching that path prefix. The pattern must be a path prefix rather than a full route, and handler receives requests with the prefix stripped from the routing path.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r005151ac32e63ece",
+      "text": "Note that Mount() simply sets a wildcard along the `pattern` that continues routing at the `handler`, which in most cases is another chi.Router. As a result, if you define two Mount() routes on the exact same pattern, the mount will panic.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ref59924597cd9889",
+      "text": "Note that Mount() simply sets a wildcard along the `pattern` that continues routing at the `handler`, which in most cases is another chi.Router. As a result, defining two Mount() routes on the exact same pattern will cause the mount to panic.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcd70eda2859db3d8",
+      "text": "CompDebugln prints the debug message `msg` followed by a newline. When `printToStdErr` is true, the message is also written to standard error. It takes `msg` as a string and `printToStdErr` as a boolean, and returns nothing.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8a862d839db22cd2",
+      "text": "CompDebugln prints a debug message followed by a newline. `msg` is the message text. If `printToStdErr` is true, the message is also written to standard error; otherwise it is only recorded in the debug output.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r92c7ae5d648d71e6",
+      "text": "CompDebugln prints the given string, followed by a newline, to the same file where the completion script writes its logs. Such logs are only written when the user has set the environment variable BASH_COMP_DEBUG_FILE to the path of a file to use for this purpose.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc108f2c2fa0c2894",
+      "text": "CompDebugln prints the given string, followed by a newline, to the same file the completion script writes its logs to. These logs are only written when the user sets the environment variable BASH_COMP_DEBUG_FILE to the path of a file to use.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9f9cc4259993665c",
+      "text": "Marker trait combining `AnyArg` with `Display`, enabling argument types to be formatted directly.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r33a77dd3ba0ef275",
+      "text": "Marker trait combining `AnyArg` with `Display` for arguments that can be formatted.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb950bcf9b958182b",
+      "text": "These traits simply exist to make the code easier to read.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re53722aff85c735b",
+      "text": "These traits are simply conveniences that make the code easier to read.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb784807630336238",
+      "text": "A reader for deserializing JSON from a string slice with lifetime `'a`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6277629cd2baff98",
+      "text": "A reader that borrows string input, supporting the 8 core read operations.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5b616c7e4fb30284",
+      "text": "Can elide UTF-8 validation by assuming the input is already valid UTF-8.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r337a38ea36cceaaf",
+      "text": "Elides UTF-8 validation by assuming the input is already valid UTF-8.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8160bddcfdbe9f6b",
+      "text": "On registers a method call expectation on the Mock, returning a Call for further configuration.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6a007adbdd12a813",
+      "text": "On declares a method call expectation on the mock, returning a Call for further configuration.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb0ce8f276eba6d67",
+      "text": "Starts a description of an expectation that the specified method is called.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r320f2fa6e448551b",
+      "text": "On starts the description of an expectation that the specified method will be called.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9e5edf0dff3d7aa7",
+      "text": "Creates and returns an Error object from `message`, decorating it with the supplied `config`, `code`, `request`, and `response` values. Exported as the module's single function via `module.exports`, so requiring the module yields `createError` directly.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r77443cfa2f720c08",
+      "text": "Creates an Error object from `message`, attaching the request `config`, an error `code`, the `request` object, and the `response`. Exported as the module's function, it returns the enhanced error for callers to throw or reject with.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rbc04bc8a2c94f3b6",
+      "text": "@param {string} message The error message.  @param {Object} config The config.  @param {string} [code] The error code (for example, 'ECONNABORTED').  @param {Object} [request] The request.  @param {Object} [response] The response.  @returns {Error} The created error.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rab3b96c6fe0cc295",
+      "text": "@param {string} message The error message.\n@param {Object} config The config.\n@param {string} [code] The error code (for example, `ECONNABORTED`).\n@param {Object} [request] The request.\n@param {Object} [response] The response.\n@returns {Error} The created error.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r528078a1f5ed2370",
+      "text": "HasInheritedFlags returns true if the command has inherited flags from parent commands.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4a16f2b0eb6ec632",
+      "text": "HasInheritedFlags returns true if the command has inherited flags.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r195ebcf6b288c187",
+      "text": "HasInheritedFlags reports whether the command has flags inherited from its parent command.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rba81c847722d9576",
+      "text": "HasInheritedFlags reports whether the command has flags inherited from its parent command.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r064c9f5ae411d623",
+      "text": "TestHiddenCommandIsHidden verifies a hidden command stays hidden, using the testing package's t parameter.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r05a4115d34e47f02",
+      "text": "Verifies that a command marked hidden does not appear in output.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra062c2020062eabb",
+      "text": "Test that hidden commands do not appear in usage or help text",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7716f36f06471e53",
+      "text": "Test that hidden commands do not appear in usage or help text.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r61e663911751f904",
+      "text": "Sets the long \"about\" text describing the program, replacing any previously set value.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcb988bd92562e087",
+      "text": "Sets the long description of the command, displayed in long help output.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r99f4e2c0e6436464",
+      "text": "More detail on how this subcommand actually works. It may take about",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rae1531d39847a24a",
+      "text": "More detail on how this subcommand actually works. It may take about",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3e7959ccfc0ccac9",
+      "text": "Returns true if the given date is a weekend (Saturday or Sunday), where `dirtyDate` is the date to check.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra2729978e8795fc2",
+      "text": "Returns true if the given date is a weekend (Saturday or Sunday), accepting `dirtyDate` as a Date or timestamp number.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra12105d6fff28f86",
+      "text": "@param {Date|Number} date - the date to check\n@returns {Boolean} whether the date falls on a weekend\n@throws {TypeError} if fewer than 1 argument is passed",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0c962bbd4135a55c",
+      "text": "@param {Date|Number} date - the date to check\n@returns {Boolean} whether the date falls on a weekend\n@throws {TypeError} if 1 argument is not provided",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf0e7e35094b4a920",
+      "text": "tmpl renders the text template with data, writing the result to w, returning any error.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd7ccd6fb7030be3b",
+      "text": "tmpl renders the template text with data, writing the output to w; returns an error.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r158e48c73a5d8183",
+      "text": "tmpl executes the given template text on data, writing the result to w.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r084de0162fdf79c2",
+      "text": "tmpl applies the given template text to data and writes the result to w.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r47d7418d346542fe",
+      "text": "Whether the operation should return immediately when a failure occurs instead of continuing.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r38f7b2c4ade564b4",
+      "text": "Whether to return early from the operation when the preceding step failed.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r46e066ae499d57cd",
+      "text": "truncating their input slice to avoid the extra check on every subsequent call",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r39badaea50c45be8",
+      "text": "truncating their input slice to avoid the extra check on every subsequent call",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r65af4ca343337e21",
+      "text": "Enum defining the settings that can be applied to an argument.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re85d3b9a23dfd2d2",
+      "text": "Enumeration of boolean settings that can be applied to an argument.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7ec7a05510f20977",
+      "text": "Settings that apply to arguments and can be set, unset, and checked via getters and setters.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re57332c32d6b3740",
+      "text": "Settings that apply to arguments and can be set, unset, and queried via getters and setters.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r21cabeb3f40fb460",
+      "text": "Destructures major, minor, and patch presence flags from parsed command-line matches into three booleans.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0a731acde6b20ce0",
+      "text": "Destructures major, minor, and patch command-line flag presence into `maj`, `min`, `pat` booleans.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r25f5e5ab352ef88d",
+      "text": "Increment only the requested value (in a real program, we would reset the lower digits).",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "reaa1fc81c9312399",
+      "text": "Increment only the requested field (a real program would reset the lower ones).",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r488462ab5ff559db",
+      "text": "A module-level lookup table mapping string keys to boolean values, initialized empty and used for local membership checks.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rccc66a8b92cde689",
+      "text": "Declares `localLookup`, a `Dictionary` of `boolean` values, initialized as an empty object with no entries.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r86dcbeaeb9cb6a88",
+      "text": "If a key has been explicitly set as local, we should reset it before passing the options to the command.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r41784c58b1f5ca39",
+      "text": "If a key is explicitly set as local, reset it before passing the options to the command.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcf66dc2a89ff8725",
+      "text": "Returns the byte offset as a `usize`. Takes `&self` and requires no additional parameters.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra3fb821fb6a3792d",
+      "text": "Returns the byte offset into the source as a `usize`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfae068375f58a0de",
+      "text": "Offset from the start of the input to the next byte that would be",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf21180d4e8a9e7c3",
+      "text": "Offset from the start of the input to the next byte that would be read.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r60cc25d8423cbce0",
+      "text": "Println prints to the command's output, formatting its arguments with default formatting and appending a newline.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc22d5a871a35a363",
+      "text": "Println prints to the command's output using the default formats for its operands, appending a newline.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra8e736f8df3fbfdb",
+      "text": "Println is a convenience method that writes to the configured output, falling back to Stderr when none is set.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd66d4156e4618982",
+      "text": "Println is a convenience method that prints to the configured output, falling back to Stderr when none is set.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r79f4c8d0263df04f",
+      "text": "PanicsWithErrorf asserts that the code inside the specified PanicTestFunc panics, and that the recovered panic value is an error with a message equal to errString.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfa9b2b1723797b81",
+      "text": "PanicsWithErrorf asserts that function f panics with an error whose message equals errString, failing the test with the formatted msg and args on mismatch.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3947e5a82fd15372",
+      "text": "PanicsWithErrorf asserts that the code inside the specified PanicTestFunc panics and that the recovered panic value is an error satisfying the EqualError comparison.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8b5e7970178955e9",
+      "text": "PanicsWithErrorf asserts that the code inside the specified PanicTestFunc panics and that the recovered panic value is an error satisfying the EqualError comparison.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc5ad8d3dc45aa1dc",
+      "text": "PanicsWithValue asserts that the code inside the specified PanicTestFunc panics, and that the recovered panic value equals the expected value.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r110ab4836a90ec22",
+      "text": "PanicsWithValue asserts that the code inside the specified PanicTestFunc panics, and that the recovered panic value equals the expected value.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r199a011718908053",
+      "text": "PanicsWithValue asserts that the code inside the specified PanicTestFunc panics and that the recovered panic value equals the expected value.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0367cec1450b035b",
+      "text": "PanicsWithValue asserts that the code inside the specified PanicTestFunc panics and that the recovered panic value equals the expected value.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4532337a60710e5a",
+      "text": "NewDCESecurity returns a DCE Security UUID (version 2) based on the domain and id, with the specified domain and identifier.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re3f886c73dae1b19",
+      "text": "NewDCESecurity returns a DCE Security UUID (version 2) based on the given domain and id, with 7 bytes from a version 10 UUID... \n\nActually, returning only the document text:\n\nNewDCESecurity returns a DCE Security UUID (version 2) built from the given Domain and uint32 id, or an error.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r77b7f52eb7e963c8",
+      "text": "For a given domain/id pair, the same token may be returned for up to 7 minutes and 10 seconds.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r73e062a44adea9d9",
+      "text": "For a given domain/id pair, the same token may be returned for up to 7 minutes and 10 seconds.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcdcbf12dd5a9a1ef",
+      "text": "NoCache wraps an http.Handler and returns an http.Handler. It takes a single parameter, h, of type http.Handler, and produces a handler that satisfies the same http.Handler interface.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8ab94a8b05875570",
+      "text": "NoCache wraps an http.Handler, returning an http.Handler that sets response headers instructing clients not to cache the response produced by the wrapped handler h.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfa0cac13b6be1fac",
+      "text": "NoCache is a simple middleware that sets several HTTP headers to prevent a router (or subrouter) from being cached by an upstream proxy and/or client.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r17b88f75aebcaff7",
+      "text": "NoCache is a simple middleware that sets several HTTP headers to prevent a router (or subrouter) from being cached by an upstream proxy and/or the client.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rab5858bc28746f0f",
+      "text": "Deserializes an instance of type `T` from an IO stream of JSON, returning a `Result`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "raf59813cdd71c1a4",
+      "text": "Deserializes an instance of type `T` from an IO stream of JSON.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5124030d2685b157",
+      "text": "structure that `T` expects — for example, if `T` is a struct type but the input",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r64e4da70328cfe12",
+      "text": "structure expected by `T` — for example, if `T` is a struct type but the input",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb133355765f787d0",
+      "text": "Creates a new instance from any value convertible into a `String`, accepting the name `n` as `S`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf5f82f81a6b427e0",
+      "text": "Creates a new instance from any value convertible into a `String`, converting the argument `n` via `Into`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7dda2d37918f5e13",
+      "text": "must match the binary's name. The name will be displayed to the user when they request to",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6ff5846bf561812a",
+      "text": "must match the binary's name. The name is displayed to users when they request",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rad357440ba59ee13",
+      "text": "Mock is a struct type. It provides a mock implementation for use in tests, allowing calls to be recorded and behavior to be controlled without a real implementation.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r563d2535153fb4ed",
+      "text": "Mock is a struct type. It provides a mock implementation whose behavior can be configured and inspected by tests, standing in for the real dependency under test.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rda63e74624aa0326",
+      "text": "Mock is the workhorse used to track activity on another object. For an example of its use, see the \"Example Usage\" section at the top of this document.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3e0438b392de3214",
+      "text": "Mock is the workhorse for tracking activity on another object. For a usage example, see the \"Example Usage\" section at the top of this document.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r667cc924b3f670e1",
+      "text": "ArticleCtx is middleware that loads an article by the identifier in the request URL and stores it in the request context before calling next. If the article is not found, it responds with 404.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc5e44301aac76af4",
+      "text": "ArticleCtx is middleware that loads the requested article and stores it in the request context before calling `next`. If the article cannot be found, it responds with a 404 instead of invoking `next`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "reb0ddb8f813ce5c3",
+      "text": "The ArticleCtx middleware loads an Article object using the URL parameters passed in with the request. If the Article cannot be found, processing stops there and a 404 is returned.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r30b6c5ff2d63ce2c",
+      "text": "The ArticleCtx middleware loads an Article object from the URL parameters supplied with the request. If the Article cannot be found, processing stops and a 404 is returned.",
+      "status": "complete",
+      "note": ""
+    }
+  ]
+}

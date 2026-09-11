@@ -173,5 +173,11 @@ func TestManifestsImportCompleteResponsesOnly(t *testing.T) {
 	c.Assert(artifact.Units[0].Cohort, qt.Equals, "controlled")
 	// The source carries the origin; a unit never does, by the corpus contract.
 	c.Assert(plan.Manifest.Sources[0].Origin.Label, qt.Equals, "generated")
+	// A later run keeps its shards beside the earlier run's through the suffix.
+	options.Suffix = "-run2"
+	later, err := generation.BuildManifests(records, tasks, options)
+	c.Assert(err, qt.IsNil)
+	c.Assert(later[0].Manifest.ID, qt.Equals, "controlled-org__lib-run2")
+	c.Assert(later[0].Slug, qt.Equals, "org__lib")
 	c.Assert(artifact.Units[0].Unit.Origin.Label, qt.Equals, "unknown")
 }

@@ -70,7 +70,7 @@ satisfies no row in this table; the stages below record their state.
 | --- | --- | --- |
 | A. Scope and methodology | Met | [ADR 0036](adr/0036-llm-pattern-evidence.md), the [protocol](../research/methods/llm-patterns-v1.md), the [sources record](../research/methods/llm-patterns-sources-v1.json), the [prompts](../research/methods/prompts/README.md); #22 on hold |
 | B. Historical corpus | Met | Five dated cohorts of 43 repositories under one global plan, verifiable shards, baseline measurements, first-appearance and one-count-per-text analyses, and placebo comparisons in the [run records](../research/acquisition/README.md) |
-| C. Comparable experiment | In progress | Amendment 1 of the protocol runs generation through session agents with no paid call; the [pilot record](../research/generation/runs/2026-09-11-pilot/README.md) holds 240 saved responses of one family, the controlled cohort's shards, and the paired tables. A second family and protocol version 2 remain open |
+| C. Comparable experiment | In progress | Amendment 1 of the protocol runs generation through session agents with no paid call. The [pilot record](../research/generation/runs/2026-09-11-pilot/README.md) and the [second run](../research/generation/runs/2026-09-11-run2/README.md) hold 800 saved responses of one family on 200 tasks. Each run keeps its controlled shards and paired tables. A second family and protocol version 2 remain open |
 | D. Confirmatory study | Open | Waits on stage C |
 | E. Evidence release | Open | Waits on stage D; the stage B records and their digests are published already |
 

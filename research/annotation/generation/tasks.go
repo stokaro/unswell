@@ -58,6 +58,7 @@ type Tasks struct {
 	Partitions []string  `json:"partitions"`
 	Roles      []string  `json:"roles"`
 	Requested  int       `json:"requested"`
+	Excluded   int       `json:"excluded,omitempty"`
 	Strata     []Stratum `json:"strata"`
 	Tasks      []Task    `json:"tasks"`
 }
@@ -75,6 +76,10 @@ type Options struct {
 	Roles      []string
 	Count      int
 	Ecosystems map[string]string
+	// Excluded names the tasks of earlier runs by ID. They leave the eligible
+	// pool before allocation, so a later run draws new tasks under the same
+	// seed instead of regenerating the same texts.
+	Excluded map[string]bool
 }
 
 // Sampler accumulates eligible units one candidate artifact at a time.
@@ -82,6 +87,7 @@ type Sampler struct {
 	options   Options
 	partition map[string]string
 	eligible  map[string][]Task
+	excluded  int
 }
 
 // NewSampler validates the options and the dataset plan the partitions come
@@ -120,6 +126,10 @@ func (s *Sampler) Add(ctx context.Context, artifact corpus.Artifact, read Reader
 			return err
 		}
 		if !ok {
+			continue
+		}
+		if s.options.Excluded[task.ID] {
+			s.excluded++
 			continue
 		}
 		key := task.Ecosystem + "\x00" + task.Role
@@ -195,7 +205,7 @@ func (s *Sampler) Sample() (Tasks, error) {
 	}
 	result := Tasks{Version: TasksVersion, Protocol: s.options.Protocol, Seed: s.options.Seed, Cohort: s.options.Cohort,
 		Partitions: slices.Clone(s.options.Partitions), Roles: slices.Clone(s.options.Roles), Requested: s.options.Count,
-		Strata: []Stratum{}, Tasks: []Task{}}
+		Excluded: s.excluded, Strata: []Stratum{}, Tasks: []Task{}}
 	allocation := allocate(keys, s.eligible, min(s.options.Count, total))
 	for _, key := range keys {
 		pool := slices.Clone(s.eligible[key])

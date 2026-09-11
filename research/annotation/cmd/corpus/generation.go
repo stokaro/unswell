@@ -85,7 +85,7 @@ func loadTasks(ctx context.Context, path string) (generation.Tasks, string, erro
 }
 
 type generationsOptions struct {
-	tasks, requests, responses, records, work, output, historical string
+	tasks, requests, responses, records, work, output, historical, suffix string
 }
 
 // runGenerations joins a run's responses with its requests and tasks and
@@ -129,7 +129,7 @@ func runGenerations(ctx context.Context, args []string, _ io.Reader, output io.W
 
 func importOptions(ctx context.Context, options generationsOptions) generation.ImportOptions {
 	historical := map[string]corpus.Acquisition{}
-	return generation.ImportOptions{RecordsPath: options.records,
+	return generation.ImportOptions{RecordsPath: options.records, Suffix: options.suffix,
 		Historical: func(repository string) (corpus.Acquisition, error) {
 			if record, found := historical[repository]; found {
 				return record, nil
@@ -215,6 +215,7 @@ func generationsFlags(args []string) (generationsOptions, error) {
 	flags.StringVar(&options.work, "work", "", "Directory holding the checkouts by cohort and repository slug")
 	flags.StringVar(&options.output, "output", "", "Directory for the controlled cohort's shard manifests")
 	flags.StringVar(&options.historical, "historical", "", "Directory of the historical cohort's acquisition records")
+	flags.StringVar(&options.suffix, "shard-suffix", "", "Suffix of every shard ID, so a later run's shards sit beside an earlier run's")
 	if err := flags.Parse(args); err != nil {
 		return generationsOptions{}, err
 	}
