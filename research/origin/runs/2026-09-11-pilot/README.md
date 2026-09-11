@@ -81,7 +81,9 @@ false-positive rate says anything. That takes more generation runs, not a
 different fit.
 
 Every endpoint is a Markdown document and every negative a code comment, so a
-model that separated them could be reading the source format. The strata by
+model that separated them could be reading the source format; the
+[documentation run](../2026-09-11-documentation/README.md) removes that
+confound and finds the same nothing. The strata by
 prompt condition and family hold 16 and 20 endpoints, too few to compare the
 prompts. One family (`claude-opus-5` through session agents) ran; every other
 family is untested. The generator may have seen the historical text, and the

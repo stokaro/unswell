@@ -90,6 +90,8 @@ func unionFlags(flags *flag.FlagSet, options *corpus.UnionOptions) {
 	flags.IntVar(&options.MaxPerCheckout, "max-per-checkout", 0, "Keep the first N sources of each checkout in ID order; 0 keeps all")
 	flags.Func("uncapped-cohort", "Cohort whose checkouts keep every source under the limit; repeat for a set",
 		appendTo(&options.UncappedCohorts))
+	flags.Func("every-role-cohort", "Cohort whose sources enter whatever their role; repeat for a set",
+		appendTo(&options.EveryRoleCohorts))
 	flags.IntVar(&options.MaxSourceBytes, "max-source-bytes", 0, "Drop sources above this many bytes; 0 keeps all")
 	flags.Func("exclude-source", "Source ID to leave out; repeat for a set", appendTo(&options.ExcludedSources))
 }

@@ -100,6 +100,13 @@ func TestUnionManifestSelectsAndRefuses(t *testing.T) {
 	c.Assert(union.Sources, qt.HasLen, 3)
 	_, err = corpus.UnionManifest(c.Context(), plan, pinned, corpus.UnionOptions{ID: "u", Roles: []string{"comment"}})
 	c.Assert(err, qt.ErrorMatches, "no source of the dataset matches the selection")
+	union, err = corpus.UnionManifest(c.Context(), plan, pinned,
+		corpus.UnionOptions{ID: "u", Roles: []string{"comment"}, EveryRoleCohorts: []string{"contemporary"}})
+	c.Assert(err, qt.IsNil)
+	c.Assert(len(union.Sources) > 0, qt.IsTrue)
+	for _, source := range union.Sources {
+		c.Assert(source.Snapshot.Cohort, qt.Equals, "contemporary")
+	}
 
 	// A capped checkout keeps its first source in ID order; an uncapped cohort keeps all.
 	union, err = corpus.UnionManifest(c.Context(), plan, pinned, corpus.UnionOptions{ID: "u", MaxPerCheckout: 1})

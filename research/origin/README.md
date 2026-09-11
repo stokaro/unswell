@@ -22,6 +22,10 @@ provenance` scores them against the same labels.
 bash scripts/origin-experiment.sh --record research/origin/runs/<run>
 ```
 
+`--negative-role` picks the roles of the historical negatives; the default
+is `comment`, the role the tasks came from, and the documentation roles give
+negatives in the format of the endpoints.
+
 A positive is a complete `generate` response. Its source sits in the
 controlled cohort with origin `generated`, document scope, and a generation
 record. A negative is a unit of a historical source with origin `human` or
@@ -48,3 +52,4 @@ written by a tool.
 | Run | What it covers | Record |
 | --- | --- | --- |
 | 2026-09-11 pilot | First fit on the pilot generation run of #154: 145 controlled paragraphs against the comment paragraphs of the nineteen task repositories, structural features, threshold frozen at 0.5 | [runs/2026-09-11-pilot](runs/2026-09-11-pilot/README.md) |
+| 2026-09-11 documentation | The same endpoints against the documentation, readme, and release-note paragraphs of the same repositories, so the negatives share the endpoints' format | [runs/2026-09-11-documentation](runs/2026-09-11-documentation/README.md) |

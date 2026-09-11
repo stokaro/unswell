@@ -25,7 +25,10 @@ type UnionOptions struct {
 	UnitKinds       []string
 	MaxPerCheckout  int
 	UncappedCohorts []string
-	MaxSourceBytes  int
+	// EveryRoleCohorts names cohorts whose sources enter whatever their role,
+	// so a role filter on the other cohorts leaves a controlled cohort whole.
+	EveryRoleCohorts []string
+	MaxSourceBytes   int
 	// ExcludedSources names sources left out by ID, such as the sources an
 	// earlier measurement could not analyze; the record lists them.
 	ExcludedSources []string
@@ -154,16 +157,22 @@ func selected(source Source, options UnionOptions) bool {
 	if options.MaxSourceBytes > 0 && source.Bytes > options.MaxSourceBytes {
 		return false
 	}
-	if slices.Contains(options.ExcludedSources, source.ID) {
-		return false
-	}
-	if len(options.Roles) > 0 && !slices.Contains(options.Roles, source.Role) {
+	if slices.Contains(options.ExcludedSources, source.ID) || !roleSelected(source, options) {
 		return false
 	}
 	if len(options.Cohorts) == 0 {
 		return true
 	}
 	return source.Snapshot != nil && slices.Contains(options.Cohorts, source.Snapshot.Cohort)
+}
+
+// roleSelected applies the role filter, which a cohort named as every-role
+// passes whatever its roles.
+func roleSelected(source Source, options UnionOptions) bool {
+	if len(options.Roles) == 0 || slices.Contains(options.Roles, source.Role) {
+		return true
+	}
+	return source.Snapshot != nil && slices.Contains(options.EveryRoleCohorts, source.Snapshot.Cohort)
 }
 
 // CheckoutPrefix is the directory of a source's checkout under the acquisition

@@ -12,6 +12,7 @@ cd "$script_directory/.."
 work=${UNSWELL_ACQUISITION_WORK:-$HOME/.cache/unswell/acquisition/work}
 acquisition=artifacts/acquisition
 dataset_plan=artifacts/measurement/dataset-plan.json
+findings=artifacts/measurement/findings
 tasks=research/generation/runs/2026-09-11-pilot/tasks.json
 generation=research/generation/runs/2026-09-11-pilot/records.json
 protocol=research/methods/llm-patterns-v1.md
@@ -21,6 +22,7 @@ id=origin-pilot-v1
 cap=15
 max_source_bytes=102400
 threshold=0.5
+negative_roles=()
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --work)
@@ -67,13 +69,21 @@ while [[ $# -gt 0 ]]; do
       threshold=$2
       shift 2
       ;;
+    --negative-role)
+      negative_roles+=("$2")
+      shift 2
+      ;;
+    --findings)
+      findings=$2
+      shift 2
+      ;;
     --max-source-bytes)
       max_source_bytes=$2
       shift 2
       ;;
     *)
       printf 'Usage: %s OPTIONS\n' "$0" >&2
-      printf 'Options: --work DIR, --acquisition DIR, --dataset-plan FILE, --tasks FILE, --generation FILE, --protocol FILE, --output DIR, --record DIR, --id ID, --cap N, --max-source-bytes N, --threshold T\n' >&2
+      printf 'Options: --work DIR, --acquisition DIR, --dataset-plan FILE, --tasks FILE, --generation FILE, --protocol FILE, --output DIR, --record DIR, --id ID, --cap N, --max-source-bytes N, --threshold T, --negative-role ROLE (repeatable; default comment), --findings DIR\n' >&2
       exit 2
       ;;
   esac
@@ -89,19 +99,38 @@ corpus_tool=$output/corpus
 (cd research/annotation && go build -o "$corpus_tool" ./cmd/corpus)
 tool_commit=$(git rev-parse HEAD)
 
-# The union takes every controlled source and the comment-role sources of the
-# task repositories. A cap per historical checkout keeps the corpus within one
-# artifact. Files above the byte limit stay out: one bundle of thousands of
-# comments would be most of the corpus and exhaust the measurement budget of
-# its engine run. Only paragraphs are extracted.
+# The union takes every controlled source and the negative-role sources of
+# the task repositories. The controlled sources enter whatever their role.
+# The default negatives are comments, the role the tasks came from.
+# Documentation roles give negatives in the format of the endpoints, which
+# are Markdown documents. A cap per historical checkout
+# keeps the corpus within one artifact. Files above the byte limit stay out:
+# one bundle of thousands of comments would be most of the corpus and
+# exhaust the measurement budget of its engine run. Only paragraphs are
+# extracted.
+if ((${#negative_roles[@]} == 0)); then
+  negative_roles=(comment)
+fi
+role_flags=()
+for role in "${negative_roles[@]}"; do
+  role_flags+=(--role "$role")
+done
 repository_list=$(jq -r '[.tasks[].repository] | unique | .[]' "$tasks")
 repositories=()
 while IFS= read -r repository; do
   repositories+=(--repository "$repository")
 done <<<"$repository_list"
+# Sources the pattern measurement could not analyze, such as a block of
+# non-Latin prose, stay out; the engine would refuse the whole run for one.
+excluded_sources=$(jq -r '.units[] | select(.unmeasured == true) | .source_id' "$findings"/historical*.json | sort -u)
+exclusions=()
+while IFS= read -r source_id; do
+  [[ -n "$source_id" ]] && exclusions+=(--exclude-source "$source_id")
+done <<<"$excluded_sources"
 "$corpus_tool" dataset union --root "$acquisition" --id "$id" --cohort controlled --cohort historical \
-  --role comment --unit-kind paragraph --max-per-checkout "$cap" --uncapped-cohort controlled \
-  --max-source-bytes "$max_source_bytes" "${repositories[@]}" <"$dataset_plan" >"$output/union.json"
+  "${role_flags[@]}" --every-role-cohort controlled --unit-kind paragraph --max-per-checkout "$cap" \
+  --uncapped-cohort controlled --max-source-bytes "$max_source_bytes" "${repositories[@]}" \
+  ${exclusions[@]+"${exclusions[@]}"} <"$dataset_plan" >"$output/union.json"
 "$corpus_tool" plan <"$output/union.json" >"$output/union-plan.json"
 "$corpus_tool" extract --root "$work" <"$output/union-plan.json" >"$output/candidates.json"
 "$corpus_tool" verify --root "$work" <"$output/candidates.json" >"$output/verification.json"
