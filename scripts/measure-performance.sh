@@ -198,14 +198,17 @@ measure() {
     return 2
   fi
   started=$(date +%s.%N)
-  "${time_tool[@]}" "$tool" check "$directory" \
+  # The scan runs from the corpus and names it as ".", so a binary without
+  # --project-root takes the corpus as its root and resolves the policy's
+  # patterns against it.
+  (cd "$directory" && "${time_tool[@]}" "$tool" check "${scan_target/PLACEHOLDER/$directory}" \
     ${root_flags[@]+"${root_flags[@]/PLACEHOLDER/$directory}"} --config "$directory/.unswell.yaml" --timeout "$timeout" \
     ${origin_flags[@]+"${origin_flags[@]}"} \
     --report "json:$reports/result.json" \
     --report "sarif:$reports/result.sarif" \
     --report "html:$reports/result.html" \
     --report "markdown:$reports/result.md" \
-    --report "text:$reports/result.txt" >/dev/null 2>"$reports/stderr.txt" || status=$?
+    --report "text:$reports/result.txt" >/dev/null 2>"$reports/stderr.txt") || status=$?
   ended=$(date +%s.%N)
   local elapsed
   elapsed=$(awk -v a="$started" -v b="$ended" 'BEGIN { printf "%.3f", b - a }')
@@ -230,9 +233,9 @@ peak_bytes() {
 count_prose_words() {
   local directory=$1 reports=$2
   mkdir -p "$reports"
-  "$tool" check "$directory" ${root_flags[@]+"${root_flags[@]/PLACEHOLDER/$directory}"} --timeout "$timeout" \
+  (cd "$directory" && "$tool" check "${scan_target/PLACEHOLDER/$directory}" ${root_flags[@]+"${root_flags[@]/PLACEHOLDER/$directory}"} --timeout "$timeout" \
     --config "$directory/.unswell.yaml" --no-gate ${origin_flags[@]+"${origin_flags[@]}"} \
-    --report "json:$reports/count.json" >/dev/null 2>&1 || true
+    --report "json:$reports/count.json" >/dev/null 2>&1) || true
   awk '/"prose_words"/ { gsub(/[^0-9]/, "", $2); total += $2 } END { print total + 0 }' "$reports/count.json"
 }
 
@@ -264,9 +267,11 @@ fi
 supported_flags=$("$tool" check --help 2>&1 || true)
 root_flags=(--project-root "PLACEHOLDER")
 omitted_flags=""
+scan_target=PLACEHOLDER
 if [[ "$supported_flags" != *"--project-root"* ]]; then
   root_flags=()
   omitted_flags="--project-root"
+  scan_target=.
 fi
 if [[ -n "$origin_model" && "$supported_flags" != *"--origin-model"* ]]; then
   printf 'The measured binary does not accept --origin-model.\n' >&2
@@ -410,8 +415,8 @@ if [[ "$self_test" == true ]]; then
   mkdir -p "$bounded"
   sed 's/^extends:.*/&\nanalysis:\n  max_file_bytes: 64/' "$corpus/.unswell.yaml" >"$corpus/bounded.yaml"
   bounded_status=0
-  "$tool" check "$corpus" ${root_flags[@]+"${root_flags[@]/PLACEHOLDER/$corpus}"} --config "$corpus/bounded.yaml" \
-    --report "json:$bounded/result.json" >"$bounded/stdout.txt" 2>"$bounded/stderr.txt" || bounded_status=$?
+  (cd "$corpus" && "$tool" check "${scan_target/PLACEHOLDER/$corpus}" ${root_flags[@]+"${root_flags[@]/PLACEHOLDER/$corpus}"} --config "$corpus/bounded.yaml" \
+    --report "json:$bounded/result.json" >"$bounded/stdout.txt" 2>"$bounded/stderr.txt") || bounded_status=$?
   if ((bounded_status != 2)); then
     printf 'An exceeded max_file_bytes limit must exit 2; it exited %s.\n' "$bounded_status" >&2
     exit 1

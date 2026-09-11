@@ -164,13 +164,86 @@ The arm64 host ran the same four scans with the same build
 2.935 s, 3.415 s, and 2.484 s cold. Its resident figures stay above the Linux
 ones for the same scans and are not compared with them.
 
+## Measured with the published release binaries
+
+Every record above used a build from the recorded commit. The
+`v0.1.0-alpha.1` release assets are a separate build, so the
+`linux_amd64` and `darwin_arm64` archives were downloaded again, verified
+against the release's `SHA256SUMS`, and measured with
+`--binary`. Each record carries the digest of the binary it measured. Both
+binaries embed Go 1.27.1 and the release source `247fe6f6`. That build
+predates the parser-timeout scaling of
+[#171](https://github.com/stokaro/unswell/issues/171) and the bounds of
+[#181](https://github.com/stokaro/unswell/issues/181), and it has no
+`--project-root` flag. The script runs such a binary from the corpus
+directory, so the policy's patterns resolve against the tree, and the record
+names the flag it left out.
+
+On the 2-vCPU Linux host:
+
+| Corpus | Prose words | Documents | Cold | Warm | Peak resident | Outcome |
+| --- | --- | --- | --- | --- | --- | --- |
+| [synthetic](performance/linux-amd64-2vcpu-512mib-synthetic-release.json) | 102,005 | 57 | 1.826 s | 1.821 s | 198,979,584 bytes | pass |
+| [pytest](performance/linux-amd64-2vcpu-512mib-pytest-release.json) | 137,373 | 304 | 6.086 s | 6.232 s | 384,761,856 bytes | complete; gate failed (exit 1) |
+| [FastAPI](performance/linux-amd64-2vcpu-512mib-fastapi-release.json) | 121,028 | 700 | 10.391 s | 10.184 s | 403,501,056 bytes | incomplete; 3 errors |
+| [date-fns](performance/linux-amd64-2vcpu-512mib-date-fns-release.json) | 98,620 | 1,150 | 6.389 s | 6.225 s | 527,056,896 bytes | incomplete; 6 errors |
+
+The published build behaves like the build of its time. It meets the target
+on the synthetic corpus and on pytest. FastAPI runs a few tenths of a second
+over the ten seconds, as the pre-#181 record of that tree did. date-fns
+completes, with a peak nine megabytes under the 512 MiB limit; the earlier
+kill of that tree came from a scan without the locale exclusion. A release
+that carries #171 and #181 will measure as the bounded records above do.
+Until one exists, the published binary is the one users run, and these are
+its figures.
+
+On the arm64 host, with the same binaries of that release:
+
+| Corpus | Prose words | Documents | Cold | Warm | Peak resident | Outcome |
+| --- | --- | --- | --- | --- | --- | --- |
+| [synthetic](performance/darwin-arm64-2threads-synthetic-release.json) | 102,005 | 57 | 0.871 s | 0.864 s | 243,597,312 bytes | pass |
+| [pytest](performance/darwin-arm64-2threads-pytest-release.json) | 137,373 | 304 | 2.912 s | 2.903 s | 411,533,312 bytes | complete; gate failed (exit 1) |
+| [FastAPI](performance/darwin-arm64-2threads-fastapi-release.json) | 121,028 | 700 | 4.813 s | 4.688 s | 458,145,792 bytes | incomplete; 3 errors |
+| [date-fns](performance/darwin-arm64-2threads-date-fns-release.json) | 98,620 | 1,150 | 3.013 s | 2.897 s | 648,052,736 bytes | incomplete; 6 errors |
+
+## Measured with a configured origin model
+
+No accepted pack exists. None can exist until the human-labeled corpus of
+[#22](https://github.com/stokaro/unswell/issues/22) qualifies one. The cost
+of a configured model does not wait for that. An experimental pack of the
+same shape loads through the same path. `corpus pack --task origin_endpoint`
+built one from the fitted artifact of the
+[documentation run](../research/origin/runs/2026-09-11-documentation/README.md)
+with a twelve-word floor. The script passes it with `--origin-model` under
+a policy that enables the origin channel and accepts an experimental pack.
+Each record carries the pack's digest. The estimate is unqualified and
+never gates. Only its cost is measured here.
+
+| Corpus | Host | Cold | Warm | Peak resident | Without the model |
+| --- | --- | --- | --- | --- | --- |
+| [synthetic](performance/linux-amd64-2vcpu-512mib-synthetic-origin.json) | Linux | 1.977 s | 2.022 s | 228,999,168 bytes | 1.939 s, 233,537,536 bytes |
+| [pytest](performance/linux-amd64-2vcpu-512mib-pytest-origin.json) | Linux | 6.396 s | 6.258 s | 340,975,616 bytes | 6.405 s, 347,471,872 bytes |
+| [FastAPI](performance/linux-amd64-2vcpu-512mib-fastapi-origin.json) | Linux | 7.756 s | 7.557 s | 399,089,664 bytes | 7.689 s, 402,526,208 bytes |
+| [date-fns](performance/linux-amd64-2vcpu-512mib-date-fns-origin.json) | Linux | 5.400 s | 6.160 s | 410,337,280 bytes | 5.235 s, 408,363,008 bytes |
+| [synthetic](performance/darwin-arm64-2threads-synthetic-origin.json) | arm64 | 0.873 s | 0.878 s | 234,143,744 bytes | 0.890 s |
+| [pytest](performance/darwin-arm64-2threads-pytest-origin.json) | arm64 | 2.852 s | 2.818 s | 472,924,160 bytes | 2.935 s |
+| [FastAPI](performance/darwin-arm64-2threads-fastapi-origin.json) | arm64 | 3.314 s | 3.203 s | 468,418,560 bytes | 3.415 s |
+| [date-fns](performance/darwin-arm64-2threads-date-fns-origin.json) | arm64 | 2.398 s | 2.305 s | 672,055,296 bytes | 2.484 s |
+
+The model costs nothing the measurement can separate from noise. Every scan
+stays within a few tenths of a second and a few megabytes of the same scan
+without it. Every Linux scan stays within the target. The pack is fourteen
+logistic weights and an isotonic map. Its evaluation per paragraph is a few
+multiplications beside the extraction and the rules the scan pays for
+anyway.
+
 ## Limits of this evidence
 
 Three real trees on two hosts do not qualify this tool's speed. Real trees
 differ in format mix, in sentence length, and in how many repetition candidates
 they carry, and the three measured ones already span the target on one side and
 the other. The exclusions are a policy choice a maintainer would make for an
-English scan; each record lists them. Every run used a build from the recorded
-commit, not a published release binary, and none used a probability model.
-Those two measurements are tracked in
-[#174](https://github.com/stokaro/unswell/issues/174).
+English scan; each record lists them. The published binaries are the first
+release, which predates the bounds the current build carries. The origin
+model is an experimental pack, not an accepted one. A later release and an
+accepted pack can be measured the same way.
