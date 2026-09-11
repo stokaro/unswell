@@ -55,6 +55,7 @@ func (f Fit) numerical() model.FitOptions {
 type Identity struct {
 	LexicalVocabularyHash string               `json:"lexical_vocabulary_hash,omitempty"`
 	CompressionBankHash   string               `json:"compression_bank_hash,omitempty"`
+	LLMDetPackHash        string               `json:"llmdet_pack_hash,omitempty"`
 	FeatureSource         string               `json:"feature_source,omitempty"`
 	Context               string               `json:"context,omitempty"`
 	ActivationContract    string               `json:"activation_contract,omitempty"`
@@ -91,16 +92,18 @@ type Row struct {
 // only; reserved partitions have no class statistics or predictions. ZeroFilled
 // counts the activation values the zero policy set to zero, by feature and
 // reason, so a fit on rule activations shows how much of its input was an
-// abstention.
+// abstention. Unavailable counts every unavailable value of an excluded row
+// by feature and reason, where Excluded names the first one only.
 type Partition struct {
-	Name       string         `json:"name"`
-	Candidates int            `json:"candidates"`
-	Sources    int            `json:"sources"`
-	Groups     int            `json:"groups"`
-	Excluded   map[string]int `json:"excluded"`
-	ZeroFilled map[string]int `json:"zero_filled,omitempty"`
-	Rows       []Row          `json:"rows"`
-	Classes    map[string]int `json:"classes"`
+	Name        string         `json:"name"`
+	Candidates  int            `json:"candidates"`
+	Sources     int            `json:"sources"`
+	Groups      int            `json:"groups"`
+	Excluded    map[string]int `json:"excluded"`
+	ZeroFilled  map[string]int `json:"zero_filled,omitempty"`
+	Unavailable map[string]int `json:"unavailable,omitempty"`
+	Rows        []Row          `json:"rows"`
+	Classes     map[string]int `json:"classes"`
 }
 
 // Logistic contains numerical parameters and the observed convergence result.

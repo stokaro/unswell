@@ -161,7 +161,24 @@ func (s *rowSelector) values(unit measurement, partition *Partition) ([]float64,
 		}
 		reason = ""
 	}
+	if reason != "" {
+		countUnavailable(unit.values, partition)
+	}
 	return values, reason, nil
+}
+
+// countUnavailable records every unavailable value of a row the policy
+// excludes, so a partition shows each feature's abstentions and not only
+// the first column's.
+func countUnavailable(values []feature.Value, partition *Partition) {
+	if partition.Unavailable == nil {
+		partition.Unavailable = make(map[string]int)
+	}
+	for _, value := range values {
+		if value.Number == nil {
+			partition.Unavailable[value.ID+"/"+value.Reason]++
+		}
+	}
 }
 
 func (s *rowSelector) unavailable(id, reason string, partition *Partition) error {

@@ -45,7 +45,7 @@ func TestComparisonRejectsUnmatchedScopes(t *testing.T) {
 			plan, a, b := comparisonInputs()
 			_, err := comparisonPlanIdentity(t.Context(), plan, a, b)
 			c.Assert(err, qt.IsNil)
-			for _, source := range []string{"", "lexical_ngrams", "compression_bank"} {
+			for _, source := range []string{"", "lexical_ngrams", "compression_bank", "llmdet_tables"} {
 				left, right := a, b
 				left.Model.Identity.FeatureContract, right.Model.Identity.FeatureContract = feature.UnitContract, feature.UnitContract
 				switch source {
@@ -57,6 +57,10 @@ func TestComparisonRejectsUnmatchedScopes(t *testing.T) {
 					right.Model.Identity.FeatureSource, right.Model.Identity.Context = source, "prepared_piece"
 					right.Model.Identity.FeatureContract = feature.CompressionContract
 					right.Model.Identity.CompressionBankHash = strings.Repeat("f", 64)
+				case "llmdet_tables":
+					right.Model.Identity.FeatureSource, right.Model.Identity.Context = source, "prepared_piece"
+					right.Model.Identity.FeatureContract = training.LLMDetContract
+					right.Model.Identity.LLMDetPackHash = strings.Repeat("f", 64)
 				}
 				_, err := comparisonPlanIdentity(t.Context(), plan, left, right)
 				c.Assert(err, qt.IsNil)

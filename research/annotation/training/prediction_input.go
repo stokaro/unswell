@@ -72,7 +72,7 @@ func predictionContext(source string) (string, error) {
 	switch source {
 	case "rule_activations":
 		return "source_document", nil
-	case "", "lexical_ngrams", "compression_bank":
+	case "", "lexical_ngrams", "compression_bank", "llmdet_tables":
 		return "prepared_piece", nil
 	default:
 		return "", fmt.Errorf("unsupported prediction feature source")

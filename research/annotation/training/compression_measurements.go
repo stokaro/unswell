@@ -3,15 +3,25 @@ package training
 import (
 	"context"
 	"fmt"
-	"maps"
 	"slices"
-	"strings"
 
 	"github.com/stokaro/unswell/feature"
-	"github.com/stokaro/unswell/nlp"
-	"github.com/stokaro/unswell/research/annotation"
 	"github.com/stokaro/unswell/research/annotation/corpus"
 )
+
+// compressionSource is the reference source of a bank: two columns per
+// cohort, measured by the shared compression primitive.
+func compressionSource(kind string, bank corpus.CompressionBank) (referenceSource, error) {
+	columns, err := compressionColumns(kind, bank)
+	if err != nil {
+		return referenceSource{}, err
+	}
+	return referenceSource{source: "compression_bank", contract: feature.CompressionContract,
+		preprocessing: compressionPreprocessing, hash: bank.SHA256, columns: columns,
+		measure: func(ctx context.Context, prepared corpus.Prepared, kind string) (map[string]map[string]feature.Value, error) {
+			return measureCompression(ctx, prepared, kind, bank)
+		}}, nil
+}
 
 // compressionColumns describes the two measurements of every reference
 // cohort, with the cohort ID as a column suffix.
@@ -93,149 +103,6 @@ func measureTarget(ctx context.Context, compressors []*feature.Compression, bank
 	return values, nil
 }
 
-// compressionSelector builds the rows of a compression fit: reference columns
-// alone, or prepared features joined with them, in one sorted column order.
-func compressionSelector(ctx context.Context, candidates corpus.Artifact, prepared corpus.Prepared,
-	decisions annotation.DecisionSet, options Options, bank corpus.CompressionBank, joined *corpus.JoinedArtifact,
-) (rowSelector, []corpus.FeatureBinding, []feature.Descriptor, error) {
-	identity, err := compressionIdentity(candidates, prepared, decisions, options, bank, joined)
-	if err != nil {
-		return rowSelector{}, nil, nil, err
-	}
-	measured, err := measureCompression(ctx, prepared, options.Kind, bank)
-	if err != nil {
-		return rowSelector{}, nil, nil, err
-	}
-	if joined != nil {
-		selector := joinedCompressionSelector(*joined, identity, options, measured)
-		return selector, joined.Bindings, identity.Columns, nil
-	}
-	paths := make(map[string]string)
-	for _, source := range candidates.Plan.Manifest.Sources {
-		paths[source.ID] = source.Path
-	}
-	units := make(map[string]measurement)
-	bindings := make([]corpus.FeatureBinding, 0, len(prepared.Targets))
-	for i, target := range prepared.Targets {
-		candidate := candidates.Units[i]
-		if target.UnitID != candidate.Unit.ID {
-			return rowSelector{}, nil, nil, fmt.Errorf("compression targets are out of order")
-		}
-		hash, err := hashJSON(struct {
-			Source   string
-			Binding  nlp.UnitBinding
-			Identity Identity
-		}{candidate.Unit.Source.SHA256, target.Unit.Binding(), identity})
-		if err != nil {
-			return rowSelector{}, nil, nil, err
-		}
-		binding := corpus.FeatureBinding{UnitID: target.UnitID, SourceID: candidate.SourceID, GroupID: candidate.GroupID,
-			Path: paths[candidate.SourceID], Partition: candidate.Partition, FeatureInputHash: hash}
-		bindings = append(bindings, binding)
-		units[measurementKey(binding.Path, hash)] = measurement{kind: candidate.Unit.Kind, identity: identity,
-			values: orderedValues(identity.Columns, nil, measured[target.UnitID])}
-	}
-	selector := rowSelector{options: options, measure: func(binding corpus.FeatureBinding) (measurement, bool) {
-		unit, exists := units[measurementKey(binding.Path, binding.FeatureInputHash)]
-		return unit, exists
-	}}
-	return selector, bindings, identity.Columns, ctx.Err()
-}
-
-// joinedCompressionSelector joins prepared measurements with the reference
-// columns of the same unit.
-func joinedCompressionSelector(joined corpus.JoinedArtifact, identity Identity, options Options,
-	measured map[string]map[string]feature.Value,
-) rowSelector {
-	units := make(map[string]measurement)
-	for _, source := range joined.Features.Sources {
-		sourceID := sourceIdentity(identity, source)
-		for _, unit := range source.Units {
-			units[measurementKey(source.Path, unit.InputHash)] = measurement{
-				kind: unit.Binding.Kind, identity: sourceID, values: unit.Values}
-		}
-	}
-	selector := rowSelector{options: options, measure: func(binding corpus.FeatureBinding) (measurement, bool) {
-		unit, exists := units[measurementKey(binding.Path, binding.FeatureInputHash)]
-		if !exists {
-			return measurement{}, false
-		}
-		unit.values = orderedValues(identity.Columns, unit.values, measured[binding.UnitID])
-		return unit, true
-	}}
-	return selector
-}
-
-// orderedValues returns one value per column. It takes the prepared values
-// first and the reference measurements second. A column that has neither
-// stays unavailable, with a reason.
-func orderedValues(columns []feature.Descriptor, prepared []feature.Value, references map[string]feature.Value) []feature.Value {
-	byID := make(map[string]feature.Value, len(prepared)+len(references))
-	for _, value := range prepared {
-		byID[value.ID] = value
-	}
-	maps.Copy(byID, references)
-	values := make([]feature.Value, len(columns))
-	for i, column := range columns {
-		value, exists := byID[column.ID]
-		if !exists {
-			value = feature.Value{ID: column.ID, Version: column.Version, Unit: column.Unit, Reason: "unmeasured"}
-		}
-		values[i] = value
-	}
-	return values
-}
-
-func compressionIdentity(candidates corpus.Artifact, prepared corpus.Prepared, decisions annotation.DecisionSet,
-	options Options, bank corpus.CompressionBank, joined *corpus.JoinedArtifact,
-) (Identity, error) {
-	references, err := compressionColumns(options.Kind, bank)
-	if err != nil {
-		return Identity{}, err
-	}
-	var identity Identity
-	if joined != nil {
-		identity, err = columnIdentity(*joined, options.Kind)
-	} else {
-		identity, err = preparedTargetIdentity(candidates, prepared, decisions, options.Kind, feature.CompressionContract)
-	}
-	if err != nil {
-		return Identity{}, err
-	}
-	identity.Columns = append(slices.Clone(identity.Columns), references...)
-	slices.SortFunc(identity.Columns, func(a, b feature.Descriptor) int { return strings.Compare(a.ID, b.ID) })
-	identity.ColumnsSHA256, err = hashJSON(identity.Columns)
-	if err != nil {
-		return Identity{}, err
-	}
-	identity.FeatureSource, identity.Context = "compression_bank", "prepared_piece"
-	identity.Preprocessing, identity.CompressionBankHash = compressionPreprocessing, bank.SHA256
-	return identity, nil
-}
-
-// preparedTargetIdentity is the identity of rows measured on prepared targets
-// without the engine's feature join, as the lexical baseline records it.
-func preparedTargetIdentity(candidates corpus.Artifact, prepared corpus.Prepared, decisions annotation.DecisionSet,
-	kind, contract string,
-) (Identity, error) {
-	policy, err := hashJSON(prepared.Policy.Extraction)
-	if err != nil {
-		return Identity{}, err
-	}
-	preparation, err := nlp.PreparationHash(policy, false, false)
-	if err != nil {
-		return Identity{}, err
-	}
-	task, err := annotation.TaskForRubric(decisions.Rubric)
-	if err != nil {
-		return Identity{}, err
-	}
-	return Identity{Task: task, Rubric: decisions.Rubric, ProfileSHA256: decisions.ProfileSHA256,
-		Kind: kind, FeatureContract: contract, UnitContract: nlp.UnitContract, NLP: candidates.Pipeline.NLP,
-		Capabilities: []nlp.Capability{nlp.Tokens, nlp.Sentences}, PolicyHash: prepared.Policy.Hash,
-		VocabularyHash: prepared.Policy.Hash, ExtractionPolicyHash: policy, PreparationHash: preparation}, nil
-}
-
 // compressionPredictionMeasurements measures every target the same way the
 // fit did; the predictor keeps the planned partition.
 func compressionPredictionMeasurements(ctx context.Context, candidates corpus.Artifact, files map[string][]byte,
@@ -244,23 +111,9 @@ func compressionPredictionMeasurements(ctx context.Context, candidates corpus.Ar
 	if bank == nil || bank.SHA256 != fitted.Identity.CompressionBankHash {
 		return rowSelector{}, nil, corpus.Verification{}, fmt.Errorf("compression prediction requires the fitted reference bank")
 	}
-	prepared, err := corpus.Prepare(ctx, candidates, files)
+	source, err := compressionSource(fitted.Options.Kind, *bank)
 	if err != nil {
 		return rowSelector{}, nil, corpus.Verification{}, err
 	}
-	options := fitted.Options
-	options.Features = preparedFeatureIDs(fitted.Options.Features)
-	decisions := annotation.DecisionSet{Rubric: fitted.Identity.Rubric, ProfileSHA256: fitted.Identity.ProfileSHA256}
-	var joined *corpus.JoinedArtifact
-	verification := prepared.Verification
-	if len(options.Features) != 0 {
-		measured, err := corpus.Measure(ctx, candidates, files, options.Features)
-		if err != nil {
-			return rowSelector{}, nil, corpus.Verification{}, err
-		}
-		joined = &corpus.JoinedArtifact{Features: measured.Features, Bindings: measured.Bindings, Decisions: decisions}
-		verification = measured.Verification
-	}
-	selector, bindings, _, err := compressionSelector(ctx, candidates, prepared, decisions, options, *bank, joined)
-	return selector, bindings, verification, err
+	return referencePredictionMeasurements(ctx, candidates, files, fitted, source)
 }

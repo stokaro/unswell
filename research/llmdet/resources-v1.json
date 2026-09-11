@@ -1,6 +1,6 @@
 {
   "version": "unswell-llmdet-resource-inventory-v1",
-  "observed_at": "2026-09-09",
+  "observed_at": "2026-09-11",
   "source_revision": "5d038354006ca0c8e6aa0dadb75e8840accb51a8",
   "dataset_revision": "84373525f034e98d0a568c7a5e5c1518ef90a1ee",
   "dataset": "https://huggingface.co/datasets/TryMore/n_grams_probability",
@@ -37,19 +37,206 @@
     },
     {
       "name": "n-grams_probability.tar.gz",
-      "status": "not_acquired",
-      "advertised_bytes": 4818741741,
-      "advertised_lfs_sha256": "2a2a8a751a39a563264d30ef12fb812ee7d0d54f0c0d31bbf1a4cf618786bedb",
-      "sha256": null,
+      "status": "acquired_and_hashed",
+      "observed_at": "2026-09-11",
+      "bytes": 4818741741,
+      "sha256": "2a2a8a751a39a563264d30ef12fb812ee7d0d54f0c0d31bbf1a4cf618786bedb",
       "bundled": false,
-      "terms": "component redistribution not established"
+      "terms": "dataset card declares openrail; component redistribution not established",
+      "location": "~/.cache/unswell/llmdet/n-grams_probability.tar.gz"
     },
     {
-      "name": "tokenizer assets",
+      "name": "npz/gpt2.npz",
+      "status": "acquired_and_hashed",
+      "bytes": 662132406,
+      "sha256": "44e88c19fc930a7c2ee9218a034a3eac6acfaca95a62d4a94b434ec5cf1460e0",
+      "bundled": false,
+      "terms": "member of n-grams_probability.tar.gz",
+      "reference_vocab_size": 50265,
+      "table": "tables/gpt2.table",
+      "table_sha256": "6003fa5a718ede795fc6bd4a1569b871a8c48e0e1d270ffe47ba96c49ed28887",
+      "table_format": "unswell-llmdet-table-v1"
+    },
+    {
+      "name": "npz/gpt2_large.npz",
+      "status": "acquired_and_hashed",
+      "bytes": 662132406,
+      "sha256": "6ba6a00f8f0b865ddda9ceacccd8ac4f1fdc6cc69e190fff4756e54306f8378d",
+      "bundled": false,
+      "terms": "member of n-grams_probability.tar.gz",
+      "reference_vocab_size": 50265,
+      "table": "tables/gpt2_large.table",
+      "table_sha256": "26b781b3a98e047a50937a1dbca0c95d32db7f553ad6ed2893ca603760e08921",
+      "table_format": "unswell-llmdet-table-v1"
+    },
+    {
+      "name": "npz/neo.npz",
+      "status": "acquired_and_hashed",
+      "bytes": 703300994,
+      "sha256": "17c9740e9d71852afb31ac65600183881418da89ba0dd059f175dfc6d4518e17",
+      "bundled": false,
+      "terms": "member of n-grams_probability.tar.gz",
+      "reference_vocab_size": 50257,
+      "table": "tables/neo.table",
+      "table_sha256": "94957a8d8aeca6d3a8ac36cd9cdb24044c26872471a7de1730cc703b8dc20fd1",
+      "table_format": "unswell-llmdet-table-v1"
+    },
+    {
+      "name": "npz/opt.npz",
+      "status": "acquired_and_hashed",
+      "bytes": 658311384,
+      "sha256": "78fe6e89a9a172bb0fe66e745edd5c179955d816dbbd62cbc749843b6a3afbe6",
+      "bundled": false,
+      "terms": "member of n-grams_probability.tar.gz",
+      "reference_vocab_size": 50257,
+      "table": "tables/opt.table",
+      "table_sha256": "fb40fd7909ccc9a59aa4c00ff508002683ba14adc5d32c2e772f69043eeb534c",
+      "table_format": "unswell-llmdet-table-v1"
+    },
+    {
+      "name": "npz/opt_3b.npz",
+      "status": "acquired_and_hashed",
+      "bytes": 658311384,
+      "sha256": "2801c53685f7c48b5852ea79dd121f3856559552b51c90477af0d0e0bb6eadd2",
+      "bundled": false,
+      "terms": "member of n-grams_probability.tar.gz",
+      "reference_vocab_size": 50257,
+      "table": "tables/opt_3b.table",
+      "table_sha256": "bdad6cd90b611ed12d2d38c175af51f7ae483d2add47c8321991425987a7d6bc",
+      "table_format": "unswell-llmdet-table-v1"
+    },
+    {
+      "name": "npz/bart.npz",
+      "status": "acquired_and_hashed",
+      "bytes": 703160747,
+      "sha256": "5ecf72a8b80d2d8384ec57b954a44b74398f9828115bd4a8a29a25ea5b427b49",
+      "bundled": false,
+      "terms": "member of n-grams_probability.tar.gz",
+      "reference_vocab_size": 50265,
+      "table": "tables/bart.table",
+      "table_sha256": "0fa4e221590aea488f1fa94fd4fec0eb653ef4602e097b8dd2e64ba5d91a8df3",
+      "table_format": "unswell-llmdet-table-v1"
+    },
+    {
+      "name": "tokenizers/gpt2/vocab.json",
+      "status": "acquired_and_hashed",
+      "bytes": 1042301,
+      "sha256": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783",
+      "bundled": true,
+      "source": "https://huggingface.co/gpt2",
+      "terms": "MIT (OpenAI, Modified MIT License)"
+    },
+    {
+      "name": "tokenizers/gpt2/merges.txt",
+      "status": "acquired_and_hashed",
+      "bytes": 456318,
+      "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+      "bundled": true,
+      "source": "https://huggingface.co/gpt2",
+      "terms": "MIT (OpenAI, Modified MIT License)"
+    },
+    {
+      "name": "tokenizers/gpt2-large/vocab.json",
+      "status": "acquired_and_hashed",
+      "bytes": 1042301,
+      "sha256": "196139668be63f3b5d6574427317ae82f612a97c5d1cdaf36ed2256dbf636783",
+      "bundled": false,
+      "source": "https://huggingface.co/gpt2-large",
+      "terms": "MIT (OpenAI, Modified MIT License)"
+    },
+    {
+      "name": "tokenizers/gpt2-large/merges.txt",
+      "status": "acquired_and_hashed",
+      "bytes": 456318,
+      "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+      "bundled": false,
+      "source": "https://huggingface.co/gpt2-large",
+      "terms": "MIT (OpenAI, Modified MIT License)"
+    },
+    {
+      "name": "tokenizers/EleutherAI__gpt-neo-2.7B/vocab.json",
+      "status": "acquired_and_hashed",
+      "bytes": 798156,
+      "sha256": "3ba3c3109ff33976c4bd966589c11ee14fcaa1f4c9e5e154c2ed7f99d80709e7",
+      "bundled": false,
+      "source": "https://huggingface.co/EleutherAI/gpt-neo-2.7B",
+      "terms": "MIT"
+    },
+    {
+      "name": "tokenizers/EleutherAI__gpt-neo-2.7B/merges.txt",
+      "status": "acquired_and_hashed",
+      "bytes": 456356,
+      "sha256": "fe36cab26d4f4421ed725e10a2e9ddb7f799449c603a96e7f29b5a3c82a95862",
+      "bundled": false,
+      "source": "https://huggingface.co/EleutherAI/gpt-neo-2.7B",
+      "terms": "MIT"
+    },
+    {
+      "name": "tokenizers/facebook__opt-1.3b/vocab.json",
+      "status": "acquired_and_hashed",
+      "bytes": 898822,
+      "sha256": "06b4d46c8e752d410213d9548eb27a54db70fda0319b6271fb8d59dead5e1cab",
+      "bundled": false,
+      "source": "https://huggingface.co/facebook/opt-1.3b",
+      "terms": "model card declares other (OPT license); tokenizer terms not established"
+    },
+    {
+      "name": "tokenizers/facebook__opt-1.3b/merges.txt",
+      "status": "acquired_and_hashed",
+      "bytes": 456318,
+      "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+      "bundled": false,
+      "source": "https://huggingface.co/facebook/opt-1.3b",
+      "terms": "model card declares other (OPT license); tokenizer terms not established"
+    },
+    {
+      "name": "tokenizers/facebook__opt-2.7b/vocab.json",
+      "status": "acquired_and_hashed",
+      "bytes": 898822,
+      "sha256": "06b4d46c8e752d410213d9548eb27a54db70fda0319b6271fb8d59dead5e1cab",
+      "bundled": false,
+      "source": "https://huggingface.co/facebook/opt-2.7b",
+      "terms": "model card declares other (OPT license); tokenizer terms not established"
+    },
+    {
+      "name": "tokenizers/facebook__opt-2.7b/merges.txt",
+      "status": "acquired_and_hashed",
+      "bytes": 456318,
+      "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+      "bundled": false,
+      "source": "https://huggingface.co/facebook/opt-2.7b",
+      "terms": "model card declares other (OPT license); tokenizer terms not established"
+    },
+    {
+      "name": "tokenizers/facebook__bart-base/vocab.json",
+      "status": "acquired_and_hashed",
+      "bytes": 898823,
+      "sha256": "9e7f63c2d15d666b52e21d250d2e513b87c9b713cfa6987a82ed89e5e6e50655",
+      "bundled": false,
+      "source": "https://huggingface.co/facebook/bart-base",
+      "terms": "Apache-2.0"
+    },
+    {
+      "name": "tokenizers/facebook__bart-base/merges.txt",
+      "status": "acquired_and_hashed",
+      "bytes": 456318,
+      "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+      "bundled": false,
+      "source": "https://huggingface.co/facebook/bart-base",
+      "terms": "Apache-2.0"
+    },
+    {
+      "name": "unilm, llama, t5, bloom, vicuna dictionaries and tokenizers",
       "status": "not_acquired",
       "sha256": null,
       "bundled": false,
-      "terms": "not reviewed"
+      "terms": "WordPiece and SentencePiece tokenizers are not ported; bloom's 250,880-token vocabulary exceeds the 16-bit table"
     }
-  ]
+  ],
+  "tables": {
+    "format": "unswell-llmdet-table-v1",
+    "converter": "research/llmdet/tables.py",
+    "pack": "unswell-llmdet-pack-v1",
+    "note": "Every context and every retained value of the unigram, bigram, and trigram tables; 16-bit tokens and the original 16-bit probabilities; the reference vocabulary size enters the residual mass only."
+  }
 }

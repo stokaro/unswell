@@ -25,6 +25,7 @@ type options struct {
 	lexicalOptions  training.LexicalOptions
 	compressionBank string
 	reserveBank     string
+	llmdetPack      string
 }
 
 func commandOptions(args []string) (options, error) {
@@ -70,6 +71,8 @@ func registerFlags(name string, flags *flag.FlagSet, result *options) {
 			"Reference bank built on this corpus; its cohorts become columns and its reserved groups leave the fit")
 		flags.StringVar(&result.reserveBank, "reserve-bank", "",
 			"Reference bank whose reserved groups leave the fit without adding columns, for a compared baseline")
+		flags.StringVar(&result.llmdetPack, "llmdet-pack", "",
+			"Manifest of local LLMDet dictionary tables and tokenizers; each model becomes two columns")
 		trainingFlags(flags, &result.train)
 		lexicalFlags(flags, result)
 	}
@@ -98,7 +101,7 @@ func (result options) validateSelectors(name string) error {
 // validateLabelSource requires exactly one of a round and a label source.
 func (result options) validateLabelSource() error {
 	if (result.round == "") == (result.labels == "") ||
-		(len(result.features) == 0 && !result.lexical && result.compressionBank == "") {
+		(len(result.features) == 0 && !result.lexical && result.compressionBank == "" && result.llmdetPack == "") {
 		return fmt.Errorf("join and train require --round or --labels, and at least one --feature")
 	}
 	if err := validateLabels(result.labels); err != nil {
@@ -110,8 +113,11 @@ func (result options) validateLabelSource() error {
 // validateBanks keeps the compression baseline apart from the lexical and
 // rule baselines, and a reservation apart from the bank that defines it.
 func (result options) validateBanks() error {
-	if result.compressionBank != "" && (result.lexical || result.ruleConfig != "" || result.reserveBank != "") {
-		return fmt.Errorf("--compression-bank excludes --lexical, --rule-config, and --reserve-bank")
+	if result.compressionBank != "" && (result.lexical || result.ruleConfig != "" || result.reserveBank != "" || result.llmdetPack != "") {
+		return fmt.Errorf("--compression-bank excludes --lexical, --rule-config, --reserve-bank, and --llmdet-pack")
+	}
+	if result.llmdetPack != "" && (result.lexical || result.ruleConfig != "") {
+		return fmt.Errorf("--llmdet-pack excludes --lexical and --rule-config")
 	}
 	return nil
 }
