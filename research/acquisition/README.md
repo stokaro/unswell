@@ -60,8 +60,9 @@ of the text, and it takes the last day of that month as the snapshot
 date. A text whose two statements disagree is skipped and logged.
 
 The script drops page headers, footers, form feeds, and the dotted table
-of contents. The texts sit at the top level of a set directory, so the
-corpus tool reads them as documentation. A `LICENSE` holds the copyright
+of contents. The texts sit at the top level of a set directory, and the
+record declares their role, `specification`, so they form their own
+stratum beside repository documentation. A `LICENSE` holds the copyright
 sections of the texts. The commit identity of the set digests the raw
 texts, and the record names each raw digest, so a reviewer can fetch the
 same bytes. The sets join the historical cohort under the same selection
@@ -75,7 +76,9 @@ contrast for every cohort beside the historical baseline, from every finding
 artifact. A shard that fails a step
 twice is skipped and written to `failed-shards.json`. `--only SHARD` repeats
 one shard, and `--resume` continues a run that stopped, skipping shards
-that already have findings; a full run starts from empty outputs. An acquisition proves that exact bytes existed at a dated
+that already have findings; a full run starts from empty outputs.
+Amendment 2 of the protocol raised the policy's candidate budget to
+2,000,000, so every table since then comes from one full run. An acquisition proves that exact bytes existed at a dated
 snapshot under a stated license. It proves nothing about who wrote them.
 
 After the tables, the driver counts paragraphs and sentences as units. It
@@ -106,3 +109,6 @@ that selection.
 - [September 11, 2026, documents](runs/2026-09-11-documents/README.md):
   the first sources outside a repository, three sets of RFC texts in the
   historical cohort, with the tables after they joined.
+- [September 12, 2026, specification](runs/2026-09-12-specification/README.md):
+  the first full measurement under Amendment 2, with the RFC texts as a
+  specification stratum and every text inside the candidate budget.

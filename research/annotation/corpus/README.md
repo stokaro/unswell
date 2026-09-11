@@ -46,13 +46,14 @@ and reaches no network.
 | --- | --- |
 | `manifest` | The shard header: ID, seed, weights, extraction policy, and unit kinds |
 | `repository` | Name, reference, commit, topic, purpose, ecosystem, origin, rights, notice paths, and snapshot |
-| `selection` | Source cap, sources and bytes per shard, byte cap, documentation roots, source extensions, excluded segments and basenames, generated markers, and translation hints |
+| `selection` | Source cap, sources and bytes per shard, byte cap, documentation roots, an optional declared document role, source extensions, excluded segments and basenames, generated markers, and translation hints |
 
 Every file gets a role or a reason. `README` becomes `readme`, and a
 changelog becomes `release_note`. Markdown or text under a documentation
-root or at the top level becomes `documentation`, and a source file with a
-listed extension becomes `comment`. Everything else is excluded with one of
-these reasons:
+root or at the top level becomes `documentation`, or the role the record
+declares in `document_role`, such as `specification` for a set of
+published standards. A source file with a listed extension becomes
+`comment`. Everything else is excluded with one of these reasons:
 
 - `notice`, `outside_byte_limit`, `not_utf8`, or `unportable_path`;
 - `excluded_segment` for a path segment such as `vendor`;

@@ -72,8 +72,8 @@ Technical counterexamples require attention:
 | `paragraph` | One paragraph or coherent extracted comment block | Judge its internal organization and repetition. A paragraph probability cannot supply sentence probabilities. |
 | `fragment` | A coherent source fragment, such as a short string or list item | Record this kind explicitly. It is not a sentence solely to satisfy a model's minimum length. |
 
-Input roles are `documentation`, `readme`, `api_reference`, `doc_comment`, `comment`,
-`release_note`, `error_message`, `log_message`, `ui_text`, `other_string`,
+Input roles are `documentation`, `specification`, `readme`, `api_reference`, `doc_comment`,
+`comment`, `release_note`, `error_message`, `log_message`, `ui_text`, `other_string`,
 `string`, and `unknown`. Use the specific string role when known; `string`
 records an unknown subtype, and `unknown` records a source whose role nobody
 could determine. Keep those roles separate in sampling and error analysis, as

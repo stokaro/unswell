@@ -68,6 +68,7 @@ type SelectionRules struct {
 	ShardBytes        int      `json:"shard_bytes"`
 	MaxSourceBytes    int      `json:"max_source_bytes"`
 	DocumentRoots     []string `json:"document_roots"`
+	DocumentRole      string   `json:"document_role,omitempty"`
 	SourceExtensions  []string `json:"source_extensions"`
 	ExcludedSegments  []string `json:"excluded_segments"`
 	ExcludedBasenames []string `json:"excluded_basenames"`
@@ -160,6 +161,9 @@ func (r RepositoryRecord) validate() error {
 func (s SelectionRules) validate() error {
 	if err := s.validateCaps(); err != nil {
 		return err
+	}
+	if s.DocumentRole != "" && !slices.Contains(roles(), s.DocumentRole) {
+		return fmt.Errorf("unknown document role %q", s.DocumentRole)
 	}
 	for _, group := range [][]string{s.DocumentRoots, s.SourceExtensions, s.ExcludedSegments, s.ExcludedBasenames,
 		s.GeneratedMarkers, s.TranslationHints} {
@@ -365,7 +369,9 @@ func roleAndFormat(rules SelectionRules, name, base string, data []byte) (string
 }
 
 // documentRole names a prose file's role, or nothing when the file lies
-// outside every documentation root and the top level.
+// outside every documentation root and the top level. A record may declare
+// the role of its documentation files, so a set of specifications enters
+// the corpus under its own genre; README and change logs keep their roles.
 func documentRole(rules SelectionRules, name, base string) string {
 	upper := strings.ToUpper(strings.TrimSuffix(base, path.Ext(base)))
 	switch {
@@ -374,6 +380,9 @@ func documentRole(rules SelectionRules, name, base string) string {
 	case slices.Contains([]string{"CHANGELOG", "CHANGES", "HISTORY", "NEWS", "RELEASES"}, upper):
 		return "release_note"
 	case underRoot(rules.DocumentRoots, name) || !strings.Contains(name, "/"):
+		if rules.DocumentRole != "" {
+			return rules.DocumentRole
+		}
 		return "documentation"
 	}
 	return ""

@@ -337,7 +337,7 @@ func choices(values, allowed []string, maximum int) error {
 func partitions() []string { return []string{"training", "development", "calibration", "final_test"} }
 
 func roles() []string {
-	return []string{"documentation", "readme", "api_reference", "doc_comment", "comment", "release_note",
+	return []string{"documentation", "specification", "readme", "api_reference", "doc_comment", "comment", "release_note",
 		"string", "error_message", "log_message", "ui_text", "other_string", "unknown"}
 }
 
