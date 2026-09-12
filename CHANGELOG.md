@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.1.0-alpha.3
+
+Third experimental release, cut because the second one never published. The
+release run of the alpha.2 tag stopped in the mirror job and published
+nothing. The pinned digest of the Skopeo image had disappeared from its
+registry. This release carries the alpha.2 content with the mirror tool
+pinned to the current index of the same version.
+
+The engine now records a block of mostly non-Latin prose as an exclusion with
+the reason `non-latin-prose`. It checks the other blocks of the document, and
+the run stays complete. Before, such a block failed the whole document.
+
 ## 0.1.0-alpha.2
 
 Second experimental release of the same offline engine, CLI, MCP server, and
