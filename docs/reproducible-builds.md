@@ -21,7 +21,7 @@ GOTOOLCHAIN=go1.27.1 bash scripts/verify-reproducible-build.sh --output check.js
 `make check` runs the same script for one target, which catches a regression
 without building twelve binaries. `make reproducible` runs all six.
 
-## The published alpha rebuilt from its tag
+## The published alphas rebuilt from their tags
 
 `scripts/verify-release-artifacts.sh --rebuild` rebuilds each published binary
 from the source its tag names and compares the result with the archive. For
@@ -29,6 +29,9 @@ from the source its tag names and compares the result with the archive. For
 matched, rebuilt on a different machine from the one that released them. The
 [recorded audit](release/v0.1.0-alpha.1-audit.json) holds that result together
 with the digests, bundled notices, build records and SBOM licenses it checked.
+The [alpha.3 audit](release/v0.1.0-alpha.3-audit.json) repeats the result for
+`v0.1.0-alpha.3` at `2a2a6d441534cbc4be15d298898345d1a529c8b5`: six binaries
+reproduced, twelve digests verified, and MIT declared in every SBOM.
 
 This is the strongest form of the claim: a published artifact, its stated
 source, and an independent machine produce the same bytes.

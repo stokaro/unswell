@@ -15,7 +15,9 @@ The original `0.1.0-alpha.1` SBOMs attach `Apache-2.0` as the main component's
 detected license evidence. The generator scanned the root `LICENSE` and bundled
 dependency notices in `licenses/`, then selected a third-party notice with the
 same detection confidence. The project and archive `LICENSE` files declare MIT.
-This metadata error does not change the project's license.
+This metadata error does not change the project's license. The
+`0.1.0-alpha.3` SBOMs declare MIT for the main component, as the
+[alpha.3 audit](release/v0.1.0-alpha.3-audit.json) records.
 
 [Issue #48](https://github.com/stokaro/unswell/issues/48) records the reproduction.
 The original archives, checksum manifest, SBOMs and signed release tag are retained.

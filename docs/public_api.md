@@ -27,9 +27,12 @@ against a published version with no local replacement, using the consumer
 sources from the same tag. It also names the public packages the working tree's
 consumer imports that the published module does not contain, so a passing check
 never implies that the current API shipped. The
-[recorded check](release/v0.1.0-alpha.1-module-check.json) resolved
+[first recorded check](release/v0.1.0-alpha.1-module-check.json) resolved
 `v0.1.0-alpha.1` with module sum `h1:ZA6hvY4AxndacjiwGGnN5hiFSjn5iKi6QultXJjuY50=`
-and passed, while listing seven packages added since that release.
+and passed, while listing seven packages added since that release. The
+[alpha.3 check](release/v0.1.0-alpha.3-module-check.json) resolved
+`v0.1.0-alpha.3` with module sum `h1:6W13JkcUs6pieX/At4Bz+FXXh830u/ao8Z0QL1rC158=`
+and passed with no package missing from the published module.
 
 Packages under `internal/` are implementation details. `cmd/unswell` is an
 executable, not an importable library. The tools module isolates build dependencies
