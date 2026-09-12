@@ -15,7 +15,7 @@ import (
 // carries nothing; its generate response carries a.rule, and its polish
 // response was refused. b.rule fires nowhere in the arms. An earlier run's
 // response to task 1 shares the path of this run's generate response and
-// carries both rules; it belongs to another run and must not be paired.
+// carries both rules; it belongs to another run, so the analysis skips it.
 func pairedFixture() (generation.Generation, generation.Tasks, corpus.FindingsArtifact) {
 	tasks := generation.Tasks{Version: generation.TasksVersion, Cohort: "historical", Tasks: []generation.Task{
 		{ID: "t1", SourceID: "h1", UnitID: "u-h1-p", GroupID: "A", Role: "comment", Words: 20},

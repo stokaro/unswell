@@ -147,9 +147,9 @@ Three rules fire in a response and not in its original.
 `syntax.noun-stack` fires in eight responses against no original: six
 under `generate`/`neutral`, one under `generate`/`plain`, and one under
 `polish`/`plain`. The six `generate`/`neutral` cases string fact-sheet
-identifiers into one noun phrase, such as "the dirty date parameter value",
-"the clock sequence field value", "assertion failure output messages", and
-"case-first naming convention transformation rules". Run 2 had one such
+identifiers into one noun phrase, such as `dirty date parameter value`,
+`clock sequence field value`, `assertion failure output messages`, and
+`case-first naming convention transformation rules`. Run 2 had one such
 response. The tables also hold a `difference_from_h0` field. It compares a
 one-paragraph response with whole H0 documents of the comment role, so
 document length dominates it. It stays because the protocol names it. The
