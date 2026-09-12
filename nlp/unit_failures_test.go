@@ -153,3 +153,33 @@ func TestUnitPreparationRejectsMappingsAndCancellation(t *testing.T) {
 	_, err = nlp.PrepareUnits(t.Context(), block, provider, unitOptions())
 	c.Assert(err, qt.ErrorMatches, "injected provider failure")
 }
+
+// escapedRuneBlock maps one rune onto several adjacent source spans, the way
+// the Go extractor maps a string literal that spells a rune as separate
+// escape sequences.
+func escapedRuneBlock(text string, width int) document.Block {
+	block := document.Block{ID: 9, Kind: "string", Context: []string{"Cache"},
+		Span: document.Span{Start: 0, End: width * len(text)}, MappedText: document.MappedText{Text: text}}
+	for i := range len(text) {
+		block.Map = append(block.Map, document.Span{Start: width * i, End: width * (i + 1)})
+	}
+	return block
+}
+
+func TestUnitPreparationKeepsRunesSpelledBySeveralEscapes(t *testing.T) {
+	c := qt.New(t)
+	base, err := english.New()
+	c.Assert(err, qt.IsNil)
+	block := escapedRuneBlock("The \ufeffcache may retry.", 4)
+	units, err := nlp.PrepareUnits(t.Context(), block, base, unitOptions())
+	c.Assert(err, qt.IsNil)
+	c.Assert(len(units) > 0, qt.IsTrue)
+	gapped := escapedRuneBlock(block.Text, 4)
+	gapped.Map[5] = document.Span{Start: 21, End: 24}
+	_, err = nlp.PrepareUnits(t.Context(), gapped, base, unitOptions())
+	c.Assert(err, qt.ErrorMatches, "unit source map splits an encoded rune")
+	reversed := escapedRuneBlock(block.Text, 4)
+	reversed.Map[5], reversed.Map[6] = reversed.Map[6], reversed.Map[5]
+	_, err = nlp.PrepareUnits(t.Context(), reversed, base, unitOptions())
+	c.Assert(err, qt.IsNotNil)
+}
