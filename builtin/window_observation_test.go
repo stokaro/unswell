@@ -54,10 +54,16 @@ func TestWindowObservationsPreserveMatcherBudget(t *testing.T) {
 			view := rule.View{Document: &document.Document{Blocks: []document.Block{{ID: 0, Kind: "comment", Sentences: sentences}}},
 				Parameters: implementation.Descriptor().Defaults.Parameters, Observer: observer}
 			view.Parameters.MinWords = 0
-			c.Assert(implementation.Evaluate(t.Context(), view, observer), qt.ErrorMatches, ".*editorial pattern checks exceed max_candidates.*")
+			err := implementation.Evaluate(t.Context(), view, observer)
+			c.Assert(err, qt.ErrorMatches, ".*editorial pattern checks exceed max_candidates.*")
+			var abstention *rule.Abstention
+			c.Assert(err, qt.ErrorAs, &abstention)
+			c.Assert(abstention.Reason, qt.Equals, rule.ReasonBudgetExhausted)
 			c.Assert(observer.values, qt.HasLen, 0)
 			view.Observer = nil
-			c.Assert(implementation.Evaluate(t.Context(), view, observer), qt.ErrorMatches, ".*editorial pattern checks exceed max_candidates.*")
+			err = implementation.Evaluate(t.Context(), view, observer)
+			c.Assert(err, qt.ErrorMatches, ".*editorial pattern checks exceed max_candidates.*")
+			c.Assert(err, qt.ErrorAs, &abstention)
 		})
 	}
 }

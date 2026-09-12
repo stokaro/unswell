@@ -37,7 +37,7 @@ func (e *evaluation) spend(work int) error {
 		return err
 	}
 	if work < 0 || work > e.remaining {
-		return fmt.Errorf("custom matcher exceeded max_candidates")
+		return rule.Abstain(rule.ReasonBudgetExhausted, fmt.Errorf("custom matcher exceeded max_candidates"))
 	}
 	e.remaining -= work
 	return nil

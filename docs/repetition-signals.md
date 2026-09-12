@@ -130,8 +130,10 @@ cannot activate the rule. Heading echoes stop at intervening blocks or excluded 
 Window sizes are bounded: 1–1000 sentences and 1–128 prose blocks. Short prose blocks
 still consume a position in the block window. An expiring inverted index bounds
 active paragraph postings, and feature extraction, index work, and comparisons
-consume each rule's `max_candidates` budget. Exhaustion returns an operational error. There is no
-sampling, silent truncation, or successful incomplete gate.
+consume each rule's `max_candidates` budget. A rule that exhausts it abstains on
+that document with the reason `budget_exhausted`: it reports no findings there,
+and the other rules' findings stay. There is no sampling or silent truncation;
+the result and every reporter list the abstention.
 
 The existing engine owns evidence validation, source spans, local scores, correlation
 caps, permissions, and report generation. MCP returns that same completed result.

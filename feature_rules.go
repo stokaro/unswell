@@ -2,6 +2,7 @@ package unswell
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"slices"
 
@@ -34,8 +35,37 @@ func (e *Engine) runRule(
 	if err == nil {
 		err = ctx.Err()
 	}
+	if abstention, declared := declaredAbstention(ctx, emitter, err); declared {
+		e.abstainRule(result, emitter, view.Document.Name, abstention)
+		return nil
+	}
 	result.Findings = append(result.Findings, emitter.findings...)
 	return e.finishRuleFeatures(result, emitter, evaluationError(emitter, err))
+}
+
+// declaredAbstention recognizes a rule that declined the document for a valid
+// reason. Cancellation, emitter failures, and undeclared reasons keep the
+// fatal path, so a rule cannot hide an operational failure behind an abstention.
+func declaredAbstention(ctx context.Context, emitter *collector, err error) (rule.Abstention, bool) {
+	var abstention *rule.Abstention
+	if ctx.Err() != nil || emitter.err != nil || !errors.As(err, &abstention) {
+		return rule.Abstention{}, false
+	}
+	if !feature.ValidApplicabilityReason(abstention.Reason) {
+		return rule.Abstention{}, false
+	}
+	return *abstention, true
+}
+
+// abstainRule records the abstention and drops the rule's partial evidence.
+// A truncated rule's findings depend on block order and on the budget, so
+// they must not reach the gate, the baseline, or the activation values.
+func (e *Engine) abstainRule(result *RunResult, emitter *collector, path string, abstention rule.Abstention) {
+	result.Abstentions = append(result.Abstentions, RuleAbstention{Path: path, RuleID: emitter.descriptor.ID,
+		RuleVersion: emitter.descriptor.Version, Reason: abstention.Reason, Detail: abstention.Detail()})
+	if emitter.activations != nil {
+		e.absentRuleFeatures(result, emitter, "inapplicable/"+abstention.Reason)
+	}
 }
 
 func evaluationError(emitter *collector, err error) error {
@@ -52,24 +82,31 @@ func (e *Engine) finishRuleFeatures(result *RunResult, emitter *collector, evalu
 	if emitter.activations == nil {
 		return evaluationErr
 	}
-	var values []feature.Value
-	if evaluationErr == nil {
-		var err error
-		values, err = emitter.activations.Values(emitter.descriptor.ID, emitter.descriptor.BlockObservations)
-		if err != nil {
-			evaluationErr = fmt.Errorf("%s activation collection: %w", emitter.descriptor.ID, err)
-		}
+	if evaluationErr != nil {
+		e.absentRuleFeatures(result, emitter, "evaluation_failed")
+		return evaluationErr
+	}
+	values, err := emitter.activations.Values(emitter.descriptor.ID, emitter.descriptor.BlockObservations)
+	if err != nil {
+		e.absentRuleFeatures(result, emitter, "evaluation_failed")
+		return fmt.Errorf("%s activation collection: %w", emitter.descriptor.ID, err)
 	}
 	column := e.activationIndices[emitter.descriptor.ID]
 	units := result.Features.Sources[0].Units
 	for i := range units {
-		if evaluationErr != nil {
-			units[i].Values[column].Number, units[i].Values[column].Reason = nil, "evaluation_failed"
-		} else {
-			units[i].Values[column] = values[i]
-		}
+		units[i].Values[column] = values[i]
 	}
-	return evaluationErr
+	return nil
+}
+
+// absentRuleFeatures replaces the rule's whole activation column with one
+// absence reason, discarding any value collected before the rule stopped.
+func (e *Engine) absentRuleFeatures(result *RunResult, emitter *collector, reason string) {
+	column := e.activationIndices[emitter.descriptor.ID]
+	units := result.Features.Sources[0].Units
+	for i := range units {
+		units[i].Values[column].Number, units[i].Values[column].Reason = nil, reason
+	}
 }
 
 // Observe shares the emitter's latched failure state for optional observations.

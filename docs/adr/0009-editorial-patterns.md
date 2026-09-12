@@ -27,7 +27,9 @@ headings; other patterns stop there. All stop at lists, tables, protected gaps,
 and independent source comments or strings. Paired constructions must occur
 within one block. A rolling window emits each occurrence in at most one cluster.
 There is no document-wide all-pairs comparison. Candidate checks and stored matches
-are bounded by `max_candidates`, and evaluation observes caller cancellation.
+are bounded by `max_candidates`, and evaluation observes caller cancellation. A
+rule that exhausts its budget abstains on that document with `budget_exhausted`;
+the other rules' findings stay.
 
 Dictionary matches cannot cross protected tokens. Curated evaluative adjectives
 and POS roles distinguish modifier triads from requirement lists. A triad requires

@@ -134,9 +134,10 @@ func TestFindingsRequireFrozenExtractionAndReproduction(t *testing.T) {
 	_ = annotation.Unit{}
 }
 
-// A document the engine cannot finish under the policy stays in the artifact
-// as a failed coverage gap; the other documents are measured as usual.
-func TestFindingsRecordOperationalFailuresPerDocument(t *testing.T) {
+// A document on which one rule exhausts its budget stays measured. The artifact
+// records the abstention per rule, so that rule's zero count there is not a
+// measurement. No unit of the document is unmeasured.
+func TestFindingsRecordRuleAbstentionsPerDocument(t *testing.T) {
 	c := qt.New(t)
 	m, files := sample()
 	var bomb strings.Builder
@@ -158,23 +159,28 @@ func TestFindingsRecordOperationalFailuresPerDocument(t *testing.T) {
 	policy := "version: 1\nextends: [builtin:custom]\nrules:\n  repetition.near-sentence: {enabled: true}\n"
 	result, err := corpus.MeasureFindings(t.Context(), a, files, []byte(policy))
 	c.Assert(err, qt.IsNil)
-	c.Assert(result.Failed, qt.Equals, 1)
+	c.Assert(result.Failed, qt.Equals, 0)
 	statuses := map[string]string{}
 	for _, doc := range result.Documents {
 		statuses[doc.SourceID] = doc.Status
-		if doc.SourceID == "d9" {
-			c.Assert(doc.Error, qt.Contains, "budget")
-			c.Assert(doc.Findings, qt.Equals, 0)
+		if doc.SourceID != "d9" {
+			c.Assert(doc.Abstained, qt.IsNil)
+			continue
 		}
+		c.Assert(doc.Error, qt.Equals, "")
+		c.Assert(doc.Findings, qt.Equals, 0)
+		c.Assert(doc.ProseWords > 0, qt.IsTrue)
+		c.Assert(doc.Abstained, qt.DeepEquals, map[string]string{"repetition.near-sentence": "budget_exhausted"})
 	}
-	c.Assert(statuses, qt.DeepEquals, map[string]string{"d0": "measured", "d1": "measured", "d9": "failed"})
+	c.Assert(statuses, qt.DeepEquals, map[string]string{"d0": "measured", "d1": "measured", "d9": "measured"})
 	for _, unit := range result.Units {
-		c.Assert(unit.Unmeasured, qt.Equals, unit.SourceID == "d9")
+		c.Assert(unit.Unmeasured, qt.IsFalse)
 	}
 	c.Assert(result.Policy.ConfigHash, qt.Not(qt.Equals), "")
 }
 
-// An artifact whose only source fails still names the policy it ran under.
+// An artifact whose only source fails still names the policy it ran under. The
+// source exceeds the token limit, an operational failure of the whole run.
 func TestFindingsKeepThePolicyIdentityWhenEverySourceFails(t *testing.T) {
 	c := qt.New(t)
 	files := map[string][]byte{"LICENSE": []byte("Test-owned source and notice fixture.\n")}
@@ -200,12 +206,18 @@ func TestFindingsKeepThePolicyIdentityWhenEverySourceFails(t *testing.T) {
 	c.Assert(err, qt.IsNil)
 	a, err := corpus.Build(t.Context(), p, files)
 	c.Assert(err, qt.IsNil)
-	policy := "version: 1\nextends: [builtin:custom]\nrules:\n  repetition.near-sentence: {enabled: true}\n"
+	policy := "version: 1\nextends: [builtin:custom]\nanalysis: {max_tokens: 64}\nrules:\n" +
+		"  repetition.near-sentence: {enabled: true}\n"
 	result, err := corpus.MeasureFindings(t.Context(), a, files, []byte(policy))
 	c.Assert(err, qt.IsNil)
 	c.Assert(result.Failed, qt.Equals, 1)
 	c.Assert(result.Documents, qt.HasLen, 1)
 	c.Assert(result.Documents[0].Status, qt.Equals, "failed")
+	c.Assert(result.Documents[0].Error, qt.Contains, "max_tokens")
+	c.Assert(result.Documents[0].Abstained, qt.IsNil)
+	for _, unit := range result.Units {
+		c.Assert(unit.Unmeasured, qt.IsTrue)
+	}
 	c.Assert(result.Policy.ConfigHash, qt.Not(qt.Equals), "")
 	c.Assert(len(result.Policy.Rules) > 0, qt.IsTrue)
 }

@@ -26,8 +26,17 @@ func TestSurfaceLimitsAndCapabilities(t *testing.T) {
 		engine := singleRuleEngine(t, d.ID, "", "analysis: {max_candidates: 1}\n")
 		result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown,
 			Bytes: []byte(d.Examples[0].Text)})
-		c.Assert(err, qt.ErrorMatches, ".*max_candidates.*", qt.Commentf("%s", d.ID))
-		c.Assert(result.Gate.Passed, qt.IsFalse)
+		if d.SharedFeatures {
+			// The shared feature set is computed once for every rule; its budget is
+			// engine-level and stays an operational error.
+			c.Assert(err, qt.ErrorMatches, ".*shared feature checks exceed max_candidates.*", qt.Commentf("%s", d.ID))
+			c.Assert(result.Manifest.Complete, qt.IsFalse)
+			c.Assert(result.Gate.Passed, qt.IsFalse)
+		} else {
+			c.Assert(err, qt.IsNil, qt.Commentf("%s", d.ID))
+			assertBudgetAbstention(t, result, "guide.md", d.ID, "max_candidates")
+			c.Assert(result.Gate.Passed, qt.IsTrue)
+		}
 		if d.ID == "syntax.parenthetical-load" || d.ID == "format.em-dash-density" {
 			continue
 		}

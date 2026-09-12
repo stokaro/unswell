@@ -39,12 +39,20 @@ func sarif(writer io.Writer, result unswell.RunResult) error {
 		}
 		results = append(results, entry)
 	}
-	notifications := make([]map[string]any, 0, len(result.Errors))
+	notifications := make([]map[string]any, 0, len(result.Errors)+len(result.Abstentions))
 	for _, failure := range result.Errors {
 		notifications = append(
 			notifications,
 			map[string]any{"level": "error", "message": map[string]string{"text": failure.Path + ": " + failure.Message}},
 		)
+	}
+	for _, abstention := range result.Abstentions {
+		notifications = append(notifications, map[string]any{
+			"level":   "warning",
+			"message": map[string]string{"text": abstention.Path + ": " + abstentionMessage(abstention)},
+			"properties": map[string]string{"path": abstention.Path, "rule_id": abstention.RuleID,
+				"rule_version": abstention.RuleVersion, "reason": abstention.Reason},
+		})
 	}
 	return encodeJSON(writer, map[string]any{
 		"version": "2.1.0", "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
@@ -130,6 +138,9 @@ func runProperties(result unswell.RunResult) map[string]any {
 		"changes": result.Changes, "policy_comparison": result.PolicyComparison,
 		"baseline": result.Baseline, "baseline_snapshot": result.BaselineSnapshot,
 		"manifest": result.Manifest, "file_policies": filePolicies(result), "suppressions": result.Suppressions}
+	if len(result.Abstentions) != 0 {
+		properties["abstentions"] = result.Abstentions
+	}
 	if result.PreparedFeatures != nil {
 		properties["prepared_features"] = result.PreparedFeatures
 	}

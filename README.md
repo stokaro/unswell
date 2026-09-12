@@ -94,7 +94,10 @@ bin/unswell doctor
 Exit codes: `0` for a complete pass, `1` for a complete policy failure, `2` for
 operational errors or incomplete analysis, and `130` for cancellation. An empty
 scan fails unless explicitly allowed. `--no-gate` permits advisory checks while
-preserving operational errors. Display filtering never changes the gate.
+preserving operational errors. Display filtering never changes the gate. A rule
+that exhausts its candidate budget abstains on that document with the reason
+`budget_exhausted`; the report lists the abstention and the other rules' findings
+stay.
 
 The index uses points from 0 to 100. Every local score includes its contributing
 rules, activations, deduplication decisions and caps. A clean paragraph cannot

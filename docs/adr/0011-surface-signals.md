@@ -28,7 +28,8 @@ Existing field names, schema identity, source permission syntax, and exit codes 
 preserved. Saved results still render without reanalyzing source or loading NLP.
 
 Shared counting and mapping functions serve the rules. Missing POS/chunk support,
-invalid NP ranges, excessive nesting, and candidate exhaustion fail explicitly.
+invalid NP ranges, and excessive nesting fail explicitly. A rule that exhausts its
+candidate budget abstains on that document with `budget_exhausted`.
 Matched source ranges include conditions and negation; heuristics never supply an
 automatic rewrite. Technical counterexamples and exact CLI goldens are required,
 while corpus qualification and resource acceptance remain separate evidence.

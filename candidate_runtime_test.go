@@ -22,7 +22,10 @@ func (r candidateBudgetRule) Evaluate(ctx context.Context, view rule.View, emit 
 	return r.Rule.Evaluate(ctx, view, emit)
 }
 
-func TestCandidateActivationsDiscardFailedRuleValues(t *testing.T) {
+// A rule that runs out of its own budget abstains. The run stays complete and
+// records the abstention. Every activation value of that rule is absent with
+// the abstention reason, not with a failed evaluation.
+func TestCandidateActivationsRecordBudgetAbstentions(t *testing.T) {
 	for _, implementation := range builtin.Rules() {
 		d := implementation.Descriptor()
 		if !slices.Contains(candidateActivationIDs(), d.ID) {
@@ -39,13 +42,14 @@ func TestCandidateActivationsDiscardFailedRuleValues(t *testing.T) {
 			}
 			result, err := engine.Analyze(t.Context(), document.Source{Name: "example", Format: format,
 				Bytes: []byte(d.Examples[0].Text)})
-			c.Assert(err, qt.ErrorMatches, ".*(max_candidates|budget).*")
-			c.Assert(result.Manifest.Complete, qt.IsFalse)
-			c.Assert(result.Gate.Passed, qt.IsFalse)
+			c.Assert(err, qt.IsNil)
+			assertBudgetAbstention(t, result, "example", d.ID, "")
+			c.Assert(result.Abstentions[0].Detail, qt.Matches, ".*(max_candidates|budget).*")
+			c.Assert(result.Gate.Passed, qt.IsTrue)
 			c.Assert(len(result.Features.Sources[0].Units) > 0, qt.IsTrue)
 			for _, unit := range result.Features.Sources[0].Units {
 				c.Assert(unit.Values[0].Number, qt.IsNil)
-				c.Assert(unit.Values[0].Reason, qt.Equals, "evaluation_failed")
+				c.Assert(unit.Values[0].Reason, qt.Equals, "inapplicable/budget_exhausted")
 			}
 		})
 	}

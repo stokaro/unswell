@@ -50,22 +50,27 @@ type UnitFindings struct {
 // and never enter a candidate. A document whose policy run failed keeps the
 // status "failed" with the error and zero counts; it is a coverage gap, never
 // a document without findings.
+//
+// Abstained names each rule that declined the document, with its reason. The
+// document stays measured, but that rule has no count there. A per-rule
+// analysis must exclude it.
 type DocumentFindings struct {
-	SourceID   string         `json:"source_id"`
-	Path       string         `json:"path"`
-	GroupID    string         `json:"group_id"`
-	Partition  string         `json:"partition"`
-	Cohort     string         `json:"cohort,omitempty"`
-	Role       string         `json:"role"`
-	Status     string         `json:"status"`
-	Error      string         `json:"error,omitempty"`
-	ProseWords int            `json:"prose_words"`
-	Blocks     int            `json:"blocks"`
-	Findings   int            `json:"findings"`
-	Unbound    int            `json:"unbound"`
-	Derived    int            `json:"derived"`
-	Suppressed int            `json:"suppressed"`
-	ByRule     map[string]int `json:"by_rule"`
+	SourceID   string            `json:"source_id"`
+	Path       string            `json:"path"`
+	GroupID    string            `json:"group_id"`
+	Partition  string            `json:"partition"`
+	Cohort     string            `json:"cohort,omitempty"`
+	Role       string            `json:"role"`
+	Status     string            `json:"status"`
+	Error      string            `json:"error,omitempty"`
+	ProseWords int               `json:"prose_words"`
+	Blocks     int               `json:"blocks"`
+	Findings   int               `json:"findings"`
+	Unbound    int               `json:"unbound"`
+	Derived    int               `json:"derived"`
+	Suppressed int               `json:"suppressed"`
+	ByRule     map[string]int    `json:"by_rule"`
+	Abstained  map[string]string `json:"abstained,omitempty"`
 }
 
 // PolicyIdentity pins the configuration every source was measured under.
@@ -301,7 +306,7 @@ func bindFindings(run unswell.RunResult, source Source, group Group, candidates 
 ) DocumentFindings {
 	doc := DocumentFindings{SourceID: source.ID, Path: source.Path, GroupID: group.ID, Partition: group.Partition,
 		Role: source.Role, Status: "measured", ProseWords: run.Documents[0].ProseWords, Blocks: run.Documents[0].Blocks,
-		ByRule: map[string]int{}}
+		ByRule: map[string]int{}, Abstained: abstainedRules(run)}
 	if source.Snapshot != nil {
 		doc.Cohort = source.Snapshot.Cohort
 	}
@@ -330,6 +335,19 @@ func bindFindings(run unswell.RunResult, source Source, group Group, candidates 
 		}
 	}
 	return doc
+}
+
+// abstainedRules maps each rule that declined the source to its reason; nil
+// when every enabled rule finished the document.
+func abstainedRules(run unswell.RunResult) map[string]string {
+	if len(run.Abstentions) == 0 {
+		return nil
+	}
+	abstained := make(map[string]string, len(run.Abstentions))
+	for _, abstention := range run.Abstentions {
+		abstained[abstention.RuleID] = abstention.Reason
+	}
+	return abstained
 }
 
 func finishFindings(ctx context.Context, result FindingsArtifact) (FindingsArtifact, error) {

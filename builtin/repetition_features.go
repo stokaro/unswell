@@ -22,7 +22,7 @@ func (b *repetitionBudget) spend(work int) error {
 		return err
 	}
 	if work > b.remaining {
-		return fmt.Errorf("repetition work exceeds max_candidates")
+		return rule.Abstain(rule.ReasonBudgetExhausted, fmt.Errorf("repetition work exceeds max_candidates"))
 	}
 	b.remaining -= work
 	return nil

@@ -106,7 +106,9 @@ Limits are 1,000 directives per source, 4,096 bytes per logical directive, 32 ID
 directive, and 10,000 targets across its suppression plan. Structural resolution
 and evidence matching also consume the configured `analysis.max_candidates` budget.
 Exhausting a limit fails the analysis; it never turns into permission for the rest
-of the file.
+of the file. A permission for a rule that abstained on the document, for example
+with `budget_exhausted`, had no findings to cover. It keeps the status `unused`
+in the report and is not an unused-permission error.
 
 ## Evidence and scores
 

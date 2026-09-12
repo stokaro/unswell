@@ -45,7 +45,7 @@ func (m *editorialMatcher) spend() error {
 	}
 	m.checks++
 	if m.checks > m.view.MaxCandidates {
-		return fmt.Errorf("editorial pattern checks exceed max_candidates")
+		return rule.Abstain(rule.ReasonBudgetExhausted, fmt.Errorf("editorial pattern checks exceed max_candidates"))
 	}
 	return nil
 }

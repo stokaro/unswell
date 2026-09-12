@@ -42,7 +42,9 @@ the new fields; API snapshots and the schema document this alpha compatibility
 boundary. Rule dictionaries and thresholds remain explicit configuration.
 
 Index entries, candidate traversal, and comparison work consume `max_candidates`.
-Exhaustion is an error, with no hidden sampling or partial successful gate. Window
+When a rule runs out, it abstains on that document with `budget_exhausted`. It
+reports no findings there; the other rules' findings stay. There is no hidden
+sampling or partial successful gate. Window
 expiration bounds active postings. Evaluation observes cancellation and uses only
 call-local buffers. Tests cover source coordinates, technical counterexamples,
 term exemptions, structural policy, clusters, window boundaries, and scaling.

@@ -177,6 +177,9 @@ func text(writer io.Writer, result unswell.RunResult, options Options) error {
 	for _, failure := range result.Errors {
 		fmt.Fprintf(&output, "  error: %s: %s\n", terminal(failure.Path), terminal(failure.Message))
 	}
+	for _, abstention := range result.Abstentions {
+		fmt.Fprintf(&output, "  abstained: %s: %s\n", terminal(abstention.Path), terminal(abstentionMessage(abstention)))
+	}
 	for _, line := range append(auditLines(result), featureLines(result)...) {
 		fmt.Fprintf(&output, "%s\n", terminal(line))
 	}
@@ -224,6 +227,9 @@ func markdown(writer io.Writer, result unswell.RunResult, options Options) error
 	for _, failure := range result.Errors {
 		fmt.Fprintf(&output, "\n- Error: %s — %s\n", markdownEscape(failure.Path), markdownEscape(failure.Message))
 	}
+	for _, abstention := range result.Abstentions {
+		fmt.Fprintf(&output, "\n- Abstained: %s — %s\n", markdownEscape(abstention.Path), markdownEscape(abstentionMessage(abstention)))
+	}
 	for _, line := range append(auditLines(result), featureLines(result)...) {
 		fmt.Fprintf(&output, "\n%s\n", markdownEscape(line))
 	}
@@ -235,6 +241,16 @@ func markdown(writer io.Writer, result unswell.RunResult, options Options) error
 	}
 	_, err := io.WriteString(writer, output.String())
 	return err
+}
+
+// abstentionMessage states which rule declined the document and why, in the
+// same words for every writer. The path is the caller's to place and escape.
+func abstentionMessage(abstention unswell.RuleAbstention) string {
+	message := abstention.RuleID + " abstained (" + abstention.Reason + ")"
+	if abstention.Detail != "" {
+		message += ": " + abstention.Detail
+	}
+	return message
 }
 
 // probabilitySummary describes a configured model and how many units it

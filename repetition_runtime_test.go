@@ -22,8 +22,9 @@ func TestRepetitionLimitsAndCapabilities(t *testing.T) {
 		"repetition.heading-echo", "repetition.summary-echo"} {
 		engine := singleRuleEngine(t, id, "", "analysis: {max_candidates: 1}\n")
 		result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)})
-		c.Assert(err, qt.ErrorMatches, ".*max_candidates.*", qt.Commentf("%s", id))
-		c.Assert(result.Gate.Passed, qt.IsFalse)
+		c.Assert(err, qt.IsNil, qt.Commentf("%s", id))
+		assertBudgetAbstention(t, result, "guide.md", id, "max_candidates")
+		c.Assert(result.Gate.Passed, qt.IsTrue)
 		config := []byte("version: 1\nextends: [builtin:custom]\nrules:\n  " + id + ": {enabled: true}\n")
 		_, err = unswell.New(unswell.Options{Config: config, NLP: limitedPolicyNLP{Provider: provider}})
 		c.Assert(err, qt.ErrorMatches, "rule "+id+" requires unavailable capability pos")

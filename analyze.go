@@ -49,6 +49,7 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source, iden
 	if err != nil {
 		return result, err
 	}
+	plan.Excuse(abstainedRules(result.Abstentions))
 	suppressionErr := e.applySuppressions(ctx, &result, doc, plan, builder)
 	if err := e.summarizeSource(ctx, &result, doc, identities, builder); err != nil {
 		return result, err
@@ -118,6 +119,7 @@ func (e *Engine) evaluateRules(ctx context.Context, doc *document.Document, resu
 			return err
 		}
 	}
+	slices.SortFunc(result.Abstentions, func(a, b RuleAbstention) int { return strings.Compare(a.RuleID, b.RuleID) })
 	return nil
 }
 
