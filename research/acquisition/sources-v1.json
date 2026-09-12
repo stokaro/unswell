@@ -1,53 +1,863 @@
 {
   "format": "unswell-acquisition-sources-v1",
-  "revision": 1,
-  "decided_on": "2026-09-10",
+  "revision": 2,
+  "decided_on": "2026-09-12",
   "protocol": "unswell-llm-patterns-v1",
   "boundary": "2020-12-31",
-  "scope": "Sampling frame of the historical pilot: public repositories with a permissive license, English documentation, and a release that an independent registry or release record dates on or before the boundary. Selection looked at license, ecosystem diversity, and history availability, never at the text. Tags and dates are claims that the acquisition script verifies at run time; an entry whose record cannot be corroborated stays vcs_only, and an entry dated after the boundary is skipped.",
+  "scope": "Sampling frame of the historical pilot: public repositories with a permissive license, English documentation, and a release that an independent registry or release record dates on or before the boundary. Selection looked at license, ecosystem diversity, and history availability, never at the text. Tags and dates are claims that the acquisition script verifies at run time; an entry whose record cannot be corroborated stays vcs_only, and an entry dated after the boundary is skipped. Revision 2 (September 12, 2026) adds 24 repositories drawn for the development and confirmation partitions of the pinned plan after the first screening; selection looked at license, ecosystem diversity, repository size, and a release dated on or before the boundary.",
   "sources": [
-    {"name": "gorilla/mux", "url": "https://github.com/gorilla/mux.git", "tag": "v1.8.0", "ecosystem": "go", "license": "BSD-3-Clause", "registry": {"kind": "github-release"}, "topic": "HTTP routing", "purpose": "Go HTTP router documentation and comments"},
-    {"name": "spf13/cobra", "url": "https://github.com/spf13/cobra.git", "tag": "v1.1.1", "ecosystem": "go", "license": "Apache-2.0", "registry": {"kind": "github-release"}, "topic": "command-line interfaces", "purpose": "Go CLI framework documentation and comments"},
-    {"name": "sirupsen/logrus", "url": "https://github.com/sirupsen/logrus.git", "tag": "v1.7.0", "ecosystem": "go", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "logging", "purpose": "Go logging library documentation and comments"},
-    {"name": "pkg/errors", "url": "https://github.com/pkg/errors.git", "tag": "v0.9.1", "ecosystem": "go", "license": "BSD-2-Clause", "registry": {"kind": "github-release"}, "topic": "error handling", "purpose": "Go error wrapping documentation and comments"},
-    {"name": "stretchr/testify", "url": "https://github.com/stretchr/testify.git", "tag": "v1.6.1", "ecosystem": "go", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "testing", "purpose": "Go assertion library documentation and comments"},
-    {"name": "go-chi/chi", "url": "https://github.com/go-chi/chi.git", "tag": "v4.1.2", "ecosystem": "go", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "HTTP routing", "purpose": "Go HTTP router documentation and comments"},
-    {"name": "urfave/cli", "url": "https://github.com/urfave/cli.git", "tag": "v1.22.5", "ecosystem": "go", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "command-line interfaces", "purpose": "Go CLI framework documentation and comments"},
-    {"name": "google/uuid", "url": "https://github.com/google/uuid.git", "tag": "v1.1.2", "ecosystem": "go", "license": "BSD-3-Clause", "registry": {"kind": "github-release"}, "topic": "identifiers", "purpose": "Go UUID library documentation and comments"},
-    {"name": "psf/requests", "url": "https://github.com/psf/requests.git", "tag": "v2.25.0", "ecosystem": "python", "license": "Apache-2.0", "registry": {"kind": "pypi", "package": "requests", "version": "2.25.0"}, "topic": "HTTP clients", "purpose": "Python HTTP client documentation and comments"},
-    {"name": "pallets/click", "url": "https://github.com/pallets/click.git", "tag": "7.1.2", "ecosystem": "python", "license": "BSD-3-Clause", "registry": {"kind": "pypi", "package": "click", "version": "7.1.2"}, "topic": "command-line interfaces", "purpose": "Python CLI framework documentation and comments"},
-    {"name": "pallets/flask", "url": "https://github.com/pallets/flask.git", "tag": "1.1.2", "ecosystem": "python", "license": "BSD-3-Clause", "registry": {"kind": "pypi", "package": "Flask", "version": "1.1.2"}, "topic": "web frameworks", "purpose": "Python web framework documentation and comments"},
-    {"name": "python-attrs/attrs", "url": "https://github.com/python-attrs/attrs.git", "tag": "20.3.0", "ecosystem": "python", "license": "MIT", "registry": {"kind": "pypi", "package": "attrs", "version": "20.3.0"}, "topic": "data classes", "purpose": "Python class helper documentation and comments"},
-    {"name": "pytest-dev/pytest", "url": "https://github.com/pytest-dev/pytest.git", "tag": "6.1.2", "ecosystem": "python", "license": "MIT", "registry": {"kind": "pypi", "package": "pytest", "version": "6.1.2"}, "topic": "testing", "purpose": "Python test framework documentation and comments"},
-    {"name": "psf/black", "url": "https://github.com/psf/black.git", "tag": "20.8b1", "ecosystem": "python", "license": "MIT", "registry": {"kind": "pypi", "package": "black", "version": "20.8b1"}, "topic": "code formatting", "purpose": "Python formatter documentation and comments"},
-    {"name": "tiangolo/fastapi", "url": "https://github.com/tiangolo/fastapi.git", "tag": "0.61.2", "ecosystem": "python", "license": "MIT", "registry": {"kind": "pypi", "package": "fastapi", "version": "0.61.2"}, "topic": "web frameworks", "purpose": "Python API framework documentation and comments"},
-    {"name": "more-itertools/more-itertools", "url": "https://github.com/more-itertools/more-itertools.git", "tag": "v8.6.0", "ecosystem": "python", "license": "MIT", "registry": {"kind": "pypi", "package": "more-itertools", "version": "8.6.0"}, "topic": "iteration utilities", "purpose": "Python iterator library documentation and comments"},
-    {"name": "expressjs/express", "url": "https://github.com/expressjs/express.git", "tag": "4.17.1", "ecosystem": "javascript", "license": "MIT", "registry": {"kind": "npm", "package": "express", "version": "4.17.1"}, "topic": "web frameworks", "purpose": "Node.js web framework documentation and comments"},
-    {"name": "lodash/lodash", "url": "https://github.com/lodash/lodash.git", "tag": "4.17.20", "ecosystem": "javascript", "license": "MIT", "registry": {"kind": "npm", "package": "lodash", "version": "4.17.20"}, "topic": "utility libraries", "purpose": "JavaScript utility library documentation and comments"},
-    {"name": "axios/axios", "url": "https://github.com/axios/axios.git", "tag": "v0.21.0", "ecosystem": "javascript", "license": "MIT", "registry": {"kind": "npm", "package": "axios", "version": "0.21.0"}, "topic": "HTTP clients", "purpose": "JavaScript HTTP client documentation and comments"},
-    {"name": "chalk/chalk", "url": "https://github.com/chalk/chalk.git", "tag": "v4.1.0", "ecosystem": "javascript", "license": "MIT", "registry": {"kind": "npm", "package": "chalk", "version": "4.1.0"}, "topic": "terminal output", "purpose": "Node.js terminal styling documentation and comments"},
-    {"name": "tj/commander.js", "url": "https://github.com/tj/commander.js.git", "tag": "v6.2.0", "ecosystem": "javascript", "license": "MIT", "registry": {"kind": "npm", "package": "commander", "version": "6.2.0"}, "topic": "command-line interfaces", "purpose": "Node.js CLI framework documentation and comments"},
-    {"name": "date-fns/date-fns", "url": "https://github.com/date-fns/date-fns.git", "tag": "v2.16.1", "ecosystem": "javascript", "license": "MIT", "registry": {"kind": "npm", "package": "date-fns", "version": "2.16.1"}, "topic": "date handling", "purpose": "JavaScript date library documentation and comments"},
-    {"name": "yargs/yargs", "url": "https://github.com/yargs/yargs.git", "tag": "v16.1.1", "ecosystem": "javascript", "license": "MIT", "registry": {"kind": "npm", "package": "yargs", "version": "16.1.1"}, "topic": "command-line interfaces", "purpose": "Node.js argument parser documentation and comments"},
-    {"name": "serde-rs/serde", "url": "https://github.com/serde-rs/serde.git", "tag": "v1.0.118", "ecosystem": "rust", "license": "MIT OR Apache-2.0", "registry": {"kind": "crates", "package": "serde", "version": "1.0.118"}, "topic": "serialization", "purpose": "Rust serialization framework documentation and comments"},
-    {"name": "clap-rs/clap", "url": "https://github.com/clap-rs/clap.git", "tag": "v2.33.3", "ecosystem": "rust", "license": "MIT", "registry": {"kind": "crates", "package": "clap", "version": "2.33.3"}, "topic": "command-line interfaces", "purpose": "Rust argument parser documentation and comments"},
-    {"name": "rust-random/rand", "url": "https://github.com/rust-random/rand.git", "tag": "0.7.3", "ecosystem": "rust", "license": "MIT OR Apache-2.0", "registry": {"kind": "crates", "package": "rand", "version": "0.7.3"}, "topic": "random numbers", "purpose": "Rust random number library documentation and comments"},
-    {"name": "rust-lang/regex", "url": "https://github.com/rust-lang/regex.git", "tag": "1.4.2", "ecosystem": "rust", "license": "MIT OR Apache-2.0", "registry": {"kind": "crates", "package": "regex", "version": "1.4.2"}, "topic": "regular expressions", "purpose": "Rust regex library documentation and comments"},
-    {"name": "serde-rs/json", "url": "https://github.com/serde-rs/json.git", "tag": "v1.0.60", "ecosystem": "rust", "license": "MIT OR Apache-2.0", "registry": {"kind": "crates", "package": "serde_json", "version": "1.0.60"}, "topic": "serialization", "purpose": "Rust JSON library documentation and comments"},
-    {"name": "google/gson", "url": "https://github.com/google/gson.git", "tag": "gson-parent-2.8.6", "ecosystem": "java", "license": "Apache-2.0", "registry": {"kind": "maven", "group": "com.google.code.gson", "artifact": "gson", "version": "2.8.6"}, "topic": "serialization", "purpose": "Java JSON library documentation and comments"},
-    {"name": "square/okhttp", "url": "https://github.com/square/okhttp.git", "tag": "parent-4.9.0", "ecosystem": "java", "license": "Apache-2.0", "registry": {"kind": "maven", "group": "com.squareup.okhttp3", "artifact": "okhttp", "version": "4.9.0"}, "topic": "HTTP clients", "purpose": "JVM HTTP client documentation and comments"},
-    {"name": "FasterXML/jackson-databind", "url": "https://github.com/FasterXML/jackson-databind.git", "tag": "jackson-databind-2.11.3", "ecosystem": "java", "license": "Apache-2.0", "registry": {"kind": "maven", "group": "com.fasterxml.jackson.core", "artifact": "jackson-databind", "version": "2.11.3"}, "topic": "serialization", "purpose": "Java data binding documentation and comments"},
-    {"name": "libuv/libuv", "url": "https://github.com/libuv/libuv.git", "tag": "v1.40.0", "ecosystem": "c", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "asynchronous I/O", "purpose": "C event loop library documentation and comments"},
-    {"name": "akheron/jansson", "url": "https://github.com/akheron/jansson.git", "tag": "v2.13.1", "ecosystem": "c", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "serialization", "purpose": "C JSON library documentation and comments"},
-    {"name": "DaveGamble/cJSON", "url": "https://github.com/DaveGamble/cJSON.git", "tag": "v1.7.14", "ecosystem": "c", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "serialization", "purpose": "C JSON parser documentation and comments"},
-    {"name": "fmtlib/fmt", "url": "https://github.com/fmtlib/fmt.git", "tag": "7.1.3", "ecosystem": "cpp", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "string formatting", "purpose": "C++ formatting library documentation and comments"},
-    {"name": "nlohmann/json", "url": "https://github.com/nlohmann/json.git", "tag": "v3.9.1", "ecosystem": "cpp", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "serialization", "purpose": "C++ JSON library documentation and comments"},
-    {"name": "gabime/spdlog", "url": "https://github.com/gabime/spdlog.git", "tag": "v1.8.2", "ecosystem": "cpp", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "logging", "purpose": "C++ logging library documentation and comments"},
-    {"name": "catchorg/Catch2", "url": "https://github.com/catchorg/Catch2.git", "tag": "v2.13.3", "ecosystem": "cpp", "license": "BSL-1.0", "registry": {"kind": "github-release"}, "topic": "testing", "purpose": "C++ test framework documentation and comments"},
-    {"name": "JamesNK/Newtonsoft.Json", "url": "https://github.com/JamesNK/Newtonsoft.Json.git", "tag": "12.0.3", "ecosystem": "csharp", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "serialization", "purpose": ".NET JSON library documentation and comments"},
-    {"name": "serilog/serilog", "url": "https://github.com/serilog/serilog.git", "tag": "v2.10.0", "ecosystem": "csharp", "license": "Apache-2.0", "registry": {"kind": "github-release"}, "topic": "logging", "purpose": ".NET logging library documentation and comments"},
-    {"name": "bats-core/bats-core", "url": "https://github.com/bats-core/bats-core.git", "tag": "v1.2.1", "ecosystem": "shell", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "testing", "purpose": "Bash test framework documentation and scripts"},
-    {"name": "PowerShell/PSScriptAnalyzer", "url": "https://github.com/PowerShell/PSScriptAnalyzer.git", "tag": "1.19.1", "ecosystem": "powershell", "license": "MIT", "registry": {"kind": "github-release"}, "topic": "static analysis", "purpose": "PowerShell analyzer documentation and scripts"},
-    {"name": "pester/Pester", "url": "https://github.com/pester/Pester.git", "tag": "5.1.0", "ecosystem": "powershell", "license": "Apache-2.0", "registry": {"kind": "github-release"}, "topic": "testing", "purpose": "PowerShell test framework documentation and scripts"}
+    {
+      "name": "gorilla/mux",
+      "url": "https://github.com/gorilla/mux.git",
+      "tag": "v1.8.0",
+      "ecosystem": "go",
+      "license": "BSD-3-Clause",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments"
+    },
+    {
+      "name": "spf13/cobra",
+      "url": "https://github.com/spf13/cobra.git",
+      "tag": "v1.1.1",
+      "ecosystem": "go",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "command-line interfaces",
+      "purpose": "Go CLI framework documentation and comments"
+    },
+    {
+      "name": "sirupsen/logrus",
+      "url": "https://github.com/sirupsen/logrus.git",
+      "tag": "v1.7.0",
+      "ecosystem": "go",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "logging",
+      "purpose": "Go logging library documentation and comments"
+    },
+    {
+      "name": "pkg/errors",
+      "url": "https://github.com/pkg/errors.git",
+      "tag": "v0.9.1",
+      "ecosystem": "go",
+      "license": "BSD-2-Clause",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "error handling",
+      "purpose": "Go error wrapping documentation and comments"
+    },
+    {
+      "name": "stretchr/testify",
+      "url": "https://github.com/stretchr/testify.git",
+      "tag": "v1.6.1",
+      "ecosystem": "go",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "testing",
+      "purpose": "Go assertion library documentation and comments"
+    },
+    {
+      "name": "go-chi/chi",
+      "url": "https://github.com/go-chi/chi.git",
+      "tag": "v4.1.2",
+      "ecosystem": "go",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments"
+    },
+    {
+      "name": "urfave/cli",
+      "url": "https://github.com/urfave/cli.git",
+      "tag": "v1.22.5",
+      "ecosystem": "go",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "command-line interfaces",
+      "purpose": "Go CLI framework documentation and comments"
+    },
+    {
+      "name": "google/uuid",
+      "url": "https://github.com/google/uuid.git",
+      "tag": "v1.1.2",
+      "ecosystem": "go",
+      "license": "BSD-3-Clause",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "identifiers",
+      "purpose": "Go UUID library documentation and comments"
+    },
+    {
+      "name": "psf/requests",
+      "url": "https://github.com/psf/requests.git",
+      "tag": "v2.25.0",
+      "ecosystem": "python",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "pypi",
+        "package": "requests",
+        "version": "2.25.0"
+      },
+      "topic": "HTTP clients",
+      "purpose": "Python HTTP client documentation and comments"
+    },
+    {
+      "name": "pallets/click",
+      "url": "https://github.com/pallets/click.git",
+      "tag": "7.1.2",
+      "ecosystem": "python",
+      "license": "BSD-3-Clause",
+      "registry": {
+        "kind": "pypi",
+        "package": "click",
+        "version": "7.1.2"
+      },
+      "topic": "command-line interfaces",
+      "purpose": "Python CLI framework documentation and comments"
+    },
+    {
+      "name": "pallets/flask",
+      "url": "https://github.com/pallets/flask.git",
+      "tag": "1.1.2",
+      "ecosystem": "python",
+      "license": "BSD-3-Clause",
+      "registry": {
+        "kind": "pypi",
+        "package": "Flask",
+        "version": "1.1.2"
+      },
+      "topic": "web frameworks",
+      "purpose": "Python web framework documentation and comments"
+    },
+    {
+      "name": "python-attrs/attrs",
+      "url": "https://github.com/python-attrs/attrs.git",
+      "tag": "20.3.0",
+      "ecosystem": "python",
+      "license": "MIT",
+      "registry": {
+        "kind": "pypi",
+        "package": "attrs",
+        "version": "20.3.0"
+      },
+      "topic": "data classes",
+      "purpose": "Python class helper documentation and comments"
+    },
+    {
+      "name": "pytest-dev/pytest",
+      "url": "https://github.com/pytest-dev/pytest.git",
+      "tag": "6.1.2",
+      "ecosystem": "python",
+      "license": "MIT",
+      "registry": {
+        "kind": "pypi",
+        "package": "pytest",
+        "version": "6.1.2"
+      },
+      "topic": "testing",
+      "purpose": "Python test framework documentation and comments"
+    },
+    {
+      "name": "psf/black",
+      "url": "https://github.com/psf/black.git",
+      "tag": "20.8b1",
+      "ecosystem": "python",
+      "license": "MIT",
+      "registry": {
+        "kind": "pypi",
+        "package": "black",
+        "version": "20.8b1"
+      },
+      "topic": "code formatting",
+      "purpose": "Python formatter documentation and comments"
+    },
+    {
+      "name": "tiangolo/fastapi",
+      "url": "https://github.com/tiangolo/fastapi.git",
+      "tag": "0.61.2",
+      "ecosystem": "python",
+      "license": "MIT",
+      "registry": {
+        "kind": "pypi",
+        "package": "fastapi",
+        "version": "0.61.2"
+      },
+      "topic": "web frameworks",
+      "purpose": "Python API framework documentation and comments"
+    },
+    {
+      "name": "more-itertools/more-itertools",
+      "url": "https://github.com/more-itertools/more-itertools.git",
+      "tag": "v8.6.0",
+      "ecosystem": "python",
+      "license": "MIT",
+      "registry": {
+        "kind": "pypi",
+        "package": "more-itertools",
+        "version": "8.6.0"
+      },
+      "topic": "iteration utilities",
+      "purpose": "Python iterator library documentation and comments"
+    },
+    {
+      "name": "expressjs/express",
+      "url": "https://github.com/expressjs/express.git",
+      "tag": "4.17.1",
+      "ecosystem": "javascript",
+      "license": "MIT",
+      "registry": {
+        "kind": "npm",
+        "package": "express",
+        "version": "4.17.1"
+      },
+      "topic": "web frameworks",
+      "purpose": "Node.js web framework documentation and comments"
+    },
+    {
+      "name": "lodash/lodash",
+      "url": "https://github.com/lodash/lodash.git",
+      "tag": "4.17.20",
+      "ecosystem": "javascript",
+      "license": "MIT",
+      "registry": {
+        "kind": "npm",
+        "package": "lodash",
+        "version": "4.17.20"
+      },
+      "topic": "utility libraries",
+      "purpose": "JavaScript utility library documentation and comments"
+    },
+    {
+      "name": "axios/axios",
+      "url": "https://github.com/axios/axios.git",
+      "tag": "v0.21.0",
+      "ecosystem": "javascript",
+      "license": "MIT",
+      "registry": {
+        "kind": "npm",
+        "package": "axios",
+        "version": "0.21.0"
+      },
+      "topic": "HTTP clients",
+      "purpose": "JavaScript HTTP client documentation and comments"
+    },
+    {
+      "name": "chalk/chalk",
+      "url": "https://github.com/chalk/chalk.git",
+      "tag": "v4.1.0",
+      "ecosystem": "javascript",
+      "license": "MIT",
+      "registry": {
+        "kind": "npm",
+        "package": "chalk",
+        "version": "4.1.0"
+      },
+      "topic": "terminal output",
+      "purpose": "Node.js terminal styling documentation and comments"
+    },
+    {
+      "name": "tj/commander.js",
+      "url": "https://github.com/tj/commander.js.git",
+      "tag": "v6.2.0",
+      "ecosystem": "javascript",
+      "license": "MIT",
+      "registry": {
+        "kind": "npm",
+        "package": "commander",
+        "version": "6.2.0"
+      },
+      "topic": "command-line interfaces",
+      "purpose": "Node.js CLI framework documentation and comments"
+    },
+    {
+      "name": "date-fns/date-fns",
+      "url": "https://github.com/date-fns/date-fns.git",
+      "tag": "v2.16.1",
+      "ecosystem": "javascript",
+      "license": "MIT",
+      "registry": {
+        "kind": "npm",
+        "package": "date-fns",
+        "version": "2.16.1"
+      },
+      "topic": "date handling",
+      "purpose": "JavaScript date library documentation and comments"
+    },
+    {
+      "name": "yargs/yargs",
+      "url": "https://github.com/yargs/yargs.git",
+      "tag": "v16.1.1",
+      "ecosystem": "javascript",
+      "license": "MIT",
+      "registry": {
+        "kind": "npm",
+        "package": "yargs",
+        "version": "16.1.1"
+      },
+      "topic": "command-line interfaces",
+      "purpose": "Node.js argument parser documentation and comments"
+    },
+    {
+      "name": "serde-rs/serde",
+      "url": "https://github.com/serde-rs/serde.git",
+      "tag": "v1.0.118",
+      "ecosystem": "rust",
+      "license": "MIT OR Apache-2.0",
+      "registry": {
+        "kind": "crates",
+        "package": "serde",
+        "version": "1.0.118"
+      },
+      "topic": "serialization",
+      "purpose": "Rust serialization framework documentation and comments"
+    },
+    {
+      "name": "clap-rs/clap",
+      "url": "https://github.com/clap-rs/clap.git",
+      "tag": "v2.33.3",
+      "ecosystem": "rust",
+      "license": "MIT",
+      "registry": {
+        "kind": "crates",
+        "package": "clap",
+        "version": "2.33.3"
+      },
+      "topic": "command-line interfaces",
+      "purpose": "Rust argument parser documentation and comments"
+    },
+    {
+      "name": "rust-random/rand",
+      "url": "https://github.com/rust-random/rand.git",
+      "tag": "0.7.3",
+      "ecosystem": "rust",
+      "license": "MIT OR Apache-2.0",
+      "registry": {
+        "kind": "crates",
+        "package": "rand",
+        "version": "0.7.3"
+      },
+      "topic": "random numbers",
+      "purpose": "Rust random number library documentation and comments"
+    },
+    {
+      "name": "rust-lang/regex",
+      "url": "https://github.com/rust-lang/regex.git",
+      "tag": "1.4.2",
+      "ecosystem": "rust",
+      "license": "MIT OR Apache-2.0",
+      "registry": {
+        "kind": "crates",
+        "package": "regex",
+        "version": "1.4.2"
+      },
+      "topic": "regular expressions",
+      "purpose": "Rust regex library documentation and comments"
+    },
+    {
+      "name": "serde-rs/json",
+      "url": "https://github.com/serde-rs/json.git",
+      "tag": "v1.0.60",
+      "ecosystem": "rust",
+      "license": "MIT OR Apache-2.0",
+      "registry": {
+        "kind": "crates",
+        "package": "serde_json",
+        "version": "1.0.60"
+      },
+      "topic": "serialization",
+      "purpose": "Rust JSON library documentation and comments"
+    },
+    {
+      "name": "google/gson",
+      "url": "https://github.com/google/gson.git",
+      "tag": "gson-parent-2.8.6",
+      "ecosystem": "java",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "maven",
+        "group": "com.google.code.gson",
+        "artifact": "gson",
+        "version": "2.8.6"
+      },
+      "topic": "serialization",
+      "purpose": "Java JSON library documentation and comments"
+    },
+    {
+      "name": "square/okhttp",
+      "url": "https://github.com/square/okhttp.git",
+      "tag": "parent-4.9.0",
+      "ecosystem": "java",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "maven",
+        "group": "com.squareup.okhttp3",
+        "artifact": "okhttp",
+        "version": "4.9.0"
+      },
+      "topic": "HTTP clients",
+      "purpose": "JVM HTTP client documentation and comments"
+    },
+    {
+      "name": "FasterXML/jackson-databind",
+      "url": "https://github.com/FasterXML/jackson-databind.git",
+      "tag": "jackson-databind-2.11.3",
+      "ecosystem": "java",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "maven",
+        "group": "com.fasterxml.jackson.core",
+        "artifact": "jackson-databind",
+        "version": "2.11.3"
+      },
+      "topic": "serialization",
+      "purpose": "Java data binding documentation and comments"
+    },
+    {
+      "name": "libuv/libuv",
+      "url": "https://github.com/libuv/libuv.git",
+      "tag": "v1.40.0",
+      "ecosystem": "c",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "asynchronous I/O",
+      "purpose": "C event loop library documentation and comments"
+    },
+    {
+      "name": "akheron/jansson",
+      "url": "https://github.com/akheron/jansson.git",
+      "tag": "v2.13.1",
+      "ecosystem": "c",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "serialization",
+      "purpose": "C JSON library documentation and comments"
+    },
+    {
+      "name": "DaveGamble/cJSON",
+      "url": "https://github.com/DaveGamble/cJSON.git",
+      "tag": "v1.7.14",
+      "ecosystem": "c",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "serialization",
+      "purpose": "C JSON parser documentation and comments"
+    },
+    {
+      "name": "fmtlib/fmt",
+      "url": "https://github.com/fmtlib/fmt.git",
+      "tag": "7.1.3",
+      "ecosystem": "cpp",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "string formatting",
+      "purpose": "C++ formatting library documentation and comments"
+    },
+    {
+      "name": "nlohmann/json",
+      "url": "https://github.com/nlohmann/json.git",
+      "tag": "v3.9.1",
+      "ecosystem": "cpp",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "serialization",
+      "purpose": "C++ JSON library documentation and comments"
+    },
+    {
+      "name": "gabime/spdlog",
+      "url": "https://github.com/gabime/spdlog.git",
+      "tag": "v1.8.2",
+      "ecosystem": "cpp",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "logging",
+      "purpose": "C++ logging library documentation and comments"
+    },
+    {
+      "name": "catchorg/Catch2",
+      "url": "https://github.com/catchorg/Catch2.git",
+      "tag": "v2.13.3",
+      "ecosystem": "cpp",
+      "license": "BSL-1.0",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "testing",
+      "purpose": "C++ test framework documentation and comments"
+    },
+    {
+      "name": "JamesNK/Newtonsoft.Json",
+      "url": "https://github.com/JamesNK/Newtonsoft.Json.git",
+      "tag": "12.0.3",
+      "ecosystem": "csharp",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "serialization",
+      "purpose": ".NET JSON library documentation and comments"
+    },
+    {
+      "name": "serilog/serilog",
+      "url": "https://github.com/serilog/serilog.git",
+      "tag": "v2.10.0",
+      "ecosystem": "csharp",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments"
+    },
+    {
+      "name": "bats-core/bats-core",
+      "url": "https://github.com/bats-core/bats-core.git",
+      "tag": "v1.2.1",
+      "ecosystem": "shell",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "testing",
+      "purpose": "Bash test framework documentation and scripts"
+    },
+    {
+      "name": "PowerShell/PSScriptAnalyzer",
+      "url": "https://github.com/PowerShell/PSScriptAnalyzer.git",
+      "tag": "1.19.1",
+      "ecosystem": "powershell",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "static analysis",
+      "purpose": "PowerShell analyzer documentation and scripts"
+    },
+    {
+      "name": "pester/Pester",
+      "url": "https://github.com/pester/Pester.git",
+      "tag": "5.1.0",
+      "ecosystem": "powershell",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "testing",
+      "purpose": "PowerShell test framework documentation and scripts"
+    },
+    {
+      "name": "google/googletest",
+      "url": "https://github.com/google/googletest.git",
+      "tag": "release-1.10.0",
+      "ecosystem": "cpp",
+      "license": "BSD-3-Clause",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "testing",
+      "purpose": "C++ test framework documentation and comments"
+    },
+    {
+      "name": "google/leveldb",
+      "url": "https://github.com/google/leveldb.git",
+      "tag": "1.22",
+      "ecosystem": "cpp",
+      "license": "BSD-3-Clause",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "storage",
+      "purpose": "C++ key-value store documentation and comments"
+    },
+    {
+      "name": "App-vNext/Polly",
+      "url": "https://github.com/App-vNext/Polly.git",
+      "tag": "7.2.1+7",
+      "ecosystem": "csharp",
+      "license": "BSD-3-Clause",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "resilience",
+      "purpose": ".NET resilience library documentation and comments"
+    },
+    {
+      "name": "winsw/winsw",
+      "url": "https://github.com/winsw/winsw.git",
+      "tag": "v2.10.3",
+      "ecosystem": "csharp",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "service wrapper",
+      "purpose": ".NET Windows service wrapper documentation and comments"
+    },
+    {
+      "name": "skylot/jadx",
+      "url": "https://github.com/skylot/jadx.git",
+      "tag": "v1.2.0",
+      "ecosystem": "java",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "decompilation",
+      "purpose": "Java decompiler documentation and comments"
+    },
+    {
+      "name": "Leaflet/Leaflet",
+      "url": "https://github.com/Leaflet/Leaflet.git",
+      "tag": "v1.7.1",
+      "ecosystem": "javascript",
+      "license": "BSD-2-Clause",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "maps",
+      "purpose": "JavaScript mapping library documentation and comments"
+    },
+    {
+      "name": "httpie/cli",
+      "url": "https://github.com/httpie/cli.git",
+      "tag": "2.3.0",
+      "ecosystem": "python",
+      "license": "BSD-3-Clause",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "HTTP client",
+      "purpose": "Python HTTP client documentation and comments"
+    },
+    {
+      "name": "sharkdp/fd",
+      "url": "https://github.com/sharkdp/fd.git",
+      "tag": "v8.2.1",
+      "ecosystem": "rust",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "file search",
+      "purpose": "Rust file finder documentation and comments"
+    },
+    {
+      "name": "ogham/exa",
+      "url": "https://github.com/ogham/exa.git",
+      "tag": "v0.9.0",
+      "ecosystem": "rust",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "file listing",
+      "purpose": "Rust directory lister documentation and comments"
+    },
+    {
+      "name": "rbenv/rbenv",
+      "url": "https://github.com/rbenv/rbenv.git",
+      "tag": "v1.1.2",
+      "ecosystem": "shell",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "version management",
+      "purpose": "Ruby version manager documentation and scripts"
+    },
+    {
+      "name": "google/flatbuffers",
+      "url": "https://github.com/google/flatbuffers.git",
+      "tag": "v1.12.0",
+      "ecosystem": "cpp",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "serialization",
+      "purpose": "C++ serialization library documentation and comments"
+    },
+    {
+      "name": "jarun/nnn",
+      "url": "https://github.com/jarun/nnn.git",
+      "tag": "v3.5",
+      "ecosystem": "c",
+      "license": "BSD-2-Clause",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "file manager",
+      "purpose": "C terminal file manager documentation and comments"
+    },
+    {
+      "name": "skywind3000/kcp",
+      "url": "https://github.com/skywind3000/kcp.git",
+      "tag": "1.7",
+      "ecosystem": "c",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "networking",
+      "purpose": "C reliable transport protocol documentation and comments"
+    },
+    {
+      "name": "ReactiveX/RxJava",
+      "url": "https://github.com/ReactiveX/RxJava.git",
+      "tag": "v3.0.9",
+      "ecosystem": "java",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "reactive streams",
+      "purpose": "Java reactive library documentation and comments"
+    },
+    {
+      "name": "jquery/jquery",
+      "url": "https://github.com/jquery/jquery.git",
+      "tag": "3.5.0",
+      "ecosystem": "javascript",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "DOM library",
+      "purpose": "JavaScript DOM library documentation and comments"
+    },
+    {
+      "name": "mitmproxy/mitmproxy",
+      "url": "https://github.com/mitmproxy/mitmproxy.git",
+      "tag": "v6.0.1",
+      "ecosystem": "python",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "HTTP proxy",
+      "purpose": "Python interactive proxy documentation and comments"
+    },
+    {
+      "name": "tree-sitter/tree-sitter",
+      "url": "https://github.com/tree-sitter/tree-sitter.git",
+      "tag": "0.17.3",
+      "ecosystem": "rust",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "parsing",
+      "purpose": "Rust parser generator documentation and comments"
+    },
+    {
+      "name": "yewstack/yew",
+      "url": "https://github.com/yewstack/yew.git",
+      "tag": "0.17.3",
+      "ecosystem": "rust",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "web framework",
+      "purpose": "Rust web framework documentation and comments"
+    },
+    {
+      "name": "restic/restic",
+      "url": "https://github.com/restic/restic.git",
+      "tag": "v0.11.0",
+      "ecosystem": "go",
+      "license": "BSD-2-Clause",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "backup",
+      "purpose": "Go backup program documentation and comments"
+    },
+    {
+      "name": "tj/git-extras",
+      "url": "https://github.com/tj/git-extras.git",
+      "tag": "6.1.0",
+      "ecosystem": "shell",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "git tooling",
+      "purpose": "Git utility scripts documentation"
+    },
+    {
+      "name": "tj/n",
+      "url": "https://github.com/tj/n.git",
+      "tag": "v7.0.0",
+      "ecosystem": "shell",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "version management",
+      "purpose": "Node version manager documentation and scripts"
+    },
+    {
+      "name": "sindresorhus/pure",
+      "url": "https://github.com/sindresorhus/pure.git",
+      "tag": "v1.15.0",
+      "ecosystem": "shell",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "shell prompt",
+      "purpose": "Zsh prompt documentation and scripts"
+    },
+    {
+      "name": "dahlbyk/posh-git",
+      "url": "https://github.com/dahlbyk/posh-git.git",
+      "tag": "v1.0.0-beta1",
+      "ecosystem": "powershell",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "git tooling",
+      "purpose": "PowerShell git integration documentation and scripts"
+    },
+    {
+      "name": "cmderdev/cmder",
+      "url": "https://github.com/cmderdev/cmder.git",
+      "tag": "v1.3.17",
+      "ecosystem": "powershell",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "console emulator",
+      "purpose": "Windows console emulator documentation and scripts"
+    }
   ]
 }

@@ -624,3 +624,34 @@ Changed fields:
 
 At this time the maintainer had viewed the aggregate tables of every run
 record and no per-partition table. No threshold and no minimum moves.
+
+### Amendment 5, September 12, 2026
+
+Document version 1.5. The identifier stays. Reason: the screening of
+Amendment 4 found the development partition at 10 components and the
+confirmation partition at 6, below the cluster minimum of 20 that every
+card needs. Version 2 named the remedy: repositories pinned to those
+partitions before any of their text is measured.
+
+Changed fields:
+
+- Sources. Revision 2 of `research/acquisition/sources-v1.json` adds 24
+  repositories. Selection looked at license, ecosystem diversity,
+  repository size, and a release dated on or before the boundary, never at
+  the text. The acquisition script corroborated 23 releases and left one
+  `vcs_only`; the log names each.
+- Partitions. `research/methods/partitions-v1.json` pins the 24
+  repositories, 10 to `development` and 14 to `final_test`, before their
+  first measurement. Its SHA-256 is now
+  `7d4ed44b59e24fe229123ebb4034439c66128a1b6ff452c01e2724a3002e75d1`. The
+  pinned plan holds 20 components in `development`, 20 in `final_test`,
+  24 in `training`, and 6 in `calibration`.
+- Exposure. No text of a new repository was measured or read before its
+  pin. The new development repositories receive tasks and responses of the
+  selection families, Claude and OpenAI, and the screening runs again on
+  the enlarged partition. The held-out family generates nothing for them
+  before the version 2 freeze.
+
+At this time the maintainer had viewed the screening record of Amendment 4
+and the aggregate tables of every run record. No threshold and no minimum
+moves.
