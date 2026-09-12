@@ -113,3 +113,9 @@ H0 documents of the same role.
 - [2026-09-12-qwen-27b](runs/2026-09-12-qwen-27b/README.md): the larger of
   the endpoint's two Qwen models under the same parameters, so the third
   family has two model strata like the first.
+- [2026-09-12-round2-haiku](runs/2026-09-12-round2-haiku/README.md): 150 new
+  tasks from the ten repositories amendment 5 pinned to `development`,
+  answered by the second Claude model.
+- [2026-09-12-round2-luna](runs/2026-09-12-round2-luna/README.md): the same
+  150 tasks answered by the OpenAI model, so both selecting families cover
+  the enlarged development partition.
