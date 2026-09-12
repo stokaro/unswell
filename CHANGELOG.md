@@ -12,6 +12,24 @@ The engine now records a block of mostly non-Latin prose as an exclusion with
 the reason `non-latin-prose`. It checks the other blocks of the document, and
 the run stays complete. Before, such a block failed the whole document.
 
+Extraction records three more exclusions. A shell string, heredoc, or
+here-string whose lines are mostly code is an `embedded-program`. A tag
+section of a JSDoc or Javadoc comment is a `doc-tag` or a `doc-example`. A
+comment that starts with a known tool prefix is a `directive`, the name that
+replaces `go-directive` and `source-directive`.
+
+A rule that exhausts its candidate budget on one document now abstains
+there. The result lists the abstention, the other rules keep their findings,
+and the run stays complete.
+
+The English provider splits a sentence after a dotted identifier or version
+such as `chi.Router.`, and its identity version is
+`prose-v3.2.1/chunks-v1/boundaries-v1`. Version 4 of `syntax.noun-stack`
+ends a run at a configured verb form. Version 2 of `syntax.parenthetical-load`
+skips an insertion shorter than `min_insertion_words`. The grade metric, at
+version 2, grades prose words only. Feature and policy hashes change with
+these versions.
+
 ## 0.1.0-alpha.2
 
 Second experimental release of the same offline engine, CLI, MCP server, and
