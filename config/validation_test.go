@@ -106,6 +106,8 @@ func TestOutOfRangeRuleParametersFailValidation(t *testing.T) {
 			"syntax.parenthetical-load: invalid allowed_depth parameter"},
 		{"saturation_depth", "syntax.parenthetical-load:\n    parameters:\n      saturation_depth: 40\n",
 			"syntax.parenthetical-load: invalid saturation_depth parameter"},
+		{"min_insertion_words", "syntax.parenthetical-load:\n    parameters:\n      min_insertion_words: 101\n",
+			"syntax.parenthetical-load: invalid min_insertion_words parameter"},
 		{"max_item_words", "format.list-fragmentation:\n    parameters:\n      max_item_words: 0\n",
 			"format.list-fragmentation: invalid max_item_words parameter"},
 		{"max_list_items", "format.list-fragmentation:\n    parameters:\n      max_list_items: 0\n",

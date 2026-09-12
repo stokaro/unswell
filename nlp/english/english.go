@@ -40,7 +40,7 @@ func New() (*Provider, error) {
 // Identity returns an independent capability slice and pinned model metadata.
 func (p *Provider) Identity() nlp.Identity {
 	return nlp.Identity{
-		Name: "builtin-en", Version: "prose-v3.2.1/chunks-v1", Model: "prose/aptagmodel/en.bin", License: "MIT",
+		Name: "builtin-en", Version: "prose-v3.2.1/chunks-v1/boundaries-v1", Model: "prose/aptagmodel/en.bin", License: "MIT",
 		ModelHash:         "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
 		SentenceModelHash: "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
 		Capabilities:      []nlp.Capability{nlp.Tokens, nlp.Sentences, nlp.POS, nlp.Chunks},
@@ -48,6 +48,8 @@ func (p *Provider) Identity() nlp.Identity {
 }
 
 // Analyze segments one block, preserving the source map for all output tokens.
+// Punkt segments are repaired at a period that ends a dotted identifier or
+// version and precedes a sentence opener; see repairBoundaries.
 func (p *Provider) Analyze(ctx context.Context, mapped document.MappedText, required []nlp.Capability) ([]document.Sentence, error) {
 	if err := ctx.Err(); err != nil {
 		return nil, err
@@ -66,16 +68,22 @@ func (p *Provider) Analyze(ctx context.Context, mapped document.MappedText, requ
 		if err := ctx.Err(); err != nil {
 			return nil, err
 		}
-		out, err := p.sentence(mapped, sent, withPOS)
-		if err != nil {
-			return nil, err
+		for _, part := range repairBoundaries(sent, p.tokenizer.Tokenize(sent.Text)) {
+			out, err := p.sentence(mapped, part.sentence, part.tokens, withPOS)
+			if err != nil {
+				return nil, err
+			}
+			result = append(result, out)
 		}
-		result = append(result, out)
 	}
 	return result, ctx.Err()
 }
 
-func (p *Provider) sentence(mapped document.MappedText, sent segment.Sentence, withPOS bool) (document.Sentence, error) {
+// sentence builds one output sentence from its already tokenized text. Tags
+// and chunks are computed on the repaired sentence, not the Punkt segment.
+func (p *Provider) sentence(
+	mapped document.MappedText, sent segment.Sentence, tokens []tokenize.Token, withPOS bool,
+) (document.Sentence, error) {
 	spans := mapped.Spans(sent.Start, sent.End())
 	result := document.Sentence{
 		Text:   sent.Text,
@@ -84,7 +92,6 @@ func (p *Provider) sentence(mapped document.MappedText, sent segment.Sentence, w
 		Tokens: []document.Token{},
 		Chunks: []document.Chunk{},
 	}
-	tokens := p.tokenizer.Tokenize(sent.Text)
 	if withPOS {
 		tagger, err := p.tagger()
 		if err != nil {

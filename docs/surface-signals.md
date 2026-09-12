@@ -17,11 +17,11 @@ and comparative qualification remain in #56 and #57.
 | Rule | Candidate condition | Parameters and defaults | Weight/cap |
 | --- | --- | --- | --- |
 | `syntax.nominalization-chain` | Configured verb + optional modifiers + configured common noun + `of` + a common-noun complement | `verbs`, `nouns` | 12/24 |
-| `syntax.noun-stack` | NN modifiers with an NN/NNS head inside a shallow NP chunk | `onset: 3`, `saturation: 7` | 8/16 |
+| `syntax.noun-stack` | NN modifiers with an NN/NNS head inside a shallow NP chunk | `onset: 3`, `saturation: 7`, `verbs` | 8/16 |
 | `syntax.passive-candidate-density` | Multiple sentences with be + up to four adverbs + VBN | `min_words: 8`, `window_sentences: 8`, `allowed_occurrences: 1`, `saturation_occurrences: 4` | 6/12 |
-| `syntax.parenthetical-load` | Balanced insertion word count, pair count, or nesting | `min_words: 20`, `onset: 12`, `saturation: 36`, `allowed_occurrences: 2`, `saturation_occurrences: 5`, `allowed_depth: 1`, `saturation_depth: 4` | 8/16 |
+| `syntax.parenthetical-load` | Balanced insertion word count, pair count, or nesting | `min_words: 20`, `onset: 12`, `saturation: 36`, `allowed_occurrences: 2`, `saturation_occurrences: 5`, `allowed_depth: 1`, `saturation_depth: 4`, `min_insertion_words: 2` | 8/16 |
 | `readability.long-paragraph` | Both a long block and several long sentences | `onset: 120`, `saturation: 240`, `sentence_words: 25`, `min_long_sentences: 2` | 8/16 |
-| `readability.grade-metric` | ARI formula above the selected level | `min_words: 50`, `min_sentences: 2`, `onset: 12`, `saturation: 20` | 0/0 |
+| `readability.grade-metric` | ARI formula over prose words above the selected level | `min_words: 50`, `min_sentences: 2`, `onset: 12`, `saturation: 20` | 0/0 |
 | `format.em-dash-density` | More than the permitted number of U+2014 characters and excess local density | `min_words: 40`, `allowed_occurrences: 1`, `onset: 2`, `saturation: 6` | 0/0 |
 | `format.list-fragmentation` | Multiple short, complete unordered lists in one bounded section | `window_blocks: 32`, `max_item_words: 10`, `max_list_items: 3`, `allowed_occurrences: 2`, `saturation_occurrences: 5` | 0/0 |
 
@@ -75,6 +75,17 @@ fraction of words written by AI.` exposed an all-NN tagging error in dogfooding.
 This boundary preserves the negation and leaves the backend's tags untouched.
 The rule still abstains on interior NNS tags, retaining the earlier `defines` and
 `latches` regressions at the cost of missing some genuine plural modifiers.
+Rule version 4 also ends a run at a configured verb form in predicate position.
+The `verbs` list holds literal forms that the tagger marked NN or NNS in real
+documentation: `applies`, `remain`, `require`, `specify`, `reconstruct`, `stores`,
+`vet`, and their inflections. A listed form ends the run when more noun-phrase
+material follows it inside the chunk, or when it closes the chunk before a
+preposition, punctuation, or the sentence end. When the form closes the chunk
+before a verb phrase, it is the subject head and the run continues. `The analysis
+completion state applies to every block` and `cannot reconstruct feature input
+hashes` no longer report a stack; `The service request response status code is
+recorded` still does. Keep the list narrow: a form that is also a common noun
+modifier shortens a genuine stack. No lemmatization is implied.
 Other mistagged verb phrases may still produce false candidates; this rule remains
 experimental and disabled in builtin profiles.
 Noun and short-list candidates require alphabetic prose words; format placeholders
@@ -92,6 +103,12 @@ nesting. An unfinished or mismatched frame is discarded; protected boundaries re
 open frames. In Markdown, link delimiters are handled by extraction and do not become
 parenthetical evidence. Escaped literal brackets and brackets in source strings are
 eligible. Nesting beyond 256 levels returns an error instead of truncating a result.
+Rule version 2 skips an insertion with fewer than `min_insertion_words` nonexempt
+words. With the default of 2, an issue reference such as `(#56)`, a license label
+such as `(MIT)` or `(BSD-2-Clause)`, and an acronym gloss such as `(API)` add
+nothing to the word count, the pair count, or the nesting depth. A two-word aside
+such as `(see below)` still counts. Set `min_insertion_words: 1` to count every
+nonempty insertion as before.
 
 Noun-stack version 2 requires singular noun modifiers. A final plural noun remains
 eligible, but an interior NNS tag makes the sequence inapplicable. The POS model
@@ -119,12 +136,34 @@ Unswell implements the formula over its extracted tokens. This implementation do
 not reproduce a published comprehension study or qualify the result on source code.
 It uses no syllable dictionary, downloaded resources, or external process.
 
-A word is a token marked as a word by the pinned English backend and not protected
-by extraction. Characters are Unicode letters and digits within those tokens,
-excluding punctuation. Sentences are NLP segments containing at least one such word.
+In the shared features, a word is a token marked as a word by the pinned English
+backend and not protected by extraction. Characters are Unicode letters and digits
+within those tokens, excluding punctuation. Sentences are NLP segments containing
+at least one such word. Protected code spans are never counted.
+
+Rule version 2 of `readability.grade-metric` gates on its own value,
+`automated-readability-index-prose`, computed from prose-only counts. A token with
+an inner uppercase letter, a digit, an underscore, a period, or a slash names code
+and is not a word, so `TransportCacheEntry`, `config_v2`, `main.go`, and `v1.2`
+do not raise the average word length. Each hyphen-separated part of a compound such
+as `feature-collection` is one word. A sentence counts when it keeps at least one
+such word. The `min_words` and `min_sentences` minimums apply to these counts, so a
+block that is mostly identifiers reports `insufficient_words` instead of a finding.
+The evidence reports the prose value with its denominators (`ari-words`,
+`ari-characters`, `ari-sentences`) and the shared `automated-readability-index` for
+comparison. The shared feature keeps its documented counts and its input hash.
+
 The unrounded result uses `ARI-formula-units`; it is not an age prediction,
 probability, or percentage of AI-written text. A block below its minimum length has
 no ARI finding. This does not mean zero editorial risk or confirmed human authorship.
+
+Sentence boundaries come from the English provider. Punkt treats a period after a
+dotted identifier or version, such as `chi.Router.` or `v1.2.`, as an abbreviation
+and joins the next sentence to it; a following code span cannot restore the break.
+Provider version `boundaries-v1` splits such a segment when a capitalized word,
+optionally after an opening quote or bracket, or a protected code span follows
+the period. `e.g.`, `i.e.`, `U.S.`, `Dr.`, `etc.`, and a lowercase continuation keep
+Punkt's result. Tags and chunks are computed on the repaired sentence.
 
 Both readability rules use shared counting functions and report:
 

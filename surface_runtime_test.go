@@ -58,7 +58,9 @@ func TestSurfaceParameterValidation(t *testing.T) {
 		{"format.list-fragmentation", "max_item_words: 0"},
 		{"format.list-fragmentation", "max_list_items: 101"},
 		{"format.em-dash-density", "allowed_occurrences: -1"},
-		{"syntax.noun-stack", "verbs: [perform]"},
+		{"syntax.noun-stack", "verbs: [perform evaluation]"},
+		{"syntax.parenthetical-load", "min_insertion_words: 101"},
+		{"syntax.parenthetical-load", "min_insertion_words: -1"},
 	} {
 		t.Run(row.id+"/"+row.parameters, func(t *testing.T) {
 			c := qt.New(t)
@@ -127,6 +129,14 @@ func TestSurfaceDictionariesAreImmutable(t *testing.T) {
 	policy.Rules["syntax.nominalization-chain"].Parameters.Verbs[0] = "corrupted"
 	policy.Rules["syntax.nominalization-chain"].Parameters.Nouns[2] = "corrupted"
 	result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(nominalProse)})
+	c.Assert(err, qt.IsNil)
+	c.Assert(result.Findings, qt.HasLen, 1)
+	engine = singleRuleEngine(t, "syntax.noun-stack", "", "")
+	policy, err = engine.PolicyForFile("guide.md")
+	c.Assert(err, qt.IsNil)
+	// A leaked "request" would end the run after "service" and silence the stack.
+	policy.Rules["syntax.noun-stack"].Parameters.Verbs[0] = "request"
+	result, err = engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(nounProse)})
 	c.Assert(err, qt.IsNil)
 	c.Assert(result.Findings, qt.HasLen, 1)
 }

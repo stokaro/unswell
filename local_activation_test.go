@@ -125,6 +125,8 @@ func TestLocalActivationsRetainApplicabilityReasons(t *testing.T) {
 		{"syntax.parenthetical-load", ".", "{min_words: 0}", "", "no_prose_words"},
 		{"syntax.parenthetical-load", "client", "{min_words: 0}",
 			"vocabulary:\n  terms: [client]\n  term_exemptions: [syntax.parenthetical-load]\n", "no_eligible_tokens"},
+		{"readability.grade-metric", "The TransportCacheEntry keeps config_v2 values.", "{min_words: 4}", "", "insufficient_words"},
+		{"readability.grade-metric", "TransportCacheEntry `config` v2", "{min_words: 1}", "", "no_prose_words"},
 		{"format.em-dash-density", "# The client starts\n", "", "", "unsupported_unit"},
 		{"format.em-dash-density", "The client starts.", "", "", "insufficient_words"},
 		{"format.em-dash-density", "—", "{min_words: 0}", "", "no_prose_words"},

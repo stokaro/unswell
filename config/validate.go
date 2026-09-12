@@ -155,7 +155,8 @@ func parameterValidity(p rule.Parameters) map[string]bool {
 		"min_sentences":    inRange(p.MinSentences, 1, 1000), "sentence_words": inRange(p.SentenceWords, 1, 10000),
 		"min_long_sentences": inRange(p.MinLongSentences, 1, 1000),
 		"allowed_depth":      inRange(p.AllowedDepth, 0, 16), "saturation_depth": inRange(p.SaturationDepth, p.AllowedDepth+1, 32),
-		"max_item_words": inRange(p.MaxItemWords, 1, 1000), "max_list_items": inRange(p.MaxListItems, 1, 100),
+		"min_insertion_words": inRange(p.MinInsertionWords, 0, 100),
+		"max_item_words":      inRange(p.MaxItemWords, 1, 1000), "max_list_items": inRange(p.MaxListItems, 1, 100),
 		"similarity": !math.IsNaN(p.Similarity) && p.Similarity > 0 && p.Similarity <= 1, "window": p.Window == "document",
 	}
 }
