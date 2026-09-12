@@ -17,7 +17,7 @@ bash scripts/check-image-mirrors.sh --validate "$version" "$namespace"
 }
 
 # Skopeo 1.22.2 copies every manifest without rebuilding the release.
-mirror_tool=quay.io/skopeo/stable@sha256:e5d9c4af8ec327785c7ca938d1e4f8452c6a05014850e58e2ff9456899ebd97c
+mirror_tool=quay.io/skopeo/stable@sha256:545723edab7793112a5c8fc36963f5cad43c6f27c0bda63c5fbc8b5d4d336036
 mirror_temporary=$(mktemp -d)
 mirror_container="unswell-mirror-$(basename "$mirror_temporary")"
 mirror_tool_created=false
