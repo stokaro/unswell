@@ -92,7 +92,7 @@ func (a *ngramAnalysis) addSentence(item repetitionSentence) error {
 		return nil
 	})
 	if errors.Is(err, feature.ErrTokenLimit) {
-		return fmt.Errorf("repetition work exceeds max_candidates: %w", err)
+		return rule.Abstain(rule.ReasonBudgetExhausted, fmt.Errorf("repetition work exceeds max_candidates: %w", err))
 	}
 	if err != nil {
 		return err

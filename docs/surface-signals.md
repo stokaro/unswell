@@ -173,8 +173,11 @@ The MCP protocol test compares passive-candidate evidence with the public engine
 
 Work consumes the existing `max_candidates` budget and observes cancellation.
 All buffers are local to an analysis. Bounded list windows and indexed mapped ranges
-avoid comparing every punctuation mark with every sentence. Resource exhaustion makes
-a scan incomplete. Regular rules and index scoring remain available without a model.
+avoid comparing every punctuation mark with every sentence. A rule that exhausts
+its own budget abstains on that document with the reason `budget_exhausted`, and
+the other rules' findings stay. The shared feature set has an engine-level
+budget; exhausting it still makes the scan incomplete. Regular rules and index
+scoring remain available without a model.
 
 Corpus precision, calibration, feature ablation, and default qualification remain
 open. Repository self-checks and Ptah smoke scans verify execution and expose findings;

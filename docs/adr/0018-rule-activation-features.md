@@ -39,6 +39,8 @@ earlier failure remain `not_evaluated`. A failed evaluation or observer/emitter
 error makes its values absent with `evaluation_failed`, including blocks with
 partial evidence. Previously completed values may remain in an incomplete run;
 the enclosing completion state still prevents treating it as complete model data.
+A rule that exhausts its own candidate budget abstains on the document: its
+values are absent with `inapplicable/budget_exhausted`, and the run stays complete.
 
 Bind values to the existing source, context, policy, vocabulary, NLP and rule
 identities. Preserve original extraction boundaries. Activation values do not

@@ -90,6 +90,18 @@ func (p *Plan) covering(ctx context.Context, ruleID string, span document.Span) 
 	return -1, nil
 }
 
+// Excuse names rules that abstained on the document. A permission for such a
+// rule had no findings to cover, so ValidateUse does not report it as unused.
+// The entry keeps its audit record and its unused status.
+func (p *Plan) Excuse(ruleIDs []string) {
+	if p.excused == nil {
+		p.excused = make(map[string]bool, len(ruleIDs))
+	}
+	for _, id := range ruleIDs {
+		p.excused[id] = true
+	}
+}
+
 // ValidateUse rejects each permission that did not cover a complete raw finding.
 func (p *Plan) ValidateUse() error {
 	if !p.options.RejectUnused {
@@ -97,7 +109,7 @@ func (p *Plan) ValidateUse() error {
 	}
 	for _, entry := range p.Entries {
 		for _, id := range entry.Rules {
-			if !slices.Contains(entry.UsedRules, id) {
+			if !slices.Contains(entry.UsedRules, id) && !p.excused[id] {
 				return at(entry.Span, fmt.Errorf("unused suppression for rule %s", id))
 			}
 		}

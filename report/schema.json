@@ -1568,6 +1568,15 @@
     "unswell.Manifest": {
       "additionalProperties": false,
       "properties": {
+        "abstained_rules": {
+          "items": {
+            "type": "string"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
         "complete": {
           "type": "boolean"
         },
@@ -1944,6 +1953,33 @@
       ],
       "type": "object"
     },
+    "unswell.RuleAbstention": {
+      "additionalProperties": false,
+      "properties": {
+        "detail": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "rule_id": {
+          "type": "string"
+        },
+        "rule_version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "rule_id",
+        "rule_version",
+        "reason"
+      ],
+      "type": "object"
+    },
     "unswell.RunError": {
       "additionalProperties": false,
       "properties": {
@@ -1963,6 +1999,15 @@
     "unswell.RunResult": {
       "additionalProperties": false,
       "properties": {
+        "abstentions": {
+          "items": {
+            "$ref": "#/$defs/unswell.RuleAbstention"
+          },
+          "type": [
+            "array",
+            "null"
+          ]
+        },
         "assessments": {
           "items": {
             "$ref": "#/$defs/unswell.Assessment"

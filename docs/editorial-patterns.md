@@ -107,9 +107,11 @@ the rule version; changed behavior is not hidden behind an unchanged identity.
 The new rules reuse the existing tokens, source maps, `rule.Metric`, evidence,
 scoring, and `RunResult`. Reporters and MCP do not recompute them. Dictionary and
 threshold changes participate in existing rule/config identities. Candidate checks
-are limited by `max_candidates`; token volume and emitted findings retain the
-engine's independent limits. A limit or cancellation produces an incomplete/error
-result, never a silently successful required check.
+are limited by `max_candidates`. A rule that exhausts them abstains on that
+document with the reason `budget_exhausted`: it reports no findings there, and
+the other rules' findings stay. Token volume and emitted findings retain the
+engine's independent limits. Those limits and cancellation produce an
+incomplete/error result, never a silently successful required check.
 
 [CLI fixtures](../e2e/testdata/editorial_patterns) retain exact expected detections,
 related locations, and technical counterexamples. The [Go case](../e2e/testdata/editorial_code)

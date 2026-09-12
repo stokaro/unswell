@@ -15,7 +15,8 @@ label{display:inline-block;margin-right:1rem}input,select{font:inherit;padding:.
 {{if .Origin}}<p>Origin estimate: {{.Origin}}</p>{{end}}
 <nav aria-label="Report sections"><ul><li><a href="#gate">Gate</a></li><li><a href="#files">Files and coverage</a></li><li><a href="#findings">Findings</a></li><li><a href="#paragraphs">Paragraph scores</a></li>{{if .Result.Suppressions}}<li><a href="#suppressions">Source permissions</a></li>{{end}}{{if .Result.Features}}<li><a href="#features">Shared measurements</a></li>{{end}}{{if .Result.PreparedFeatures}}<li><a href="#prepared-features">Prepared measurements</a></li>{{end}}<li><a href="#manifest">Analysis manifest</a></li></ul></nav></header>
 <main><section id="gate"><h2>Gate decision</h2>{{range .Result.Gate.Reasons}}<p><a href="#finding-{{.FindingID}}">{{.Path}}</a>: {{.Message}}</p>{{else}}<p>No editorial gate failures.</p>{{end}}
-{{range .Result.Errors}}<p class="error">Operational error: {{.Path}} — {{.Message}}</p>{{end}}</section>
+{{range .Result.Errors}}<p class="error">Operational error: {{.Path}} — {{.Message}}</p>{{end}}
+{{range .Result.Abstentions}}<p>Rule abstained: {{.Path}} — {{.RuleID}} ({{.Reason}}){{if .Detail}}: {{.Detail}}{{end}}</p>{{end}}</section>
 {{if .Result.Baseline}}<section id="baseline"><h2>Baseline debt</h2>
 <p>{{len .Result.Baseline.Matches}} compared candidates; {{len .Result.Baseline.Stale}} stale entries; {{len .Result.Baseline.Unobserved}} unobserved entries.</p>
 {{if .Result.Gate.Accepted}}<details><summary>Gate reasons accepted in new mode</summary><ul>

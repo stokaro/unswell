@@ -25,17 +25,17 @@ func TestQualifierActivationsDoNotRestoreExcludedProse(t *testing.T) {
 	c.Assert(result.Features.Sources[0].Units, qt.HasLen, 0)
 }
 
-func TestQualifierActivationsRetainFailuresAndConcurrentOwnership(t *testing.T) {
+func TestQualifierActivationsRecordAbstentionsAndConcurrentOwnership(t *testing.T) {
 	c := qt.New(t)
 	engine, err := unswell.New(unswell.Options{NoGate: true, Features: []string{"activation/hype.vague-praise"}, Config: []byte(
 		"version: 1\nextends: [builtin:custom]\nanalysis: {max_candidates: 3}\nrules:\n" +
 			"  hype.vague-praise: {enabled: true, parameters: {phrases: [alpha beta, alpha gamma, alpha delta, alpha epsilon]}}\n")})
 	c.Assert(err, qt.IsNil)
 	result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte("Alpha")})
-	c.Assert(err, qt.ErrorMatches, ".*editorial pattern checks exceed max_candidates.*")
-	c.Assert(result.Manifest.Complete, qt.IsFalse)
-	c.Assert(result.Gate.Passed, qt.IsFalse)
-	assertPhraseMeasurements(t, result, []string{"evaluation_failed"}, nil)
+	c.Assert(err, qt.IsNil)
+	assertBudgetAbstention(t, result, "guide.md", "hype.vague-praise", "editorial pattern checks exceed max_candidates")
+	c.Assert(result.Gate.Passed, qt.IsTrue)
+	assertPhraseMeasurements(t, result, []string{"inapplicable/budget_exhausted"}, nil)
 	engine, err = unswell.New(qualifierOptions())
 	c.Assert(err, qt.IsNil)
 	source := document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(

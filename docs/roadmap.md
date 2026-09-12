@@ -126,7 +126,7 @@ need is written down.
 | Strict configuration | Unknown fields, rule IDs, parameters, duplicates, bad ranges and unavailable models fail before analysis |
 | CLI | Files, directories, stdin, explicit formats, configuration inspection, rules, doctor, explain, saved-report transformation |
 | Reports | Text, JSON, SARIF 2.1.0, standalone HTML and Markdown from one result; schema, escaping and write-error tests |
-| Operational behavior | Empty input, cancellation, resource exhaustion and failed output cannot pass; input files remain unchanged |
+| Operational behavior | Empty input, cancellation, engine resource exhaustion and failed output cannot pass; a rule's own exhausted budget is a recorded abstention; input files remain unchanged |
 | Determinism and ownership | Reordered inputs, worker counts and concurrent calls return equivalent results without shared result buffers |
 | Project quality | Strict lint, qtlint, nolintguard, architecture/API/module gates and their negative tests; reproducible `make check` |
 | Native platforms and release | Linux/macOS/Windows test results, minimum Go compiler without auto-upgrade, release binaries, checksums and SBOM |

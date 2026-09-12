@@ -453,3 +453,19 @@ The `feature` catalog adds a repetition family: `peak-word-frequency-ratio`,
 descriptors keep their definitions and positions, while measurement identities
 change because they cover the descriptor set. See
 [ADR 0016](adr/0016-shared-features.md).
+
+Budget abstentions add `rule.Abstention`, `rule.Abstain`,
+`rule.ReasonBudgetExhausted`, `RuleAbstention`, `RunResult.Abstentions`, and
+`Manifest.AbstainedRules`.
+
+A rule returns an abstention from `Evaluate` when it declines one document for
+a valid reason. The engine records it. It drops that rule's partial findings
+and its values for the document, which become `inapplicable/<reason>`. The
+other rules' findings stay, and the run stays complete. Builtin rules and
+declarative packs abstain with `budget_exhausted` when their own
+`analysis.max_candidates` budget runs out. The engine budgets for shared
+features, feature and prepared collection, term matching, and suppression
+planning remain operational errors. A permission for an abstaining rule is not
+an unused permission error. The new fields are omitted when empty, so earlier
+saved results remain readable. `report.Read` requires the manifest to name
+every abstaining rule.

@@ -1,6 +1,8 @@
 // Package unswell analyzes English prose offline with an extensible rule engine.
 // It never discovers files, reads environment variables, prints, exits, or uses
 // the network. Style findings are results; operational failures are Go errors.
+// A rule that exhausts its own candidate budget on one document abstains there
+// instead: the result records the abstention and the other rules' findings stay.
 package unswell
 
 import (
@@ -294,12 +296,28 @@ func (e *Engine) analyzeAll(ctx context.Context, sources []document.Source, iden
 			result.BaselineSnapshot.Candidates = append(result.BaselineSnapshot.Candidates, part.BaselineSnapshot.Candidates...)
 		}
 		result.Gate.Reasons = append(result.Gate.Reasons, part.Gate.Reasons...)
+		result.Abstentions = append(result.Abstentions, part.Abstentions...)
 		if errorsBySource[i] != nil {
 			result.Errors = append(result.Errors, RunError{Path: sources[i].Name, Message: errorsBySource[i].Error()})
 		}
 	}
+	result.Manifest.AbstainedRules = abstainedRules(result.Abstentions)
 	result, err = e.finishBaseline(ctx, result, errors.Join(errorsBySource...))
 	return result, identities, err
+}
+
+// abstainedRules names each abstaining rule once, sorted, so the manifest
+// states the reduced coverage of the run.
+func abstainedRules(abstentions []RuleAbstention) []string {
+	if len(abstentions) == 0 {
+		return nil
+	}
+	ids := make([]string, 0, len(abstentions))
+	for _, abstention := range abstentions {
+		ids = append(ids, abstention.RuleID)
+	}
+	slices.Sort(ids)
+	return slices.Compact(ids)
 }
 
 // reserve sizes the merged slices once. Growing them by doubling while

@@ -240,7 +240,7 @@ func (index *candidateIndex) candidates(ctx context.Context, shingles []string) 
 		for _, candidate := range index.postings[shingle] {
 			index.remaining--
 			if index.remaining < 0 {
-				return nil, fmt.Errorf("near-sentence candidate index budget exceeded")
+				return nil, rule.Abstain(rule.ReasonBudgetExhausted, fmt.Errorf("near-sentence candidate index budget exceeded"))
 			}
 			set[candidate] = true
 		}

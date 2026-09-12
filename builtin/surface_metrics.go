@@ -29,7 +29,8 @@ func measureProse(m *editorialMatcher, block document.Block) (feature.Measuremen
 	}
 	if err != nil {
 		if errors.Is(err, feature.ErrTokenLimit) {
-			return feature.Measurements{}, fmt.Errorf("editorial pattern checks exceed max_candidates: %w", err)
+			return feature.Measurements{}, rule.Abstain(rule.ReasonBudgetExhausted,
+				fmt.Errorf("editorial pattern checks exceed max_candidates: %w", err))
 		}
 		return feature.Measurements{}, err
 	}
@@ -38,7 +39,8 @@ func measureProse(m *editorialMatcher, block document.Block) (feature.Measuremen
 	}
 	m.checks += stats.Counts().TokenVisits
 	if m.checks > m.view.MaxCandidates {
-		return feature.Measurements{}, fmt.Errorf("editorial pattern checks exceed max_candidates")
+		return feature.Measurements{}, rule.Abstain(rule.ReasonBudgetExhausted,
+			fmt.Errorf("editorial pattern checks exceed max_candidates"))
 	}
 	return stats, m.ctx.Err()
 }

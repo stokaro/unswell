@@ -42,13 +42,14 @@ func TestEditorialTermsReduceCountsBeforeScoring(t *testing.T) {
 	c.Assert(result.Findings, qt.HasLen, 0)
 }
 
-func TestEditorialLimitsAndCancellationDoNotPass(t *testing.T) {
+func TestEditorialBudgetAbstainsAndCancellationDoesNotPass(t *testing.T) {
 	c := qt.New(t)
 	engine := editorialEngine(t, "filler.section-announcement", "analysis: {max_candidates: 1}\n")
 	text := "In this section, we will describe setup. In this section, we will describe deployment."
 	source := document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)}
-	_, err := engine.Analyze(t.Context(), source)
-	c.Assert(err, qt.ErrorMatches, ".*max_candidates.*")
+	result, err := engine.Analyze(t.Context(), source)
+	c.Assert(err, qt.IsNil)
+	assertBudgetAbstention(t, result, "guide.md", "filler.section-announcement", "editorial pattern checks exceed max_candidates")
 	ctx, cancel := context.WithCancel(t.Context())
 	cancel()
 	_, err = engine.Analyze(ctx, source)

@@ -29,23 +29,23 @@ func TestWindowPhraseActivationsPreserveCatalogExamples(t *testing.T) {
 	}
 }
 
-func TestWindowPhraseActivationFailuresAndConcurrentCalls(t *testing.T) {
+func TestWindowPhraseActivationAbstentionsAndConcurrentCalls(t *testing.T) {
 	c := qt.New(t)
 	config := "version: 1\nextends: [builtin:custom]\nrules:\n  filler.section-announcement: {enabled: true}\n"
 	// The collection fits three entries; four phrase attempts still exhaust the rule budget.
-	failure := "version: 1\nextends: [builtin:custom]\nanalysis: {max_candidates: 3}\nrules:\n" +
+	exhausted := "version: 1\nextends: [builtin:custom]\nanalysis: {max_candidates: 3}\nrules:\n" +
 		"  filler.section-announcement: {enabled: true, parameters: {phrases: [in alpha, in beta, in gamma, in delta]}}\n"
-	options := unswell.Options{NoGate: true, Config: []byte(failure),
+	options := unswell.Options{NoGate: true, Config: []byte(exhausted),
 		Features: []string{"activation/filler.section-announcement"}}
 	engine, err := unswell.New(options)
 	c.Assert(err, qt.IsNil)
 	source := document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(
 		"In this section, we will describe setup. In this section, we will describe deployment.")}
 	result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte("In")})
-	c.Assert(err, qt.ErrorMatches, ".*editorial pattern checks exceed max_candidates.*")
-	c.Assert(result.Manifest.Complete, qt.IsFalse)
-	c.Assert(result.Gate.Passed, qt.IsFalse)
-	assertPhraseMeasurements(t, result, []string{"evaluation_failed"}, nil)
+	c.Assert(err, qt.IsNil)
+	assertBudgetAbstention(t, result, "guide.md", "filler.section-announcement", "editorial pattern checks exceed max_candidates")
+	c.Assert(result.Gate.Passed, qt.IsTrue)
+	assertPhraseMeasurements(t, result, []string{"inapplicable/budget_exhausted"}, nil)
 	options.Config = []byte(config)
 	engine, err = unswell.New(options)
 	c.Assert(err, qt.IsNil)

@@ -48,7 +48,9 @@ func TestBuiltinShadowingIsAnError(t *testing.T) {
 	qt.New(t).Assert(err, qt.ErrorMatches, `duplicate rule ID "scaffold.chat-preamble"`)
 }
 
-func TestBudgetAndCancellationDoNotPass(t *testing.T) {
+// An exhausted work budget is a declared abstention of the declarative rule on
+// that document; cancellation stays an operational failure.
+func TestBudgetAbstainsAndCancellationDoesNotPass(t *testing.T) {
 	t.Parallel()
 	c := qt.New(t)
 	set, err := ruleset.Load(definition("type: sequence\ntokens: [{value: a}, {gap: {max: 32}}, {value: missing}]", ""))
@@ -57,9 +59,13 @@ func TestBudgetAndCancellationDoNotPass(t *testing.T) {
 	c.Assert(err, qt.IsNil)
 	source := document.Source{Name: "input.txt", Format: document.Plain, Bytes: []byte("a client returns a response.")}
 	result, err := engine.Analyze(context.Background(), source)
-	c.Assert(err, qt.IsNotNil)
-	c.Assert(result.Status, qt.Equals, "incomplete")
-	c.Assert(result.Gate.Passed, qt.IsFalse)
+	c.Assert(err, qt.IsNil)
+	c.Assert(result.Status, qt.Equals, "complete")
+	c.Assert(result.Findings, qt.HasLen, 0)
+	c.Assert(result.Abstentions, qt.DeepEquals, []unswell.RuleAbstention{{Path: "input.txt", RuleID: "company.wording",
+		RuleVersion: "1", Reason: rule.ReasonBudgetExhausted, Detail: "custom matcher exceeded max_candidates"}})
+	c.Assert(result.Manifest.AbstainedRules, qt.DeepEquals, []string{"company.wording"})
+	c.Assert(result.Gate.Passed, qt.IsTrue)
 	ctx, cancel := context.WithCancel(context.Background())
 	cancel()
 	result, err = engine.Analyze(ctx, source)

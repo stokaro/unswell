@@ -133,6 +133,10 @@ type Manifest struct {
 	NoGate          bool                      `json:"no_gate"`
 	IncludeSource   bool                      `json:"include_source"`
 	SkippedRules    []string                  `json:"skipped_rules"`
+	// AbstainedRules names each rule that abstained on at least one document,
+	// sorted and unique. Such a rule did not cover every document of the run;
+	// RunResult.Abstentions lists the documents and reasons.
+	AbstainedRules []string `json:"abstained_rules,omitempty"`
 }
 
 // GateReason identifies the exact local condition behind a policy failure.
@@ -155,6 +159,18 @@ type GateDecision struct {
 type RunError struct {
 	Path    string `json:"path"`
 	Message string `json:"message"`
+}
+
+// RuleAbstention records one rule that declined to judge one document for a
+// declared reason, such as an exhausted candidate budget. The document stays
+// measured by every other rule and the run stays complete; the abstaining rule
+// contributes no findings and no activation values for that document.
+type RuleAbstention struct {
+	Path        string `json:"path"`
+	RuleID      string `json:"rule_id"`
+	RuleVersion string `json:"rule_version"`
+	Reason      string `json:"reason"`
+	Detail      string `json:"detail,omitempty"`
 }
 
 // SuppressionTarget identifies one complete unit permitted by a source directive.
@@ -199,6 +215,9 @@ type RunResult struct {
 	Gate             GateDecision               `json:"gate"`
 	Errors           []RunError                 `json:"errors"`
 	Suppressions     []Suppression              `json:"suppressions,omitempty"`
+	// Abstentions lists each rule that declined one document, sorted by path
+	// and rule ID. Manifest.AbstainedRules names the affected rules once.
+	Abstentions []RuleAbstention `json:"abstentions,omitempty"`
 }
 
 // Result is the same report contract restricted to one source by Analyze.

@@ -105,7 +105,7 @@ func TestNearSentenceCandidateBudget(t *testing.T) {
 	engine := singleRuleEngine(t, "repetition.near-sentence", "", "analysis: {max_candidates: 1}\n")
 	text := nearContrastSentence + "\n\n" + strings.Replace(nearContrastSentence, "may", "must", 1)
 	result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)})
-	c.Assert(err, qt.ErrorMatches, ".*near-sentence candidate index budget exceeded.*")
-	c.Assert(result.Manifest.Complete, qt.IsFalse)
-	c.Assert(result.Gate.Passed, qt.IsFalse)
+	c.Assert(err, qt.IsNil)
+	assertBudgetAbstention(t, result, "guide.md", "repetition.near-sentence", "near-sentence candidate index budget exceeded")
+	c.Assert(result.Gate.Passed, qt.IsTrue)
 }

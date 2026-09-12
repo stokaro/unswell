@@ -31,6 +31,7 @@ type Entry struct {
 type Plan struct {
 	Entries     []Entry
 	byRule      map[string][]int
+	excused     map[string]bool
 	budget      int
 	options     Options
 	targetCount int

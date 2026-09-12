@@ -4,11 +4,13 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
+	"slices"
 	"sync"
 
 	"github.com/santhosh-tekuri/jsonschema/v6"
 
 	"github.com/stokaro/unswell"
+	"github.com/stokaro/unswell/feature"
 )
 
 //go:embed schema.json
@@ -57,7 +59,27 @@ func validateCompletion(result unswell.RunResult) error {
 	if result.Gate.Passed && (!complete || (!result.Manifest.NoGate && len(result.Gate.Reasons) != 0)) {
 		return fmt.Errorf("inconsistent policy decision")
 	}
+	if err := validateAbstentions(result); err != nil {
+		return err
+	}
 	return validateChanges(result)
+}
+
+// validateAbstentions requires each abstention to name a document, a rule, and
+// a valid reason, and the manifest to name exactly the abstaining rules.
+func validateAbstentions(result unswell.RunResult) error {
+	var ids []string
+	for _, abstention := range result.Abstentions {
+		if abstention.Path == "" || abstention.RuleID == "" || !feature.ValidApplicabilityReason(abstention.Reason) {
+			return fmt.Errorf("invalid rule abstention")
+		}
+		ids = append(ids, abstention.RuleID)
+	}
+	slices.Sort(ids)
+	if !slices.Equal(slices.Compact(ids), result.Manifest.AbstainedRules) {
+		return fmt.Errorf("manifest does not name the abstaining rules")
+	}
+	return nil
 }
 
 func validateChanges(result unswell.RunResult) error {

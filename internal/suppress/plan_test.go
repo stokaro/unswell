@@ -58,6 +58,21 @@ func TestEveryRulePermissionMustBeUsed(t *testing.T) {
 	c.Assert(plan.Entries[0].UsedRules, qt.DeepEquals, []string{"rule.one"})
 }
 
+// A permission for a rule that abstained on the document had nothing to cover;
+// excusing that rule keeps the audit record while the other rules stay checked.
+func TestExcusedRulesAreNotReportedUnused(t *testing.T) {
+	c := qt.New(t)
+	doc := fixture(raw("unswell-disable-next-block rule.one,rule.two -- Required contract wording.", 0))
+	plan, err := suppress.Build(t.Context(), doc, map[string]bool{"rule.one": true, "rule.two": true}, options())
+	c.Assert(err, qt.IsNil)
+	plan.Excuse([]string{"rule.two"})
+	c.Assert(plan.ValidateUse(), qt.ErrorMatches, ".*unused suppression for rule rule.one")
+	_, err = plan.Match(t.Context(), "rule.one", "finding", []document.Span{{Start: 110, End: 115}})
+	c.Assert(err, qt.IsNil)
+	c.Assert(plan.ValidateUse(), qt.IsNil)
+	c.Assert(plan.Entries[0].UsedRules, qt.DeepEquals, []string{"rule.one"})
+}
+
 func TestDirectivePairingTargetsAndLimits(t *testing.T) {
 	for _, directives := range [][]document.Directive{
 		{raw("unswell-disable-next-block rule.one -- Required contract wording.", 200)},

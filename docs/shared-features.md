@@ -220,7 +220,9 @@ finding can establish an activation for an existing uninstrumented rule. A silen
 uninstrumented rule leaves `applicability_unknown`. Other absence reasons are
 `disabled`, `not_evaluated`, `evaluation_failed`, and `inapplicable/<reason>`.
 Failed evaluations discard their numeric values, including values associated with
-partial findings. The enclosing run remains incomplete.
+partial findings. The enclosing run remains incomplete. A rule that exhausts its
+own candidate budget abstains on the document instead: every value of that rule
+is absent with `inapplicable/budget_exhausted`, and the run stays complete.
 
 The two readability rules account for unsupported blocks, empty prose, and the
 grade metric's word/sentence minimums using their existing calculations.
@@ -373,7 +375,9 @@ feature work in #56 and model qualification remain open. See
 The number of blocks times requested values, plus the full and trimmed binding
 segment counts, must fit `analysis.max_candidates` for each source. Exceeding
 this output bound is an operational error; values are
-not sampled or silently dropped. Repository CLI/MCP self-checks collect readability,
+not sampled or silently dropped. This bound belongs to the engine, unlike a
+rule's own candidate budget, whose exhaustion is a per-rule abstention.
+Repository CLI/MCP self-checks collect readability,
 phrase, section-announcement, stacked-hedging, noun-stack, and all six window
 activations, exact-repetition and opener activations, and these seven candidate
 activations, alongside word counts and lexical diversity.

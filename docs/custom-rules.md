@@ -153,8 +153,11 @@ Each rule uses `analysis.max_candidates` as a per-document work budget, shared b
 its units and exceptions. Token comparisons, sequence visits, Boolean operations,
 regex chunks, and matches consume this budget. A unit can retain at most 10,000
 occurrences. Existing document, token, timeout, and finding limits still apply.
-Cancellation, exhausted budgets, and emitter errors make the analysis incomplete;
-they cannot become a successful required gate.
+A rule that exhausts its budget abstains on that document with the reason
+`budget_exhausted`: it reports no findings there, the other rules' findings stay,
+and the run stays complete. The result lists the abstention, the manifest names
+the rule, and every reporter prints it. Cancellation and emitter errors make the
+analysis incomplete; they cannot become a successful required gate.
 
 The library compiles packs at construction, keeps them immutable, and owns each
 returned descriptor. The source definition's serialized YAML hash is recorded
