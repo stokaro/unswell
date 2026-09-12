@@ -19,11 +19,7 @@ type literalSpec struct {
 	indent string
 }
 
-func (r *sourceReader) literal(node *ts.Node) (document.MappedText, error) {
-	spec, err := r.literalSpec(node)
-	if err != nil {
-		return document.MappedText{}, err
-	}
+func (r *sourceReader) literal(node *ts.Node, spec literalSpec) (document.MappedText, error) {
 	if spec.binary {
 		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: syntaxSpan(node, 0), Reason: "byte-literal"})
 		return document.MappedText{}, nil

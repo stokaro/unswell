@@ -82,14 +82,15 @@ func extractCommentGroup(doc *document.Document, group *ast.CommentGroup, fset *
 		if directive(comment.Text) {
 			appendBlock(doc, builder.Build(), "comment")
 			builder = mapping.Builder{}
-			doc.Excluded = append(doc.Excluded, document.Exclusion{Span: document.Span{Start: start, End: end}, Reason: "go-directive"})
+			doc.Excluded = append(doc.Excluded, document.Exclusion{Span: document.Span{Start: start, End: end}, Reason: "directive"})
 			continue
 		}
 		contentStart, contentEnd := start+2, end
-		if strings.HasPrefix(comment.Text, "/*") {
+		opener := commentOpener(comment.Text)
+		if opener != "" {
 			contentEnd -= 2
 		}
-		addCommentLines(doc, &builder, contentStart, contentEnd, strings.HasPrefix(comment.Text, "/*"))
+		addCommentLines(doc, &builder, contentStart, contentEnd, opener)
 		if end < len(doc.Source) {
 			builder.Add(" ", document.Span{Start: end, End: end + 1})
 		}
@@ -110,50 +111,9 @@ func originalCommentEnd(source []byte, start int) int {
 	return len(source)
 }
 
+// directive reports whether a Go comment is a build, generate, lint or
+// generated-file instruction rather than prose.
 func directive(text string) bool {
 	text = strings.TrimSpace(strings.TrimPrefix(strings.TrimPrefix(text, "//"), "/*"))
-	for _, prefix := range []string{"go:", "+build", "nolint", "lint:", "line ", "SPDX-", "Code generated", "unswell-"} {
-		if strings.HasPrefix(text, prefix) {
-			return true
-		}
-	}
-	return false
-}
-
-func addCommentLines(doc *document.Document, builder *mapping.Builder, start, end int, block bool) {
-	pos := start
-	for line := range strings.SplitSeq(string(doc.Source[start:end]), "\n") {
-		lineStart := pos
-		lineSize := len(line)
-		if block {
-			line, lineStart = blockCommentLine(line, pos)
-		}
-		trimmed := strings.TrimSpace(line)
-		switch {
-		case trimmed == "":
-			appendBlock(doc, builder.Build(), "comment")
-			*builder = mapping.Builder{}
-		case strings.HasPrefix(line, "\t"), strings.HasPrefix(line, "    "):
-			builder.Add(" \x00 ", document.Span{Start: lineStart, End: lineStart + len(line)})
-			doc.Excluded = append(
-				doc.Excluded,
-				document.Exclusion{Span: document.Span{Start: lineStart, End: lineStart + len(line)}, Reason: "comment-code"},
-			)
-		default:
-			builder.Source(doc.Source, lineStart, lineStart+len(line), false)
-		}
-		pos += lineSize + 1
-		if pos <= end {
-			builder.Add(" ", document.Span{Start: pos - 1, End: pos})
-		}
-	}
-}
-
-func blockCommentLine(line string, start int) (string, int) {
-	trimmed := strings.TrimLeft(line, " \t")
-	if trimmed == "*" || strings.HasPrefix(trimmed, "* ") || strings.HasPrefix(trimmed, "*\t") {
-		removed := len(line) - len(trimmed) + 1
-		return line[removed:], start + removed
-	}
-	return line, start
+	return toolDirective(document.Go, text)
 }

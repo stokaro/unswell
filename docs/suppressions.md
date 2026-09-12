@@ -65,6 +65,10 @@ raw HTML contents, and plain-text examples cannot create permissions. Directives
 contribute prose words or editorial findings. Source comments remain policy-sensitive
 even when ordinary comment prose is disabled in a source-language context set.
 
+A saved report lists a suppression comment with the reason `suppression-directive`.
+A comment for another tool, such as `nolint`, has the reason `directive`. The
+[directive comments](inputs.md#directive-comments) section lists those prefixes.
+
 ## Policy and errors
 
 These defaults apply without an explicit configuration section:

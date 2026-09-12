@@ -80,8 +80,10 @@ The repository's [.unswell.yaml](../.unswell.yaml) demonstrates both cases.
 ## Literal data
 
 Selecting strings includes embedded SQL, JSON, scripts, identifiers, and protocol
-values. Unswell does not infer that a string is prose from its variable name or
-guess an embedded language from punctuation. Select known data with existing
+values. Unswell does not infer that a string is prose from its variable name.
+In the shell formats only, a literal whose lines are mostly code is excluded as
+an [embedded program](inputs.md#programs-in-shell-literals); every other grammar
+keeps such data until an exception selects it. Select known data with existing
 path, format, kind, and symbol exceptions. For example:
 
 ```yaml
@@ -117,11 +119,16 @@ The following cases have distinct outcomes:
 | A selected literal decodes to non-UTF-8 bytes | Whole literal excluded with `non-utf8-literal` and its original byte range |
 | Byte escapes form valid UTF-8 together | Text remains selected, with escape source mapping |
 | Valid text contains embedded code or fixed values | Checked unless an explicit exception selects it |
+| A shell string, heredoc or here-string whose lines are mostly code | Whole literal excluded with `embedded-program` and its original byte range |
+| A tag or example section of a JSDoc or Javadoc comment | Lines excluded with `doc-tag` or `doc-example`; the description keeps its block |
+| A comment that starts with a listed tool prefix | Whole comment excluded with `directive` |
 | Source has invalid grammar | Operational error even when an exception would select its strings |
-| A selected literal has an unsupported escape | Operational error during decoding |
+| A selected literal has an unsupported escape | Operational error during decoding; an excluded literal is not decoded |
 
-A matching explicit exception takes precedence over the decoded-byte exclusion
-and retains the configured ID and reason. Valid control escapes retain protected
+A matching explicit exception takes precedence over the decoded-byte and
+embedded-program exclusions and retains the configured ID and reason. A
+disabled string context does the same with `config:context-disabled:string`.
+Valid control escapes retain protected
 boundaries; they do not turn neighboring words into one phrase. UTF-8 validity
 does not establish that text is English: the existing language applicability
 checks still apply to selected prose. When exclusions leave no applicable prose,

@@ -134,18 +134,28 @@ func (r *sourceReader) commentNode(node *ts.Node) {
 }
 
 func (r *sourceReader) stringNode(node *ts.Node) (bool, error) {
-	if contextExclusion(r.doc, r.options.Policy, "string", syntaxSpan(node, 0)) {
+	span := syntaxSpan(node, 0)
+	if contextExclusion(r.doc, r.options.Policy, "string", span) {
 		return true, nil
 	}
 	if reason := r.exception("string", node); reason != "" {
-		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: syntaxSpan(node, 0), Reason: reason})
+		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: span, Reason: reason})
 		return true, nil
 	}
 	if reason := technicalLiteral(node, r.syntax.lang, r.doc.Format); reason != "" {
-		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: syntaxSpan(node, 0), Reason: reason})
+		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: span, Reason: reason})
 		return true, nil
 	}
-	mapped, err := r.literal(node)
+	spec, err := r.literalSpec(node)
+	if err != nil {
+		return true, err
+	}
+	// An excluded program is not decoded, so its escapes are never validated.
+	if programFormat(r.doc.Format) && programLiteral(string(r.doc.Source[spec.span.Start:spec.span.End])) {
+		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: span, Reason: "embedded-program"})
+		return true, nil
+	}
+	mapped, err := r.literal(node, spec)
 	if err != nil {
 		return true, err
 	}
@@ -217,14 +227,13 @@ func (r *sourceReader) commentGroups() error {
 			previous = span.End
 			continue
 		}
-		if commentDirective(string(r.doc.Source[span.Start:span.End]), string(r.doc.Source[content.Start:content.End])) {
+		original := string(r.doc.Source[span.Start:span.End])
+		if r.commentDirective(original, string(r.doc.Source[content.Start:content.End])) {
 			appendBlock(r.doc, builder.Build(), "comment")
 			builder = mapping.Builder{}
-			r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: span, Reason: "source-directive"})
+			r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: span, Reason: "directive"})
 		} else {
-			original := string(r.doc.Source[span.Start:span.End])
-			block := strings.HasPrefix(original, "/*") || strings.HasPrefix(original, "<#")
-			addCommentLines(r.doc, &builder, content.Start, content.End, block)
+			addCommentLines(r.doc, &builder, content.Start, content.End, commentOpener(original))
 			if span.End < len(r.doc.Source) {
 				builder.Add(" ", document.Span{Start: span.End, End: span.End + 1})
 			}
@@ -262,15 +271,8 @@ func commentContent(source []byte, span document.Span) document.Span {
 	return span
 }
 
-func commentDirective(original, content string) bool {
-	if strings.HasPrefix(original, "#!") || directive(content) {
-		return true
-	}
-	content = strings.TrimSpace(content)
-	for _, marker := range []string{"shellcheck ", "shfmt:", "type: ignore", "noqa", "eslint", "prettier-", "coding:", "-*- coding:"} {
-		if strings.HasPrefix(content, marker) {
-			return true
-		}
-	}
-	return false
+// commentDirective reports whether a comment is a shebang or a tool directive
+// for the document's format.
+func (r *sourceReader) commentDirective(original, content string) bool {
+	return strings.HasPrefix(original, "#!") || toolDirective(r.doc.Format, content)
 }
