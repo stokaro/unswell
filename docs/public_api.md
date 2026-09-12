@@ -207,6 +207,15 @@ The additive field is omitted by default. Old reports remain readable; strict
 older readers need an update when collection is explicitly requested. See
 [ADR 0017](adr/0017-feature-collection.md) for compatibility and remaining scope.
 
+`document.Block.Excluded` marks an extracted block that the engine excluded from
+NLP and rules while retaining its identity, text, and mapping. `feature.Measure`
+returns unavailable values for a marked prose block; `nlp.PrepareUnits` returns
+no targets. `FeatureUnit.Excluded` carries that state into optional saved block
+collection. Excluded scalar values use `excluded_unit`, and rule activations use
+`inapplicable/excluded_unit`. Reports validate the corresponding document
+exclusion and reject counted tokens or numeric values for these units. See
+[shared features](shared-features.md) and [prepared units](prepared-units.md).
+
 Optional `FeatureUnit.Binding` adds `FeatureBlockBinding` and
 `FeatureBlockBindingContract`. The `mapped-block-v1` binding contains full mapped
 text and outer-whitespace-trimmed hashes, with separate complete source maps.

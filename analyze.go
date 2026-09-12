@@ -144,6 +144,7 @@ func (e *Engine) enrich(ctx context.Context, doc *document.Document) error {
 	for i := range doc.Blocks {
 		block := &doc.Blocks[i]
 		if nonLatinProse(block.Text) {
+			block.Excluded = true
 			doc.Excluded = append(doc.Excluded, document.Exclusion{Span: block.Span, Reason: "non-latin-prose"})
 			continue
 		}

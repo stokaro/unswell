@@ -35,6 +35,8 @@ func TestStdioProcess(t *testing.T) {
 	for _, tc := range []struct{ name, text, outcome string }{
 		{"clean.md", "The client opens connections.", "pass"},
 		{"bad.md", "Certainly! The client opens connections.", "policy_failure"},
+		{"mixed.md", "Клиент повторяет запрос после сбоя транспорта и ждет ответа сервера.\n\n" +
+			"Certainly! The client opens connections.", "policy_failure"},
 		{"rewritten.md", "The client opens connections.", "pass"},
 		{"broken.cs", "class Sample { string value = \"unfinished", "error"},
 	} {

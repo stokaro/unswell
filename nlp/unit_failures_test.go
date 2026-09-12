@@ -49,6 +49,23 @@ func TestUnitPreparationCallsProviderOncePerContext(t *testing.T) {
 	c.Assert(provider.calls, qt.Equals, 3)
 }
 
+func TestUnitPreparationNeverAnalyzesExcludedProse(t *testing.T) {
+	c := qt.New(t)
+	base, err := english.New()
+	c.Assert(err, qt.IsNil)
+	provider := &alteredUnitProvider{Provider: base}
+	block := unitBlock("Excluded prose retains its source mapping.", "paragraph")
+	block.Excluded = true
+	units, err := nlp.PrepareUnits(t.Context(), block, provider, unitOptions())
+	c.Assert(err, qt.IsNil)
+	c.Assert(units, qt.HasLen, 0)
+	c.Assert(provider.calls, qt.Equals, 0)
+	block.Map = nil
+	_, err = nlp.PrepareUnits(t.Context(), block, provider, unitOptions())
+	c.Assert(err, qt.IsNotNil)
+	c.Assert(provider.calls, qt.Equals, 0)
+}
+
 func TestUnitPreparationRejectsMalformedProvider(t *testing.T) {
 	changes := map[string]func([]document.Sentence){
 		"text":           func(s []document.Sentence) { s[0].Text = "Other text." },

@@ -74,6 +74,12 @@ func validateInputs(ctx context.Context, block document.Block, identity Identity
 	if err := validateMappedBlock(block, limits); err != nil {
 		return err
 	}
+	if block.Excluded {
+		if len(block.Sentences) != 0 || block.Words != 0 {
+			return fmt.Errorf("excluded feature block must not contain NLP data")
+		}
+		return nil
+	}
 	return validateTokens(ctx, block, identity, limits)
 }
 
@@ -205,7 +211,8 @@ func unitHash(block document.Block, identity Identity) (string, error) {
 		Context     []string
 		Span        document.Span
 		Tokens      [][]document.Token
-	}{Contract, catalog(), identity, block.ID, block.Kind, block.Text, block.Context, block.Span, tokens}
+		Excluded    bool `json:",omitempty"`
+	}{Contract, catalog(), identity, block.ID, block.Kind, block.Text, block.Context, block.Span, tokens, block.Excluded}
 	hash := sha256.New()
 	if err := json.NewEncoder(hash).Encode(input); err != nil {
 		return "", err

@@ -104,13 +104,16 @@ func Bounds(spans []Span) Span {
 
 // Block is one structural prose unit. Context contains grammar-derived scope
 // labels, not line numbers; an empty context means no named owner was available.
+// Excluded blocks retain their identity and mapped text but have no NLP data.
+// Consumers must not analyze them; Document.Excluded records the source reason.
 // Slices are immutable during rule evaluation.
 type Block struct {
-	ID      int          `json:"id"`
-	Kind    string       `json:"kind"`
-	Span    Span         `json:"span"`
-	Context []string     `json:"context,omitempty"`
-	List    *ListContext `json:"list,omitempty"`
+	Excluded bool         `json:"excluded,omitempty"`
+	ID       int          `json:"id"`
+	Kind     string       `json:"kind"`
+	Span     Span         `json:"span"`
+	Context  []string     `json:"context,omitempty"`
+	List     *ListContext `json:"list,omitempty"`
 	MappedText
 	Sentences []Sentence `json:"sentences"`
 	Words     int        `json:"words"`

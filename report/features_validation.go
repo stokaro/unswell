@@ -138,9 +138,13 @@ func validateFeatureUnits(
 	if len(source.Units) != doc.Blocks {
 		return fmt.Errorf("feature source does not cover its extracted blocks")
 	}
+	excluded := excludedFeatureSpans(doc)
 	for i, unit := range source.Units {
 		if !validFeatureUnit(unit, i, doc.Bytes) {
 			return fmt.Errorf("invalid feature unit identity or range")
+		}
+		if unit.Excluded != excluded[unit.Span] {
+			return fmt.Errorf("feature unit exclusion does not match its source")
 		}
 		if err := validateFeatureSegments(unit); err != nil {
 			return err
@@ -161,6 +165,9 @@ func validFeatureUnit(unit unswell.FeatureUnit, index, bytes int) bool {
 }
 
 func validateFeatureSegments(unit unswell.FeatureUnit) error {
+	if unit.Excluded && len(unit.Segments) != 0 {
+		return fmt.Errorf("excluded feature unit cannot have counted segments")
+	}
 	if !feature.SupportsBlock(unit.Kind) {
 		if unit.InputHash != "" || len(unit.Segments) != 0 {
 			return fmt.Errorf("unsupported feature unit cannot have measured input")
@@ -241,18 +248,23 @@ func validateFeatureValues(unit unswell.FeatureUnit, definitions []feature.Descr
 		if value.ID != d.ID || value.Version != d.Version || value.Unit != d.Unit {
 			return fmt.Errorf("feature value has an incompatible definition")
 		}
-		if err := validateRequestedValue(value, d, unit.Kind, capabilities, complete); err != nil {
+		if err := validateRequestedValue(value, d, unit, capabilities, complete); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func validateRequestedValue(value feature.Value, d feature.Descriptor, kind string, capabilities []nlp.Capability, complete bool) error {
+func validateRequestedValue(
+	value feature.Value, d feature.Descriptor, unit unswell.FeatureUnit, capabilities []nlp.Capability, complete bool,
+) error {
+	if unit.Excluded {
+		return validateExcludedFeature(value, d)
+	}
 	if d.Family == "rule-activation" {
 		return validateActivationValue(value, d, capabilities, complete)
 	}
-	return validateFeatureNumber(value, feature.SupportsBlock(kind), d.MinWords)
+	return validateFeatureNumber(value, feature.SupportsBlock(unit.Kind), d.MinWords)
 }
 
 func validateFeatureNumber(value feature.Value, supported bool, minimum int) error {

@@ -1,0 +1,740 @@
+{
+  "activation_contract": "unswell-rule-activations-v1",
+  "version": "unswell-feature-collection-v1",
+  "block_contract": "unswell-block-features-v1",
+  "requested": [
+    "activation/readability.grade-metric",
+    "activation/readability.long-paragraph",
+    "prose-words"
+  ],
+  "sources": [
+    {
+      "ruleset_hash": "a845aee093a0daaa4df59a195d00ef839a9d30ae2fbf6bbad7f07a0b012f83fd",
+      "path": "sample.go",
+      "source_hash": "d8a4fcd77db3c586e6f09f6413b315af7efa66fdf55cec914339fa5b9ba5e6f5",
+      "policy_hash": "75bf7f744a067ebdcd8bb9bed2b9bdf5bc8c8932ae94f466100f31549f6b53f3",
+      "vocabulary_hash": "75bf7f744a067ebdcd8bb9bed2b9bdf5bc8c8932ae94f466100f31549f6b53f3",
+      "preprocessing": "extracted-provider-tokens-v1",
+      "nlp": {
+        "name": "builtin-en",
+        "version": "prose-v3.2.1/chunks-v1/boundaries-v1",
+        "model": "prose/aptagmodel/en.bin",
+        "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+        "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+        "license": "MIT",
+        "capabilities": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ]
+      },
+      "capabilities": [
+        "pos",
+        "sentences",
+        "tokens"
+      ],
+      "units": [
+        {
+          "excluded": true,
+          "binding": {
+            "contract": "mapped-block-v1",
+            "text_sha256": "e8a69db7e5b063632109432d7872bf9f0d10725ff188ac42b0a75938879ab186",
+            "segments": [
+              {
+                "start": 23,
+                "end": 152
+              }
+            ],
+            "trimmed_sha256": "102108826b6787a5d79fcfce9ab02475b60163eb7a7324fcd1f24afcddc7930a",
+            "trimmed_segments": [
+              {
+                "start": 24,
+                "end": 150
+              }
+            ]
+          },
+          "scope": "block",
+          "unit_id": 0,
+          "kind": "comment",
+          "context_hash": "8df05ed719ac6312409a5bf7bc053511c4eb954acbf4a1b0c88a3bd6070b119b",
+          "span": {
+            "start": 23,
+            "end": 152
+          },
+          "segments": null,
+          "input_hash": "7ddacd8fde01e161a0ef5e2a5f0a173ac6db7466fa0c9a76e360585a7e379d76",
+          "values": [
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/excluded_unit"
+            },
+            {
+              "id": "activation/readability.long-paragraph",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/excluded_unit"
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": null,
+              "reason": "excluded_unit"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "contract": "mapped-block-v1",
+            "text_sha256": "4817bb7a7e87c9edf029dc5b7fcbccb623f58c34708165ba53193b0ce2469dbb",
+            "segments": [
+              {
+                "start": 156,
+                "end": 245
+              }
+            ],
+            "trimmed_sha256": "8a004e2c73b49efcbdb0140d4587065df59442855c574678054414afab4ba2e7",
+            "trimmed_segments": [
+              {
+                "start": 157,
+                "end": 205
+              }
+            ]
+          },
+          "scope": "block",
+          "unit_id": 1,
+          "kind": "comment",
+          "context_hash": "8df05ed719ac6312409a5bf7bc053511c4eb954acbf4a1b0c88a3bd6070b119b",
+          "span": {
+            "start": 156,
+            "end": 245
+          },
+          "segments": [
+            {
+              "start": 157,
+              "end": 159
+            },
+            {
+              "start": 160,
+              "end": 162
+            },
+            {
+              "start": 163,
+              "end": 172
+            },
+            {
+              "start": 173,
+              "end": 175
+            },
+            {
+              "start": 176,
+              "end": 180
+            },
+            {
+              "start": 181,
+              "end": 185
+            },
+            {
+              "start": 186,
+              "end": 189
+            },
+            {
+              "start": 190,
+              "end": 196
+            },
+            {
+              "start": 197,
+              "end": 204
+            }
+          ],
+          "input_hash": "fa4766c02512ff12b5bb33ddf7dc787ef6d93456f8b00363eaf77b53403ea515",
+          "values": [
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "activation/readability.long-paragraph",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 9
+            }
+          ]
+        },
+        {
+          "excluded": true,
+          "binding": {
+            "contract": "mapped-block-v1",
+            "text_sha256": "102108826b6787a5d79fcfce9ab02475b60163eb7a7324fcd1f24afcddc7930a",
+            "segments": [
+              {
+                "start": 282,
+                "end": 408
+              }
+            ],
+            "trimmed_sha256": "102108826b6787a5d79fcfce9ab02475b60163eb7a7324fcd1f24afcddc7930a",
+            "trimmed_segments": [
+              {
+                "start": 282,
+                "end": 408
+              }
+            ]
+          },
+          "scope": "block",
+          "unit_id": 2,
+          "kind": "string",
+          "context_hash": "63b3744bdf63ec13a7d5080c3a0981548e25662afafc7a2765542504d36e9178",
+          "span": {
+            "start": 282,
+            "end": 408
+          },
+          "segments": null,
+          "input_hash": "02810d874e64af8e43f6d03d8b5394cc05cb68a2162b08eb6b36acb72bf8d856",
+          "values": [
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/excluded_unit"
+            },
+            {
+              "id": "activation/readability.long-paragraph",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/excluded_unit"
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": null,
+              "reason": "excluded_unit"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "contract": "mapped-block-v1",
+            "text_sha256": "8a004e2c73b49efcbdb0140d4587065df59442855c574678054414afab4ba2e7",
+            "segments": [
+              {
+                "start": 430,
+                "end": 478
+              }
+            ],
+            "trimmed_sha256": "8a004e2c73b49efcbdb0140d4587065df59442855c574678054414afab4ba2e7",
+            "trimmed_segments": [
+              {
+                "start": 430,
+                "end": 478
+              }
+            ]
+          },
+          "scope": "block",
+          "unit_id": 3,
+          "kind": "string",
+          "context_hash": "b8e4d53cd0a7766beb8d18b0240d8e732a30022835d6a57991b8db6b09fca08e",
+          "span": {
+            "start": 430,
+            "end": 478
+          },
+          "segments": [
+            {
+              "start": 430,
+              "end": 432
+            },
+            {
+              "start": 433,
+              "end": 435
+            },
+            {
+              "start": 436,
+              "end": 445
+            },
+            {
+              "start": 446,
+              "end": 448
+            },
+            {
+              "start": 449,
+              "end": 453
+            },
+            {
+              "start": 454,
+              "end": 458
+            },
+            {
+              "start": 459,
+              "end": 462
+            },
+            {
+              "start": 463,
+              "end": 469
+            },
+            {
+              "start": 470,
+              "end": 477
+            }
+          ],
+          "input_hash": "617d65df82ed0f6fe056bdc472d3cc5c229c46959e188db9aa3f01566e0e1269",
+          "values": [
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "activation/readability.long-paragraph",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 9
+            }
+          ]
+        },
+        {
+          "excluded": true,
+          "binding": {
+            "contract": "mapped-block-v1",
+            "text_sha256": "e8a69db7e5b063632109432d7872bf9f0d10725ff188ac42b0a75938879ab186",
+            "segments": [
+              {
+                "start": 523,
+                "end": 652
+              }
+            ],
+            "trimmed_sha256": "102108826b6787a5d79fcfce9ab02475b60163eb7a7324fcd1f24afcddc7930a",
+            "trimmed_segments": [
+              {
+                "start": 524,
+                "end": 650
+              }
+            ]
+          },
+          "scope": "block",
+          "unit_id": 4,
+          "kind": "comment",
+          "context_hash": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "span": {
+            "start": 523,
+            "end": 652
+          },
+          "segments": null,
+          "input_hash": "05f57f12063ffe78c9b181fc0daec589e67702b6c488add0e3bf129dd9a1c0ee",
+          "values": [
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/excluded_unit"
+            },
+            {
+              "id": "activation/readability.long-paragraph",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/excluded_unit"
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": null,
+              "reason": "excluded_unit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "ruleset_hash": "a845aee093a0daaa4df59a195d00ef839a9d30ae2fbf6bbad7f07a0b012f83fd",
+      "path": "sample.md",
+      "source_hash": "9919022e5176f56c92fc08e1c77aa17d3bb7afa69fd1787bae7e9a3a63e4dfc8",
+      "policy_hash": "75bf7f744a067ebdcd8bb9bed2b9bdf5bc8c8932ae94f466100f31549f6b53f3",
+      "vocabulary_hash": "75bf7f744a067ebdcd8bb9bed2b9bdf5bc8c8932ae94f466100f31549f6b53f3",
+      "preprocessing": "extracted-provider-tokens-v1",
+      "nlp": {
+        "name": "builtin-en",
+        "version": "prose-v3.2.1/chunks-v1/boundaries-v1",
+        "model": "prose/aptagmodel/en.bin",
+        "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+        "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+        "license": "MIT",
+        "capabilities": [
+          "tokens",
+          "sentences",
+          "pos",
+          "chunks"
+        ]
+      },
+      "capabilities": [
+        "pos",
+        "sentences",
+        "tokens"
+      ],
+      "units": [
+        {
+          "excluded": true,
+          "binding": {
+            "contract": "mapped-block-v1",
+            "text_sha256": "102108826b6787a5d79fcfce9ab02475b60163eb7a7324fcd1f24afcddc7930a",
+            "segments": [
+              {
+                "start": 3,
+                "end": 129
+              }
+            ],
+            "trimmed_sha256": "102108826b6787a5d79fcfce9ab02475b60163eb7a7324fcd1f24afcddc7930a",
+            "trimmed_segments": [
+              {
+                "start": 3,
+                "end": 129
+              }
+            ]
+          },
+          "scope": "block",
+          "unit_id": 0,
+          "kind": "paragraph",
+          "context_hash": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "span": {
+            "start": 3,
+            "end": 129
+          },
+          "segments": null,
+          "input_hash": "7413e5ebf6fee561843060d1f1aecbcd4b1d4169d37950548261b94689b99d8d",
+          "values": [
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/excluded_unit"
+            },
+            {
+              "id": "activation/readability.long-paragraph",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/excluded_unit"
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": null,
+              "reason": "excluded_unit"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "contract": "mapped-block-v1",
+            "text_sha256": "8a004e2c73b49efcbdb0140d4587065df59442855c574678054414afab4ba2e7",
+            "segments": [
+              {
+                "start": 133,
+                "end": 139
+              },
+              {
+                "start": 141,
+                "end": 150
+              },
+              {
+                "start": 152,
+                "end": 185
+              }
+            ],
+            "trimmed_sha256": "8a004e2c73b49efcbdb0140d4587065df59442855c574678054414afab4ba2e7",
+            "trimmed_segments": [
+              {
+                "start": 133,
+                "end": 139
+              },
+              {
+                "start": 141,
+                "end": 150
+              },
+              {
+                "start": 152,
+                "end": 185
+              }
+            ]
+          },
+          "scope": "block",
+          "unit_id": 1,
+          "kind": "paragraph",
+          "context_hash": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "span": {
+            "start": 133,
+            "end": 185
+          },
+          "segments": [
+            {
+              "start": 133,
+              "end": 135
+            },
+            {
+              "start": 136,
+              "end": 138
+            },
+            {
+              "start": 141,
+              "end": 150
+            },
+            {
+              "start": 153,
+              "end": 155
+            },
+            {
+              "start": 156,
+              "end": 160
+            },
+            {
+              "start": 161,
+              "end": 165
+            },
+            {
+              "start": 166,
+              "end": 169
+            },
+            {
+              "start": 170,
+              "end": 176
+            },
+            {
+              "start": 177,
+              "end": 184
+            }
+          ],
+          "input_hash": "a8f083f416fc8ea5b2e9c612aef0894fd4d9f4b81aa3f5d9091f011c79b3b21a",
+          "values": [
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "activation/readability.long-paragraph",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 9
+            }
+          ]
+        },
+        {
+          "excluded": true,
+          "binding": {
+            "contract": "mapped-block-v1",
+            "text_sha256": "102108826b6787a5d79fcfce9ab02475b60163eb7a7324fcd1f24afcddc7930a",
+            "segments": [
+              {
+                "start": 233,
+                "end": 359
+              }
+            ],
+            "trimmed_sha256": "102108826b6787a5d79fcfce9ab02475b60163eb7a7324fcd1f24afcddc7930a",
+            "trimmed_segments": [
+              {
+                "start": 233,
+                "end": 359
+              }
+            ]
+          },
+          "scope": "block",
+          "unit_id": 2,
+          "kind": "paragraph",
+          "context_hash": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "span": {
+            "start": 233,
+            "end": 359
+          },
+          "segments": null,
+          "input_hash": "e0d48dca7ff1b68ece65262376ddba022ffee5746b077c38dbab4da7545254d6",
+          "values": [
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/excluded_unit"
+            },
+            {
+              "id": "activation/readability.long-paragraph",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/excluded_unit"
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": null,
+              "reason": "excluded_unit"
+            }
+          ]
+        },
+        {
+          "binding": {
+            "contract": "mapped-block-v1",
+            "text_sha256": "fd86e521ab51ef9c6a110d44591e110597ee6473a697d49305edebf166190562",
+            "segments": [
+              {
+                "start": 363,
+                "end": 400
+              }
+            ],
+            "trimmed_sha256": "fd86e521ab51ef9c6a110d44591e110597ee6473a697d49305edebf166190562",
+            "trimmed_segments": [
+              {
+                "start": 363,
+                "end": 400
+              }
+            ]
+          },
+          "scope": "block",
+          "unit_id": 3,
+          "kind": "paragraph",
+          "context_hash": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "span": {
+            "start": 363,
+            "end": 400
+          },
+          "segments": [
+            {
+              "start": 363,
+              "end": 366
+            },
+            {
+              "start": 367,
+              "end": 373
+            },
+            {
+              "start": 374,
+              "end": 381
+            },
+            {
+              "start": 382,
+              "end": 386
+            },
+            {
+              "start": 387,
+              "end": 391
+            },
+            {
+              "start": 392,
+              "end": 399
+            }
+          ],
+          "input_hash": "f79ab2c24128b86e05ff87354ee3be5053ca5b8454eee925d3d0e8eefd01ebac",
+          "values": [
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/insufficient_words"
+            },
+            {
+              "id": "activation/readability.long-paragraph",
+              "version": "1",
+              "unit": "ratio",
+              "number": 0
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": 6
+            }
+          ]
+        },
+        {
+          "excluded": true,
+          "binding": {
+            "contract": "mapped-block-v1",
+            "text_sha256": "102108826b6787a5d79fcfce9ab02475b60163eb7a7324fcd1f24afcddc7930a",
+            "segments": [
+              {
+                "start": 404,
+                "end": 530
+              }
+            ],
+            "trimmed_sha256": "102108826b6787a5d79fcfce9ab02475b60163eb7a7324fcd1f24afcddc7930a",
+            "trimmed_segments": [
+              {
+                "start": 404,
+                "end": 530
+              }
+            ]
+          },
+          "scope": "block",
+          "unit_id": 4,
+          "kind": "paragraph",
+          "context_hash": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "span": {
+            "start": 404,
+            "end": 530
+          },
+          "segments": null,
+          "input_hash": "386e1f41d0a305a582bdc4d17c6bbba878f8894d41a15e2abbcf904566760b17",
+          "values": [
+            {
+              "id": "activation/readability.grade-metric",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/excluded_unit"
+            },
+            {
+              "id": "activation/readability.long-paragraph",
+              "version": "1",
+              "unit": "ratio",
+              "number": null,
+              "reason": "inapplicable/excluded_unit"
+            },
+            {
+              "id": "prose-words",
+              "version": "1",
+              "unit": "words",
+              "number": null,
+              "reason": "excluded_unit"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

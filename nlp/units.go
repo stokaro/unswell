@@ -77,6 +77,7 @@ func (u PreparedUnit) Capabilities() []Capability { return slices.Clone(u.capabi
 
 // PrepareUnits selects targets from one extracted block and analyzes each piece
 // once. It preserves protected boundaries and returns no partial result on error.
+// Excluded blocks produce no targets; preparation skips the NLP provider.
 // The provider is trusted Go code and must honor its existing contract and limits.
 func PrepareUnits(ctx context.Context, block document.Block, provider Provider, options UnitOptions) ([]PreparedUnit, error) {
 	if err := ctx.Err(); err != nil {
@@ -87,6 +88,9 @@ func PrepareUnits(ctx context.Context, block document.Block, provider Provider, 
 	}
 	if err := validateUnitBlock(ctx, block, options.Limits); err != nil {
 		return nil, err
+	}
+	if block.Excluded {
+		return nil, nil
 	}
 	units, err := preparePieces(ctx, block, provider, options)
 	if err != nil {
