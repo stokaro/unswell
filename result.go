@@ -9,7 +9,7 @@ import (
 )
 
 // Version is the release identity used in canonical results.
-const Version = "0.1.0-alpha.1"
+const Version = "0.1.0-alpha.2"
 
 // BuildCommit identifies release builds. Set it with -ldflags at build time.
 // Applications should not change this value while engines are running.
