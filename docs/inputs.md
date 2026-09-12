@@ -66,6 +66,15 @@ form UTF-8, such as Go `"\xc3\xa9"`, remain text. Invalid source encoding still
 fails before extraction, and an input containing only excluded data still reaches
 the empty-scan gate.
 
+Every format applies one language check per prose block. A block with at least
+20 letters, more than half of them outside the Latin script, is not English
+prose. The engine records it as a `non-latin-prose` exclusion with its source
+range and checks the other blocks of the document. The block keeps its position,
+so block numbering and finding fingerprints in the same document do not move.
+A document in which this check excludes every block has no prose words and
+reaches the empty-scan gate. The gate judges the checked blocks only: a file
+that is mostly non-Latin prose passes or fails on its English remainder.
+
 YAML keys, aliases and resolved non-string values are recorded as exclusions.
 Anchored strings are checked where they are defined; aliases are not expanded.
 The grammar supplies source spans. The existing YAML decoder supplies scalar

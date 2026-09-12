@@ -109,6 +109,10 @@ could not parse, and one JavaScript file of locale names.
 [#181](https://github.com/stokaro/unswell/issues/181) bounded memory and time
 on such trees; the section after the arm64 host records the same scans again.
 
+Later builds record a predominantly non-Latin block as an exclusion instead of
+failing its file, so the YAML error does not recur. The records keep the counts
+of the measured commit.
+
 ## Measured on an arm64 host
 
 The same script ran on an Apple M3 Pro under macOS 26.5 with `GOMAXPROCS=2` and
