@@ -580,3 +580,47 @@ Changed fields:
 
 Partitions viewed at this time: still the aggregate E1 tables, with no
 confirmatory list frozen. No threshold and no minimum moves.
+
+### Amendment 4, September 12, 2026
+
+Document version 1.4. The identifier stays. Reason: two facts of the data
+separation came to light after the third family ran. First, the planner
+assigns a component to a partition by hashing its identity, and the
+identity is the digest of every key of every source in it. A new run or a
+new cohort adds keys, so a component can move to another partition. Four
+task repositories carried both `training` and `development` between the
+pilot and run 2, and the plan of this day placed seven task repositories in
+`final_test`. Second, all three families were generated and measured before
+protocol version 2, while the protocol wants the held-out family generated
+after the freeze, or sealed until it.
+
+Changed fields:
+
+- Partitions. `research/methods/partitions-v1.json` pins every repository
+  and document set of the corpus to one partition, and `corpus dataset plan`
+  applies the file to every source before grouping. Its SHA-256 is
+  `6466156c1dcfd504d0773ca2b9a182c8c7cf29fdfb90abe5eaeddf12f94faac3`. A repository whose tasks
+  entered a generation run before version 2 is `training` or
+  `development`, by the partition its tasks carried when they were drawn; a
+  repository drawn under both labels is `development`. Every other
+  repository keeps the assignment of the plan of September 12, 2026. The
+  plan records the file's hash, and a source that would pin its component
+  elsewhere is an error. The confirmation partition is `final_test`.
+- Confirmation partition. Under the pins it holds six repositories, below
+  the cluster minimum of 20 components per arm. Version 2 therefore names
+  the acquisition of new repositories pinned to `final_test` as a condition
+  of the confirmatory measurement; those repositories are the "new sources"
+  of its first holdout check.
+- Held-out family. Qwen is the held-out family of version 2, both of its
+  models. Its two runs were generated and measured before the freeze;
+  their run records hold aggregate tables that the maintainer's tooling
+  produced and read at the aggregate level, and no hypothesis is chosen on
+  them. That exposure is recorded here. Feature selection uses the Claude
+  and OpenAI runs on the development partition only.
+- Screening. `corpus screen` computes the primary estimand per construction
+  and family on the development partition. It reads the partitions from the
+  plan, adds the cluster bootstrap p-value and the Benjamini-Hochberg step at
+  0.10, and writes the sample-size record that version 2 restates.
+
+At this time the maintainer had viewed the aggregate tables of every run
+record and no per-partition table. No threshold and no minimum moves.

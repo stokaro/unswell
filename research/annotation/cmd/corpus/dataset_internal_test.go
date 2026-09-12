@@ -95,3 +95,35 @@ func TestDatasetCommandsPlanPinAndVerify(t *testing.T) {
 		c.Assert(run(t.Context(), args, bytes.NewReader(dataset), &verified), qt.IsNotNil, qt.Commentf("%v", args))
 	}
 }
+
+func TestDatasetCommandsApplyPartitionPins(t *testing.T) {
+	c := qt.New(t)
+	root, dataset := datasetFixture(c)
+	pins := filepath.Join(t.TempDir(), "pins.json")
+	c.Assert(os.WriteFile(pins, []byte(`{"format":"unswell-partition-pins-v1","decided_on":"2026-09-12",`+
+		`"protocol":"unswell-llm-patterns-v1","repositories":{"stokaro/ptah":"development","absent/repo":"training"}}`), 0o600), qt.IsNil)
+	var plan bytes.Buffer
+	c.Assert(run(t.Context(), []string{"dataset", "plan", "--root", root, "--partitions", pins}, bytes.NewReader(dataset), &plan), qt.IsNil)
+	var decoded corpus.DatasetPlan
+	c.Assert(json.Unmarshal(plan.Bytes(), &decoded), qt.IsNil)
+	c.Assert(decoded.Groups, qt.HasLen, 1)
+	c.Assert(decoded.Groups[0].Partition, qt.Equals, "development")
+	c.Assert(decoded.Groups[0].Pinned, qt.IsTrue)
+	c.Assert(decoded.PinnedRepositories, qt.Equals, 1)
+	c.Assert(decoded.UnmatchedPins, qt.DeepEquals, []string{"absent/repo"})
+	c.Assert(decoded.PartitionPinsSHA256, qt.HasLen, 64)
+	// Pinning and verifying need the same file; without it the plan cannot be reproduced.
+	output := t.TempDir()
+	var pinned, verified bytes.Buffer
+	c.Assert(run(t.Context(), []string{"dataset", "pin", "--root", root, "--output", output, "--partitions", pins},
+		bytes.NewReader(plan.Bytes()), &pinned), qt.IsNil)
+	c.Assert(run(t.Context(), []string{"dataset", "verify", "--root", root, "--pinned", output, "--partitions", pins},
+		bytes.NewReader(plan.Bytes()), &verified), qt.IsNil)
+	var result DatasetVerification
+	c.Assert(json.Unmarshal(verified.Bytes(), &result), qt.IsNil)
+	c.Assert(result.PartitionPins, qt.Equals, decoded.PartitionPinsSHA256)
+	c.Assert(result.Pinned, qt.IsTrue)
+	c.Assert(run(t.Context(), []string{"dataset", "verify", "--root", root}, bytes.NewReader(plan.Bytes()), &verified), qt.IsNotNil)
+	c.Assert(run(t.Context(), []string{"dataset", "plan", "--root", root, "--partitions", filepath.Join(output, "missing.json")},
+		bytes.NewReader(dataset), &plan), qt.IsNotNil)
+}

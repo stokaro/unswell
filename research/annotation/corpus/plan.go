@@ -168,15 +168,18 @@ func sourceKeys(source Source) []string {
 
 func makeGroup(manifest Manifest, sources []Source) (Group, error) {
 	group := Group{Sources: []string{}, Keys: []string{}}
+	pinnedBy := ""
 	for _, source := range sources {
 		group.Sources = append(group.Sources, source.ID)
 		group.Keys = append(group.Keys, sourceKeys(source)...)
-		if source.Partition != "" {
-			if group.Partition != "" && group.Partition != source.Partition {
-				return Group{}, fmt.Errorf("connected sources have conflicting partition pins: %s and %s", group.Partition, source.Partition)
-			}
-			group.Partition, group.Pinned = source.Partition, true
+		if source.Partition == "" {
+			continue
 		}
+		if group.Partition != "" && group.Partition != source.Partition {
+			return Group{}, fmt.Errorf("connected sources %s and %s have conflicting partition pins: %s and %s",
+				pinnedBy, source.ID, group.Partition, source.Partition)
+		}
+		group.Partition, group.Pinned, pinnedBy = source.Partition, true, source.ID
 	}
 	slices.Sort(group.Sources)
 	slices.Sort(group.Keys)

@@ -137,3 +137,41 @@ The command reads the artifacts twice: once for the counts, once for the
 component support of the kept keys. It holds one artifact and the counts
 in memory. A high ratio is a proposal to read the sentences behind it. It
 is not a rule, not a defect, and not a claim about who wrote the text.
+
+## Screening
+
+`corpus screen` runs the exploratory screening the pattern protocol names
+for its selection partition. It takes the rule classes, the dataset plan,
+the finding artifacts, and the records and task sets of the generation
+runs that enter selection, one `--records` and one `--tasks` per run in
+the same order. The partition of every source comes from the plan, never
+from a finding artifact, so a plan made with partition pins decides what
+the screening reads. The output is `unswell-screening-v1`.
+
+Every rule whose class admits the role stratum meets every family the
+runs name. The controlled arm holds the units of the chosen kind in the
+complete `generate`/`neutral` responses of that family. The H0 arm holds
+the units of the same kind and role in the tasks' cohort. Both arms keep
+the units the plan puts in the screened partition. The difference
+`D` is the unit prevalence of the controlled arm minus the H0 arm, with
+the cluster bootstrap interval of the tables. The p-value is two-sided
+from the same replicates: twice the smaller share on either side of zero,
+never below one replicate's share. The Benjamini-Hochberg step runs across
+every test with a p-value at `--fdr`, and a candidate is a test that
+passes it with a positive difference.
+
+Each test carries a card state. The protocol defines it from the
+interval, the point estimate, the support in components, and the cluster
+minimum. The baseline load is not checked here, and the output says so.
+
+The sample-size record starts from the observed H0 prevalence and the
+bootstrap dependence. It gives the units and components per arm that
+detect `--mid` at two-sided alpha 0.05 with power 0.80. It gives them
+again at alpha 0.05 over twelve, the Holm worst case. The design effect is
+the bootstrap variance of `D` over the binomial variance of the two unit
+counts.
+
+A candidate is a rule to write a hypothesis template for. No candidate is
+a confirmed construction, a rule decision, or a claim about who wrote the
+text.
+

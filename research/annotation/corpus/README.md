@@ -189,6 +189,15 @@ dataset plan from the original shards. With `--pinned` it also checks every
 pinned copy against its recorded digest. Limits are 1,024 shards and 200,000
 sources; each shard keeps the manifest limits above.
 
+The hash assignment moves a component when a later shard adds keys to it.
+`--partitions FILE` on `plan` and `verify` pins whole repositories before
+grouping: the file names each repository and its partition, every source of
+a named repository takes that pin, and a source that already pins another
+partition is an error. The plan records the file digest, the count of
+repositories the pins matched, and the pinned repositories that matched no
+source. `pin` and `verify` need the same file again, and a plan made
+without pins refuses one.
+
 `union` joins the pinned sources of chosen shards into one manifest, so a
 corpus can span cohorts. `--cohort`, `--repository`, and `--role` pick
 sources, and an `--every-role-cohort` enters whatever its roles. `--unit-kind`

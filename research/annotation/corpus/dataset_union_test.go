@@ -32,9 +32,9 @@ func unionFixture(c *qt.C) (corpus.DatasetPlan, map[string][]byte, map[string][]
 	for _, path := range []string{"shards/a.json", "shards/b.json"} {
 		dataset.Shards = append(dataset.Shards, corpus.Notice{Path: path, SHA256: hash(shards[path]), Bytes: len(shards[path])})
 	}
-	plan, err := corpus.MakeDatasetPlan(c.Context(), dataset, shards)
+	plan, err := corpus.MakeDatasetPlan(c.Context(), dataset, shards, nil)
 	c.Assert(err, qt.IsNil)
-	pinned, err := corpus.PinShards(c.Context(), plan, shards)
+	pinned, err := corpus.PinShards(c.Context(), plan, shards, nil)
 	c.Assert(err, qt.IsNil)
 	return plan, pinned, files
 }

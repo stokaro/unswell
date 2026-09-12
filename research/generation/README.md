@@ -26,6 +26,10 @@ corpus paired --records records.json --tasks tasks.json \
   --classes research/methods/rule-classes-v1.json --findings ... > paired.json
 ```
 
+`corpus screen` then screens one partition of the plan with the runs that
+enter selection; the [patterns README](../annotation/patterns/README.md)
+describes it.
+
 A later run passes the earlier task sets to `corpus tasks --exclude-tasks`,
 so no task is drawn twice, and names its shards with
 `corpus generations --shard-suffix`, so its shards sit beside the earlier

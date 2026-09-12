@@ -70,7 +70,7 @@ func dedicated(name string) func(context.Context, []string, io.Reader, io.Writer
 		"evaluate": runEvaluation, "figures": runFigures, "dataset": runDataset, "duplicates": runDuplicates,
 		"analyze": runAnalyze, "acquire": runAcquire, "first-appearance": runFirstAppearance, "dedupe": runDedupe,
 		"tasks": runTasks, "requests": runRequests, "generations": runGenerations, "paired": runPaired,
-		"frequencies": runFrequencies,
+		"frequencies": runFrequencies, "screen": runScreen,
 	}
 	return commands[name]
 }

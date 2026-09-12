@@ -13,18 +13,20 @@ import (
 )
 
 type datasetOptions struct {
-	root, output, pinned string
-	union                corpus.UnionOptions
+	root, output, pinned, partitions string
+	union                            corpus.UnionOptions
 }
 
-// runDataset plans, pins, verifies, and unites a sharded dataset. Shard
-// manifests are read beneath --root by their declared paths; pinned copies are
-// written beneath --output and never overwrite an existing file; a union is
-// one manifest of selected shards whose paths name their checkouts.
+// runDataset plans, pins, verifies, and unites a sharded dataset. It reads
+// shard manifests beneath --root by their declared paths. It writes pinned
+// copies beneath --output and never overwrites a file. A union is one
+// manifest of selected shards whose paths name their checkouts. A partition
+// pin file, when given, pins whole repositories before grouping, and pin and
+// verify need the same file again.
 func runDataset(ctx context.Context, args []string, input io.Reader, output io.Writer) error {
 	if len(args) < 2 {
-		return fmt.Errorf("usage: corpus dataset {plan|pin|verify|union} --root DIR [--output DIR] [--pinned DIR] " +
-			"[--id ID] [--cohort NAME]... [--repository NAME]... [--unit-kind KIND]... < input.json")
+		return fmt.Errorf("usage: corpus dataset {plan|pin|verify|union} --root DIR [--partitions FILE] [--output DIR] " +
+			"[--pinned DIR] [--id ID] [--cohort NAME]... [--repository NAME]... [--unit-kind KIND]... < input.json")
 	}
 	options, err := datasetFlags(args[1], args[2:])
 	if err != nil {
@@ -48,6 +50,7 @@ func datasetFlags(name string, args []string) (datasetOptions, error) {
 	flags := flag.NewFlagSet("corpus dataset", flag.ContinueOnError)
 	flags.SetOutput(io.Discard)
 	flags.StringVar(&options.root, "root", "", "Local directory containing the shard manifests at their declared paths")
+	flags.StringVar(&options.partitions, "partitions", "", "Optional partition pin file applied before grouping")
 	switch name {
 	case "pin":
 		flags.StringVar(&options.output, "output", "", "Directory that receives the pinned shard manifests")
@@ -97,16 +100,12 @@ func unionFlags(flags *flag.FlagSet, options *corpus.UnionOptions) {
 }
 
 func datasetOperation(ctx context.Context, name string, options datasetOptions, data []byte) (any, error) {
+	pins, err := loadPartitionPins(ctx, options.partitions)
+	if err != nil {
+		return nil, err
+	}
 	if name == "plan" {
-		dataset, err := corpus.LoadDataset(ctx, data)
-		if err != nil {
-			return nil, err
-		}
-		shards, err := loadShardFiles(ctx, options.root, dataset.Shards)
-		if err != nil {
-			return nil, err
-		}
-		return corpus.MakeDatasetPlan(ctx, dataset, shards)
+		return planDataset(ctx, options.root, data, pins)
 	}
 	plan, err := corpus.LoadDatasetPlan(ctx, data)
 	if err != nil {
@@ -117,16 +116,44 @@ func datasetOperation(ctx context.Context, name string, options datasetOptions, 
 		return nil, err
 	}
 	if name == "pin" {
-		return pinDataset(ctx, plan, shards, options.output)
+		return pinDataset(ctx, plan, shards, pins, options.output)
 	}
 	if name == "union" {
-		pinned, err := corpus.PinShards(ctx, plan, shards)
+		pinned, err := corpus.PinShards(ctx, plan, shards, pins)
 		if err != nil {
 			return nil, err
 		}
 		return corpus.UnionManifest(ctx, plan, pinned, options.union)
 	}
-	return verifyDataset(ctx, plan, shards, options.pinned)
+	return verifyDataset(ctx, plan, shards, pins, options.pinned)
+}
+
+func planDataset(ctx context.Context, root string, data []byte, pins *corpus.PartitionPins) (any, error) {
+	dataset, err := corpus.LoadDataset(ctx, data)
+	if err != nil {
+		return nil, err
+	}
+	shards, err := loadShardFiles(ctx, root, dataset.Shards)
+	if err != nil {
+		return nil, err
+	}
+	return corpus.MakeDatasetPlan(ctx, dataset, shards, pins)
+}
+
+// loadPartitionPins reads the optional pin file; an empty path means none.
+func loadPartitionPins(ctx context.Context, path string) (*corpus.PartitionPins, error) {
+	if path == "" {
+		return nil, nil
+	}
+	data, err := loadLocalArtifact(ctx, path, corpus.MaxPartitionPinBytes, "partition pins")
+	if err != nil {
+		return nil, err
+	}
+	pins, err := corpus.LoadPartitionPins(ctx, data)
+	if err != nil {
+		return nil, fmt.Errorf("%s: %w", path, err)
+	}
+	return &pins, nil
 }
 
 func loadShardFiles(ctx context.Context, directory string, shards []corpus.Notice) (map[string][]byte, error) {
@@ -148,8 +175,10 @@ type DatasetPinResult struct {
 	Shards []corpus.Notice `json:"shards"`
 }
 
-func pinDataset(ctx context.Context, plan corpus.DatasetPlan, shards map[string][]byte, output string) (any, error) {
-	pinned, err := corpus.PinShards(ctx, plan, shards)
+func pinDataset(ctx context.Context, plan corpus.DatasetPlan, shards map[string][]byte, pins *corpus.PartitionPins,
+	output string,
+) (any, error) {
+	pinned, err := corpus.PinShards(ctx, plan, shards, pins)
 	if err != nil {
 		return nil, err
 	}
@@ -195,21 +224,25 @@ func writePinnedShard(root *os.Root, name string, data []byte) error {
 	return closeErr
 }
 
-// DatasetVerification reports what a verify command established.
+// DatasetVerification reports what a verify command established, including
+// the digest of the partition pins the plan was reproduced with.
 type DatasetVerification struct {
-	Status  string `json:"status"`
-	Shards  int    `json:"shards"`
-	Groups  int    `json:"groups"`
-	Sources int    `json:"sources"`
-	Pinned  bool   `json:"pinned_copies_verified"`
+	Status        string `json:"status"`
+	Shards        int    `json:"shards"`
+	Groups        int    `json:"groups"`
+	Sources       int    `json:"sources"`
+	PartitionPins string `json:"partition_pins_sha256,omitempty"`
+	Pinned        bool   `json:"pinned_copies_verified"`
 }
 
-func verifyDataset(ctx context.Context, plan corpus.DatasetPlan, shards map[string][]byte, pinnedDir string) (any, error) {
-	if err := corpus.VerifyDatasetPlan(ctx, plan, shards); err != nil {
+func verifyDataset(ctx context.Context, plan corpus.DatasetPlan, shards map[string][]byte, pins *corpus.PartitionPins,
+	pinnedDir string,
+) (any, error) {
+	if err := corpus.VerifyDatasetPlan(ctx, plan, shards, pins); err != nil {
 		return nil, err
 	}
 	result := DatasetVerification{Status: "dataset_plan_reproduced", Shards: len(plan.Shards), Groups: len(plan.Groups),
-		Sources: len(plan.Sources)}
+		Sources: len(plan.Sources), PartitionPins: plan.PartitionPinsSHA256}
 	if pinnedDir == "" {
 		return result, nil
 	}

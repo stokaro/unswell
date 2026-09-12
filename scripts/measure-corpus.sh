@@ -106,11 +106,15 @@ jq --arg seed "$seed" --arg classes "$classes_digest" --argjson shards "$entries
   '{version: "unswell-corpus-dataset-v1", id: "historical-pilot", seed: $seed, weights: .weights,
     extraction_policy: .extraction_policy, unit_kinds: .unit_kinds, rule_classes_sha256: $classes, shards: $shards}' \
   "$first" >"$output/dataset.json"
-"$corpus_tool" dataset plan --root "$shard_root" <"$output/dataset.json" >"$output/dataset-plan.json"
+partition_flags=()
+if [[ -f "$root/research/methods/partitions-v1.json" ]]; then
+  partition_flags=(--partitions "$root/research/methods/partitions-v1.json")
+fi
+"$corpus_tool" dataset plan --root "$shard_root" "${partition_flags[@]}" <"$output/dataset.json" >"$output/dataset-plan.json"
 rm -rf "$output/pinned"
 mkdir -p "$output/pinned"
-"$corpus_tool" dataset pin --root "$shard_root" --output "$output/pinned" <"$output/dataset-plan.json" >"$output/pinned.json"
-"$corpus_tool" dataset verify --root "$shard_root" --pinned "$output/pinned" <"$output/dataset-plan.json" >"$output/dataset-verification.json"
+"$corpus_tool" dataset pin --root "$shard_root" --output "$output/pinned" "${partition_flags[@]}" <"$output/dataset-plan.json" >"$output/pinned.json"
+"$corpus_tool" dataset verify --root "$shard_root" --pinned "$output/pinned" "${partition_flags[@]}" <"$output/dataset-plan.json" >"$output/dataset-verification.json"
 groups=$(jq '.groups | length' "$output/dataset-plan.json")
 sources=$(jq '.sources | length' "$output/dataset-plan.json")
 printf 'dataset: %s groups, %s sources\n' "$groups" "$sources"
