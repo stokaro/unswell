@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.1.0-alpha.2
+
+Second experimental release of the same offline engine, CLI, MCP server, and
+Go library.
+
+Extraction keeps Markdown prose after lone-pipe table boundaries, around
+byte-valued literals, and at block edges at the start and end of a file. It
+accepts function-like macro statements in C and C++. Noun stacks stop at a
+mistagged "cannot". Near-sentence matching keeps technical contrasts. Empty
+environment values in Bash commands extract correctly. The parser timeout
+scales with the input, document-heavy trees get bounds on memory and time,
+and the saved-result bound rises to 256 MiB.
+
+The CLI checks committed changes with full paragraph context under a trusted
+merge-base policy. It reports an opt-in origin estimate in a separate channel
+that gates nothing. It estimates revision probability from a configured pack.
+It collects prepared prose features and rule activations through the CLI and
+MCP. SARIF output is checked against the schema and a real consumer. A public
+Go analysis adapter and vet driver check comments and strings through the same
+engine.
+
+A release now dispatches update pull requests for the Homebrew tap and the
+GitHub Action, mirrors the images to Docker Hub with digest checks, and
+reproduces the six release binaries across hosts.
+
+The research corpus and its records under `research/` change no product
+behavior. This alpha still has no calibrated probability gate, no stable-rule
+precision claim, and no human-labeled corpus.
+
 ## 0.1.0-alpha.1
 
 First experimental release of an offline Go library and CLI for English prose.
