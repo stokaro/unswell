@@ -187,7 +187,7 @@ func (f *pairedFrame) pairRecord(run string, record generation.Record, byTask ma
 		return fmt.Errorf("record %s names task %s outside the task set", record.ResponseID, record.TaskID)
 	}
 	original, measured := originals[task.SourceID+"#"+task.UnitID]
-	response, present := responses[generation.ControlledID(run, task.Repository, "generated/"+record.ResponseID+".md")]
+	response, present := responses[generation.ControlledID(run, task.Repository, generation.ResponsePath(run, record.ResponseID))]
 	switch {
 	case !present:
 		coverage.MissingResponses++

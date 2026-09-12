@@ -1,0 +1,3774 @@
+{
+  "version": "unswell-corpus-v1",
+  "id": "controlled-go-chi__chi-qwen27b",
+  "seed": "unswell-llm-patterns-v1",
+  "weights": {
+    "training": 5000,
+    "development": 1500,
+    "calibration": 1500,
+    "final_test": 2000
+  },
+  "extraction_policy": {
+    "contexts": [
+      "comment",
+      "string",
+      "paragraph",
+      "heading",
+      "list-item",
+      "table-cell"
+    ],
+    "languages": {},
+    "exceptions": []
+  },
+  "unit_kinds": [
+    "sentence",
+    "paragraph",
+    "fragment"
+  ],
+  "sources": [
+    {
+      "id": "091b99b4ea1dad1fbd2b2bdb",
+      "path": "generated/2026-09-12-qwen-27b/r98a9845582b57561.md",
+      "sha256": "162b03595fe4abe3aa41587a7fc1c7d7605fe3bc1c78d534a64784d81af0245c",
+      "bytes": 95,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r98a9845582b57561.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t1ddf0f10cfdf8999"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r98a9845582b57561",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r98a9845582b57561 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r98a9845582b57561"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "0f0ec18bee2f4f0106f66be9",
+      "path": "generated/2026-09-12-qwen-27b/r21f7b8517620940f.md",
+      "sha256": "5f666d7545dc0f3edfc56a266202bd3f29a4f4ec1934771715afccac359df0bd",
+      "bytes": 109,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r21f7b8517620940f.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t3095fcf7b2cb22b3"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r21f7b8517620940f",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r21f7b8517620940f of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r21f7b8517620940f"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "0f6010db82157b86b9b56e67",
+      "path": "generated/2026-09-12-qwen-27b/r411fd11beb60cbec.md",
+      "sha256": "a42bbdb7a1720d273ca4f25154ef4900aa152e78752e773ff8b0a850949dba4f",
+      "bytes": 112,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r411fd11beb60cbec.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t01a690447b980a00"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r411fd11beb60cbec",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r411fd11beb60cbec of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r411fd11beb60cbec"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "11e4cb5885f658c838c42094",
+      "path": "generated/2026-09-12-qwen-27b/rdba164fc41000bd3.md",
+      "sha256": "d73ab872f5b83f377ce833abb0fc8f67e03c86d6fa85864d9b4a77f0f9a33e06",
+      "bytes": 118,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rdba164fc41000bd3.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tc944e936f12fbfec"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rdba164fc41000bd3",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rdba164fc41000bd3 of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rdba164fc41000bd3"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "16ba0d5e3f96621c014e9819",
+      "path": "generated/2026-09-12-qwen-27b/r69b8e8a557447916.md",
+      "sha256": "84678090d81906b80fcbfb3875df4a5d842d9fcef437b00124c367a8ee80cf88",
+      "bytes": 119,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r69b8e8a557447916.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t1ddf0f10cfdf8999"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r69b8e8a557447916",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r69b8e8a557447916 of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r69b8e8a557447916"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "17c02f5de554e6704f44f204",
+      "path": "generated/2026-09-12-qwen-27b/r7552f175a536aca0.md",
+      "sha256": "a73c2d4e7a87b42b428c111b5082e0e192b45153508965fc5365d937d00c652e",
+      "bytes": 89,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r7552f175a536aca0.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tba7d5dd54213263c"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r7552f175a536aca0",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r7552f175a536aca0 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r7552f175a536aca0"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "2129dfc80739b23521d1f1a7",
+      "path": "generated/2026-09-12-qwen-27b/rebe789a7a02ae6dd.md",
+      "sha256": "75fac068da5596694dbfa19825a8c3462f848309429bc19b839c792f7dc170e6",
+      "bytes": 141,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rebe789a7a02ae6dd.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t5bfbb17a3a7bf8c3"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rebe789a7a02ae6dd",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response rebe789a7a02ae6dd of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rebe789a7a02ae6dd"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "23243a20c3c32c80074cdd35",
+      "path": "generated/2026-09-12-qwen-27b/r2c91be9093d0fa0f.md",
+      "sha256": "17d2f174831f74a5a810ec2f148cc1faf275e026ed158c3f59c067a2c79549c4",
+      "bytes": 228,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r2c91be9093d0fa0f.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "ta04709c6f1168837"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r2c91be9093d0fa0f",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r2c91be9093d0fa0f of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r2c91be9093d0fa0f"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "24b2621cbcfbfbca9403ff01",
+      "path": "generated/2026-09-12-qwen-27b/r94867f59b6c1a18f.md",
+      "sha256": "04650dd7983fbc63f41a3375ec17866d5b95e3941aa313594fb2be93edb92c3a",
+      "bytes": 107,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r94867f59b6c1a18f.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tba7d5dd54213263c"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r94867f59b6c1a18f",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r94867f59b6c1a18f of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r94867f59b6c1a18f"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "24b6bf1bdab110a33d3951d9",
+      "path": "generated/2026-09-12-qwen-27b/reccaae7dfa34fbe6.md",
+      "sha256": "be0bb092ebb08b05bd9536cfbdfc8829dececb614bfb66b6d15dc5a829cb8cc9",
+      "bytes": 116,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/reccaae7dfa34fbe6.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t7dab596c8b62b4b2"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/reccaae7dfa34fbe6",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response reccaae7dfa34fbe6 of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#reccaae7dfa34fbe6"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "24deca6498c2176e451273b6",
+      "path": "generated/2026-09-12-qwen-27b/rc5e44301aac76af4.md",
+      "sha256": "871fbfb8c2ba4311a27d529bc37e80db1f007490abd1cb8e7816a38a99764a84",
+      "bytes": 182,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rc5e44301aac76af4.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tfa9877fa22245b72"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rc5e44301aac76af4",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rc5e44301aac76af4 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rc5e44301aac76af4"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "292626a4196881d526d9c221",
+      "path": "generated/2026-09-12-qwen-27b/r196df56017b13bdb.md",
+      "sha256": "b0b62befc8340b81201d0dc5f6339e101ee5df32a6f0c6afda61c96abd21137a",
+      "bytes": 60,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r196df56017b13bdb.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "ta849c88e995b576c"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r196df56017b13bdb",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r196df56017b13bdb of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r196df56017b13bdb"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "2c5ac3a17c22fae8faf5da38",
+      "path": "generated/2026-09-12-qwen-27b/reb0ddb8f813ce5c3.md",
+      "sha256": "58e3c8712ec10d89431f2105db9eed8c7ed37ebba2ed1a1493a9e8cb24361ffd",
+      "bytes": 259,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/reb0ddb8f813ce5c3.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tfa9877fa22245b72"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/reb0ddb8f813ce5c3",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response reb0ddb8f813ce5c3 of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#reb0ddb8f813ce5c3"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "2cbecbe16931c1cc7ad40af5",
+      "path": "generated/2026-09-12-qwen-27b/r0c74fca0af6450f0.md",
+      "sha256": "6b3c36b24c14d7d1744bdaecf9e8b7bd9cb5221e6138d60464ad15710616a8e2",
+      "bytes": 85,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r0c74fca0af6450f0.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t5bfbb17a3a7bf8c3"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r0c74fca0af6450f0",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r0c74fca0af6450f0 of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r0c74fca0af6450f0"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "30cdbdfc1684daf906c23654",
+      "path": "generated/2026-09-12-qwen-27b/r3123d43f42b6ec24.md",
+      "sha256": "055ff4b6c923a6c32fd11ef0eb163e04fd08d66e75b39d453b007b6b29e10eb2",
+      "bytes": 124,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r3123d43f42b6ec24.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tba7d5dd54213263c"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r3123d43f42b6ec24",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r3123d43f42b6ec24 of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r3123d43f42b6ec24"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "322a8f0cc1618e721ef8ec31",
+      "path": "generated/2026-09-12-qwen-27b/r951b49b408fa8cee.md",
+      "sha256": "51bee5546fdd79c03f5d08d9e31528a0aa013be3c938d0e948846aee4b1ae3d9",
+      "bytes": 247,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r951b49b408fa8cee.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t671190bb9fd0658c"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r951b49b408fa8cee",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r951b49b408fa8cee of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r951b49b408fa8cee"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "3b9f738c0b0816ca80796494",
+      "path": "generated/2026-09-12-qwen-27b/r042785bf3a478c7c.md",
+      "sha256": "81070dba5d852b40be37c53c500b906347813b7bdda904dce8c24f439b81c2e6",
+      "bytes": 81,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r042785bf3a478c7c.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t65fc33e5891bb504"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r042785bf3a478c7c",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r042785bf3a478c7c of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r042785bf3a478c7c"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "3c1f5c7de528f9af8161c84f",
+      "path": "generated/2026-09-12-qwen-27b/r16c715dd9f3d742a.md",
+      "sha256": "b0b62befc8340b81201d0dc5f6339e101ee5df32a6f0c6afda61c96abd21137a",
+      "bytes": 60,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r16c715dd9f3d742a.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "ta849c88e995b576c"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r16c715dd9f3d742a",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r16c715dd9f3d742a of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r16c715dd9f3d742a"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "3ca3905aed2d60a9581a20af",
+      "path": "generated/2026-09-12-qwen-27b/r0738d24aefee6a27.md",
+      "sha256": "781672a58bb7af151b233cb194a9006d1a2300e2171028c89c6701e89d9b81da",
+      "bytes": 173,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r0738d24aefee6a27.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t1ddf0f10cfdf8999"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r0738d24aefee6a27",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r0738d24aefee6a27 of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r0738d24aefee6a27"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "3d96856b951ea9c9cf2ad36b",
+      "path": "generated/2026-09-12-qwen-27b/r005151ac32e63ece.md",
+      "sha256": "2feac19b07ecf9152ba154b1cf944bd200ea67680a6e7a4e966e0ed6882adb53",
+      "bytes": 222,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r005151ac32e63ece.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tccfb1a8ab6930521"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r005151ac32e63ece",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r005151ac32e63ece of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r005151ac32e63ece"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "3f36eea26a1233bb7364a6d9",
+      "path": "generated/2026-09-12-qwen-27b/r8ef7fcb89310abbe.md",
+      "sha256": "226ba8ba7defe13c5dce5411fb5b198d2048f601b2a251b6c386befaf7d5504b",
+      "bytes": 107,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r8ef7fcb89310abbe.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t01a690447b980a00"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r8ef7fcb89310abbe",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r8ef7fcb89310abbe of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r8ef7fcb89310abbe"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "3f99fa00b104f3bb294d7f65",
+      "path": "generated/2026-09-12-qwen-27b/rfb7d6bf6da44e769.md",
+      "sha256": "d2b8973d87d549f15ff0022657273e25a37fe3d78d68725b3fd7ab948c8e4355",
+      "bytes": 109,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rfb7d6bf6da44e769.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tb58b00173d29d306"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rfb7d6bf6da44e769",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response rfb7d6bf6da44e769 of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rfb7d6bf6da44e769"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "40e219b2a6c6043e6d8a6a36",
+      "path": "generated/2026-09-12-qwen-27b/r8c02490a2d8a5124.md",
+      "sha256": "be0bb092ebb08b05bd9536cfbdfc8829dececb614bfb66b6d15dc5a829cb8cc9",
+      "bytes": 116,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r8c02490a2d8a5124.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t7dab596c8b62b4b2"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r8c02490a2d8a5124",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r8c02490a2d8a5124 of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r8c02490a2d8a5124"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "4276f456a88e21744014801e",
+      "path": "generated/2026-09-12-qwen-27b/r04600ede16cf1be4.md",
+      "sha256": "73bddc29272dca4bbcb15362de73867e8abb273d064bb32a550ecbbf3de5bb95",
+      "bytes": 270,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r04600ede16cf1be4.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "ta04709c6f1168837"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r04600ede16cf1be4",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r04600ede16cf1be4 of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r04600ede16cf1be4"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "48c871776bb52a72d88c0c58",
+      "path": "generated/2026-09-12-qwen-27b/r8f627547a29c9e54.md",
+      "sha256": "095dd878257e2187ea5484b35f5cfe8a2f232b7046f883d6c03e0b5e5975b037",
+      "bytes": 102,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r8f627547a29c9e54.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tb58b00173d29d306"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r8f627547a29c9e54",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r8f627547a29c9e54 of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r8f627547a29c9e54"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "4b839e8c3cdc076d45174442",
+      "path": "generated/2026-09-12-qwen-27b/r1a1cefb47d6660a3.md",
+      "sha256": "75fac068da5596694dbfa19825a8c3462f848309429bc19b839c792f7dc170e6",
+      "bytes": 141,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r1a1cefb47d6660a3.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t5bfbb17a3a7bf8c3"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r1a1cefb47d6660a3",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r1a1cefb47d6660a3 of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r1a1cefb47d6660a3"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "4d87d8a0b71a366e4a76feb7",
+      "path": "generated/2026-09-12-qwen-27b/re7f1ec598a8ffc78.md",
+      "sha256": "80bfe527848f03dc111a2c982f98044c0a12307fe52a8328fcd3d127850e32ea",
+      "bytes": 104,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/re7f1ec598a8ffc78.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t540ed23f523c4852"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/re7f1ec598a8ffc78",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response re7f1ec598a8ffc78 of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#re7f1ec598a8ffc78"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "4de95eda0f61446ced9a38dc",
+      "path": "generated/2026-09-12-qwen-27b/re6a2cc3619dd3e7a.md",
+      "sha256": "895a521b64488a2404ec879a7f597c8cf13b017a64ede7ec58fa708ec69b1163",
+      "bytes": 128,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/re6a2cc3619dd3e7a.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tc944e936f12fbfec"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/re6a2cc3619dd3e7a",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response re6a2cc3619dd3e7a of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#re6a2cc3619dd3e7a"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "506cb95f6b81139b80f10608",
+      "path": "generated/2026-09-12-qwen-27b/r5ec3ddae2402ed7a.md",
+      "sha256": "2aa6b9e5d8759efd4b7c9e01de1eb1633455fc9385fc6a71b54b6cdc637d1494",
+      "bytes": 296,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r5ec3ddae2402ed7a.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t671190bb9fd0658c"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r5ec3ddae2402ed7a",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r5ec3ddae2402ed7a of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r5ec3ddae2402ed7a"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "5576ea4ed85ecf57e963359b",
+      "path": "generated/2026-09-12-qwen-27b/r17b88f75aebcaff7.md",
+      "sha256": "72c46a8af48bc52fd8ef2709ac6812215a2fa0edb240cd0bb7efb9c054c2fb50",
+      "bytes": 139,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r17b88f75aebcaff7.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tecc9e1df4487032f"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r17b88f75aebcaff7",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r17b88f75aebcaff7 of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r17b88f75aebcaff7"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "57b2dd70e711dc7a59937878",
+      "path": "generated/2026-09-12-qwen-27b/rb19e8648c64886f5.md",
+      "sha256": "65497ddd80d415ba9198040cf5a660787470ca8dfae572e4f281b3da7e5b96ad",
+      "bytes": 255,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rb19e8648c64886f5.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t671190bb9fd0658c"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rb19e8648c64886f5",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rb19e8648c64886f5 of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rb19e8648c64886f5"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "61859d916f1ea70a1e176fd1",
+      "path": "generated/2026-09-12-qwen-27b/r9d6bf09d03ee6fdc.md",
+      "sha256": "8c9662c6a831e9e1eafed66ea880c63ce896bd162ee6217b9069af4dd5a0a57f",
+      "bytes": 96,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r9d6bf09d03ee6fdc.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t19b707765993c07e"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r9d6bf09d03ee6fdc",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r9d6bf09d03ee6fdc of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r9d6bf09d03ee6fdc"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "68f37f3544b2ebec9a450814",
+      "path": "generated/2026-09-12-qwen-27b/r49495c1fe0375fa1.md",
+      "sha256": "d0db4643f2a159fea0943af03e4a235b51c7fccd7e4231d4c847ab458a640a90",
+      "bytes": 101,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r49495c1fe0375fa1.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t19b707765993c07e"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r49495c1fe0375fa1",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r49495c1fe0375fa1 of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r49495c1fe0375fa1"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "6ee0d1d17f179a129f8df88b",
+      "path": "generated/2026-09-12-qwen-27b/r667cc924b3f670e1.md",
+      "sha256": "e92791220fa9aec8bb8e6ca617b4eff311b071b93c1dda6cd4d41278b92f7ea4",
+      "bytes": 248,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r667cc924b3f670e1.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tfa9877fa22245b72"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r667cc924b3f670e1",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r667cc924b3f670e1 of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r667cc924b3f670e1"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "72f4c332eef218f56c7ba6b7",
+      "path": "generated/2026-09-12-qwen-27b/rbb9ecb1e66925129.md",
+      "sha256": "1aac2ede9868deb585138f1f39eb87310701d0e8aa0bf9900137869dd1f44cc7",
+      "bytes": 255,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rbb9ecb1e66925129.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tccfb1a8ab6930521"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rbb9ecb1e66925129",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rbb9ecb1e66925129 of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rbb9ecb1e66925129"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "7486d86623dae55b003a0dfd",
+      "path": "generated/2026-09-12-qwen-27b/ref2ee537b52d15a1.md",
+      "sha256": "9017bb91056862a2e016234a335b6aa7fbda08bdd5ef0ff2948bc1add99458ad",
+      "bytes": 110,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/ref2ee537b52d15a1.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t540ed23f523c4852"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/ref2ee537b52d15a1",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response ref2ee537b52d15a1 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#ref2ee537b52d15a1"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "74d0f2392d1a8675dfab3769",
+      "path": "generated/2026-09-12-qwen-27b/rcfdedd3d01f420e3.md",
+      "sha256": "b34ec6f35c3002c2bd13eb31b732e0dd176ac7931553d69052e679fb75b88426",
+      "bytes": 274,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rcfdedd3d01f420e3.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "ta04709c6f1168837"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rcfdedd3d01f420e3",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rcfdedd3d01f420e3 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rcfdedd3d01f420e3"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "7c509584de48f42937c8cfc1",
+      "path": "generated/2026-09-12-qwen-27b/r3facbcf7d90b2119.md",
+      "sha256": "694eae456245e0702de359d0546b29db98c88ace0261bcfaef3393bd1996f712",
+      "bytes": 133,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r3facbcf7d90b2119.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tba7d5dd54213263c"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r3facbcf7d90b2119",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r3facbcf7d90b2119 of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r3facbcf7d90b2119"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "7e49ccdcf15bc61b99767625",
+      "path": "generated/2026-09-12-qwen-27b/rea62d999212ebe1d.md",
+      "sha256": "20931806115f93783e6fcfdd837cddbe657607688b51b5af1dd259f62b381747",
+      "bytes": 103,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rea62d999212ebe1d.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t19b707765993c07e"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rea62d999212ebe1d",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response rea62d999212ebe1d of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rea62d999212ebe1d"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "82f82c9ef62c27dd92f3adc2",
+      "path": "generated/2026-09-12-qwen-27b/r8ab94a8b05875570.md",
+      "sha256": "66d2d49c3c9b0775eefcf1294ea08e4c1028df5b504e28558c202021239041ed",
+      "bytes": 186,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r8ab94a8b05875570.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tecc9e1df4487032f"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r8ab94a8b05875570",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r8ab94a8b05875570 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r8ab94a8b05875570"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "90f990a4f7832579d40b64ad",
+      "path": "generated/2026-09-12-qwen-27b/rddbc532aca006678.md",
+      "sha256": "714f6e6d02095d3ce30f9830864196f21b0f6b4243ff33ca35bf28c001b684f3",
+      "bytes": 104,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rddbc532aca006678.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t3095fcf7b2cb22b3"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rddbc532aca006678",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rddbc532aca006678 of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rddbc532aca006678"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "96ea8788ea41ef94409b13de",
+      "path": "generated/2026-09-12-qwen-27b/r248475bce57b034d.md",
+      "sha256": "5f666d7545dc0f3edfc56a266202bd3f29a4f4ec1934771715afccac359df0bd",
+      "bytes": 109,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r248475bce57b034d.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t3095fcf7b2cb22b3"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r248475bce57b034d",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r248475bce57b034d of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r248475bce57b034d"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "981727d2f41683143707037b",
+      "path": "generated/2026-09-12-qwen-27b/r4a6ac52a87cc83a1.md",
+      "sha256": "01405e099e059cd679427f687e6ac759b411a596d39131e38eba11f70a9ee001",
+      "bytes": 242,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r4a6ac52a87cc83a1.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tccfb1a8ab6930521"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r4a6ac52a87cc83a1",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r4a6ac52a87cc83a1 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r4a6ac52a87cc83a1"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "9ca383199b31ce5fa6749a72",
+      "path": "generated/2026-09-12-qwen-27b/rdc2206f854ea4f8f.md",
+      "sha256": "226ba8ba7defe13c5dce5411fb5b198d2048f601b2a251b6c386befaf7d5504b",
+      "bytes": 107,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rdc2206f854ea4f8f.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t01a690447b980a00"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rdc2206f854ea4f8f",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response rdc2206f854ea4f8f of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rdc2206f854ea4f8f"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "a0d067b12bf05835f9aaa7b6",
+      "path": "generated/2026-09-12-qwen-27b/r751d0575b0e18e55.md",
+      "sha256": "e7eed3eb3ce8d8eba4ec28f0f4694ede99ce0538157523f0adee9f63185f534c",
+      "bytes": 112,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r751d0575b0e18e55.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t65fc33e5891bb504"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r751d0575b0e18e55",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r751d0575b0e18e55 of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r751d0575b0e18e55"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "a80151cdca3d710e9bc9ccef",
+      "path": "generated/2026-09-12-qwen-27b/r0f41a891f90a996e.md",
+      "sha256": "bf9982e716c7f9481f105ccc78f3d08804dc6e02814cd6d992d3cd8636eda5d7",
+      "bytes": 198,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r0f41a891f90a996e.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "taf911e0b0a1ff616"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r0f41a891f90a996e",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r0f41a891f90a996e of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r0f41a891f90a996e"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "a86496782e341d35e6fcf8f9",
+      "path": "generated/2026-09-12-qwen-27b/r52fe96bbfd45c81f.md",
+      "sha256": "b917fb4568380fd18530958b5e267c72af56ea81dbcfbd10a9cbbe886cc8ea02",
+      "bytes": 292,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r52fe96bbfd45c81f.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "ta04709c6f1168837"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r52fe96bbfd45c81f",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r52fe96bbfd45c81f of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r52fe96bbfd45c81f"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "ab61268f6eb939adb9eddbd6",
+      "path": "generated/2026-09-12-qwen-27b/r4372deb70869464c.md",
+      "sha256": "e1db065a8a55ec9658c8f23dc49e1ce5230c53e16b3b6fb34548f56446586bda",
+      "bytes": 230,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r4372deb70869464c.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t671190bb9fd0658c"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r4372deb70869464c",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r4372deb70869464c of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r4372deb70869464c"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "b12d20bba1172c2f46ad3eb3",
+      "path": "generated/2026-09-12-qwen-27b/r444a96cecbcd3406.md",
+      "sha256": "e751dc30b43e1d23f31ef0e67b498d1c74fb7e7ab32ebcb06ba1dde8f5d1fb1b",
+      "bytes": 233,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r444a96cecbcd3406.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "taf911e0b0a1ff616"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r444a96cecbcd3406",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r444a96cecbcd3406 of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r444a96cecbcd3406"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "b4dded33284eb1462941d3f2",
+      "path": "generated/2026-09-12-qwen-27b/re15988a73f170a35.md",
+      "sha256": "0460a21978d717cf63eec1c4f7cd225331446bfc20401f3793bc254ada523504",
+      "bytes": 107,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/re15988a73f170a35.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tb58b00173d29d306"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/re15988a73f170a35",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response re15988a73f170a35 of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#re15988a73f170a35"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "b7113a3ff9e398855dc4d55c",
+      "path": "generated/2026-09-12-qwen-27b/r5c49c5e045434f5e.md",
+      "sha256": "d7732d90592488983d3fa464047a634992217ff38e2566021293d584c5d772d6",
+      "bytes": 131,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r5c49c5e045434f5e.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t1ddf0f10cfdf8999"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r5c49c5e045434f5e",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r5c49c5e045434f5e of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r5c49c5e045434f5e"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "bcd39a374d2a76c6f3314242",
+      "path": "generated/2026-09-12-qwen-27b/re248d853b59cd36e.md",
+      "sha256": "c76386a6964471819e876e095d585351d36c1b01ed8efe0a796b0901306424e1",
+      "bytes": 120,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/re248d853b59cd36e.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tc944e936f12fbfec"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/re248d853b59cd36e",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response re248d853b59cd36e of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#re248d853b59cd36e"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "bdc194f8a970c2e4dcff7820",
+      "path": "generated/2026-09-12-qwen-27b/r15deac95999ec910.md",
+      "sha256": "d85df2f436d3b506458aaf8a950206c9cc875d6ddd70f2940ebb708eaa61b0db",
+      "bytes": 120,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r15deac95999ec910.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tc944e936f12fbfec"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r15deac95999ec910",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r15deac95999ec910 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r15deac95999ec910"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "bf7a65a92772bb3680f2be70",
+      "path": "generated/2026-09-12-qwen-27b/r9825cbd0cb8fdb7b.md",
+      "sha256": "661b97d6066a98b2220aa5e859b1c9830566e4dce4bacf41e7916ee54de2778b",
+      "bytes": 226,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r9825cbd0cb8fdb7b.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "taf911e0b0a1ff616"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r9825cbd0cb8fdb7b",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r9825cbd0cb8fdb7b of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r9825cbd0cb8fdb7b"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "c1890b23525b764089593217",
+      "path": "generated/2026-09-12-qwen-27b/r4934a42f27b104d3.md",
+      "sha256": "ce031a08fbc69b585eae88e04808684c61361333874e1a00a3c2c1fe8f7e40e5",
+      "bytes": 127,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r4934a42f27b104d3.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t5bfbb17a3a7bf8c3"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r4934a42f27b104d3",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r4934a42f27b104d3 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r4934a42f27b104d3"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "c8e4d83de7dcb9be27249ed7",
+      "path": "generated/2026-09-12-qwen-27b/rda3a7c3eeb907e17.md",
+      "sha256": "9c34a793b2832b692ad7a2ad67bf50ae7797099b96be45ed120666c46283521e",
+      "bytes": 144,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rda3a7c3eeb907e17.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t01a690447b980a00"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rda3a7c3eeb907e17",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rda3a7c3eeb907e17 of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rda3a7c3eeb907e17"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "cd23010bc6e88223e36e027a",
+      "path": "generated/2026-09-12-qwen-27b/r185d140eb5141895.md",
+      "sha256": "a2cb635b7b8cd81e6a6516f09f9f6b037fc13a7169122fe653ff1538e24d6114",
+      "bytes": 123,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r185d140eb5141895.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tb58b00173d29d306"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r185d140eb5141895",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r185d140eb5141895 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r185d140eb5141895"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "d640f7e926305f7d977b2f25",
+      "path": "generated/2026-09-12-qwen-27b/rcdcbf12dd5a9a1ef.md",
+      "sha256": "5b79fd56734ff9bfbd5de9a21f5c3e1fc99037b75148ec74f12fe568a632efc1",
+      "bytes": 169,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rcdcbf12dd5a9a1ef.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tecc9e1df4487032f"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rcdcbf12dd5a9a1ef",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rcdcbf12dd5a9a1ef of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rcdcbf12dd5a9a1ef"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "d82204b7f500fec6c0d6be8f",
+      "path": "generated/2026-09-12-qwen-27b/ra1f7b9a57a8d7cd0.md",
+      "sha256": "2739dc185b063d6660673f4bc55817187148123e1c2f4900c15288aad687b71c",
+      "bytes": 98,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/ra1f7b9a57a8d7cd0.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t540ed23f523c4852"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/ra1f7b9a57a8d7cd0",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response ra1f7b9a57a8d7cd0 of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#ra1f7b9a57a8d7cd0"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "daf6d657aa9d386d524c0fc6",
+      "path": "generated/2026-09-12-qwen-27b/r64db8bc512b7ce7d.md",
+      "sha256": "3dc159d4a0e752d927783303bc4e446a2ade31a55dafc6885b7b2f90d9cf470e",
+      "bytes": 84,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r64db8bc512b7ce7d.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t7dab596c8b62b4b2"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r64db8bc512b7ce7d",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r64db8bc512b7ce7d of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r64db8bc512b7ce7d"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "db5bb5e79124879d96d05c4d",
+      "path": "generated/2026-09-12-qwen-27b/rf7005ce3fb4481c3.md",
+      "sha256": "9f5b55a3d96f2cf705b65f6f51aa75ce04feb8187651d2de3bd8936fdc53a593",
+      "bytes": 113,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rf7005ce3fb4481c3.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t3095fcf7b2cb22b3"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rf7005ce3fb4481c3",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rf7005ce3fb4481c3 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rf7005ce3fb4481c3"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "dda04b89315e3a82d9c135f9",
+      "path": "generated/2026-09-12-qwen-27b/rfa0cac13b6be1fac.md",
+      "sha256": "2ad2fc44bda7b2cd5dc69c83b8ee0fa5524a745dfb1c01c78b6c6e20b33ad371",
+      "bytes": 137,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rfa0cac13b6be1fac.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tecc9e1df4487032f"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rfa0cac13b6be1fac",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response rfa0cac13b6be1fac of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rfa0cac13b6be1fac"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "de2938d3295f358e748c5943",
+      "path": "generated/2026-09-12-qwen-27b/rb016ed0c830032b3.md",
+      "sha256": "072c9ff32e3c7bc802b7addecd6f1084b2a19ba48446d8847976859fb3803b24",
+      "bytes": 85,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/rb016ed0c830032b3.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t65fc33e5891bb504"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/rb016ed0c830032b3",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rb016ed0c830032b3 of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#rb016ed0c830032b3"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "e09885625d1ba763652874ef",
+      "path": "generated/2026-09-12-qwen-27b/r44a99bcfa7f4df55.md",
+      "sha256": "11421bfd1f8fcfa3adfd13575cfd03bde12afdb49ef83e2dff551f2815b3be63",
+      "bytes": 107,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r44a99bcfa7f4df55.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t65fc33e5891bb504"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r44a99bcfa7f4df55",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r44a99bcfa7f4df55 of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r44a99bcfa7f4df55"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "ef1d5398f34b65fcd33d7aeb",
+      "path": "generated/2026-09-12-qwen-27b/r3c842343517c6d17.md",
+      "sha256": "08c496e854b8d76d52382f0cf27784a3a15a79deae7e4fab35ead23b9b11f51f",
+      "bytes": 85,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r3c842343517c6d17.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t7dab596c8b62b4b2"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r3c842343517c6d17",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r3c842343517c6d17 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r3c842343517c6d17"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "f558e9a73bf7d69eea986930",
+      "path": "generated/2026-09-12-qwen-27b/ref59924597cd9889.md",
+      "sha256": "ad3a2a7e040cc92450dd7d552345fc1d9710b586552301e292e589a80c81641c",
+      "bytes": 207,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/ref59924597cd9889.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tccfb1a8ab6930521"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/ref59924597cd9889",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response ref59924597cd9889 of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#ref59924597cd9889"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "f5f20334aabfad5f7a4c9b6a",
+      "path": "generated/2026-09-12-qwen-27b/r86307dceffd20083.md",
+      "sha256": "776e2961b18dc5d390c205160fcd1159e84830972afb7aa4ba037a841348e7bd",
+      "bytes": 150,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r86307dceffd20083.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "taf911e0b0a1ff616"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r86307dceffd20083",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r86307dceffd20083 of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r86307dceffd20083"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "f6b9926a495afd28818dfd90",
+      "path": "generated/2026-09-12-qwen-27b/r778f16fa79435a14.md",
+      "sha256": "eeb2973da7ff6585641d25b9af2c37d4c954912015eb56b5a97c512162d27a92",
+      "bytes": 94,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r778f16fa79435a14.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "ta849c88e995b576c"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r778f16fa79435a14",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r778f16fa79435a14 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r778f16fa79435a14"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "f7d2fb2022b9f1b27c69306e",
+      "path": "generated/2026-09-12-qwen-27b/r9d4373a87a233c4f.md",
+      "sha256": "32ccaffb84c02199eaed8a3d657a391437e89e2832ef0a35981ec2789d73d692",
+      "bytes": 138,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r9d4373a87a233c4f.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t540ed23f523c4852"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r9d4373a87a233c4f",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r9d4373a87a233c4f of run 2026-09-12-qwen-27b: polish under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r9d4373a87a233c4f"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "fe36540d1cb51252380404df",
+      "path": "generated/2026-09-12-qwen-27b/r30b6c5ff2d63ce2c.md",
+      "sha256": "c0f0f15be37d3476755b819d7ea189f9d26ae1b68e6e1b9b8a6c39df1bfc94a9",
+      "bytes": 234,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r30b6c5ff2d63ce2c.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "tfa9877fa22245b72"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r30b6c5ff2d63ce2c",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r30b6c5ff2d63ce2c of run 2026-09-12-qwen-27b: polish under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r30b6c5ff2d63ce2c"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "fe911faa528a5c00528f4c6a",
+      "path": "generated/2026-09-12-qwen-27b/r6ae5ff044ab3c65f.md",
+      "sha256": "0b46b8f8551e90163a1b43bab131170e6f8ba51552cee3ed30a55453dd92bd45",
+      "bytes": 99,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r6ae5ff044ab3c65f.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "ta849c88e995b576c"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r6ae5ff044ab3c65f",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r6ae5ff044ab3c65f of run 2026-09-12-qwen-27b: generate under prompt neutral by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r6ae5ff044ab3c65f"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "fe9c0da3843364a830e21748",
+      "path": "generated/2026-09-12-qwen-27b/r533f334a54dd84e6.md",
+      "sha256": "07694cb9fc38410a38233af658e70c5806a2316314c9f12a68c7785202699ac5",
+      "bytes": 99,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "go-chi/chi",
+      "document": "go-chi/chi/generated/2026-09-12-qwen-27b/r533f334a54dd84e6.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t19b707765993c07e"
+      ],
+      "reference": "generation:2026-09-12-qwen-27b/r533f334a54dd84e6",
+      "topic": "HTTP routing",
+      "purpose": "Go HTTP router documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r533f334a54dd84e6 of run 2026-09-12-qwen-27b: generate under prompt plain by qwen (HivenetQuant/Qwen3.8-27B); record research/generation/runs/2026-09-12-qwen-27b/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-qwen-27b/records.json#r533f334a54dd84e6"
+      },
+      "rights": {
+        "license": "MIT",
+        "evidence": "Generated from the facts of go-chi/chi at 86f9a6e7ce9bf453eaa339b51f88f586edbccbc1 under MIT; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "a2d51b7515acfaff2f7a88688650f2fc4fd99561383e72bba2305e3db59a1647",
+          "bytes": 1123
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-qwen-27b/records.json dates the response",
+        "cohort": "controlled"
+      }
+    }
+  ]
+}

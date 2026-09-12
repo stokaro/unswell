@@ -1,0 +1,862 @@
+{
+  "version": "unswell-corpus-v1",
+  "id": "controlled-serilog__serilog-luna",
+  "seed": "unswell-llm-patterns-v1",
+  "weights": {
+    "training": 5000,
+    "development": 1500,
+    "calibration": 1500,
+    "final_test": 2000
+  },
+  "extraction_policy": {
+    "contexts": [
+      "comment",
+      "string",
+      "paragraph",
+      "heading",
+      "list-item",
+      "table-cell"
+    ],
+    "languages": {},
+    "exceptions": []
+  },
+  "unit_kinds": [
+    "sentence",
+    "paragraph",
+    "fragment"
+  ],
+  "sources": [
+    {
+      "id": "06bb459ffbb854f8dc5f177f",
+      "path": "generated/2026-09-12-codex-luna/r3b553571d8e4dc0a.md",
+      "sha256": "b2e63727b6f3b0dfb5f119aceadbc1f73c91ac37c82e4c3cc571e38d06fc24d3",
+      "bytes": 475,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/r3b553571d8e4dc0a.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t2cc8676c6369d829"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/r3b553571d8e4dc0a",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r3b553571d8e4dc0a of run 2026-09-12-codex-luna: polish under prompt neutral by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#r3b553571d8e4dc0a"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "10e8bdbd7e7571aca27ec6ac",
+      "path": "generated/2026-09-12-codex-luna/r5b30a093281b3fbd.md",
+      "sha256": "bcf08ca91f609e597bf1b29640cc6bb631321d02fc4be21ca577a72462da39ac",
+      "bytes": 210,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/r5b30a093281b3fbd.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t0021cea4d1a25d0d"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/r5b30a093281b3fbd",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r5b30a093281b3fbd of run 2026-09-12-codex-luna: generate under prompt neutral by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#r5b30a093281b3fbd"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "13c3f2de074028a1d923fdb8",
+      "path": "generated/2026-09-12-codex-luna/r63b71a7bd82b675c.md",
+      "sha256": "795401bfd43db2279d4659e9821a3aa129f799ad53596babe5e820be535aafea",
+      "bytes": 270,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/r63b71a7bd82b675c.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t0021cea4d1a25d0d"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/r63b71a7bd82b675c",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r63b71a7bd82b675c of run 2026-09-12-codex-luna: polish under prompt plain by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#r63b71a7bd82b675c"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "25d05ddd4ab0b76adb31699b",
+      "path": "generated/2026-09-12-codex-luna/r7a6230e4530adbfd.md",
+      "sha256": "02dbcf272609c369794b9a897b6556b2708f85d28bb08409f6fbc9f88733d8d1",
+      "bytes": 193,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/r7a6230e4530adbfd.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t0021cea4d1a25d0d"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/r7a6230e4530adbfd",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r7a6230e4530adbfd of run 2026-09-12-codex-luna: polish under prompt neutral by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#r7a6230e4530adbfd"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "2dc7da8ce173fc65f3010788",
+      "path": "generated/2026-09-12-codex-luna/r89a77d4b11bbdcd9.md",
+      "sha256": "f10e4c975239eefc73739acffac19a65d464e217fa513094a7e8e1d1244cc10a",
+      "bytes": 163,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/r89a77d4b11bbdcd9.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t859ec6a1ea979296"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/r89a77d4b11bbdcd9",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r89a77d4b11bbdcd9 of run 2026-09-12-codex-luna: generate under prompt neutral by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#r89a77d4b11bbdcd9"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "3b0aae6851ff1bd5c09ee385",
+      "path": "generated/2026-09-12-codex-luna/rdad693bce324fc5c.md",
+      "sha256": "465a63163cba6352d40b773752d0ab63de36d5e059097c516155f5b5638641d6",
+      "bytes": 354,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/rdad693bce324fc5c.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t2cc8676c6369d829"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/rdad693bce324fc5c",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rdad693bce324fc5c of run 2026-09-12-codex-luna: generate under prompt plain by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#rdad693bce324fc5c"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "5e74cd4d2c4d9b52cc967a2f",
+      "path": "generated/2026-09-12-codex-luna/r710bb1d11d41c376.md",
+      "sha256": "d5db89b7243ab568867c82d0a7c9bbedef40d64745dbbea9a6a21689c205c631",
+      "bytes": 465,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/r710bb1d11d41c376.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t2cc8676c6369d829"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/r710bb1d11d41c376",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r710bb1d11d41c376 of run 2026-09-12-codex-luna: polish under prompt plain by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#r710bb1d11d41c376"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "782983cf3afbe520055d330c",
+      "path": "generated/2026-09-12-codex-luna/r2c1c3e90ef9dae94.md",
+      "sha256": "ca2004d796635d3486b02fa8a828b03437e08f8a1863dc974fc9c826d704bf67",
+      "bytes": 151,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/r2c1c3e90ef9dae94.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t4599f50ed3aa4632"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/r2c1c3e90ef9dae94",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r2c1c3e90ef9dae94 of run 2026-09-12-codex-luna: polish under prompt neutral by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#r2c1c3e90ef9dae94"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "7ffbb07bdd118ebef40212e6",
+      "path": "generated/2026-09-12-codex-luna/r3f2bb11af99ab9e7.md",
+      "sha256": "1560cb997fb21eed3a2eca4cf35c1119c838a62430153dd8dba58206ee9e2eff",
+      "bytes": 165,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/r3f2bb11af99ab9e7.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t859ec6a1ea979296"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/r3f2bb11af99ab9e7",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r3f2bb11af99ab9e7 of run 2026-09-12-codex-luna: generate under prompt plain by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#r3f2bb11af99ab9e7"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "8e86877d3f63bef43f3da195",
+      "path": "generated/2026-09-12-codex-luna/rba9169482014c044.md",
+      "sha256": "e98bae6f8e912505790f1c5a0eade29e7190442953408be69358fbe7811ab663",
+      "bytes": 157,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/rba9169482014c044.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t859ec6a1ea979296"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/rba9169482014c044",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response rba9169482014c044 of run 2026-09-12-codex-luna: polish under prompt neutral by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#rba9169482014c044"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "8fcef2cd52856e382d2a286e",
+      "path": "generated/2026-09-12-codex-luna/r3da292b5ac5a873b.md",
+      "sha256": "50e6f8880ad537ffe29026ca3f74df5588661b55d25b6c56a1482563476ba4da",
+      "bytes": 128,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/r3da292b5ac5a873b.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t4599f50ed3aa4632"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/r3da292b5ac5a873b",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r3da292b5ac5a873b of run 2026-09-12-codex-luna: generate under prompt plain by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#r3da292b5ac5a873b"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "a2a4233f18636a143d1570f0",
+      "path": "generated/2026-09-12-codex-luna/rc35c99e6b4277ad7.md",
+      "sha256": "c6744d445a398790c978babf8f0835373cd39748ade9243f3db9480ddec5082f",
+      "bytes": 161,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/rc35c99e6b4277ad7.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t4599f50ed3aa4632"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/rc35c99e6b4277ad7",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response rc35c99e6b4277ad7 of run 2026-09-12-codex-luna: polish under prompt plain by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#rc35c99e6b4277ad7"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "bc986ecab68e11073b23e8b2",
+      "path": "generated/2026-09-12-codex-luna/r85ed0e4adaf3a403.md",
+      "sha256": "15c87c9c0139980e67e00af0911520d303c8fc0250360211846c0bb598b1e93f",
+      "bytes": 233,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/r85ed0e4adaf3a403.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t0021cea4d1a25d0d"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/r85ed0e4adaf3a403",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r85ed0e4adaf3a403 of run 2026-09-12-codex-luna: generate under prompt plain by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#r85ed0e4adaf3a403"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "cf39327547d6d158b9105246",
+      "path": "generated/2026-09-12-codex-luna/r1a5dc7f9bf051007.md",
+      "sha256": "fdf78359a06f2060b26a8bcc4ad406d4ef8808bb0dc5ac0a71903b647437ea46",
+      "bytes": 139,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/r1a5dc7f9bf051007.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t859ec6a1ea979296"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/r1a5dc7f9bf051007",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "human_ai_edited",
+        "scope": "document",
+        "evidence": "Response r1a5dc7f9bf051007 of run 2026-09-12-codex-luna: polish under prompt plain by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#r1a5dc7f9bf051007"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "d2c160ae01e68c5d4f129102",
+      "path": "generated/2026-09-12-codex-luna/r106ab21fe13f5e57.md",
+      "sha256": "73d1d2518d224214484954764af92f37b0c2d84c1143f6b4c48dc215cfd98127",
+      "bytes": 133,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/r106ab21fe13f5e57.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t4599f50ed3aa4632"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/r106ab21fe13f5e57",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response r106ab21fe13f5e57 of run 2026-09-12-codex-luna: generate under prompt neutral by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#r106ab21fe13f5e57"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    },
+    {
+      "id": "e2d44b9c3971b7c7a29f28d4",
+      "path": "generated/2026-09-12-codex-luna/rae2045badfde62b2.md",
+      "sha256": "cce909d76c6fc3c6517dbb6447eaed5fbdb35f5e9481f4e5b7d8ee4e832cfbc0",
+      "bytes": 379,
+      "format": "markdown",
+      "prose_language": "en",
+      "repository": "serilog/serilog",
+      "document": "serilog/serilog/generated/2026-09-12-codex-luna/rae2045badfde62b2.md",
+      "authors": [],
+      "templates": [],
+      "related": [],
+      "generation_tasks": [
+        "t2cc8676c6369d829"
+      ],
+      "reference": "generation:2026-09-12-codex-luna/rae2045badfde62b2",
+      "topic": "logging",
+      "purpose": ".NET logging library documentation and comments",
+      "author_language": "",
+      "author_language_basis": "",
+      "role": "comment",
+      "role_regions": [],
+      "origin": {
+        "label": "generated",
+        "scope": "document",
+        "evidence": "Response rae2045badfde62b2 of run 2026-09-12-codex-luna: generate under prompt neutral by openai (gpt-5.6-luna); record research/generation/runs/2026-09-12-codex-luna/records.json",
+        "generation_record": "research/generation/runs/2026-09-12-codex-luna/records.json#rae2045badfde62b2"
+      },
+      "rights": {
+        "license": "Apache-2.0",
+        "evidence": "Generated from the facts of serilog/serilog at 24b67c6cb4535ff13095a7f8338070917d7bf550 under Apache-2.0; the response is this project's own output",
+        "allowed_uses": [
+          "annotation",
+          "evaluation",
+          "training"
+        ]
+      },
+      "notices": [
+        {
+          "path": "LICENSE",
+          "sha256": "73ba74dfaa520b49a401b5d21459a8523a146f3b7518a833eea5efa85130bf68",
+          "bytes": 10273
+        }
+      ],
+      "partition": "",
+      "snapshot": {
+        "date": "2026-09-12",
+        "confidence": "corroborated",
+        "evidence": "Generation record research/generation/runs/2026-09-12-codex-luna/records.json dates the response",
+        "cohort": "controlled"
+      }
+    }
+  ]
+}
