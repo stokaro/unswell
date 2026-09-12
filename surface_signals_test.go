@@ -65,6 +65,13 @@ func TestSurfaceSyntaxBoundaries(t *testing.T) {
 		{"format placeholder", "syntax.noun-stack", "configuration resource name %q", "", ""},
 		{"approved term", "syntax.noun-stack", nounProse, "", "vocabulary:\n  terms: [response status code]\n" +
 			"  term_exemptions: [syntax.noun-stack]\n"},
+		{"predicate before preposition", "syntax.noun-stack",
+			"The analysis completion state applies to every configured block in the document.", "", ""},
+		{"predicate before object", "syntax.noun-stack",
+			"Reader validation cannot reconstruct feature input hashes without the original inputs.", "", ""},
+		{"predicate inside chunk", "syntax.noun-stack",
+			"The prototype vet driver check comments remain disabled in every builtin profile.", "", ""},
+		{"configured verb form", "syntax.noun-stack", nounProse, "{verbs: [request]}", ""},
 		{"one passive candidate", "syntax.passive-candidate-density", strings.Split(passiveProse, ". ")[0] + ".", "", ""},
 		{"stative adjective", "syntax.passive-candidate-density", strings.Repeat("The client is ready for the next request. ", 3), "", ""},
 		{"passive window", "syntax.passive-candidate-density", passiveProse, "{window_sentences: 1}", ""},
@@ -87,6 +94,21 @@ func TestSurfaceDictionariesAndNegation(t *testing.T) {
 	c.Assert(result.Findings, qt.HasLen, 1)
 	c.Assert(result.Findings[0].Primary.Snippet, qt.Equals, "is not carefully validated")
 	c.Assert(result.Findings[0].Related, qt.HasLen, 1)
+}
+
+func TestNounStackKeepsSubjectHeads(t *testing.T) {
+	for _, row := range []struct{ name, text string }{
+		{"finite verb after the stack", "The service request response status code changes after a retry."},
+		{"configured form as chunk-final head", "The service request response stores are recorded."},
+		{"plural head", "The access control policy requirements apply."},
+	} {
+		t.Run(row.name, func(t *testing.T) {
+			c := qt.New(t)
+			result := singleRuleResult(t, "syntax.noun-stack", row.text, "", "")
+			c.Assert(result.Findings, qt.HasLen, 1)
+			c.Assert(surfaceMetric(t, result, "consecutive-common-nouns") >= 4, qt.IsTrue)
+		})
+	}
 }
 
 func TestSurfaceRulesRequireOptIn(t *testing.T) {

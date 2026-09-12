@@ -26,6 +26,8 @@ without additional normalization. Sentence lengths omit sentences with no eligib
 words. The standard deviation uses the population denominator and Welford's update.
 POS ratios count the NN, VB, JJ, and RB tag prefixes. ARI retains its existing
 formula and can be negative; no grade or probability is inferred from that value.
+`readability.grade-metric` gates on its own prose-only ARI and reports this shared
+value next to it; see [surface signals](surface-signals.md#measurement-protocol).
 
 `Value.Number` is nil when unavailable, with a machine-readable `Reason`.
 An empty block has observed zero counts and unavailable ratios. An unrequested POS
@@ -223,7 +225,9 @@ Failed evaluations discard their numeric values, including values associated wit
 partial findings. The enclosing run remains incomplete.
 
 The two readability rules account for unsupported blocks, empty prose, and the
-grade metric's word/sentence minimums using their existing calculations.
+grade metric's word/sentence minimums using their existing calculations. The grade
+metric applies its minimums to its prose-only counts, so a block made of
+identifiers and code spans reports `insufficient_words` or `no_prose_words`.
 
 The eight phrase rules record each comparison opportunity: `policy.banned-phrases`,
 `scaffold.chat-preamble`, `scaffold.ai-self-reference`, `scaffold.follow-up-offer`,

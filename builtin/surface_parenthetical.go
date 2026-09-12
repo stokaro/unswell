@@ -102,13 +102,18 @@ func balancedInsertions(m *editorialMatcher, text string, words wordPositions) (
 			}
 			stack = append(stack, insertionFrame{start: at, opening: r})
 		case ')', ']':
-			stack = closeInsertion(stack, &load, words, at, r)
+			stack = closeInsertion(stack, &load, words, at, r, m.view.Parameters.MinInsertionWords)
 		}
 	}
 	return load, nil
 }
 
-func closeInsertion(stack []insertionFrame, load *insertionLoad, words wordPositions, at int, closing rune) []insertionFrame {
+// closeInsertion pops the frame closed at offset at. A frame with fewer than
+// minimum nonexempt words, such as an issue reference (#56) or a license label
+// (MIT), contributes to none of the three measurements, including nesting.
+func closeInsertion(
+	stack []insertionFrame, load *insertionLoad, words wordPositions, at int, closing rune, minimum int,
+) []insertionFrame {
 	if len(stack) == 0 {
 		return stack
 	}
@@ -118,7 +123,7 @@ func closeInsertion(stack []insertionFrame, load *insertionLoad, words wordPosit
 	}
 	stack = stack[:len(stack)-1]
 	count := words.between(frame.start, at)
-	if count == 0 {
+	if count < max(1, minimum) {
 		return stack
 	}
 	frame.pairs++

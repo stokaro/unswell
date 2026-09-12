@@ -72,6 +72,13 @@ shared model loading and its sentence-specific customizations. A direct neurosna
 adapter remains viable if the Prose boundary contract changes. The provider
 interface keeps that replacement separate from rules and reports.
 
+Punkt's abbreviation rule deletes the break after a dotted identifier or version
+such as `chi.Router.` and cannot restore it before a protected code span. The
+provider repairs that one boundary after segmentation, in `nlp/english/boundaries.go`,
+and records the change in its identity version (`boundaries-v1`) so feature and
+preparation hashes change visibly. Upstream Prose is not patched.
+`TestRepairedSentenceBoundaries` holds the positive and negative cases.
+
 Reproduce with:
 
 ```sh

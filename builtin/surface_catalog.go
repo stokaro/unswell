@@ -47,14 +47,18 @@ func surfaceSyntaxRules() []rule.Rule {
 		rule.Example{Text: "A binary origin probability cannot measure the fraction of words written by AI."},
 		rule.Example{Text: "The request has a status code. The client uses TransportCacheEntry."})
 	noun.BlockObservations = true
-	noun.Version = "3"
+	noun.Version = "4"
 	noun.Requires = append(noun.Requires, nlp.POS, nlp.Chunks)
-	noun.Defaults.Parameters = rule.Parameters{Onset: 3, Saturation: 7}
-	noun.Parameters = []string{"onset", "saturation"}
-	noun.Description = "Counts NN modifiers followed by an NN/NNS head within a shallow NP chunk, stopping at terms and identifiers."
+	noun.Defaults.Parameters = rule.Parameters{Onset: 3, Saturation: 7, Verbs: []string{
+		"apply", "applies", "applied", "remain", "remains", "remained", "require", "requires", "required",
+		"specify", "specifies", "specified", "reconstruct", "reconstructs", "reconstructed", "stores", "vet", "vets"}}
+	noun.Parameters = []string{"onset", "saturation", "verbs"}
+	noun.Description = "Counts NN modifiers followed by an NN/NNS head within a shallow NP chunk," +
+		" stopping at terms, identifiers, and configured verb forms in predicate position."
 	noun.Limitations += " A shallow NP is not a dependency tree, and a noun sequence can be an appropriate domain term."
 	noun.Limitations += " Interior NNS tags cause abstention: they can be plural modifiers or misclassified finite verbs."
 	noun.Limitations += " The negative modal \"cannot\" breaks a noun run even when tagged NN; other tagging ambiguity remains possible."
+	noun.Limitations += " Configured verb forms are literal words; a form that is also a noun modifier shortens a genuine stack."
 	passive := passiveDescriptor()
 	insertion := insertionDescriptor()
 	return []rule.Rule{check{nominal, nominalizationChains}, check{noun, nounStacks},
@@ -86,12 +90,15 @@ func insertionDescriptor() rule.Descriptor {
 			"opens a connection to the server.", Match: true},
 		rule.Example{Text: "The application programming interface (API) lets the client send requests to the server and receive responses."})
 	d.BlockObservations = true
+	d.Version = "2"
 	d.Defaults.Parameters = rule.Parameters{MinWords: 20, Onset: 12, Saturation: 36,
-		AllowedOccurrences: 2, SaturationOccurrences: 5, AllowedDepth: 1, SaturationDepth: 4}
+		AllowedOccurrences: 2, SaturationOccurrences: 5, AllowedDepth: 1, SaturationDepth: 4, MinInsertionWords: 2}
 	d.Parameters = []string{"min_words", "onset", "saturation", "allowed_occurrences",
-		"saturation_occurrences", "allowed_depth", "saturation_depth"}
+		"saturation_occurrences", "allowed_depth", "saturation_depth", "min_insertion_words"}
 	d.Description = "Measures nonexempt words, pair count, and nesting of balanced parentheses and square brackets within a prose block."
 	d.Limitations += " Unbalanced or protected-crossing frames are not matched. Depth is capped at 256 with an explicit error."
+	d.Limitations += " An insertion below min_insertion_words, such as an issue reference or a license label," +
+		" contributes to none of the three measurements, including nesting."
 	return d
 }
 
@@ -114,14 +121,17 @@ func surfaceReadabilityRules() []rule.Rule {
 		rule.Example{Text: strings.Repeat("The implementation requires comprehensive configuration, systematic verification, "+
 			"and consistent documentation of operational prerequisites before production deployment. ", 4), Match: true},
 		rule.Example{Text: strings.Repeat("The client opens a link. The server sends a reply. ", 6)})
+	grade.Version = "2"
 	grade.Requires = append(grade.Requires, nlp.POS)
 	grade.TermExemptions = false
 	grade.SharedFeatures = true
 	grade.BlockObservations = true
 	grade.Defaults.Parameters = rule.Parameters{MinWords: 50, MinSentences: 2, Onset: 12, Saturation: 20}
 	grade.Parameters = []string{"min_words", "min_sentences", "onset", "saturation"}
-	grade.Description = "Applies 4.71*characters/words + 0.5*words/sentences - 21.43 to local extracted prose using explicit token counts."
+	grade.Description = "Applies 4.71*characters/words + 0.5*words/sentences - 21.43 to local extracted prose words," +
+		" excluding identifier-shaped tokens and counting each part of a hyphenated compound as a word."
 	grade.Limitations += " Characters are Unicode letters and digits within prose tokens." +
+		" A token with an inner uppercase letter, a digit, an underscore, a period, or a slash is an identifier and is not counted." +
 		" No age, comprehension, quality, or authorship is predicted."
 	return []rule.Rule{check{long, longParagraph}, check{grade, readabilityMetric}}
 }

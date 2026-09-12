@@ -26,6 +26,9 @@ func TestSegmentationBackendComparison(t *testing.T) {
 		{"version", "Install version 1.2.3 first. Then restart the client.", 2},
 		{"quotation", "The server returned \"try again.\" The client waited.", 2},
 		{"Unicode", "The client uses UTF-8. The label is café.", 2},
+		// Punkt reads the identifier's trailing period as an abbreviation and
+		// joins both clauses; Provider.Analyze repairs that boundary itself.
+		{"dotted identifier", "The handler is another chi.Router. As a result, the chain ends.", 1},
 	}
 	for _, row := range cases {
 		t.Run(row.name, func(t *testing.T) {
