@@ -37,18 +37,23 @@ type Dataset struct {
 	Shards            []Notice       `json:"shards"`
 }
 
-// DatasetPlan assigns every connected component of the union of shards to one
-// partition. Shards record both the unpinned manifest the curator wrote and
-// the pinned manifest the plan derives from it; sources list the global
-// group of every source, which a shard-local plan cannot know.
+// DatasetPlan assigns every connected component of the union of shards to
+// one partition. A shard entry keeps the manifest the curator wrote and the
+// pinned manifest the plan derives from it. A source entry names the global
+// group of the source, which a shard-local plan cannot know. A plan made
+// with partition pins records the file digest, the count of repositories the
+// pins matched, and the pinned repositories that matched no source.
 type DatasetPlan struct {
-	Version       string          `json:"version"`
-	Algorithm     string          `json:"algorithm"`
-	Dataset       Dataset         `json:"dataset"`
-	DatasetSHA256 string          `json:"dataset_sha256"`
-	Shards        []DatasetShard  `json:"shards"`
-	Groups        []DatasetGroup  `json:"groups"`
-	Sources       []DatasetSource `json:"sources"`
+	Version             string          `json:"version"`
+	Algorithm           string          `json:"algorithm"`
+	Dataset             Dataset         `json:"dataset"`
+	DatasetSHA256       string          `json:"dataset_sha256"`
+	PartitionPinsSHA256 string          `json:"partition_pins_sha256,omitempty"`
+	PinnedRepositories  int             `json:"pinned_repositories,omitempty"`
+	UnmatchedPins       []string        `json:"unmatched_pins,omitempty"`
+	Shards              []DatasetShard  `json:"shards"`
+	Groups              []DatasetGroup  `json:"groups"`
+	Sources             []DatasetSource `json:"sources"`
 }
 
 // DatasetShard identifies one shard manifest before and after pinning.
@@ -84,12 +89,16 @@ type DatasetSource struct {
 // shards before trusting it.
 func LoadDatasetPlan(ctx context.Context, data []byte) (DatasetPlan, error) {
 	var plan DatasetPlan
-	limits := jsoninput.Limits{Array: MaxDatasetSources, Object: 64, Arrays: map[string]int{"shards": MaxShards}}
+	limits := jsoninput.Limits{Array: MaxDatasetSources, Object: 64,
+		Arrays: map[string]int{"shards": MaxShards, "unmatched_pins": MaxPartitionPins}}
 	if err := jsoninput.Decode(ctx, data, MaxArtifactBytes, &plan, limits); err != nil {
 		return DatasetPlan{}, err
 	}
 	if plan.Version != DatasetVersion || plan.Algorithm != assignmentAlgorithm {
 		return DatasetPlan{}, fmt.Errorf("unsupported dataset plan version or algorithm")
+	}
+	if plan.PartitionPinsSHA256 != "" && !validHash(plan.PartitionPinsSHA256) {
+		return DatasetPlan{}, fmt.Errorf("invalid partition pin digest")
 	}
 	if err := plan.Dataset.validate(); err != nil {
 		return DatasetPlan{}, err
@@ -146,11 +155,12 @@ func (d Dataset) validateShards() error {
 	return nil
 }
 
-// MakeDatasetPlan loads every shard manifest, checks that it repeats the
-// dataset header, connects sources across shards, and assigns whole
-// components with the existing algorithm. Explicit pins in any shard pin the
-// whole global component; conflicting pins are errors.
-func MakeDatasetPlan(ctx context.Context, dataset Dataset, shards map[string][]byte) (DatasetPlan, error) {
+// MakeDatasetPlan loads every shard manifest and checks that it repeats the
+// dataset header. It connects sources across shards and assigns whole
+// components with the existing algorithm. An explicit pin in any shard pins
+// the whole global component, and conflicting pins are errors. Partition
+// pins, when given, pin every source of a named repository before grouping.
+func MakeDatasetPlan(ctx context.Context, dataset Dataset, shards map[string][]byte, pins *PartitionPins) (DatasetPlan, error) {
 	if err := dataset.validate(); err != nil {
 		return DatasetPlan{}, err
 	}
@@ -166,17 +176,28 @@ func MakeDatasetPlan(ctx context.Context, dataset Dataset, shards map[string][]b
 	if err != nil {
 		return DatasetPlan{}, err
 	}
+	plan := DatasetPlan{Version: DatasetVersion, Algorithm: assignmentAlgorithm, Dataset: canonical, DatasetSHA256: hash}
+	if err := plan.pin(&union, pins); err != nil {
+		return DatasetPlan{}, err
+	}
+	return plan.assign(ctx, union, owners, manifests)
+}
+
+// assign groups the union, records every group and source, and derives the
+// pinned digest of every shard.
+func (plan DatasetPlan) assign(ctx context.Context, union Manifest, owners map[string]string,
+	manifests map[string]Manifest,
+) (DatasetPlan, error) {
 	groups, err := componentsWithin(ctx, union, maxDatasetKeys)
 	if err != nil {
 		return DatasetPlan{}, err
 	}
-	plan := DatasetPlan{Version: DatasetVersion, Algorithm: assignmentAlgorithm, Dataset: canonical, DatasetSHA256: hash}
 	plan.Groups, plan.Sources = datasetGroups(groups, owners)
 	partitions := make(map[string]string, len(plan.Sources))
 	for _, source := range plan.Sources {
 		partitions[source.ID] = source.Partition
 	}
-	for _, shard := range canonical.Shards {
+	for _, shard := range plan.Dataset.Shards {
 		record, err := pinShard(shard, manifests[shard.Path], partitions)
 		if err != nil {
 			return DatasetPlan{}, err
@@ -186,15 +207,32 @@ func MakeDatasetPlan(ctx context.Context, dataset Dataset, shards map[string][]b
 	return plan, ctx.Err()
 }
 
-// PinShards returns the pinned manifest bytes of every shard, exactly as the
-// plan recorded them, so per-shard plans inherit the global assignment.
-func PinShards(ctx context.Context, plan DatasetPlan, shards map[string][]byte) (map[string][]byte, error) {
-	expected, err := MakeDatasetPlan(ctx, plan.Dataset, shards)
+// reproduce recomputes the plan from the shards and the partition pins and
+// rejects any difference. A plan made with pins needs the same file again.
+func reproduce(ctx context.Context, plan DatasetPlan, shards map[string][]byte, pins *PartitionPins) error {
+	switch {
+	case pins == nil && plan.PartitionPinsSHA256 != "":
+		return fmt.Errorf("dataset plan was made with partition pins %s; pass the same file", plan.PartitionPinsSHA256)
+	case pins != nil && plan.PartitionPinsSHA256 == "":
+		return fmt.Errorf("dataset plan was made without partition pins")
+	case pins != nil && pins.SHA256 != plan.PartitionPinsSHA256:
+		return fmt.Errorf("partition pins %s differ from the plan's %s", pins.SHA256, plan.PartitionPinsSHA256)
+	}
+	expected, err := MakeDatasetPlan(ctx, plan.Dataset, shards, pins)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	if !reflect.DeepEqual(plan, expected) {
-		return nil, fmt.Errorf("dataset plan does not match its shards and assignment algorithm")
+		return fmt.Errorf("dataset plan does not match its shards and assignment algorithm")
+	}
+	return nil
+}
+
+// PinShards returns the pinned manifest bytes of every shard, exactly as the
+// plan recorded them, so per-shard plans inherit the global assignment.
+func PinShards(ctx context.Context, plan DatasetPlan, shards map[string][]byte, pins *PartitionPins) (map[string][]byte, error) {
+	if err := reproduce(ctx, plan, shards, pins); err != nil {
+		return nil, err
 	}
 	manifests, err := loadShards(ctx, plan.Dataset, shards)
 	if err != nil {
@@ -219,16 +257,10 @@ func PinShards(ctx context.Context, plan DatasetPlan, shards map[string][]byte) 
 }
 
 // VerifyDatasetPlan recomputes the plan from the curator's original shard
-// files and rejects any difference. Pinned copies are checked separately.
-func VerifyDatasetPlan(ctx context.Context, plan DatasetPlan, shards map[string][]byte) error {
-	expected, err := MakeDatasetPlan(ctx, plan.Dataset, shards)
-	if err != nil {
-		return err
-	}
-	if !reflect.DeepEqual(plan, expected) {
-		return fmt.Errorf("dataset plan does not match its shards and assignment algorithm")
-	}
-	return nil
+// files and the partition pins and rejects any difference. Pinned copies are
+// checked separately.
+func VerifyDatasetPlan(ctx context.Context, plan DatasetPlan, shards map[string][]byte, pins *PartitionPins) error {
+	return reproduce(ctx, plan, shards, pins)
 }
 
 // VerifyPinnedShards checks that every pinned shard file carries exactly the

@@ -42,7 +42,7 @@ func TestDatasetPlanSpansShardsAndPinsThem(t *testing.T) {
 	dataset, shards, manifests := datasetFixture(c)
 	loaded, err := corpus.LoadDataset(t.Context(), encoded(c, dataset))
 	c.Assert(err, qt.IsNil)
-	plan, err := corpus.MakeDatasetPlan(t.Context(), loaded, shards)
+	plan, err := corpus.MakeDatasetPlan(t.Context(), loaded, shards, nil)
 	c.Assert(err, qt.IsNil)
 	c.Assert(plan.Version, qt.Equals, corpus.DatasetVersion)
 	c.Assert(plan.Dataset.Shards[0].Path, qt.Equals, "shards/a.json")
@@ -60,7 +60,7 @@ func TestDatasetPlanSpansShardsAndPinsThem(t *testing.T) {
 	c.Assert(single.Groups[0].ID, qt.Equals, plan.Groups[0].ID)
 	c.Assert(single.Groups[0].Partition, qt.Equals, plan.Groups[0].Partition)
 	// Pinned shards reproduce their digests, and a per-shard plan inherits the assignment.
-	pinned, err := corpus.PinShards(t.Context(), plan, shards)
+	pinned, err := corpus.PinShards(t.Context(), plan, shards, nil)
 	c.Assert(err, qt.IsNil)
 	c.Assert(corpus.VerifyPinnedShards(t.Context(), plan, pinned), qt.IsNil)
 	for _, shard := range plan.Shards {
@@ -73,11 +73,11 @@ func TestDatasetPlanSpansShardsAndPinsThem(t *testing.T) {
 		c.Assert(local.Groups[0].Pinned, qt.IsTrue)
 		c.Assert(local.Groups[0].Partition, qt.Equals, plan.Groups[0].Partition)
 	}
-	c.Assert(corpus.VerifyDatasetPlan(t.Context(), plan, shards), qt.IsNil)
+	c.Assert(corpus.VerifyDatasetPlan(t.Context(), plan, shards, nil), qt.IsNil)
 	// Shard order in the dataset does not change the plan.
 	reordered := dataset
 	reordered.Shards = []corpus.Notice{dataset.Shards[1], dataset.Shards[0]}
-	again, err := corpus.MakeDatasetPlan(t.Context(), reordered, shards)
+	again, err := corpus.MakeDatasetPlan(t.Context(), reordered, shards, nil)
 	c.Assert(err, qt.IsNil)
 	c.Assert(again, qt.DeepEquals, plan)
 }
@@ -119,15 +119,15 @@ func TestDatasetRejectsInconsistentShards(t *testing.T) {
 				files = edit("shards/b.json", func(m *corpus.Manifest) { m.Sources[0].Partition = "training" })
 				files["shards/a.json"] = row.files["shards/a.json"]
 			}
-			_, err := corpus.MakeDatasetPlan(t.Context(), withShards(files), files)
+			_, err := corpus.MakeDatasetPlan(t.Context(), withShards(files), files, nil)
 			c.Assert(err, qt.IsNotNil)
 		})
 	}
 	// Declared shard bytes must match, and a tampered plan or pinned copy fails verification.
-	plan, err := corpus.MakeDatasetPlan(t.Context(), dataset, shards)
+	plan, err := corpus.MakeDatasetPlan(t.Context(), dataset, shards, nil)
 	c.Assert(err, qt.IsNil)
 	missing := map[string][]byte{"shards/a.json": shards["shards/a.json"]}
-	_, err = corpus.MakeDatasetPlan(t.Context(), dataset, missing)
+	_, err = corpus.MakeDatasetPlan(t.Context(), dataset, missing, nil)
 	c.Assert(err, qt.IsNotNil)
 	tampered := plan
 	tampered.Sources = append([]corpus.DatasetSource{}, plan.Sources...)
@@ -135,10 +135,10 @@ func TestDatasetRejectsInconsistentShards(t *testing.T) {
 	if plan.Sources[0].Partition == "training" {
 		tampered.Sources[0].Partition = "development"
 	}
-	c.Assert(corpus.VerifyDatasetPlan(t.Context(), tampered, shards), qt.IsNotNil)
-	_, err = corpus.PinShards(t.Context(), tampered, shards)
+	c.Assert(corpus.VerifyDatasetPlan(t.Context(), tampered, shards, nil), qt.IsNotNil)
+	_, err = corpus.PinShards(t.Context(), tampered, shards, nil)
 	c.Assert(err, qt.IsNotNil)
-	pinned, err := corpus.PinShards(t.Context(), plan, shards)
+	pinned, err := corpus.PinShards(t.Context(), plan, shards, nil)
 	c.Assert(err, qt.IsNil)
 	pinned["shards/a.json"] = []byte(strings.Replace(string(pinned["shards/a.json"]), `"partition": "`, `"partition": "x`, 1))
 	c.Assert(corpus.VerifyPinnedShards(t.Context(), plan, pinned), qt.IsNotNil)
@@ -157,6 +157,6 @@ func TestDatasetRejectsInconsistentShards(t *testing.T) {
 	}
 	ctx, cancel := context.WithCancel(t.Context())
 	cancel()
-	_, err = corpus.MakeDatasetPlan(ctx, dataset, shards)
+	_, err = corpus.MakeDatasetPlan(ctx, dataset, shards, nil)
 	c.Assert(err, qt.IsNotNil)
 }

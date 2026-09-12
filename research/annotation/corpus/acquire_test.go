@@ -216,7 +216,7 @@ func TestAcquisitionSplitsARepositoryIntoNumberedShards(t *testing.T) {
 		shards[path] = data
 		dataset.Shards = append(dataset.Shards, corpus.Notice{Path: path, SHA256: hash(data), Bytes: len(data)})
 	}
-	plan, err := corpus.MakeDatasetPlan(t.Context(), dataset, shards)
+	plan, err := corpus.MakeDatasetPlan(t.Context(), dataset, shards, nil)
 	c.Assert(err, qt.IsNil)
 	c.Assert(plan.Groups, qt.HasLen, 1)
 	c.Assert(plan.Groups[0].Shards, qt.HasLen, 2)

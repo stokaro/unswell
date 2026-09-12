@@ -42,6 +42,14 @@ func drawComponents(ctx context.Context, components int) ([][]int, error) {
 // intervalFor estimates a prevalence, or with a baseline the difference of
 // two prevalences, from the observed tallies and the shared draws.
 func intervalFor(draws [][]int, tallies, baseline []counts, components int) Estimate {
+	estimate, _ := intervalWithReplicates(draws, tallies, baseline, components)
+	return estimate
+}
+
+// intervalWithReplicates is intervalFor with the sorted replicate values
+// behind the interval, for the screening's p-value and variance. The values
+// are nil when the estimate carries no interval.
+func intervalWithReplicates(draws [][]int, tallies, baseline []counts, components int) (Estimate, []float64) {
 	point, ok := statistic(nil, tallies, baseline)
 	estimate := Estimate{Status: "insufficient_evidence"}
 	if ok {
@@ -49,11 +57,11 @@ func intervalFor(draws [][]int, tallies, baseline []counts, components int) Esti
 	}
 	if !ok {
 		estimate.Status = "nothing_counted"
-		return estimate
+		return estimate, nil
 	}
 	if components < minimumCount {
 		estimate.Status = "fewer_than_two_components"
-		return estimate
+		return estimate, nil
 	}
 	values := make([]float64, 0, len(draws))
 	for _, multiplicity := range draws {
@@ -64,12 +72,12 @@ func intervalFor(draws [][]int, tallies, baseline []counts, components int) Esti
 	estimate.Replicates = len(values)
 	if len(values) < minimumCount {
 		estimate.Status = "fewer_than_two_valid_replicates"
-		return estimate
+		return estimate, nil
 	}
 	slices.Sort(values)
 	lower, upper := percentile(values, 0.025), percentile(values, 0.975)
 	estimate.Lower, estimate.Upper, estimate.Status = &lower, &upper, "cluster_percentile"
-	return estimate
+	return estimate, values
 }
 
 // statistic returns the weighted prevalence, or the difference from the
