@@ -116,6 +116,7 @@ The following cases have distinct outcomes:
 | Python byte literal or YAML non-string scalar | Existing typed-data exclusion |
 | A selected literal decodes to non-UTF-8 bytes | Whole literal excluded with `non-utf8-literal` and its original byte range |
 | Byte escapes form valid UTF-8 together | Text remains selected, with escape source mapping |
+| A selected block is predominantly non-Latin prose | Block excluded with `non-latin-prose`; other blocks remain checked |
 | Valid text contains embedded code or fixed values | Checked unless an explicit exception selects it |
 | Source has invalid grammar | Operational error even when an exception would select its strings |
 | A selected literal has an unsupported escape | Operational error during decoding |
@@ -123,13 +124,17 @@ The following cases have distinct outcomes:
 A matching explicit exception takes precedence over the decoded-byte exclusion
 and retains the configured ID and reason. Valid control escapes retain protected
 boundaries; they do not turn neighboring words into one phrase. UTF-8 validity
-does not establish that text is English: the existing language applicability
-checks still apply to selected prose. When exclusions leave no applicable prose,
-the normal empty-scan gate applies, including CLI exit code 2 by default.
+does not establish that text is English. A selected block with at least 20
+letters, more than half of them outside the Latin script, becomes a
+`non-latin-prose` exclusion, and the engine checks the rest of the document;
+see [input formats](inputs.md). When exclusions leave no applicable prose, the
+normal empty-scan gate applies, including CLI exit code 2 by default.
 
 The [literal regression cases](../e2e/testdata/non_utf8_literals/) preserve checked
 neighbors and exclusion ranges in CLI goldens. The
 [data-only case](../e2e/testdata/non_utf8_only/) requires an incomplete result.
+The [non-Latin block case](../e2e/testdata/non_latin_block/) keeps the English
+paragraphs checked and records the excluded block.
 
 These exceptions select source regions, not individual rule findings. They apply
 to library calls and explicit CLI files as well as recursive scans. Source must

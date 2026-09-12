@@ -141,8 +141,9 @@ func (e *Engine) enrich(ctx context.Context, doc *document.Document) error {
 	tokens, sentenceID := 0, 0
 	for i := range doc.Blocks {
 		block := &doc.Blocks[i]
-		if err := englishApplicable(block.Text); err != nil {
-			return err
+		if nonLatinProse(block.Text) {
+			doc.Excluded = append(doc.Excluded, document.Exclusion{Span: block.Span, Reason: "non-latin-prose"})
+			continue
 		}
 		sentences, err := e.nlp.Analyze(ctx, block.MappedText, e.capabilities)
 		if err != nil {
@@ -168,7 +169,11 @@ func (e *Engine) enrich(ctx context.Context, doc *document.Document) error {
 	return ctx.Err()
 }
 
-func englishApplicable(text string) error {
+// nonLatinProse reports whether a block holds at least 20 letters and more than
+// half of them lie outside the Latin script. Such a block is not English prose.
+// The engine records it as an exclusion and keeps it in place with no sentences,
+// so later block IDs and fingerprints do not move.
+func nonLatinProse(text string) bool {
 	letters, nonLatin := 0, 0
 	for _, r := range text {
 		if !unicode.IsLetter(r) {
@@ -179,10 +184,7 @@ func englishApplicable(text string) error {
 			nonLatin++
 		}
 	}
-	if letters >= 20 && nonLatin*2 > letters {
-		return fmt.Errorf("block is inapplicable to configured English analysis (predominantly non-Latin prose)")
-	}
-	return nil
+	return letters >= 20 && nonLatin*2 > letters
 }
 
 func (e *Engine) documentResult(doc document.Document) DocumentResult {
