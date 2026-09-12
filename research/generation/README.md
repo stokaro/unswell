@@ -85,3 +85,6 @@ H0 documents of the same role.
   pilot under amendment 1, one family through session agents.
 - [2026-09-11-run2](runs/2026-09-11-run2/README.md): the second run of the
   same family on 140 new tasks, drawn without the pilot's tasks.
+- [2026-09-12-haiku](runs/2026-09-12-haiku/README.md): a second model of
+  the same family on the 200 tasks of the two earlier runs, so every task
+  has a response from both models.

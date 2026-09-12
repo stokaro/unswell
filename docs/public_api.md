@@ -97,7 +97,7 @@ that take such a set in place of a round. `annotation.Labels` names each
 task's classes. `corpus dataset union` joins selected pinned shards into one
 manifest whose paths name their checkouts. Manifest snapshots may name the dated
 historical periods `historical-2012`, `historical-2016`, and
-`historical-2018`; a dataset holds up to 512 shards. `corpus acquire` builds a shard
+`historical-2018`; a dataset holds up to 1,024 shards. `corpus acquire` builds a shard
 manifest from a checkout by the fixed rules of a record and lists every file
 left out; `scripts/acquire-corpus.sh` does the network work. See
 [ADR 0036](adr/0036-llm-pattern-evidence.md).

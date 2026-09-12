@@ -156,7 +156,7 @@ func buildPairedFrame(ctx context.Context, records generation.Generation, tasks 
 		frame.collect(input, tasks.Cohort, role, originals, responses, responseGroups)
 	}
 	for _, record := range records.Records {
-		if err := frame.pairRecord(record, byTask, originals, responses); err != nil {
+		if err := frame.pairRecord(records.Run, record, byTask, originals, responses); err != nil {
 			return nil, nil, err
 		}
 	}
@@ -172,7 +172,7 @@ func buildPairedFrame(ctx context.Context, records generation.Generation, tasks 
 
 // pairRecord counts one record in its arm's coverage and, when both the
 // original unit and the response document were measured, adds the pair.
-func (f *pairedFrame) pairRecord(record generation.Record, byTask map[string]generation.Task,
+func (f *pairedFrame) pairRecord(run string, record generation.Record, byTask map[string]generation.Task,
 	originals, responses map[string]map[string]int,
 ) error {
 	arm := Arm{Operation: record.Operation, Prompt: record.Prompt}
@@ -187,7 +187,7 @@ func (f *pairedFrame) pairRecord(record generation.Record, byTask map[string]gen
 		return fmt.Errorf("record %s names task %s outside the task set", record.ResponseID, record.TaskID)
 	}
 	original, measured := originals[task.SourceID+"#"+task.UnitID]
-	response, present := responses["generated/"+record.ResponseID+".md"]
+	response, present := responses[generation.ControlledID(run, task.Repository, "generated/"+record.ResponseID+".md")]
 	switch {
 	case !present:
 		coverage.MissingResponses++
@@ -201,7 +201,9 @@ func (f *pairedFrame) pairRecord(record generation.Record, byTask map[string]gen
 }
 
 // collect indexes the originals' unit findings, the responses' document
-// findings, and the H0 documents of the role.
+// findings by source ID, and the H0 documents of the role. Two runs that
+// answer the same task write the same response path, so the path alone
+// cannot name this run's response.
 func (f *pairedFrame) collect(input corpus.FindingsArtifact, h0 string, role string, originals, responses map[string]map[string]int,
 	responseGroups map[string]string,
 ) {
@@ -216,8 +218,8 @@ func (f *pairedFrame) collect(input corpus.FindingsArtifact, h0 string, role str
 		}
 		switch {
 		case doc.Cohort == "controlled" && strings.HasPrefix(doc.Path, "generated/"):
-			responses[doc.Path] = doc.ByRule
-			responseGroups[doc.Path] = doc.GroupID
+			responses[doc.SourceID] = doc.ByRule
+			responseGroups[doc.SourceID] = doc.GroupID
 		case doc.Cohort == h0 && doc.Role == role:
 			f.h0 = append(f.h0, doc.ByRule)
 			f.h0Groups = append(f.h0Groups, f.component(doc.GroupID))

@@ -110,7 +110,7 @@ func controlledSource(generation Generation, record Record, task Task, imported 
 	}
 	evidence := fmt.Sprintf("Response %s of run %s: %s under prompt %s by %s (%s); record %s",
 		record.ResponseID, generation.Run, record.Operation, record.Prompt, generation.Family, generation.Model, options.RecordsPath)
-	return corpus.Source{ID: controlledID(generation.Run, task.Repository, path), Path: path, SHA256: hash(data), Bytes: len(data),
+	return corpus.Source{ID: ControlledID(generation.Run, task.Repository, path), Path: path, SHA256: hash(data), Bytes: len(data),
 		Format: document.Markdown, ProseLanguage: "en", Repository: task.Repository, Document: task.Repository + "/" + path,
 		Authors: []string{}, Templates: []string{}, Related: []string{}, GenerationTasks: []string{task.ID},
 		Reference: "generation:" + generation.Run + "/" + record.ResponseID, Topic: repository.Topic, Purpose: repository.Purpose,
@@ -126,7 +126,11 @@ func controlledSource(generation Generation, record Record, task Task, imported 
 			Evidence: "Generation record " + options.RecordsPath + " dates the response", Cohort: "controlled"}}
 }
 
-func controlledID(run, repository, path string) string {
+// ControlledID is the source ID of one response document of a run. A later
+// run that answers the same task writes the same path, so the run is part of
+// the identity and the paired analysis matches a record to its own run's
+// document.
+func ControlledID(run, repository, path string) string {
 	sum := sha256.Sum256([]byte("controlled\x00" + run + "\x00" + repository + "\x00" + path))
 	return fmt.Sprintf("%x", sum[:12])
 }
