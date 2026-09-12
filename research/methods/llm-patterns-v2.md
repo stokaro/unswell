@@ -141,12 +141,30 @@ construction is confirmed. The protocol admits no construction the
 screening did not name, so the list, when it freezes, holds at most these
 two and whatever a screening on a controlled arm of 20 components adds.
 
-The freeze waits on one thing: the controlled arm of the development
-partition. It holds 17 components and needs 20. Three more development
-repositories must receive tasks from the seeded sampler and responses from
-both selecting families. The draw is seeded and stratified, and no
-screening result chooses which repositories it reaches, so closing that gap
-selects on the corpus and not on an outcome.
+The freeze waits on the size of both partitions, counted the way the
+cluster minimum counts. A pinned repository helps an arm only when its
+historical text holds a comment paragraph, and three pinned repositories
+hold none. The measured counts are these:
+
+| Partition | Pinned repositories | With a historical comment paragraph | Controlled arm |
+| --- | --- | --- | --- |
+| `development` | 20 | 19 | 17 |
+| `final_test` | 20 | 17 | not measured |
+
+rbenv/rbenv carries no comment paragraph, so the development arms stop at
+19 however many tasks are drawn. sindresorhus/pure, skywind3000/kcp and
+tj/n carry none either, so the confirmation partition stops at 17. An
+earlier version of this section read the pinned counts as component counts
+and said the confirmation partition had met its condition. It has not.
+
+Closing the gap takes three things. The development partition needs at
+least one more repository whose historical comments extract, and the
+confirmation partition at least three. google/googletest and httpie/cli are
+pinned to `development`, carry comment paragraphs, and hold no controlled
+response yet, so they receive tasks next. Each new repository is pinned
+before any of its text is measured, and the draw stays seeded and
+stratified, so closing the gap selects on the corpus and never on an
+outcome.
 
 ## Stopping rule
 
@@ -161,7 +179,8 @@ partitions holds at least 20 components. Each pin lands before any of that
 repository's text is measured. The development repositories then receive
 tasks and responses of every selecting family. The second acquisition round
 added ten to `development` and fourteen to `final_test`. Both now hold 20
-pinned components.
+pinned components, of which 19 and 17 carry a historical comment
+paragraph.
 
 The paragraph and component counts of the sample-size record are power
 targets, not thresholds. The threshold is the cluster minimum: 20
@@ -196,11 +215,13 @@ as an unseen-family result.
   2026, with no journal reference or comments line; `liang-2023` keeps its
   published version in Patterns. The reading itself is not recorded here
   and stays a condition.
-- At least 20 components in the confirmation partition, acquired and
-  pinned. The second acquisition round met this: `final_test` holds 20
-  pinned repositories with a historical comment paragraph.
-- At least 20 components in the controlled arm of the development
-  partition. It holds 17.
+- At least 20 components in the confirmation partition that carry a
+  historical comment paragraph. Of its 20 pinned repositories 17 do, so
+  this condition is open.
+- At least 20 components in the H0 arm and in the controlled arm of the
+  development partition. Of its 20 pinned repositories 19 carry a comment
+  paragraph and 17 carry a controlled response, so this condition is open
+  too.
 
 ## What must exist before the confirmatory measurement
 
