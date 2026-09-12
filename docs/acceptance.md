@@ -18,7 +18,7 @@ Each row uses one of three states.
 | Requirement | State | Evidence |
 | --- | --- | --- |
 | Public repository and project setup | Met | [GitHub settings](repository-settings.md), `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, pinned actions and tool modules |
-| Standalone public Go API | Met | `examples/consumer` in CI, the [API policy](public_api.md), and [`scripts/verify-published-module.sh`](../scripts/verify-published-module.sh) with its [recorded check](release/v0.1.0-alpha.1-module-check.json) |
+| Standalone public Go API | Met | `examples/consumer` in CI, the [API policy](public_api.md), and [`scripts/verify-published-module.sh`](../scripts/verify-published-module.sh) with its [recorded check](release/v0.1.0-alpha.3-module-check.json) |
 | Pure Go offline runtime | Met | Native Linux, macOS and Windows jobs; `CGO_ENABLED=0` release builds; [SBOM and notices](sbom.md) |
 | Source mapping | Met | `extract` tests, including escape decoding and scalar styles, and the annotated `e2e/testdata` fixtures |
 | NLP baseline | Met | `nlp` tests and [ADR 0001](adr/0001-source-mapping-and-nlp.md); capability failures are explicit |
@@ -30,7 +30,7 @@ Each row uses one of three states.
 | Operational behavior | Met | Cancellation, byte and block limits, empty input and failed-output tests in `extract`, `internal/cli` and the root package |
 | Determinism and ownership | Met | Root package tests for reordered inputs, worker counts and concurrent calls |
 | Project quality | Partly met | `make check`, the repository policy tests and their negative cases; race detection, active fuzzing and coverage collection stay deferred to [#123](https://github.com/stokaro/unswell/issues/123), the last roadmap item |
-| Native platforms and release | Met | The three native CI jobs, the [release audit](release/v0.1.0-alpha.1-audit.json) and [reproducible builds](reproducible-builds.md) |
+| Native platforms and release | Met | The three native CI jobs, the [release audit](release/v0.1.0-alpha.3-audit.json) and [reproducible builds](reproducible-builds.md) |
 | Dogfooding | Met | The built CLI checks the repository's own Markdown, Go and Bash in every CI run; the MCP self-check compares the same evidence |
 
 ## Stage 2: context and integration policy
@@ -95,9 +95,9 @@ state.
 | Stable rule qualification against a real corpus | Deferred | Needs a human decision per finding on a labeled corpus, on hold with [#22](https://github.com/stokaro/unswell/issues/22) and [#26](https://github.com/stokaro/unswell/issues/26); the alpha claims no precision figure |
 | Coverage and failure-path targets | Partly met | Failure-path tests and the [measurement recorded on #27](https://github.com/stokaro/unswell/issues/27): configuration 91.9%, engine and scoring 91.9%, rules 92.7%, source mapping 90.9%, 86.7% overall; the CI gate that enforces them is deferred to #123 |
 | Reproducible performance and resource limits | Met | [scan cost](performance.md): the synthetic corpus and three real trees meet the target on the 2-vCPU host after [#181](https://github.com/stokaro/unswell/issues/181); the earlier records keep the failure the bounds removed. The published `v0.1.0-alpha.1` binaries and an experimental origin model have records there too |
-| SARIF consumers, reproducible releases and formats | Met | [SARIF](sarif.md), [reproducible builds](reproducible-builds.md), the [release audit](release/v0.1.0-alpha.1-audit.json) and the format checks in [reports](reports.md) |
+| SARIF consumers, reproducible releases and formats | Met | [SARIF](sarif.md), [reproducible builds](reproducible-builds.md), the [release audit](release/v0.1.0-alpha.3-audit.json) and the format checks in [reports](reports.md) |
 | Documentation set | Met | [configuration](configuration.md), [custom rules](custom-rules.md), [API policy](public_api.md), [MCP](mcp.md), [containers](containers.md), [research](research.md), [editorial annotation](editorial-annotation.md), [training and evaluation](training.md), [reports](reports.md) and [installation](installation.md) |
-| Release inventory and notices | Met | [SBOM and notices](sbom.md) and the [release audit](release/v0.1.0-alpha.1-audit.json) |
+| Release inventory and notices | Met | [SBOM and notices](sbom.md) and the [release audit](release/v0.1.0-alpha.3-audit.json) |
 | Acceptance audit | Met | This page, kept current with the [roadmap](roadmap.md) |
 | Race detection, active fuzzing and coverage in CI | Open | Deferred by design to [#123](https://github.com/stokaro/unswell/issues/123), which runs after every other issue has a recorded disposition |
 

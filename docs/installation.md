@@ -40,7 +40,7 @@ Pin an action commit and an independent CLI version:
 - uses: stokaro/unswell-action@5c4e109d71c1ec16429a62ac1860b97baee3974e
   id: unswell
   with:
-    version: 0.1.0-alpha.1
+    version: 0.1.0-alpha.3
     config: .unswell.yaml
     paths: |
       README.md
