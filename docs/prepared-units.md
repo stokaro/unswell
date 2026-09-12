@@ -13,6 +13,13 @@ piece is analyzed once. Sentence targets reuse its analysis; token offsets in
 `PreparedUnit.Block()` refer to the target's own text. Independent comments never
 share prose context. An empty selection contains no fabricated zero-valued unit.
 
+Preparation skips blocks with `document.Block.Excluded` set to true. The engine
+uses this flag for non-Latin prose. Preparation validates the options
+and source mapping, then returns no targets without calling the NLP provider.
+The engine applies this to prepared feature collection and both model channels.
+Remaining targets keep their original block IDs and source spans; separate
+comments are never joined to fill the gap.
+
 `PreparedUnit.Binding()` returns complete target/context source segments and
 separate hashes for target text, surrounding prose and grammar scope. Text hashes
 cover exact extracted UTF-8 bytes; the grammar hash covers the JSON label array.

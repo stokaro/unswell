@@ -38,3 +38,34 @@ func TestFeatureCollectionMatchesThePublicEngine(t *testing.T) {
 	c.Assert(checked.Result.PreparedFeatures, qt.IsNotNil)
 	c.Assert(checked.Result.PreparedFeatures.Sources[0].Units, qt.HasLen, 2)
 }
+
+func TestExcludedFeaturesMatchThePublicEngine(t *testing.T) {
+	c := qt.New(t)
+	ids := []string{"prose-words", "activation/readability.long-paragraph"}
+	config := []byte("version: 1\nextends: [builtin:technical]\nrules:\n" +
+		"  filler.announced-importance: {gate: forbid}\n" +
+		"  readability.long-paragraph: {enabled: true}\n  readability.grade-metric: {enabled: true}\n")
+	session := connect(c, t.Context(), server.Options{Config: config, Features: ids,
+		PreparedFeatures: []string{"prose-words"}, PreparedKinds: []string{"sentence", "paragraph"}})
+	engine, err := unswell.New(unswell.Options{Config: config, Features: ids,
+		PreparedFeatures: []string{"prose-words"}, PreparedKinds: []string{"sentence", "paragraph"}})
+	c.Assert(err, qt.IsNil)
+	const prose = "Клиент повторяет запрос после сбоя транспорта и ждет ответа сервера.\n\n" +
+		"It is important to note that the client retries.\n"
+	response, err := session.CallTool(t.Context(), &mcp.CallToolParams{Name: "unswell_check", Arguments: server.CheckInput{
+		Sources: []server.Source{{Name: "mixed.md", Format: document.Markdown, Text: prose}},
+	}})
+	c.Assert(err, qt.IsNil)
+	c.Assert(response.IsError, qt.IsFalse)
+	checked := output[server.CheckOutput](c, response)
+	c.Assert(checked.Outcome, qt.Equals, "policy_failure")
+	direct, err := engine.Analyze(t.Context(), document.Source{Name: "mixed.md", Format: document.Markdown, Bytes: []byte(prose)})
+	c.Assert(err, qt.IsNil)
+	c.Assert(checked.Result, qt.DeepEquals, direct)
+	c.Assert(direct.Features.Sources[0].Units[0].Excluded, qt.IsTrue)
+	c.Assert(direct.Features.Sources[0].Units[0].Values[1].Number, qt.IsNil)
+	c.Assert(direct.PreparedFeatures.Sources[0].Units, qt.HasLen, 2)
+	for _, unit := range direct.PreparedFeatures.Sources[0].Units {
+		c.Assert(unit.Binding.BlockID, qt.Equals, 1)
+	}
+}

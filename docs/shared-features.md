@@ -41,6 +41,21 @@ models using these ratios must pin a compatible provider and tag convention.
 Unknown IDs return errors; requesting a dependency feature cannot produce a POS
 substitute. `Counts.Available` also distinguishes absent counts from observed zero.
 
+The engine marks non-Latin blocks with `document.Block.Excluded` and retains their
+IDs, kinds, text, and source maps. These blocks contain no NLP data. Their
+measurements have `Counts.Available: false` and `excluded_unit` as the absence
+reason. They never contribute an observed zero. Input mapping, identity, and
+resource checks still apply; missing tokens in an ordinary block remain an error.
+The measurement hash includes the exclusion state.
+
+Block collection retains an entry with `excluded: true`, its original binding,
+and no counted segments. Scalar values use `excluded_unit`; requested rule
+activations use `inapplicable/excluded_unit`, including disabled or abstaining
+rules. The document records the source span and `non-latin-prose` reason. Report
+readers check that these records agree and reject numeric values for excluded
+blocks. CLI and MCP expose the same collection. A scan with no applicable prose
+still requires `--allow-empty` to pass.
+
 The identity records the source, effective policy, vocabulary, preprocessing, NLP
 resources, and capabilities actually requested. The engine uses the effective
 policy hash for both policy and vocabulary compatibility, conservatively invalidating

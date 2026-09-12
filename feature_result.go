@@ -54,7 +54,10 @@ type FeatureSource struct {
 // Segments contain counted source tokens, without filling protected gaps. An
 // unsupported measurement kind has no input hash or counted segments. Rule
 // activations retain the source, context, and rule identities instead.
+// Excluded units retain their binding but have no counted segments or numbers.
+// Their source exclusion reason remains in DocumentResult.Excluded.
 type FeatureUnit struct {
+	Excluded    bool                 `json:"excluded,omitempty"`
 	Binding     *FeatureBlockBinding `json:"binding,omitempty"`
 	Scope       string               `json:"scope"`
 	UnitID      int                  `json:"unit_id"`

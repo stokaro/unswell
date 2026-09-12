@@ -91,7 +91,7 @@ func (e *Engine) captureFeatures(ctx context.Context, doc *document.Document, se
 
 func (e *Engine) captureBlock(block document.Block, set *feature.Set) (FeatureUnit, error) {
 	start, end := textutil.TrimSpaceBounds(block.Text)
-	unit := FeatureUnit{Scope: "block", UnitID: block.ID, Kind: block.Kind, Span: block.Span,
+	unit := FeatureUnit{Scope: "block", UnitID: block.ID, Kind: block.Kind, Span: block.Span, Excluded: block.Excluded,
 		Binding: &FeatureBlockBinding{Contract: FeatureBlockBindingContract,
 			TextSHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(block.Text))), Segments: block.Spans(0, len(block.Text)),
 			TrimmedSHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(block.Text[start:end]))), TrimmedSegments: block.Spans(start, end)}}
@@ -120,6 +120,13 @@ func (e *Engine) captureBlock(block document.Block, set *feature.Set) (FeatureUn
 
 func (e *Engine) initialFeatureValue(d feature.Descriptor, block document.Block, m feature.Measurements) (feature.Value, error) {
 	value := feature.Value{ID: d.ID, Version: d.Version, Unit: d.Unit}
+	if block.Excluded {
+		value.Reason = "excluded_unit"
+		if d.Family == "rule-activation" {
+			value.Reason = "inapplicable/excluded_unit"
+		}
+		return value, nil
+	}
 	if ruleID, activation := strings.CutPrefix(d.ID, "activation/"); activation {
 		value.Reason = "not_evaluated"
 		if !e.policy.Rules[ruleID].Enabled {

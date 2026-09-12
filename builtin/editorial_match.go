@@ -88,7 +88,7 @@ func (m *editorialMatcher) phraseAt(sentence document.Sentence, start int) (int,
 }
 
 func proseBlock(block document.Block) bool {
-	return block.Kind == "paragraph" || block.Kind == "comment" || block.Kind == "string"
+	return !block.Excluded && (block.Kind == "paragraph" || block.Kind == "comment" || block.Kind == "string")
 }
 
 func protectedSentence(sentence document.Sentence) bool {

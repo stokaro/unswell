@@ -50,6 +50,9 @@ func Measure(ctx context.Context, block document.Block, identity Identity, limit
 	if !SupportsBlock(block.Kind) {
 		return missingMeasurements(hash, "unsupported_unit"), nil
 	}
+	if block.Excluded {
+		return missingMeasurements(hash, "excluded_unit"), nil
+	}
 	if !slices.Contains(identity.Capabilities, nlp.Tokens) || !slices.Contains(identity.Capabilities, nlp.Sentences) {
 		return missingMeasurements(hash, "capability_missing"), nil
 	}

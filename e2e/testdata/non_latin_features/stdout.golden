@@ -1,0 +1,48 @@
+sample.go:5:4: error [filler.announced-importance] State the fact without announcing its importance.
+sample.go:10:18: error [filler.announced-importance] State the fact without announcing its importance.
+sample.md:3:1: error [filler.announced-importance] State the fact without announcing its importance.
+FAIL: 2 documents, 3 findings; analysis complete.
+  gate: sample.go: State the fact without announcing its importance.
+  gate: sample.go: State the fact without announcing its importance.
+  gate: sample.md: State the fact without announcing its importance.
+Shared measurements: unswell-feature-collection-v1 / unswell-block-features-v1; analysis complete.
+Rule activations: unswell-rule-activations-v1; values are signals, not probabilities.
+sample.go [block 0, comment] activation/readability.grade-metric: unavailable (inapplicable/excluded_unit) ratio
+sample.go [block 0, comment] activation/readability.long-paragraph: unavailable (inapplicable/excluded_unit) ratio
+sample.go [block 0, comment] prose-words: unavailable (excluded_unit) words
+sample.go [block 1, comment] activation/readability.grade-metric: unavailable (inapplicable/insufficient_words) ratio
+sample.go [block 1, comment] activation/readability.long-paragraph: 0 ratio
+sample.go [block 1, comment] prose-words: 9 words
+sample.go [block 2, string] activation/readability.grade-metric: unavailable (inapplicable/excluded_unit) ratio
+sample.go [block 2, string] activation/readability.long-paragraph: unavailable (inapplicable/excluded_unit) ratio
+sample.go [block 2, string] prose-words: unavailable (excluded_unit) words
+sample.go [block 3, string] activation/readability.grade-metric: unavailable (inapplicable/insufficient_words) ratio
+sample.go [block 3, string] activation/readability.long-paragraph: 0 ratio
+sample.go [block 3, string] prose-words: 9 words
+sample.go [block 4, comment] activation/readability.grade-metric: unavailable (inapplicable/excluded_unit) ratio
+sample.go [block 4, comment] activation/readability.long-paragraph: unavailable (inapplicable/excluded_unit) ratio
+sample.go [block 4, comment] prose-words: unavailable (excluded_unit) words
+sample.md [block 0, paragraph] activation/readability.grade-metric: unavailable (inapplicable/excluded_unit) ratio
+sample.md [block 0, paragraph] activation/readability.long-paragraph: unavailable (inapplicable/excluded_unit) ratio
+sample.md [block 0, paragraph] prose-words: unavailable (excluded_unit) words
+sample.md [block 1, paragraph] activation/readability.grade-metric: unavailable (inapplicable/insufficient_words) ratio
+sample.md [block 1, paragraph] activation/readability.long-paragraph: 0 ratio
+sample.md [block 1, paragraph] prose-words: 9 words
+sample.md [block 2, paragraph] activation/readability.grade-metric: unavailable (inapplicable/excluded_unit) ratio
+sample.md [block 2, paragraph] activation/readability.long-paragraph: unavailable (inapplicable/excluded_unit) ratio
+sample.md [block 2, paragraph] prose-words: unavailable (excluded_unit) words
+sample.md [block 3, paragraph] activation/readability.grade-metric: unavailable (inapplicable/insufficient_words) ratio
+sample.md [block 3, paragraph] activation/readability.long-paragraph: 0 ratio
+sample.md [block 3, paragraph] prose-words: 6 words
+sample.md [block 4, paragraph] activation/readability.grade-metric: unavailable (inapplicable/excluded_unit) ratio
+sample.md [block 4, paragraph] activation/readability.long-paragraph: unavailable (inapplicable/excluded_unit) ratio
+sample.md [block 4, paragraph] prose-words: unavailable (excluded_unit) words
+Prepared measurements: unswell-prepared-feature-collection-v1 / unswell-prepared-unit-features-v1; analysis complete.
+sample.go [sentence, bytes 157:205] prose-words: 9 words
+sample.go [paragraph, bytes 157:205] prose-words: 9 words
+sample.go [fragment, bytes 430:478] prose-words: 9 words
+sample.md [sentence, bytes 133:185] prose-words: 9 words
+sample.md [paragraph, bytes 133:185] prose-words: 9 words
+sample.md [sentence, bytes 363:400] prose-words: 6 words
+sample.md [paragraph, bytes 363:400] prose-words: 6 words
+Revision probability: unavailable (no calibrated alpha model).

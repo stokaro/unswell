@@ -94,7 +94,9 @@ func (e *Engine) finishRuleFeatures(result *RunResult, emitter *collector, evalu
 	column := e.activationIndices[emitter.descriptor.ID]
 	units := result.Features.Sources[0].Units
 	for i := range units {
-		units[i].Values[column] = values[i]
+		if !units[i].Excluded {
+			units[i].Values[column] = values[i]
+		}
 	}
 	return nil
 }
@@ -105,7 +107,9 @@ func (e *Engine) absentRuleFeatures(result *RunResult, emitter *collector, reaso
 	column := e.activationIndices[emitter.descriptor.ID]
 	units := result.Features.Sources[0].Units
 	for i := range units {
-		units[i].Values[column].Number, units[i].Values[column].Reason = nil, reason
+		if !units[i].Excluded {
+			units[i].Values[column].Number, units[i].Values[column].Reason = nil, reason
+		}
 	}
 }
 
