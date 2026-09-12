@@ -13,7 +13,9 @@ import (
 // Two tasks in two components. Task 1's original carries a.rule; its
 // generate response does not, and its polish response does. Task 2's original
 // carries nothing; its generate response carries a.rule, and its polish
-// response was refused. b.rule fires nowhere in the arms.
+// response was refused. b.rule fires nowhere in the arms. An earlier run's
+// response to task 1 shares the path of this run's generate response and
+// carries both rules; it belongs to another run and must not be paired.
 func pairedFixture() (generation.Generation, generation.Tasks, corpus.FindingsArtifact) {
 	tasks := generation.Tasks{Version: generation.TasksVersion, Cohort: "historical", Tasks: []generation.Task{
 		{ID: "t1", SourceID: "h1", UnitID: "u-h1-p", GroupID: "A", Role: "comment", Words: 20},
@@ -31,11 +33,17 @@ func pairedFixture() (generation.Generation, generation.Tasks, corpus.FindingsAr
 			doc("h1", "A", "historical", "comment", 100, 1, 0),
 			doc("h2", "B", "historical", "comment", 100, 0, 0),
 			doc("h3", "C", "historical", "comment", 100, 1, 0),
-			{SourceID: "c1g", Path: "generated/r1g.md", GroupID: "A", Partition: "training", Cohort: "controlled", Role: "comment",
+			{SourceID: generation.ControlledID("run-0", "", "generated/r1g.md"), Path: "generated/r1g.md", GroupID: "A",
+				Partition: "training", Cohort: "controlled", Role: "comment",
+				Status: "measured", ProseWords: 20, Findings: 2, ByRule: map[string]int{"a.rule": 1, "b.rule": 1}},
+			{SourceID: generation.ControlledID("run-1", "", "generated/r1g.md"), Path: "generated/r1g.md", GroupID: "A",
+				Partition: "training", Cohort: "controlled", Role: "comment",
 				Status: "measured", ProseWords: 20, ByRule: map[string]int{"a.rule": 0, "b.rule": 0}},
-			{SourceID: "c1p", Path: "generated/r1p.md", GroupID: "A", Partition: "training", Cohort: "controlled", Role: "comment",
+			{SourceID: generation.ControlledID("run-1", "", "generated/r1p.md"), Path: "generated/r1p.md", GroupID: "A",
+				Partition: "training", Cohort: "controlled", Role: "comment",
 				Status: "measured", ProseWords: 20, Findings: 1, ByRule: map[string]int{"a.rule": 1, "b.rule": 0}},
-			{SourceID: "c2g", Path: "generated/r2g.md", GroupID: "B", Partition: "training", Cohort: "controlled", Role: "comment",
+			{SourceID: generation.ControlledID("run-1", "", "generated/r2g.md"), Path: "generated/r2g.md", GroupID: "B",
+				Partition: "training", Cohort: "controlled", Role: "comment",
 				Status: "measured", ProseWords: 20, Findings: 1, ByRule: map[string]int{"a.rule": 1, "b.rule": 0}},
 		},
 		Units: []corpus.UnitFindings{
@@ -97,7 +105,7 @@ func TestPairedTablesReportChangesPerArm(t *testing.T) {
 	_, err = patterns.AnalyzePaired(t.Context(), broken, tasks, []corpus.FindingsArtifact{art}, classes())
 	c.Assert(err, qt.IsNotNil)
 	partial := art
-	partial.Documents = art.Documents[:4]
+	partial.Documents = art.Documents[:5]
 	tables, err = patterns.AnalyzePaired(t.Context(), records, tasks, []corpus.FindingsArtifact{partial}, classes())
 	c.Assert(err, qt.IsNil)
 	c.Assert(tables.Arms[0].MissingResponses, qt.Equals, 1)
