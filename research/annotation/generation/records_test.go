@@ -61,7 +61,7 @@ func responses(requests generation.Requests) generation.Responses {
 		Model: "claude-x", ModelBasis: "harness environment", Harness: "agent", AgentType: "Explore", GeneratedOn: "2026-09-11",
 		Parameters: "unavailable", Responses: []generation.Response{
 			{RequestID: generate.ID, Text: "  Handler handles a Request through a Writer and reports an error when the item is missing.  ",
-				Status: "complete", Tokens: 100},
+				Status: "complete", Tokens: 100, RemoteRequestID: "chatcmpl-1"},
 			{RequestID: polish.ID, Text: "", Status: "refused", Note: "declined"},
 		}}
 }
@@ -102,6 +102,9 @@ func TestRecordsMeasureLengthOverlapAndCoverage(t *testing.T) {
 	c.Assert(err, qt.IsNil)
 	c.Assert(records.Records[0].Overlap, qt.Equals, 1.0)
 	c.Assert(records.Records[0].OverlapHigh, qt.IsTrue)
+	// The endpoint's identifier reaches the record; a harness without one says unavailable.
+	c.Assert(byOp["generate"].RemoteRequestID, qt.Equals, "chatcmpl-1")
+	c.Assert(byOp["polish"].RemoteRequestID, qt.Equals, "unavailable")
 	c.Assert(records.Coverage.Missing, qt.Equals, 1)
 	c.Assert(records.Coverage.OverlapHigh, qt.Equals, 1)
 	// Unknown requests, repeated requests, unknown statuses, and missing
@@ -147,7 +150,7 @@ func TestManifestsImportCompleteResponsesOnly(t *testing.T) {
 	c.Assert(item.Manifest.ID, qt.Equals, "controlled-org__lib")
 	c.Assert(item.Manifest.Sources, qt.HasLen, 1)
 	source := item.Manifest.Sources[0]
-	c.Assert(source.Path, qt.Equals, "generated/"+requests.Requests[0].ID+".md")
+	c.Assert(source.Path, qt.Equals, "generated/run-1/"+requests.Requests[0].ID+".md")
 	var complete generation.Record
 	for _, record := range records.Records {
 		if record.Status == "complete" {

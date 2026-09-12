@@ -53,6 +53,16 @@ text for `polish`. The harness line that tells an agent to use no tools is
 stored beside the text. The generator receives exactly that text, and the
 harness saves each response with its status.
 
+Three harnesses have run. A Claude session agent gets the request text and
+the harness line as its one message. A Codex CLI run under amendment 3 gets
+the same message on standard input through `codex exec`. Its sandbox is
+read-only, its working directory is empty, and its Codex home holds no
+instruction file or skill. The CLI's header names the model. If a run
+prints a command, the harness marks the response as an error. An endpoint
+run sends the same message as the one user message of a chat request with
+fixed decoding parameters. Its response row keeps the identifier, the token
+count, and the duration the endpoint returned.
+
 ## Records
 
 `corpus generations` joins the responses with the requests and tasks. It
@@ -66,7 +76,9 @@ writes the `unswell-generation-v1` record with these fields:
 - `unavailable` for any field the harness cannot supply.
 
 Every complete response becomes a source of the `controlled` cohort. It is
-a Markdown file under the cohort's checkout directory. It carries the task's
+a Markdown file under the cohort's checkout directory, in a directory named
+by the run. Request IDs repeat across runs on the same tasks, and one run
+must not overwrite another's files. It carries the task's
 repository, role, rights, and notices, names its task as a provenance link,
 and cites the record as its origin evidence. Refused, truncated, and failed
 responses stay in the record as coverage and produce no source.
@@ -88,3 +100,12 @@ H0 documents of the same role.
 - [2026-09-12-haiku](runs/2026-09-12-haiku/README.md): a second model of
   the same family on the 200 tasks of the two earlier runs, so every task
   has a response from both models.
+- [2026-09-12-codex-luna](runs/2026-09-12-codex-luna/README.md): the second family,
+  OpenAI through the Codex CLI at its weakest model and lowest effort, on
+  the same 200 tasks under amendment 3.
+- [2026-09-12-qwen](runs/2026-09-12-qwen/README.md): the third family, Qwen
+  through the organization's endpoint with thinking disabled, on the same
+  200 tasks under amendment 3.
+- [2026-09-12-qwen-27b](runs/2026-09-12-qwen-27b/README.md): the larger of
+  the endpoint's two Qwen models under the same parameters, so the third
+  family has two model strata like the first.

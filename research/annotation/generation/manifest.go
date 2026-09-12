@@ -56,7 +56,7 @@ func BuildManifests(generation Generation, tasks Tasks, options ImportOptions) (
 		if err != nil {
 			return nil, err
 		}
-		path := "generated/" + record.ResponseID + ".md"
+		path := ResponsePath(generation.Run, record.ResponseID)
 		data := []byte(record.Text + "\n")
 		imported.Files[path] = data
 		imported.Manifest.Sources = append(imported.Manifest.Sources, controlledSource(generation, record, task, imported, path, data, options))
@@ -126,10 +126,16 @@ func controlledSource(generation Generation, record Record, task Task, imported 
 			Evidence: "Generation record " + options.RecordsPath + " dates the response", Cohort: "controlled"}}
 }
 
-// ControlledID is the source ID of one response document of a run. A later
-// run that answers the same task writes the same path, so the run is part of
-// the identity and the paired analysis matches a record to its own run's
-// document.
+// ResponsePath is the path of one response document under its repository's
+// controlled checkout. Request IDs repeat across runs on the same tasks, so
+// the run names a directory of its own and no run overwrites another's file.
+func ResponsePath(run, responseID string) string {
+	return "generated/" + run + "/" + responseID + ".md"
+}
+
+// ControlledID is the source ID of one response document of a run. The run
+// is part of the identity, as it is of the path, so the paired analysis
+// matches a record to its own run's document.
 func ControlledID(run, repository, path string) string {
 	sum := sha256.Sum256([]byte("controlled\x00" + run + "\x00" + repository + "\x00" + path))
 	return fmt.Sprintf("%x", sum[:12])

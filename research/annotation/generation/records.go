@@ -26,6 +26,10 @@ type Response struct {
 	Note           string `json:"note,omitempty"`
 	DurationMillis int    `json:"duration_ms,omitempty"`
 	Tokens         int    `json:"tokens,omitempty"`
+	// RemoteRequestID is the identifier the generator's endpoint returned for
+	// this response, when the harness had one; the record says unavailable
+	// otherwise.
+	RemoteRequestID string `json:"remote_request_id,omitempty"`
 }
 
 // Responses is the run's raw response set with the identity the harness
@@ -206,11 +210,20 @@ func (c *Coverage) count(record Record) {
 	}
 }
 
+// remoteRequestID returns the endpoint's identifier for a response, or the
+// protocol's word for a harness that has none.
+func remoteRequestID(response Response) string {
+	if response.RemoteRequestID == "" {
+		return "unavailable"
+	}
+	return response.RemoteRequestID
+}
+
 func buildRecord(request Request, task Task, prompt PromptCondition, run Responses, response Response) Record {
 	text := strings.TrimSpace(response.Text)
 	record := Record{ResponseID: request.ID, TaskID: task.ID, Operation: request.Operation, Prompt: request.Prompt,
 		PromptSHA256: prompt.SHA256, Family: run.Family, Model: run.Model, ModelBasis: run.ModelBasis,
-		GeneratedOn: run.GeneratedOn, Parameters: run.Parameters, RemoteRequestID: "unavailable", Cost: "unavailable",
+		GeneratedOn: run.GeneratedOn, Parameters: run.Parameters, RemoteRequestID: remoteRequestID(response), Cost: "unavailable",
 		Input:       []Message{{Role: "user", Text: request.Text}, {Role: "harness", Text: HarnessInstruction}},
 		InputSHA256: request.InputSHA256, RawText: response.Text,
 		Transformations: []string{"trim-whitespace-v1"}, Text: text,

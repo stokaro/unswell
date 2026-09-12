@@ -537,3 +537,46 @@ Changed fields:
 The partitions viewed at this time are the ones Amendment 1 named:
 aggregate E1 tables and no frozen confirmatory list. This amendment moves
 no threshold and no minimum.
+
+### Amendment 3, September 12, 2026
+
+Document version 1.3. The identifier stays. Reason: the maintainer allowed
+two more generator families. One is OpenAI through the Codex CLI of the
+flat-rate subscription, restricted to its weakest model and its lowest
+reasoning effort. The other is Qwen through an OpenAI-compatible chat
+endpoint that the maintainer's organization operates. Every stage C record
+so far named one family as its limit, and protocol version 2 needs three.
+
+Changed fields:
+
+- Families. A second family, OpenAI, runs through `codex exec`: one
+  non-interactive turn per request, a read-only sandbox, an empty working
+  directory, and an isolated Codex home that holds no instruction file, no
+  skill, and no project context. The model is the weakest the CLI lists
+  whose usage allowance admits a full run, at the lowest reasoning effort
+  it accepts. A run that a usage limit stops is recorded as far as it got.
+  A third family, Qwen, runs through one HTTP chat completion per request
+  against the organization's endpoint, with thinking disabled and the
+  decoding parameters fixed and recorded. The bearer key stays in the
+  environment and never enters a record. Every other family stays
+  `untested`. Three families have now run; protocol version 2 keeps its
+  other requirements.
+- Budget. Unchanged: the money cap stays zero. A CLI turn or an endpoint
+  request counts as one agent invocation under the caps of Amendment 1;
+  the endpoint belongs to the organization and bills no vendor call.
+- Identity fields. A CLI run supplies the family, the model named in the
+  header the CLI prints for every run, the CLI version, the reasoning
+  effort, the date, and the harness. Decoding parameters beyond the effort,
+  a remote request identifier, a cost, and a fingerprint stay `unavailable`.
+  An endpoint run supplies the model field of every response, the
+  identifier the endpoint returned, the token counts, the duration, and
+  the decoding parameters the harness sent; a cost stays `unavailable`.
+- Delivery. Unchanged: the request text and the one harness line travel in
+  one message. That message is the CLI's standard input or the one user
+  message of the chat request, and the record stores it whole.
+- Tool use. The read-only sandbox cannot stop a command; the harness
+  records any command the CLI prints as an error status for that response,
+  and the response leaves the primary analysis.
+
+Partitions viewed at this time: still the aggregate E1 tables, with no
+confirmatory list frozen. No threshold and no minimum moves.
