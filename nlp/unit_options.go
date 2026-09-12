@@ -84,10 +84,17 @@ func validUnitOrigin(span, bounds document.Span, protected bool) bool {
 		(span.End > span.Start || (protected && span.Start == span.End))
 }
 
+// validateUnitRunes checks the origins of an encoded rune. Every byte of one
+// rune points at the same origin, or at a contiguous run of origins. A Go
+// string literal can spell one rune with several escape sequences. The
+// literal "\xef\xbb\xbf" spells U+FEFF that way. Each sequence is its own
+// source span. A gap or a reversal between the spans would place evidence
+// outside the rune.
 func validateUnitRunes(mapped document.MappedText) error {
 	for start, r := range mapped.Text {
 		for i := 1; i < utf8.RuneLen(r); i++ {
-			if mapped.Map[start+i] != mapped.Map[start] {
+			previous, current := mapped.Map[start+i-1], mapped.Map[start+i]
+			if current != previous && current.Start != previous.End {
 				return fmt.Errorf("unit source map splits an encoded rune")
 			}
 		}
