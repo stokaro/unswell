@@ -1,12 +1,20 @@
 # Implementation and acceptance roadmap
 
-The September 7, 2026 technical specification defines five stages. The requested
-first alpha implements stages 0 and 1. Later stages remain product requirements;
-the alpha does not claim completion of the full product specification.
+The September 7, 2026 technical specification defines five stages. Stages 0 and 1
+were the original alpha scope. The current engine also implements stage 2
+integrations and much of stage 3's tooling; implementation does not establish a
+qualified model. The [acceptance audit](acceptance.md) separates merged features,
+published release evidence, ongoing work, and deferred requirements.
+
+[ADR 0037](adr/0037-diagnostics-not-authorship.md) defines the current release
+path: explainable diagnostics on technical prose. Human qualification, calibrated
+probabilities, origin analysis, and detector comparisons retain their original
+criteria below but are outside that mandatory path. The published alpha does not
+claim completion of the original specification.
 
 ## Issue queue
 
-Work proceeds in the order below. An issue is complete only after its acceptance
+The table preserves the original issue sequence. An issue is complete only after its acceptance
 evidence passes on the merged commit. Human annotation and measured quality require
 real data; implementation alone cannot satisfy those requirements.
 
@@ -14,8 +22,11 @@ Research work runs on two branches since September 10, 2026. The active branch,
 [#154](https://github.com/stokaro/unswell/issues/154), collects
 LLM-associated pattern evidence without human labels under
 [ADR 0036](adr/0036-llm-pattern-evidence.md). Stage A fixed its scope. Stage
-B measured five dated cohorts. Stage C has two runs through session agents
-under amendment 1 of the protocol. The mirrored experiments
+B measured five dated cohorts. Stage C now has ten committed
+[generation records](../research/generation/README.md) across Claude, OpenAI, and
+Qwen, with three development screenings. The
+[version 2 protocol](../research/methods/llm-patterns-v2.md) freezes two hypotheses
+for one confirmatory measurement; it does not report their confirmation. The mirrored experiments
 [#176](https://github.com/stokaro/unswell/issues/176),
 [#177](https://github.com/stokaro/unswell/issues/177), and
 [#178](https://github.com/stokaro/unswell/issues/178) asked classification
@@ -36,9 +47,10 @@ enables no probability gate. Cohort measurements from the active branch
 never count toward those criteria.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
-Their tests and commands remain available. Run #123 last, after the other
-implementation tasks have a recorded disposition, to restore these CI checks and
-fix discovered issues. An earlier audit must keep this final validation outstanding.
+Their tests and commands remain available. #123 is on hold and may start only on
+an explicit maintainer request, after the other implementation tasks have a
+recorded disposition. It restores these CI checks and fixes discovered issues.
+An earlier audit must keep this final validation outstanding.
 Alpha API compatibility with previous releases is not required; current schemas,
 consumer tests, and the public package ledger remain maintained.
 
@@ -92,6 +104,14 @@ consumer tests, and the public package ledger remain maintained.
 
 ## Next stage: diagnostics on real texts
 
+The current follow-ups are [#217](https://github.com/stokaro/unswell/issues/217)
+for replaying dated diagnostic reviews after engine fixes,
+[#218](https://github.com/stokaro/unswell/issues/218) for longer technical prose,
+and [#219](https://github.com/stokaro/unswell/issues/219) for complete scans and
+resource measurements of a published release. The summary reconciliation is
+tracked in [#220](https://github.com/stokaro/unswell/issues/220); the continuing
+pattern study remains in #154. Each requires its own evidence.
+
 The maintainer restated the goal on September 11, 2026, and
 [ADR 0037](adr/0037-diagnostics-not-authorship.md) records the audit
 against it. Unswell finds concrete constructions and explains the edit; it
@@ -133,8 +153,10 @@ need is written down.
 | Dogfooding | The built CLI checks owned Markdown, Go code and Bash scripts with the committed strict policy; CI retains reports and proves a negative case fails |
 
 The [alpha distribution evidence](alpha-distribution-evidence.md) records the
-published version and its verified installation paths. Automatic updates remain
-open in #66; later changes on main do not alter the published alpha.
+published alpha.3 and its verified installation paths. #66 closed after the
+release automatically created update PRs, maintainers reviewed and merged them,
+and the Action tag was published after checks. Repeated requests made no change.
+Later changes on main do not alter the published alpha or verify the next release.
 
 Acceptance is unproven until the listed evidence exists for the released commit.
 Passing a subset of local unit tests does not establish release readiness. The
@@ -158,6 +180,11 @@ on this page and links the evidence for each one.
 - Add a compile-tested `go/analysis` adapter with `analysistest`.
 
 ## Stage 3: calibrated revision probability
+
+The engineering contracts below are implemented. Human data collection,
+qualification, and probability acceptance remain deferred under ADR 0037 and
+[#59](https://github.com/stokaro/unswell/issues/59). They become release requirements
+only if a later product decision brings them back into scope.
 
 The [published annotation protocol](editorial-annotation.md) and its
 [research tools](../research/annotation/README.md) support collection and review.
@@ -192,25 +219,31 @@ and optional detector experiments. Quality and provenance labels stay independen
 Provenance research does not determine the initial CI gate, and none of these
 experiments is reported as a completed benchmark.
 
-## Stage 4: first product release
+## Stage 4: release validation and deferred qualification
 
-- Complete the full specification's 13 final acceptance criteria, including stages 2 and 3.
-- Validate stable rules with at least 15 positive and 15 negative examples each and
+- Record the disposition of the original specification's 13 final criteria.
+  Validate diagnostics, interfaces, distribution, and resources on the current
+  release path; preserve deferred stage 3 requirements without claiming completion.
+- Preserve the deferred rule-qualification criteria in #26: at least 15 positive
+  and 15 negative examples per rule and
   corpus evidence. Target 98% precision for hard defaults and 85% for soft defaults,
   with sample sizes and uncertainty; measure clean-block false positives separately.
 - Meet the stated coverage goals: 90% for engine/rules/scoring/config/source mapping
   and 85% overall, without hiding difficult packages.
 - Publish repeatable performance measurements against the proposed 100,000 words
   in 10 seconds and 512 MiB target on a specified 2-vCPU Linux host. The harness
-  and one such measurement are in [scan cost](performance.md); real corpora and
-  other architectures remain open.
+  and alpha.3 measurements are in [scan cost](performance.md). Synthetic and pytest
+  scans complete above 100,000 words; FastAPI and date-fns are incomplete on that
+  release. #219 requires complete reruns after the parser repairs. Native repair
+  tests cannot replace published-release measurements.
 - Verify SARIF import in a real consumer, release reproducibility, current API consumers,
   all report/input formats and platform behavior. Release binaries already
   reproduce byte for byte across hosts with a pinned compiler; see
   [reproducible builds](reproducible-builds.md).
 - Complete the full documentation set, model/data notices and release inventory.
-- Finally, restore race detection, active fuzzing, and coverage in CI, fix findings, and retain
-  passing evidence for the merged commit as required by #123.
+- Finally, after an explicit maintainer request starts #123, restore race
+  detection, active fuzzing, and coverage in CI, fix findings, and retain passing
+  evidence for the merged commit.
 
 Additional filler/hype signals and repeated rhetorical patterns are available as
 [opt-in experiments](editorial-patterns.md); their corpus qualification remains open.
