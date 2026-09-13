@@ -63,6 +63,9 @@ func canonicalManifest(manifest Manifest) (Manifest, error) {
 	if result.Policy.GitHubActions == "" {
 		result.Policy.GitHubActions = "shell"
 	}
+	if result.Policy.GoComments == "" {
+		result.Policy.GoComments = "godoc"
+	}
 	slices.SortFunc(result.Sources, func(a, b Source) int { return strings.Compare(a.ID, b.ID) })
 	slices.Sort(result.UnitKinds)
 	slices.Sort(result.Policy.Contexts)

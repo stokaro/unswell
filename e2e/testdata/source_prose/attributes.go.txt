@@ -1,0 +1,12 @@
+package example
+// The function definition supports various PostgreSQL function attributes:
+//   - Parameters: Function parameter definitions (e.g., "tenant_id_param TEXT, user_id INTEGER")
+//   - Returns: Return type specification (e.g., "VOID", "TEXT", "INTEGER")
+//   - Language: Function language (e.g., "plpgsql", "sql")
+//   - Security: Security context (e.g., "DEFINER", "INVOKER")
+//   - Volatility: Function volatility (e.g., "STABLE", "IMMUTABLE", "VOLATILE")
+//   - Body: Function implementation code
+func Attributes() {}
+
+// The client must retain the original tenant identifier and the configured timeout when it retries the request after a temporary connection failure, because replacing either value would change the conditions under which the server accepts the operation and records its result. // want "syntax.long-sentence"
+func Retry() {}

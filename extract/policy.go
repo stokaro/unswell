@@ -14,11 +14,24 @@ import (
 
 // Policy selects prose contexts and explicit comment and string exceptions.
 // GitHubActions accepts shell (also the zero-value default) or strings.
+// GoComments accepts godoc (also the zero-value default) or plain.
 type Policy struct {
-	GitHubActions string                             `json:"github_actions" yaml:"github_actions"`
-	Contexts      []string                           `json:"contexts"   yaml:"contexts"`
-	Languages     map[document.Format]LanguagePolicy `json:"languages"  yaml:"languages"`
-	Exceptions    []Exception                        `json:"exceptions" yaml:"exceptions"`
+	GoComments      string                             `json:"go_comments" yaml:"go_comments"`
+	MarkdownStrings []MarkdownString                   `json:"markdown_strings,omitempty" yaml:"markdown_strings,omitempty"`
+	GitHubActions   string                             `json:"github_actions" yaml:"github_actions"`
+	Contexts        []string                           `json:"contexts"   yaml:"contexts"`
+	Languages       map[document.Format]LanguagePolicy `json:"languages"  yaml:"languages"`
+	Exceptions      []Exception                        `json:"exceptions" yaml:"exceptions"`
+}
+
+// MarkdownString selects static string literals for Markdown extraction.
+// Paths is required. Nonempty selectors must all match; their values are alternatives.
+// Symbols uses the same enclosing declaration and keyed-field names as Exception.
+type MarkdownString struct {
+	ID      string            `json:"id" yaml:"id"`
+	Paths   []string          `json:"paths" yaml:"paths"`
+	Formats []document.Format `json:"formats,omitempty" yaml:"formats,omitempty"`
+	Symbols []string          `json:"symbols,omitempty" yaml:"symbols,omitempty"`
 }
 
 // LanguagePolicy replaces the global context set for one input format.
@@ -47,14 +60,36 @@ type compiledException struct {
 
 // ValidatePolicy checks every exception before any source is analyzed.
 func ValidatePolicy(policy Policy) error {
+	if policy.GoComments != "" && policy.GoComments != "godoc" && policy.GoComments != "plain" {
+		return fmt.Errorf("extraction go_comments must be godoc or plain")
+	}
 	if policy.GitHubActions != "" && policy.GitHubActions != "shell" && policy.GitHubActions != "strings" {
 		return fmt.Errorf("extraction github_actions must be shell or strings")
 	}
 	if err := validateContexts(policy); err != nil {
 		return err
 	}
-	_, err := compileExceptions(policy)
+	if _, err := compileExceptions(policy); err != nil {
+		return err
+	}
+	_, err := compileMarkdownStrings(policy)
 	return err
+}
+
+func compileMarkdownStrings(policy Policy) ([]compiledException, error) {
+	// Both policies select source literals with the same grammar owners and glob rules.
+	selectors := Policy{Exceptions: make([]Exception, 0, len(policy.MarkdownStrings))}
+	for _, value := range policy.MarkdownStrings {
+		selectors.Exceptions = append(selectors.Exceptions, Exception{
+			ID: value.ID, Paths: value.Paths, Formats: value.Formats, Symbols: value.Symbols,
+			Kinds: []string{"string"}, Reason: "Markdown selection.",
+		})
+	}
+	compiled, err := compileExceptions(selectors)
+	if err != nil {
+		return nil, fmt.Errorf("markdown_strings: %w", err)
+	}
+	return compiled, nil
 }
 
 func compileExceptions(policy Policy) ([]compiledException, error) {

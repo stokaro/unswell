@@ -24,7 +24,7 @@ func TestCommentTerminatorsBelongToTheirOpener(t *testing.T) {
 		{"shell comment keeps a stray terminator", document.Bash, "# Visible comment text. #>\n",
 			" Visible comment text. #> "},
 		{"line comment keeps a block terminator", document.Go, "package a\n// Visible comment text. */\n",
-			" Visible comment text. */ "},
+			"Visible comment text. */"},
 		{"block comment loses its terminator", document.C, "/* Visible comment text. */\n",
 			" Visible comment text.  "},
 		{"here-comment loses its terminator", document.PowerShell, "<# Visible comment text. #>\n",

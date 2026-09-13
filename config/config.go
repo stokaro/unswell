@@ -269,7 +269,7 @@ func defaults(profile string, catalog []rule.Descriptor) (Policy, error) {
 		Version:      1,
 		Profile:      profile + "-v1",
 		Language:     "en",
-		Extraction:   extract.Policy{Contexts: extract.DefaultContexts(), GitHubActions: "shell"},
+		Extraction:   extract.Policy{Contexts: extract.DefaultContexts(), GitHubActions: "shell", GoComments: "godoc"},
 		Rules:        make(map[string]rule.Settings),
 		Origins:      make(map[string]string),
 		Suppressions: Suppressions{RequireReason: true, RejectUnused: true},

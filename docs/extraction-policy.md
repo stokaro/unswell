@@ -189,6 +189,47 @@ neighbors and exclusion ranges in CLI goldens. The
 The [non-Latin block case](../e2e/testdata/non_latin_block/) keeps the English
 paragraphs checked and records the excluded block.
 
+## Structured source prose
+
+Go comment prose uses Go doc-comment block grammar by default. Paragraphs,
+headings, and list-item paragraphs are separate analysis blocks. Indented code
+examples are excluded. This also applies to ordinary Go comments; it does not
+interpret them as Markdown. Go doc comments support flat lists. Use
+`extraction.go_comments: plain` to retain the previous comment behavior.
+
+Select static string literals that contain Markdown explicitly:
+
+```yaml
+extraction:
+  go_comments: godoc
+  markdown_strings:
+    - id: cli-help
+      paths: [internal/cli/**/*.go]
+      formats: [go]
+      symbols: [Long]
+```
+
+Each selector requires a unique ID and paths. Formats and enclosing symbols
+are optional and use the same matching rules as extraction exceptions. At most
+100 selectors are allowed. Unselected strings keep their current behavior.
+The language decoder runs before the existing Markdown grammar. Paragraphs,
+nested lists, inline protection, and fenced or indented examples retain their
+original source coordinates, including escapes and CRLF input.
+
+The source `string` context and extraction exceptions apply first. The Markdown
+context set then selects inner blocks. Returned block kinds remain `string`;
+structure records the inner Markdown kind. GitHub Actions `run` routing takes
+precedence; select `github_actions: strings` to disable that routing explicitly.
+Protected interpolation and control characters make an explicitly selected
+Markdown string an operational error. The parser cannot establish the structure
+of a complete Markdown document from a dynamic fragment.
+
+These settings change policy and preparation identities. Paragraph and list
+boundaries change the units sent to rules and features. Remeasure older corpus
+artifacts and model bindings explicitly; replacing a stored identity is not a
+measurement. See the [decision](adr/0040-source-prose-boundaries.md) and the
+[source prose regression](../e2e/testdata/source_prose/).
+
 These exceptions select source regions, not individual rule findings. They apply
 to library calls and explicit CLI files as well as recursive scans. Source must
 still parse successfully. To omit a file from recursive discovery entirely, use

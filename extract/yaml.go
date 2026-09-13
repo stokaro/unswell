@@ -132,8 +132,7 @@ func (r *sourceReader) yamlScalar(node *ts.Node, kind string, value yamlValue) e
 	if value.program != nil {
 		return r.workflowProgram(mapped, value.program.format)
 	}
-	appendBlock(r.doc, mapped, "string")
-	return nil
+	return r.proseString(node, mapped)
 }
 
 func (r *sourceReader) yamlValue(node *ts.Node) (yamlValue, error) {

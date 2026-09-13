@@ -94,6 +94,25 @@ func TestPlanFreezesDefaultWorkflowExtraction(t *testing.T) {
 	c.Assert(stringsPlan.ManifestSHA256, qt.Not(qt.Equals), implicit.ManifestSHA256)
 }
 
+func TestPlanFreezesSourceProsePolicy(t *testing.T) {
+	c := qt.New(t)
+	m, _ := sample()
+	implicit, err := corpus.MakePlan(t.Context(), m)
+	c.Assert(err, qt.IsNil)
+	c.Assert(implicit.Manifest.Policy.GoComments, qt.Equals, "godoc")
+	m.Policy.GoComments = "godoc"
+	explicit, err := corpus.MakePlan(t.Context(), m)
+	c.Assert(err, qt.IsNil)
+	c.Assert(explicit, qt.DeepEquals, implicit)
+	m.Policy.MarkdownStrings = []extract.MarkdownString{{ID: "help", Paths: []string{"**"}, Symbols: []string{"Long"}}}
+	loaded, err := corpus.LoadManifest(t.Context(), encoded(c, m))
+	c.Assert(err, qt.IsNil)
+	c.Assert(loaded.Policy.MarkdownStrings, qt.DeepEquals, m.Policy.MarkdownStrings)
+	selected, err := corpus.MakePlan(t.Context(), loaded)
+	c.Assert(err, qt.IsNil)
+	c.Assert(selected.ManifestSHA256, qt.Not(qt.Equals), implicit.ManifestSHA256)
+}
+
 func TestRelationshipFamilies(t *testing.T) {
 	for _, family := range []string{"document", "author", "template", "related", "generation", "hash"} {
 		t.Run(family, func(t *testing.T) {

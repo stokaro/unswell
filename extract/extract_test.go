@@ -44,13 +44,13 @@ func TestProseExtraction(t *testing.T) {
 			"comments",
 			document.Go,
 			"// Package sample provides examples.\npackage sample\n//go:generate command\n// Client opens connections.\ntype Client struct{}\n",
-			[]string{" Package sample provides examples. ", " Client opens connections. "},
+			[]string{"Package sample provides examples.", "Client opens connections."},
 		},
 		{
 			"cgo",
 			document.Go,
 			"package sample\n/* This belongs to C. */\nimport \"C\"\n// A normal comment.\n",
-			[]string{" A normal comment. "},
+			[]string{"A normal comment."},
 		},
 	}
 	for _, tc := range cases {

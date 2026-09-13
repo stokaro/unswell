@@ -33,6 +33,8 @@ type dependencyTrace struct {
 
 // These are frozen model predictions, not human grammatical or quality labels.
 // The probe rule checks how actual parser evidence reaches the public engine.
+// Their Go token offsets were recorded with plain comment extraction. Replay
+// that policy explicitly; do not rewrite a frozen model output for new defaults.
 func TestDependencyTraceReplay(t *testing.T) {
 	var traces dependencyTraces
 	decodeFile(t, "testdata/dependency-traces.json", &traces)
@@ -47,7 +49,8 @@ func TestDependencyTraceReplay(t *testing.T) {
 		t.Run(source.ID, func(t *testing.T) {
 			c := qt.New(t)
 			provider := replayProvider(t, traces, source)
-			engine, err := unswell.New(unswell.Options{NLP: provider, Rules: []rule.Rule{dependencyRelationProbe{}}})
+			engine, err := unswell.New(unswell.Options{NLP: provider, Rules: []rule.Rule{dependencyRelationProbe{}},
+				Config: []byte("version: 1\nextraction: {go_comments: plain}\n")})
 			c.Assert(err, qt.IsNil)
 			result, err := engine.Analyze(t.Context(), document.Source{Name: source.ID, Format: source.Format, Bytes: []byte(source.Text)})
 			c.Assert(err, qt.IsNil)
@@ -77,7 +80,7 @@ func replayProvider(t *testing.T, traces dependencyTraces, source dependencyTrac
 	t.Helper()
 	c := qt.New(t)
 	input := document.Source{Name: source.ID, Format: source.Format, Bytes: []byte(source.Text)}
-	doc, err := extract.Parse(t.Context(), input, extract.Options{})
+	doc, err := extract.Parse(t.Context(), input, extract.Options{Policy: extract.Policy{GoComments: "plain"}})
 	c.Assert(err, qt.IsNil)
 	return dependencyReplay{blocks: doc.Blocks, source: source, identity: nlp.Identity{
 		Name: traces.Provider, Version: traces.Revision, Model: "en_core_web_sm-3.8.0", ModelHash: traces.ModelHash,

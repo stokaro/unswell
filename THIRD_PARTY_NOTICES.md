@@ -6,6 +6,13 @@ binary archive. Tool dependencies are isolated in `tools/go.mod` and are not
 included in the runtime. The per-platform CycloneDX SBOM records build selection.
 The Go runtime and standard library's BSD notice is in [licenses/go_LICENSE](licenses/go_LICENSE).
 
+The Go comment block scanner and list adapter in `extract/go_doc_spans.go`
+and `extract/go_doc_list.go` adapt
+`go/doc/comment/parse.go` from Go 1.25.0, commit
+`6e676ab2b809d46623acb5988248d95d1eb7939c` (copyright 2022 The Go Authors).
+Its copyright notice follows the package clause; the same BSD license applies.
+The adapter retains original line ranges for extraction and source mapping.
+
 | Module | Version | Upstream notices |
 | --- | --- | --- |
 | `github.com/inconshreveable/mousetrap` | `v1.1.0` | [LICENSE](licenses/github.com_inconshreveable_mousetrap_LICENSE) |

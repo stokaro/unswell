@@ -30,7 +30,7 @@ func TestPreparedCollectionMatchesFrozenCorpusTargets(t *testing.T) {
 	c.Assert(err, qt.IsNil)
 	var frozen []corpusExpectedUnit
 	decodeFile(t, "corpusdata/ptah-units.golden.json", &frozen)
-	c.Assert(frozen, qt.HasLen, 378)
+	c.Assert(frozen, qt.HasLen, 409)
 	want := make(map[string][]preparedCorpusTarget)
 	for _, unit := range frozen {
 		path, exists := paths[unit.Source]

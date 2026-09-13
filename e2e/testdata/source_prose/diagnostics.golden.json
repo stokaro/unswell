@@ -1,0 +1,110 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "syntax.long-sentence",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "Consider splitting this long sentence without losing its conditions.",
+      "primary": {
+        "path": "attributes.go",
+        "span": {
+          "start": 550,
+          "end": 824
+        },
+        "start": {
+          "line": 11,
+          "column": 4
+        },
+        "end": {
+          "line": 11,
+          "column": 278
+        },
+        "segments": [
+          {
+            "start": 550,
+            "end": 824
+          }
+        ]
+      },
+      "related": []
+    },
+    {
+      "rule_id": "readability.long-paragraph",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "paragraph",
+      "message": "Consider paragraph boundaries while keeping each condition with the statement it qualifies.",
+      "primary": {
+        "path": "help.go",
+        "span": {
+          "start": 1569,
+          "end": 1843
+        },
+        "start": {
+          "line": 32,
+          "column": 41
+        },
+        "end": {
+          "line": 32,
+          "column": 315
+        },
+        "segments": [
+          {
+            "start": 1569,
+            "end": 1843
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "help.go",
+          "span": {
+            "start": 1844,
+            "end": 2175
+          },
+          "start": {
+            "line": 32,
+            "column": 316
+          },
+          "end": {
+            "line": 32,
+            "column": 647
+          },
+          "segments": [
+            {
+              "start": 1844,
+              "end": 2175
+            }
+          ]
+        },
+        {
+          "path": "help.go",
+          "span": {
+            "start": 2176,
+            "end": 2508
+          },
+          "start": {
+            "line": 32,
+            "column": 648
+          },
+          "end": {
+            "line": 32,
+            "column": 980
+          },
+          "segments": [
+            {
+              "start": 2176,
+              "end": 2508
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

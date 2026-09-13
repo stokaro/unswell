@@ -1,0 +1,32 @@
+package example
+var command = struct {Long string}{Long: `Check an artifact against a verification policy before it is consumed.
+
+A digest proves two artifacts are the same bytes and an integrity sum proves a
+migration directory is internally consistent. Neither answers whether these
+bytes should be applied to your database: rewriting a migration and rehashing
+it produces an artifact that passes both.
+
+The policy is a YAML file. Every field is a refusal an operator opted into, and
+a policy declaring no requirement is rejected rather than accepted, because not
+passing a policy and passing an empty one are different mistakes:
+
+    version: 1
+    require_digest_pin: true
+    artifact_types:
+      - application/vnd.stokaro.ptah.migrations.v1
+    require_annotations:
+      - org.opencontainers.image.source
+      - org.opencontainers.image.revision
+    require_signature: true
+
+Every requirement is evaluated rather than stopping at the first failure, so a
+pipeline being fixed gets the whole list instead of one violation per run.
+
+Read require_signature for what it measures. Ptah checks that a signature is
+ATTACHED. It does not verify one: no key is loaded, no identity is checked, no
+cryptography runs. Signing and cryptographic verification stay with cosign or
+Notation, which own the trust material. The check still earns its place because
+the failure it catches is the common one -- a pipeline that was meant to sign
+and did not -- but it must not be mistaken for authenticity.`}
+
+var other = struct {Long string}{Long: `The client must retain the original tenant identifier and the configured timeout when it retries the request after a temporary connection failure, because replacing either value would change the conditions under which the server accepts the operation and records its result. The server must also preserve the original authorization context, reject expired credentials, report each failed condition, and avoid applying partial changes while another request is waiting for a lock, because the caller cannot safely infer whether an interrupted transaction committed from the presence of a network error alone. Operators must keep the configured numeric limits, record the request identifier before retrying, and inspect the full verification result whenever a signature is merely attached rather than verified, because attachment alone does not establish who signed the artifact or whether the signature covers the bytes that will be applied.`} // want "readability.long-paragraph"
