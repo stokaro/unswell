@@ -44,6 +44,21 @@ func TestExtractionPolicyHashAndDuplicateIDs(t *testing.T) {
 	c.Assert(err, qt.ErrorMatches, `duplicate extraction exception "fixture"`)
 }
 
+func TestGitHubActionsExtractionPolicyIdentity(t *testing.T) {
+	c := qt.New(t)
+	base, err := config.Load([]byte("version: 1\n"), nil)
+	c.Assert(err, qt.IsNil)
+	c.Assert(base.Extraction.GitHubActions, qt.Equals, "shell")
+	explicit, err := config.Load([]byte("version: 1\nextraction: {github_actions: shell}\n"), nil)
+	c.Assert(err, qt.IsNil)
+	c.Assert(explicit.Extraction.GitHubActions, qt.Equals, base.Extraction.GitHubActions)
+	strings, err := config.Load([]byte("version: 1\nextraction: {github_actions: strings}\n"), nil)
+	c.Assert(err, qt.IsNil)
+	c.Assert(strings.Hash, qt.Not(qt.Equals), base.Hash)
+	_, err = config.Load([]byte("version: 1\nextraction: {github_actions: guess}\n"), nil)
+	c.Assert(err, qt.ErrorMatches, "extraction github_actions must be shell or strings")
+}
+
 func TestExtractionContextValidation(t *testing.T) {
 	cases := []string{
 		"contexts: [comments]",

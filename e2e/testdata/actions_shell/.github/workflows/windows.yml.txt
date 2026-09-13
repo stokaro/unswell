@@ -1,0 +1,7 @@
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - run: |
+          # It is important to note that the service may restart. # want "filler.announced-importance"
+          Write-Output "It is important to note that the limit remains 30 seconds." # want "filler.announced-importance"

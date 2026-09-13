@@ -82,8 +82,9 @@ The repository's [.unswell.yaml](../.unswell.yaml) demonstrates both cases.
 Selecting strings includes embedded SQL, JSON, scripts, identifiers, and protocol
 values. Unswell does not infer that a string is prose from its variable name.
 In the shell formats only, a literal whose lines are mostly code is excluded as
-an [embedded program](inputs.md#programs-in-shell-literals); every other grammar
-keeps such data until an exception selects it. Select known data with existing
+an [embedded program](inputs.md#programs-in-shell-literals). GitHub Actions run
+values use the shell handling described below; other grammars
+keep such data until an exception selects it. Select known data with existing
 path, format, kind, and symbol exceptions. For example:
 
 ```yaml
@@ -110,6 +111,49 @@ its string literals. Review that scope before using a function-wide exception.
 Use global or per-language context sets when the intended policy applies to every
 string in that scope. Disabling strings is an explicit choice, not the default.
 
+## GitHub Actions scripts
+
+Unswell uses a shell grammar for run steps in GitHub Actions workflows. This
+applies to `jobs.*.steps[*].run` in direct `.yml` and `.yaml` children of
+`.github/workflows`. YAML folding, chomping, and escapes are decoded first;
+findings still point to original YAML bytes.
+Comments and quoted messages remain checked, while shell operators and command
+words stay outside prose metrics. Ordinary YAML values, including action inputs
+named `run`, retain their existing behavior.
+
+The shell comes from the step, job defaults, or workflow defaults. Without an
+explicit shell, a container selects sh; recognized literal hosted-runner labels
+select Bash on Linux/macOS and PowerShell on Windows. Supported shell names are
+`bash`, `sh`, `zsh`, `fish`, `pwsh`, and `powershell`. Simple templates such as
+`bash -e {0}` also work. Unknown shells or runner labels produce
+`actions-shell-unknown`; scripts containing unresolved `${{ ... }}` produce
+`actions-expression`. The whole script is excluded in those cases, with its
+reason recorded. This does not claim complete embedded analysis. Other prose in
+the file remains checked and can pass the normal gate.
+
+YAML string contexts and exceptions apply before shell parsing. The nested
+shell's context override then selects comments and strings inside the script.
+Returned blocks remain YAML `string` contexts. An exception targeting the YAML
+`run` field omits the entire script; an exception targeting the nested shell
+format selects its comments or strings using the same workflow path.
+
+To select ordinary YAML scalar analysis explicitly:
+
+```yaml
+version: 1
+extraction:
+  github_actions: strings
+```
+
+Set the mode to `shell` for the default. Unknown modes are config errors. A change
+to this mode changes the policy and model input hashes. Check older measurements
+before reusing them with the new contract. A known script with invalid syntax
+causes an error; it never falls back to scalar analysis. A reasoned YAML exception
+still skips nested parsing. See [ADR 0039](adr/0039-actions-shell-extraction.md) for
+supported runner labels, template limits, and coverage details.
+
+## Extraction outcomes
+
 The following cases have distinct outcomes:
 
 | Input | Outcome |
@@ -121,6 +165,8 @@ The following cases have distinct outcomes:
 | A selected block is predominantly non-Latin prose | Block excluded with `non-latin-prose`; other blocks remain checked |
 | Valid text contains embedded code or fixed values | Checked unless an explicit exception selects it |
 | A shell string, heredoc or here-string whose lines are mostly code | Whole literal excluded with `embedded-program` and its original byte range |
+| A recognized Actions script with a known shell | Comments and strings checked; program syntax excluded with `actions-shell-syntax` |
+| An Actions script with an unknown shell or unresolved expression | Whole scalar excluded with `actions-shell-unknown` or `actions-expression` |
 | A tag or example section of a JSDoc or Javadoc comment | Lines excluded with `doc-tag` or `doc-example`; the description keeps its block |
 | A comment that starts with a listed tool prefix | Whole comment excluded with `directive` |
 | Source has invalid grammar | Operational error even when an exception would select its strings |

@@ -13,10 +13,12 @@ import (
 )
 
 // Policy selects prose contexts and explicit comment and string exceptions.
+// GitHubActions accepts shell (also the zero-value default) or strings.
 type Policy struct {
-	Contexts   []string                           `json:"contexts"   yaml:"contexts"`
-	Languages  map[document.Format]LanguagePolicy `json:"languages"  yaml:"languages"`
-	Exceptions []Exception                        `json:"exceptions" yaml:"exceptions"`
+	GitHubActions string                             `json:"github_actions" yaml:"github_actions"`
+	Contexts      []string                           `json:"contexts"   yaml:"contexts"`
+	Languages     map[document.Format]LanguagePolicy `json:"languages"  yaml:"languages"`
+	Exceptions    []Exception                        `json:"exceptions" yaml:"exceptions"`
 }
 
 // LanguagePolicy replaces the global context set for one input format.
@@ -45,6 +47,9 @@ type compiledException struct {
 
 // ValidatePolicy checks every exception before any source is analyzed.
 func ValidatePolicy(policy Policy) error {
+	if policy.GitHubActions != "" && policy.GitHubActions != "shell" && policy.GitHubActions != "strings" {
+		return fmt.Errorf("extraction github_actions must be shell or strings")
+	}
 	if err := validateContexts(policy); err != nil {
 		return err
 	}

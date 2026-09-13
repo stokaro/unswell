@@ -1,0 +1,28 @@
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: It is important to note that the tests run locally. # want "filler.announced-importance"
+        shell: bash
+        run: |
+          checker=$(cd tools && go tool -n govulncheck)
+          while read -r directory role; do
+            if [[ "$role" != tools ]]; then
+              (cd "$directory" && "$checker" ./...)
+            fi
+          done <.gomodules
+          # It is important to note that the client may retry. # want "filler.announced-importance"
+          printf '%s\n' "It is important to note that the limit is 30 seconds." # want "filler.announced-importance"
+          # unswell-disable-next-block filler.announced-importance -- Required external wording.
+          echo "It is important to note that the limit is not 60 seconds." # want-suppressed "filler.announced-importance"
+      - shell: bash
+        run: "echo \"It is \u0069mportant to note that café remains enabled.\"" # want "filler.announced-importance"
+      - shell: xonsh
+        run: |
+          echo "It is important to note that the shell is unknown."
+      - shell: bash
+        run: |
+          echo '${{ inputs.message }}'
+      - uses: example/action@v1
+        with:
+          run: It is important to note that this is ordinary YAML prose. # want "filler.announced-importance"

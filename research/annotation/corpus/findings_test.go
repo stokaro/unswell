@@ -111,6 +111,7 @@ func TestFindingsRequireFrozenExtractionAndReproduction(t *testing.T) {
 	c := qt.New(t)
 	a, files := findingsFixture(c)
 	for _, policy := range []string{"", "version: 1\nunknown: true\n",
+		findingsPolicy + "extraction: {github_actions: strings}\n",
 		findingsPolicy + "extraction: {contexts: [heading]}\n", findingsPolicy + "analysis: {include_quotes: true}\n"} {
 		_, err := corpus.MeasureFindings(t.Context(), a, files, []byte(policy))
 		c.Assert(err, qt.IsNotNil, qt.Commentf("%q", policy))

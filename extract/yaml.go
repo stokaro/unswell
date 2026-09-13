@@ -20,12 +20,13 @@ type yamlPosition struct{ line, column int }
 type yamlValue struct {
 	text, tag string
 	key       bool
+	program   *workflowShell
 }
 
 // The grammar supplies structural spans. The existing YAML decoder supplies
 // scalar semantics, including folding, chomping, and explicit tags. Decoding
 // into Node preserves aliases as references without constructing application data.
-func yamlValues(ctx context.Context, source []byte) (map[int]yamlValue, error) {
+func yamlValues(ctx context.Context, source []byte, name string, actions bool) (map[int]yamlValue, error) {
 	positions := make(map[yamlPosition]yamlValue)
 	decoder := yaml.NewDecoder(bytes.NewReader(source))
 	for {
@@ -40,6 +41,11 @@ func yamlValues(ctx context.Context, source []byte) (map[int]yamlValue, error) {
 		}
 		if err := collectYAMLValues(ctx, &root, false, 0, positions); err != nil {
 			return nil, err
+		}
+		if actions && actionsWorkflow(name) {
+			if err := markWorkflowRuns(ctx, &root, positions); err != nil {
+				return nil, err
+			}
 		}
 	}
 	return indexYAMLPositions(ctx, source, positions)
@@ -100,23 +106,34 @@ func (r *sourceReader) yamlNode(node *ts.Node) (bool, error) {
 	if err != nil {
 		return true, err
 	}
+	return true, r.yamlScalar(node, kind, value)
+}
+
+func (r *sourceReader) yamlScalar(node *ts.Node, kind string, value yamlValue) error {
 	reason := yamlExclusion(value)
 	if reason == "" {
 		reason = r.exception("string", node)
 	}
 	if reason != "" {
 		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: syntaxSpan(node, 0), Reason: reason})
-		return true, nil
+		return nil
 	}
 	if contextExclusion(r.doc, r.options.Policy, "string", syntaxSpan(node, 0)) {
-		return true, nil
+		return nil
+	}
+	if value.program != nil && value.program.reason != "" {
+		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: syntaxSpan(node, 0), Reason: value.program.reason})
+		return nil
 	}
 	mapped, err := mapYAMLScalar(r.doc.Source, syntaxSpan(node, 0), kind, value.text)
 	if err != nil {
-		return true, fmt.Errorf("YAML scalar at byte %d: %w", node.StartByte(), err)
+		return fmt.Errorf("YAML scalar at byte %d: %w", node.StartByte(), err)
+	}
+	if value.program != nil {
+		return r.workflowProgram(mapped, value.program.format)
 	}
 	appendBlock(r.doc, mapped, "string")
-	return true, nil
+	return nil
 }
 
 func (r *sourceReader) yamlValue(node *ts.Node) (yamlValue, error) {

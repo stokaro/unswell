@@ -34,7 +34,7 @@ func sourceProse(ctx context.Context, doc *document.Document, options Options) e
 	defer syntax.tree.Release()
 	reader := sourceReader{ctx: ctx, doc: doc, syntax: syntax, options: options}
 	if doc.Format == document.YAML {
-		reader.yamlValues, err = yamlValues(ctx, doc.Source)
+		reader.yamlValues, err = yamlValues(ctx, doc.Source, doc.Name, options.Policy.GitHubActions != "strings")
 		if err != nil {
 			return err
 		}

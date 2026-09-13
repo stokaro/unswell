@@ -71,6 +71,29 @@ func TestFrozenGroupsAndOrder(t *testing.T) {
 	c.Assert(err, qt.ErrorMatches, ".*conflicting partition pins.*")
 }
 
+func TestPlanFreezesDefaultWorkflowExtraction(t *testing.T) {
+	c := qt.New(t)
+	m, _ := sample()
+	for _, mode := range []string{"", "shell", "strings"} {
+		m.Policy.GitHubActions = mode
+		loaded, err := corpus.LoadManifest(t.Context(), encoded(c, m))
+		c.Assert(err, qt.IsNil)
+		c.Assert(loaded.Policy.GitHubActions, qt.Equals, mode)
+	}
+	m.Policy.GitHubActions = ""
+	implicit, err := corpus.MakePlan(t.Context(), m)
+	c.Assert(err, qt.IsNil)
+	c.Assert(implicit.Manifest.Policy.GitHubActions, qt.Equals, "shell")
+	m.Policy.GitHubActions = "shell"
+	explicit, err := corpus.MakePlan(t.Context(), m)
+	c.Assert(err, qt.IsNil)
+	c.Assert(explicit, qt.DeepEquals, implicit)
+	m.Policy.GitHubActions = "strings"
+	stringsPlan, err := corpus.MakePlan(t.Context(), m)
+	c.Assert(err, qt.IsNil)
+	c.Assert(stringsPlan.ManifestSHA256, qt.Not(qt.Equals), implicit.ManifestSHA256)
+}
+
 func TestRelationshipFamilies(t *testing.T) {
 	for _, family := range []string{"document", "author", "template", "related", "generation", "hash"} {
 		t.Run(family, func(t *testing.T) {
