@@ -18,9 +18,10 @@ numbers are an upper bound for that rule family, not an average document.
 The script grows the corpus until the tool itself counts at least the requested
 number of prose words. A generator estimate would not do: only the tool decides
 what counts as prose. Both scans write all five report formats and evaluate the
-gate, because a real run pays for both. The first scan is labeled cold and the
-second warm. Neither one controls the file cache of the operating system, so the
-pair shows repeat behavior rather than a true process cold start.
+gate, because a real run pays for both. Both scans start a new process. The
+older observation format calls them cold and warm. These labels do not
+describe the state of cached files. Corpus copying and synthetic calibration
+can warm files before either measurement.
 
 Peak memory is the maximum resident set of the whole process, read from
 `/usr/bin/time`. It covers the runtime, extraction, NLP, rules, and report
@@ -43,7 +44,60 @@ file selection, so the tree's own format mix is what gets measured. Each
 tree is measured as it is; nothing sizes it to the target. `--timeout` bounds
 the analysis and defaults to ten minutes, so a slow tree is measured rather than
 cut off at the tool's default deadline. A scan the kernel kills leaves no
-report; the observation then records the exit code with zero counts.
+report. The older observation records zero counts in that case. The version 2
+summary records absent analysis as `null` and preserves the exit code.
+
+`--artifacts NEW_DIR` retains both sets of reports, stderr, resource readings,
+the policy, and the original observation. It rejects an existing directory.
+Run `python3 scripts/summarize-performance.py NEW_DIR` to create a version 2
+observation with separate first/repeat outcomes, exclusions, abstentions,
+report hashes, and tool identities. Summarization happens after measurement.
+
+## Published alpha.3 on diabolocom: September 13, 2026
+
+[The new records](performance/alpha3/README.md) measure the published Linux
+amd64 binary from `v0.1.0-alpha.3`, with its archive and executable hashes
+verified. The host is an AMD Ryzen 7 PRO 8840HS running Linux. A container
+limits CPU quota to two CPUs and memory to 512 MiB without swap;
+`GOMAXPROCS=2`. Existing host services remained running. This differs from
+the older Intel host below, so elapsed times are not a speedup comparison.
+
+Each corpus ran three pairs of scans, for six samples per corpus. Every
+sample wrote JSON, SARIF, HTML, Markdown, and text. The retained report hashes
+and document identities agree across all six samples of each corpus.
+
+| Corpus | Reported documents | Prose words | Time range | Highest RSS | Analysis |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Synthetic | 57 | 102,005 | 1.062–1.117 s | 249.50 MiB | complete; exit 0 |
+| pytest | 304 | 136,867 | 3.632–3.690 s | 347.50 MiB | complete; policy failure, exit 1 |
+| FastAPI | 701 | 121,181 | 4.370–5.693 s | 382.32 MiB | incomplete; one failing file, exit 2 |
+| date-fns | 1,152 | 74,085 | 2.950–4.854 s | 390.63 MiB | incomplete; three failing files, exit 2 |
+
+All 24 processes stayed within the time and memory budgets, with no cgroup
+OOM kills. Only synthetic and pytest establish a complete scan of at least
+100,000 prose words within those budgets. FastAPI and date-fns retain an open
+completeness requirement in [#219](https://github.com/stokaro/unswell/issues/219).
+Failed files are absent from the reported document and prose totals.
+
+The inputs and explicit file exclusions match the earlier records. Analysis
+coverage still changed: alpha.3 protects documentation tags, examples, and
+other non-prose regions. The date-fns word count fell from 106,594 in the
+bounded source-build record to 74,085 here. This smaller workload cannot
+certify the 100,000-word target. Each new observation reports exclusion
+counts and bytes by reason; no rule abstained in these runs.
+
+Remaining failures reproduce on source build
+`1f37aaa3aa40e6a47e2af777856ac7bd9bcff536` too:
+
+- [#230](https://github.com/stokaro/unswell/issues/230): TypeScript wildcard
+  type re-exports fail in three date-fns files.
+- [#231](https://github.com/stokaro/unswell/issues/231): a five-level Markdown
+  list fails in FastAPI's OAuth2 scopes document.
+
+The reports include one aggregate error per incomplete scan in addition to
+the file errors: FastAPI has two entries and date-fns four. These are four
+failing inputs in total, not six independent parser defects. A release
+containing the repairs must repeat the complete scans before #219 can close.
 
 ## Measured on a 2-vCPU Linux host
 
@@ -154,8 +208,9 @@ hash survives the squash merge that renames the commit.
 | [FastAPI](performance/linux-amd64-2vcpu-512mib-fastapi-bounded.json) | 121,028 | 700 | 7.689 s | 7.756 s | 402,526,208 bytes | incomplete; 3 errors |
 | [date-fns](performance/linux-amd64-2vcpu-512mib-date-fns-bounded.json) | 106,594 | 1,151 | 5.235 s | 7.348 s | 408,363,008 bytes | incomplete; 5 errors |
 
-Every measured tree now completes within the target on the recorded host.
-FastAPI fell from 13.2 s to 7.7 s. date-fns, killed before, completes in five
+Each process finished within the resource budgets on that recorded host,
+but FastAPI and date-fns still reported incomplete analysis. FastAPI fell
+from 13.2 s to 7.7 s. date-fns, killed before, finished in five
 to seven seconds with a 408 MB peak. The peak of a document-heavy tree still
 sits near 400 MB: the soft limit holds the heap, and the mapped binary and the
 runtime's own bookkeeping add the rest.
