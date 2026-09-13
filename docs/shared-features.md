@@ -335,17 +335,25 @@ Three repetition rules report the eligibility of their existing grouping keys:
 | --- | --- |
 | `repetition.exact-sentence` | A sentence meeting `min_words` with a nonempty exact key. Any protected token invalidates that sentence's key. All extracted block kinds retain their existing scope. |
 | `repetition.sentence-openers` | A sentence in a paragraph meeting `min_words` with at least `opener_words` normalized words. |
-| `repetition.paragraph-openers` | The same requirements, applied only to the paragraph's first sentence. A later sentence cannot make that paragraph eligible. |
+| `repetition.paragraph-openers` | As of rule version `2`, the paragraph meets `min_words` and its first sentence has at least `opener_words` normalized words. Later sentences count toward the paragraph minimum but never supply its opening key. |
 
 A grouping key below the occurrence threshold yields zero, including a singleton.
 Clusters activate their occurrence blocks. Adding an unrelated eligible paragraph
 does not reduce existing activations. Suppressions keep the raw cluster and its
-activations. No sentences, no inspected sentence meeting the word minimum, and no
-eligible key produce `no_sentences`, `insufficient_words`, and `no_eligible_tokens`.
+activations. Missing sentences produce `no_sentences`. A unit below its rule's word
+minimum produces `insufficient_words`; a unit with enough words but no opening or
+exact key produces `no_eligible_tokens`. For paragraph-openers, a long paragraph
+starting with `Hi.` has enough words but lacks a three-word opening key. It remains
+absent rather than using the next sentence or reporting a measured zero.
 Opener rules report `unsupported_unit` outside paragraphs. Their word-prefix
 calculation retains the provider's `Word` flags; protected code words are omitted
 while other words in the same sentence remain eligible. This differs from exact
 repetition's rejection of the whole protected sentence.
+
+The paragraph rule's version is part of the recorded rule catalog and each
+activation source's `ruleset_hash`. The activation formula remains version `1`: only candidate
+eligibility changed. [ADR 0038](adr/0038-paragraph-opener-eligibility.md) records the
+unit contract and its effect on saved identities.
 
 The remaining seven builtin rules record their actual candidate comparisons:
 

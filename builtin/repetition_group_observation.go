@@ -58,7 +58,11 @@ func addOpenerBlock(ctx context.Context, view rule.View, block document.Block, g
 			return err
 		}
 		words := normalizedWords(sentence)
-		if sentence.Words < view.Parameters.MinWords {
+		wordCount := sentence.Words
+		if firstOnly {
+			wordCount = block.Words
+		}
+		if wordCount < view.Parameters.MinWords {
 			continue
 		}
 		observation.minimumReached = true

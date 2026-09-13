@@ -81,11 +81,18 @@ func repetitionRules() []rule.Rule {
 		18,
 	)
 	paragraph.Defaults.Parameters = sentence.Defaults.Parameters
+	paragraph.Version = "2"
+	paragraph.Description = "Groups opening words from each paragraph's first sentence. The word minimum applies to the complete paragraph."
+	paragraph.Limitations += " Repeated openings do not establish duplicate meaning; technical facts may differ."
 	paragraph.BlockObservations = true
 	paragraph.Parameters = slices.Clone(sentence.Parameters)
 	paragraph.Examples = []rule.Example{
 		{Text: strings.ReplaceAll(sentence.Examples[0].Text, ". ", ".\n\n"), Match: true},
 		{Text: "The client opens connections.\n\nThe client opens files.", Match: false},
+		{Text: "Measured on PostgreSQL 18.6. The client may wait up to 30 seconds.\n\n" +
+			"Measured on PostgreSQL 18.7. The client must not wait more than 60 seconds.\n\n" +
+			"Measured on PostgreSQL 18.8. The client retries only after the connection closes.", Match: true},
+		{Text: "Measured on PostgreSQL 18.6.\n\nMeasured on PostgreSQL 18.7.\n\nMeasured on PostgreSQL 18.8.", Match: false},
 	}
 	return []rule.Rule{
 		check{exact, exactRepetition},

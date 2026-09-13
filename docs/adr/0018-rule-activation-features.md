@@ -176,6 +176,10 @@ Observer errors and cancellation propagate before grouped evidence is emitted.
 Only the three descriptor declarations change catalog identity; finding versions
 stay unchanged.
 
+[ADR 0038](0038-paragraph-opener-eligibility.md) later changes paragraph-openers
+version `2` to use the complete paragraph's word minimum. The first-sentence key
+and the sentence-opener rule retain the behavior described here.
+
 Near-sentence, heading, paragraph-overlap, and summary-echo rules report evaluated
 blocks only after their existing traversal reaches a prepared candidate pair.
 Preparing one sentence or block does not establish that a pair was compared.
