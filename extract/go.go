@@ -12,7 +12,7 @@ import (
 	"github.com/stokaro/unswell/internal/mapping"
 )
 
-func goComments(ctx context.Context, doc *document.Document, _ Options) error {
+func goComments(ctx context.Context, doc *document.Document, options Options) error {
 	fset := token.NewFileSet()
 	file, err := parser.ParseFile(fset, doc.Name, doc.Source, parser.ParseComments|parser.SkipObjectResolution)
 	if err != nil {
@@ -26,6 +26,11 @@ func goComments(ctx context.Context, doc *document.Document, _ Options) error {
 		return nil
 	}
 	cgo := cgoGroups(file)
+	exceptions, err := compileExceptions(options.Policy)
+	if err != nil {
+		return err
+	}
+	selector := sourceReader{doc: doc, exceptions: exceptions}
 	for _, group := range file.Comments {
 		if err := ctx.Err(); err != nil {
 			return err
@@ -39,7 +44,12 @@ func goComments(ctx context.Context, doc *document.Document, _ Options) error {
 			})
 			continue
 		}
-		if err := extractCommentGroup(doc, group, fset); err != nil {
+		if options.Policy.GoComments != "plain" {
+			err = goDocGroup(ctx, doc, group, fset, options, selector.exception("comment", nil))
+		} else {
+			err = extractCommentGroup(doc, group, fset)
+		}
+		if err != nil {
 			return err
 		}
 	}

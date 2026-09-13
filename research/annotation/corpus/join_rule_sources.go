@@ -78,5 +78,11 @@ func sameRuleExtraction(actual, frozen extract.Policy) bool {
 	if len(frozen.Exceptions) == 0 {
 		frozen.Exceptions = nil
 	}
+	if len(actual.MarkdownStrings) == 0 {
+		actual.MarkdownStrings = nil
+	}
+	if len(frozen.MarkdownStrings) == 0 {
+		frozen.MarkdownStrings = nil
+	}
 	return reflect.DeepEqual(actual, frozen)
 }

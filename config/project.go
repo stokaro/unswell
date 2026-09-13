@@ -414,6 +414,9 @@ func (p *Plan) resolve(key string, selected []fileLayer) (resolution, error) {
 }
 
 func (p *Plan) finish(policy *Policy) error {
+	if policy.Extraction.GoComments == "" {
+		policy.Extraction.GoComments = "godoc"
+	}
 	if err := p.vocabulary(policy); err != nil {
 		return err
 	}

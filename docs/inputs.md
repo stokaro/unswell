@@ -74,6 +74,10 @@ positions. Other malformed syntax remains an error.
 
 Go retains its standard parser's comment grouping and generated-file, directive
 and cgo metadata. The syntax tree validates source structure and supplies strings.
+Go doc-comment grammar separates comment paragraphs and list items, and protects
+indented examples. Explicit `markdown_strings` selectors apply Markdown grammar
+to decoded static literals. See [structured source prose](extraction-policy.md#structured-source-prose)
+for selection, context precedence, and the `go_comments: plain` override.
 Import paths, JavaScript/TypeScript re-export module paths, and Go struct tags are
 excluded as technical metadata. Strings in exported declarations remain checked.
 

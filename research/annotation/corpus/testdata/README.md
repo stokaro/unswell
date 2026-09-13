@@ -21,24 +21,24 @@ Generic comments and strings retain their roles when more specific evidence is
 absent. This is an engineering selection for extraction and annotation workflow
 testing, not a representative or randomly sampled editorial evaluation corpus.
 
-The current extraction yields 378 unlabeled candidates from eight source documents:
+The current extraction yields 409 unlabeled candidates from eight source documents:
 
 | Kind | Count |
 | --- | ---: |
-| Fragment | 213 |
-| Sentence | 100 |
-| Paragraph | 65 |
+| Fragment | 210 |
+| Sentence | 117 |
+| Paragraph | 82 |
 
 | Role | Count |
 | --- | ---: |
 | README | 72 |
 | Documentation | 194 |
-| Doc comment | 77 |
+| Doc comment | 108 |
 | Ordinary comment | 23 |
 | Error message | 9 |
 | Generic string | 3 |
 
-Some sentence and paragraph units overlap, so 378 is not a count of independent
+Some sentence and paragraph units overlap, so 409 is not a count of independent
 observations. Every source belongs to one connected group pinned to `development`:
 Ptah has already been inspected while developing Unswell. Related versions and
 rewrites must remain together. Training, calibration, and final-test counts here

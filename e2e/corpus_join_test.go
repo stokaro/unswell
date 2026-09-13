@@ -44,7 +44,7 @@ func corpusJoinRound(t *testing.T, artifact []byte) []byte {
 		} `json:"units"`
 	}
 	c.Assert(json.Unmarshal(artifact, &candidates), qt.IsNil)
-	c.Assert(candidates.Units, qt.HasLen, 378)
+	c.Assert(candidates.Units, qt.HasLen, 409)
 	data, err := os.ReadFile("../research/annotation/testdata/tutorial.json")
 	c.Assert(err, qt.IsNil)
 	var round map[string]json.RawMessage
@@ -91,7 +91,7 @@ func checkJoinedCorpus(t *testing.T, output []byte) {
 		c.Assert(decision.Reason, qt.Equals, "missing_judgments")
 		c.Assert(decision.Label, qt.IsNil)
 	}
-	c.Assert(result.Bindings, qt.HasLen, 378)
+	c.Assert(result.Bindings, qt.HasLen, 409)
 	c.Assert(result.Features.Sources, qt.HasLen, 8)
 	measurements := make(map[string]unswell.PreparedFeatureUnit)
 	for _, source := range result.Features.Sources {

@@ -19,6 +19,7 @@ type sourceReader struct {
 	options         Options
 	comments        []document.Span
 	exceptions      []compiledException
+	markdownStrings []compiledException
 	yamlValues      map[int]yamlValue
 	structureLabels map[structureKey]string
 }
@@ -40,6 +41,10 @@ func sourceProse(ctx context.Context, doc *document.Document, options Options) e
 		}
 	}
 	reader.exceptions, err = compileExceptions(options.Policy)
+	if err != nil {
+		return err
+	}
+	reader.markdownStrings, err = compileMarkdownStrings(options.Policy)
 	if err != nil {
 		return err
 	}
@@ -159,7 +164,9 @@ func (r *sourceReader) stringNode(node *ts.Node) (bool, error) {
 	if err != nil {
 		return true, err
 	}
-	appendBlock(r.doc, mapped, "string")
+	if err := r.proseString(node, mapped); err != nil {
+		return true, err
+	}
 	// Continue into interpolation expressions to find their own nested literals.
 	return false, nil
 }

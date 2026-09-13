@@ -8,14 +8,14 @@ come from the [inspectable fixture](../research/annotation/training/testdata/REA
 
 The [corpus workflow test](corpus_test.go) builds the developer command with cgo
 disabled, plans the pinned Ptah sources, extracts candidates, and repeats extraction
-to verify them. Its [golden](corpusdata/ptah-units.golden.json) records all 378 units'
+to verify them. Its [golden](corpusdata/ptah-units.golden.json) records all 409 units'
 text, context, role, kind, and original source segments. Conflicting split pins and
 invented human-corpus status must fail. See the
 [fixture provenance](../research/annotation/corpus/testdata/README.md); these units
 have no human labels and all belong to development.
 
 The [corpus join test](corpus_join_test.go) runs the compiled `corpus join` command
-and checks all 378 feature bindings against the same source-segment golden. A
+and checks all 409 feature bindings against the same source-segment golden. A
 simulated round selects five targets without responses; their labels stay absent.
 The first heading and sentence have explicit expected word counts of 1 and 10.
 Changing the round's repository ID must return exit 2 without partial output.
@@ -294,5 +294,5 @@ target/context mappings and separate counted spans. The existing noun ambiguity
 fixtures keep both reported Go comments and their Markdown equivalents unchanged.
 
 `TestPreparedCollectionMatchesFrozenCorpusTargets` checks the engine collection
-against all 378 frozen Ptah targets, including source hashes, kinds, text/context
+against all 409 frozen Ptah targets, including source hashes, kinds, text/context
 hashes, and complete source segments. These remain unlabeled development inputs.

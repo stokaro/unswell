@@ -57,7 +57,7 @@ func TestCorpusSourcePreparation(t *testing.T) {
 	c.Assert(json.Unmarshal(verified, &verification), qt.IsNil)
 	c.Assert(verification.Status, qt.Equals, "source_and_candidates_reproduced")
 	c.Assert(verification.HumanCorpus, qt.Equals, "not_qualified")
-	c.Assert(verification.Units, qt.Equals, 378)
+	c.Assert(verification.Units, qt.Equals, 409)
 	c.Assert(verification.SourceCount, qt.Equals, 8)
 	policy := filepath.Join(t.TempDir(), "policy.yaml")
 	c.Assert(os.WriteFile(policy, []byte("version: 1\nextends: [builtin:custom]\nrules:\n"+
@@ -83,7 +83,7 @@ func TestCorpusSourcePreparation(t *testing.T) {
 	c.Assert(findings.Status, qt.Equals, "verified_targets_with_policy_findings")
 	c.Assert(findings.HumanCorpus, qt.Equals, "not_qualified")
 	c.Assert(findings.Documents, qt.HasLen, 8)
-	c.Assert(findings.Units, qt.HasLen, 378)
+	c.Assert(findings.Units, qt.HasLen, 409)
 	total := 0
 	for _, doc := range findings.Documents {
 		c.Assert(doc.Unbound <= doc.Findings, qt.IsTrue)

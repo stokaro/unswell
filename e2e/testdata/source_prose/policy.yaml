@@ -1,0 +1,15 @@
+version: 1
+extends: [builtin:custom]
+extraction:
+  markdown_strings:
+    - id: cli-help
+      paths: [help.go]
+      formats: [go]
+      symbols: [Long]
+overrides:
+  - files: [attributes.go]
+    rules:
+      syntax.long-sentence: {enabled: true, gate: forbid}
+  - files: [help.go]
+    rules:
+      readability.long-paragraph: {enabled: true, gate: forbid}

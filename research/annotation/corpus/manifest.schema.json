@@ -55,7 +55,11 @@
       "properties": {
         "github_actions": {
           "type": "string",
-          "enum": ["", "shell", "strings"],
+          "enum": [
+            "",
+            "shell",
+            "strings"
+          ],
           "description": "An omitted or empty mode selects shell extraction."
         },
         "contexts": {
@@ -243,6 +247,108 @@
                   "paths",
                   "kinds",
                   "reason"
+                ]
+              },
+              "maxItems": 100,
+              "minItems": 0,
+              "uniqueItems": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "go_comments": {
+          "type": "string",
+          "enum": [
+            "",
+            "godoc",
+            "plain"
+          ],
+          "description": "An omitted or empty mode selects Go doc-comment blocks."
+        },
+        "markdown_strings": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  "paths": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4096
+                    },
+                    "maxItems": 100,
+                    "minItems": 1,
+                    "uniqueItems": true
+                  },
+                  "formats": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "enum": [
+                            "text",
+                            "markdown",
+                            "go",
+                            "javascript",
+                            "typescript",
+                            "tsx",
+                            "python",
+                            "rust",
+                            "java",
+                            "c",
+                            "cpp",
+                            "csharp",
+                            "yaml",
+                            "bash",
+                            "sh",
+                            "zsh",
+                            "fish",
+                            "powershell"
+                          ]
+                        },
+                        "maxItems": 18,
+                        "minItems": 0,
+                        "uniqueItems": true
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "symbols": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 4096
+                        },
+                        "maxItems": 100,
+                        "minItems": 0,
+                        "uniqueItems": true
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "paths"
                 ]
               },
               "maxItems": 100,

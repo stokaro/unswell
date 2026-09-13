@@ -36,7 +36,7 @@ func TestCommandPlansExtractsAndVerifies(t *testing.T) {
 	c.Assert(run(t.Context(), []string{"verify", "--root", root}, &artifact, &verification), qt.IsNil)
 	var result corpus.Verification
 	c.Assert(json.Unmarshal(verification.Bytes(), &result), qt.IsNil)
-	c.Assert(result.Units, qt.Equals, 378)
+	c.Assert(result.Units, qt.Equals, 409)
 	c.Assert(result.HumanCorpus, qt.Equals, "not_qualified")
 	policy := filepath.Join(t.TempDir(), "policy.yaml")
 	c.Assert(os.WriteFile(policy, []byte("version: 1\nextends: [builtin:custom]\nrules:\n"+
@@ -49,7 +49,7 @@ func TestCommandPlansExtractsAndVerifies(t *testing.T) {
 	c.Assert(findings.Version, qt.Equals, corpus.FindingsVersion)
 	c.Assert(findings.HumanCorpus, qt.Equals, "not_qualified")
 	c.Assert(findings.Documents, qt.HasLen, 8)
-	c.Assert(findings.Units, qt.HasLen, 378)
+	c.Assert(findings.Units, qt.HasLen, 409)
 }
 
 func TestCommandRejectsBadInputs(t *testing.T) {

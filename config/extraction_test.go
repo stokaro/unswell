@@ -8,6 +8,36 @@ import (
 	"github.com/stokaro/unswell/config"
 )
 
+func TestSourceProsePolicyValidation(t *testing.T) {
+	for _, value := range []string{
+		"go_comments: markdown",
+		"markdown_strings: [{id: help}]",
+		"markdown_strings: [{id: help, paths: ['../help.go']}]",
+		"markdown_strings: [{id: help, paths: ['**'], formats: [markdown]}]",
+		"markdown_strings: [{id: help, paths: ['**'], symbols: ['']}]",
+		"markdown_strings: [{id: help, paths: ['**'], kinds: [string]}]",
+		"markdown_strings: [{id: help, paths: ['**']}, {id: help, paths: ['*.go']}]",
+	} {
+		t.Run(value, func(t *testing.T) {
+			_, err := config.Load([]byte("version: 1\nextraction:\n  "+value+"\n"), nil)
+			c := qt.New(t)
+			c.Assert(err, qt.IsNotNil)
+		})
+	}
+}
+
+func TestSourceProsePolicyIdentity(t *testing.T) {
+	c := qt.New(t)
+	base, err := config.Load([]byte("version: 1\n"), nil)
+	c.Assert(err, qt.IsNil)
+	c.Assert(base.Extraction.GoComments, qt.Equals, "godoc")
+	for _, value := range []string{"go_comments: plain", "markdown_strings: [{id: help, paths: ['**'], symbols: [Long]}]"} {
+		policy, err := config.Load([]byte("version: 1\nextraction:\n  "+value+"\n"), nil)
+		c.Assert(err, qt.IsNil)
+		c.Assert(policy.Hash, qt.Not(qt.Equals), base.Hash)
+	}
+}
+
 func TestExtractionPolicyValidation(t *testing.T) {
 	cases := []struct{ name, exception string }{
 		{"missing reason", "{id: fixture, paths: ['*.go'], kinds: [string]}"},
