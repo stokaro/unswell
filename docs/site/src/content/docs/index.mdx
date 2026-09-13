@@ -2,8 +2,8 @@
 title: A linter for lean English, before it reaches the commit.
 accent: before
 eyebrow: Overview
-lead: Unswell finds formulaic, AI-sounding wording in documentation, comments and string literals, explains what to revise, and fails the build when your editorial policy says so. It runs offline as a Go CLI, library, GitHub Action and MCP server.
-description: Unswell is an offline linter for lean English. It finds formulaic wording in documentation, comments and string literals, and fails the build when your editorial policy says so.
+lead: Unswell checks the English in documentation, comments and string literals. It measures sentence length, readability, passive density and repetition, matches a catalog of formulaic phrasings, explains what to revise, and fails the build when your editorial policy says so. It runs offline as a Go CLI, library, GitHub Action and MCP server.
+description: Unswell is an offline linter for lean English. It measures sentence length, readability and repetition in documentation, comments and string literals, matches a catalog of formulaic phrasings, and fails the build when your editorial policy says so.
 tableOfContents:
   minHeadingLevel: 2
   maxHeadingLevel: 2
@@ -54,16 +54,37 @@ there is no service to call and no key to hold.
 
 ## Why a linter
 
-AI-assisted writing leaves a recognizable residue. Conversational preambles,
-announced importance, inflated modifiers, hedges stacked three deep, the same
-paragraph opener four times in a row. Readers notice the shape before they notice
-the claim, and reviewers spend their attention on wording instead of on the work.
+Wording is a policy your project can state, argue about and version, so a linter
+is the place to put it. Unswell ships 40 rules with weights, caps and default
+severities, and a configuration file decides which of them your project cares
+about. The alpha index is an editorial-policy index from 0 to 100. It is not a
+probability, and no score claims to know who wrote anything.
 
-A linter is the place to put that judgment, because the judgment is a policy your
-project can state, argue about and version. Unswell ships 40 rules with
-weights, caps and default severities, and a configuration file decides which of
-them your project cares about. The alpha index is an editorial-policy index from 0
-to 100. It is not a probability, and no score claims to know who wrote anything.
+## What fires, and what does not
+
+The 40 rules do not fire at one rate, and the difference is worth knowing before
+you run it. Measured over 81,690 paragraphs of documentation and comments from
+259 repositories, under the strict profile:
+
+| Rule | Paragraphs flagged |
+| --- | --- |
+| `syntax.long-sentence` | 3.70% |
+| `syntax.passive-candidate-density` | 2.39% |
+| `readability.grade-metric` | 1.96% |
+| `repetition.exact-sentence` | 1.49% |
+| `filler.wordy-phrase` | 0.30% |
+| `filler.announced-importance` | 0.001% |
+| every `scaffold.` and `hype.` rule | 0% |
+
+On prose someone wrote, the structural rules do the work. The phrase rules match
+exact wordings such as a chat acknowledgment or a stock opening, and an engineer
+writing documentation does not produce those, so they stay silent. They earn
+their keep on text pasted out of an assistant's reply, which does contain them.
+
+That is a deliberate trade. A phrase rule that fired on ordinary documentation
+would be a phrase rule you turn off. Silence on clean prose is the correct
+behavior for a linter, and it is why `unswell check` on a well-edited repository
+reports long sentences and little else.
 
 ## One finding, one revision
 
