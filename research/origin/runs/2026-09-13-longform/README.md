@@ -54,12 +54,72 @@ differs, so each is only meaningful against its own constant. What
 carries over is the ratio. The earlier run scored 0.92 of its constant;
 this one scores 0.79.
 
-Raw length does not drive the fit. On standardized inputs the two length
-features carry the smallest weights of the fourteen: 0.006 for
-prose-words and -0.018 for counted-characters. The largest are
-mean-sentence-words at 0.119, hapax-token-ratio at 0.113 and
-noun-token-ratio at 0.096. The separation comes from sentence shape and
-vocabulary, not from the units being longer.
+The two raw length features carry the smallest standardized weights of
+the fourteen: 0.006 for prose-words and -0.018 for counted-characters.
+That is not evidence that length does not drive the fit, and the section
+below shows it does. The remaining twelve features all rise with the
+length of the unit, and together they reproduce a length threshold.
+
+## What the fit actually does, measured on code
+
+Every unit in this trial carries the role `comment`. The negatives are
+real comments in nine languages, and the positives are generated
+replacements for comments of the same declarations, so the numbers above
+are already a statement about code. Broken out, they say something the
+headline hides.
+
+The false-flag rate on real code comments is not one number. It ranges
+over a factor of forty by language:
+
+| Language | Comments | Flagged | Rate |
+| --- | --- | --- | --- |
+| Rust | 1,420 | 8 | 0.006 |
+| JavaScript | 135 | 3 | 0.022 |
+| Go | 241 | 6 | 0.025 |
+| C | 122 | 4 | 0.033 |
+| C++ | 332 | 11 | 0.033 |
+| Java | 180 | 27 | 0.150 |
+| C# | 245 | 66 | 0.269 |
+| All | 2,675 | 125 | 0.047 |
+
+The spread is not a property of the languages. Flagged comments average
+54 to 68 words in every one of them, and clean comments average 7 to 15.
+C# and Java sit at the top because they carry more long doc comments, not
+because their prose differs.
+
+Holding length fixed removes the separation entirely. Inside each band
+the two arms are scored the same way:
+
+| Unit words | Generated | Code comments | Recall | False-flag rate |
+| --- | --- | --- | --- | --- |
+| under 15 | 588 | 1,996 | 0.000 | 0.000 |
+| 15 to 24 | 169 | 351 | 0.000 | 0.003 |
+| 25 to 39 | 178 | 175 | 0.062 | 0.023 |
+| 40 to 59 | 328 | 89 | 0.866 | 0.629 |
+| 60 to 89 | 179 | 52 | 1.000 | 1.000 |
+| 90 and over | 21 | 12 | 1.000 | 1.000 |
+
+No unit under 23 words is ever flagged and no unit over 59 words is ever
+clean, in the primary fit and in the ablation alike. The decision is a
+threshold on unit length placed near 45 words. `length-diagnostic.json`
+holds both tables.
+
+The development recall of 0.372 therefore measures how much more of the
+generated arm is long, not how much of it reads as generated. The
+false-positive rate of 0.047 is low for the same reason in reverse: most
+real comments are short enough to fall under the threshold. On the
+comments that a writer would actually ask about, the ones long enough to
+carry prose, the rate is 0.629.
+
+This is a correction to the claim two sections above, and it is the
+finding of the run. Length was the binding constraint on the earlier
+nulls, and making the arms differ in length is what produced a non-null
+number. It did not produce a detector.
+
+A trial that can answer the original question has to match the two arms
+on length before fitting, so that the classifier cannot buy recall by
+counting words. That trial needs its own pre-registration and is not
+reported here.
 
 ## The stopping rule held, so the confirmation partition stays sealed
 
@@ -100,10 +160,10 @@ not replace the primary trial.
 
 ## What this does and does not establish
 
-It establishes that generated documentation of about 100 words carries
-structure a fourteen-feature fit can find on declared provenance, where
-the same fit on 24-word responses found none. Unit length was the binding
-constraint, as the pilot's record suspected.
+It establishes that unit length was the binding constraint on the earlier
+nulls: making the controlled arm longer is what moved recall off zero. It
+does not establish that the fit reads prose. Held at a fixed length, it
+separates nothing, and what it learned is a threshold near 45 words.
 
 It does not establish a false-positive rate for a product feature. That
 needs the human-labeled corpus of issue 22 and the published evaluation
