@@ -63,8 +63,11 @@ type Tasks struct {
 	Tasks      []Task    `json:"tasks"`
 }
 
-// MinWords is the shortest documentation unit a task may use: a shorter
-// paragraph is a fragment of code or a label, not a document to write.
+// MinWords is the shortest documentation unit a task may use by default: a
+// shorter paragraph is a fragment of code or a label, not a document to write.
+// Options.MinWords raises the floor when a study needs longer units; the
+// origin experiment of 2026-09-11 separated nothing on units of 12 to 49
+// words, so the length of the unit is itself a variable worth setting.
 const MinWords = 12
 
 // Options fixes the sampling before any candidate is read.
@@ -75,6 +78,8 @@ type Options struct {
 	Partitions []string
 	Roles      []string
 	Count      int
+	// MinWords raises the eligible floor above MinWords when set.
+	MinWords   int
 	Ecosystems map[string]string
 	// Excluded names the tasks of earlier runs by ID. They leave the eligible
 	// pool before allocation, so a later run draws new tasks under the same
@@ -138,12 +143,21 @@ func (s *Sampler) Add(ctx context.Context, artifact corpus.Artifact, read Reader
 	return nil
 }
 
+// EligibleFloor is the shortest unit the options admit: the option when it
+// raises MinWords, the constant otherwise. A lower option cannot weaken it.
+func EligibleFloor(options Options) int {
+	if options.MinWords > MinWords {
+		return options.MinWords
+	}
+	return MinWords
+}
+
 // admits reports whether a candidate is a paragraph of an admitted role,
 // cohort, partition, and length whose repository has a known ecosystem.
 func (s *Sampler) admits(candidate corpus.Candidate) bool {
 	unit := candidate.Unit
 	if unit.Kind != "paragraph" || candidate.Cohort != s.options.Cohort || !slices.Contains(s.options.Roles, unit.Role) ||
-		candidate.Words < MinWords || len(unit.Source.Segments) == 0 {
+		candidate.Words < EligibleFloor(s.options) || len(unit.Source.Segments) == 0 {
 		return false
 	}
 	if !slices.Contains(s.options.Partitions, s.partition[candidate.SourceID]) {

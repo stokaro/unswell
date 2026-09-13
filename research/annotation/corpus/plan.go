@@ -60,8 +60,13 @@ func canonicalManifest(manifest Manifest) (Manifest, error) {
 	if err := json.Unmarshal(data, &result); err != nil {
 		return Manifest{}, err
 	}
-	if result.Policy.GitHubActions == "" {
-		result.Policy.GitHubActions = "shell"
+	// The two spellings of the default workflow mode are one plan. Canonicalize
+	// toward the omitted form, never toward "shell": the canonical manifest is
+	// what the digest covers, and writing the default into manifests that
+	// predate the field would give every artifact already on disk a new
+	// identity while changing nothing the extractor does.
+	if result.Policy.GitHubActions == "shell" {
+		result.Policy.GitHubActions = ""
 	}
 	if result.Policy.GoComments == "" {
 		result.Policy.GoComments = "godoc"
