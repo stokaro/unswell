@@ -175,7 +175,8 @@ func validateTargets(ctx context.Context, candidates corpus.Artifact, prediction
 	targets := make(map[string]corpus.Candidate)
 	for _, candidate := range candidates.Units {
 		units = append(units, candidate.Unit)
-		if candidate.Partition == predictions.Plan.Partition && candidate.Unit.Kind == predictions.Model.Options.Kind {
+		if candidate.Partition == predictions.Plan.Partition && candidate.Unit.Kind == predictions.Model.Options.Kind &&
+			training.WithinWordBand(candidate.Words, predictions.Model.Options) {
 			targets[candidate.Unit.ID] = candidate
 		}
 	}

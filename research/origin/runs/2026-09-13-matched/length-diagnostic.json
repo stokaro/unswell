@@ -1,0 +1,73 @@
+{
+  "format": "unswell-origin-length-diagnostic-v1",
+  "run": "2026-09-13-matched",
+  "partition": "development",
+  "word_band": {
+    "minimum": 25,
+    "maximum": 89
+  },
+  "basis": "the scored rows of predictions-development.json joined to their candidate units",
+  "matched_length_bands": [
+    {
+      "lower_words": 25,
+      "upper_words": 39,
+      "generated_units": 178,
+      "code_comment_units": 173,
+      "recall": 0.12921348314606743,
+      "false_flag_rate": 0.11560693641618497
+    },
+    {
+      "lower_words": 40,
+      "upper_words": 59,
+      "generated_units": 327,
+      "code_comment_units": 89,
+      "recall": 0.8256880733944955,
+      "false_flag_rate": 0.3707865168539326
+    },
+    {
+      "lower_words": 60,
+      "upper_words": 89,
+      "generated_units": 165,
+      "code_comment_units": 48,
+      "recall": 0.9818181818181818,
+      "false_flag_rate": 0.5833333333333334
+    }
+  ],
+  "code_comment_false_flags_by_language": {
+    "csharp": {
+      "units": 87,
+      "flagged": 51,
+      "false_flag_rate": 0.5862068965517241
+    },
+    "cpp": {
+      "units": 62,
+      "flagged": 9,
+      "false_flag_rate": 0.14516129032258066
+    },
+    "java": {
+      "units": 53,
+      "flagged": 9,
+      "false_flag_rate": 0.16981132075471697
+    },
+    "rust": {
+      "units": 37,
+      "flagged": 2,
+      "false_flag_rate": 0.05405405405405406
+    },
+    "go": {
+      "units": 29,
+      "flagged": 3,
+      "false_flag_rate": 0.10344827586206896
+    },
+    "javascript": {
+      "units": 24,
+      "flagged": 4,
+      "false_flag_rate": 0.16666666666666666
+    },
+    "c": {
+      "units": 18,
+      "flagged": 3,
+      "false_flag_rate": 0.16666666666666666
+    }
+  }
+}
