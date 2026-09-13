@@ -7,8 +7,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	ts "github.com/odvcencio/gotreesitter"
-	"github.com/odvcencio/gotreesitter/grammars"
+	ts "github.com/stokaro/gotreesitter"
+	"github.com/stokaro/gotreesitter/grammars"
 
 	"github.com/stokaro/unswell/document"
 )

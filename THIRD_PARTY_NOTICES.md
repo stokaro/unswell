@@ -13,7 +13,7 @@ The Go runtime and standard library's BSD notice is in [licenses/go_LICENSE](lic
 | `github.com/santhosh-tekuri/jsonschema/v6` | `v6.0.3` | [LICENSE](licenses/github.com_santhosh-tekuri_jsonschema_v6_LICENSE) |
 | `github.com/spf13/cobra` | `v1.10.2` | [LICENSE.txt](licenses/github.com_spf13_cobra_LICENSE.txt) |
 | `github.com/spf13/pflag` | `v1.0.9` | [LICENSE](licenses/github.com_spf13_pflag_LICENSE) |
-| `github.com/odvcencio/gotreesitter` | `v0.52.0` | [LICENSE](licenses/github.com_odvcencio_gotreesitter_LICENSE) |
+| `github.com/stokaro/gotreesitter` | `v0.52.1-0.20260913084044-276f5cc0ec6f` | [Original LICENSE](licenses/github.com_odvcencio_gotreesitter_LICENSE) |
 | `go.yaml.in/yaml/v3` | `v3.0.5` | [LICENSE](licenses/go.yaml.in_yaml_v3_LICENSE), [NOTICE](licenses/go.yaml.in_yaml_v3_NOTICE) |
 | `golang.org/x/text` | `v0.14.0` | [LICENSE](licenses/golang.org_x_text_LICENSE) |
 | `gopkg.in/neurosnap/sentences.v1` | `v1.0.7` | [LICENSE.md](licenses/gopkg.in_neurosnap_sentences.v1_LICENSE.md) |
@@ -37,6 +37,11 @@ not acquire the MCP SDK. Their notices are packaged with MCP distribution artifa
 | `golang.org/x/time` | `v0.15.0` | [LICENSE](licenses/golang.org_x_time_LICENSE) |
 
 ## Grammar adapter
+
+The gotreesitter fork starts from upstream v0.52.0 and retains its original
+copyright and MIT license. It adds a bounded Markdown block-close fix; module
+imports use the fork path so library consumers receive the same parser.
+See the [patch record](research/parsers/markdown-nested-lists.md).
 
 The Bash scanner adapter in `extract/bash.go` follows the empty-value recognition
 in tree-sitter-bash revision `a06c2e4415e9bc0346c6b86d401879ffb44058f7`
