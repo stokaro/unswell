@@ -102,3 +102,34 @@ It reports declared provenance, not human judgment. A false-flag rate of
 false-flag rate on comments a person wrote today and would defend. That
 needs the human-labeled corpus of issue 22 and the published evaluation
 of issue 25, both on hold.
+
+## The confirmation partition is generated but not yet scored
+
+Both stopping conditions hold on development, so the pre-registration
+admits the confirmation partition. It had no controlled arm: every
+long-form task so far came from repositories pinned to training or
+development. One was built for it.
+
+Two hundred tasks were drawn from the ten confirmation-pinned
+repositories that carry an eligible unit at the fifty-word floor, and
+both generator families answered all four prompts and operations for each.
+The arm is 1,600 responses, mean 75 and 72 words, all complete, recorded
+under `research/generation/runs/2026-09-13-confirm2-haiku` and
+`-luna`. `confirmation-tasks.json` is the draw. The corpus was measured
+again with them, 808 shards, none skipped.
+
+Scoring it stops at an engine limit rather than a research question. A
+lexical prediction counts n-gram terms for every unit it will score, and
+holds them under a 64 MiB retention budget. The banded confirmation
+partition needs more than that. Two ways forward, neither taken here:
+raise the budget, which is a memory guard and not a research parameter,
+or make the prediction stream its terms instead of retaining them.
+
+Nothing about the development result depends on this. The confirmation
+numbers are simply not in hand, and this record does not report any.
+
+One deviation is recorded here because it touched a checkout. The notice
+file of FasterXML/jackson-databind is a symbolic link inside its own
+repository, and the importer requires a regular file. It was materialized
+from its in-repository target in the local acquisition cache. No measured
+source changed.
