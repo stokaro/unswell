@@ -34,7 +34,7 @@ audit-release:
 	bash scripts/verify-release-artifacts.sh
 
 check-published-module:
-	bash scripts/verify-published-module.sh --platforms "linux/amd64"
+	bash scripts/verify-published-module.sh
 
 reproducible:
 	bash scripts/verify-reproducible-build.sh

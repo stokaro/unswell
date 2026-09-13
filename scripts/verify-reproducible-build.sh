@@ -38,8 +38,8 @@ workspace=$(mktemp -d)
 trap 'rm -rf "$workspace"' EXIT
 
 # build writes one release binary with the exact flags scripts/release.sh uses.
-# The toolchain comes from the environment, so the caller decides which compiler
-# the check reports; GOTOOLCHAIN=go1.25.0 matches the released builds.
+# The toolchain comes from the environment. Use the toolchain pinned in
+# tools/go.mod to match a release build from the same source revision.
 build() {
   local platform=$1 architecture=$2 destination=$3 binary=unswell
   if [[ "$platform" == windows ]]; then binary=unswell.exe; fi

@@ -31,7 +31,11 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 if [[ -z "$version" ]]; then
-  version=$(gh release view --repo stokaro/unswell --json tagName --jq .tagName)
+  version=$(gh release list --repo stokaro/unswell --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName // empty')
+  if [[ -z "$version" ]]; then
+    printf 'No published Unswell release is available.\n' >&2
+    exit 1
+  fi
 fi
 if [[ -z "$consumer_ref" ]]; then
   consumer_ref=$version
