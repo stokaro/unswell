@@ -1,0 +1,3 @@
+Note that Mount() simply sets a wildcard along the `pattern` that continues routing at the `handler`, which in most cases is another chi.Router. As a result, if you define two Mount() routes on the exact same pattern, the mount will panic.
+
+The client must not retry when RetryLimit is 0, even if the first connection closes before the server sends its acknowledgment, because repeating the request could apply the same transaction twice and the caller has no way to prove that the first attempt failed. // want "syntax.long-sentence"

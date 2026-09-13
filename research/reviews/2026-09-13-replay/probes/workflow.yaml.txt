@@ -1,0 +1,12 @@
+jobs:
+  quality:
+    steps:
+      - name: Vulnerability check
+        shell: bash
+        run: |
+          checker=$(cd tools && go tool -n govulncheck)
+          while read -r directory role; do
+            if [[ "$role" != tools ]]; then
+              (cd "$directory" && "$checker" ./...)
+            fi
+          done <.gomodules

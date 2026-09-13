@@ -1,0 +1,102 @@
+{
+  "version": "unswell-review-reproduction-v1",
+  "environment": {
+    "go": "go version go1.27.1 darwin/arm64",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "2",
+    "GOFLAGS": "-p=2",
+    "GOWORK": "off",
+    "engine_commits": {
+      "old-a1c6d7a": "a1c6d7af67a89ab573997aba9cec7b51a09f4dbb",
+      "old-d3c9f23": "d3c9f231f372694c2f38307e209e65503bf3b1e1",
+      "new": "06b38615d4483970b65a6fbe2187aeb4864830dc"
+    },
+    "subject_commits": {
+      "ptah": "7b47e7cfb5d4ff32a38375345069f5533bff892f",
+      "unswell": "a1c6d7af67a89ab573997aba9cec7b51a09f4dbb"
+    }
+  },
+  "checks": [
+    {
+      "path": "bin/new",
+      "initial_sha256": "47d6c300a025475b4d7657fecf73234f839eba2c10e82aca229c896ec50c5da5",
+      "reproduced_sha256": "47d6c300a025475b4d7657fecf73234f839eba2c10e82aca229c896ec50c5da5"
+    },
+    {
+      "path": "bin/old-a1c6d7a",
+      "initial_sha256": "21a7433e8fc28533b90987b352597d07b303c79e82b3ccbd2bbcd7291c76f698",
+      "reproduced_sha256": "21a7433e8fc28533b90987b352597d07b303c79e82b3ccbd2bbcd7291c76f698"
+    },
+    {
+      "path": "bin/old-d3c9f23",
+      "initial_sha256": "112959ee25bc130cd95ce4030a8fe1e9a2500a1cf112a5e5132417bca235c1c1",
+      "reproduced_sha256": "112959ee25bc130cd95ce4030a8fe1e9a2500a1cf112a5e5132417bca235c1c1"
+    },
+    {
+      "path": "ptah-sources.json",
+      "initial_sha256": "dba0f494df9945f735f25e198cf11a9f652f12adfbb1bef267bfaadc56679d17",
+      "reproduced_sha256": "dba0f494df9945f735f25e198cf11a9f652f12adfbb1bef267bfaadc56679d17"
+    },
+    {
+      "path": "responses-sources.json",
+      "initial_sha256": "f7ef55d018526c28458bb56dc69e97c7b57316ebfac5cdeadd407f332f194700",
+      "reproduced_sha256": "f7ef55d018526c28458bb56dc69e97c7b57316ebfac5cdeadd407f332f194700"
+    },
+    {
+      "path": "unswell-sources.json",
+      "initial_sha256": "a3dcab762a3dafbb9291f3c6c22cc9e69475a5473b363ca983af0ffe34c7d623",
+      "reproduced_sha256": "a3dcab762a3dafbb9291f3c6c22cc9e69475a5473b363ca983af0ffe34c7d623"
+    },
+    {
+      "path": "responses/old-a1c6d7a/result.json",
+      "initial_sha256": "f4a3080bde26fedfbe4c7c29210b0c336e44cbaa767663b5b6adc80d201e7a7a",
+      "reproduced_sha256": "f4a3080bde26fedfbe4c7c29210b0c336e44cbaa767663b5b6adc80d201e7a7a"
+    },
+    {
+      "path": "responses/new/result.json",
+      "initial_sha256": "68d861c5c57baf6c09123e21b9c3c3b3ece097ca055fffc857cbff6472ebdec1",
+      "reproduced_sha256": "68d861c5c57baf6c09123e21b9c3c3b3ece097ca055fffc857cbff6472ebdec1"
+    },
+    {
+      "path": "ptah/default/old-d3c9f23/result.json",
+      "initial_sha256": "38b245c1ec09b25ef2a3d4d57acee9d5d324c22f8277924835b61d18b2800afe",
+      "reproduced_sha256": "38b245c1ec09b25ef2a3d4d57acee9d5d324c22f8277924835b61d18b2800afe"
+    },
+    {
+      "path": "ptah/default/new/result.json",
+      "initial_sha256": "0c28ecd9508df55495647b828c1156eeed8ec41a92d1b0e4dc0a25c8c0de6302",
+      "reproduced_sha256": "0c28ecd9508df55495647b828c1156eeed8ec41a92d1b0e4dc0a25c8c0de6302"
+    },
+    {
+      "path": "ptah/all/old-d3c9f23/result.json",
+      "initial_sha256": "f0707725ecfcda6f321f30c6663f7d6c252084a8dc01da4c85d8340737d1ac3e",
+      "reproduced_sha256": "f0707725ecfcda6f321f30c6663f7d6c252084a8dc01da4c85d8340737d1ac3e"
+    },
+    {
+      "path": "ptah/all/new/result.json",
+      "initial_sha256": "31359444ea9abde27098aaf8e7c5c903580e908ba4e7b01fc236926f0e0673c5",
+      "reproduced_sha256": "31359444ea9abde27098aaf8e7c5c903580e908ba4e7b01fc236926f0e0673c5"
+    },
+    {
+      "path": "ptah/comments/old-d3c9f23/result.json",
+      "initial_sha256": "906431db264f88cd306d58b9de5006f6fe16e51a28db144a8b31c9adbb58c4b9",
+      "reproduced_sha256": "906431db264f88cd306d58b9de5006f6fe16e51a28db144a8b31c9adbb58c4b9"
+    },
+    {
+      "path": "ptah/comments/new/result.json",
+      "initial_sha256": "77318bf1cf321d3f950d378c69dbc593afd4f786f1b64106e897590a2722fcf4",
+      "reproduced_sha256": "77318bf1cf321d3f950d378c69dbc593afd4f786f1b64106e897590a2722fcf4"
+    },
+    {
+      "path": "unswell/all/old-a1c6d7a/result.json",
+      "initial_sha256": "247986682bcdc502933f6710b4eabceb4dbcaff90ece819a966978b4e415a086",
+      "reproduced_sha256": "247986682bcdc502933f6710b4eabceb4dbcaff90ece819a966978b4e415a086"
+    },
+    {
+      "path": "unswell/all/new/result.json",
+      "initial_sha256": "d031cd83cc2e4440016e4a6827e12796417f9817a8f46acc4cb662fe344f98c3",
+      "reproduced_sha256": "d031cd83cc2e4440016e4a6827e12796417f9817a8f46acc4cb662fe344f98c3"
+    }
+  ],
+  "all_identical": true
+}
