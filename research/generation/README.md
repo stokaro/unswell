@@ -119,3 +119,9 @@ H0 documents of the same role.
 - [2026-09-12-round2-luna](runs/2026-09-12-round2-luna/README.md): the same
   150 tasks answered by the OpenAI model, so both selecting families cover
   the enlarged development partition.
+- [2026-09-13-round3-haiku](runs/2026-09-13-round3-haiku/README.md): 150
+  further tasks from the development repositories that carried no
+  controlled response, which lifts the controlled arm to the cluster
+  minimum of 20 components.
+- [2026-09-13-round3-luna](runs/2026-09-13-round3-luna/README.md): the same
+  150 tasks answered by the OpenAI model.

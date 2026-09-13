@@ -37,9 +37,11 @@ hash sits below.
 
 Then the second acquisition round added repositories to both partitions.
 Two round-two generation runs added responses to the development partition,
-and `corpus screen` ran again on the grown partition. Its record sits below
-too. The maintainer read both records before this draft. No table of the
-confirmation partition exists yet.
+and `corpus screen` ran again on the grown partition. A recount by role then
+showed both partitions still short, so a third round added six more
+repositories and two more runs, and the screening ran a third time. Each
+record sits below. The maintainer read all three before this draft. No table
+of the confirmation partition exists yet.
 
 ## First screening record
 
@@ -131,40 +133,99 @@ corpus this project will hold can test that rule at this MID. Its
 difference is negative in both arms in any case.
 
 
+## Third screening record
+
+Amendment 6 added six repositories, two pinned to `development` and four to
+`final_test`, and two round-three generation runs answered 600 requests each
+on 150 new tasks. `corpus screen` ran on September 13, 2026 against the
+grown plan (`screening/2026-09-13-dataset-plan-3.json`, SHA-256
+`2cd58567e18b47970bfd275aefd89ae6389178fd4c7ccaa5dea90402256398e3`) with
+five Claude records and three OpenAI records. The record is
+`screening/2026-09-13-development-3.json`, SHA-256
+`2005d1ae0e83d3638d3d961177302f5507db530e9db28e6edee206346903c8a2`.
+
+This is the first screening whose arms meet the cluster minimum. Of the 22
+pinned repositories in the partition, 21 carry a historical comment
+paragraph and 20 carry a controlled response. Claude contributes 458 comment
+paragraphs from 424 `generate`/`neutral` responses across 20 components.
+OpenAI contributes 281 from 277, also across 20. H0 contributes 25,462
+historical comment paragraphs across 21. No test carries the reason
+`cluster_minimum`.
+
+Evidence now divides the 80 tests, where sample size used to. Seventy-four
+stay `inconclusive` on a zero count. Three more stay `inconclusive` because
+the interval spans zero or the estimate falls short of the MID. Three are
+`unsupported`, their upper bound below the MID. Two pass the false discovery
+rate with a positive difference:
+
+| Rule | Family | Controlled | H0 | Difference | 95% interval | q-value | Support | State |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `syntax.noun-stack` | Claude | 14 of 458 | 24 of 25,462 | +2.96 points | +1.18 to +4.17 | 0.004 | 7 components | inconclusive |
+| `readability.grade-metric` | Claude | 18 of 458 | 383 of 25,462 | +2.43 points | +0.65 to +4.40 | 0.021 | 6 components | inconclusive |
+
+Both intervals sit entirely above zero and both clear the support minimum of
+five components. Neither reaches the minimum useful difference of three
+points, and `syntax.noun-stack` misses it by four hundredths of a point. The
+protocol's card rule is written for exactly this case: a difference the
+interval distinguishes from zero is still `inconclusive` when the point
+estimate falls below the MID the pilot fixed in advance. Lowering the MID now
+would be tuning a threshold on an outcome, which the protocol forbids.
+
+The three `unsupported` tests are `syntax.long-sentence` in the Claude arm
+at 4.3 points below H0, `syntax.parenthetical-load` at 1.1 points below, and
+`syntax.passive-candidate-density` in the OpenAI arm at 0.6 points below.
+Shorter generated text explains all three, as in the earlier rounds, and
+none of them enters a list. No OpenAI test has shown a positive difference
+in any screening so far.
+
+## Sample size after the third screening
+
+| Rule | H0 prevalence | Design effect | Paragraphs per arm at alpha 0.05 | Controlled components | Paragraphs per arm at alpha 0.05/12 | Controlled components |
+| --- | --- | --- | --- | --- | --- | --- |
+| `syntax.noun-stack` | 0.09% | 0.86 | 270 | 11 | 473 | 18 |
+| `syntax.parenthetical-load` | 1.28% | 11.68 | 467 | 239 | 818 | 417 |
+| `readability.grade-metric` | 1.50% | 1.11 | 505 | 25 | 883 | 43 |
+| `syntax.passive-candidate-density` | 1.35% | 2.77 | 480 | 58 | 839 | 102 |
+| `syntax.long-sentence` | 5.57% | 26.44 | 1,142 | 1,318 | 1,999 | 2,308 |
+
+Each component gives 22.9 paragraphs in the Claude arm. The arm holds 458
+paragraphs in 20 components, so `syntax.noun-stack` meets both its
+unadjusted and its Holm target. `readability.grade-metric` meets the
+unadjusted paragraph target and misses the Holm one. The two rules with a
+design effect above ten cluster inside a few components, and no corpus this
+project will hold can test them at this MID.
+
 ## Confirmatory list
 
-The list is not frozen. The second screening names two candidates,
-`syntax.noun-stack` and `readability.grade-metric`, both in the Claude
-family. Neither reaches the minimum useful difference, and neither arm
-reaches the cluster minimum, so both remain `inconclusive` and no
-construction is confirmed. The protocol admits no construction the
-screening did not name, so the list, when it freezes, holds at most these
-two and whatever a screening on a controlled arm of 20 components adds.
+The list is not frozen, and freezing it is the maintainer's act: it happens
+when this document's SHA-256 enters the acceptance table. The third
+screening names the two candidates the list would hold, both in the Claude
+family:
 
-The freeze waits on the size of both partitions, counted the way the
-cluster minimum counts. A pinned repository helps an arm only when its
-historical text holds a comment paragraph, and three pinned repositories
-hold none. The measured counts are these:
+1. `syntax.noun-stack`, +2.96 points, q-value 0.004, support 7 components.
+2. `readability.grade-metric`, +2.43 points, q-value 0.021, support 6
+   components.
+
+The protocol admits no construction a screening did not name, so the list
+holds at most these two. Neither is a confirmed construction. Both are
+`inconclusive`, because a point estimate below the MID cannot support a
+card whatever its interval says.
+
+The size conditions are now met. The counts, by the measure the cluster
+minimum uses:
 
 | Partition | Pinned repositories | With a historical comment paragraph | Controlled arm |
 | --- | --- | --- | --- |
-| `development` | 20 | 19 | 17 |
-| `final_test` | 20 | 17 | not measured |
+| `development` | 22 | 21 | 20 |
+| `final_test` | 24 | 21 | not measured |
 
-rbenv/rbenv carries no comment paragraph, so the development arms stop at
-19 however many tasks are drawn. sindresorhus/pure, skywind3000/kcp and
-tj/n carry none either, so the confirmation partition stops at 17. An
-earlier version of this section read the pinned counts as component counts
-and said the confirmation partition had met its condition. It has not.
-
-Closing the gap takes three things. The development partition needs at
-least one more repository whose historical comments extract, and the
-confirmation partition at least three. google/googletest and httpie/cli are
-pinned to `development`, carry comment paragraphs, and hold no controlled
-response yet, so they receive tasks next. Each new repository is pinned
-before any of its text is measured, and the draw stays seeded and
-stratified, so closing the gap selects on the corpus and never on an
-outcome.
+Whoever freezes the list decides one thing the data cannot decide. A
+confirmatory test of `syntax.noun-stack` on the confirmation partition
+tests a construction whose development estimate is 2.96 points against a
+minimum useful difference of 3.00. The test is honest and it is likely to
+return `inconclusive` again. Freezing an empty list instead reports the
+null result and closes version 2 without a confirmatory measurement. The
+protocol allows either, and it forbids the third option: moving the MID.
 
 ## Stopping rule
 
@@ -178,9 +239,9 @@ Before the freeze the corpus gains repositories until each of those two
 partitions holds at least 20 components. Each pin lands before any of that
 repository's text is measured. The development repositories then receive
 tasks and responses of every selecting family. The second acquisition round
-added ten to `development` and fourteen to `final_test`. Both now hold 20
-pinned components, of which 19 and 17 carry a historical comment
-paragraph.
+added ten to `development` and fourteen to `final_test`, and the third
+added two and four. `development` now holds 22 pinned repositories and
+`final_test` 24, of which 21 each carry a historical comment paragraph.
 
 The paragraph and component counts of the sample-size record are power
 targets, not thresholds. The threshold is the cluster minimum: 20
@@ -199,8 +260,8 @@ as an unseen-family result.
 
 - A screening record produced by `corpus screen` on the development
   partition with the Claude and OpenAI runs, on a controlled arm of at
-  least 20 components. The two records above are exploratory and do not
-  meet that condition.
+  least 20 components. The third record meets that condition; the first two
+  are exploratory and do not.
 - The sample-size record, restated from that screening output.
 - The phrase list for E3 is the fifteen rules of the `filler`, `hype`, and
   `scaffold` families at the versions of the current engine; the SHA-256 of
@@ -216,12 +277,13 @@ as an unseen-family result.
   published version in Patterns. The reading itself is not recorded here
   and stays a condition.
 - At least 20 components in the confirmation partition that carry a
-  historical comment paragraph. Of its 20 pinned repositories 17 do, so
-  this condition is open.
+  historical comment paragraph. Amendment 6 met this: of its 24 pinned
+  repositories 21 do.
 - At least 20 components in the H0 arm and in the controlled arm of the
-  development partition. Of its 20 pinned repositories 19 carry a comment
-  paragraph and 17 carry a controlled response, so this condition is open
-  too.
+  development partition. Amendment 6 met this too: of its 22 pinned
+  repositories 21 carry a comment paragraph and 20 carry a controlled
+  response. The third screening reports no test blocked by the cluster
+  minimum.
 
 ## What must exist before the confirmatory measurement
 
