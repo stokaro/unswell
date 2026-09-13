@@ -1,0 +1,1660 @@
+{
+  "version": "unswell-tasks-v1",
+  "protocol": "unswell-llm-patterns-v1",
+  "seed": "unswell-longform-train-v1",
+  "cohort": "historical",
+  "partitions": [
+    "training"
+  ],
+  "roles": [
+    "comment"
+  ],
+  "requested": 200,
+  "strata": [
+    {
+      "ecosystem": "c",
+      "role": "comment",
+      "eligible": 2,
+      "selected": 2
+    },
+    {
+      "ecosystem": "csharp",
+      "role": "comment",
+      "eligible": 34,
+      "selected": 32
+    },
+    {
+      "ecosystem": "go",
+      "role": "comment",
+      "eligible": 13,
+      "selected": 13
+    },
+    {
+      "ecosystem": "python",
+      "role": "comment",
+      "eligible": 2,
+      "selected": 2
+    },
+    {
+      "ecosystem": "rust",
+      "role": "comment",
+      "eligible": 3,
+      "selected": 3
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t00cf8c27744b01e7",
+      "source_id": "c7e96ef0ea0029e996760c0f",
+      "unit_id": "u000866",
+      "group_id": "99a47506460d5f4a19f953563205df84bfeec1ffec15b3fede051bc77b1ce8af",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Events/LogEventPropertyValue.cs",
+      "role": "comment",
+      "words": 84,
+      "text": "\u003csummary\u003e  Formats the value of the current instance using the specified format.  \u003c/summary\u003e  \u003creturns\u003e  The value of the current instance in the specified format.  \u003c/returns\u003e  \u003cparam name=\"format\"\u003eThe format to use.-or- A null reference (Nothing in Visual Basic) to use  the default format defined for the type of the \u003csee cref=\"T:System.IFormattable\"/\u003e implementation. \u003c/param\u003e  \u003cparam name=\"formatProvider\"\u003eThe provider to use to format the value.-or- A null reference  (Nothing in Visual Basic) to obtain the numeric format information from the current locale  setting of the operating system. \u003c/param\u003e\u003cfilterpriority\u003e2\u003c/filterpriority\u003e",
+      "text_sha256": "bed776ae8384d2310933ada5f3ec44f6a1fb8baaa4c8d76c71eb7068f5b5e049",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public string ToString(string format, IFormatProvider formatProvider)",
+        "identifiers": [
+          "ToString",
+          "format",
+          "IFormatProvider",
+          "formatProvider"
+        ],
+        "parameters": "string format, IFormatProvider formatProvider",
+        "numbers": [
+          "2"
+        ],
+        "sha256": "9414bcb9fdca02a1d94765916cf5faffdfef7e081745a30f38e025816f7d2dc9"
+      }
+    },
+    {
+      "id": "t0707a5a5dfcceb94",
+      "source_id": "5c39aa356e5c7bd25c2ac61d",
+      "unit_id": "u001469",
+      "group_id": "9b6981d4d6009cbfbea9c4982fc0129bd48380044bcc05c49e0da1389e4b6e28",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "spf13/cobra",
+      "ecosystem": "go",
+      "path": "zsh_completions.go",
+      "role": "comment",
+      "words": 60,
+      "text": "MarkZshCompPositionalArgumentFile only worked for zsh and its behavior was  not consistent with Bash completion. It has therefore been disabled.  Instead, when no other completion is specified, file completion is done by  default for every argument. One can disable file completion on a per-argument  basis by using ValidArgsFunction and ShellCompDirectiveNoFileComp.  To achieve file extension filtering, one can use ValidArgsFunction and  ShellCompDirectiveFilterFileExt.",
+      "text_sha256": "12125ffb813befb828bdf177821d17cf1fed414d5be5567529fca892bc04aacc",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func (c *Command) MarkZshCompPositionalArgumentFile(argPosition int, patterns ...string) error",
+        "identifiers": [
+          "Command",
+          "MarkZshCompPositionalArgumentFile",
+          "argPosition",
+          "patterns",
+          "error"
+        ],
+        "parameters": "argPosition int, patterns ...string",
+        "numbers": [],
+        "sha256": "6ca6879e0ecf26da5cf35f08f3afa89b9aecd527860a2aace7b17cfc236c7715"
+      }
+    },
+    {
+      "id": "t07c69dd5c80e8967",
+      "source_id": "9ea7c4cb7091fe1f891ce420",
+      "unit_id": "u000491",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Core/ILogEventPropertyValueFactory.cs",
+      "role": "comment",
+      "words": 55,
+      "text": "\u003csummary\u003e  Create a \u003csee cref=\"LogEventPropertyValue\"/\u003e given a .NET object and destructuring  strategy.  \u003c/summary\u003e  \u003cparam name=\"value\"\u003eThe value of the property.\u003c/param\u003e  \u003cparam name=\"destructureObjects\"\u003eIf true, and the value is a non-primitive, non-array type,  then the value will be converted to a structure; otherwise, unknown types will  be converted to scalars, which are generally stored as strings.\u003c/param\u003e  \u003creturns\u003eThe value.\u003c/returns\u003e",
+      "text_sha256": "bc9912a2f97037d16ca7dc1da51d03de77b80b24af1fbb16b365f0af216dd627",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "LogEventPropertyValue CreatePropertyValue(object value, bool destructureObjects = false)",
+        "identifiers": [
+          "LogEventPropertyValue",
+          "CreatePropertyValue",
+          "object",
+          "value",
+          "destructureObjects",
+          "false"
+        ],
+        "parameters": "object value, bool destructureObjects = false",
+        "numbers": [],
+        "sha256": "4fa0673d9fca6951706618f50cf547603dd903ad779bab5f5b8a58fa49ee4008"
+      }
+    },
+    {
+      "id": "t091f88c0e7d3e92d",
+      "source_id": "ad82efad2439b51c73907598",
+      "unit_id": "u000213",
+      "group_id": "529f88b425d548fff5b0fb68a6ea119df3c6f9e8b0711c0d0101d9e64848e862",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "stretchr/testify",
+      "ecosystem": "go",
+      "path": "suite/suite_test.go",
+      "role": "comment",
+      "words": 59,
+      "text": "This suite is intended to store values to make sure that only  testing-suite-related methods are run.  It's also a fully  functional example of a testing suite, using setup/teardown methods  and a helper method that is ignored by testify.  To make this look  more like a real world example, all tests in the suite perform some  type of assertion.",
+      "text_sha256": "fa7b21b7e41a47cbe49a153bfcfe4b1bd6dd790919a44888952850af06509eaa",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "type SuiteTester struct",
+        "identifiers": [
+          "SuiteTester"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "3eaa3ad04601d09b37ebab3e1173328be1963f6df27e353e9cbc0088370a0b67"
+      }
+    },
+    {
+      "id": "t09346c4faa716f78",
+      "source_id": "26d2ebe1b4fe049741b724e5",
+      "unit_id": "u000160",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Context/LogContext.cs",
+      "role": "comment",
+      "words": 120,
+      "text": "\u003csummary\u003e  Push a property onto the context, returning an \u003csee cref=\"IDisposable\"/\u003e  that must later be used to remove the property, along with any others that  may have been pushed on top of it and not yet popped. The property must  be popped from the same thread/logical call context.  \u003c/summary\u003e  \u003cparam name=\"name\"\u003eThe name of the property.\u003c/param\u003e  \u003cparam name=\"value\"\u003eThe value of the property.\u003c/param\u003e  \u003creturns\u003eA handle to later remove the property from the context.\u003c/returns\u003e  \u003cparam name=\"destructureObjects\"\u003eIf true, and the value is a non-primitive, non-array type,  then the value will be converted to a structure; otherwise, unknown types will  be converted to scalars, which are generally stored as strings.\u003c/param\u003e  \u003creturns\u003eA token that must be disposed, in order, to pop properties back off the stack.\u003c/returns\u003e",
+      "text_sha256": "4278bd6f3f7d83897efcc4d7f9719932c00bc37b6b4da8a4b0ee0244843038dc",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public static IDisposable PushProperty(string name, object value, bool destructureObjects = false)",
+        "identifiers": [
+          "IDisposable",
+          "PushProperty",
+          "name",
+          "object",
+          "value",
+          "destructureObjects",
+          "false"
+        ],
+        "parameters": "string name, object value, bool destructureObjects = false",
+        "numbers": [],
+        "sha256": "bd0620165f1fee8aa0175a57c84c167ac7c1ebc13d595caec639ef65cd526416"
+      }
+    },
+    {
+      "id": "t0f41c95ddbbc311d",
+      "source_id": "89056cd88480c7a461650c42",
+      "unit_id": "u000252",
+      "group_id": "7eed3e56100b9d7ef0969d6172bc52c2b2ac85f783ac37278f9aa11df9bed462",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "google/uuid",
+      "ecosystem": "go",
+      "path": "version4.go",
+      "role": "comment",
+      "words": 55,
+      "text": "Randomly generated UUIDs have 122 random bits.  One's annual risk of being   hit by a meteorite is estimated to be one chance in 17 billion, that   means the probability is about 0.00000000006 (6 × 10−11),   equivalent to the odds of creating a few tens of trillions of UUIDs in a   year and having one duplicate.",
+      "text_sha256": "90d2ad3f21e7bb353c7a44cf3aeda4710f25e99bd36aa12e424f58545fb05614",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func NewRandom() (UUID, error)",
+        "identifiers": [
+          "NewRandom",
+          "UUID",
+          "error"
+        ],
+        "parameters": "",
+        "numbers": [
+          "122",
+          "17",
+          "0.00000000006",
+          "6",
+          "10",
+          "11"
+        ],
+        "sha256": "125095dbe0afad6f42f650a2f65b4658d31086a6be5b1c416f8ca704cbeea397"
+      }
+    },
+    {
+      "id": "t1a064babc4c6f6ad",
+      "source_id": "8150516727b36f6c81a5d1d7",
+      "unit_id": "u001645",
+      "group_id": "9b6981d4d6009cbfbea9c4982fc0129bd48380044bcc05c49e0da1389e4b6e28",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "spf13/cobra",
+      "ecosystem": "go",
+      "path": "doc/md_docs.go",
+      "role": "comment",
+      "words": 63,
+      "text": "GenMarkdownTree will generate a markdown page for this command and all  descendants in the directory given. The header may be nil.  This function may not work correctly if your command names have `-` in them.  If you have `cmd` with two subcmds, `sub` and `sub-third`,  and `sub` has a subcommand called `third`, it is undefined which  help output will be in the file `cmd-sub-third.1`.",
+      "text_sha256": "2b4b662febf3fab942b00dadfcbea75ef6329153bc86bcdeac5d109e6ea5e98a",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func GenMarkdownTree(cmd *cobra.Command, dir string) error",
+        "identifiers": [
+          "GenMarkdownTree",
+          "cmd",
+          "cobra",
+          "Command",
+          "dir",
+          "error"
+        ],
+        "parameters": "cmd *cobra.Command, dir string",
+        "numbers": [
+          "1"
+        ],
+        "sha256": "aa6d61ceb2ccc2495b2e376ae23de6f30deeb5dce477a712f2061ced1ff944ba"
+      }
+    },
+    {
+      "id": "t1e4a0c35ac1f649d",
+      "source_id": "f2eed4785c099845e5d49b56",
+      "unit_id": "u002472",
+      "group_id": "8d5c70dd38c0e139cfb1f982ab8b3514dee5a9c39a7fe3c089a51cfe827df216",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "gorilla/mux",
+      "ecosystem": "go",
+      "path": "route.go",
+      "role": "comment",
+      "words": 82,
+      "text": "Schemes adds a matcher for URL schemes.  It accepts a sequence of schemes to be matched, e.g.: \"http\", \"https\".  If the request's URL has a scheme set, it will be matched against.  Generally, the URL scheme will only be set if a previous handler set it,  such as the ProxyHeaders handler from gorilla/handlers.  If unset, the scheme will be determined based on the request's TLS  termination state.  The first argument to Schemes will be used when constructing a route URL.",
+      "text_sha256": "005f5236b8f9d848b23703d4df0c45964ca24bc7d33167187a74a54091b71a80",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func (r *Route) Schemes(schemes ...string) *Route",
+        "identifiers": [
+          "Route",
+          "Schemes",
+          "schemes"
+        ],
+        "parameters": "schemes ...string",
+        "numbers": [],
+        "sha256": "ac8defe934023949fe0ade9ac121ff2990114265789e6f34425cf90688a5ca70"
+      }
+    },
+    {
+      "id": "t29d464763d3f9bab",
+      "source_id": "a8657ad87c0df99ee2501153",
+      "unit_id": "u001212",
+      "group_id": "93acb33bce84317d731bf008c0b2ddcc584d22eb7df6d02e8ed0c71d4bc6216b",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serde-rs/serde",
+      "ecosystem": "rust",
+      "path": "serde_derive/src/de.rs",
+      "role": "comment",
+      "words": 73,
+      "text": "TODO this message could be better by saving the errors from the failed  attempts. The heuristic used by TOML was to count the number of fields  processed before an error, and use the error that happened after the  largest number of fields. I'm not sure I like that. Maybe it would be  better to save all the errors and combine them into one message that  explains why none of the variants matched.",
+      "text_sha256": "574498ec224ad973827aa1f74b1cafe4ab1f41516acbe6dbf8ec1332a3c76b7c",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "let fallthrough_msg = format!( \"data did not match any variant of untagged enum {}\", params.type_name()",
+        "identifiers": [
+          "fallthrough_msg",
+          "format",
+          "data",
+          "did",
+          "not",
+          "match",
+          "any",
+          "variant",
+          "of",
+          "untagged",
+          "params",
+          "type_name"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "c9a6724bd8c56e4fb7a9d2ae1d152e5a0420806a1f4b4313eb443f1ab7aca9d1"
+      }
+    },
+    {
+      "id": "t2ab7f838907df672",
+      "source_id": "d513af3f44b3f127288366c4",
+      "unit_id": "u000637",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerEnrichmentConfiguration.cs",
+      "role": "comment",
+      "words": 60,
+      "text": "\u003csummary\u003e  Helper method for wrapping sinks.  \u003c/summary\u003e  \u003cparam name=\"loggerEnrichmentConfiguration\"\u003eThe parent enrichment configuration.\u003c/param\u003e  \u003cparam name=\"wrapEnricher\"\u003eA function that allows for wrapping \u003csee cref=\"ILogEventEnricher\"/\u003es  added in \u003cparamref name=\"configureWrappedEnricher\"/\u003e.\u003c/param\u003e  \u003cparam name=\"configureWrappedEnricher\"\u003eAn action that configures enrichers to be wrapped in \u003cparamref name=\"wrapEnricher\"/\u003e.\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"loggerEnrichmentConfiguration\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"wrapEnricher\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"configureWrappedEnricher\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "8ba7a36183f3850d3b9c2107908f1cad2d219d6d8a5a48ab22a735e538a0059b",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public static LoggerConfiguration Wrap( LoggerEnrichmentConfiguration loggerEnrichmentConfiguration, Func\u003cILogEventEnricher, ILogEventEnricher\u003e wrapEnricher, Action\u003cLoggerEnrichmentConfiguration\u003e configureWrappedEnricher)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "Wrap",
+          "LoggerEnrichmentConfiguration",
+          "loggerEnrichmentConfiguration",
+          "Func",
+          "ILogEventEnricher",
+          "wrapEnricher",
+          "Action",
+          "configureWrappedEnricher"
+        ],
+        "parameters": "LoggerEnrichmentConfiguration loggerEnrichmentConfiguration, Func\u003cILogEventEnricher, ILogEventEnricher\u003e wrapEnricher, Action\u003cLoggerEnrichmentConfiguration\u003e configureWrappedEnricher",
+        "numbers": [],
+        "sha256": "4d6c95c21b8ddfbe205d7a764b383e83c217f19a0e5cba01d9b14aaa6650fb37"
+      }
+    },
+    {
+      "id": "t2c83e7333243e114",
+      "source_id": "9a06cfb12a3fa005159707e3",
+      "unit_id": "u001059",
+      "group_id": "43fda08df6e074c7dc95cb3b3bb5d5af4b4e2750363bd37c13716f0e408bb34a",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "libuv/libuv",
+      "ecosystem": "c",
+      "path": "src/inet.c",
+      "role": "comment",
+      "words": 61,
+      "text": "Note that int32_t and int16_t need only be \"at least\" large enough  to contain a value of the specified size.  On some systems, like  Crays, there is no such thing as an integer variable with 16 bits.  Keep this in mind if you think this function should have been coded  to use pointer overlays.  All the world's not a VAX.",
+      "text_sha256": "4813a5517105ba5bc16ee28d6db2726fed10b6905dfd9e9d9c092dd66083b9f1",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "char tmp[UV__INET6_ADDRSTRLEN], *tp",
+        "identifiers": [
+          "tmp",
+          "UV__INET6_ADDRSTRLEN",
+          "tp"
+        ],
+        "parameters": "",
+        "numbers": [
+          "16"
+        ],
+        "sha256": "ddb97acffb3538896d4623cba56f08adc125a1912b4d16fa22dc73d7d1c9af58"
+      }
+    },
+    {
+      "id": "t2e01e1c6eed6822c",
+      "source_id": "95e8c6a7acf83ec9a2d8b9d0",
+      "unit_id": "u000496",
+      "group_id": "99a47506460d5f4a19f953563205df84bfeec1ffec15b3fede051bc77b1ce8af",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Events/LogEvent.cs",
+      "role": "comment",
+      "words": 61,
+      "text": "\u003csummary\u003e  Construct a new \u003cseealso cref=\"LogEvent\"/\u003e.  \u003c/summary\u003e  \u003cparam name=\"timestamp\"\u003eThe time at which the event occurred.\u003c/param\u003e  \u003cparam name=\"level\"\u003eThe level of the event.\u003c/param\u003e  \u003cparam name=\"exception\"\u003eAn exception associated with the event, or null.\u003c/param\u003e  \u003cparam name=\"messageTemplate\"\u003eThe message template describing the event.\u003c/param\u003e  \u003cparam name=\"properties\"\u003eProperties associated with the event, including those presented in \u003cparamref name=\"messageTemplate\"/\u003e.\u003c/param\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"messageTemplate\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"properties\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "358d440ca1928d4cdbe987a9414907772c4c0ef967266b6249abf1611433b315",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "internal LogEvent(DateTimeOffset timestamp, LogEventLevel level, Exception exception, MessageTemplate messageTemplate, EventProperty[] properties)",
+        "identifiers": [
+          "LogEvent",
+          "DateTimeOffset",
+          "timestamp",
+          "LogEventLevel",
+          "level",
+          "Exception",
+          "exception",
+          "MessageTemplate",
+          "messageTemplate",
+          "EventProperty",
+          "properties"
+        ],
+        "parameters": "DateTimeOffset timestamp, LogEventLevel level, Exception exception, MessageTemplate messageTemplate, EventProperty[] properties",
+        "numbers": [],
+        "sha256": "eb8ad2b4ad9a90a371d50dae0db26dd27f724618d3dc23a6b675371160dc3ba8"
+      }
+    },
+    {
+      "id": "t37f9958d9b6a0122",
+      "source_id": "bf316edaa3b5b9f0ba40655a",
+      "unit_id": "u000841",
+      "group_id": "99a47506460d5f4a19f953563205df84bfeec1ffec15b3fede051bc77b1ce8af",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Events/MessageTemplate.cs",
+      "role": "comment",
+      "words": 69,
+      "text": "\u003csummary\u003e  Convert the message template into a textual message, given the  properties matching the tokens in the message template.  \u003c/summary\u003e  \u003cparam name=\"properties\"\u003eProperties matching template tokens.\u003c/param\u003e  \u003cparam name=\"output\"\u003eThe message created from the template and properties. If the  properties are mismatched with the template, the template will be  returned with incomplete substitution.\u003c/param\u003e  \u003cparam name=\"formatProvider\"\u003eSupplies culture-specific formatting information, or null.\u003c/param\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"properties\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"output\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "8950176cbf215175defcfff5802dac178c96b955dab8c155d961bcefbe5b790e",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public void Render(IReadOnlyDictionary\u003cstring, LogEventPropertyValue\u003e properties, TextWriter output, IFormatProvider formatProvider = null)",
+        "identifiers": [
+          "Render",
+          "IReadOnlyDictionary",
+          "LogEventPropertyValue",
+          "properties",
+          "TextWriter",
+          "output",
+          "IFormatProvider",
+          "formatProvider",
+          "null"
+        ],
+        "parameters": "IReadOnlyDictionary\u003cstring, LogEventPropertyValue\u003e properties, TextWriter output, IFormatProvider formatProvider = null",
+        "numbers": [],
+        "sha256": "32b2dc121cf223020f941145c11a5224a8c738764b20f0e0e235c1017bb46012"
+      }
+    },
+    {
+      "id": "t38034ecc8c11b3a6",
+      "source_id": "b83f7be42db6ac33ac56a6e9",
+      "unit_id": "u000576",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerDestructuringConfiguration.cs",
+      "role": "comment",
+      "words": 51,
+      "text": "\u003csummary\u003e  When destructuring objects, collections be restricted to specified count  thus avoiding bloating payload. Limit is applied to each collection separately,  sum of length of collection can exceed limit.  Applies limit to all \u003csee cref=\"IEnumerable\"/\u003e including dictionaries.  \u003c/summary\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e  \u003cexception cref=\"ArgumentOutOfRangeException\"\u003eWhen \u003cparamref name=\"maximumCollectionCount\"/\u003e is less than 1\u003c/exception\u003e",
+      "text_sha256": "d2c896e4972be5eaf6d0fd3a7567e0db6fde29cfefe0ed8c0c58e92bfbab5e12",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration ToMaximumCollectionCount(int maximumCollectionCount)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "ToMaximumCollectionCount",
+          "maximumCollectionCount"
+        ],
+        "parameters": "int maximumCollectionCount",
+        "numbers": [
+          "1"
+        ],
+        "sha256": "011fb4d15b75af03af17685b23125069a5e38022ac904acb784fb150a3dcef15"
+      }
+    },
+    {
+      "id": "t4ca067af4549bedb",
+      "source_id": "54c97ab3062210e7ca80fb99",
+      "unit_id": "u001437",
+      "group_id": "9b6981d4d6009cbfbea9c4982fc0129bd48380044bcc05c49e0da1389e4b6e28",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "spf13/cobra",
+      "ecosystem": "go",
+      "path": "doc/rest_docs.go",
+      "role": "comment",
+      "words": 58,
+      "text": "GenReSTTree will generate a ReST page for this command and all  descendants in the directory given.  This function may not work correctly if your command names have `-` in them.  If you have `cmd` with two subcmds, `sub` and `sub-third`,  and `sub` has a subcommand called `third`, it is undefined which  help output will be in the file `cmd-sub-third.1`.",
+      "text_sha256": "1bb4d86873c5ea96779281286873be905ed5a1569b161786b8bf57df76901cf9",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func GenReSTTree(cmd *cobra.Command, dir string) error",
+        "identifiers": [
+          "GenReSTTree",
+          "cmd",
+          "cobra",
+          "Command",
+          "dir",
+          "error"
+        ],
+        "parameters": "cmd *cobra.Command, dir string",
+        "numbers": [
+          "1"
+        ],
+        "sha256": "bfa9b6936fb765df08da07e53aeeb3ee805a038ad1a7ae325ae2f7b6a0f7a183"
+      }
+    },
+    {
+      "id": "t4f76dbca192addcb",
+      "source_id": "3937c39fe4c3a6ac229c7770",
+      "unit_id": "u000335",
+      "group_id": "da0777456b9a9605f44dfeca0b00ab0d9388ad7ccc678e757996b121e6c7bb07",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "more-itertools/more-itertools",
+      "ecosystem": "python",
+      "path": "more_itertools/more.py",
+      "role": "comment",
+      "words": 73,
+      "text": "If the current window matches our predicate (and we haven't hit  our maximum number of replacements), splice in the substitutes  and then consume the following windows that overlap with this one.  For example, if the iterable is (0, 1, 2, 3, 4...)  and the window size is 2, we have (0, 1), (1, 2), (2, 3)...  If the predicate matches on (0, 1), we need to zap (0, 1) and (1, 2)",
+      "text_sha256": "7dceeca0bfc02a280611276b4b6b1566696b4327a16b0c2aea924cb92fd23d5f",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "if pred(*w)",
+        "identifiers": [
+          "if",
+          "pred"
+        ],
+        "parameters": "*w",
+        "numbers": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "sha256": "2cf12dba0cc3c49de5e9965b1d2a464903e71297844f90d861ddf8a44dbb2631"
+      }
+    },
+    {
+      "id": "t5240ca203cce51ff",
+      "source_id": "ac98afee832b409be3ec6548",
+      "unit_id": "u000505",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Core/Enrichers/PropertyEnricher.cs",
+      "role": "comment",
+      "words": 80,
+      "text": "\u003csummary\u003e  Create a new property enricher.  \u003c/summary\u003e  \u003cparam name=\"name\"\u003eThe name of the property.\u003c/param\u003e  \u003cparam name=\"value\"\u003eThe value of the property.\u003c/param\u003e  \u003creturns\u003eA handle to later remove the property from the context.\u003c/returns\u003e  \u003cparam name=\"destructureObjects\"\u003eIf true, and the value is a non-primitive, non-array type,  then the value will be converted to a structure; otherwise, unknown types will  be converted to scalars, which are generally stored as strings.\u003c/param\u003e  \u003creturns\u003e\u003c/returns\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"name\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e  \u003cexception cref=\"ArgumentException\"\u003eWhen \u003cparamref name=\"name\"/\u003e is empty or only contains whitespace\u003c/exception\u003e",
+      "text_sha256": "3b89f929f79228a6296feb39372e78a8341f3fc98cdd0945e13cd7a0c0a29c67",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public PropertyEnricher(string name, object value, bool destructureObjects = false)",
+        "identifiers": [
+          "PropertyEnricher",
+          "name",
+          "object",
+          "value",
+          "destructureObjects",
+          "false"
+        ],
+        "parameters": "string name, object value, bool destructureObjects = false",
+        "numbers": [],
+        "sha256": "8ed57f4ee3d35282361fd1b9c8d1c100d4cbf42f97c3cdd18a8e750f9c7b5bcc"
+      }
+    },
+    {
+      "id": "t52efa9333d19cd94",
+      "source_id": "95e8c6a7acf83ec9a2d8b9d0",
+      "unit_id": "u000493",
+      "group_id": "99a47506460d5f4a19f953563205df84bfeec1ffec15b3fede051bc77b1ce8af",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Events/LogEvent.cs",
+      "role": "comment",
+      "words": 61,
+      "text": "\u003csummary\u003e  Construct a new \u003cseealso cref=\"LogEvent\"/\u003e.  \u003c/summary\u003e  \u003cparam name=\"timestamp\"\u003eThe time at which the event occurred.\u003c/param\u003e  \u003cparam name=\"level\"\u003eThe level of the event.\u003c/param\u003e  \u003cparam name=\"exception\"\u003eAn exception associated with the event, or null.\u003c/param\u003e  \u003cparam name=\"messageTemplate\"\u003eThe message template describing the event.\u003c/param\u003e  \u003cparam name=\"properties\"\u003eProperties associated with the event, including those presented in \u003cparamref name=\"messageTemplate\"/\u003e.\u003c/param\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"messageTemplate\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"properties\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "358d440ca1928d4cdbe987a9414907772c4c0ef967266b6249abf1611433b315",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LogEvent(DateTimeOffset timestamp, LogEventLevel level, Exception exception, MessageTemplate messageTemplate, IEnumerable\u003cLogEventProperty\u003e properties)",
+        "identifiers": [
+          "LogEvent",
+          "DateTimeOffset",
+          "timestamp",
+          "LogEventLevel",
+          "level",
+          "Exception",
+          "exception",
+          "MessageTemplate",
+          "messageTemplate",
+          "IEnumerable",
+          "LogEventProperty",
+          "properties"
+        ],
+        "parameters": "DateTimeOffset timestamp, LogEventLevel level, Exception exception, MessageTemplate messageTemplate, IEnumerable\u003cLogEventProperty\u003e properties",
+        "numbers": [],
+        "sha256": "2479acea4660c13d36c6714dddf29fe4d75e99d1889298cb037788fbd0c04c4b"
+      }
+    },
+    {
+      "id": "t55ed9368f36c1bf6",
+      "source_id": "d513af3f44b3f127288366c4",
+      "unit_id": "u000622",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerEnrichmentConfiguration.cs",
+      "role": "comment",
+      "words": 53,
+      "text": "\u003csummary\u003e  Include the specified property value in all events logged to the logger.  \u003c/summary\u003e  \u003cparam name=\"name\"\u003eThe name of the property to add.\u003c/param\u003e  \u003cparam name=\"value\"\u003eThe property value to add.\u003c/param\u003e  \u003cparam name=\"destructureObjects\"\u003eIf true, objects of unknown type will be logged as structures; otherwise they will be converted using \u003csee cref=\"object.ToString\"/\u003e.\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e",
+      "text_sha256": "2a1e2c47c8cdd5706eed8c84fb7be4b750caf45c7e355e5d3186246564eae9ec",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration WithProperty(string name, object value, bool destructureObjects = false)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "WithProperty",
+          "name",
+          "object",
+          "value",
+          "destructureObjects",
+          "false"
+        ],
+        "parameters": "string name, object value, bool destructureObjects = false",
+        "numbers": [],
+        "sha256": "4aac3821521423768cfa9c773bbbf85ca2b937a2e90392f55b8645cc6e8a85e2"
+      }
+    },
+    {
+      "id": "t622bfcd5edcddd6a",
+      "source_id": "d513af3f44b3f127288366c4",
+      "unit_id": "u000631",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerEnrichmentConfiguration.cs",
+      "role": "comment",
+      "words": 73,
+      "text": "\u003csummary\u003e  Apply an enricher only to events with a \u003csee cref=\"LogEventLevel\"/\u003e greater than or equal to \u003cparamref name=\"enrichFromLevel\"/\u003e.  \u003c/summary\u003e  \u003cparam name=\"enrichFromLevel\"\u003eThe level from which the enricher will be applied.\u003c/param\u003e  \u003cparam name=\"configureEnricher\"\u003eAn action that configures the wrapped enricher.\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e  \u003cremarks\u003eThis method permits additional information to be attached to e.g. warnings and errors, that might be too expensive  to collect or store at lower levels.\u003c/remarks\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"configureEnricher\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "06fb9ba8ad326f165e6b37707d7b4b5455bfa9d9783ba04121cc072306eca835",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration AtLevel(LogEventLevel enrichFromLevel, Action\u003cLoggerEnrichmentConfiguration\u003e configureEnricher)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "AtLevel",
+          "LogEventLevel",
+          "enrichFromLevel",
+          "Action",
+          "LoggerEnrichmentConfiguration",
+          "configureEnricher"
+        ],
+        "parameters": "LogEventLevel enrichFromLevel, Action\u003cLoggerEnrichmentConfiguration\u003e configureEnricher",
+        "numbers": [],
+        "sha256": "f0496e8ec49ddbb962fd3d053fc5e531727ea4f64940ef962d8ab0456e8d2bb4"
+      }
+    },
+    {
+      "id": "t66f9f4f2f4edba91",
+      "source_id": "42fadb3564ac17cdcfaf7ae7",
+      "unit_id": "u000223",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Core/ILogEventPropertyFactory.cs",
+      "role": "comment",
+      "words": 59,
+      "text": "\u003csummary\u003e  Construct a \u003csee cref=\"LogEventProperty\"/\u003e with the specified name and value.  \u003c/summary\u003e  \u003cparam name=\"name\"\u003eThe name of the property.\u003c/param\u003e  \u003cparam name=\"value\"\u003eThe value of the property.\u003c/param\u003e  \u003cparam name=\"destructureObjects\"\u003eIf true, and the value is a non-primitive, non-array type,  then the value will be converted to a structure; otherwise, unknown types will  be converted to scalars, which are generally stored as strings.\u003c/param\u003e  \u003creturns\u003e\u003c/returns\u003e",
+      "text_sha256": "7857206d3ec0e021767a5024c5583e2ac15ee55c04d6d30cf9e3db844b702549",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "LogEventProperty CreateProperty(string name, object value, bool destructureObjects = false)",
+        "identifiers": [
+          "LogEventProperty",
+          "CreateProperty",
+          "name",
+          "object",
+          "value",
+          "destructureObjects",
+          "false"
+        ],
+        "parameters": "string name, object value, bool destructureObjects = false",
+        "numbers": [],
+        "sha256": "5093c7dbd7e847b7da559c4928929c2b4213669c4e1fd437bb9d6a8a65698c2b"
+      }
+    },
+    {
+      "id": "t673cfbe0ae1a9fa0",
+      "source_id": "684dd06587ad2807c8ba7fc8",
+      "unit_id": "u000321",
+      "group_id": "99a47506460d5f4a19f953563205df84bfeec1ffec15b3fede051bc77b1ce8af",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Formatting/Display/MessageTemplateTextFormatter.cs",
+      "role": "comment",
+      "words": 70,
+      "text": "\u003csummary\u003e  A \u003csee cref=\"ITextFormatter\"/\u003e that supports the Serilog  message template format. Formatting log events for display  has a different set of requirements and expectations from  rendering the data within them. To meet this, the formatter  overrides some behavior: First, strings are always output  as literals (not quoted) unless some other format is applied  to them. Second, tokens without matching properties are skipped  rather than being written as raw text.  \u003c/summary\u003e",
+      "text_sha256": "c97cafef2bd341a7930fe94e339e1f1b54eaf866a58d7bb151c1c5267c60736a",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public class MessageTemplateTextFormatter : ITextFormatter",
+        "identifiers": [
+          "MessageTemplateTextFormatter",
+          "ITextFormatter"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "d2be9291010ba37359cc97b30e0e37a5521eba05eb42fd4ae3b6b364937300a6"
+      }
+    },
+    {
+      "id": "t68003432b0f3c07c",
+      "source_id": "ab318a8a824daa8e8922dd3e",
+      "unit_id": "u000591",
+      "group_id": "99a47506460d5f4a19f953563205df84bfeec1ffec15b3fede051bc77b1ce8af",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Data/LogEventPropertyValueVisitor.cs",
+      "role": "comment",
+      "words": 71,
+      "text": "\u003csummary\u003e  An abstract base class for visitors that walk data in the  \u003csee cref=\"LogEventPropertyValue\"/\u003e format. Subclasses, by  overriding appropriate methods, may search for, transform,  or print the value structures being visited.  \u003c/summary\u003e  \u003cremarks\u003e  Stateless, designed to accommodate allocation-free visiting of multiple  values by the same visitor instance.  \u003c/remarks\u003e  \u003ctypeparam name=\"TState\"\u003eThe type of a state object passed through  the visiting process.\u003c/typeparam\u003e  \u003ctypeparam name=\"TResult\"\u003eThe type of the result generated by visiting  a node.\u003c/typeparam\u003e",
+      "text_sha256": "d038f2edbc1a5e0d0f0e9488356695b3b88dc3b7a55142ef058fa09562d7ef19",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public abstract class LogEventPropertyValueVisitor\u003cTState, TResult\u003e",
+        "identifiers": [
+          "LogEventPropertyValueVisitor",
+          "TState",
+          "TResult"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "6f2384824bd1835d27d97dd20dd98977d6e6c33f27758a34b2c02e12e7653647"
+      }
+    },
+    {
+      "id": "t6a12eb94a1631f30",
+      "source_id": "fbf6640404db8b6a76f7780b",
+      "unit_id": "u002615",
+      "group_id": "8d5c70dd38c0e139cfb1f982ab8b3514dee5a9c39a7fe3c089a51cfe827df216",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "gorilla/mux",
+      "ecosystem": "go",
+      "path": "mux.go",
+      "role": "comment",
+      "words": 62,
+      "text": "If the request does not match any of this router's or its subrouters' routes  then this function returns false. If available, a reason for the match failure  will be filled in the match argument's MatchErr field. If the match failure type  (eg: not found) has a registered handler, the handler is assigned to the Handler  field of the match argument.",
+      "text_sha256": "896b70083eea9fc6061f98ae81ba7b9e05693bcd517d60bc4119c63580452f0a",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func (r *Router) Match(req *http.Request, match *RouteMatch) bool",
+        "identifiers": [
+          "Router",
+          "Match",
+          "req",
+          "http",
+          "Request",
+          "match",
+          "RouteMatch"
+        ],
+        "parameters": "req *http.Request, match *RouteMatch",
+        "numbers": [],
+        "sha256": "281ceddc36b94a62770f68789bcb182a6d4ff85d5583b897969662d4f3b0d11b"
+      }
+    },
+    {
+      "id": "t6f349461092918f3",
+      "source_id": "d513af3f44b3f127288366c4",
+      "unit_id": "u000628",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerEnrichmentConfiguration.cs",
+      "role": "comment",
+      "words": 52,
+      "text": "\u003csummary\u003e  Apply an enricher only when \u003cparamref name=\"condition\"/\u003e evaluates to \u003cc\u003etrue\u003c/c\u003e.  \u003c/summary\u003e  \u003cparam name=\"condition\"\u003eA predicate that evaluates to \u003cc\u003etrue\u003c/c\u003e when the supplied \u003csee cref=\"LogEvent\"/\u003e  should be enriched.\u003c/param\u003e  \u003cparam name=\"configureEnricher\"\u003eAn action that configures the wrapped enricher.\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"condition\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"configureEnricher\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "f738c8e954eba2331461f0388f32b132eb0919867a83a29130e79c0b594b8a9a",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration When(Func\u003cLogEvent, bool\u003e condition, Action\u003cLoggerEnrichmentConfiguration\u003e configureEnricher)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "When",
+          "Func",
+          "LogEvent",
+          "condition",
+          "Action",
+          "LoggerEnrichmentConfiguration",
+          "configureEnricher"
+        ],
+        "parameters": "Func\u003cLogEvent, bool\u003e condition, Action\u003cLoggerEnrichmentConfiguration\u003e configureEnricher",
+        "numbers": [],
+        "sha256": "018f0e7c025572b27c4f3e91ceddee2c54a117a71793ad826c2c0b934bfe2e3a"
+      }
+    },
+    {
+      "id": "t705b547aa3a21217",
+      "source_id": "b83f7be42db6ac33ac56a6e9",
+      "unit_id": "u000565",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerDestructuringConfiguration.cs",
+      "role": "comment",
+      "words": 51,
+      "text": "\u003csummary\u003e  When destructuring objects, depth will be limited to 10 property traversals deep to  guard against ballooning space when recursive/cyclic structures are accidentally passed. To  change this limit pass a new maximum depth.  \u003c/summary\u003e  \u003cparam name=\"maximumDestructuringDepth\"\u003eThe maximum depth to use.\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e  \u003cexception cref=\"ArgumentOutOfRangeException\"\u003eWhen \u003cparamref name=\"maximumDestructuringDepth\"/\u003e is negative\u003c/exception\u003e",
+      "text_sha256": "c6be0d2ea7c6795a41830fa1d4c8a29612368679e3b40bc43eb84f9df3263a8d",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration ToMaximumDepth(int maximumDestructuringDepth)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "ToMaximumDepth",
+          "maximumDestructuringDepth"
+        ],
+        "parameters": "int maximumDestructuringDepth",
+        "numbers": [
+          "10"
+        ],
+        "sha256": "e35e8fbacaab60a7bfdd47903190c43d9041d1d05beb686722a827bfc89f2450"
+      }
+    },
+    {
+      "id": "t80ef85465aea7850",
+      "source_id": "77136001a8a97ac5aece2a4a",
+      "unit_id": "u000393",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerAuditSinkConfiguration.cs",
+      "role": "comment",
+      "words": 92,
+      "text": "\u003csummary\u003e  Audit log events to a sub-logger, where further processing may occur. Events through  the sub-logger will be constrained by filters and enriched by enrichers that are  active in the parent. A sub-logger cannot be used to log at a more verbose level, but  a less verbose level is possible.  \u003c/summary\u003e  \u003cparam name=\"configureLogger\"\u003eAn action that configures the sub-logger.\u003c/param\u003e  \u003cparam name=\"restrictedToMinimumLevel\"\u003eThe minimum level for  events passed through the sink. Ignored when \u003cparamref name=\"levelSwitch\"/\u003e is specified.\u003c/param\u003e  \u003cparam name=\"levelSwitch\"\u003eA switch allowing the pass-through minimum level  to be changed at runtime.\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e",
+      "text_sha256": "fb658bdf6a69df5ab12a81b223f474c403cc0152ab3ac357b6366e3ade3e2a43",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration Logger( Action\u003cLoggerConfiguration\u003e configureLogger, LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum, LoggingLevelSwitch levelSwitch = null)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "Logger",
+          "Action",
+          "configureLogger",
+          "LogEventLevel",
+          "restrictedToMinimumLevel",
+          "LevelAlias",
+          "Minimum",
+          "LoggingLevelSwitch",
+          "levelSwitch",
+          "null"
+        ],
+        "parameters": "Action\u003cLoggerConfiguration\u003e configureLogger, LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum, LoggingLevelSwitch levelSwitch = null",
+        "numbers": [],
+        "sha256": "5d5234ecf8233dd3eebcc5f17ee311adfc40dc6c11adc4013c4f1bd8b7391387"
+      }
+    },
+    {
+      "id": "t85184400ccaa01a5",
+      "source_id": "3163893b13202082de1e9fc3",
+      "unit_id": "u000755",
+      "group_id": "9b6981d4d6009cbfbea9c4982fc0129bd48380044bcc05c49e0da1389e4b6e28",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "spf13/cobra",
+      "ecosystem": "go",
+      "path": "custom_completions_test.go",
+      "role": "comment",
+      "words": 50,
+      "text": "If we don't specify a value for Args, this test fails.  This is only true for a root command without any subcommands, and is caused  by the fact that the __complete command becomes a subcommand when there should not be one.  The problem is in the implementation of legacyArgs().",
+      "text_sha256": "2c3edc37b76631b4d14560600c4084f3b97ea952a742f352b75b411c6fcda101",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "Args:              MinimumNArgs(1), ValidArgsFunction: validArgsFunc, Run:               emptyRun, }",
+        "identifiers": [
+          "Args",
+          "MinimumNArgs",
+          "ValidArgsFunction",
+          "validArgsFunc",
+          "Run",
+          "emptyRun"
+        ],
+        "parameters": "1",
+        "numbers": [],
+        "sha256": "2dc25187a48c4ba71f3f27731c9ad45ba08386108d434a10d76fdc3509dc6796"
+      }
+    },
+    {
+      "id": "t8a2c5413586b6cf3",
+      "source_id": "47521d2eb2a492bda07a6b25",
+      "unit_id": "u000240",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerSettingsConfiguration.cs",
+      "role": "comment",
+      "words": 54,
+      "text": "\u003csummary\u003e  Apply settings specified in the Serilog key-value setting format to the logger configuration.  \u003c/summary\u003e  \u003cparam name=\"settings\"\u003eA list of key-value pairs describing logger settings.\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e  \u003cremarks\u003eIn case of duplicate keys, the last value for the key is kept and the previous ones are ignored.\u003c/remarks\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"settings\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "0c50a1a5b6c9d92b9858f94252f12647a297e8f87655b04871382117d0772ce4",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration KeyValuePairs(IEnumerable\u003cKeyValuePair\u003cstring, string\u003e\u003e settings)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "KeyValuePairs",
+          "IEnumerable",
+          "KeyValuePair",
+          "settings"
+        ],
+        "parameters": "IEnumerable\u003cKeyValuePair\u003cstring, string\u003e\u003e settings",
+        "numbers": [],
+        "sha256": "651ba55c72cff010ae4b028c2beba011b49dfeab51c58da6b52838e12c8e82a9"
+      }
+    },
+    {
+      "id": "t8c5f4d20e81e7e0f",
+      "source_id": "26d2ebe1b4fe049741b724e5",
+      "unit_id": "u000164",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Context/LogContext.cs",
+      "role": "comment",
+      "words": 79,
+      "text": "\u003csummary\u003e  Push an enricher onto the context, returning an \u003csee cref=\"IDisposable\"/\u003e  that must later be used to remove the property, along with any others that  may have been pushed on top of it and not yet popped. The property must  be popped from the same thread/logical call context.  \u003c/summary\u003e  \u003cparam name=\"enricher\"\u003eAn enricher to push onto the log context\u003c/param\u003e  \u003creturns\u003eA token that must be disposed, in order, to pop properties back off the stack.\u003c/returns\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"enricher\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "c16aa5f34dec6d00d11b9ca4b57d10ca890ce342f947e90bfdac50f8a480664a",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public static IDisposable Push(ILogEventEnricher enricher)",
+        "identifiers": [
+          "IDisposable",
+          "Push",
+          "ILogEventEnricher",
+          "enricher"
+        ],
+        "parameters": "ILogEventEnricher enricher",
+        "numbers": [],
+        "sha256": "07318713462dbdc3340542e11f498d4fec74dd94fd873d7fc9e262f74a4fc8c8"
+      }
+    },
+    {
+      "id": "t916259d15cd227c3",
+      "source_id": "f34d812aee71797dbaf93943",
+      "unit_id": "u001089",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+      "role": "comment",
+      "words": 101,
+      "text": "\u003csummary\u003e  Write log events to a sub-logger, where further processing may occur. Events through  the sub-logger will be constrained by filters and enriched by enrichers that are  active in the parent. A sub-logger cannot be used to log at a more verbose level, but  a less verbose level is possible.  \u003c/summary\u003e  \u003cparam name=\"configureLogger\"\u003eAn action that configures the sub-logger.\u003c/param\u003e  \u003cparam name=\"restrictedToMinimumLevel\"\u003eThe minimum level for  events passed through the sink. Ignored when \u003cparamref name=\"levelSwitch\"/\u003e is specified.\u003c/param\u003e  \u003cparam name=\"levelSwitch\"\u003eA switch allowing the pass-through minimum level  to be changed at runtime. Can be \u003ccode\u003enull\u003c/code\u003e\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"configureLogger\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "7cbdea6744a944e4a86473d324ee66b2fec4577219e839ee062f951e9ca39d0c",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration Logger( Action\u003cLoggerConfiguration\u003e configureLogger, LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum, LoggingLevelSwitch levelSwitch = null)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "Logger",
+          "Action",
+          "configureLogger",
+          "LogEventLevel",
+          "restrictedToMinimumLevel",
+          "LevelAlias",
+          "Minimum",
+          "LoggingLevelSwitch",
+          "levelSwitch",
+          "null"
+        ],
+        "parameters": "Action\u003cLoggerConfiguration\u003e configureLogger, LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum, LoggingLevelSwitch levelSwitch = null",
+        "numbers": [],
+        "sha256": "5d5234ecf8233dd3eebcc5f17ee311adfc40dc6c11adc4013c4f1bd8b7391387"
+      }
+    },
+    {
+      "id": "t918659511d42f71d",
+      "source_id": "f34d812aee71797dbaf93943",
+      "unit_id": "u001097",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+      "role": "comment",
+      "words": 88,
+      "text": "\u003csummary\u003e  Write log events to a sub-logger, where further processing may occur. Events through  the sub-logger will be constrained by filters and enriched by enrichers that are  active in the parent. A sub-logger cannot be used to log at a more verbose level, but  a less verbose level is possible.  \u003c/summary\u003e  \u003cparam name=\"logger\"\u003eThe sub-logger. This will \u003cem\u003enot\u003c/em\u003e be shut down automatically when the  parent logger is disposed.\u003c/param\u003e  \u003cparam name=\"restrictedToMinimumLevel\"\u003eThe minimum level for  events passed through the sink.\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"logger\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "d20aa58d477061feb62a188cf0f1c4afe38c35ad0c6125edfd306c5037d776d6",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration Logger( ILogger logger, LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "Logger",
+          "ILogger",
+          "logger",
+          "LogEventLevel",
+          "restrictedToMinimumLevel",
+          "LevelAlias",
+          "Minimum"
+        ],
+        "parameters": "ILogger logger, LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum",
+        "numbers": [],
+        "sha256": "1d68941c8646170ebd7d0a73337dba617a08861c878a0b7780f5c100db909aed"
+      }
+    },
+    {
+      "id": "t98842506ddca2813",
+      "source_id": "50748f9a37f44841bc261903",
+      "unit_id": "u000220",
+      "group_id": "93acb33bce84317d731bf008c0b2ddcc584d22eb7df6d02e8ed0c71d4bc6216b",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serde-rs/serde",
+      "ecosystem": "rust",
+      "path": "serde_derive/src/ser.rs",
+      "role": "comment",
+      "words": 63,
+      "text": "Fields with a `skip_serializing` or `serialize_with` attribute, or which  belong to a variant with a 'skip_serializing` or `serialize_with` attribute,  are not serialized by us so we do not generate a bound. Fields with a `bound`  attribute specify their own bound so we do not generate one. All other fields  may need a `T: Serialize` bound where T is the type of the field.",
+      "text_sha256": "c94567d1515d5fc71ddc92ec78c3dd88f80ce409f0214e97cf9b77390e9680d6",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "fn needs_serialize_bound(field: \u0026attr::Field, variant: Option\u003c\u0026attr::Variant\u003e) -\u003e bool",
+        "identifiers": [
+          "needs_serialize_bound",
+          "field",
+          "attr",
+          "Field",
+          "variant",
+          "Option",
+          "Variant"
+        ],
+        "parameters": "field: \u0026attr::Field, variant: Option\u003c\u0026attr::Variant\u003e",
+        "numbers": [],
+        "sha256": "41df6abdd7edcf94d3fb8b3f901662e7897c48035206fb06690a8eaaf234c355"
+      }
+    },
+    {
+      "id": "t9ac21f2de1f52350",
+      "source_id": "51b3a00b0a5d35abff147c25",
+      "unit_id": "u000142",
+      "group_id": "7eed3e56100b9d7ef0969d6172bc52c2b2ac85f783ac37278f9aa11df9bed462",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "google/uuid",
+      "ecosystem": "go",
+      "path": "version1.go",
+      "role": "comment",
+      "words": 72,
+      "text": "NewUUID returns a Version 1 UUID based on the current NodeID and clock  sequence, and the current time.  If the NodeID has not been set by SetNodeID  or SetNodeInterface then it will be set automatically.  If the NodeID cannot  be set NewUUID returns nil.  If clock sequence has not been set by  SetClockSequence then it will be set automatically.  If GetTime fails to  return the current NewUUID returns nil and an error.",
+      "text_sha256": "79cc4e8083ba0e282be762c571d2645a1f7ed9f85416ac567e706186072f51b2",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func NewUUID() (UUID, error)",
+        "identifiers": [
+          "NewUUID",
+          "UUID",
+          "error"
+        ],
+        "parameters": "",
+        "numbers": [
+          "1"
+        ],
+        "sha256": "10cbfaf0549871fc22b201d2d4b36de8828f8046379273382c44b55f3f1c8006"
+      }
+    },
+    {
+      "id": "t9edc07d9523d42e5",
+      "source_id": "f34d812aee71797dbaf93943",
+      "unit_id": "u001113",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+      "role": "comment",
+      "words": 92,
+      "text": "\u003csummary\u003e  Helper method for wrapping sinks.  \u003c/summary\u003e  \u003cparam name=\"loggerSinkConfiguration\"\u003eThe parent sink configuration.\u003c/param\u003e  \u003cparam name=\"wrapSink\"\u003eA function that allows for wrapping \u003csee cref=\"ILogEventSink\"/\u003es  added in \u003cparamref name=\"configureWrappedSink\"/\u003e.\u003c/param\u003e  \u003cparam name=\"configureWrappedSink\"\u003eAn action that configures sinks to be wrapped in \u003cparamref name=\"wrapSink\"/\u003e.\u003c/param\u003e  \u003cparam name=\"restrictedToMinimumLevel\"\u003eThe minimum level for  events passed through the sink. Ignored when \u003cparamref name=\"levelSwitch\"/\u003e is specified.\u003c/param\u003e  \u003cparam name=\"levelSwitch\"\u003eA switch allowing the pass-through minimum level  to be changed at runtime. Can be \u003ccode\u003enull\u003c/code\u003e\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"loggerSinkConfiguration\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"wrapSink\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"configureWrappedSink\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "31c5f9df4a2665b64aa7998359afde9bef1ff6ff82d4910dfff060acf8fd6480",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public static LoggerConfiguration Wrap( LoggerSinkConfiguration loggerSinkConfiguration, Func\u003cILogEventSink, ILogEventSink\u003e wrapSink, Action\u003cLoggerSinkConfiguration\u003e configureWrappedSink, LogEventLevel restrictedToMinimumLevel, LoggingLevelSwitch levelSwitch)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "Wrap",
+          "LoggerSinkConfiguration",
+          "loggerSinkConfiguration",
+          "Func",
+          "ILogEventSink",
+          "wrapSink",
+          "Action",
+          "configureWrappedSink",
+          "LogEventLevel",
+          "restrictedToMinimumLevel",
+          "LoggingLevelSwitch",
+          "levelSwitch"
+        ],
+        "parameters": "LoggerSinkConfiguration loggerSinkConfiguration, Func\u003cILogEventSink, ILogEventSink\u003e wrapSink, Action\u003cLoggerSinkConfiguration\u003e configureWrappedSink, LogEventLevel restrictedToMinimumLevel, LoggingLevelSwitch levelSwitch",
+        "numbers": [],
+        "sha256": "d15d069d4afeb318e6762893df72ee2adb655d01168745f878e8f551686e35d2"
+      }
+    },
+    {
+      "id": "ta66f602a3f0e5acf",
+      "source_id": "7fdfe9042b78e27a7ff7546c",
+      "unit_id": "u001573",
+      "group_id": "9b6981d4d6009cbfbea9c4982fc0129bd48380044bcc05c49e0da1389e4b6e28",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "spf13/cobra",
+      "ecosystem": "go",
+      "path": "doc/man_docs.go",
+      "role": "comment",
+      "words": 63,
+      "text": "GenManTree will generate a man page for this command and all descendants  in the directory given. The header may be nil. This function may not work  correctly if your command names have `-` in them. If you have `cmd` with two  subcmds, `sub` and `sub-third`, and `sub` has a subcommand called `third`  it is undefined which help output will be in the file `cmd-sub-third.1`.",
+      "text_sha256": "837544e1664af9ba9e04584973932b756644de2fcbca5f51d23039ad9bb644bd",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func GenManTree(cmd *cobra.Command, header *GenManHeader, dir string) error",
+        "identifiers": [
+          "GenManTree",
+          "cmd",
+          "cobra",
+          "Command",
+          "header",
+          "GenManHeader",
+          "dir",
+          "error"
+        ],
+        "parameters": "cmd *cobra.Command, header *GenManHeader, dir string",
+        "numbers": [
+          "1"
+        ],
+        "sha256": "a87e560c2ee43334d33a96c4ec43172b3774d17c3669812767aad67007f81916"
+      }
+    },
+    {
+      "id": "tab5e8607f24321bd",
+      "source_id": "b83f7be42db6ac33ac56a6e9",
+      "unit_id": "u000570",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerDestructuringConfiguration.cs",
+      "role": "comment",
+      "words": 50,
+      "text": "\u003csummary\u003e  When destructuring objects, string values can be restricted to specified length  thus avoiding bloating payload. Limit is applied to each value separately,  sum of length of strings can exceed limit.  \u003c/summary\u003e  \u003cparam name=\"maximumStringLength\"\u003eThe maximum string length.\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e  \u003cexception cref=\"ArgumentOutOfRangeException\"\u003eWhen \u003cparamref name=\"maximumStringLength\"/\u003e is less than 2\u003c/exception\u003e",
+      "text_sha256": "2fdeb95e6914ac477595301272bdc44e52f536ea1cb1314a1403011e1bd309db",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration ToMaximumStringLength(int maximumStringLength)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "ToMaximumStringLength",
+          "maximumStringLength"
+        ],
+        "parameters": "int maximumStringLength",
+        "numbers": [
+          "2"
+        ],
+        "sha256": "126046f1b68c8ebb9286ad04f7950133ae5fbee1e3a876ca6c2e00a27c7791bd"
+      }
+    },
+    {
+      "id": "tb0f6e3c277d4441d",
+      "source_id": "59ccdb3c5d7606fde10fc5d4",
+      "unit_id": "u000072",
+      "group_id": "e8ce388e7afd66e2df2c2297e5428552aa5b708a7609d867053fbd503519075a",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Parsing/PropertyToken.cs",
+      "role": "comment",
+      "words": 71,
+      "text": "\u003csummary\u003e  Construct a \u003csee cref=\"PropertyToken\"/\u003e.  \u003c/summary\u003e  \u003cparam name=\"propertyName\"\u003eThe name of the property.\u003c/param\u003e  \u003cparam name=\"rawText\"\u003eThe token as it appears in the message template.\u003c/param\u003e  \u003cparam name=\"format\"\u003eThe format applied to the property, if any.\u003c/param\u003e  \u003cparam name=\"alignment\"\u003eThe alignment applied to the property, if any.\u003c/param\u003e  \u003cparam name=\"destructuring\"\u003eThe destructuring strategy applied to the property, if any.\u003c/param\u003e  \u003cparam name=\"startIndex\"\u003eThe token's start index in the template.\u003c/param\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"propertyName\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"rawText\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "fb3844fcce7a77cfc2b0ca7ffaee863ca4666615850b2fa048d0123c4543381e",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public PropertyToken(string propertyName, string rawText, string format = null, Alignment? alignment = null, Destructuring destructuring = Destructuring.Default, int startIndex = -1)",
+        "identifiers": [
+          "PropertyToken",
+          "propertyName",
+          "rawText",
+          "format",
+          "null",
+          "Alignment",
+          "alignment",
+          "Destructuring",
+          "destructuring",
+          "Default",
+          "startIndex"
+        ],
+        "parameters": "string propertyName, string rawText, string format = null, Alignment? alignment = null, Destructuring destructuring = Destructuring.Default, int startIndex = -1",
+        "numbers": [],
+        "sha256": "9d132449006096694401c88f67f4d6852e8f60bc9833427ca9fcc9712d66c298"
+      }
+    },
+    {
+      "id": "tb78ff532280e2407",
+      "source_id": "aef0a1f101e2467bfb250ac3",
+      "unit_id": "u001616",
+      "group_id": "3b6662610b25a3f50e5a6f293ed34da9cba15272e59e70a7c67279c3f4cba7c6",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "pallets/flask",
+      "ecosystem": "python",
+      "path": "src/flask/sessions.py",
+      "role": "comment",
+      "words": 53,
+      "text": ": When data is changed, this is set to ``True``. Only the session : dictionary itself is tracked; if the session contains mutable : data (for example a nested dict) then this must be set to : ``True`` manually when modifying that data. The session cookie : will only be written to the response if this is ``True``.",
+      "text_sha256": "d4f6a8da166892300337dd7efdf1ee59137bee6073d42d67bfd967aeaba8a66c",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "modified = False",
+        "identifiers": [
+          "modified",
+          "False"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "ed9c4d99b3cdcb6bc71e38a6c511e0ee90089621681b47e20467e54a9a759400"
+      }
+    },
+    {
+      "id": "tbf99ba0168568544",
+      "source_id": "d81aa0d7ab14cf53bfdaeb94",
+      "unit_id": "u001864",
+      "group_id": "9b6981d4d6009cbfbea9c4982fc0129bd48380044bcc05c49e0da1389e4b6e28",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "spf13/cobra",
+      "ecosystem": "go",
+      "path": "doc/yaml_docs.go",
+      "role": "comment",
+      "words": 58,
+      "text": "GenYamlTree creates yaml structured ref files for this command and all descendants  in the directory given. This function may not work  correctly if your command names have `-` in them. If you have `cmd` with two  subcmds, `sub` and `sub-third`, and `sub` has a subcommand called `third`  it is undefined which help output will be in the file `cmd-sub-third.1`.",
+      "text_sha256": "22dacbbea6b4d7acbdf7883f7a8be980091f5e28527ec539f571b70ed1b9873e",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func GenYamlTree(cmd *cobra.Command, dir string) error",
+        "identifiers": [
+          "GenYamlTree",
+          "cmd",
+          "cobra",
+          "Command",
+          "dir",
+          "error"
+        ],
+        "parameters": "cmd *cobra.Command, dir string",
+        "numbers": [
+          "1"
+        ],
+        "sha256": "fa536ef4e53ddf2c7414c51c7f34e3ecb8a6f62f5ed2ebf2b541fdf6e8e870a0"
+      }
+    },
+    {
+      "id": "tc4b752d9389d3c17",
+      "source_id": "f5f304b27df6fdcb17688594",
+      "unit_id": "u001004",
+      "group_id": "99a47506460d5f4a19f953563205df84bfeec1ffec15b3fede051bc77b1ce8af",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Formatting/Json/JsonFormatter.cs",
+      "role": "comment",
+      "words": 51,
+      "text": "\u003csummary\u003e  Construct a \u003csee cref=\"JsonFormatter\"/\u003e.  \u003c/summary\u003e  \u003cparam name=\"closingDelimiter\"\u003eA string that will be written after each log event is formatted.  If null, \u003csee cref=\"Environment.NewLine\"/\u003e will be used.\u003c/param\u003e  \u003cparam name=\"renderMessage\"\u003eIf true, the message will be rendered and written to the output as a  property named RenderedMessage.\u003c/param\u003e  \u003cparam name=\"formatProvider\"\u003eSupplies culture-specific formatting information, or null.\u003c/param\u003e",
+      "text_sha256": "2c6e10ef44138eef19ee41f75c74a1ebd7bb9c2c3bd04fb1722f75533801c32b",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public JsonFormatter( string closingDelimiter = null, bool renderMessage = false, IFormatProvider formatProvider = null)",
+        "identifiers": [
+          "JsonFormatter",
+          "closingDelimiter",
+          "null",
+          "renderMessage",
+          "false",
+          "IFormatProvider",
+          "formatProvider"
+        ],
+        "parameters": "string closingDelimiter = null, bool renderMessage = false, IFormatProvider formatProvider = null",
+        "numbers": [],
+        "sha256": "0df498a38980290b9e3aba7d40f097e44db2ea39ea3c176e29d2cef571fc8b49"
+      }
+    },
+    {
+      "id": "td992bf3644157108",
+      "source_id": "74e796ba75c1f279b6f6170f",
+      "unit_id": "u000361",
+      "group_id": "99a47506460d5f4a19f953563205df84bfeec1ffec15b3fede051bc77b1ce8af",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Debugging/SelfLog.cs",
+      "role": "comment",
+      "words": 58,
+      "text": "\u003csummary\u003e  Write a message to the self-log.  \u003c/summary\u003e  \u003cparam name=\"format\"\u003eStandard .NET format string containing the message.\u003c/param\u003e  \u003cparam name=\"arg0\"\u003eFirst argument, if supplied.\u003c/param\u003e  \u003cparam name=\"arg1\"\u003eSecond argument, if supplied.\u003c/param\u003e  \u003cparam name=\"arg2\"\u003eThird argument, if supplied.\u003c/param\u003e  \u003cremarks\u003e  The name is historical; because this is used from third-party sink packages, removing the \"Line\"  suffix as would seem sensible isn't worth the breakage.  \u003c/remarks\u003e",
+      "text_sha256": "af885915e8d7f2c9d026404c2d42b825c0bd86b201a1b4cd2514930a6cceb95d",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public static void WriteLine(string format, object arg0 = null, object arg1 = null, object arg2 = null)",
+        "identifiers": [
+          "WriteLine",
+          "format",
+          "object",
+          "arg0",
+          "null",
+          "arg1",
+          "arg2"
+        ],
+        "parameters": "string format, object arg0 = null, object arg1 = null, object arg2 = null",
+        "numbers": [],
+        "sha256": "00bfbe0d0af3e5e8e634bb25f9b372b3018e879f4075550ad5ffd93f449c5f8d"
+      }
+    },
+    {
+      "id": "te191d32d5fe928ca",
+      "source_id": "758c32490b1f7f241d5076e6",
+      "unit_id": "u001617",
+      "group_id": "8d5c70dd38c0e139cfb1f982ab8b3514dee5a9c39a7fe3c089a51cfe827df216",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "gorilla/mux",
+      "ecosystem": "go",
+      "path": "mux_test.go",
+      "role": "comment",
+      "words": 50,
+      "text": "newRequest is a helper function to create a new request with a method and url.  The request returned is a 'server' request as opposed to a 'client' one through  simulated write onto the wire and read off of the wire.  The differences between requests are detailed in the net/http package.",
+      "text_sha256": "5be6d0f63905d0a9a109f01f868f83cbf7c9d03978b80cef4335a5712614a6fa",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func newRequest(method, url string) *http.Request",
+        "identifiers": [
+          "newRequest",
+          "method",
+          "url",
+          "http",
+          "Request"
+        ],
+        "parameters": "method, url string",
+        "numbers": [],
+        "sha256": "1ed5a0000a1ad636e6b765b0763ddb5ce2b69c75371793c6fcaf6db8a0c50c2f"
+      }
+    },
+    {
+      "id": "tea3f94da4b23d733",
+      "source_id": "26d2ebe1b4fe049741b724e5",
+      "unit_id": "u000169",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Context/LogContext.cs",
+      "role": "comment",
+      "words": 80,
+      "text": "\u003csummary\u003e  Push multiple enrichers onto the context, returning an \u003csee cref=\"IDisposable\"/\u003e  that must later be used to remove the property, along with any others that  may have been pushed on top of it and not yet popped. The property must  be popped from the same thread/logical call context.  \u003c/summary\u003e  \u003cseealso cref=\"PropertyEnricher\"/\u003e.  \u003cparam name=\"enrichers\"\u003eEnrichers to push onto the log context\u003c/param\u003e  \u003creturns\u003eA token that must be disposed, in order, to pop properties back off the stack.\u003c/returns\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"enrichers\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "d4a0c6a423cdeb26bb53938f4950f0d7ba78d2ece45b5841bba48eb8148147db",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public static IDisposable Push(params ILogEventEnricher[] enrichers)",
+        "identifiers": [
+          "IDisposable",
+          "Push",
+          "params",
+          "ILogEventEnricher",
+          "enrichers"
+        ],
+        "parameters": "params ILogEventEnricher[] enrichers",
+        "numbers": [],
+        "sha256": "952f30e0386aa961d8d012b0cb2659100cac16bcf24b2162be285eae91c5ec37"
+      }
+    },
+    {
+      "id": "tef135f7ec01b8424",
+      "source_id": "a1b9a8531d7e0f3a9e3719d0",
+      "unit_id": "u000567",
+      "group_id": "99a47506460d5f4a19f953563205df84bfeec1ffec15b3fede051bc77b1ce8af",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/LoggerExtensions.cs",
+      "role": "comment",
+      "words": 96,
+      "text": "\u003csummary\u003e  Create a logger that enriches log events when the specified level is enabled.  \u003c/summary\u003e  \u003ctypeparam name=\"TValue\"\u003e The type of the property value. \u003c/typeparam\u003e  \u003cparam name=\"logger\"\u003eThe logger.\u003c/param\u003e  \u003cparam name=\"level\"\u003eThe log event level used to determine if log is enriched with property.\u003c/param\u003e  \u003cparam name=\"propertyName\"\u003eThe name of the property. Must be non-empty.\u003c/param\u003e  \u003cparam name=\"value\"\u003eThe property value.\u003c/param\u003e  \u003cparam name=\"destructureObjects\"\u003eIf true, the value will be serialized as a structured  object if possible; if false, the object will be recorded as a scalar or simple array.\u003c/param\u003e  \u003creturns\u003eA logger that will enrich log events as specified.\u003c/returns\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"logger\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "479906f4b9d46f14c8679e13205b6a132cbe2bd0bf18700dc205ef18d2b0a164",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public static ILogger ForContext\u003cTValue\u003e( this ILogger logger, LogEventLevel level, string propertyName, TValue value, bool destructureObjects = false)",
+        "identifiers": [
+          "ILogger",
+          "ForContext",
+          "TValue",
+          "logger",
+          "LogEventLevel",
+          "level",
+          "propertyName",
+          "value",
+          "destructureObjects",
+          "false"
+        ],
+        "parameters": "this ILogger logger, LogEventLevel level, string propertyName, TValue value, bool destructureObjects = false",
+        "numbers": [],
+        "sha256": "193859b0e5e6f82fbc9a6bd31bef0b59ee1b18cfcb8cfd6a24b32181fd7d39ff"
+      }
+    },
+    {
+      "id": "tf16f0878d1995121",
+      "source_id": "bf316edaa3b5b9f0ba40655a",
+      "unit_id": "u000837",
+      "group_id": "99a47506460d5f4a19f953563205df84bfeec1ffec15b3fede051bc77b1ce8af",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Events/MessageTemplate.cs",
+      "role": "comment",
+      "words": 62,
+      "text": "\u003csummary\u003e  Convert the message template into a textual message, given the  properties matching the tokens in the message template.  \u003c/summary\u003e  \u003cparam name=\"properties\"\u003eProperties matching template tokens.\u003c/param\u003e  \u003cparam name=\"formatProvider\"\u003eSupplies culture-specific formatting information, or null.\u003c/param\u003e  \u003creturns\u003eThe message created from the template and properties. If the  properties are mismatched with the template, the template will be  returned with incomplete substitution.\u003c/returns\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"properties\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "be1f329fbdd52ddc17ee9d83d1877a517bfd1a1baae4becca42a53bb94b06597",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public string Render(IReadOnlyDictionary\u003cstring, LogEventPropertyValue\u003e properties, IFormatProvider formatProvider = null)",
+        "identifiers": [
+          "Render",
+          "IReadOnlyDictionary",
+          "LogEventPropertyValue",
+          "properties",
+          "IFormatProvider",
+          "formatProvider",
+          "null"
+        ],
+        "parameters": "IReadOnlyDictionary\u003cstring, LogEventPropertyValue\u003e properties, IFormatProvider formatProvider = null",
+        "numbers": [],
+        "sha256": "c846672dbf007a62a6d8ad3fde7122abb46990bf338b388f17947b37d08a4b96"
+      }
+    },
+    {
+      "id": "tf2ebec1729de4ac3",
+      "source_id": "7871b92fb853bd8eedcf6b9b",
+      "unit_id": "u000378",
+      "group_id": "99a47506460d5f4a19f953563205df84bfeec1ffec15b3fede051bc77b1ce8af",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Parsing/MessageTemplateParser.cs",
+      "role": "comment",
+      "words": 57,
+      "text": "\u003csummary\u003e  Parse the supplied message template.  \u003c/summary\u003e  \u003cparam name=\"messageTemplate\"\u003eThe message template to parse.\u003c/param\u003e  \u003creturns\u003eA sequence of text or property tokens. Where the template  is not syntactically valid, text tokens will be returned. The parser  will make a best effort to extract valid property tokens even in the  presence of parsing issues.\u003c/returns\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"messageTemplate\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "156429772b06cc69bbdd8319f0a7ca8b83202e614c49dea0a93a9853b01aa69b",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public MessageTemplate Parse(string messageTemplate)",
+        "identifiers": [
+          "MessageTemplate",
+          "Parse",
+          "messageTemplate"
+        ],
+        "parameters": "string messageTemplate",
+        "numbers": [],
+        "sha256": "b629054d12b7a7b402b0a4d6c05d5027b2b6d94e09e54b5becfb79a03e840872"
+      }
+    },
+    {
+      "id": "tf4c6b71242c07164",
+      "source_id": "d513af3f44b3f127288366c4",
+      "unit_id": "u000634",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerEnrichmentConfiguration.cs",
+      "role": "comment",
+      "words": 82,
+      "text": "\u003csummary\u003e  Apply an enricher only to events with a \u003csee cref=\"LogEventLevel\"/\u003e greater than or equal to the level specified by \u003cparamref name=\"levelSwitch\"/\u003e.  \u003c/summary\u003e  \u003cparam name=\"levelSwitch\"\u003eA \u003csee cref=\"LoggingLevelSwitch\"/\u003e that specifies the level from which the enricher will be applied.\u003c/param\u003e  \u003cparam name=\"configureEnricher\"\u003eAn action that configures the wrapped enricher.\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e  \u003cremarks\u003eThis method permits additional information to be attached to e.g. warnings and errors, that might be too expensive  to collect or store at lower levels.\u003c/remarks\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"configureEnricher\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "240adf3e1b08a12ef443316ca81cb82b99f35b43aea36b90674f27dde7d4f24b",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration AtLevel(LoggingLevelSwitch levelSwitch, Action\u003cLoggerEnrichmentConfiguration\u003e configureEnricher)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "AtLevel",
+          "LoggingLevelSwitch",
+          "levelSwitch",
+          "Action",
+          "LoggerEnrichmentConfiguration",
+          "configureEnricher"
+        ],
+        "parameters": "LoggingLevelSwitch levelSwitch, Action\u003cLoggerEnrichmentConfiguration\u003e configureEnricher",
+        "numbers": [],
+        "sha256": "6b825541f889f983ecc4a0ba4c98baa5ad72d5caef92cbe22cbcad2c45990791"
+      }
+    },
+    {
+      "id": "tf67edb08d2132343",
+      "source_id": "ce3e0a47ac54a83bee8d09da",
+      "unit_id": "u001203",
+      "group_id": "43fda08df6e074c7dc95cb3b3bb5d5af4b4e2750363bd37c13716f0e408bb34a",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "libuv/libuv",
+      "ecosystem": "c",
+      "path": "src/unix/aix-common.c",
+      "role": "comment",
+      "words": 84,
+      "text": "We could use a static buffer for the path manipulations that we need outside  of the function, but this function could be called by multiple consumers and  we don't want to potentially create a race condition in the use of snprintf.  There is no direct way of getting the exe path in AIX - either through /procfs  or through some libc APIs. The below approach is to parse the argv[0]'s pattern  and use it in conjunction with PATH environment variable to craft one.",
+      "text_sha256": "4c4af2f8f378269053c880badebb203c545d691efc217ebd98964ff0c86e3d96",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "int uv_exepath(char* buffer, size_t* size)",
+        "identifiers": [
+          "uv_exepath",
+          "buffer",
+          "size"
+        ],
+        "parameters": "char* buffer, size_t* size",
+        "numbers": [
+          "0"
+        ],
+        "sha256": "d26378bc49a16343e6c0c937a9667ebd0baab32a1956577d5c39ef0a60fc6938"
+      }
+    },
+    {
+      "id": "tf985b1b747d12981",
+      "source_id": "f34d812aee71797dbaf93943",
+      "unit_id": "u001102",
+      "group_id": "0a6b436366d186c9e92637bcb1444f6fa4fb6040308fe1b84f84d879162cb4e1",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serilog/serilog",
+      "ecosystem": "csharp",
+      "path": "src/Serilog/Configuration/LoggerSinkConfiguration.cs",
+      "role": "comment",
+      "words": 57,
+      "text": "\u003csummary\u003e  Write to a sink only when \u003cparamref name=\"condition\"/\u003e evaluates to \u003cc\u003etrue\u003c/c\u003e.  \u003c/summary\u003e  \u003cparam name=\"condition\"\u003eA predicate that evaluates to \u003cc\u003etrue\u003c/c\u003e when the supplied \u003csee cref=\"LogEvent\"/\u003e  should be written to the configured sink.\u003c/param\u003e  \u003cparam name=\"configureSink\"\u003eAn action that configures the wrapped sink.\u003c/param\u003e  \u003creturns\u003eConfiguration object allowing method chaining.\u003c/returns\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"condition\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e  \u003cexception cref=\"ArgumentNullException\"\u003eWhen \u003cparamref name=\"configureSink\"/\u003e is \u003ccode\u003enull\u003c/code\u003e\u003c/exception\u003e",
+      "text_sha256": "13b516c1ddde1eda358c8ffeb7570a8e955f8e8c944f68a84882629b79fbd8c9",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "public LoggerConfiguration Conditional(Func\u003cLogEvent, bool\u003e condition, Action\u003cLoggerSinkConfiguration\u003e configureSink)",
+        "identifiers": [
+          "LoggerConfiguration",
+          "Conditional",
+          "Func",
+          "LogEvent",
+          "condition",
+          "Action",
+          "LoggerSinkConfiguration",
+          "configureSink"
+        ],
+        "parameters": "Func\u003cLogEvent, bool\u003e condition, Action\u003cLoggerSinkConfiguration\u003e configureSink",
+        "numbers": [],
+        "sha256": "5973d0a2d907d5d748a8bf889e87f6d8ea91c91a38317c5bc85eb75667cbf917"
+      }
+    },
+    {
+      "id": "tfc1740a15be46c55",
+      "source_id": "d09424c8662de923a2a38fad",
+      "unit_id": "u000556",
+      "group_id": "7eed3e56100b9d7ef0969d6172bc52c2b2ac85f783ac37278f9aa11df9bed462",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "google/uuid",
+      "ecosystem": "go",
+      "path": "hash.go",
+      "role": "comment",
+      "words": 61,
+      "text": "NewHash returns a new UUID derived from the hash of space concatenated with  data generated by h.  The hash should be at least 16 byte in length.  The  first 16 bytes of the hash are used to form the UUID.  The version of the  UUID will be the lower 4 bits of version.  NewHash is used to implement  NewMD5 and NewSHA1.",
+      "text_sha256": "452f3dbe24bb1a4ff7ff4137dc9716f2e90812dbe9bd2461026fa799ea1d5e76",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func NewHash(h hash.Hash, space UUID, data []byte, version int) UUID",
+        "identifiers": [
+          "NewHash",
+          "hash",
+          "Hash",
+          "space",
+          "UUID",
+          "data",
+          "byte",
+          "version"
+        ],
+        "parameters": "h hash.Hash, space UUID, data []byte, version int",
+        "numbers": [
+          "16",
+          "4"
+        ],
+        "sha256": "ad640458c7cb60d59681cd4e7cc62f0f82b6eb7cd8ff8e20fda91c3e634b79be"
+      }
+    },
+    {
+      "id": "tfcc7ada1c773ec8b",
+      "source_id": "a8657ad87c0df99ee2501153",
+      "unit_id": "u001093",
+      "group_id": "93acb33bce84317d731bf008c0b2ddcc584d22eb7df6d02e8ed0c71d4bc6216b",
+      "partition": "training",
+      "cohort": "historical",
+      "repository": "serde-rs/serde",
+      "ecosystem": "rust",
+      "path": "serde_derive/src/de.rs",
+      "role": "comment",
+      "words": 63,
+      "text": "Fields with a `skip_deserializing` or `deserialize_with` attribute, or which  belong to a variant with a `skip_deserializing` or `deserialize_with`  attribute, are not deserialized by us so we do not generate a bound. Fields  with a `bound` attribute specify their own bound so we do not generate one.  All other fields may need a `T: Deserialize` bound where T is the type of the  field.",
+      "text_sha256": "98c14bf80e6de0d2ac829cf8af7d4b1153de6615c231ee96be174d91d8b95df5",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "fn needs_deserialize_bound(field: \u0026attr::Field, variant: Option\u003c\u0026attr::Variant\u003e) -\u003e bool",
+        "identifiers": [
+          "needs_deserialize_bound",
+          "field",
+          "attr",
+          "Field",
+          "variant",
+          "Option",
+          "Variant"
+        ],
+        "parameters": "field: \u0026attr::Field, variant: Option\u003c\u0026attr::Variant\u003e",
+        "numbers": [],
+        "sha256": "734e5f5917881757454372553e707a54a130a6b064707ed811958bb97b6c365a"
+      }
+    }
+  ]
+}

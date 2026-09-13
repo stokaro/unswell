@@ -1,0 +1,931 @@
+{
+  "version": "unswell-tasks-v1",
+  "protocol": "unswell-llm-patterns-v1",
+  "seed": "origin-longform-calibration",
+  "cohort": "historical",
+  "partitions": [
+    "calibration"
+  ],
+  "roles": [
+    "comment"
+  ],
+  "requested": 30,
+  "strata": [
+    {
+      "ecosystem": "go",
+      "role": "comment",
+      "eligible": 3,
+      "selected": 3
+    },
+    {
+      "ecosystem": "powershell",
+      "role": "comment",
+      "eligible": 4,
+      "selected": 4
+    },
+    {
+      "ecosystem": "python",
+      "role": "comment",
+      "eligible": 2,
+      "selected": 2
+    },
+    {
+      "ecosystem": "powershell",
+      "role": "comment",
+      "eligible": 4,
+      "selected": 4
+    },
+    {
+      "ecosystem": "c",
+      "role": "comment",
+      "eligible": 1,
+      "selected": 1
+    },
+    {
+      "ecosystem": "c",
+      "role": "comment",
+      "eligible": 1,
+      "selected": 1
+    },
+    {
+      "ecosystem": "go",
+      "role": "comment",
+      "eligible": 1,
+      "selected": 1
+    },
+    {
+      "ecosystem": "powershell",
+      "role": "comment",
+      "eligible": 4,
+      "selected": 4
+    },
+    {
+      "ecosystem": "python",
+      "role": "comment",
+      "eligible": 2,
+      "selected": 2
+    },
+    {
+      "ecosystem": "go",
+      "role": "comment",
+      "eligible": 2,
+      "selected": 2
+    },
+    {
+      "ecosystem": "powershell",
+      "role": "comment",
+      "eligible": 4,
+      "selected": 4
+    },
+    {
+      "ecosystem": "python",
+      "role": "comment",
+      "eligible": 2,
+      "selected": 2
+    }
+  ],
+  "tasks": [
+    {
+      "id": "t2d9bf24f4c719614",
+      "source_id": "ce67cce110f9adb0217096d4",
+      "unit_id": "u003267",
+      "group_id": "e45421973150236ed80d824979f3d3e615c712ca9dc85ff864ea686ed1103090",
+      "partition": "calibration",
+      "cohort": "historical",
+      "repository": "urfave/cli",
+      "ecosystem": "go",
+      "path": "altsrc/flag.go",
+      "role": "comment",
+      "words": 57,
+      "text": "InitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "text_sha256": "6c573ced503220f7885e125673d562d143f6c884426738136d15c67072142876",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc",
+        "identifiers": [
+          "InitInputSourceWithContext",
+          "flags",
+          "cli",
+          "Flag",
+          "createInputSource",
+          "context",
+          "Context",
+          "InputSourceContext",
+          "error",
+          "BeforeFunc"
+        ],
+        "parameters": "flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)",
+        "numbers": [],
+        "sha256": "20ceab0d90227ef058c66d293afe2b9d3bd58757c1d5699076b580d972c8300b"
+      }
+    },
+    {
+      "id": "t58b094a8ad3a9a4e",
+      "source_id": "2da82675dfd2d8769b3c16fd",
+      "unit_id": "u001034",
+      "group_id": "e45421973150236ed80d824979f3d3e615c712ca9dc85ff864ea686ed1103090",
+      "partition": "calibration",
+      "cohort": "historical",
+      "repository": "urfave/cli",
+      "ecosystem": "go",
+      "path": "errors.go",
+      "role": "comment",
+      "words": 56,
+      "text": "HandleExitCoder checks if the error fulfills the ExitCoder interface, and if  so prints the error to stderr (if it is non-empty) and calls OsExiter with the  given exit code.  If the given error is a MultiError, then this func is  called on all members of the Errors slice and calls OsExiter with the last exit code.",
+      "text_sha256": "0eaa7238b4bf390b4198e41e1e600c4419bce8d2203c1751237a1b8e8a4f9f31",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func HandleExitCoder(err error)",
+        "identifiers": [
+          "HandleExitCoder",
+          "err",
+          "error"
+        ],
+        "parameters": "err error",
+        "numbers": [],
+        "sha256": "d02f66c48b3265653434760c4d8677133a1a1a77666c3621b51ee09898511705"
+      }
+    },
+    {
+      "id": "t76457361584acfa0",
+      "source_id": "ed63725d81b077f7e4d58525",
+      "unit_id": "u000154",
+      "group_id": "0cedbc3c2f51ae53eef2fbea1717fd990532d95a326311461f9f5541e8d753b4",
+      "partition": "calibration",
+      "cohort": "historical",
+      "repository": "pallets/click",
+      "ecosystem": "python",
+      "path": "src/click/utils.py",
+      "role": "comment",
+      "words": 55,
+      "text": "If there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "text_sha256": "d71ea0dbec0362bccb6d0b8d196a688391129850d56eef7356eb1fad598ef1cb",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "if message and not PY2 and is_bytes(message)",
+        "identifiers": [
+          "if",
+          "message",
+          "and",
+          "not",
+          "PY2",
+          "is_bytes"
+        ],
+        "parameters": "message",
+        "numbers": [
+          "3"
+        ],
+        "sha256": "22733fa10e92ff8bd390816f89d1c0fcb7860d24f63168197e444fbd19a0464b"
+      }
+    },
+    {
+      "id": "t7eac7ad5db9ffae3",
+      "source_id": "3eedb5f5588190f3baa57deb",
+      "unit_id": "u000117",
+      "group_id": "be97fbe02ab861473d987b77a5d691492abc93f04bed8df5ebdb61c4c5295c92",
+      "partition": "calibration",
+      "cohort": "historical",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Rules/GoodCmdlet.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Get-Folder",
+        "identifiers": [
+          "Get",
+          "Folder"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "74c661d74680e0c847fa868d6c2535c2e10dc65def345631d8767f78c1843f67"
+      }
+    },
+    {
+      "id": "t99bece256a98960c",
+      "source_id": "b01674d072a461065f124d0f",
+      "unit_id": "u001164",
+      "group_id": "6b45ac52939dd772296fb2fa8de397a59473b6b0234ddd304ebe43162f259896",
+      "partition": "calibration",
+      "cohort": "historical",
+      "repository": "urfave/cli",
+      "ecosystem": "go",
+      "path": "parse.go",
+      "role": "comment",
+      "words": 63,
+      "text": "To enable short-option handling (e.g., \"-it\" vs \"-i -t\") we have to  iteratively catch parsing errors. This way we achieve LR parsing without  transforming any arguments. Otherwise, there is no way we can discriminate  combined short options from common arguments that should be left untouched.  Pass `shellComplete` to continue parsing options on failure during shell  completion when, the user-supplied options may be incomplete.",
+      "text_sha256": "a127488dfca8ac97270daa8eb398fedf442be4d8e89b2c9c8d8602c6728aaa11",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func parseIter(set *flag.FlagSet, ip iterativeParser, args []string, shellComplete bool) error",
+        "identifiers": [
+          "parseIter",
+          "set",
+          "flag",
+          "FlagSet",
+          "ip",
+          "iterativeParser",
+          "args",
+          "shellComplete",
+          "error"
+        ],
+        "parameters": "set *flag.FlagSet, ip iterativeParser, args []string, shellComplete bool",
+        "numbers": [],
+        "sha256": "be0c99d9911b01ad711876c45b1a6bf9224a306b7a07046b78ba1647314bfa5c"
+      }
+    },
+    {
+      "id": "td13ff3445d211e39",
+      "source_id": "3eedb5f5588190f3baa57deb",
+      "unit_id": "u000084",
+      "group_id": "be97fbe02ab861473d987b77a5d691492abc93f04bed8df5ebdb61c4c5295c92",
+      "partition": "calibration",
+      "cohort": "historical",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Rules/GoodCmdlet.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Get-File",
+        "identifiers": [
+          "Get",
+          "File"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "c4476ea41fe15a0c6820d6e22336c1beb837047736eeb34ba19659b0e6587cb9"
+      }
+    },
+    {
+      "id": "te21ebeec602453d5",
+      "source_id": "6665ea41981dfbc1e2f7ab5b",
+      "unit_id": "u001635",
+      "group_id": "5348e050bbef8c7e1019bd56d9939e64ce426e948c84c5564bcf72052f806f79",
+      "partition": "calibration",
+      "cohort": "historical",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Engine/GlobalSuppression.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Verb-Noun",
+        "identifiers": [
+          "Verb",
+          "Noun"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "f09c6beac26bac1163cff8c4994a6ed2b6b813f0c4773a62c42668720008bf6b"
+      }
+    },
+    {
+      "id": "tf35301c9ba21c68b",
+      "source_id": "ed63725d81b077f7e4d58525",
+      "unit_id": "u000159",
+      "group_id": "0cedbc3c2f51ae53eef2fbea1717fd990532d95a326311461f9f5541e8d753b4",
+      "partition": "calibration",
+      "cohort": "historical",
+      "repository": "pallets/click",
+      "ecosystem": "python",
+      "path": "src/click/utils.py",
+      "role": "comment",
+      "words": 56,
+      "text": "ANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "text_sha256": "c20c28d4789de100682b89339d962ec0a07726c951793d250fd67cc41f6b05a9",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "if message and not is_bytes(message)",
+        "identifiers": [
+          "if",
+          "message",
+          "and",
+          "not",
+          "is_bytes"
+        ],
+        "parameters": "message",
+        "numbers": [],
+        "sha256": "eb96a97dd690c3c0405d4f6f6fa857ec6cbfb33f066492eb8541271186c657d1"
+      }
+    },
+    {
+      "id": "tfb24efad1da60a59",
+      "source_id": "cc684d3269b02b1d9d1fa562",
+      "unit_id": "u000495",
+      "group_id": "288213bf436e10fd36023a415ccb6dd8e72b4e97987506f1c47fcbf8b92e753e",
+      "partition": "calibration",
+      "cohort": "historical",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Rules/AvoidShouldContinueWithoutForce.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Verb-Noun2",
+        "identifiers": [
+          "Verb",
+          "Noun2"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "c34f892c0de7d55425d1640c9100bb3c484afc37c70d21a283f298a9a545b0db"
+      }
+    },
+    {
+      "id": "t127606d3db6a4c7f",
+      "source_id": "ba3b28f543b367ae339d623d",
+      "unit_id": "u000302",
+      "group_id": "d28d7d8040135c4815de5e6926359760d6590214448aeee05eff170d747aabb4",
+      "partition": "calibration",
+      "cohort": "contemporary",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Rules/AvoidShouldContinueWithoutForce.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Verb-Noun2",
+        "identifiers": [
+          "Verb",
+          "Noun2"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "c34f892c0de7d55425d1640c9100bb3c484afc37c70d21a283f298a9a545b0db"
+      }
+    },
+    {
+      "id": "t7aa4285466ad1b1f",
+      "source_id": "cb7462b3351a08c64d5e8f81",
+      "unit_id": "u000417",
+      "group_id": "d28d7d8040135c4815de5e6926359760d6590214448aeee05eff170d747aabb4",
+      "partition": "calibration",
+      "cohort": "contemporary",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Rules/GoodCmdlet.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Get-File",
+        "identifiers": [
+          "Get",
+          "File"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "c4476ea41fe15a0c6820d6e22336c1beb837047736eeb34ba19659b0e6587cb9"
+      }
+    },
+    {
+      "id": "tb6ea12de4b1f09ee",
+      "source_id": "cb7462b3351a08c64d5e8f81",
+      "unit_id": "u000450",
+      "group_id": "d28d7d8040135c4815de5e6926359760d6590214448aeee05eff170d747aabb4",
+      "partition": "calibration",
+      "cohort": "contemporary",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Rules/GoodCmdlet.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Get-Folder",
+        "identifiers": [
+          "Get",
+          "Folder"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "74c661d74680e0c847fa868d6c2535c2e10dc65def345631d8767f78c1843f67"
+      }
+    },
+    {
+      "id": "td925858d2cbc9209",
+      "source_id": "a26d03bb262cfbbc88d49509",
+      "unit_id": "u000499",
+      "group_id": "2b3bf6f902907161c3fd8ef7290daad41e4205a6dbdbaf6ed5e2d15f5e1969ec",
+      "partition": "calibration",
+      "cohort": "contemporary",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Engine/GlobalSuppression.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Verb-Noun",
+        "identifiers": [
+          "Verb",
+          "Noun"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "f09c6beac26bac1163cff8c4994a6ed2b6b813f0c4773a62c42668720008bf6b"
+      }
+    },
+    {
+      "id": "t856305b9cb5f4d11",
+      "source_id": "84de2e00da36e1095e4f695c",
+      "unit_id": "u000131",
+      "group_id": "5138020ffab7b914a383cc782aba76e0a2e757bd406ff4be2d5d5817e21c2a2a",
+      "partition": "calibration",
+      "cohort": "historical-2012",
+      "repository": "akheron/jansson",
+      "ecosystem": "c",
+      "path": "src/hashtable.h",
+      "role": "comment",
+      "words": 59,
+      "text": "There's no need to free the iterator in any way. The iterator is  valid as long as the item that is referenced by the iterator is not  deleted. Other values may be added or deleted. In particular,  hashtable_iter_next() may be called on an iterator, and after that  the key/value pair pointed by the old iterator may be deleted.",
+      "text_sha256": "2a70e2cf806813f4d8a59a5b78856537f646f5217db44fe0bd9a4e30ef8ffc8c",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "void *hashtable_iter(hashtable_t *hashtable)",
+        "identifiers": [
+          "hashtable_iter",
+          "hashtable_t",
+          "hashtable"
+        ],
+        "parameters": "hashtable_t *hashtable",
+        "numbers": [],
+        "sha256": "eca72236a084a12053b736cbabd2e05edb2130d9a6d61e5bbeaada5ae4b603a2"
+      }
+    },
+    {
+      "id": "t05dfd5c49ee553ed",
+      "source_id": "dc435b3960a2977722ab1f6a",
+      "unit_id": "u003151",
+      "group_id": "13ed5d28c2683eb34ed25f8055da73fc77670c7fd0dbff1f1d04b13042c02c4f",
+      "partition": "calibration",
+      "cohort": "historical-2016",
+      "repository": "urfave/cli",
+      "ecosystem": "go",
+      "path": "altsrc/flag.go",
+      "role": "comment",
+      "words": 57,
+      "text": "InitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "text_sha256": "6c573ced503220f7885e125673d562d143f6c884426738136d15c67072142876",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc",
+        "identifiers": [
+          "InitInputSourceWithContext",
+          "flags",
+          "cli",
+          "Flag",
+          "createInputSource",
+          "context",
+          "Context",
+          "InputSourceContext",
+          "error",
+          "BeforeFunc"
+        ],
+        "parameters": "flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)",
+        "numbers": [],
+        "sha256": "20ceab0d90227ef058c66d293afe2b9d3bd58757c1d5699076b580d972c8300b"
+      }
+    },
+    {
+      "id": "t063992c0fe5250c3",
+      "source_id": "a83e7ff8f72e7f2095447b20",
+      "unit_id": "u000541",
+      "group_id": "edebb37f58d3ddf4c3d138321a9346751a333da977c1f9900bbec066ce84cf30",
+      "partition": "calibration",
+      "cohort": "historical-2016",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Engine/GlobalSuppression.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Verb-Noun",
+        "identifiers": [
+          "Verb",
+          "Noun"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "f09c6beac26bac1163cff8c4994a6ed2b6b813f0c4773a62c42668720008bf6b"
+      }
+    },
+    {
+      "id": "t0694ed92a4cc9e6b",
+      "source_id": "079236ec0f7ef44a9dcb2eb1",
+      "unit_id": "u000030",
+      "group_id": "4f8a39a23a069c658f81f819ce3e12c5fa5038ab65620c9bf22eb78533d5339a",
+      "partition": "calibration",
+      "cohort": "historical-2016",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Rules/AvoidShouldContinueWithoutForce.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Verb-Noun2",
+        "identifiers": [
+          "Verb",
+          "Noun2"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "c34f892c0de7d55425d1640c9100bb3c484afc37c70d21a283f298a9a545b0db"
+      }
+    },
+    {
+      "id": "t52d3f156596ab5b7",
+      "source_id": "68cdd4b5646732b6f7fb3271",
+      "unit_id": "u000416",
+      "group_id": "93403c612ac149eee94740a25d2ff98bb5161196f3097d432eddeaeb26863116",
+      "partition": "calibration",
+      "cohort": "historical-2016",
+      "repository": "pallets/click",
+      "ecosystem": "python",
+      "path": "click/utils.py",
+      "role": "comment",
+      "words": 55,
+      "text": "If there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "text_sha256": "d71ea0dbec0362bccb6d0b8d196a688391129850d56eef7356eb1fad598ef1cb",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "if message and not PY2 and is_bytes(message)",
+        "identifiers": [
+          "if",
+          "message",
+          "and",
+          "not",
+          "PY2",
+          "is_bytes"
+        ],
+        "parameters": "message",
+        "numbers": [
+          "3"
+        ],
+        "sha256": "22733fa10e92ff8bd390816f89d1c0fcb7860d24f63168197e444fbd19a0464b"
+      }
+    },
+    {
+      "id": "t772a084456dd8165",
+      "source_id": "ed4d4a7512689457100b0fd6",
+      "unit_id": "u000550",
+      "group_id": "697d20df4c9cb13177b85e9717a77913eb31c1eba2768a38f3592884e75ea3eb",
+      "partition": "calibration",
+      "cohort": "historical-2016",
+      "repository": "akheron/jansson",
+      "ecosystem": "c",
+      "path": "src/hashtable.h",
+      "role": "comment",
+      "words": 59,
+      "text": "There's no need to free the iterator in any way. The iterator is  valid as long as the item that is referenced by the iterator is not  deleted. Other values may be added or deleted. In particular,  hashtable_iter_next() may be called on an iterator, and after that  the key/value pair pointed by the old iterator may be deleted.",
+      "text_sha256": "2a70e2cf806813f4d8a59a5b78856537f646f5217db44fe0bd9a4e30ef8ffc8c",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "void *hashtable_iter(hashtable_t *hashtable)",
+        "identifiers": [
+          "hashtable_iter",
+          "hashtable_t",
+          "hashtable"
+        ],
+        "parameters": "hashtable_t *hashtable",
+        "numbers": [],
+        "sha256": "eca72236a084a12053b736cbabd2e05edb2130d9a6d61e5bbeaada5ae4b603a2"
+      }
+    },
+    {
+      "id": "tc430aeed1b4ac2ef",
+      "source_id": "68cdd4b5646732b6f7fb3271",
+      "unit_id": "u000421",
+      "group_id": "93403c612ac149eee94740a25d2ff98bb5161196f3097d432eddeaeb26863116",
+      "partition": "calibration",
+      "cohort": "historical-2016",
+      "repository": "pallets/click",
+      "ecosystem": "python",
+      "path": "click/utils.py",
+      "role": "comment",
+      "words": 56,
+      "text": "ANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "text_sha256": "c20c28d4789de100682b89339d962ec0a07726c951793d250fd67cc41f6b05a9",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "if message and not is_bytes(message)",
+        "identifiers": [
+          "if",
+          "message",
+          "and",
+          "not",
+          "is_bytes"
+        ],
+        "parameters": "message",
+        "numbers": [],
+        "sha256": "eb96a97dd690c3c0405d4f6f6fa857ec6cbfb33f066492eb8541271186c657d1"
+      }
+    },
+    {
+      "id": "tdca38caf12d9affe",
+      "source_id": "e6577047c2ee0b6131d1a309",
+      "unit_id": "u000653",
+      "group_id": "831d97f564d981ac53a3b627ef5406febd3f9d92c0a26698c11c3f8d72c52556",
+      "partition": "calibration",
+      "cohort": "historical-2016",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Rules/GoodCmdlet.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Get-File",
+        "identifiers": [
+          "Get",
+          "File"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "c4476ea41fe15a0c6820d6e22336c1beb837047736eeb34ba19659b0e6587cb9"
+      }
+    },
+    {
+      "id": "tdcb23d5b79f00e11",
+      "source_id": "e6577047c2ee0b6131d1a309",
+      "unit_id": "u000686",
+      "group_id": "831d97f564d981ac53a3b627ef5406febd3f9d92c0a26698c11c3f8d72c52556",
+      "partition": "calibration",
+      "cohort": "historical-2016",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Rules/GoodCmdlet.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Get-Folder",
+        "identifiers": [
+          "Get",
+          "Folder"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "74c661d74680e0c847fa868d6c2535c2e10dc65def345631d8767f78c1843f67"
+      }
+    },
+    {
+      "id": "t0bf117958db904c5",
+      "source_id": "feea9efdde9064a688062246",
+      "unit_id": "u001490",
+      "group_id": "23fb2e9d4137a583e4529c2702e15edd0dc98fe41cdf84467ef9616227db4bb1",
+      "partition": "calibration",
+      "cohort": "historical-2018",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Engine/GlobalSuppression.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Verb-Noun",
+        "identifiers": [
+          "Verb",
+          "Noun"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "f09c6beac26bac1163cff8c4994a6ed2b6b813f0c4773a62c42668720008bf6b"
+      }
+    },
+    {
+      "id": "t1da8d97e76cd0a81",
+      "source_id": "54642d527285a7d7bfeb9f49",
+      "unit_id": "u000162",
+      "group_id": "56a85d668f06dc67d8ed6d26f89af02d760b96bffb5fcb37f9a0b42cab01907b",
+      "partition": "calibration",
+      "cohort": "historical-2018",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Rules/AvoidShouldContinueWithoutForce.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Verb-Noun2",
+        "identifiers": [
+          "Verb",
+          "Noun2"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "c34f892c0de7d55425d1640c9100bb3c484afc37c70d21a283f298a9a545b0db"
+      }
+    },
+    {
+      "id": "t253a2fc4632c193a",
+      "source_id": "361bace7518553897912ff6a",
+      "unit_id": "u000227",
+      "group_id": "ddef07428bbbe1f954e7d0855a874e4779f3ee81b5d0f663782927ed5a57e14d",
+      "partition": "calibration",
+      "cohort": "historical-2018",
+      "repository": "urfave/cli",
+      "ecosystem": "go",
+      "path": "errors.go",
+      "role": "comment",
+      "words": 56,
+      "text": "HandleExitCoder checks if the error fulfills the ExitCoder interface, and if  so prints the error to stderr (if it is non-empty) and calls OsExiter with the  given exit code.  If the given error is a MultiError, then this func is  called on all members of the Errors slice and calls OsExiter with the last exit code.",
+      "text_sha256": "0eaa7238b4bf390b4198e41e1e600c4419bce8d2203c1751237a1b8e8a4f9f31",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func HandleExitCoder(err error)",
+        "identifiers": [
+          "HandleExitCoder",
+          "err",
+          "error"
+        ],
+        "parameters": "err error",
+        "numbers": [],
+        "sha256": "d02f66c48b3265653434760c4d8677133a1a1a77666c3621b51ee09898511705"
+      }
+    },
+    {
+      "id": "t527a4fcc3cef068b",
+      "source_id": "a9f6c3ef2bc0a686f35eaa40",
+      "unit_id": "u000333",
+      "group_id": "2263f6b6e4bfc1ea88495bd59131a41e11a60206f042127c19286502abb7631a",
+      "partition": "calibration",
+      "cohort": "historical-2018",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Rules/GoodCmdlet.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Get-Folder",
+        "identifiers": [
+          "Get",
+          "Folder"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "74c661d74680e0c847fa868d6c2535c2e10dc65def345631d8767f78c1843f67"
+      }
+    },
+    {
+      "id": "tb10a7de063a9533b",
+      "source_id": "a9f6c3ef2bc0a686f35eaa40",
+      "unit_id": "u000300",
+      "group_id": "2263f6b6e4bfc1ea88495bd59131a41e11a60206f042127c19286502abb7631a",
+      "partition": "calibration",
+      "cohort": "historical-2018",
+      "repository": "PowerShell/PSScriptAnalyzer",
+      "ecosystem": "powershell",
+      "path": "Tests/Rules/GoodCmdlet.ps1",
+      "role": "comment",
+      "words": 62,
+      "text": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "text_sha256": "be630201e080acde7a236df164373adc3b25a2a3cac9afef9e72a11ae44009ad",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "function Get-File",
+        "identifiers": [
+          "Get",
+          "File"
+        ],
+        "parameters": "",
+        "numbers": [],
+        "sha256": "c4476ea41fe15a0c6820d6e22336c1beb837047736eeb34ba19659b0e6587cb9"
+      }
+    },
+    {
+      "id": "tbd68edad8ad9ebb1",
+      "source_id": "bc56b8e404244508e19877c5",
+      "unit_id": "u001225",
+      "group_id": "ba381ce16b95898a4e26bfd58f19c2c3b40b1fb703f37f2bd0e6d5f36219c235",
+      "partition": "calibration",
+      "cohort": "historical-2018",
+      "repository": "pallets/click",
+      "ecosystem": "python",
+      "path": "click/utils.py",
+      "role": "comment",
+      "words": 55,
+      "text": "If there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "text_sha256": "d71ea0dbec0362bccb6d0b8d196a688391129850d56eef7356eb1fad598ef1cb",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "if message and not PY2 and is_bytes(message)",
+        "identifiers": [
+          "if",
+          "message",
+          "and",
+          "not",
+          "PY2",
+          "is_bytes"
+        ],
+        "parameters": "message",
+        "numbers": [
+          "3"
+        ],
+        "sha256": "22733fa10e92ff8bd390816f89d1c0fcb7860d24f63168197e444fbd19a0464b"
+      }
+    },
+    {
+      "id": "tea566d3588837dcd",
+      "source_id": "f3cdedcd51092ad7e62d2864",
+      "unit_id": "u003445",
+      "group_id": "ddef07428bbbe1f954e7d0855a874e4779f3ee81b5d0f663782927ed5a57e14d",
+      "partition": "calibration",
+      "cohort": "historical-2018",
+      "repository": "urfave/cli",
+      "ecosystem": "go",
+      "path": "altsrc/flag.go",
+      "role": "comment",
+      "words": 57,
+      "text": "InitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "text_sha256": "6c573ced503220f7885e125673d562d143f6c884426738136d15c67072142876",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "func InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc",
+        "identifiers": [
+          "InitInputSourceWithContext",
+          "flags",
+          "cli",
+          "Flag",
+          "createInputSource",
+          "context",
+          "Context",
+          "InputSourceContext",
+          "error",
+          "BeforeFunc"
+        ],
+        "parameters": "flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)",
+        "numbers": [],
+        "sha256": "20ceab0d90227ef058c66d293afe2b9d3bd58757c1d5699076b580d972c8300b"
+      }
+    },
+    {
+      "id": "tff1a5abe345119ea",
+      "source_id": "bc56b8e404244508e19877c5",
+      "unit_id": "u001230",
+      "group_id": "ba381ce16b95898a4e26bfd58f19c2c3b40b1fb703f37f2bd0e6d5f36219c235",
+      "partition": "calibration",
+      "cohort": "historical-2018",
+      "repository": "pallets/click",
+      "ecosystem": "python",
+      "path": "click/utils.py",
+      "role": "comment",
+      "words": 56,
+      "text": "ANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "text_sha256": "c20c28d4789de100682b89339d962ec0a07726c951793d250fd67cc41f6b05a9",
+      "fact_sheet": {
+        "version": "unswell-fact-sheet-v1",
+        "signature": "if message and not is_bytes(message)",
+        "identifiers": [
+          "if",
+          "message",
+          "and",
+          "not",
+          "is_bytes"
+        ],
+        "parameters": "message",
+        "numbers": [],
+        "sha256": "eb96a97dd690c3c0405d4f6f6fa857ec6cbfb33f066492eb8541271186c657d1"
+      }
+    }
+  ]
+}

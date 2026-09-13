@@ -1,0 +1,733 @@
+{
+  "version": "unswell-responses-v1",
+  "run": "2026-09-13-calib-luna",
+  "family": "openai",
+  "model": "gpt-5.6-luna",
+  "model_basis": "the model the Codex CLI reports in the header of every non-interactive run",
+  "harness": "Codex CLI exec, one non-interactive turn per request, read-only sandbox, isolated home without instructions or skills, flat-rate subscription, no API call",
+  "agent_type": "codex exec",
+  "generated_on": "2026-09-13",
+  "parameters": "reasoning effort low, the lowest the model accepts; other decoding parameters unavailable",
+  "responses": [
+    {
+      "request_id": "r2b66c036e55c1686",
+      "text": "InitInputSourceWithContext returns a cli.BeforeFunc. It accepts flags, a []cli.Flag parameter, and createInputSource, a function with the signature func(context *cli.Context) (InputSourceContext, error). The creation function receives a cli.Context pointer and returns an InputSourceContext together with an error. No numeric parameters are specified. The flags parameter is a slice of cli.Flag values.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2bfe4388349049de",
+      "text": "`InitInputSourceWithContext` returns a `cli.BeforeFunc`. It accepts `flags`, a slice of `cli.Flag` values, and `createInputSource`, a function receiving a `*cli.Context`. That function returns an `InputSourceContext` and an `error`. The returned `BeforeFunc` represents initialization using the supplied flags and the context-aware input-source creation callback.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r401840f2f4d7dca7",
+      "text": "InitInputSourceWithContext sets up an InputSourceContext in a cli.Command Before method. It creates a new input source based on the provided function, potentially using existing cli.Context values for initialization. If no error occurs, it applies the new input source to any flags supported by that input source.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r85e3b38ccd7bee43",
+      "text": "InitInputSourceWithContext sets up an InputSourceContext for a cli.Command Before method. It creates a new input source from the provided function, optionally using existing cli.Context values to initialize itself. If no error occurs, it then applies the new input source to any flags supported by that input source during command setup.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6514aa9ec4572987",
+      "text": "`HandleExitCoder` defines a function that accepts one parameter, `err`, of type `error`. Callers provide an error value when invoking this function. The signature is:\n\n```go\nfunc HandleExitCoder(err error)\n```\n\nThe function has no declared return values. Its identifiers are `HandleExitCoder`, `err`, and `error`; the signature contains no numeric values.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1781086bbd58cfa2",
+      "text": "HandleExitCoder accepts an error value and processes it according to the function’s exit-handling behavior. The err parameter has type error and identifies the error supplied to the function. The function has no return value and accepts one argument. Callers use HandleExitCoder when they need to pass an error into this exit-coding handler directly.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3d52ec69c4e95012",
+      "text": "HandleExitCoder checks whether the error implements the ExitCoder interface. If so, it prints the error to stderr (if non-empty) and calls OsExiter with the given exit code. If the error is a MultiError, this function is called for each member of the Errors slice, and OsExiter is called with the last exit code.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra0dc679393d360da",
+      "text": "HandleExitCoder checks whether the error fulfills the ExitCoder interface. If so, it prints the error to stderr when non-empty and calls OsExiter with the specified exit code. If the error is a MultiError, HandleExitCoder is called for each member of the Errors slice, and OsExiter is called with the last exit code.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r55b3dc41145c07da",
+      "text": "This signature checks whether a message is available, whether the runtime is not Python 2, and whether the message is bytes. It returns a truthy result only when all three conditions hold: `message`, `not PY2`, and `is_bytes(message)`. The identifiers are `if`, `message`, `and`, `not`, `PY2`, and `is_bytes`; `message` is the parameter.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r353a61add3315a1d",
+      "text": "This signature checks whether message is present, confirms that the runtime is not Python 2, and verifies that message is a byte sequence. It uses three logical conditions: message, not PY2, and is_bytes(message). The expression evaluates as true only when all conditions succeed. The parameter is message; identifiers include if, and, not, PY2, and is_bytes.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0ffa692fb4d5e761",
+      "text": "If there is a message, we are using Python 3, and the value appears to be bytes, we manually find the binary stream and write the message to it. This is handled separately so that most stream types work as expected. For example, you can write to `StringIO` in other cases.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rda8e4073b76ae356",
+      "text": "If a message exists in Python 3 and its value appears to be bytes, manually locate the binary stream and write the message to it. This handling is separate so that most stream types continue to work as expected. For example, in other cases, you can write the message to StringIO as you normally would.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc2ce52750ef851cb",
+      "text": "Get-Folder is a function with no parameters. Its signature is `function Get-Folder`. The function name contains the identifiers `Get` and `Folder`. This signature defines no parameters and includes no numbers. Consequently, the documented callable consists solely of the function declaration and its name. `Get-Folder` is therefore identified by `Get` and `Folder`, with no parameter list or numeric elements specified.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rda934f53fb144d98",
+      "text": "`Get-Folder` is a function with no parameters. It returns a folder, but the supplied signature does not specify how the folder is selected, represented, or produced. The function name uses the identifiers `Get` and `Folder`. Because no parameters are defined, callers provide no arguments. No numeric values are part of this signature. Further behavior requires additional documentation about its implementation and usage.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r331b24232b01fa0b",
+      "text": ".SYNOPSIS    A brief description of the cmdlet\n.DESCRIPTION    A detailed description of the cmdlet\n.EXAMPLE    An example of how to use this cmdlet\n.EXAMPLE    Another example of how to use this cmdlet\n.INPUTS    The inputs accepted by this cmdlet, if any\n.OUTPUTS    The output produced by this cmdlet, if any\n.NOTES    General notes about the cmdlet\n.COMPONENT    The component to which this cmdlet belongs\n.ROLE    The role to which this cmdlet belongs\n.FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc7ae14300428c691",
+      "text": ".SYNOPSIS    A short description of this cmdlet  \n.DESCRIPTION    A long description of this cmdlet  \n.EXAMPLE    An example showing how to use this cmdlet  \n.EXAMPLE    Another example showing how to use this cmdlet  \n.INPUTS    Inputs accepted by this cmdlet, if any  \n.OUTPUTS    Output produced by this cmdlet, if any  \n.NOTES    General notes  \n.COMPONENT    The component to which this cmdlet belongs  \n.ROLE    The role to which this cmdlet belongs  \n.FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r172def1a4bd4ccfd",
+      "text": "parseIter is a function that parses arguments using a flag.FlagSet and an iterativeParser. It accepts four parameters: set, a pointer to flag.FlagSet; ip, an iterativeParser; args, a slice of strings; and shellComplete, a Boolean value. The function returns an error, allowing callers to receive the result of argument parsing and handle parsing failures explicitly when applicable for further handling by the caller directly.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rbf5aa7c338d18a0c",
+      "text": "parseIter is declared with four parameters and an error return. The first parameter is set, typed as *flag.FlagSet. The second is ip, typed as iterativeParser. The third is args, typed as []string. The fourth is shellComplete, typed as bool. The function uses the identifiers parseIter, set, flag, FlagSet, ip, iterativeParser, args, shellComplete, and error. The declaration provides the complete function signature shown.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r78a9a2d207065374",
+      "text": "To enable short-option handling (e.g., \"-it\" vs. \"-i -t\"), we must iteratively catch parsing errors. This achieves LR parsing without transforming any arguments. Otherwise, there is no way to distinguish combined short options from common arguments that should remain untouched. Pass `shellComplete` to continue parsing options after failure during shell completion, when user-supplied options may be incomplete.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r37ea3c0c50eb6b14",
+      "text": "To enable short-option handling (e.g., “-it” versus “-i -t”), we must iteratively catch parsing errors. In this way, we achieve LR parsing without transforming any arguments. Otherwise, there is no way to distinguish combined short options from common arguments that should remain untouched. Pass `shellComplete` to continue parsing options after a failure during shell completion, when the user-supplied options may be incomplete.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r01db32c569a28a71",
+      "text": "## Get-File\n\n`Get-File` is a function signature with no parameters and no numeric values. The signature is:\n\n```text\nfunction Get-File\n```\n\nIts identifiers are `Get` and `File`. Together, they identify the function as `Get-File`. Because the parameter list is empty, the declaration does not specify any inputs. No numbers are included in the signature or associated identifier information provided here for this function declaration.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r12b98bdda4cc5eeb",
+      "text": "Get-File is a function with the signature function Get-File. Its identifiers are Get and File. The function accepts no parameters and does not define any numeric values. Use Get-File when referring to this function by name. Because no parameters are specified, its documented interface contains only the function signature and its identifiers. No additional behavior, inputs, outputs, or options are defined here.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r921f192fce22021a",
+      "text": ".SYNOPSIS    A short description  \n.DESCRIPTION    A long description  \n.EXAMPLE    An example of how to use this cmdlet  \n.EXAMPLE    Another example of how to use this cmdlet  \n.INPUTS    Inputs to this cmdlet, if any  \n.OUTPUTS    Output from this cmdlet, if any  \n.NOTES    General notes  \n.COMPONENT    The component to which this cmdlet belongs  \n.ROLE    The role to which this cmdlet belongs  \n.FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r836e126cfe78046d",
+      "text": ".SYNOPSIS    Short description of the cmdlet .DESCRIPTION    Long description of the cmdlet .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs accepted by this cmdlet (if any) .OUTPUTS    Output produced by this cmdlet (if any) .NOTES    General notes .COMPONENT    Component to which this cmdlet belongs .ROLE    Role to which this cmdlet belongs .FUNCTIONALITY    Functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r44bb3763dc85ae37",
+      "text": "Please provide the material to document.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5936ca81747d9875",
+      "text": "Please provide the material to document.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcbe326d7413a134b",
+      "text": ".SYNOPSIS    A short description of this cmdlet  \n.DESCRIPTION    A long description of this cmdlet  \n.EXAMPLE    An example of how to use this cmdlet  \n.EXAMPLE    Another example of how to use this cmdlet  \n.INPUTS    Inputs accepted by this cmdlet, if any  \n.OUTPUTS    Output produced by this cmdlet, if any  \n.NOTES    General notes  \n.COMPONENT    The component to which this cmdlet belongs  \n.ROLE    The role to which this cmdlet belongs  \n.FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb655349de32f0a85",
+      "text": ".SYNOPSIS Short description\n\n.DESCRIPTION Long description\n\n.EXAMPLE Example of how to use this cmdlet\n\n.EXAMPLE Another example of how to use this cmdlet\n\n.INPUTS Inputs to this cmdlet, if any\n\n.OUTPUTS Output from this cmdlet, if any\n\n.NOTES General notes\n\n.COMPONENT The component this cmdlet belongs to\n\n.ROLE The role this cmdlet belongs to\n\n.FUNCTIONALITY The functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd964d2864842b106",
+      "text": "This signature checks whether `message` is present and is not bytes. It uses a conditional expression with `message` as the parameter. The `if` condition requires a truthy `message`, while `not` reverses the result of `is_bytes(message)`. The identifiers are `if`, `message`, `and`, `not`, and `is_bytes`. No numeric values are specified.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r18733c908745ceee",
+      "text": "The expression checks whether `message` exists and is not bytes. It uses the identifiers `if`, `message`, `and`, `not`, and `is_bytes`. The parameter is `message`. The condition combines the presence of `message` with the negated result of `is_bytes(message)`. No numeric values appear in this signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5c363e81a3321449",
+      "text": "ANSI-style support. If there is no message, or we are dealing with bytes, nothing happens. If we are connected to a file, we want to strip colors. On Windows, we either wrap the stream to strip the color, or use Colorama to translate ANSI codes into API calls.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r18a3ec108a3f9a6b",
+      "text": "ANSI-style support. If there is no message to process, or if we are dealing with raw bytes, nothing happens. If we are connected to a file, we strip color codes. On Windows, we either wrap the stream to strip the color, or use Colorama support to translate ANSI codes into API calls.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc6d980235c66c656",
+      "text": "`Verb-Noun2` is a function identified by the signature `function Verb-Noun2`. It consists of the identifiers `Verb` and `Noun2` and accepts no parameters. The function definition contains no numeric values. Use the signature to reference the function by name, and use the listed identifiers when describing its identity. No parameter or number specifications are associated with this function.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r07ef006a254bdb6d",
+      "text": "Verb-Noun2 is a function identified by the names Verb and Noun2. It accepts no parameters and uses no numeric values. Call the function by its exact signature: `function Verb-Noun2`. The identifier Verb denotes the verb component, while Noun2 denotes the noun component. No additional arguments, numbers, or parameter definitions are specified for this function. The supplied definition contains no parameter list and specifies no numeric inputs.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2e76e1a0ed2cf015",
+      "text": ".SYNOPSIS  \nShort description\n\n.DESCRIPTION  \nLong description\n\n.EXAMPLE  \nExample of how to use this cmdlet\n\n.EXAMPLE  \nAnother example of how to use this cmdlet\n\n.INPUTS  \nInputs to this cmdlet, if any\n\n.OUTPUTS  \nOutput from this cmdlet, if any\n\n.NOTES  \nGeneral notes\n\n.COMPONENT  \nThe component to which this cmdlet belongs\n\n.ROLE  \nThe role to which this cmdlet belongs\n\n.FUNCTIONALITY  \nThe functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r35ef95a4227e1073",
+      "text": ".SYNOPSIS\n\nA short description.\n\n.DESCRIPTION\n\nA long description.\n\n.EXAMPLE\n\nAn example of how to use this cmdlet.\n\n.EXAMPLE\n\nAnother example of how to use this cmdlet.\n\n.INPUTS\n\nThe inputs to this cmdlet, if any.\n\n.OUTPUTS\n\nThe output from this cmdlet, if any.\n\n.NOTES\n\nGeneral notes.\n\n.COMPONENT\n\nThe component to which this cmdlet belongs.\n\n.ROLE\n\nThe role to which this cmdlet belongs.\n\n.FUNCTIONALITY\n\nThe functionality that best describes this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7050f69716c1fac1",
+      "text": "Verb-Noun2 is a function identified by the signature `function Verb-Noun2`. It uses the identifiers `Verb` and `Noun2`. The function accepts no parameters and defines no numeric values. Its documented interface therefore consists solely of its name and the two specified identifiers, with no parameter list or numbers included in the signature. Callers should refer to it exactly as `Verb-Noun2` by name.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rce8a9d134fef57fb",
+      "text": "`Verb-Noun2` is a function identified by the names `Verb` and `Noun2`. Its signature is `function Verb-Noun2`. The function accepts no parameters and contains no numeric values in its defined interface. Use the identifier `Verb-Noun2` when referring to this function, and use `Verb` and `Noun2` as its associated identifiers.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r26b2ad5f1aae2fa1",
+      "text": ".SYNOPSIS    A short description of the cmdlet\n.DESCRIPTION    A detailed description of the cmdlet\n.EXAMPLE    An example of how to use this cmdlet\n.EXAMPLE    Another example of how to use this cmdlet\n.INPUTS    The inputs accepted by this cmdlet, if any\n.OUTPUTS    The output produced by this cmdlet, if any\n.NOTES    General notes about the cmdlet\n.COMPONENT    The component to which this cmdlet belongs\n.ROLE    The role to which this cmdlet belongs\n.FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd916853e2d77ba70",
+      "text": ".SYNOPSIS    Short description of the cmdlet\n.DESCRIPTION    Detailed description of the cmdlet\n.EXAMPLE    Example showing how to use this cmdlet\n.EXAMPLE    Additional example showing how to use this cmdlet\n.INPUTS    Input accepted by this cmdlet, if any\n.OUTPUTS    Output produced by this cmdlet, if any\n.NOTES    General notes about this cmdlet\n.COMPONENT    Component to which this cmdlet belongs\n.ROLE    Role to which this cmdlet belongs\n.FUNCTIONALITY    Functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7458280b32ef8939",
+      "text": "Get-File is a function with the signature `function Get-File`. Its identifiers are `Get` and `File`. The function accepts no parameters, and no numeric values are specified. This documentation records the function name, its component identifiers, and its parameter and number definitions exactly as provided. No additional behavior, inputs, outputs, examples, or implementation details are defined here in the supplied signature description only.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra296a7b0111eb6ef",
+      "text": "Get-File is a function with the signature `function Get-File`. It defines the identifiers `Get` and `File`. The function accepts no parameters and contains no numeric values. Use the name `Get-File` when referring to the function, and treat `Get` and `File` as its documented identifiers. No additional behavior, arguments, or numeric details are specified by this material.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8c2a99c1a5eb12bc",
+      "text": ".SYNOPSIS Short description.\n\n.DESCRIPTION Long description.\n\n.EXAMPLE Example of how to use this cmdlet.\n\n.EXAMPLE Another example of how to use this cmdlet.\n\n.INPUTS Inputs to this cmdlet, if any.\n\n.OUTPUTS Output from this cmdlet, if any.\n\n.NOTES General notes.\n\n.COMPONENT The component to which this cmdlet belongs.\n\n.ROLE The role to which this cmdlet belongs.\n\n.FUNCTIONALITY The functionality that best describes this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5f51ca2fde5f0913",
+      "text": ".SYNOPSIS  \nShort description.\n\n.DESCRIPTION  \nLong description.\n\n.EXAMPLE  \nExample of using this cmdlet.\n\n.EXAMPLE  \nAnother example of using this cmdlet.\n\n.INPUTS  \nInputs to this cmdlet, if any.\n\n.OUTPUTS  \nOutput from this cmdlet, if any.\n\n.NOTES  \nGeneral notes.\n\n.COMPONENT  \nThe component to which this cmdlet belongs.\n\n.ROLE  \nThe role to which this cmdlet belongs.\n\n.FUNCTIONALITY  \nThe functionality that best describes this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rbfd60c45af2c0ca3",
+      "text": "`Get-Folder` is a function with no parameters. Its signature is:\n\n```text\nfunction Get-Folder\n```\n\nThe function name consists of the identifiers `Get` and `Folder`. Because no parameters are defined, the function accepts no arguments. The signature contains no numeric values. This documentation describes only the function declaration, its constituent identifiers, and its absence of parameters and numbers.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r024481815cfff2bb",
+      "text": "Get-Folder is a function with no parameters. Its signature is `function Get-Folder`. The function’s identifiers are `Get` and `Folder`. Because no parameters are defined, callers invoke `Get-Folder` without supplying arguments. This documentation describes only the supplied signature, identifiers, and parameter declaration: the function is named `Get-Folder`, contains `Get` and `Folder`, and accepts no parameters. No numeric values are specified in the signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1438296c02a3eb5a",
+      "text": ".SYNOPSIS  \nA short description.\n\n.DESCRIPTION  \nA long description.\n\n.EXAMPLE  \nAn example of how to use this cmdlet.\n\n.EXAMPLE  \nAnother example of how to use this cmdlet.\n\n.INPUTS  \nInputs accepted by this cmdlet, if any.\n\n.OUTPUTS  \nOutput produced by this cmdlet, if any.\n\n.NOTES  \nGeneral notes about this cmdlet.\n\n.COMPONENT  \nThe component to which this cmdlet belongs.\n\n.ROLE  \nThe role to which this cmdlet belongs.\n\n.FUNCTIONALITY  \nThe functionality that best describes this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r491c1a2f13b945c3",
+      "text": ".SYNOPSIS\n\nShort description.\n\n.DESCRIPTION\n\nLong description.\n\n.EXAMPLE\n\nExample of how to use this cmdlet.\n\n.EXAMPLE\n\nAnother example of how to use this cmdlet.\n\n.INPUTS\n\nInputs to this cmdlet, if any.\n\n.OUTPUTS\n\nOutput from this cmdlet, if any.\n\n.NOTES\n\nGeneral notes.\n\n.COMPONENT\n\nThe component to which this cmdlet belongs.\n\n.ROLE\n\nThe role to which this cmdlet belongs.\n\n.FUNCTIONALITY\n\nThe functionality that best describes this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdef6ef3ea57d6a06",
+      "text": "Verb-Noun is a function with no parameters. Its signature is `function Verb-Noun`. The identifiers associated with the signature are `Verb` and `Noun`. The function accepts no arguments, and the signature defines no numeric values. Use the identifier names exactly as specified when referring to this function or its components. No additional parameters or numbers are part of the signature definition itself.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc6888f1f366addb7",
+      "text": "Please provide the material to document.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r236bc93fcda2f458",
+      "text": ".SYNOPSIS    Brief description of the cmdlet  \n.DESCRIPTION    Detailed description of the cmdlet  \n.EXAMPLE    Example showing how to use this cmdlet  \n.EXAMPLE    Additional example showing how to use this cmdlet  \n.INPUTS    Input accepted by this cmdlet, if any  \n.OUTPUTS    Output produced by this cmdlet, if any  \n.NOTES    General notes about the cmdlet  \n.COMPONENT    Component to which this cmdlet belongs  \n.ROLE    Role to which this cmdlet belongs  \n.FUNCTIONALITY    Functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra510b94344f0c6d1",
+      "text": ".SYNOPSIS Brief description. .DESCRIPTION Detailed description. .EXAMPLE Example showing how to use this cmdlet. .EXAMPLE Example showing how to use this cmdlet. .INPUTS Inputs accepted by this cmdlet, if any. .OUTPUTS Output produced by this cmdlet, if any. .NOTES General notes. .COMPONENT Component to which this cmdlet belongs. .ROLE Role to which this cmdlet belongs. .FUNCTIONALITY Functionality that best describes this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r60718bc3d8f76cd7",
+      "text": "`hashtable_iter` is declared as:\n\n```c\nvoid *hashtable_iter(hashtable_t *hashtable)\n```\n\nThe function accepts one parameter, `hashtable`, whose type is `hashtable_t *`. Its return type is `void *`. `hashtable_iter` is the function identifier, `hashtable_t` identifies the parameter’s pointed-to type, and `hashtable` identifies the parameter. The signature defines no numeric parameters.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfb09759a710526d2",
+      "text": "The `hashtable_iter` function is declared with the following signature:\n\n```c\nvoid *hashtable_iter(hashtable_t *hashtable)\n```\n\nIt accepts one parameter, named `hashtable`, whose type is `hashtable_t *`. The function returns a `void *` value. The function identifier is `hashtable_iter`; the parameter identifier is `hashtable`. No numeric parameters are specified by this interface. This signature identifies the function and its parameter type and return type without specifying numeric parameters.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r73e14c40a13e2222",
+      "text": "There is no need to free the iterator in any way. The iterator remains valid as long as the item referenced by it is not deleted. Other values may be added or deleted. In particular, hashtable_iter_next() may be called on an iterator, after which the key/value pair pointed to by the old iterator may be deleted.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdac69affecf7d19a",
+      "text": "There is no need to free the iterator in any way. The iterator remains valid as long as the item referenced by the iterator is not deleted. Other values may be added or deleted. In particular, hashtable_iter_next() may be called on an iterator, after which the key/value pair pointed to by the old iterator may be deleted.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r90f66c56a2d99ec4",
+      "text": "InitInputSourceWithContext returns a cli.BeforeFunc that initializes an input source using command-line flags and the provided context-aware factory. It accepts flags as a slice of cli.Flag and createInputSource, which receives a *cli.Context and returns an InputSourceContext or error. The returned function supports input-source creation within CLI setup before command execution begins.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4134c4b85920cba6",
+      "text": "`InitInputSourceWithContext` returns a `cli.BeforeFunc`. It accepts `flags`, a slice of `cli.Flag` values, and `createInputSource`, a function receiving a `*cli.Context`. The function returns an `InputSourceContext` and an `error`. The resulting `cli.BeforeFunc` initializes the input source using the supplied flags and context-aware creation function.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rce4f6c8f6cc87b80",
+      "text": "InitInputSourceWithContext sets up an InputSourceContext for a cli.Command Before method. It creates a new input source from the provided function, potentially using existing cli.Context values for initialization. If no error occurs, it applies the new input source to any flags supported by that input source.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0c2e0d42da719818",
+      "text": "InitInputSourceWithContext is used to set up an InputSourceContext on a cli.Command Before method. It creates a new input source from the provided function, potentially using existing cli.Context values to initialize itself. If no error occurs, it then applies the new input source to any flags supported by that input source.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd5cac9a7da3ec180",
+      "text": "Verb-Noun is a function signature with two identifiers: Verb and Noun. It accepts no parameters and uses no numeric values. The signature defines the function name as Verb-Noun, while Verb and Noun are the identifiers associated with it. No parameter list or number specification is provided. This documentation therefore records the declared signature only, without describing additional behavior or inputs here alone.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r762886baff4e7cfa",
+      "text": "Please provide the source material to document.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r18812f081954025f",
+      "text": ".SYNOPSIS    A short description\n.DESCRIPTION    A long description\n.EXAMPLE    Example of how to use this cmdlet\n.EXAMPLE    Another example of how to use this cmdlet\n.INPUTS    Inputs to this cmdlet, if any\n.OUTPUTS    Output from this cmdlet, if any\n.NOTES    General notes\n.COMPONENT    The component this cmdlet belongs to\n.ROLE    The role this cmdlet belongs to\n.FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7bc09f8611066d9e",
+      "text": ".SYNOPSIS    Short description  \n.DESCRIPTION    Long description  \n.EXAMPLE    Example of how to use this cmdlet  \n.EXAMPLE    Another example of how to use this cmdlet  \n.INPUTS    Inputs to this cmdlet, if any  \n.OUTPUTS    Output from this cmdlet, if any  \n.NOTES    General notes  \n.COMPONENT    The component to which this cmdlet belongs  \n.ROLE    The role to which this cmdlet belongs  \n.FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdfbe29959abb7d6d",
+      "text": "The `Verb-Noun2` function is identified by the `Verb` and `Noun2` identifiers. It accepts no parameters and defines no numbers. Its exact signature is:\n\n```text\nfunction Verb-Noun2\n```\n\nThe signature contains the function name `Verb-Noun2`; `Verb` and `Noun2` are identifiers, while the parameter list is empty and the number list contains none. No arguments or numbers are specified.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r59a480dc6fbfb821",
+      "text": "Please provide the material to document.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r97488d68df947bf9",
+      "text": ".SYNOPSIS\n\nShort description.\n\n.DESCRIPTION\n\nLong description.\n\n.EXAMPLE\n\nExample showing how to use this cmdlet.\n\n.EXAMPLE\n\nAnother example showing how to use this cmdlet.\n\n.INPUTS\n\nInputs accepted by this cmdlet, if any.\n\n.OUTPUTS\n\nOutput produced by this cmdlet, if any.\n\n.NOTES\n\nGeneral notes.\n\n.COMPONENT\n\nThe component to which this cmdlet belongs.\n\n.ROLE\n\nThe role to which this cmdlet belongs.\n\n.FUNCTIONALITY\n\nThe functionality that best describes this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r816e7f35450b8fa1",
+      "text": ".SYNOPSIS    Short description\n\n.DESCRIPTION    Long description\n\n.EXAMPLE    Example of how to use this cmdlet\n\n.EXAMPLE    Another example of how to use this cmdlet\n\n.INPUTS    Inputs to this cmdlet, if any\n\n.OUTPUTS    Output from this cmdlet, if any\n\n.NOTES    General notes\n\n.COMPONENT    The component to which this cmdlet belongs\n\n.ROLE    The role to which this cmdlet belongs\n\n.FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r23e813f922de0338",
+      "text": "The signature checks whether `message` is present, Python 2 is not enabled, and `message` is bytes:\n\n```python\nif message and not PY2 and is_bytes(message)\n```\n\nIdentifiers are `if`, `message`, `and`, `not`, `PY2`, and `is_bytes`. The signature has one parameter, `message`, and includes the number `3` as associated metadata.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfae390c260500759",
+      "text": "The signature tests whether `message` is present, the runtime is not Python 2, and `message` is a byte sequence. It contains three identifiers used as conditions or a function reference: `if`, `message`, `and`, `not`, `PY2`, and `is_bytes`. `message` is the parameter. The expression combines presence, version, and type checks in one conditional expression.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0dc48a0d25ab1254",
+      "text": "If there is a message, we are using Python 3, and the value appears to be bytes, we must manually find the binary stream and write the message to it. This is handled separately so that most stream types work as expected. For example, you can write to `StringIO` in other cases.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd3ff9e27be4f65ae",
+      "text": "If a message exists in Python 3 and its value appears to be bytes, we must manually find the binary stream and write the message to it. We handle this separately so that most stream types work as expected. For example, in other cases, you can write the message to StringIO.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdfe43ba37d56671a",
+      "text": "The function `hashtable_iter` has the signature `void *hashtable_iter(hashtable_t *hashtable)`. It accepts one parameter, `hashtable`, which is a pointer to `hashtable_t`, and returns a `void *`. The signature specifies no additional parameters or numbers. The identifiers are `hashtable_iter`, `hashtable_t`, and `hashtable`; no numeric values are present.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc9b1b852ce042ad6",
+      "text": "hashtable_iter is declared as:\n\nvoid *hashtable_iter(hashtable_t *hashtable)\n\nThe function accepts one parameter, hashtable, whose type is hashtable_t *. Its declared return type is void *. The identifier hashtable_iter names the function, hashtable_t names the parameter type, and hashtable names the parameter. No numeric parameters or numeric values are specified by this signature. The declaration contains no additional parameters or return-type qualifiers.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9bf8ba21810d9db0",
+      "text": "There's no need to free the iterator in any way. The iterator is valid as long as the item referenced by the iterator is not deleted. Other values may be added or deleted. In particular, hashtable_iter_next() may be called on an iterator, and after that the key/value pair pointed to by the old iterator may be deleted.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r434fede15f22e10a",
+      "text": "There is no need to free the iterator. The iterator remains valid as long as the item it references is not deleted. Other values may be added or deleted. In particular, `hashtable_iter_next()` may be called on an iterator. Afterward, the key/value pair referenced by the previous iterator may be deleted without invalidating the iterator.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra84ba22bb8234210",
+      "text": "The condition evaluates message only when it is present and is not a bytes value. It combines the identifiers if, message, and, not, and is_bytes. message is the parameter being tested. The expression therefore represents a boolean guard: it requires message to be truthy and requires is_bytes(message) to be false. No numbers appear in this signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdace2e1af2306df5",
+      "text": "The signature evaluates whether `message` exists and is not bytes. It uses the identifiers `if`, `message`, `and`, `not`, and `is_bytes`. The single parameter is `message`. The condition first checks the parameter’s presence, then applies `is_bytes` with negation. No numeric values are included in this signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9bc488a910a1de88",
+      "text": "ANSI-style support. If there is no message, or if we are dealing with bytes, nothing happens. If we are connected to a file, we want to strip colors. On Windows, we either wrap the stream to strip the color or use Colorama support to translate the ANSI codes into API calls.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r29cb41b9148a5987",
+      "text": "ANSI-style support. If there is no message at all, or if we are dealing with bytes, nothing happens. When we are connected to a file, we want to strip all colors from the output. On Windows, we either wrap the stream to strip the color or use Colorama support to translate the ANSI color codes to API calls.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re74f20ccca2a5e15",
+      "text": "The `Get-File` function has this signature:\n\n```text\nfunction Get-File\n```\n\nIt accepts no parameters and contains no numeric values in its declaration. The identifiers associated with the function are `Get` and `File`. Because no additional behavior, return value, input requirements, or usage details are provided, documentation is limited to this signature and its identifier and parameter metadata. No other facts are specified.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4844c7dc73b63ae2",
+      "text": "## Get-File\n\n`Get-File` is a function with no parameters. It is identified by the name `Get` and the identifier `File`. The signature is:\n\n```text\nfunction Get-File\n```\n\nThe signature specifies no parameters or numeric values. No parameter definitions, numeric values, or additional function details are provided in the supplied material.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd5771ae4d48e49ce",
+      "text": ".SYNOPSIS Short description of this cmdlet\n\n.DESCRIPTION Long description of this cmdlet\n\n.EXAMPLE Example showing how to use this cmdlet\n\n.EXAMPLE Another example showing how to use this cmdlet\n\n.INPUTS Inputs accepted by this cmdlet, if any\n\n.OUTPUTS Output produced by this cmdlet, if any\n\n.NOTES General notes about this cmdlet\n\n.COMPONENT Component to which this cmdlet belongs\n\n.ROLE Role to which this cmdlet belongs\n\n.FUNCTIONALITY Functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r493d796e96f49492",
+      "text": "The `.SYNOPSIS` section provides a short description.  \n`.DESCRIPTION` provides a long description.  \nEach `.EXAMPLE` section provides an example of how to use this cmdlet.  \n`.INPUTS` lists the cmdlet's inputs, if any.  \n`.OUTPUTS` describes the cmdlet's output, if any.  \n`.NOTES` contains general notes.  \n`.COMPONENT` identifies this cmdlet's component.  \n`.ROLE` identifies this cmdlet's role.  \n`.FUNCTIONALITY` identifies the functionality that best describes this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdac710e2b62f5095",
+      "text": "`Get-Folder` is a function identified by the names `Get` and `Folder`. Its signature is `function Get-Folder`. The function accepts no parameters and contains no specified numeric values. Developers can refer to this signature when identifying the function and its interface. Because no parameters are defined, calling `Get-Folder` does not require argument values or parameter configuration.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r82b3d803d830be78",
+      "text": "`Get-Folder` is a function with no parameters. Its signature is:\n\n```text\nfunction Get-Folder\n```\n\nThe function is identified by the names `Get` and `Folder`. Because it accepts no parameters, callers invoke it without arguments. This documentation defines only the function signature and identifiers; no numeric values or additional behavior are specified. Any implementation details must therefore be determined from the function’s source code.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r36ff3cb23a381ec5",
+      "text": ".SYNOPSIS\nShort description.\n\n.DESCRIPTION\nLong description.\n\n.EXAMPLE\nExample of how to use this cmdlet.\n\n.EXAMPLE\nAnother example of how to use this cmdlet.\n\n.INPUTS\nInputs to this cmdlet, if any.\n\n.OUTPUTS\nOutput from this cmdlet, if any.\n\n.NOTES\nGeneral notes.\n\n.COMPONENT\nThe component to which this cmdlet belongs.\n\n.ROLE\nThe role to which this cmdlet belongs.\n\n.FUNCTIONALITY\nThe functionality that best describes this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0923cc76f56aea98",
+      "text": ".SYNOPSIS    Brief description.\n.DESCRIPTION    Detailed description of the cmdlet.\n.EXAMPLE    Example showing how to use the cmdlet.\n.EXAMPLE    Another example showing how to use the cmdlet.\n.INPUTS    Inputs to this cmdlet, if any.\n.OUTPUTS    Output from this cmdlet, if any.\n.NOTES    General notes.\n.COMPONENT    The component this cmdlet belongs to.\n.ROLE    The role this cmdlet belongs to.\n.FUNCTIONALITY    The functionality that best describes this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r45f72a039160df8d",
+      "text": "Please provide the material to document.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5ae9178c69233bfd",
+      "text": "The `Verb-Noun` function signature defines a function named `Verb-Noun`. It identifies two associated identifiers: `Verb` and `Noun`. The signature declares no parameters, so callers provide no arguments when invoking the function. It also contains no numeric values. This definition specifies only the function name, its identifiers, and the absence of parameters and numbers.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r00c3bfd9bfcddbe7",
+      "text": ".SYNOPSIS    A short description\n.DESCRIPTION    A long description\n.EXAMPLE    An example of how to use this cmdlet\n.EXAMPLE    Another example of how to use this cmdlet\n.INPUTS    Inputs to this cmdlet, if any\n.OUTPUTS    Output from this cmdlet, if any\n.NOTES    General notes\n.COMPONENT    The component to which this cmdlet belongs\n.ROLE    The role to which this cmdlet belongs\n.FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r15d50d2fd6768251",
+      "text": ".SYNOPSIS\n\nA short description.\n\n.DESCRIPTION\n\nLong description.\n\n.EXAMPLE\n\nAn example of how to use this cmdlet.\n\n.EXAMPLE\n\nAnother example of how to use this cmdlet.\n\n.INPUTS\n\nInputs to this cmdlet, if any.\n\n.OUTPUTS\n\nOutput from this cmdlet, if any.\n\n.NOTES\n\nGeneral notes.\n\n.COMPONENT\n\nThe component this cmdlet belongs to.\n\n.ROLE\n\nThe role this cmdlet belongs to.\n\n.FUNCTIONALITY\n\nThe functionality describing this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1e0fcfe77cf7fb18",
+      "text": "Verb-Noun2 is a function signature composed of the identifiers Verb and Noun2. The function accepts no parameters and does not define numeric values. Use the hyphenated form exactly as written when referring to the function. Its documented elements are limited to the function name, the two identifiers, and the absence of parameters and numbers. No additional inputs or numeric specifications are provided.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6b5a628ba4be0935",
+      "text": "Please provide the material to document.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rde40b5191cddcd7f",
+      "text": ".SYNOPSIS Short description.\n\n.DESCRIPTION Long description.\n\n.EXAMPLE Example showing how to use this cmdlet.\n\n.EXAMPLE Another example showing how to use this cmdlet.\n\n.INPUTS Inputs accepted by this cmdlet, if any.\n\n.OUTPUTS Output produced by this cmdlet, if any.\n\n.NOTES General notes about this cmdlet.\n\n.COMPONENT Component to which this cmdlet belongs.\n\n.ROLE Role to which this cmdlet belongs.\n\n.FUNCTIONALITY Functionality that best describes this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r761456953f7fa246",
+      "text": ".SYNOPSIS    A short description  \n.DESCRIPTION    A long description  \n.EXAMPLE    An example of how to use this cmdlet  \n.EXAMPLE    Another example of how to use this cmdlet  \n.INPUTS    Inputs accepted by this cmdlet, if any  \n.OUTPUTS    Output produced by this cmdlet, if any  \n.NOTES    General notes  \n.COMPONENT    The component this cmdlet belongs to  \n.ROLE    The role this cmdlet belongs to  \n.FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r56d08150a809dcfc",
+      "text": "`HandleExitCoder` is declared as a function that accepts one parameter, `err`, with the type `error`.\n\n```go\nfunc HandleExitCoder(err error)\n```\n\nThis signature contains no numeric values and declares no return values. The function identifier is `HandleExitCoder`, and the parameter identifier is `err`. The supplied declaration specifies only this parameter and its type; it provides no additional details about function behavior.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra56cb874885281da",
+      "text": "The declaration defines HandleExitCoder with this signature:\n\nfunc HandleExitCoder(err error)\n\nThe function accepts one parameter named err. That parameter has type error. No numeric parameters are specified. The supplied material does not state a return value, implementation, behavior, error transformation, exit status, or other processing details. HandleExitCoder is the function identifier in this declaration provided.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8015f4f66eff1d7b",
+      "text": "HandleExitCoder checks whether the error implements the ExitCoder interface. If so, it prints the error to stderr (if non-empty) and calls OsExiter with the given exit code. If the error is a MultiError, this function is called for all members of the Errors slice, and OsExiter is called with the last exit code.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf9ff21f3fee4924f",
+      "text": "HandleExitCoder checks whether the error fulfills the ExitCoder interface. If it does, it prints the error to stderr when non-empty and calls OsExiter with the specified exit code. If the error is a MultiError, HandleExitCoder processes every member of the Errors slice and calls OsExiter using the last exit code.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd6206178ec3f2033",
+      "text": "## Get-Folder\n\n`Get-Folder` is a function with no parameters. Its signature is:\n\n```text\nfunction Get-Folder\n```\n\nThe function is identified by the names `Get` and `Folder`. Because no parameters are defined, callers do not provide arguments when invoking it. This documentation describes only the signature and identifiers; no numeric values or additional behavior are specified. No return value or operational behavior is provided in the supplied material.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re5b5cea2bee72926",
+      "text": "Get-Folder is a parameterless function. Its signature is:\n\n```text\nfunction Get-Folder\n```\n\nThe function is identified by the name `Get-Folder`, comprising the identifiers `Get` and `Folder`. It accepts no parameters and has no associated numeric values. This signature defines the function name and confirms that no parameter information or numeric information is specified for Get-Folder in the supplied material.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r71287891de2ec5f5",
+      "text": ".SYNOPSIS    A short description of this cmdlet  \n.DESCRIPTION    A long description of this cmdlet  \n.EXAMPLE    An example showing how to use this cmdlet  \n.EXAMPLE    Another example showing how to use this cmdlet  \n.INPUTS    Input accepted by this cmdlet, if any  \n.OUTPUTS    Output produced by this cmdlet, if any  \n.NOTES    General notes about this cmdlet  \n.COMPONENT    The component to which this cmdlet belongs  \n.ROLE    The role to which this cmdlet belongs  \n.FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0dd46b63a28f6798",
+      "text": ".SYNOPSIS\nBrief description of the cmdlet.\n\n.DESCRIPTION\nDetailed description of the cmdlet.\n\n.EXAMPLE\nExample showing how to use the cmdlet.\n\n.EXAMPLE\nAnother example showing how to use the cmdlet.\n\n.INPUTS\nInputs accepted by the cmdlet, if any.\n\n.OUTPUTS\nOutput produced by the cmdlet, if any.\n\n.NOTES\nGeneral notes about the cmdlet.\n\n.COMPONENT\nComponent to which the cmdlet belongs.\n\n.ROLE\nRole to which the cmdlet belongs.\n\n.FUNCTIONALITY\nFunctionality that best describes the cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcbbc1d6d5e3ae6db",
+      "text": "Get-File is a function with no parameters. Its signature is:\n\nfunction Get-File\n\nThe function name is Get-File, and its identifiers are Get and File. Because no parameters are defined, callers do not provide arguments through a parameter list. The signature contains no numeric values. This documentation describes only the declared name, identifiers, and parameter and number metadata provided in the supplied material.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc992f916a9bdd80b",
+      "text": "Get-File is a function with no parameters. Its signature is:\n\n```text\nfunction Get-File\n```\n\nThe function is identified by the identifiers `Get` and `File`. It accepts no arguments, and its definition contains no numeric values. Use the name `Get-File` when referring to this function. Because no parameters are defined, no parameter values are required or supported by the signature. The signature includes no parameters or numbers.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc70c3eaba8176fd5",
+      "text": ".SYNOPSIS    Short description of the cmdlet\n.DESCRIPTION    Long description of the cmdlet\n.EXAMPLE    Example showing how to use this cmdlet\n.EXAMPLE    Another example showing how to use this cmdlet\n.INPUTS    Inputs accepted by this cmdlet, if any\n.OUTPUTS    Output produced by this cmdlet, if any\n.NOTES    General notes about this cmdlet\n.COMPONENT    Component to which this cmdlet belongs\n.ROLE    Role to which this cmdlet belongs\n.FUNCTIONALITY    Functionality that best describes this cmdlet",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1e27801369c8fa8f",
+      "text": ".SYNOPSIS  \nShort description.\n\n.DESCRIPTION  \nLong description.\n\n.EXAMPLE  \nExample of how to use this cmdlet.\n\n.EXAMPLE  \nAnother example of how to use this cmdlet.\n\n.INPUTS  \nInputs to this cmdlet, if any.\n\n.OUTPUTS  \nOutput from this cmdlet, if any.\n\n.NOTES  \nGeneral notes.\n\n.COMPONENT  \nComponent for this cmdlet.\n\n.ROLE  \nRole for this cmdlet.\n\n.FUNCTIONALITY  \nThe functionality that best describes this cmdlet.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2bb9d635d8f16252",
+      "text": "The signature accepts message when message is truthy, PY2 is false, and is_bytes(message) returns true. Identifiers are if, message, and, not, PY2, and is_bytes; message is the parameter. The associated number is 3. Evaluation combines a message check, a negated PY2 check, and a byte-type check in this conditional signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6e4c8684ff8af74b",
+      "text": "This signature checks whether a message is present, the runtime is not Python 2, and the message is a bytes value. It uses three conditions: `message`, `not PY2`, and `is_bytes(message)`. The parameter is `message`; identifiers are `if`, `message`, `and`, `not`, `PY2`, and `is_bytes`. The condition succeeds only when all three tests are satisfied.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1873caf15c88396b",
+      "text": "If there is a message, we are using Python 3, and the value appears to be bytes, we must manually find the binary stream and write the message to it. This is handled separately so that most stream types work as expected. For example, you can write to `StringIO` in other cases.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "raa1fa9c42977954c",
+      "text": "If a message exists in Python 3 and its value appears to be bytes, manually locate the binary stream and write the message to it. This is handled separately so that most stream types work as expected. For example, you can write to StringIO in other cases, where a binary stream is not required.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r126248b0ee08b0a7",
+      "text": "InitInputSourceWithContext returns a cli.BeforeFunc that initializes an input source using command-line context. It accepts flags, a slice of cli.Flag values, and createInputSource, a function receiving *cli.Context. That function returns an InputSourceContext and an error. The returned BeforeFunc therefore connects flag configuration and context-aware input-source creation during CLI initialization. Its return type is explicitly cli.BeforeFunc in the signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcdf43f8bdbeb307d",
+      "text": "InitInputSourceWithContext returns a cli.BeforeFunc that initializes an input source before command execution. It accepts flags, provided as []cli.Flag, and createInputSource, a function receiving *cli.Context. That function must return an InputSourceContext and error. The returned BeforeFunc therefore connects command context and flags to input-source creation during CLI setup. The callback signature is explicit.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc001878bcfa45340",
+      "text": "InitInputSourceWithContext sets up an InputSourceContext for a cli.Command Before method. It creates a new input source from the provided function, potentially using existing cli.Context values to initialize the input source. If no error occurs, it then applies the new input source to any flags that are supported by the input source.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcbef0a075e382b16",
+      "text": "InitInputSourceWithContext is used to set up an InputSourceContext on a cli.Command Before method. It creates a new input source based on the provided function, potentially using existing cli.Context values to initialize itself during command setup. If there is no error, it then applies the new input source to any flags supported by that input source.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcf1d57befa4a236a",
+      "text": "This signature evaluates whether a message is present and whether it is not bytes. The condition combines two requirements: `message` must have a truthy value, and `is_bytes(message)` must be false. The identifiers are `if`, `message`, `and`, `not`, and `is_bytes`; `message` is the only parameter. No numeric values are used. It checks message presence and byte status.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdb5bb81974640337",
+      "text": "The signature tests whether message is present and whether message is not bytes. It uses the identifiers if, message, and, not, and is_bytes. The parameter is message. The conditional expression requires both parts: message must be truthy, and is_bytes(message) must be false. No numeric values are used. It depends on message presence and its byte status.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "racea95da1903524b",
+      "text": "ANSI-style support. If there is no message or we are handling bytes, nothing happens. If we are connected to a file, we want to strip colors. If we are on Windows, we either wrap the stream to strip the color, or use Colorama support to translate the ANSI codes into API calls.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r81b2857a7df0311b",
+      "text": "ANSI-style support. If no message is present, or if we are dealing with bytes, nothing happens. If we are connected to a file, we strip colors from the output. On Windows, we either wrap the stream to strip the color, or use Colorama support to translate ANSI codes into API calls.",
+      "status": "complete",
+      "note": ""
+    }
+  ]
+}

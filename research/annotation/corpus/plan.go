@@ -60,8 +60,13 @@ func canonicalManifest(manifest Manifest) (Manifest, error) {
 	if err := json.Unmarshal(data, &result); err != nil {
 		return Manifest{}, err
 	}
-	if result.Policy.GitHubActions == "" {
-		result.Policy.GitHubActions = "shell"
+	// Both spellings of the default workflow mode name one plan. Fold toward
+	// the omitted form, never toward "shell". The digest covers the canonical
+	// manifest. Writing the default into manifests that predate the field
+	// would renumber every artifact on disk. The extractor reads an empty
+	// value as that same default, so nothing it does would change.
+	if result.Policy.GitHubActions == "shell" {
+		result.Policy.GitHubActions = ""
 	}
 	if result.Policy.GoComments == "" {
 		result.Policy.GoComments = "godoc"
@@ -156,8 +161,17 @@ func componentsWithin(ctx context.Context, m Manifest, maxKeys int) ([]Group, er
 	return groups, nil
 }
 
+// sourceKeys names what a source shares with another. Identical bytes join two
+// human sources because a vendored copy is one provenance. A generated
+// document is different: two responses that happen to match are one model
+// repeating itself, not one origin. Joining them would merge the repositories
+// they answer for, and a merged component inherits conflicting partition pins.
+// Its generation task already carries its provenance.
 func sourceKeys(source Source) []string {
-	keys := []string{"repository:" + source.Repository, "document:" + source.Document, "source-sha256:" + source.SHA256}
+	keys := []string{"repository:" + source.Repository, "document:" + source.Document}
+	if len(source.GenerationTasks) == 0 {
+		keys = append(keys, "source-sha256:"+source.SHA256)
+	}
 	for _, family := range []struct {
 		kind   string
 		values []string

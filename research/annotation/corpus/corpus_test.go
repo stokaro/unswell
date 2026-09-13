@@ -83,7 +83,9 @@ func TestPlanFreezesDefaultWorkflowExtraction(t *testing.T) {
 	m.Policy.GitHubActions = ""
 	implicit, err := corpus.MakePlan(t.Context(), m)
 	c.Assert(err, qt.IsNil)
-	c.Assert(implicit.Manifest.Policy.GitHubActions, qt.Equals, "shell")
+	// Canonicalization folds the default toward the omitted form so that a
+	// manifest frozen before the field keeps its digest.
+	c.Assert(implicit.Manifest.Policy.GitHubActions, qt.Equals, "")
 	m.Policy.GitHubActions = "shell"
 	explicit, err := corpus.MakePlan(t.Context(), m)
 	c.Assert(err, qt.IsNil)

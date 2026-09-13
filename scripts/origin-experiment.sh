@@ -12,6 +12,9 @@ cd "$script_directory/.."
 work=${UNSWELL_ACQUISITION_WORK:-$HOME/.cache/unswell/acquisition/work}
 acquisition=artifacts/acquisition
 dataset_plan=artifacts/measurement/dataset-plan.json
+# A plan built with pinned partitions can only be reopened with the same file.
+partitions=research/methods/partitions-v1.json
+[[ -f "$partitions" ]] || partitions=
 findings=artifacts/measurement/findings
 tasks=research/generation/runs/2026-09-11-pilot/tasks.json
 generation=research/generation/runs/2026-09-11-pilot/records.json
@@ -23,6 +26,9 @@ cap=15
 max_source_bytes=102400
 threshold=0.5
 negative_roles=()
+exclude_source_files=()
+scored_partitions=()
+extra_features=()
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --work)
@@ -35,6 +41,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --dataset-plan)
       dataset_plan=$2
+      shift 2
+      ;;
+    --partitions)
+      partitions=$2
       shift 2
       ;;
     --tasks)
@@ -81,9 +91,21 @@ while [[ $# -gt 0 ]]; do
       max_source_bytes=$2
       shift 2
       ;;
+    --exclude-source-file)
+      exclude_source_files+=("$2")
+      shift 2
+      ;;
+    --score-partition)
+      scored_partitions+=("$2")
+      shift 2
+      ;;
+    --extra-feature)
+      extra_features+=("$2")
+      shift 2
+      ;;
     *)
       printf 'Usage: %s OPTIONS\n' "$0" >&2
-      printf 'Options: --work DIR, --acquisition DIR, --dataset-plan FILE, --tasks FILE, --generation FILE, --protocol FILE, --output DIR, --record DIR, --id ID, --cap N, --max-source-bytes N, --threshold T, --negative-role ROLE (repeatable; default comment), --findings DIR\n' >&2
+      printf 'Options: --work DIR, --acquisition DIR, --dataset-plan FILE, --tasks FILE, --generation FILE, --protocol FILE, --output DIR, --record DIR, --id ID, --cap N, --max-source-bytes N, --exclude-source-file FILE (repeatable), --score-partition NAME (repeatable; default development and final_test), --extra-feature ID (repeatable), --threshold T, --negative-role ROLE (repeatable; default comment), --findings DIR\n' >&2
       exit 2
       ;;
   esac
@@ -122,12 +144,25 @@ while IFS= read -r repository; do
 done <<<"$repository_list"
 # Sources the pattern measurement could not analyze, such as a block of
 # non-Latin prose, stay out; the engine would refuse the whole run for one.
-excluded_sources=$(jq -r '.units[] | select(.unmeasured == true) | .source_id' "$findings"/historical*.json | sort -u)
+# A file of source IDs leaves out a whole arm of the controlled cohort, which
+# is how a trial holds response length fixed across the corpus.
+excluded_sources=$(
+  jq -r '.units[] | select(.unmeasured == true) | .source_id' "$findings"/historical*.json
+  if ((${#exclude_source_files[@]} > 0)); then
+    cat "${exclude_source_files[@]}"
+  fi
+)
+excluded_sources=$(printf '%s\n' "$excluded_sources" | sort -u)
 exclusions=()
 while IFS= read -r source_id; do
   [[ -n "$source_id" ]] && exclusions+=(--exclude-source "$source_id")
 done <<<"$excluded_sources"
+pin_flags=()
+if [[ -n "$partitions" ]]; then
+  pin_flags+=(--partitions "$partitions")
+fi
 "$corpus_tool" dataset union --root "$acquisition" --id "$id" --cohort controlled --cohort historical \
+  ${pin_flags[@]+"${pin_flags[@]}"} \
   "${role_flags[@]}" --every-role-cohort controlled --unit-kind paragraph --max-per-checkout "$cap" \
   --uncapped-cohort controlled --max-source-bytes "$max_source_bytes" "${repositories[@]}" \
   ${exclusions[@]+"${exclusions[@]}"} <"$dataset_plan" >"$output/union.json"
@@ -143,6 +178,9 @@ done <<<"$excluded_sources"
 features=(prose-words counted-characters prose-sentences mean-sentence-words sentence-word-stddev
   shortest-sentence longest-sentence type-token-ratio hapax-token-ratio noun-token-ratio verb-token-ratio
   adjective-token-ratio adverb-token-ratio automated-readability-index)
+# A declared ablation adds a feature family to the fourteen without touching
+# the list the primary trial fixed.
+features+=(${extra_features[@]+"${extra_features[@]}"})
 feature_flags=()
 for feature in "${features[@]}"; do
   feature_flags+=(--feature "$feature")
@@ -150,11 +188,16 @@ done
 "$corpus_tool" train --root "$work" --labels provenance --kind paragraph "${feature_flags[@]}" \
   --missing-features exclude --calibration isotonic <"$output/candidates.json" >"$output/model.json"
 
+# A stopping rule that opens the confirmation partition only on a positive
+# development result needs a run that scores one partition and stops.
+if ((${#scored_partitions[@]} == 0)); then
+  scored_partitions=(development final_test)
+fi
 sha() { shasum -a 256 "$1" | cut -c1-64; }
 model_sha=$(jq -r '.sha256' "$output/model.json")
 corpus_sha=$(jq -r '.sha256' "$output/candidates.json")
 protocol_sha=$(sha "$protocol")
-for partition in development final_test; do
+for partition in "${scored_partitions[@]}"; do
   cat >"$output/plan-$partition.json" <<PLAN
 {
   "version": "unswell-research-predictions-v2",
@@ -179,9 +222,11 @@ done
 {
   printf '{\n  "format": "unswell-origin-experiment-digests-v1",\n  "tool_commit": "%s",\n  "files": {\n' "$tool_commit"
   first=true
-  for name in union.json union-plan.json candidates.json verification.json model.json \
-    plan-development.json predictions-development.json evaluation-development.json \
-    plan-final_test.json predictions-final_test.json evaluation-final_test.json; do
+  names=(union.json union-plan.json candidates.json verification.json model.json)
+  for partition in "${scored_partitions[@]}"; do
+    names+=("plan-$partition.json" "predictions-$partition.json" "evaluation-$partition.json")
+  done
+  for name in "${names[@]}"; do
     if [[ "$first" == true ]]; then first=false; else printf ',\n'; fi
     digest=$(sha "$output/$name")
     bytes=$(wc -c <"$output/$name")
@@ -192,13 +237,16 @@ done
 
 if [[ -n "$record" ]]; then
   mkdir -p "$record"
-  for name in union.json union-plan.json model.json plan-development.json predictions-development.json \
-    evaluation-development.json plan-final_test.json predictions-final_test.json evaluation-final_test.json digests.json; do
+  kept=(union.json union-plan.json model.json digests.json)
+  for partition in "${scored_partitions[@]}"; do
+    kept+=("plan-$partition.json" "predictions-$partition.json" "evaluation-$partition.json")
+  done
+  for name in "${kept[@]}"; do
     cp "$output/$name" "$record/$name"
   done
 fi
 jq -c '{units: (.units | length), sources: (.sources | length)}' "$output/candidates.json"
 jq -c '{task: .identity.task, basis, partitions: [.partitions[] | {name, rows: (.rows | length), classes, excluded}]}' "$output/model.json"
-for partition in development final_test; do
+for partition in "${scored_partitions[@]}"; do
   jq -c --arg p "$partition" '{partition: $p, candidates, excluded: .excluded_labels, micro: .summary.micro}' "$output/evaluation-$partition.json"
 done
