@@ -1,0 +1,115 @@
+name: Docs
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - 'v*'
+  pull_request:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  ASTRO_TELEMETRY_DISABLED: '1'
+  # How many released tags keep a folder on the site. Older releases stay in the
+  # repository. They stop being built and stop appearing in the picker.
+  MAX_DOC_TAG_VERSIONS: ${{ vars.MAX_DOC_TAG_VERSIONS || 10 }}
+
+jobs:
+  check:
+    name: Check the site
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+          cache: false
+        env:
+          GOTOOLCHAIN: local
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: docs/site/package-lock.json
+
+      # The rules page comes from a data file. A Go program writes that file by
+      # walking the real engine catalog. This step keeps the two in step: a rule
+      # added or re-tuned without a fresh file fails here, so the site cannot
+      # ship a stale catalog.
+      - name: The rules catalog must match the engine
+        run: go run ./cmd/docscatalog --output docs/site/src/data/rules-catalog.json --check
+
+      - name: Self-test the site gates
+        working-directory: docs/site
+        run: npm ci && npm run selftest
+
+      - name: Build and check the current tree
+        working-directory: docs/site
+        env:
+          DOCS_VERSION: edge
+        run: npm run build && npm run check:links && npm run check:pages-root
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: check
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # Full history: each released version is built from its own tag through a
+      # linked worktree.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: docs/site/package-lock.json
+
+      - name: Install the site dependencies
+        working-directory: docs/site
+        run: npm ci
+
+      # One script assembles the whole thing: edge, each released tag, and the
+      # root with versions.json, the apex redirect, the CNAME and robots.txt. A
+      # maintainer can run the same command and look at the result.
+      - name: Assemble the site
+        id: assemble
+        run: |
+          bash scripts/build-docs-site.sh --output "$GITHUB_WORKSPACE/_site" --max-tags "$MAX_DOC_TAG_VERSIONS"
+          node -e 'const i=require(process.argv[1]);console.log(`versions=${i.versions.map(v=>v.slug).join(" ")}`)' "$GITHUB_WORKSPACE/_site/versions.json" >>"$GITHUB_OUTPUT"
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: _site
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+      # A green deploy means GitHub accepted an artifact. This step says that a
+      # reader who types the domain lands on the documentation.
+      - name: The published apex must serve the documentation
+        working-directory: docs/site
+        run: node scripts/check-deployment-candidate.mjs --expected-versions "${{ steps.assemble.outputs.versions }}"
