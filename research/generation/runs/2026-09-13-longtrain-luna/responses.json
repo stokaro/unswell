@@ -1,0 +1,1261 @@
+{
+  "version": "unswell-responses-v1",
+  "run": "2026-09-13-longtrain-luna",
+  "family": "openai",
+  "model": "gpt-5.6-luna",
+  "model_basis": "the model the Codex CLI reports in the header of every non-interactive run",
+  "harness": "Codex CLI exec, one non-interactive turn per request, read-only sandbox, isolated home without instructions or skills, flat-rate subscription, no API call",
+  "agent_type": "codex exec",
+  "generated_on": "2026-09-13",
+  "parameters": "reasoning effort low, the lowest the model accepts; other decoding parameters unavailable",
+  "responses": [
+    {
+      "request_id": "r2136aee7170024a1",
+      "text": "`ToString` has the signature `public string ToString(string format, IFormatProvider formatProvider)`. It is a public method that returns a `string` and accepts two parameters. The first parameter is `format`, with type `string`. The second parameter is `formatProvider`, with type `IFormatProvider`. The method name is `ToString`; its parameter identifiers are `format` and `formatProvider`. The signature therefore contains two declared parameters: `string format` and `IFormatProvider formatProvider`. The return type is `string`, and the access modifier is `public`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9a4c6f405d9e1d17",
+      "text": "The ToString method returns a string representation using a specified format and format provider. Its signature is `public string ToString(string format, IFormatProvider formatProvider)`. The `format` parameter is a `string` that specifies the format. The `formatProvider` parameter is an `IFormatProvider` that supplies formatting information. The method has two parameters: `format` and `formatProvider`. It returns a `string`. Both parameter identifiers correspond to their declared types: `format` is `string`, and `formatProvider` is `IFormatProvider`. The declaration includes the return type and both parameter types explicitly by name.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4f0575389e4a7b4b",
+      "text": "<summary>Formats the value of the current instance using the specified format.</summary> <returns>The value of the current instance in the specified format.</returns> <param name=\"format\">The format to use.-or- A null reference (Nothing in Visual Basic) to use the default format defined for the type of the <see cref=\"T:System.IFormattable\"/> implementation.</param> <param name=\"formatProvider\">The provider to use to format the value.-or- A null reference (Nothing in Visual Basic) to obtain numeric format information from the operating system's current locale setting.</param> <filterpriority>2</filterpriority>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc40fadad2d181d37",
+      "text": "<summary>Formats the value of the current instance using the specified format.</summary> <returns>The value of the current instance in the specified format.</returns> <param name=\"format\">The format to use; or a null reference (Nothing in Visual Basic) to use the default format defined for the type implementing <see cref=\"T:System.IFormattable\"/>.</param> <param name=\"formatProvider\">The provider to use to format the value; or a null reference (Nothing in Visual Basic) to obtain numeric format information from the operating system's current locale setting.</param><filterpriority>2</filterpriority>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6ed55139987c5ca3",
+      "text": "The `Command` type provides the `MarkZshCompPositionalArgumentFile` method:\n\n```go\nfunc (c *Command) MarkZshCompPositionalArgumentFile(argPosition int, patterns ...string) error\n```\n\nThe method accepts `argPosition` as an `int` and `patterns` as a variadic collection of strings. It returns an `error`. The method marks the specified positional argument as a file for Zsh completion, using the supplied patterns.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4506f6e7fa5a775f",
+      "text": "`MarkZshCompPositionalArgumentFile` marks a positional argument for file completion in zsh. It is a method on `Command` with signature `func (c *Command) MarkZshCompPositionalArgumentFile(argPosition int, patterns ...string) error`. The `argPosition` parameter identifies the positional argument, while the variadic `patterns` parameter supplies patterns. The method returns an `error`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7ae5077d45dd9e01",
+      "text": "MarkZshCompPositionalArgumentFile worked only for zsh, and its behavior was inconsistent with Bash completion. It has therefore been disabled. Instead, when no other completion is specified, file completion is enabled by default for every argument. Disable file completion for an individual argument with ValidArgsFunction and ShellCompDirectiveNoFileComp. For file-extension filtering, use ValidArgsFunction and ShellCompDirectiveFilterFileExt.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r870e9c4ef94d4fa5",
+      "text": "MarkZshCompPositionalArgumentFile worked only with zsh and behaved inconsistently with Bash completion, so it has been disabled. When no other completion is specified, file completion is now enabled by default for every argument. To disable file completion for a specific argument, use ValidArgsFunction with ShellCompDirectiveNoFileComp. To filter file extensions, use ValidArgsFunction with ShellCompDirectiveFilterFileExt.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8b5135f1fb10c318",
+      "text": "`CreatePropertyValue` returns a `LogEventPropertyValue` for the supplied `object` value. The method accepts `object value` and an optional `bool destructureObjects` parameter, which defaults to `false`. Callers may provide `value` and choose whether `destructureObjects` is `false` or `true` when invoking `CreatePropertyValue`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7d1bb84d2ca1ab42",
+      "text": "`CreatePropertyValue` creates a `LogEventPropertyValue` from an `object` value. The optional `destructureObjects` parameter is a `bool` that defaults to `false`. Set `value` to the object to convert, and use `destructureObjects` to control whether objects are destructured during property-value creation. The method returns the resulting `LogEventPropertyValue`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r292523b0932f1638",
+      "text": "<summary>Creates a <see cref=\"LogEventPropertyValue\"/> from a .NET object using a destructuring strategy.</summary> <param name=\"value\">The property value.</param> <param name=\"destructureObjects\">If true and the value is a non-primitive, non-array type, the value is converted to a structure. Otherwise, unknown types are converted to scalars, which are generally stored as strings.</param> <returns>The resulting value.</returns>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r58208f348625552e",
+      "text": "<summary>Creates a <see cref=\"LogEventPropertyValue\"/> from a .NET object using the specified destructuring strategy.</summary> <param name=\"value\">The property value.</param> <param name=\"destructureObjects\">If true and the value is a non-primitive, non-array type, converts it to a structure. Otherwise, converts unknown types to scalars, generally stored as strings.</param> <returns>The resulting value.</returns>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r19af4f10ff17c133",
+      "text": "SuiteTester is a type that defines a testing-related structure. Its signature is `type SuiteTester struct`. The identifier for this type is `SuiteTester`. It accepts no parameters, and no numeric values are specified for its declaration. This definition provides the available type name and structure signature without additional fields, arguments, or documented numerical configuration.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rffca42b995e80f7c",
+      "text": "SuiteTester is a type defined with the signature `type SuiteTester struct`. It represents a struct type named SuiteTester. This declaration has no parameters and no numeric values. Use the identifier SuiteTester when referring to this type. The supplied signature defines only the type declaration; no additional fields, methods, or behavior are specified here.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re9d33d8ff49f2635",
+      "text": "This suite is intended to store values to ensure that only testing-suite-related methods are run. It is also a fully functional example of a testing suite, using setup and teardown methods and a helper method that Testify ignores. To make this resemble a real-world example, all tests in the suite perform some type of assertion.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r472d9733f1688a59",
+      "text": "This suite is intended to store values to ensure that only test-suite-related methods are run. It is also a fully functional example of a test suite, using setup and teardown methods and a helper method that Testify ignores. To make this look more like a real-world example, all tests in the suite perform some type of assertion.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6a55480f3165d3cd",
+      "text": "`PushProperty` is a public static method that adds a property using the supplied name and value. It accepts three parameters:\n\n- `name`: a `string` identifying the property.\n- `value`: an `object` containing the property value.\n- `destructureObjects`: a `bool` controlling whether objects are destructured. This parameter defaults to `false` when omitted.\n\nThe method returns an `IDisposable`. Callers can retain this return value and use it according to the `IDisposable` contract. The complete signature is:\n\n```csharp\npublic static IDisposable PushProperty(\n    string name,\n    object value,\n    bool destructureObjects = false)\n```\n\nBecause `destructureObjects` has a default value, callers may provide only `name` and `value`, or explicitly provide all three arguments.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r24626f1cb9a22992",
+      "text": "`PushProperty` is a public static method with the following signature:\n\n```csharp\npublic static IDisposable PushProperty(\n    string name,\n    object value,\n    bool destructureObjects = false)\n```\n\nThe method is identified by `PushProperty` and returns an `IDisposable`. It accepts three parameters. `name` is a `string` that identifies the property. `value` is an `object` containing the property value. `destructureObjects` is a `bool` that controls whether objects are destructured, and its default value is `false`.\n\nCallers may provide all three parameters or omit `destructureObjects`, in which case the method uses `false`. The return type, parameter types, parameter names, and default value are part of the method signature. No numeric arguments are defined for this method.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5b23e5fff614cc1c",
+      "text": "<summary>\n  Pushes a property onto the context and returns an <see cref=\"IDisposable\"/>\n  that must later be disposed to remove the property, along with any other\n  properties pushed on top of it that have not yet been popped. The property\n  must be popped from the same thread or logical call context.\n</summary>\n<param name=\"name\">The name of the property.</param>\n<param name=\"value\">The value of the property.</param>\n<param name=\"destructureObjects\">\n  If true, and the value is a non-primitive, non-array type, the value is\n  converted to a structure. Otherwise, unknown types are converted to scalars,\n  which are generally stored as strings.\n</param>\n<returns>\n  A token that must be disposed in order to pop properties back off the stack.\n</returns>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdd8d0551119c657a",
+      "text": "<summary>\nPushes a property onto the context and returns an <see cref=\"IDisposable\"/> handle for removing it later. Disposing the handle also removes any properties pushed on top of it that have not yet been popped. The property must be popped from the same thread or logical call context.\n</summary>\n<param name=\"name\">The name of the property.</param>\n<param name=\"value\">The value of the property.</param>\n<param name=\"destructureObjects\">If true and the value is a non-primitive, non-array type, the value is converted to a structure. Otherwise, unknown types are converted to scalars, which are generally stored as strings.</param>\n<returns>A token that must be disposed in order to pop properties from the stack and remove them from the context.</returns>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdeeb80071428a97b",
+      "text": "NewRandom has the signature `func NewRandom() (UUID, error)`. It accepts no parameters and returns a `UUID` together with an `error`. The supplied identifiers are `NewRandom`, `UUID`, and `error`. The supplied numeric values are 122, 17, 0.00000000006, 6, 10, and 11; their meanings are not specified here.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r40237e962c5c0e92",
+      "text": "NewRandom creates and returns a UUID or an error. It accepts no parameters. Its signature is:\n\n```go\nfunc NewRandom() (UUID, error)\n```\n\nThe identifiers are NewRandom, UUID, and error. The supplied numeric values are 122, 17, 0.00000000006, 6, 10, and 11. No parameter names are specified, and the declaration contains two return types: UUID and error.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rba0423f3ceecab00",
+      "text": "Randomly generated UUIDs contain 122 random bits. The annual risk of being hit by a meteorite is estimated at one chance in 17 billion, meaning the probability is about 0.00000000006 (6 × 10−11). This is equivalent to generating a few tens of trillions of UUIDs in one year and having one duplicate.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r92395e1bc646f638",
+      "text": "Randomly generated UUIDs contain 122 random bits. The annual risk of being hit by a meteorite is estimated at one in 17 billion, or approximately 0.00000000006 (6 × 10−11). This is equivalent to generating a few tens of trillions of UUIDs in one year and having one duplicate.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0c700a380cffb49f",
+      "text": "`GenMarkdownTree` is a function with two parameters and one return value.\n\n```go\nfunc GenMarkdownTree(cmd *cobra.Command, dir string) error\n```\n\nThe `cmd` parameter has type `*cobra.Command`, linking it to the `cobra` package’s `Command` type. The `dir` parameter has type `string`. The function returns a value of type `error`. Its identifiers are `GenMarkdownTree`, `cmd`, `cobra`, `Command`, `dir`, and `error`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rea4aadacfd277a20",
+      "text": "GenMarkdownTree generates Markdown documentation for a Cobra command tree. It accepts two parameters: cmd, a pointer to a cobra.Command, and dir, a string identifying the output directory. The command parameter is named cmd, and the directory parameter is named dir. The function returns an error value, allowing callers to detect whether generation succeeded.\n\nfunc GenMarkdownTree(cmd *cobra.Command, dir string) error",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2484d27a177c2bb2",
+      "text": "GenMarkdownTree generates a Markdown page for this command and all its descendants in the specified directory. The header may be nil. This function may not work correctly when command names contain `-`. If `cmd` has subcommands `sub` and `sub-third`, and `sub` has a subcommand named `third`, it is undefined which help output will be written to the file `cmd-sub-third.1`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9ee596f8a8e153fa",
+      "text": "GenMarkdownTree generates a Markdown page for this command and all its descendants in the given directory. The header may be nil. This function may not work correctly if command names contain `-`. If `cmd` has two subcommands, `sub` and `sub-third`, and `sub` has a subcommand called `third`, it is undefined which help output will be in the `cmd-sub-third.1` file.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5f723697001eb643",
+      "text": "The `Schemes` method is defined on `Route` with the following signature:\n\n```go\nfunc (r *Route) Schemes(schemes ...string) *Route\n```\n\nIts receiver identifier is `r`, and its method identifier is `Schemes`. The method accepts one parameter, `schemes`, declared as `...string`. This declaration makes `schemes` a variadic parameter whose element type is `string`. The return type is `*Route`, a pointer to `Route`. The signature contains no numeric parameters, and `Route`, `Schemes`, and `schemes` are the identifiers specified here. The parameter list therefore consists solely of the variadic `schemes` argument in this signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rda3e523a2126f773",
+      "text": "`Schemes` is a method on `Route` with the signature:\n\n```go\nfunc (r *Route) Schemes(schemes ...string) *Route\n```\n\nThe receiver is `r`, a pointer to `Route`. The method is identified as `Schemes` and accepts `schemes`, a variadic parameter containing zero or more `string` values. Its return type is `*Route`, a pointer to `Route`. This signature defines the method, its receiver, its parameter identifier and type, and its return type. No numeric parameters are specified.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r78fea580a473f4bc",
+      "text": "Schemes adds a matcher for URL schemes. It accepts a sequence of schemes to match, e.g., \"http\" and \"https\". If the request's URL has a scheme set, it will be matched against the specified schemes. Generally, the URL scheme is set only if a previous handler set it, such as the ProxyHeaders handler from gorilla/handlers. If unset, the scheme is determined based on the request's TLS termination state. The first argument to Schemes is used when constructing a route URL.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7a1ad1449567ecd3",
+      "text": "Schemes adds a matcher for URL schemes. It accepts a sequence of schemes to match, such as \"http\" and \"https\". If the request URL has a scheme set, it is matched against the specified schemes. Generally, the URL scheme is set only when a previous handler, such as gorilla/handlers' ProxyHeaders handler, has set it. If the scheme is unset, it is determined from the request's TLS termination state. The first argument to Schemes is used when constructing a route URL.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcde114fc7971a677",
+      "text": "The signature assigns a formatted message to `fallthrough_msg`. It uses `format!` with the literal `data did not match any variant of untagged enum {}`. The placeholder is filled by `params.type_name()`, which supplies the enum type name. The identifiers involved are `fallthrough_msg`, `format`, `data`, `did`, `not`, `match`, `any`, `variant`, `of`, `untagged`, `params`, and `type_name`. The signature declares no parameters and contains no numeric values. The expression is a Rust-style assignment using a formatted string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rbec73bb52bfdaa63",
+      "text": "The signature constructs a message in `fallthrough_msg` by calling `format!`. Its text is `data did not match any variant of untagged enum {}`, with the placeholder filled by `params.type_name()`. The message states that the data did not match any variant of an untagged enum. The identifiers involved are `fallthrough_msg`, `format`, `data`, `did`, `not`, `match`, `any`, `variant`, `of`, `untagged`, `params`, and `type_name`. No parameters or numbers are present. The expression has no numeric parameters.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc6a82d3cb733761b",
+      "text": "TODO: This message could be improved by saving the errors from failed attempts. The heuristic used by TOML was to count the number of fields processed before an error, then use the error that occurred after the largest number of fields had been processed. I’m not sure I like that approach. Maybe it would be better to save all the errors and combine them into one message explaining why none of the variants matched.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r225770cb1fbd3bc4",
+      "text": "TODO: This message could be improved by saving the errors from failed attempts. The heuristic TOML used was to count the number of fields processed before an error and use the error that occurred after the largest number of fields. I'm not sure I like that approach. Maybe it would be better to save all the errors and combine them into one message that explains why none of the variants matched during parsing.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r105788c31aa97a1a",
+      "text": "`Wrap` is a static method that returns a `LoggerConfiguration`. It accepts a `LoggerEnrichmentConfiguration` through `loggerEnrichmentConfiguration`, a `Func<ILogEventEnricher, ILogEventEnricher>` through `wrapEnricher`, and an `Action<LoggerEnrichmentConfiguration>` through `configureWrappedEnricher`. The `wrapEnricher` parameter operates on an `ILogEventEnricher`, while `configureWrappedEnricher` receives a `LoggerEnrichmentConfiguration`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re3e5f5d9bed6b691",
+      "text": "Wrap is a static method that returns a LoggerConfiguration. It accepts a LoggerEnrichmentConfiguration named loggerEnrichmentConfiguration, a Func<ILogEventEnricher, ILogEventEnricher> named wrapEnricher, and an Action<LoggerEnrichmentConfiguration> named configureWrappedEnricher. The first parameter is the logger-enrichment configuration. The second is a function from ILogEventEnricher to ILogEventEnricher. The third is an action accepting LoggerEnrichmentConfiguration.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r07df58457aff1667",
+      "text": "<summary>Helper method for wrapping enrichers.</summary> <param name=\"loggerEnrichmentConfiguration\">The parent enrichment configuration.</param> <param name=\"wrapEnricher\">A function that wraps the <see cref=\"ILogEventEnricher\"/> instances added by <paramref name=\"configureWrappedEnricher\"/>.</param> <param name=\"configureWrappedEnricher\">An action that configures the enrichers to be wrapped by <paramref name=\"wrapEnricher\"/>.</param> <returns>A configuration object that supports method chaining.</returns> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"loggerEnrichmentConfiguration\"/> is <code>null</code>.</exception> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"wrapEnricher\"/> is <code>null</code>.</exception> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"configureWrappedEnricher\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r61687627b17983f7",
+      "text": "<summary>Helper method for wrapping sinks.</summary>\n<param name=\"loggerEnrichmentConfiguration\">The parent enrichment configuration.</param>\n<param name=\"wrapEnricher\">A function that wraps <see cref=\"ILogEventEnricher\"/> instances added by <paramref name=\"configureWrappedEnricher\"/>.</param>\n<param name=\"configureWrappedEnricher\">An action that configures enrichers to wrap with <paramref name=\"wrapEnricher\"/>.</param>\n<returns>A configuration object that supports method chaining.</returns>\n<exception cref=\"ArgumentNullException\">Thrown when any parameter is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb8fd5719a3c8ae60",
+      "text": "The declaration\n\n```c\nchar tmp[UV__INET6_ADDRSTRLEN], *tp\n```\n\ndefines two identifiers: `tmp` and `tp`. `tmp` is declared as a character array whose bound is `UV__INET6_ADDRSTRLEN`; `tp` is declared as a pointer to `char`. The signature has no parameters. The associated numeric value is `16`, and `UV__INET6_ADDRSTRLEN` appears as the array bound. The names are `tmp` and `tp`; the parameter list is empty, and the number is `16`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r039d4b7eee716af5",
+      "text": "Declare the local variables `tmp` and `tp` with the signature `char tmp[UV__INET6_ADDRSTRLEN], *tp`. `tmp` is a character array sized by `UV__INET6_ADDRSTRLEN`, while `tp` is a pointer. The declaration has no parameters. Its identifiers are `tmp`, `UV__INET6_ADDRSTRLEN`, and `tp`. The associated numeric value is 16, corresponding to the specified address-length constant.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rbe37e49f2f7a25ad",
+      "text": "Note that int32_t and int16_t need only be “at least” large enough to contain a value of the specified size. On some systems, such as Crays, there is no such thing as an integer variable with exactly 16 bits. Keep this in mind if you think this function should have been coded to use pointer overlays. All the world’s not a VAX.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5e76e4677781bbee",
+      "text": "Note that int32_t and int16_t need only be “at least” large enough to contain a value of the specified size. On some systems, such as Crays, there is no such thing as an integer variable with exactly 16 bits. Keep this in mind if you think this function should have been coded to use pointer overlays. All the world's not a VAX.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re20fad09df3f8225",
+      "text": "The internal `LogEvent` signature specifies five parameters: `DateTimeOffset timestamp`, `LogEventLevel level`, `Exception exception`, `MessageTemplate messageTemplate`, and `EventProperty[] properties`. `timestamp` is a `DateTimeOffset` value, `level` is a `LogEventLevel` value, `exception` is an `Exception` value, `messageTemplate` is a `MessageTemplate` value, and `properties` is an `EventProperty[]` value. Together, these parameters define the timestamp, log level, exception, message template, and properties associated with the event.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcd957b03588d8da4",
+      "text": "LogEvent is an internal member that records a timestamp, level, exception, message template, and event properties. Its parameters are timestamp, a DateTimeOffset; level, a LogEventLevel; exception, an Exception; messageTemplate, a MessageTemplate; and properties, an array of EventProperty values. The signature contains no numeric parameters. All identifiers correspond directly to these declared types and names in the signature provided for this member.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf02ed439ad2da4c9",
+      "text": "<summary>Constructs a new <seealso cref=\"LogEvent\"/>.</summary>\n<param name=\"timestamp\">The time at which the event occurred.</param>\n<param name=\"level\">The level assigned to the event.</param>\n<param name=\"exception\">An exception associated with the event, or null.</param>\n<param name=\"messageTemplate\">The message template that describes the event.</param>\n<param name=\"properties\">Properties associated with the event, including those presented in <paramref name=\"messageTemplate\"/>.</param>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"messageTemplate\"/> is <code>null</code>.</exception>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"properties\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r74d984ea0b3c9c23",
+      "text": "<summary>Constructs a new <seealso cref=\"LogEvent\"/>.</summary> <param name=\"timestamp\">The time when the event occurred.</param> <param name=\"level\">The event's level.</param> <param name=\"exception\">An exception associated with the event, or null.</param> <param name=\"messageTemplate\">The message template that describes the event.</param> <param name=\"properties\">Properties associated with the event, including those shown in <paramref name=\"messageTemplate\"/>.</param> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"messageTemplate\"/> is <code>null</code>.</exception> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"properties\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r99c0daa7322fe9fd",
+      "text": "Render writes a representation of log event properties to the specified output. The properties argument supplies values through an IReadOnlyDictionary keyed by string, with each value represented by LogEventPropertyValue. The output argument identifies the TextWriter that receives the rendered result. An optional IFormatProvider can control formatting through formatProvider; when omitted, formatProvider is null. The method returns void and accepts no numeric parameters. The method is declared public for callers.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rcc2fc41b3e81543b",
+      "text": "`Render` writes formatted property data to a `TextWriter`. It accepts an `IReadOnlyDictionary<string, LogEventPropertyValue>` named `properties`, which supplies the values to render, and a `TextWriter` named `output`, which receives the result. The optional `IFormatProvider` parameter, `formatProvider`, controls formatting when provided. Its default value is `null`. The method returns `void` and does not return rendered content.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3fd3b3d62cdf6022",
+      "text": "<summary>Converts the message template into a textual message using properties that match the template tokens.</summary> <param name=\"properties\">Properties matching the template tokens.</param> <param name=\"output\">The message created from the template and properties. If the properties do not match the template, the template is returned with incomplete substitution.</param> <param name=\"formatProvider\">Supplies culture-specific formatting information, or null.</param> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"properties\"/> is <code>null</code>.</exception> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"output\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ree11f52b81ae69e6",
+      "text": "<summary>Converts the message template into a textual message using properties that match its tokens.</summary> <param name=\"properties\">Properties matching the template tokens.</param> <param name=\"output\">The message created from the template and properties. If the properties do not match the template, the template is returned with incomplete substitution.</param> <param name=\"formatProvider\">Provides culture-specific formatting information, or null.</param> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"properties\"/> is <code>null</code>.</exception> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"output\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd91f4313561c9387",
+      "text": "ToMaximumCollectionCount configures a LoggerConfiguration with a maximum collection count. It accepts one int parameter, maximumCollectionCount, which specifies the maximum allowed collection count. The method returns a LoggerConfiguration, allowing the resulting configuration to be retained or used in subsequent configuration code. Its return type is LoggerConfiguration. Signature: public LoggerConfiguration ToMaximumCollectionCount(int maximumCollectionCount)",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r38e5f03d908328af",
+      "text": "Configures a LoggerConfiguration with the maximum collection count. Call ToMaximumCollectionCount and provide maximumCollectionCount as an int. The method returns LoggerConfiguration, allowing the configuration to continue through its returned value. The supplied limit is represented by maximumCollectionCount; the available material specifies the number 1. This signature identifies the operation directly for callers.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc6f73637f196f181",
+      "text": "<summary>When destructuring objects, collections are restricted to the specified count to avoid bloating the payload. The limit is applied to each collection separately, so the combined length of collections can exceed the limit. The limit applies to all <see cref=\"IEnumerable\"/> instances, including dictionaries.</summary> <returns>A configuration object that allows method chaining.</returns> <exception cref=\"ArgumentOutOfRangeException\">Thrown when <paramref cref=\"maximumCollectionCount\"/> is less than 1.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc6203636ea4f3151",
+      "text": "<summary>When destructuring objects, collections are restricted to the specified count to prevent payload bloat. The limit is applied separately to each collection; therefore, the combined length of all collections may exceed the limit. This applies to every <see cref=\"IEnumerable\"/>, including dictionaries.</summary> <returns>Configuration object allowing method chaining.</returns> <exception cref=\"ArgumentOutOfRangeException\">When <paramref name=\"maximumCollectionCount\"/> is less than 1.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rec254768445eec3e",
+      "text": "GenReSTTree has the signature func GenReSTTree(cmd *cobra.Command, dir string) error. Its parameters are cmd, typed as *cobra.Command, and dir, typed as string. The return type is error. The declaration identifies GenReSTTree, cmd, cobra, Command, dir, and error. It lists one number, 1, and no additional parameter or return types. The parameter list contains cmd and dir only.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r699345661c169e2c",
+      "text": "Please provide the material to document.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdb17b4a54bb8b04d",
+      "text": "GenReSTTree generates a ReST page for this command and all its descendants in the specified directory. This function may not work correctly when command names contain `-`. If `cmd` has two subcommands, `sub` and `sub-third`, and `sub` has a subcommand called `third`, it is undefined which help output will appear in the file `cmd-sub-third.1`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r44a7599981ea88ee",
+      "text": "GenReSTTree generates a ReST page for this command and all its descendants in the specified directory. This function may not work correctly when command names contain `-`. If `cmd` has two subcommands, `sub` and `sub-third`, and `sub` has a subcommand named `third`, it is undefined which help output appears in `cmd-sub-third.1`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc8fed6a8df8e212d",
+      "text": "The signature `if pred(*w)` contains the identifiers `if` and `pred`. It uses `*w` as its parameter notation. The supplied identifiers are exactly `if` and `pred`, and the supplied parameter is exactly `*w`. The material also lists the numbers `0`, `1`, `2`, `3`, and `4`. These elements comprise the complete documented material: one signature, two identifiers, one parameter, and five numbers, with no additional code or definitions provided in the supplied text only here.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ref1124ebc4149c64",
+      "text": "`if pred(*w)` is a conditional form with two identifiers: `if` and `pred`. The expression invokes `pred` with the arguments contained in `*w`; the star indicates the parameter form `*w`. The signature includes one parameter, `*w`, and no separately listed named parameters. The supplied numeric identifiers are 0, 1, 2, 3, and 4. These numbers are associated with the signature’s documented material but are not used in its displayed expression as currently written here.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r768bba3b18f768a4",
+      "text": "If the current window matches our predicate, and we have not reached our maximum number of replacements, splice in the substitutes and then consume the following windows that overlap with this one. For example, if the iterable is (0, 1, 2, 3, 4...) and the window size is 2, the windows are (0, 1), (1, 2), (2, 3)... If the predicate matches (0, 1), we need to remove (0, 1) and (1, 2).",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf74bea6d922d839a",
+      "text": "If the current window matches our predicate, and we have not reached the maximum number of replacements, splice in the substitutes and consume the subsequent windows that overlap it. For example, if the iterable is (0, 1, 2, 3, 4...) and the window size is 2, the windows are (0, 1), (1, 2), (2, 3)... If the predicate matches (0, 1), we must remove (0, 1) and (1, 2).",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r09783518ce899817",
+      "text": "`PropertyEnricher` provides a constructor with the signature:\n\n```csharp\npublic PropertyEnricher(string name, object value, bool destructureObjects = false)\n```\n\nThe constructor accepts three parameters. `name` is a `string` identifying the property. `value` is an `object` containing the property value. `destructureObjects` is a `bool` that controls object destructuring and defaults to `false` when omitted. The identifiers associated with this signature are `PropertyEnricher`, `name`, `object`, `value`, `destructureObjects`, and `false`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r98d03e7ed2e33bd9",
+      "text": "`PropertyEnricher` is a public constructor that creates a property enricher from a property name and value. The `name` parameter is a string identifying the property. The `value` parameter is an object containing the property value. The optional `destructureObjects` parameter is a Boolean that controls whether objects are destructured. If omitted, `destructureObjects` defaults to `false`.\n\nSignature:\n\n```csharp\npublic PropertyEnricher(string name, object value, bool destructureObjects = false)\n```",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0eb1efb35fed9159",
+      "text": "<summary>Creates a new property enricher.</summary>\n<param name=\"name\">The name of the property.</param>\n<param name=\"value\">The value of the property.</param>\n<param name=\"destructureObjects\">If true, and the value is a non-primitive, non-array type, the value is converted to a structure. Otherwise, unknown types are converted to scalars, which are generally stored as strings.</param>\n<returns>A handle that can later be used to remove the property from the context.</returns>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"name\"/> is <code>null</code>.</exception>\n<exception cref=\"ArgumentException\">Thrown when <paramref name=\"name\"/> is empty or contains only whitespace.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r959458418403cc45",
+      "text": "<summary>Creates a new property enricher.</summary>\n<param name=\"name\">The property name.</param>\n<param name=\"value\">The property value.</param>\n<returns>A handle that can later remove the property from the context.</returns>\n<param name=\"destructureObjects\">If true and the value is a non-primitive, non-array type, the value is converted to a structure. Otherwise, unknown types are converted to scalars, which are generally stored as strings.</param>\n<returns></returns>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"name\"/> is <code>null</code>.</exception>\n<exception cref=\"ArgumentException\">Thrown when <paramref name=\"name\"/> is empty or contains only whitespace.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4f0574d17df118ea",
+      "text": "The `LogEvent` constructor creates a log event from five inputs: `timestamp`, a `DateTimeOffset`; `level`, a `LogEventLevel`; `exception`, an `Exception`; `messageTemplate`, a `MessageTemplate`; and `properties`, an `IEnumerable<LogEventProperty>`. These parameters provide the event’s timestamp, level, exception, message template, and collection of log event properties. Its signature declares these types and identifiers in the same order: timestamp, level, exception, messageTemplate, and properties.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4a0e0b390afdda47",
+      "text": "`LogEvent` is constructed with a `DateTimeOffset` timestamp, a `LogEventLevel` level, an `Exception` exception, a `MessageTemplate` messageTemplate, and an `IEnumerable<LogEventProperty>` properties collection. The constructor parameters are `timestamp`, `level`, `exception`, `messageTemplate`, and `properties`, respectively. This signature defines the event’s timestamp, level, exception, message template, and log event properties.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8000c3f2d3910097",
+      "text": "<summary>Constructs a new <seealso cref=\"LogEvent\"/>.</summary> <param name=\"timestamp\">The time at which the event occurred.</param> <param name=\"level\">The event's level.</param> <param name=\"exception\">An exception associated with the event, or null.</param> <param name=\"messageTemplate\">The message template describing the event.</param> <param name=\"properties\">Properties associated with the event, including those presented in <paramref name=\"messageTemplate\"/>.</param> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"messageTemplate\"/> is <code>null</code>.</exception> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"properties\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf0c34d57aa861087",
+      "text": "<summary>Constructs a new <seealso cref=\"LogEvent\"/>.</summary>\n<param name=\"timestamp\">The time when the event occurred.</param>\n<param name=\"level\">The event's level.</param>\n<param name=\"exception\">An exception associated with the event, or <code>null</code>.</param>\n<param name=\"messageTemplate\">The message template that describes the event.</param>\n<param name=\"properties\">Properties associated with the event, including those presented in <paramref name=\"messageTemplate\"/>.</param>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"messageTemplate\"/> is <code>null</code>.</exception>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"properties\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc539610aa0609abc",
+      "text": "WithProperty is a member of LoggerConfiguration with the signature:\n\npublic LoggerConfiguration WithProperty(string name, object value, bool destructureObjects = false)\n\nIt accepts three parameters: name, a string; value, an object; and destructureObjects, a Boolean that defaults to false. The method returns LoggerConfiguration. The identifiers are LoggerConfiguration, WithProperty, name, object, value, destructureObjects, and false.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r82b5890c7ef16579",
+      "text": "`WithProperty` adds a property to the `LoggerConfiguration`. It accepts a string `name`, an object `value`, and an optional Boolean `destructureObjects` parameter. The default value of `destructureObjects` is `false`. The method returns a `LoggerConfiguration`, allowing configuration to continue after adding the named property and its value.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0240d05e564c9b45",
+      "text": "<summary>Includes the specified property value in every event logged to the logger.</summary> <param name=\"name\">The name of the property to add.</param> <param name=\"value\">The value of the property to add.</param> <param name=\"destructureObjects\">If true, objects of unknown types are logged as structures; otherwise, they are converted using <see cref=\"object.ToString\"/>.</param> <returns>A configuration object that allows method chaining.</returns>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8bc5c0f474f4ff13",
+      "text": "<summary>Includes the specified property value in every event logged to the logger.</summary> <param name=\"name\">The name of the property to add.</param> <param name=\"value\">The property value to add.</param> <param name=\"destructureObjects\">When true, objects of unknown types are logged as structures; otherwise, they are converted using <see cref=\"object.ToString\"/>.</param> <returns>A configuration object that allows method chaining.</returns>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdd6fa9690a4348d9",
+      "text": "The `AtLevel` method returns a `LoggerConfiguration` and accepts two parameters:\n\n```csharp\npublic LoggerConfiguration AtLevel(\n    LogEventLevel enrichFromLevel,\n    Action<LoggerEnrichmentConfiguration> configureEnricher)\n```\n\n`enrichFromLevel` is a `LogEventLevel` value. `configureEnricher` is an `Action<LoggerEnrichmentConfiguration>`. The method, parameter, and type identifiers are `LoggerConfiguration`, `AtLevel`, `LogEventLevel`, `enrichFromLevel`, `Action`, `LoggerEnrichmentConfiguration`, and `configureEnricher`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5b43b7ff02d3e1bd",
+      "text": "AtLevel is a method on LoggerConfiguration. It accepts two parameters: enrichFromLevel, of type LogEventLevel, and configureEnricher, of type Action<LoggerEnrichmentConfiguration>. The method returns LoggerConfiguration. Its signature is:\n\npublic LoggerConfiguration AtLevel(LogEventLevel enrichFromLevel, Action<LoggerEnrichmentConfiguration> configureEnricher)\n\nThe parameter names identify the log event level and the enrichment configuration action. No numeric arguments are defined for this method.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r735ee33ea01a3693",
+      "text": "<summary>Applies an enricher only to events with a <see cref=\"LogEventLevel\"/> greater than or equal to <paramref name=\"enrichFromLevel\"/>.</summary> <param name=\"enrichFromLevel\">The level at which the enricher is first applied.</param> <param name=\"configureEnricher\">An action that configures the wrapped enricher.</param> <returns>A configuration object that allows method chaining.</returns> <remarks>This method permits additional information to be attached to, for example, warnings and errors, when collecting or storing it at lower levels might be too expensive.</remarks> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"configureEnricher\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfe25cbc43675dc1d",
+      "text": "<summary>Applies the enricher only to events whose <see cref=\"LogEventLevel\"/> is greater than or equal to <paramref name=\"enrichFromLevel\"/>.</summary> <param name=\"enrichFromLevel\">The minimum level at which the enricher is applied.</param> <param name=\"configureEnricher\">An action that configures the wrapped enricher.</param> <returns>A configuration object that supports method chaining.</returns> <remarks>This method attaches additional information to warnings and errors that may be too expensive to collect or store at lower levels.</remarks> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"configureEnricher\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r65d297f59302e926",
+      "text": "CreateProperty is a method with return type LogEventProperty. It accepts three parameters: name, a string; value, an object; and destructureObjects, a bool. The destructureObjects parameter defaults to false when omitted. The complete signature is:\n\nLogEventProperty CreateProperty(string name, object value, bool destructureObjects = false)\n\nThe identifiers are LogEventProperty, CreateProperty, name, object, value, destructureObjects, and false.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf071ad24d63615b4",
+      "text": "`CreateProperty` has the signature `LogEventProperty CreateProperty(string name, object value, bool destructureObjects = false)`. It returns a `LogEventProperty` and accepts `name`, `value`, and `destructureObjects` parameters. `name` is a string, `value` is an object, and `destructureObjects` is a Boolean that defaults to `false`. The declaration includes each identifier with its corresponding type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re941ef8e0898c557",
+      "text": "<summary>Constructs a <see cref=\"LogEventProperty\"/> with the specified name and value.</summary> <param name=\"name\">The property's name.</param> <param name=\"value\">The property's value.</param> <param name=\"destructureObjects\">If true and the value is a non-primitive, non-array type, the value is converted to a structure; otherwise, unknown types are converted to scalars, which are generally stored as strings.</param> <returns></returns>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9fa3fc7dfd344b1c",
+      "text": "<summary>Constructs a <see cref=\"LogEventProperty\"/> with the specified name and value.</summary> <param name=\"name\">The property name.</param> <param name=\"value\">The property value.</param> <param name=\"destructureObjects\">If true and the value is a non-primitive, non-array type, converts it to a structure; otherwise, converts unknown types to scalars, generally stored as strings.</param> <returns></returns>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r231fc356a39aace4",
+      "text": "`MessageTemplateTextFormatter` is a public class that implements the `ITextFormatter` interface. Its signature is:\n\n```csharp\npublic class MessageTemplateTextFormatter : ITextFormatter\n```\n\nThe class is identified as `MessageTemplateTextFormatter`, and the implemented interface is identified as `ITextFormatter`. This signature declares the class and its interface relationship. It has no parameters and no associated numeric values. No additional implementation details, behavior, or configuration are specified by the provided material.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7f5c9341881ac6b6",
+      "text": "`MessageTemplateTextFormatter` is a public class that implements the `ITextFormatter` interface. It provides a named formatter type for message-template text formatting. The class declaration is:\n\n```csharp\npublic class MessageTemplateTextFormatter : ITextFormatter\n```\n\n`MessageTemplateTextFormatter` has no parameters. `ITextFormatter` identifies the interface implemented by the class. No numeric values are associated with this declaration.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra56e2c1d33592140",
+      "text": "<summary>An <see cref=\"ITextFormatter\"/> that supports the Serilog message-template format. Formatting log events for display has different requirements and expectations from rendering the data they contain. To meet these requirements, the formatter overrides some behavior: First, strings are always output as literals (not quoted) unless another format is applied to them. Second, tokens without matching properties are skipped rather than written as raw text.</summary>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc47905a6d4030e17",
+      "text": "<summary> A <see cref=\"ITextFormatter\"/> that supports the Serilog message-template format. Formatting log events for display has different requirements and expectations from rendering their data. To meet these requirements, the formatter overrides some behavior. First, strings are always output as literals, rather than quoted, unless another format is applied. Second, tokens without matching properties are skipped instead of being written as raw text. </summary>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb5b01dcb1634d0ab",
+      "text": "`LogEventPropertyValueVisitor<TState, TResult>` is a public abstract class. It is identified by the name `LogEventPropertyValueVisitor` and uses two type parameters: `TState` and `TResult`. The class declaration does not define parameters. Its signature is:\n\n```csharp\npublic abstract class LogEventPropertyValueVisitor<TState, TResult>\n```\n\n`TState` and `TResult` are identifiers in the generic class declaration. No numeric values are associated with this signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9c5afba1cb69bf31",
+      "text": "LogEventPropertyValueVisitor<TState, TResult> is a public abstract class. The class signature declares two generic type parameters: TState and TResult. It has no parameters. The identifiers associated with the declaration are LogEventPropertyValueVisitor, TState, and TResult. No numeric values are specified for this declaration. The generic parameters are written in angle brackets after the class name, with TState listed first and TResult listed second. The declaration is explicitly marked public and abstract in its signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8d28126109e05478",
+      "text": "<summary>An abstract base class for visitors that walk data in the <see cref=\"LogEventPropertyValue\"/> format. Subclasses can override appropriate methods to search for, transform, or print the value structures being visited.</summary> <remarks>Stateless and designed to support allocation-free visits of multiple values by the same visitor instance.</remarks> <typeparam name=\"TState\">The type of a state object passed through the visiting process.</typeparam> <typeparam name=\"TResult\">The type of the result generated by visiting a node.</typeparam>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1e5ad40afc79ad2e",
+      "text": "<summary> An abstract base class for visitors that traverse data in the <see cref=\"LogEventPropertyValue\"/> format. By overriding appropriate methods, subclasses can search for, transform, or print the value structures they visit. </summary> <remarks> Stateless and designed to support allocation-free visits of multiple values by a single visitor instance. </remarks> <typeparam name=\"TState\">The type of a state object passed through the visiting process.</typeparam> <typeparam name=\"TResult\">The type of the result generated by visiting a node.</typeparam>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9ff98836a6264409",
+      "text": "The Router.Match method has the signature `func (r *Router) Match(req *http.Request, match *RouteMatch) bool`. It accepts `req`, a pointer to `http.Request`, and `match`, a pointer to `RouteMatch`. The method returns a `bool` value. `Router` is the receiver type, while `Match`, `req`, `http`, `Request`, `match`, and `RouteMatch` are identifiers.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7f5377755ab28d32",
+      "text": "The `Match` method belongs to `Router` and has the signature `func (r *Router) Match(req *http.Request, match *RouteMatch) bool`. It accepts two parameters: `req`, a pointer to an `http.Request`, and `match`, a pointer to a `RouteMatch`. The method returns a `bool`, representing the result of matching `req` with `match`. Its receiver identifier is `r`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd46cb14c446b16d9",
+      "text": "If the request does not match any route of this router or its subrouters, this function returns false. If available, the reason for the match failure is stored in the MatchErr field of the match argument. If the failure type (for example, not found) has a registered handler, that handler is assigned to the Handler field of the match argument.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r19effb75f2ad1fb8",
+      "text": "If the request does not match any route in this router or its subrouters, this function returns false. If available, the reason for the match failure is stored in the MatchErr field of the provided match argument. If the match-failure type (for example, not found) has a registered handler, that handler is assigned to the Handler field of the provided match argument.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9379159a5498a926",
+      "text": "`When` is a method on `LoggerConfiguration` that accepts a `Func<LogEvent, bool>` named `condition` and an `Action<LoggerEnrichmentConfiguration>` named `configureEnricher`. The `condition` parameter represents a function involving a `LogEvent` and returning `bool`. The `configureEnricher` parameter represents an action receiving `LoggerEnrichmentConfiguration`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5cf2f50639d81b65",
+      "text": "`When` declares a conditional logger-enrichment configuration method. It returns a `LoggerConfiguration` and accepts two parameters: `condition`, a `Func<LogEvent, bool>`, and `configureEnricher`, an `Action<LoggerEnrichmentConfiguration>`. The condition operates on a `LogEvent`; the action receives a `LoggerEnrichmentConfiguration`. The signature uses `Func`, `Action`, and the listed configuration types. Parameters use `Func` and `Action` delegates.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r53bc5be88119cbfa",
+      "text": "<summary>Applies the configured enricher only when <paramref name=\"condition\"/> evaluates to <c>true</c>.</summary> <param name=\"condition\">A predicate that returns <c>true</c> when the supplied <see cref=\"LogEvent\"/> should be enriched.</param> <param name=\"configureEnricher\">An action that configures the wrapped enricher.</param> <returns>A configuration object that supports method chaining.</returns> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"condition\"/> is <code>null</code>.</exception> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"configureEnricher\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf4b17dc8fb685a66",
+      "text": "<summary>Applies the wrapped enricher only when <paramref name=\"condition\"/> evaluates to <c>true</c>.</summary> <param name=\"condition\">Predicate that evaluates to <c>true</c> when the supplied <see cref=\"LogEvent\"/> should be enriched.</param> <param name=\"configureEnricher\">Action that configures the wrapped enricher.</param> <returns>Configuration object for method chaining.</returns> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"condition\"/> is <code>null</code>.</exception> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"configureEnricher\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r60177457a1dc30c1",
+      "text": "`ToMaximumDepth` is a method on `LoggerConfiguration` that accepts an `int` parameter named `maximumDestructuringDepth`. Its signature is:\n\n```csharp\npublic LoggerConfiguration ToMaximumDepth(int maximumDestructuringDepth)\n```\n\nThe parameter specifies the maximum destructuring depth. The documented numeric value is `10`, which can be used as `maximumDestructuringDepth`. The return type is `LoggerConfiguration`, and the method name is `ToMaximumDepth`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0c9177b2ffe99320",
+      "text": "ToMaximumDepth configures a LoggerConfiguration with the maximum destructuring depth specified by maximumDestructuringDepth. Its signature is public LoggerConfiguration ToMaximumDepth(int maximumDestructuringDepth). The parameter is an int named maximumDestructuringDepth. A maximum destructuring depth of 10 can be supplied. The method returns LoggerConfiguration containing the configured depth value for use.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7dcca51d77fe93ef",
+      "text": "<summary>When destructuring objects, traversal is limited to 10 property levels to guard against excessive space use when recursive or cyclic structures are passed accidentally. To change this limit, pass a new maximum depth.</summary> <param name=\"maximumDestructuringDepth\">The maximum depth to use.</param> <returns>A configuration object that allows method chaining.</returns> <exception cref=\"ArgumentOutOfRangeException\">Thrown when <paramref name=\"maximumDestructuringDepth\"/> is negative.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rfc84febc7513ac86",
+      "text": "<summary>When destructuring objects, traversal is limited to 10 property levels to guard against space ballooning when recursive or cyclic structures are passed accidentally. To change this limit, pass a new maximum depth.</summary> <param name=\"maximumDestructuringDepth\">The maximum depth to use.</param> <returns>A configuration object that allows method chaining.</returns> <exception cref=\"ArgumentOutOfRangeException\">Thrown when <paramref name=\"maximumDestructuringDepth\"/> is negative.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4201b89ad7b3fce0",
+      "text": "The Logger method returns a LoggerConfiguration and accepts an Action<LoggerConfiguration> named configureLogger. The configureLogger parameter specifies the logger configuration action. The restrictedToMinimumLevel parameter is a LogEventLevel and defaults to LevelAlias.Minimum, defining the minimum level restriction. The levelSwitch parameter accepts a LoggingLevelSwitch and defaults to null. The signature therefore supports configuration through configureLogger, an optional minimum-level setting through restrictedToMinimumLevel, and an optional level switch through levelSwitch. Its declared types and defaults are LoggerConfiguration, Action, LogEventLevel, LevelAlias.Minimum, LoggingLevelSwitch, and null. The method exposes these parameters in stated order and preserves their specified default values.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf4a2cd5e503687bf",
+      "text": "Logger configures a LoggerConfiguration and returns the resulting LoggerConfiguration. The configureLogger parameter is an Action<LoggerConfiguration> used to configure the logger. restrictedToMinimumLevel specifies the minimum LogEventLevel and defaults to LevelAlias.Minimum. The optional levelSwitch parameter accepts a LoggingLevelSwitch and defaults to null. The method signature is:\n\npublic LoggerConfiguration Logger( Action<LoggerConfiguration> configureLogger, LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum, LoggingLevelSwitch levelSwitch = null)\n\nThe signature identifies LoggerConfiguration, Logger, Action, configureLogger, LogEventLevel, restrictedToMinimumLevel, LevelAlias, Minimum, LoggingLevelSwitch, levelSwitch, and null. No numeric values are specified.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8a8327446a9ace1c",
+      "text": "<summary>Audits log events to a sub-logger, where further processing may occur. Events passed through the sub-logger are constrained by filters and enriched by enrichers active in the parent. A sub-logger cannot be used to log at a more verbose level, but logging at a less verbose level is possible.</summary> <param name=\"configureLogger\">An action that configures the sub-logger.</param> <param name=\"restrictedToMinimumLevel\">The minimum level for events passed through the sink. Ignored when <paramref name=\"levelSwitch\"/> is specified.</param> <param name=\"levelSwitch\">A switch that allows the pass-through minimum level to be changed at runtime.</param> <returns>A configuration object that allows method chaining.</returns>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re14a657a64828cd2",
+      "text": "<summary>Audit log events to a sub-logger, where additional processing may occur. Events passed through the sub-logger are constrained by filters and enriched by enrichers active in the parent logger. A sub-logger cannot be used to log events at a more verbose level, but it can be used at a less verbose level.</summary> <param name=\"configureLogger\">An action that configures the sub-logger.</param> <param name=\"restrictedToMinimumLevel\">The minimum level for events passed through the sink. This parameter is ignored when <paramref name=\"levelSwitch\"/> is specified.</param> <param name=\"levelSwitch\">A switch that allows the pass-through minimum level to be changed at runtime.</param> <returns>A configuration object that allows method chaining.</returns>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf3d99090486c9186",
+      "text": "The signature defines command behavior through four identifiers: `Args`, `MinimumNArgs`, `ValidArgsFunction`, and `Run`. `MinimumNArgs(1)` requires at least one parameter. `ValidArgsFunction` references `validArgsFunc` for argument validation. `Run` references `emptyRun`. The signature contains one parameter and no numeric values beyond the minimum count.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf24e4d2646a2de59",
+      "text": "The signature defines a command with these identifiers: `Args`, `MinimumNArgs`, `ValidArgsFunction`, `validArgsFunc`, `Run`, and `emptyRun`. It requires at least one argument through `MinimumNArgs(1)`, validates arguments with `validArgsFunc`, and assigns `emptyRun` as the run function. No numeric values appear beyond the minimum argument count.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r516992386ad97cc8",
+      "text": "If we do not specify a value for `Args`, this test fails. This occurs only for a root command without subcommands because the `__complete` command becomes a subcommand when none should exist. The problem lies in the implementation of `legacyArgs()`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb9263921475893cc",
+      "text": "If we do not specify a value for `Args`, this test fails. This occurs only for a root command without subcommands. The failure is caused by the `__complete` command becoming a subcommand when none should exist. The problem is in the implementation of `legacyArgs()`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3d8240d37cbc5afa",
+      "text": "`KeyValuePairs` configures a `LoggerConfiguration` using the specified `settings`. The method accepts an `IEnumerable` of `KeyValuePair` objects, where each pair contains a string key and string value. It returns a `LoggerConfiguration`, enabling continued configuration through the returned object. The parameter is named `settings`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r47385612ab40cad3",
+      "text": "KeyValuePairs accepts an IEnumerable<KeyValuePair<string, string>> named settings. The settings value is a collection of KeyValuePair<string, string> entries, where each entry contains a string key and a string value. The method returns a LoggerConfiguration, allowing the supplied settings to be used as part of that configuration. The parameter type specifies its key and value types as string.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6955443b91f95284",
+      "text": "<summary>Applies settings specified in Serilog's key-value setting format to the logger configuration.</summary> <param name=\"settings\">A list of key-value pairs that describe the logger settings.</param> <returns>A configuration object that supports method chaining.</returns> <remarks>If duplicate keys occur, the last value is retained, and all previous values for that key are ignored.</remarks> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"settings\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7ac529e0c847a4e3",
+      "text": "<summary>Applies settings in Serilog key-value format to the logger configuration.</summary> <param name=\"settings\">A list of key-value pairs that describes logger settings.</param> <returns>A configuration object that supports method chaining.</returns> <remarks>If keys are duplicated, the last value is retained and previous values are ignored.</remarks> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"settings\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r890b58d6e3bb7a14",
+      "text": "`Push` is a public static method that accepts an `ILogEventEnricher` parameter named `enricher`. It returns an `IDisposable` instance. The method signature is:\n\n```csharp\npublic static IDisposable Push(ILogEventEnricher enricher)\n```\n\nCallers provide an enricher through the `enricher` parameter and receive an `IDisposable` result. The signature identifies the method as static and public, specifies `ILogEventEnricher` as the parameter type, and specifies `IDisposable` as the return type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra40d9e92e12b7994",
+      "text": "The Push method is public and static. It accepts one parameter, enricher, whose type is ILogEventEnricher. The method returns a value of type IDisposable. Its complete signature is:\n\npublic static IDisposable Push(ILogEventEnricher enricher)\n\nIn this declaration, Push identifies the method, enricher identifies the parameter, ILogEventEnricher identifies the parameter type, and IDisposable identifies the return type. The signature specifies no numeric values. The declaration contains one parameter and one return type, with no additional identifiers or values shown.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r31c62499c216b13d",
+      "text": "<summary>Pushes an enricher onto the context and returns an <see cref=\"IDisposable\"/> token that must later be disposed to remove the property, along with any other properties pushed on top of it that have not yet been popped. The property must be popped from the same thread or logical call context.</summary>\n<param name=\"enricher\">The enricher to push onto the log context.</param>\n<returns>A token that must be disposed in order to pop properties back off the stack.</returns>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"enricher\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra9d4b48621e2283b",
+      "text": "<summary>Pushes an enricher onto the log context and returns an <see cref=\"IDisposable\"/> token. Dispose the token to remove the enricher, along with any other properties pushed after it and not yet popped. The property must be popped from the same thread or logical call context on which it was pushed.</summary> <param name=\"enricher\">The enricher to push onto the log context.</param> <returns>A token that must be disposed in order to pop properties from the stack.</returns> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"enricher\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rea366322379bb2a7",
+      "text": "The Logger method returns a LoggerConfiguration and accepts an Action<LoggerConfiguration> named configureLogger. The configureLogger parameter supplies the LoggerConfiguration action used by the method signature. The method also accepts restrictedToMinimumLevel, a LogEventLevel parameter whose default value is LevelAlias.Minimum. A third parameter, levelSwitch, accepts a LoggingLevelSwitch and defaults to null. Its complete signature is:\n\npublic LoggerConfiguration Logger(\n    Action<LoggerConfiguration> configureLogger,\n    LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,\n    LoggingLevelSwitch levelSwitch = null)\n\nIdentifiers associated with the signature are LoggerConfiguration, Logger, Action, configureLogger, LogEventLevel, restrictedToMinimumLevel, LevelAlias, Minimum, LoggingLevelSwitch, levelSwitch, and null. No numeric values are specified.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re4a938ae4483406c",
+      "text": "`Logger` is a public method on `LoggerConfiguration`. Its signature is:\n\n```csharp\npublic LoggerConfiguration Logger(\n    Action<LoggerConfiguration> configureLogger,\n    LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum,\n    LoggingLevelSwitch levelSwitch = null)\n```\n\nThe method returns `LoggerConfiguration`. It accepts three parameters: `configureLogger`, an `Action<LoggerConfiguration>`; `restrictedToMinimumLevel`, a `LogEventLevel` whose default is `LevelAlias.Minimum`; and `levelSwitch`, a `LoggingLevelSwitch` whose default is `null`. The signature identifies the types and names used by the method: `LoggerConfiguration`, `Action`, `LogEventLevel`, `LevelAlias`, `Minimum`, and `LoggingLevelSwitch`. No numeric values are specified.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4a550ae0a6926ae2",
+      "text": "<summary>Writes log events to a sub-logger, where additional processing may occur. Events sent through the sub-logger are constrained by the filters and enriched by the enrichers active in the parent logger. A sub-logger cannot be used to log events at a more verbose level than the parent, but it can be configured for a less verbose level.</summary>\n<param name=\"configureLogger\">An action that configures the sub-logger.</param>\n<param name=\"restrictedToMinimumLevel\">The minimum level for events passed through the sink. Ignored when <paramref name=\"levelSwitch\"/> is specified.</param>\n<param name=\"levelSwitch\">A switch that allows the pass-through minimum level to be changed at runtime. Can be <code>null</code>.</param>\n<returns>A configuration object that allows method chaining.</returns>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"configureLogger\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r11e24d6608dc0c55",
+      "text": "<summary>Writes log events to a sub-logger, where further processing may occur. Events passed through the sub-logger are constrained by filters and enriched by enrichers active in the parent logger. A sub-logger cannot log at a more verbose level than its parent, but it can log at a less verbose level.</summary>\n<param name=\"configureLogger\">An action that configures the sub-logger.</param>\n<param name=\"restrictedToMinimumLevel\">The minimum level for events passed through the sink. Ignored when <paramref name=\"levelSwitch\"/> is specified.</param>\n<param name=\"levelSwitch\">A switch that allows the pass-through minimum level to be changed at runtime. Can be <code>null</code>.</param>\n<returns>A configuration object that allows method chaining.</returns>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"configureLogger\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r36352888246def70",
+      "text": "`Logger` is a method on `LoggerConfiguration` with the signature `public LoggerConfiguration Logger(ILogger logger, LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum)`. It accepts an `ILogger` parameter named `logger` and a `LogEventLevel` parameter named `restrictedToMinimumLevel`. The second parameter defaults to `LevelAlias.Minimum`. The method returns `LoggerConfiguration`. The identifiers used by this signature are `LoggerConfiguration`, `Logger`, `ILogger`, `logger`, `LogEventLevel`, `restrictedToMinimumLevel`, `LevelAlias`, and `Minimum`. No numeric values are specified in the signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "raa16fd6c1ea10552",
+      "text": "The Logger method configures logging through an ILogger instance and returns a LoggerConfiguration. It accepts two parameters: logger, an ILogger, and restrictedToMinimumLevel, a LogEventLevel that defaults to LevelAlias.Minimum. The default restricts the minimum log-event level to the alias represented by Minimum. The method signature is public, and the return type is LoggerConfiguration. Logger, ILogger, LogEventLevel, restrictedToMinimumLevel, LevelAlias, and Minimum are the identifiers involved. No numeric values are specified for this signature or its parameters. The parameter declaration repeats this default explicitly as `LogEventLevel restrictedToMinimumLevel = LevelAlias.Minimum` in the signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc22391ea2a118fa3",
+      "text": "<summary>Writes log events to a sub-logger, where additional processing may occur. Events processed by the sub-logger are subject to filters and enriched by enrichers active in the parent logger. A sub-logger cannot be used to log at a more verbose level, but it can be used at a less verbose level.</summary>\n<param name=\"logger\">The sub-logger. It will <em>not</em> be shut down automatically when the parent logger is disposed.</param>\n<param name=\"restrictedToMinimumLevel\">The minimum level for events passed through the sink.</param>\n<returns>A configuration object that allows method chaining.</returns>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"logger\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r39e5d74986b8274d",
+      "text": "<summary>Writes log events to a sub-logger, where additional processing may occur. Events sent through the sub-logger are constrained by filters and enriched by enrichers active in the parent logger. A sub-logger cannot be used to log events at a more verbose level than the parent, but it can be used at a less verbose level.</summary> <param name=\"logger\">The sub-logger. This will not be shut down automatically when the parent logger is disposed.</param> <param name=\"restrictedToMinimumLevel\">The minimum level for events passed through the sink.</param> <returns>Configuration object allowing method chaining.</returns> <exception cref=\"ArgumentNullException\">When <paramref name=\"logger\"/> is <code>null</code></exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r492e380ac64cc329",
+      "text": "`needs_serialize_bound` is a function that accepts two parameters: `field`, a reference to `attr::Field`, and `variant`, an optional reference to `attr::Variant`. Its return type is `bool`. The function signature is:\n\n```text\nfn needs_serialize_bound(field: &attr::Field, variant: Option<&attr::Variant>) -> bool\n```\n\nReferenced identifiers include `needs_serialize_bound`, `field`, `attr`, `Field`, `variant`, `Option`, and `Variant`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf8dbf22769d0fbfe",
+      "text": "The `needs_serialize_bound` function has this signature:\n\n```rust\nfn needs_serialize_bound(field: &attr::Field, variant: Option<&attr::Variant>) -> bool\n```\n\nIt accepts `field`, a reference to `attr::Field`, and `variant`, an optional reference to `attr::Variant`. It returns a Boolean value. The signature includes the identifiers `needs_serialize_bound`, `field`, `attr`, `Field`, `variant`, `Option`, and `Variant`. No numeric values are specified.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8b6dda46e0bc4ea1",
+      "text": "Fields with a `skip_serializing` or `serialize_with` attribute, or that belong to a variant with a `skip_serializing` or `serialize_with` attribute, are not serialized by us, so we do not generate a bound. Fields with a `bound` attribute specify their own bound, so we do not generate one. All other fields may need a `T: Serialize` bound, where T is the type of the field.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r91a9c68c7f0a3976",
+      "text": "Fields with a `skip_serializing` or `serialize_with` attribute, or fields belonging to a variant with either attribute, are not serialized by us, so we do not generate a bound. Fields with a `bound` attribute specify their own bound, so we do not generate one. All other fields may need a `T: Serialize` bound for serialization, where `T` is the type of the field.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7f02359499a1da0a",
+      "text": "NewUUID is a function with the signature `func NewUUID() (UUID, error)`. It accepts no parameters and returns two values: a `UUID` and an `error`. The function name is `NewUUID`; its return types are `UUID` and `error`. The declaration contains one numeric element: the number `1`. No additional parameters, identifiers, return types, behavior, or error conditions are specified by the supplied material. This documentation describes only the declared signature and listed identifiers provided.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r4f502c2fb4986507",
+      "text": "`NewUUID` creates and returns a `UUID`. Its signature is:\n\n```go\nfunc NewUUID() (UUID, error)\n```\n\nThe function accepts no parameters and returns two values: a `UUID` and an `error`. The `UUID` result represents the created identifier. The `error` result reports whether creation encountered a problem. Callers should handle both returned values according to the function’s result. Because the function has no parameters, all required input is provided through its internal implementation.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r5f814300d73a8aae",
+      "text": "NewUUID returns a Version 1 UUID based on the current NodeID, clock sequence, and time. If the NodeID has not been set by SetNodeID or SetNodeInterface, it is set automatically. If the NodeID cannot be set, NewUUID returns nil. If the clock sequence has not been set by SetClockSequence, it is set automatically. If GetTime fails to return the current time, NewUUID returns nil and an error.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3d790023785744b5",
+      "text": "NewUUID returns a Version 1 UUID based on the current NodeID, clock sequence, and time. If SetNodeID or SetNodeInterface has not set the NodeID, NewUUID sets it automatically. If the NodeID cannot be set, NewUUID returns nil. If SetClockSequence has not set the clock sequence, NewUUID sets it automatically. If GetTime fails to return the current time, NewUUID returns nil and an error.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rec95b3f12e928a7f",
+      "text": "`Wrap` is a public static method that returns a `LoggerConfiguration`. It accepts a `LoggerSinkConfiguration` named `loggerSinkConfiguration`, a `Func<ILogEventSink, ILogEventSink>` named `wrapSink`, an `Action<LoggerSinkConfiguration>` named `configureWrappedSink`, a `LogEventLevel` named `restrictedToMinimumLevel`, and a `LoggingLevelSwitch` named `levelSwitch`. The `wrapSink` parameter represents a function from `ILogEventSink` to `ILogEventSink`. The `configureWrappedSink` parameter represents an action that accepts `LoggerSinkConfiguration`. The remaining parameters specify the restricted minimum log event level and logging level switch.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r577907d9e886d3df",
+      "text": "`Wrap` is a static method that returns a `LoggerConfiguration`. It accepts a `LoggerSinkConfiguration` named `loggerSinkConfiguration`, which provides the sink configuration context. The `wrapSink` parameter is a `Func<ILogEventSink, ILogEventSink>` used to wrap an `ILogEventSink`. The `configureWrappedSink` parameter is an `Action<LoggerSinkConfiguration>` for configuring the wrapped sink. Logging can be limited with `restrictedToMinimumLevel`, a `LogEventLevel`, or controlled with `levelSwitch`, a `LoggingLevelSwitch`. Together, these parameters define sink wrapping, configuration, minimum-level restriction, and level-switch behavior.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r68b7f5edc21e66c5",
+      "text": "<summary>Helper method for wrapping sinks.</summary>\n<param name=\"loggerSinkConfiguration\">The parent sink configuration.</param>\n<param name=\"wrapSink\">A function that wraps the <see cref=\"ILogEventSink\"/> instances added by <paramref name=\"configureWrappedSink\"/>.</param>\n<param name=\"configureWrappedSink\">An action that configures the sinks to be wrapped by <paramref name=\"wrapSink\"/>.</param>\n<param name=\"restrictedToMinimumLevel\">The minimum level for events passed through the sink. Ignored when <paramref name=\"levelSwitch\"/> is specified.</param>\n<param name=\"levelSwitch\">A switch that allows the pass-through minimum level to be changed at runtime. Can be <code>null</code>.</param>\n<returns>A configuration object that allows method chaining.</returns>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"loggerSinkConfiguration\"/>, <paramref name=\"wrapSink\"/>, or <paramref name=\"configureWrappedSink\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0ed5eb31cd375787",
+      "text": "<summary>Helper method for wrapping sinks.</summary> <param name=\"loggerSinkConfiguration\">The parent sink configuration.</param> <param name=\"wrapSink\">A function that wraps <see cref=\"ILogEventSink\"/> instances added by <paramref name=\"configureWrappedSink\"/>.</param> <param name=\"configureWrappedSink\">An action that configures the sinks to wrap with <paramref name=\"wrapSink\"/>.</param> <param name=\"restrictedToMinimumLevel\">The minimum level for events passed through the sink. Ignored when <paramref name=\"levelSwitch\"/> is specified.</param> <param name=\"levelSwitch\">A switch that allows the pass-through minimum level to change at runtime. Can be <code>null</code>.</param> <returns>A configuration object that allows method chaining.</returns> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"loggerSinkConfiguration\"/>, <paramref name=\"wrapSink\"/>, or <paramref name=\"configureWrappedSink\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2905f987509c1a64",
+      "text": "`GenManTree` has the following signature:\n\n```go\nfunc GenManTree(cmd *cobra.Command, header *GenManHeader, dir string) error\n```\n\nIt accepts three parameters: `cmd`, `header`, and `dir`. `cmd` is a `*cobra.Command`, `header` is a `*GenManHeader`, and `dir` is a `string`. The function returns an `error`. Identifiers include `GenManTree`, `cobra`, `Command`, `GenManHeader`, and `error`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r6321b80d86cb71c6",
+      "text": "GenManTree is declared with a Cobra command, a header, and a directory parameter. The cmd parameter has type *cobra.Command. The header parameter has type *GenManHeader. The dir parameter has type string. The function returns error. The identifiers are GenManTree, cmd, cobra, Command, header, GenManHeader, dir, and error.\n\nfunc GenManTree(cmd *cobra.Command, header *GenManHeader, dir string) error",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd2c3a045b8dab04e",
+      "text": "GenManTree will generate a man page for the specified command and all its descendants in the directory given. The header may be nil. This function may not work correctly if your command names contain `-`. If `cmd` has two subcommands, `sub` and `sub-third`, and `sub` has a subcommand called `third`, it is undefined which help output will appear in `cmd-sub-third.1`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb03479bb98bdb26c",
+      "text": "GenManTree generates a man page for the specified command and all its descendants in the given directory. The header may be nil. This function may not work correctly if command names contain `-`. If `cmd` has two subcommands, `sub` and `sub-third`, and `sub` has a subcommand named `third`, it is undefined which help output will be written to the file `cmd-sub-third.1`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r00857da166480de0",
+      "text": "`ToMaximumStringLength` is a method on `LoggerConfiguration` that accepts an integer parameter named `maximumStringLength`. Its signature is:\n\n```csharp\npublic LoggerConfiguration ToMaximumStringLength(int maximumStringLength)\n```\n\nThe parameter specifies the maximum string length. The method returns a `LoggerConfiguration`, allowing the configuration to continue through the returned `LoggerConfiguration` value.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb2026cc13eb1df15",
+      "text": "`ToMaximumStringLength` is a public method on `LoggerConfiguration`:\n\n```csharp\npublic LoggerConfiguration ToMaximumStringLength(int maximumStringLength)\n```\n\nIt accepts one parameter, `maximumStringLength`, of type `int`, and returns `LoggerConfiguration`. The supplied numeric value is `2`. This signature defines configuration for a maximum string length.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2461c253f50a36c8",
+      "text": "<summary>When destructuring objects, string values can be restricted to a specified length, avoiding payload bloat. The limit is applied separately to each value; the combined length of strings can exceed the limit.</summary>  <param name=\"maximumStringLength\">The maximum string length.</param>  <returns>A configuration object that allows method chaining.</returns>  <exception cref=\"ArgumentOutOfRangeException\">Thrown when <paramref name=\"maximumStringLength\"/> is less than 2.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd551af810e649e00",
+      "text": "<summary>When destructuring objects, string values can be restricted to a specified length, preventing payload bloat. The limit applies to each value separately; the combined length of all strings can exceed this limit.</summary> <param name=\"maximumStringLength\">The maximum permitted string length.</param> <returns>A configuration object that supports method chaining.</returns> <exception cref=\"ArgumentOutOfRangeException\">Thrown when <paramref name=\"maximumStringLength\"/> is less than 2.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0978d71fae1decc5",
+      "text": "`PropertyToken` provides a constructor with `propertyName` and `rawText` parameters. The optional `format` parameter defaults to `null`. The nullable `alignment` parameter defaults to `null` and uses the `Alignment` type. The `destructuring` parameter uses the `Destructuring` type and defaults to `Destructuring.Default`. The optional `startIndex` parameter is an `int` that defaults to `-1`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb20303fd255007f0",
+      "text": "The PropertyToken constructor accepts a string propertyName and a string rawText. The optional format parameter is a string and defaults to null. The optional alignment parameter is a nullable Alignment and defaults to null. The destructuring parameter is a Destructuring value and defaults to Destructuring.Default. The startIndex parameter is an integer and defaults to -1.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r62e369e4396c550a",
+      "text": "<summary>Constructs a <see cref=\"PropertyToken\"/>.</summary>\n<param name=\"propertyName\">The name of the property.</param>\n<param name=\"rawText\">The token as it appears in the message template.</param>\n<param name=\"format\">The format applied to the property, if any.</param>\n<param name=\"alignment\">The alignment applied to the property, if any.</param>\n<param name=\"destructuring\">The destructuring strategy applied to the property, if any.</param>\n<param name=\"startIndex\">The token's starting index in the template.</param>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"propertyName\"/> is <code>null</code>.</exception>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"rawText\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r16769df720fc4a01",
+      "text": "<summary>Constructs a <see cref=\"PropertyToken\"/>.</summary>\n<param name=\"propertyName\">The property name.</param>\n<param name=\"rawText\">The token as it appears in the message template.</param>\n<param name=\"format\">The format applied to the property, if any.</param>\n<param name=\"alignment\">The alignment applied to the property, if any.</param>\n<param name=\"destructuring\">The destructuring strategy applied to the property, if any.</param>\n<param name=\"startIndex\">The token's starting index in the template.</param>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"propertyName\"/> is <code>null</code>.</exception>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"rawText\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3543eac021389acc",
+      "text": "The `modified` value is a Boolean status indicator. Its current value is `False`, meaning the documented state is not modified. This signature accepts no parameters and returns no additional identifiers or numeric values. Code using this signature should reference the identifier `modified` and the Boolean literal `False` exactly as specified within this documentation.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf580353552d16157",
+      "text": "The `modified` variable is assigned the Boolean value `False`. This signature accepts no parameters and contains no numeric values. It indicates that the documented operation has not been modified. Because `modified` is the only identifier and `False` is its only value, no additional inputs or numeric configuration are specified by this signature definition.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3242788d46b61abd",
+      "text": ": This is set to ``True`` when data changes. Only the session : dictionary itself is tracked; if the session contains mutable : data (for example, a nested dict), this must be set to : ``True`` manually when that data is modified. The session cookie : is written to the response only if this value is ``True``.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8bf4781626e41299",
+      "text": "When data changes, this is set to ``True``. Only the session : dictionary itself is tracked; if the session contains mutable : data (for example, a nested dict), you must set this to : ``True`` manually when modifying that data. The session cookie : will be written to the response only if this is ``True``.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8bd9aea2910e3932",
+      "text": "`GenYamlTree` has the signature `func GenYamlTree(cmd *cobra.Command, dir string) error`. It accepts two parameters: `cmd`, a pointer to `cobra.Command`, and `dir`, a string. The function returns an `error`. The identifiers associated with this signature are `GenYamlTree`, `cmd`, `cobra`, `Command`, `dir`, and `error`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7c5463ed0dbd8b1a",
+      "text": "GenYamlTree generates a YAML tree by using a Cobra command and a directory path. It accepts cmd, a pointer to cobra.Command, and dir, a string identifying the directory. The function returns an error, allowing callers to detect failure. Its signature is func GenYamlTree(cmd *cobra.Command, dir string) error, with two parameters. Both inputs are required by the signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2edb39f180218975",
+      "text": "GenYamlTree creates YAML-structured reference files for this command and all its descendants in the specified directory. This function may not work correctly if command names contain `-`. If `cmd` has two subcommands, `sub` and `sub-third`, and `sub` has a subcommand named `third`, it is undefined which help output will appear in `cmd-sub-third.1`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "raf3f6b70007e9cda",
+      "text": "GenYamlTree creates YAML-structured reference files for this command and all its descendants in the specified directory. This function may not work correctly if your command names contain `-`. If `cmd` has two subcommands, `sub` and `sub-third`, and `sub` has a subcommand named `third`, it is undefined which help output will be written to the corresponding file `cmd-sub-third.1`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9f68637a85b4f385",
+      "text": "JsonFormatter provides a constructor with three optional parameters. closingDelimiter is a string that defaults to null. renderMessage is a Boolean that defaults to false. formatProvider accepts an IFormatProvider and defaults to null. The signature is:\n\npublic JsonFormatter( string closingDelimiter = null, bool renderMessage = false, IFormatProvider formatProvider = null)\n\nEach parameter has a default value.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r8b186fb2ed907e48",
+      "text": "The JsonFormatter constructor accepts three optional parameters. closingDelimiter is a string and defaults to null. renderMessage is a Boolean and defaults to false. formatProvider is an IFormatProvider and defaults to null. Use these parameters to configure the formatter’s closing delimiter, message rendering, and format provider when creating a JsonFormatter instance object.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r01bd17ae5976e436",
+      "text": "<summary>Construct a <see cref=\"JsonFormatter\"/>.</summary> <param name=\"closingDelimiter\">A string written after each formatted log event. If null, <see cref=\"Environment.NewLine\"/> is used.</param> <param name=\"renderMessage\">If true, the message is rendered and written to the output as a property named RenderedMessage.</param> <param name=\"formatProvider\">Supplies culture-specific formatting information, or null.</param>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3f023a781f9e7b71",
+      "text": "<summary>Constructs a <see cref=\"JsonFormatter\"/>.</summary> <param name=\"closingDelimiter\">A string written after each log event is formatted. If null, <see cref=\"Environment.NewLine\"/> is used.</param> <param name=\"renderMessage\">If true, the message is rendered and written to the output as a property named RenderedMessage.</param> <param name=\"formatProvider\">Supplies culture-specific formatting information, or null.</param>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "raa241214ec6e8f09",
+      "text": "`WriteLine` is a public static method with the following signature:\n\n```csharp\npublic static void WriteLine(string format, object arg0 = null, object arg1 = null, object arg2 = null)\n```\n\nIt accepts the `string` parameter `format` and three optional `object` parameters: `arg0`, `arg1`, and `arg2`. Each optional parameter defaults to `null`. The method returns `void`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r25d446891e808858",
+      "text": "WriteLine is a public static method with the signature. It accepts a string named format and three optional object parameters: arg0, arg1, and arg2. Each optional parameter defaults to null. The method returns void. Its declared identifiers are WriteLine, format, object, arg0, null, arg1, and arg2. No numeric parameters are specified in this declaration of the method.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "racb249678b506705",
+      "text": "<summary>Writes a message to the self-log.</summary> <param name=\"format\">A standard .NET format string containing the message.</param> <param name=\"arg0\">The first argument, if supplied.</param> <param name=\"arg1\">The second argument, if supplied.</param> <param name=\"arg2\">The third argument, if supplied.</param> <remarks>The name is historical. Because third-party sink packages use this, removing the \"Line\" suffix is not worth the resulting breakage.</remarks>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd491c7ecd181fe96",
+      "text": "<summary>Writes a message to the self-log.</summary>\n<param name=\"format\">A standard .NET format string containing the message.</param>\n<param name=\"arg0\">The first argument, if supplied.</param>\n<param name=\"arg1\">The second argument, if supplied.</param>\n<param name=\"arg2\">The third argument, if supplied.</param>\n<remarks>The name is historical. Because third-party sink packages use this member, removing the “Line” suffix, although seemingly sensible, would cause unnecessary breakage.</remarks>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r361f37f2ac1a84b5",
+      "text": "`newRequest` creates and returns an `*http.Request`. It accepts two string parameters: `method`, which identifies the request method, and `url`, which identifies the request URL. The function signature is:\n\n```go\nfunc newRequest(method, url string) *http.Request\n```",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r466eb40c03b27268",
+      "text": "`newRequest` creates and returns an HTTP request. It accepts two string parameters: `method`, which identifies the request method, and `url`, which specifies the request URL. The function returns a pointer to an `http.Request` object.\n\n```go\nfunc newRequest(method, url string) *http.Request\n```",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3612949f79217f8b",
+      "text": "newRequest is a helper function for creating a new request with a method and URL. The returned request is a “server” request rather than a “client” request, simulating a write to the wire and a read from the wire. The differences between these requests are detailed in the net/http package.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r01165b05aa4ff358",
+      "text": "newRequest is a helper function that creates a new request with a method and URL. The returned request is a “server” request rather than a “client” request, simulating writes to and reads from the wire. The differences between server and client requests are documented in the net/http package.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r53b8cd35f70e9479",
+      "text": "`Push` is a public static method that accepts a parameter array of `ILogEventEnricher` instances and returns an `IDisposable`. The `params` modifier allows callers to provide the `enrichers` argument as a variable number of `ILogEventEnricher` values. The method signature is:\n\n```csharp\npublic static IDisposable Push(params ILogEventEnricher[] enrichers)\n```\n\nThe parameter is named `enrichers` and has the type `params ILogEventEnricher[]`. The return type is `IDisposable`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0ba2927e92019f2a",
+      "text": "`Push` is a public static method that accepts a parameter array of `ILogEventEnricher` instances through the `enrichers` parameter. Its signature is:\n\n```csharp\npublic static IDisposable Push(params ILogEventEnricher[] enrichers)\n```\n\nThe method returns an `IDisposable` value. The `params` modifier allows the caller to provide zero or more `ILogEventEnricher` arguments. The parameter is named `enrichers`, and its declared type is `ILogEventEnricher[]`. No numeric parameters are defined by this signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r471248b66b1526c9",
+      "text": "<summary>Pushes multiple enrichers onto the context and returns an <see cref=\"IDisposable\"/> that must later be used to remove the property, along with any other properties pushed on top of it that have not yet been popped. The property must be popped from the same thread or logical call context.</summary>\n<seealso cref=\"PropertyEnricher\"/>.\n<param name=\"enrichers\">The enrichers to push onto the log context.</param>\n<returns>A token that must be disposed in order to pop properties from the stack.</returns>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"enrichers\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3ec54cf1ee0c04ca",
+      "text": "<summary>Pushes multiple enrichers onto the context and returns an <see cref=\"IDisposable\"/> token that must later be disposed to remove the properties, along with any other properties pushed on top of them that have not yet been popped. Properties must be popped from the same thread or logical call context.</summary>\n<seealso cref=\"PropertyEnricher\"/>.\n<param name=\"enrichers\">The enrichers to push onto the log context.</param>\n<returns>A token that must be disposed, in order, to pop properties from the stack.</returns>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"enrichers\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r490eb34549213a61",
+      "text": "`ForContext<TValue>` is a public static method on `ILogger` that accepts an `ILogger` instance as its extension receiver. It takes a `LogEventLevel` named `level`, a `string` named `propertyName`, and a `TValue` named `value`. The method also accepts the optional Boolean parameter `destructureObjects`, whose default value is `false`. Its return type is `ILogger`, so the method returns an `ILogger` instance. The complete signature is:\n\n```csharp\npublic static ILogger ForContext<TValue>(\n    this ILogger logger,\n    LogEventLevel level,\n    string propertyName,\n    TValue value,\n    bool destructureObjects = false)\n```",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r76d3ba43f8679e0d",
+      "text": "`ForContext<TValue>` is a static extension method on `ILogger`. It accepts an existing `logger`, a `LogEventLevel` named `level`, a string `propertyName`, and a value of type `TValue`. The method also accepts the Boolean parameter `destructureObjects`, which defaults to `false`. Its signature is:\n\n```csharp\npublic static ILogger ForContext<TValue>(\n    this ILogger logger,\n    LogEventLevel level,\n    string propertyName,\n    TValue value,\n    bool destructureObjects = false)\n```\n\nThe generic identifier `TValue` represents the type of `value`. The method returns an `ILogger`. Parameters are supplied in the order `logger`, `level`, `propertyName`, `value`, and `destructureObjects`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r1c600102ecacd065",
+      "text": "<summary>Creates a logger that enriches log events when the specified level is enabled.</summary> <typeparam name=\"TValue\">The type of the property value.</typeparam> <param name=\"logger\">The logger.</param> <param name=\"level\">The log event level that determines whether the log is enriched with the property.</param> <param name=\"propertyName\">The property name. Must be non-empty.</param> <param name=\"value\">The property value.</param> <param name=\"destructureObjects\">If true, the value is serialized as a structured object when possible; if false, the object is recorded as a scalar or simple array.</param> <returns>A logger that enriches log events as specified.</returns> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"logger\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra919656ac619b877",
+      "text": "<summary>Creates a logger that enriches log events when the specified level is enabled.</summary> <typeparam name=\"TValue\">The type of the property value.</typeparam> <param name=\"logger\">The logger to enrich.</param> <param name=\"level\">The log event level that determines whether the log is enriched with the property.</param> <param name=\"propertyName\">The property name. This value must be non-empty.</param> <param name=\"value\">The property value.</param> <param name=\"destructureObjects\">If true, serializes the value as a structured object when possible. If false, records the object as a scalar or simple array.</param> <returns>A logger that enriches log events as specified.</returns> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"logger\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r7ec9ee7d28a31243",
+      "text": "`Render` is a public method returning `string`. Its `properties` parameter has type `IReadOnlyDictionary<string, LogEventPropertyValue>`, a read-only dictionary whose keys are `string` and whose values are `LogEventPropertyValue`. The optional `formatProvider` parameter has type `IFormatProvider` and defaults to `null`. The signature declares no numeric values and identifies `Render` as the method name.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdb5cd0add66e76f6",
+      "text": "The `Render` method returns a `string` and accepts an `IReadOnlyDictionary<string, LogEventPropertyValue>` named `properties`. It also accepts an optional `IFormatProvider` named `formatProvider`, whose default value is `null`. The signature is:\n\n```csharp\npublic string Render(IReadOnlyDictionary<string, LogEventPropertyValue> properties, IFormatProvider formatProvider = null)\n```\n\nThe dictionary key type is `string`, and its value type is `LogEventPropertyValue`. Both parameter identifiers appear in the signature. The optional parameter uses `null` as its default value.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r059abfc782b966bd",
+      "text": "<summary>Converts the message template into a textual message using properties that match the template's tokens.</summary>\n<param name=\"properties\">Properties matching the template tokens.</param>\n<param name=\"formatProvider\">Supplies culture-specific formatting information, or null.</param>\n<returns>The message created from the template and properties. If the properties do not match the template, the template is returned with incomplete substitution.</returns>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"properties\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc2dce9b660dc1f0b",
+      "text": "<summary>Converts the message template into a textual message using properties that match its tokens.</summary> <param name=\"properties\">Properties matching the template tokens.</param> <param name=\"formatProvider\">Supplies culture-specific formatting information, or null.</param> <returns>The message created from the template and properties. If the properties do not match the template, returns the template with incomplete substitution.</returns> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"properties\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf7a9837002c37f66",
+      "text": "Parses a message-template string and returns the resulting `MessageTemplate`.\n\nSignature:\n\n```csharp\npublic MessageTemplate Parse(string messageTemplate)\n```\n\n`Parse` is the method identifier, and `messageTemplate` is its parameter identifier. The parameter has type `string`, while the method return type is `MessageTemplate`. The signature contains no numeric values or numeric parameters. The declaration specifies that the method is public and accepts exactly one parameter.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rf8298fffa8e3622e",
+      "text": "MessageTemplate.Parse accepts one parameter, messageTemplate, whose type is string. The method signature is:\n\npublic MessageTemplate Parse(string messageTemplate)\n\nThe method returns a MessageTemplate. The parameter is named messageTemplate. No numeric parameters are defined. Identifiers in this signature are MessageTemplate, Parse, and messageTemplate. This documentation describes the declared parameter and return type as specified in the signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r86205f6cd21f451b",
+      "text": "<summary>Parses the supplied message template.</summary> <param name=\"messageTemplate\">The message template to parse.</param> <returns>A sequence of text or property tokens. If the template is syntactically invalid, text tokens are returned. The parser makes a best effort to extract valid property tokens even when parsing issues are present.</returns> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"messageTemplate\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "ra13ddf81afbc79d7",
+      "text": "<summary>Parse the supplied message template.</summary> <param name=\"messageTemplate\">The message template to parse.</param> <returns>A sequence of text or property tokens. If the template is syntactically invalid, text tokens are returned. The parser makes a best effort to extract valid property tokens despite parsing issues.</returns> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"messageTemplate\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rb5a147224bdaaefc",
+      "text": "AtLevel is a public method on LoggerConfiguration with this signature:\n\n```csharp\npublic LoggerConfiguration AtLevel(\n    LoggingLevelSwitch levelSwitch,\n    Action<LoggerEnrichmentConfiguration> configureEnricher)\n```\n\nThe method accepts two parameters. levelSwitch is a LoggingLevelSwitch. configureEnricher is an Action<LoggerEnrichmentConfiguration>. The method returns LoggerConfiguration. Its identifiers are LoggerConfiguration, AtLevel, LoggingLevelSwitch, levelSwitch, Action, LoggerEnrichmentConfiguration, and configureEnricher. The signature contains no numeric values. The parameter types are LoggingLevelSwitch and Action<LoggerEnrichmentConfiguration>, respectively.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd40d5aa860756a9e",
+      "text": "`AtLevel` is a method on `LoggerConfiguration` with the following signature:\n\n```csharp\npublic LoggerConfiguration AtLevel(\n    LoggingLevelSwitch levelSwitch,\n    Action<LoggerEnrichmentConfiguration> configureEnricher)\n```\n\nIt accepts two parameters. `levelSwitch` is a `LoggingLevelSwitch`. `configureEnricher` is an `Action<LoggerEnrichmentConfiguration>`. The method returns a `LoggerConfiguration`. Use the identifier names exactly as declared when referring to this API: `LoggerConfiguration`, `AtLevel`, `LoggingLevelSwitch`, `levelSwitch`, `Action`, `LoggerEnrichmentConfiguration`, and `configureEnricher`. No numeric values are defined by this signature.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r10251d679f72b020",
+      "text": "<summary>Apply an enricher only to events whose <see cref=\"LogEventLevel\"/> is greater than or equal to the level specified by <paramref name=\"levelSwitch\"/>.</summary> <param name=\"levelSwitch\">A <see cref=\"LoggingLevelSwitch\"/> that specifies the level from which the enricher will be applied.</param> <param name=\"configureEnricher\">An action that configures the wrapped enricher.</param> <returns>A configuration object that allows method chaining.</returns> <remarks>This method permits additional information to be attached to, for example, warnings and errors that might be too expensive to collect or store at lower levels.</remarks> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"configureEnricher\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "re9de64bf0cb7f5d4",
+      "text": "<summary>Applies an enricher only to events with a <see cref=\"LogEventLevel\"/> greater than or equal to the level specified by <paramref name=\"levelSwitch\"/>.</summary> <param name=\"levelSwitch\">A <see cref=\"LoggingLevelSwitch\"/> that specifies the minimum level at which the enricher is applied.</param> <param name=\"configureEnricher\">An action that configures the wrapped enricher.</param> <returns>A configuration object that allows method chaining.</returns> <remarks>This method permits additional information to be attached to warnings and errors when collecting or storing it at lower levels would be too expensive.</remarks> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"configureEnricher\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r2b403a0afe144ec3",
+      "text": "The function `uv_exepath` is declared with the signature: `int uv_exepath(char* buffer, size_t* size)`. Its name is `uv_exepath`, and its parameters are `buffer` and `size`. `buffer` has type `char*`, while `size` has type `size_t*`. The return type is `int`. This declaration identifies the function, its return type, and both parameter types and names. The supplied numeric value is `0`. No additional behavior, parameter semantics, or return conditions are specified by the provided material. Accordingly, the signature should be treated as the definition here.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3512246b2b882fbc",
+      "text": "The function is declared as:\n\nint uv_exepath(char* buffer, size_t* size)\n\nuv_exepath is the function identifier. It accepts two parameters. buffer has type char* and identifies the first parameter. size has type size_t* and identifies the second parameter. The return type is int. The declaration contains the identifiers uv_exepath, buffer, and size. The supplied numeric value is 0. No additional parameter names, types, return details, or behavior are specified by this signature. Documentation based on this material is therefore limited to the declaration and its named elements. It does not define how buffer or size values are used.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdc8070d20966382f",
+      "text": "We could use a static buffer for the path manipulations needed outside the function, but this function could be called by multiple consumers, and we do not want to risk creating a race condition when using `snprintf`. There is no direct way to obtain the executable path in AIX, either through `/procfs` or through libc APIs. The approach below parses the pattern in `argv[0]` and uses it in conjunction with the `PATH` environment variable to construct the path.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r25fb05c94c0d1a89",
+      "text": "We could use a static buffer for the path manipulations required outside the function. However, this function may be called by multiple consumers, and we do not want to risk creating a race condition when using snprintf. AIX provides no direct way to obtain the executable path, either through /procfs or through libc APIs. The approach described below parses the pattern in argv[0] and combines it with the PATH environment variable to construct the executable path for the current process on this platform.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r00812feedc3b0845",
+      "text": "Conditional adds conditional sink configuration to a LoggerConfiguration. It accepts condition, represented by Func<LogEvent, bool>, and configureSink, represented by Action<LoggerSinkConfiguration>. The condition receives a LogEvent and returns a Boolean value. configureSink receives LoggerSinkConfiguration and defines the sink configuration. The method returns LoggerConfiguration. Together, these parameters associate sink configuration with events according to the result produced by condition.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r3996136c61168c9b",
+      "text": "The `Conditional` method belongs to `LoggerConfiguration` and accepts two parameters. `condition` is a `Func<LogEvent, bool>` that represents a condition evaluated from a `LogEvent`. `configureSink` is an `Action<LoggerSinkConfiguration>` used to configure a sink. The method returns `LoggerConfiguration`, allowing the configuration object to be used as the result. Its signature identifies both condition and sink-configuration action explicitly.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "reff601b26ade2c3f",
+      "text": "<summary>Writes to a sink only when <paramref name=\"condition\"/> evaluates to <c>true</c>.</summary> <param name=\"condition\">A predicate that evaluates to <c>true</c> when the supplied <see cref=\"LogEvent\"/> should be written to the configured sink.</param> <param name=\"configureSink\">An action that configures the wrapped sink.</param> <returns>A configuration object that allows method chaining.</returns> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"condition\"/> is <code>null</code>.</exception> <exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"configureSink\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r588c399fbbb5a1e2",
+      "text": "<summary>Writes to the configured sink only when <paramref name=\"condition\"/> evaluates to <c>true</c>.</summary>\n<param name=\"condition\">A predicate that evaluates to <c>true</c> when the supplied <see cref=\"LogEvent\"/> should be written to the configured sink.</param>\n<param name=\"configureSink\">An action that configures the wrapped sink.</param>\n<returns>A configuration object that allows method chaining.</returns>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"condition\"/> is <code>null</code>.</exception>\n<exception cref=\"ArgumentNullException\">Thrown when <paramref name=\"configureSink\"/> is <code>null</code>.</exception>",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rd2e66244dd41cea2",
+      "text": "`NewHash` constructs a `UUID` using a hash implementation and associated inputs. Its signature is:\n\n```go\nfunc NewHash(h hash.Hash, space UUID, data []byte, version int) UUID\n```\n\nThe function accepts `h` as `hash.Hash`, `space` as `UUID`, `data` as a byte slice, and `version` as an integer. The identifiers include `NewHash`, `hash`, `Hash`, `space`, `UUID`, `data`, `byte`, and `version`.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r88660861066102af",
+      "text": "NewHash has the signature `func NewHash(h hash.Hash, space UUID, data []byte, version int) UUID`. It accepts h as hash.Hash, space as UUID, data as []byte, and version as int. The returned value is a UUID. Identifiers include NewHash, hash, Hash, space, UUID, data, byte, and version. Numbers supplied are 16 and 4. Parameter names are h, space, data, and version.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rc94c0d15cb00628e",
+      "text": "NewHash returns a new UUID derived from the hash of space concatenated with data generated by h. The hash must be at least 16 bytes long. The first 16 bytes of the hash are used to form the UUID. The UUID version is the lower four bits of version. NewHash is used to implement NewMD5 and NewSHA1.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r0876fffa74c67fca",
+      "text": "NewHash returns a UUID derived from the hash of space concatenated with data generated by h. The hash must be at least 16 bytes long. The first 16 bytes of the hash form the UUID. The UUID version is set to the lower 4 bits of version. NewHash is used to implement NewMD5 and NewSHA1.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r95c9b656758986bb",
+      "text": "The `needs_deserialize_bound` function has the following signature. It accepts `field`, typed as `&attr::Field`, and `variant`, typed as `Option<&attr::Variant>`. The return type is `bool`. Its identifiers include `field`, `attr`, `Field`, `variant`, `Option`, and `Variant`. The signature specifies no numeric parameters and returns a Boolean value. The declaration uses references for both attribute inputs, preserving types without introducing parameters, numeric values, or other return types.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9fa7a71523bc7d14",
+      "text": "The `needs_deserialize_bound` function determines whether a field needs a deserialize bound. It accepts `field`, a reference to `attr::Field`, and `variant`, an optional reference to `attr::Variant`. It returns a Boolean value. The `field` parameter uses `&attr::Field`; `variant` uses `Option<&attr::Variant>`. The result type is `bool`. No numeric parameters are specified.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "rdb4c8e8bfe8b9f59",
+      "text": "Fields with a `skip_deserializing` or `deserialize_with` attribute, or which belong to a variant with such an attribute, are not deserialized by us, so we do not generate a bound. Fields with a `bound` attribute specify their own bound, so we do not generate one. All other fields may need a `T: Deserialize` bound, where `T` is the field’s type.",
+      "status": "complete",
+      "note": ""
+    },
+    {
+      "request_id": "r9ba5b2670131ef1f",
+      "text": "Fields with a `skip_deserializing` or `deserialize_with` attribute, or fields belonging to a variant with either attribute, are not deserialized by us, so we do not generate a bound. Fields with a `bound` attribute specify their own bound, so we do not generate one. All other fields may require a `T: Deserialize` bound, where `T` is the field’s type.",
+      "status": "complete",
+      "note": ""
+    }
+  ]
+}

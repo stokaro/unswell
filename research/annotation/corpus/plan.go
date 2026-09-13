@@ -161,8 +161,17 @@ func componentsWithin(ctx context.Context, m Manifest, maxKeys int) ([]Group, er
 	return groups, nil
 }
 
+// sourceKeys names what a source shares with another. Identical bytes join two
+// human sources because a vendored copy is one provenance. A generated
+// document is different: two responses that happen to match are one model
+// repeating itself, not one origin. Joining them would merge the repositories
+// they answer for, and a merged component inherits conflicting partition pins.
+// Its generation task already carries its provenance.
 func sourceKeys(source Source) []string {
-	keys := []string{"repository:" + source.Repository, "document:" + source.Document, "source-sha256:" + source.SHA256}
+	keys := []string{"repository:" + source.Repository, "document:" + source.Document}
+	if len(source.GenerationTasks) == 0 {
+		keys = append(keys, "source-sha256:"+source.SHA256)
+	}
 	for _, family := range []struct {
 		kind   string
 		values []string

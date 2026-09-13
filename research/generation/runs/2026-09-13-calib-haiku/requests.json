@@ -1,0 +1,1228 @@
+{
+  "version": "unswell-requests-v1",
+  "protocol": "unswell-llm-patterns-v1",
+  "run": "2026-09-13-calib-haiku",
+  "tasks_sha256": "2fa6e3b17d85b4d9dc6c1fa3cf3baee4c6d607800c624cfd32ccee318ee39980",
+  "delivery": "single-message",
+  "harness_instruction": "Do not read any files or run any tools; return the document text as your final answer.",
+  "prompts": [
+    {
+      "id": "neutral",
+      "file": "neutral-v1.md",
+      "sha256": "8c535d7721d83b48f40a5b882c14c642b2df80ab5c00d00356f68656eb48ee43",
+      "body": "The material is technical documentation for software developers. It must be\nin English and about {words} words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark."
+    },
+    {
+      "id": "plain",
+      "file": "plain-v1.md",
+      "sha256": "4e6650493ef72f15b5bf3be805a6ce3ecc3f57e951e1de7cb643a7cf296ec6d9",
+      "body": "The material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about {words} words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark."
+    }
+  ],
+  "operations": [
+    "generate",
+    "polish"
+  ],
+  "requests": [
+    {
+      "id": "r2b66c036e55c1686",
+      "task_id": "t2d9bf24f4c719614",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 57,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 57 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunc InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc\n\nIdentifiers: InitInputSourceWithContext, flags, cli, Flag, createInputSource, context, Context, InputSourceContext, error, BeforeFunc\nParameters: flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)\nNumbers: none\n",
+      "material": "Signature:\nfunc InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc\n\nIdentifiers: InitInputSourceWithContext, flags, cli, Flag, createInputSource, context, Context, InputSourceContext, error, BeforeFunc\nParameters: flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)\nNumbers: none\n",
+      "input_sha256": "b78f65a2fa8fae3af4227b4dc8b274dd7ecc14c3931aacb55ada93cce988c4fb"
+    },
+    {
+      "id": "r2bfe4388349049de",
+      "task_id": "t2d9bf24f4c719614",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 57,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 57 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunc InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc\n\nIdentifiers: InitInputSourceWithContext, flags, cli, Flag, createInputSource, context, Context, InputSourceContext, error, BeforeFunc\nParameters: flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)\nNumbers: none\n",
+      "material": "Signature:\nfunc InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc\n\nIdentifiers: InitInputSourceWithContext, flags, cli, Flag, createInputSource, context, Context, InputSourceContext, error, BeforeFunc\nParameters: flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)\nNumbers: none\n",
+      "input_sha256": "7a294fe042b748d663eab67e558c16099041142dae694fd114c424e5960f11e7"
+    },
+    {
+      "id": "r401840f2f4d7dca7",
+      "task_id": "t2d9bf24f4c719614",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 57,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 57 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nInitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "material": "InitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "input_sha256": "7cb6e1621d9e0cf46fb2b64095c22d5a98074627ce7037695e7d95944b3ee544"
+    },
+    {
+      "id": "r85e3b38ccd7bee43",
+      "task_id": "t2d9bf24f4c719614",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 57,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 57 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nInitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "material": "InitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "input_sha256": "321296173bb9fb3093c9e307e2a87e93a05e9be833e98e6090f3a9b11b037ecf"
+    },
+    {
+      "id": "r6514aa9ec4572987",
+      "task_id": "t58b094a8ad3a9a4e",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 56,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 56 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunc HandleExitCoder(err error)\n\nIdentifiers: HandleExitCoder, err, error\nParameters: err error\nNumbers: none\n",
+      "material": "Signature:\nfunc HandleExitCoder(err error)\n\nIdentifiers: HandleExitCoder, err, error\nParameters: err error\nNumbers: none\n",
+      "input_sha256": "52eb5bb1e38d41372d91b9a29e724f85711ce127e62f17cc18964bc5d88beca4"
+    },
+    {
+      "id": "r1781086bbd58cfa2",
+      "task_id": "t58b094a8ad3a9a4e",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 56,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 56 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunc HandleExitCoder(err error)\n\nIdentifiers: HandleExitCoder, err, error\nParameters: err error\nNumbers: none\n",
+      "material": "Signature:\nfunc HandleExitCoder(err error)\n\nIdentifiers: HandleExitCoder, err, error\nParameters: err error\nNumbers: none\n",
+      "input_sha256": "6e19872ea31a3b59b20343e84f87d591ee54723363add8f566c06795bec5d895"
+    },
+    {
+      "id": "r3d52ec69c4e95012",
+      "task_id": "t58b094a8ad3a9a4e",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 56,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 56 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nHandleExitCoder checks if the error fulfills the ExitCoder interface, and if  so prints the error to stderr (if it is non-empty) and calls OsExiter with the  given exit code.  If the given error is a MultiError, then this func is  called on all members of the Errors slice and calls OsExiter with the last exit code.",
+      "material": "HandleExitCoder checks if the error fulfills the ExitCoder interface, and if  so prints the error to stderr (if it is non-empty) and calls OsExiter with the  given exit code.  If the given error is a MultiError, then this func is  called on all members of the Errors slice and calls OsExiter with the last exit code.",
+      "input_sha256": "894e0f05e9f074454f25bb856ca075f20046e9bebf47f3a115d3b5a5bf6cd799"
+    },
+    {
+      "id": "ra0dc679393d360da",
+      "task_id": "t58b094a8ad3a9a4e",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 56,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 56 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nHandleExitCoder checks if the error fulfills the ExitCoder interface, and if  so prints the error to stderr (if it is non-empty) and calls OsExiter with the  given exit code.  If the given error is a MultiError, then this func is  called on all members of the Errors slice and calls OsExiter with the last exit code.",
+      "material": "HandleExitCoder checks if the error fulfills the ExitCoder interface, and if  so prints the error to stderr (if it is non-empty) and calls OsExiter with the  given exit code.  If the given error is a MultiError, then this func is  called on all members of the Errors slice and calls OsExiter with the last exit code.",
+      "input_sha256": "cb3304ee269efdda758e2a2429be335db71a2664b041bd44af4bf7ecba093317"
+    },
+    {
+      "id": "r55b3dc41145c07da",
+      "task_id": "t76457361584acfa0",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 55,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 55 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nif message and not PY2 and is_bytes(message)\n\nIdentifiers: if, message, and, not, PY2, is_bytes\nParameters: message\nNumbers: 3\n",
+      "material": "Signature:\nif message and not PY2 and is_bytes(message)\n\nIdentifiers: if, message, and, not, PY2, is_bytes\nParameters: message\nNumbers: 3\n",
+      "input_sha256": "657fe834a1af7dee32785d6dbf5bfc2a7d9cc136611345abda3637a5fbfb5f09"
+    },
+    {
+      "id": "r353a61add3315a1d",
+      "task_id": "t76457361584acfa0",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 55,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 55 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nif message and not PY2 and is_bytes(message)\n\nIdentifiers: if, message, and, not, PY2, is_bytes\nParameters: message\nNumbers: 3\n",
+      "material": "Signature:\nif message and not PY2 and is_bytes(message)\n\nIdentifiers: if, message, and, not, PY2, is_bytes\nParameters: message\nNumbers: 3\n",
+      "input_sha256": "48da1aa189b78ade6b3b0da3c1a32d0b15deaa3089b758bd4467eba2b23b6162"
+    },
+    {
+      "id": "r0ffa692fb4d5e761",
+      "task_id": "t76457361584acfa0",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 55,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 55 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nIf there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "material": "If there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "input_sha256": "299412d88fd4bb7cce2493f3de608e3adc3d9168e80c126dcf060771bb892a48"
+    },
+    {
+      "id": "rda8e4073b76ae356",
+      "task_id": "t76457361584acfa0",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 55,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 55 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nIf there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "material": "If there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "input_sha256": "3f26f0b77e5f6c6df68c6887e39705d2bc3122f20f1d0b448853bcc6c1efe0e4"
+    },
+    {
+      "id": "rc2ce52750ef851cb",
+      "task_id": "t7eac7ad5db9ffae3",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "input_sha256": "4fa24192548d688deb9f1e3e2e9424c84f6a55cfddbd0cab4390dd999ebcdf18"
+    },
+    {
+      "id": "rda934f53fb144d98",
+      "task_id": "t7eac7ad5db9ffae3",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "input_sha256": "4350525ec5c744cd42a55602411d707586bd23b41f887582b80fd1c460f0261a"
+    },
+    {
+      "id": "r331b24232b01fa0b",
+      "task_id": "t7eac7ad5db9ffae3",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "rc7ae14300428c691",
+      "task_id": "t7eac7ad5db9ffae3",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "r172def1a4bd4ccfd",
+      "task_id": "t99bece256a98960c",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 63,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 63 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunc parseIter(set *flag.FlagSet, ip iterativeParser, args []string, shellComplete bool) error\n\nIdentifiers: parseIter, set, flag, FlagSet, ip, iterativeParser, args, shellComplete, error\nParameters: set *flag.FlagSet, ip iterativeParser, args []string, shellComplete bool\nNumbers: none\n",
+      "material": "Signature:\nfunc parseIter(set *flag.FlagSet, ip iterativeParser, args []string, shellComplete bool) error\n\nIdentifiers: parseIter, set, flag, FlagSet, ip, iterativeParser, args, shellComplete, error\nParameters: set *flag.FlagSet, ip iterativeParser, args []string, shellComplete bool\nNumbers: none\n",
+      "input_sha256": "e97c35105d23ede48be77843a2b3b6d5cdbcfce3c1ba2991708a3647a77c7f14"
+    },
+    {
+      "id": "rbf5aa7c338d18a0c",
+      "task_id": "t99bece256a98960c",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 63,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 63 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunc parseIter(set *flag.FlagSet, ip iterativeParser, args []string, shellComplete bool) error\n\nIdentifiers: parseIter, set, flag, FlagSet, ip, iterativeParser, args, shellComplete, error\nParameters: set *flag.FlagSet, ip iterativeParser, args []string, shellComplete bool\nNumbers: none\n",
+      "material": "Signature:\nfunc parseIter(set *flag.FlagSet, ip iterativeParser, args []string, shellComplete bool) error\n\nIdentifiers: parseIter, set, flag, FlagSet, ip, iterativeParser, args, shellComplete, error\nParameters: set *flag.FlagSet, ip iterativeParser, args []string, shellComplete bool\nNumbers: none\n",
+      "input_sha256": "5d465dadc67fc5db0f7476aae589848443314107890aa2e7cc63df1ea3a3dc25"
+    },
+    {
+      "id": "r78a9a2d207065374",
+      "task_id": "t99bece256a98960c",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 63,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 63 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nTo enable short-option handling (e.g., \"-it\" vs \"-i -t\") we have to  iteratively catch parsing errors. This way we achieve LR parsing without  transforming any arguments. Otherwise, there is no way we can discriminate  combined short options from common arguments that should be left untouched.  Pass `shellComplete` to continue parsing options on failure during shell  completion when, the user-supplied options may be incomplete.",
+      "material": "To enable short-option handling (e.g., \"-it\" vs \"-i -t\") we have to  iteratively catch parsing errors. This way we achieve LR parsing without  transforming any arguments. Otherwise, there is no way we can discriminate  combined short options from common arguments that should be left untouched.  Pass `shellComplete` to continue parsing options on failure during shell  completion when, the user-supplied options may be incomplete.",
+      "input_sha256": "d0a16fe430d4e24cdba9c6fab00e4867ef209413e3dac7787d22efd06f36db10"
+    },
+    {
+      "id": "r37ea3c0c50eb6b14",
+      "task_id": "t99bece256a98960c",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 63,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 63 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nTo enable short-option handling (e.g., \"-it\" vs \"-i -t\") we have to  iteratively catch parsing errors. This way we achieve LR parsing without  transforming any arguments. Otherwise, there is no way we can discriminate  combined short options from common arguments that should be left untouched.  Pass `shellComplete` to continue parsing options on failure during shell  completion when, the user-supplied options may be incomplete.",
+      "material": "To enable short-option handling (e.g., \"-it\" vs \"-i -t\") we have to  iteratively catch parsing errors. This way we achieve LR parsing without  transforming any arguments. Otherwise, there is no way we can discriminate  combined short options from common arguments that should be left untouched.  Pass `shellComplete` to continue parsing options on failure during shell  completion when, the user-supplied options may be incomplete.",
+      "input_sha256": "f33352bacdd309e067dec1ed2a5332015642726b9fd029712ba37d7727eef762"
+    },
+    {
+      "id": "r01db32c569a28a71",
+      "task_id": "td13ff3445d211e39",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "input_sha256": "8d83bd43b7b6be22acbe1acdbb68a66fd3d607d72971933edf408655cb427c60"
+    },
+    {
+      "id": "r12b98bdda4cc5eeb",
+      "task_id": "td13ff3445d211e39",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "input_sha256": "f567848ff1ad959918ad47364117ee73e8c6ebc10c289071d5aa67493b5f7629"
+    },
+    {
+      "id": "r921f192fce22021a",
+      "task_id": "td13ff3445d211e39",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "r836e126cfe78046d",
+      "task_id": "td13ff3445d211e39",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "r44bb3763dc85ae37",
+      "task_id": "te21ebeec602453d5",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "input_sha256": "fffb6ee6895b9020a4338933b247d8a0086541ef3708e66ea93f6c3d21d3e6f3"
+    },
+    {
+      "id": "r5936ca81747d9875",
+      "task_id": "te21ebeec602453d5",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "input_sha256": "31e0454369c87ea595fd62884c49b47a37da902a94206e57a9e6468a2b37008c"
+    },
+    {
+      "id": "rcbe326d7413a134b",
+      "task_id": "te21ebeec602453d5",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "rb655349de32f0a85",
+      "task_id": "te21ebeec602453d5",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "rd964d2864842b106",
+      "task_id": "tf35301c9ba21c68b",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 56,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 56 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nif message and not is_bytes(message)\n\nIdentifiers: if, message, and, not, is_bytes\nParameters: message\nNumbers: none\n",
+      "material": "Signature:\nif message and not is_bytes(message)\n\nIdentifiers: if, message, and, not, is_bytes\nParameters: message\nNumbers: none\n",
+      "input_sha256": "7193669a787ccd30b5521871a56fc6a281f171e11f04eb69f71d367db77fdcf5"
+    },
+    {
+      "id": "r18733c908745ceee",
+      "task_id": "tf35301c9ba21c68b",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 56,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 56 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nif message and not is_bytes(message)\n\nIdentifiers: if, message, and, not, is_bytes\nParameters: message\nNumbers: none\n",
+      "material": "Signature:\nif message and not is_bytes(message)\n\nIdentifiers: if, message, and, not, is_bytes\nParameters: message\nNumbers: none\n",
+      "input_sha256": "315ee18337f5bb93ef85bb0b15b1c7154bcefa92abbc90223eaea8e3f85095de"
+    },
+    {
+      "id": "r5c363e81a3321449",
+      "task_id": "tf35301c9ba21c68b",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 56,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 56 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "material": "ANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "input_sha256": "07946c6a04caaa82ab6932c7bbf55b06fee38080567a7f0f6998a27b00d9c93e"
+    },
+    {
+      "id": "r18a3ec108a3f9a6b",
+      "task_id": "tf35301c9ba21c68b",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 56,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 56 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "material": "ANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "input_sha256": "370907d4754e9ea94c47e1d654411ad50acc4fb13ddf9a7d38237a437b4e28a8"
+    },
+    {
+      "id": "rc6d980235c66c656",
+      "task_id": "tfb24efad1da60a59",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "input_sha256": "623d887547c82bada3a79f42dc1fdd9de7ec9efe7aa8d6100191b9a9694bb180"
+    },
+    {
+      "id": "r07ef006a254bdb6d",
+      "task_id": "tfb24efad1da60a59",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "input_sha256": "aae162859b25d3be33a6fb6c86166e8bf7035b275a95c63f93c0da6df23336c8"
+    },
+    {
+      "id": "r2e76e1a0ed2cf015",
+      "task_id": "tfb24efad1da60a59",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "r35ef95a4227e1073",
+      "task_id": "tfb24efad1da60a59",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "r7050f69716c1fac1",
+      "task_id": "t127606d3db6a4c7f",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "input_sha256": "623d887547c82bada3a79f42dc1fdd9de7ec9efe7aa8d6100191b9a9694bb180"
+    },
+    {
+      "id": "rce8a9d134fef57fb",
+      "task_id": "t127606d3db6a4c7f",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "input_sha256": "aae162859b25d3be33a6fb6c86166e8bf7035b275a95c63f93c0da6df23336c8"
+    },
+    {
+      "id": "r26b2ad5f1aae2fa1",
+      "task_id": "t127606d3db6a4c7f",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "rd916853e2d77ba70",
+      "task_id": "t127606d3db6a4c7f",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "r7458280b32ef8939",
+      "task_id": "t7aa4285466ad1b1f",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "input_sha256": "8d83bd43b7b6be22acbe1acdbb68a66fd3d607d72971933edf408655cb427c60"
+    },
+    {
+      "id": "ra296a7b0111eb6ef",
+      "task_id": "t7aa4285466ad1b1f",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "input_sha256": "f567848ff1ad959918ad47364117ee73e8c6ebc10c289071d5aa67493b5f7629"
+    },
+    {
+      "id": "r8c2a99c1a5eb12bc",
+      "task_id": "t7aa4285466ad1b1f",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "r5f51ca2fde5f0913",
+      "task_id": "t7aa4285466ad1b1f",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "rbfd60c45af2c0ca3",
+      "task_id": "tb6ea12de4b1f09ee",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "input_sha256": "4fa24192548d688deb9f1e3e2e9424c84f6a55cfddbd0cab4390dd999ebcdf18"
+    },
+    {
+      "id": "r024481815cfff2bb",
+      "task_id": "tb6ea12de4b1f09ee",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "input_sha256": "4350525ec5c744cd42a55602411d707586bd23b41f887582b80fd1c460f0261a"
+    },
+    {
+      "id": "r1438296c02a3eb5a",
+      "task_id": "tb6ea12de4b1f09ee",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "r491c1a2f13b945c3",
+      "task_id": "tb6ea12de4b1f09ee",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "rdef6ef3ea57d6a06",
+      "task_id": "td925858d2cbc9209",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "input_sha256": "fffb6ee6895b9020a4338933b247d8a0086541ef3708e66ea93f6c3d21d3e6f3"
+    },
+    {
+      "id": "rc6888f1f366addb7",
+      "task_id": "td925858d2cbc9209",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "input_sha256": "31e0454369c87ea595fd62884c49b47a37da902a94206e57a9e6468a2b37008c"
+    },
+    {
+      "id": "r236bc93fcda2f458",
+      "task_id": "td925858d2cbc9209",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "ra510b94344f0c6d1",
+      "task_id": "td925858d2cbc9209",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "r60718bc3d8f76cd7",
+      "task_id": "t856305b9cb5f4d11",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 59,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 59 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nvoid *hashtable_iter(hashtable_t *hashtable)\n\nIdentifiers: hashtable_iter, hashtable_t, hashtable\nParameters: hashtable_t *hashtable\nNumbers: none\n",
+      "material": "Signature:\nvoid *hashtable_iter(hashtable_t *hashtable)\n\nIdentifiers: hashtable_iter, hashtable_t, hashtable\nParameters: hashtable_t *hashtable\nNumbers: none\n",
+      "input_sha256": "b8d01388f646ad749ea1ece88dc12601942c12b53b8187cd08633f2505b60dda"
+    },
+    {
+      "id": "rfb09759a710526d2",
+      "task_id": "t856305b9cb5f4d11",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 59,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 59 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nvoid *hashtable_iter(hashtable_t *hashtable)\n\nIdentifiers: hashtable_iter, hashtable_t, hashtable\nParameters: hashtable_t *hashtable\nNumbers: none\n",
+      "material": "Signature:\nvoid *hashtable_iter(hashtable_t *hashtable)\n\nIdentifiers: hashtable_iter, hashtable_t, hashtable\nParameters: hashtable_t *hashtable\nNumbers: none\n",
+      "input_sha256": "56dc2ffb33f9649d52cb074430cc6178302ed7ddab7f83db54803154604ba996"
+    },
+    {
+      "id": "r73e14c40a13e2222",
+      "task_id": "t856305b9cb5f4d11",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 59,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 59 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nThere's no need to free the iterator in any way. The iterator is  valid as long as the item that is referenced by the iterator is not  deleted. Other values may be added or deleted. In particular,  hashtable_iter_next() may be called on an iterator, and after that  the key/value pair pointed by the old iterator may be deleted.",
+      "material": "There's no need to free the iterator in any way. The iterator is  valid as long as the item that is referenced by the iterator is not  deleted. Other values may be added or deleted. In particular,  hashtable_iter_next() may be called on an iterator, and after that  the key/value pair pointed by the old iterator may be deleted.",
+      "input_sha256": "ea7807d239e223dcaded2612de84337e94174d39126fe01a43972a32815fcccd"
+    },
+    {
+      "id": "rdac69affecf7d19a",
+      "task_id": "t856305b9cb5f4d11",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 59,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 59 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nThere's no need to free the iterator in any way. The iterator is  valid as long as the item that is referenced by the iterator is not  deleted. Other values may be added or deleted. In particular,  hashtable_iter_next() may be called on an iterator, and after that  the key/value pair pointed by the old iterator may be deleted.",
+      "material": "There's no need to free the iterator in any way. The iterator is  valid as long as the item that is referenced by the iterator is not  deleted. Other values may be added or deleted. In particular,  hashtable_iter_next() may be called on an iterator, and after that  the key/value pair pointed by the old iterator may be deleted.",
+      "input_sha256": "e6fed02d3cceb9de769d01a15a8285344c39622bdcec9c4e7a5b077388fb792a"
+    },
+    {
+      "id": "r90f66c56a2d99ec4",
+      "task_id": "t05dfd5c49ee553ed",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 57,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 57 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunc InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc\n\nIdentifiers: InitInputSourceWithContext, flags, cli, Flag, createInputSource, context, Context, InputSourceContext, error, BeforeFunc\nParameters: flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)\nNumbers: none\n",
+      "material": "Signature:\nfunc InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc\n\nIdentifiers: InitInputSourceWithContext, flags, cli, Flag, createInputSource, context, Context, InputSourceContext, error, BeforeFunc\nParameters: flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)\nNumbers: none\n",
+      "input_sha256": "b78f65a2fa8fae3af4227b4dc8b274dd7ecc14c3931aacb55ada93cce988c4fb"
+    },
+    {
+      "id": "r4134c4b85920cba6",
+      "task_id": "t05dfd5c49ee553ed",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 57,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 57 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunc InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc\n\nIdentifiers: InitInputSourceWithContext, flags, cli, Flag, createInputSource, context, Context, InputSourceContext, error, BeforeFunc\nParameters: flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)\nNumbers: none\n",
+      "material": "Signature:\nfunc InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc\n\nIdentifiers: InitInputSourceWithContext, flags, cli, Flag, createInputSource, context, Context, InputSourceContext, error, BeforeFunc\nParameters: flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)\nNumbers: none\n",
+      "input_sha256": "7a294fe042b748d663eab67e558c16099041142dae694fd114c424e5960f11e7"
+    },
+    {
+      "id": "rce4f6c8f6cc87b80",
+      "task_id": "t05dfd5c49ee553ed",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 57,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 57 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nInitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "material": "InitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "input_sha256": "7cb6e1621d9e0cf46fb2b64095c22d5a98074627ce7037695e7d95944b3ee544"
+    },
+    {
+      "id": "r0c2e0d42da719818",
+      "task_id": "t05dfd5c49ee553ed",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 57,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 57 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nInitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "material": "InitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "input_sha256": "321296173bb9fb3093c9e307e2a87e93a05e9be833e98e6090f3a9b11b037ecf"
+    },
+    {
+      "id": "rd5cac9a7da3ec180",
+      "task_id": "t063992c0fe5250c3",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "input_sha256": "fffb6ee6895b9020a4338933b247d8a0086541ef3708e66ea93f6c3d21d3e6f3"
+    },
+    {
+      "id": "r762886baff4e7cfa",
+      "task_id": "t063992c0fe5250c3",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "input_sha256": "31e0454369c87ea595fd62884c49b47a37da902a94206e57a9e6468a2b37008c"
+    },
+    {
+      "id": "r18812f081954025f",
+      "task_id": "t063992c0fe5250c3",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "r7bc09f8611066d9e",
+      "task_id": "t063992c0fe5250c3",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "rdfbe29959abb7d6d",
+      "task_id": "t0694ed92a4cc9e6b",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "input_sha256": "623d887547c82bada3a79f42dc1fdd9de7ec9efe7aa8d6100191b9a9694bb180"
+    },
+    {
+      "id": "r59a480dc6fbfb821",
+      "task_id": "t0694ed92a4cc9e6b",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "input_sha256": "aae162859b25d3be33a6fb6c86166e8bf7035b275a95c63f93c0da6df23336c8"
+    },
+    {
+      "id": "r97488d68df947bf9",
+      "task_id": "t0694ed92a4cc9e6b",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "r816e7f35450b8fa1",
+      "task_id": "t0694ed92a4cc9e6b",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "r23e813f922de0338",
+      "task_id": "t52d3f156596ab5b7",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 55,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 55 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nif message and not PY2 and is_bytes(message)\n\nIdentifiers: if, message, and, not, PY2, is_bytes\nParameters: message\nNumbers: 3\n",
+      "material": "Signature:\nif message and not PY2 and is_bytes(message)\n\nIdentifiers: if, message, and, not, PY2, is_bytes\nParameters: message\nNumbers: 3\n",
+      "input_sha256": "657fe834a1af7dee32785d6dbf5bfc2a7d9cc136611345abda3637a5fbfb5f09"
+    },
+    {
+      "id": "rfae390c260500759",
+      "task_id": "t52d3f156596ab5b7",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 55,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 55 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nif message and not PY2 and is_bytes(message)\n\nIdentifiers: if, message, and, not, PY2, is_bytes\nParameters: message\nNumbers: 3\n",
+      "material": "Signature:\nif message and not PY2 and is_bytes(message)\n\nIdentifiers: if, message, and, not, PY2, is_bytes\nParameters: message\nNumbers: 3\n",
+      "input_sha256": "48da1aa189b78ade6b3b0da3c1a32d0b15deaa3089b758bd4467eba2b23b6162"
+    },
+    {
+      "id": "r0dc48a0d25ab1254",
+      "task_id": "t52d3f156596ab5b7",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 55,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 55 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nIf there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "material": "If there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "input_sha256": "299412d88fd4bb7cce2493f3de608e3adc3d9168e80c126dcf060771bb892a48"
+    },
+    {
+      "id": "rd3ff9e27be4f65ae",
+      "task_id": "t52d3f156596ab5b7",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 55,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 55 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nIf there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "material": "If there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "input_sha256": "3f26f0b77e5f6c6df68c6887e39705d2bc3122f20f1d0b448853bcc6c1efe0e4"
+    },
+    {
+      "id": "rdfe43ba37d56671a",
+      "task_id": "t772a084456dd8165",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 59,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 59 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nvoid *hashtable_iter(hashtable_t *hashtable)\n\nIdentifiers: hashtable_iter, hashtable_t, hashtable\nParameters: hashtable_t *hashtable\nNumbers: none\n",
+      "material": "Signature:\nvoid *hashtable_iter(hashtable_t *hashtable)\n\nIdentifiers: hashtable_iter, hashtable_t, hashtable\nParameters: hashtable_t *hashtable\nNumbers: none\n",
+      "input_sha256": "b8d01388f646ad749ea1ece88dc12601942c12b53b8187cd08633f2505b60dda"
+    },
+    {
+      "id": "rc9b1b852ce042ad6",
+      "task_id": "t772a084456dd8165",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 59,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 59 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nvoid *hashtable_iter(hashtable_t *hashtable)\n\nIdentifiers: hashtable_iter, hashtable_t, hashtable\nParameters: hashtable_t *hashtable\nNumbers: none\n",
+      "material": "Signature:\nvoid *hashtable_iter(hashtable_t *hashtable)\n\nIdentifiers: hashtable_iter, hashtable_t, hashtable\nParameters: hashtable_t *hashtable\nNumbers: none\n",
+      "input_sha256": "56dc2ffb33f9649d52cb074430cc6178302ed7ddab7f83db54803154604ba996"
+    },
+    {
+      "id": "r9bf8ba21810d9db0",
+      "task_id": "t772a084456dd8165",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 59,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 59 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nThere's no need to free the iterator in any way. The iterator is  valid as long as the item that is referenced by the iterator is not  deleted. Other values may be added or deleted. In particular,  hashtable_iter_next() may be called on an iterator, and after that  the key/value pair pointed by the old iterator may be deleted.",
+      "material": "There's no need to free the iterator in any way. The iterator is  valid as long as the item that is referenced by the iterator is not  deleted. Other values may be added or deleted. In particular,  hashtable_iter_next() may be called on an iterator, and after that  the key/value pair pointed by the old iterator may be deleted.",
+      "input_sha256": "ea7807d239e223dcaded2612de84337e94174d39126fe01a43972a32815fcccd"
+    },
+    {
+      "id": "r434fede15f22e10a",
+      "task_id": "t772a084456dd8165",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 59,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 59 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nThere's no need to free the iterator in any way. The iterator is  valid as long as the item that is referenced by the iterator is not  deleted. Other values may be added or deleted. In particular,  hashtable_iter_next() may be called on an iterator, and after that  the key/value pair pointed by the old iterator may be deleted.",
+      "material": "There's no need to free the iterator in any way. The iterator is  valid as long as the item that is referenced by the iterator is not  deleted. Other values may be added or deleted. In particular,  hashtable_iter_next() may be called on an iterator, and after that  the key/value pair pointed by the old iterator may be deleted.",
+      "input_sha256": "e6fed02d3cceb9de769d01a15a8285344c39622bdcec9c4e7a5b077388fb792a"
+    },
+    {
+      "id": "ra84ba22bb8234210",
+      "task_id": "tc430aeed1b4ac2ef",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 56,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 56 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nif message and not is_bytes(message)\n\nIdentifiers: if, message, and, not, is_bytes\nParameters: message\nNumbers: none\n",
+      "material": "Signature:\nif message and not is_bytes(message)\n\nIdentifiers: if, message, and, not, is_bytes\nParameters: message\nNumbers: none\n",
+      "input_sha256": "7193669a787ccd30b5521871a56fc6a281f171e11f04eb69f71d367db77fdcf5"
+    },
+    {
+      "id": "rdace2e1af2306df5",
+      "task_id": "tc430aeed1b4ac2ef",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 56,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 56 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nif message and not is_bytes(message)\n\nIdentifiers: if, message, and, not, is_bytes\nParameters: message\nNumbers: none\n",
+      "material": "Signature:\nif message and not is_bytes(message)\n\nIdentifiers: if, message, and, not, is_bytes\nParameters: message\nNumbers: none\n",
+      "input_sha256": "315ee18337f5bb93ef85bb0b15b1c7154bcefa92abbc90223eaea8e3f85095de"
+    },
+    {
+      "id": "r9bc488a910a1de88",
+      "task_id": "tc430aeed1b4ac2ef",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 56,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 56 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "material": "ANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "input_sha256": "07946c6a04caaa82ab6932c7bbf55b06fee38080567a7f0f6998a27b00d9c93e"
+    },
+    {
+      "id": "r29cb41b9148a5987",
+      "task_id": "tc430aeed1b4ac2ef",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 56,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 56 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "material": "ANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "input_sha256": "370907d4754e9ea94c47e1d654411ad50acc4fb13ddf9a7d38237a437b4e28a8"
+    },
+    {
+      "id": "re74f20ccca2a5e15",
+      "task_id": "tdca38caf12d9affe",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "input_sha256": "8d83bd43b7b6be22acbe1acdbb68a66fd3d607d72971933edf408655cb427c60"
+    },
+    {
+      "id": "r4844c7dc73b63ae2",
+      "task_id": "tdca38caf12d9affe",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "input_sha256": "f567848ff1ad959918ad47364117ee73e8c6ebc10c289071d5aa67493b5f7629"
+    },
+    {
+      "id": "rd5771ae4d48e49ce",
+      "task_id": "tdca38caf12d9affe",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "r493d796e96f49492",
+      "task_id": "tdca38caf12d9affe",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "rdac710e2b62f5095",
+      "task_id": "tdcb23d5b79f00e11",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "input_sha256": "4fa24192548d688deb9f1e3e2e9424c84f6a55cfddbd0cab4390dd999ebcdf18"
+    },
+    {
+      "id": "r82b3d803d830be78",
+      "task_id": "tdcb23d5b79f00e11",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "input_sha256": "4350525ec5c744cd42a55602411d707586bd23b41f887582b80fd1c460f0261a"
+    },
+    {
+      "id": "r36ff3cb23a381ec5",
+      "task_id": "tdcb23d5b79f00e11",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "r0923cc76f56aea98",
+      "task_id": "tdcb23d5b79f00e11",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "r45f72a039160df8d",
+      "task_id": "t0bf117958db904c5",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "input_sha256": "fffb6ee6895b9020a4338933b247d8a0086541ef3708e66ea93f6c3d21d3e6f3"
+    },
+    {
+      "id": "r5ae9178c69233bfd",
+      "task_id": "t0bf117958db904c5",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun\n\nIdentifiers: Verb, Noun\nParameters: none\nNumbers: none\n",
+      "input_sha256": "31e0454369c87ea595fd62884c49b47a37da902a94206e57a9e6468a2b37008c"
+    },
+    {
+      "id": "r00c3bfd9bfcddbe7",
+      "task_id": "t0bf117958db904c5",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "r15d50d2fd6768251",
+      "task_id": "t0bf117958db904c5",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "r1e0fcfe77cf7fb18",
+      "task_id": "t1da8d97e76cd0a81",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "input_sha256": "623d887547c82bada3a79f42dc1fdd9de7ec9efe7aa8d6100191b9a9694bb180"
+    },
+    {
+      "id": "r6b5a628ba4be0935",
+      "task_id": "t1da8d97e76cd0a81",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Verb-Noun2\n\nIdentifiers: Verb, Noun2\nParameters: none\nNumbers: none\n",
+      "input_sha256": "aae162859b25d3be33a6fb6c86166e8bf7035b275a95c63f93c0da6df23336c8"
+    },
+    {
+      "id": "rde40b5191cddcd7f",
+      "task_id": "t1da8d97e76cd0a81",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "r761456953f7fa246",
+      "task_id": "t1da8d97e76cd0a81",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "r56d08150a809dcfc",
+      "task_id": "t253a2fc4632c193a",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 56,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 56 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunc HandleExitCoder(err error)\n\nIdentifiers: HandleExitCoder, err, error\nParameters: err error\nNumbers: none\n",
+      "material": "Signature:\nfunc HandleExitCoder(err error)\n\nIdentifiers: HandleExitCoder, err, error\nParameters: err error\nNumbers: none\n",
+      "input_sha256": "52eb5bb1e38d41372d91b9a29e724f85711ce127e62f17cc18964bc5d88beca4"
+    },
+    {
+      "id": "ra56cb874885281da",
+      "task_id": "t253a2fc4632c193a",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 56,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 56 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunc HandleExitCoder(err error)\n\nIdentifiers: HandleExitCoder, err, error\nParameters: err error\nNumbers: none\n",
+      "material": "Signature:\nfunc HandleExitCoder(err error)\n\nIdentifiers: HandleExitCoder, err, error\nParameters: err error\nNumbers: none\n",
+      "input_sha256": "6e19872ea31a3b59b20343e84f87d591ee54723363add8f566c06795bec5d895"
+    },
+    {
+      "id": "r8015f4f66eff1d7b",
+      "task_id": "t253a2fc4632c193a",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 56,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 56 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nHandleExitCoder checks if the error fulfills the ExitCoder interface, and if  so prints the error to stderr (if it is non-empty) and calls OsExiter with the  given exit code.  If the given error is a MultiError, then this func is  called on all members of the Errors slice and calls OsExiter with the last exit code.",
+      "material": "HandleExitCoder checks if the error fulfills the ExitCoder interface, and if  so prints the error to stderr (if it is non-empty) and calls OsExiter with the  given exit code.  If the given error is a MultiError, then this func is  called on all members of the Errors slice and calls OsExiter with the last exit code.",
+      "input_sha256": "894e0f05e9f074454f25bb856ca075f20046e9bebf47f3a115d3b5a5bf6cd799"
+    },
+    {
+      "id": "rf9ff21f3fee4924f",
+      "task_id": "t253a2fc4632c193a",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 56,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 56 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nHandleExitCoder checks if the error fulfills the ExitCoder interface, and if  so prints the error to stderr (if it is non-empty) and calls OsExiter with the  given exit code.  If the given error is a MultiError, then this func is  called on all members of the Errors slice and calls OsExiter with the last exit code.",
+      "material": "HandleExitCoder checks if the error fulfills the ExitCoder interface, and if  so prints the error to stderr (if it is non-empty) and calls OsExiter with the  given exit code.  If the given error is a MultiError, then this func is  called on all members of the Errors slice and calls OsExiter with the last exit code.",
+      "input_sha256": "cb3304ee269efdda758e2a2429be335db71a2664b041bd44af4bf7ecba093317"
+    },
+    {
+      "id": "rd6206178ec3f2033",
+      "task_id": "t527a4fcc3cef068b",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "input_sha256": "4fa24192548d688deb9f1e3e2e9424c84f6a55cfddbd0cab4390dd999ebcdf18"
+    },
+    {
+      "id": "re5b5cea2bee72926",
+      "task_id": "t527a4fcc3cef068b",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-Folder\n\nIdentifiers: Get, Folder\nParameters: none\nNumbers: none\n",
+      "input_sha256": "4350525ec5c744cd42a55602411d707586bd23b41f887582b80fd1c460f0261a"
+    },
+    {
+      "id": "r71287891de2ec5f5",
+      "task_id": "t527a4fcc3cef068b",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "r0dd46b63a28f6798",
+      "task_id": "t527a4fcc3cef068b",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "rcbbc1d6d5e3ae6db",
+      "task_id": "tb10a7de063a9533b",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "input_sha256": "8d83bd43b7b6be22acbe1acdbb68a66fd3d607d72971933edf408655cb427c60"
+    },
+    {
+      "id": "rc992f916a9bdd80b",
+      "task_id": "tb10a7de063a9533b",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "material": "Signature:\nfunction Get-File\n\nIdentifiers: Get, File\nParameters: none\nNumbers: none\n",
+      "input_sha256": "f567848ff1ad959918ad47364117ee73e8c6ebc10c289071d5aa67493b5f7629"
+    },
+    {
+      "id": "rc70c3eaba8176fd5",
+      "task_id": "tb10a7de063a9533b",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 62 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "cc19bd129927d5cf17a1a90fd196c7517e8ac8bd09aed6c1b96856e7b93e7a45"
+    },
+    {
+      "id": "r1e27801369c8fa8f",
+      "task_id": "tb10a7de063a9533b",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 62,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 62 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\n.Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "material": ".Synopsis    Short description .DESCRIPTION    Long description .EXAMPLE    Example of how to use this cmdlet .EXAMPLE    Another example of how to use this cmdlet .INPUTS    Inputs to this cmdlet (if any) .OUTPUTS    Output from this cmdlet (if any) .NOTES    General notes .COMPONENT    The component this cmdlet belongs to .ROLE    The role this cmdlet belongs to .FUNCTIONALITY    The functionality that best describes this cmdlet",
+      "input_sha256": "e32715daafed87eda2914c9ccd7fd53e47beccdd69cba5bf5da1672a37bf656d"
+    },
+    {
+      "id": "r2bb9d635d8f16252",
+      "task_id": "tbd68edad8ad9ebb1",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 55,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 55 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nif message and not PY2 and is_bytes(message)\n\nIdentifiers: if, message, and, not, PY2, is_bytes\nParameters: message\nNumbers: 3\n",
+      "material": "Signature:\nif message and not PY2 and is_bytes(message)\n\nIdentifiers: if, message, and, not, PY2, is_bytes\nParameters: message\nNumbers: 3\n",
+      "input_sha256": "657fe834a1af7dee32785d6dbf5bfc2a7d9cc136611345abda3637a5fbfb5f09"
+    },
+    {
+      "id": "r6e4c8684ff8af74b",
+      "task_id": "tbd68edad8ad9ebb1",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 55,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 55 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nif message and not PY2 and is_bytes(message)\n\nIdentifiers: if, message, and, not, PY2, is_bytes\nParameters: message\nNumbers: 3\n",
+      "material": "Signature:\nif message and not PY2 and is_bytes(message)\n\nIdentifiers: if, message, and, not, PY2, is_bytes\nParameters: message\nNumbers: 3\n",
+      "input_sha256": "48da1aa189b78ade6b3b0da3c1a32d0b15deaa3089b758bd4467eba2b23b6162"
+    },
+    {
+      "id": "r1873caf15c88396b",
+      "task_id": "tbd68edad8ad9ebb1",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 55,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 55 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nIf there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "material": "If there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "input_sha256": "299412d88fd4bb7cce2493f3de608e3adc3d9168e80c126dcf060771bb892a48"
+    },
+    {
+      "id": "raa1fa9c42977954c",
+      "task_id": "tbd68edad8ad9ebb1",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 55,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 55 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nIf there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "material": "If there is a message, and we're in Python 3, and the value looks  like bytes, we manually need to find the binary stream and write the  message in there.  This is done separately so that most stream  types will work as you would expect.  Eg: you can write to StringIO  for other cases.",
+      "input_sha256": "3f26f0b77e5f6c6df68c6887e39705d2bc3122f20f1d0b448853bcc6c1efe0e4"
+    },
+    {
+      "id": "r126248b0ee08b0a7",
+      "task_id": "tea566d3588837dcd",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 57,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 57 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nfunc InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc\n\nIdentifiers: InitInputSourceWithContext, flags, cli, Flag, createInputSource, context, Context, InputSourceContext, error, BeforeFunc\nParameters: flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)\nNumbers: none\n",
+      "material": "Signature:\nfunc InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc\n\nIdentifiers: InitInputSourceWithContext, flags, cli, Flag, createInputSource, context, Context, InputSourceContext, error, BeforeFunc\nParameters: flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)\nNumbers: none\n",
+      "input_sha256": "b78f65a2fa8fae3af4227b4dc8b274dd7ecc14c3931aacb55ada93cce988c4fb"
+    },
+    {
+      "id": "rcdf43f8bdbeb307d",
+      "task_id": "tea566d3588837dcd",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 57,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 57 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nfunc InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc\n\nIdentifiers: InitInputSourceWithContext, flags, cli, Flag, createInputSource, context, Context, InputSourceContext, error, BeforeFunc\nParameters: flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)\nNumbers: none\n",
+      "material": "Signature:\nfunc InitInputSourceWithContext(flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)) cli.BeforeFunc\n\nIdentifiers: InitInputSourceWithContext, flags, cli, Flag, createInputSource, context, Context, InputSourceContext, error, BeforeFunc\nParameters: flags []cli.Flag, createInputSource func(context *cli.Context) (InputSourceContext, error)\nNumbers: none\n",
+      "input_sha256": "7a294fe042b748d663eab67e558c16099041142dae694fd114c424e5960f11e7"
+    },
+    {
+      "id": "rc001878bcfa45340",
+      "task_id": "tea566d3588837dcd",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 57,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 57 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nInitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "material": "InitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "input_sha256": "7cb6e1621d9e0cf46fb2b64095c22d5a98074627ce7037695e7d95944b3ee544"
+    },
+    {
+      "id": "rcbef0a075e382b16",
+      "task_id": "tea566d3588837dcd",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 57,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 57 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nInitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "material": "InitInputSourceWithContext is used to to setup an InputSourceContext on a cli.Command Before method. It will create a new  input source based on the func provided with potentially using existing cli.Context values to initialize itself. If there is  no error it will then apply the new input source to any flags that are supported by the input source",
+      "input_sha256": "321296173bb9fb3093c9e307e2a87e93a05e9be833e98e6090f3a9b11b037ecf"
+    },
+    {
+      "id": "rcf1d57befa4a236a",
+      "task_id": "tff1a5abe345119ea",
+      "operation": "generate",
+      "prompt": "neutral",
+      "requested_words": 56,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. It must be\nin English and about 56 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nSignature:\nif message and not is_bytes(message)\n\nIdentifiers: if, message, and, not, is_bytes\nParameters: message\nNumbers: none\n",
+      "material": "Signature:\nif message and not is_bytes(message)\n\nIdentifiers: if, message, and, not, is_bytes\nParameters: message\nNumbers: none\n",
+      "input_sha256": "7193669a787ccd30b5521871a56fc6a281f171e11f04eb69f71d367db77fdcf5"
+    },
+    {
+      "id": "rdb5bb81974640337",
+      "task_id": "tff1a5abe345119ea",
+      "operation": "generate",
+      "prompt": "plain",
+      "requested_words": 56,
+      "text": "Write the documentation described below.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 56 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nSignature:\nif message and not is_bytes(message)\n\nIdentifiers: if, message, and, not, is_bytes\nParameters: message\nNumbers: none\n",
+      "material": "Signature:\nif message and not is_bytes(message)\n\nIdentifiers: if, message, and, not, is_bytes\nParameters: message\nNumbers: none\n",
+      "input_sha256": "315ee18337f5bb93ef85bb0b15b1c7154bcefa92abbc90223eaea8e3f85095de"
+    },
+    {
+      "id": "racea95da1903524b",
+      "task_id": "tff1a5abe345119ea",
+      "operation": "polish",
+      "prompt": "neutral",
+      "requested_words": 56,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. It must be\nin English and about 56 words long. Use the facts, code, or original text\nsupplied in the next message and nothing else. Do not add examples, claims, or\nfeatures that the material does not contain. Return only the document text,\nwithout a preamble or a closing remark.\n\n---\n\nANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "material": "ANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "input_sha256": "07946c6a04caaa82ab6932c7bbf55b06fee38080567a7f0f6998a27b00d9c93e"
+    },
+    {
+      "id": "r81b2857a7df0311b",
+      "task_id": "tff1a5abe345119ea",
+      "operation": "polish",
+      "prompt": "plain",
+      "requested_words": 56,
+      "text": "Edit the text below for clarity and correctness. Keep its facts, structure, and length.\n\nThe material is technical documentation for software developers. Write in\nconcise, plain technical English. It must be about 56 words long. Use the facts, code, or original text supplied in the next\nmessage and nothing else. Do not add examples, claims, or features that the\nmaterial does not contain. Return only the document text, without a preamble\nor a closing remark.\n\n---\n\nANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "material": "ANSI-style support.  If there is no message or we are dealing with  bytes nothing is happening.  If we are connected to a file we want  to strip colors.  If we are on windows we either wrap the stream  to strip the color or we use the colorama support to translate the  ansi codes to API calls.",
+      "input_sha256": "370907d4754e9ea94c47e1d654411ad50acc4fb13ddf9a7d38237a437b4e28a8"
+    }
+  ]
+}
