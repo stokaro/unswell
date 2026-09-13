@@ -5,8 +5,8 @@ import (
 	"slices"
 	"sync"
 
-	ts "github.com/odvcencio/gotreesitter"
-	"github.com/odvcencio/gotreesitter/grammars"
+	ts "github.com/stokaro/gotreesitter"
+	"github.com/stokaro/gotreesitter/grammars"
 )
 
 var markdownSyntaxLanguage = sync.OnceValues(func() (*ts.Language, error) {

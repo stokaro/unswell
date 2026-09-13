@@ -5,7 +5,7 @@ import (
 	"context"
 	"sort"
 
-	ts "github.com/odvcencio/gotreesitter"
+	ts "github.com/stokaro/gotreesitter"
 
 	"github.com/stokaro/unswell/document"
 )

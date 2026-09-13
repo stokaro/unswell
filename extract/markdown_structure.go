@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"slices"
 
-	ts "github.com/odvcencio/gotreesitter"
+	ts "github.com/stokaro/gotreesitter"
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/internal/mapping"
