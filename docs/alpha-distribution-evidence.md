@@ -1,5 +1,8 @@
 # Alpha distribution evidence
 
+The [alpha.4 audit](release/v0.1.0-alpha.4.md) records the newer release and
+its distribution-update status. The record below remains specific to alpha.3.
+
 Verified on September 12, 2026. This record concerns the published
 [v0.1.0-alpha.3](https://github.com/stokaro/unswell/releases/tag/v0.1.0-alpha.3),
 source `2a2a6d441534cbc4be15d298898345d1a529c8b5`. Its tag signature verifies.

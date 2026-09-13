@@ -15,6 +15,10 @@ claims refer to alpha.3 at `2a2a6d4`, as recorded in the
 [distribution evidence](alpha-distribution-evidence.md). Later engineering does
 not change those release results. Local generation runs are not evidence here.
 
+The alpha.4 supplement below records the published release at `7e5b933`,
+its reproducibility audit, and complete reruns of the pinned performance inputs.
+The historical source and research snapshot above remains separately dated.
+
 Each row uses one of five states.
 
 - **Met** means evidence exists for a merged commit and the repository can
@@ -38,7 +42,7 @@ start restriction and remains required for final validation.
 | Public repository and project setup | Met | [GitHub settings](repository-settings.md), `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, pinned actions and tool modules |
 | Standalone public Go API | Met | `examples/consumer` in CI, the [API policy](public_api.md), and [`scripts/verify-published-module.sh`](../scripts/verify-published-module.sh) with its [recorded check](release/v0.1.0-alpha.3-module-check.json) |
 | Pure Go offline runtime | Met | Native Linux, macOS and Windows jobs; `CGO_ENABLED=0` release builds; [SBOM and notices](sbom.md) |
-| Source mapping | Partly met | `extract` tests, including escape decoding and scalar styles, and the annotated `e2e/testdata` fixtures. Repairs for the alpha.3 parser gaps are merged in [#230](https://github.com/stokaro/unswell/issues/230) and [#231](https://github.com/stokaro/unswell/issues/231); published-release reruns under #219 remain outstanding |
+| Source mapping | Met | `extract` tests and annotated `e2e/testdata` fixtures cover source ranges. [Alpha.4 reruns](performance/alpha4/README.md) process the original FastAPI and date-fns failures after #230/#231, with unchanged source identities and recorded extraction exclusions |
 | NLP baseline | Met | `nlp` tests and [ADR 0001](adr/0001-source-mapping-and-nlp.md); capability failures are explicit |
 | Required rule catalog | Met | `builtin` rules with positive, negative and boundary examples; [scoring](scoring.md) documents what a finding does and does not claim |
 | Index and local gate | Met | [scoring](scoring.md) and the root engine tests for caps, nondilution and threshold diagnostics |
@@ -112,7 +116,7 @@ state.
 | --- | --- | --- |
 | Stable rule qualification against a real corpus | Deferred | Needs a human decision per finding on a labeled corpus, on hold with [#22](https://github.com/stokaro/unswell/issues/22) and [#26](https://github.com/stokaro/unswell/issues/26); the alpha claims no precision figure |
 | Coverage and failure-path targets | Partly met | Failure-path tests and the [measurement recorded on #27](https://github.com/stokaro/unswell/issues/27): configuration 91.9%, engine and scoring 91.9%, rules 92.7%, source mapping 90.9%, 86.7% overall; the CI gate that enforces them is deferred to #123 |
-| Reproducible performance and resource limits | Partly met | [alpha.3 measurements](performance.md#published-alpha3-on-diabolocom-september-13-2026): all 24 processes stay within two-CPU, 10-second, 512-MiB budgets on the recorded shared host. Synthetic and pytest complete above 100,000 words; FastAPI and date-fns remain incomplete. [#219](https://github.com/stokaro/unswell/issues/219) tracks complete reruns after parser repairs [#230](https://github.com/stokaro/unswell/issues/230) and [#231](https://github.com/stokaro/unswell/issues/231). Exclusions, lower date-fns word coverage, and historical results remain documented |
+| Reproducible performance and resource limits | Met | [Alpha.4 measurements](performance/alpha4/README.md): all 24 scans complete within 10 seconds and 512 MiB under a two-CPU quota. Synthetic, pytest, and FastAPI each exceed 100,000 prose words. Date-fns is smaller; its row establishes completeness and measured cost, not the word-count target. Historical failures and coverage changes remain recorded |
 | SARIF consumers, reproducible releases and formats | Met | [SARIF](sarif.md), [reproducible builds](reproducible-builds.md), the [release audit](release/v0.1.0-alpha.3-audit.json) and the format checks in [reports](reports.md) |
 | Documentation set | Met | [configuration](configuration.md), [custom rules](custom-rules.md), [API policy](public_api.md), [MCP](mcp.md), [containers](containers.md), [research](research.md), [editorial annotation](editorial-annotation.md), [training and evaluation](training.md), [reports](reports.md) and [installation](installation.md) |
 | Release inventory and notices | Met | [SBOM and notices](sbom.md) and the [release audit](release/v0.1.0-alpha.3-audit.json) |
@@ -128,6 +132,6 @@ estimate carries a reason rather than a zero. The origin channel never gates a
 build. Distribution automation completed the alpha.3 cycle documented in
 [#66](https://github.com/stokaro/unswell/issues/66) and the
 [release evidence](alpha-distribution-evidence.md). That success does not verify
-future releases. Complete corpus scans and resource acceptance remain open in
-[#219](https://github.com/stokaro/unswell/issues/219); final validation remains
-deferred in #123.
+future releases. [Alpha.4 evidence](release/v0.1.0-alpha.4.md) adds complete corpus scans and
+resource measurements for #219. Tap and Action update reviews remain pending;
+final validation remains deferred in #123.
