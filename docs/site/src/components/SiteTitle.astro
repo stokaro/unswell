@@ -1,0 +1,35 @@
+---
+// The left of the header: the product mark, the wordmark, and the version this
+// build is.
+//
+// The mark is inline rather than a `logo` option, because the wordmark carries
+// two colors and the version picker has to sit beside it inside the same title
+// slot.
+import VersionSelect from './VersionSelect.astro';
+
+const { siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<div class="u-brand">
+	<a href={siteTitleHref} class="u-brand__link">
+		<svg
+			class="u-brand__mark"
+			width="28"
+			height="28"
+			viewBox="0 0 28 28"
+			aria-label="Unswell"
+			role="img"
+		>
+			<rect x="0" y="0" width="28" height="28" rx="7" fill="#1B1F22"></rect>
+			<path
+				d="M5.5 15.5 L9.2 9.8 L13 18.2 L16.8 9.8 L18.4 13.6 L22.5 13.6"
+				fill="none"
+				stroke="#5FB3B3"
+				stroke-width="2.6"
+				stroke-linecap="round"
+				stroke-linejoin="round"></path>
+		</svg>
+		<span class="u-wordmark" translate="no">un<em>swell</em></span>
+	</a>
+	<VersionSelect />
+</div>

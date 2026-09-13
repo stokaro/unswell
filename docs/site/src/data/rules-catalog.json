@@ -1,0 +1,897 @@
+{
+  "schema": "unswell-docs-rules-catalog-v1",
+  "rule_count": 40,
+  "families": [
+    {
+      "name": "density",
+      "rules": [
+        {
+          "id": "density.connective-overuse",
+          "version": "1",
+          "status": "experimental",
+          "group": "rhetorical-patterns",
+          "scope": "paragraph",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 20,
+          "cap": 40,
+          "summary": "Remove repeated transitions where the connection is already clear.",
+          "description": "Remove repeated transitions where the connection is already clear.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        }
+      ]
+    },
+    {
+      "name": "filler",
+      "rules": [
+        {
+          "id": "filler.announced-importance",
+          "version": "1",
+          "status": "experimental",
+          "group": "scaffolding",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 15,
+          "cap": 30,
+          "summary": "State the fact without announcing its importance.",
+          "description": "State the fact without announcing its importance.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        },
+        {
+          "id": "filler.empty-transition",
+          "version": "1",
+          "status": "experimental",
+          "group": "scaffolding",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "Check whether these repeated opening transitions add information.",
+          "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review."
+        },
+        {
+          "id": "filler.modern-world-opening",
+          "version": "1",
+          "status": "experimental",
+          "group": "scaffolding",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 15,
+          "cap": 30,
+          "summary": "Replace the generic opening with the document's subject.",
+          "description": "Replace the generic opening with the document's subject.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        },
+        {
+          "id": "filler.section-announcement",
+          "version": "1",
+          "status": "experimental",
+          "group": "scaffolding",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "Replace repeated section announcements with their subject.",
+          "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review."
+        },
+        {
+          "id": "filler.stacked-hedging",
+          "version": "1",
+          "status": "experimental",
+          "group": "inflation",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "Check whether each hedge expresses a distinct uncertainty; retain needed qualifications.",
+          "description": "Counts distinct configured modal/adverb cues in one clause; commas, punctuation, conjunctions, and code end a clause.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. A token boundary is not a dependency parse. Multiple independent uncertainties can be justified."
+        },
+        {
+          "id": "filler.weak-intensifiers",
+          "version": "1",
+          "status": "experimental",
+          "group": "inflation",
+          "scope": "paragraph",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "Check whether these intensifiers add a measurable distinction.",
+          "description": "Counts configured adverbs before adjectives/adverbs per 100 prose words, after the minimum word count.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. POS roles are heuristic. The rule does not require deleting distinctions with technical meaning."
+        },
+        {
+          "id": "filler.wordy-phrase",
+          "version": "1",
+          "status": "experimental",
+          "group": "scaffolding",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 15,
+          "cap": 30,
+          "summary": "Consider a shorter phrase that preserves the condition or meaning.",
+          "description": "Consider a shorter phrase that preserves the condition or meaning.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        }
+      ]
+    },
+    {
+      "name": "format",
+      "rules": [
+        {
+          "id": "format.em-dash-density",
+          "version": "1",
+          "status": "experimental",
+          "group": "readability",
+          "scope": "paragraph",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 0,
+          "cap": 0,
+          "summary": "Em dashes exceed the selected local density; punctuation can be intentional.",
+          "description": "Counts U+2014 in selected prose per 100 prose words, with mapped source ranges including encoded Markdown entities.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship."
+        },
+        {
+          "id": "format.list-fragmentation",
+          "version": "1",
+          "status": "experimental",
+          "group": "readability",
+          "scope": "section",
+          "contexts": [
+            "heading",
+            "list-item",
+            "paragraph"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 0,
+          "cap": 0,
+          "summary": "Several short lists fragment this section; check whether the grouping helps readers.",
+          "description": "Counts complete short flat unordered lists in a bounded section window using grammar-derived list ownership.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Ordered/task/nested lists, sentence items, procedure openings, identifiers, and selected reference headings are excluded."
+        }
+      ]
+    },
+    {
+      "name": "hype",
+      "rules": [
+        {
+          "id": "hype.absolute-claim",
+          "version": "1",
+          "status": "experimental",
+          "group": "inflation",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 0,
+          "cap": 0,
+          "summary": "Check whether this guarantee has conditions or exceptions.",
+          "description": "Matches configured phrases in affirmative prose, excluding questions and explicit qualifications conservatively.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This lexical screen does not determine truth, semantic vagueness, or whether every condition is stated."
+        },
+        {
+          "id": "hype.metaphor-cluster",
+          "version": "1",
+          "status": "experimental",
+          "group": "inflation",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "Replace clustered stock metaphors with specific properties.",
+          "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review."
+        },
+        {
+          "id": "hype.modifier-cluster",
+          "version": "1",
+          "status": "experimental",
+          "group": "inflation",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 24,
+          "cap": 48,
+          "summary": "Replace the cluster of evaluative modifiers with specific properties.",
+          "description": "Replace the cluster of evaluative modifiers with specific properties.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        },
+        {
+          "id": "hype.vague-praise",
+          "version": "1",
+          "status": "experimental",
+          "group": "inflation",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "Replace general praise with a specific property or measured result.",
+          "description": "Matches configured phrases in affirmative prose, excluding questions and explicit qualifications conservatively.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This lexical screen does not determine truth, semantic vagueness, or whether every condition is stated."
+        }
+      ]
+    },
+    {
+      "name": "policy",
+      "rules": [
+        {
+          "id": "policy.banned-phrases",
+          "version": "1",
+          "status": "experimental",
+          "group": "scaffolding",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "error",
+          "gate": "forbid",
+          "weight": 15,
+          "cap": 30,
+          "summary": "Remove a phrase forbidden by this editorial policy.",
+          "description": "Remove a phrase forbidden by this editorial policy.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        }
+      ]
+    },
+    {
+      "name": "readability",
+      "rules": [
+        {
+          "id": "readability.grade-metric",
+          "version": "2",
+          "status": "experimental",
+          "group": "readability",
+          "scope": "paragraph",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 0,
+          "cap": 0,
+          "summary": "The ARI formula exceeds the selected level; consider the audience and keep necessary technical terms.",
+          "description": "Applies 4.71*characters/words + 0.5*words/sentences - 21.43 to local extracted prose words, excluding identifier-shaped tokens and counting each part of a hyphenated compound as a word.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Characters are Unicode letters and digits within prose tokens. A token with an inner uppercase letter, a digit, an underscore, a period, or a slash is an identifier and is not counted. No age, comprehension, quality, or authorship is predicted."
+        },
+        {
+          "id": "readability.long-paragraph",
+          "version": "1",
+          "status": "experimental",
+          "group": "readability",
+          "scope": "paragraph",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 8,
+          "cap": 16,
+          "summary": "Consider paragraph boundaries while keeping each condition with the statement it qualifies.",
+          "description": "Requires both paragraph length and a configured count of long sentences; reports local descriptive measurements.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Length, lexical diversity, and POS ratios are descriptive; reference material can justify them."
+        }
+      ]
+    },
+    {
+      "name": "repetition",
+      "rules": [
+        {
+          "id": "repetition.exact-sentence",
+          "version": "1",
+          "status": "experimental",
+          "group": "repetition",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 30,
+          "cap": 60,
+          "summary": "This sentence is repeated; consider whether every occurrence is needed.",
+          "description": "This sentence is repeated; consider whether every occurrence is needed.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        },
+        {
+          "id": "repetition.heading-echo",
+          "version": "1",
+          "status": "experimental",
+          "group": "repetition",
+          "scope": "section",
+          "contexts": [
+            "heading",
+            "paragraph"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 6,
+          "cap": 12,
+          "summary": "The first paragraph closely echoes its heading; check whether it adds information.",
+          "description": "Compares a selected heading with its immediately following paragraph using exact set Jaccard.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Short definitions may be useful; code and intervening blocks break adjacency."
+        },
+        {
+          "id": "repetition.near-sentence",
+          "version": "2",
+          "status": "experimental",
+          "group": "repetition",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 22,
+          "cap": 44,
+          "summary": "These sentences have high lexical overlap; check for repeated information.",
+          "description": "Compares indexed sentence candidates with set Jaccard and a shared technical-contrast signature.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Modal, condition, and state cues are retained in token order. Numeric-unit protection retains the token after a number, not a complete unit expression. Equal signatures do not establish semantic equivalence."
+        },
+        {
+          "id": "repetition.ngram-density",
+          "version": "1",
+          "status": "experimental",
+          "group": "repetition",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "This phrase recurs in a short prose window; check whether each use is needed.",
+          "description": "Groups repeated consecutive prose n-grams in sentence windows; longer covering phrases take precedence.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Activation counts occurrences; reported coverage uses the prose words between the first and last matching sentence."
+        },
+        {
+          "id": "repetition.paragraph-openers",
+          "version": "1",
+          "status": "experimental",
+          "group": "repetition",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 18,
+          "cap": 36,
+          "summary": "Several paragraphs repeat the same opening formula.",
+          "description": "Several paragraphs repeat the same opening formula.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        },
+        {
+          "id": "repetition.paragraph-overlap",
+          "version": "1",
+          "status": "experimental",
+          "group": "repetition",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 18,
+          "cap": 36,
+          "summary": "These prose blocks have high lexical overlap; check for repeated information.",
+          "description": "Builds connected clusters of Jaccard-qualified block pairs through an expiring inverted index.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. The block window bounds each pair, not the complete cluster; not every pair in a connected cluster must qualify."
+        },
+        {
+          "id": "repetition.sentence-openers",
+          "version": "1",
+          "status": "experimental",
+          "group": "repetition",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 15,
+          "cap": 30,
+          "summary": "Several sentences repeat the same opening; consider removing repeated setup.",
+          "description": "Several sentences repeat the same opening; consider removing repeated setup.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        },
+        {
+          "id": "repetition.summary-echo",
+          "version": "1",
+          "status": "experimental",
+          "group": "repetition",
+          "scope": "section",
+          "contexts": [
+            "heading",
+            "paragraph"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "This summary has high lexical overlap with preceding prose; check what it adds.",
+          "description": "Compares paragraphs under explicitly configured selected summary headings with preceding nonsummary paragraphs.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Summary scope follows grammar-derived heading ancestry. Other titles require configuration; lexical overlap can be intentional."
+        },
+        {
+          "id": "repetition.syntax-template",
+          "version": "1",
+          "status": "experimental",
+          "group": "repetition",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 6,
+          "cap": 12,
+          "summary": "Several sentences repeat a POS shape; check whether the structure serves the text.",
+          "description": "Groups complete normalized POS shapes with at least two lexical realizations; imperative openings and lists are excluded.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. POS grouping is a surface heuristic, not a dependency analysis or a claim that the facts are duplicated."
+        }
+      ]
+    },
+    {
+      "name": "scaffold",
+      "rules": [
+        {
+          "id": "scaffold.ai-self-reference",
+          "version": "1",
+          "status": "experimental",
+          "group": "scaffolding",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "error",
+          "gate": "forbid",
+          "weight": 15,
+          "cap": 30,
+          "summary": "Remove the assistant's self-reference.",
+          "description": "Remove the assistant's self-reference.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        },
+        {
+          "id": "scaffold.chat-preamble",
+          "version": "1",
+          "status": "experimental",
+          "group": "scaffolding",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "error",
+          "gate": "forbid",
+          "weight": 15,
+          "cap": 30,
+          "summary": "Start with the subject instead of a conversational acknowledgment.",
+          "description": "Start with the subject instead of a conversational acknowledgment.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        },
+        {
+          "id": "scaffold.dive-in",
+          "version": "1",
+          "status": "experimental",
+          "group": "scaffolding",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 15,
+          "cap": 30,
+          "summary": "Start with the subject instead of announcing the explanation.",
+          "description": "Start with the subject instead of announcing the explanation.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        },
+        {
+          "id": "scaffold.follow-up-offer",
+          "version": "1",
+          "status": "experimental",
+          "group": "scaffolding",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 15,
+          "cap": 30,
+          "summary": "Remove the conversational follow-up offer from this document.",
+          "description": "Remove the conversational follow-up offer from this document.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        }
+      ]
+    },
+    {
+      "name": "syntax",
+      "rules": [
+        {
+          "id": "syntax.long-sentence",
+          "version": "1",
+          "status": "experimental",
+          "group": "syntax-load",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 30,
+          "cap": 60,
+          "summary": "Consider splitting this long sentence without losing its conditions.",
+          "description": "Consider splitting this long sentence without losing its conditions.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        },
+        {
+          "id": "syntax.nominalization-chain",
+          "version": "1",
+          "status": "experimental",
+          "group": "syntax-load",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "Consider a direct verb while preserving the subject, conditions, and technical meaning.",
+          "description": "Matches a configured weak verb, a configured common noun, and an of-complement with a common-noun head.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Inflected verb forms are explicit dictionary entries. Suffixes alone never activate this rule."
+        },
+        {
+          "id": "syntax.not-only-density",
+          "version": "2",
+          "status": "experimental",
+          "group": "rhetorical-patterns",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "heading",
+            "list-item",
+            "paragraph",
+            "string",
+            "table-cell"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 18,
+          "cap": 36,
+          "summary": "Repeated paired contrasts make this passage formulaic.",
+          "description": "Counts ordered not-only/not-just followed by but in bounded prose windows, allowing one matching sentence.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Version 2 stops at structural/protected boundaries and requires the contrast markers in source order."
+        },
+        {
+          "id": "syntax.noun-stack",
+          "version": "4",
+          "status": "experimental",
+          "group": "syntax-load",
+          "scope": "sentence",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 8,
+          "cap": 16,
+          "summary": "Review this common-noun sequence; keep established technical terms.",
+          "description": "Counts NN modifiers followed by an NN/NNS head within a shallow NP chunk, stopping at terms, identifiers, and configured verb forms in predicate position.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. A shallow NP is not a dependency tree, and a noun sequence can be an appropriate domain term. Interior NNS tags cause abstention: they can be plural modifiers or misclassified finite verbs. The negative modal \"cannot\" breaks a noun run even when tagged NN; other tagging ambiguity remains possible. Configured verb forms are literal words; a form that is also a noun modifier shortens a genuine stack."
+        },
+        {
+          "id": "syntax.paired-contrast-density",
+          "version": "1",
+          "status": "experimental",
+          "group": "rhetorical-patterns",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "Check whether repeated paired contrasts carry distinct information.",
+          "description": "Counts adjacent 'It is not about'/'It is about' sentence pairs, including contractions, in bounded prose windows.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only the declared opening structures are recognized; no semantic equivalence is inferred."
+        },
+        {
+          "id": "syntax.parenthetical-load",
+          "version": "2",
+          "status": "experimental",
+          "group": "syntax-load",
+          "scope": "paragraph",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 8,
+          "cap": 16,
+          "summary": "Review the load of balanced insertions; retain conditions, qualifications, and necessary definitions.",
+          "description": "Measures nonexempt words, pair count, and nesting of balanced parentheses and square brackets within a prose block.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Unbalanced or protected-crossing frames are not matched. Depth is capped at 256 with an explicit error. An insertion below min_insertion_words, such as an issue reference or a license label, contributes to none of the three measurements, including nesting."
+        },
+        {
+          "id": "syntax.passive-candidate-density",
+          "version": "1",
+          "status": "experimental",
+          "group": "syntax-load",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 6,
+          "cap": 12,
+          "summary": "Several sentences contain be-plus-participle candidates; review voice only where the meaning allows it.",
+          "description": "Counts sentences containing a be verb, up to four adverbs, and VBN in bounded contiguous prose windows.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. The same POS shape can describe a state. This rule is not syntax.passive-density and does not establish grammatical voice."
+        },
+        {
+          "id": "syntax.rhetorical-question-density",
+          "version": "1",
+          "status": "experimental",
+          "group": "rhetorical-patterns",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "Check repeated question-and-short-answer transitions.",
+          "description": "Counts configured complete questions followed in the same block by a short nonquestion answer.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Arbitrary questions are not classified. Numeric/code answers are excluded; disable for FAQ paths."
+        },
+        {
+          "id": "syntax.triad-density",
+          "version": "1",
+          "status": "experimental",
+          "group": "inflation",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "Check repeated triads of evaluative modifiers against specific properties.",
+          "description": "Counts three-item lists from the evaluative dictionary with at least two adjective tags; one triad is allowed.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. One noun tag is tolerated for an ambiguous modifier. This is a POS/dictionary heuristic, not a dependency parse."
+        },
+        {
+          "id": "syntax.whether-preface-density",
+          "version": "1",
+          "status": "experimental",
+          "group": "rhetorical-patterns",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": false,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "Reduce repeated whether-you prefaces while preserving alternatives.",
+          "description": "Counts whether-you-are prefaces containing 'or' before a comma within 32 tokens; one occurrence is allowed.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Recognizes one opening template, not arbitrary conditional clauses."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+---
+title: Install it, run it, read the first finding.
+accent: read
+eyebrow: Getting started
+lead: Four ways to install the published alpha, one command to check a tree, and the three things a finding tells you. Ten minutes, no service, no key.
+description: Install Unswell through Homebrew, go install, a container or the GitHub Action, run the first check, and learn to read a finding and the gate.
+---
+
+import Button from '../../components/Button.astro';
+import CopyField from '../../components/CopyField.astro';
+import CtaRow from '../../components/CtaRow.astro';
+import Note from '../../components/Note.astro';
+import Terminal from '../../components/Terminal.astro';
+
+## Install
+
+The published release is `v0.1.0-alpha.3`. Pin it: the public API, the rule
+defaults and the artifact formats all change during the alpha.
+
+### Homebrew
+
+<CtaRow>
+  <CopyField command="brew install stokaro/unswell/unswell" />
+</CtaRow>
+
+The tap is [stokaro/homebrew-unswell](https://github.com/stokaro/homebrew-unswell).
+Its formula picks a checked release archive for macOS or Linux on ARM64 or AMD64.
+`brew install --HEAD stokaro/unswell/unswell` builds the default branch with Go
+instead.
+
+### Go
+
+```sh
+go install github.com/stokaro/unswell/cmd/unswell@v0.1.0-alpha.3
+```
+
+From a checkout, `go build -o bin/unswell ./cmd/unswell` uses the minimum Go
+version declared in `go.mod`. The runtime needs neither cgo nor a network.
+
+### Container
+
+Two images exist: one for the CLI, one for the MCP server. Both are public in
+GHCR, mirrored to Docker Hub with matching digests, and built for Linux AMD64 and
+ARM64. Mount your sources read-only; a scan makes no network request.
+
+### GitHub Action
+
+```yaml
+- uses: stokaro/unswell-action@b7e5d5ce69d69ca458879c938726ec0870457b35
+  id: unswell
+  with:
+    version: 0.1.0-alpha.3
+    config: .unswell.yaml
+    paths: |
+      README.md
+      docs
+      src
+```
+
+Pin the action commit and the CLI version separately. The action verifies the
+downloaded archive's SHA-256 and exposes the JSON and SARIF paths as step outputs.
+
+## Write a policy and run it
+
+`config init` writes a starting `.unswell.yaml`. The profiles are `technical`,
+`strict`, `minimal`, `business`, `reference` and `custom`, each also with a `-v1`
+suffix that pins the version of that profile.
+
+```sh
+unswell config init --profile technical
+unswell check README.md docs/
+```
+
+A recursive scan inside a Git repository selects tracked files. Named files may be
+untracked, and they bypass the recursive include and exclude patterns. Outside
+Git, a directory argument walks the filesystem within the project root. Symlinks
+are not followed.
+
+Check a draft that is not on disk with `--stdin`, which needs a logical name or an
+explicit format so the extractor knows which grammar to use:
+
+```sh
+printf '%s\n' 'It is important to note that the client may retry.' |
+  unswell check --stdin --filename draft.md --profile strict
+```
+
+## Read a finding
+
+<Terminal
+  caption="docs — unswell check"
+  command="unswell check README.md docs/guide.md"
+  output={[
+    'README.md:3:1: warning [filler.announced-importance] State the fact without announcing its importance.',
+    'docs/guide.md:1:1: error [scaffold.chat-preamble] Start with the subject instead of a conversational acknowledgment.',
+    'FAIL: 2 documents, 2 findings; analysis complete.',
+    '  gate: docs/guide.md: Start with the subject instead of a conversational acknowledgment.',
+    'Revision probability: unavailable (no calibrated alpha model).',
+  ]}
+  exitCode={1}
+/>
+
+A finding line holds four things.
+
+`README.md:3:1` is the location. Columns are one-based Unicode code points; the
+byte spans kept in the saved reports are original UTF-8 offsets, so a report
+survives escapes, CRLF and Markdown emphasis.
+
+`warning` is the display severity. It controls presentation only.
+
+`filler.announced-importance` is the rule. `unswell rules show <id>` prints its
+descriptor, including the phrases it matches and the limits its author recorded.
+
+The rest is the message: what to change, in the imperative.
+
+## The gate
+
+Severity and the gate are separate settings. A rule with `gate: forbid` fails the
+run whenever it matches. A local score gate fails a sentence or paragraph whose
+effective score reaches the configured threshold, provided the unit has at least
+`min_words` words. Display filters such as `--max-findings` and `--min-severity`
+never change the decision.
+
+<Terminal
+  caption="docs — a clean run"
+  command="unswell check README.md"
+  output={[
+    'PASS: 1 documents, 0 findings; analysis complete.',
+    'Revision probability: unavailable (no calibrated alpha model).',
+  ]}
+  exitCode={0}
+/>
+
+Exit codes are `0` for a complete pass, `1` for a complete policy failure, `2` for
+an operational error or an incomplete analysis, and `130` for cancellation. A scan
+that finds no applicable prose fails unless `--allow-empty` says otherwise.
+`--no-gate` reports findings without the style failure; it does not hide an
+operational error.
+
+<Note>
+  A failed check is a reason to revise the wording. It is not a reason to add a
+  suppression, and an assistant that adds one to pass has not done the work.
+</Note>
+
+<CtaRow>
+  <Button href="/how-it-works/">How it works →</Button>
+  <Button href="/configuration/" variant="outline">Write the policy</Button>
+</CtaRow>

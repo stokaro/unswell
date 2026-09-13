@@ -1,0 +1,80 @@
+---
+// A terminal card showing real `unswell check` output.
+//
+// The lines are passed in verbatim and colored here by matching the text
+// reporter's own shape, so the page cannot drift into a prettier format than
+// the one the CLI prints. A line the pattern does not recognize is rendered
+// plain rather than guessed at.
+//
+// The reporter prints one finding as
+//   <path>:<line>:<column>: <severity> [<rule id>] <message>
+// then a PASS or FAIL summary, then an indented `gate:` line per gate reason.
+//
+// The markup is built as a string rather than as nested elements because it
+// goes inside a <pre>, where the indentation of a template would become part of
+// the output. Every value that reaches it is escaped here.
+interface Props {
+	caption: string;
+	command: string;
+	output: string[];
+	exitCode?: number;
+}
+
+const { caption, command, output, exitCode } = Astro.props;
+
+const FINDING =
+	/^(?<where>[^\s:]+:\d+:\d+): (?<severity>note|warning|error) \[(?<rule>[^\]]+)\] (?<message>.*)$/;
+
+const severityClass: Record<string, string> = {
+	error: 'u-t-error',
+	warning: 'u-t-warning',
+	note: 'u-t-muted',
+};
+
+function escape(value: string): string {
+	return value
+		.replaceAll('&', '&amp;')
+		.replaceAll('<', '&lt;')
+		.replaceAll('>', '&gt;')
+		.replaceAll('"', '&quot;');
+}
+
+function span(className: string, value: string): string {
+	return `<span class="${className}">${escape(value)}</span>`;
+}
+
+function renderLine(line: string): string {
+	const finding = FINDING.exec(line);
+	if (finding?.groups) {
+		const { where, severity, rule, message } = finding.groups;
+		return [
+			span('u-t-path', where),
+			': ',
+			span(severityClass[severity] ?? 'u-t-muted', severity),
+			' ',
+			span('u-t-rule', `[${rule}]`),
+			' ',
+			span('u-t-muted', message),
+		].join('');
+	}
+	if (line.startsWith('FAIL:')) return span('u-t-error', line);
+	if (line.startsWith('PASS:')) return span('u-t-pass', line);
+	if (line.trimStart().startsWith('gate:')) return span('u-t-muted', line);
+	return escape(line);
+}
+
+const head = `${span('u-t-prompt', '$')} ${escape(command)}`;
+const body = output.map(renderLine).join('\n');
+const tail =
+	exitCode === undefined ? '' : `\n${span('u-t-muted', '$ echo $?')}\n${escape(String(exitCode))}`;
+const rendered = `${head}\n${body}${tail}`;
+---
+
+<div class="u-terminal not-content">
+	<div class="u-terminal__bar">
+		<div class="u-terminal__dots" aria-hidden="true"><span></span><span></span><span></span></div>
+		<div class="u-terminal__caption">{caption}</div>
+		<div></div>
+	</div>
+	<pre class="u-terminal__body"><code set:html={rendered} /></pre>
+</div>

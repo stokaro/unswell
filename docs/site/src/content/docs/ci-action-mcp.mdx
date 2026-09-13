@@ -1,0 +1,155 @@
+---
+title: In the pipeline, and in the assistant that writes the draft.
+accent: assistant
+eyebrow: CI, Action and MCP
+lead: The same engine behind three front doors. A pinned GitHub Action for pull requests, a CLI for any other runner, and a stdio MCP server so a draft is checked before it is proposed.
+description: Run Unswell in CI through the pinned GitHub Action or the CLI, publish SARIF, and expose the same engine to an assistant through the unswell-mcp server.
+---
+
+import Note from '../../components/Note.astro';
+
+## The GitHub Action
+
+The action lives in
+[stokaro/unswell-action](https://github.com/stokaro/unswell-action). Pin the action
+commit and the CLI version independently:
+
+```yaml
+name: Editorial
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  unswell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: stokaro/unswell-action@b7e5d5ce69d69ca458879c938726ec0870457b35
+        id: unswell
+        with:
+          version: 0.1.0-alpha.3
+          config: .unswell.yaml
+          paths: |
+            README.md
+            docs
+            src
+```
+
+The CLI release has to exist already. The action verifies the downloaded archive's
+SHA-256, passes each input as a process argument, and preserves the pass, failure
+and error outcomes rather than collapsing them. It exposes the JSON and SARIF file
+paths as step outputs. After installation the analysis is offline.
+
+The action repository has a `Verify published release` workflow that proves bad
+prose and malformed source fail their steps with the expected codes and report
+contents. Unit tests against local archives do not replace that public download
+check.
+
+## Any other runner
+
+Install the CLI and run it. The pattern that keeps a pipeline honest is one
+analysis writing the artifact the pipeline keeps:
+
+```sh
+unswell check README.md docs/ src/ \
+  --config .unswell.yaml \
+  --report text:- \
+  --report sarif:artifacts/unswell.sarif
+```
+
+Exit code 1 is a policy failure and should fail the job. Exit code 2 is an
+operational error, and treating it as a pass is how a broken parse becomes a green
+build. `--no-gate` collects findings without failing on style, which suits a
+reporting job, and it still fails on an operational error.
+
+For a repository with existing debt, `--baseline .unswell-baseline.json
+--gate-mode new` accepts what was reviewed and gates what is new. The baseline
+path belongs to the invoking workflow, so a pull request cannot point the run at a
+different debt file through YAML.
+
+<Note>
+  A source pull request must not control its own policy. Pin the release, pin the
+  profile version, and compare the configuration hash from `unswell config
+  explain` against the value you reviewed.
+</Note>
+
+## Publishing SARIF
+
+The SARIF report is validated against the published 2.1.0 schema and was imported
+by Sarif.Multitool, the reference implementation, with no validation results at
+any level. That is one report accepted by one consumer. Other consumers apply
+their own rules, and GitHub code scanning in particular enforces limits that check
+does not exercise.
+
+## The MCP server
+
+`unswell-mcp` is a separate executable and a separate Go module, so the MCP SDK
+stays out of the core module. Both executables share the extraction, policy,
+rules, scores, gate and source coordinates.
+
+```sh
+make build-mcp
+bin/unswell-mcp --config /absolute/path/to/project/.unswell.yaml
+```
+
+Configure a stdio client to launch the absolute executable path with `--config`
+and the policy path as separate arguments. The executable reserves stdout for
+protocol frames; startup errors, help and `--version` go to stderr. Omitting
+`--config` uses builtin defaults rather than searching for a file. `--timeout 30s`
+bounds each check, to a maximum of five minutes.
+
+Two tools:
+
+`unswell_describe` takes an empty object, or a logical file such as
+`{"file":"docs/reference/api.md"}` to resolve the file overrides that would apply.
+It opens no source file. It returns the supported formats and contexts, the rule
+catalog, the effective policy with its hash, and the build version.
+
+`unswell_check` takes source contents directly, between 1 and 256 of them. Each
+`name` labels evidence and takes part in exception matching, and is never opened
+as a file. Omit `format` to infer the grammar from the name or a shebang.
+
+```json
+{
+  "sources": [
+    {
+      "name": "src/Client.cs",
+      "format": "csharp",
+      "text": "class Client { string message = \"The connection closed.\"; }"
+    }
+  ]
+}
+```
+
+The response carries an `outcome` beside the engine result: `pass`,
+`policy_failure`, or `error` with `isError` set. Malformed tool arguments return a
+tool error before analysis and may carry no engine result at all. A transport
+cancellation is not a pass either.
+
+<Note>
+  Tool arguments cannot disable the gate, change a rule or supply configuration.
+  An assistant that fails a check should revise the draft and check again.
+</Note>
+
+Repeat `--feature ID` at startup to collect block measurements, and
+`--feature activation/<rule id>` to collect one rule's activation. The rule has to
+exist in the startup catalog, and selecting it does not enable it. Clients cannot
+change the selection, and these measurements change neither the gate nor any
+probability.
+
+`--baseline` with `--gate-mode new` loads reviewed debt once at startup. Tools can
+inspect the selection and check drafts under it; they cannot create or update it.
+Restart after a reviewed update.
+
+## Checking Unswell with Unswell
+
+`make dogfood` runs the built CLI over this repository under its own strict
+policy. It then feeds a deliberate violation through five contexts, and each one
+has to exit 1.
+
+`make dogfood-mcp` does the same work through a real MCP subprocess and compares
+the two engine results in full. Policy hashes, build revisions, findings,
+exclusions, gate outcomes and the measurements that were asked for all have to
+match.
