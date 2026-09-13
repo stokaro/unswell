@@ -1,6 +1,6 @@
 {
   "format": "unswell-partition-pins-v1",
-  "decided_on": "2026-09-12",
+  "decided_on": "2026-09-13",
   "protocol": "unswell-llm-patterns-v1",
   "scope": "Every repository and document set of the corpus keeps this partition in every dataset plan. A repository whose tasks entered a generation run before protocol version 2 is training or development, by the partition its tasks carried when they were drawn; a repository drawn under both labels is development. Every other repository keeps the assignment of the plan of September 12, 2026. The confirmation partition is final_test. Revision 2 adds the 24 repositories of the second acquisition round: 10 pinned to development and 14 to final_test before any of their text was measured.",
   "repositories": {
@@ -73,6 +73,12 @@
     "tj/n": "final_test",
     "sindresorhus/pure": "final_test",
     "dahlbyk/posh-git": "final_test",
-    "cmderdev/cmder": "final_test"
+    "cmderdev/cmder": "final_test",
+    "assertj/assertj-core": "development",
+    "AutoMapper/AutoMapper": "development",
+    "rayon-rs/rayon": "final_test",
+    "gin-gonic/gin": "final_test",
+    "google/benchmark": "final_test",
+    "encode/httpx": "final_test"
   }
 }

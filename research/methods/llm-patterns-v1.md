@@ -655,3 +655,37 @@ Changed fields:
 At this time the maintainer had viewed the screening record of Amendment 4
 and the aggregate tables of every run record. No threshold and no minimum
 moves.
+
+### Amendment 6, September 13, 2026
+
+Document version 1.6. The identifier stays. Reason: Amendment 5 counted
+pinned repositories and read them as screening components. A repository
+joins an arm only when its historical text holds a unit of the screened
+role. A recount by role found 19 of the 20 repositories pinned to
+`development` carrying a historical comment paragraph and 17 of the 20
+pinned to `final_test`. Both partitions stayed under the cluster minimum of
+20, and no further task draw could change that.
+
+Changed fields:
+
+- Sources. Revision 3 of `research/acquisition/sources-v1.json` adds six
+  repositories. Selection looked at license, ecosystem, repository size, a
+  release dated on or before the boundary, and whether the ecosystem
+  carries API documentation comments the extractor reads. It never looked
+  at the text of a candidate. Shell repositories are excluded by that last
+  criterion: the five already in the corpus yield 29 comment paragraphs
+  between them.
+- Partitions. `research/methods/partitions-v1.json` pins the six before
+  their first measurement, two to `development` and four to `final_test`.
+  Its SHA-256 is now
+  `639962447e3d8b4a9961c1661e2634f14ff31d8e2d5a64af2775e0a0705de657`. The
+  pinned plan holds 22 repositories in `development`, 24 in `final_test`,
+  24 in `training`, and 6 in `calibration`. Each partition now carries a
+  margin of one repository over the cluster minimum.
+- Tasks. google/googletest and httpie/cli are pinned to `development`,
+  carry comment paragraphs, and held no controlled response. They receive
+  tasks with the two new development repositories, so the controlled arm
+  reaches the cluster minimum.
+
+Exposure at this point covers both screening records and the aggregate
+tables of every run record. No threshold and no minimum moves.

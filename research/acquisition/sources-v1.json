@@ -1,7 +1,7 @@
 {
   "format": "unswell-acquisition-sources-v1",
-  "revision": 2,
-  "decided_on": "2026-09-12",
+  "revision": 3,
+  "decided_on": "2026-09-13",
   "protocol": "unswell-llm-patterns-v1",
   "boundary": "2020-12-31",
   "scope": "Sampling frame of the historical pilot: public repositories with a permissive license, English documentation, and a release that an independent registry or release record dates on or before the boundary. Selection looked at license, ecosystem diversity, and history availability, never at the text. Tags and dates are claims that the acquisition script verifies at run time; an entry whose record cannot be corroborated stays vcs_only, and an entry dated after the boundary is skipped. Revision 2 (September 12, 2026) adds 24 repositories drawn for the development and confirmation partitions of the pinned plan after the first screening; selection looked at license, ecosystem diversity, repository size, and a release dated on or before the boundary.",
@@ -858,6 +858,85 @@
       },
       "topic": "console emulator",
       "purpose": "Windows console emulator documentation and scripts"
+    },
+    {
+      "name": "assertj/assertj-core",
+      "url": "https://github.com/assertj/assertj-core.git",
+      "tag": "assertj-core-3.18.1",
+      "ecosystem": "java",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "maven",
+        "group": "org.assertj",
+        "artifact": "assertj-core",
+        "version": "3.18.1"
+      },
+      "topic": "assertions",
+      "purpose": "Java assertion library documentation and comments"
+    },
+    {
+      "name": "AutoMapper/AutoMapper",
+      "url": "https://github.com/AutoMapper/AutoMapper.git",
+      "tag": "v10.1.1",
+      "ecosystem": "csharp",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "object mapping",
+      "purpose": ".NET object mapping library documentation and comments"
+    },
+    {
+      "name": "rayon-rs/rayon",
+      "url": "https://github.com/rayon-rs/rayon.git",
+      "tag": "v1.5.0",
+      "ecosystem": "rust",
+      "license": "MIT OR Apache-2.0",
+      "registry": {
+        "kind": "crates",
+        "package": "rayon",
+        "version": "1.5.0"
+      },
+      "topic": "parallelism",
+      "purpose": "Rust data parallelism library documentation and comments"
+    },
+    {
+      "name": "gin-gonic/gin",
+      "url": "https://github.com/gin-gonic/gin.git",
+      "tag": "v1.6.3",
+      "ecosystem": "go",
+      "license": "MIT",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "web frameworks",
+      "purpose": "Go web framework documentation and comments"
+    },
+    {
+      "name": "google/benchmark",
+      "url": "https://github.com/google/benchmark.git",
+      "tag": "v1.5.2",
+      "ecosystem": "cpp",
+      "license": "Apache-2.0",
+      "registry": {
+        "kind": "github-release"
+      },
+      "topic": "benchmarking",
+      "purpose": "C++ microbenchmark library documentation and comments"
+    },
+    {
+      "name": "encode/httpx",
+      "url": "https://github.com/encode/httpx.git",
+      "tag": "0.16.1",
+      "ecosystem": "python",
+      "license": "BSD-3-Clause",
+      "registry": {
+        "kind": "pypi",
+        "package": "httpx",
+        "version": "0.16.1"
+      },
+      "topic": "http clients",
+      "purpose": "Python HTTP client documentation and comments"
     }
   ]
 }
