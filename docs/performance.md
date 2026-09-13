@@ -53,6 +53,38 @@ Run `python3 scripts/summarize-performance.py NEW_DIR` to create a version 2
 observation with separate first/repeat outcomes, exclusions, abstentions,
 report hashes, and tool identities. Summarization happens after measurement.
 
+## Published alpha.4 on diabolocom: September 13, 2026
+
+[The alpha.4 records](performance/alpha4/README.md) repeat the same pinned inputs
+and file-selection policies with the published release at `7e5b933`.
+Archive and executable hashes were verified, and all six release binaries
+[rebuilt byte for byte](release/v0.1.0-alpha.4-audit.json) from that commit.
+The shared host, two-CPU quota, 512 MiB limit, lack of swap, and `GOMAXPROCS=2`
+match the alpha.3 experiment below. Filesystem caches were uncontrolled.
+
+| Corpus | Reported documents | Prose words | Six-sample time range | Highest RSS | Analysis |
+| --- | ---: | ---: | ---: | ---: | --- |
+| synthetic | 57 | 102,005 | 1.060–1.121 s | 251.84 MiB | complete; exit 0 |
+| pytest | 304 | 136,739 | 3.634–4.375 s | 386.37 MiB | complete; policy failure, exit 1 |
+| fastapi | 702 | 122,659 | 4.444–5.684 s | 385.86 MiB | complete; policy failure, exit 1 |
+| date-fns | 1,155 | 74,765 | 2.966–4.939 s | 395.20 MiB | complete; exit 0 |
+
+All 24 scans completed within the resource budgets, with no OOM kills or rule
+abstentions. Synthetic, pytest, and FastAPI each exceed 100,000 prose words;
+date-fns does not establish that word-count target. Each corpus produced
+identical hashes for all five report formats across its six samples.
+
+Alpha.4 scans all four files that failed before. Every other file keeps its
+source hash, format, and byte count. The input archives, file exclusions,
+and selected byte totals match the earlier run.
+
+The amount of prose changed. Actions shell syntax, expressions, and unknown
+shell bodies no longer count as prose. TypeScript module paths are protected
+too. Pytest has 128 fewer prose words across five workflow files. The
+[coverage record](performance/alpha4/coverage-vs-alpha3.json) lists all added
+files and changed counts. These results measure scan cost and completeness.
+They do not measure how well a rule judges text.
+
 ## Published alpha.3 on diabolocom: September 13, 2026
 
 [The new records](performance/alpha3/README.md) measure the published Linux
@@ -75,8 +107,9 @@ and document identities agree across all six samples of each corpus.
 
 All 24 processes stayed within the time and memory budgets, with no cgroup
 OOM kills. Only synthetic and pytest establish a complete scan of at least
-100,000 prose words within those budgets. FastAPI and date-fns retain an open
-completeness requirement in [#219](https://github.com/stokaro/unswell/issues/219).
+100,000 prose words within those budgets. FastAPI and date-fns leave the completeness requirement of
+[#219](https://github.com/stokaro/unswell/issues/219) unmet for alpha.3; the
+alpha.4 results above cover the repaired inputs.
 Failed files are absent from the reported document and prose totals.
 
 The inputs and explicit file exclusions match the earlier records. Analysis
@@ -96,8 +129,7 @@ Remaining failures reproduce on source build
 
 The reports include one aggregate error per incomplete scan in addition to
 the file errors: FastAPI has two entries and date-fns four. These are four
-failing inputs in total, not six independent parser defects. A release
-containing the repairs must repeat the complete scans before #219 can close.
+failing inputs in total, not six independent parser defects. The alpha.4 results above repeat the full scans with the repairs.
 
 ## Measured on a 2-vCPU Linux host
 

@@ -1,0 +1,341 @@
+{
+  "analysis_timeout": "10m",
+  "cache_control": "uncontrolled; fresh process per sample; corpus preparation and calibration may warm files",
+  "corpus": "fastapi",
+  "corpus_bytes": 7460796,
+  "excludes": [
+    "docs/ja/**",
+    "docs/zh/**"
+  ],
+  "format": "unswell-scan-cost-observation-v2",
+  "goarch": "x86_64",
+  "gomaxprocs": "2",
+  "goos": "Linux",
+  "label": "diabolocom-alpha4-fastapi-2",
+  "logical_cpus": 16,
+  "omitted_flags": "",
+  "origin_model_sha256": "",
+  "policy": {
+    "bytes": 243,
+    "sha256": "4971129ba03228e27cd4f51b56506637b8226e9c1a51d500f0ccb043f44ff755"
+  },
+  "reports": [
+    "json",
+    "sarif",
+    "html",
+    "markdown",
+    "text"
+  ],
+  "requested_words": 0,
+  "samples": [
+    {
+      "analysis": {
+        "abstentions": [],
+        "document_manifest_sha256": "78145767d253f78aadac1aaebcf903c4283bf9f49709da991bf827145a37d945",
+        "documents": 702,
+        "errors": [],
+        "exclusions_by_reason": {
+          "actions-shell-syntax": {
+            "span_bytes": 334,
+            "spans": 17
+          },
+          "byte-literal": {
+            "span_bytes": 694,
+            "spans": 45
+          },
+          "code": {
+            "span_bytes": 141004,
+            "spans": 1090
+          },
+          "comment-code": {
+            "span_bytes": 134,
+            "spans": 3
+          },
+          "directive": {
+            "span_bytes": 1782,
+            "spans": 124
+          },
+          "doc-tag": {
+            "span_bytes": 1290,
+            "spans": 23
+          },
+          "front-matter": {
+            "span_bytes": 236,
+            "spans": 2
+          },
+          "html": {
+            "span_bytes": 41394,
+            "spans": 423
+          },
+          "inline-protected": {
+            "span_bytes": 138105,
+            "spans": 6750
+          },
+          "interpolation": {
+            "span_bytes": 2265,
+            "spans": 168
+          },
+          "non-latin-prose": {
+            "span_bytes": 736,
+            "spans": 8
+          },
+          "quote": {
+            "span_bytes": 744,
+            "spans": 8
+          },
+          "url": {
+            "span_bytes": 29901,
+            "spans": 674
+          },
+          "yaml-key": {
+            "span_bytes": 9348,
+            "spans": 1425
+          },
+          "yaml-non-string:!!bool": {
+            "span_bytes": 129,
+            "spans": 29
+          },
+          "yaml-non-string:!!float": {
+            "span_bytes": 9,
+            "spans": 3
+          },
+          "yaml-non-string:!!int": {
+            "span_bytes": 115,
+            "spans": 63
+          },
+          "yaml-non-string:!!python/name:pymdownx.superfences.fence_div_format": {
+            "span_bytes": 18,
+            "spans": 9
+          }
+        },
+        "findings": 183,
+        "gate_passed": false,
+        "manifest": {
+          "complete": true,
+          "config_hash": "152566b50513122e62290fcffe58f387e497d3d6ba00b42c58fe9385111f19a5",
+          "config_identity": "unswell-config-bundle-v1",
+          "config_sources": [
+            {
+              "kind": "config",
+              "path": ".unswell.yaml",
+              "sha256": "2bca2b9ba99e3f39fd2fe001196f01222eee6fad81a01a6f85309c0d31f42dd2"
+            }
+          ],
+          "feature_contract": "unswell-features-v1",
+          "gate_mode": "all",
+          "include_source": false,
+          "nlp": {
+            "capabilities": [
+              "tokens",
+              "sentences",
+              "pos",
+              "chunks"
+            ],
+            "license": "MIT",
+            "model": "prose/aptagmodel/en.bin",
+            "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+            "name": "builtin-en",
+            "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+            "version": "prose-v3.2.1/chunks-v1/boundaries-v1"
+          },
+          "no_gate": false,
+          "ruleset_hash": "2df1fcca788a84c542dc9a7959bc3358f6382aedde3d90728e2ef8a5736222b7",
+          "scoring_profile": "strict-v1",
+          "selection_mode": "filesystem",
+          "skipped_rules": [],
+          "tool_commit": "7e5b93398903ce2f108c84ebf8168dd48d6696df",
+          "tool_version": "0.1.0-alpha.4"
+        },
+        "prose_words": 122659,
+        "status": "complete"
+      },
+      "exit_code": 1,
+      "maximum_resident_bytes": 402284544,
+      "name": "first",
+      "report_status": "available",
+      "reports": {
+        "html": {
+          "bytes": 942449,
+          "sha256": "f29418dc4260af32d1cfdfe7717a1e75dc4013558591180726edf49f50321c8b"
+        },
+        "json": {
+          "bytes": 26306995,
+          "sha256": "9d39ed360717f1b76889f1744500c44fd1aca3aa0f45d6a87e9d14d4ce231213"
+        },
+        "md": {
+          "bytes": 29563,
+          "sha256": "864268d8d71d19587c4303c3666be499cb9aa33cb235580664aa8b101e57c3b4"
+        },
+        "sarif": {
+          "bytes": 30319003,
+          "sha256": "2893b4687d51ab548cf5b17b94cb959c9a8941e0b0c731cd84e45c8dcc9fc679"
+        },
+        "txt": {
+          "bytes": 31715,
+          "sha256": "890b0f204afca4bffa923720d74c5741882119814f000e52d11a9bd4624404c8"
+        }
+      },
+      "seconds": 4.465,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "analysis": {
+        "abstentions": [],
+        "document_manifest_sha256": "78145767d253f78aadac1aaebcf903c4283bf9f49709da991bf827145a37d945",
+        "documents": 702,
+        "errors": [],
+        "exclusions_by_reason": {
+          "actions-shell-syntax": {
+            "span_bytes": 334,
+            "spans": 17
+          },
+          "byte-literal": {
+            "span_bytes": 694,
+            "spans": 45
+          },
+          "code": {
+            "span_bytes": 141004,
+            "spans": 1090
+          },
+          "comment-code": {
+            "span_bytes": 134,
+            "spans": 3
+          },
+          "directive": {
+            "span_bytes": 1782,
+            "spans": 124
+          },
+          "doc-tag": {
+            "span_bytes": 1290,
+            "spans": 23
+          },
+          "front-matter": {
+            "span_bytes": 236,
+            "spans": 2
+          },
+          "html": {
+            "span_bytes": 41394,
+            "spans": 423
+          },
+          "inline-protected": {
+            "span_bytes": 138105,
+            "spans": 6750
+          },
+          "interpolation": {
+            "span_bytes": 2265,
+            "spans": 168
+          },
+          "non-latin-prose": {
+            "span_bytes": 736,
+            "spans": 8
+          },
+          "quote": {
+            "span_bytes": 744,
+            "spans": 8
+          },
+          "url": {
+            "span_bytes": 29901,
+            "spans": 674
+          },
+          "yaml-key": {
+            "span_bytes": 9348,
+            "spans": 1425
+          },
+          "yaml-non-string:!!bool": {
+            "span_bytes": 129,
+            "spans": 29
+          },
+          "yaml-non-string:!!float": {
+            "span_bytes": 9,
+            "spans": 3
+          },
+          "yaml-non-string:!!int": {
+            "span_bytes": 115,
+            "spans": 63
+          },
+          "yaml-non-string:!!python/name:pymdownx.superfences.fence_div_format": {
+            "span_bytes": 18,
+            "spans": 9
+          }
+        },
+        "findings": 183,
+        "gate_passed": false,
+        "manifest": {
+          "complete": true,
+          "config_hash": "152566b50513122e62290fcffe58f387e497d3d6ba00b42c58fe9385111f19a5",
+          "config_identity": "unswell-config-bundle-v1",
+          "config_sources": [
+            {
+              "kind": "config",
+              "path": ".unswell.yaml",
+              "sha256": "2bca2b9ba99e3f39fd2fe001196f01222eee6fad81a01a6f85309c0d31f42dd2"
+            }
+          ],
+          "feature_contract": "unswell-features-v1",
+          "gate_mode": "all",
+          "include_source": false,
+          "nlp": {
+            "capabilities": [
+              "tokens",
+              "sentences",
+              "pos",
+              "chunks"
+            ],
+            "license": "MIT",
+            "model": "prose/aptagmodel/en.bin",
+            "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+            "name": "builtin-en",
+            "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+            "version": "prose-v3.2.1/chunks-v1/boundaries-v1"
+          },
+          "no_gate": false,
+          "ruleset_hash": "2df1fcca788a84c542dc9a7959bc3358f6382aedde3d90728e2ef8a5736222b7",
+          "scoring_profile": "strict-v1",
+          "selection_mode": "filesystem",
+          "skipped_rules": [],
+          "tool_commit": "7e5b93398903ce2f108c84ebf8168dd48d6696df",
+          "tool_version": "0.1.0-alpha.4"
+        },
+        "prose_words": 122659,
+        "status": "complete"
+      },
+      "exit_code": 1,
+      "maximum_resident_bytes": 380608512,
+      "name": "repeat",
+      "report_status": "available",
+      "reports": {
+        "html": {
+          "bytes": 942449,
+          "sha256": "f29418dc4260af32d1cfdfe7717a1e75dc4013558591180726edf49f50321c8b"
+        },
+        "json": {
+          "bytes": 26306995,
+          "sha256": "9d39ed360717f1b76889f1744500c44fd1aca3aa0f45d6a87e9d14d4ce231213"
+        },
+        "md": {
+          "bytes": 29563,
+          "sha256": "864268d8d71d19587c4303c3666be499cb9aa33cb235580664aa8b101e57c3b4"
+        },
+        "sarif": {
+          "bytes": 30319003,
+          "sha256": "2893b4687d51ab548cf5b17b94cb959c9a8941e0b0c731cd84e45c8dcc9fc679"
+        },
+        "txt": {
+          "bytes": 31715,
+          "sha256": "890b0f204afca4bffa923720d74c5741882119814f000e52d11a9bd4624404c8"
+        }
+      },
+      "seconds": 4.556,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "scope": "Real project tree fastapi; measures this build on this host on that tree, not editorial quality.",
+  "tool_sha256": "ea614783f559c44c272c470e7cba891c095850130a23ccd9a35cebb2f91be50c",
+  "tool_version": "unswell version 0.1.0-alpha.4"
+}
