@@ -1,0 +1,6 @@
+package retry
+
+// It is important to note that the client must not retry after a successful commit. // want "filler.announced-importance"
+func Check() string {
+    return "It is important to note that RetryLimit=0 disables retries, not timeouts." // want "filler.announced-importance"
+}

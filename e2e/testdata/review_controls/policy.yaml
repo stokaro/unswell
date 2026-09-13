@@ -1,0 +1,16 @@
+version: 1
+extends: [builtin:custom]
+overrides:
+  - files: [boundaries.md]
+    rules:
+      syntax.long-sentence: {enabled: true, gate: forbid}
+  - files: [nouns.md]
+    rules:
+      syntax.noun-stack: {enabled: true, gate: forbid}
+  - files: [insertions.md]
+    rules:
+      syntax.parenthetical-load: {enabled: true, gate: forbid}
+  - files: [programs.sh, typed.js, messages.go]
+    rules:
+      filler.announced-importance: {enabled: true, gate: forbid}
+      syntax.parenthetical-load: {enabled: true}

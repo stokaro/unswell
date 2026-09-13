@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+python3 - <<'PY'
+message = "It is important to note that the client retries."
+print(message)
+PY
+printf '%s\n' 'It is important to note that the client must not retry when RetryLimit is 0.' # want "filler.announced-importance"

@@ -20,3 +20,7 @@ the construction it names.
 - [2026-09-11-unswell](2026-09-11-unswell/README.md): every rule on this
   repository under its own file selection, one reader, ten findings per
   rule.
+
+- [2026-09-13-replay](2026-09-13-replay/README.md): the same pinned inputs
+  under old and repaired engines, source-based alignment, revisited samples,
+  retained positive controls, and bounded follow-ups.
