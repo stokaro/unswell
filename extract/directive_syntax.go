@@ -116,6 +116,9 @@ func verifyInlineBoundaries(ctx context.Context, syntax syntaxTree, expected map
 }
 
 func sourceSyntax(ctx context.Context, doc *document.Document) (syntaxTree, error) {
+	if doc.Format == document.TypeScript || doc.Format == document.TSX {
+		return typeScriptSyntax(ctx, doc.Source, string(doc.Format))
+	}
 	if doc.Format == document.C || doc.Format == document.CPP {
 		return cFamilySyntax(ctx, sourceTerminator(doc), string(doc.Format))
 	}
