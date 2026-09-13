@@ -1,0 +1,26 @@
+---
+// A link styled as a control.
+//
+// `href` is written the way pages write every internal link: a site route with a
+// leading slash, such as `/rules/`. This resolves it against the version base,
+// the same rewrite the Markdown pipeline applies to prose links. An address with
+// a scheme is left alone.
+interface Props {
+	href: string;
+	variant?: 'solid' | 'outline';
+	external?: boolean;
+}
+
+const { href, variant = 'solid', external = false } = Astro.props;
+const target = /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(href)
+	? href
+	: `${import.meta.env.BASE_URL}${href.replace(/^\//, '')}`;
+---
+
+<a
+	class:list={['u-button', `u-button--${variant}`]}
+	href={target}
+	rel={external ? 'noopener' : undefined}
+>
+	<slot />
+</a>

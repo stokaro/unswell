@@ -1,0 +1,55 @@
+---
+// The rules page, rendered from the generated catalog.
+//
+// The data file is written by `go run ./cmd/docscatalog`, which builds a real
+// engine and walks Engine.Catalog(). CI runs the same command with --check, so
+// the page cannot describe a catalog the engine does not have. Nothing here is
+// written by hand: adding a rule to the engine and regenerating the file is the
+// whole edit.
+import catalog from '../data/rules-catalog.json';
+
+const expectedSchema = 'unswell-docs-rules-catalog-v1';
+if (catalog.schema !== expectedSchema) {
+	throw new Error(`rules catalog schema is ${catalog.schema}, expected ${expectedSchema}`);
+}
+
+const severityClass: Record<string, string> = {
+	error: 'u-tag--error',
+	warning: 'u-tag--warning',
+	note: '',
+};
+---
+
+{
+	catalog.families.map((family) => (
+		<section class="u-family not-content" id={`family-${family.name}`}>
+			<div class="u-family__head">
+				<h2 class="u-family__name">{family.name}</h2>
+				<span class="u-family__count">
+					{family.rules.length} {family.rules.length === 1 ? 'rule' : 'rules'}
+				</span>
+			</div>
+			{family.rules.map((rule) => (
+				<article class="u-rule" id={rule.id}>
+					<p class="u-rule__id">{rule.id}</p>
+					<p class="u-rule__summary">{rule.summary}</p>
+					{rule.description !== rule.summary && <p class="u-rule__description">{rule.description}</p>}
+					<p class="u-rule__limits">{rule.limitations}</p>
+					<div class="u-rule__meta">
+						<span class="u-tag">version {rule.version}</span>
+						<span class={`u-tag ${severityClass[rule.severity] ?? ''}`}>severity {rule.severity}</span>
+						<span class={`u-tag ${rule.gate === 'forbid' ? 'u-tag--error' : ''}`}>gate {rule.gate}</span>
+						<span class="u-tag u-tag--accent">group {rule.group}</span>
+						<span class="u-tag">scope {rule.scope}</span>
+						<span class={`u-tag ${rule.enabled ? '' : 'u-tag--off'}`}>
+							{rule.enabled ? 'on by default' : 'off by default'}
+						</span>
+						<span class="u-tag">weight {rule.weight}</span>
+						<span class="u-tag">cap {rule.cap}</span>
+						<span class="u-tag">{rule.status}</span>
+					</div>
+				</article>
+			))}
+		</section>
+	))
+}

@@ -1,0 +1,76 @@
+---
+// The version picker.
+//
+// A build knows only its own version, so the list comes from versions.json at
+// the site root, written by the assembly step from the folders that actually
+// exist. Fetching it in the browser rather than baking it in is what keeps a
+// released version's picker able to name versions released after it: the pages
+// of v0.1.0-alpha.3 are immutable, the file beside them is not.
+//
+// Without JavaScript, and before the fetch answers, the control still shows
+// this build's own version, which is the honest answer to "what am I reading".
+const version = process.env.DOCS_VERSION || 'edge';
+---
+
+<div class="u-version">
+	<select class="u-version__select" data-version-select data-current={version} aria-label="Documentation version">
+		<option value={version} selected>{version}</option>
+	</select>
+	<svg class="u-version__chevron" width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+		<path d="M2 4 L5 7 L8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+		></path>
+	</svg>
+</div>
+
+<script>
+	const select = document.querySelector('select[data-version-select]');
+	if (select instanceof HTMLSelectElement) {
+		const current = select.dataset.current ?? 'edge';
+		// The route within this version, so switching keeps the reader on the same
+		// page where that page exists.
+		const route = window.location.pathname.replace(`/${current}/`, '');
+
+		const navigate = async (slug) => {
+			const candidate = `/${slug}/${route}`;
+			try {
+				const probe = await fetch(candidate, { method: 'HEAD' });
+				window.location.assign(probe.ok ? candidate : `/${slug}/`);
+			} catch {
+				window.location.assign(`/${slug}/`);
+			}
+		};
+
+		select.addEventListener('change', () => {
+			if (select.value !== current) void navigate(select.value);
+		});
+
+		void (async () => {
+			try {
+				const response = await fetch('/versions.json');
+				if (!response.ok) return;
+				const index = await response.json();
+				if (!Array.isArray(index.versions)) return;
+				select.replaceChildren(
+					...index.versions.map((entry) => {
+						const option = document.createElement('option');
+						option.value = entry.slug;
+						option.textContent = entry.label ?? entry.slug;
+						option.selected = entry.slug === current;
+						return option;
+					})
+				);
+				// A build whose own folder is not listed still has to name itself.
+				if (!index.versions.some((entry) => entry.slug === current)) {
+					const option = document.createElement('option');
+					option.value = current;
+					option.textContent = current;
+					option.selected = true;
+					select.prepend(option);
+				}
+			} catch {
+				// The picker keeps showing this build's version. Nothing else on the
+				// page depends on the list.
+			}
+		})();
+	}
+</script>

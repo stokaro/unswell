@@ -1,0 +1,130 @@
+---
+title: From source bytes to a gate decision.
+accent: gate
+eyebrow: How it works
+lead: A grammar locates the prose, the extractor records what it leaves out, rules measure what remains, and the scores and hard-policy settings decide the exit code. Code is never checked.
+description: How Unswell extracts prose from Markdown, code comments and string literals, evaluates 40 rules over it, scores sentences and paragraphs, and decides the gate.
+---
+
+import Card from '../../components/Card.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import Note from '../../components/Note.astro';
+
+## Extraction picks the prose
+
+Each format has a grammar, and the grammar says which regions hold English.
+Markdown contributes headings, paragraphs, list items and GFM table cells. A
+source file contributes its comments and its string literals. Plain text
+contributes paragraphs.
+
+<Note>
+  Code is never checked. Comments and strings are.
+</Note>
+
+Inside Markdown, inline code, fenced and indented code, raw HTML, image syntax,
+link destinations and front matter are protected. Link labels stay prose. Quoted
+blocks are left out unless `analysis.include_quotes` turns them on.
+
+Inside source files, several regions are recorded as deliberate exclusions rather
+than checked. A shebang or a tool directive comment such as `nolint` or
+`eslint-disable` is a `directive`. An indented example inside a comment is
+`comment-code`. The tag and example sections of a JSDoc or Javadoc comment are
+`doc-tag` and `doc-example`. A shell literal that holds a program for another
+interpreter is an `embedded-program`. A Python byte literal is a `byte-literal`.
+An expression inside a string is an `interpolation`, and it inserts a protected
+boundary so the words on either side cannot form a false phrase.
+
+Every excluded region keeps its byte span and its reason, and a saved report
+carries that list. Import paths, re-export module paths and Go struct tags are
+excluded as technical metadata; strings in exported declarations stay checked.
+
+One language check runs per block. A block with at least 20 letters, more than
+half of them outside the Latin script, is recorded as a `non-latin-prose`
+exclusion and the rest of the document is still checked. The block keeps its
+position, so block numbering and finding fingerprints do not move.
+
+## Units
+
+Extraction yields blocks. The NLP backend splits blocks into sentences and tokens,
+tags parts of speech and derives chunks. The default backend is pure Go, English
+only, and embedded in the binary; no model is downloaded at run time.
+
+Two unit kinds carry a score: the sentence and the paragraph. Rules declare which
+one they measure through `scope`, and a document-scope rule such as
+`repetition.near-sentence` compares candidates across the whole file.
+
+<CardGrid>
+  <Card label="Sentence">
+    Phrase matches and single-sentence structure: announced importance, chat
+    preambles, long sentences, noun stacks.
+  </Card>
+  <Card label="Paragraph">
+    Density and length: connective overuse, hedges, paragraph length, reading
+    grade, em dash density.
+  </Card>
+  <Card label="Document">
+    Repetition across blocks: exact and near-duplicate sentences, repeated
+    openers, heading and summary echo, POS templates.
+  </Card>
+</CardGrid>
+
+## Rules and activation
+
+A rule is a versioned descriptor plus an implementation. The descriptor names the
+contexts it applies to, the NLP capabilities it needs, its correlation group, its
+default severity and gate, its weight and cap, and the limits its author recorded.
+The [rules catalog](/rules/) lists all 40 as the engine reports them.
+
+Evaluation produces evidence with original source locations and an activation in
+integer thousandths. An exact phrase match activates fully. A density or length
+rule ramps linearly from its onset to its saturation, so a text just past the
+threshold does not score like a text far past it.
+
+A rule that exhausts its own `analysis.max_candidates` budget on a document
+abstains with the reason `budget_exhausted`. Its partial findings are dropped, the
+other rules keep theirs, and the report names the abstention. The run stays
+complete.
+
+## Scores
+
+For each sentence and paragraph the engine multiplies activation by weight. It
+sorts the contributions by descending raw value, and stable identifiers break
+ties. Within one correlation group, identical or nested evidence contributes only
+its strongest signal. Rule caps and group caps then limit the rest, and the total
+stops at 100.
+
+The trace records the raw and effective points of every contribution, and the
+reason for each reduction. Sentence and paragraph assessments stay independent: a
+sentence total never joins its paragraph again. A clean paragraph appended to a
+document cannot lower the index of an existing one.
+
+Document statistics report the raw paragraph maximum, the nearest-rank median and
+P90, and the eligible flagged fraction.
+
+<Note>
+  The index is an editorial-policy index from 0 to 100, not a percentage and not a
+  probability. Without a calibration pack, `slop_probability` is null with the
+  status `calibration_unavailable`.
+</Note>
+
+## The gate
+
+Three things can fail a run. A rule set to `gate: forbid` fails whenever it
+matches. A local score gate fails a unit whose effective score reaches the
+configured threshold and which has at least `min_words` words. An operational
+error or an incomplete analysis fails regardless of policy, and `--no-gate` cannot
+pass either.
+
+Gate decisions use effective values, which means the values that remain once
+source permissions apply. Document summary statistics stay raw. Derived gate
+diagnostics arrive after suppressions, no permission covers them, and they never
+feed back into scoring.
+
+## What the alpha does not do
+
+Thresholds are initial editorial policy, not measured precision. Every builtin
+rule is marked experimental, and no editorial model has met the criteria for use
+in the product. POS-based chunks are surface candidates, not grammatical
+dependencies. Lexical overlap is not a claim of semantic equivalence. An exact
+phrase match establishes a configured condition; it does not prove that an editor
+would reject the sentence.

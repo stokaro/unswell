@@ -1,0 +1,41 @@
+---
+// Starlight's search, with the shortcut this design shows.
+//
+// The default control advertises Control+K and binds it. The design shows a
+// single `/`, so this wrapper rewrites the hint and binds that key too. The
+// default binding is left alone: a reader who already knows Control+K keeps it.
+//
+// Wrapping rather than replacing keeps Pagefind, the modal, the translations
+// and the focus handling exactly as Starlight ships them.
+import Default from '@astrojs/starlight/components/Search.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<script is:inline>
+	(() => {
+		const open = document.querySelector('button[data-open-modal]');
+		if (!open) return;
+		const hint = open.querySelector('kbd');
+		if (hint) {
+			hint.replaceChildren(document.createTextNode('/'));
+			hint.style.display = '';
+		}
+		open.setAttribute('aria-keyshortcuts', 'Slash');
+		document.addEventListener('keydown', (event) => {
+			if (event.key !== '/' || event.metaKey || event.ctrlKey || event.altKey) return;
+			const active = document.activeElement;
+			// A slash typed into a field is a slash, not a shortcut.
+			if (
+				active instanceof HTMLInputElement ||
+				active instanceof HTMLTextAreaElement ||
+				active instanceof HTMLSelectElement ||
+				(active instanceof HTMLElement && active.isContentEditable)
+			) {
+				return;
+			}
+			event.preventDefault();
+			open.click();
+		});
+	})();
+</script>

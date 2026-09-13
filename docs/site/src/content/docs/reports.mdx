@@ -1,0 +1,133 @@
+---
+title: Five reports, one analysis, four exit codes.
+accent: one
+eyebrow: Reports and gate
+lead: Every writer receives the same completed result. None of them reopens a source file or runs a rule, so a saved JSON report renders as HTML months later without the tree it came from.
+description: Unswell report formats including SARIF, what a saved report keeps, the gate and its exit codes, and how a baseline accepts existing editorial debt.
+---
+
+import Note from '../../components/Note.astro';
+import Terminal from '../../components/Terminal.astro';
+
+## Writing them
+
+```sh
+unswell check README.md docs/ \
+  --report text:- \
+  --report json:artifacts/unswell.json \
+  --report sarif:artifacts/unswell.sarif \
+  --report html:artifacts/unswell.html \
+  --report markdown:artifacts/unswell.md
+```
+
+Source text is omitted unless `--include-source` asks for it. Without it a report
+still keeps paths, coordinates, messages, metrics and score traces. With it, a
+saved report can highlight the paragraph after the original has changed or
+disappeared. Reports can hold internal prose, so choose their access accordingly.
+
+A regular-file report is written to a temporary file in the destination directory
+and renamed after serialization succeeds. The CLI rejects duplicate destinations,
+writing over an input, a symlink destination and an existing hard link to an
+input. A requested output that fails gives exit code 2.
+
+## What each format is for
+
+`text` is the terminal. It strips terminal control sequences.
+
+`json` is the durable one. It is generated from the public Go types by
+`cmd/genschema`, validated against the embedded versioned schema, and `make
+schema` detects drift. `unswell report` reads it back, checks required fields and
+rejects contradictory completion states. Reload it into another format without the
+sources:
+
+```sh
+unswell report artifacts/unswell.json --format html --output artifacts/review.html
+```
+
+`sarif` is SARIF 2.1.0. It is checked against the vendored OASIS schema, which
+refuses every external resource, so the check needs no network. Columns are
+Unicode code points; byte spans stay original UTF-8 offsets.
+
+The run properties carry the gate decision, the assessments, the manifest, the
+suppressions and any measurements. A consumer that keeps `properties` can recover
+everything the JSON holds. Permitted findings appear as accepted `inSource`
+suppressions with their reasons, and existing debt maps to
+`baselineState: unchanged`.
+
+`html` is one file with embedded styling and an optional filtering script, and it
+stays readable without JavaScript. Source and paths go through Go's HTML escaping;
+user text never becomes trusted markup.
+
+`markdown` escapes table and formatting characters.
+
+<Note>
+  Editorial scores are not mapped to security severity. A finding is a wording
+  problem, and a SARIF consumer that reads it as a vulnerability is reading it
+  wrong.
+</Note>
+
+JSON and SARIF keep every finding regardless of display filters. `--max-findings`
+and `--min-severity` change the terminal, not the record and not the gate.
+
+## Exit codes
+
+| Code | Meaning |
+| --- | --- |
+| `0` | Analysis complete, gate passed |
+| `1` | Analysis complete, policy failed |
+| `2` | Operational error, or analysis incomplete |
+| `130` | Cancelled |
+
+An empty scan fails unless `--allow-empty` permits it. `--no-gate` suppresses the
+style failure and leaves operational errors alone: a malformed source, an invalid
+suppression, an unused permission or an incompatible baseline still exits 2.
+
+<Terminal
+  caption="docs — unswell check"
+  command="unswell check README.md"
+  output={[
+    'PASS: 1 documents, 0 findings; analysis complete.',
+    'Revision probability: unavailable (no calibrated alpha model).',
+  ]}
+  exitCode={0}
+/>
+
+## Explaining a score
+
+```sh
+unswell explain README.md --at 3:1
+```
+
+The local score at a coordinate comes with its contributing rules, their
+activations, the deduplication decisions and the caps that applied. A contribution
+reduced by a correlation group or a rule cap says so.
+
+## Accepting existing debt
+
+A baseline records a decision to accept the findings and scored units a tree
+already has. It does not delete them: the findings, the permissions and the raw
+and effective scores all stay in the result.
+
+```sh
+unswell baseline create . --output .unswell-baseline.json
+unswell baseline check . --baseline .unswell-baseline.json
+```
+
+`baseline check` defaults to `new` mode and never writes the artifact. New
+findings, a changed scored paragraph and changed repetition evidence stay subject
+to the gate, so an accepted forbidden phrase cannot hide a new threshold failure
+in its own paragraph.
+
+Identity is structural, under `unswell-structural-v1`: the project-relative path,
+the rule behavior version, grammar-derived context, canonical block content and
+evidence. Line numbers and report messages are not inputs. Whitespace and Markdown
+emphasis can change without invalidating debt; negation, numbers, identifier case
+and protected code stay significant.
+
+Coverage is explicit. Debt in a file the run did not select stays unobserved and
+survives an update. A missing entry in an observed file is stale, and only an
+explicit `baseline update` removes it. A deleted file is unobserved too: this
+implementation does not infer deletion from an omitted path.
+
+The artifact holds hashes and metadata, with no source prose and no timestamps.
+The limits are 16 MiB, 20000 accepted entries and 10000 documents.

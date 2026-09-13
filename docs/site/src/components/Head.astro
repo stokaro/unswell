@@ -1,0 +1,39 @@
+---
+// Starlight's head plus the tags a shared link needs.
+//
+// Canonical links name the absolute address of this page in this version.
+// Starlight already emits one; the Open Graph and Twitter tags below name the
+// same address so that a crawler, a chat client and a browser agree on what
+// this page is. The Open Graph image is a root asset rather than a per-page
+// render: one card for the site is honest, and a per-page card would be a build
+// step that can silently go stale.
+import Default from '@astrojs/starlight/components/Head.astro';
+import { Origin } from '../lib/docs-origin.mjs';
+
+const { entry, siteTitle } = Astro.locals.starlightRoute;
+const canonical = new URL(Astro.url.pathname, Origin).href;
+const description = entry.data.description ?? entry.data.lead ?? '';
+const title = entry.data.title === siteTitle ? siteTitle : `${entry.data.title} | ${siteTitle}`;
+const image = new URL('og-image.png', `${Origin}/`).href;
+const noindex = entry.data.noindex === true;
+---
+
+<Default {...Astro.props}><slot /></Default>
+
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={siteTitle} />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={title} />
+{description && <meta property="og:description" content={description} />}
+<meta property="og:image" content={image} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Unswell: a linter for lean English, before it reaches the commit." />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+{description && <meta name="twitter:description" content={description} />}
+<meta name="twitter:image" content={image} />

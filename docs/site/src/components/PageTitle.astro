@@ -1,0 +1,23 @@
+---
+// The page head: a mono eyebrow, the title, and the lead paragraph.
+//
+// The title may carry one italic accent word, named by the `accent` frontmatter
+// field. The split happens here rather than in the Markdown so that the plain
+// title stays plain everywhere it is reused: the tab, the search index, the
+// Open Graph card and the sidebar all want the sentence without markup.
+const { entry } = Astro.locals.starlightRoute;
+const { title, eyebrow, accent, lead } = entry.data;
+
+// Split the title once around the accent word. A word that is not in the title
+// leaves the title whole, and the build then shows a page without the accent
+// rather than a page with a mangled sentence.
+const at = accent ? title.indexOf(accent) : -1;
+const before = at === -1 ? title : title.slice(0, at);
+const after = at === -1 ? '' : title.slice(at + accent.length);
+---
+
+{eyebrow && <p class="u-eyebrow">{eyebrow}</p>}
+
+<h1 id="_top">{before}{at !== -1 && <em>{accent}</em>}{after}</h1>
+
+{lead && <p class="u-lead">{lead}</p>}

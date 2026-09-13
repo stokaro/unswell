@@ -1,0 +1,30 @@
+{
+  "name": "unswell-docs",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Unswell documentation site (Astro + Starlight).",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "catalog:write": "go run ../../cmd/docscatalog --output src/data/rules-catalog.json",
+    "catalog:check": "go run ../../cmd/docscatalog --output src/data/rules-catalog.json --check",
+    "check:links": "node scripts/check-links.mjs",
+    "check:links:selftest": "node scripts/check-links.mjs --selftest",
+    "check:pages-root": "node scripts/check-pages-root.mjs",
+    "check:pages-root:selftest": "node scripts/check-pages-root.mjs --selftest",
+    "versions:selftest": "node scripts/gen-versions.mjs --selftest",
+    "root-assets:selftest": "node scripts/publish-root-assets.mjs --selftest",
+    "deployment-candidate:selftest": "node scripts/check-deployment-candidate.mjs --selftest",
+    "selftest": "npm run versions:selftest && npm run root-assets:selftest && npm run check:links:selftest && npm run check:pages-root:selftest && npm run deployment-candidate:selftest"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
+    "@astrojs/starlight": "0.42.0",
+    "astro": "7.3.2",
+    "sharp": "^0.35.0"
+  }
+}

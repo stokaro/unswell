@@ -1,0 +1,28 @@
+---
+title: Every rule the engine ships, generated from the engine.
+accent: generated
+eyebrow: Rules catalog
+lead: Forty builtin rules in nine families. This page is rendered from a data file that a Go program writes by walking the real rule catalog, and CI fails when the committed file and the engine disagree.
+description: "The complete Unswell rule catalog: 40 builtin rules with their version, severity, gate, correlation group, scope and recorded limitations."
+tableOfContents: false
+---
+
+import Note from '../../components/Note.astro';
+import RulesCatalog from '../../components/RulesCatalog.astro';
+
+Read a row as a proposal. Every builtin rule is `experimental`: the thresholds are
+initial editorial policy, and no corpus precision has been established for any of
+them. Enable what your project wants to argue for, and say why in the
+configuration file.
+
+`severity` is presentation. `gate` is policy: `forbid` fails a run on any match,
+`none` leaves the decision to the score. `group` is the correlation group, which
+shares a cap across related rules, so it is not the same thing as the identifier
+prefix that groups this page. `weight` and `cap` are index points.
+
+<Note>
+  Inspect any of these from the CLI: `unswell rules list`, `unswell rules show
+  <id>`, and `unswell rules test` to execute the catalog's own examples.
+</Note>
+
+<RulesCatalog />

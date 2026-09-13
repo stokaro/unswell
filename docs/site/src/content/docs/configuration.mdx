@@ -1,0 +1,175 @@
+---
+title: One file, compiled into one policy plan.
+accent: one
+eyebrow: Configuration
+lead: The CLI, the library and the MCP server resolve the same `.unswell.yaml` through the same compiler. Nothing is downloaded, nothing is expanded from the environment, and an unknown key is an error rather than a guess.
+description: How Unswell loads .unswell.yaml, merges profiles and inheritance, applies file overrides, sets severities and gates, and records reasoned source suppressions.
+---
+
+import Note from '../../components/Note.astro';
+
+## Where the file comes from
+
+The CLI searches upward from its working directory to the project root for the
+nearest `.unswell.yaml`. The root is the nearest ancestor holding a `.git` entry,
+or the working directory outside Git; `--project-root` sets it explicitly.
+
+`--config` names an exact file. `--profile` selects a builtin policy without any
+discovery, and the two are mutually exclusive. No home directory is read.
+
+Local `extends` targets and dictionary paths resolve relative to the file that
+names them and must stay inside the project root, including after symlinks
+resolve. A resource outside the root needs `--allow-config-outside-root`, which is
+a startup permission rather than a YAML setting. URLs, absolute dependency paths,
+drive names and backslash separators are invalid.
+
+## Merge order
+
+1. Builtin defaults.
+2. Each `extends` entry, left to right, with its own parents resolved first.
+3. The current file's settings.
+4. Matching `overrides`, in list order.
+5. Application controls such as `--allow-empty` and `--no-gate`.
+
+Maps merge recursively. Lists replace what they inherit, including `overrides`,
+`rule_sets`, dictionary selections, phrases and inline terms. An empty list clears
+the field; an absent field keeps it. YAML null, aliases, duplicate keys, unknown
+fields, invalid rule identifiers and out-of-range parameters are all errors.
+
+Cycles and duplicate direct references are rejected, and so is the same physical
+file reached through two different paths. The limits are 64 resources, 1 MiB per
+resource, 8 MiB in total, inheritance depth 16 and 256 applied layers.
+
+## A policy
+
+```yaml
+version: 1
+extends: [builtin:technical-v1]
+language: en
+calibration:
+  model: none
+rules:
+  filler.announced-importance:
+    enabled: true
+    severity: error
+    gate: forbid
+  policy.banned-phrases:
+    parameters:
+      phrases: ["leverage synergies"]
+      positions: [any]
+```
+
+A builtin profile layer replaces rule defaults and profile gate thresholds while
+preserving discovery, extraction, analysis, vocabulary and suppression settings.
+Put `builtin:strict-v1` before the local files whose rules should win over it.
+
+## File overrides
+
+```yaml
+version: 1
+extends: [builtin:technical-v1, policies/team.yaml]
+overrides:
+  - files: [docs/reference/**]
+    rules:
+      hype.modifier-cluster:
+        enabled: false
+```
+
+An override may set `rules`, `gate`, `analysis`, `extraction`, `vocabulary` and
+`suppressions`. It cannot add rulesets, change discovery, nest another override,
+or change the run-wide `max_total_bytes`, `fail_on_empty` or `fail_on_incomplete`.
+Every declared override is validated against the merged base, and the selected
+combination is validated again before parsing: two layers that are each valid can
+still conflict.
+
+A configuration accepts at most 64 direct parents and 64 file overrides, and the
+expanded graph at most 256 declared overrides.
+
+## Shared vocabulary
+
+Some prose has to keep a word a rule dislikes. A shared term list exempts exact
+token sequences for the rules that opt into it:
+
+```yaml
+version: 1
+vocabulary:
+  terms: [dependency injection]
+  dictionaries: [terms.yaml]
+  term_exemptions: [hype.modifier-cluster]
+  case_sensitive: false
+```
+
+Terms match whole tokens inside one sentence and block, and never cross protected
+code. A candidate that falls inside one term drops out before counts, density and
+scoring. So allowing `robust estimator` does not allow another `robust` in the
+same sentence, and two terms that overlap do not merge into a wider one.
+
+The phrase rules, `hype.modifier-cluster` and `density.connective-overuse` support
+term exemptions. Naming a rule that does not is an error. The effective vocabulary
+holds at most 10000 terms, each at most 1000 UTF-8 bytes and 32 tokens.
+
+## Reasoned source permissions
+
+When wording must stay, a comment permits that exact finding and records why:
+
+```markdown
+<!-- unswell-disable-next-block filler.announced-importance -- Quoted customer wording; preserve it exactly. -->
+
+It is important to note that the client retries.
+```
+
+The commands are `unswell-disable-next-sentence`, `unswell-disable-next-block`,
+a paired `unswell-disable` and `unswell-enable` region, and
+`unswell-disable-file`, which needs explicit policy permission. Targets follow the
+extracted structure rather than physical lines, so a wrapped sentence is still one
+sentence.
+
+The defaults, which apply without a `suppressions` section:
+
+```yaml
+version: 1
+suppressions:
+  require_reason: true
+  allow_file_wide: false
+  reject_unused: true
+```
+
+The reason follows ` -- ` and needs at least two words containing letters, which
+rejects an empty reason and a placeholder such as `TODO`. Whether the explanation
+justifies the exception is a review decision, not something the tool can judge.
+
+A permitted finding keeps its evidence: `findings` retains every raw finding with
+`suppressed: true` and links to the audit record. The engine recomputes
+`effective_slop_score` from the remaining findings through the same correlation
+and cap rules, because subtracting the old contribution would miss evidence that
+the removed finding had masked. A permission that covers nothing fails the run.
+
+<Note>
+  A permission is a policy change with a reason attached. It is not a way to make
+  a red build green.
+</Note>
+
+## Inspect and pin
+
+```sh
+unswell config validate
+unswell config explain --file docs/reference/api.md
+unswell doctor
+```
+
+`config explain` prints effective values, source identities, the applied override
+identifiers and field origins as JSON Pointer paths such as
+`/rules/hype.modifier-cluster/enabled`.
+
+The hashing contract is `unswell-config-bundle-v1`. A hash covers the effective
+settings, the origins, the canonical identities of every referenced configuration
+and dictionary, and the ordered file overrides. Comments, formatting and
+context-set order do not change it; editing a shared dictionary does. Pin the
+Unswell release and an explicit profile version, record the configuration hash,
+ruleset hash and NLP identities from a reviewed run, and compare them when you
+update the binary. A hash records identity, not approval, and a source pull
+request must not control its own expected value.
+
+Library callers pass `Options.ConfigBundle` with portable names and bytes and
+resolve explanations through `Engine.PolicyForFile`. Neither API discovers a local
+file.

@@ -1,0 +1,112 @@
+---
+title: A linter for lean English, before it reaches the commit.
+accent: before
+eyebrow: Overview
+lead: Unswell finds formulaic, AI-sounding wording in documentation, comments and string literals, explains what to revise, and fails the build when your editorial policy says so. It runs offline as a Go CLI, library, GitHub Action and MCP server.
+description: Unswell is an offline linter for lean English. It finds formulaic wording in documentation, comments and string literals, and fails the build when your editorial policy says so.
+tableOfContents:
+  minHeadingLevel: 2
+  maxHeadingLevel: 2
+---
+
+import Button from '../../components/Button.astro';
+import Card from '../../components/Card.astro';
+import CardGrid from '../../components/CardGrid.astro';
+import CopyField from '../../components/CopyField.astro';
+import CtaRow from '../../components/CtaRow.astro';
+import Note from '../../components/Note.astro';
+import Terminal from '../../components/Terminal.astro';
+
+<CtaRow>
+  <Button href="/getting-started/">Get started →</Button>
+  <Button href="https://play.unswell.dev" variant="outline" external>Try it in the browser</Button>
+  <CopyField command="brew install stokaro/unswell/unswell" />
+</CtaRow>
+
+<Terminal
+  caption="docs — unswell check"
+  command="unswell check README.md docs/guide.md"
+  output={[
+    'README.md:3:1: warning [filler.announced-importance] State the fact without announcing its importance.',
+    'docs/guide.md:1:1: error [scaffold.chat-preamble] Start with the subject instead of a conversational acknowledgment.',
+    'FAIL: 2 documents, 2 findings; analysis complete.',
+    '  gate: docs/guide.md: Start with the subject instead of a conversational acknowledgment.',
+    'Revision probability: unavailable (no calibrated alpha model).',
+  ]}
+  exitCode={1}
+/>
+
+<Note>
+  Not an authorship detector. A finding is about the wording, whoever typed it.
+</Note>
+
+## A check, live
+
+Two files went in. The first sentence of `README.md` announced its own importance
+before stating a fact, so `filler.announced-importance` reported a warning and left
+the gate alone. The first block of `docs/guide.md` opened with a chat
+acknowledgment, and that rule was set to `gate: forbid` in the project policy, so
+the run failed with exit code 1.
+
+Every finding carries the original byte range and a one-based column, the rule that
+produced it, and a message that says what to change. Nothing left the machine:
+there is no service to call and no key to hold.
+
+## Why a linter
+
+AI-assisted writing leaves a recognizable residue. Conversational preambles,
+announced importance, inflated modifiers, hedges stacked three deep, the same
+paragraph opener four times in a row. Readers notice the shape before they notice
+the claim, and reviewers spend their attention on wording instead of on the work.
+
+A linter is the place to put that judgment, because the judgment is a policy your
+project can state, argue about and version. Unswell ships 40 rules with
+weights, caps and default severities, and a configuration file decides which of
+them your project cares about. The alpha index is an editorial-policy index from 0
+to 100. It is not a probability, and no score claims to know who wrote anything.
+
+## One finding, one revision
+
+Each rule reports evidence you can act on, not a verdict you have to accept.
+`filler.announced-importance` matches the phrase and points at the sentence that
+carries it:
+
+```text
+It is important to note that the client retries a request only after a connection failure.
+```
+
+The revision keeps the condition and drops the announcement:
+
+```text
+The client retries a request only after a connection failure.
+```
+
+When wording has to stay, a source comment permits that exact finding and records
+why. The evidence stays in the report, the permission is audited, and an unused
+permission fails the run rather than rotting in place.
+
+## Where it runs
+
+<CardGrid>
+  <Card label="CLI">
+    `unswell check` over paths or stdin, with text, JSON, SARIF, HTML and Markdown
+    reports from one analysis.
+  </Card>
+  <Card label="Go library">
+    `unswell.New` and `Engine.Analyze` return the same result the CLI prints. The
+    library reads no configuration file of its own.
+  </Card>
+  <Card label="GitHub Action">
+    A pinned release archive, verified by SHA-256, with JSON and SARIF paths as
+    step outputs.
+  </Card>
+  <Card label="MCP server">
+    `unswell-mcp` exposes the same engine over stdio, so an assistant can check a
+    draft against your policy before it proposes the change.
+  </Card>
+</CardGrid>
+
+Inputs are plain text, Markdown, and the comments and string literals of Go,
+JavaScript, TypeScript, TSX, Python, Rust, Java, C, C++, C#, YAML, Bash, POSIX
+shell, Zsh, Fish and PowerShell. Code itself is never checked. See
+[how it works](/how-it-works/) for what extraction keeps and what it leaves out.
