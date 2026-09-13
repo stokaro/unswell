@@ -1,0 +1,73 @@
+{
+  "format": "unswell-origin-length-diagnostic-v1",
+  "run": "2026-09-13-lexical",
+  "partition": "development",
+  "word_band": {
+    "minimum": 25,
+    "maximum": 89
+  },
+  "basis": "the scored rows of predictions-development.json joined to their candidate units",
+  "matched_length_bands": [
+    {
+      "lower_words": 25,
+      "upper_words": 39,
+      "generated_units": 178,
+      "code_comment_units": 158,
+      "recall": 0.2640449438202247,
+      "false_flag_rate": 0.02531645569620253
+    },
+    {
+      "lower_words": 40,
+      "upper_words": 59,
+      "generated_units": 328,
+      "code_comment_units": 89,
+      "recall": 0.7439024390243902,
+      "false_flag_rate": 0.056179775280898875
+    },
+    {
+      "lower_words": 60,
+      "upper_words": 89,
+      "generated_units": 177,
+      "code_comment_units": 52,
+      "recall": 0.8926553672316384,
+      "false_flag_rate": 0.057692307692307696
+    }
+  ],
+  "code_comment_false_flags_by_language": {
+    "csharp": {
+      "units": 87,
+      "flagged": 9,
+      "false_flag_rate": 0.10344827586206896
+    },
+    "cpp": {
+      "units": 61,
+      "flagged": 1,
+      "false_flag_rate": 0.01639344262295082
+    },
+    "java": {
+      "units": 42,
+      "flagged": 0,
+      "false_flag_rate": 0.0
+    },
+    "rust": {
+      "units": 38,
+      "flagged": 1,
+      "false_flag_rate": 0.02631578947368421
+    },
+    "go": {
+      "units": 29,
+      "flagged": 0,
+      "false_flag_rate": 0.0
+    },
+    "javascript": {
+      "units": 24,
+      "flagged": 0,
+      "false_flag_rate": 0.0
+    },
+    "c": {
+      "units": 18,
+      "flagged": 1,
+      "false_flag_rate": 0.05555555555555555
+    }
+  }
+}
