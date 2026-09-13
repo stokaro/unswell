@@ -13,8 +13,8 @@ require (
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
-	github.com/odvcencio/gotreesitter v0.52.0 // indirect
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
+	github.com/stokaro/gotreesitter v0.52.1-0.20260913084044-276f5cc0ec6f // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	go.yaml.in/yaml/v3 v3.0.5 // indirect

@@ -240,7 +240,7 @@ func pipeline(provider *english.Provider) Pipeline {
 			result.Modified = setting.Value == "true"
 		}
 	}
-	tracked := []string{"github.com/odvcencio/gotreesitter", "github.com/jdkato/prose/v3", "github.com/stokaro/unswell"}
+	tracked := []string{"github.com/stokaro/gotreesitter", "github.com/jdkato/prose/v3", "github.com/stokaro/unswell"}
 	for _, dependency := range info.Deps {
 		if !slices.Contains(tracked, dependency.Path) {
 			continue

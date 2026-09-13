@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"sync"
 
-	ts "github.com/odvcencio/gotreesitter"
-	"github.com/odvcencio/gotreesitter/grammars"
+	ts "github.com/stokaro/gotreesitter"
+	"github.com/stokaro/gotreesitter/grammars"
 )
 
 var bashSyntaxLanguage = sync.OnceValues(func() (*ts.Language, error) {

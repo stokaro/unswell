@@ -11,7 +11,9 @@ func maskFrontMatter(doc *document.Document) []byte {
 	start := 0
 	if bytes.HasPrefix(source, []byte{0xef, 0xbb, 0xbf}) {
 		start = 3
-		copy(source[:3], "   ")
+		// The BOM has no indentation width. Blank lines preserve byte offsets
+		// without moving the first list marker three columns to the right.
+		copy(source[:3], "\n\n\n")
 	}
 	if !bytes.HasPrefix(source[start:], []byte("---\n")) && !bytes.HasPrefix(source[start:], []byte("---\r\n")) {
 		return source
