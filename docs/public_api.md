@@ -22,10 +22,13 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell/report` | Writers and saved-result decoding | alpha |
 | `github.com/stokaro/unswell/goanalysis` | Go analysis adapter in a separate module | alpha |
 
-`scripts/verify-published-module.sh` builds and tests the consumer module
-against a published version with no local replacement, using the consumer
-sources from the same tag. It also names the public packages the working tree's
-consumer imports that the published module does not contain, so a passing check
+`make check-published-module` selects the newest published release, including
+prereleases. Use `scripts/verify-published-module.sh --version TAG` to select one
+explicitly. The script builds and tests the consumer module against the published
+core module, using consumer sources from the same tag. The separate Go analysis
+adapter is resolved from the local checkout. The script also names public
+packages the working tree's consumer imports that the published module does not
+contain, so a passing check
 never implies that the current API shipped. The
 [first recorded check](release/v0.1.0-alpha.1-module-check.json) resolved
 `v0.1.0-alpha.1` with module sum `h1:ZA6hvY4AxndacjiwGGnN5hiFSjn5iKi6QultXJjuY50=`

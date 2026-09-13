@@ -3,6 +3,9 @@
 A release publishes six executables. This page records how their reproducibility
 is checked and what the check establishes.
 
+`make audit-release` audits the newest published release, including prereleases.
+Use `scripts/verify-release-artifacts.sh --tag TAG` to select a release explicitly.
+
 ## Protocol
 
 `scripts/verify-reproducible-build.sh` builds each release target twice from the
@@ -18,8 +21,9 @@ jobs use. Match the release by naming that toolchain:
 GOTOOLCHAIN=go1.27.1 bash scripts/verify-reproducible-build.sh --output check.json
 ```
 
-`make check` runs the same script for one target, which catches a regression
-without building twelve binaries. `make reproducible` runs all six.
+`make check` and `make reproducible` run the script for all six targets. Each
+target is built twice. To check a subset, call the script with `--platforms`,
+for example `--platforms "linux/amd64"`.
 
 ## The published alphas rebuilt from their tags
 

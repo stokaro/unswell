@@ -60,7 +60,11 @@ if [[ -n "$dist" ]]; then
   source_label="local distribution $dist"
 else
   if [[ -z "$tag" ]]; then
-    tag=$(gh release view --repo stokaro/unswell --json tagName --jq .tagName)
+    tag=$(gh release list --repo stokaro/unswell --exclude-drafts --limit 1 --json tagName --jq '.[0].tagName // empty')
+    if [[ -z "$tag" ]]; then
+      printf 'No published Unswell release is available.\n' >&2
+      exit 1
+    fi
   fi
   gh release download "$tag" --repo stokaro/unswell --dir "$assets"
   source_label="published release $tag"
