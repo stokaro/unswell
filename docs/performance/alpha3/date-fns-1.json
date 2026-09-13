@@ -1,0 +1,374 @@
+{
+  "analysis_timeout": "10m",
+  "cache_control": "uncontrolled; fresh process per sample; corpus preparation and calibration may warm files",
+  "corpus": "date-fns",
+  "corpus_bytes": 11192320,
+  "excludes": [
+    "pkgs/core/src/locale/**"
+  ],
+  "format": "unswell-scan-cost-observation-v2",
+  "goarch": "x86_64",
+  "gomaxprocs": "2",
+  "goos": "Linux",
+  "label": "diabolocom-alpha3-date-fns-1",
+  "logical_cpus": 16,
+  "omitted_flags": "",
+  "origin_model_sha256": "",
+  "policy": {
+    "bytes": 237,
+    "sha256": "1c9f33b184ff8c8c3703af814eeb2f4a2e773a9b99e4561526da7061971e409e"
+  },
+  "reports": [
+    "json",
+    "sarif",
+    "html",
+    "markdown",
+    "text"
+  ],
+  "requested_words": 0,
+  "samples": [
+    {
+      "analysis": {
+        "abstentions": [],
+        "document_manifest_sha256": "519371df98b7aab6848e5a439ea7be2b475f0d99a3f6e1bf5d1da2e326aba940",
+        "documents": 1152,
+        "errors": [
+          {
+            "message": "parse typescript: typescript grammar returned an incomplete or invalid syntax tree",
+            "path": "pkgs/core/src/fp/index.ts"
+          },
+          {
+            "message": "parse typescript: typescript grammar returned an incomplete or invalid syntax tree",
+            "path": "pkgs/core/src/index.ts"
+          },
+          {
+            "message": "parse typescript: typescript grammar returned an incomplete or invalid syntax tree",
+            "path": "pkgs/core/src/types.ts"
+          },
+          {
+            "message": "parse typescript: typescript grammar returned an incomplete or invalid syntax tree\nparse typescript: typescript grammar returned an incomplete or invalid syntax tree\nparse typescript: typescript grammar returned an incomplete or invalid syntax tree",
+            "path": ""
+          }
+        ],
+        "exclusions_by_reason": {
+          "code": {
+            "span_bytes": 38993,
+            "spans": 125
+          },
+          "comment-code": {
+            "span_bytes": 21,
+            "spans": 1
+          },
+          "directive": {
+            "span_bytes": 2111,
+            "spans": 51
+          },
+          "doc-example": {
+            "span_bytes": 58844,
+            "spans": 1904
+          },
+          "doc-tag": {
+            "span_bytes": 198247,
+            "spans": 3562
+          },
+          "embedded-program": {
+            "span_bytes": 124,
+            "spans": 1
+          },
+          "front-matter": {
+            "span_bytes": 82,
+            "spans": 1
+          },
+          "html": {
+            "span_bytes": 289,
+            "spans": 6
+          },
+          "import-path": {
+            "span_bytes": 62802,
+            "spans": 3049
+          },
+          "inline-protected": {
+            "span_bytes": 16462,
+            "spans": 1275
+          },
+          "interpolation": {
+            "span_bytes": 9392,
+            "spans": 519
+          },
+          "link-definition": {
+            "span_bytes": 7463,
+            "spans": 111
+          },
+          "non-latin-prose": {
+            "span_bytes": 48,
+            "spans": 1
+          },
+          "quote": {
+            "span_bytes": 261,
+            "spans": 1
+          },
+          "url": {
+            "span_bytes": 3700,
+            "spans": 69
+          },
+          "yaml-key": {
+            "span_bytes": 189552,
+            "spans": 13270
+          },
+          "yaml-non-string:!!bool": {
+            "span_bytes": 2370,
+            "spans": 592
+          },
+          "yaml-non-string:!!int": {
+            "span_bytes": 1,
+            "spans": 1
+          }
+        },
+        "findings": 84,
+        "gate_passed": false,
+        "manifest": {
+          "complete": false,
+          "config_hash": "e3431d5f3db64402e440edf1252be520885f98b193e353d9ecbebeb527293859",
+          "config_identity": "unswell-config-bundle-v1",
+          "config_sources": [
+            {
+              "kind": "config",
+              "path": ".unswell.yaml",
+              "sha256": "11236ea09f110edb75fda936fdeef7626ce806dc4f6acc2c5fd3a3167a288ee7"
+            }
+          ],
+          "feature_contract": "unswell-features-v1",
+          "gate_mode": "all",
+          "include_source": false,
+          "nlp": {
+            "capabilities": [
+              "tokens",
+              "sentences",
+              "pos",
+              "chunks"
+            ],
+            "license": "MIT",
+            "model": "prose/aptagmodel/en.bin",
+            "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+            "name": "builtin-en",
+            "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+            "version": "prose-v3.2.1/chunks-v1/boundaries-v1"
+          },
+          "no_gate": false,
+          "ruleset_hash": "a845aee093a0daaa4df59a195d00ef839a9d30ae2fbf6bbad7f07a0b012f83fd",
+          "scoring_profile": "strict-v1",
+          "selection_mode": "filesystem",
+          "skipped_rules": [],
+          "tool_commit": "2a2a6d441534cbc4be15d298898345d1a529c8b5",
+          "tool_version": "0.1.0-alpha.3"
+        },
+        "prose_words": 74085,
+        "status": "incomplete"
+      },
+      "exit_code": 2,
+      "maximum_resident_bytes": 409600000,
+      "name": "first",
+      "report_status": "available",
+      "reports": {
+        "html": {
+          "bytes": 1490867,
+          "sha256": "72cd2d0d82e3ef044f9f84d8c3193fbab313e4406b11f29e2ee2171e5f8c6fae"
+        },
+        "json": {
+          "bytes": 23903388,
+          "sha256": "15afc7e6999f9210f857eea0729323d8d0b1823bd0c87872719671f408fce779"
+        },
+        "md": {
+          "bytes": 14000,
+          "sha256": "a222b4ae353e2a8381d84743fd248ad9a2451f2d9731265876e1c3165ddc1f16"
+        },
+        "sarif": {
+          "bytes": 24954467,
+          "sha256": "d6a6a60a8b94cf81cee9a27fbcfe52313f9a53ced5aa4b5ac58ec2b85a06d13b"
+        },
+        "txt": {
+          "bytes": 18500,
+          "sha256": "1c0ee9328f97a7935a7d3fecf1cc3f5251777423864eb94c4d5092fb8f79d7eb"
+        }
+      },
+      "seconds": 3.666,
+      "stderr": {
+        "bytes": 258,
+        "sha256": "9a2dee0d0e948d60e273f0eb4fbea17dd5651fdcba7eee53bf84ee382733f0ca"
+      }
+    },
+    {
+      "analysis": {
+        "abstentions": [],
+        "document_manifest_sha256": "519371df98b7aab6848e5a439ea7be2b475f0d99a3f6e1bf5d1da2e326aba940",
+        "documents": 1152,
+        "errors": [
+          {
+            "message": "parse typescript: typescript grammar returned an incomplete or invalid syntax tree",
+            "path": "pkgs/core/src/fp/index.ts"
+          },
+          {
+            "message": "parse typescript: typescript grammar returned an incomplete or invalid syntax tree",
+            "path": "pkgs/core/src/index.ts"
+          },
+          {
+            "message": "parse typescript: typescript grammar returned an incomplete or invalid syntax tree",
+            "path": "pkgs/core/src/types.ts"
+          },
+          {
+            "message": "parse typescript: typescript grammar returned an incomplete or invalid syntax tree\nparse typescript: typescript grammar returned an incomplete or invalid syntax tree\nparse typescript: typescript grammar returned an incomplete or invalid syntax tree",
+            "path": ""
+          }
+        ],
+        "exclusions_by_reason": {
+          "code": {
+            "span_bytes": 38993,
+            "spans": 125
+          },
+          "comment-code": {
+            "span_bytes": 21,
+            "spans": 1
+          },
+          "directive": {
+            "span_bytes": 2111,
+            "spans": 51
+          },
+          "doc-example": {
+            "span_bytes": 58844,
+            "spans": 1904
+          },
+          "doc-tag": {
+            "span_bytes": 198247,
+            "spans": 3562
+          },
+          "embedded-program": {
+            "span_bytes": 124,
+            "spans": 1
+          },
+          "front-matter": {
+            "span_bytes": 82,
+            "spans": 1
+          },
+          "html": {
+            "span_bytes": 289,
+            "spans": 6
+          },
+          "import-path": {
+            "span_bytes": 62802,
+            "spans": 3049
+          },
+          "inline-protected": {
+            "span_bytes": 16462,
+            "spans": 1275
+          },
+          "interpolation": {
+            "span_bytes": 9392,
+            "spans": 519
+          },
+          "link-definition": {
+            "span_bytes": 7463,
+            "spans": 111
+          },
+          "non-latin-prose": {
+            "span_bytes": 48,
+            "spans": 1
+          },
+          "quote": {
+            "span_bytes": 261,
+            "spans": 1
+          },
+          "url": {
+            "span_bytes": 3700,
+            "spans": 69
+          },
+          "yaml-key": {
+            "span_bytes": 189552,
+            "spans": 13270
+          },
+          "yaml-non-string:!!bool": {
+            "span_bytes": 2370,
+            "spans": 592
+          },
+          "yaml-non-string:!!int": {
+            "span_bytes": 1,
+            "spans": 1
+          }
+        },
+        "findings": 84,
+        "gate_passed": false,
+        "manifest": {
+          "complete": false,
+          "config_hash": "e3431d5f3db64402e440edf1252be520885f98b193e353d9ecbebeb527293859",
+          "config_identity": "unswell-config-bundle-v1",
+          "config_sources": [
+            {
+              "kind": "config",
+              "path": ".unswell.yaml",
+              "sha256": "11236ea09f110edb75fda936fdeef7626ce806dc4f6acc2c5fd3a3167a288ee7"
+            }
+          ],
+          "feature_contract": "unswell-features-v1",
+          "gate_mode": "all",
+          "include_source": false,
+          "nlp": {
+            "capabilities": [
+              "tokens",
+              "sentences",
+              "pos",
+              "chunks"
+            ],
+            "license": "MIT",
+            "model": "prose/aptagmodel/en.bin",
+            "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+            "name": "builtin-en",
+            "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+            "version": "prose-v3.2.1/chunks-v1/boundaries-v1"
+          },
+          "no_gate": false,
+          "ruleset_hash": "a845aee093a0daaa4df59a195d00ef839a9d30ae2fbf6bbad7f07a0b012f83fd",
+          "scoring_profile": "strict-v1",
+          "selection_mode": "filesystem",
+          "skipped_rules": [],
+          "tool_commit": "2a2a6d441534cbc4be15d298898345d1a529c8b5",
+          "tool_version": "0.1.0-alpha.3"
+        },
+        "prose_words": 74085,
+        "status": "incomplete"
+      },
+      "exit_code": 2,
+      "maximum_resident_bytes": 406929408,
+      "name": "repeat",
+      "report_status": "available",
+      "reports": {
+        "html": {
+          "bytes": 1490867,
+          "sha256": "72cd2d0d82e3ef044f9f84d8c3193fbab313e4406b11f29e2ee2171e5f8c6fae"
+        },
+        "json": {
+          "bytes": 23903388,
+          "sha256": "15afc7e6999f9210f857eea0729323d8d0b1823bd0c87872719671f408fce779"
+        },
+        "md": {
+          "bytes": 14000,
+          "sha256": "a222b4ae353e2a8381d84743fd248ad9a2451f2d9731265876e1c3165ddc1f16"
+        },
+        "sarif": {
+          "bytes": 24954467,
+          "sha256": "d6a6a60a8b94cf81cee9a27fbcfe52313f9a53ced5aa4b5ac58ec2b85a06d13b"
+        },
+        "txt": {
+          "bytes": 18500,
+          "sha256": "1c0ee9328f97a7935a7d3fecf1cc3f5251777423864eb94c4d5092fb8f79d7eb"
+        }
+      },
+      "seconds": 3.046,
+      "stderr": {
+        "bytes": 258,
+        "sha256": "9a2dee0d0e948d60e273f0eb4fbea17dd5651fdcba7eee53bf84ee382733f0ca"
+      }
+    }
+  ],
+  "scope": "Real project tree date-fns; measures this build on this host on that tree, not editorial quality.",
+  "tool_sha256": "f165e953d41a09c2ab0490ff47f5e3d5729adfdaca8431f32faa0b56b9bc2e82",
+  "tool_version": "unswell version 0.1.0-alpha.3"
+}

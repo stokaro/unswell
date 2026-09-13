@@ -12,7 +12,11 @@ check-mirror-policy:
 	bash scripts/check-image-mirrors.sh --self-test
 
 check-performance: build
-	bash scripts/measure-performance.sh --words 2000 --self-test
+	@temporary=$$(mktemp -d); trap 'rm -rf "$$temporary"' EXIT; \
+	  bash scripts/measure-performance.sh --words 2000 --artifacts "$$temporary/evidence" --self-test && \
+	  python3 scripts/summarize-performance.py "$$temporary/evidence" >"$$temporary/summary.json" && \
+	  ! bash scripts/measure-performance.sh --words 100 --artifacts "$$temporary/evidence" >"$$temporary/overwrite.log" 2>&1
+	python3 scripts/summarize-performance.py --self-test
 
 check-research-cost:
 	bash scripts/measure-research-cost.sh --self-test
