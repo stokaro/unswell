@@ -22,6 +22,12 @@ and English NLP backend analyze that text locally.
 | `fish` | `check.fish` | Comments, single-quoted strings and static double-quoted fragments; program-shaped literals are excluded |
 | `powershell` | `check.ps1`, `module.psm1`, `data.psd1` | Comments, quoted strings and here-strings; program-shaped literals are excluded |
 
+GitHub Actions workflow `run` values use the selected shell grammar by default.
+Comments and messages retain original YAML coordinates; script syntax stays
+outside prose metrics. Unknown shells and unresolved expressions have explicit
+exclusion reasons. The [extraction policy](extraction-policy.md#github-actions-scripts)
+describes shell selection, context overrides, and ordinary scalar mode.
+
 Use `--format` to select a grammar explicitly. For example, a C++ header named
 `client.h` needs `--format cpp`; `.h` defaults to C. Extensionless inputs can use
 a recognized shebang. Pass them explicitly or add their paths to `files.include`.

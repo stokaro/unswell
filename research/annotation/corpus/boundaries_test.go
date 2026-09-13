@@ -34,6 +34,7 @@ func TestManifestRejectsInvalidAcquisition(t *testing.T) {
 		{"origin evidence", func(m *corpus.Manifest) { m.Sources[0].Origin.Evidence = "" }},
 		{"generation evidence", func(m *corpus.Manifest) { m.Sources[0].Origin.Label = "generated" }},
 		{"unknown context", func(m *corpus.Manifest) { m.Policy.Contexts = []string{"invented"} }},
+		{"unknown workflow mode", func(m *corpus.Manifest) { m.Policy.GitHubActions = "guess" }},
 		{"invalid role region", func(m *corpus.Manifest) {
 			m.Sources[0].Roles = []corpus.RoleRegion{{Span: document.Span{Start: 10, End: 1}, Role: "comment"}}
 		}},

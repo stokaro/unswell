@@ -60,6 +60,9 @@ func canonicalManifest(manifest Manifest) (Manifest, error) {
 	if err := json.Unmarshal(data, &result); err != nil {
 		return Manifest{}, err
 	}
+	if result.Policy.GitHubActions == "" {
+		result.Policy.GitHubActions = "shell"
+	}
 	slices.SortFunc(result.Sources, func(a, b Source) int { return strings.Compare(a.ID, b.ID) })
 	slices.Sort(result.UnitKinds)
 	slices.Sort(result.Policy.Contexts)

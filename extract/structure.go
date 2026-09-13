@@ -27,7 +27,7 @@ func (r *sourceReader) assignSourceContexts() error {
 		if err != nil {
 			return err
 		}
-		r.doc.Blocks[i].Context = labels
+		r.doc.Blocks[i].Context = append(labels, r.doc.Blocks[i].Context...)
 	}
 	return nil
 }

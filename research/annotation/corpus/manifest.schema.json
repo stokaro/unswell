@@ -53,6 +53,11 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
+        "github_actions": {
+          "type": "string",
+          "enum": ["", "shell", "strings"],
+          "description": "An omitted or empty mode selects shell extraction."
+        },
         "contexts": {
           "anyOf": [
             {
