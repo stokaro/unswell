@@ -31,6 +31,7 @@ scored_partitions=()
 extra_features=()
 min_unit_words=0
 max_unit_words=0
+representation=prepared
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --work)
@@ -105,6 +106,10 @@ while [[ $# -gt 0 ]]; do
       extra_features+=("$2")
       shift 2
       ;;
+    --representation)
+      representation=$2
+      shift 2
+      ;;
     --min-unit-words)
       min_unit_words=$2
       shift 2
@@ -115,7 +120,7 @@ while [[ $# -gt 0 ]]; do
       ;;
     *)
       printf 'Usage: %s OPTIONS\n' "$0" >&2
-      printf 'Options: --work DIR, --acquisition DIR, --dataset-plan FILE, --tasks FILE, --generation FILE, --protocol FILE, --output DIR, --record DIR, --id ID, --cap N, --max-source-bytes N, --exclude-source-file FILE (repeatable), --score-partition NAME (repeatable; default development and final_test), --extra-feature ID (repeatable), --min-unit-words N, --max-unit-words N, --threshold T, --negative-role ROLE (repeatable; default comment), --findings DIR\n' >&2
+      printf 'Options: --work DIR, --acquisition DIR, --dataset-plan FILE, --tasks FILE, --generation FILE, --protocol FILE, --output DIR, --record DIR, --id ID, --cap N, --max-source-bytes N, --exclude-source-file FILE (repeatable), --score-partition NAME (repeatable; default development and final_test), --extra-feature ID (repeatable), --representation prepared|lexical, --min-unit-words N, --max-unit-words N, --threshold T, --negative-role ROLE (repeatable; default comment), --findings DIR\n' >&2
       exit 2
       ;;
   esac
@@ -198,7 +203,18 @@ done
 # A band on unit length holds the two arms at one length, so a fit cannot buy
 # recall by learning a threshold on how long a comment is.
 band_flags=(--min-unit-words "$min_unit_words" --max-unit-words "$max_unit_words")
-"$corpus_tool" train --root "$work" --labels provenance --kind paragraph "${feature_flags[@]}" \
+# The lexical representation learns its columns from the training targets, so it
+# takes no prepared feature. It stands against the prepared set as a different
+# way of representing the same prose, not as a different corpus.
+case "$representation" in
+  prepared) representation_flags=("${feature_flags[@]}") ;;
+  lexical) representation_flags=(--lexical) ;;
+  *)
+    printf 'The representation must be prepared or lexical.\n' >&2
+    exit 2
+    ;;
+esac
+"$corpus_tool" train --root "$work" --labels provenance --kind paragraph "${representation_flags[@]}" \
   "${band_flags[@]}" --missing-features exclude --calibration isotonic \
   <"$output/candidates.json" >"$output/model.json"
 

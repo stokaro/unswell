@@ -128,9 +128,12 @@ func lexicalPredictionMeasurements(ctx context.Context, candidates corpus.Artifa
 	if err != nil {
 		return rowSelector{}, nil, corpus.Verification{}, err
 	}
+	// A banded fit scores only the units inside its band, so counting terms for
+	// the rest would spend the retained-byte budget on rows that never score.
 	selected := make(map[string]bool)
 	for _, candidate := range candidates.Units {
-		if candidate.Partition == partition && candidate.Unit.Kind == fitted.Options.Kind {
+		if candidate.Partition == partition && candidate.Unit.Kind == fitted.Options.Kind &&
+			WithinWordBand(candidate.Words, fitted.Options) {
 			selected[candidate.Unit.ID] = true
 		}
 	}
