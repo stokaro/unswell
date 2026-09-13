@@ -18,6 +18,7 @@ sha() {
 
 words=100000
 output=""
+artifacts=""
 label=""
 corpus_source=""
 excludes=()
@@ -33,6 +34,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --output)
       output=$2
+      shift 2
+      ;;
+    --artifacts)
+      artifacts=$2
       shift 2
       ;;
     --label)
@@ -64,7 +69,7 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     *)
-      printf 'Usage: %s [--words N] [--corpus DIR] [--exclude GLOB]... [--timeout DURATION] [--binary FILE] [--origin-model FILE] [--output FILE] [--label NAME] [--self-test]\n' "$0" >&2
+      printf 'Usage: %s [--words N] [--corpus DIR] [--exclude GLOB]... [--timeout DURATION] [--binary FILE] [--origin-model FILE] [--output FILE] [--artifacts NEW_DIR] [--label NAME] [--self-test]\n' "$0" >&2
       exit 2
       ;;
   esac
@@ -239,8 +244,28 @@ count_prose_words() {
   awk '/"prose_words"/ { gsub(/[^0-9]/, "", $2); total += $2 } END { print total + 0 }' "$reports/count.json"
 }
 
+if [[ -n "$artifacts" ]]; then
+  # Refuse to overwrite evidence from an earlier run, including an empty directory.
+  mkdir "$artifacts"
+  artifacts=$(cd "$artifacts" && pwd)
+fi
 workspace=$(mktemp -d)
-trap 'rm -rf "$workspace"' EXIT
+cleanup() {
+  local status=$? item
+  if [[ -n "$artifacts" ]]; then
+    for item in cold warm cold.time warm.time observation.json; do
+      if [[ -e "$workspace/$item" ]]; then
+        cp -R "$workspace/$item" "$artifacts/" || status=2
+      fi
+    done
+    if [[ -f "$workspace/corpus/.unswell.yaml" ]]; then
+      cp "$workspace/corpus/.unswell.yaml" "$artifacts/policy.yaml" || status=2
+    fi
+  fi
+  rm -rf "$workspace"
+  exit "$status"
+}
+trap cleanup EXIT
 corpus=$workspace/corpus
 
 # The measured tool is the repository build unless --binary names another
@@ -395,6 +420,7 @@ JSON
 if [[ -n "$output" ]]; then
   printf '%s\n' "$report" >"$output"
 fi
+printf '%s\n' "$report" >"$workspace/observation.json"
 printf '%s\n' "$report"
 
 if [[ "$self_test" == true ]]; then
