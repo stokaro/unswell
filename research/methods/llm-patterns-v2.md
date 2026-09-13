@@ -1,10 +1,11 @@
-# Pattern protocol, version 2 (draft)
+# Pattern protocol, version 2
 
-Identifier: `unswell-llm-patterns-v2`. State: draft. This document freezes
-when the maintainer records its SHA-256 in `docs/acceptance.md` under stage
-C; until then every value below may change, and no confirmation partition
-is measured. Version 1 with its four amendments stays the record of the
-pilot; this version restates only what the pilot changed.
+Identifier: `unswell-llm-patterns-v2`. State: frozen on September 13, 2026.
+The confirmatory list below is closed. No value in this document changes
+from here, and no construction joins the list, whatever the confirmation
+partition shows. The acceptance table records this document's SHA-256 under
+stage C. Version 1 with its six amendments stays the record of the pilot;
+this version restates only what the pilot changed.
 
 ## What the pilot fixed
 
@@ -21,8 +22,8 @@ pilot; this version restates only what the pilot changed.
 | MID | 3 percentage points | unchanged; the pilot's H0 prevalences of 0.1% to 6.4% per rule do not move it |
 | Support | 5 components per arm | unchanged |
 | Cluster minimum | 20 components per arm | unchanged; the confirmation partition must reach it before measurement |
-| Screening | development partition, BH at 0.10 | two exploratory runs before the freeze, both recorded below |
-| Confirmatory list | at most twelve, one per construction | not frozen; the second screening names two candidates, both below the MID and below the cluster minimum |
+| Screening | development partition, BH at 0.10 | three exploratory runs before the freeze, all recorded below |
+| Confirmatory list | at most twelve, one per construction | two hypotheses, frozen below from the third screening |
 | Multiplicity | Holm at 0.05 across the list | unchanged |
 | Stopping rule | none stated | one confirmatory measurement of the confirmation partition; no sample grows afterward |
 
@@ -195,48 +196,66 @@ unadjusted paragraph target and misses the Holm one. The two rules with a
 design effect above ten cluster inside a few components, and no corpus this
 project will hold can test them at this MID.
 
-## Confirmatory list
+## Frozen confirmatory list
 
-The list is not frozen, and freezing it is the maintainer's act: it happens
-when this document's SHA-256 enters the acceptance table. The third
-screening names the two candidates the list would hold, both in the Claude
-family:
+Two hypotheses are frozen here. Both come from the third screening and both
+sit in the Claude family. The content closed in commit 4f8794b. That was
+before any task was drawn from the confirmation partition, and before any
+table of that partition existed. Wording changed once after the draw, to
+pass the repository's own prose gate. No hypothesis, threshold, design or
+estimate changed with it. The acceptance table records the hash of the final
+text.
 
-1. `syntax.noun-stack`, +2.96 points, q-value 0.004, support 7 components.
-2. `readability.grade-metric`, +2.43 points, q-value 0.021, support 6
-   components.
+### H1. `syntax.noun-stack`
 
-The protocol admits no construction a screening did not name, so the list
-holds at most these two. Neither is a confirmed construction. Both are
-`inconclusive`, because a point estimate below the MID cannot support a
-card whatever its interval says.
+The prevalence of `syntax.noun-stack` in Claude `generate`/`neutral` comment
+paragraphs of the `final_test` partition exceeds its prevalence in the
+historical comment paragraphs of the same partition by at least three
+percentage points.
 
-The size conditions are now met. The counts, by the measure the cluster
-minimum uses:
+Primary comparison: `D` = controlled prevalence minus H0 prevalence, unit
+kind `paragraph`, role `comment`, partition `final_test`, family
+`anthropic-claude`, cluster bootstrap with 10,000 replicates and seed 17,
+percentile interval. Development estimate: +2.96 points, interval +1.18 to
++4.17, q-value 0.004, support 7 components.
 
-| Partition | Pinned repositories | With a historical comment paragraph | Controlled arm |
-| --- | --- | --- | --- |
-| `development` | 22 | 21 | 20 |
-| `final_test` | 24 | 21 | not measured |
+### H2. `readability.grade-metric`
 
-Whoever freezes the list decides one thing the data cannot decide. A
-confirmatory test of `syntax.noun-stack` on the confirmation partition
-tests a construction whose development estimate is 2.96 points against a
-minimum useful difference of 3.00. The test is honest and it is likely to
-return `inconclusive` again. Freezing an empty list instead reports the
-null result and closes version 2 without a confirmatory measurement. The
-protocol allows either, and it forbids the third option: moving the MID.
+The prevalence of `readability.grade-metric` in Claude `generate`/`neutral`
+comment paragraphs of the `final_test` partition exceeds its prevalence in
+the historical comment paragraphs of the same partition by at least three
+percentage points.
+
+Primary comparison: the same design as H1. Development estimate: +2.43
+points, interval +0.65 to +4.40, q-value 0.021, support 6 components.
+
+### Decision rule
+
+Holm correction at 0.05 covers the pair. Four conditions together make a
+card `supported-within-scope`. Its interval's lower bound exceeds zero. Its
+point estimate reaches the MID of three points. Support holds at five
+components per arm. The baseline load is acceptable.
+
+A development estimate below the MID does not decide the confirmation. The
+confirmation partition is other text, and its estimate may land on either
+side of the MID.
+
+Nothing else is tested. The OpenAI arm of the confirmation partition is
+measured and reported, because the holdout checks name it, and it carries no
+hypothesis. Three screenings produced no positive OpenAI difference at all.
+Negative differences are not hypotheses either.
 
 ## Stopping rule
 
 The stopping rule is fixed. Under a frozen protocol version a screening
 runs once, and so does a confirmation, each on a partition the pins fix. No
-sample then grows to reach a threshold. While this document stays a draft
-the screening is exploratory, and it may run again on a grown corpus. This
-document lists every such run above, and the freeze keeps the last one.
+sample then grows to reach a threshold. The three screenings above ran while
+this document was a draft, which is where exploratory screening belongs; the
+freeze keeps the third and closes the series. No fourth screening runs under
+this version.
 
-Before the freeze the corpus gains repositories until each of those two
-partitions holds at least 20 components. Each pin lands before any of that
+Before the freeze the corpus gained repositories until each of those two
+partitions held at least 20 components. Each pin lands before any of that
 repository's text is measured. The development repositories then receive
 tasks and responses of every selecting family. The second acquisition round
 added ten to `development` and fourteen to `final_test`, and the third
@@ -256,13 +275,13 @@ sources are the repositories acquired for the confirmation partition. The
 held-out family is Qwen. Threshold tuning on a studied family never counts
 as an unseen-family result.
 
-## What must exist before the freeze
+## What the freeze required
 
 - A screening record produced by `corpus screen` on the development
   partition with the Claude and OpenAI runs, on a controlled arm of at
   least 20 components. The third record meets that condition; the first two
-  are exploratory and do not.
-- The sample-size record, restated from that screening output.
+  do not, and the list comes from the third.
+- The sample-size record, restated from that screening output. Done above.
 - The phrase list for E3 is the fifteen rules of the `filler`, `hype`, and
   `scaffold` families at the versions of the current engine; the SHA-256 of
   the sorted `id@version` list is
