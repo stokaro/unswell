@@ -4,10 +4,11 @@ Unswell is distributed as a Go library, CLI archives, two container images, a
 Homebrew formula and a GitHub Action. The MCP image is also described in the
 official MCP Registry. These routes all use the same engine and policy model.
 
-The first alpha archives, containers, MCP Registry entry, and Action tag are
-published. The tap's versioned formula is merged on main.
-See the [alpha distribution evidence](alpha-distribution-evidence.md) for the
-verified versions and remaining automation work.
+The verified release is `v0.1.0-alpha.3`: its archives, containers, MCP Registry
+entry, tap formula, and Action tag are published. The
+[alpha distribution evidence](alpha-distribution-evidence.md) records the source
+commit and checks for that release. Later changes on `main` need their own release
+verification.
 
 ## Homebrew
 
@@ -26,10 +27,10 @@ prose to return 1, and malformed C# to return 2. The installed executable also
 checks the tap's own Markdown, YAML and Python scripts in CI.
 
 The tap's current `Update formula` workflow accepts an existing release tag,
-verifies all four Unix archive hashes, prepares a formula branch, and starts its
-installation checks. A maintainer creates and merges the PR after those checks
-and the required review pass. Automatic PR creation and merging are still tracked
-in [#66](https://github.com/stokaro/unswell/issues/66).
+verifies all four Unix archive hashes, and automatically opens a formula PR
+through the publishing app. Installation checks run on the PR. A maintainer
+reviews and merges it after the required checks pass. This cycle was verified for
+alpha.3 in [#66](https://github.com/stokaro/unswell/issues/66).
 
 ## GitHub Action
 
@@ -37,7 +38,7 @@ The action lives in [stokaro/unswell-action](https://github.com/stokaro/unswell-
 Pin an action commit and an independent CLI version:
 
 ```yaml
-- uses: stokaro/unswell-action@5c4e109d71c1ec16429a62ac1860b97baee3974e
+- uses: stokaro/unswell-action@b7e5d5ce69d69ca458879c938726ec0870457b35
   id: unswell
   with:
     version: 0.1.0-alpha.3
@@ -61,10 +62,10 @@ that bad prose and malformed source fail their action steps, with the expected
 codes and report contents. Unit tests against local archives do not replace this
 public download check.
 
-The proposed Action updater verifies all six archives and opens a PR for the
-default CLI version. Its implementation and automatic tag publication are still
-under review in [Action PR #2](https://github.com/stokaro/unswell-action/pull/2).
-Do not rely on automatic updates until #66 records a successful release cycle.
+The Action updater verifies all six archives and automatically opens a PR for the
+default CLI version. A maintainer reviews and merges it; tag publication follows
+successful checks on the merged commit. The alpha.3 tag points to the commit in
+the example above. Existing release tags are not moved.
 
 ## Archives, containers and MCP Registry
 
@@ -91,16 +92,18 @@ workflow artifacts alongside the release's immutable version and source commit.
 
 ## Publishing app setup
 
-The following setup belongs to the automation proposed in #66. The receiving
-workflows are still under review in
-[tap PR #2](https://github.com/stokaro/homebrew-unswell/pull/2) and Action PR #2.
-The checked-in `Update distributions` workflow alone does not prove delivery.
-Its successful end-to-end execution remains an acceptance requirement.
+`Update distributions` dispatches release updates to the tap and Action
+repositories. The alpha.3 cycle completed in
+[tap PR #4](https://github.com/stokaro/homebrew-unswell/pull/4) and
+[Action PR #6](https://github.com/stokaro/unswell-action/pull/6), followed by their
+main-branch checks and Action tag publication. Repeated update requests made no
+new PR or change; the [evidence record](alpha-distribution-evidence.md) links those
+runs. This verifies alpha.3, not a future release.
 
-After those workflows and settings are available, `Update distributions` accepts
-an existing release tag to retry delivery. Repeated requests must preserve an
-already selected release. An existing update branch must match the regenerated
-files before reuse; unrelated changes must not be overwritten.
+The workflow also accepts an existing release tag to retry delivery. Repeated
+requests preserve an already selected release. An existing update branch must
+match the regenerated files before reuse; unrelated changes must not be
+overwritten.
 
 The organization variable `PUBLISH_APP_ID` and secret `PUBLISH_APP_KEY` are
 available to Unswell, the tap, and the Action repository, and the app has
@@ -113,12 +116,6 @@ the review request to a maintainer, who approves and squash-merges. Auto-merge
 stays disabled and main's review bypass list stays empty in both receiving
 repositories, so the app is subject to the same approving review as any other
 author.
-
-Enable auto-merge in the tap and Action repositories. Their main-branch review
-rules allow only the publish app to merge without manual approval; required CI
-checks and resolved conversations still apply. Keep one approving review for
-other authors and keep force pushes and main deletion disabled. Organization-wide
-permission for GitHub Actions to approve PRs is not needed.
 
 `scripts/verify-release-artifacts.sh` audits a published release. It checks every
 asset against the release manifest. It checks that each archive bundles the

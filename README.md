@@ -18,8 +18,13 @@ wording. No score is a probability that a tool wrote the text; see
 [ADR 0037](docs/adr/0037-diagnostics-not-authorship.md) for the goal and its
 non-goals.
 
-**Development alpha.** The current implementation targets stages 0–1 of the
-[technical roadmap](docs/roadmap.md). Rules and defaults are experimental.
+**Development alpha.** The published release is `v0.1.0-alpha.3`. Stage 2 features
+include custom rules, baselines, and checks of changed code. Go tools can train,
+calibrate, and load models.
+
+Rules and defaults remain experimental. No editorial model has met the criteria
+for use in the product. See the [acceptance audit](docs/acceptance.md) for features, release
+evidence, and work still open.
 Revision probability is unavailable until a labeled corpus and compatible
 calibration model meet the later acceptance criteria.
 
@@ -208,10 +213,10 @@ The [surface catalog](docs/surface-signals.md) adds opt-in syntax, readability, 
 formatting measurements with explicit counting protocols and protected boundaries.
 The research pipeline that fits and evaluates those models is a separate
 developer workflow; see [training and evaluation](docs/training.md).
-The [roadmap](docs/roadmap.md) preserves the remaining requirements:
-calibrated revision probabilities and qualified editorial defaults.
-The [acceptance audit](docs/acceptance.md) records the state of each one.
-The alpha does not silently claim those capabilities.
+The active [roadmap](docs/roadmap.md) improves contextual diagnostics and checks
+them on real technical prose. Human qualification and calibrated revision
+probabilities remain deferred under ADR 0037, with their original requirements
+preserved. Neither capability is claimed by this alpha.
 
 Code, URLs, front matter, directives and quoted Markdown blocks are excluded from
 ordinary prose checks. POS-based chunks are surface candidates, not grammatical

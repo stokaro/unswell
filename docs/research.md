@@ -34,28 +34,36 @@ The E3 runs of [#176](https://github.com/stokaro/unswell/issues/176),
 [#178](https://github.com/stokaro/unswell/issues/178) fit classifiers of
 cohort membership, and the origin runs of
 [#179](https://github.com/stokaro/unswell/issues/179) fit a classifier of
-generation endpoints. Every one is negative: no feature family, no
-compression reference, and no probability table separates the cohorts.
+generation endpoints. Those recorded comparisons did not establish the required
+benefit from a feature family, compression reference, or probability table on
+their declared tasks.
 Those are answers to classification questions. They say nothing about
 whether a rule names a construction worth rewriting, and they retire no
 rule. The records stay in [research/baselines](../research/baselines/README.md)
 and [research/origin](../research/origin/README.md) as negative results.
 
-The historical corpus measures the existing rules by cohort and period,
-with placebo boundaries and paired changes. It proposes nothing yet. Six
-papers and the catalog fixed every studied construction in advance, the
-prevalence tables carry no role stratum, and the corpus holds GitHub
-repositories only. The next stage in the ADR fills those gaps.
+The corpus counts rule matches by cohort and period. It includes placebo checks
+and paired changes. Later runs add [counts by role](../research/acquisition/runs/2026-09-11-roles/README.md),
+[phrase counts](../research/acquisition/runs/2026-09-11-frequencies/README.md),
+and [historical RFCs](../research/acquisition/runs/2026-09-11-documents/README.md)
+to address gaps from ADR 0037.
 
-The following tasks are experiments. No model training, comparative benchmark, or
-production accuracy result is claimed by this plan.
+The dated diagnostic reviews need replay
+after engine fixes under [#217](https://github.com/stokaro/unswell/issues/217).
+[#218](https://github.com/stokaro/unswell/issues/218) extends evaluation to longer
+technical prose. None of these records supplies human qualification or a
+production accuracy claim.
 
 [ADR 0015](adr/0015-research-methodology.md) and the
 [versioned protocol](../research/methods/protocol-v1.md) now fix the targets,
 A–G comparison, split/tuning procedure, and selection criteria before fitting.
+
 The [method registry](../research/methods/README.md) records pinned source review,
-component terms, measured source-file hashes, and scoped decisions. None of its
-methods has been reproduced, ported, or qualified by this research work.
+component terms, measured source-file hashes, and scoped decisions. Later
+[LLMDet experiments](../research/llmdet/README.md) and the
+[baseline runs](../research/baselines/README.md) record their implemented and
+executed subsets. A component port, numerical parity, or cohort comparison does
+not establish an accepted editorial model or reproduce an entire published study.
 
 The [annotation rubric](editorial-annotation.md) now defines independent quality
 and origin records, reviewer instructions, adjudication, and data partitions.
@@ -70,10 +78,12 @@ provide workflow tests, with no human judgments or independent final-test eviden
 
 ## Two research branches
 
-Research now runs on two branches. The active branch collects pattern
-association evidence without human labels. The deferred branch keeps every
-requirement that needs human judgment and waits for annotation resources.
-[ADR 0036](adr/0036-llm-pattern-evidence.md) fixes the boundary between them.
+The active work studies named rules and counts how often they match in each
+cohort. Work that needs human judgments stays on hold, along with probability
+models, origin studies, and detector comparisons.
+[ADR 0036](adr/0036-llm-pattern-evidence.md) separates these claims about the data.
+Under ADR 0037, a release need not wait for the deferred work. A later product
+decision can bring it back if a specific diagnostic needs it.
 
 ### Active: LLM-associated patterns
 
@@ -95,6 +105,14 @@ six reviewed studies with their data terms and decisions.
 | D. Confirmatory study | Executed comparisons, holdouts, intervals, ablations, and negative results |
 | E. Evidence release | Versioned data set, data card, report, table reproduction, and evidence cards |
 
+The merged [generation index](../research/generation/README.md) records ten runs
+across Claude, OpenAI, and Qwen. Three development screenings precede the
+[version 2 freeze](../research/methods/llm-patterns-v2.md), merged in
+[#229](https://github.com/stokaro/unswell/pull/229). It fixes two Claude hypotheses
+for a single confirmatory measurement. The [acceptance snapshot](acceptance.md)
+records that design separately from its still-outstanding results. Local or
+in-flight generations cannot establish a confirmation.
+
 This branch produces prevalence, absolute differences, prevalence ratios,
 paired changes, and warning load per cohort. It produces no editorial label,
 no origin estimate, and no probability, and its artifacts keep
@@ -104,10 +122,12 @@ maintainer records a budget in the protocol.
 ### Deferred: human validation
 
 [#22](https://github.com/stokaro/unswell/issues/22) is on hold with its text
-and acceptance criteria unchanged. The table below lists the branch. #55 and
-#21 are complete, and #22 is the labeled corpus itself. The remaining issues
-need that corpus and stay open until it exists; the
-[acceptance audit](acceptance.md) records their implementation.
+and acceptance criteria unchanged. The table below preserves the original work
+breakdown; it is not a list of open issues. Engineering tasks such as #23 and #24
+are complete, while human acceptance remains with #22, #25, #26, and umbrella
+[#59](https://github.com/stokaro/unswell/issues/59). The
+[acceptance audit](acceptance.md) distinguishes implemented tools from the missing
+data and qualified models.
 
 | Step | Issue | Deliverable |
 | --- | --- | --- |
@@ -132,10 +152,10 @@ rewrites in the same partition. Human annotation requirements remain those in th
 [roadmap](roadmap.md); generated labels cannot fulfill them, and neither can the
 cohort measurements of the active branch.
 
-The first comparison uses inexpensive features and measures whether they add value
-beyond the phrase catalog. LLMDet then tests the value of stored probability tables.
-Its published scan path avoids generative-model inference, but data size, tokenizer
-compatibility, and transfer to short technical prose still require measurement.
+The deferred editorial work would test whether simple features improve on the
+phrase list, then test LLMDet tables. The existing cohort runs answer a different
+question. LLMDet's published scan path uses stored tables without running a
+generative model. Its value for editing still needs the deferred data and tests.
 See the [LLMDet paper](https://aclanthology.org/2023.findings-emnlp.139/) and
 [implementation](https://github.com/TrustedLLM/LLMDet).
 

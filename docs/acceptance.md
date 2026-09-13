@@ -2,16 +2,34 @@
 
 This page records the state of every acceptance requirement the project states,
 with a link to evidence a reader can reproduce. It is a status record, not a
-claim that the product is finished. Requirements that need human-labeled data or
-a live release stay open here until that data or that release exists.
+claim that the product is finished. Implemented tooling, published artifacts,
+research observations, and human qualification have separate acceptance criteria.
 
-Each row uses one of three states.
+This September 13, 2026 snapshot uses merged source through
+[`06b3861`](https://github.com/stokaro/unswell/commit/06b38615d4483970b65a6fbe2187aeb4864830dc),
+including the [protocol freeze](https://github.com/stokaro/unswell/pull/229),
+[performance records](https://github.com/stokaro/unswell/pull/232), and
+[TypeScript repair](https://github.com/stokaro/unswell/pull/233) and
+[Markdown repair](https://github.com/stokaro/unswell/pull/235). Published-release
+claims refer to alpha.3 at `2a2a6d4`, as recorded in the
+[distribution evidence](alpha-distribution-evidence.md). Later engineering does
+not change those release results. Local generation runs are not evidence here.
+
+Each row uses one of five states.
 
 - **Met** means evidence exists for a merged commit and the repository can
   reproduce it.
-- **Partly met** means the implementation and its tests are complete, while one
-  named part of the evidence is still missing.
-- **Open** means the requirement is not satisfied.
+- **Partly met** means some required implementation or evidence exists, with
+  specific remaining work identified.
+- **Open** means the requirement is unsatisfied and remains in scope.
+- **In progress** means work has started but acceptance is not complete.
+- **Deferred** means the requirement is unsatisfied and a recorded decision puts
+  it on hold. Its criteria remain intact; deferral is not completion.
+
+Under [ADR 0037](adr/0037-diagnostics-not-authorship.md), the active release path
+improves explainable diagnostics. Human qualification, calibrated probabilities,
+origin analysis, and detector comparisons are deferred. #123 has its own explicit
+start restriction and remains required for final validation.
 
 ## Stages 0 and 1: alpha acceptance
 
@@ -20,7 +38,7 @@ Each row uses one of three states.
 | Public repository and project setup | Met | [GitHub settings](repository-settings.md), `LICENSE`, `CONTRIBUTING.md`, `SECURITY.md`, pinned actions and tool modules |
 | Standalone public Go API | Met | `examples/consumer` in CI, the [API policy](public_api.md), and [`scripts/verify-published-module.sh`](../scripts/verify-published-module.sh) with its [recorded check](release/v0.1.0-alpha.3-module-check.json) |
 | Pure Go offline runtime | Met | Native Linux, macOS and Windows jobs; `CGO_ENABLED=0` release builds; [SBOM and notices](sbom.md) |
-| Source mapping | Met | `extract` tests, including escape decoding and scalar styles, and the annotated `e2e/testdata` fixtures |
+| Source mapping | Partly met | `extract` tests, including escape decoding and scalar styles, and the annotated `e2e/testdata` fixtures. Repairs for the alpha.3 parser gaps are merged in [#230](https://github.com/stokaro/unswell/issues/230) and [#231](https://github.com/stokaro/unswell/issues/231); published-release reruns under #219 remain outstanding |
 | NLP baseline | Met | `nlp` tests and [ADR 0001](adr/0001-source-mapping-and-nlp.md); capability failures are explicit |
 | Required rule catalog | Met | `builtin` rules with positive, negative and boundary examples; [scoring](scoring.md) documents what a finding does and does not claim |
 | Index and local gate | Met | [scoring](scoring.md) and the root engine tests for caps, nondilution and threshold diagnostics |
@@ -44,18 +62,18 @@ Each row uses one of three states.
 | Committed changed-unit analysis | Met | [changes](changes.md) and [ADR 0006](adr/0006-committed-changes.md) |
 | Trusted base policy | Met | [trusted policy](trusted-policy.md) and [ADR 0007](adr/0007-trusted-policy.md) |
 | Public `go/analysis` adapter | Met | [Go analysis adapter](go-analysis.md) and [ADR 0008](adr/0008-go-analysis-adapter.md) |
-| Extended signal catalogs | Partly met | The [editorial](editorial-patterns.md), [repetition](repetition-signals.md) and [surface](surface-signals.md) catalogs are implemented and opt-in; their corpus qualification needs the data in stage 3 |
+| Extended signal catalogs | Partly met | The [editorial](editorial-patterns.md), [repetition](repetition-signals.md) and [surface](surface-signals.md) catalogs are implemented and opt-in. Current diagnostic reviews continue in [#217](https://github.com/stokaro/unswell/issues/217) and [#218](https://github.com/stokaro/unswell/issues/218); human qualification remains deferred in [#26](https://github.com/stokaro/unswell/issues/26) |
 
 ## Stage 3: calibrated revision probability
 
 | Requirement | State | Evidence |
 | --- | --- | --- |
 | Annotation rubric, provenance and licenses | Met | [editorial annotation](editorial-annotation.md) and [ADR 0013](adr/0013-annotation-protocol.md) |
-| Labeled corpus of at least 5,000 units | Open | The protocol, tooling and validation exist; no human-labeled corpus has been collected. [#22](https://github.com/stokaro/unswell/issues/22) is on hold for resource reasons with this requirement unchanged |
-| Held-out splits by document, repository and template family | Partly met | [ADR 0014](adr/0014-corpus-acquisition.md) and the corpus commands freeze the partitions; no real corpus has been split |
-| Reproducible Go training and separate calibration | Met | [ADR 0020](adr/0020-logistic-numerical-core.md), [ADR 0021](adr/0021-isotonic-calibration.md), [ADR 0025](adr/0025-corpus-training.md) and [training and evaluation](training.md) |
+| Labeled corpus of at least 5,000 units | Deferred | The protocol, tooling and validation exist; no human-labeled corpus has been collected. [#22](https://github.com/stokaro/unswell/issues/22) is on hold for resource reasons with this requirement unchanged |
+| Held-out splits by document, repository and template family | Partly met | [ADR 0014](adr/0014-corpus-acquisition.md) and the corpus commands freeze partitions. Historical and generated cohorts use them, but the human-labeled editorial corpus and its final test remain absent under #22 and [#25](https://github.com/stokaro/unswell/issues/25) |
+| Reproducible Go training and separate calibration | Met | Engineering only: [ADR 0020](adr/0020-logistic-numerical-core.md), [ADR 0021](adr/0021-isotonic-calibration.md), [ADR 0025](adr/0025-corpus-training.md) and [training and evaluation](training.md) document tested Go tools. They do not supply an accepted editorial model |
 | Published probability evaluation | Deferred | The harness reports the #25 metrics, a risk-coverage curve and generated figures, and measures its own stage cost; the numbers need the human-labeled corpus, on hold with [#22](https://github.com/stokaro/unswell/issues/22) and [#25](https://github.com/stokaro/unswell/issues/25) |
-| Applicability and calibrated gating | Met | [ADR 0034](adr/0034-probability-pack.md) and [scoring](scoring.md) define the pack, the statuses and the gate; no accepted pack exists, so revision probability stays unavailable with a reason and no build is gated, which is the required behavior |
+| Applicability and calibrated gating | Met | Engineering only: [ADR 0034](adr/0034-probability-pack.md) and [scoring](scoring.md) define the pack, statuses, and gate. No accepted pack exists, so ordinary scans have no revision probability or probability gate. An explicitly required but unavailable estimate cannot pass |
 
 Quality and origin stay independent. The [origin channel](adr/0035-origin-channel.md)
 is opt-in, ungated and experimental. [ADR 0036](adr/0036-llm-pattern-evidence.md)
@@ -70,9 +88,9 @@ satisfies no row in this table; the stages below record their state.
 | --- | --- | --- |
 | A. Scope and methodology | Met | [ADR 0036](adr/0036-llm-pattern-evidence.md), the [protocol](../research/methods/llm-patterns-v1.md), the [sources record](../research/methods/llm-patterns-sources-v1.json), the [prompts](../research/methods/prompts/README.md); #22 on hold |
 | B. Historical corpus | Met | Five dated cohorts of 43 repositories under one global plan, verifiable shards, baseline measurements, first-appearance and one-count-per-text analyses, and placebo comparisons in the [run records](../research/acquisition/README.md) |
-| C. Comparable experiment | In progress | Amendment 1 of the protocol runs generation through session agents with no paid call. The [pilot record](../research/generation/runs/2026-09-11-pilot/README.md) and the [second run](../research/generation/runs/2026-09-11-run2/README.md) hold 800 saved responses of one model on 200 tasks. The [third run](../research/generation/runs/2026-09-12-haiku/README.md) holds 800 responses of a second model of the same family on the same tasks, the [fourth](../research/generation/runs/2026-09-12-codex-luna/README.md) and [fifth](../research/generation/runs/2026-09-12-qwen/README.md) runs hold 800 responses each of two more families. Those are OpenAI through the Codex CLI and Qwen through the organization's endpoint. The [sixth](../research/generation/runs/2026-09-12-qwen-27b/README.md) adds the larger Qwen model. Each run keeps its controlled shards and paired tables. Amendment 4 pins every repository to one partition through [`partitions-v1.json`](../research/methods/partitions-v1.json) and names Qwen as the held-out family. The [screening record](../research/methods/screening/2026-09-12-development.json) of the development partition qualifies no construction, and the [version 2 draft](../research/methods/llm-patterns-v2.md) freezes an empty list with the sample-size record. Amendment 5 records a second acquisition round that pins ten more repositories to `development` and fourteen to `final_test`, so each holds 20 pinned repositories. The [seventh](../research/generation/runs/2026-09-12-round2-haiku/README.md) and [eighth](../research/generation/runs/2026-09-12-round2-luna/README.md) runs answer 600 requests each on 150 new development tasks. The [second screening record](../research/methods/screening/2026-09-12-development-2.json) names two Claude candidates, `syntax.noun-stack` and `readability.grade-metric`, both still inconclusive below the minimum useful difference and the cluster minimum. A recount by role showed the pinned totals overstate both arms, so amendment 6 adds six more repositories, two to `development` and four to `final_test`. The [ninth](../research/generation/runs/2026-09-13-round3-haiku/README.md) and [tenth](../research/generation/runs/2026-09-13-round3-luna/README.md) runs answer 600 requests each on 150 further development tasks. The [third screening record](../research/methods/screening/2026-09-13-development-3.json) is the first whose arms meet the cluster minimum: 21 components carry a historical comment paragraph and 20 carry a controlled response. No test is blocked by sample size. It names the same two Claude candidates, `syntax.noun-stack` at 2.96 points and `readability.grade-metric` at 2.43 points, both with intervals above zero and both short of the three-point minimum useful difference, so both stay inconclusive. The [version 2 protocol](../research/methods/llm-patterns-v2.md) is frozen as of September 13, 2026, SHA-256 `623b6fc414c178e4289f82979b096c7d5c9dc2bf1d327a7d4515afd8c65ac1d4`. Its confirmatory list holds two hypotheses, `syntax.noun-stack` and `readability.grade-metric`, each comparing Claude `generate`/`neutral` comment paragraphs of `final_test` against the historical comment paragraphs of the same partition, with Holm correction at 0.05 across the pair. The list closed before any task was drawn from the confirmation partition. Stage D measures that partition once |
-| D. Confirmatory study | Open | Waits on the version 2 freeze; with an empty list it measures the confirmation partition once and reports the null result |
-| E. Evidence release | Open | Waits on stage D; the stage B records and their digests are published already |
+| C. Comparable experiment | Met | The ten committed [generation records](../research/generation/README.md) and three development screenings support the [version 2 freeze](../research/methods/llm-patterns-v2.md), merged in [#229](https://github.com/stokaro/unswell/pull/229). The frozen list contains two Claude hypotheses, `syntax.noun-stack` and `readability.grade-metric`, with Holm correction at 0.05. Protocol SHA-256: `623b6fc414c178e4289f82979b096c7d5c9dc2bf1d327a7d4515afd8c65ac1d4`. This is a fixed design, not confirmation or rule qualification; the dated records retain every screening and amendment |
+| D. Confirmatory study | Open | [#154](https://github.com/stokaro/unswell/issues/154) requires one measurement under the frozen version 2 protocol and its two hypotheses. This snapshot has no merged confirmatory result; an in-flight run does not satisfy it |
+| E. Evidence release | Open | [#154](https://github.com/stokaro/unswell/issues/154) waits on stage D; the stage B records and their digests are published already |
 
 ## Next stage: diagnostics on real texts
 
@@ -85,7 +103,7 @@ state.
 | Regression fixtures per rule | Met | `builtin/testdata/rewrites-v1.json` holds one pair for every builtin rule: a text that carries the construction and a rewrite that keeps its identifiers, numbers, and at least half of its words. `TestRewriteFixturesStopFiringAfterTheRewrite` in the root package asserts that the rule fires on the first and stays silent on the second in ordinary CI |
 | Role stratum | Met | Every row of the pattern tables carries `roles`, the same counts and interval per document role; the [role run](../research/acquisition/runs/2026-09-11-roles/README.md) records the tables of the current measurement with it |
 | Frequency command | Met | `corpus frequencies` counts constructions per cohort and role and contrasts each stratum with its baseline; the [frequency run](../research/acquisition/runs/2026-09-11-frequencies/README.md) records the output on the current corpus |
-| Review on real texts | Met | Three records under `research/reviews/` cover [Ptah](../research/reviews/2026-09-11-ptah/README.md), the [controlled responses](../research/reviews/2026-09-11-responses/README.md), and [this repository](../research/reviews/2026-09-11-unswell/README.md), each with every catalog rule, one reader, and judged findings; the maintainer's confirmation is pending |
+| Review on real texts | Partly met | The dated records cover [Ptah](../research/reviews/2026-09-11-ptah/README.md), the [controlled responses](../research/reviews/2026-09-11-responses/README.md), and [this repository](../research/reviews/2026-09-11-unswell/README.md). They contain agent judgments, not human qualification. [#217](https://github.com/stokaro/unswell/issues/217) requires a replay after engine fixes; [#218](https://github.com/stokaro/unswell/issues/218) adds longer prose. Maintainer confirmation remains pending |
 | Sources beyond repositories | Met | `scripts/acquire-documents.sh` brings published specifications into the historical cohort under the corpus contract; the [document run](../research/acquisition/runs/2026-09-11-documents/README.md) records three RFC sets of eight texts with their tables |
 
 ## Stage 4: first product release
@@ -99,7 +117,7 @@ state.
 | Documentation set | Met | [configuration](configuration.md), [custom rules](custom-rules.md), [API policy](public_api.md), [MCP](mcp.md), [containers](containers.md), [research](research.md), [editorial annotation](editorial-annotation.md), [training and evaluation](training.md), [reports](reports.md) and [installation](installation.md) |
 | Release inventory and notices | Met | [SBOM and notices](sbom.md) and the [release audit](release/v0.1.0-alpha.3-audit.json) |
 | Acceptance audit | Met | This page, kept current with the [roadmap](roadmap.md) |
-| Race detection, active fuzzing and coverage in CI | Open | Deferred by design to [#123](https://github.com/stokaro/unswell/issues/123), which runs after every other issue has a recorded disposition |
+| Race detection, active fuzzing and coverage in CI | Deferred | [#123](https://github.com/stokaro/unswell/issues/123) is on hold and may start only on an explicit maintainer request, after every other implementation task has a recorded disposition. Prior measurements do not replace validation of the final tree |
 
 ## What this alpha does not claim
 
@@ -107,5 +125,9 @@ The rule catalog is experimental. No precision or recall figure is published for
 any rule, because that number requires the labeled corpus stage 3 defines. A
 revision probability is unavailable without an accepted pack, and an absent
 estimate carries a reason rather than a zero. The origin channel never gates a
-build. Distribution automation remains unproven until a real release exercises
-it end to end.
+build. Distribution automation completed the alpha.3 cycle documented in
+[#66](https://github.com/stokaro/unswell/issues/66) and the
+[release evidence](alpha-distribution-evidence.md). That success does not verify
+future releases. Complete corpus scans and resource acceptance remain open in
+[#219](https://github.com/stokaro/unswell/issues/219); final validation remains
+deferred in #123.
