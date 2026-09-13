@@ -1,0 +1,93 @@
+{
+  "format": "unswell-origin-length-diagnostic-v1",
+  "run": "2026-09-13-longform",
+  "partition": "development",
+  "basis": "the scored rows of predictions-development.json joined to their candidate units",
+  "matched_length_bands": [
+    {
+      "lower_words": 0,
+      "upper_words": 15,
+      "generated_units": 588,
+      "code_comment_units": 1996,
+      "recall": 0.0,
+      "false_flag_rate": 0.0
+    },
+    {
+      "lower_words": 15,
+      "upper_words": 25,
+      "generated_units": 169,
+      "code_comment_units": 351,
+      "recall": 0.0,
+      "false_flag_rate": 0.002849002849002849
+    },
+    {
+      "lower_words": 25,
+      "upper_words": 40,
+      "generated_units": 178,
+      "code_comment_units": 175,
+      "recall": 0.06179775280898876,
+      "false_flag_rate": 0.022857142857142857
+    },
+    {
+      "lower_words": 40,
+      "upper_words": 60,
+      "generated_units": 328,
+      "code_comment_units": 89,
+      "recall": 0.8658536585365854,
+      "false_flag_rate": 0.6292134831460674
+    },
+    {
+      "lower_words": 60,
+      "upper_words": 90,
+      "generated_units": 179,
+      "code_comment_units": 52,
+      "recall": 1.0,
+      "false_flag_rate": 1.0
+    },
+    {
+      "lower_words": 90,
+      "upper_words": null,
+      "generated_units": 21,
+      "code_comment_units": 12,
+      "recall": 1.0,
+      "false_flag_rate": 1.0
+    }
+  ],
+  "code_comment_false_flags_by_language": {
+    "rust": {
+      "units": 1420,
+      "flagged": 8,
+      "false_flag_rate": 0.005633802816901409
+    },
+    "cpp": {
+      "units": 332,
+      "flagged": 11,
+      "false_flag_rate": 0.03313253012048193
+    },
+    "csharp": {
+      "units": 245,
+      "flagged": 66,
+      "false_flag_rate": 0.2693877551020408
+    },
+    "go": {
+      "units": 241,
+      "flagged": 6,
+      "false_flag_rate": 0.024896265560165973
+    },
+    "java": {
+      "units": 180,
+      "flagged": 27,
+      "false_flag_rate": 0.15
+    },
+    "javascript": {
+      "units": 135,
+      "flagged": 3,
+      "false_flag_rate": 0.022222222222222223
+    },
+    "c": {
+      "units": 122,
+      "flagged": 4,
+      "false_flag_rate": 0.03278688524590164
+    }
+  }
+}
