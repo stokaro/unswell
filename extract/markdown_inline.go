@@ -117,6 +117,10 @@ func (r *markdownInlineReader) protect(span document.Span, kind string) error {
 	return nil
 }
 
+// linkText reads the visible label of a link. A link without one carries no
+// prose, so it becomes a protected boundary like an image. The inline grammar
+// also reads bracket pairs in ordinary prose as a reference link, as in the
+// Java type long[][], and those pairs have no label either.
 func (r *markdownInlineReader) linkText(node *ts.Node, depth int) error {
 	for i := 0; i < node.ChildCount(); i++ {
 		child := node.Child(i)
@@ -124,5 +128,5 @@ func (r *markdownInlineReader) linkText(node *ts.Node, depth int) error {
 			return r.read(child, depth+1)
 		}
 	}
-	return fmt.Errorf("link at byte %d has no visible label", r.offset+int(node.StartByte()))
+	return r.protect(syntaxSpan(node, r.offset), node.Type(r.syntax.lang))
 }
