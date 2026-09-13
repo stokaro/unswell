@@ -63,11 +63,11 @@ type Tasks struct {
 	Tasks      []Task    `json:"tasks"`
 }
 
-// MinWords is the shortest documentation unit a task may use by default: a
+// MinWords is the shortest documentation unit a task may use by default. A
 // shorter paragraph is a fragment of code or a label, not a document to write.
-// Options.MinWords raises the floor when a study needs longer units; the
+// Options.MinWords raises the floor when a study needs longer units. The
 // origin experiment of 2026-09-11 separated nothing on units of 12 to 49
-// words, so the length of the unit is itself a variable worth setting.
+// words, so unit length is a variable a study sets rather than a constant.
 const MinWords = 12
 
 // Options fixes the sampling before any candidate is read.

@@ -8,11 +8,11 @@ import (
 	"github.com/stokaro/unswell/research/annotation/corpus"
 )
 
-// A manifest frozen before a policy field existed omits that field.
-// Canonicalization must leave the omission alone, because the canonical
-// manifest is what the plan digest covers: writing a default there changes the
-// identity of every plan already on disk and of every artifact that references
-// it, while the extractor already reads an empty value as that same default.
+// A manifest frozen before a policy field existed omits that field, and
+// canonicalization must leave the omission alone. The plan digest covers the
+// canonical manifest. Writing a default there renumbers every plan on disk and
+// every artifact that cites one. The extractor already reads an empty value as
+// that same default.
 func TestPlanIdentitySurvivesAnAddedPolicyField(t *testing.T) {
 	c := qt.New(t)
 	manifest, _ := sample()

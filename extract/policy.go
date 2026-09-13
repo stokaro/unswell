@@ -13,10 +13,10 @@ import (
 )
 
 // Policy selects prose contexts and explicit comment and string exceptions.
-// GitHubActions accepts shell (also the zero-value default) or strings. The
-// zero value stays out of the serialized form: a policy is hashed to identify
-// a frozen corpus artifact, so writing an unstated default would give every
-// artifact frozen before this field a new identity for no change in behavior.
+// GitHubActions accepts shell (also the zero-value default) or strings.
+// The zero value stays out of the serialized form. A policy is hashed to
+// identify a frozen corpus artifact. Writing an unstated default there would
+// renumber every artifact frozen before the field, for no change in behavior.
 // GoComments accepts godoc (also the zero-value default) or plain.
 type Policy struct {
 	GoComments      string                             `json:"go_comments" yaml:"go_comments"`
