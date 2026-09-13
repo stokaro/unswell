@@ -172,6 +172,11 @@ unpermitted finding must fail the gate.
 
 ## Review golden changes
 
+The [nested Markdown lists](testdata/markdown_nested_lists) case checks four, five,
+and eight levels through the CLI. It includes uneven indentation, BOM/CRLF,
+emphasis, Unicode, protected code, and a return to the outer list. The goldens
+record each expected detection and the original ranges omitted as code.
+
 `TestBaselineWorkflow` runs annotated files in [baselinedata](baselinedata) through
 the built CLI: create, check after unrelated movement and Markdown emphasis, reject
 semantic changes and new debt, explicitly update, then report resolved debt.

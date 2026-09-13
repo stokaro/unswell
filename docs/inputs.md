@@ -44,6 +44,10 @@ mapped framing to retain the first block's grammar wrapper and finish the last
 block. It never becomes source text or part of a reported range. Headings retain
 their structure at EOF, and leading protected blocks retain their exclusions.
 
+Nested lists preserve their prose and source ranges beyond four levels, including
+when several levels end at the same byte. A leading BOM does not change list
+indentation. Extraction still rejects syntax nesting beyond 128 grammar nodes.
+
 Original UTF-8 byte coordinates survive CRLF, escaped Unicode, Markdown entities,
 emphasis and removed delimiters. A decoded character points to its full original
 escape. Interpolation expressions and command substitutions insert protected
@@ -171,7 +175,8 @@ KiB of source. A large file under load therefore does not fail as a parse
 timeout, and a runaway parse still stops. The C# grammar is the slowest:
 about two seconds for a 19 KB file on an idle machine.
 
-The pinned backend is gotreesitter 0.52.0. An owned Bash grammar instance preserves
+The parser uses a [pinned fork of gotreesitter 0.52.0](../research/parsers/markdown-nested-lists.md)
+with a fix for repeated Markdown block closes. An owned Bash grammar instance preserves
 the grammar's empty-value token before whitespace, allowing commands such as
 `! A=x B= command` to parse. This also applies to the shared Bash subset used for
 POSIX shell and Zsh. The adapter retains substitutions, source ranges, and parser

@@ -11,7 +11,7 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
-	ts "github.com/odvcencio/gotreesitter"
+	ts "github.com/stokaro/gotreesitter"
 )
 
 func sExpression(ctx context.Context, c *qt.C, source []byte, name string) string {

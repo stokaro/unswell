@@ -5,9 +5,9 @@ go 1.25.0
 require (
 	github.com/frankban/quicktest v1.14.6
 	github.com/jdkato/prose/v3 v3.2.1
-	github.com/odvcencio/gotreesitter v0.52.0
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.3
 	github.com/spf13/cobra v1.10.2
+	github.com/stokaro/gotreesitter v0.52.1-0.20260913084044-276f5cc0ec6f
 	go.yaml.in/yaml/v3 v3.0.5
 	gopkg.in/neurosnap/sentences.v1 v1.0.7
 )
