@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.1.0-alpha.4
+
+This release repairs extraction errors found while checking real repositories
+with alpha.3. TypeScript type-only wildcard re-exports and deeply nested Markdown
+lists now parse. Markdown indentation after a byte-order mark is preserved.
+The Markdown repair uses a pinned `stokaro/gotreesitter` fork while its upstream
+pull request is pending.
+
+Go comments now preserve Go doc-comment paragraphs and list items. Indented
+examples are excluded from prose. Set `extraction.go_comments: plain` to retain
+plain extraction. Explicit `extraction.markdown_strings` selectors apply the
+Markdown grammar to decoded string literals, preserving source coordinates and
+protected code. A selected string with unresolved interpolation fails analysis.
+
+GitHub Actions `run` steps now use the selected shell grammar after YAML decoding.
+This keeps shell syntax out of prose findings. Shell selection follows workflow,
+job, and step settings; unresolved expressions and unknown shells have explicit
+exclusion reasons. Set `extraction.github_actions: strings` to check those values
+as generic YAML strings.
+
+Shared features and NLP preparation respect non-Latin exclusions. Extraction
+retains a Unicode character whose bytes map to several source spans. A Markdown
+link without a visible label keeps a boundary between neighboring words. The
+paragraph-opener rule applies its minimum word count to the whole paragraph.
+
+These fixes change extraction, preparation, and rule identities. Saved corpus
+results keep the policy that produced them. Rerun affected inputs before joining
+them with new results or model packs.
+
+This alpha makes no precision or calibration claim. Issue #219 tracks repeated
+scans of the published binary against the pinned performance corpora.
+
 ## 0.1.0-alpha.3
 
 Third experimental release, cut because the second one never published. The
