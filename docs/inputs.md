@@ -55,9 +55,17 @@ no semicolon, such as `list_for_each(pos, head) { ... }`. The call is blanked
 in a copy, so the block keeps its offsets. That holds only when the call
 contains no comment or string; any other incomplete tree stays an error.
 
+TypeScript and TSX accept type-only wildcard re-exports, including
+`export type * as names from "./types"`. The pinned grammar rejects the `type`
+modifier. Unswell recognizes the token sequence and blanks that token in a copy.
+The complete source must parse again without errors, with every changed sequence
+confirmed as a re-export. Comments and strings keep their original bytes and
+positions. Other malformed syntax remains an error.
+
 Go retains its standard parser's comment grouping and generated-file, directive
 and cgo metadata. The syntax tree validates source structure and supplies strings.
-Import paths and Go struct tags are excluded as technical metadata.
+Import paths, JavaScript/TypeScript re-export module paths, and Go struct tags are
+excluded as technical metadata. Strings in exported declarations remain checked.
 
 Every region that extraction leaves out is recorded on the document with its
 byte span and a reason. Saved reports carry that list. The reasons include the

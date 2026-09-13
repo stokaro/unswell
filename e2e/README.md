@@ -83,6 +83,11 @@ check context replacement, reasoned symbol exceptions, and directory exclusions.
 Process cases cover stdin, malformed and empty input, invalid configuration, and
 `--no-gate`. Exit codes 0, 1, and 2 are explicit expectations.
 
+`typescript_type_exports` covers wildcard and namespace type re-exports in
+TypeScript and TSX. Comments around the modifier and exported string values stay
+checked; module paths have recorded exclusions. BOM and CRLF preserve source
+coordinates. The invalid case requires exit 2 even with `--no-gate`.
+
 The [feature collection](testdata/feature_collection/sample.md.txt) case requests
 word count and lexical diversity through the CLI. Its golden keeps three counted
 words across Markdown emphasis, excludes protected code, and records absent

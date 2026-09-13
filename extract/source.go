@@ -201,6 +201,9 @@ func technicalLiteral(node *ts.Node, lang *ts.Language, format document.Format) 
 		if slices.Contains([]string{"import_spec", "import_statement", "preproc_include"}, kind) {
 			return "import-path"
 		}
+		if kind == "export_statement" && parent.ChildByFieldName("source", lang) == node {
+			return "import-path"
+		}
 		if format == document.Go && kind == "field_declaration" {
 			return "struct-tag"
 		}
