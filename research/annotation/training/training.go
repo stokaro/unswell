@@ -18,8 +18,14 @@ const MaxArtifactBytes = 16 << 20
 // MissingFeatures accepts reject, exclude, or zero, the last for rule activations
 // only; Calibration accepts none or isotonic.
 // Estimator requires logistic with Fit, or forest with Forest; the other is nil.
+// MinUnitWords and MaxUnitWords bound the prose length of an admitted unit.
+// They exist because a fit on arms of unequal length can reach a high recall by
+// learning a length threshold and nothing else; a band holds length fixed so
+// that what remains is the prose. Zero leaves the bound open.
 type Options struct {
 	Kind            string               `json:"kind"`
+	MinUnitWords    int                  `json:"min_unit_words,omitempty"`
+	MaxUnitWords    int                  `json:"max_unit_words,omitempty"`
 	Features        []string             `json:"features"`
 	MissingFeatures string               `json:"missing_features"`
 	Calibration     string               `json:"calibration"`

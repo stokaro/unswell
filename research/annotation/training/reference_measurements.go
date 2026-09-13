@@ -164,8 +164,8 @@ func referenceSelector(ctx context.Context, candidates corpus.Artifact, prepared
 		binding := corpus.FeatureBinding{UnitID: target.UnitID, SourceID: candidate.SourceID, GroupID: candidate.GroupID,
 			Path: paths[candidate.SourceID], Partition: candidate.Partition, FeatureInputHash: hash}
 		bindings = append(bindings, binding)
-		units[measurementKey(binding.Path, hash)] = measurement{kind: candidate.Unit.Kind, identity: identity,
-			values: orderedValues(identity.Columns, nil, measured[target.UnitID])}
+		units[measurementKey(binding.Path, hash)] = measurement{kind: candidate.Unit.Kind, words: candidate.Words,
+			identity: identity, values: orderedValues(identity.Columns, nil, measured[target.UnitID])}
 	}
 	selector := rowSelector{options: options, measure: func(binding corpus.FeatureBinding) (measurement, bool) {
 		unit, exists := units[measurementKey(binding.Path, binding.FeatureInputHash)]

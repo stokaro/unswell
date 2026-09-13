@@ -128,15 +128,12 @@ func (p targetPredictor) predict(ctx context.Context, bindings []corpus.FeatureB
 		if err := ctx.Err(); err != nil {
 			return nil, err
 		}
-		candidate, exists := p.targets[binding.UnitID]
-		if !exists {
-			return nil, fmt.Errorf("measurement has no corpus target %s", binding.UnitID)
+		scored, err := p.scores(binding)
+		if err != nil {
+			return nil, err
 		}
-		if binding.Partition != p.plan.Partition || candidate.Unit.Kind != p.fitted.Options.Kind {
+		if !scored {
 			continue
-		}
-		if !slices.Contains(candidate.Unit.Rights.AllowedUses, "evaluation") {
-			return nil, fmt.Errorf("unit %s lacks a declared evaluation permission", binding.UnitID)
 		}
 		row, err := p.one(ctx, binding)
 		if err != nil {
@@ -145,6 +142,27 @@ func (p targetPredictor) predict(ctx context.Context, bindings []corpus.FeatureB
 		rows = append(rows, row)
 	}
 	return rows, nil
+}
+
+// scores reports whether one binding belongs to the scored set: the plan's
+// partition, the fit's unit kind, the fit's word band, and a declared
+// evaluation permission.
+func (p targetPredictor) scores(binding corpus.FeatureBinding) (bool, error) {
+	candidate, exists := p.targets[binding.UnitID]
+	if !exists {
+		return false, fmt.Errorf("measurement has no corpus target %s", binding.UnitID)
+	}
+	if binding.Partition != p.plan.Partition || candidate.Unit.Kind != p.fitted.Options.Kind {
+		return false, nil
+	}
+	admitted, err := bandAdmits(candidate, binding.UnitID, p.fitted.Options)
+	if err != nil || !admitted {
+		return false, err
+	}
+	if !slices.Contains(candidate.Unit.Rights.AllowedUses, "evaluation") {
+		return false, fmt.Errorf("unit %s lacks a declared evaluation permission", binding.UnitID)
+	}
+	return true, nil
 }
 
 func (p targetPredictor) one(ctx context.Context, binding corpus.FeatureBinding) (Prediction, error) {
@@ -256,4 +274,17 @@ func validatePredictionResources(fitted Artifact, resources PredictionResources)
 
 func samePredictionCorpus(candidates corpus.Artifact, fitted Artifact, plan PredictionPlan) bool {
 	return candidates.SHA256 == plan.CorpusSHA256 && candidates.Plan.ManifestSHA256 == fitted.ManifestSHA256
+}
+
+// bandAdmits reports whether a candidate falls inside the fit's word band. A
+// fit bounded by a band must be scored inside the same band, or the reported
+// rates would cover lengths the fit never admitted.
+func bandAdmits(candidate corpus.Candidate, unitID string, options Options) (bool, error) {
+	if options.MinUnitWords == 0 && options.MaxUnitWords == 0 {
+		return true, nil
+	}
+	if candidate.Words <= 0 {
+		return false, fmt.Errorf("a word band needs a counted unit, and %s carries none", unitID)
+	}
+	return WithinWordBand(candidate.Words, options), nil
 }

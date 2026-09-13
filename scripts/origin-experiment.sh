@@ -29,6 +29,8 @@ negative_roles=()
 exclude_source_files=()
 scored_partitions=()
 extra_features=()
+min_unit_words=0
+max_unit_words=0
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --work)
@@ -103,9 +105,17 @@ while [[ $# -gt 0 ]]; do
       extra_features+=("$2")
       shift 2
       ;;
+    --min-unit-words)
+      min_unit_words=$2
+      shift 2
+      ;;
+    --max-unit-words)
+      max_unit_words=$2
+      shift 2
+      ;;
     *)
       printf 'Usage: %s OPTIONS\n' "$0" >&2
-      printf 'Options: --work DIR, --acquisition DIR, --dataset-plan FILE, --tasks FILE, --generation FILE, --protocol FILE, --output DIR, --record DIR, --id ID, --cap N, --max-source-bytes N, --exclude-source-file FILE (repeatable), --score-partition NAME (repeatable; default development and final_test), --extra-feature ID (repeatable), --threshold T, --negative-role ROLE (repeatable; default comment), --findings DIR\n' >&2
+      printf 'Options: --work DIR, --acquisition DIR, --dataset-plan FILE, --tasks FILE, --generation FILE, --protocol FILE, --output DIR, --record DIR, --id ID, --cap N, --max-source-bytes N, --exclude-source-file FILE (repeatable), --score-partition NAME (repeatable; default development and final_test), --extra-feature ID (repeatable), --min-unit-words N, --max-unit-words N, --threshold T, --negative-role ROLE (repeatable; default comment), --findings DIR\n' >&2
       exit 2
       ;;
   esac
@@ -185,8 +195,12 @@ feature_flags=()
 for feature in "${features[@]}"; do
   feature_flags+=(--feature "$feature")
 done
+# A band on unit length holds the two arms at one length, so a fit cannot buy
+# recall by learning a threshold on how long a comment is.
+band_flags=(--min-unit-words "$min_unit_words" --max-unit-words "$max_unit_words")
 "$corpus_tool" train --root "$work" --labels provenance --kind paragraph "${feature_flags[@]}" \
-  --missing-features exclude --calibration isotonic <"$output/candidates.json" >"$output/model.json"
+  "${band_flags[@]}" --missing-features exclude --calibration isotonic \
+  <"$output/candidates.json" >"$output/model.json"
 
 # A stopping rule that opens the confirmation partition only on a positive
 # development result needs a run that scores one partition and stops.

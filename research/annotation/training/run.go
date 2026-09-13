@@ -79,6 +79,15 @@ func fitSelected(ctx context.Context, candidates corpus.Artifact, decisions anno
 	return finish(ctx, result)
 }
 
+// validateWordBand rejects a band that cannot admit anything.
+func validateWordBand(options Options) error {
+	if options.MinUnitWords < 0 || options.MaxUnitWords < 0 ||
+		(options.MaxUnitWords > 0 && options.MaxUnitWords < options.MinUnitWords) {
+		return fmt.Errorf("a word band needs non-negative bounds with the maximum at or above the minimum")
+	}
+	return nil
+}
+
 func validateOptions(ctx context.Context, candidates corpus.Artifact, options Options) error {
 	if err := ctx.Err(); err != nil {
 		return err
@@ -92,6 +101,9 @@ func validateOptions(ctx context.Context, candidates corpus.Artifact, options Op
 	}
 	if options.Calibration != "none" && options.Calibration != "isotonic" {
 		return fmt.Errorf("calibration must be none or isotonic")
+	}
+	if err := validateWordBand(options); err != nil {
+		return err
 	}
 	if err := validateReservation(options.Reservation, candidates); err != nil {
 		return err

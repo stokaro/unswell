@@ -30,6 +30,7 @@ type rowSelector struct {
 
 type measurement struct {
 	kind     string
+	words    int
 	identity Identity
 	values   []feature.Value
 	reason   string
@@ -78,6 +79,14 @@ func (s *rowSelector) add(binding corpus.FeatureBinding) error {
 	}
 	if unit.kind != s.options.Kind {
 		partition.Excluded["unselected_kind"]++
+		return nil
+	}
+	admitted, reason, err := bandReason(unit.words, binding.UnitID, s.options)
+	if err != nil {
+		return err
+	}
+	if !admitted {
+		partition.Excluded[reason]++
 		return nil
 	}
 	decision, exists := s.decisions[binding.UnitID]
@@ -220,4 +229,36 @@ func partitionCounts(plan corpus.Plan) []Partition {
 		p.Sources += len(group.Sources)
 	}
 	return result
+}
+
+// WithinWordBand reports whether a unit of this length is admitted by the
+// options' word band. An open bound admits every length, so a fit without a
+// band admits everything and the caller need not branch on it.
+func WithinWordBand(words int, options Options) bool {
+	return outsideWordBand(words, options) == ""
+}
+
+// outsideWordBand names the bound a unit misses, or the empty string when the
+// unit is admitted. An open bound admits every length.
+func outsideWordBand(words int, options Options) string {
+	if options.MinUnitWords > 0 && words < options.MinUnitWords {
+		return "word_band/below_minimum"
+	}
+	if options.MaxUnitWords > 0 && words > options.MaxUnitWords {
+		return "word_band/above_maximum"
+	}
+	return ""
+}
+
+// bandReason reports whether a unit of this length is admitted and, when it is
+// not, the exclusion reason the partition counts under.
+func bandReason(words int, unitID string, options Options) (bool, string, error) {
+	if options.MinUnitWords == 0 && options.MaxUnitWords == 0 {
+		return true, "", nil
+	}
+	if words <= 0 {
+		return false, "", fmt.Errorf("a word band needs a counted unit, and %s carries none", unitID)
+	}
+	reason := outsideWordBand(words, options)
+	return reason == "", reason, nil
 }

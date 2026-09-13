@@ -15,6 +15,8 @@ func trainingFlags(flags *flag.FlagSet, options *training.Options) {
 	flags.StringVar(&options.Estimator, "estimator", "logistic", "Numerical estimator: logistic or forest")
 	forestFlags(flags, options.Forest)
 	flags.StringVar(&options.Kind, "kind", "", "One corpus target kind: sentence, paragraph, or fragment")
+	flags.IntVar(&options.MinUnitWords, "min-unit-words", 0, "Shortest admitted unit in prose words; 0 leaves it open")
+	flags.IntVar(&options.MaxUnitWords, "max-unit-words", 0, "Longest admitted unit in prose words; 0 leaves it open")
 	flags.StringVar(&options.MissingFeatures, "missing-features", "reject",
 		"Missing feature policy: reject, exclude, or zero (rule activations only: a rule that cannot fire counts as zero)")
 	flags.StringVar(&options.Calibration, "calibration", "none", "Separate calibration: none or isotonic")
