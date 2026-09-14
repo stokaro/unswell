@@ -98,7 +98,7 @@ called for. Four ratios describe how much one unit repeats itself: the highest
 word frequency, adjacent word pairs that occur more than once, sentences whose
 first word repeats another opener, and sentences whose word sequence repeats
 another. Adjacent pairs never cross a sentence boundary, and a sequence identity
-is a digest rather than retained prose. They are descriptive: technical prose
+is a digest, not retained prose. They are descriptive: technical prose
 repeats terms for good reasons, and a high ratio is not a defect.
 
 These descriptors join the existing contract rather than replacing it. Every

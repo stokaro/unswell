@@ -118,7 +118,7 @@ under `research/generation/runs/2026-09-13-confirm2-haiku` and
 `-luna`. `confirmation-tasks.json` is the draw. The corpus was measured
 again with them, 808 shards, none skipped.
 
-Scoring it stops at an engine limit rather than a research question. A
+Scoring it stops at an engine limit, not a research question. A
 lexical prediction counts n-gram terms for every unit it will score, and
 holds them under a 64 MiB retention budget. The banded confirmation
 partition needs more than that. Two ways forward, neither taken here:

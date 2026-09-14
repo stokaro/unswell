@@ -78,10 +78,21 @@ func editorialPhraseRules() []rule.Rule {
 func editorialRhetoricRules() []rule.Rule {
 	contrast := experimentalPattern("syntax.paired-contrast-density", "Check whether repeated paired contrasts carry distinct information.",
 		"rhetorical-patterns",
-		rule.Example{Text: "It is not about speed. It is about impact. It is not about tools. It is about outcomes.", Match: true},
-		rule.Example{Text: "It is not about throughput. It is about the latency bound."})
-	contrast.Description = "Counts adjacent 'It is not about'/'It is about' sentence pairs, including contractions, in bounded prose windows."
-	contrast.Limitations += " Only the declared opening structures are recognized; no semantic equivalence is inferred."
+		rule.Example{Text: "The plan is refused rather than applied. The row is dropped rather than rewritten. " +
+			"The name is reported instead of guessed.", Match: true},
+		rule.Example{Text: "The request is refused rather than retried, because the checksum did not match."})
+	contrast.Description = "Counts paired contrasts in bounded prose windows: 'rather than' and 'instead of' " +
+		"within a sentence, and adjacent 'It is not about'/'It is about' sentence pairs including contractions."
+	contrast.Limitations += " Only the declared structures are recognized; no semantic equivalence is inferred. " +
+		"A single contrast is ordinary English and the window allows two; the rule measures repetition of the " +
+		"shape, not its use."
+	// The window covers a passage of prose, not a whole document, so a passage
+	// decides the allowance. One contrast in a paragraph reads as ordinary
+	// English: 1.6% of human code comments and 1.9% of human specification
+	// paragraphs carry one. Two in a paragraph occurred in none of 29,063 human
+	// paragraphs, and in 1.7% of the paragraphs of one generated documentation
+	// tree. The inherited allowance of one already sits at that boundary, so it
+	// stays.
 	triad := experimentalPattern("syntax.triad-density", "Check repeated triads of evaluative modifiers against specific properties.",
 		"inflation",
 		rule.Example{Text: "A powerful, seamless, innovative platform starts. " +
