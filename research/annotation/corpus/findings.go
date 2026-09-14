@@ -101,7 +101,7 @@ type FindingsArtifact struct {
 // analysis cannot read an edited artifact as a measurement.
 func LoadFindings(ctx context.Context, data []byte) (FindingsArtifact, error) {
 	var artifact FindingsArtifact
-	limits := jsoninput.Limits{Array: MaxFindingRecords, Object: MaxUnits}
+	limits := jsoninput.Limits{Array: MaxFindingRecords, Object: MaxCandidates}
 	if err := jsoninput.Decode(ctx, data, MaxArtifactBytes, &artifact, limits); err != nil {
 		return FindingsArtifact{}, err
 	}

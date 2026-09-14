@@ -192,7 +192,7 @@ func buildCompressionBank(ctx context.Context, artifact Artifact, prepared Prepa
 // options. It does not verify the reference prose against any source.
 func LoadCompressionBank(ctx context.Context, data []byte) (CompressionBank, error) {
 	var result CompressionBank
-	limits := jsoninput.Limits{Array: MaxUnits, Object: 64}
+	limits := jsoninput.Limits{Array: MaxCandidates, Object: 64}
 	if err := jsoninput.Decode(ctx, data, MaxCompressionBankBytes, &result, limits); err != nil {
 		return CompressionBank{}, err
 	}

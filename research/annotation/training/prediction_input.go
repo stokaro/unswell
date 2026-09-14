@@ -83,7 +83,7 @@ func predictionContext(source string) (string, error) {
 // extraction. It checks its model, plan, rows, and digest; it does not attest origin.
 func LoadPredictions(ctx context.Context, data []byte) (Predictions, error) {
 	var result Predictions
-	limits := jsoninput.Limits{Array: corpus.MaxUnits, Object: 256,
+	limits := jsoninput.Limits{Array: corpus.MaxCandidates, Object: 256,
 		Arrays: map[string]int{"scores": model.MaxCalibrationSamples, "responses": model.MaxCalibrationSamples}}
 	if err := jsoninput.Decode(ctx, data, MaxPredictionBytes, &result, limits); err != nil {
 		return Predictions{}, err

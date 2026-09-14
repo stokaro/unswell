@@ -88,8 +88,8 @@ func collectSources(ctx context.Context, result *Artifact, files map[string][]by
 			return err
 		}
 		result.Units = append(result.Units, units...)
-		if len(result.Units) > MaxUnits {
-			return fmt.Errorf("candidate count exceeds %d", MaxUnits)
+		if len(result.Units) > MaxCandidates {
+			return fmt.Errorf("candidate count exceeds %d", MaxCandidates)
 		}
 		result.Sources = append(result.Sources, out)
 	}

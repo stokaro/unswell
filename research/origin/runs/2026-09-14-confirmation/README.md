@@ -1,127 +1,120 @@
 # Confirmation run of the lexical origin fit, 2026-09-14
 
-The confirmation partition is scored. It separates: recall 0.907 at a
-false-flag rate of 0.071 on real code comments, with a Brier interval
-that excludes the constant baseline.
+The confirmation partition separates. Recall 0.875 at a false-flag rate
+of 0.052 on real code comments, with a Brier interval that excludes the
+constant baseline. Both stopping conditions hold on held-out data, and
+the development arm that admitted the partition is reproduced exactly.
 
-Three things qualify that number, and all three are stated before it is
-used for anything. They are not footnotes; they decide how much the
-result is worth.
+This is the first confirmation result in this line of work.
 
 ## What was run
 
-The [lexical fit](../2026-09-13-lexical/README.md) reached both stopping
-conditions on the development partition, which is what admits the
-confirmation partition. That partition had no controlled arm, because
-every long-form task so far came from a repository pinned to training or
-development. One was built: 200 tasks from the ten confirmation-pinned
-repositories with an eligible unit at the fifty-word floor, both
-generator families, 1,600 responses, all complete, mean 75 and 72 words.
+The [lexical fit](../2026-09-13-lexical/README.md) met both stopping
+conditions on development, which is what admits the confirmation
+partition. That partition had no controlled arm, because every long-form
+task so far came from a repository pinned to training or development.
 
+One was built: 200 tasks from the ten confirmation-pinned repositories
+with an eligible unit at the fifty-word floor, both generator families,
+1,600 responses, all complete, mean 75 and 72 words.
 `confirmation-tasks.json` is the draw. The corpus was measured again with
 them, 808 shards, none skipped.
+
+The corpus holds both arms whole: 11,990 candidates over 4,366 sources.
+The development partition scores 721 eligible units with 297 true and 12
+false positives, the same counts the lexical run reported, so the
+admission decision and the confirmation come from one corpus.
 
 ## Result
 
 | Metric | Development | Confirmation |
 | --- | --- | --- |
-| False-flag rate on code comments | 0.136 | 0.071 |
-| Recall | 0.783 | 0.907 |
-| Precision | 0.908 | 0.965 |
-| Brier | 0.184 | 0.084 |
-| Constant baseline | 0.304 | 0.320 |
-| Coverage | 0.994 | 0.981 |
+| False-flag rate on code comments | 0.040 | 0.052 |
+| Recall | 0.744 | 0.875 |
+| Precision | 0.961 | 0.973 |
+| Brier | 0.144 | 0.083 |
+| Constant baseline | 0.331 | 0.379 |
+| Coverage | 0.968 | 0.924 |
 
-The confirmation Brier interval is [0.063, 0.132] and excludes its
-constant of 0.320. Its false-flag interval is [0.031, 0.116].
+Confirmation intervals: false-flag [0.028, 0.082], entirely below the
+declared limit of 0.10; Brier [0.062, 0.130] against a constant of 0.379,
+which it excludes; recall [0.756, 0.908].
 
-## The first qualification: the corpus is not the one that admitted it
+## Two things still qualify it
 
-A corpus holding a full development arm and a full confirmation arm does
-not fit in one artifact. `corpus.MaxUnits` is 10,000, a resource bound on
-a single manifest that the module's own comment says does not define
-sample adequacy, and the two arms together exceed it. Keeping both meant
-lowering the per-checkout cap from fifteen to ten, which changes the
-development arm as well.
-
-Nothing derives the value. It arrived with the first corpus commit,
-paired with an identical bound on sources, and neither that commit's
-message nor the architecture record that accompanied it mentions the
-number or argues for it. It is round, it bounds memory and serialization,
-and it has stood unexamined since. That is worth knowing before treating
-it as a finding about the corpus rather than about the tool.
-
-The bound has an escape hatch and this harness does not use it. A dataset
-of shards carries up to 200,000 sources across 1,024 manifests, which is
-how acquisition holds a corpus this size. `dataset union` then collapses
-the selection back into one manifest so a fit can read it whole, and that
-one manifest is what the ceiling applies to. Teaching the fit to read a
-sharded candidate set, or raising the per-artifact bound, would remove
-this constraint. Neither is done here.
-
-So the development column above is 0.136, not the 0.040 the lexical run
-reported. The decision to open the confirmation partition was made on a
-corpus this run could not reproduce. Several attempts to preserve the
-development arm exactly and trim only the confirmation side all exceeded
-the same ceiling; they are not reported because none of them ran.
-
-A result whose admission was decided on a different corpus is weaker than
-one whose admission was decided on its own. This one is that.
-
-## The second qualification: the languages are not the same
-
-The model's worst case is C#, at 0.431 in this run's development
-partition. The ten confirmation repositories contain no C# at all:
+**The languages differ.** The ten confirmation repositories carry no C#,
+which is the model's worst case at 0.103 in development.
 
 | Language | Comments | Flagged | Rate |
 | --- | --- | --- | --- |
-| Java | 111 | 8 | 0.072 |
-| Rust | 73 | 1 | 0.014 |
-| Go | 37 | 7 | 0.189 |
-| JavaScript | 3 | 0 | 0.000 |
+| Java | 114 | 6 | 0.053 |
+| Rust | 75 | 1 | 0.013 |
+| Go | 34 | 5 | 0.147 |
+| JavaScript | 8 | 0 | 0.000 |
 
-Part of the gap between 0.136 and 0.071 is that the partition the model
-does worse on holds the language it does worse on. The confirmation rate
-is not a like-for-like improvement.
+Go is the worst here at 0.147 on 34 comments, a thin count. A partition
+without the language a model struggles on is an easier partition.
 
-## The third qualification: length is back
+**Length tracking returns.** The development partition is flat across the
+three sub-bands. The confirmation partition is not:
 
-The banded fit was supposed to stop the false-flag rate tracking unit
-length. In the confirmation partition it tracks it again:
+| Unit words | Generated | Code comments | Recall | False-flag rate | Partition |
+| --- | --- | --- | --- | --- | --- |
+| 25 to 39 | 178 | 158 | 0.264 | 0.025 | development |
+| 40 to 59 | 328 | 89 | 0.744 | 0.056 | development |
+| 60 to 89 | 177 | 52 | 0.893 | 0.058 | development |
+| 25 to 39 | 127 | 129 | 0.307 | 0.016 | confirmation |
+| 40 to 59 | 550 | 84 | 0.580 | 0.071 | confirmation |
+| 60 to 89 | 399 | 18 | 0.677 | 0.222 | confirmation |
 
-| Unit words | Generated | Code comments | Recall | False-flag rate |
-| --- | --- | --- | --- | --- |
-| 25 to 39 | 128 | 137 | 0.398 | 0.036 |
-| 40 to 59 | 551 | 70 | 0.637 | 0.100 |
-| 60 to 89 | 402 | 17 | 0.756 | 0.235 |
+On held-out repositories the false-flag rate rises from 0.016 to 0.222
+with unit length, where on development it barely moves. Eighteen comments
+in the top band is thin, so the 0.222 is imprecise, but the direction is
+the one the band was meant to remove. Recall inside each band is also
+lower than on development, so the separation generalizes but less
+sharply.
 
-The lexical run's development partition was flat across these bands, 0.025
-to 0.058. Here the rate rises sixfold from the first band to the third.
-Seventeen comments in the top band is a thin count, so the 0.235 is not
-precise, but the direction holds across all three.
+Coverage is 0.924 against 0.968: more units fall outside the calibration
+range on unseen repositories.
 
 ## What this establishes
 
-That the separation is real and survives a held-out partition. It is the
-first confirmation result in this line of work, and it is not a null.
+That the separation survives a partition the fit never saw, at a
+false-flag rate a tool could carry. The headline numbers are not a
+development artifact.
 
-It does not establish the rate a tool would carry into a repository. The
-admission decision, the language mix, and the length behavior all point
-the same way: the honest reading is the development column, not the
-confirmation one, and the development column on this corpus is 0.136.
+It does not establish a rate for C#, which the partition does not
+contain, and it does not show the length independence the development
+partition showed. A deployment reading would take the worse of the two
+partitions per band, which is 0.222 above sixty words.
+
+It reports declared provenance, not human judgment. A false-flag rate on
+comments a repository already contains is not a rate on comments a person
+wrote today and would defend. That needs the human-labeled corpus of
+issue 22 and the published evaluation of issue 25, both on hold.
 
 ## What the shipped pack is
 
 `research/origin/packs/unswell-origin-lexical-v1.json` is the fit from
-the lexical run, not this one. This run refits on its own corpus, so its
-numbers describe a different model. The pack's record stays the lexical
-run's development result, and this run does not transfer to it.
+the lexical run. This run refits on a corpus that adds the confirmation
+arm, so its model is not byte-identical to the packed one, but its
+development partition reproduces the same counts.
 
-## Engine note
+## Engine notes
 
-A lexical prediction used to count every n-gram of every unit and hold
-them all before scoring. The confirmation partition exhausted the 64 MiB
-retention budget that guards it. Counting now drops the keys no column
-reads as it goes, because the vocabulary is frozen by then, so a unit
-retains at most 128 terms instead of thousands. Fitting, which has no
-vocabulary yet, is unchanged.
+Two limits moved, both because this corpus is the first to need it.
+
+A lexical prediction used to count every n-gram of every unit and retain
+them all before scoring, which exhausted the 64 MiB retention budget.
+Counting now drops the keys no column reads as it goes, since the
+vocabulary is frozen by prediction time, so a unit retains at most 128
+terms instead of thousands. Fitting, which has no vocabulary yet, is
+unchanged.
+
+The candidate ceiling was one constant, `MaxUnits`, used both for what a
+single source may contribute and for what an artifact may hold. Those
+protect different things: a corpus of many ordinary sources is not a
+pathological file. The artifact bound is now `MaxCandidates` at 50,000
+and the per-source bound stays at 10,000. Manifest sources keep their own
+limit of 10,000, since a larger corpus is a sharded dataset rather than
+one manifest.

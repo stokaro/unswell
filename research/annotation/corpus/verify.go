@@ -34,7 +34,7 @@ func LoadArtifact(ctx context.Context, data []byte) (Artifact, error) {
 }
 
 func (a Artifact) validate(ctx context.Context) error {
-	if a.Version != Version || a.Status != "unlabeled_candidates" || len(a.Units) == 0 || len(a.Units) > MaxUnits {
+	if a.Version != Version || a.Status != "unlabeled_candidates" || len(a.Units) == 0 || len(a.Units) > MaxCandidates {
 		return fmt.Errorf("unsupported or empty candidate artifact")
 	}
 	if err := ValidatePlan(ctx, a.Plan); err != nil {

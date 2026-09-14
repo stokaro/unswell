@@ -39,8 +39,11 @@ func LoadManifest(ctx context.Context, data []byte) (Manifest, error) {
 }
 
 func inputLimits() jsoninput.Limits {
-	return jsoninput.Limits{Array: MaxUnits, Object: MaxSources,
-		Arrays: map[string]int{"keys": 100000, "segments": 1024, "role_regions": 1000}}
+	// The generic bound is the artifact's candidate count. Sources keep their
+	// own, smaller bound by name: a manifest holding more than MaxSources is a
+	// sharded dataset, not one manifest.
+	return jsoninput.Limits{Array: MaxCandidates, Object: MaxSources,
+		Arrays: map[string]int{"sources": MaxSources, "keys": 100000, "segments": 1024, "role_regions": 1000}}
 }
 
 func (m Manifest) validate(ctx context.Context) error {
