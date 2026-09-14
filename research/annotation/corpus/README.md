@@ -421,7 +421,8 @@ Successful verification reports `source_and_candidates_reproduced` and
 provenance, unseen relationships, or scientific sample adequacy. Candidates include
 source text; distribute only material whose recorded permissions allow it.
 
-Preparation limits are 10,000 sources/units, 2 MiB per source or notice, 64 MiB of
+Preparation limits are 10,000 sources per manifest, 10,000 units from any one
+source, 50,000 candidates in one artifact, 2 MiB per source or notice, 64 MiB of
 total declared bytes, 16 MiB manifests, and 128 MiB input/output artifacts. Eligible
 context is limited to 65,536 bytes and each unit to 1,024 source segments. Compact
 candidate serialization has a conservative 64 MiB preparation budget, reserving

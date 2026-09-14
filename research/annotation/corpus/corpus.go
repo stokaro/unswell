@@ -19,14 +19,24 @@ const (
 	MaxSourceBytes   = 2 << 20
 	MaxTotalBytes    = 64 << 20
 	MaxSources       = 10000
-	MaxUnits         = 10000
+	// MaxUnits bounds one source: the blocks a document yields and the units
+	// one source contributes. It protects preparation against a single
+	// pathological file.
+	MaxUnits = 10000
+	// MaxCandidates bounds the whole artifact. It is separate from MaxUnits
+	// because the two protect different things: a corpus of many ordinary
+	// sources is not a pathological file, and holding a development arm and a
+	// confirmation arm together needs more candidates than any one source may
+	// contribute. Raising it costs memory and artifact bytes, both of which
+	// MaxArtifactBytes and MaxTotalBytes still bound.
+	MaxCandidates = 50000
 	// MaxRuleBlocks bounds the blocks a rule collection records. Every block
-	// of a source carries activations. A corpus at the unit limit has three
-	// to four blocks per candidate, so the bound is five per unit.
+	// of a source carries activations. A corpus at the candidate limit has
+	// three to four blocks per candidate, so the bound is five per candidate.
 	// MaxRuleCollectionBytes bounds the collection itself. Forty activations
 	// per block over such a corpus take most of the artifact. The decisions
 	// and bindings fill the rest.
-	MaxRuleBlocks          = 5 * MaxUnits
+	MaxRuleBlocks          = 5 * MaxCandidates
 	MaxRuleCollectionBytes = MaxArtifactBytes / 4 * 3
 )
 
