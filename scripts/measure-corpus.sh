@@ -240,6 +240,15 @@ for kind in paragraph sentence; do
     candidate_args earlier "$earlier" >"$output/appearance-args.txt"
     candidate_args later "$later" >>"$output/appearance-args.txt"
     while IFS= read -r line; do appearance_args+=("$line"); done <"$output/appearance-args.txt"
+    # A limited rerun measures a few shards, so one side of the pair can hold
+    # no measured shard at all. A filter needs both sides, so the pair is
+    # named as skipped rather than compared against nothing.
+    if ! grep -q '^--earlier$' "$output/appearance-args.txt" ||
+      ! grep -q '^--later$' "$output/appearance-args.txt"; then
+      rm -f "$output/appearance-args.txt"
+      printf 'first appearance: %s against %s has no measured shard on one side; skipped\n' "$later" "$earlier"
+      continue
+    fi
     rm -f "$output/appearance-args.txt"
     filter=$output/first-appearance-$later-vs-$earlier-$kind.json
     "$corpus_tool" first-appearance --unit-kind "$kind" "${appearance_args[@]}" >"$filter"
@@ -262,6 +271,10 @@ for kind in paragraph sentence; do
   done
   while IFS= read -r line; do selection_args+=("$line"); done <"$output/selection-args.txt"
   rm -f "$output/selection-args.txt"
+  if [[ ${#selection_args[@]} -eq 0 ]]; then
+    printf 'unique: no measured shard for %s units; skipped\n' "$kind"
+    continue
+  fi
   selection=$output/unit-selection-$kind.json
   "$corpus_tool" dedupe --unit-kind "$kind" --order "$order" "${selection_args[@]}" >"$selection"
   "$corpus_tool" analyze --classes "$classes" "${findings_args[@]}" --unit-kind "$kind" --selection "$selection" \
