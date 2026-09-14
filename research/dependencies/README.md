@@ -24,6 +24,28 @@ pinned README lists 6 GB RAM as an upstream requirement; this is not our
 measurement. These decisions concern the inspected distributions, not a claim
 that the algorithms cannot support English.
 
+### Current dependency selection
+
+Issue [#264](https://github.com/stokaro/unswell/issues/264) defers GoSpacy
+`v3.8.14-port.6` and restores `port.2` for new probe builds. On September 14, 2026,
+the cached Go module for `port.6` was available with checksum
+`h1:mLgIsDrAvE3sZY+Ob7ZdWocrMpKFYM9YmRKXbOX6x0k=`. Its module metadata named commit
+`8b8f86fcea11b0a279709da4d0706b3dbf195973`, but GitHub returned 404 for the
+[`port.6` tag](https://api.github.com/repos/bioshock/gospacy/git/ref/tags/v3.8.14-port.6)
+and 422 for that commit. A cached module does not establish current upstream
+source availability. No compatibility result is claimed for `port.6`.
+
+The accessible `port.2` annotated tag resolves to
+[`e2766da9ab71ffc55a5967a76a474046a96402bc`](https://github.com/bioshock/gospacy/commit/e2766da9ab71ffc55a5967a76a474046a96402bc),
+which matches its Go module metadata. Its module checksum is
+`h1:F99ppWpbkBV08dQmgskrqOHtAqzAA2Ly90558GeQLUc=`.
+Dependabot ignores only `3.8.14-port.6`; other versions remain eligible for review.
+Reconsider that version when matching upstream source becomes accessible.
+
+The committed observations, reference results, resource measurements, and
+candidate records below still describe the original September 8 `port.2` run.
+They have not been rewritten as measurements of a newer build or schema.
+
 The archive downloaded from the
 [official English model release](https://github.com/explosion/spacy-models/releases/tag/en_core_web_sm-3.8.0)
 had this SHA-256:
@@ -60,8 +82,34 @@ From this directory:
 CGO_ENABLED=0 go test ./...
 probe_commit=$(git rev-parse HEAD)
 CGO_ENABLED=0 go build -ldflags "-X main.buildCommit=$probe_commit" -o dependencyprobe ./cmd/dependencyprobe
+./dependencyprobe --build-info
 ./dependencyprobe --model "$model_dir" --input testdata/cases.json --repeat 100 > observation.json
 ```
+
+New observations use `unswell-dependency-probe-v2`. The old `provider` string and
+top-level `revision` are replaced by a `provider` object containing `path`,
+`version`, `sum`, and `revision`. These module fields come from the binary's
+embedded Go build information, not from a hard-coded release or files in its
+working directory. `sum` is the Go module checksum, not a model checksum or Git
+commit hash. The main module's `vcs.revision` cannot identify the dependency.
+Go does not embed dependency VCS revisions, so `provider.revision` is explicitly
+`null`; an unknown revision is never copied from a previous experiment.
+
+A versioned replacement reports the replacement's path, version, and checksum,
+with the original requirement in `provider.requested`. Local replacements and
+missing or invalid checksums are rejected before model loading or report output.
+Missing build information also fails explicitly. This keeps an unidentifiable
+build from producing a seemingly verified observation.
+
+`--build-info` reports the same build metadata with schema
+`unswell-dependency-probe-build-v1`. It loads no model, accepts no analysis options,
+and works outside the source checkout. Blackbox tests compare its output with
+the compiled binary's module metadata. Metadata tests cover version and checksum
+changes, replacements, missing information, and the unknown-revision case.
+
+The committed `testdata/observation.json` remains schema v1. Its source traces
+remain the reference for the original experiment; the Python comparison uses
+the unchanged `sources` fields in either observation version.
 
 The command never downloads resources or launches a model server. It accepts
 only explicit model/input paths, rejects unknown case fields and duplicate IDs,
