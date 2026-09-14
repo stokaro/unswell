@@ -22,7 +22,10 @@ type parsedSource struct {
 }
 
 func evaluate(ctx context.Context, opts options) (observation, error) {
-	result := newObservation(opts.repeat)
+	result, err := newObservation(opts.repeat)
+	if err != nil {
+		return result, err
+	}
 	cases, hash, err := loadCases(opts.input)
 	if err != nil {
 		return result, err

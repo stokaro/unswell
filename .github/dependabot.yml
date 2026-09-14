@@ -5,6 +5,10 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # #264: The port.6 source tag and proxy-reported revision are unavailable.
+      - dependency-name: github.com/bioshock/gospacy/v3
+        versions: [3.8.14-port.6]
     groups:
       shared-go-dependencies:
         group-by: dependency-name
