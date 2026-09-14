@@ -1,26 +1,26 @@
 {
   "version": "unswell-research-evaluation-v5",
-  "sha256": "7d82524a89e810c252bfed305e458c9d80ae14059d5fdb3f279c2dbcd7d37720",
+  "sha256": "65b5ae42895bd29e1b57503f743671fb786806e5eb43f8b1fcab682661ddbbfb",
   "status": "experimental_metrics",
   "human_corpus": "not_qualified",
   "probability_status": "unavailable_unqualified_model",
   "basis": "declared_provenance",
   "training_basis": "declared_provenance",
-  "predictions_sha256": "3bcfdfd8b85741be749d1f4f23989ffcde972ff9bfb33583618c60690311a688",
-  "plan_sha256": "015763cc0c144283b7e986fff1aaebcdb45817ac5843bc737fb1b1aa45e1df1a",
+  "predictions_sha256": "e8dd68d33d8041c899d9daffdb60dc9e53fac2ab2549395d15d7dffaa42331ee",
+  "plan_sha256": "6d3d948fa94c929f3d1bf55f5c112a540a7eca993379baef21725fe4aff67b36",
   "plan": {
     "version": "unswell-research-predictions-v2",
-    "id": "origin-lexical-v2-development",
+    "id": "origin-lexical-full-development",
     "protocol_sha256": "9e4e0daa8a60b16ccac47d6699e7561eb34428fb79582bbf79efe0cca18208f7",
-    "model_sha256": "c2477fb97d5ea7258a870887c2381fc0f1eae1c342886183fc1b755ab91b0ae1",
-    "corpus_sha256": "ce938c879667d3c54755d2ebbfd357da0d72be74123da99c4272281e9abad3fd",
+    "model_sha256": "69828ea7ec480da498e1d66862b38b0b82f47f9d681b4940d7dac11dd53ee5af",
+    "corpus_sha256": "c479da49190ffb244965960dc6128c41811651d3bf1d1408a2aff5f762ff915e",
     "partition": "development",
     "context": "prepared_piece",
     "response": "isotonic",
     "threshold": 0.5
   },
   "identity": {
-    "lexical_vocabulary_hash": "5cc0eeeb418ad592c26e37cea478ee3c76220618b7f8ab47a4fd18d0fbe8e9e3",
+    "lexical_vocabulary_hash": "8b224e49250890a3fd504a12f4a403abbe771ef2a7e46b7aef6eedb5e7be43a6",
     "feature_source": "lexical_ngrams",
     "context": "prepared_piece",
     "preprocessing": "shared-prepared-target/log1p-count-v1",
@@ -50,6 +50,23 @@
       },
       {
         "ID": "ngram.015c997b7a059ea35e0bc429ff4e51e64a49c86121b55fdc4e66caa4fd875075",
+        "Version": "1",
+        "Family": "lexical-ngram",
+        "Type": "number",
+        "Unit": "log1p-count",
+        "Scope": "paragraph",
+        "Formula": "log1p of the frozen vocabulary term count in the prepared target.",
+        "Normalization": "unswell-lexical-counts-v1",
+        "Limitations": "A descriptive lexical measurement; unknown keys are ignored and no editorial quality is implied.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
+      },
+      {
+        "ID": "ngram.03c50fce04a3d5165e3e53170183e6e529f3e79a65e97e7f1736a5eaf99211f6",
         "Version": "1",
         "Family": "lexical-ngram",
         "Type": "number",
@@ -440,23 +457,6 @@
         "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
       },
       {
-        "ID": "ngram.2f330df6f85d1a5f7d144d7f9f7a20ddd32c2fa12487f7b3f100268f04050e14",
-        "Version": "1",
-        "Family": "lexical-ngram",
-        "Type": "number",
-        "Unit": "log1p-count",
-        "Scope": "paragraph",
-        "Formula": "log1p of the frozen vocabulary term count in the prepared target.",
-        "Normalization": "unswell-lexical-counts-v1",
-        "Limitations": "A descriptive lexical measurement; unknown keys are ignored and no editorial quality is implied.",
-        "Requires": [
-          "tokens",
-          "sentences"
-        ],
-        "MinWords": 0,
-        "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
-      },
-      {
         "ID": "ngram.32d4d21e04cb2aa830bad6ab7fd93cd637541ee5426df459a7dda01726df4b0f",
         "Version": "1",
         "Family": "lexical-ngram",
@@ -525,7 +525,7 @@
         "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
       },
       {
-        "ID": "ngram.37c28d1e939f668aaff25baf79114ff4c4d9912289ea044b1fa2282aa6996691",
+        "ID": "ngram.3919380ad95e508f38aebdce1c7c4ab2f55e02a54f9d72691d7bb750cdf27392",
         "Version": "1",
         "Family": "lexical-ngram",
         "Type": "number",
@@ -542,7 +542,7 @@
         "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
       },
       {
-        "ID": "ngram.3919380ad95e508f38aebdce1c7c4ab2f55e02a54f9d72691d7bb750cdf27392",
+        "ID": "ngram.3c25fe702b2c2eae6d007c5131f8bf11e68051c44ea3965409dd1ffa325fa836",
         "Version": "1",
         "Family": "lexical-ngram",
         "Type": "number",
@@ -627,7 +627,7 @@
         "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
       },
       {
-        "ID": "ngram.461069e90cee13854281d40a46df2becfa78a28b69ce01b43228fb257bba4bb3",
+        "ID": "ngram.4468f84adaaedf0e40db02e904eb93e94cb5f60c26419098cf92ccf95f82fdf8",
         "Version": "1",
         "Family": "lexical-ngram",
         "Type": "number",
@@ -797,7 +797,41 @@
         "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
       },
       {
+        "ID": "ngram.5caafe65cb41d57b07c7a0b8284f410218abd567a3846d454038bbab3cef1d2e",
+        "Version": "1",
+        "Family": "lexical-ngram",
+        "Type": "number",
+        "Unit": "log1p-count",
+        "Scope": "paragraph",
+        "Formula": "log1p of the frozen vocabulary term count in the prepared target.",
+        "Normalization": "unswell-lexical-counts-v1",
+        "Limitations": "A descriptive lexical measurement; unknown keys are ignored and no editorial quality is implied.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
+      },
+      {
         "ID": "ngram.5e2c7f4b8ae772bb5b602707e6745a5d2408af64d87c4effaea50bca1db19249",
+        "Version": "1",
+        "Family": "lexical-ngram",
+        "Type": "number",
+        "Unit": "log1p-count",
+        "Scope": "paragraph",
+        "Formula": "log1p of the frozen vocabulary term count in the prepared target.",
+        "Normalization": "unswell-lexical-counts-v1",
+        "Limitations": "A descriptive lexical measurement; unknown keys are ignored and no editorial quality is implied.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
+      },
+      {
+        "ID": "ngram.6072c4fba90e9a8647ffd51b2f5a4fb76144b5b423d188b919abeb31595b1c6a",
         "Version": "1",
         "Family": "lexical-ngram",
         "Type": "number",
@@ -900,23 +934,6 @@
       },
       {
         "ID": "ngram.639327f29b98289b8f78e62212e2d113023d11cc901b2a3a46f9266284d7e572",
-        "Version": "1",
-        "Family": "lexical-ngram",
-        "Type": "number",
-        "Unit": "log1p-count",
-        "Scope": "paragraph",
-        "Formula": "log1p of the frozen vocabulary term count in the prepared target.",
-        "Normalization": "unswell-lexical-counts-v1",
-        "Limitations": "A descriptive lexical measurement; unknown keys are ignored and no editorial quality is implied.",
-        "Requires": [
-          "tokens",
-          "sentences"
-        ],
-        "MinWords": 0,
-        "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
-      },
-      {
-        "ID": "ngram.65a22cdc484757b4d1732d7d5d61dd51e621bb60ae4d29eb227015aab5bbf4cb",
         "Version": "1",
         "Family": "lexical-ngram",
         "Type": "number",
@@ -1222,23 +1239,6 @@
         "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
       },
       {
-        "ID": "ngram.8b9c928cec176d88ddc226e220af5c73c89b2b58b831345ef176f79107ac2e31",
-        "Version": "1",
-        "Family": "lexical-ngram",
-        "Type": "number",
-        "Unit": "log1p-count",
-        "Scope": "paragraph",
-        "Formula": "log1p of the frozen vocabulary term count in the prepared target.",
-        "Normalization": "unswell-lexical-counts-v1",
-        "Limitations": "A descriptive lexical measurement; unknown keys are ignored and no editorial quality is implied.",
-        "Requires": [
-          "tokens",
-          "sentences"
-        ],
-        "MinWords": 0,
-        "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
-      },
-      {
         "ID": "ngram.8c84fbc04301a72b5639416bf0bbc88d58474c719c5c446006865b8fab103c52",
         "Version": "1",
         "Family": "lexical-ngram",
@@ -1426,41 +1426,7 @@
         "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
       },
       {
-        "ID": "ngram.a1ae1c84d827258dd142ed07960bfd62a1f2428e8f0cb188070e315161355b70",
-        "Version": "1",
-        "Family": "lexical-ngram",
-        "Type": "number",
-        "Unit": "log1p-count",
-        "Scope": "paragraph",
-        "Formula": "log1p of the frozen vocabulary term count in the prepared target.",
-        "Normalization": "unswell-lexical-counts-v1",
-        "Limitations": "A descriptive lexical measurement; unknown keys are ignored and no editorial quality is implied.",
-        "Requires": [
-          "tokens",
-          "sentences"
-        ],
-        "MinWords": 0,
-        "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
-      },
-      {
         "ID": "ngram.add9e30c6679c2067ca1a95e2c4a872c60d05eca6dc98f842baf3e01e97985ed",
-        "Version": "1",
-        "Family": "lexical-ngram",
-        "Type": "number",
-        "Unit": "log1p-count",
-        "Scope": "paragraph",
-        "Formula": "log1p of the frozen vocabulary term count in the prepared target.",
-        "Normalization": "unswell-lexical-counts-v1",
-        "Limitations": "A descriptive lexical measurement; unknown keys are ignored and no editorial quality is implied.",
-        "Requires": [
-          "tokens",
-          "sentences"
-        ],
-        "MinWords": 0,
-        "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
-      },
-      {
-        "ID": "ngram.af095ff943d87f4fbfda7ec75cd87776bb21cfa70ce1fc9d4077b5c3f5e1bb17",
         "Version": "1",
         "Family": "lexical-ngram",
         "Type": "number",
@@ -1614,6 +1580,23 @@
       },
       {
         "ID": "ngram.c009e804189cdfa6d4e4d334cbc0f5db46f01e312ac6bbeaa0b5e05bc69934cd",
+        "Version": "1",
+        "Family": "lexical-ngram",
+        "Type": "number",
+        "Unit": "log1p-count",
+        "Scope": "paragraph",
+        "Formula": "log1p of the frozen vocabulary term count in the prepared target.",
+        "Normalization": "unswell-lexical-counts-v1",
+        "Limitations": "A descriptive lexical measurement; unknown keys are ignored and no editorial quality is implied.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
+      },
+      {
+        "ID": "ngram.c0a75eb898c47c80e44405d0829e753ed6dec261381520c46e45280377cdd624",
         "Version": "1",
         "Family": "lexical-ngram",
         "Type": "number",
@@ -1970,23 +1953,6 @@
         "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
       },
       {
-        "ID": "ngram.e3d5b26976137655354bdf97da682cd1e29bb141fe68ebe3e2f7753f5333bde5",
-        "Version": "1",
-        "Family": "lexical-ngram",
-        "Type": "number",
-        "Unit": "log1p-count",
-        "Scope": "paragraph",
-        "Formula": "log1p of the frozen vocabulary term count in the prepared target.",
-        "Normalization": "unswell-lexical-counts-v1",
-        "Limitations": "A descriptive lexical measurement; unknown keys are ignored and no editorial quality is implied.",
-        "Requires": [
-          "tokens",
-          "sentences"
-        ],
-        "MinWords": 0,
-        "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
-      },
-      {
         "ID": "ngram.e6fb2527e94990e5b973ec623399492e9fb996d32163b1544ffd8c3d603984aa",
         "Version": "1",
         "Family": "lexical-ngram",
@@ -2021,6 +1987,23 @@
         "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
       },
       {
+        "ID": "ngram.eb3c4901a6414e1d0407c2131cc30a47f78c485fc99e096416c5a1797236d706",
+        "Version": "1",
+        "Family": "lexical-ngram",
+        "Type": "number",
+        "Unit": "log1p-count",
+        "Scope": "paragraph",
+        "Formula": "log1p of the frozen vocabulary term count in the prepared target.",
+        "Normalization": "unswell-lexical-counts-v1",
+        "Limitations": "A descriptive lexical measurement; unknown keys are ignored and no editorial quality is implied.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
+      },
+      {
         "ID": "ngram.ec94711ec8b9cbbb17aebf2d9093a68a00b6c91ae5d704c5bf4c8eba77a318ce",
         "Version": "1",
         "Family": "lexical-ngram",
@@ -2039,6 +2022,23 @@
       },
       {
         "ID": "ngram.eedf06230eb859ad24541639f98b8a80c3a9a852e683e4e192d84d57d14dbd26",
+        "Version": "1",
+        "Family": "lexical-ngram",
+        "Type": "number",
+        "Unit": "log1p-count",
+        "Scope": "paragraph",
+        "Formula": "log1p of the frozen vocabulary term count in the prepared target.",
+        "Normalization": "unswell-lexical-counts-v1",
+        "Limitations": "A descriptive lexical measurement; unknown keys are ignored and no editorial quality is implied.",
+        "Requires": [
+          "tokens",
+          "sentences"
+        ],
+        "MinWords": 0,
+        "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
+      },
+      {
+        "ID": "ngram.eee86c9637338471fcaf6ca4e5128a00232394fe6e1833be5de9c17402b1692f",
         "Version": "1",
         "Family": "lexical-ngram",
         "Type": "number",
@@ -2208,7 +2208,7 @@
         "Missing": "Zero is an observed absence of this known term; invalid or incomplete input is an error."
       }
     ],
-    "columns_sha256": "58cd61b0d119d84da1c2e1adadb2fba2db9195f15323d19d93618b9231ab00e8",
+    "columns_sha256": "cb5c03b9837506947b230d197853e53e2bb409aa6afb1978cbd11eca253c7211",
     "nlp": {
       "name": "builtin-en",
       "version": "prose-v3.2.1/chunks-v1/boundaries-v1",
@@ -2234,113 +2234,120 @@
     "include_quotes": false,
     "include_structure": false
   },
-  "decisions_sha256": "59f1a742160604a8bc6341587f175c3cb6a2d9e8a1d6e02b8c5fb1a5ee309ce2",
-  "round_sha256": "ce938c879667d3c54755d2ebbfd357da0d72be74123da99c4272281e9abad3fd",
-  "candidates": 924,
+  "decisions_sha256": "57e056f8f6843f10b412a6322478caab0a8767dbbfc56413d610e59b0f2cd767",
+  "round_sha256": "c479da49190ffb244965960dc6128c41811651d3bf1d1408a2aff5f762ff915e",
+  "candidates": 1005,
   "excluded_labels": {
     "decision/polished_response": 284
   },
-  "training_constant": 0.3633217993079585,
+  "training_constant": 0.2777777777777778,
   "summary": {
     "micro": {
       "counts": {
-        "eligible": 640,
-        "covered": 636,
+        "eligible": 721,
+        "covered": 698,
         "groups": 12,
-        "true_positive": 314,
-        "false_positive": 32,
-        "true_negative": 203,
-        "false_negative": 87,
-        "abstained_positive": 4,
-        "abstained_negative": 0
+        "true_positive": 297,
+        "false_positive": 12,
+        "true_negative": 287,
+        "false_negative": 102,
+        "abstained_positive": 6,
+        "abstained_negative": 17
       },
-      "coverage": 0.99375,
-      "precision": 0.9075144508670521,
-      "recall": 0.7830423940149626,
-      "false_positive_rate": 0.13617021276595745,
-      "full_flow_recall": 0.7753086419753087,
-      "brier": 0.18403550919158293,
-      "training_constant_brier": 0.30435480053636077,
-      "ece": 0.18470453667667008,
+      "coverage": 0.9680998613037448,
+      "precision": 0.9611650485436893,
+      "recall": 0.7443609022556391,
+      "false_positive_rate": 0.04013377926421405,
+      "full_flow_recall": 0.7333333333333333,
+      "brier": 0.1444969142516751,
+      "training_constant_brier": 0.33121971063709155,
+      "ece": 0.14456596792696333,
       "reliability": [
         {
           "lower": 0,
           "upper": 0.1,
-          "count": 286,
-          "mean_response": 0.0002556963536171225,
-          "positive_rate": 0.2937062937062937
+          "count": 353,
+          "mean_response": 0.0017204188917469831,
+          "positive_rate": 0.21813031161473087
         },
         {
           "lower": 0.1,
           "upper": 0.2,
-          "count": 0,
-          "mean_response": null,
-          "positive_rate": null
+          "count": 4,
+          "mean_response": 0.15025034811522953,
+          "positive_rate": 0.75
         },
         {
           "lower": 0.2,
           "upper": 0.3,
-          "count": 0,
-          "mean_response": null,
-          "positive_rate": null
+          "count": 9,
+          "mean_response": 0.2489766226630478,
+          "positive_rate": 0.7777777777777778
         },
         {
           "lower": 0.3,
           "upper": 0.4,
-          "count": 3,
-          "mean_response": 0.37914471500834956,
-          "positive_rate": 0.6666666666666666
+          "count": 9,
+          "mean_response": 0.3591349402045232,
+          "positive_rate": 0.5555555555555556
         },
         {
           "lower": 0.4,
           "upper": 0.5,
-          "count": 1,
-          "mean_response": 0.47786977859807556,
-          "positive_rate": 1
+          "count": 14,
+          "mean_response": 0.44181192863433744,
+          "positive_rate": 0.7142857142857143
         },
         {
           "lower": 0.5,
           "upper": 0.6,
-          "count": 0,
-          "mean_response": null,
-          "positive_rate": null
+          "count": 19,
+          "mean_response": 0.5229600553556987,
+          "positive_rate": 0.8421052631578947
         },
         {
           "lower": 0.6,
           "upper": 0.7,
-          "count": 0,
-          "mean_response": null,
-          "positive_rate": null
+          "count": 4,
+          "mean_response": 0.6243891140026696,
+          "positive_rate": 0.5
         },
         {
           "lower": 0.7,
           "upper": 0.8,
-          "count": 1,
-          "mean_response": 0.7507411183967134,
-          "positive_rate": 1
+          "count": 6,
+          "mean_response": 0.7403564063919307,
+          "positive_rate": 0.8333333333333334
         },
         {
           "lower": 0.8,
           "upper": 0.9,
-          "count": 0,
-          "mean_response": null,
-          "positive_rate": null
+          "count": 7,
+          "mean_response": 0.84989550081632,
+          "positive_rate": 0.7142857142857143
         },
         {
           "lower": 0.9,
           "upper": 1,
-          "count": 345,
-          "mean_response": 0.9997427812333812,
-          "positive_rate": 0.9072463768115943
+          "count": 273,
+          "mean_response": 0.9989204412796403,
+          "positive_rate": 0.9853479853479854
         }
       ],
       "risk_coverage": [
         {
-          "coverage": 0.99375,
-          "accepted": 636,
-          "errors": 119,
-          "risk": 0.1871069182389937,
-          "minimum_confidence": 0.5221302214019244
+          "coverage": 0.9223300970873787,
+          "accepted": 665,
+          "errors": 101,
+          "risk": 0.1518796992481203,
+          "minimum_confidence": 0.6009385852099158
+        },
+        {
+          "coverage": 0.9680998613037448,
+          "accepted": 698,
+          "errors": 114,
+          "risk": 0.16332378223495703,
+          "minimum_confidence": 0.5
         }
       ],
       "recall_at_false_positive_limits": [
@@ -2352,74 +2359,74 @@
         },
         {
           "false_positive_limit": 0.02,
-          "recall": null,
-          "false_positive_rate": null,
-          "threshold": null
+          "recall": 0.6766917293233082,
+          "false_positive_rate": 0.013377926421404682,
+          "threshold": 0.8994697391007287
         },
         {
           "false_positive_limit": 0.05,
-          "recall": null,
-          "false_positive_rate": null,
-          "threshold": null
+          "recall": 0.7568922305764411,
+          "false_positive_rate": 0.04013377926421405,
+          "threshold": 0.4565637426970891
         },
         {
           "false_positive_limit": 0.1,
-          "recall": null,
-          "false_positive_rate": null,
-          "threshold": null
+          "recall": 0.8195488721804511,
+          "false_positive_rate": 0.08361204013377926,
+          "threshold": 0.027045216204770895
         }
       ],
       "prevalence_sensitivity": [
         {
           "prevalence": 0.01,
-          "precision": 0.0548968201654865
+          "precision": 0.15778364116094987
         },
         {
           "prevalence": 0.05,
-          "precision": 0.2323377351242766
+          "precision": 0.49396745932415514
         },
         {
           "prevalence": 0.1,
-          "precision": 0.38984985048447257
+          "precision": 0.6732855680655067
         },
         {
           "prevalence": 0.25,
-          "precision": 0.657161177706927
+          "precision": 0.8607694320858413
         },
         {
           "prevalence": 0.5,
-          "precision": 0.8518621135508301
+          "precision": 0.9488412347341091
         }
       ]
     },
     "groups": [
       {
-        "group_id": "21fa8fa42e2bc5258a068c52056f608b9c06e604f2edee0f435fcabcd77fc1f7",
+        "group_id": "05860fc0fa2a50024f4121b68903090fd13971c0357681d3cc78379d559a2b22",
         "metrics": {
           "counts": {
-            "eligible": 113,
-            "covered": 113,
+            "eligible": 124,
+            "covered": 109,
             "groups": 1,
-            "true_positive": 67,
+            "true_positive": 66,
             "false_positive": 0,
-            "true_negative": 46,
-            "false_negative": 0,
+            "true_negative": 42,
+            "false_negative": 1,
             "abstained_positive": 0,
-            "abstained_negative": 0
+            "abstained_negative": 15
           },
-          "coverage": 1,
+          "coverage": 0.8790322580645161,
           "precision": 1,
-          "recall": 1,
+          "recall": 0.9850746268656716,
           "false_positive_rate": 0,
-          "full_flow_recall": 1,
-          "brier": 0,
-          "training_constant_brier": 0.2940813041243508,
-          "ece": 0,
+          "full_flow_recall": 0.9850746268656716,
+          "brier": 0.009644187621327861,
+          "training_constant_brier": 0.3503511156416357,
+          "ece": 0.01167532615600791,
           "reliability": [
             {
               "lower": 0,
               "upper": 0.1,
-              "count": 46,
+              "count": 41,
               "mean_response": 0,
               "positive_rate": 0
             },
@@ -2447,16 +2454,16 @@
             {
               "lower": 0.4,
               "upper": 0.5,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
+              "count": 2,
+              "mean_response": 0.4472544945219974,
+              "positive_rate": 0.5
             },
             {
               "lower": 0.5,
               "upper": 0.6,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
+              "count": 2,
+              "mean_response": 0.5,
+              "positive_rate": 1
             },
             {
               "lower": 0.6,
@@ -2475,14 +2482,14 @@
             {
               "lower": 0.8,
               "upper": 0.9,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
+              "count": 1,
+              "mean_response": 0.832880459951143,
+              "positive_rate": 1
             },
             {
               "lower": 0.9,
               "upper": 1,
-              "count": 67,
+              "count": 63,
               "mean_response": 1,
               "positive_rate": 1
             }
@@ -2490,137 +2497,41 @@
         }
       },
       {
-        "group_id": "2c0572325007e33a8b584ea8e42a266e13deb6f99fd44676faca748a556fc206",
+        "group_id": "0b1c64bdf5028d6a76a49ec128eeafb1b10c48a92670b642a87c27a009d33372",
         "metrics": {
           "counts": {
-            "eligible": 49,
-            "covered": 49,
+            "eligible": 39,
+            "covered": 39,
             "groups": 1,
-            "true_positive": 26,
+            "true_positive": 15,
             "false_positive": 0,
-            "true_negative": 20,
-            "false_negative": 3,
+            "true_negative": 24,
+            "false_negative": 0,
             "abstained_positive": 0,
             "abstained_negative": 0
           },
           "coverage": 1,
           "precision": 1,
-          "recall": 0.896551724137931,
-          "false_positive_rate": 0,
-          "full_flow_recall": 0.896551724137931,
-          "brier": 0.04851263342954004,
-          "training_constant_brier": 0.29378508985519697,
-          "ece": 0.05334898338114558,
-          "reliability": [
-            {
-              "lower": 0,
-              "upper": 0.1,
-              "count": 22,
-              "mean_response": 0,
-              "positive_rate": 0.09090909090909091
-            },
-            {
-              "lower": 0.1,
-              "upper": 0.2,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.2,
-              "upper": 0.3,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.3,
-              "upper": 0.4,
-              "count": 1,
-              "mean_response": 0.3858998143238664,
-              "positive_rate": 1
-            },
-            {
-              "lower": 0.4,
-              "upper": 0.5,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.5,
-              "upper": 0.6,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.6,
-              "upper": 0.7,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.7,
-              "upper": 0.8,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.8,
-              "upper": 0.9,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.9,
-              "upper": 1,
-              "count": 26,
-              "mean_response": 1,
-              "positive_rate": 1
-            }
-          ]
-        }
-      },
-      {
-        "group_id": "39d1782fca80a4802af37a26f6e4f41abd4964b9c4ac7a0723e45b97c9a7bc63",
-        "metrics": {
-          "counts": {
-            "eligible": 10,
-            "covered": 9,
-            "groups": 1,
-            "true_positive": 9,
-            "false_positive": 0,
-            "true_negative": 0,
-            "false_negative": 0,
-            "abstained_positive": 1,
-            "abstained_negative": 0
-          },
-          "coverage": 0.9,
-          "precision": 1,
           "recall": 1,
-          "false_positive_rate": null,
-          "full_flow_recall": 0.9,
-          "brier": 0,
-          "training_constant_brier": 0.4053591312364554,
-          "ece": 0,
+          "false_positive_rate": 0,
+          "full_flow_recall": 1,
+          "brier": 0.0011252098803175316,
+          "training_constant_brier": 0.24810066476733147,
+          "ece": 0.007550032388927068,
           "reliability": [
             {
               "lower": 0,
               "upper": 0.1,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
+              "count": 23,
+              "mean_response": 0,
+              "positive_rate": 0
             },
             {
               "lower": 0.1,
               "upper": 0.2,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
+              "count": 1,
+              "mean_response": 0.13090980886926368,
+              "positive_rate": 0
             },
             {
               "lower": 0.2,
@@ -2667,14 +2578,14 @@
             {
               "lower": 0.8,
               "upper": 0.9,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
+              "count": 1,
+              "mean_response": 0.836458545701108,
+              "positive_rate": 1
             },
             {
               "lower": 0.9,
               "upper": 1,
-              "count": 9,
+              "count": 14,
               "mean_response": 1,
               "positive_rate": 1
             }
@@ -2682,128 +2593,128 @@
         }
       },
       {
-        "group_id": "49735e067c3f553b014f13af1471d6062098457de05d2224411cd32ac7a2e4da",
+        "group_id": "3f64e69fbe5593ae360f91f34a6622b932c5e8b7823e82f872c5817740eefdbf",
         "metrics": {
           "counts": {
-            "eligible": 305,
-            "covered": 302,
+            "eligible": 317,
+            "covered": 314,
             "groups": 1,
-            "true_positive": 175,
-            "false_positive": 28,
-            "true_negative": 17,
-            "false_negative": 82,
+            "true_positive": 161,
+            "false_positive": 9,
+            "true_negative": 48,
+            "false_negative": 96,
             "abstained_positive": 3,
             "abstained_negative": 0
           },
-          "coverage": 0.9901639344262295,
-          "precision": 0.8620689655172413,
-          "recall": 0.6809338521400778,
-          "false_positive_rate": 0.6222222222222222,
-          "full_flow_recall": 0.6730769230769231,
-          "brier": 0.35950467912476525,
-          "training_constant_brier": 0.36462721712293256,
-          "ece": 0.3617036689720942,
+          "coverage": 0.9905362776025236,
+          "precision": 0.9470588235294117,
+          "recall": 0.6264591439688716,
+          "false_positive_rate": 0.15789473684210525,
+          "full_flow_recall": 0.6192307692307693,
+          "brier": 0.29208464246121124,
+          "training_constant_brier": 0.440925532751436,
+          "ece": 0.29710365649616927,
           "reliability": [
             {
               "lower": 0,
               "upper": 0.1,
-              "count": 97,
-              "mean_response": 0.0007539088364381136,
-              "positive_rate": 0.8247422680412371
+              "count": 114,
+              "mean_response": 0.0028377558224820087,
+              "positive_rate": 0.631578947368421
             },
             {
               "lower": 0.1,
               "upper": 0.2,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
+              "count": 3,
+              "mean_response": 0.1566971945305515,
+              "positive_rate": 1
             },
             {
               "lower": 0.2,
               "upper": 0.3,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
+              "count": 8,
+              "mean_response": 0.25270879373425525,
+              "positive_rate": 0.875
             },
             {
               "lower": 0.3,
               "upper": 0.4,
-              "count": 1,
-              "mean_response": 0.39070695711837605,
-              "positive_rate": 1
+              "count": 8,
+              "mean_response": 0.36312336748808066,
+              "positive_rate": 0.625
             },
             {
               "lower": 0.4,
               "upper": 0.5,
-              "count": 1,
-              "mean_response": 0.47786977859807556,
-              "positive_rate": 1
+              "count": 11,
+              "mean_response": 0.44038192233224116,
+              "positive_rate": 0.8181818181818182
             },
             {
               "lower": 0.5,
               "upper": 0.6,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
+              "count": 15,
+              "mean_response": 0.5198946660958343,
+              "positive_rate": 0.8
             },
             {
               "lower": 0.6,
               "upper": 0.7,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
+              "count": 3,
+              "mean_response": 0.6298830723432038,
+              "positive_rate": 0.6666666666666666
             },
             {
               "lower": 0.7,
               "upper": 0.8,
-              "count": 1,
-              "mean_response": 0.7507411183967134,
-              "positive_rate": 1
+              "count": 6,
+              "mean_response": 0.7403564063919307,
+              "positive_rate": 0.8333333333333334
             },
             {
               "lower": 0.8,
               "upper": 0.9,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
+              "count": 5,
+              "mean_response": 0.8559859000123978,
+              "positive_rate": 0.6
             },
             {
               "lower": 0.9,
               "upper": 1,
-              "count": 202,
-              "mean_response": 0.9996383912911888,
-              "positive_rate": 0.8613861386138614
+              "count": 141,
+              "mean_response": 0.9979097905627078,
+              "positive_rate": 0.9858156028368794
             }
           ]
         }
       },
       {
-        "group_id": "50dee1b23473c641adeb5baeb628d476ac0ec636c6dbc9abda6d15ef76fb4307",
+        "group_id": "4621c441a9791e3295e121355bf8b204ebbd6a63978ceda6a172028d477dbb66",
         "metrics": {
           "counts": {
-            "eligible": 36,
-            "covered": 36,
+            "eligible": 20,
+            "covered": 20,
             "groups": 1,
-            "true_positive": 15,
+            "true_positive": 2,
             "false_positive": 1,
-            "true_negative": 20,
+            "true_negative": 17,
             "false_negative": 0,
             "abstained_positive": 0,
             "abstained_negative": 0
           },
           "coverage": 1,
-          "precision": 0.9375,
+          "precision": 0.6666666666666666,
           "recall": 1,
-          "false_positive_rate": 0.047619047619047616,
+          "false_positive_rate": 0.05555555555555555,
           "full_flow_recall": 1,
-          "brier": 0.027777777777777776,
-          "training_constant_brier": 0.24590123042907364,
-          "ece": 0.027777777777777776,
+          "brier": 0.05,
+          "training_constant_brier": 0.1216049382716049,
+          "ece": 0.05,
           "reliability": [
             {
               "lower": 0,
               "upper": 0.1,
-              "count": 20,
+              "count": 17,
               "mean_response": 0,
               "positive_rate": 0
             },
@@ -2866,15 +2777,207 @@
             {
               "lower": 0.9,
               "upper": 1,
-              "count": 16,
+              "count": 3,
               "mean_response": 1,
-              "positive_rate": 0.9375
+              "positive_rate": 0.6666666666666666
             }
           ]
         }
       },
       {
-        "group_id": "5fea93906e7c9148ae9164649440259017894e84667d536c7b13cb754b93db78",
+        "group_id": "5f72c82467b27d5609bd1bdd49cd0c3c7c997a2e7d8bb3521ab859f32067fca8",
+        "metrics": {
+          "counts": {
+            "eligible": 39,
+            "covered": 38,
+            "groups": 1,
+            "true_positive": 2,
+            "false_positive": 1,
+            "true_negative": 35,
+            "false_negative": 0,
+            "abstained_positive": 0,
+            "abstained_negative": 1
+          },
+          "coverage": 0.9743589743589743,
+          "precision": 0.6666666666666666,
+          "recall": 1,
+          "false_positive_rate": 0.027777777777777776,
+          "full_flow_recall": 1,
+          "brier": 0.009769614790038742,
+          "training_constant_brier": 0.10055230669265758,
+          "ece": 0.0170807184826881,
+          "reliability": [
+            {
+              "lower": 0,
+              "upper": 0.1,
+              "count": 35,
+              "mean_response": 0.0011760018103165958,
+              "positive_rate": 0
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 1,
+              "mean_response": 0.6079072389810669,
+              "positive_rate": 0
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1,
+              "count": 2,
+              "mean_response": 1,
+              "positive_rate": 1
+            }
+          ]
+        }
+      },
+      {
+        "group_id": "7d5189e7a73afe67bd41bb0931960e6cc31df3d406ae89a0053b75f0fbedc3e8",
+        "metrics": {
+          "counts": {
+            "eligible": 24,
+            "covered": 23,
+            "groups": 1,
+            "true_positive": 1,
+            "false_positive": 0,
+            "true_negative": 20,
+            "false_negative": 2,
+            "abstained_positive": 0,
+            "abstained_negative": 1
+          },
+          "coverage": 0.9583333333333334,
+          "precision": 1,
+          "recall": 0.3333333333333333,
+          "false_positive_rate": 0,
+          "full_flow_recall": 0.3333333333333333,
+          "brier": 0.08904405423975838,
+          "training_constant_brier": 0.1351315083199142,
+          "ece": 0.09648344583014731,
+          "reliability": [
+            {
+              "lower": 0,
+              "upper": 0.1,
+              "count": 21,
+              "mean_response": 0,
+              "positive_rate": 0.09523809523809523
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "count": 1,
+              "mean_response": 0.2191192540933883,
+              "positive_rate": 0
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1,
+              "count": 1,
+              "mean_response": 1,
+              "positive_rate": 1
+            }
+          ]
+        }
+      },
+      {
+        "group_id": "86fbdb7920fcf0d2c2eee9d84091beda3c6aa2d797a8fedf5105289c5591f68b",
         "metrics": {
           "counts": {
             "eligible": 5,
@@ -2893,7 +2996,7 @@
           "false_positive_rate": 0,
           "full_flow_recall": 1,
           "brier": 0,
-          "training_constant_brier": 0.24134529040600566,
+          "training_constant_brier": 0.25493827160493826,
           "ece": 0,
           "reliability": [
             {
@@ -2970,34 +3073,34 @@
         }
       },
       {
-        "group_id": "5fff5bb3de9d4b89983462254c7dc80832f4fe9d46b765844d1d1f4dcbd3981f",
+        "group_id": "916c2f8d0f87fc02d822c768b7669dee75bd829eb6a569a3e46d98cc82271e6e",
         "metrics": {
           "counts": {
             "eligible": 10,
-            "covered": 10,
+            "covered": 8,
             "groups": 1,
-            "true_positive": 1,
+            "true_positive": 8,
             "false_positive": 0,
-            "true_negative": 7,
-            "false_negative": 2,
-            "abstained_positive": 0,
+            "true_negative": 0,
+            "false_negative": 0,
+            "abstained_positive": 2,
             "abstained_negative": 0
           },
-          "coverage": 1,
+          "coverage": 0.8,
           "precision": 1,
-          "recall": 0.3333333333333333,
-          "false_positive_rate": 0,
-          "full_flow_recall": 0.3333333333333333,
-          "brier": 0.2130196393526666,
-          "training_constant_brier": 0.21400965026759736,
-          "ece": 0.23608273735828061,
+          "recall": 1,
+          "false_positive_rate": null,
+          "full_flow_recall": 0.8,
+          "brier": 0,
+          "training_constant_brier": 0.5216049382716049,
+          "ece": 0,
           "reliability": [
             {
               "lower": 0,
               "upper": 0.1,
-              "count": 8,
-              "mean_response": 0,
-              "positive_rate": 0.25
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
             },
             {
               "lower": 0.1,
@@ -3016,9 +3119,9 @@
             {
               "lower": 0.3,
               "upper": 0.4,
-              "count": 1,
-              "mean_response": 0.3608273735828062,
-              "positive_rate": 0
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
             },
             {
               "lower": 0.4,
@@ -3058,7 +3161,7 @@
             {
               "lower": 0.9,
               "upper": 1,
-              "count": 1,
+              "count": 8,
               "mean_response": 1,
               "positive_rate": 1
             }
@@ -3066,34 +3169,34 @@
         }
       },
       {
-        "group_id": "6259c860ecd1e29998d8f3013ac03c66a55c312ad86fa621b0822d402dc9b1f1",
+        "group_id": "9d0ed2faf974df8bf259e07b26ae33cad60742be355883c5db8cd7a5a45bec31",
         "metrics": {
           "counts": {
-            "eligible": 24,
-            "covered": 24,
+            "eligible": 59,
+            "covered": 58,
             "groups": 1,
-            "true_positive": 2,
-            "false_positive": 1,
-            "true_negative": 21,
-            "false_negative": 0,
-            "abstained_positive": 0,
+            "true_positive": 25,
+            "false_positive": 0,
+            "true_negative": 30,
+            "false_negative": 3,
+            "abstained_positive": 1,
             "abstained_negative": 0
           },
-          "coverage": 1,
-          "precision": 0.6666666666666666,
-          "recall": 1,
-          "false_positive_rate": 0.045454545454545456,
-          "full_flow_recall": 1,
-          "brier": 0.0403689716080626,
-          "training_constant_brier": 0.15478242996771266,
-          "ece": 0.04101268686235119,
+          "coverage": 0.9830508474576272,
+          "precision": 1,
+          "recall": 0.8928571428571429,
+          "false_positive_rate": 0,
+          "full_flow_recall": 0.8620689655172413,
+          "brier": 0.05085758373644854,
+          "training_constant_brier": 0.29171988080034045,
+          "ece": 0.04754062686788525,
           "reliability": [
             {
               "lower": 0,
               "upper": 0.1,
-              "count": 21,
-              "mean_response": 0,
-              "positive_rate": 0
+              "count": 33,
+              "mean_response": 0.0073528376261410705,
+              "positive_rate": 0.09090909090909091
             },
             {
               "lower": 0.1,
@@ -3154,40 +3257,40 @@
             {
               "lower": 0.9,
               "upper": 1,
-              "count": 3,
-              "mean_response": 0.9947681615654762,
-              "positive_rate": 0.6666666666666666
+              "count": 25,
+              "mean_response": 1,
+              "positive_rate": 1
             }
           ]
         }
       },
       {
-        "group_id": "6f4e70b81df5a87b3663af4e414d0af45b267920cb16eb129e0001c45ec04f57",
+        "group_id": "a34453f0af55a98cefe6d9859f8ba0c9f75fad6d037a636c5d56ed0308b81e37",
         "metrics": {
           "counts": {
-            "eligible": 30,
-            "covered": 30,
+            "eligible": 43,
+            "covered": 43,
             "groups": 1,
-            "true_positive": 10,
-            "false_positive": 0,
-            "true_negative": 20,
+            "true_positive": 3,
+            "false_positive": 1,
+            "true_negative": 39,
             "false_negative": 0,
             "abstained_positive": 0,
             "abstained_negative": 0
           },
           "coverage": 1,
-          "precision": 1,
+          "precision": 0.75,
           "recall": 1,
-          "false_positive_rate": 0,
+          "false_positive_rate": 0.025,
           "full_flow_recall": 1,
-          "brier": 0,
-          "training_constant_brier": 0.22312153031373338,
-          "ece": 0,
+          "brier": 0.031943955937716796,
+          "training_constant_brier": 0.108168245765145,
+          "ece": 0.043306486969284665,
           "reliability": [
             {
               "lower": 0,
               "upper": 0.1,
-              "count": 20,
+              "count": 39,
               "mean_response": 0,
               "positive_rate": 0
             },
@@ -3218,6 +3321,198 @@
               "count": 0,
               "mean_response": null,
               "positive_rate": null
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 2,
+              "mean_response": 0.5689105301603797,
+              "positive_rate": 1
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1,
+              "count": 2,
+              "mean_response": 1,
+              "positive_rate": 0.5
+            }
+          ]
+        }
+      },
+      {
+        "group_id": "d6d1f9a86c5be62494b7c78319acd7137513ae8dfb75ceaa370c9f77fb51bdfd",
+        "metrics": {
+          "counts": {
+            "eligible": 2,
+            "covered": 2,
+            "groups": 1,
+            "true_positive": 2,
+            "false_positive": 0,
+            "true_negative": 0,
+            "false_negative": 0,
+            "abstained_positive": 0,
+            "abstained_negative": 0
+          },
+          "coverage": 1,
+          "precision": 1,
+          "recall": 1,
+          "false_positive_rate": null,
+          "full_flow_recall": 1,
+          "brier": 0,
+          "training_constant_brier": 0.5216049382716049,
+          "ece": 0,
+          "reliability": [
+            {
+              "lower": 0,
+              "upper": 0.1,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.9,
+              "upper": 1,
+              "count": 2,
+              "mean_response": 1,
+              "positive_rate": 1
+            }
+          ]
+        }
+      },
+      {
+        "group_id": "fffb476969c13dd1a79b6653808688716d7731033aa14868d32894cc9338c202",
+        "metrics": {
+          "counts": {
+            "eligible": 39,
+            "covered": 39,
+            "groups": 1,
+            "true_positive": 10,
+            "false_positive": 0,
+            "true_negative": 29,
+            "false_negative": 0,
+            "abstained_positive": 0,
+            "abstained_negative": 0
+          },
+          "coverage": 1,
+          "precision": 1,
+          "recall": 1,
+          "false_positive_rate": 0,
+          "full_flow_recall": 1,
+          "brier": 0.00786103095435923,
+          "training_constant_brier": 0.19112060778727447,
+          "ece": 0.019843189438926656,
+          "reliability": [
+            {
+              "lower": 0,
+              "upper": 0.1,
+              "count": 27,
+              "mean_response": 0,
+              "positive_rate": 0
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "count": 0,
+              "mean_response": null,
+              "positive_rate": null
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 1,
+              "mean_response": 0.32722752193606314,
+              "positive_rate": 0
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 1,
+              "mean_response": 0.4466568661820764,
+              "positive_rate": 0
             },
             {
               "lower": 0.5,
@@ -3256,294 +3551,6 @@
             }
           ]
         }
-      },
-      {
-        "group_id": "81406035d8b402a3063f1a7189763dadb00c0618b97ac5337c772cd62e4a0279",
-        "metrics": {
-          "counts": {
-            "eligible": 18,
-            "covered": 18,
-            "groups": 1,
-            "true_positive": 2,
-            "false_positive": 1,
-            "true_negative": 15,
-            "false_negative": 0,
-            "abstained_positive": 0,
-            "abstained_negative": 0
-          },
-          "coverage": 1,
-          "precision": 0.6666666666666666,
-          "recall": 1,
-          "false_positive_rate": 0.0625,
-          "full_flow_recall": 1,
-          "brier": 0.05555555555555555,
-          "training_constant_brier": 0.16237566333949277,
-          "ece": 0.05555555555555555,
-          "reliability": [
-            {
-              "lower": 0,
-              "upper": 0.1,
-              "count": 15,
-              "mean_response": 0,
-              "positive_rate": 0
-            },
-            {
-              "lower": 0.1,
-              "upper": 0.2,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.2,
-              "upper": 0.3,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.3,
-              "upper": 0.4,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.4,
-              "upper": 0.5,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.5,
-              "upper": 0.6,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.6,
-              "upper": 0.7,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.7,
-              "upper": 0.8,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.8,
-              "upper": 0.9,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.9,
-              "upper": 1,
-              "count": 3,
-              "mean_response": 1,
-              "positive_rate": 0.6666666666666666
-            }
-          ]
-        }
-      },
-      {
-        "group_id": "a8a58d5a514c2250dedd24f2b7d297be0a8d555e451c4fdae1e249a4074b0130",
-        "metrics": {
-          "counts": {
-            "eligible": 38,
-            "covered": 38,
-            "groups": 1,
-            "true_positive": 3,
-            "false_positive": 1,
-            "true_negative": 34,
-            "false_negative": 0,
-            "abstained_positive": 0,
-            "abstained_negative": 0
-          },
-          "coverage": 1,
-          "precision": 0.75,
-          "recall": 1,
-          "false_positive_rate": 0.02857142857142857,
-          "full_flow_recall": 1,
-          "brier": 0.02631578947368421,
-          "training_constant_brier": 0.1535834983826947,
-          "ece": 0.02631578947368421,
-          "reliability": [
-            {
-              "lower": 0,
-              "upper": 0.1,
-              "count": 34,
-              "mean_response": 0,
-              "positive_rate": 0
-            },
-            {
-              "lower": 0.1,
-              "upper": 0.2,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.2,
-              "upper": 0.3,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.3,
-              "upper": 0.4,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.4,
-              "upper": 0.5,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.5,
-              "upper": 0.6,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.6,
-              "upper": 0.7,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.7,
-              "upper": 0.8,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.8,
-              "upper": 0.9,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.9,
-              "upper": 1,
-              "count": 4,
-              "mean_response": 1,
-              "positive_rate": 0.75
-            }
-          ]
-        }
-      },
-      {
-        "group_id": "b127e40843e4f97d61253addb7fb4257c840c3741006f62ad7a94ad69366f1dd",
-        "metrics": {
-          "counts": {
-            "eligible": 2,
-            "covered": 2,
-            "groups": 1,
-            "true_positive": 2,
-            "false_positive": 0,
-            "true_negative": 0,
-            "false_negative": 0,
-            "abstained_positive": 0,
-            "abstained_negative": 0
-          },
-          "coverage": 1,
-          "precision": 1,
-          "recall": 1,
-          "false_positive_rate": null,
-          "full_flow_recall": 1,
-          "brier": 0,
-          "training_constant_brier": 0.4053591312364555,
-          "ece": 0,
-          "reliability": [
-            {
-              "lower": 0,
-              "upper": 0.1,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.1,
-              "upper": 0.2,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.2,
-              "upper": 0.3,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.3,
-              "upper": 0.4,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.4,
-              "upper": 0.5,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.5,
-              "upper": 0.6,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.6,
-              "upper": 0.7,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.7,
-              "upper": 0.8,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.8,
-              "upper": 0.9,
-              "count": 0,
-              "mean_response": null,
-              "positive_rate": null
-            },
-            {
-              "lower": 0.9,
-              "upper": 1,
-              "count": 2,
-              "mean_response": 1,
-              "positive_rate": 1
-            }
-          ]
-        }
       }
     ]
   },
@@ -3556,25 +3563,25 @@
       {
         "id": "coverage",
         "micro": {
-          "value": 0.99375,
+          "value": 0.9680998613037448,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.9886360943558811,
-            "upper": 1,
+            "lower": 0.9209216576647968,
+            "upper": 0.9915790950025836,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
         },
         "group_macro": {
-          "value": 0.9908469945355192,
+          "value": 0.9654426409014145,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.9741803278688524,
-            "upper": 1,
+            "lower": 0.9273653759994487,
+            "upper": 0.9941492086602497,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
@@ -3583,25 +3590,25 @@
       {
         "id": "precision",
         "micro": {
-          "value": 0.9075144508670521,
+          "value": 0.9611650485436893,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.8656716417910447,
-            "upper": 0.9903846153846154,
+            "lower": 0.9298201533985718,
+            "upper": 0.9940119760479041,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
         },
         "group_macro": {
-          "value": 0.9069085249042145,
+          "value": 0.9191993464052288,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.8294420498084291,
-            "upper": 0.9739583333333334,
+            "lower": 0.8383986928104575,
+            "upper": 0.9911764705882353,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
@@ -3610,25 +3617,25 @@
       {
         "id": "recall",
         "micro": {
-          "value": 0.7830423940149626,
+          "value": 0.7443609022556391,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.7003608508077938,
-            "upper": 1,
+            "lower": 0.649995487364621,
+            "upper": 0.9895833333333334,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
         },
         "group_macro": {
-          "value": 0.9092349091342785,
+          "value": 0.9031436872520849,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.7801556420233463,
-            "upper": 1,
+            "lower": 0.7752869344448776,
+            "upper": 0.9975124378109452,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
@@ -3637,25 +3644,25 @@
       {
         "id": "false_positive_rate",
         "micro": {
-          "value": 0.13617021276595745,
+          "value": 0.04013377926421405,
           "defined_groups": 10,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.01,
-            "upper": 0.33522894385026736,
+            "lower": 0.004366812227074236,
+            "upper": 0.08695978587282932,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
         },
         "group_macro": {
-          "value": 0.0806367243867244,
+          "value": 0.02662280701754386,
           "defined_groups": 10,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.009107142857142857,
-            "upper": 0.21659267526455017,
+            "lower": 0.003472222222222222,
+            "upper": 0.06074461722488033,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
@@ -3664,25 +3671,25 @@
       {
         "id": "full_flow_recall",
         "micro": {
-          "value": 0.7753086419753087,
+          "value": 0.7333333333333333,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.6920529801324503,
-            "upper": 0.9889507840428989,
+            "lower": 0.6405276349070893,
+            "upper": 0.9750044326241134,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
         },
         "group_macro": {
-          "value": 0.9002468317123489,
+          "value": 0.8833089745789179,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.7777777777777777,
-            "upper": 0.9913793103448275,
+            "lower": 0.7578690749941713,
+            "upper": 0.982089552238806,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
@@ -3691,25 +3698,25 @@
       {
         "id": "full_flow_false_flag_rate",
         "micro": {
-          "value": 0.13617021276595745,
+          "value": 0.0379746835443038,
           "defined_groups": 10,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.01,
-            "upper": 0.33522894385026736,
+            "lower": 0.004081217852994857,
+            "upper": 0.08571428571428572,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
         },
         "group_macro": {
-          "value": 0.0806367243867244,
+          "value": 0.02654773194246878,
           "defined_groups": 10,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.009107142857142857,
-            "upper": 0.21659267526455017,
+            "lower": 0.0033783783783783786,
+            "upper": 0.060674685151658796,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
@@ -3718,25 +3725,25 @@
       {
         "id": "brier",
         "micro": {
-          "value": 0.1840355091915829,
+          "value": 0.1444969142516751,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.012338034328233629,
-            "upper": 0.29992754314039066,
+            "lower": 0.013874786477396666,
+            "upper": 0.23623519105290225,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
         },
         "group_macro": {
-          "value": 0.06425458719350434,
+          "value": 0.045194189968431525,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.015278678658093936,
-            "upper": 0.1295638688067096,
+            "lower": 0.011443556533082213,
+            "upper": 0.09554531896840977,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
@@ -3745,25 +3752,25 @@
       {
         "id": "training_constant_brier",
         "micro": {
-          "value": 0.3043548005363616,
+          "value": 0.33121971063709404,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.20981093936586528,
-            "upper": 0.3427613366448487,
+            "lower": 0.17410829003966266,
+            "upper": 0.3992422783693887,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
         },
         "group_macro": {
-          "value": 0.2631942638901417,
+          "value": 0.2738185790787907,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.215364622417612,
-            "upper": 0.3138381970335422,
+            "lower": 0.1925309754308555,
+            "upper": 0.3605751595110797,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
@@ -3772,25 +3779,25 @@
       {
         "id": "ece",
         "micro": {
-          "value": 0.1847045366766701,
+          "value": 0.14456596792696336,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.012658332359222223,
-            "upper": 0.30155063929916387,
+            "lower": 0.017748864813820292,
+            "upper": 0.23877533360457914,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
         },
         "group_macro": {
-          "value": 0.06681643328174075,
+          "value": 0.049215290219169684,
           "defined_groups": 12,
           "interval": {
             "status": "numerical_percentile",
             "reason": "",
-            "lower": 0.0157889936964425,
-            "upper": 0.1340295537074861,
+            "lower": 0.014973840107832315,
+            "upper": 0.09961810187530311,
             "valid_replicates": 10000,
             "invalid_replicates": 0
           }
@@ -3804,93 +3811,93 @@
       "value": "none",
       "metrics": {
         "counts": {
-          "eligible": 235,
-          "covered": 235,
+          "eligible": 316,
+          "covered": 299,
           "groups": 10,
           "true_positive": 0,
-          "false_positive": 32,
-          "true_negative": 203,
+          "false_positive": 12,
+          "true_negative": 287,
           "false_negative": 0,
           "abstained_positive": 0,
-          "abstained_negative": 0
+          "abstained_negative": 17
         },
-        "coverage": 1,
+        "coverage": 0.9462025316455697,
         "precision": 0,
         "recall": null,
-        "false_positive_rate": 0.13617021276595745,
+        "false_positive_rate": 0.04013377926421405,
         "full_flow_recall": null,
-        "brier": 0.1365917094132773,
-        "training_constant_brier": 0.13200272985237313,
-        "ece": 0.13763885897140102,
+        "brier": 0.02984502433153699,
+        "training_constant_brier": 0.07716049382716056,
+        "ece": 0.044312840970961526,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 202,
-            "mean_response": 0,
+            "count": 276,
+            "mean_response": 0.0011356362985811379,
             "positive_rate": 0
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.13090980886926368,
+            "positive_rate": 0
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.22104269466176577,
+            "positive_rate": 0
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 1,
-            "mean_response": 0.3608273735828062,
+            "count": 4,
+            "mean_response": 0.34545628091349984,
             "positive_rate": 0
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 4,
+            "mean_response": 0.43831687996753765,
+            "positive_rate": 0
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 3,
+            "mean_response": 0.5113665860949786,
+            "positive_rate": 0
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.6152203729221084,
+            "positive_rate": 0
           },
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.7980816725643792,
+            "positive_rate": 0
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.8610924906129382,
+            "positive_rate": 0
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 32,
-            "mean_response": 0.9995095151467634,
+            "count": 4,
+            "mean_response": 0.9858022080681874,
             "positive_rate": 0
           }
         ]
@@ -3902,92 +3909,92 @@
       "metrics": {
         "counts": {
           "eligible": 405,
-          "covered": 401,
+          "covered": 399,
           "groups": 12,
-          "true_positive": 314,
+          "true_positive": 297,
           "false_positive": 0,
           "true_negative": 0,
-          "false_negative": 87,
-          "abstained_positive": 4,
+          "false_negative": 102,
+          "abstained_positive": 6,
           "abstained_negative": 0
         },
-        "coverage": 0.9901234567901235,
+        "coverage": 0.9851851851851852,
         "precision": 1,
-        "recall": 0.7830423940149626,
+        "recall": 0.7443609022556391,
         "false_positive_rate": null,
-        "full_flow_recall": 0.7753086419753087,
-        "brier": 0.21183923225368217,
-        "training_constant_brier": 0.40535913123645384,
-        "ece": 0.21445061878705318,
+        "full_flow_recall": 0.7333333333333333,
+        "brier": 0.2304139946680192,
+        "training_constant_brier": 0.5216049382716019,
+        "ece": 0.26028163960201617,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 84,
-            "mean_response": 0.0008705852039821075,
+            "count": 77,
+            "mean_response": 0.003816522732185599,
             "positive_rate": 1
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 3,
+            "mean_response": 0.1566971945305515,
+            "positive_rate": 1
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 7,
+            "mean_response": 0.2569577449491284,
+            "positive_rate": 1
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 2,
-            "mean_response": 0.3883033857211212,
+            "count": 5,
+            "mean_response": 0.37007786763734185,
             "positive_rate": 1
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 1,
-            "mean_response": 0.47786977859807556,
+            "count": 10,
+            "mean_response": 0.44320994810105746,
             "positive_rate": 1
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 16,
+            "mean_response": 0.5251338308420838,
+            "positive_rate": 1
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.6335578550832308,
+            "positive_rate": 1
           },
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 1,
-            "mean_response": 0.7507411183967134,
+            "count": 5,
+            "mean_response": 0.728811353157441,
             "positive_rate": 1
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 5,
+            "mean_response": 0.8454167048976728,
+            "positive_rate": 1
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 313,
-            "mean_response": 0.999766629523387,
+            "count": 269,
+            "mean_response": 0.9991155079444948,
             "positive_rate": 1
           }
         ]
@@ -3998,12 +4005,12 @@
       "value": "c",
       "metrics": {
         "counts": {
-          "eligible": 17,
-          "covered": 17,
+          "eligible": 18,
+          "covered": 18,
           "groups": 3,
           "true_positive": 0,
           "false_positive": 1,
-          "true_negative": 16,
+          "true_negative": 17,
           "false_negative": 0,
           "abstained_positive": 0,
           "abstained_negative": 0
@@ -4011,16 +4018,16 @@
         "coverage": 1,
         "precision": 0,
         "recall": null,
-        "false_positive_rate": 0.058823529411764705,
+        "false_positive_rate": 0.05555555555555555,
         "full_flow_recall": null,
-        "brier": 0.058823529411764705,
-        "training_constant_brier": 0.13200272985237246,
-        "ece": 0.058823529411764705,
+        "brier": 0.05555555555555555,
+        "training_constant_brier": 0.07716049382716046,
+        "ece": 0.05555555555555555,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 16,
+            "count": 17,
             "mean_response": 0,
             "positive_rate": 0
           },
@@ -4095,30 +4102,30 @@
       "value": "cpp",
       "metrics": {
         "counts": {
-          "eligible": 43,
-          "covered": 43,
+          "eligible": 62,
+          "covered": 61,
           "groups": 3,
           "true_positive": 0,
           "false_positive": 1,
-          "true_negative": 42,
+          "true_negative": 60,
           "false_negative": 0,
           "abstained_positive": 0,
-          "abstained_negative": 0
+          "abstained_negative": 1
         },
-        "coverage": 1,
+        "coverage": 0.9838709677419355,
         "precision": 0,
         "recall": null,
-        "false_positive_rate": 0.023255813953488372,
+        "false_positive_rate": 0.01639344262295082,
         "full_flow_recall": null,
-        "brier": 0.022531519037058193,
-        "training_constant_brier": 0.13200272985237235,
-        "ece": 0.02289080196968439,
+        "brier": 0.006085989541335609,
+        "training_constant_brier": 0.07716049382716055,
+        "ece": 0.010640447579379472,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 42,
-            "mean_response": 0,
+            "count": 60,
+            "mean_response": 0.0006860010560180142,
             "positive_rate": 0
           },
           {
@@ -4159,9 +4166,9 @@
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.6079072389810669,
+            "positive_rate": 0
           },
           {
             "lower": 0.7,
@@ -4180,9 +4187,9 @@
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 1,
-            "mean_response": 0.9843044846964288,
-            "positive_rate": 0
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
           }
         ]
       }
@@ -4192,12 +4199,12 @@
       "value": "csharp",
       "metrics": {
         "counts": {
-          "eligible": 65,
-          "covered": 65,
+          "eligible": 87,
+          "covered": 87,
           "groups": 2,
           "true_positive": 0,
-          "false_positive": 28,
-          "true_negative": 37,
+          "false_positive": 9,
+          "true_negative": 78,
           "false_negative": 0,
           "abstained_positive": 0,
           "abstained_negative": 0
@@ -4205,17 +4212,17 @@
         "coverage": 1,
         "precision": 0,
         "recall": null,
-        "false_positive_rate": 0.4307692307692308,
+        "false_positive_rate": 0.10344827586206896,
         "full_flow_recall": null,
-        "brier": 0.4307692307692308,
-        "training_constant_brier": 0.13200272985237232,
-        "ece": 0.4307692307692308,
+        "brier": 0.06865189099392185,
+        "training_constant_brier": 0.07716049382716056,
+        "ece": 0.10368413451860388,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 37,
-            "mean_response": 0,
+            "count": 72,
+            "mean_response": 0.0037816049312126834,
             "positive_rate": 0
           },
           {
@@ -4228,57 +4235,57 @@
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.22296613523014322,
+            "positive_rate": 0
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 3,
+            "mean_response": 0.3515325339059787,
+            "positive_rate": 0
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.4252858299560265,
+            "positive_rate": 0
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 3,
+            "mean_response": 0.5113665860949786,
+            "positive_rate": 0
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.62253350686315,
+            "positive_rate": 0
           },
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.7980816725643792,
+            "positive_rate": 0
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.8610924906129382,
+            "positive_rate": 0
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 28,
-            "mean_response": 1,
+            "count": 2,
+            "mean_response": 0.9716044161363748,
             "positive_rate": 0
           }
         ]
@@ -4289,12 +4296,12 @@
       "value": "go",
       "metrics": {
         "counts": {
-          "eligible": 20,
-          "covered": 20,
+          "eligible": 29,
+          "covered": 29,
           "groups": 1,
           "true_positive": 0,
           "false_positive": 0,
-          "true_negative": 20,
+          "true_negative": 29,
           "false_negative": 0,
           "abstained_positive": 0,
           "abstained_negative": 0
@@ -4304,14 +4311,14 @@
         "recall": null,
         "false_positive_rate": 0,
         "full_flow_recall": null,
-        "brier": 0,
-        "training_constant_brier": 0.13200272985237244,
-        "ece": 0,
+        "brier": 0.01057173128344862,
+        "training_constant_brier": 0.07716049382716046,
+        "ece": 0.026685668555797914,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 20,
+            "count": 27,
             "mean_response": 0,
             "positive_rate": 0
           },
@@ -4332,16 +4339,16 @@
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.32722752193606314,
+            "positive_rate": 0
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.4466568661820764,
+            "positive_rate": 0
           },
           {
             "lower": 0.5,
@@ -4386,29 +4393,29 @@
       "value": "java",
       "metrics": {
         "counts": {
-          "eligible": 46,
-          "covered": 46,
+          "eligible": 57,
+          "covered": 42,
           "groups": 1,
           "true_positive": 0,
           "false_positive": 0,
-          "true_negative": 46,
+          "true_negative": 42,
           "false_negative": 0,
           "abstained_positive": 0,
-          "abstained_negative": 0
+          "abstained_negative": 15
         },
-        "coverage": 1,
+        "coverage": 0.7368421052631579,
         "precision": null,
         "recall": null,
         "false_positive_rate": 0,
         "full_flow_recall": null,
-        "brier": 0,
-        "training_constant_brier": 0.13200272985237235,
-        "ece": 0,
+        "brier": 0.004951703901053471,
+        "training_constant_brier": 0.0771604938271605,
+        "ece": 0.010858071280381455,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 46,
+            "count": 41,
             "mean_response": 0,
             "positive_rate": 0
           },
@@ -4436,9 +4443,9 @@
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.4560389937760211,
+            "positive_rate": 0
           },
           {
             "lower": 0.5,
@@ -4483,38 +4490,38 @@
       "value": "javascript",
       "metrics": {
         "counts": {
-          "eligible": 21,
-          "covered": 21,
+          "eligible": 24,
+          "covered": 24,
           "groups": 1,
           "true_positive": 0,
-          "false_positive": 1,
-          "true_negative": 20,
+          "false_positive": 0,
+          "true_negative": 24,
           "false_negative": 0,
           "abstained_positive": 0,
           "abstained_negative": 0
         },
         "coverage": 1,
-        "precision": 0,
+        "precision": null,
         "recall": null,
-        "false_positive_rate": 0.047619047619047616,
+        "false_positive_rate": 0,
         "full_flow_recall": null,
-        "brier": 0.047619047619047616,
-        "training_constant_brier": 0.1320027298523724,
-        "ece": 0.047619047619047616,
+        "brier": 0.0007140574190911312,
+        "training_constant_brier": 0.07716049382716045,
+        "ece": 0.005454575369552653,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 20,
+            "count": 23,
             "mean_response": 0,
             "positive_rate": 0
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.13090980886926368,
+            "positive_rate": 0
           },
           {
             "lower": 0.2,
@@ -4568,9 +4575,9 @@
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 1,
-            "mean_response": 1,
-            "positive_rate": 0
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
           }
         ]
       }
@@ -4581,92 +4588,92 @@
       "metrics": {
         "counts": {
           "eligible": 405,
-          "covered": 401,
+          "covered": 399,
           "groups": 12,
-          "true_positive": 314,
+          "true_positive": 297,
           "false_positive": 0,
           "true_negative": 0,
-          "false_negative": 87,
-          "abstained_positive": 4,
+          "false_negative": 102,
+          "abstained_positive": 6,
           "abstained_negative": 0
         },
-        "coverage": 0.9901234567901235,
+        "coverage": 0.9851851851851852,
         "precision": 1,
-        "recall": 0.7830423940149626,
+        "recall": 0.7443609022556391,
         "false_positive_rate": null,
-        "full_flow_recall": 0.7753086419753087,
-        "brier": 0.21183923225368217,
-        "training_constant_brier": 0.40535913123645384,
-        "ece": 0.21445061878705318,
+        "full_flow_recall": 0.7333333333333333,
+        "brier": 0.2304139946680192,
+        "training_constant_brier": 0.5216049382716019,
+        "ece": 0.26028163960201617,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 84,
-            "mean_response": 0.0008705852039821075,
+            "count": 77,
+            "mean_response": 0.003816522732185599,
             "positive_rate": 1
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 3,
+            "mean_response": 0.1566971945305515,
+            "positive_rate": 1
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 7,
+            "mean_response": 0.2569577449491284,
+            "positive_rate": 1
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 2,
-            "mean_response": 0.3883033857211212,
+            "count": 5,
+            "mean_response": 0.37007786763734185,
             "positive_rate": 1
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 1,
-            "mean_response": 0.47786977859807556,
+            "count": 10,
+            "mean_response": 0.44320994810105746,
             "positive_rate": 1
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 16,
+            "mean_response": 0.5251338308420838,
+            "positive_rate": 1
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.6335578550832308,
+            "positive_rate": 1
           },
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 1,
-            "mean_response": 0.7507411183967134,
+            "count": 5,
+            "mean_response": 0.728811353157441,
             "positive_rate": 1
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 5,
+            "mean_response": 0.8454167048976728,
+            "positive_rate": 1
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 313,
-            "mean_response": 0.999766629523387,
+            "count": 269,
+            "mean_response": 0.9991155079444948,
             "positive_rate": 1
           }
         ]
@@ -4677,29 +4684,29 @@
       "value": "rust",
       "metrics": {
         "counts": {
-          "eligible": 23,
-          "covered": 23,
+          "eligible": 39,
+          "covered": 38,
           "groups": 2,
           "true_positive": 0,
           "false_positive": 1,
-          "true_negative": 22,
+          "true_negative": 37,
           "false_negative": 0,
           "abstained_positive": 0,
-          "abstained_negative": 0
+          "abstained_negative": 1
         },
-        "coverage": 1,
+        "coverage": 0.9743589743589743,
         "precision": 0,
         "recall": null,
-        "false_positive_rate": 0.043478260869565216,
+        "false_positive_rate": 0.02631578947368421,
         "full_flow_recall": null,
-        "brier": 0.04913897363159417,
-        "training_constant_brier": 0.1320027298523724,
-        "ece": 0.05916640754707853,
+        "brier": 0.02757929598722218,
+        "training_constant_brier": 0.0771604938271605,
+        "ece": 0.032082085634036535,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 21,
+            "count": 36,
             "mean_response": 0,
             "positive_rate": 0
           },
@@ -4713,16 +4720,16 @@
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.2191192540933883,
+            "positive_rate": 0
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 1,
-            "mean_response": 0.3608273735828062,
-            "positive_rate": 0
+            "count": 0,
+            "mean_response": null,
+            "positive_rate": null
           },
           {
             "lower": 0.4,
@@ -4775,92 +4782,92 @@
       "metrics": {
         "counts": {
           "eligible": 405,
-          "covered": 401,
+          "covered": 399,
           "groups": 12,
-          "true_positive": 314,
+          "true_positive": 297,
           "false_positive": 0,
           "true_negative": 0,
-          "false_negative": 87,
-          "abstained_positive": 4,
+          "false_negative": 102,
+          "abstained_positive": 6,
           "abstained_negative": 0
         },
-        "coverage": 0.9901234567901235,
+        "coverage": 0.9851851851851852,
         "precision": 1,
-        "recall": 0.7830423940149626,
+        "recall": 0.7443609022556391,
         "false_positive_rate": null,
-        "full_flow_recall": 0.7753086419753087,
-        "brier": 0.21183923225368217,
-        "training_constant_brier": 0.40535913123645384,
-        "ece": 0.21445061878705318,
+        "full_flow_recall": 0.7333333333333333,
+        "brier": 0.2304139946680192,
+        "training_constant_brier": 0.5216049382716019,
+        "ece": 0.26028163960201617,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 84,
-            "mean_response": 0.0008705852039821075,
+            "count": 77,
+            "mean_response": 0.003816522732185599,
             "positive_rate": 1
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 3,
+            "mean_response": 0.1566971945305515,
+            "positive_rate": 1
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 7,
+            "mean_response": 0.2569577449491284,
+            "positive_rate": 1
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 2,
-            "mean_response": 0.3883033857211212,
+            "count": 5,
+            "mean_response": 0.37007786763734185,
             "positive_rate": 1
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 1,
-            "mean_response": 0.47786977859807556,
+            "count": 10,
+            "mean_response": 0.44320994810105746,
             "positive_rate": 1
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 16,
+            "mean_response": 0.5251338308420838,
+            "positive_rate": 1
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.6335578550832308,
+            "positive_rate": 1
           },
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 1,
-            "mean_response": 0.7507411183967134,
+            "count": 5,
+            "mean_response": 0.728811353157441,
             "positive_rate": 1
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 5,
+            "mean_response": 0.8454167048976728,
+            "positive_rate": 1
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 313,
-            "mean_response": 0.999766629523387,
+            "count": 269,
+            "mean_response": 0.9991155079444948,
             "positive_rate": 1
           }
         ]
@@ -4871,93 +4878,93 @@
       "value": "none",
       "metrics": {
         "counts": {
-          "eligible": 235,
-          "covered": 235,
+          "eligible": 316,
+          "covered": 299,
           "groups": 10,
           "true_positive": 0,
-          "false_positive": 32,
-          "true_negative": 203,
+          "false_positive": 12,
+          "true_negative": 287,
           "false_negative": 0,
           "abstained_positive": 0,
-          "abstained_negative": 0
+          "abstained_negative": 17
         },
-        "coverage": 1,
+        "coverage": 0.9462025316455697,
         "precision": 0,
         "recall": null,
-        "false_positive_rate": 0.13617021276595745,
+        "false_positive_rate": 0.04013377926421405,
         "full_flow_recall": null,
-        "brier": 0.1365917094132773,
-        "training_constant_brier": 0.13200272985237313,
-        "ece": 0.13763885897140102,
+        "brier": 0.02984502433153699,
+        "training_constant_brier": 0.07716049382716056,
+        "ece": 0.044312840970961526,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 202,
-            "mean_response": 0,
+            "count": 276,
+            "mean_response": 0.0011356362985811379,
             "positive_rate": 0
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.13090980886926368,
+            "positive_rate": 0
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.22104269466176577,
+            "positive_rate": 0
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 1,
-            "mean_response": 0.3608273735828062,
+            "count": 4,
+            "mean_response": 0.34545628091349984,
             "positive_rate": 0
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 4,
+            "mean_response": 0.43831687996753765,
+            "positive_rate": 0
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 3,
+            "mean_response": 0.5113665860949786,
+            "positive_rate": 0
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.6152203729221084,
+            "positive_rate": 0
           },
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.7980816725643792,
+            "positive_rate": 0
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.8610924906129382,
+            "positive_rate": 0
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 32,
-            "mean_response": 0.9995095151467634,
+            "count": 4,
+            "mean_response": 0.9858022080681874,
             "positive_rate": 0
           }
         ]
@@ -4968,94 +4975,94 @@
       "value": "unknown",
       "metrics": {
         "counts": {
-          "eligible": 640,
-          "covered": 636,
+          "eligible": 721,
+          "covered": 698,
           "groups": 12,
-          "true_positive": 314,
-          "false_positive": 32,
-          "true_negative": 203,
-          "false_negative": 87,
-          "abstained_positive": 4,
-          "abstained_negative": 0
+          "true_positive": 297,
+          "false_positive": 12,
+          "true_negative": 287,
+          "false_negative": 102,
+          "abstained_positive": 6,
+          "abstained_negative": 17
         },
-        "coverage": 0.99375,
-        "precision": 0.9075144508670521,
-        "recall": 0.7830423940149626,
-        "false_positive_rate": 0.13617021276595745,
-        "full_flow_recall": 0.7753086419753087,
-        "brier": 0.18403550919158293,
-        "training_constant_brier": 0.30435480053636077,
-        "ece": 0.18470453667667008,
+        "coverage": 0.9680998613037448,
+        "precision": 0.9611650485436893,
+        "recall": 0.7443609022556391,
+        "false_positive_rate": 0.04013377926421405,
+        "full_flow_recall": 0.7333333333333333,
+        "brier": 0.1444969142516751,
+        "training_constant_brier": 0.33121971063709155,
+        "ece": 0.14456596792696333,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 286,
-            "mean_response": 0.0002556963536171225,
-            "positive_rate": 0.2937062937062937
+            "count": 353,
+            "mean_response": 0.0017204188917469831,
+            "positive_rate": 0.21813031161473087
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 4,
+            "mean_response": 0.15025034811522953,
+            "positive_rate": 0.75
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 9,
+            "mean_response": 0.2489766226630478,
+            "positive_rate": 0.7777777777777778
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 3,
-            "mean_response": 0.37914471500834956,
-            "positive_rate": 0.6666666666666666
+            "count": 9,
+            "mean_response": 0.3591349402045232,
+            "positive_rate": 0.5555555555555556
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 1,
-            "mean_response": 0.47786977859807556,
-            "positive_rate": 1
+            "count": 14,
+            "mean_response": 0.44181192863433744,
+            "positive_rate": 0.7142857142857143
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 19,
+            "mean_response": 0.5229600553556987,
+            "positive_rate": 0.8421052631578947
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 4,
+            "mean_response": 0.6243891140026696,
+            "positive_rate": 0.5
           },
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 1,
-            "mean_response": 0.7507411183967134,
-            "positive_rate": 1
+            "count": 6,
+            "mean_response": 0.7403564063919307,
+            "positive_rate": 0.8333333333333334
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 7,
+            "mean_response": 0.84989550081632,
+            "positive_rate": 0.7142857142857143
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 345,
-            "mean_response": 0.9997427812333812,
-            "positive_rate": 0.9072463768115943
+            "count": 273,
+            "mean_response": 0.9989204412796403,
+            "positive_rate": 0.9853479853479854
           }
         ]
       }
@@ -5066,92 +5073,92 @@
       "metrics": {
         "counts": {
           "eligible": 184,
-          "covered": 183,
+          "covered": 182,
           "groups": 11,
-          "true_positive": 144,
+          "true_positive": 140,
           "false_positive": 0,
           "true_negative": 0,
-          "false_negative": 39,
-          "abstained_positive": 1,
+          "false_negative": 42,
+          "abstained_positive": 2,
           "abstained_negative": 0
         },
-        "coverage": 0.9945652173913043,
+        "coverage": 0.9891304347826086,
         "precision": 1,
-        "recall": 0.7868852459016393,
+        "recall": 0.7692307692307693,
         "false_positive_rate": null,
-        "full_flow_recall": 0.782608695652174,
-        "brier": 0.20974018909349207,
-        "training_constant_brier": 0.40535913123645634,
-        "ece": 0.21140516472598908,
+        "full_flow_recall": 0.7608695652173914,
+        "brier": 0.21760501620203773,
+        "training_constant_brier": 0.5216049382716067,
+        "ece": 0.24255512117765574,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 38,
-            "mean_response": 0,
+            "count": 34,
+            "mean_response": 0.00426099004658314,
             "positive_rate": 1
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.17238857973855143,
+            "positive_rate": 1
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.2575354137793699,
+            "positive_rate": 1
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 1,
-            "mean_response": 0.3858998143238664,
+            "count": 2,
+            "mean_response": 0.34878678138901315,
             "positive_rate": 1
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.43054181389551277,
+            "positive_rate": 1
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 7,
+            "mean_response": 0.5344478831600524,
+            "positive_rate": 1
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.6335578550832308,
+            "positive_rate": 1
           },
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.766461272767861,
+            "positive_rate": 1
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.8346695028261255,
+            "positive_rate": 1
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 144,
-            "mean_response": 0.9994927433390287,
+            "count": 128,
+            "mean_response": 0.9988088901232108,
             "positive_rate": 1
           }
         ]
@@ -5162,93 +5169,93 @@
       "value": "none",
       "metrics": {
         "counts": {
-          "eligible": 235,
-          "covered": 235,
+          "eligible": 316,
+          "covered": 299,
           "groups": 10,
           "true_positive": 0,
-          "false_positive": 32,
-          "true_negative": 203,
+          "false_positive": 12,
+          "true_negative": 287,
           "false_negative": 0,
           "abstained_positive": 0,
-          "abstained_negative": 0
+          "abstained_negative": 17
         },
-        "coverage": 1,
+        "coverage": 0.9462025316455697,
         "precision": 0,
         "recall": null,
-        "false_positive_rate": 0.13617021276595745,
+        "false_positive_rate": 0.04013377926421405,
         "full_flow_recall": null,
-        "brier": 0.1365917094132773,
-        "training_constant_brier": 0.13200272985237313,
-        "ece": 0.13763885897140102,
+        "brier": 0.02984502433153699,
+        "training_constant_brier": 0.07716049382716056,
+        "ece": 0.044312840970961526,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 202,
-            "mean_response": 0,
+            "count": 276,
+            "mean_response": 0.0011356362985811379,
             "positive_rate": 0
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.13090980886926368,
+            "positive_rate": 0
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.22104269466176577,
+            "positive_rate": 0
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 1,
-            "mean_response": 0.3608273735828062,
+            "count": 4,
+            "mean_response": 0.34545628091349984,
             "positive_rate": 0
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 4,
+            "mean_response": 0.43831687996753765,
+            "positive_rate": 0
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 3,
+            "mean_response": 0.5113665860949786,
+            "positive_rate": 0
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.6152203729221084,
+            "positive_rate": 0
           },
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.7980816725643792,
+            "positive_rate": 0
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.8610924906129382,
+            "positive_rate": 0
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 32,
-            "mean_response": 0.9995095151467634,
+            "count": 4,
+            "mean_response": 0.9858022080681874,
             "positive_rate": 0
           }
         ]
@@ -5260,65 +5267,65 @@
       "metrics": {
         "counts": {
           "eligible": 221,
-          "covered": 218,
+          "covered": 217,
           "groups": 12,
-          "true_positive": 170,
+          "true_positive": 157,
           "false_positive": 0,
           "true_negative": 0,
-          "false_negative": 48,
-          "abstained_positive": 3,
+          "false_negative": 60,
+          "abstained_positive": 4,
           "abstained_negative": 0
         },
-        "coverage": 0.9864253393665159,
+        "coverage": 0.9819004524886877,
         "precision": 1,
-        "recall": 0.7798165137614679,
+        "recall": 0.7235023041474654,
         "false_positive_rate": null,
-        "full_flow_recall": 0.7692307692307693,
-        "brier": 0.2136012730716399,
-        "training_constant_brier": 0.40535913123645556,
-        "ece": 0.21700712380161624,
+        "full_flow_recall": 0.7104072398190046,
+        "brier": 0.2411570088652939,
+        "training_constant_brier": 0.5216049382716069,
+        "ece": 0.27514904215147973,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 46,
-            "mean_response": 0.001589764285532544,
+            "count": 43,
+            "mean_response": 0.0034650834603363796,
             "positive_rate": 1
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.12531442411455163,
+            "positive_rate": 1
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 5,
+            "mean_response": 0.2567266774170318,
+            "positive_rate": 1
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 1,
-            "mean_response": 0.39070695711837605,
+            "count": 3,
+            "mean_response": 0.38427192513622765,
             "positive_rate": 1
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 1,
-            "mean_response": 0.47786977859807556,
+            "count": 8,
+            "mean_response": 0.4463769816524435,
             "positive_rate": 1
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 9,
+            "mean_response": 0.517889567928108,
+            "positive_rate": 1
           },
           {
             "lower": 0.6,
@@ -5330,22 +5337,22 @@
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 1,
-            "mean_response": 0.7507411183967134,
+            "count": 4,
+            "mean_response": 0.719398873254836,
             "positive_rate": 1
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 3,
+            "mean_response": 0.8525815062787041,
+            "positive_rate": 1
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 169,
-            "mean_response": 1,
+            "count": 141,
+            "mean_response": 0.9993938560375749,
             "positive_rate": 1
           }
         ]
@@ -5356,94 +5363,94 @@
       "value": "en",
       "metrics": {
         "counts": {
-          "eligible": 640,
-          "covered": 636,
+          "eligible": 721,
+          "covered": 698,
           "groups": 12,
-          "true_positive": 314,
-          "false_positive": 32,
-          "true_negative": 203,
-          "false_negative": 87,
-          "abstained_positive": 4,
-          "abstained_negative": 0
+          "true_positive": 297,
+          "false_positive": 12,
+          "true_negative": 287,
+          "false_negative": 102,
+          "abstained_positive": 6,
+          "abstained_negative": 17
         },
-        "coverage": 0.99375,
-        "precision": 0.9075144508670521,
-        "recall": 0.7830423940149626,
-        "false_positive_rate": 0.13617021276595745,
-        "full_flow_recall": 0.7753086419753087,
-        "brier": 0.18403550919158293,
-        "training_constant_brier": 0.30435480053636077,
-        "ece": 0.18470453667667008,
+        "coverage": 0.9680998613037448,
+        "precision": 0.9611650485436893,
+        "recall": 0.7443609022556391,
+        "false_positive_rate": 0.04013377926421405,
+        "full_flow_recall": 0.7333333333333333,
+        "brier": 0.1444969142516751,
+        "training_constant_brier": 0.33121971063709155,
+        "ece": 0.14456596792696333,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 286,
-            "mean_response": 0.0002556963536171225,
-            "positive_rate": 0.2937062937062937
+            "count": 353,
+            "mean_response": 0.0017204188917469831,
+            "positive_rate": 0.21813031161473087
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 4,
+            "mean_response": 0.15025034811522953,
+            "positive_rate": 0.75
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 9,
+            "mean_response": 0.2489766226630478,
+            "positive_rate": 0.7777777777777778
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 3,
-            "mean_response": 0.37914471500834956,
-            "positive_rate": 0.6666666666666666
+            "count": 9,
+            "mean_response": 0.3591349402045232,
+            "positive_rate": 0.5555555555555556
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 1,
-            "mean_response": 0.47786977859807556,
-            "positive_rate": 1
+            "count": 14,
+            "mean_response": 0.44181192863433744,
+            "positive_rate": 0.7142857142857143
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 19,
+            "mean_response": 0.5229600553556987,
+            "positive_rate": 0.8421052631578947
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 4,
+            "mean_response": 0.6243891140026696,
+            "positive_rate": 0.5
           },
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 1,
-            "mean_response": 0.7507411183967134,
-            "positive_rate": 1
+            "count": 6,
+            "mean_response": 0.7403564063919307,
+            "positive_rate": 0.8333333333333334
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 7,
+            "mean_response": 0.84989550081632,
+            "positive_rate": 0.7142857142857143
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 345,
-            "mean_response": 0.9997427812333812,
-            "positive_rate": 0.9072463768115943
+            "count": 273,
+            "mean_response": 0.9989204412796403,
+            "positive_rate": 0.9853479853479854
           }
         ]
       }
@@ -5453,94 +5460,94 @@
       "value": "comment",
       "metrics": {
         "counts": {
-          "eligible": 640,
-          "covered": 636,
+          "eligible": 721,
+          "covered": 698,
           "groups": 12,
-          "true_positive": 314,
-          "false_positive": 32,
-          "true_negative": 203,
-          "false_negative": 87,
-          "abstained_positive": 4,
-          "abstained_negative": 0
+          "true_positive": 297,
+          "false_positive": 12,
+          "true_negative": 287,
+          "false_negative": 102,
+          "abstained_positive": 6,
+          "abstained_negative": 17
         },
-        "coverage": 0.99375,
-        "precision": 0.9075144508670521,
-        "recall": 0.7830423940149626,
-        "false_positive_rate": 0.13617021276595745,
-        "full_flow_recall": 0.7753086419753087,
-        "brier": 0.18403550919158293,
-        "training_constant_brier": 0.30435480053636077,
-        "ece": 0.18470453667667008,
+        "coverage": 0.9680998613037448,
+        "precision": 0.9611650485436893,
+        "recall": 0.7443609022556391,
+        "false_positive_rate": 0.04013377926421405,
+        "full_flow_recall": 0.7333333333333333,
+        "brier": 0.1444969142516751,
+        "training_constant_brier": 0.33121971063709155,
+        "ece": 0.14456596792696333,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 286,
-            "mean_response": 0.0002556963536171225,
-            "positive_rate": 0.2937062937062937
+            "count": 353,
+            "mean_response": 0.0017204188917469831,
+            "positive_rate": 0.21813031161473087
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 4,
+            "mean_response": 0.15025034811522953,
+            "positive_rate": 0.75
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 9,
+            "mean_response": 0.2489766226630478,
+            "positive_rate": 0.7777777777777778
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 3,
-            "mean_response": 0.37914471500834956,
-            "positive_rate": 0.6666666666666666
+            "count": 9,
+            "mean_response": 0.3591349402045232,
+            "positive_rate": 0.5555555555555556
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 1,
-            "mean_response": 0.47786977859807556,
-            "positive_rate": 1
+            "count": 14,
+            "mean_response": 0.44181192863433744,
+            "positive_rate": 0.7142857142857143
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 19,
+            "mean_response": 0.5229600553556987,
+            "positive_rate": 0.8421052631578947
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 4,
+            "mean_response": 0.6243891140026696,
+            "positive_rate": 0.5
           },
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 1,
-            "mean_response": 0.7507411183967134,
-            "positive_rate": 1
+            "count": 6,
+            "mean_response": 0.7403564063919307,
+            "positive_rate": 0.8333333333333334
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 7,
+            "mean_response": 0.84989550081632,
+            "positive_rate": 0.7142857142857143
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 345,
-            "mean_response": 0.9997427812333812,
-            "positive_rate": 0.9072463768115943
+            "count": 273,
+            "mean_response": 0.9989204412796403,
+            "positive_rate": 0.9853479853479854
           }
         ]
       }
@@ -5550,94 +5557,94 @@
       "value": "20-49",
       "metrics": {
         "counts": {
-          "eligible": 360,
-          "covered": 360,
+          "eligible": 423,
+          "covered": 406,
           "groups": 10,
-          "true_positive": 104,
-          "false_positive": 20,
-          "true_negative": 152,
-          "false_negative": 84,
+          "true_positive": 90,
+          "false_positive": 9,
+          "true_negative": 209,
+          "false_negative": 98,
           "abstained_positive": 0,
-          "abstained_negative": 0
+          "abstained_negative": 17
         },
-        "coverage": 1,
-        "precision": 0.8387096774193549,
-        "recall": 0.5531914893617021,
-        "false_positive_rate": 0.11627906976744186,
-        "full_flow_recall": 0.5531914893617021,
-        "brier": 0.2839406637997195,
-        "training_constant_brier": 0.274755517241838,
-        "ece": 0.28489141666333406,
+        "coverage": 0.9598108747044918,
+        "precision": 0.9090909090909091,
+        "recall": 0.4787234042553192,
+        "false_positive_rate": 0.04128440366972477,
+        "full_flow_recall": 0.4787234042553192,
+        "brier": 0.23153937018280316,
+        "training_constant_brier": 0.2829623548014363,
+        "ece": 0.23111297467011127,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 232,
-            "mean_response": 0,
-            "positive_rate": 0.34913793103448276
+            "count": 276,
+            "mean_response": 0.001237337862150038,
+            "positive_rate": 0.2717391304347826
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 3,
+            "mean_response": 0.1566971945305515,
+            "positive_rate": 1
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 7,
+            "mean_response": 0.250471690896067,
+            "positive_rate": 0.8571428571428571
           },
           {
             "lower": 0.3,
             "upper": 0.4,
-            "count": 3,
-            "mean_response": 0.37914471500834956,
-            "positive_rate": 0.6666666666666666
+            "count": 9,
+            "mean_response": 0.3591349402045232,
+            "positive_rate": 0.5555555555555556
           },
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 1,
-            "mean_response": 0.47786977859807556,
-            "positive_rate": 1
+            "count": 12,
+            "mean_response": 0.44168667828588953,
+            "positive_rate": 0.75
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 13,
+            "mean_response": 0.5172462559129628,
+            "positive_rate": 0.7692307692307693
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 3,
+            "mean_response": 0.6298830723432038,
+            "positive_rate": 0.6666666666666666
           },
           {
             "lower": 0.7,
             "upper": 0.8,
-            "count": 1,
-            "mean_response": 0.7507411183967134,
-            "positive_rate": 1
+            "count": 6,
+            "mean_response": 0.7403564063919307,
+            "positive_rate": 0.8333333333333334
           },
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 5,
+            "mean_response": 0.8559859000123978,
+            "positive_rate": 0.6
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 123,
-            "mean_response": 0.999406138543253,
-            "positive_rate": 0.8373983739837398
+            "count": 72,
+            "mean_response": 0.9959066731853028,
+            "positive_rate": 0.9722222222222222
           }
         ]
       }
@@ -5647,45 +5654,45 @@
       "value": "50-99",
       "metrics": {
         "counts": {
-          "eligible": 280,
-          "covered": 276,
+          "eligible": 298,
+          "covered": 292,
           "groups": 12,
-          "true_positive": 210,
-          "false_positive": 12,
-          "true_negative": 51,
-          "false_negative": 3,
-          "abstained_positive": 4,
+          "true_positive": 207,
+          "false_positive": 3,
+          "true_negative": 78,
+          "false_negative": 4,
+          "abstained_positive": 6,
           "abstained_negative": 0
         },
-        "coverage": 0.9857142857142858,
-        "precision": 0.9459459459459459,
-        "recall": 0.9859154929577465,
-        "false_positive_rate": 0.19047619047619047,
-        "full_flow_recall": 0.967741935483871,
-        "brier": 0.05372443796357866,
-        "training_constant_brier": 0.34296256135530606,
-        "ece": 0.05402599756363017,
+        "coverage": 0.9798657718120806,
+        "precision": 0.9857142857142858,
+        "recall": 0.981042654028436,
+        "false_positive_rate": 0.037037037037037035,
+        "full_flow_recall": 0.9539170506912442,
+        "brier": 0.02347212963510661,
+        "training_constant_brier": 0.39831726703872977,
+        "ece": 0.028147332429212454,
         "reliability": [
           {
             "lower": 0,
             "upper": 0.1,
-            "count": 54,
-            "mean_response": 0.0013542436506388338,
-            "positive_rate": 0.05555555555555555
+            "count": 77,
+            "mean_response": 0.0034519820627698016,
+            "positive_rate": 0.025974025974025976
           },
           {
             "lower": 0.1,
             "upper": 0.2,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.13090980886926368,
+            "positive_rate": 0
           },
           {
             "lower": 0.2,
             "upper": 0.3,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.24374388384748064,
+            "positive_rate": 0.5
           },
           {
             "lower": 0.3,
@@ -5697,23 +5704,23 @@
           {
             "lower": 0.4,
             "upper": 0.5,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.4425634307250251,
+            "positive_rate": 0.5
           },
           {
             "lower": 0.5,
             "upper": 0.6,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 6,
+            "mean_response": 0.5353399541482929,
+            "positive_rate": 1
           },
           {
             "lower": 0.6,
             "upper": 0.7,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 1,
+            "mean_response": 0.6079072389810669,
+            "positive_rate": 0
           },
           {
             "lower": 0.7,
@@ -5725,16 +5732,16 @@
           {
             "lower": 0.8,
             "upper": 0.9,
-            "count": 0,
-            "mean_response": null,
-            "positive_rate": null
+            "count": 2,
+            "mean_response": 0.8346695028261255,
+            "positive_rate": 1
           },
           {
             "lower": 0.9,
             "upper": 1,
-            "count": 222,
-            "mean_response": 0.9999292994806145,
-            "positive_rate": 0.9459459459459459
+            "count": 201,
+            "mean_response": 1,
+            "positive_rate": 0.9900497512437811
           }
         ]
       }

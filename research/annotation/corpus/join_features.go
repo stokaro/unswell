@@ -42,7 +42,7 @@ func measureCandidates(ctx context.Context, plan Plan, files map[string][]byte,
 		}
 		bytes += len(encoded)
 		targets += record.TargetCount
-		if bytes > MaxArtifactBytes/2 || targets > MaxUnits {
+		if bytes > MaxArtifactBytes/2 || targets > MaxCandidates {
 			return unswell.PreparedFeatureCollection{}, fmt.Errorf("prepared corpus exceeds byte or target limit")
 		}
 		collection.Sources = append(collection.Sources, record)

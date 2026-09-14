@@ -15,7 +15,7 @@ import (
 // shape. It does not attest that fitting occurred or qualify editorial accuracy.
 func Load(ctx context.Context, data []byte) (Artifact, error) {
 	var result Artifact
-	limits := jsoninput.Limits{Array: corpus.MaxUnits, Object: 256,
+	limits := jsoninput.Limits{Array: corpus.MaxCandidates, Object: 256,
 		Arrays: map[string]int{"scores": model.MaxCalibrationSamples, "responses": model.MaxCalibrationSamples}}
 	if err := jsoninput.Decode(ctx, data, MaxArtifactBytes, &result, limits); err != nil {
 		return Artifact{}, err

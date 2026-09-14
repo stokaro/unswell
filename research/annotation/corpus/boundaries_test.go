@@ -178,9 +178,9 @@ func TestCollectionLimitsBeforeCorpusDecoding(t *testing.T) {
 	c.Assert(err, qt.ErrorMatches, `research JSON array "sources" exceeds 10000 entries`)
 	_, err = corpus.LoadPlan(t.Context(), []byte(`{"manifest":`+string(objects)+`}`))
 	c.Assert(err, qt.ErrorMatches, `research JSON array "sources" exceeds 10000 entries`)
-	units := []byte(`{"Units":[` + strings.Repeat("{},", corpus.MaxUnits) + `{}]}`)
+	units := []byte(`{"Units":[` + strings.Repeat("{},", corpus.MaxCandidates) + `{}]}`)
 	_, err = corpus.LoadArtifact(t.Context(), units)
-	c.Assert(err, qt.ErrorMatches, `research JSON array "Units" exceeds 10000 entries`)
+	c.Assert(err, qt.ErrorMatches, `research JSON array "Units" exceeds 50000 entries`)
 }
 
 func snapshot(date, confidence, cohort string) *corpus.Snapshot {

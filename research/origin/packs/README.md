@@ -64,9 +64,13 @@ The reported numbers are from the development partition of the run that fitted
 this pack.
 
 The confirmation partition has since been scored, in
-[a separate run](../runs/2026-09-14-confirmation/README.md), and it separates.
-That run does not describe this pack: a corpus holding both arms exceeds the
-pipeline's candidate ceiling, so it had to refit on a smaller one. On its
-corpus the same procedure gives a development false-flag rate of 0.136 rather
-than 0.040, and its confirmation partition contains no C#, the language this
-model is worst on. Read its three qualifications before quoting its numbers.
+[a separate run](../runs/2026-09-14-confirmation/README.md), and it separates:
+recall 0.875 at a false-flag rate of 0.052, with a Brier interval that excludes
+the constant. Its corpus adds the confirmation arm and reproduces this pack's
+development counts exactly, so the two are comparable.
+
+Two things qualify that result and the run record states both. Its repositories
+carry no C#, which is this model's worst case. And on them the false-flag rate
+rises with unit length, from 0.016 below forty words to 0.222 above sixty, where
+the development partition was flat. A deployment reading takes the worse of the
+two partitions per band.
