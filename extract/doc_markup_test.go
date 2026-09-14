@@ -121,3 +121,35 @@ func excluded(doc document.Document, source string) []string {
 	}
 	return lines
 }
+
+// Markdown protects the tags of an inline HTML element but reads what sits
+// between them. An inline "pre" or "code" element carries an example, so the
+// element and its body are held back together, as a code span is.
+func TestMarkdownInlineCodeElementIsExcluded(t *testing.T) {
+	c := qt.New(t)
+	source := "As often, an example helps: <pre><code class='java'> Employee yoda = " +
+		"new Employee(1L, new Name(\"Yoda\"), 800);</code></pre> The filter reads the property once.\n"
+	doc, err := extract.Parse(t.Context(),
+		document.Source{Name: "sample.md", Format: document.Markdown, Bytes: []byte(source)}, extract.Options{})
+	c.Assert(err, qt.IsNil)
+	c.Assert(doc.Blocks, qt.HasLen, 1)
+	c.Assert(fields(doc.Blocks[0].Text), qt.Equals,
+		"As often, an example helps: \x00 The filter reads the property once.")
+	assertSourceMap(c, doc, source)
+	c.Assert(excluded(doc, source), qt.DeepEquals, []string{
+		"inline-protected: <pre><code class='java'> Employee yoda = new Employee(1L, new Name(\"Yoda\"), 800);</code></pre>",
+	})
+}
+
+// An inline element left unclosed runs to the end of its paragraph. The next
+// paragraph is prose again.
+func TestMarkdownUnclosedCodeElementStopsAtTheParagraph(t *testing.T) {
+	c := qt.New(t)
+	source := "Before the example. <code>value = compute(1, 2);\n\nAfter the example.\n"
+	doc, err := extract.Parse(t.Context(),
+		document.Source{Name: "sample.md", Format: document.Markdown, Bytes: []byte(source)}, extract.Options{})
+	c.Assert(err, qt.IsNil)
+	c.Assert(doc.Blocks, qt.HasLen, 2)
+	c.Assert(fields(doc.Blocks[0].Text), qt.Equals, "Before the example. \x00")
+	c.Assert(fields(doc.Blocks[1].Text), qt.Equals, "After the example.")
+}
