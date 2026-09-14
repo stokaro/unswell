@@ -351,6 +351,83 @@ H0 prevalences of 0.10% and 0.70%, so both differences are negative and
 both cards are `inconclusive` for `zero_count`. A negative difference is
 not a hypothesis here.
 
+## Extraction change of September 15, 2026
+
+Every screening and every record above was measured before the extraction
+fix of issue 279. A documentation comment puts its worked example in `<pre>`
+and `<code>` markup, and the extraction read those regions as prose, so a
+constructor call was measured as a sentence. The fix holds those regions
+back, along with the inline Javadoc tags `{@code}` and `{@literal}` and the
+`<c>` element of C# documentation comments.
+
+The corpus was measured again, all 840 shards, same dataset plan, same
+policy, no skipped shard. The counts below are the whole corpus, not the
+Java and C# stratum alone.
+
+| Cohort | Findings before | After | Prose words before | After |
+| --- | ---: | ---: | ---: | ---: |
+| historical | 18,532 | 16,526 | 2,165,870 | 2,119,409 |
+| historical-2018 | 4,404 | 4,298 | 817,359 | 812,519 |
+| historical-2016 | 3,052 | 2,967 | 532,527 | 528,390 |
+| historical-2012 | 922 | 892 | 144,454 | 142,903 |
+| contemporary | 6,011 | 5,918 | 1,159,967 | 1,156,469 |
+| controlled | 2,757 | 2,757 | 427,542 | 427,542 |
+| Total | 35,678 | 33,358 | 5,247,719 | 5,187,232 |
+
+The controlled arm does not move by a single finding or a single word. Its
+units are generated paragraphs, not source comments, so nothing in it held
+example code. The H0 arm moves and the H1 arm does not. The frozen
+comparisons therefore ran against an H0 side that still carried Java.
+
+Per rule, over every cohort, with rates per thousand words:
+
+| Rule | Before | After | Rate before | Rate after |
+| --- | ---: | ---: | ---: | ---: |
+| syntax.long-sentence | 10,335 | 9,971 | 1.969 | 1.922 |
+| syntax.passive-candidate-density | 6,337 | 5,955 | 1.208 | 1.148 |
+| readability.grade-metric | 4,475 | 4,240 | 0.853 | 0.817 |
+| repetition.exact-sentence | 3,318 | 2,901 | 0.632 | 0.559 |
+| syntax.parenthetical-load | 2,839 | 2,534 | 0.541 | 0.489 |
+| repetition.ngram-density | 2,812 | 2,516 | 0.536 | 0.485 |
+| repetition.paragraph-overlap | 1,397 | 1,277 | 0.266 | 0.246 |
+| repetition.near-sentence | 925 | 805 | 0.176 | 0.155 |
+| readability.long-paragraph | 823 | 749 | 0.157 | 0.144 |
+| syntax.noun-stack | 543 | 541 | 0.103 | 0.104 |
+| format.em-dash-density | 50 | 48 | 0.010 | 0.009 |
+| syntax.paired-contrast-density | 43 | 41 | 0.008 | 0.008 |
+| repetition.syntax-template | 41 | 40 | 0.008 | 0.008 |
+
+No rule gains a finding. The two frozen rules move least: `syntax.noun-stack`
+by two findings and `readability.grade-metric` by 5.3%. A lower H0 rate
+widens the measured difference. The recount therefore cuts against the null
+of the confirmatory record, by an amount far below the three-point MID.
+
+The comment role carries the change. Over the historical cohort its prose
+falls from 1,997,189 words to 1,854,510, so 7.1%, while the number of
+comment units falls only 1.1%. A unit is lost when the prose left after its
+example no longer reaches the minimum length, and that is concentrated where
+a project documents by example: `assertj/assertj-core` keeps 9,263 comment
+units of 14,343.
+
+### What this does and does not change
+
+The screening of September 14 stays as recorded. It ran once, the acceptance
+table carries its hash, and a later extraction change does not reopen it.
+This section records what it ran on.
+
+The frozen list, the MID, the cluster minimum and the decision rule are
+untouched.
+
+`research/methods/baselines/closed-3gram-v1.json` was counted on the same
+pre-fix extraction and is superseded by `closed-3gram-v2.json`, built by
+`scripts/build-baseline.sh` from the recounted measurement. The comment role
+falls from 926,181 words and 17,808 terms to 829,963 and 16,416; 1,392 terms
+leave the table and none enter. Version 1 stays in the tree because the
+records that cite it were computed against it.
+
+A further screening under this version reads the recounted corpus, and its
+record says so.
+
 ## What must exist before the confirmatory measurement
 
 - The frozen list and this document's hash in the acceptance table.
