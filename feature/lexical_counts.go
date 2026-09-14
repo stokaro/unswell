@@ -2,6 +2,7 @@ package feature
 
 import (
 	"context"
+	"crypto/sha256"
 	"encoding/json"
 	"fmt"
 	"slices"
@@ -172,6 +173,14 @@ func (c *lexicalCounter) characters(text string) error {
 		}
 	}
 	return c.ctx.Err()
+}
+
+// LexicalColumnID names the column one vocabulary key measures. The key is
+// source-derived text, so the column carries its digest rather than the text
+// itself, and a pack and the fit that produced it agree on the name without
+// either of them republishing the corpus.
+func LexicalColumnID(key string) string {
+	return fmt.Sprintf("ngram.%x", sha256.Sum256([]byte(key)))
 }
 
 // ValidLexicalKey checks a frozen vocabulary entry against its representation.

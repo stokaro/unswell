@@ -13,8 +13,11 @@ import (
 // word count is an applicability limit chosen from validation data; acceptance
 // is a maintainer statement about a qualified corpus and a published evaluation.
 type PackOptions struct {
-	ID         string
-	MinWords   int
+	ID       string
+	MinWords int
+	// MaxWords carries the fit's upper word bound into the pack, so a model
+	// fitted inside a band abstains outside it instead of extrapolating.
+	MaxWords   int
 	Task       string
 	Accepted   bool
 	Evaluation string
@@ -56,7 +59,7 @@ func BuildPack(ctx context.Context, artifact Artifact, options PackOptions) (pro
 			PreparationHash: identity.PreparationHash, IncludeQuotes: identity.IncludeQuotes,
 			IncludeStructure: identity.IncludeStructure,
 		},
-		Limits:    probability.Limits{MinWords: options.MinWords},
+		Limits:    probability.Limits{MinWords: options.MinWords, MaxWords: options.MaxWords},
 		Estimator: "logistic",
 		Logistic: &probability.Logistic{Means: slices.Clone(artifact.Logistic.Means),
 			Scales: slices.Clone(artifact.Logistic.Scales), Weights: slices.Clone(artifact.Logistic.Weights),
@@ -65,6 +68,15 @@ func BuildPack(ctx context.Context, artifact Artifact, options PackOptions) (pro
 		// implementation stays with the artifact that produced these knots.
 		Calibration: probability.Calibration{Algorithm: "isotonic",
 			Scores: slices.Clone(artifact.Calibration.Scores), Responses: slices.Clone(artifact.Calibration.Responses)},
+	}
+	// A lexical fit's columns are keys, not catalog entries, so the pack has to
+	// carry them or nothing downstream can measure the same thing twice.
+	if artifact.Lexical != nil {
+		terms := make([]string, len(artifact.Lexical.Terms))
+		for i, term := range artifact.Lexical.Terms {
+			terms[i] = term.Key
+		}
+		file.Vocabulary = &probability.Vocabulary{Options: artifact.Lexical.Options.Counts, Terms: terms}
 	}
 	if options.Accepted {
 		file.DeclaredStatus, file.Evaluation = "accepted", options.Evaluation

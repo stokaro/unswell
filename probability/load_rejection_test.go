@@ -61,7 +61,7 @@ func TestLoadRejectsIncompatibleMeasurementContracts(t *testing.T) {
 		{"feature contract", ".*requires feature contract.*", func(f *probability.File) {
 			f.Contract.FeatureContract = "other-v1"
 		}, false},
-		{"unit contract", ".*requires feature contract.*", func(f *probability.File) {
+		{"unit contract", ".*requires unit contract.*", func(f *probability.File) {
 			f.Contract.UnitContract = "other-v1"
 		}, false},
 		{"preparation", ".*preparation hash and a complete NLP identity.*", func(f *probability.File) {

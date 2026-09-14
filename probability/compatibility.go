@@ -12,7 +12,18 @@ import (
 // severities, or report selection. An incompatible pack is never estimated.
 func (p *Pack) Compatible(run Run) error {
 	contract := p.file.Contract
-	if run.FeatureContract != contract.FeatureContract || run.UnitContract != contract.UnitContract {
+	// A lexical pack's columns are its own frozen keys, counted under the
+	// build's lexical contract rather than read from the unit-feature catalog.
+	// What the run has to agree on is that contract, not the catalog's.
+	expected := contract.FeatureContract
+	if p.file.Vocabulary != nil {
+		expected = run.FeatureContract
+		if run.LexicalContract != contract.FeatureContract {
+			return fmt.Errorf("probability pack %s expects lexical contract %s and unit contract %s",
+				p.file.ID, contract.FeatureContract, contract.UnitContract)
+		}
+	}
+	if run.FeatureContract != expected || run.UnitContract != contract.UnitContract {
 		return fmt.Errorf("probability pack %s expects feature contract %s and unit contract %s",
 			p.file.ID, contract.FeatureContract, contract.UnitContract)
 	}

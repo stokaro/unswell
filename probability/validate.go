@@ -40,6 +40,18 @@ func validate(file File) error {
 
 // validateDeclarations checks author statements for internal consistency only.
 // An accepted pack must name its qualified corpus and published evaluation.
+// validateWordLimits keeps a pack inside the word band its fit was validated
+// on. An open maximum admits every length above the floor.
+func validateWordLimits(limits Limits) error {
+	if limits.MinWords < 1 || limits.MinWords > MaxMinimumWords {
+		return fmt.Errorf("probability pack requires a declared minimum word count within 1..%d", MaxMinimumWords)
+	}
+	if limits.MaxWords < 0 || (limits.MaxWords > 0 && limits.MaxWords < limits.MinWords) {
+		return fmt.Errorf("probability pack word limits need a maximum at or above the minimum")
+	}
+	return nil
+}
+
 func validateDeclarations(file File) error {
 	if !validText(file.ID, 128) || !validText(file.Rubric, 128) {
 		return fmt.Errorf("probability pack requires a printable ID and rubric of at most 128 bytes")
@@ -56,8 +68,8 @@ func validateDeclarations(file File) error {
 	if err := validateAcceptance(file); err != nil {
 		return err
 	}
-	if file.Limits.MinWords < 1 || file.Limits.MinWords > MaxMinimumWords {
-		return fmt.Errorf("probability pack requires a declared minimum word count within 1..%d", MaxMinimumWords)
+	if err := validateWordLimits(file.Limits); err != nil {
+		return err
 	}
 	return nil
 }
@@ -77,9 +89,11 @@ func validateAcceptance(file File) error {
 // activations and dependency features are not part of this pack contract.
 func validateContract(file File) error {
 	contract := file.Contract
-	if contract.FeatureContract != feature.UnitContract || contract.UnitContract != nlp.UnitContract {
-		return fmt.Errorf("probability pack requires feature contract %s and unit contract %s",
-			feature.UnitContract, nlp.UnitContract)
+	if err := validateFeatureContract(file); err != nil {
+		return err
+	}
+	if contract.UnitContract != nlp.UnitContract {
+		return fmt.Errorf("probability pack requires unit contract %s", nlp.UnitContract)
 	}
 	if !validHash(contract.PreparationHash) || !validIdentity(contract.NLP) {
 		return fmt.Errorf("probability pack requires a preparation hash and a complete NLP identity")
@@ -90,10 +104,55 @@ func validateContract(file File) error {
 	return validateCapabilities(contract)
 }
 
+// validateFeatureContract admits the two shapes a pack's columns can take:
+// named prepared features from this build's catalog, or n-gram counts from a
+// vocabulary the pack carries. A vocabulary belongs to the second and only to
+// the second, so a pack cannot claim named features and then supply keys.
+func validateFeatureContract(file File) error {
+	switch file.Contract.FeatureContract {
+	case feature.UnitContract:
+		if file.Vocabulary != nil {
+			return fmt.Errorf("a probability pack of named features carries no vocabulary")
+		}
+		return nil
+	case feature.LexicalCountContract:
+		return validateVocabulary(file)
+	default:
+		return fmt.Errorf("probability pack requires feature contract %s or %s",
+			feature.UnitContract, feature.LexicalCountContract)
+	}
+}
+
+func validateVocabulary(file File) error {
+	vocabulary := file.Vocabulary
+	if vocabulary == nil {
+		return fmt.Errorf("a probability pack of n-gram counts requires its vocabulary")
+	}
+	if err := vocabulary.Options.Validate(); err != nil {
+		return err
+	}
+	if len(vocabulary.Terms) != len(file.Contract.Columns) {
+		return fmt.Errorf("probability pack vocabulary has %d terms for %d columns",
+			len(vocabulary.Terms), len(file.Contract.Columns))
+	}
+	for i, term := range vocabulary.Terms {
+		if !feature.ValidLexicalKey(term, vocabulary.Options) {
+			return fmt.Errorf("probability pack vocabulary term %d is not a countable n-gram key", i)
+		}
+		if file.Contract.Columns[i].ID != feature.LexicalColumnID(term) {
+			return fmt.Errorf("probability pack column %d does not name its vocabulary term", i)
+		}
+	}
+	return nil
+}
+
 func validateColumns(file File) error {
 	columns := file.Contract.Columns
 	if len(columns) < 1 || len(columns) > MaxColumns {
 		return fmt.Errorf("probability pack requires 1 to %d columns", MaxColumns)
+	}
+	if file.Vocabulary != nil {
+		return nil
 	}
 	catalog, err := feature.UnitCatalog(file.Kind)
 	if err != nil {

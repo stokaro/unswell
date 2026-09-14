@@ -47,6 +47,10 @@ const (
 // This package records them; it cannot check how they were chosen.
 type Limits struct {
 	MinWords int `json:"min_words"`
+	// MaxWords is the longest unit the fit admitted. A model fitted inside a
+	// word band says nothing about a unit outside it, so the pack abstains
+	// there rather than extrapolating. Zero leaves the bound open.
+	MaxWords int `json:"max_words,omitempty"`
 }
 
 // Logistic holds normalized linear parameters in exact column order.
@@ -98,11 +102,29 @@ type File struct {
 	Estimator      string      `json:"estimator"`
 	Logistic       *Logistic   `json:"logistic,omitempty"`
 	Calibration    Calibration `json:"calibration"`
+	// Vocabulary is present exactly when the pack's columns are n-gram counts
+	// rather than named prepared features. Its terms are source-derived text,
+	// ordered to match Contract.Columns one for one.
+	Vocabulary *Vocabulary `json:"vocabulary,omitempty"`
+}
+
+// Vocabulary carries the frozen n-gram keys a lexical pack counts, and the
+// counting options that decide which n-grams a unit yields at all. A caller
+// measuring for such a pack must use these options; anything else produces a
+// different column for the same key.
+type Vocabulary struct {
+	Options feature.LexicalOptions `json:"options"`
+	Terms   []string               `json:"terms"`
 }
 
 // Run describes the effective analysis inputs a pack must match.
 type Run struct {
-	FeatureContract  string
+	FeatureContract string
+	// LexicalContract names the n-gram counting contract this build computes.
+	// A pack of named features ignores it; a pack of n-gram counts is refused
+	// unless it matches, because a different counter gives a different column
+	// for the same key.
+	LexicalContract  string
 	UnitContract     string
 	NLP              nlp.Identity
 	Capabilities     []nlp.Capability
