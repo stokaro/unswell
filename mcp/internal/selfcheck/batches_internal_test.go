@@ -62,17 +62,26 @@ func TestRepositoryBatchesPreserveEveryDocumentAndSuppression(t *testing.T) {
 	c.Assert(err, qt.IsNil)
 	batches, err := verifyBatches(t.Context(), batchSession(t, instance), expected)
 	c.Assert(err, qt.IsNil)
-	c.Assert(batches, qt.HasLen, 2)
-	c.Assert(batches[0].Result.Documents, qt.HasLen, server.MaxSources)
-	c.Assert(batches[1].Result.Documents, qt.HasLen, 1)
-	c.Assert(batches[1].Result.Findings, qt.HasLen, 1)
-	c.Assert(batches[1].Result.Suppressions, qt.HasLen, 1)
-	c.Assert(batches[1].Result.Findings[0].Suppressed, qt.IsTrue)
-	c.Assert(batches[0].Result.Features.Sources, qt.HasLen, server.MaxSources)
-	c.Assert(batches[1].Result.Features.Sources, qt.HasLen, 1)
+	c.Assert(len(batches) > 1, qt.IsTrue)
+	var names, want []string
+	for _, batch := range batches {
+		count := len(batch.Result.Documents)
+		c.Assert(count > 0 && count <= server.MaxSources, qt.IsTrue)
+		c.Assert(batch.Result.Features.Sources, qt.HasLen, count)
+		c.Assert(batch.Result.PreparedFeatures.Sources, qt.HasLen, count)
+		for _, doc := range batch.Result.Documents {
+			names = append(names, doc.Name)
+		}
+	}
+	for _, doc := range expected.Documents {
+		want = append(want, doc.Name)
+	}
+	c.Assert(names, qt.DeepEquals, want)
+	last := batches[len(batches)-1].Result
+	c.Assert(last.Findings, qt.HasLen, 1)
+	c.Assert(last.Suppressions, qt.HasLen, 1)
+	c.Assert(last.Findings[0].Suppressed, qt.IsTrue)
 	c.Assert(expected.Features.Sources, qt.HasLen, server.MaxSources+1)
-	c.Assert(batches[0].Result.PreparedFeatures.Sources, qt.HasLen, server.MaxSources)
-	c.Assert(batches[1].Result.PreparedFeatures.Sources, qt.HasLen, 1)
 	c.Assert(expected.PreparedFeatures.Sources, qt.HasLen, server.MaxSources+1)
 	c.Assert(expected.Documents[0].Source, qt.Equals, "The client opens connections.")
 	c.Assert(expected.Findings[0].Primary.Snippet, qt.Not(qt.Equals), "")
@@ -86,6 +95,7 @@ func TestRepositoryBatchesRejectLaterMismatch(t *testing.T) {
 			c := qt.New(t)
 			engine, expected := batchFixture(t)
 			instance := mcp.NewServer(&mcp.Implementation{Name: "false-batch-fixture", Version: "1"}, nil)
+			calls := 0
 			mcp.AddTool(instance, &mcp.Tool{Name: "unswell_check"},
 				func(ctx context.Context, _ *mcp.CallToolRequest, input server.CheckInput) (*mcp.CallToolResult, server.CheckOutput, error) {
 					var sources []document.Source
@@ -93,7 +103,8 @@ func TestRepositoryBatchesRejectLaterMismatch(t *testing.T) {
 						sources = append(sources, document.Source{Name: source.Name, Format: source.Format, Bytes: []byte(source.Text)})
 					}
 					result, err := engine.AnalyzeAll(ctx, sources)
-					if len(sources) == 1 {
+					calls++
+					if calls == 2 {
 						corruptBatch(&result, defect)
 					}
 					return nil, server.CheckOutput{Outcome: "pass", Result: normalize(result)}, err

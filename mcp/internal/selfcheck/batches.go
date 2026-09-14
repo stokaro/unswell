@@ -16,8 +16,12 @@ func verifyBatches(ctx context.Context, session *mcp.ClientSession, expected uns
 	if !batchableEvidence(expected) {
 		return nil, fmt.Errorf("MCP self-check batches require a full scan without baseline, changed-unit, or bypass policies")
 	}
+	batches, err := planBatches(ctx, expected, mcp.DefaultMaxLineLength)
+	if err != nil {
+		return nil, err
+	}
 	var results []server.CheckOutput
-	for documents := range slices.Chunk(expected.Documents, server.MaxSources) {
+	for _, documents := range batches {
 		input := server.CheckInput{Sources: make([]server.Source, 0, len(documents))}
 		for _, doc := range documents {
 			input.Sources = append(input.Sources, server.Source{Name: doc.Name, Format: doc.Format, Text: doc.Source})
