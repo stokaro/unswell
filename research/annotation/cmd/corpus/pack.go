@@ -16,6 +16,7 @@ type packOptions struct {
 	task       string
 	evaluation string
 	minWords   int
+	maxWords   int
 	accepted   bool
 }
 
@@ -27,6 +28,7 @@ func packFlags(args []string) (packOptions, error) {
 	flags.StringVar(&options.task, "task", probability.Task, "Estimation target: editorial_needs_revision or origin_endpoint")
 	flags.StringVar(&options.evaluation, "evaluation", "", "Published evaluation reference; required to declare acceptance")
 	flags.IntVar(&options.minWords, "min-words", 0, "Applicability floor chosen from validation data")
+	flags.IntVar(&options.maxWords, "max-words", 0, "Applicability ceiling; 0 leaves it open")
 	flags.BoolVar(&options.accepted, "accepted", false, "Declare acceptance; needs a qualified corpus and an evaluation")
 	if err := flags.Parse(args[1:]); err != nil {
 		return packOptions{}, err
@@ -53,7 +55,7 @@ func runPack(ctx context.Context, args []string, input io.Reader, output io.Writ
 	if err != nil {
 		return err
 	}
-	file, err := training.BuildPack(ctx, artifact, training.PackOptions{ID: options.id, MinWords: options.minWords,
+	file, err := training.BuildPack(ctx, artifact, training.PackOptions{ID: options.id, MinWords: options.minWords, MaxWords: options.maxWords,
 		Task: options.task, Accepted: options.accepted, Evaluation: options.evaluation})
 	if err != nil {
 		return err

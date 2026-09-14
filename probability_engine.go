@@ -3,6 +3,7 @@ package unswell
 import (
 	"context"
 	"fmt"
+	"math"
 	"slices"
 
 	"github.com/stokaro/unswell/config"
@@ -170,7 +171,8 @@ func (e *Engine) estimateChannel(ctx context.Context, doc *document.Document, st
 	if err != nil {
 		return probabilityRun{}, err
 	}
-	run := probability.Run{FeatureContract: feature.UnitContract, UnitContract: nlp.UnitContract, NLP: source.NLP,
+	run := probability.Run{FeatureContract: feature.UnitContract, LexicalContract: feature.LexicalCountContract,
+		UnitContract: nlp.UnitContract, NLP: source.NLP,
 		Capabilities: channel.capabilities, PreparationHash: source.PreparationHash,
 		IncludeQuotes: source.IncludeQuotes, IncludeStructure: source.IncludeStructure}
 	if err := channel.pack.Compatible(run); err != nil {
@@ -230,13 +232,9 @@ func (e *Engine) estimateUnit(ctx context.Context, unit nlp.PreparedUnit, identi
 	if *budget < 0 {
 		return fmt.Errorf("%s measurements exceed max_candidates", channel.setting)
 	}
-	vector := make([]feature.Value, 0, len(channel.columns))
-	for _, column := range channel.columns {
-		value, err := measurements.Value(column.ID)
-		if err != nil {
-			return err
-		}
-		vector = append(vector, value)
+	vector, err := channelVector(ctx, unit, identity, channel, measurements, e.policy.Analysis.MaxFileBytes, budget)
+	if err != nil {
+		return err
 	}
 	estimate, err := channel.pack.Estimate(ctx, probability.Unit{Kind: unit.Binding().Kind, Words: block.Words,
 		Values: vector})
@@ -275,4 +273,42 @@ func (e *Engine) probabilityModelHash(hasher *debtHasher) string {
 		return hasher.hash("calibration.model:none")
 	}
 	return hasher.hash(identity)
+}
+
+// channelVector measures one unit in the shape its pack expects. A pack of
+// named features reads them from the measurements already taken; a pack of
+// n-gram counts counts its own frozen keys, because those columns exist only
+// in that pack's vocabulary and the shared catalog knows nothing about them.
+func channelVector(ctx context.Context, unit nlp.PreparedUnit, identity feature.Identity, channel modelChannel,
+	measurements feature.Measurements, maxBytes int, budget *int,
+) ([]feature.Value, error) {
+	vocabulary := channel.pack.Vocabulary()
+	if vocabulary == nil {
+		vector := make([]feature.Value, 0, len(channel.columns))
+		for _, column := range channel.columns {
+			value, err := measurements.Value(column.ID)
+			if err != nil {
+				return nil, err
+			}
+			vector = append(vector, value)
+		}
+		return vector, nil
+	}
+	terms, err := feature.CountLexical(ctx, unit, identity, feature.Limits{MaxTokens: *budget,
+		MaxUniqueWords: *budget, MaxBytes: maxBytes, MaxBlocks: 1}, vocabulary.Options)
+	if err != nil {
+		return nil, err
+	}
+	counts := make(map[string]int, len(terms))
+	for _, term := range terms {
+		counts[term.Key] = term.Count
+	}
+	// A key the unit does not contain is an observed zero, not a missing
+	// measurement: the vocabulary is frozen, so absence is information.
+	vector := make([]feature.Value, len(channel.columns))
+	for i, column := range channel.columns {
+		number := math.Log1p(float64(counts[vocabulary.Terms[i]]))
+		vector[i] = feature.Value{ID: column.ID, Version: column.Version, Unit: column.Unit, Number: &number}
+	}
+	return vector, nil
 }

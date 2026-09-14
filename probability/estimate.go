@@ -22,6 +22,9 @@ func (p *Pack) Estimate(ctx context.Context, unit Unit) (Estimate, error) {
 	if unit.Words < p.file.Limits.MinWords {
 		return abstain(StatusInsufficientEvidence, fmt.Sprintf("min_words=%d", p.file.Limits.MinWords)), nil
 	}
+	if p.file.Limits.MaxWords > 0 && unit.Words > p.file.Limits.MaxWords {
+		return abstain(StatusInsufficientEvidence, fmt.Sprintf("max_words=%d", p.file.Limits.MaxWords)), nil
+	}
 	values, missing, err := p.vector(unit)
 	if err != nil {
 		return Estimate{}, err

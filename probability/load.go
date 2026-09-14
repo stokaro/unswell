@@ -178,3 +178,13 @@ func checkJSONObject(ctx context.Context, decoder *json.Decoder, depth int) erro
 	_, err := decoder.Token()
 	return err
 }
+
+// Vocabulary returns the frozen n-gram keys this pack counts, in column order,
+// or nil when the pack's columns are named prepared features. The caller uses
+// it with Options to measure a unit the same way the fit did.
+func (p *Pack) Vocabulary() *Vocabulary {
+	if p.file.Vocabulary == nil {
+		return nil
+	}
+	return &Vocabulary{Options: p.file.Vocabulary.Options, Terms: slices.Clone(p.file.Vocabulary.Terms)}
+}

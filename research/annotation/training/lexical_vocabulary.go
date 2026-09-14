@@ -2,7 +2,6 @@ package training
 
 import (
 	"context"
-	"crypto/sha256"
 	"fmt"
 	"slices"
 	"strings"
@@ -48,7 +47,9 @@ func (o LexicalOptions) validate() error {
 	return nil
 }
 
-func lexicalColumnID(key string) string { return fmt.Sprintf("ngram.%x", sha256.Sum256([]byte(key))) }
+// lexicalColumnID delegates to the engine so a fitted column and the pack
+// that ships it are named by one definition.
+func lexicalColumnID(key string) string { return feature.LexicalColumnID(key) }
 
 func lexicalColumns(v Vocabulary, kind string) []feature.Descriptor {
 	result := make([]feature.Descriptor, len(v.Terms))
