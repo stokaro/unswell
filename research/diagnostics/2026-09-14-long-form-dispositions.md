@@ -111,3 +111,28 @@ noise.
 It inspects the rules that fire. It cannot inspect the thirty-one that do
 not, beyond recording that a stratum built to give them opportunity gave
 them opportunity and they produced nothing.
+
+## Follow-up, September 15, 2026
+
+Issue 279 is fixed, in both places the defect lived.
+
+A documentation comment now holds back its `<pre>`, `<code>` and `<c>`
+elements and the inline Javadoc tags `{@code}` and `{@literal}`. Markdown
+now holds back an inline `<pre>` or `<code>` element together with its body,
+where before only the tags were protected. The second half is the one that
+reaches this stratum: a response stored as Markdown that reproduced the
+markup of the comment it was asked to edit.
+
+The `syntax.parenthetical-load` disposition above stands, and its cause is
+gone. Across the controlled arm the rule falls from 136 findings to 128, and
+no unit of that arm carries `<pre>` or `<code>` markup any more. The eight
+that went are the ones this record quoted.
+
+The 120 that remain are passages where a model wrote code into prose with no
+markup around it. Extraction cannot tell those from a sentence, and no
+extraction rule will: they need a judgment about the text, which is the
+corpus of issue 22.
+
+The counts in the table above are the September 14 measurement and are left
+as recorded. The corpus-wide before and after of both fixes is in
+`research/methods/llm-patterns-v2.md`.
