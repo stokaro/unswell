@@ -97,6 +97,15 @@ separate generated documentation from human code comments where fourteen
 aggregate statistics do not, and that the separation survives the
 false-flag limit a tool would have to meet.
 
+**Contamination.** The generators may have seen the historical text.
+Every repository in the corpus is public and predates the runs, so a model
+that read it during training could reproduce its wording without that
+counting as independent evidence. The generation records flag verbatim
+overlap and the import reports it as `overlap_high`, but neither
+establishes that a response is free of memorized text.
+
+Contemporary text and mixed-provenance cases are untested here.
+
 It reports declared provenance, not human judgment. A false-flag rate of
 0.040 on comments a repository already contains is not the same as a
 false-flag rate on comments a person wrote today and would defend. That
