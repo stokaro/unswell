@@ -97,8 +97,6 @@ func matchingRun(c *qt.C, file probability.File) probability.Run {
 		PreparationHash: file.Contract.PreparationHash}
 }
 
-func number(value float64) *float64 { return &value }
-
 func measured(c *qt.C, file probability.File, numbers ...*float64) []feature.Value {
 	c.Helper()
 	values := make([]feature.Value, 0, len(numbers))
@@ -155,7 +153,7 @@ func TestPackSupportsConcurrentEstimates(t *testing.T) {
 	c := qt.New(t)
 	file := packFile(c, "sentence", "prose-words", "type-token-ratio")
 	pack := loaded(c, file)
-	unit := probability.Unit{Kind: "sentence", Words: 12, Values: measured(c, file, number(12), number(0.6))}
+	unit := probability.Unit{Kind: "sentence", Words: 12, Values: measured(c, file, new(12.0), new(0.6))}
 	var group sync.WaitGroup
 	results := make([]probability.Estimate, 8)
 	for i := range results {

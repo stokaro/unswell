@@ -6,6 +6,9 @@ CI tests the minimum compiler from `go.mod` on
 Linux, macOS, and Windows with automatic toolchain upgrades disabled. Tools have
 their own pinned module and compiler requirements.
 
+The current minimum is Go 1.26. All runtime and consumer modules declare it,
+including the Go analysis adapter, whose `x/tools` dependency requires it.
+
 Race detection, active fuzzing, and coverage collection are deferred during alpha development,
 including concurrency changes. Preserve their tests, seed corpora, and the
 `make race` / `make fuzz` targets; do not run them during routine implementation.

@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+Building from source now requires Go 1.26. The Go analysis adapter and its
+consumer use `golang.org/x/tools` v0.50.0, which requires this compiler version.
+CI tests all runtime and consumer modules with automatic upgrades disabled.
+
 ## 0.1.0-alpha.4
 
 This release repairs extraction errors found while checking real repositories
