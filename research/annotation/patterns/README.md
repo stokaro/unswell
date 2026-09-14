@@ -110,12 +110,12 @@ punctuation mark breaks the n-gram window. The template holds the coarse
 tags of the words, cut at twelve. The output is
 `unswell-frequency-tables-v1`.
 
-A closed-class trigram is a word trigram in which at most one word is open
-class, judged by the coarse tag: determiners, prepositions and
+A closed-class trigram is a word trigram with at most one open-class word.
+The coarse tag decides. Closed classes are determiners, prepositions and
 subordinating conjunctions, coordinating conjunctions, pronouns, modals,
 the infinitive marker, existential there, predeterminers, particles, and
-the wh-words are closed. One open word is allowed so a construction keeps
-the word it turns on, as "refused rather than" keeps its verb.
+the wh-words. One open word may stay, so a construction keeps the word it
+turns on: "refused rather than" keeps its verb.
 
 The measure exists because a word trigram of a technical corpus is partly
 that corpus's vocabulary, and vocabulary does not travel between
@@ -193,3 +193,36 @@ A candidate is a rule to write a hypothesis template for. No candidate is
 a confirmed construction, a rule decision, or a claim about who wrote the
 text.
 
+## Baseline tables and the deviation proposal
+
+`corpus frequencies --baselines` adds the baseline cohort's own key tables to
+the output. A contrast answers "what stands out in this corpus"; a baseline
+table answers "what is ordinary", and that is the question an outside tree has
+to be measured against. `research/methods/baselines/closed-3gram-v1.json` is
+one such table for the closed-class trigrams, by role, from the historical
+cohort.
+
+`corpus propose --root DIR --baseline FILE` walks a tree, extracts its prose
+with the shared engine, counts one measure, and names the constructions the
+tree uses more than the baseline does. `--config` writes the fragment a reader
+would paste into `policy.banned-phrases` after judging the list, rather than
+the proposal record.
+
+A term carries the status of its baseline side. `baseline_measured` divides two
+rates. `absent_from_baseline` means the baseline never reached its own minimum
+count for that key, so the lift is computed against the rate one occurrence
+would have shown and is a lower bound rather than a ratio. A rate of zero and
+an unmeasured rate are not the same claim and the output does not merge them.
+
+The command proposes and decides nothing. A construction can stand out because
+a project has a house style, because one author wrote most of it, or because
+the subject demands it. The rule the fragment feeds refuses text outright, so
+the fragment is written for a person to cut down rather than to apply whole.
+
+One measured example. A documentation tree of 210,146 prose words against the
+926,181 words of the historical comment role: `which is what` at 0.347 per
+thousand words against 0.0032, `rather than a` at 0.390 against 0.0097,
+`rather than the` at 0.219 against 0.0054. The same run also proposes `a
+database that` and `in the database`, which are that project's subject rather
+than its habits, because one open-class word is allowed in a closed-class
+trigram. Cutting those is the reader's job and the reason the command proposes.
