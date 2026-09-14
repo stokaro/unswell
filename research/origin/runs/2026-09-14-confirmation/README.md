@@ -88,6 +88,40 @@ contain, and it does not show the length independence the development
 partition showed. A deployment reading would take the worse of the two
 partitions per band, which is 0.222 above sixty words.
 
+## What was not run, and one caveat the corpus carries
+
+Contemporary text and mixed-provenance cases are untested. Neither entered
+this fit and neither is scored anywhere, so no rate for them exists.
+
+The `polish` responses are scored but excluded from the fit, because their
+provenance is mixed by construction: a human wrote the paragraph and a
+model rewrote it. On the confirmation partition the fit flags 0.342 of
+them against 0.875 of the text written from a fact sheet. That number has
+no single reading. As a recall on the hardest case it says a light editing
+pass halves detection; as a false-flag rate on substantially human text it
+says a third of lightly edited paragraphs are flagged. Deciding between
+the two needs the human-labeled corpus of issue 22.
+
+The confirmation partition carries no C#, the language the fit is worst on
+at 0.103 in development, so no rate for it exists either.
+
+By generator family and prompt on the confirmation partition, generate
+responses only: anthropic-claude 0.877 over 367 units and openai 0.868
+over 121; the neutral prompt 0.893 over 225 and the plain prompt 0.859
+over 263. The operation matters more than either: families differ by
+0.009, prompts by 0.034, and generating against polishing by 0.533.
+
+**Contamination.** The generators may have seen the historical text. Every
+repository in the corpus is public and predates the runs, so a model that
+read it during training could reproduce its wording without that counting
+as independent evidence. The generation records flag verbatim overlap with
+the source, and the import reports it as `overlap_high`, but neither
+establishes that a response is free of memorized text. A separation this
+fit reports is therefore between a generated response and a snapshot the
+generator may already know, not between generated and unseen prose.
+
+## What this reports
+
 It reports declared provenance, not human judgment. A false-flag rate on
 comments a repository already contains is not a rate on comments a person
 wrote today and would defend. That needs the human-labeled corpus of
