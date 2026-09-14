@@ -18,7 +18,7 @@ func AvailableContexts(format document.Format) []string {
 	if format == document.Plain {
 		return []string{"paragraph"}
 	}
-	if format == document.Markdown {
+	if format == document.Markdown || format == document.MDX {
 		return []string{"paragraph", "heading", "list-item", "table-cell"}
 	}
 	if slices.Contains(document.Formats(), format) {

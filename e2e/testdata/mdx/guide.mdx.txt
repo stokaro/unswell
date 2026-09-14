@@ -1,0 +1,31 @@
+---
+title: It is important to note that this is metadata.
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+export const hidden = 'Certainly! This is JavaScript.';
+
+<CardGrid>
+    # Guide
+
+    It is **important** to note that the café client retries. <!-- want "filler.announced-importance" -->
+
+    <LinkCard title="Certainly! This is an attribute." />
+
+    <a href={`${base}schema.dot`} download>Certainly! Download the schema.</a> <!-- want "scaffold.chat-preamble" -->
+
+    - It is important to note that the client waits. <!-- want "filler.announced-importance" -->
+
+    ```mdx
+    <Broken { Certainly! This is code.
+    ```
+</CardGrid>
+
+It is {frontmatter.title}important to note that the client retries.
+
+{/* Certainly! This is a comment. */}
+
+`Certainly! This is inline code.`
+
+The client retries only when enabled.

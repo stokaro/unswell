@@ -59,7 +59,7 @@ func extensionFormat(extension string) document.Format {
 		return document.CPP
 	}
 	formats := map[string]document.Format{
-		".txt": document.Plain, ".md": document.Markdown, ".markdown": document.Markdown,
+		".txt": document.Plain, ".md": document.Markdown, ".markdown": document.Markdown, ".mdx": document.MDX,
 		".go": document.Go, ".js": document.JavaScript, ".jsx": document.JavaScript,
 		".mjs": document.JavaScript, ".cjs": document.JavaScript,
 		".ts": document.TypeScript, ".mts": document.TypeScript, ".cts": document.TypeScript, ".tsx": document.TSX,

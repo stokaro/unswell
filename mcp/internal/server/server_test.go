@@ -90,6 +90,9 @@ func TestChecksMatchEngine(t *testing.T) {
 	}{
 		{"clean.md", "The client opens connections.", "pass", document.Markdown, false},
 		{"bad.md", "Certainly! The client opens connections.", "policy_failure", document.Markdown, false},
+		{"bad.mdx", "<Panel>Certainly! The client opens connections.</Panel>", "policy_failure", document.MDX, false},
+		{"clean.mdx", "<Panel title=\"Certainly! Hidden.\">The client opens connections.</Panel>", "pass", document.MDX, false},
+		{"invalid.mdx", "<Panel title={broken>", "error", document.MDX, true},
 		{
 			"message.cs",
 			"class Sample { string value = \"Certainly! The client opens connections.\"; }",

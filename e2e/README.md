@@ -296,3 +296,8 @@ fixtures keep both reported Go comments and their Markdown equivalents unchanged
 `TestPreparedCollectionMatchesFrozenCorpusTargets` checks the engine collection
 against all 409 frozen Ptah targets, including source hashes, kinds, text/context
 hashes, and complete source segments. These remain unlabeled development inputs.
+
+The `mdx` case checks directory discovery, component child prose, protected
+expressions and attributes, and diagnostic/exclusion coordinates with CRLF and
+a BOM. `mdx-contexts` checks stdin discovery and a heading-only MDX override.
+Both use inspectable `want` annotations and saved JSON, SARIF and text checks.

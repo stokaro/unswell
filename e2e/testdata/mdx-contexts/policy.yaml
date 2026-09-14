@@ -1,0 +1,12 @@
+version: 1
+extends: [builtin:custom-v1]
+extraction:
+  contexts: [paragraph]
+  languages:
+    mdx:
+      contexts: [heading]
+rules:
+  filler.announced-importance:
+    enabled: true
+    severity: error
+    gate: forbid

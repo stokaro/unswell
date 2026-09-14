@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"slices"
+	"sort"
 
 	ts "github.com/stokaro/gotreesitter"
 
@@ -13,16 +14,26 @@ import (
 )
 
 type markdownInlineReader struct {
-	ctx     context.Context
-	doc     *document.Document
-	syntax  syntaxTree
-	offset  int
-	skipped []document.Span
-	builder mapping.Builder
+	ctx       context.Context
+	doc       *document.Document
+	syntax    syntaxTree
+	offset    int
+	skipped   []document.Span
+	protected []document.Span
+	builder   mapping.Builder
 }
 
-func markdownInline(ctx context.Context, doc *document.Document, span document.Span, skipped []document.Span) (document.MappedText, error) {
+func markdownInlineProtected(ctx context.Context, doc *document.Document, span document.Span,
+	skipped, protected []document.Span) (document.MappedText, error) {
+	first := sort.Search(len(protected), func(i int) bool { return protected[i].End > span.Start })
+	last := sort.Search(len(protected), func(i int) bool { return protected[i].Start >= span.End })
+	protected = protected[first:last]
 	source := bytes.Clone(doc.Source[span.Start:span.End])
+	for _, region := range protected {
+		if region.End > span.Start && region.Start < span.End {
+			maskRange(source, max(region.Start-span.Start, 0), min(region.End-span.Start, len(source)))
+		}
+	}
 	for _, skip := range skipped {
 		maskRange(source, skip.Start-span.Start, skip.End-span.Start)
 	}
@@ -31,9 +42,13 @@ func markdownInline(ctx context.Context, doc *document.Document, span document.S
 		return document.MappedText{}, err
 	}
 	defer syntax.tree.Release()
-	reader := markdownInlineReader{ctx: ctx, doc: doc, syntax: syntax, offset: span.Start, skipped: skipped}
+	reader := markdownInlineReader{ctx: ctx, doc: doc, syntax: syntax, offset: span.Start, skipped: skipped, protected: protected}
 	err = reader.read(syntax.tree.RootNode(), 0)
-	return reader.builder.Build(), err
+	mapped := reader.builder.Build()
+	if doc.Format == document.MDX {
+		mapped = trimMDXTags(doc.Source, mapped)
+	}
+	return mapped, err
 }
 
 func (r *markdownInlineReader) read(node *ts.Node, depth int) error {
@@ -82,8 +97,20 @@ func (r *markdownInlineReader) source(start, end int) {
 		if skip.End <= start || skip.Start >= end {
 			continue
 		}
-		r.normalized(start, max(start, skip.Start))
+		r.unprotected(start, max(start, skip.Start))
 		start = min(skip.End, end)
+	}
+	r.unprotected(start, end)
+}
+
+func (r *markdownInlineReader) unprotected(start, end int) {
+	for _, span := range r.protected {
+		if span.End <= start || span.Start >= end {
+			continue
+		}
+		r.normalized(start, max(start, span.Start))
+		r.builder.Add(" \x00 ", document.Span{Start: max(start, span.Start), End: min(end, span.End)})
+		start = min(span.End, end)
 	}
 	r.normalized(start, end)
 }

@@ -8,6 +8,7 @@ and English NLP backend analyze that text locally.
 | --- | --- | --- |
 | `text` | `notes.txt` | Paragraphs |
 | `markdown` | `README.md`, `guide.markdown` | Headings, paragraphs, list items and GFM table cells |
+| `mdx` | `guide.mdx` | Markdown prose between JSX tags; expressions, attributes and ESM declarations are excluded |
 | `go` | `client.go` | Comments, interpreted strings and raw strings |
 | `javascript` | `app.js`, `view.jsx`, `module.mjs`, `module.cjs` | Comments, quoted strings and static template fragments; JSDoc tag and example lines are excluded |
 | `typescript`, `tsx` | `client.ts`, `module.mts`, `view.tsx` | Comments, quoted strings and static template fragments; tag and example lines of `/**` comments are excluded |
@@ -39,6 +40,32 @@ Markdown uses gotreesitter's block and inline grammars, including GFM tables and
 task lists. Inline code, fenced and indented code, HTML, image syntax, link
 destinations and front matter are protected. Link labels remain prose. Quoted
 blocks are excluded unless `analysis.include_quotes` is enabled.
+
+MDX uses the same Markdown grammars after excluding JavaScript/JSX syntax.
+The JavaScript grammar validates import/export blocks, expression containers,
+and entire tags, including lowercase tags with brace-valued attributes.
+Imports and exports start at column one after a blank line (or at the start
+of the file) and end at a blank line or EOF once
+the JavaScript parses. Multiline declarations can contain blank lines.
+Prose between component tags remains checked. Expressions, attributes, and ESM
+strings are excluded even when they contain human-readable text; no component
+or expression is evaluated. These regions carry `mdx-expression`, `mdx-tag`,
+and `mdx-esm` exclusion reasons. Expressions insert protected boundaries.
+
+MDX supports fragments, nested components, and indented headings, lists and
+paragraphs. Fenced and inline code remain protected. As in
+[MDX syntax](https://mdxjs.com/docs/what-is-mdx/), literal opening braces and
+angle brackets must be escaped, and comments use `{/* ... */}`. MDX comments
+are excluded expression content; they do not activate Unswell suppressions.
+Use configured suppressions when needed. This adapter extracts prose; it does
+not compile MDX or resolve its components, exports, or rendering behavior.
+
+Malformed expressions, unmatched tags and exhausted parsing limits fail
+extraction. The boundary pass permits 128 candidate delimiters per construct,
+128 nested components and a total JavaScript parse-input budget of 16 times the
+source size plus 64 KiB. Indentation normalization permits 16 passes. Source
+bytes stay unchanged; all masking and indentation changes have mapped positions.
+The `mdx` context override accepts the same values as `markdown`.
 
 Empty GFM data rows retain the table-cell context of following rows. Blank lines
 and other block boundaries still end the table. The adapter uses a mapped block

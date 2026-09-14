@@ -110,7 +110,7 @@ reduce another paragraph's score. The tool makes no authorship or factuality cla
 
 ## Input and configuration
 
-Inputs include plain text, Markdown/GFM, and comments and string literals in Go,
+Inputs include plain text, Markdown/GFM, MDX, and comments and string literals in Go,
 JavaScript, TypeScript/TSX, Python, Rust, Java, C/C++, C#, YAML, Bash/POSIX sh, Zsh's common
 shell syntax, Fish and PowerShell. Markdown uses block and inline grammars.
 See [formats and extraction limits](docs/inputs.md) for extensions and dialect details.

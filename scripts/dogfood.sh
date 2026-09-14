@@ -26,11 +26,15 @@ bin/unswell check . --config .unswell.yaml --include-source \
 # Exercise this exact policy through the built CLI. A disabled gate, ignored
 # configuration, or an operational error must not make the negative probe pass.
 negative_prose='Certainly! The client opens connections.'
-for context in markdown comment string csharp yaml; do
+for context in markdown mdx comment string csharp yaml; do
   case "$context" in
     markdown)
       probe_source=$negative_prose
       filename=dogfood-negative.md
+      ;;
+    mdx)
+      probe_source="<Panel>$negative_prose</Panel>"
+      filename=dogfood-negative.mdx
       ;;
     comment)
       probe_source="# $negative_prose"
