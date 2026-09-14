@@ -121,6 +121,18 @@ func TestSurfaceRulesRequireOptIn(t *testing.T) {
 		policy, err := engine.PolicyForFile("guide.md")
 		c.Assert(err, qt.IsNil)
 		for _, id := range ids {
+			// The strict profile turns one surface measurement on, and the
+			// exception is narrow on purpose: em-dash density is the only
+			// measurement that separates generated prose from human prose on
+			// every corpus measured, and a profile named strict is where a
+			// reader would look for it. It gains no gate and no score, so the
+			// contract that a surface measurement establishes nothing holds.
+			if profile == "strict" && id == "format.em-dash-density" {
+				c.Assert(policy.Rules[id].Enabled, qt.IsTrue)
+				c.Assert(policy.Rules[id].Gate, qt.Equals, "none")
+				c.Assert(policy.Rules[id].Score.Weight, qt.Equals, 0)
+				continue
+			}
 			c.Assert(policy.Rules[id].Enabled, qt.IsFalse, qt.Commentf("%s/%s", profile, id))
 			c.Assert(policy.Rules[id].Gate, qt.Equals, "none")
 		}
