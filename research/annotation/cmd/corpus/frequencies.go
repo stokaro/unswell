@@ -16,6 +16,7 @@ type frequenciesOptions struct {
 	pairTasks     []string
 	pairRecords   []string
 	baseline      string
+	baselines     bool
 	targets       []string
 	minCount      int
 	minComponents int
@@ -33,7 +34,8 @@ func runFrequencies(ctx context.Context, args []string, _ io.Reader, output io.W
 		return err
 	}
 	frequencies, err := patterns.NewFrequencies(patterns.FrequencyOptions{Baseline: options.baseline,
-		Targets: options.targets, MinCount: options.minCount, MinComponents: options.minComponents, Top: options.top})
+		Targets: options.targets, MinCount: options.minCount, MinComponents: options.minComponents,
+		Top: options.top, Baselines: options.baselines})
 	if err != nil {
 		return err
 	}
@@ -98,6 +100,8 @@ func frequenciesFlags(args []string) (frequenciesOptions, error) {
 	flags.IntVar(&options.minCount, "min-count", 0, "Count a key needs in one stratum to enter the tables")
 	flags.IntVar(&options.minComponents, "min-components", 0, "Components a key needs in the target stratum to enter a contrast")
 	flags.IntVar(&options.top, "top", 0, "Contrasts kept per measure and target stratum")
+	flags.BoolVar(&options.baselines, "baselines", false,
+		"Also emit the baseline cohort's own key tables, the artifact an outside comparison reads")
 	flags.Func("target", "Cohort that gets contrasts; repeat for several, default every cohort but the baseline",
 		func(value string) error {
 			options.targets = append(options.targets, value)

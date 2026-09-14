@@ -51,7 +51,12 @@ var frequencyMeasures = []string{MeasureWord1, MeasureWord2, MeasureWord3, Measu
 // stratum to enter a contrast, and the number of contrasts kept per target
 // stratum and measure.
 type FrequencyOptions struct {
-	Baseline      string
+	Baseline string
+	// Baselines asks for the baseline cohort's own key tables beside the
+	// contrasts. A contrast says what stands out in this corpus; a baseline
+	// table says what is ordinary, which is what an outside tree is compared
+	// against.
+	Baselines     bool
 	Targets       []string
 	MinCount      int
 	MinComponents int
@@ -96,6 +101,28 @@ type FrequencyContrast struct {
 	RatioStatus string        `json:"ratio_status"`
 }
 
+// BaselineTerm is one key of the baseline cohort with the rate it holds
+// there. A tool comparing an outside tree against this corpus reads these
+// rates; it needs no contrast, because the tree it measures is the contrast.
+type BaselineTerm struct {
+	Key              string  `json:"key"`
+	Count            int     `json:"count"`
+	PerThousandWords float64 `json:"per_thousand_words"`
+	Components       int     `json:"components"`
+}
+
+// BaselineTable is every key of one measure that reaches the minimum count in
+// the baseline cohort, whatever any target does with it. Items and contrasts
+// answer "what stands out in this corpus"; a baseline table answers "what is
+// ordinary", which is the question an outside tree has to be measured against.
+type BaselineTable struct {
+	Measure   string         `json:"measure"`
+	Role      string         `json:"role"`
+	Sentences int            `json:"sentences"`
+	Words     int            `json:"words"`
+	Terms     []BaselineTerm `json:"terms"`
+}
+
 // FrequencyMeasure holds the items and contrasts of one measure.
 type FrequencyMeasure struct {
 	Measure   string              `json:"measure"`
@@ -107,19 +134,22 @@ type FrequencyMeasure struct {
 // keys that enter a contrast, with their cell in every stratum where they
 // reach the minimum count.
 type FrequencyTables struct {
-	Version       string             `json:"version"`
-	HumanCorpus   string             `json:"human_corpus"`
-	Unit          string             `json:"unit"`
-	Baseline      string             `json:"baseline"`
-	Targets       []string           `json:"targets"`
-	MinCount      int                `json:"min_count"`
-	MinComponents int                `json:"min_components"`
-	Top           int                `json:"top"`
-	NLP           nlp.Identity       `json:"nlp"`
-	Pairing       *FrequencyPairing  `json:"pairing,omitempty"`
-	Inputs        []Input            `json:"inputs"`
-	Strata        []Stratum          `json:"strata"`
-	Measures      []FrequencyMeasure `json:"measures"`
+	Version       string            `json:"version"`
+	HumanCorpus   string            `json:"human_corpus"`
+	Unit          string            `json:"unit"`
+	Baseline      string            `json:"baseline"`
+	Targets       []string          `json:"targets"`
+	MinCount      int               `json:"min_count"`
+	MinComponents int               `json:"min_components"`
+	Top           int               `json:"top"`
+	NLP           nlp.Identity      `json:"nlp"`
+	Pairing       *FrequencyPairing `json:"pairing,omitempty"`
+	Inputs        []Input           `json:"inputs"`
+	Strata        []Stratum         `json:"strata"`
+	// Baselines are present when the caller asked for them. They describe the
+	// baseline cohort alone and are the artifact an outside comparison reads.
+	Baselines []BaselineTable    `json:"baselines,omitempty"`
+	Measures  []FrequencyMeasure `json:"measures"`
 }
 
 // Frequencies accumulates counts over candidate artifacts in two passes:
@@ -217,6 +247,29 @@ func (f *Frequencies) bump(measure, key string, i int) {
 	}
 	row[i]++
 	f.counts[measure][key] = row
+}
+
+// size counts the words and sentences of one piece of prose, using the same
+// tokenizer the keys use, so a rate built from it shares the denominator the
+// corpus rates were built from.
+func (f *Frequencies) size(ctx context.Context, text string) (words, sentences int, err error) {
+	mapped := srcdoc.MappedText{Text: text, Map: make([]srcdoc.Span, len(text))}
+	for i := range mapped.Map {
+		mapped.Map[i] = srcdoc.Span{Start: i, End: i + 1}
+	}
+	parsed, err := f.provider.Analyze(ctx, mapped, []nlp.Capability{nlp.Tokens, nlp.Sentences, nlp.POS})
+	if err != nil {
+		return 0, 0, err
+	}
+	for _, sentence := range parsed {
+		sentences++
+		for _, token := range sentence.Tokens {
+			if token.Word && alphabetic(token.Text) {
+				words++
+			}
+		}
+	}
+	return words, sentences, nil
 }
 
 // keys tags one sentence and returns its keys per measure.
@@ -433,7 +486,45 @@ func (f *Frequencies) Tables() FrequencyTables {
 	for _, measure := range frequencyMeasures {
 		tables.Measures = append(tables.Measures, f.measure(measure))
 	}
+	if f.options.Baselines {
+		tables.Baselines = f.baselines()
+	}
 	return tables
+}
+
+// baselineTable lists one measure's keys in one stratum of the baseline cohort.
+func (f *Frequencies) baselineTable(measure string, i int, stratum Stratum) BaselineTable {
+	table := BaselineTable{Measure: measure, Role: stratum.Role,
+		Sentences: stratum.Sentences, Words: stratum.Words, Terms: []BaselineTerm{}}
+	keys := make([]string, 0, len(f.counts[measure]))
+	for key := range f.counts[measure] {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+	for _, key := range keys {
+		cell := f.cell(measure, key, i)
+		if cell.Count < f.options.MinCount {
+			continue
+		}
+		table.Terms = append(table.Terms, BaselineTerm{Key: key, Count: cell.Count,
+			PerThousandWords: cell.PerThousandWords, Components: cell.Components})
+	}
+	return table
+}
+
+// baselines lists every key each measure holds in the baseline cohort at or
+// above the minimum count, one table per role of that cohort.
+func (f *Frequencies) baselines() []BaselineTable {
+	result := []BaselineTable{}
+	for _, measure := range frequencyMeasures {
+		for i, stratum := range f.strata {
+			if stratum.Cohort != f.options.Baseline {
+				continue
+			}
+			result = append(result, f.baselineTable(measure, i, stratum))
+		}
+	}
+	return result
 }
 
 func (f *Frequencies) cell(measure, key string, i int) FrequencyCell {
