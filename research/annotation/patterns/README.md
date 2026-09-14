@@ -202,6 +202,12 @@ to be measured against. `research/methods/baselines/closed-3gram-v1.json` is
 one such table for the closed-class trigrams, by role, from the historical
 cohort.
 
+`scripts/build-baseline.sh --output FILE` runs that command over one
+cohort's candidate artifacts and writes the baseline file. The table is a
+function of the pinned shards and of the extraction that produced their
+candidates, so an extraction change means a rebuilt baseline with a new
+version rather than an edited one.
+
 `corpus propose --root DIR --baseline FILE` walks a tree, extracts its prose
 with the shared engine, counts one measure, and names the constructions the
 tree uses more than the baseline does. `--config` writes the fragment a reader
