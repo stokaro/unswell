@@ -3,7 +3,7 @@ module github.com/stokaro/unswell/research/dependencies
 go 1.26.0
 
 require (
-	github.com/bioshock/gospacy/v3 v3.8.14-port.2
+	github.com/bioshock/gospacy/v3 v3.8.14-port.6
 	github.com/frankban/quicktest v1.14.6
 	github.com/stokaro/unswell v0.0.0
 )
