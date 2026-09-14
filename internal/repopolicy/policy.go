@@ -25,6 +25,9 @@ func Check(tree fs.FS) error {
 	if err != nil {
 		return err
 	}
+	if err := checkDependabot(tree, modules); err != nil {
+		return err
+	}
 	ledger, err := fs.ReadFile(tree, "docs/public_api.md")
 	if err != nil {
 		return err

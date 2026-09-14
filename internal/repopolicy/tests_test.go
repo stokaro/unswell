@@ -64,6 +64,8 @@ func TestBlackboxPolicyCoversNestedModulesAndCommands(t *testing.T) {
 			if directory != "cmd/helper" && directory != "tools" {
 				tree[".gomodules"].Data = append(tree[".gomodules"].Data, []byte(directory+" runtime\n")...)
 				tree[directory+"/go.mod"] = &fstest.MapFile{Data: []byte("module example.com/nested\n")}
+				tree[".github/dependabot.yml"].Data = append(tree[".github/dependabot.yml"].Data,
+					[]byte("- package-ecosystem: gomod\n  directory: /"+directory+"\n")...)
 			}
 			tree[directory+"/main_test.go"] = &fstest.MapFile{Data: []byte("package main")}
 			c.Assert(repopolicy.Check(tree), qt.ErrorMatches, "whitebox test requires _internal_test.go.*")
