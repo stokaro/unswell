@@ -13,6 +13,7 @@ import (
 type markdownInput struct {
 	source   []byte
 	inserted []int
+	original []int
 }
 
 // prepareMarkdown prevents the pinned scanner from treating a pipe-only row as
@@ -95,8 +96,16 @@ func emptyMarkdownRow(line []byte) bool {
 
 func (m markdownInput) span(node *ts.Node) document.Span {
 	start, end := int(node.StartByte()), int(node.EndByte())
-	return document.Span{
+	span := document.Span{
 		Start: start - sort.SearchInts(m.inserted, start),
 		End:   end - sort.SearchInts(m.inserted, end),
 	}
+	if m.original != nil && span.End > span.Start {
+		span.Start, span.End = m.original[span.Start], m.original[span.End-1]+1
+	}
+	return span
+}
+
+func (m markdownInput) offset(pos int) int {
+	return pos - sort.SearchInts(m.inserted, pos)
 }

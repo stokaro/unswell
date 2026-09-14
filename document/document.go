@@ -15,6 +15,7 @@ type Format string
 const (
 	Plain      Format = "text"
 	Markdown   Format = "markdown"
+	MDX        Format = "mdx"
 	Go         Format = "go"
 	JavaScript Format = "javascript"
 	TypeScript Format = "typescript"
@@ -35,7 +36,7 @@ const (
 
 // Formats returns the supported syntax names in a stable order.
 func Formats() []Format {
-	return []Format{Plain, Markdown, Go, JavaScript, TypeScript, TSX, Python, Rust, Java, C, CPP,
+	return []Format{Plain, Markdown, MDX, Go, JavaScript, TypeScript, TSX, Python, Rust, Java, C, CPP,
 		CSharp, YAML, Bash, Shell, Zsh, Fish, PowerShell}
 }
 

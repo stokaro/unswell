@@ -13,6 +13,8 @@ func verifyProbes(ctx context.Context, session *mcp.ClientSession) ([]server.Che
 	probes := []struct{ name, text, outcome string }{
 		{"mcp-negative.md", "Certainly! The client opens connections.", "policy_failure"},
 		{"mcp-rewritten.md", "The client opens connections.", "pass"},
+		{"mcp-negative.mdx", "<Panel>Certainly! The client opens connections.</Panel>", "policy_failure"},
+		{"mcp-invalid.mdx", "<Panel title={broken>", "error"},
 		{"mcp-negative.go", "package sample\n// Certainly! The client opens connections.\n", "policy_failure"},
 		{"mcp-negative.yaml", "message: Certainly! The client opens connections.\n", "policy_failure"},
 		{"mcp-negative.cs", "class Sample { string value = \"Certainly! The client opens connections.\"; }", "policy_failure"},

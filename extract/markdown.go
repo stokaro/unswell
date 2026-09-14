@@ -11,17 +11,31 @@ import (
 )
 
 type markdownReader struct {
-	ctx      context.Context
-	doc      *document.Document
-	syntax   syntaxTree
-	input    markdownInput
-	options  Options
-	headings map[markdownScope][6]string
-	lists    map[document.Span]document.ListContext
+	ctx       context.Context
+	doc       *document.Document
+	syntax    syntaxTree
+	input     markdownInput
+	options   Options
+	headings  map[markdownScope][6]string
+	lists     map[document.Span]document.ListContext
+	protected []document.Span
 }
 
 func markdown(ctx context.Context, doc *document.Document, options Options) error {
-	input, err := prepareMarkdown(ctx, maskFrontMatter(doc))
+	source := maskFrontMatter(doc)
+	var protected []document.Span
+	if doc.Format == document.MDX {
+		var err error
+		protected, err = maskMDX(ctx, doc, source)
+		if err != nil {
+			return err
+		}
+	}
+	prepare := prepareMarkdown
+	if doc.Format == document.MDX {
+		prepare = prepareMDXMarkdown
+	}
+	input, err := prepare(ctx, source)
 	if err != nil {
 		return err
 	}
@@ -30,7 +44,7 @@ func markdown(ctx context.Context, doc *document.Document, options Options) erro
 		return err
 	}
 	defer syntax.tree.Release()
-	reader := markdownReader{ctx: ctx, doc: doc, syntax: syntax, input: input, options: options,
+	reader := markdownReader{ctx: ctx, doc: doc, syntax: syntax, input: input, options: options, protected: protected,
 		headings: make(map[markdownScope][6]string), lists: make(map[document.Span]document.ListContext)}
 	if options.IncludeStructure {
 		if err := reader.indexLists(); err != nil {
@@ -144,7 +158,7 @@ func (r *markdownReader) inlineMapping(node *ts.Node, span document.Span) (docum
 	if err != nil {
 		return document.MappedText{}, err
 	}
-	return markdownInline(r.ctx, r.doc, span, continuations)
+	return markdownInlineProtected(r.ctx, r.doc, span, continuations, r.protected)
 }
 
 func (r *markdownReader) appendInline(node *ts.Node, mapped document.MappedText, kind string, excluded bool) error {

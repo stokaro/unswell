@@ -324,7 +324,7 @@ func defaults(profile string, catalog []rule.Descriptor) (Policy, error) {
 
 func defaultIncludes() []string {
 	return []string{
-		"**/*.md", "**/*.markdown", "**/*.txt", "**/*.go", "**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs",
+		"**/*.md", "**/*.markdown", "**/*.mdx", "**/*.txt", "**/*.go", "**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs",
 		"**/*.ts", "**/*.mts", "**/*.cts", "**/*.tsx", "**/*.py", "**/*.pyi", "**/*.rs", "**/*.java",
 		"**/*.c", "**/*.h", "**/*.C", "**/*.cc", "**/*.cpp", "**/*.cxx", "**/*.hpp", "**/*.hh", "**/*.hxx",
 		"**/*.cs", "**/*.csx", "**/*.yaml", "**/*.yml",

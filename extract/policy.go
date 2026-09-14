@@ -142,7 +142,7 @@ func validateExceptionKinds(value Exception) error {
 		}
 	}
 	for _, format := range value.Formats {
-		if !slices.Contains(document.Formats(), format) || format == document.Plain || format == document.Markdown {
+		if !slices.Contains(document.Formats(), format) || format == document.Plain || format == document.Markdown || format == document.MDX {
 			return fmt.Errorf("unknown source format %q", format)
 		}
 	}

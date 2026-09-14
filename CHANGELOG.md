@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+MDX files now participate in directory scans and MCP checks. Markdown prose
+between component tags is checked; imports, exports, expressions and tag
+attributes retain explicit exclusions. Original byte coordinates survive
+masking, indentation, CRLF and Unicode. Use `languages.mdx.contexts` to select
+headings, paragraphs, list items or table cells. The added default file pattern
+changes configuration hashes; existing diagnostic and feature values are unchanged.
+
 Building from source now requires Go 1.26. The Go analysis adapter and its
 consumer use `golang.org/x/tools` v0.50.0, which requires this compiler version.
 CI tests all runtime and consumer modules with automatic upgrades disabled.

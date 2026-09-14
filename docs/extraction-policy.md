@@ -16,7 +16,7 @@ extraction:
 ```
 
 The global default contains all six values shown above. Each format uses only
-its supported contexts: text has `paragraph`; Markdown has `paragraph`, `heading`,
+its supported contexts: text has `paragraph`; Markdown and MDX have `paragraph`, `heading`,
 `list-item` and `table-cell`; source languages and YAML have `comment` and `string`.
 The keys under `languages` are format names from the [input table](inputs.md).
 
