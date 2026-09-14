@@ -64,13 +64,30 @@ func notOnlyEvents(m *editorialMatcher, sentences []document.Sentence, index int
 	return nil, nil
 }
 
+// contrastMarkers are the in-sentence forms of a paired contrast: a claim
+// defined by what it is set against. One is ordinary English. Repeating the
+// shape every few sentences is the habit this rule counts, and the count is
+// what the window parameters bound.
+var contrastMarkers = [][]string{{"rather", "than"}, {"instead", "of"}}
+
 func pairedContrastEvents(m *editorialMatcher, sentences []document.Sentence, i int) ([]editorialEvent, error) {
 	if err := m.spend(); err != nil {
 		return nil, err
 	}
+	events := m.contrastPair(sentences, i)
+	marker, err := m.contrastMarker(sentences[i], i)
+	if err != nil {
+		return nil, err
+	}
+	return append(events, marker...), nil
+}
+
+// contrastPair finds the two-sentence formula: one sentence saying what a thing
+// is not, the next saying what it is.
+func (m *editorialMatcher) contrastPair(sentences []document.Sentence, i int) []editorialEvent {
 	first := sentences[i]
 	if i+1 >= len(sentences) || first.BlockID != sentences[i+1].BlockID || question(first) {
-		return nil, nil
+		return nil
 	}
 	second := sentences[i+1]
 	a := m.prefixTokens(first, "it is not about", "it's not about")
@@ -78,11 +95,47 @@ func pairedContrastEvents(m *editorialMatcher, sentences []document.Sentence, i 
 	m.observeContrastPair(first, second, a, b)
 	if a.length == 0 || b.length == 0 || question(second) ||
 		m.view.Exempts(first, 0, a.length) || m.view.Exempts(second, 0, b.length) {
-		return nil, nil
+		return nil
 	}
 	return []editorialEvent{{i, i + 1, []rule.Occurrence{
 		tokenOccurrence(first, 0, a.length), tokenOccurrence(second, 0, b.length),
-	}}}, nil
+	}}}
+}
+
+// contrastMarker finds the same move inside one sentence. It reports every
+// occurrence rather than the first, because two in a sentence is the density
+// the window is there to measure.
+func (m *editorialMatcher) contrastMarker(sentence document.Sentence, index int) ([]editorialEvent, error) {
+	events := []editorialEvent{}
+	for i := range sentence.Tokens {
+		for _, marker := range contrastMarkers {
+			if !markerAt(sentence, i, marker) {
+				continue
+			}
+			if err := m.spend(); err != nil {
+				return nil, err
+			}
+			end := i + len(marker)
+			if m.view.Exempts(sentence, i, end) {
+				continue
+			}
+			events = append(events, editorialEvent{index, index,
+				[]rule.Occurrence{tokenOccurrence(sentence, i, end)}})
+		}
+	}
+	return events, nil
+}
+
+func markerAt(sentence document.Sentence, i int, marker []string) bool {
+	if i+len(marker) > len(sentence.Tokens) {
+		return false
+	}
+	for offset, word := range marker {
+		if sentence.Tokens[i+offset].Normal != word {
+			return false
+		}
+	}
+	return true
 }
 
 func whetherEvents(m *editorialMatcher, sentences []document.Sentence, i int) ([]editorialEvent, error) {
