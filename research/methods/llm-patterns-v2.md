@@ -304,6 +304,53 @@ as an unseen-family result.
   response. The third screening reports no test blocked by the cluster
   minimum.
 
+## Confirmatory record, September 14, 2026
+
+The confirmation partition is measured once. Neither hypothesis is
+supported.
+
+`screening/2026-09-14-confirmation.json`, SHA-256
+`dc56db3b3ae5d63c1a6d1bea67c885d3790f1272224af2b711cf535b0f70e0ce`, over
+the dataset plan in `screening/2026-09-14-confirmation-dataset-plan.json`.
+The Claude arm is 200 responses of run `2026-09-13-confirm-haiku`, 197
+comment paragraphs; the OpenAI arm 200 of `2026-09-13-confirm-luna`, 158.
+The H0 arm is the 31,315 historical comment paragraphs of the same
+partition.
+
+| Hypothesis | Development | Confirmation | p | Holm |
+| --- | --- | --- | --- | --- |
+| H1 `syntax.noun-stack` | +2.96 points, +1.18 to +4.17 | +0.41 points, -0.13 to +2.12 | 0.727 | not rejected at 0.025 |
+| H2 `readability.grade-metric` | +2.43 points, +0.65 to +4.40 | +0.32 points, -0.61 to +0.91 | 0.747 | not rejected at 0.050 |
+
+Both point estimates fall an order of magnitude below the MID of three
+points, both intervals contain zero, and Holm rejects neither. The
+development estimates did not carry over.
+
+The arm also missed two of the four conditions a supported card needs. It
+holds 16 provenance components against the cluster minimum of 20, and one
+component carries a finding against the support minimum of five. The
+screening marks both cards `inconclusive` with the reason
+`cluster_minimum` rather than deciding them either way, so the frozen list
+is untouched and no card changed state.
+
+Two readings of that shortfall are available and this record does not
+choose between them. The measurement is a null on its own numbers,
+whatever the component count, because the estimates sit near zero rather
+than near the MID. It is also a measurement the preconditions below did
+not admit, because the partition had to reach 20 components in every arm
+first and the controlled arm reached 16. Whether the one permitted
+confirmatory measurement was therefore spent is a maintainer's call, not
+this record's.
+
+The 200 drawn tasks covered 16 repositories. Reaching 20 components in the
+controlled arm needs a wider draw, not more responses per task.
+
+The OpenAI arm carries no hypothesis and is reported as the holdout checks
+require. It shows zero findings in 158 paragraphs for both rules, against
+H0 prevalences of 0.10% and 0.70%, so both differences are negative and
+both cards are `inconclusive` for `zero_count`. A negative difference is
+not a hypothesis here.
+
 ## What must exist before the confirmatory measurement
 
 - The frozen list and this document's hash in the acceptance table.
