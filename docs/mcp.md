@@ -120,7 +120,10 @@ The client also checks deliberate Markdown, comment, YAML and C# violations,
 a clean rewrite and malformed source. Protocol tests cover invalid arguments,
 context overrides, exceptions, request cancellation and process shutdown.
 CI retains repository and probe results in `artifacts/dogfood/mcp-result.json`.
-The self-check sends at most 256 documents per request and compares every batch
+The self-check sends at most 256 documents per request. It also bounds encoded
+requests and expected replies to fit the SDK's 16 MiB message limit, including
+the reply's structured JSON and text copy. It preserves whole documents; a single
+document that exceeds this budget fails explicitly. It compares every batch
 with the corresponding CLI documents, findings, assessments, suppressions and
 requested measurements.
 Its developer evidence file stores the actual responses in `repository_batches`;
