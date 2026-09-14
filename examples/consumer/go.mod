@@ -1,12 +1,12 @@
 module example.com/unswell-consumer
 
-go 1.25.0
+go 1.26.0
 
 require (
 	github.com/frankban/quicktest v1.14.6
 	github.com/stokaro/unswell v0.1.0-alpha.1.0.20260908025147-fcb39738b4a0
 	github.com/stokaro/unswell/goanalysis v0.0.0
-	golang.org/x/tools v0.49.0
+	golang.org/x/tools v0.50.0
 )
 
 require (
