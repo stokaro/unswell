@@ -11,7 +11,9 @@ import (
 
 func fixture() fstest.MapFS {
 	return fstest.MapFS{
-		".gomodules":         {Data: []byte(". runtime\ntools tools\n")},
+		".gomodules": {Data: []byte(". runtime\ntools tools\n")},
+		".github/dependabot.yml": {Data: []byte("version: 2\nupdates:\n" +
+			"- package-ecosystem: gomod\n  directories: [/, /tools]\n")},
 		"go.mod":             {Data: []byte("module github.com/stokaro/unswell\n")},
 		"tools/go.mod":       {Data: []byte("module example.com/tools\n")},
 		"docs/public_api.md": {Data: []byte("`github.com/stokaro/unswell`\n")},
@@ -62,6 +64,8 @@ func TestAdapterHasThePublicLibraryBoundary(t *testing.T) {
 			tree := fixture()
 			tree[".gomodules"].Data = []byte(". runtime\ngoanalysis runtime\ntools tools\n")
 			tree["goanalysis/go.mod"] = &fstest.MapFile{Data: []byte("module github.com/stokaro/unswell/goanalysis\n")}
+			tree[".github/dependabot.yml"].Data = append(tree[".github/dependabot.yml"].Data,
+				[]byte("- package-ecosystem: gomod\n  directory: /goanalysis\n")...)
 			tree["docs/public_api.md"].Data = []byte("`github.com/stokaro/unswell`\n`github.com/stokaro/unswell/goanalysis`\n")
 			tree["goanalysis/analyzer.go"] = &fstest.MapFile{Data: []byte("package goanalysis; import \"context\"")}
 			c.Assert(repopolicy.Check(tree), qt.IsNil)

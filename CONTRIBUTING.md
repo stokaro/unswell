@@ -43,6 +43,15 @@ Add every Go module to `.gomodules` with its role. Add every public package to
 filesystem discovery, network, and process execution. Repository policy tests
 include deliberately invalid fixtures; preserve their ability to reject changes.
 
+List each Go module explicitly in `.github/dependabot.yml` as well. The policy
+check requires version updates for the default branch and rejects missing or
+duplicate directories. Globs and updates with a `target-branch` override do not
+satisfy this check. The tooling module retains its separate compiler requirement.
+Dependabot [groups shared dependencies by name](https://docs.github.com/en/code-security/reference/supply-chain-security/dependabot-options-reference#group-by-groups)
+across modules. Incompatible version constraints can still produce separate PRs;
+this grouping applies to version updates. Review every affected `go.mod` and
+`go.sum`, and keep module consistency and minimum-compiler CI checks enabled.
+
 Rules need source-coordinate tests, realistic counterexamples, and documented
 limitations. A few examples do not establish precision. Experimental rules become
 stable only after the evaluation described in `docs/roadmap.md`.

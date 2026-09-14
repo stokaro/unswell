@@ -1,10 +1,13 @@
 version: 2
 updates:
   - package-ecosystem: gomod
-    directories: [/, /examples/consumer, /mcp, /tools]
+    directories: [/, /examples/consumer, /goanalysis, /mcp, /research/annotation, /research/dependencies, /tools]
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    groups:
+      shared-go-dependencies:
+        group-by: dependency-name
   - package-ecosystem: github-actions
     directory: /
     schedule:
