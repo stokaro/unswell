@@ -44,6 +44,13 @@ sample adequacy, and the two arms together exceed it. Keeping both meant
 lowering the per-checkout cap from fifteen to ten, which changes the
 development arm as well.
 
+Nothing derives the value. It arrived with the first corpus commit,
+paired with an identical bound on sources, and neither that commit's
+message nor the architecture record that accompanied it mentions the
+number or argues for it. It is round, it bounds memory and serialization,
+and it has stood unexamined since. That is worth knowing before treating
+it as a finding about the corpus rather than about the tool.
+
 The bound has an escape hatch and this harness does not use it. A dataset
 of shards carries up to 200,000 sources across 1,024 manifests, which is
 how acquisition holds a corpus this size. `dataset union` then collapses
