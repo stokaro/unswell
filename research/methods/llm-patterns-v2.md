@@ -354,11 +354,18 @@ not a hypothesis here.
 ## Extraction change of September 15, 2026
 
 Every screening and every record above was measured before the extraction
-fix of issue 279. A documentation comment puts its worked example in `<pre>`
-and `<code>` markup, and the extraction read those regions as prose, so a
-constructor call was measured as a sentence. The fix holds those regions
-back, along with the inline Javadoc tags `{@code}` and `{@literal}` and the
-`<c>` element of C# documentation comments.
+fix of issue 279. A worked example lives in `<pre>` and `<code>` markup, and
+the extraction read those regions as prose, so a constructor call was
+measured as a sentence.
+
+The fix has two halves, and both are in place here. In a documentation
+comment the `<pre>`, `<code>` and `<c>` elements and the inline Javadoc tags
+`{@code}` and `{@literal}` are held back. In Markdown an inline `<pre>` or
+`<code>` element is held back with its body, where before only its tags were
+protected and the example between them was read as prose. The first half
+reaches source comments and the second reaches text that quotes
+documentation markup, including the generated responses of the controlled
+arm.
 
 The corpus was measured again, all 840 shards, same dataset plan, same
 policy, no skipped shard. The counts below are the whole corpus, not the
@@ -366,28 +373,30 @@ Java and C# stratum alone.
 
 | Cohort | Findings before | After | Prose words before | After |
 | --- | ---: | ---: | ---: | ---: |
-| historical | 18,532 | 16,526 | 2,165,870 | 2,119,409 |
-| historical-2018 | 4,404 | 4,298 | 817,359 | 812,519 |
+| historical | 18,532 | 16,526 | 2,165,870 | 2,119,351 |
+| historical-2018 | 4,404 | 4,298 | 817,359 | 812,491 |
 | historical-2016 | 3,052 | 2,967 | 532,527 | 528,390 |
 | historical-2012 | 922 | 892 | 144,454 | 142,903 |
-| contemporary | 6,011 | 5,918 | 1,159,967 | 1,156,469 |
-| controlled | 2,757 | 2,757 | 427,542 | 427,542 |
-| Total | 35,678 | 33,358 | 5,247,719 | 5,187,232 |
+| contemporary | 6,011 | 5,918 | 1,159,967 | 1,156,467 |
+| controlled | 2,757 | 2,742 | 427,542 | 426,460 |
+| Total | 35,678 | 33,343 | 5,247,719 | 5,186,062 |
 
-The controlled arm does not move by a single finding or a single word. Its
-units are generated paragraphs, not source comments, so nothing in it held
-example code. The H0 arm moves and the H1 arm does not. The frozen
-comparisons therefore ran against an H0 side that still carried Java.
+The two halves separate cleanly by arm. The comment half leaves the
+controlled arm untouched: its units are generated paragraphs, not source
+comments. The Markdown half accounts for its whole movement, 15 findings of
+2,757, where a response reproduced the `<pre><code>` markup of the comment it
+was asked to edit. The H0 arm loses 2,006 findings and the H1 arm loses 15,
+so the frozen comparisons ran against an H0 side that still carried Java.
 
 Per rule, over every cohort, with rates per thousand words:
 
 | Rule | Before | After | Rate before | Rate after |
 | --- | ---: | ---: | ---: | ---: |
-| syntax.long-sentence | 10,335 | 9,971 | 1.969 | 1.922 |
+| syntax.long-sentence | 10,335 | 9,967 | 1.969 | 1.922 |
 | syntax.passive-candidate-density | 6,337 | 5,955 | 1.208 | 1.148 |
-| readability.grade-metric | 4,475 | 4,240 | 0.853 | 0.817 |
+| readability.grade-metric | 4,475 | 4,237 | 0.853 | 0.817 |
 | repetition.exact-sentence | 3,318 | 2,901 | 0.632 | 0.559 |
-| syntax.parenthetical-load | 2,839 | 2,534 | 0.541 | 0.489 |
+| syntax.parenthetical-load | 2,839 | 2,526 | 0.541 | 0.487 |
 | repetition.ngram-density | 2,812 | 2,516 | 0.536 | 0.485 |
 | repetition.paragraph-overlap | 1,397 | 1,277 | 0.266 | 0.246 |
 | repetition.near-sentence | 925 | 805 | 0.176 | 0.155 |
@@ -420,7 +429,9 @@ untouched.
 
 `research/methods/baselines/closed-3gram-v1.json` was counted on the same
 pre-fix extraction and is superseded by `closed-3gram-v2.json`, built by
-`scripts/build-baseline.sh` from the recounted measurement. The comment role
+`scripts/build-baseline.sh` from the recounted measurement. The Markdown half
+does not change it: the roles it counts come out identical either way, and
+the rebuilt file matches byte for byte. The comment role
 falls from 926,181 words and 17,808 terms to 829,963 and 16,416; 1,392 terms
 leave the table and none enter. Version 1 stays in the tree because the
 records that cite it were computed against it.
