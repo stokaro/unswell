@@ -58,8 +58,7 @@ func schemaType(value reflect.Type, definitions object) object {
 func schemaStruct(value reflect.Type, definitions object) object {
 	properties := object{}
 	required := []string{}
-	for i := 0; i < value.NumField(); i++ {
-		field := value.Field(i)
+	for field := range value.Fields() {
 		name, options, _ := strings.Cut(field.Tag.Get("json"), ",")
 		if name == "-" || !field.IsExported() {
 			continue

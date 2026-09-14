@@ -95,8 +95,8 @@ func TestScreeningContrastsFamiliesOnThePartition(t *testing.T) {
 	// in every replicate and the p-value sits at the floor.
 	a := screening.Rules[0].Families[0]
 	c.Assert(a.Family, qt.Equals, "f")
-	c.Assert(a.Controlled, qt.DeepEquals, patterns.ScreenArm{Units: 3, WithFinding: 3, Components: 3, Support: 3, Prevalence: ptr(1)})
-	c.Assert(a.H0, qt.DeepEquals, patterns.ScreenArm{Units: 3, Components: 3, Prevalence: ptr(0)})
+	c.Assert(a.Controlled, qt.DeepEquals, patterns.ScreenArm{Units: 3, WithFinding: 3, Components: 3, Support: 3, Prevalence: new(1.0)})
+	c.Assert(a.H0, qt.DeepEquals, patterns.ScreenArm{Units: 3, Components: 3, Prevalence: new(0.0)})
 	c.Assert(a.Models, qt.DeepEquals, []patterns.ScreenModel{{Model: "m1", ScreenArm: a.Controlled}})
 	c.Assert(*a.Difference.Value, qt.Equals, 1.0)
 	c.Assert(*a.PValue, qt.Equals, 0.0001)
@@ -126,8 +126,6 @@ func TestScreeningContrastsFamiliesOnThePartition(t *testing.T) {
 	c.Assert(b.PassesFDR, qt.IsFalse)
 	c.Assert(screening.Candidates, qt.DeepEquals, []patterns.ScreenCandidate{{RuleID: "a.rule", Family: "f", Difference: 1, QValue: 0.0002}})
 }
-
-func ptr(value float64) *float64 { return &value }
 
 func TestScreeningTakesPartitionsFromThePlanAndRejectsBadInputs(t *testing.T) {
 	c := qt.New(t)

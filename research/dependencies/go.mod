@@ -1,6 +1,6 @@
 module github.com/stokaro/unswell/research/dependencies
 
-go 1.25.0
+go 1.26.0
 
 require (
 	github.com/bioshock/gospacy/v3 v3.8.14-port.2

@@ -55,13 +55,13 @@ func TestEstimateAbstainsWithAMachineReadableStatus(t *testing.T) {
 		unit                 probability.Unit
 	}{
 		{"unsupported unit", probability.StatusUnsupportedUnit, "sentence",
-			probability.Unit{Kind: "paragraph", Words: 40, Values: measured(c, file, number(12), number(0.6))}},
+			probability.Unit{Kind: "paragraph", Words: 40, Values: measured(c, file, new(12.0), new(0.6))}},
 		{"short target", probability.StatusInsufficientEvidence, "min_words=5",
-			probability.Unit{Kind: "sentence", Words: 4, Values: measured(c, file, number(12), number(0.6))}},
+			probability.Unit{Kind: "sentence", Words: 4, Values: measured(c, file, new(12.0), new(0.6))}},
 		{"missing measurement", probability.StatusMissingFeature, "type-token-ratio/no_prose_words",
-			probability.Unit{Kind: "sentence", Words: 12, Values: measured(c, file, number(12), nil)}},
+			probability.Unit{Kind: "sentence", Words: 12, Values: measured(c, file, new(12.0), nil)}},
 		{"outside calibration", probability.StatusCalibrationRange, "",
-			probability.Unit{Kind: "sentence", Words: 40, Values: measured(c, file, number(100), number(0.6))}},
+			probability.Unit{Kind: "sentence", Words: 40, Values: measured(c, file, new(100.0), new(0.6))}},
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
@@ -79,14 +79,14 @@ func TestEstimateReportsACalibratedValueAndItsUncalibratedScore(t *testing.T) {
 	file := packFile(c, "sentence", "prose-words", "type-token-ratio")
 	pack := loaded(c, file)
 	estimate, err := pack.Estimate(c.Context(),
-		probability.Unit{Kind: "sentence", Words: 12, Values: measured(c, file, number(12), number(0.6))})
+		probability.Unit{Kind: "sentence", Words: 12, Values: measured(c, file, new(12.0), new(0.6))})
 	c.Assert(err, qt.IsNil)
 	c.Assert(estimate.Status, qt.Equals, probability.StatusAvailable)
 	c.Assert(estimate.Detail, qt.Equals, "")
 	c.Assert(math.Abs(*estimate.LinearScore-0.2) < 1e-12, qt.IsTrue)
 	c.Assert(math.Abs(*estimate.Probability-0.5) < 1e-12, qt.IsTrue)
 	outside, err := pack.Estimate(c.Context(),
-		probability.Unit{Kind: "sentence", Words: 40, Values: measured(c, file, number(100), number(0.6))})
+		probability.Unit{Kind: "sentence", Words: 40, Values: measured(c, file, new(100.0), new(0.6))})
 	c.Assert(err, qt.IsNil)
 	c.Assert(*outside.LinearScore > 1, qt.IsTrue)
 	c.Assert(outside.Probability, qt.IsNil)
@@ -96,16 +96,16 @@ func TestEstimateRejectsVectorsThatDoNotMatchItsColumns(t *testing.T) {
 	c := qt.New(t)
 	file := packFile(c, "sentence", "prose-words", "type-token-ratio")
 	pack := loaded(c, file)
-	complete := measured(c, file, number(12), number(0.6))
+	complete := measured(c, file, new(12.0), new(0.6))
 	for _, row := range []struct {
 		name, message string
 		values        []feature.Value
 	}{
 		{"short vector", ".*requires 2 measured columns.*", complete[:1]},
 		{"identity", ".*expects column prose-words version 1 at position 0.*",
-			[]feature.Value{{ID: "counted-characters", Version: "1", Number: number(1)}, complete[1]}},
+			[]feature.Value{{ID: "counted-characters", Version: "1", Number: new(1.0)}, complete[1]}},
 		{"version", ".*expects column type-token-ratio version 1 at position 1.*",
-			[]feature.Value{complete[0], {ID: "type-token-ratio", Version: "2", Number: number(0.6)}}},
+			[]feature.Value{complete[0], {ID: "type-token-ratio", Version: "2", Number: new(0.6)}}},
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
