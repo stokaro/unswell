@@ -77,7 +77,7 @@ func TestFrequenciesCountStrataAndItems(t *testing.T) {
 		{Cohort: "historical", Role: "readme", Sentences: 1, Words: 6, Components: 1},
 		{Cohort: "contemporary", Role: "comment", Sentences: 4, Words: 29, Components: 2}})
 	measures := measuresOf(tables)
-	c.Assert(measures, qt.HasLen, 5)
+	c.Assert(measures, qt.HasLen, 6)
 	var opener patterns.FrequencyItem
 	for _, item := range measures[patterns.MeasureOpener].Items {
 		if item.Key == "the client opens" {
@@ -142,7 +142,7 @@ func TestFrequenciesRefuseSupportBeforeSelection(t *testing.T) {
 	c.Assert(tables.MinCount, qt.Equals, 5)
 	c.Assert(tables.MinComponents, qt.Equals, 3)
 	c.Assert(tables.Top, qt.Equals, 200)
-	c.Assert(tables.Measures, qt.HasLen, 5)
+	c.Assert(tables.Measures, qt.HasLen, 6)
 }
 
 // A task names the paragraph of h1 and h2; a generated response answers it.
@@ -181,8 +181,15 @@ func TestFrequenciesPairTasksAndResponses(t *testing.T) {
 	c.Assert(sizes, qt.DeepEquals, map[string]int{"historical-paired/comment": 2, "historical/comment": 1, "historical/readme": 1,
 		"contemporary/comment": 4, "controlled-generate/comment": 1})
 	c.Assert(tables.Targets, qt.DeepEquals, []string{"contemporary", "controlled-generate", "historical"})
+	var openers patterns.FrequencyMeasure
+	for _, measure := range tables.Measures {
+		if measure.Measure == patterns.MeasureOpener {
+			openers = measure
+		}
+	}
+	c.Assert(openers.Measure, qt.Equals, patterns.MeasureOpener)
 	var opener patterns.FrequencyContrast
-	for _, contrast := range tables.Measures[3].Contrasts {
+	for _, contrast := range openers.Contrasts {
 		if contrast.Cohort == "controlled-generate" && contrast.Key == "the client opens" {
 			opener = contrast
 		}

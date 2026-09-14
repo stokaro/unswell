@@ -20,11 +20,18 @@ const FrequencyVersion = "unswell-frequency-tables-v1"
 
 // Frequency measures, counted per sentence unit.
 const (
-	MeasureWord1     = "word-1gram"
-	MeasureWord2     = "word-2gram"
-	MeasureWord3     = "word-3gram"
-	MeasureOpener    = "opener-3"
-	MeasureTemplate  = "pos-template"
+	MeasureWord1    = "word-1gram"
+	MeasureWord2    = "word-2gram"
+	MeasureWord3    = "word-3gram"
+	MeasureOpener   = "opener-3"
+	MeasureTemplate = "pos-template"
+	// MeasureClosed3 counts three-word sequences that are mostly closed class:
+	// determiners, prepositions, conjunctions, pronouns and the like. A word
+	// n-gram of a technical corpus is dominated by its own vocabulary, so the
+	// keys that rise are the project's nouns and carry between projects. The
+	// closed-class sequences are the connective tissue, which is what a
+	// construction is made of and what does carry.
+	MeasureClosed3   = "closed-3gram"
 	maxTemplateTags  = 12
 	maxStrata        = 64
 	frequencyUnit    = "sentence"
@@ -35,7 +42,8 @@ const (
 	frequencyLowBase = "baseline_below_minimum"
 )
 
-var frequencyMeasures = []string{MeasureWord1, MeasureWord2, MeasureWord3, MeasureOpener, MeasureTemplate}
+var frequencyMeasures = []string{MeasureWord1, MeasureWord2, MeasureWord3, MeasureClosed3,
+	MeasureOpener, MeasureTemplate}
 
 // FrequencyOptions selects the baseline cohort, the target cohorts that get
 // contrasts (every other cohort when empty), the count a key needs in a
@@ -227,6 +235,7 @@ func (f *Frequencies) keys(ctx context.Context, text string) (map[string][]strin
 		result[MeasureWord1] = append(result[MeasureWord1], grams(words, 1)...)
 		result[MeasureWord2] = append(result[MeasureWord2], grams(words, 2)...)
 		result[MeasureWord3] = append(result[MeasureWord3], grams(words, 3)...)
+		result[MeasureClosed3] = append(result[MeasureClosed3], closedGrams(words, tags, 3)...)
 		if opener := opener(words); opener != "" {
 			result[MeasureOpener] = append(result[MeasureOpener], opener)
 		}
@@ -270,6 +279,40 @@ func coarse(tag string) string {
 		return tag[:2]
 	}
 	return tag
+}
+
+// closedTags are the coarse Penn Treebank tags of the closed classes: the
+// determiners, prepositions and subordinating conjunctions, coordinating
+// conjunctions, pronouns, modals, the infinitive marker, existential there,
+// predeterminers, particles, and the wh-words. Membership is closed in the
+// sense that a language gains new nouns and verbs and does not gain new
+// prepositions, which is why a sequence of them travels between corpora.
+var closedTags = map[string]bool{"DT": true, "IN": true, "CC": true, "PR": true, "MD": true,
+	"TO": true, "EX": true, "PD": true, "RP": true, "WD": true, "WP": true, "WR": true}
+
+// closedGrams lists the n-grams where at most one word is open class. One open
+// word is allowed so that a construction keeps the word it turns on, as
+// "refused rather than" keeps its verb, while two would let the corpus
+// vocabulary back in.
+func closedGrams(words, tags []string, n int) []string {
+	var result []string
+	for i := 0; i+n <= len(words); i++ {
+		window := words[i : i+n]
+		if slices.Contains(window, "") {
+			continue
+		}
+		open := 0
+		for _, tag := range tags[i : i+n] {
+			if !closedTags[tag] {
+				open++
+			}
+		}
+		if open > 1 {
+			continue
+		}
+		result = append(result, strings.Join(window, " "))
+	}
+	return result
 }
 
 // grams lists the n-grams of consecutive words; an empty word is a break.
