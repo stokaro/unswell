@@ -92,7 +92,7 @@ func fitLexical(ctx context.Context, candidates corpus.Artifact, prepared corpus
 	if err != nil {
 		return Artifact{}, err
 	}
-	counts, err := collectLexical(ctx, prepared, selectedLexicalIDs(selected), lexical.Counts)
+	counts, err := collectLexical(ctx, prepared, selectedLexicalIDs(selected), lexical.Counts, nil)
 	if err != nil {
 		return Artifact{}, err
 	}

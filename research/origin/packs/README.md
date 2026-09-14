@@ -60,6 +60,13 @@ documentation. A prose page scoring above a comment corpus is partly a
 statement about genre. Reading a rate on prose as a false-flag rate overstates
 what was measured.
 
-The reported numbers are from the development partition. The confirmation
-partition has a controlled arm and a measured corpus but is not yet scored, so
-no confirmation number exists. The run record says why.
+The reported numbers are from the development partition of the run that fitted
+this pack.
+
+The confirmation partition has since been scored, in
+[a separate run](../runs/2026-09-14-confirmation/README.md), and it separates.
+That run does not describe this pack: a corpus holding both arms exceeds the
+pipeline's candidate ceiling, so it had to refit on a smaller one. On its
+corpus the same procedure gives a development false-flag rate of 0.136 rather
+than 0.040, and its confirmation partition contains no C#, the language this
+model is worst on. Read its three qualifications before quoting its numbers.

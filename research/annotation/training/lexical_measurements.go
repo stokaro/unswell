@@ -137,7 +137,8 @@ func lexicalPredictionMeasurements(ctx context.Context, candidates corpus.Artifa
 			selected[candidate.Unit.ID] = true
 		}
 	}
-	counts, err := collectLexical(ctx, prepared, selected, fitted.Lexical.Options.Counts)
+	counts, err := collectLexical(ctx, prepared, selected, fitted.Lexical.Options.Counts,
+		vocabularyKeys(fitted.Lexical))
 	if err != nil {
 		return rowSelector{}, nil, corpus.Verification{}, err
 	}
@@ -146,8 +147,14 @@ func lexicalPredictionMeasurements(ctx context.Context, candidates corpus.Artifa
 	return selector, bindings, prepared.Verification, err
 }
 
+// collectLexical counts the n-grams of every selected target. A keep set, when
+// supplied, is the frozen vocabulary a later step will project onto, and terms
+// outside it are dropped as they are counted rather than retained and thrown
+// away: a unit yields thousands of n-grams and a vocabulary holds at most a
+// hundred and twenty-eight, so keeping the rest is what used to exhaust the
+// budget on a large partition. Fitting has no vocabulary yet and passes nil.
 func collectLexical(ctx context.Context, prepared corpus.Prepared, selected map[string]bool,
-	options feature.LexicalOptions,
+	options feature.LexicalOptions, keep map[string]bool,
 ) (map[string][]feature.LexicalTerm, error) {
 	counts := make(map[string][]feature.LexicalTerm, len(selected))
 	var retained int64
@@ -159,6 +166,7 @@ func collectLexical(ctx context.Context, prepared corpus.Prepared, selected map[
 		if err != nil {
 			return nil, err
 		}
+		terms = retainedTerms(terms, keep)
 		for _, term := range terms {
 			retained += int64(len(term.Key)) + 64
 		}
@@ -174,4 +182,32 @@ func collectLexical(ctx context.Context, prepared corpus.Prepared, selected map[
 		return nil, err
 	}
 	return counts, nil
+}
+
+// retainedTerms drops the terms no column will read. A nil keep set retains
+// everything, which is what fitting needs before its vocabulary exists.
+func retainedTerms(terms []feature.LexicalTerm, keep map[string]bool) []feature.LexicalTerm {
+	if keep == nil {
+		return terms
+	}
+	kept := terms[:0]
+	for _, term := range terms {
+		if keep[term.Key] {
+			kept = append(kept, term)
+		}
+	}
+	return kept
+}
+
+// vocabularyKeys names the terms a fitted vocabulary reads, or nil when the
+// artifact carries none.
+func vocabularyKeys(vocabulary *Vocabulary) map[string]bool {
+	if vocabulary == nil {
+		return nil
+	}
+	keys := make(map[string]bool, len(vocabulary.Terms))
+	for _, term := range vocabulary.Terms {
+		keys[term.Key] = true
+	}
+	return keys
 }
