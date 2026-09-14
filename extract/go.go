@@ -76,6 +76,7 @@ func cgoGroups(file *ast.File) map[*ast.CommentGroup]bool {
 
 func extractCommentGroup(doc *document.Document, group *ast.CommentGroup, fset *token.FileSet) error {
 	var builder mapping.Builder
+	writer := commentWriter{doc: doc, builder: &builder}
 	for _, comment := range group.List {
 		start := fset.Position(comment.Pos()).Offset
 		end := originalCommentEnd(doc.Source, start)
@@ -100,7 +101,7 @@ func extractCommentGroup(doc *document.Document, group *ast.CommentGroup, fset *
 		if opener != "" {
 			contentEnd -= 2
 		}
-		addCommentLines(doc, &builder, contentStart, contentEnd, opener)
+		writer.comment(contentStart, contentEnd, opener)
 		if end < len(doc.Source) {
 			builder.Add(" ", document.Span{Start: end, End: end + 1})
 		}
