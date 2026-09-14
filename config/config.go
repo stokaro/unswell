@@ -337,10 +337,7 @@ func defaultIncludes() []string {
 func applyProfile(profile, id string, settings *rule.Settings) {
 	switch profile {
 	case "strict":
-		if strictForbid(id) {
-			settings.Gate = "forbid"
-			settings.Severity = "error"
-		}
+		applyStrict(id, settings)
 	case "minimal":
 		settings.Enabled = settings.Gate == "forbid" || id == "repetition.exact-sentence"
 	case "business":
@@ -354,6 +351,33 @@ func applyProfile(profile, id string, settings *rule.Settings) {
 	case "custom":
 		settings.Enabled = false
 	}
+}
+
+// applyStrict raises the rules a strict reader expects: the stock assistant
+// tells become gate failures, and the one surface measurement that separates
+// generated prose from human prose is turned on.
+func applyStrict(id string, settings *rule.Settings) {
+	if strictForbid(id) {
+		settings.Gate = "forbid"
+		settings.Severity = "error"
+	}
+	if strictSurface(id) {
+		settings.Enabled = true
+	}
+}
+
+// strictSurface names the surface measurements the strict profile turns on.
+// Surface measurements are opt-in because they establish no error and no need
+// for revision, and that stays true here: this one is a warning, carries no
+// score, and decides no gate. It is on in the strict profile because it is the
+// one measurement that separates generated prose from human prose on every
+// corpus measured. Per thousand prose words: 11.3 em dashes in a documentation
+// tree stated to be generated and never proofread, 0.8 in a second generated
+// corpus, 0.0 in human specification prose, 0.04 in human code comments. It
+// counts density rather than presence, so a paragraph with one em dash is never
+// reported.
+func strictSurface(id string) bool {
+	return id == "format.em-dash-density"
 }
 
 func strictForbid(id string) bool {

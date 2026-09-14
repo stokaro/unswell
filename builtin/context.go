@@ -8,12 +8,21 @@ import (
 )
 
 func contextRules() []rule.Rule {
+	// The weight caps at twice itself, so twenty keeps the most a paragraph can
+	// collect from sentence length at forty. Both shipped gates fail at fifty or
+	// above, so length alone never decides one and still counts toward a
+	// paragraph that has other trouble. Thirty put the cap at sixty, which let
+	// two long sentences fail a paragraph in the strict profile on their own.
+	// Sentence length is a readability measurement: across a documentation tree
+	// stated to be generated and never proofread it runs 1.98 findings per
+	// thousand words, against 5.92 in human specification prose, so it separates
+	// nothing about how a text was written and should not carry a gate by itself.
 	long := descriptor(
 		"syntax.long-sentence",
 		"Consider splitting this long sentence without losing its conditions.",
 		"syntax-load",
 		"sentence",
-		30,
+		20,
 	)
 	long.BlockObservations = true
 	long.Defaults.Parameters = rule.Parameters{Onset: 35, Saturation: 65}
