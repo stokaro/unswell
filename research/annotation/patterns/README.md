@@ -102,12 +102,30 @@ evidence-card rules decide a state from these numbers at a later stage.
 `corpus frequencies --candidates ...` counts constructions instead of
 findings. The corpus can then propose candidates that no rule names yet.
 The command reads the sentence units of the candidate artifacts and tags
-them with the English provider. It counts five measures per cohort and
+them with the English provider. It counts six measures per cohort and
 role: word unigrams, bigrams, and trigrams of lowercase alphabetic words,
-the first three words of a sentence, and the part-of-speech template of
-the sentence. A number, an identifier, or a punctuation mark breaks the
-n-gram window. The template holds the coarse tags of the words, cut at
-twelve. The output is `unswell-frequency-tables-v1`.
+closed-class trigrams, the first three words of a sentence, and the
+part-of-speech template of the sentence. A number, an identifier, or a
+punctuation mark breaks the n-gram window. The template holds the coarse
+tags of the words, cut at twelve. The output is
+`unswell-frequency-tables-v1`.
+
+A closed-class trigram is a word trigram in which at most one word is open
+class, judged by the coarse tag: determiners, prepositions and
+subordinating conjunctions, coordinating conjunctions, pronouns, modals,
+the infinitive marker, existential there, predeterminers, particles, and
+the wh-words are closed. One open word is allowed so a construction keeps
+the word it turns on, as "refused rather than" keeps its verb.
+
+The measure exists because a word trigram of a technical corpus is partly
+that corpus's vocabulary, and vocabulary does not travel between
+projects. On a controlled cohort against historical comments the two
+measures agree at the top of the ranking, where the frequent sequences are
+already closed class. They part further down: the word trigrams there hold
+`abstract syntax tree`, `a character class`, and `created by martin`,
+which describe a subject and an author rather than a construction, and the
+closed-class trigrams hold none of them. Neither measure excludes notice
+text, so a corpus carrying licence files will show its wording in both.
 
 A stratum is one cohort and role with its sentences, words, and
 provenance components. Each measure lists contrasts for every target
