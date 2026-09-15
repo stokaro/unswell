@@ -6,6 +6,11 @@ This directory implements the design record for
 a fixed [comparison protocol](protocol-v1.md), with links to subsequent evidence.
 The [ADR](../../docs/adr/0015-research-methodology.md) defines the product boundary.
 
+The pattern branch of the research has its own protocol in
+[`llm-patterns-v2.md`](llm-patterns-v2.md) and its evidence release beside it:
+a [data card](data-card-v1.md) for the corpus and a
+[report](../report-v1.md) for the results, including the nulls.
+
 [`registry-v1.json`](registry-v1.json) uses format `unswell-method-registry-v1`.
 Its `revision` increases when an observation or decision changes; a shape or
 meaning change needs a new format version. Each entry identifies its publication,

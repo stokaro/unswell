@@ -105,8 +105,17 @@ six reviewed studies with their data terms and decisions.
 | D. Confirmatory study | Executed comparisons, holdouts, intervals, ablations, and negative results |
 | E. Evidence release | Versioned data set, data card, report, table reproduction, and evidence cards |
 
-The merged [generation index](../research/generation/README.md) records ten runs
-across Claude, OpenAI, and Qwen. Three development screenings precede the
+Stage E is published. The [data card](../research/methods/data-card-v1.md)
+describes the corpus and its limits, the
+[report](../research/report-v1.md) states the questions, the results
+including the nulls, and the limitations, and
+`python3 scripts/reproduce-tables.py` rebuilds every table. The evidence
+cards rebuild from the committed screening records alone; the corpus tables
+need `bash scripts/measure-corpus.sh` first, because the measurement is too
+large to commit.
+
+The merged [generation index](../research/generation/README.md) records twenty
+runs across Claude, OpenAI, and Qwen: 11,856 responses from five models. Three development screenings precede the
 [version 2 freeze](../research/methods/llm-patterns-v2.md), merged in
 [#229](https://github.com/stokaro/unswell/pull/229). It fixes two Claude hypotheses
 for a single confirmatory measurement. The [acceptance snapshot](acceptance.md)
