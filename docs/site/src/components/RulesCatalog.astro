@@ -35,6 +35,9 @@ const severityClass: Record<string, string> = {
 					<p class="u-rule__summary">{rule.summary}</p>
 					{rule.description !== rule.summary && <p class="u-rule__description">{rule.description}</p>}
 					<p class="u-rule__limits">{rule.limitations}</p>
+					{rule.opt_in_reason && (
+						<p class="u-rule__optin"><strong>Off by default:</strong> {rule.opt_in_reason}</p>
+					)}
 					<div class="u-rule__meta">
 						<span class="u-tag">version {rule.version}</span>
 						<span class={`u-tag ${severityClass[rule.severity] ?? ''}`}>severity {rule.severity}</span>

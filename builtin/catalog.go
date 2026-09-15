@@ -29,6 +29,7 @@ func Rules() []rule.Rule {
 	result = append(result, editorialRules()...)
 	result = append(result, extendedRepetitionRules()...)
 	result = append(result, surfaceRules()...)
+	result = withOptInReasons(result)
 	slices.SortFunc(result, func(a, b rule.Rule) int {
 		if a.Descriptor().ID < b.Descriptor().ID {
 			return -1

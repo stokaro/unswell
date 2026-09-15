@@ -95,6 +95,11 @@ type Descriptor struct {
 	// DependencyScheme requires an exact provider label scheme. Requires must
 	// include nlp.Dependencies. Empty permits scheme-independent graph analysis.
 	DependencyScheme string `json:"dependency_scheme,omitempty"`
+	// OptInReason says why a rule that Defaults.Enabled leaves off ships that
+	// way. Every such rule carries one, so the default set is a recorded
+	// decision rather than an inherited list. It is empty for a rule that
+	// ships enabled.
+	OptInReason string `json:"opt_in_reason,omitempty"`
 }
 
 // Origin identifies a declarative ruleset and its author-supplied provenance.

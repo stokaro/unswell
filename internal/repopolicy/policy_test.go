@@ -74,3 +74,30 @@ func TestAdapterHasThePublicLibraryBoundary(t *testing.T) {
 		})
 	}
 }
+
+// A tool directory can hold a whole second checkout of this repository. An
+// agent worktree under .claude does. Walking into one reported every package
+// of the copy as missing from the API ledger, so the check failed over a copy
+// rather than over the repository's own source.
+func TestToolDirectoriesAreNotWalked(t *testing.T) {
+	for _, name := range []string{
+		".claude/worktrees/agent-1/accidental/api.go",
+		".idea/scratch/api.go",
+		".cache/copy/api.go",
+	} {
+		t.Run(name, func(t *testing.T) {
+			c := qt.New(t)
+			tree := fixture()
+			tree[name] = &fstest.MapFile{Data: []byte("package accidental")}
+			c.Assert(repopolicy.Check(tree), qt.IsNil)
+		})
+	}
+}
+
+// The workflow pins live under .github, so that one dot directory is read.
+func TestGithubDirectoryIsStillWalked(t *testing.T) {
+	c := qt.New(t)
+	tree := fixture()
+	tree[".github/workflows/ci.yml"] = &fstest.MapFile{Data: []byte("- uses: actions/checkout@main")}
+	c.Assert(repopolicy.Check(tree), qt.ErrorMatches, "unpinned action.*")
+}
