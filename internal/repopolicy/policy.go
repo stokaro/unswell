@@ -139,8 +139,18 @@ func moduleRole(directory, role string) error {
 	return nil
 }
 
+// skipDirectory names the trees that carry no repository source. Build output
+// and vendored code are named outright. Every other dot directory holds tool
+// state, and a tool can keep a whole checkout there. An agent worktree under
+// .claude holds a second copy of this repository. Walking into one reports
+// every package of that copy as missing from the API ledger, so the check
+// fails over a copy. Two names stay open: .github, which carries the workflow
+// pins, and the root, whose name is a single dot.
 func skipDirectory(name string) error {
-	if slices.Contains([]string{".git", "vendor", "artifacts", "bin", "dist"}, name) {
+	if slices.Contains([]string{"vendor", "artifacts", "bin", "dist"}, name) {
+		return fs.SkipDir
+	}
+	if name != "." && name != ".github" && strings.HasPrefix(name, ".") {
 		return fs.SkipDir
 	}
 	return nil
