@@ -61,7 +61,7 @@ func TestWindowNotOnlyApplicability(t *testing.T) {
 		{"It not only reads but writes.", "", "", ""},
 		{"not only", "", "", "no_eligible_window"},
 		{"not only; but", "", "", "no_eligible_window"},
-		{"It not only reads `code` but writes.", "", "", "no_eligible_window"},
+		{"It not only reads `code` but writes.", "", "", ""},
 		{"# The client starts\n", "", "", "unsupported_unit"},
 	})
 }
@@ -77,7 +77,7 @@ func TestWindowContrastApplicability(t *testing.T) {
 		{"It is not about speed? It is about impact.", "", "", "no_eligible_window"},
 		{"It is not about speed. It is about impact?", "", "", "no_eligible_window"},
 		{"It is not about speed. It is about impact.", "", windowTerm(id, "it is not about"), "no_eligible_window"},
-		{"It is not about speed. It is about `impact`.", "", "", "no_eligible_window"},
+		{"It is not about speed. It is about `impact`.", "", "", ""},
 	})
 }
 
@@ -132,7 +132,7 @@ func TestWindowPassiveApplicability(t *testing.T) {
 		{"The request is carefully validated by the server before execution.", "", "", ""},
 		{"The client waits. The server starts. The client reads. The server stops.", "", "", "insufficient_words"},
 		{"The request is carefully validated by the server before execution. The client waits.", "", "", ""},
-		{"The request is carefully validated by the server before `execution`.", "", "", "no_eligible_window"},
+		{"The request is carefully validated by the server before `execution`.", "", "", ""},
 		{"The client opens connections", "{min_words: 0}", windowTerm(id, "the client opens connections"), "no_eligible_window"},
 		{"is validated", "{min_words: 0}", windowTerm(id, "is"), ""},
 		{".", "{min_words: 0}", "", "no_eligible_window"},

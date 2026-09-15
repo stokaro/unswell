@@ -28,5 +28,5 @@ func TestEveryOptInRuleRecordsItsReason(t *testing.T) {
 		c.Assert(len(d.OptInReason) > 40, qt.IsTrue,
 			qt.Commentf("%s records a reason too short to be one: %q", d.ID, d.OptInReason))
 	}
-	c.Assert(optIn, qt.Equals, 24)
+	c.Assert(optIn, qt.Equals, 23)
 }

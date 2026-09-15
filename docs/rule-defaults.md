@@ -1,6 +1,6 @@
 # Which rules ship enabled
 
-The catalog holds 40 rules. Sixteen are on in the shipped profiles and 24 are
+The catalog holds 40 rules. Seventeen are on in the shipped profiles and 23 are
 opt-in. This page says how that split was chosen and what each opt-in rule was
 measured at. Every rule also carries its own reason: `unswell rules show ID`
 prints it, the rules page shows it, and a test fails if an opt-in rule has
@@ -27,7 +27,12 @@ A rule stays opt-in for one of four recorded reasons.
 A rule is not removed for failing to separate generated prose from human
 prose. Separation is not what an editorial rule is for.
 
-## What was measured
+## Earlier measurements
+
+The tables below preserve the earlier engine's measurements. They do not describe
+the expanded version 2 contrast matcher or its corrected inline-code handling.
+The [contextual prose evaluation](research/contextual-prose.md) records that change
+against pinned complete pages and a separate historical development sample.
 
 Three corpora, every rule enabled through `research/acquisition/policy-e1.yaml`.
 
@@ -44,7 +49,7 @@ Nineteen of the 40 rules fire at all on the human and generated corpora, and
 documentation tree, 2,968 findings are warnings and none reaches forbid
 severity, with every rule enabled.
 
-## The twenty-four
+## Opt-in rules
 
 ### Surface measurements
 
@@ -86,15 +91,17 @@ default, for a project that does hit them.
 | `syntax.noun-stack` | 0.095 | 0.213 | Frozen H1: +2.96 points on development, +0.41 on confirmation, p 0.727 |
 | `syntax.passive-candidate-density` | 1.112 | 1.953 | Names candidates without a dependency parse |
 
-### One generator's habit
+### Repeated contrasts: advisory by default
 
-`syntax.paired-contrast-density` fires at 0.007 in human prose, not at all in
+Version 1 of `syntax.paired-contrast-density` fired at 0.007 in human prose, not at all in
 the controlled arm, and at 0.161 on the documentation tree. One generator
 under one set of prompts produced that; the measurement says nothing about
-generated text in general. The path for a habit like it is `corpus propose
---root DIR --baseline FILE`, which learns a tree's own over-used
-constructions and writes a phrase list for `policy.banned-phrases`, a rule
-that already ships enabled.
+generated text in general. That matcher also discarded entire sentences containing
+inline code. Version 2 preserves their surrounding prose and adds `X, not Y` to its
+declared contrast frames. It ships in technical and strict as a note with zero
+weight, zero cap, and `gate: none`. One contrast remains below the allowance.
+The note exposes repetition without claiming redundant facts or established
+association with a generator. Minimal and custom leave it disabled.
 
 ## How to turn one on
 

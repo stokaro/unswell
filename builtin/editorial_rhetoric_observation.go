@@ -12,7 +12,7 @@ func (m *editorialMatcher) observeNotOnlyStart(sentence document.Sentence, start
 	}
 	// The smallest complete pattern is "not only but"; semicolons reset its start.
 	for _, token := range sentence.Tokens[start : start+3] {
-		if token.Normal == ";" {
+		if token.Protected || token.Normal == ";" {
 			return
 		}
 	}
@@ -35,7 +35,7 @@ func (m *editorialMatcher) observeWhetherStart(sentence document.Sentence, phras
 			if sentence.Tokens[end].Normal != "," {
 				continue
 			}
-			if end > start && !m.view.Exempts(sentence, 0, end+1) {
+			if end > start && proseTokens(sentence.Tokens[:end+1]) && !m.view.Exempts(sentence, 0, end+1) {
 				m.observeWindowCandidate(sentence.BlockID)
 			}
 			break

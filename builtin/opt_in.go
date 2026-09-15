@@ -64,11 +64,6 @@ var optInReasons = map[string]string{
 		"fell to +0.41 on the confirmation partition at p 0.727, so the association did not carry to unseen text.",
 	"syntax.passive-candidate-density": "Names candidates without a dependency parse, and says so in its own " +
 		"limitations. It runs at 1.953 per thousand words in the controlled arm against 1.112 in human prose.",
-
-	// One generator's habit rather than a general property.
-	"syntax.paired-contrast-density": "A house tic rather than a signal: none in the controlled arm and 0.007 per " +
-		"thousand words in human prose, against 0.161 in one documentation tree. The per-project path is " +
-		"\"corpus propose\", which learns a tree's own over-used constructions.",
 }
 
 // withOptInReasons attaches the recorded reason to every rule that ships

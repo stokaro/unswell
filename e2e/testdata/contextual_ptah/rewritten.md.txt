@@ -1,0 +1,23 @@
+# Adoption
+
+Without `--check`, the compat-only spellings are rewritten in place. Everything
+else in the file stays byte for byte as it was. A project declaring anything
+`unsupported` is refused; no partial conversion takes place.
+
+The `atlas://` migration-directory reference is one compat-only spelling. It
+becomes an `oci://` reference to the same artifact in the registry namespace
+set by `PTAH_ATLAS_REGISTRY`. If that variable is unset, the analysis reports
+the missing namespace and does not invent a repository.
+
+# Directory selection
+
+The default applies only when no other layer names a directory. `--dir`,
+`PTAH_DIR`, `PTAH_MIGRATIONS_DIR`, and `atlas.hcl` `migration.dir` all override
+it. If the directory named by `--dir` does not exist, the command fails; it
+does not fall back to `./migrations`.
+
+# Registry scope
+
+Login, the Atlas Registry, the Cloud UI, monitoring, and the Cloud APIs are
+account-bound services outside the Atlas OSS drop-in scope. Ptah still
+supports artifact publishing and promotion through any OCI registry.

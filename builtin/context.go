@@ -60,9 +60,9 @@ func contextRules() []rule.Rule {
 	)
 	notOnly.Defaults.Parameters = rule.Parameters{WindowSentences: 8, AllowedOccurrences: 1, SaturationOccurrences: 4}
 	notOnly.BlockObservations = true
-	notOnly.Version = "2"
+	notOnly.Version = "3"
 	notOnly.Description = "Counts ordered not-only/not-just followed by but in bounded prose windows, allowing one matching sentence."
-	notOnly.Limitations += " Version 2 stops at structural/protected boundaries and requires the contrast markers in source order."
+	notOnly.Limitations += " Version 3 retains prose around inline code; candidates cannot cross protected tokens or structural boundaries."
 	notOnly.Parameters = []string{"window_sentences", "allowed_occurrences", "saturation_occurrences"}
 	notOnly.Examples = []rule.Example{
 		{Text: "It not only reads but also writes. It not only checks but also validates.", Match: true},

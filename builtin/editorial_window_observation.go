@@ -66,7 +66,8 @@ func (m *editorialMatcher) observeWindowEvents(events []editorialEvent) {
 }
 
 func (m *editorialMatcher) observeWindowWord(sentence document.Sentence, index int) {
-	if m.windowObservations != nil && sentence.Tokens[index].Word && !m.view.Exempts(sentence, index, index+1) {
+	if m.windowObservations != nil && !sentence.Tokens[index].Protected &&
+		sentence.Tokens[index].Word && !m.view.Exempts(sentence, index, index+1) {
 		m.observeWindowCandidate(sentence.BlockID)
 	}
 }
