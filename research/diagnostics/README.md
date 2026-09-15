@@ -19,3 +19,4 @@ rather than as a negative result.
 | Record | Stratum |
 | --- | --- |
 | [2026-09-14](2026-09-14-long-form-dispositions.md) | The long-form controlled arm: 267 paragraphs of responses averaging 103 and 107 words |
+| [2026-09-15](2026-09-15-document-level-behavior.md) | Whole documents and windows: 28,740 documents by length, role, model family and rule scope |
