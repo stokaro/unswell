@@ -198,9 +198,17 @@ text.
 `corpus frequencies --baselines` adds the baseline cohort's own key tables to
 the output. A contrast answers "what stands out in this corpus"; a baseline
 table answers "what is ordinary", and that is the question an outside tree has
-to be measured against. `research/methods/baselines/closed-3gram-v1.json` is
+to be measured against. `research/methods/baselines/closed-3gram-v2.json` is
 one such table for the closed-class trigrams, by role, from the historical
-cohort.
+cohort. Version 1 counted a corpus that predates the extraction fix of issue
+279, when a documentation comment's worked example still reached the counter
+as prose. It stays in the tree because earlier records cite its rates.
+
+`scripts/build-baseline.sh --output FILE` runs that command over one
+cohort's candidate artifacts and writes the baseline file. The table is a
+function of the pinned shards and of the extraction that produced their
+candidates, so an extraction change means a rebuilt baseline with a new
+version rather than an edited one.
 
 `corpus propose --root DIR --baseline FILE` walks a tree, extracts its prose
 with the shared engine, counts one measure, and names the constructions the
@@ -219,8 +227,9 @@ a project has a house style, because one author wrote most of it, or because
 the subject demands it. The rule the fragment feeds refuses text outright, so
 the fragment is written for a person to cut down rather than to apply whole.
 
-One measured example. A documentation tree of 210,146 prose words against the
-926,181 words of the historical comment role: `which is what` at 0.347 per
+One measured example, counted against version 1 of the baseline. A
+documentation tree of 210,146 prose words against the 926,181 words the
+historical comment role held then: `which is what` at 0.347 per
 thousand words against 0.0032, `rather than a` at 0.390 against 0.0097,
 `rather than the` at 0.219 against 0.0054. The same run also proposes `a
 database that` and `in the database`, which are that project's subject rather

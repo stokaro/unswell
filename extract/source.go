@@ -220,6 +220,7 @@ func technicalLiteral(node *ts.Node, lang *ts.Language, format document.Format) 
 
 func (r *sourceReader) commentGroups() error {
 	var builder mapping.Builder
+	writer := commentWriter{doc: r.doc, builder: &builder}
 	previous := 0
 	for _, span := range r.comments {
 		if previous > 0 && !adjacentComments(r.doc.Source[previous:span.Start]) {
@@ -243,7 +244,7 @@ func (r *sourceReader) commentGroups() error {
 			builder = mapping.Builder{}
 			r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: span, Reason: "directive"})
 		} else {
-			addCommentLines(r.doc, &builder, content.Start, content.End, commentOpener(original))
+			writer.comment(content.Start, content.End, commentOpener(original))
 			if span.End < len(r.doc.Source) {
 				builder.Add(" ", document.Span{Start: span.End, End: span.End + 1})
 			}

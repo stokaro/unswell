@@ -304,6 +304,141 @@ as an unseen-family result.
   response. The third screening reports no test blocked by the cluster
   minimum.
 
+## Confirmatory record, September 14, 2026
+
+The confirmation partition is measured once. Neither hypothesis is
+supported.
+
+`screening/2026-09-14-confirmation.json`, SHA-256
+`dc56db3b3ae5d63c1a6d1bea67c885d3790f1272224af2b711cf535b0f70e0ce`, over
+the dataset plan in `screening/2026-09-14-confirmation-dataset-plan.json`.
+The Claude arm is 200 responses of run `2026-09-13-confirm-haiku`, 197
+comment paragraphs; the OpenAI arm 200 of `2026-09-13-confirm-luna`, 158.
+The H0 arm is the 31,315 historical comment paragraphs of the same
+partition.
+
+| Hypothesis | Development | Confirmation | p | Holm |
+| --- | --- | --- | --- | --- |
+| H1 `syntax.noun-stack` | +2.96 points, +1.18 to +4.17 | +0.41 points, -0.13 to +2.12 | 0.727 | not rejected at 0.025 |
+| H2 `readability.grade-metric` | +2.43 points, +0.65 to +4.40 | +0.32 points, -0.61 to +0.91 | 0.747 | not rejected at 0.050 |
+
+Both point estimates fall an order of magnitude below the MID of three
+points, both intervals contain zero, and Holm rejects neither. The
+development estimates did not carry over.
+
+The arm also missed two of the four conditions a supported card needs. It
+holds 16 provenance components against the cluster minimum of 20, and one
+component carries a finding against the support minimum of five. The
+screening marks both cards `inconclusive` with the reason
+`cluster_minimum` rather than deciding them either way, so the frozen list
+is untouched and no card changed state.
+
+Two readings of that shortfall are available and this record does not
+choose between them. The measurement is a null on its own numbers,
+whatever the component count, because the estimates sit near zero rather
+than near the MID. It is also a measurement the preconditions below did
+not admit, because the partition had to reach 20 components in every arm
+first and the controlled arm reached 16. Whether the one permitted
+confirmatory measurement was therefore spent is a maintainer's call, not
+this record's.
+
+The 200 drawn tasks covered 16 repositories. Reaching 20 components in the
+controlled arm needs a wider draw, not more responses per task.
+
+The OpenAI arm carries no hypothesis and is reported as the holdout checks
+require. It shows zero findings in 158 paragraphs for both rules, against
+H0 prevalences of 0.10% and 0.70%, so both differences are negative and
+both cards are `inconclusive` for `zero_count`. A negative difference is
+not a hypothesis here.
+
+## Extraction change of September 15, 2026
+
+Every screening and every record above was measured before the extraction
+fix of issue 279. A worked example lives in `<pre>` and `<code>` markup, and
+the extraction read those regions as prose, so a constructor call was
+measured as a sentence.
+
+The fix has two halves, and both are in place here. In a documentation
+comment the `<pre>`, `<code>` and `<c>` elements and the inline Javadoc tags
+`{@code}` and `{@literal}` are held back. In Markdown an inline `<pre>` or
+`<code>` element is held back with its body, where before only its tags were
+protected and the example between them was read as prose. The first half
+reaches source comments and the second reaches text that quotes
+documentation markup, including the generated responses of the controlled
+arm.
+
+The corpus was measured again, all 840 shards, same dataset plan, same
+policy, no skipped shard. The counts below are the whole corpus, not the
+Java and C# stratum alone.
+
+| Cohort | Findings before | After | Prose words before | After |
+| --- | ---: | ---: | ---: | ---: |
+| historical | 18,532 | 16,526 | 2,165,870 | 2,119,351 |
+| historical-2018 | 4,404 | 4,298 | 817,359 | 812,491 |
+| historical-2016 | 3,052 | 2,967 | 532,527 | 528,390 |
+| historical-2012 | 922 | 892 | 144,454 | 142,903 |
+| contemporary | 6,011 | 5,918 | 1,159,967 | 1,156,467 |
+| controlled | 2,757 | 2,742 | 427,542 | 426,460 |
+| Total | 35,678 | 33,343 | 5,247,719 | 5,186,062 |
+
+The two halves separate cleanly by arm. The comment half leaves the
+controlled arm untouched: its units are generated paragraphs, not source
+comments. The Markdown half accounts for its whole movement, 15 findings of
+2,757, where a response reproduced the `<pre><code>` markup of the comment it
+was asked to edit. The H0 arm loses 2,006 findings and the H1 arm loses 15,
+so the frozen comparisons ran against an H0 side that still carried Java.
+
+Per rule, over every cohort, with rates per thousand words:
+
+| Rule | Before | After | Rate before | Rate after |
+| --- | ---: | ---: | ---: | ---: |
+| syntax.long-sentence | 10,335 | 9,967 | 1.969 | 1.922 |
+| syntax.passive-candidate-density | 6,337 | 5,955 | 1.208 | 1.148 |
+| readability.grade-metric | 4,475 | 4,237 | 0.853 | 0.817 |
+| repetition.exact-sentence | 3,318 | 2,901 | 0.632 | 0.559 |
+| syntax.parenthetical-load | 2,839 | 2,526 | 0.541 | 0.487 |
+| repetition.ngram-density | 2,812 | 2,516 | 0.536 | 0.485 |
+| repetition.paragraph-overlap | 1,397 | 1,277 | 0.266 | 0.246 |
+| repetition.near-sentence | 925 | 805 | 0.176 | 0.155 |
+| readability.long-paragraph | 823 | 749 | 0.157 | 0.144 |
+| syntax.noun-stack | 543 | 541 | 0.103 | 0.104 |
+| format.em-dash-density | 50 | 48 | 0.010 | 0.009 |
+| syntax.paired-contrast-density | 43 | 41 | 0.008 | 0.008 |
+| repetition.syntax-template | 41 | 40 | 0.008 | 0.008 |
+
+No rule gains a finding. The two frozen rules move least: `syntax.noun-stack`
+by two findings and `readability.grade-metric` by 5.3%. A lower H0 rate
+widens the measured difference. The recount therefore cuts against the null
+of the confirmatory record, by an amount far below the three-point MID.
+
+The comment role carries the change. Over the historical cohort its prose
+falls from 1,997,189 words to 1,854,510, so 7.1%, while the number of
+comment units falls only 1.1%. A unit is lost when the prose left after its
+example no longer reaches the minimum length, and that is concentrated where
+a project documents by example: `assertj/assertj-core` keeps 9,263 comment
+units of 14,343.
+
+### What this does and does not change
+
+The screening of September 14 stays as recorded. It ran once, the acceptance
+table carries its hash, and a later extraction change does not reopen it.
+This section records what it ran on.
+
+The frozen list, the MID, the cluster minimum and the decision rule are
+untouched.
+
+`research/methods/baselines/closed-3gram-v1.json` was counted on the same
+pre-fix extraction and is superseded by `closed-3gram-v2.json`, built by
+`scripts/build-baseline.sh` from the recounted measurement. The Markdown half
+does not change it: the roles it counts come out identical either way, and
+the rebuilt file matches byte for byte. The comment role
+falls from 926,181 words and 17,808 terms to 829,963 and 16,416; 1,392 terms
+leave the table and none enter. Version 1 stays in the tree because the
+records that cite it were computed against it.
+
+A further screening under this version reads the recounted corpus, and its
+record says so.
+
 ## What must exist before the confirmatory measurement
 
 - The frozen list and this document's hash in the acceptance table.
