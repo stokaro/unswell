@@ -45,6 +45,7 @@ func editorialPhraseRules() []rule.Rule {
 	var rules []rule.Rule
 	for _, d := range []rule.Descriptor{section, transition, metaphor} {
 		d.BlockObservations = true
+		d.Version = "2"
 		d.Parameters = append(d.Parameters, "phrases")
 		d.Description = "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default."
 		d.Limitations += " Only configured phrases are recognized; literal meanings and local exceptions require editorial review."
@@ -82,17 +83,13 @@ func editorialRhetoricRules() []rule.Rule {
 			"The name is reported instead of guessed.", Match: true},
 		rule.Example{Text: "The request is refused rather than retried, because the checksum did not match."})
 	contrast.Description = "Counts paired contrasts in bounded prose windows: 'rather than' and 'instead of' " +
-		"within a sentence, and adjacent 'It is not about'/'It is about' sentence pairs including contractions."
+		"and comma-not alternatives within a sentence, and adjacent 'It is not about'/'It is about' sentence pairs including contractions."
 	contrast.Limitations += " Only the declared structures are recognized; no semantic equivalence is inferred. " +
-		"A single contrast is ordinary English and the window allows two; the rule measures repetition of the " +
+		"A single contrast is ordinary English and the window allows one; the rule measures repetition of the " +
 		"shape, not its use."
-	// The window covers a passage of prose, not a whole document, so a passage
-	// decides the allowance. One contrast in a paragraph reads as ordinary
-	// English: 1.6% of human code comments and 1.9% of human specification
-	// paragraphs carry one. Two in a paragraph occurred in none of 29,063 human
-	// paragraphs, and in 1.7% of the paragraphs of one generated documentation
-	// tree. The inherited allowance of one already sits at that boundary, so it
-	// stays.
+	// Keep the existing allowance while correcting candidate coverage. Counts
+	// from earlier rule versions do not qualify the expanded matcher or establish
+	// whether a repeated technical distinction needs revision.
 	triad := experimentalPattern("syntax.triad-density", "Check repeated triads of evaluative modifiers against specific properties.",
 		"inflation",
 		rule.Example{Text: "A powerful, seamless, innovative platform starts. " +
@@ -119,6 +116,12 @@ func editorialRhetoricRules() []rule.Rule {
 	question.Parameters = append(question.Parameters, "phrases", "max_answer_words")
 	question.Description = "Counts configured complete questions followed in the same block by a short nonquestion answer."
 	question.Limitations += " Arbitrary questions are not classified. Numeric/code answers are excluded; disable for FAQ paths."
+	// Repeated contrast markers are useful to inspect even when they express
+	// necessary technical distinctions. Expose the pattern without scoring it.
+	contrast.Defaults.Enabled = true
+	contrast.Defaults.Severity = "note"
+	contrast.Defaults.Score = rule.Score{}
+	contrast.Version, triad.Version, whether.Version, question.Version = "2", "2", "2", "2"
 	contrast.BlockObservations, triad.BlockObservations = true, true
 	whether.BlockObservations, question.BlockObservations = true, true
 	return []rule.Rule{

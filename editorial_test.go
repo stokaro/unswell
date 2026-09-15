@@ -73,7 +73,7 @@ func TestEditorialWindowBoundaries(t *testing.T) {
 		{"code block", "\n\n```go\nconst Value = 1\n```\n\n", 0},
 		{"code before heading", "\n\n```go\nconst Value = 1\n```\n\n## Another topic\n\n", 0},
 		{"symbol code before heading", "\n\n    ===\n\n## Another topic\n\n", 0},
-		{"protected sentence", " Check `Value` before continuing. ", 0},
+		{"inline code retains context", " Check `Value` before continuing. ", 1},
 		{"beyond window", " " + strings.Repeat("The client waits. ", 8), 0},
 	} {
 		t.Run(row.name, func(t *testing.T) {
@@ -111,7 +111,7 @@ func TestNewEditorialRulesRequireExplicitOptIn(t *testing.T) {
 			c.Assert(policy.Rules[d.ID].Enabled, qt.IsFalse)
 		}
 	}
-	c.Assert(newRules, qt.Equals, 11)
+	c.Assert(newRules, qt.Equals, 10)
 }
 
 func surfaceRuleID(id string) bool {

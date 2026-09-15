@@ -30,7 +30,7 @@ func (m *editorialMatcher) prefixTokens(sentence document.Sentence, phrases ...s
 		if len(parts) > len(sentence.Tokens) {
 			continue
 		}
-		if m.windowObservations != nil && !m.view.Exempts(sentence, 0, len(parts)) {
+		if m.windowObservations != nil && proseTokens(sentence.Tokens[:len(parts)]) && !m.view.Exempts(sentence, 0, len(parts)) {
 			result.eligible = true
 		}
 		if matches(sentence.Tokens[:len(parts)], parts) {
@@ -46,13 +46,14 @@ func notOnlyEvents(m *editorialMatcher, sentences []document.Sentence, index int
 	start := -1
 	for i, token := range sentence.Tokens {
 		m.observeNotOnlyStart(sentence, i)
-		if token.Normal == ";" {
+		if token.Protected || token.Normal == ";" {
 			start = -1
+			continue
 		}
 		if token.Normal == "but" && start >= 0 {
 			return []editorialEvent{{index, index, []rule.Occurrence{tokenOccurrence(sentence, start, i+1)}}}, nil
 		}
-		if token.Normal == "not" && i+1 < len(sentence.Tokens) && slices.Contains([]string{"only", "just"}, sentence.Tokens[i+1].Normal) {
+		if notOnlyStart(sentence.Tokens, i) {
 			if err := m.spend(); err != nil {
 				return nil, err
 			}
@@ -64,11 +65,16 @@ func notOnlyEvents(m *editorialMatcher, sentences []document.Sentence, index int
 	return nil, nil
 }
 
+func notOnlyStart(tokens []document.Token, index int) bool {
+	return tokens[index].Normal == "not" && index+1 < len(tokens) && !tokens[index+1].Protected &&
+		slices.Contains([]string{"only", "just"}, tokens[index+1].Normal)
+}
+
 // contrastMarkers are the in-sentence forms of a paired contrast: a claim
 // defined by what it is set against. One is ordinary English. Repeating the
 // shape every few sentences is the habit this rule counts, and the count is
 // what the window parameters bound.
-var contrastMarkers = [][]string{{"rather", "than"}, {"instead", "of"}}
+var contrastMarkers = [][]string{{"rather", "than"}, {"instead", "of"}, {",", "not"}}
 
 func pairedContrastEvents(m *editorialMatcher, sentences []document.Sentence, i int) ([]editorialEvent, error) {
 	if err := m.spend(); err != nil {
@@ -109,7 +115,7 @@ func (m *editorialMatcher) contrastMarker(sentence document.Sentence, index int)
 	events := []editorialEvent{}
 	for i := range sentence.Tokens {
 		for _, marker := range contrastMarkers {
-			if !markerAt(sentence, i, marker) {
+			if !contrastMarkerAt(sentence, i, marker) {
 				continue
 			}
 			if err := m.spend(); err != nil {
@@ -126,12 +132,37 @@ func (m *editorialMatcher) contrastMarker(sentence document.Sentence, index int)
 	return events, nil
 }
 
+func contrastMarkerAt(sentence document.Sentence, index int, marker []string) bool {
+	return markerAt(sentence, index, marker) && (marker[0] != "," || commaContrast(sentence.Tokens, index))
+}
+
+// commaContrast recognizes the written X, not Y frame. Both alternatives need
+// visible content or an opaque code operand. Additive and parenthetical idioms
+// do not establish this frame; a single frame still stays below the allowance.
+func commaContrast(tokens []document.Token, index int) bool {
+	if index == 0 || index+2 >= len(tokens) {
+		return false
+	}
+	before, after := tokens[index-1], tokens[index+2]
+	if !contrastOperand(before) || !contrastOperand(after) {
+		return false
+	}
+	if slices.Contains([]string{"only", "just", "merely", "surprisingly", "necessarily"}, after.Normal) {
+		return false
+	}
+	return after.Normal != "to" || index+3 >= len(tokens) || tokens[index+3].Normal != "mention"
+}
+
+func contrastOperand(token document.Token) bool {
+	return token.Word || token.Protected
+}
+
 func markerAt(sentence document.Sentence, i int, marker []string) bool {
 	if i+len(marker) > len(sentence.Tokens) {
 		return false
 	}
 	for offset, word := range marker {
-		if sentence.Tokens[i+offset].Normal != word {
+		if sentence.Tokens[i+offset].Protected || sentence.Tokens[i+offset].Normal != word {
 			return false
 		}
 	}
@@ -151,6 +182,9 @@ func whetherEvents(m *editorialMatcher, sentences []document.Sentence, i int) ([
 	or := false
 	for end := start.length; end < min(len(sentence.Tokens), 32); end++ {
 		token := sentence.Tokens[end]
+		if token.Protected {
+			break
+		}
 		or = or || token.Normal == "or"
 		if token.Normal == "," {
 			if or && !m.view.Exempts(sentence, 0, end+1) {
@@ -245,7 +279,8 @@ func (m *editorialMatcher) adjectiveList(sentence document.Sentence, start int) 
 	end := start + 1
 	for end < len(sentence.Tokens) {
 		next := end
-		for next < len(sentence.Tokens) && slices.Contains([]string{",", "and"}, sentence.Tokens[next].Normal) {
+		for next < len(sentence.Tokens) && !sentence.Tokens[next].Protected &&
+			slices.Contains([]string{",", "and"}, sentence.Tokens[next].Normal) {
 			next++
 		}
 		if next == end || next >= len(sentence.Tokens) || !m.adjective(sentence, next) {

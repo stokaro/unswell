@@ -92,7 +92,11 @@ func proseBlock(block document.Block) bool {
 }
 
 func protectedSentence(sentence document.Sentence) bool {
-	return slices.ContainsFunc(sentence.Tokens, func(token document.Token) bool { return token.Protected })
+	return !proseTokens(sentence.Tokens)
+}
+
+func proseTokens(tokens []document.Token) bool {
+	return !slices.ContainsFunc(tokens, func(token document.Token) bool { return token.Protected })
 }
 
 func question(sentence document.Sentence) bool {

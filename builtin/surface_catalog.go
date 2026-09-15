@@ -61,6 +61,7 @@ func surfaceSyntaxRules() []rule.Rule {
 	noun.Limitations += " Configured verb forms are literal words; a form that is also a noun modifier shortens a genuine stack."
 	passive := passiveDescriptor()
 	insertion := insertionDescriptor()
+	passive.Version = "2"
 	return []rule.Rule{check{nominal, nominalizationChains}, check{noun, nounStacks},
 		check{passive, editorialWindow(passiveEvents, "passive-candidate-sentences", false)}, check{insertion, parentheticalLoad}}
 }

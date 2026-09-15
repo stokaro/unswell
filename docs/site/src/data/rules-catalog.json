@@ -58,7 +58,7 @@
         },
         {
           "id": "filler.empty-transition",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "scaffolding",
           "scope": "document",
@@ -102,7 +102,7 @@
         },
         {
           "id": "filler.section-announcement",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "scaffolding",
           "scope": "document",
@@ -261,7 +261,7 @@
         },
         {
           "id": "hype.metaphor-cluster",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "inflation",
           "scope": "document",
@@ -747,7 +747,7 @@
         },
         {
           "id": "syntax.not-only-density",
-          "version": "2",
+          "version": "3",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "document",
@@ -766,7 +766,7 @@
           "cap": 36,
           "summary": "Repeated paired contrasts make this passage formulaic.",
           "description": "Counts ordered not-only/not-just followed by but in bounded prose windows, allowing one matching sentence.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Version 2 stops at structural/protected boundaries and requires the contrast markers in source order."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Version 3 retains prose around inline code; candidates cannot cross protected tokens or structural boundaries."
         },
         {
           "id": "syntax.noun-stack",
@@ -791,7 +791,7 @@
         },
         {
           "id": "syntax.paired-contrast-density",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "document",
@@ -800,15 +800,14 @@
             "paragraph",
             "string"
           ],
-          "enabled": false,
-          "severity": "warning",
+          "enabled": true,
+          "severity": "note",
           "gate": "none",
-          "weight": 12,
-          "cap": 24,
+          "weight": 0,
+          "cap": 0,
           "summary": "Check whether repeated paired contrasts carry distinct information.",
-          "description": "Counts paired contrasts in bounded prose windows: 'rather than' and 'instead of' within a sentence, and adjacent 'It is not about'/'It is about' sentence pairs including contractions.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only the declared structures are recognized; no semantic equivalence is inferred. A single contrast is ordinary English and the window allows two; the rule measures repetition of the shape, not its use.",
-          "opt_in_reason": "A house tic rather than a signal: none in the controlled arm and 0.007 per thousand words in human prose, against 0.161 in one documentation tree. The per-project path is \"corpus propose\", which learns a tree's own over-used constructions."
+          "description": "Counts paired contrasts in bounded prose windows: 'rather than' and 'instead of' and comma-not alternatives within a sentence, and adjacent 'It is not about'/'It is about' sentence pairs including contractions.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only the declared structures are recognized; no semantic equivalence is inferred. A single contrast is ordinary English and the window allows one; the rule measures repetition of the shape, not its use."
         },
         {
           "id": "syntax.parenthetical-load",
@@ -833,7 +832,7 @@
         },
         {
           "id": "syntax.passive-candidate-density",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "syntax-load",
           "scope": "document",
@@ -854,7 +853,7 @@
         },
         {
           "id": "syntax.rhetorical-question-density",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "document",
@@ -875,7 +874,7 @@
         },
         {
           "id": "syntax.triad-density",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "inflation",
           "scope": "document",
@@ -896,7 +895,7 @@
         },
         {
           "id": "syntax.whether-preface-density",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "document",

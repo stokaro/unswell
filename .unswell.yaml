@@ -69,7 +69,9 @@ rules:
   hype.absolute-claim: {enabled: true, gate: forbid}
   filler.weak-intensifiers: {enabled: true, gate: forbid}
   filler.stacked-hedging: {enabled: true, gate: forbid}
-  syntax.paired-contrast-density: {enabled: true, gate: forbid}
+  # Technical contracts and frozen research records also repeat contrasts.
+  # Keep these notes visible; the construction alone does not warrant a ban.
+  syntax.paired-contrast-density: {enabled: true, gate: none}
   syntax.triad-density: {enabled: true, gate: forbid}
   syntax.whether-preface-density: {enabled: true, gate: forbid}
   syntax.rhetorical-question-density: {enabled: true, gate: forbid}

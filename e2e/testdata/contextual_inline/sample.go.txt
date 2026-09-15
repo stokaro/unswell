@@ -1,0 +1,12 @@
+package sample
+
+// Retry rejects the request rather than queuing it. It saves the response instead of discarding it. // want "syntax.paired-contrast-density"
+func Retry() {}
+
+// Load reads the source rather than the target.
+func Load() {}
+
+// Check reads the state rather than the history.
+func Check() {}
+
+const message = "The command reads source, not target. The check reads state, not history." // want "syntax.paired-contrast-density"

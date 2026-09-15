@@ -83,13 +83,10 @@ func proseRuns(ctx context.Context, doc *document.Document, sectionOpenings bool
 		if !proseBlock(*block) {
 			continue
 		}
-		for _, sentence := range block.Sentences {
-			if protectedSentence(sentence) {
-				flush()
-				continue
-			}
-			current = append(current, sentence)
-		}
+		// Inline code separates tokens within a candidate, not the surrounding
+		// prose window. Finders must reject protected tokens in their own spans.
+		// Retain every sentence so window distance still measures sentences.
+		current = append(current, block.Sentences...)
 	}
 	flush()
 	return runs, ctx.Err()
