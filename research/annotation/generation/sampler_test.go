@@ -35,7 +35,7 @@ func fixtureArtifact(cohort string, count int, repository string) (corpus.Artifa
 func plan(ids map[string]string) corpus.DatasetPlan {
 	p := corpus.DatasetPlan{Version: corpus.DatasetVersion}
 	for id, partition := range ids {
-		p.Sources = append(p.Sources, corpus.DatasetSource{ID: id, Partition: partition})
+		p.Sources = append(p.Sources, corpus.DatasetSource{ID: id, Partition: partition, Group: "global-" + id})
 	}
 	return p
 }
@@ -75,6 +75,7 @@ func TestSamplerDrawsStratifiedDeterministicTasks(t *testing.T) {
 		c.Assert(task.FactSheet.Parameters, qt.Equals, "w Writer, r *Request")
 		c.Assert(task.Words >= generation.MinWords, qt.IsTrue)
 		c.Assert(task.TextSHA256, qt.HasLen, 64)
+		c.Assert(task.GroupID, qt.Equals, "global-"+task.SourceID)
 	}
 	c.Assert(draw("seed-a"), qt.DeepEquals, tasks)
 	other := draw("seed-b")
@@ -110,6 +111,43 @@ func TestSamplerRefusesBadOptionsAndEmptyPools(t *testing.T) {
 	art.Units[0].Cohort = "historical"
 	failing := func(string) ([]byte, error) { return nil, fmt.Errorf("gone") }
 	c.Assert(sampler.Add(t.Context(), art, failing), qt.ErrorMatches, "h0.go: gone")
+}
+
+func TestSamplerChecksGlobalGroupMinimumWithoutRedrawing(t *testing.T) {
+	for _, row := range []struct {
+		name    string
+		minimum int
+		wantErr bool
+	}{
+		{"one global group", 1, false},
+		{"local groups cannot meet minimum", 2, true},
+	} {
+		t.Run(row.name, func(t *testing.T) {
+			c := qt.New(t)
+			artifact, files := fixtureArtifact("historical", 3, "org/lib")
+			global := corpus.DatasetPlan{Version: corpus.DatasetVersion}
+			for i := range artifact.Units {
+				artifact.Units[i].GroupID = fmt.Sprintf("local-%d", i)
+				global.Sources = append(global.Sources, corpus.DatasetSource{
+					ID: artifact.Units[i].SourceID, Group: "shared", Partition: "training",
+				})
+			}
+			sampler, err := generation.NewSampler(generation.Options{Protocol: "p", Seed: "s", Cohort: "historical",
+				Partitions: []string{"training"}, Roles: []string{"comment"}, Count: 3, MinGroups: row.minimum,
+				Ecosystems: map[string]string{"org/lib": "go"}}, global)
+			c.Assert(err, qt.IsNil)
+			c.Assert(sampler.Add(t.Context(), artifact, func(p string) ([]byte, error) { return files[p], nil }), qt.IsNil)
+			tasks, err := sampler.Sample()
+			if row.wantErr {
+				c.Assert(err, qt.ErrorMatches, "sample has 1 global provenance groups; requires at least 2")
+				c.Assert(tasks.Tasks, qt.HasLen, 0)
+				return
+			}
+			c.Assert(err, qt.IsNil)
+			c.Assert(tasks.Groups, qt.Equals, 1)
+			c.Assert(tasks.MinGroups, qt.Equals, 1)
+		})
+	}
 }
 
 // A task set of an earlier run leaves the pool, so a later draw under the

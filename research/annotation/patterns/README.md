@@ -97,6 +97,21 @@ A difference is an association between cohorts under this policy. It is not
 a false-positive rate, not recall, and not a decision. The protocol's
 evidence-card rules decide a state from these numbers at a later stage.
 
+## Paired generation tables
+
+`corpus paired --plan dataset-plan.json --records records.json --tasks tasks.json
+--classes rule-classes.json --findings ...` compares each measured response with
+its original unit. The global plan supplies the component for every original,
+response, and baseline document. Task-file and shard-local group IDs do not define
+independent samples. A missing binding or a derivative in another component is an
+error. Version 2 of the paired output records the dataset hash and uses those
+global groups for all intervals and component counts. Saved version 1 tables may
+overstate independence and must be recalculated before further statistical use.
+
+The separate screening command already resolves groups from the global plan.
+Correcting paired tables does not alter the frozen screening result or license a
+second confirmatory look at the same data.
+
 ## Frequency tables
 
 `corpus frequencies --candidates ...` counts constructions instead of

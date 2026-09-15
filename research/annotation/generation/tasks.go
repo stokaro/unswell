@@ -59,6 +59,8 @@ type Tasks struct {
 	Roles      []string  `json:"roles"`
 	Requested  int       `json:"requested"`
 	Excluded   int       `json:"excluded,omitempty"`
+	MinGroups  int       `json:"minimum_groups,omitempty"`
+	Groups     int       `json:"selected_groups,omitempty"`
 	Strata     []Stratum `json:"strata"`
 	Tasks      []Task    `json:"tasks"`
 }
@@ -79,7 +81,10 @@ type Options struct {
 	Roles      []string
 	Count      int
 	// MinWords raises the eligible floor above MinWords when set.
-	MinWords   int
+	MinWords int
+	// MinGroups rejects a draw with too few global provenance components.
+	// It does not redraw or change the seed to reach the requested minimum.
+	MinGroups  int
 	Ecosystems map[string]string
 	// Excluded names the tasks of earlier runs by ID. They leave the eligible
 	// pool before allocation, so a later run draws new tasks under the same
@@ -91,6 +96,7 @@ type Options struct {
 type Sampler struct {
 	options   Options
 	partition map[string]string
+	groups    map[string]string
 	eligible  map[string][]Task
 	excluded  int
 }
@@ -98,15 +104,27 @@ type Sampler struct {
 // NewSampler validates the options and the dataset plan the partitions come
 // from.
 func NewSampler(options Options, plan corpus.DatasetPlan) (*Sampler, error) {
-	if options.Protocol == "" || options.Seed == "" || options.Cohort == "" || len(options.Partitions) == 0 ||
-		len(options.Roles) == 0 || options.Count < 1 || options.Count > MaxTasks {
+	if !validSamplerRequest(options) {
 		return nil, fmt.Errorf("task sampling needs a protocol, seed, cohort, partitions, roles, and 1 through %d tasks", MaxTasks)
 	}
-	partition := make(map[string]string, len(plan.Sources))
-	for _, source := range plan.Sources {
-		partition[source.ID] = source.Partition
+	if options.MinGroups < 0 || options.MinGroups > options.Count {
+		return nil, fmt.Errorf("minimum groups must be between zero and the task count")
 	}
-	return &Sampler{options: options, partition: partition, eligible: map[string][]Task{}}, nil
+	partition := make(map[string]string, len(plan.Sources))
+	groups := make(map[string]string, len(plan.Sources))
+	for _, source := range plan.Sources {
+		if source.ID == "" || source.Group == "" || groups[source.ID] != "" {
+			return nil, fmt.Errorf("task sampling requires unique source IDs with global groups")
+		}
+		partition[source.ID] = source.Partition
+		groups[source.ID] = source.Group
+	}
+	return &Sampler{options: options, partition: partition, groups: groups, eligible: map[string][]Task{}}, nil
+}
+
+func validSamplerRequest(options Options) bool {
+	return options.Protocol != "" && options.Seed != "" && options.Cohort != "" && len(options.Partitions) > 0 &&
+		len(options.Roles) > 0 && options.Count >= 1 && options.Count <= MaxTasks
 }
 
 // Reader returns the bytes of one checkout file by its repository-relative
@@ -189,7 +207,7 @@ func (s *Sampler) eligibleTask(candidate corpus.Candidate, read Reader, cache ma
 		return Task{}, false, nil
 	}
 	return Task{ID: taskID(candidate.SourceID, unit.ID), SourceID: candidate.SourceID, UnitID: unit.ID,
-		GroupID: candidate.GroupID, Partition: partition, Cohort: candidate.Cohort, Repository: unit.Source.RepositoryID,
+		GroupID: s.groups[candidate.SourceID], Partition: partition, Cohort: candidate.Cohort, Repository: unit.Source.RepositoryID,
 		Ecosystem: ecosystem, Path: path, Role: unit.Role, Words: candidate.Words, Text: unit.Text,
 		TextSHA256: fmt.Sprintf("%x", sha256.Sum256([]byte(unit.Text))), FactSheet: sheet}, true, nil
 }
@@ -230,6 +248,14 @@ func (s *Sampler) Sample() (Tasks, error) {
 		result.Tasks = append(result.Tasks, chosen...)
 	}
 	sort.Slice(result.Tasks, func(a, b int) bool { return result.Tasks[a].ID < result.Tasks[b].ID })
+	groups := map[string]bool{}
+	for _, task := range result.Tasks {
+		groups[task.GroupID] = true
+	}
+	result.MinGroups, result.Groups = s.options.MinGroups, len(groups)
+	if result.Groups < result.MinGroups {
+		return Tasks{}, fmt.Errorf("sample has %d global provenance groups; requires at least %d", result.Groups, result.MinGroups)
+	}
 	return result, nil
 }
 

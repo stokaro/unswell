@@ -103,7 +103,8 @@ func TestGenerationCommandsRunEndToEnd(t *testing.T) {
 	findings := filepath.Join(dir, "findings.json")
 	c.Assert(os.WriteFile(findings, measured.Bytes(), 0o600), qt.IsNil)
 	var pairedOut bytes.Buffer
-	c.Assert(run(t.Context(), []string{"paired", "--records", records, "--tasks", tasksPath,
+	datasetPath := generationDataset(c, dir, shardData)
+	c.Assert(run(t.Context(), []string{"paired", "--plan", datasetPath, "--records", records, "--tasks", tasksPath,
 		"--classes", "../../../methods/rule-classes-v1.json", "--findings", findings}, nil, &pairedOut), qt.IsNil)
 	var paired patterns.Paired
 	c.Assert(json.Unmarshal(pairedOut.Bytes(), &paired), qt.IsNil)
@@ -113,4 +114,24 @@ func TestGenerationCommandsRunEndToEnd(t *testing.T) {
 	for _, args := range [][]string{{"requests"}, {"generations", "--tasks", tasksPath}, {"paired", "--records", records}} {
 		c.Assert(run(t.Context(), args, nil, &pairedOut), qt.IsNotNil, qt.Commentf("%v", args))
 	}
+}
+
+func generationDataset(c *qt.C, dir string, data []byte) string {
+	c.Helper()
+	var shard corpus.Manifest
+	c.Assert(json.Unmarshal(data, &shard), qt.IsNil)
+	// Add the original source identity to this synthetic plan. Its findings
+	// remain absent, which is the coverage path this command test exercises.
+	original := shard.Sources[0]
+	original.ID, original.Path, original.Document = "src1", "h.go", "org/lib/h.go"
+	shard.Sources = append(shard.Sources, original)
+	encoded, err := json.Marshal(shard)
+	c.Assert(err, qt.IsNil)
+	dataset := corpus.Dataset{Version: corpus.DatasetVersion, ID: "generation-fixture", Seed: shard.Seed,
+		Weights: shard.Weights, Policy: shard.Policy, UnitKinds: shard.UnitKinds,
+		RuleClassesSHA256: strings.Repeat("a", 64),
+		Shards:            []corpus.Notice{{Path: "fixture.json", SHA256: sha(encoded), Bytes: len(encoded)}}}
+	plan, err := corpus.MakeDatasetPlan(c.TB.(*testing.T).Context(), dataset, map[string][]byte{"fixture.json": encoded}, nil)
+	c.Assert(err, qt.IsNil)
+	return writeJSON(c, dir, "dataset-plan.json", plan)
 }
