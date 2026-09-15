@@ -104,9 +104,18 @@ evidence-card rules decide a state from these numbers at a later stage.
 its original unit. The global plan supplies the component for every original,
 response, and baseline document. Task-file and shard-local group IDs do not define
 independent samples. A missing binding or a derivative in another component is an
-error. Version 2 of the paired output records the dataset hash and uses those
+error. Version 2 of the paired output introduced the dataset hash and uses those
 global groups for all intervals and component counts. Saved version 1 tables may
 overstate independence and must be recalculated before further statistical use.
+
+Version 3 also accepts complete-document tasks. Their originals use the full
+document's counts, preserving cross-paragraph findings. Mixed task sets retain
+their role list, and each rule admits only pairs in its declared roles. A rule
+abstention on either side removes that pair from that rule's estimate and is
+reported separately. H0 abstentions are excluded too. The output records support
+components and the two-sided bootstrap tail probability for each paired change;
+the frozen study protocol, rather than this command, selects primary tests and
+applies its multiplicity correction.
 
 The separate screening command already resolves groups from the global plan.
 Correcting paired tables does not alter the frozen screening result or license a

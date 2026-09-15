@@ -101,7 +101,10 @@ func controlledSource(generation Generation, record Record, task Task, imported 
 	repository := historical.Repository
 	label := "generated"
 	if record.Operation == "polish" {
-		label = "human_ai_edited"
+		label = repository.Origin.Label
+		if label == "human" || label == "human_ai_edited" {
+			label = "human_ai_edited"
+		}
 	}
 	notices := make([]corpus.Notice, 0, len(repository.Notices))
 	for _, notice := range repository.Notices {
@@ -110,6 +113,9 @@ func controlledSource(generation Generation, record Record, task Task, imported 
 	}
 	evidence := fmt.Sprintf("Response %s of run %s: %s under prompt %s by %s (%s); record %s",
 		record.ResponseID, generation.Run, record.Operation, record.Prompt, generation.Family, generation.Model, options.RecordsPath)
+	if record.Operation == "polish" {
+		evidence += "; original provenance: " + repository.Origin.Label + ". " + repository.Origin.Evidence
+	}
 	return corpus.Source{ID: ControlledID(generation.Run, task.Repository, path), Path: path, SHA256: hash(data), Bytes: len(data),
 		Format: document.Markdown, ProseLanguage: "en", Repository: task.Repository, Document: task.Repository + "/" + path,
 		Authors: []string{}, Templates: []string{}, Related: []string{}, GenerationTasks: []string{task.ID},

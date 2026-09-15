@@ -1,0 +1,14 @@
+version: 1
+extends: [builtin:custom]
+rules:
+  filler.announced-importance:
+    enabled: true
+    severity: note
+    gate: none
+    score: {weight: 0, cap: 0}
+  syntax.paired-contrast-density: {enabled: true}
+  syntax.nominalization-chain:
+    enabled: true
+    severity: note
+    gate: none
+    score: {weight: 0, cap: 0}

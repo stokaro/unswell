@@ -66,6 +66,64 @@ func pairedPlan(artifact corpus.FindingsArtifact) corpus.DatasetPlan {
 	return plan
 }
 
+func TestPairedDocumentTasksUseWholeDocumentFindings(t *testing.T) {
+	c := qt.New(t)
+	records, tasks, artifact := pairedFixture()
+	for i := range tasks.Tasks {
+		tasks.Tasks[i].Scope = generation.DocumentScope
+		tasks.Tasks[i].UnitID = generation.DocumentScope
+	}
+	// Only the second document has a window finding. Its first paragraph is
+	// clean; the first document's paragraph carries a different local finding.
+	artifact.Documents[0].ByRule = map[string]int{}
+	artifact.Documents[1].ByRule = map[string]int{"b.rule": 1}
+	admitting := classes()
+	admitting.Rules[0].Roles = []string{"comment"}
+	result, err := patterns.AnalyzePaired(t.Context(), pairedPlan(artifact), records, tasks,
+		[]corpus.FindingsArtifact{artifact}, admitting)
+	c.Assert(err, qt.IsNil)
+	c.Assert(result.Rules[0].Arms[0].OriginalWithFinding, qt.Equals, 0)
+	c.Assert(result.Rules[1].Arms[0].OriginalWithFinding, qt.Equals, 1)
+	c.Assert(result.Arms[0].Measured, qt.Equals, 2)
+}
+
+func TestPairedMixedRolesDoNotUseOnlyTheFirstTaskRole(t *testing.T) {
+	c := qt.New(t)
+	records, tasks, artifact := pairedFixture()
+	tasks.Tasks[1].Role = "readme"
+	artifact.Documents[1].Role = "readme"
+	admitting := classes()
+	admitting.Rules[1].Roles = []string{"comment", "readme"}
+	result, err := patterns.AnalyzePaired(t.Context(), pairedPlan(artifact), records, tasks,
+		[]corpus.FindingsArtifact{artifact}, admitting)
+	c.Assert(err, qt.IsNil)
+	c.Assert(result.Role, qt.Equals, "mixed")
+	c.Assert(result.Roles, qt.DeepEquals, []string{"comment", "readme"})
+	c.Assert(result.Rules[0].H0Documents, qt.Equals, 3)
+}
+
+func TestPairedAbstentionDoesNotBecomeAZeroFinding(t *testing.T) {
+	c := qt.New(t)
+	records, tasks, artifact := pairedFixture()
+	artifact.Documents[0].Abstained = map[string]string{"a.rule": "budget"}
+	admitting := classes()
+	admitting.Rules[0].Roles = []string{"comment"}
+	result, err := patterns.AnalyzePaired(t.Context(), pairedPlan(artifact), records, tasks,
+		[]corpus.FindingsArtifact{artifact}, admitting)
+	c.Assert(err, qt.IsNil)
+	a := result.Rules[0]
+	c.Assert(a.H0Documents, qt.Equals, 2)
+	c.Assert(a.H0Abstained, qt.Equals, 1)
+	c.Assert(a.Arms[0].Pairs, qt.Equals, 1)
+	c.Assert(a.Arms[0].AbstainedPairs, qt.Equals, 1)
+	c.Assert(a.Arms[0].OriginalWithFinding, qt.Equals, 0)
+	c.Assert(a.Arms[0].ResponseWithFinding, qt.Equals, 1)
+	c.Assert(a.Arms[0].PairedPValue, qt.IsNil)
+	c.Assert(a.Arms[0].ResponseSupport, qt.Equals, 1)
+	// A different rule remains applicable to both pairs.
+	c.Assert(result.Rules[1].Arms[0].Pairs, qt.Equals, 2)
+}
+
 func TestPairedAnalysisUsesGlobalGroupsOnBothSides(t *testing.T) {
 	c := qt.New(t)
 	records, tasks, art := pairedFixture()

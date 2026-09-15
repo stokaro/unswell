@@ -1,0 +1,11 @@
+Changed language ordinal method to return the number + ordinal instead of just the ordinal. <!-- want "syntax.paired-contrast-density" -->
+
+Changed two digit year parsing cutoff to match strptime.
+
+Removed `moment#sod` and `moment#eod` in favor of `moment#startOf` and `moment#endOf`.
+
+Removed `moment.humanizeDuration()` in favor of `moment.duration().humanize()`.
+
+Removed the lang data objects from the top level namespace.
+
+Duplicate `Date` passed to `moment()` instead of referencing it.

@@ -85,7 +85,7 @@ models, origin studies, and detector comparisons.
 Under ADR 0037, a release need not wait for the deferred work. A later product
 decision can bring it back if a specific diagnostic needs it.
 
-### Active: LLM-associated patterns
+### Completed construction study: LLM-associated patterns
 
 [#154](https://github.com/stokaro/unswell/issues/154) counts how often
 defined constructions occur in four cohorts. The cohorts are old technical
@@ -101,26 +101,36 @@ six reviewed studies with their data terms and decisions.
 | --- | --- |
 | A. Scope | ADR 0036, protocol version 1 with budget caps, sources record, pilot prompts, #22 on hold |
 | B. Historical corpus | Dated sources with confidence levels, a global plan, verified shards, and baseline rule measurements |
-| C. Comparable experiment | Saved permitted generation records, pilot tables, sample size, and protocol version 2 |
+| C. Comparable experiment | Earlier generation records and pilot tables, plus the version 3 whole-document freeze |
 | D. Confirmatory study | Executed comparisons, holdouts, intervals, ablations, and negative results |
 | E. Evidence release | Versioned data set, data card, report, table reproduction, and evidence cards |
 
-Stage E is published. The [data card](../research/methods/data-card-v1.md)
-describes the corpus and its limits, the
-[report](../research/report-v1.md) states the questions, the results
-including the nulls, and the limitations, and
-`python3 scripts/reproduce-tables.py` rebuilds every table. The evidence
-cards rebuild from the committed screening records alone; the corpus tables
-need `bash scripts/measure-corpus.sh` first, because the measurement is too
-large to commit.
+Stages A through E have published evidence. The original
+[data card](../research/methods/data-card-v1.md) and
+[report](../research/report-v1.md) retain the historical corpus, temporal controls,
+and earlier null results. `python3 scripts/reproduce-tables.py` rebuilds their
+tables; the larger corpus measurements use `bash scripts/measure-corpus.sh`.
 
-The merged [generation index](../research/generation/README.md) records twenty
-runs across Claude, OpenAI, and Qwen: 11,856 responses from five models. Three development screenings precede the
-[version 2 freeze](../research/methods/llm-patterns-v2.md), merged in
-[#229](https://github.com/stokaro/unswell/pull/229). It fixes two Claude hypotheses
-for a single confirmatory measurement. The [acceptance snapshot](acceptance.md)
-records that design separately from its still-outstanding results. Local or
-in-flight generations cannot establish a confirmation.
+The [generation index](../research/generation/README.md) preserves twenty earlier
+runs from five models across Claude, OpenAI, and Qwen. The
+[version 2 confirmation](../research/methods/llm-patterns-v2.md) remains
+inconclusive with 16 global components against its minimum of 20.
+
+The separate [version 3 study](../research/generation/studies/long-prose-v3/README.md)
+uses 38 complete documents from 20 fresh repositories. Its 456 fixed requests
+produce 455 complete responses and one retained truncation. All 12 measured arms
+retain 20 groups. The [results](../research/generation/studies/long-prose-v3/results.md)
+report the frozen tests, intervals, applicability, length sensitivity, context,
+ablations, and 40 evidence cards. Only ARI meets the cross-family association
+criterion; its historical review load prevents an AI-associated advisory claim
+under the frozen budget. Other primary constructions lack confirmed association.
+No result qualifies a blocking rule or supplies a human quality label.
+
+Permitted source bytes, raw outputs, frozen inputs, measurements, and replay tools
+are archived with checksums. The record discloses the dispatch-reservation
+amendment for the final four requests and distinguishes it from actual token use.
+The [acceptance page](acceptance.md) separates completed construction research
+from the deferred human assessment in #22/#26.
 
 This branch produces prevalence, absolute differences, prevalence ratios,
 paired changes, and warning load per cohort. It produces no editorial label,

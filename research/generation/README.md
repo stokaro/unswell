@@ -53,6 +53,21 @@ selected tasks to span at least N such groups; it fails before requests are
 generated when the draw is too narrow. It never changes the seed or resamples
 to pass. The task set records the requested minimum and selected group count.
 
+For complete Markdown or plain-text documents, pass `--briefs briefs.json`.
+The `unswell-document-briefs-v1` bundle contains a `briefs` array: each entry
+names a source ID and SHA-256, a purpose, an `agent` or `human` reviewer, and
+factual notes with source byte ranges. Each note must have a nonempty valid
+UTF-8 range. `DocumentBrief.Seal` validates these bindings and seals an owned
+copy. This verifies provenance; it does not verify factual completeness or
+replace independent annotation.
+
+Document tasks carry `scope: document` and preserve the complete original.
+Generation receives the brief; editing receives the original. `--min-words`
+and `--max-words` bound extracted prose, counting paragraphs and fragments
+once without adding nested sentences again. The curator selects eligible
+sources before drawing tasks. The [version 3 study](studies/long-prose-v3/README.md)
+records its complete-file selection and curation protocol.
+
 ## Requests
 
 `corpus requests` pairs each task with each operation and prompt condition.
@@ -103,11 +118,21 @@ binding groups originals, their derivatives, and H0 documents. Archived task
 files and individual finding shards can carry older local group IDs; these
 are not used for resampling. Unknown source IDs and a derivative assigned to
 a different global component fail the command. Each arm also reports its
-difference from the H0 documents of the same role. Output version 2 records
+difference from the H0 documents of the same role. Output version 2 introduced
 the dataset identity; earlier version 1 intervals require recomputation.
 The [September 15 replay](../methods/grouping/2026-09-15/README.md) preserves
 the before/after results for all 20 existing runs. The frozen screening used
 global groups already and is unchanged.
+
+Version 3 adds complete-document originals, mixed role sets, support-component
+counts, paired tail probabilities, and rule-specific abstention counts. If a
+rule abstains on either document, that pair is absent from that rule's estimate.
+It is not a zero. Role-specific rows admit only the roles in the committed rule
+class. Saved version 2 reports remain records of the earlier unit-task studies.
+Document fact coverage is `document_facts_require_review`; the identifier and
+signature checks for declaration tasks do not certify whole-document fidelity.
+Editing an original of unknown authorship preserves `unknown` with its generation
+record, rather than labeling it as confirmed human text edited by a model.
 
 ## Runs
 

@@ -230,8 +230,12 @@ func (s Source) validateSnapshot() error {
 	if strings.HasPrefix(snapshot.Cohort, "historical") && snapshot.Confidence == "unknown" {
 		return fmt.Errorf("historical cohort membership requires a dated snapshot")
 	}
-	if snapshot.Cohort == "controlled" && slices.Contains([]string{"human", "unknown"}, s.Origin.Label) {
-		return fmt.Errorf("controlled cohort membership requires generated or edited origin")
+	return s.validateControlledOrigin()
+}
+
+func (s Source) validateControlledOrigin() error {
+	if s.Snapshot.Cohort == "controlled" && (s.Origin.Label == "human" || !text(s.Origin.GenerationRecord)) {
+		return fmt.Errorf("controlled cohort membership requires a generation record and cannot assert unedited human origin")
 	}
 	return nil
 }

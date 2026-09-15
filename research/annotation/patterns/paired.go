@@ -12,7 +12,7 @@ import (
 )
 
 // PairedVersion identifies the E2 paired tables.
-const PairedVersion = "unswell-paired-tables-v2"
+const PairedVersion = "unswell-paired-tables-v3"
 
 // Arm is one operation under one prompt of a run.
 type Arm struct {
@@ -36,12 +36,16 @@ type ArmCoverage struct {
 type ArmRule struct {
 	Arm
 	Pairs               int      `json:"pairs"`
+	AbstainedPairs      int      `json:"abstained_pairs,omitempty"`
 	Components          int      `json:"components"`
+	OriginalSupport     int      `json:"original_support_components"`
+	ResponseSupport     int      `json:"response_support_components"`
 	OriginalWithFinding int      `json:"original_with_finding"`
 	ResponseWithFinding int      `json:"response_with_finding"`
 	OriginalPrevalence  Estimate `json:"original_prevalence"`
 	ResponsePrevalence  Estimate `json:"response_prevalence"`
 	PairedChange        Estimate `json:"paired_change"`
+	PairedPValue        *float64 `json:"paired_p_value"`
 	DifferenceFromH0    Estimate `json:"difference_from_h0"`
 	ResponseZeroUpper   *float64 `json:"response_zero_upper_bound"`
 }
@@ -52,6 +56,7 @@ type PairedRule struct {
 	Class        string    `json:"class"`
 	H0Documents  int       `json:"h0_documents"`
 	H0WithFindng int       `json:"h0_documents_with_finding"`
+	H0Abstained  int       `json:"h0_abstained_documents,omitempty"`
 	H0Prevalence Estimate  `json:"h0_prevalence"`
 	Arms         []ArmRule `json:"arms"`
 }
@@ -67,6 +72,7 @@ type Paired struct {
 	Family      string                `json:"family"`
 	Model       string                `json:"model"`
 	Role        string                `json:"role"`
+	Roles       []string              `json:"roles,omitempty"`
 	Policy      corpus.PolicyIdentity `json:"policy"`
 	Classes     string                `json:"rule_classes"`
 	Inputs      []Input               `json:"inputs"`
@@ -78,8 +84,14 @@ type Paired struct {
 // pair holds one task's original unit and its response document.
 type pair struct {
 	component int
-	original  map[string]int
-	response  map[string]int
+	original  pairedObservation
+	response  pairedObservation
+}
+
+type pairedObservation struct {
+	counts map[string]int
+	absent map[string]string
+	role   string
 }
 
 type pairedFrame struct {
@@ -87,7 +99,7 @@ type pairedFrame struct {
 	byGroup    map[string]int
 	arms       map[Arm][]pair
 	coverage   map[Arm]*ArmCoverage
-	h0         []map[string]int
+	h0         []pairedObservation
 	h0Groups   []int
 	groups     map[string]string
 }
@@ -102,8 +114,12 @@ func AnalyzePaired(ctx context.Context, plan corpus.DatasetPlan, records generat
 	if err := checkPaired(tasks, inputs, classes); err != nil {
 		return Paired{}, err
 	}
-	role := tasks.Tasks[0].Role
-	frame, meta, err := buildPairedFrame(ctx, plan, records, tasks, inputs, role)
+	roles := taskRoles(tasks)
+	role := roles[0]
+	if len(roles) > 1 {
+		role = "mixed"
+	}
+	frame, meta, err := buildPairedFrame(ctx, plan, records, tasks, inputs, roles)
 	if err != nil {
 		return Paired{}, err
 	}
@@ -111,6 +127,9 @@ func AnalyzePaired(ctx context.Context, plan corpus.DatasetPlan, records generat
 		Run: records.Run, Family: records.Family,
 		Model: records.Model, Role: role, Policy: inputs[0].Policy,
 		Classes: fmt.Sprintf("%s revision %d", classes.Format, classes.Revision), Inputs: meta, H0Cohort: tasks.Cohort}
+	if len(roles) > 1 {
+		result.Roles = roles
+	}
 	for _, arm := range frame.armOrder() {
 		result.Arms = append(result.Arms, *frame.coverage[arm])
 	}
@@ -122,7 +141,7 @@ func AnalyzePaired(ctx context.Context, plan corpus.DatasetPlan, records generat
 		if err := ctx.Err(); err != nil {
 			return Paired{}, err
 		}
-		if slices.Contains(class.Roles, role) {
+		if slices.ContainsFunc(roles, func(role string) bool { return slices.Contains(class.Roles, role) }) {
 			result.Rules = append(result.Rules, frame.rule(class, draws))
 		}
 	}
@@ -133,11 +152,20 @@ func checkPaired(tasks generation.Tasks, inputs []corpus.FindingsArtifact, class
 	if len(inputs) == 0 || len(inputs) > MaxInputs || len(tasks.Tasks) == 0 {
 		return fmt.Errorf("paired analysis requires tasks and 1 through %d finding artifacts", MaxInputs)
 	}
+	seen := map[string]bool{}
+	for _, task := range tasks.Tasks {
+		if task.ID == "" || seen[task.ID] || task.Role == "" ||
+			!slices.Contains([]string{"", generation.DocumentScope}, task.Scope) ||
+			(task.Scope == generation.DocumentScope) != (task.UnitID == generation.DocumentScope) {
+			return fmt.Errorf("paired tasks require unique IDs, a role, and a valid unit or document scope")
+		}
+		seen[task.ID] = true
+	}
 	return classes.Cover(inputs[0].Policy.Rules)
 }
 
 func buildPairedFrame(ctx context.Context, plan corpus.DatasetPlan, records generation.Generation, tasks generation.Tasks,
-	inputs []corpus.FindingsArtifact, role string,
+	inputs []corpus.FindingsArtifact, roles []string,
 ) (*pairedFrame, []Input, error) {
 	frame := &pairedFrame{byGroup: map[string]int{}, arms: map[Arm][]pair{}, coverage: map[Arm]*ArmCoverage{}}
 	groups, err := pairedGroups(plan, tasks, inputs)
@@ -149,8 +177,8 @@ func buildPairedFrame(ctx context.Context, plan corpus.DatasetPlan, records gene
 	for _, task := range tasks.Tasks {
 		byTask[task.ID] = task
 	}
-	originals := map[string]map[string]int{}
-	responses := map[string]map[string]int{}
+	originals := map[string]pairedObservation{}
+	responses := map[string]pairedObservation{}
 	meta := []Input{}
 	for _, input := range inputs {
 		if err := ctx.Err(); err != nil {
@@ -160,7 +188,7 @@ func buildPairedFrame(ctx context.Context, plan corpus.DatasetPlan, records gene
 			return nil, nil, err
 		}
 		meta = append(meta, Input{SHA256: input.SHA256, Documents: len(input.Documents), Units: len(input.Units)})
-		frame.collect(input, tasks.Cohort, role, originals, responses)
+		frame.collect(input, tasks.Cohort, roles, originals, responses)
 	}
 	for _, record := range records.Records {
 		if err := frame.pairRecord(records.Run, record, byTask, originals, responses); err != nil {
@@ -180,7 +208,7 @@ func buildPairedFrame(ctx context.Context, plan corpus.DatasetPlan, records gene
 // pairRecord counts one record in its arm's coverage and, when both the
 // original unit and the response document were measured, adds the pair.
 func (f *pairedFrame) pairRecord(run string, record generation.Record, byTask map[string]generation.Task,
-	originals, responses map[string]map[string]int,
+	originals, responses map[string]pairedObservation,
 ) error {
 	arm := Arm{Operation: record.Operation, Prompt: record.Prompt}
 	coverage := f.armCoverage(arm)
@@ -206,6 +234,7 @@ func (f *pairedFrame) pairRecord(run string, record generation.Record, byTask ma
 			return fmt.Errorf("task %s and response %s belong to different global groups", task.ID, record.ResponseID)
 		}
 		coverage.Measured++
+		original.role, response.role = task.Role, task.Role
 		f.arms[arm] = append(f.arms[arm], pair{component: f.component(f.groups[task.SourceID]), original: original, response: response})
 	}
 	return nil
@@ -215,21 +244,34 @@ func (f *pairedFrame) pairRecord(run string, record generation.Record, byTask ma
 // findings by source ID, and the H0 documents of the role. Two runs that
 // answer the same task write the same response path, so the path alone
 // cannot name this run's response.
-func (f *pairedFrame) collect(input corpus.FindingsArtifact, h0 string, role string, originals, responses map[string]map[string]int) {
+func (f *pairedFrame) collect(input corpus.FindingsArtifact, h0 string, roles []string, originals, responses map[string]pairedObservation) {
+	absent := map[string]map[string]string{}
+	for _, doc := range input.Documents {
+		absent[doc.SourceID] = doc.Abstained
+	}
 	for _, unit := range input.Units {
 		if unit.Cohort == h0 && !unit.Unmeasured {
-			originals[unit.SourceID+"#"+unit.UnitID] = ruleCounts(unit)
+			originals[unit.SourceID+"#"+unit.UnitID] = pairedObservation{ruleCounts(unit), absent[unit.SourceID], unit.Role}
 		}
 	}
-	for _, doc := range input.Documents {
+	f.collectDocuments(input.Documents, h0, roles, originals, responses)
+}
+
+func (f *pairedFrame) collectDocuments(docs []corpus.DocumentFindings, h0 string, roles []string,
+	originals, responses map[string]pairedObservation,
+) {
+	for _, doc := range docs {
 		if doc.Status != "measured" {
 			continue
 		}
+		if doc.Cohort == h0 {
+			originals[doc.SourceID+"#"+generation.DocumentScope] = pairedObservation{doc.ByRule, doc.Abstained, doc.Role}
+		}
 		switch {
 		case doc.Cohort == "controlled" && strings.HasPrefix(doc.Path, "generated/"):
-			responses[doc.SourceID] = doc.ByRule
-		case doc.Cohort == h0 && doc.Role == role:
-			f.h0 = append(f.h0, doc.ByRule)
+			responses[doc.SourceID] = pairedObservation{doc.ByRule, doc.Abstained, doc.Role}
+		case doc.Cohort == h0 && slices.Contains(roles, doc.Role):
+			f.h0 = append(f.h0, pairedObservation{doc.ByRule, doc.Abstained, doc.Role})
 			f.h0Groups = append(f.h0Groups, f.component(f.groups[doc.SourceID]))
 		}
 	}
@@ -281,48 +323,78 @@ func (f *pairedFrame) rule(class corpus.RuleClass, draws [][]int) PairedRule {
 	h0 := make([]counts, len(f.components))
 	h0Components := map[int]bool{}
 	for i, doc := range f.h0 {
+		if !slices.Contains(class.Roles, doc.role) {
+			continue
+		}
+		if _, absent := doc.absent[class.RuleID]; absent {
+			row.H0Abstained++
+			continue
+		}
 		h0[f.h0Groups[i]].counted++
 		h0Components[f.h0Groups[i]] = true
 		row.H0Documents++
-		if doc[class.RuleID] > 0 {
+		if doc.counts[class.RuleID] > 0 {
 			h0[f.h0Groups[i]].withFinding++
 			row.H0WithFindng++
 		}
 	}
 	row.H0Prevalence = intervalFor(draws, h0, nil, len(h0Components))
 	for _, arm := range f.armOrder() {
-		row.Arms = append(row.Arms, f.armRule(class.RuleID, arm, draws, h0, len(h0Components)))
+		row.Arms = append(row.Arms, f.armRule(class, arm, draws, h0, len(h0Components)))
 	}
 	return row
 }
 
-func (f *pairedFrame) armRule(rule string, arm Arm, draws [][]int, h0 []counts, h0Components int) ArmRule {
+func (f *pairedFrame) armRule(class corpus.RuleClass, arm Arm, draws [][]int, h0 []counts, h0Components int) ArmRule {
 	result := ArmRule{Arm: arm}
+	rule := class.RuleID
 	original := make([]counts, len(f.components))
 	response := make([]counts, len(f.components))
 	seen := map[int]bool{}
 	for _, item := range f.arms[arm] {
+		if !slices.Contains(class.Roles, item.original.role) {
+			continue
+		}
+		_, originalAbsent := item.original.absent[rule]
+		_, responseAbsent := item.response.absent[rule]
+		if originalAbsent || responseAbsent {
+			result.AbstainedPairs++
+			continue
+		}
 		seen[item.component] = true
 		result.Pairs++
 		original[item.component].counted++
 		response[item.component].counted++
-		if item.original[rule] > 0 {
+		if item.original.counts[rule] > 0 {
 			original[item.component].withFinding++
 			result.OriginalWithFinding++
 		}
-		if item.response[rule] > 0 {
+		if item.response.counts[rule] > 0 {
 			response[item.component].withFinding++
 			result.ResponseWithFinding++
 		}
 	}
 	result.Components = len(seen)
+	result.OriginalSupport, result.ResponseSupport = supportComponents(original), supportComponents(response)
 	result.OriginalPrevalence = intervalFor(draws, original, nil, len(seen))
 	result.ResponsePrevalence = intervalFor(draws, response, nil, len(seen))
-	result.PairedChange = intervalFor(draws, response, original, len(seen))
+	var replicates []float64
+	result.PairedChange, replicates = intervalWithReplicates(draws, response, original, len(seen))
+	result.PairedPValue = bootstrapP(replicates)
 	result.DifferenceFromH0 = intervalFor(draws, response, h0, min(len(seen), h0Components))
 	if result.Pairs > 0 && result.ResponseWithFinding == 0 && len(seen) > 0 {
 		bound := zeroUpperBound(len(seen))
 		result.ResponseZeroUpper = &bound
 	}
 	return result
+}
+
+func supportComponents(groups []counts) int {
+	support := 0
+	for _, group := range groups {
+		if group.withFinding > 0 {
+			support++
+		}
+	}
+	return support
 }

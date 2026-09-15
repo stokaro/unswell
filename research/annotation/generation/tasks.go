@@ -39,6 +39,10 @@ type Task struct {
 	Text       string    `json:"text"`
 	TextSHA256 string    `json:"text_sha256"`
 	FactSheet  FactSheet `json:"fact_sheet"`
+	// Scope is empty for an extracted unit, or document for an entire source.
+	Scope string `json:"scope,omitempty"`
+	// Brief supplies source-bound facts for a whole-document generation task.
+	Brief *DocumentBrief `json:"brief,omitempty"`
 }
 
 // Stratum records the sampling of one ecosystem and role.
@@ -82,6 +86,8 @@ type Options struct {
 	Count      int
 	// MinWords raises the eligible floor above MinWords when set.
 	MinWords int
+	// MaxWords excludes longer units when positive; zero leaves no upper bound.
+	MaxWords int
 	// MinGroups rejects a draw with too few global provenance components.
 	// It does not redraw or change the seed to reach the requested minimum.
 	MinGroups  int
@@ -99,16 +105,14 @@ type Sampler struct {
 	groups    map[string]string
 	eligible  map[string][]Task
 	excluded  int
+	documents map[string]bool
 }
 
 // NewSampler validates the options and the dataset plan the partitions come
 // from.
 func NewSampler(options Options, plan corpus.DatasetPlan) (*Sampler, error) {
-	if !validSamplerRequest(options) {
-		return nil, fmt.Errorf("task sampling needs a protocol, seed, cohort, partitions, roles, and 1 through %d tasks", MaxTasks)
-	}
-	if options.MinGroups < 0 || options.MinGroups > options.Count {
-		return nil, fmt.Errorf("minimum groups must be between zero and the task count")
+	if err := validateSamplerOptions(options); err != nil {
+		return nil, err
 	}
 	partition := make(map[string]string, len(plan.Sources))
 	groups := make(map[string]string, len(plan.Sources))
@@ -119,7 +123,20 @@ func NewSampler(options Options, plan corpus.DatasetPlan) (*Sampler, error) {
 		partition[source.ID] = source.Partition
 		groups[source.ID] = source.Group
 	}
-	return &Sampler{options: options, partition: partition, groups: groups, eligible: map[string][]Task{}}, nil
+	return &Sampler{options: options, partition: partition, groups: groups, eligible: map[string][]Task{}, documents: map[string]bool{}}, nil
+}
+
+func validateSamplerOptions(options Options) error {
+	if !validSamplerRequest(options) {
+		return fmt.Errorf("task sampling needs a protocol, seed, cohort, partitions, roles, and 1 through %d tasks", MaxTasks)
+	}
+	if options.MinGroups < 0 || options.MinGroups > options.Count {
+		return fmt.Errorf("minimum groups must be between zero and the task count")
+	}
+	if options.MaxWords < 0 || options.MaxWords > 0 && options.MaxWords < EligibleFloor(options) {
+		return fmt.Errorf("maximum words must be zero or at least the eligible floor")
+	}
+	return nil
 }
 
 func validSamplerRequest(options Options) bool {
@@ -176,6 +193,9 @@ func (s *Sampler) admits(candidate corpus.Candidate) bool {
 	unit := candidate.Unit
 	if unit.Kind != "paragraph" || candidate.Cohort != s.options.Cohort || !slices.Contains(s.options.Roles, unit.Role) ||
 		candidate.Words < EligibleFloor(s.options) || len(unit.Source.Segments) == 0 {
+		return false
+	}
+	if s.options.MaxWords > 0 && candidate.Words > s.options.MaxWords {
 		return false
 	}
 	if !slices.Contains(s.options.Partitions, s.partition[candidate.SourceID]) {
@@ -293,10 +313,10 @@ func allocate(keys []string, eligible map[string][]Task, count int) map[string]i
 	for _, item := range allocation {
 		given += item
 	}
-	for _, item := range shares {
-		if given >= count {
-			break
-		}
+	// A capped stratum can leave more than one remainder round unused.
+	// Sample bounds count by the total pool, so capacity remains until done.
+	for i := 0; given < count; i++ {
+		item := shares[i%len(shares)]
 		if allocation[item.key] < len(eligible[item.key]) {
 			allocation[item.key]++
 			given++
