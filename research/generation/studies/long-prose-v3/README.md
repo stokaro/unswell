@@ -72,22 +72,32 @@ the two config hashes.
 Use Python 3.11 or later and the Go version in `go.mod`. These are research
 utilities; ordinary product tests neither unpack the full study nor call a model.
 The replay creates a new directory and leaves published archives unchanged.
-The commands below rebuild the corpus adapter and public CLI from this checkout,
-verify every archive member, reimport saved responses, remeasure source text,
-recompute activation features, and reproduce the tables and report.
+The commands below rebuild the corpus adapter and public CLI from the study's
+merged source commit, `966ffd841bcfa3dbbed2bc706ae742c18c2b569d`.
+The replay verifies archive members, reimports saved responses, and remeasures
+source text. It then recomputes activation features and reproduces the tables
+and report.
+Later rule changes, including noun-stack version 5, require this pinned checkout
+to reproduce the frozen version 4 measurements.
 
 ```sh
-study_archives="$PWD/research/generation/studies/long-prose-v3"
-study_tools="$study_archives/tools"
 study_scratch="$(mktemp -d)"
+study_source="$study_scratch/source"
+git worktree add --detach "$study_source" 966ffd841bcfa3dbbed2bc706ae742c18c2b569d
+study_archives="$study_source/research/generation/studies/long-prose-v3"
+study_tools="$study_archives/tools"
 (
-  cd research/annotation
+  cd "$study_source/research/annotation"
   CGO_ENABLED=0 GOMAXPROCS=2 go build -p=2 -o "$study_scratch/corpus" ./cmd/corpus
 )
-CGO_ENABLED=0 GOMAXPROCS=2 go build -p=2 -o "$study_scratch/unswell" ./cmd/unswell
+(
+  cd "$study_source"
+  CGO_ENABLED=0 GOMAXPROCS=2 go build -p=2 -o "$study_scratch/unswell" ./cmd/unswell
+)
 GOMAXPROCS=2 python3 "$study_tools/reproduce-long-study.py" \
   --archives "$study_archives" --study "$study_scratch/replay" \
   --corpus "$study_scratch/corpus" --binary "$study_scratch/unswell"
+git worktree remove "$study_source"
 ```
 
 Module dependencies must already be available for an offline build. The replay

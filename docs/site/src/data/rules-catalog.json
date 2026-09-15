@@ -770,7 +770,7 @@
         },
         {
           "id": "syntax.noun-stack",
-          "version": "4",
+          "version": "5",
           "status": "experimental",
           "group": "syntax-load",
           "scope": "sentence",
@@ -786,8 +786,8 @@
           "cap": 16,
           "summary": "Review this common-noun sequence; keep established technical terms.",
           "description": "Counts NN modifiers followed by an NN/NNS head within a shallow NP chunk, stopping at terms, identifiers, and configured verb forms in predicate position.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. A shallow NP is not a dependency tree, and a noun sequence can be an appropriate domain term. Interior NNS tags cause abstention: they can be plural modifiers or misclassified finite verbs. The negative modal \"cannot\" breaks a noun run even when tagged NN; other tagging ambiguity remains possible. Configured verb forms are literal words; a form that is also a noun modifier shortens a genuine stack.",
-          "opt_in_reason": "Frozen hypothesis H1 of the pattern protocol. Its development estimate of +2.96 points fell to +0.41 on the confirmation partition at p 0.727, so the association did not carry to unseen text."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. A shallow NP is not a dependency tree, and a noun sequence can be an appropriate domain term. Interior NNS tags cause abstention: they can be plural modifiers or misclassified finite verbs. The negative modal \"cannot\" breaks a noun run even when tagged NN; other tagging ambiguity remains possible. Configured verb forms are literal words; a form that is also a noun modifier shortens a genuine stack. Forms also listed in nouns remain candidates after nominal modifiers or common nouns; leading forms can break a run. Coordinated predicates require a following verb or modal; noun coordination stays intact.",
+          "opt_in_reason": "Version 4 did not establish a cross-family association in the complete-document study. Version 5 repairs noun/verb boundaries but has no independent editorial qualification."
         },
         {
           "id": "syntax.paired-contrast-density",
