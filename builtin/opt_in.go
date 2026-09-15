@@ -60,8 +60,8 @@ var optInReasons = map[string]string{
 	"syntax.parenthetical-load":    "Fires more on human prose, 0.499 per thousand words against 0.300 in the controlled arm.",
 
 	// Rules measured against a frozen hypothesis and not supported by it.
-	"syntax.noun-stack": "Frozen hypothesis H1 of the pattern protocol. Its development estimate of +2.96 points " +
-		"fell to +0.41 on the confirmation partition at p 0.727, so the association did not carry to unseen text.",
+	"syntax.noun-stack": "Version 4 did not establish a cross-family association in the complete-document study. " +
+		"Version 5 repairs noun/verb boundaries but has no independent editorial qualification.",
 	"syntax.passive-candidate-density": "Names candidates without a dependency parse, and says so in its own " +
 		"limitations. It runs at 1.953 per thousand words in the controlled arm against 1.112 in human prose.",
 }

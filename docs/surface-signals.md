@@ -17,7 +17,7 @@ and comparative qualification remain in #56 and #57.
 | Rule | Candidate condition | Parameters and defaults | Weight/cap |
 | --- | --- | --- | --- |
 | `syntax.nominalization-chain` | Configured verb + optional modifiers + configured common noun + `of` + a common-noun complement | `verbs`, `nouns` | 12/24 |
-| `syntax.noun-stack` | NN modifiers with an NN/NNS head inside a shallow NP chunk | `onset: 3`, `saturation: 7`, `verbs` | 8/16 |
+| `syntax.noun-stack` | NN modifiers with an NN/NNS head inside a shallow NP chunk | `onset: 3`, `saturation: 7`, `verbs`, `nouns: [fix, fixes]` | 8/16 |
 | `syntax.passive-candidate-density` | Multiple sentences with be + up to four adverbs + VBN | `min_words: 8`, `window_sentences: 8`, `allowed_occurrences: 1`, `saturation_occurrences: 4` | 6/12 |
 | `syntax.parenthetical-load` | Balanced insertion word count, pair count, or nesting | `min_words: 20`, `onset: 12`, `saturation: 36`, `allowed_occurrences: 2`, `saturation_occurrences: 5`, `allowed_depth: 1`, `saturation_depth: 4`, `min_insertion_words: 2` | 8/16 |
 | `readability.long-paragraph` | Both a long block and several long sentences | `onset: 120`, `saturation: 240`, `sentence_words: 25`, `min_long_sentences: 2` | 8/16 |
@@ -86,6 +86,20 @@ completion state applies to every block` and `cannot reconstruct feature input
 hashes` no longer report a stack; `The service request response status code is
 recorded` still does. Keep the list narrow: a form that is also a common noun
 modifier shortens a genuine stack. No lemmatization is implied.
+Version 5 adds the forms of `exist`, `resemble`, and `fix` found in the complete-document
+study. A listed form also ends the run before a coordinating conjunction followed
+immediately by a verb or modal: `exists but may change`. Noun coordination such as
+`stores and caches` remains eligible.
+
+The `nouns` list marks dual-use forms within `verbs`. Such a form remains a noun
+candidate after a determiner, adjective, possessive modifier, or another common
+noun. A leading form after a numeric subject or clause boundary can end the run.
+The defaults preserve `bug fix review process` and `security patch deployment fixes`
+while excluding `fix` after the version list in the recorded release note. Empty
+`nouns: []` retains literal verb exclusions. These guards leave POS tags untouched
+and do not resolve every noun/verb ambiguity. The source-bound examples and positive
+controls are in `e2e/testdata/noun_predicates`.
+
 Other mistagged verb phrases may still produce false candidates; this rule remains
 experimental and disabled in builtin profiles.
 Noun and short-list candidates require alphabetic prose words; format placeholders

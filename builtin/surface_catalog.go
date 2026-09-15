@@ -47,18 +47,22 @@ func surfaceSyntaxRules() []rule.Rule {
 		rule.Example{Text: "A binary origin probability cannot measure the fraction of words written by AI."},
 		rule.Example{Text: "The request has a status code. The client uses TransportCacheEntry."})
 	noun.BlockObservations = true
-	noun.Version = "4"
+	noun.Version = "5"
 	noun.Requires = append(noun.Requires, nlp.POS, nlp.Chunks)
 	noun.Defaults.Parameters = rule.Parameters{Onset: 3, Saturation: 7, Verbs: []string{
 		"apply", "applies", "applied", "remain", "remains", "remained", "require", "requires", "required",
-		"specify", "specifies", "specified", "reconstruct", "reconstructs", "reconstructed", "stores", "vet", "vets"}}
-	noun.Parameters = []string{"onset", "saturation", "verbs"}
+		"specify", "specifies", "specified", "reconstruct", "reconstructs", "reconstructed", "stores", "vet", "vets",
+		"exist", "exists", "existed", "resemble", "resembles", "resembled", "fix", "fixes", "fixed"},
+		Nouns: []string{"fix", "fixes"}}
+	noun.Parameters = []string{"onset", "saturation", "verbs", "nouns"}
 	noun.Description = "Counts NN modifiers followed by an NN/NNS head within a shallow NP chunk," +
 		" stopping at terms, identifiers, and configured verb forms in predicate position."
 	noun.Limitations += " A shallow NP is not a dependency tree, and a noun sequence can be an appropriate domain term."
 	noun.Limitations += " Interior NNS tags cause abstention: they can be plural modifiers or misclassified finite verbs."
 	noun.Limitations += " The negative modal \"cannot\" breaks a noun run even when tagged NN; other tagging ambiguity remains possible."
 	noun.Limitations += " Configured verb forms are literal words; a form that is also a noun modifier shortens a genuine stack."
+	noun.Limitations += " Forms also listed in nouns remain candidates after nominal modifiers or common nouns;" +
+		" leading forms can break a run. Coordinated predicates require a following verb or modal; noun coordination stays intact."
 	passive := passiveDescriptor()
 	insertion := insertionDescriptor()
 	passive.Version = "2"

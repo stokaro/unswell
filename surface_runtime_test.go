@@ -59,6 +59,7 @@ func TestSurfaceParameterValidation(t *testing.T) {
 		{"format.list-fragmentation", "max_list_items: 101"},
 		{"format.em-dash-density", "allowed_occurrences: -1"},
 		{"syntax.noun-stack", "verbs: [perform evaluation]"},
+		{"syntax.noun-stack", "nouns: [bug fix]"},
 		{"syntax.parenthetical-load", "min_insertion_words: 101"},
 		{"syntax.parenthetical-load", "min_insertion_words: -1"},
 	} {

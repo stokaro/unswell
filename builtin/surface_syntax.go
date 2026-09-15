@@ -133,13 +133,14 @@ func surfaceProseWord(token document.Token) bool {
 }
 
 func nounStacks(ctx context.Context, view rule.View, emit rule.Emitter) error {
-	matcher, verbs := newEditorialMatcher(ctx, view), wordDictionary(view.Parameters.Verbs)
+	matcher := newEditorialMatcher(ctx, view)
+	verbs := nounPredicates{wordDictionary(view.Parameters.Verbs), wordDictionary(view.Parameters.Nouns)}
 	return surfaceSentences(matcher, true, func(sentence document.Sentence) (bool, error) {
 		return nounSentence(matcher, sentence, verbs, emit)
 	})
 }
 
-func nounSentence(m *editorialMatcher, sentence document.Sentence, verbs map[string]bool, emit rule.Emitter) (bool, error) {
+func nounSentence(m *editorialMatcher, sentence document.Sentence, verbs nounPredicates, emit rule.Emitter) (bool, error) {
 	evaluated := false
 	for _, chunk := range sentence.Chunks {
 		if chunk.Kind != "NP" {
@@ -155,7 +156,7 @@ func nounSentence(m *editorialMatcher, sentence document.Sentence, verbs map[str
 }
 
 func nounChunk(
-	m *editorialMatcher, sentence document.Sentence, chunk document.Chunk, verbs map[string]bool, emit rule.Emitter,
+	m *editorialMatcher, sentence document.Sentence, chunk document.Chunk, verbs nounPredicates, emit rule.Emitter,
 ) (bool, error) {
 	if !validNounChunk(chunk, len(sentence.Tokens)) {
 		return false, fmt.Errorf("invalid NP chunk token range")
@@ -167,7 +168,7 @@ func nounChunk(
 		}
 		if i < chunk.EndToken && nounStackWord(m.view, sentence, i) {
 			evaluated = true
-			if tag := sentence.Tokens[i].Tag; (tag == "NN" || tag == "NNS") && !predicateToken(sentence, chunk, i, verbs) {
+			if tag := sentence.Tokens[i].Tag; (tag == "NN" || tag == "NNS") && !verbs.matches(sentence, chunk, start, i) {
 				continue
 			}
 		}
@@ -195,22 +196,6 @@ func singularNounModifiers(tokens []document.Token) bool {
 	// NNS also catches finite verbs such as "defines" when the tagger misreads
 	// a clause. Require NN modifiers; allow NNS only for the final noun head.
 	return !slices.ContainsFunc(tokens[:len(tokens)-1], func(token document.Token) bool { return token.Tag == "NNS" })
-}
-
-// predicateToken reports whether token i is a configured verb form in
-// predicate position. Inside the chunk, any listed form ends the run: "vet
-// driver", "require ledger". At the chunk end, the form ends the run only
-// before a preposition, punctuation, or the sentence end: "applies to". A
-// chunk-final form before a verb phrase is the subject head and stays.
-func predicateToken(sentence document.Sentence, chunk document.Chunk, i int, verbs map[string]bool) bool {
-	if !verbs[sentence.Tokens[i].Normal] {
-		return false
-	}
-	if i+1 < chunk.EndToken {
-		return true
-	}
-	return i+1 >= len(sentence.Tokens) ||
-		slices.Contains([]string{"TO", "IN", ".", ",", ":"}, sentence.Tokens[i+1].Tag)
 }
 
 func nounStackWord(view rule.View, sentence document.Sentence, index int) bool {
