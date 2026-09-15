@@ -62,6 +62,10 @@ type entry struct {
 	Summary     string   `json:"summary"`
 	Description string   `json:"description"`
 	Limitations string   `json:"limitations"`
+	// OptInReason is empty for a rule that ships enabled. For one that does
+	// not, it is why, so the page can say it instead of leaving the reader to
+	// guess from a missing checkbox.
+	OptInReason string `json:"opt_in_reason,omitempty"`
 }
 
 func main() {
@@ -155,6 +159,7 @@ func convert(descriptor rule.Descriptor) entry {
 		Summary:     descriptor.Summary,
 		Description: descriptor.Description,
 		Limitations: descriptor.Limitations,
+		OptInReason: descriptor.OptInReason,
 	}
 }
 

@@ -74,7 +74,8 @@
           "cap": 24,
           "summary": "Check whether these repeated opening transitions add information.",
           "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review.",
+          "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. Its list holds openings such as \"with that being said\"."
         },
         {
           "id": "filler.modern-world-opening",
@@ -117,7 +118,8 @@
           "cap": 24,
           "summary": "Replace repeated section announcements with their subject.",
           "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review.",
+          "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. Its list holds openings such as \"in this section, we will\"."
         },
         {
           "id": "filler.stacked-hedging",
@@ -137,7 +139,8 @@
           "cap": 24,
           "summary": "Check whether each hedge expresses a distinct uncertainty; retain needed qualifications.",
           "description": "Counts distinct configured modal/adverb cues in one clause; commas, punctuation, conjunctions, and code end a clause.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. A token boundary is not a dependency parse. Multiple independent uncertainties can be justified."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. A token boundary is not a dependency parse. Multiple independent uncertainties can be justified.",
+          "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It counts hedges stacked inside one sentence."
         },
         {
           "id": "filler.weak-intensifiers",
@@ -157,7 +160,8 @@
           "cap": 24,
           "summary": "Check whether these intensifiers add a measurable distinction.",
           "description": "Counts configured adverbs before adjectives/adverbs per 100 prose words, after the minimum word count.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. POS roles are heuristic. The rule does not require deleting distinctions with technical meaning."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. POS roles are heuristic. The rule does not require deleting distinctions with technical meaning.",
+          "opt_in_reason": "0.019 per thousand words in human prose against 0.007 in the controlled arm."
         },
         {
           "id": "filler.wordy-phrase",
@@ -205,7 +209,8 @@
           "cap": 0,
           "summary": "Em dashes exceed the selected local density; punctuation can be intentional.",
           "description": "Counts U+2014 in selected prose per 100 prose words, with mapped source ranges including encoded Markdown entities.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship.",
+          "opt_in_reason": "Surface measurement. It is the one measure elevated in generated prose, 0.070 per thousand words against 0.001 in human prose, so the strict profile turns it on. Elsewhere it stays opt-in: it reports density, not an error."
         },
         {
           "id": "format.list-fragmentation",
@@ -225,7 +230,8 @@
           "cap": 0,
           "summary": "Several short lists fragment this section; check whether the grouping helps readers.",
           "description": "Counts complete short flat unordered lists in a bounded section window using grammar-derived list ownership.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Ordered/task/nested lists, sentence items, procedure openings, identifiers, and selected reference headings are excluded."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Ordered/task/nested lists, sentence items, procedure openings, identifiers, and selected reference headings are excluded.",
+          "opt_in_reason": "Surface measurement of list shape. No occurrence in 5.6 million measured prose words, human or generated. "
         }
       ]
     },
@@ -250,7 +256,8 @@
           "cap": 0,
           "summary": "Check whether this guarantee has conditions or exceptions.",
           "description": "Matches configured phrases in affirmative prose, excluding questions and explicit qualifications conservatively.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This lexical screen does not determine truth, semantic vagueness, or whether every condition is stated."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This lexical screen does not determine truth, semantic vagueness, or whether every condition is stated.",
+          "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It looks for a guarantee stated without conditions."
         },
         {
           "id": "hype.metaphor-cluster",
@@ -270,7 +277,8 @@
           "cap": 24,
           "summary": "Replace clustered stock metaphors with specific properties.",
           "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review.",
+          "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. Its list holds stock metaphors such as \"rich tapestry of possibilities\"."
         },
         {
           "id": "hype.modifier-cluster",
@@ -313,7 +321,8 @@
           "cap": 24,
           "summary": "Replace general praise with a specific property or measured result.",
           "description": "Matches configured phrases in affirmative prose, excluding questions and explicit qualifications conservatively.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This lexical screen does not determine truth, semantic vagueness, or whether every condition is stated."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This lexical screen does not determine truth, semantic vagueness, or whether every condition is stated.",
+          "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. Its list holds superlatives offered in place of a measured result."
         }
       ]
     },
@@ -366,7 +375,8 @@
           "cap": 0,
           "summary": "The ARI formula exceeds the selected level; consider the audience and keep necessary technical terms.",
           "description": "Applies 4.71*characters/words + 0.5*words/sentences - 21.43 to local extracted prose words, excluding identifier-shaped tokens and counting each part of a hyphenated compound as a word.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Characters are Unicode letters and digits within prose tokens. A token with an inner uppercase letter, a digit, an underscore, a period, or a slash is an identifier and is not counted. No age, comprehension, quality, or authorship is predicted."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Characters are Unicode letters and digits within prose tokens. A token with an inner uppercase letter, a digit, an underscore, a period, or a slash is an identifier and is not counted. No age, comprehension, quality, or authorship is predicted.",
+          "opt_in_reason": "Surface measurement of sentence and word length. It runs at 2.964 per thousand words in the controlled arm against 0.711 in human prose, but it was frozen hypothesis H2 and returned +0.32 points on the confirmation partition at p 0.747. Length is not wording."
         },
         {
           "id": "readability.long-paragraph",
@@ -386,7 +396,8 @@
           "cap": 16,
           "summary": "Consider paragraph boundaries while keeping each condition with the statement it qualifies.",
           "description": "Requires both paragraph length and a configured count of long sentences; reports local descriptive measurements.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Length, lexical diversity, and POS ratios are descriptive; reference material can justify them."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Length, lexical diversity, and POS ratios are descriptive; reference material can justify them.",
+          "opt_in_reason": "0.177 per thousand words in human prose against 0.040 in the controlled arm."
         }
       ]
     },
@@ -433,7 +444,8 @@
           "cap": 12,
           "summary": "The first paragraph closely echoes its heading; check whether it adds information.",
           "description": "Compares a selected heading with its immediately following paragraph using exact set Jaccard.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Short definitions may be useful; code and intervening blocks break adjacency."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Short definitions may be useful; code and intervening blocks break adjacency.",
+          "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It compares a heading against the paragraph below it."
         },
         {
           "id": "repetition.near-sentence",
@@ -476,7 +488,8 @@
           "cap": 24,
           "summary": "This phrase recurs in a short prose window; check whether each use is needed.",
           "description": "Groups repeated consecutive prose n-grams in sentence windows; longer covering phrases take precedence.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Activation counts occurrences; reported coverage uses the prose words between the first and last matching sentence."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Activation counts occurrences; reported coverage uses the prose words between the first and last matching sentence.",
+          "opt_in_reason": "Fires an order of magnitude more on human prose, 0.603 findings per thousand words against 0.056 in the controlled arm. Parallel technical wording is often deliberate."
         },
         {
           "id": "repetition.paragraph-openers",
@@ -519,7 +532,8 @@
           "cap": 36,
           "summary": "These prose blocks have high lexical overlap; check for repeated information.",
           "description": "Builds connected clusters of Jaccard-qualified block pairs through an expiring inverted index.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. The block window bounds each pair, not the complete cluster; not every pair in a connected cluster must qualify."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. The block window bounds each pair, not the complete cluster; not every pair in a connected cluster must qualify.",
+          "opt_in_reason": "0.283 per thousand words in human prose and none in the controlled arm."
         },
         {
           "id": "repetition.sentence-openers",
@@ -561,7 +575,8 @@
           "cap": 24,
           "summary": "This summary has high lexical overlap with preceding prose; check what it adds.",
           "description": "Compares paragraphs under explicitly configured selected summary headings with preceding nonsummary paragraphs.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Summary scope follows grammar-derived heading ancestry. Other titles require configuration; lexical overlap can be intentional."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Summary scope follows grammar-derived heading ancestry. Other titles require configuration; lexical overlap can be intentional.",
+          "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It compares a closing section against the body it summarizes."
         },
         {
           "id": "repetition.syntax-template",
@@ -581,7 +596,8 @@
           "cap": 12,
           "summary": "Several sentences repeat a POS shape; check whether the structure serves the text.",
           "description": "Groups complete normalized POS shapes with at least two lexical realizations; imperative openings and lists are excluded.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. POS grouping is a surface heuristic, not a dependency analysis or a claim that the facts are duplicated."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. POS grouping is a surface heuristic, not a dependency analysis or a claim that the facts are duplicated.",
+          "opt_in_reason": "0.010 per thousand words in human prose and none in the controlled arm."
         }
       ]
     },
@@ -726,7 +742,8 @@
           "cap": 24,
           "summary": "Consider a direct verb while preserving the subject, conditions, and technical meaning.",
           "description": "Matches a configured weak verb, a configured common noun, and an of-complement with a common-noun head.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Inflected verb forms are explicit dictionary entries. Suffixes alone never activate this rule."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Inflected verb forms are explicit dictionary entries. Suffixes alone never activate this rule.",
+          "opt_in_reason": "Effectively silent: 0.001 findings per thousand words in human prose and none in the controlled arm."
         },
         {
           "id": "syntax.not-only-density",
@@ -769,7 +786,8 @@
           "cap": 16,
           "summary": "Review this common-noun sequence; keep established technical terms.",
           "description": "Counts NN modifiers followed by an NN/NNS head within a shallow NP chunk, stopping at terms, identifiers, and configured verb forms in predicate position.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. A shallow NP is not a dependency tree, and a noun sequence can be an appropriate domain term. Interior NNS tags cause abstention: they can be plural modifiers or misclassified finite verbs. The negative modal \"cannot\" breaks a noun run even when tagged NN; other tagging ambiguity remains possible. Configured verb forms are literal words; a form that is also a noun modifier shortens a genuine stack."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. A shallow NP is not a dependency tree, and a noun sequence can be an appropriate domain term. Interior NNS tags cause abstention: they can be plural modifiers or misclassified finite verbs. The negative modal \"cannot\" breaks a noun run even when tagged NN; other tagging ambiguity remains possible. Configured verb forms are literal words; a form that is also a noun modifier shortens a genuine stack.",
+          "opt_in_reason": "Frozen hypothesis H1 of the pattern protocol. Its development estimate of +2.96 points fell to +0.41 on the confirmation partition at p 0.727, so the association did not carry to unseen text."
         },
         {
           "id": "syntax.paired-contrast-density",
@@ -789,7 +807,8 @@
           "cap": 24,
           "summary": "Check whether repeated paired contrasts carry distinct information.",
           "description": "Counts paired contrasts in bounded prose windows: 'rather than' and 'instead of' within a sentence, and adjacent 'It is not about'/'It is about' sentence pairs including contractions.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only the declared structures are recognized; no semantic equivalence is inferred. A single contrast is ordinary English and the window allows two; the rule measures repetition of the shape, not its use."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only the declared structures are recognized; no semantic equivalence is inferred. A single contrast is ordinary English and the window allows two; the rule measures repetition of the shape, not its use.",
+          "opt_in_reason": "A house tic rather than a signal: none in the controlled arm and 0.007 per thousand words in human prose, against 0.161 in one documentation tree. The per-project path is \"corpus propose\", which learns a tree's own over-used constructions."
         },
         {
           "id": "syntax.parenthetical-load",
@@ -809,7 +828,8 @@
           "cap": 16,
           "summary": "Review the load of balanced insertions; retain conditions, qualifications, and necessary definitions.",
           "description": "Measures nonexempt words, pair count, and nesting of balanced parentheses and square brackets within a prose block.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Unbalanced or protected-crossing frames are not matched. Depth is capped at 256 with an explicit error. An insertion below min_insertion_words, such as an issue reference or a license label, contributes to none of the three measurements, including nesting."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Unbalanced or protected-crossing frames are not matched. Depth is capped at 256 with an explicit error. An insertion below min_insertion_words, such as an issue reference or a license label, contributes to none of the three measurements, including nesting.",
+          "opt_in_reason": "Fires more on human prose, 0.499 per thousand words against 0.300 in the controlled arm."
         },
         {
           "id": "syntax.passive-candidate-density",
@@ -829,7 +849,8 @@
           "cap": 12,
           "summary": "Several sentences contain be-plus-participle candidates; review voice only where the meaning allows it.",
           "description": "Counts sentences containing a be verb, up to four adverbs, and VBN in bounded contiguous prose windows.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. The same POS shape can describe a state. This rule is not syntax.passive-density and does not establish grammatical voice."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. The same POS shape can describe a state. This rule is not syntax.passive-density and does not establish grammatical voice.",
+          "opt_in_reason": "Names candidates without a dependency parse, and says so in its own limitations. It runs at 1.953 per thousand words in the controlled arm against 1.112 in human prose."
         },
         {
           "id": "syntax.rhetorical-question-density",
@@ -849,7 +870,8 @@
           "cap": 24,
           "summary": "Check repeated question-and-short-answer transitions.",
           "description": "Counts configured complete questions followed in the same block by a short nonquestion answer.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Arbitrary questions are not classified. Numeric/code answers are excluded; disable for FAQ paths."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Arbitrary questions are not classified. Numeric/code answers are excluded; disable for FAQ paths.",
+          "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It counts questions a paragraph asks and answers itself."
         },
         {
           "id": "syntax.triad-density",
@@ -869,7 +891,8 @@
           "cap": 24,
           "summary": "Check repeated triads of evaluative modifiers against specific properties.",
           "description": "Counts three-item lists from the evaluative dictionary with at least two adjective tags; one triad is allowed.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. One noun tag is tolerated for an ambiguous modifier. This is a POS/dictionary heuristic, not a dependency parse."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. One noun tag is tolerated for an ambiguous modifier. This is a POS/dictionary heuristic, not a dependency parse.",
+          "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It counts three-item lists used as a rhythm device."
         },
         {
           "id": "syntax.whether-preface-density",
@@ -889,7 +912,8 @@
           "cap": 24,
           "summary": "Reduce repeated whether-you prefaces while preserving alternatives.",
           "description": "Counts whether-you-are prefaces containing 'or' before a comma within 32 tokens; one occurrence is allowed.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Recognizes one opening template, not arbitrary conditional clauses."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Recognizes one opening template, not arbitrary conditional clauses.",
+          "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It counts prefaces of the form \"whether or not X\"."
         }
       ]
     }
