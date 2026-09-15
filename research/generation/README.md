@@ -22,7 +22,8 @@ corpus generations --tasks tasks.json --requests requests.json \
   --output artifacts/acquisition/controlled/shards \
   --historical artifacts/acquisition/historical/records
 bash scripts/measure-corpus.sh
-corpus paired --records records.json --tasks tasks.json \
+corpus paired --plan artifacts/measurement/dataset-plan.json \
+  --records records.json --tasks tasks.json \
   --classes research/methods/rule-classes-v1.json --findings ... > paired.json
 ```
 
@@ -46,6 +47,11 @@ extractor reads that declaration into a fact sheet: the signature, its
 identifiers, its parameter list, and the numbers the original states. The
 sheet copies no sentence. The task set records each stratum's eligible and
 selected counts.
+
+Task groups come from the global dataset plan. `--min-groups N` requires the
+selected tasks to span at least N such groups; it fails before requests are
+generated when the draw is too narrow. It never changes the seed or resamples
+to pass. The task set records the requested minimum and selected group count.
 
 ## Requests
 
@@ -92,8 +98,16 @@ responses stay in the record as coverage and produce no source.
 `corpus paired` builds the E2 tables. For each rule and each arm it reports
 the share of originals with a finding, the share of responses with one, and
 the paired change between them. The interval is a joint cluster bootstrap
-over provenance components. Each arm also reports its difference from the
-H0 documents of the same role.
+over global provenance components from the required dataset plan. The same
+binding groups originals, their derivatives, and H0 documents. Archived task
+files and individual finding shards can carry older local group IDs; these
+are not used for resampling. Unknown source IDs and a derivative assigned to
+a different global component fail the command. Each arm also reports its
+difference from the H0 documents of the same role. Output version 2 records
+the dataset identity; earlier version 1 intervals require recomputation.
+The [September 15 replay](../methods/grouping/2026-09-15/README.md) preserves
+the before/after results for all 20 existing runs. The frozen screening used
+global groups already and is unchanged.
 
 ## Runs
 

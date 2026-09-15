@@ -12,7 +12,7 @@ import (
 )
 
 // PairedVersion identifies the E2 paired tables.
-const PairedVersion = "unswell-paired-tables-v1"
+const PairedVersion = "unswell-paired-tables-v2"
 
 // Arm is one operation under one prompt of a run.
 type Arm struct {
@@ -61,6 +61,7 @@ type PairedRule struct {
 // response carries the rule minus the share whose original does.
 type Paired struct {
 	Version     string                `json:"version"`
+	Dataset     string                `json:"dataset_sha256"`
 	HumanCorpus string                `json:"human_corpus"`
 	Run         string                `json:"run"`
 	Family      string                `json:"family"`
@@ -88,24 +89,26 @@ type pairedFrame struct {
 	coverage   map[Arm]*ArmCoverage
 	h0         []map[string]int
 	h0Groups   []int
+	groups     map[string]string
 }
 
 // AnalyzePaired joins a run's generation records with the finding artifacts
 // of the originals and the responses. Originals are the tasks' units in the
 // historical cohort; responses are the controlled documents the records
 // name. H0 documents of the tasks' role give the difference estimand.
-func AnalyzePaired(ctx context.Context, records generation.Generation, tasks generation.Tasks,
+func AnalyzePaired(ctx context.Context, plan corpus.DatasetPlan, records generation.Generation, tasks generation.Tasks,
 	inputs []corpus.FindingsArtifact, classes corpus.RuleClasses,
 ) (Paired, error) {
 	if err := checkPaired(tasks, inputs, classes); err != nil {
 		return Paired{}, err
 	}
 	role := tasks.Tasks[0].Role
-	frame, meta, err := buildPairedFrame(ctx, records, tasks, inputs, role)
+	frame, meta, err := buildPairedFrame(ctx, plan, records, tasks, inputs, role)
 	if err != nil {
 		return Paired{}, err
 	}
-	result := Paired{Version: PairedVersion, HumanCorpus: "not_qualified", Run: records.Run, Family: records.Family,
+	result := Paired{Version: PairedVersion, Dataset: plan.DatasetSHA256, HumanCorpus: "not_qualified",
+		Run: records.Run, Family: records.Family,
 		Model: records.Model, Role: role, Policy: inputs[0].Policy,
 		Classes: fmt.Sprintf("%s revision %d", classes.Format, classes.Revision), Inputs: meta, H0Cohort: tasks.Cohort}
 	for _, arm := range frame.armOrder() {
@@ -133,17 +136,21 @@ func checkPaired(tasks generation.Tasks, inputs []corpus.FindingsArtifact, class
 	return classes.Cover(inputs[0].Policy.Rules)
 }
 
-func buildPairedFrame(ctx context.Context, records generation.Generation, tasks generation.Tasks,
+func buildPairedFrame(ctx context.Context, plan corpus.DatasetPlan, records generation.Generation, tasks generation.Tasks,
 	inputs []corpus.FindingsArtifact, role string,
 ) (*pairedFrame, []Input, error) {
 	frame := &pairedFrame{byGroup: map[string]int{}, arms: map[Arm][]pair{}, coverage: map[Arm]*ArmCoverage{}}
+	groups, err := pairedGroups(plan, tasks, inputs)
+	if err != nil {
+		return nil, nil, err
+	}
+	frame.groups = groups
 	byTask := map[string]generation.Task{}
 	for _, task := range tasks.Tasks {
 		byTask[task.ID] = task
 	}
 	originals := map[string]map[string]int{}
 	responses := map[string]map[string]int{}
-	responseGroups := map[string]string{}
 	meta := []Input{}
 	for _, input := range inputs {
 		if err := ctx.Err(); err != nil {
@@ -153,7 +160,7 @@ func buildPairedFrame(ctx context.Context, records generation.Generation, tasks 
 			return nil, nil, err
 		}
 		meta = append(meta, Input{SHA256: input.SHA256, Documents: len(input.Documents), Units: len(input.Units)})
-		frame.collect(input, tasks.Cohort, role, originals, responses, responseGroups)
+		frame.collect(input, tasks.Cohort, role, originals, responses)
 	}
 	for _, record := range records.Records {
 		if err := frame.pairRecord(records.Run, record, byTask, originals, responses); err != nil {
@@ -187,15 +194,19 @@ func (f *pairedFrame) pairRecord(run string, record generation.Record, byTask ma
 		return fmt.Errorf("record %s names task %s outside the task set", record.ResponseID, record.TaskID)
 	}
 	original, measured := originals[task.SourceID+"#"+task.UnitID]
-	response, present := responses[generation.ControlledID(run, task.Repository, generation.ResponsePath(run, record.ResponseID))]
+	responseID := generation.ControlledID(run, task.Repository, generation.ResponsePath(run, record.ResponseID))
+	response, present := responses[responseID]
 	switch {
 	case !present:
 		coverage.MissingResponses++
 	case !measured:
 		coverage.UnmeasuredOriginals++
 	default:
+		if f.groups[task.SourceID] != f.groups[responseID] {
+			return fmt.Errorf("task %s and response %s belong to different global groups", task.ID, record.ResponseID)
+		}
 		coverage.Measured++
-		f.arms[arm] = append(f.arms[arm], pair{component: f.component(task.GroupID), original: original, response: response})
+		f.arms[arm] = append(f.arms[arm], pair{component: f.component(f.groups[task.SourceID]), original: original, response: response})
 	}
 	return nil
 }
@@ -204,9 +215,7 @@ func (f *pairedFrame) pairRecord(run string, record generation.Record, byTask ma
 // findings by source ID, and the H0 documents of the role. Two runs that
 // answer the same task write the same response path, so the path alone
 // cannot name this run's response.
-func (f *pairedFrame) collect(input corpus.FindingsArtifact, h0 string, role string, originals, responses map[string]map[string]int,
-	responseGroups map[string]string,
-) {
+func (f *pairedFrame) collect(input corpus.FindingsArtifact, h0 string, role string, originals, responses map[string]map[string]int) {
 	for _, unit := range input.Units {
 		if unit.Cohort == h0 && !unit.Unmeasured {
 			originals[unit.SourceID+"#"+unit.UnitID] = ruleCounts(unit)
@@ -219,10 +228,9 @@ func (f *pairedFrame) collect(input corpus.FindingsArtifact, h0 string, role str
 		switch {
 		case doc.Cohort == "controlled" && strings.HasPrefix(doc.Path, "generated/"):
 			responses[doc.SourceID] = doc.ByRule
-			responseGroups[doc.SourceID] = doc.GroupID
 		case doc.Cohort == h0 && doc.Role == role:
 			f.h0 = append(f.h0, doc.ByRule)
-			f.h0Groups = append(f.h0Groups, f.component(doc.GroupID))
+			f.h0Groups = append(f.h0Groups, f.component(f.groups[doc.SourceID]))
 		}
 	}
 }

@@ -15,12 +15,16 @@ import (
 // records, its tasks, the rule classes, and the finding artifacts of the
 // originals and the responses.
 type pairedOptions struct {
-	records, tasks, classes string
-	findings                []string
+	records, tasks, classes, plan string
+	findings                      []string
 }
 
 func runPaired(ctx context.Context, args []string, _ io.Reader, output io.Writer) error {
 	options, err := pairedFlags(args[1:])
+	if err != nil {
+		return err
+	}
+	plan, err := loadPlanFile(ctx, options.plan)
 	if err != nil {
 		return err
 	}
@@ -40,7 +44,7 @@ func runPaired(ctx context.Context, args []string, _ io.Reader, output io.Writer
 	if err != nil {
 		return err
 	}
-	tables, err := patterns.AnalyzePaired(ctx, records, tasks, inputs, classes)
+	tables, err := patterns.AnalyzePaired(ctx, plan, records, tasks, inputs, classes)
 	if err != nil {
 		return err
 	}
@@ -70,6 +74,7 @@ func pairedFlags(args []string) (pairedOptions, error) {
 	var options pairedOptions
 	flags := flag.NewFlagSet("corpus paired", flag.ContinueOnError)
 	flags.SetOutput(io.Discard)
+	flags.StringVar(&options.plan, "plan", "", "Global dataset plan binding sources to provenance groups")
 	flags.StringVar(&options.records, "records", "", "Generation record of the run")
 	flags.StringVar(&options.tasks, "tasks", "", "Sampled task set of the run")
 	flags.StringVar(&options.classes, "classes", "", "Committed rule-class file")
@@ -80,9 +85,10 @@ func pairedFlags(args []string) (pairedOptions, error) {
 	if err := flags.Parse(args); err != nil {
 		return pairedOptions{}, err
 	}
-	if flags.NArg() != 0 || options.records == "" || options.tasks == "" || options.classes == "" || len(options.findings) == 0 ||
-		len(options.findings) > patterns.MaxInputs {
-		return pairedOptions{}, fmt.Errorf("paired requires --records, --tasks, --classes, and 1 through %d --findings", patterns.MaxInputs)
+	if flags.NArg() != 0 || options.plan == "" || options.records == "" || options.tasks == "" || options.classes == "" ||
+		len(options.findings) == 0 || len(options.findings) > patterns.MaxInputs {
+		return pairedOptions{}, fmt.Errorf("paired requires --plan, --records, --tasks, --classes, and 1 through %d --findings",
+			patterns.MaxInputs)
 	}
 	return options, nil
 }

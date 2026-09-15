@@ -58,10 +58,66 @@ func pairedFixture() (generation.Generation, generation.Tasks, corpus.FindingsAr
 	return records, tasks, art
 }
 
+func pairedPlan(artifact corpus.FindingsArtifact) corpus.DatasetPlan {
+	plan := corpus.DatasetPlan{Version: corpus.DatasetVersion}
+	for _, doc := range artifact.Documents {
+		plan.Sources = append(plan.Sources, corpus.DatasetSource{ID: doc.SourceID, Group: doc.GroupID, Partition: "training"})
+	}
+	return plan
+}
+
+func TestPairedAnalysisUsesGlobalGroupsOnBothSides(t *testing.T) {
+	c := qt.New(t)
+	records, tasks, art := pairedFixture()
+	plan := pairedPlan(art)
+	for i := range plan.Sources {
+		plan.Sources[i].Group = "one-global-component"
+	}
+	tables, err := patterns.AnalyzePaired(t.Context(), plan, records, tasks, []corpus.FindingsArtifact{art}, classes())
+	c.Assert(err, qt.IsNil)
+	c.Assert(tables.Arms[0].Components, qt.Equals, 1)
+	c.Assert(tables.Rules[0].Arms[0].PairedChange.Status, qt.Equals, "fewer_than_two_components")
+	c.Assert(tables.Rules[0].H0Prevalence.Status, qt.Equals, "fewer_than_two_components")
+	// Neither changing archived task groups nor shard groups may change the
+	// bootstrap when the global provenance binding remains the same.
+	for i := range tasks.Tasks {
+		tasks.Tasks[i].GroupID = "stale-task-group"
+	}
+	for i := range art.Documents {
+		art.Documents[i].GroupID = "stale-shard-group"
+	}
+	again, err := patterns.AnalyzePaired(t.Context(), plan, records, tasks, []corpus.FindingsArtifact{art}, classes())
+	c.Assert(err, qt.IsNil)
+	c.Assert(again, qt.DeepEquals, tables)
+}
+
+func TestPairedAnalysisRejectsUnboundOrContradictoryGroups(t *testing.T) {
+	for _, row := range []struct {
+		name string
+		edit func(*corpus.DatasetPlan)
+	}{
+		{"unsupported plan", func(p *corpus.DatasetPlan) { p.Version = "other" }},
+		{"missing original", func(p *corpus.DatasetPlan) { p.Sources = p.Sources[1:] }},
+		{"missing response", func(p *corpus.DatasetPlan) { p.Sources = p.Sources[:4] }},
+		{"missing group", func(p *corpus.DatasetPlan) { p.Sources[0].Group = "" }},
+		{"duplicate source", func(p *corpus.DatasetPlan) { p.Sources = append(p.Sources, p.Sources[0]) }},
+		{"split derivative", func(p *corpus.DatasetPlan) { p.Sources[4].Group = "unrelated" }},
+	} {
+		t.Run(row.name, func(t *testing.T) {
+			c := qt.New(t)
+			records, tasks, art := pairedFixture()
+			plan := pairedPlan(art)
+			row.edit(&plan)
+			_, err := patterns.AnalyzePaired(t.Context(), plan, records, tasks, []corpus.FindingsArtifact{art}, classes())
+			c.Assert(err, qt.IsNotNil)
+		})
+	}
+}
+
 func TestPairedTablesReportChangesPerArm(t *testing.T) {
 	c := qt.New(t)
 	records, tasks, art := pairedFixture()
-	tables, err := patterns.AnalyzePaired(t.Context(), records, tasks, []corpus.FindingsArtifact{art}, classes())
+	tables, err := patterns.AnalyzePaired(t.Context(), pairedPlan(art), records, tasks, []corpus.FindingsArtifact{art}, classes())
 	c.Assert(err, qt.IsNil)
 	c.Assert(tables.Version, qt.Equals, patterns.PairedVersion)
 	c.Assert(tables.Role, qt.Equals, "comment")
@@ -84,7 +140,7 @@ func TestPairedTablesReportChangesPerArm(t *testing.T) {
 	// A class that admits comments sees the a.rule changes.
 	admitting := classes()
 	admitting.Rules[0].Roles = []string{"comment"}
-	tables, err = patterns.AnalyzePaired(t.Context(), records, tasks, []corpus.FindingsArtifact{art}, admitting)
+	tables, err = patterns.AnalyzePaired(t.Context(), pairedPlan(art), records, tasks, []corpus.FindingsArtifact{art}, admitting)
 	c.Assert(err, qt.IsNil)
 	a := tables.Rules[0]
 	c.Assert(a.RuleID, qt.Equals, "a.rule")
@@ -102,11 +158,11 @@ func TestPairedTablesReportChangesPerArm(t *testing.T) {
 	broken := records
 	broken.Records = append([]generation.Record(nil), records.Records...)
 	broken.Records[0].TaskID = "t9"
-	_, err = patterns.AnalyzePaired(t.Context(), broken, tasks, []corpus.FindingsArtifact{art}, classes())
+	_, err = patterns.AnalyzePaired(t.Context(), pairedPlan(art), broken, tasks, []corpus.FindingsArtifact{art}, classes())
 	c.Assert(err, qt.IsNotNil)
 	partial := art
 	partial.Documents = art.Documents[:5]
-	tables, err = patterns.AnalyzePaired(t.Context(), records, tasks, []corpus.FindingsArtifact{partial}, classes())
+	tables, err = patterns.AnalyzePaired(t.Context(), pairedPlan(art), records, tasks, []corpus.FindingsArtifact{partial}, classes())
 	c.Assert(err, qt.IsNil)
 	c.Assert(tables.Arms[0].MissingResponses, qt.Equals, 1)
 }
