@@ -39,8 +39,32 @@ The accessible `port.2` annotated tag resolves to
 [`e2766da9ab71ffc55a5967a76a474046a96402bc`](https://github.com/bioshock/gospacy/commit/e2766da9ab71ffc55a5967a76a474046a96402bc),
 which matches its Go module metadata. Its module checksum is
 `h1:F99ppWpbkBV08dQmgskrqOHtAqzAA2Ly90558GeQLUc=`.
-Dependabot ignores only `3.8.14-port.6`; other versions remain eligible for review.
-Reconsider that version when matching upstream source becomes accessible.
+
+PR [#277](https://github.com/stokaro/unswell/pull/277) attempted `port.5` after
+`port.6` was excluded. Its CI failed to compile the probe on Linux, macOS, and
+Windows: the module lacks `Bundle.PipeWith` and `bundle.PipeOptions`, which the
+probe uses to skip NER and lemmatization. The probe remains on `port.2`.
+
+On September 15, 2026, the upstream tag list contained only `port.1` and `port.2`.
+The Go proxy still listed the following versions, but GitHub returned 422 for
+each proxy-reported commit:
+
+| Version | Proxy-reported commit |
+| --- | --- |
+| `v3.8.14-port.3` | `d1e91aa9afb19bf04b4a42d4633664ae5428948b` |
+| `v3.8.14-port.4` | `c03021bd9d1614ae64ba292756c0b7ffcb8505e0` |
+| `v3.8.14-port.5` | `d8ab4ec25b241aa9c5fdec1a9f42cdec22dbb7cc` |
+
+The table uses each version's `.info` record from the
+[Go module proxy](https://proxy.golang.org/github.com/bioshock/gospacy/v3/@v/list).
+A listed hash does not prove that the source is available or that the code works
+with the probe.
+
+Dependabot skips exactly `3.8.14-port.3`, `3.8.14-port.4`, `3.8.14-port.5`, and
+`3.8.14-port.6`. Other versions remain eligible for review.
+
+Reconsider an excluded version when its source is accessible and the probe passes
+its build and behavior checks.
 
 The committed observations, reference results, resource measurements, and
 candidate records below still describe the original September 8 `port.2` run.
