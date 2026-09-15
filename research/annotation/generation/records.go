@@ -55,11 +55,12 @@ type Message struct {
 
 // Comparability reports which facts of the sheet the response carries.
 type Comparability struct {
-	IdentifiersCovered int  `json:"identifiers_covered"`
-	IdentifiersTotal   int  `json:"identifiers_total"`
-	NumbersCovered     int  `json:"numbers_covered"`
-	NumbersTotal       int  `json:"numbers_total"`
-	SignaturePresent   bool `json:"signature_present"`
+	Status             string `json:"status,omitempty"`
+	IdentifiersCovered int    `json:"identifiers_covered"`
+	IdentifiersTotal   int    `json:"identifiers_total"`
+	NumbersCovered     int    `json:"numbers_covered"`
+	NumbersTotal       int    `json:"numbers_total"`
+	SignaturePresent   bool   `json:"signature_present"`
 }
 
 // Record is one saved generation with everything the protocol asks for. A
@@ -236,6 +237,9 @@ func buildRecord(request Request, task Task, prompt PromptCondition, run Respons
 	record.Overlap = overlap(text, task.Text)
 	record.OverlapHigh = record.Overlap > overlapThreshold
 	record.Comparability = comparability(text, task.FactSheet)
+	if task.Brief != nil {
+		record.Comparability = Comparability{Status: "document_facts_require_review"}
+	}
 	return record
 }
 

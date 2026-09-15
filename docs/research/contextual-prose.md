@@ -79,15 +79,25 @@ quality. Necessary technical contrasts remain legitimate; the note asks for revi
 The [run record](../../research/reviews/2026-09-15-contextual/README.md) contains
 source selection, saved summary artifacts, and reproduction commands.
 
-## Remaining research acceptance
+## Complete-document study
 
-The earlier long-generation runs sampled declaration comments. Only four controlled
-outputs in the measured corpus exceed 399 words. They cannot establish behavior on
-complete documentation, rationale, release notes, and multi-paragraph instructions.
-The existing frozen confirmation also has 16 provenance components against its
-minimum of 20. Its two hypotheses remain inconclusive.
+The [version 3 study](../../research/generation/studies/long-prose-v3/README.md)
+now supplies the longer-prose experiment: 38 whole documents from 20 fresh
+repositories, three model families, and four operations/prompt arms. All 456
+requests have a saved outcome; 455 are complete and one Qwen response is truncated.
+Every measured arm retains 20 global components. The original freeze and the
+dispatch-reservation amendment are both retained.
 
-Issues #218 and #154 still require the declared longer-prose experiment and valid
-confirmatory acceptance. This development evaluation does not change their frozen
-minimums, supply human editorial labels, or turn the old confirmation into an
-unused holdout. Human qualification remains separate from construction research.
+The [results](../../research/generation/studies/long-prose-v3/results.md) include
+all 12 primary comparisons, uncertainty, applicability, length sensitivity,
+context opportunities, ablations, and all 40 rule dispositions. Only ARI meets
+the frozen cross-family association criterion, and it exceeds the historical
+review-load budget. The other three primary constructions do not establish that
+association. These outcomes do not qualify a blocking default.
+
+The older confirmation remains underpowered at 16 components. This development
+sample and Ptah remain exposed data; neither becomes a fresh holdout. The new
+[construction review](../../research/generation/studies/long-prose-v3/inspection.md)
+and offline fixtures preserve removable prefaces and nominalizations alongside
+necessary contrasts, repeated terms, and tagging counterexamples. Human quality
+qualification remains separate in #22/#26.

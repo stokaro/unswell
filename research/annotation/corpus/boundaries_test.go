@@ -232,4 +232,12 @@ func TestSnapshotCohortsReachCandidates(t *testing.T) {
 	}
 	c.Assert(cohorts, qt.DeepEquals, map[string]string{"d0": "", "d1": "controlled"})
 	c.Assert(a.Plan.Manifest.Sources[0].Snapshot, qt.IsNil)
+	// A recorded edit does not establish that its original was human. The
+	// controlled cohort records the workflow while origin remains unknown.
+	m.Sources[1].Origin.Label = "unknown"
+	_, err = corpus.MakePlan(t.Context(), m)
+	c.Assert(err, qt.IsNil)
+	m.Sources[1].Origin.GenerationRecord = ""
+	_, err = corpus.MakePlan(t.Context(), m)
+	c.Assert(err, qt.ErrorMatches, ".*controlled cohort membership requires a generation record.*")
 }

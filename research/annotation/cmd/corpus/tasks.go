@@ -25,7 +25,9 @@ type tasksOptions struct {
 	roles      string
 	count      int
 	minWords   int
+	maxWords   int
 	minGroups  int
+	briefs     string
 	seed       string
 	protocol   string
 	candidates []string
@@ -53,7 +55,8 @@ func runTasks(ctx context.Context, args []string, _ io.Reader, output io.Writer)
 	}
 	sampler, err := generation.NewSampler(generation.Options{Protocol: options.protocol, Seed: options.seed,
 		Cohort: options.cohort, Partitions: strings.Split(options.partitions, ","), Roles: strings.Split(options.roles, ","),
-		Count: options.count, MinWords: options.minWords, MinGroups: options.minGroups, Ecosystems: ecosystems, Excluded: excluded}, plan)
+		Count: options.count, MinWords: options.minWords, MaxWords: options.maxWords, MinGroups: options.minGroups,
+		Ecosystems: ecosystems, Excluded: excluded}, plan)
 	if err != nil {
 		return err
 	}
@@ -91,7 +94,7 @@ func addTaskCandidates(ctx context.Context, sampler *generation.Sampler, path st
 	read := func(name string) ([]byte, error) {
 		return readLocalRootFile(root, filepath.FromSlash(name), corpus.MaxSourceBytes, "checkout file")
 	}
-	addErr := sampler.Add(ctx, artifact, read)
+	addErr := addSelectedTasks(ctx, sampler, artifact, read, options.briefs)
 	closeErr := root.Close()
 	if addErr != nil {
 		return fmt.Errorf("%s: %w", path, addErr)
@@ -149,6 +152,8 @@ func tasksFlags(args []string) (tasksOptions, error) {
 	flags.IntVar(&options.count, "count", 0, "Number of tasks to draw")
 	flags.IntVar(&options.minWords, "min-words", generation.MinWords,
 		"Shortest eligible unit in words; the built-in floor when lower")
+	flags.IntVar(&options.maxWords, "max-words", 0, "Longest eligible unit in words; zero leaves it unrestricted")
+	flags.StringVar(&options.briefs, "briefs", "", "Source-bound document briefs; when set, sample complete documents instead of comments")
 	flags.IntVar(&options.minGroups, "min-groups", 0, "Required global provenance groups in the selected tasks; zero leaves it unrestricted")
 	flags.StringVar(&options.seed, "seed", "", "Sampling seed")
 	flags.StringVar(&options.protocol, "protocol", "unswell-llm-patterns-v1", "Protocol the tasks serve")

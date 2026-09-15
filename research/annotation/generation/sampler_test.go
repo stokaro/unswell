@@ -83,6 +83,37 @@ func TestSamplerDrawsStratifiedDeterministicTasks(t *testing.T) {
 	c.Assert(other.Tasks, qt.Not(qt.DeepEquals), tasks.Tasks)
 }
 
+func TestSamplerFillsCapacityAfterSmallStrataAreCapped(t *testing.T) {
+	for _, count := range []int{8, 10, 11} {
+		t.Run(fmt.Sprint(count), func(t *testing.T) {
+			c := qt.New(t)
+			ids, ecosystems := map[string]string{}, map[string]string{}
+			var artifacts []corpus.Artifact
+			var readers []generation.Reader
+			for i, size := range []int{1, 1, 1, 8} {
+				repo := fmt.Sprintf("org/repo%d", i)
+				artifact, files := fixtureArtifact("historical", size, repo)
+				artifacts = append(artifacts, artifact)
+				readers = append(readers, func(path string) ([]byte, error) { return files[path], nil })
+				ecosystems[repo] = repo
+				for _, unit := range artifact.Units {
+					ids[unit.SourceID] = "training"
+				}
+			}
+			sampler, err := generation.NewSampler(generation.Options{Protocol: "p", Seed: "s", Cohort: "historical",
+				Partitions: []string{"training"}, Roles: []string{"comment"}, Count: count, Ecosystems: ecosystems}, plan(ids))
+			c.Assert(err, qt.IsNil)
+			for i, artifact := range artifacts {
+				c.Assert(sampler.Add(t.Context(), artifact, readers[i]), qt.IsNil)
+			}
+			tasks, err := sampler.Sample()
+			c.Assert(err, qt.IsNil)
+			c.Assert(tasks.Tasks, qt.HasLen, count)
+			c.Assert(tasks.Strata[3].Selected, qt.Equals, count-3)
+		})
+	}
+}
+
 func TestSamplerRefusesBadOptionsAndEmptyPools(t *testing.T) {
 	c := qt.New(t)
 	art, files := fixtureArtifact("contemporary", 2, "org/go-lib")

@@ -10,6 +10,10 @@ The pattern branch of the research has its own protocol in
 [`llm-patterns-v2.md`](llm-patterns-v2.md) and its evidence release beside it:
 a [data card](data-card-v1.md) for the corpus and a
 [report](../report-v1.md) for the results, including the nulls.
+The [version 3 protocol](llm-patterns-v3.md) and
+[complete-document study](../generation/studies/long-prose-v3/README.md) add a fresh
+20-repository comparison, saved model outputs, contextual measurements, and an
+offline replay. The prior studies retain their original data and conclusions.
 
 [`registry-v1.json`](registry-v1.json) uses format `unswell-method-registry-v1`.
 Its `revision` increases when an observation or decision changes; a shape or

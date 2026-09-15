@@ -80,18 +80,16 @@ func ParsePrompt(id, file string, data []byte) (PromptCondition, error) {
 // material of generate is the fact sheet; the material of polish is the
 // original text. The requested length is the original's word count.
 func BuildRequests(run string, tasks Tasks, tasksSHA256 string, prompts []PromptCondition, operations []string) (Requests, error) {
-	if run == "" || len(prompts) == 0 || len(operations) == 0 || len(tasks.Tasks) == 0 {
-		return Requests{}, fmt.Errorf("requests need a run, prompts, operations, and tasks")
-	}
-	for _, operation := range operations {
-		if _, known := openingLines[operation]; !known {
-			return Requests{}, fmt.Errorf("unknown operation %q", operation)
-		}
+	if err := validateRequestInputs(run, tasks, prompts, operations); err != nil {
+		return Requests{}, err
 	}
 	result := Requests{Version: RequestsVersion, Protocol: tasks.Protocol, Run: run, TasksSHA256: tasksSHA256,
 		Delivery: "single-message", Harness: HarnessInstruction, Prompts: prompts, Operations: slices.Clone(operations),
 		Requests: []Request{}}
 	for _, task := range tasks.Tasks {
+		if err := validateDocumentTask(task); err != nil {
+			return Requests{}, err
+		}
 		for _, operation := range operations {
 			for _, prompt := range prompts {
 				result.Requests = append(result.Requests, buildRequest(task, operation, prompt))
@@ -101,8 +99,23 @@ func BuildRequests(run string, tasks Tasks, tasksSHA256 string, prompts []Prompt
 	return result, nil
 }
 
+func validateRequestInputs(run string, tasks Tasks, prompts []PromptCondition, operations []string) error {
+	if run == "" || len(prompts) == 0 || len(operations) == 0 || len(tasks.Tasks) == 0 {
+		return fmt.Errorf("requests need a run, prompts, operations, and tasks")
+	}
+	for _, operation := range operations {
+		if _, known := openingLines[operation]; !known {
+			return fmt.Errorf("unknown operation %q", operation)
+		}
+	}
+	return nil
+}
+
 func buildRequest(task Task, operation string, prompt PromptCondition) Request {
 	material := task.FactSheet.Text()
+	if task.Brief != nil {
+		material = task.Brief.Text()
+	}
 	if operation == "polish" {
 		material = task.Text
 	}

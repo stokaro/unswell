@@ -101,8 +101,10 @@ published release or archive agrees with the version-control date, `vcs_only`
 when only version-control metadata exists, and `unknown` otherwise. Only an
 unknown confidence permits an empty date. `cohort` is `historical`,
 `controlled`, `natural`, or `contemporary`. A historical source
-needs a dated snapshot, and a controlled source needs generated or edited
-origin with its generation record. Candidates repeat the cohort of their
+needs a dated snapshot, and a controlled source needs a generation record.
+Editing a source of unknown origin preserves `unknown`; it does not establish
+human authorship. A controlled output cannot claim unedited human origin.
+Candidates repeat the cohort of their
 source; a source without a snapshot yields candidates with an empty cohort and
 enters no temporal analysis. A snapshot dates bytes and says nothing about
 authorship or quality.
