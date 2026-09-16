@@ -221,6 +221,30 @@
       "rule": "filler.document-metadiscourse",
       "before": "This guide explains retry behavior in the client after a timeout.",
       "after": "For retry behavior in the client after a timeout, see this guide."
+    },
+    {
+      "rule": "filler.document-justification",
+      "format": "markdown",
+      "before": "[Ptah Operator](https://github.com/stokaro/ptah-operator) is a Kubernetes\ncontrol plane that converges a database on a desired schema published as an OCI\nartifact. It is a separate project with its own repository, releases, and\nsupport matrix; this page exists so the operator is reachable from here and so\nits boundary is stated where a reader decides.",
+      "after": "[Ptah Operator](https://github.com/stokaro/ptah-operator) is a Kubernetes\ncontrol plane that converges a database on a desired schema published as an OCI\nartifact. It is a separate project with its own repository, releases, and\nsupport matrix."
+    },
+    {
+      "rule": "filler.evaluative-closure",
+      "format": "markdown",
+      "before": "A scoped description is also a replayable one, which is the point of scoping it\nat all. Feed `ptah-compat schema inspect` output straight back in against a\nclean sibling database on the same server and it materializes at exit 0, and\nthe document that comes back is the one that went in. The roles a scoped\ndescription names are precisely the roles the server already has — they hold\nprivileges on the inspected tables — so the dev database is not given them\nagain; they are left exactly as the server has them, never altered, and named\non standard error. A role the server does **not** have is still created there,\nso the same document also materializes on a server that has never seen it.",
+      "after": "A scoped description is also a replayable one. Feed `ptah-compat schema inspect` output straight back in against a\nclean sibling database on the same server and it materializes at exit 0, and\nthe document that comes back is the one that went in. The roles a scoped\ndescription names are precisely the roles the server already has — they hold\nprivileges on the inspected tables — so the dev database is not given them\nagain; they are left exactly as the server has them, never altered, and named\non standard error. A role the server does **not** have is still created there,\nso the same document also materializes on a server that has never seen it."
+    },
+    {
+      "rule": "repetition.definition-echo",
+      "format": "markdown",
+      "before": "The default is a default, not a fallback. Every layer that names a directory\noutranks it — `--dir`, `PTAH_DIR`, `PTAH_MIGRATIONS_DIR`, and `atlas.hcl`\n`migration.dir` — and a `--dir` naming a directory that is not there fails\nrather than quietly reading `./migrations`:",
+      "after": "An invalid explicit directory fails; the default applies only when no layer specifies a directory. Every layer that names a directory\noutranks it — `--dir`, `PTAH_DIR`, `PTAH_MIGRATIONS_DIR`, and `atlas.hcl`\n`migration.dir` — and a `--dir` naming a directory that is not there fails\nrather than quietly reading `./migrations`:"
+    },
+    {
+      "rule": "syntax.slogan-contrast",
+      "format": "markdown",
+      "before": "So Ptah checks, rather than trusts. After taking the lock it asks a second\nconnection for the same one; if that succeeds, the lock excludes nothing and the\ncommand refuses before it changes anything:",
+      "after": "After taking the lock, Ptah asks a second\nconnection for the same one; if that succeeds, the lock excludes nothing and the\ncommand refuses before it changes anything:"
     }
   ]
 }

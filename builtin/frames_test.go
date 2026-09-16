@@ -3,6 +3,7 @@ package builtin_test
 import (
 	"context"
 	"errors"
+	"slices"
 	"testing"
 
 	qt "github.com/frankban/quicktest"
@@ -16,7 +17,8 @@ import (
 func TestFrameRulesPropagateObservationCancellationAndBudget(t *testing.T) {
 	for _, implementation := range builtin.Rules() {
 		id := implementation.Descriptor().ID
-		if id != "syntax.repeated-reframing" && id != "filler.document-metadiscourse" {
+		if !slices.Contains([]string{"syntax.repeated-reframing", "filler.document-metadiscourse", "filler.document-justification",
+			"filler.evaluative-closure", "repetition.definition-echo", "syntax.slogan-contrast"}, id) {
 			continue
 		}
 		t.Run(id, func(t *testing.T) {
@@ -32,6 +34,7 @@ func TestFrameRulesPropagateObservationCancellationAndBudget(t *testing.T) {
 			cancel()
 			c.Assert(implementation.Evaluate(ctx, view, observer), qt.ErrorIs, context.Canceled)
 			view.Document.Blocks[0].Sentences = []document.Sentence{{ID: 0, BlockID: 0, Text: "Text."}}
+			view.Document.Blocks[0].Words = 1
 			view.MaxCandidates = 0
 			var abstention *rule.Abstention
 			c.Assert(implementation.Evaluate(t.Context(), view, observer), qt.ErrorAs, &abstention)

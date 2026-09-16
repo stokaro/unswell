@@ -1,0 +1,1202 @@
+[
+  {
+    "id": "0d398cc4ef6aa9ef",
+    "rule_id": "repetition.definition-echo",
+    "rule_version": "1",
+    "severity": "warning",
+    "gate": "none",
+    "group": "rhetorical-patterns",
+    "scope": "block",
+    "message": "The definition repeats its subject before the contrast; explain the distinction directly.",
+    "primary": {
+      "path": "sources/atlas/migrate-commands.md",
+      "span": {
+        "start": 4954,
+        "end": 4994
+      },
+      "start": {
+        "line": 68,
+        "column": 1
+      },
+      "end": {
+        "line": 68,
+        "column": 41
+      },
+      "segments": [
+        {
+          "start": 4954,
+          "end": 4957
+        },
+        {
+          "start": 4958,
+          "end": 4965
+        },
+        {
+          "start": 4966,
+          "end": 4968
+        },
+        {
+          "start": 4969,
+          "end": 4970
+        },
+        {
+          "start": 4971,
+          "end": 4978
+        },
+        {
+          "start": 4978,
+          "end": 4979
+        },
+        {
+          "start": 4980,
+          "end": 4983
+        },
+        {
+          "start": 4984,
+          "end": 4985
+        },
+        {
+          "start": 4986,
+          "end": 4994
+        }
+      ],
+      "snippet": "The default is a default, not a fallback"
+    },
+    "related": [],
+    "evidence": {
+      "kind": "heuristic",
+      "message": "",
+      "suggestion": "Replace the repeated definition with the behavior that distinguishes the alternatives. Preserve the negation and limitation.",
+      "occurrences": [
+        {
+          "block_id": 26,
+          "sentence_id": 30,
+          "spans": [
+            {
+              "start": 4954,
+              "end": 4957
+            },
+            {
+              "start": 4958,
+              "end": 4965
+            },
+            {
+              "start": 4966,
+              "end": 4968
+            },
+            {
+              "start": 4969,
+              "end": 4970
+            },
+            {
+              "start": 4971,
+              "end": 4978
+            },
+            {
+              "start": 4978,
+              "end": 4979
+            },
+            {
+              "start": 4980,
+              "end": 4983
+            },
+            {
+              "start": 4984,
+              "end": 4985
+            },
+            {
+              "start": 4986,
+              "end": 4994
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "name": "repetition.definition-echo",
+          "value": 1,
+          "unit": "patterns",
+          "onset": 0,
+          "saturation": 1
+        }
+      ],
+      "activation": 1000
+    },
+    "fingerprint": "6325be12b49775b0df3e1b512dfed9f82c29be9b742d854e30bb892026402bee",
+    "suppressed": false,
+    "baseline_state": "untracked",
+    "derived": false
+  },
+  {
+    "id": "79f076fa8ba19131",
+    "rule_id": "filler.evaluative-closure",
+    "rule_version": "1",
+    "severity": "warning",
+    "gate": "none",
+    "group": "rhetorical-patterns",
+    "scope": "block",
+    "message": "This closing judgment repeats a purpose or calls a result honest; state the consequence directly.",
+    "primary": {
+      "path": "sources/databases/postgresql.md",
+      "span": {
+        "start": 10778,
+        "end": 10817
+      },
+      "start": {
+        "line": 219,
+        "column": 48
+      },
+      "end": {
+        "line": 220,
+        "column": 7
+      },
+      "segments": [
+        {
+          "start": 10778,
+          "end": 10783
+        },
+        {
+          "start": 10784,
+          "end": 10786
+        },
+        {
+          "start": 10787,
+          "end": 10790
+        },
+        {
+          "start": 10791,
+          "end": 10796
+        },
+        {
+          "start": 10797,
+          "end": 10799
+        },
+        {
+          "start": 10800,
+          "end": 10807
+        },
+        {
+          "start": 10808,
+          "end": 10810
+        },
+        {
+          "start": 10811,
+          "end": 10813
+        },
+        {
+          "start": 10814,
+          "end": 10817
+        }
+      ],
+      "snippet": "which is the point of scoping it\nat all"
+    },
+    "related": [],
+    "evidence": {
+      "kind": "heuristic",
+      "message": "",
+      "suggestion": "Keep the preceding behavior and its conditions. Remove the closing judgment if it adds no separate reason or instruction.",
+      "occurrences": [
+        {
+          "block_id": 40,
+          "sentence_id": 79,
+          "spans": [
+            {
+              "start": 10778,
+              "end": 10783
+            },
+            {
+              "start": 10784,
+              "end": 10786
+            },
+            {
+              "start": 10787,
+              "end": 10790
+            },
+            {
+              "start": 10791,
+              "end": 10796
+            },
+            {
+              "start": 10797,
+              "end": 10799
+            },
+            {
+              "start": 10800,
+              "end": 10807
+            },
+            {
+              "start": 10808,
+              "end": 10810
+            },
+            {
+              "start": 10811,
+              "end": 10813
+            },
+            {
+              "start": 10814,
+              "end": 10817
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "name": "filler.evaluative-closure",
+          "value": 1,
+          "unit": "patterns",
+          "onset": 0,
+          "saturation": 1
+        }
+      ],
+      "activation": 1000
+    },
+    "fingerprint": "c522f300dac530f296c163c33b532c84b18ef9d2e4b5ff768bf6488ca00b605b",
+    "suppressed": false,
+    "baseline_state": "untracked",
+    "derived": false
+  },
+  {
+    "id": "97fe40c560de1aa4",
+    "rule_id": "syntax.slogan-contrast",
+    "rule_version": "1",
+    "severity": "warning",
+    "gate": "none",
+    "group": "rhetorical-patterns",
+    "scope": "block",
+    "message": "The contrast names abstract actions without their objects; name the check and its failure condition.",
+    "primary": {
+      "path": "sources/databases/postgresql.md",
+      "span": {
+        "start": 30810,
+        "end": 30844
+      },
+      "start": {
+        "line": 579,
+        "column": 1
+      },
+      "end": {
+        "line": 579,
+        "column": 35
+      },
+      "segments": [
+        {
+          "start": 30810,
+          "end": 30812
+        },
+        {
+          "start": 30813,
+          "end": 30817
+        },
+        {
+          "start": 30818,
+          "end": 30824
+        },
+        {
+          "start": 30824,
+          "end": 30825
+        },
+        {
+          "start": 30826,
+          "end": 30832
+        },
+        {
+          "start": 30833,
+          "end": 30837
+        },
+        {
+          "start": 30838,
+          "end": 30844
+        }
+      ],
+      "snippet": "So Ptah checks, rather than trusts"
+    },
+    "related": [],
+    "evidence": {
+      "kind": "heuristic",
+      "message": "",
+      "suggestion": "Use the concrete verification step or retain the explanation that follows. Do not remove a real alternative or safety condition.",
+      "occurrences": [
+        {
+          "block_id": 104,
+          "sentence_id": 216,
+          "spans": [
+            {
+              "start": 30810,
+              "end": 30812
+            },
+            {
+              "start": 30813,
+              "end": 30817
+            },
+            {
+              "start": 30818,
+              "end": 30824
+            },
+            {
+              "start": 30824,
+              "end": 30825
+            },
+            {
+              "start": 30826,
+              "end": 30832
+            },
+            {
+              "start": 30833,
+              "end": 30837
+            },
+            {
+              "start": 30838,
+              "end": 30844
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "name": "syntax.slogan-contrast",
+          "value": 1,
+          "unit": "patterns",
+          "onset": 0,
+          "saturation": 1
+        }
+      ],
+      "activation": 1000
+    },
+    "fingerprint": "9771b181502926abbe85fdd38507b7d7e07702f31e18512d2a0eaf8e73560233",
+    "suppressed": false,
+    "baseline_state": "untracked",
+    "derived": false
+  },
+  {
+    "id": "9e461d855fcd7c62",
+    "rule_id": "filler.evaluative-closure",
+    "rule_version": "1",
+    "severity": "warning",
+    "gate": "none",
+    "group": "rhetorical-patterns",
+    "scope": "block",
+    "message": "This closing judgment repeats a purpose or calls a result honest; state the consequence directly.",
+    "primary": {
+      "path": "sources/inference/concepts/verification-and-cutover.md",
+      "span": {
+        "start": 7446,
+        "end": 7483
+      },
+      "start": {
+        "line": 182,
+        "column": 22
+      },
+      "end": {
+        "line": 182,
+        "column": 59
+      },
+      "segments": [
+        {
+          "start": 7446,
+          "end": 7451
+        },
+        {
+          "start": 7452,
+          "end": 7454
+        },
+        {
+          "start": 7455,
+          "end": 7458
+        },
+        {
+          "start": 7459,
+          "end": 7465
+        },
+        {
+          "start": 7466,
+          "end": 7472
+        },
+        {
+          "start": 7472,
+          "end": 7473
+        },
+        {
+          "start": 7474,
+          "end": 7477
+        },
+        {
+          "start": 7478,
+          "end": 7479
+        },
+        {
+          "start": 7480,
+          "end": 7483
+        }
+      ],
+      "snippet": "which is the honest answer, not a gap"
+    },
+    "related": [],
+    "evidence": {
+      "kind": "heuristic",
+      "message": "",
+      "suggestion": "Keep the preceding behavior and its conditions. Remove the closing judgment if it adds no separate reason or instruction.",
+      "occurrences": [
+        {
+          "block_id": 44,
+          "sentence_id": 73,
+          "spans": [
+            {
+              "start": 7446,
+              "end": 7451
+            },
+            {
+              "start": 7452,
+              "end": 7454
+            },
+            {
+              "start": 7455,
+              "end": 7458
+            },
+            {
+              "start": 7459,
+              "end": 7465
+            },
+            {
+              "start": 7466,
+              "end": 7472
+            },
+            {
+              "start": 7472,
+              "end": 7473
+            },
+            {
+              "start": 7474,
+              "end": 7477
+            },
+            {
+              "start": 7478,
+              "end": 7479
+            },
+            {
+              "start": 7480,
+              "end": 7483
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "name": "filler.evaluative-closure",
+          "value": 1,
+          "unit": "patterns",
+          "onset": 0,
+          "saturation": 1
+        }
+      ],
+      "activation": 1000
+    },
+    "fingerprint": "a4761bd092aa9c20050040fc04f5d7ceddfdd0d5d5c6d90c1e07fc085304348b",
+    "suppressed": false,
+    "baseline_state": "untracked",
+    "derived": false
+  },
+  {
+    "id": "1070f2dca6a8ec48",
+    "rule_id": "filler.evaluative-closure",
+    "rule_version": "1",
+    "severity": "warning",
+    "gate": "none",
+    "group": "rhetorical-patterns",
+    "scope": "block",
+    "message": "This closing judgment repeats a purpose or calls a result honest; state the consequence directly.",
+    "primary": {
+      "path": "sources/inference/guides/rollback-and-retire.md",
+      "span": {
+        "start": 2831,
+        "end": 2874
+      },
+      "start": {
+        "line": 88,
+        "column": 1
+      },
+      "end": {
+        "line": 88,
+        "column": 44
+      },
+      "segments": [
+        {
+          "start": 2831,
+          "end": 2835
+        },
+        {
+          "start": 2836,
+          "end": 2838
+        },
+        {
+          "start": 2839,
+          "end": 2842
+        },
+        {
+          "start": 2843,
+          "end": 2849
+        },
+        {
+          "start": 2850,
+          "end": 2856
+        },
+        {
+          "start": 2857,
+          "end": 2863
+        },
+        {
+          "start": 2864,
+          "end": 2868
+        },
+        {
+          "start": 2869,
+          "end": 2870
+        },
+        {
+          "start": 2871,
+          "end": 2874
+        }
+      ],
+      "snippet": "That is the honest answer rather than a gap"
+    },
+    "related": [],
+    "evidence": {
+      "kind": "heuristic",
+      "message": "",
+      "suggestion": "Keep the preceding behavior and its conditions. Remove the closing judgment if it adds no separate reason or instruction.",
+      "occurrences": [
+        {
+          "block_id": 22,
+          "sentence_id": 30,
+          "spans": [
+            {
+              "start": 2831,
+              "end": 2835
+            },
+            {
+              "start": 2836,
+              "end": 2838
+            },
+            {
+              "start": 2839,
+              "end": 2842
+            },
+            {
+              "start": 2843,
+              "end": 2849
+            },
+            {
+              "start": 2850,
+              "end": 2856
+            },
+            {
+              "start": 2857,
+              "end": 2863
+            },
+            {
+              "start": 2864,
+              "end": 2868
+            },
+            {
+              "start": 2869,
+              "end": 2870
+            },
+            {
+              "start": 2871,
+              "end": 2874
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "name": "filler.evaluative-closure",
+          "value": 1,
+          "unit": "patterns",
+          "onset": 0,
+          "saturation": 1
+        }
+      ],
+      "activation": 1000
+    },
+    "fingerprint": "4f5cc4d95daec0fc9d19312d1a5e146c3ce939c858a2cba293329e9b336face3",
+    "suppressed": false,
+    "baseline_state": "untracked",
+    "derived": false
+  },
+  {
+    "id": "71eb729f6b3816ca",
+    "rule_id": "filler.evaluative-closure",
+    "rule_version": "1",
+    "severity": "warning",
+    "gate": "none",
+    "group": "rhetorical-patterns",
+    "scope": "block",
+    "message": "This closing judgment repeats a purpose or calls a result honest; state the consequence directly.",
+    "primary": {
+      "path": "sources/inference/guides/run-in-kubernetes.md",
+      "span": {
+        "start": 6185,
+        "end": 6228
+      },
+      "start": {
+        "line": 165,
+        "column": 27
+      },
+      "end": {
+        "line": 165,
+        "column": 70
+      },
+      "segments": [
+        {
+          "start": 6185,
+          "end": 6190
+        },
+        {
+          "start": 6191,
+          "end": 6193
+        },
+        {
+          "start": 6194,
+          "end": 6198
+        },
+        {
+          "start": 6199,
+          "end": 6206
+        },
+        {
+          "start": 6207,
+          "end": 6209
+        },
+        {
+          "start": 6210,
+          "end": 6212
+        },
+        {
+          "start": 6213,
+          "end": 6214
+        },
+        {
+          "start": 6215,
+          "end": 6221
+        },
+        {
+          "start": 6222,
+          "end": 6224
+        },
+        {
+          "start": 6225,
+          "end": 6228
+        }
+      ],
+      "snippet": "which is what binding it to a digest is for"
+    },
+    "related": [],
+    "evidence": {
+      "kind": "heuristic",
+      "message": "",
+      "suggestion": "Keep the preceding behavior and its conditions. Remove the closing judgment if it adds no separate reason or instruction.",
+      "occurrences": [
+        {
+          "block_id": 25,
+          "sentence_id": 41,
+          "spans": [
+            {
+              "start": 6185,
+              "end": 6190
+            },
+            {
+              "start": 6191,
+              "end": 6193
+            },
+            {
+              "start": 6194,
+              "end": 6198
+            },
+            {
+              "start": 6199,
+              "end": 6206
+            },
+            {
+              "start": 6207,
+              "end": 6209
+            },
+            {
+              "start": 6210,
+              "end": 6212
+            },
+            {
+              "start": 6213,
+              "end": 6214
+            },
+            {
+              "start": 6215,
+              "end": 6221
+            },
+            {
+              "start": 6222,
+              "end": 6224
+            },
+            {
+              "start": 6225,
+              "end": 6228
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "name": "filler.evaluative-closure",
+          "value": 1,
+          "unit": "patterns",
+          "onset": 0,
+          "saturation": 1
+        }
+      ],
+      "activation": 1000
+    },
+    "fingerprint": "873e58356b22367080d0fcdc804c7a164f751f421991334fe0d598c15c849b54",
+    "suppressed": false,
+    "baseline_state": "untracked",
+    "derived": false
+  },
+  {
+    "id": "bd6d067400097e2a",
+    "rule_id": "filler.evaluative-closure",
+    "rule_version": "1",
+    "severity": "warning",
+    "gate": "none",
+    "group": "rhetorical-patterns",
+    "scope": "block",
+    "message": "This closing judgment repeats a purpose or calls a result honest; state the consequence directly.",
+    "primary": {
+      "path": "sources/inference/troubleshooting.md",
+      "span": {
+        "start": 9354,
+        "end": 9379
+      },
+      "start": {
+        "line": 214,
+        "column": 68
+      },
+      "end": {
+        "line": 215,
+        "column": 14
+      },
+      "segments": [
+        {
+          "start": 9354,
+          "end": 9358
+        },
+        {
+          "start": 9359,
+          "end": 9361
+        },
+        {
+          "start": 9362,
+          "end": 9365
+        },
+        {
+          "start": 9366,
+          "end": 9372
+        },
+        {
+          "start": 9373,
+          "end": 9379
+        }
+      ],
+      "snippet": "that is the\nhonest answer"
+    },
+    "related": [],
+    "evidence": {
+      "kind": "heuristic",
+      "message": "",
+      "suggestion": "Keep the preceding behavior and its conditions. Remove the closing judgment if it adds no separate reason or instruction.",
+      "occurrences": [
+        {
+          "block_id": 40,
+          "sentence_id": 107,
+          "spans": [
+            {
+              "start": 9354,
+              "end": 9358
+            },
+            {
+              "start": 9359,
+              "end": 9361
+            },
+            {
+              "start": 9362,
+              "end": 9365
+            },
+            {
+              "start": 9366,
+              "end": 9372
+            },
+            {
+              "start": 9373,
+              "end": 9379
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "name": "filler.evaluative-closure",
+          "value": 1,
+          "unit": "patterns",
+          "onset": 0,
+          "saturation": 1
+        }
+      ],
+      "activation": 1000
+    },
+    "fingerprint": "dfd331f02abfa3c90bb8935f2a657ee97459bbefbdb257797173b0d22829878c",
+    "suppressed": false,
+    "baseline_state": "untracked",
+    "derived": false
+  },
+  {
+    "id": "6b671ae6cc4520cb",
+    "rule_id": "filler.document-justification",
+    "rule_version": "1",
+    "severity": "warning",
+    "gate": "none",
+    "group": "rhetorical-patterns",
+    "scope": "block",
+    "message": "State the scope or destination directly instead of explaining why this page exists.",
+    "primary": {
+      "path": "sources/operate/kubernetes-operator.md",
+      "span": {
+        "start": 852,
+        "end": 960
+      },
+      "start": {
+        "line": 24,
+        "column": 17
+      },
+      "end": {
+        "line": 25,
+        "column": 46
+      },
+      "segments": [
+        {
+          "start": 852,
+          "end": 856
+        },
+        {
+          "start": 857,
+          "end": 861
+        },
+        {
+          "start": 862,
+          "end": 868
+        },
+        {
+          "start": 869,
+          "end": 871
+        },
+        {
+          "start": 872,
+          "end": 875
+        },
+        {
+          "start": 876,
+          "end": 884
+        },
+        {
+          "start": 885,
+          "end": 887
+        },
+        {
+          "start": 888,
+          "end": 897
+        },
+        {
+          "start": 898,
+          "end": 902
+        },
+        {
+          "start": 903,
+          "end": 907
+        },
+        {
+          "start": 908,
+          "end": 911
+        },
+        {
+          "start": 912,
+          "end": 914
+        },
+        {
+          "start": 915,
+          "end": 918
+        },
+        {
+          "start": 919,
+          "end": 927
+        },
+        {
+          "start": 928,
+          "end": 930
+        },
+        {
+          "start": 931,
+          "end": 937
+        },
+        {
+          "start": 938,
+          "end": 943
+        },
+        {
+          "start": 944,
+          "end": 945
+        },
+        {
+          "start": 946,
+          "end": 952
+        },
+        {
+          "start": 953,
+          "end": 960
+        }
+      ],
+      "snippet": "this page exists so the operator is reachable from here and so\nits boundary is stated where a reader decides"
+    },
+    "related": [],
+    "evidence": {
+      "kind": "heuristic",
+      "message": "",
+      "suggestion": "Keep the link, ownership, and scope; remove the explanation of the document's existence or deliberate non-repetition.",
+      "occurrences": [
+        {
+          "block_id": 0,
+          "sentence_id": 1,
+          "spans": [
+            {
+              "start": 852,
+              "end": 856
+            },
+            {
+              "start": 857,
+              "end": 861
+            },
+            {
+              "start": 862,
+              "end": 868
+            },
+            {
+              "start": 869,
+              "end": 871
+            },
+            {
+              "start": 872,
+              "end": 875
+            },
+            {
+              "start": 876,
+              "end": 884
+            },
+            {
+              "start": 885,
+              "end": 887
+            },
+            {
+              "start": 888,
+              "end": 897
+            },
+            {
+              "start": 898,
+              "end": 902
+            },
+            {
+              "start": 903,
+              "end": 907
+            },
+            {
+              "start": 908,
+              "end": 911
+            },
+            {
+              "start": 912,
+              "end": 914
+            },
+            {
+              "start": 915,
+              "end": 918
+            },
+            {
+              "start": 919,
+              "end": 927
+            },
+            {
+              "start": 928,
+              "end": 930
+            },
+            {
+              "start": 931,
+              "end": 937
+            },
+            {
+              "start": 938,
+              "end": 943
+            },
+            {
+              "start": 944,
+              "end": 945
+            },
+            {
+              "start": 946,
+              "end": 952
+            },
+            {
+              "start": 953,
+              "end": 960
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "name": "filler.document-justification",
+          "value": 1,
+          "unit": "patterns",
+          "onset": 0,
+          "saturation": 1
+        }
+      ],
+      "activation": 1000
+    },
+    "fingerprint": "e49a743138bb0804f27438b01cd3f38c8860cce9d64c78206baf5b6b40319c53",
+    "suppressed": false,
+    "baseline_state": "untracked",
+    "derived": false
+  },
+  {
+    "id": "05266f9b02947de8",
+    "rule_id": "filler.document-justification",
+    "rule_version": "1",
+    "severity": "warning",
+    "gate": "none",
+    "group": "rhetorical-patterns",
+    "scope": "block",
+    "message": "State the scope or destination directly instead of explaining why this page exists.",
+    "primary": {
+      "path": "sources/operate/kubernetes-operator.md",
+      "span": {
+        "start": 3520,
+        "end": 3571
+      },
+      "start": {
+        "line": 81,
+        "column": 17
+      },
+      "end": {
+        "line": 81,
+        "column": 68
+      },
+      "segments": [
+        {
+          "start": 3520,
+          "end": 3524
+        },
+        {
+          "start": 3525,
+          "end": 3529
+        },
+        {
+          "start": 3530,
+          "end": 3542
+        },
+        {
+          "start": 3543,
+          "end": 3547
+        },
+        {
+          "start": 3548,
+          "end": 3551
+        },
+        {
+          "start": 3552,
+          "end": 3559
+        },
+        {
+          "start": 3560,
+          "end": 3563
+        },
+        {
+          "start": 3564,
+          "end": 3566
+        },
+        {
+          "start": 3567,
+          "end": 3571
+        }
+      ],
+      "snippet": "this page deliberately does not restate any of them"
+    },
+    "related": [],
+    "evidence": {
+      "kind": "heuristic",
+      "message": "",
+      "suggestion": "Keep the link, ownership, and scope; remove the explanation of the document's existence or deliberate non-repetition.",
+      "occurrences": [
+        {
+          "block_id": 14,
+          "sentence_id": 26,
+          "spans": [
+            {
+              "start": 3520,
+              "end": 3524
+            },
+            {
+              "start": 3525,
+              "end": 3529
+            },
+            {
+              "start": 3530,
+              "end": 3542
+            },
+            {
+              "start": 3543,
+              "end": 3547
+            },
+            {
+              "start": 3548,
+              "end": 3551
+            },
+            {
+              "start": 3552,
+              "end": 3559
+            },
+            {
+              "start": 3560,
+              "end": 3563
+            },
+            {
+              "start": 3564,
+              "end": 3566
+            },
+            {
+              "start": 3567,
+              "end": 3571
+            }
+          ]
+        }
+      ],
+      "metrics": [
+        {
+          "name": "filler.document-justification",
+          "value": 1,
+          "unit": "patterns",
+          "onset": 0,
+          "saturation": 1
+        }
+      ],
+      "activation": 1000
+    },
+    "fingerprint": "38d1059f5d9181af0778ed45581f24ecd8a32b5791b0ff327cd572eab028c2bc",
+    "suppressed": false,
+    "baseline_state": "untracked",
+    "derived": false
+  }
+]

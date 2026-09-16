@@ -23,6 +23,22 @@ bin/unswell check . --config .unswell.yaml --include-source \
   --report html:artifacts/dogfood/result.html \
   --report markdown:artifacts/dogfood/result.md
 
+# Compact the same report before the MCP replay reads it. Indented per-block
+# feature evidence can exceed its 256 MiB input limit without adding data.
+python3 - <<'PY'
+import json
+from pathlib import Path
+
+report = Path("artifacts/dogfood/result.json")
+temporary = report.with_suffix(".json.tmp")
+with report.open() as source:
+    result = json.load(source)
+with temporary.open("w") as output:
+    json.dump(result, output, ensure_ascii=False, separators=(",", ":"))
+    output.write("\n")
+temporary.replace(report)
+PY
+
 # Exercise this exact policy through the built CLI. A disabled gate, ignored
 # configuration, or an operational error must not make the negative probe pass.
 negative_prose='Certainly! The client opens connections.'

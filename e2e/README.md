@@ -1,5 +1,10 @@
 # End-to-end CLI cases
 
+The [Ptah rhetoric casebook](rhetoricdata/README.md) contains exact source excerpts,
+expected clause ranges, proposed revisions, and technical controls. Both default
+profiles run through the built CLI. These exposed development judgments are separate
+from human quality qualification.
+
 `corpus_training_test.go` builds the research command with cgo disabled, prepares
 the pinned scripted corpus, and fits its paragraph labels through `corpus train`.
 It checks training-only normalization, separate calibration, reserved partitions,

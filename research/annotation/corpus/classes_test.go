@@ -14,7 +14,7 @@ import (
 
 func committedClasses(c *qt.C) ([]byte, corpus.RuleClasses) {
 	c.Helper()
-	data, err := os.ReadFile("../../methods/rule-classes-v1-r3.json")
+	data, err := os.ReadFile("../../methods/rule-classes-v1-r4.json")
 	c.Assert(err, qt.IsNil)
 	classes, err := corpus.LoadRuleClasses(c.TB.(*testing.T).Context(), data)
 	c.Assert(err, qt.IsNil)
@@ -85,23 +85,24 @@ func TestRuleClassesRejectGapsAndUnknowns(t *testing.T) {
 
 func TestCurrentClassesPreserveTheFrozenSnapshot(t *testing.T) {
 	c := qt.New(t)
-	data, err := os.ReadFile("../../methods/rule-classes-v1.json")
-	c.Assert(err, qt.IsNil)
-	frozen, err := corpus.LoadRuleClasses(t.Context(), data)
-	c.Assert(err, qt.IsNil)
 	_, current := committedClasses(c)
-	c.Assert(frozen.Revision, qt.Equals, 2)
-	c.Assert(current.Revision, qt.Equals, 3)
-	c.Assert(frozen.Rules, qt.HasLen, 40)
-	c.Assert(current.Rules, qt.HasLen, 42)
-	for _, old := range frozen.Rules {
-		found := false
-		for _, entry := range current.Rules {
-			if entry.RuleID == old.RuleID {
-				c.Assert(entry, qt.DeepEquals, old)
-				found = true
+	c.Assert(current.Revision, qt.Equals, 4)
+	c.Assert(current.Rules, qt.HasLen, 46)
+	for _, name := range []string{"rule-classes-v1.json", "rule-classes-v1-r3.json"} {
+		// #nosec G304 -- Both filenames are fixed snapshots in the checked-in fixture directory.
+		data, err := os.ReadFile("../../methods/" + name)
+		c.Assert(err, qt.IsNil)
+		frozen, err := corpus.LoadRuleClasses(t.Context(), data)
+		c.Assert(err, qt.IsNil)
+		for _, old := range frozen.Rules {
+			found := false
+			for _, entry := range current.Rules {
+				if entry.RuleID == old.RuleID {
+					c.Assert(entry, qt.DeepEquals, old)
+					found = true
+				}
 			}
+			c.Assert(found, qt.IsTrue)
 		}
-		c.Assert(found, qt.IsTrue)
 	}
 }
