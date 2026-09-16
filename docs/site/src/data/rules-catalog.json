@@ -1,6 +1,6 @@
 {
   "schema": "unswell-docs-rules-catalog-v1",
-  "rule_count": 40,
+  "rule_count": 42,
   "families": [
     {
       "name": "density",
@@ -55,6 +55,26 @@
           "summary": "State the fact without announcing its importance.",
           "description": "State the fact without announcing its importance.",
           "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+        },
+        {
+          "id": "filler.document-metadiscourse",
+          "version": "1",
+          "status": "experimental",
+          "group": "rhetorical-patterns",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": true,
+          "severity": "note",
+          "gate": "none",
+          "weight": 0,
+          "cap": 0,
+          "summary": "Document self-description: check whether this announcement or navigation helps the reader.",
+          "description": "Recognizes document subjects followed by communicative verbs, and 'in this document, we' announcements. Groups their complete clauses within eight sentences of uninterrupted prose; one clause is sufficient.",
+          "limitations": "The document-metadiscourse frame is a bounded token/POS heuristic, not a dependency or semantic parse. Clauses are limited to 48 tokens and subjects to eight. Protected text is opaque, never a lexical cue. Recognition does not establish redundancy, authorship, or a need for revision. Technical definitions and useful navigation can match; defaults carry no score or gate. Precision is unqualified."
         },
         {
           "id": "filler.empty-transition",
@@ -850,6 +870,26 @@
           "description": "Counts sentences containing a be verb, up to four adverbs, and VBN in bounded contiguous prose windows.",
           "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. The same POS shape can describe a state. This rule is not syntax.passive-density and does not establish grammatical voice.",
           "opt_in_reason": "Names candidates without a dependency parse, and says so in its own limitations. It runs at 1.953 per thousand words in the controlled arm against 1.112 in human prose."
+        },
+        {
+          "id": "syntax.repeated-reframing",
+          "version": "1",
+          "status": "experimental",
+          "group": "rhetorical-patterns",
+          "scope": "document",
+          "contexts": [
+            "comment",
+            "paragraph",
+            "string"
+          ],
+          "enabled": true,
+          "severity": "note",
+          "gate": "none",
+          "weight": 0,
+          "cap": 0,
+          "summary": "Repeated denial and redefinition: review whether both clauses add information.",
+          "description": "Groups adjacent copular denial/redefinition clauses with a repeated subject or anaphoric pronoun. Each pair stays in one block; repetition is counted within eight sentences of uninterrupted prose.",
+          "limitations": "The denial-redefinition frame is a bounded token/POS heuristic, not a dependency or semantic parse. Clauses are limited to 48 tokens and subjects to eight. Protected text is opaque, never a lexical cue. Recognition does not establish redundancy, authorship, or a need for revision. Technical definitions and useful navigation can match; defaults carry no score or gate. Precision is unqualified."
         },
         {
           "id": "syntax.rhetorical-question-density",
