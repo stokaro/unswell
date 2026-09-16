@@ -96,8 +96,9 @@ provide a benchmark runner or change public configuration/report schemas.
 
 ### Current catalog classes
 
-[`rule-classes-v1-r3.json`](rule-classes-v1-r3.json) covers the 42-rule catalog.
-It adds the two advisory construction rules from #294 as general style signals.
+[`rule-classes-v1-r4.json`](rule-classes-v1-r4.json) covers the 46-rule catalog.
+Revision 3 added the two advisory construction rules from #294 as general style signals.
+Revision 4 adds four local editorial constructions from the Ptah development review.
 Their recognition was developed on declared probes; no cohort association or
 editorial precision is claimed. Current command tests use this revision.
 `rule-classes-v1.json` remains the unchanged 40-rule snapshot referenced by frozen

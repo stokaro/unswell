@@ -28,6 +28,7 @@ func Rules() []rule.Rule {
 	result = append(result, contextRules()...)
 	result = append(result, editorialRules()...)
 	result = append(result, frameRules()...)
+	result = append(result, localRhetoricRules()...)
 	result = append(result, extendedRepetitionRules()...)
 	result = append(result, surfaceRules()...)
 	result = withOptInReasons(result)
