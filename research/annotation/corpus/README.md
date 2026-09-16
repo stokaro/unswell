@@ -323,7 +323,7 @@ The output is `unswell-corpus-findings-v1` and keeps
 neither a quality judgment, nor a false-positive rate, nor recall, because no
 record says whether the construction is present. The
 [pattern tables](../patterns/README.md) read these artifacts together with the
-[rule classes](../../methods/rule-classes-v1.json); see the
+[rule classes](../../methods/rule-classes-v1-r3.json); see the
 [protocol](../../methods/llm-patterns-v1.md).
 
 ## Reproduce and audit
