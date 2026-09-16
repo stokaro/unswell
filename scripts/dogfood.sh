@@ -31,9 +31,9 @@ from pathlib import Path
 
 report = Path("artifacts/dogfood/result.json")
 temporary = report.with_suffix(".json.tmp")
-with report.open() as source:
+with report.open(encoding="utf-8") as source:
     result = json.load(source)
-with temporary.open("w") as output:
+with temporary.open("w", encoding="utf-8", newline="\n") as output:
     json.dump(result, output, ensure_ascii=False, separators=(",", ":"))
     output.write("\n")
 temporary.replace(report)
