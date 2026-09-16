@@ -301,3 +301,9 @@ The `mdx` case checks directory discovery, component child prose, protected
 expressions and attributes, and diagnostic/exclusion coordinates with CRLF and
 a BOM. `mdx-contexts` checks stdin discovery and a heading-only MDX override.
 Both use inspectable `want` annotations and saved JSON, SARIF and text checks.
+
+The [rhetorical frame case](testdata/rhetorical_frames/README.md) keeps constructed
+patterns separate from a complete, pinned Ptah page. Its notes expose both clauses
+of denial/redefinition pairs and document self-description while leaving useful
+technical contrasts nonblocking. It verifies full related-location goldens and
+SARIF alongside the ordinary CLI output.

@@ -2,9 +2,10 @@
 
 These rules target formulaic wording that can leak from AI drafts into code and
 documents. They examine the wording and its context, without attributing authorship.
-Ten of these eleven rules are experimental and disabled in builtin profiles.
-`syntax.paired-contrast-density` ships enabled in technical and strict as a
-zero-score note. It identifies repeated contrast frames for review; it does not
+All these rules are experimental; ten are disabled in builtin profiles.
+`syntax.paired-contrast-density`, `syntax.repeated-reframing`, and
+`filler.document-metadiscourse` ship enabled in technical and strict as zero-score
+notes. It identifies repeated contrast frames for review; it does not
 assert that either alternative is unnecessary. The project enables the remaining
 rules for its own self-checks. Editorial precision and recall remain unmeasured.
 
@@ -32,7 +33,7 @@ overrides:
 `gate: none` remains the default for these rules. Their configured weights can
 contribute to local score gates. An explicit `gate: forbid` makes a rule a project
 policy prohibition; it does not establish universal editorial correctness.
-`hype.absolute-claim` and `syntax.paired-contrast-density` have zero weight and cap
+`hype.absolute-claim` and the three enabled construction rules have zero weight and cap
 by default and only request review.
 Existing [terminology exemptions](configuration.md) and reasoned
 [source suppressions](suppressions.md) apply before the corresponding counts or gate.
@@ -49,6 +50,8 @@ Existing [terminology exemptions](configuration.md) and reasoned
 | `filler.weak-intensifiers` | Dictionary adverbs directly before an adjective/adverb | Matches per 100 prose words; minimum 20 words, onset 4, saturation 12 |
 | `filler.stacked-hedging` | Distinct dictionary modal/adverb cues within one clause | Cue count; onset 2, saturation 5 |
 | `syntax.paired-contrast-density` | `rather than`, `instead of`, `X, not Y`, and adjacent negative/positive about-sentence pairs | Pattern count in 8 sentences; allow 1, saturate at 4; zero score |
+| `syntax.repeated-reframing` | Adjacent nominal denial/redefinition clauses with linked subjects; both clauses are evidence | Pair count in 8 sentences; allow 1, saturate at 4; zero score |
+| `filler.document-metadiscourse` | Document subject plus communicative verb, or an in-document first-person announcement | Clause count in 8 sentences; allow 0, saturate at 4; zero score |
 | `syntax.triad-density` | Three comma/conjunction-linked evaluative dictionary words, at least two tagged adjectives | Triad count in 8 sentences; allow 1, saturate at 4 |
 | `syntax.whether-preface-density` | A whether-you-are opening with `or` before a comma in the first 32 tokens | Preface count in 8 sentences; allow 1, saturate at 4 |
 | `syntax.rhetorical-question-density` | A complete configured question followed by a short prose answer in the same block | Pair count in 8 sentences; allow 1, saturate at 4; at most 12 answer words |
@@ -139,3 +142,42 @@ model-feature registry (#56), comparative harness (#57), and rule qualification
 (#26) remain open work. [ADR 0009](adr/0009-editorial-patterns.md) records the
 integration boundary. No revision probability or quality improvement percentage
 is claimed for these additions.
+
+## Construction frames
+
+[The construction evaluation](research/rhetorical-frames.md) records the source-bound
+Ptah example and constructed probes. The shared internal frame representation
+holds original sentence/token ranges, so related locations include both clauses
+and every repetition. It does not add a second extractor or NLP provider.
+
+`syntax.repeated-reframing` recognizes a nominal subject, copula and negated nominal
+or about-complement, followed immediately by an affirmative copular clause. The
+second subject must repeat the first or use `it`, `they`, `this`, `these`, `that`,
+or `those`. Copular number and tense must agree. Gerunds can serve as nominal
+subjects. Contractions and typographic apostrophes use the existing tokenizer.
+Semicolons, colons, dashes and sentence-ending punctuation separate clauses.
+Pairs stay in one block; groups can span adjacent paragraphs but stop at headings,
+fences, lists, excluded blocks, and nonwhitespace source gaps. Questions do not
+match. Subject matching is a shallow heuristic, not coreference resolution.
+
+`filler.document-metadiscourse` recognizes a determiner, an optional spatial
+modifier, a document noun, and a communicative verb with a following complement.
+It also recognizes an `in`/`throughout` preface followed by `we` or `I`, optionally
+with `will` or `shall`. Its small noun and verb vocabularies define grammatical
+roles; it does not store complete announcement phrases. Inflected verbs use an
+explicit vocabulary. Negated announcements and direct `See ...` links do not
+match. A useful navigation sentence can match and remain worth keeping.
+
+Both recognizers bound clauses at 48 tokens and subjects at eight tokens.
+Inline code may occupy a nominal slot and appear in the source context, but its
+contents cannot supply an operator, document noun, or communicative verb.
+Protected subjects cannot be linked by lexical equality. Terminology exemptions
+apply to whole clause ranges. Both rules report block activation through the
+existing feature contract, with an evaluated zero for examined prose containing
+no recognized frame. Unsupported or empty blocks remain unavailable. Candidate
+budget exhaustion reports abstention; it does not produce a fabricated zero.
+
+Neither rule establishes semantic redundancy or the truth of a claim. An index
+and a gate are separate from construction recognition. Defaults deliberately
+expose the constructions without assigning editorial risk points or forbidding
+technical explanations. Projects can configure a stricter local policy.

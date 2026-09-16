@@ -93,3 +93,12 @@ bytes actually obtained. Preserve prior run references when updating decisions.
 Use `not_run` for an experiment that has not happened, even when a paper supplies
 favorable numbers. #57 will add executable comparisons; this directory does not
 provide a benchmark runner or change public configuration/report schemas.
+
+### Current catalog classes
+
+[`rule-classes-v1-r3.json`](rule-classes-v1-r3.json) covers the 42-rule catalog.
+It adds the two advisory construction rules from #294 as general style signals.
+Their recognition was developed on declared probes; no cohort association or
+editorial precision is claimed. Current command tests use this revision.
+`rule-classes-v1.json` remains the unchanged 40-rule snapshot referenced by frozen
+research runs. Existing classifications and archived measurements are unchanged.

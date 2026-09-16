@@ -1,6 +1,6 @@
 # Which rules ship enabled
 
-The catalog holds 40 rules. Seventeen are on in the shipped profiles and 23 are
+The catalog holds 42 rules. Nineteen are on in the shipped profiles and 23 are
 opt-in. This page says how that split was chosen and what each opt-in rule was
 measured at. Every rule also carries its own reason: `unswell rules show ID`
 prints it, the rules page shows it, and a test fails if an opt-in rule has
@@ -30,7 +30,8 @@ prose. Separation is not what an editorial rule is for.
 ## Earlier measurements
 
 The tables below preserve the earlier engine's measurements. They do not describe
-the expanded version 2 contrast matcher or its corrected inline-code handling.
+the expanded version 2 contrast matcher, its corrected inline-code handling,
+or the two construction rules added for #294.
 The [contextual prose evaluation](research/contextual-prose.md) records that change
 against pinned complete pages and a separate historical development sample.
 
@@ -102,6 +103,16 @@ declared contrast frames. It ships in technical and strict as a note with zero
 weight, zero cap, and `gate: none`. One contrast remains below the allowance.
 The note exposes repetition without claiming redundant facts or established
 association with a generator. Minimal and custom leave it disabled.
+
+### Denial/redefinition and document self-description
+
+`syntax.repeated-reframing` and `filler.document-metadiscourse` expose complete
+clauses in technical and strict, with zero score and `gate: none`. They close the
+[recognition gap](research/rhetorical-frames.md) demonstrated on a declared
+constructed probe and a pinned Ptah page. One ordinary denial/redefinition stays
+below the allowance. A document self-description is visible even when it occurs
+once; it may provide useful navigation. These are unqualified advisory defaults,
+not measured defect detectors. The historical tables above do not evaluate them.
 
 ## How to turn one on
 
