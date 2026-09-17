@@ -1,0 +1,71 @@
+{
+  "scope": "Local validation before the final evidence commit; not remote CI or merge acceptance.",
+  "runtime_commit": "0973ff633aee53bc9fc3592f80803806bf2d62e6",
+  "checks": {
+    "policy": "passed",
+    "tidy": "passed",
+    "module_tests": "passed",
+    "go_lint": "passed",
+    "shell_lint_and_negative_probes": "passed",
+    "mirror_policy": "passed",
+    "sbom_policy": "passed",
+    "report_schema": "passed",
+    "cli_dogfood": "passed",
+    "mcp_dogfood": "passed",
+    "performance_harness": "passed",
+    "research_cost_harness": "passed",
+    "reproducible_builds": "passed",
+    "evidence_tests": "7 passed"
+  },
+  "cli": {
+    "tool_commit": "0973ff633aee53bc9fc3592f80803806bf2d62e6-dirty",
+    "documents": 969,
+    "findings": 750,
+    "gate": {
+      "passed": true,
+      "reasons": []
+    },
+    "errors": [],
+    "abstentions": []
+  },
+  "stages": [
+    {
+      "command": "make check",
+      "result": "All policy, tidy, module test, lint, shell, mirror, SBOM and schema targets passed; dogfood stopped on duplicated generated review prose."
+    },
+    {
+      "command": "make dogfood-mcp check-performance check-research-cost check-reproducible",
+      "result": "After deduplicating rendered explanations, CLI/MCP parity and negative probes passed. The sandbox blocked macOS resource reporting."
+    },
+    {
+      "command": "make check-performance check-research-cost check-reproducible",
+      "environment": "Outside sandbox; unchanged resource bounds.",
+      "result": "passed"
+    }
+  ],
+  "repeated_binaries": {
+    "platforms": [
+      "linux/amd64",
+      "linux/arm64",
+      "darwin/amd64",
+      "darwin/arm64",
+      "windows/amd64",
+      "windows/arm64"
+    ],
+    "mismatched": 0
+  },
+  "logs": {
+    "check-final.log": {
+      "local_path": "/private/tmp/unswell-304/check-final.log",
+      "sha256": "4477c6ae7b6da5b45be8d21acf9ccb46b75400b7c2855060db3962d72036049f"
+    },
+    "check-remaining.log": {
+      "local_path": "/private/tmp/unswell-304/check-remaining.log",
+      "sha256": "c596e10e26e02d4a8f0d87626fc923c59d463815ccc2346772c3e2dff866ecab"
+    },
+    "check-resources.log": {
+      "local_path": "/private/tmp/unswell-304/check-resources.log",
+      "sha256": "78e57027790f804d7ed0ca69ab269564a2522397b75246d9d99b8a210c3752be"
+    }
+  }
+}

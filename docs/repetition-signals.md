@@ -207,3 +207,44 @@ The [whole-page follow-up](../research/reviews/2026-09-17-repetition-scope/READM
 reports observed gains, removed warnings and remaining misses against the same
 assistant's frozen judgments. Default qualification remains separate from this
 bounded development result.
+
+## Short local repetitions
+
+Three additional experimental warnings cover local constructions. They do not
+lower the word minimums, opener counts or gates of the earlier rules.
+
+- `repetition.adjacent-word` locates both copies of an adjacent prose word.
+  Punctuation, quoted examples, protected code and term exemptions interrupt the
+  match. Ambiguous grammatical repetitions such as `had had` and `that that`,
+  repeated adjectives/adverbs and ambiguous noun/verb readings stay silent.
+  It carries weight 12 and cap 24.
+- `repetition.repeated-claim` compares assertions within one structural section
+  and a 16-sentence window, with at least five prose words. A complete assertion
+  can match the prefix before a nonrestrictive `, which` tail; two partial
+  prefixes alone do not qualify. Conditional, modal, negated or quantified tails
+  remain outside that comparison. Short whole assertions and assertions with
+  opaque inline-code operands also qualify. Every operand, including its case
+  and delimiters, stays part of exact identity. Ordinary long unprotected
+  duplicates remain with `repetition.exact-sentence`. Lists, independent cells,
+  questions, quoted examples and arbitrary code are excluded. Separate comments
+  and string literals are independent; repetition within one block is eligible.
+  The rule carries weight 15 and cap 30.
+- `repetition.explanatory-restart` identifies a repeated copular judgment before
+  its cause: “The process is complex, and it is complex because ...”. It locates
+  the initial judgment and its anaphoric repetition, without blaming the cause
+  that follows. Tense, subject number and adjective must agree. It permits a
+  nonquantified intensifier on the first adjective, but rejects conditions,
+  negation, quantities, protected construction words and ambiguous noun
+  antecedents. It carries weight 12 and cap 24.
+
+All three use existing tokenization, POS and original byte mappings. None is a
+dependency parser, general paraphrase detector or authorship classifier. Candidate
+work is bounded; exhaustion is an explicit abstention. Repeated technical
+assertions can be useful, so a warning requests review and does not prescribe
+deleting an occurrence. Default qualification remains #26.
+
+The [local repetition measurement](../research/reviews/2026-09-17-local-repetition/README.md)
+recovers one known short assertion and three accidental word duplicates. Its
+restart warning addresses only part of the circular explanation. No new
+confirmation defect is detected by these additions; the glossary and license
+paraphrases remain unsupported.

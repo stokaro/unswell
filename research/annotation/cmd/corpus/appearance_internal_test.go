@@ -98,7 +98,7 @@ func TestFirstAppearanceCommandFeedsTheUnitAnalysis(t *testing.T) {
 	c.Assert(filter.Repositories, qt.HasLen, 1)
 	filterPath := filepath.Join(t.TempDir(), "filter.json")
 	c.Assert(os.WriteFile(filterPath, output.Bytes(), 0o600), qt.IsNil)
-	classes := "../../../methods/rule-classes-v1-r6.json"
+	classes := "../../../methods/rule-classes-v1-r7.json"
 	findings := []string{measured(t, earlierRoot, earlier), measured(t, root, later)}
 	var tables bytes.Buffer
 	c.Assert(run(t.Context(), []string{"analyze", "--classes", classes, "--findings", findings[0], "--findings", findings[1],
@@ -144,7 +144,7 @@ func TestDedupeCommandFeedsTheUnitAnalysis(t *testing.T) {
 	c.Assert(selection.Cohorts[1].RepeatedEarlier, qt.Equals, selection.Cohorts[1].Units-1)
 	path := filepath.Join(t.TempDir(), "selection.json")
 	c.Assert(os.WriteFile(path, output.Bytes(), 0o600), qt.IsNil)
-	classes := "../../../methods/rule-classes-v1-r6.json"
+	classes := "../../../methods/rule-classes-v1-r7.json"
 	findings := []string{measured(t, earlierRoot, earlier), measured(t, root, later)}
 	var tables bytes.Buffer
 	c.Assert(run(t.Context(), []string{"analyze", "--classes", classes, "--findings", findings[0], "--findings", findings[1],

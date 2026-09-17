@@ -30,6 +30,7 @@ func Rules() []rule.Rule {
 	result = append(result, frameRules()...)
 	result = append(result, localRhetoricRules()...)
 	result = append(result, extendedRepetitionRules()...)
+	result = append(result, localRepetitionRules()...)
 	result = append(result, surfaceRules()...)
 	result = withOptInReasons(result)
 	slices.SortFunc(result, func(a, b rule.Rule) int {

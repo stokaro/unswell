@@ -11,7 +11,9 @@ import (
 )
 
 func candidateActivationIDs() []string {
-	return []string{"repetition.duplicate-list-item", "format.list-fragmentation", "repetition.heading-echo", "repetition.near-sentence",
+	return []string{"repetition.adjacent-word", "repetition.repeated-claim", "repetition.explanatory-restart",
+		"repetition.duplicate-list-item",
+		"format.list-fragmentation", "repetition.heading-echo", "repetition.near-sentence",
 		"repetition.ngram-density", "repetition.paragraph-overlap", "repetition.summary-echo", "repetition.syntax-template"}
 }
 
@@ -33,6 +35,11 @@ func TestCandidateActivationsPreserveCatalogExamples(t *testing.T) {
 
 func TestCandidateActivationsDistinguishMissingFromZero(t *testing.T) {
 	for _, row := range []struct{ id, text, parameters, extra, reason string }{
+		{"repetition.repeated-claim", "The client retries the request.", "", "", "no_eligible_pair"},
+		{"repetition.repeated-claim", "The client retries the request. The server closes the connection.", "", "", ""},
+		{"repetition.repeated-claim", "The client retries.", "", "", "insufficient_words"},
+		{"repetition.repeated-claim", "Open the client connection before retrying.", "", "", "no_eligible_tokens"},
+		{"repetition.adjacent-word", "The client retries the request.", "", "", ""},
 		{"repetition.near-sentence", overlapParagraph, "", "", "no_eligible_pair"},
 		{"repetition.near-sentence", overlapParagraph + " " + overlapParagraph, "", "", ""},
 		{"repetition.near-sentence", overlapParagraph + " " + overlapParagraph + " Short.", "", "", ""},

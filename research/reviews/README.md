@@ -32,3 +32,8 @@ Independent human review is not a prerequisite for this work.
   sources annotated before new detector-output review, missed-event recall,
   all-finding dispositions and historical controls. The maintainer accepted these
   single-assistant judgments as diagnostic development evidence.
+
+- [2026-09-17-local-repetition](2026-09-17-local-repetition/README.md): short
+  repeated assertions and adjacent-word fixes, with all diagnostic deltas and
+  12 newly annotated complete pages. The new pages show no detection gain;
+  broad recall and default qualification remain open.
