@@ -20,6 +20,12 @@ weight 15, cap 30, with no unconditional gate. It preserves issue references and
 identifier spelling within one list. [Repetition scope](repetition-signals.md#comparison-scope-and-short-complete-items)
 documents its boundaries and evidence.
 
+Three [local repetition checks](repetition-signals.md#short-local-repetitions)
+also ship as experimental warnings. Their
+[complete-page measurement](../research/reviews/2026-09-17-local-repetition/README.md)
+records gains on known examples and no confirmation gain. These results do not
+qualify their defaults or establish broad editorial recall.
+
 ## The decision rule
 
 A rule ships enabled when it names a construction a reader can act on and its

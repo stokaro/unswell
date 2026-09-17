@@ -242,3 +242,9 @@ dependency parser, general paraphrase detector or authorship classifier. Candida
 work is bounded; exhaustion is an explicit abstention. Repeated technical
 assertions can be useful, so a warning requests review and does not prescribe
 deleting an occurrence. Default qualification remains #26.
+
+The [local repetition measurement](../research/reviews/2026-09-17-local-repetition/README.md)
+recovers one known short assertion and three accidental word duplicates. Its
+restart warning addresses only part of the circular explanation. No new
+confirmation defect is detected by these additions; the glossary and license
+paraphrases remain unsupported.

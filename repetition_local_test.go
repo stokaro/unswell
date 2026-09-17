@@ -134,3 +134,23 @@ func TestRepeatedClaimsChargeOnlyMappingWalksThatRun(t *testing.T) {
 	c.Assert(result.Findings, qt.HasLen, 1)
 	c.Assert(result.Findings[0].Primary.Snippet, qt.Equals, "The client retries the request")
 }
+
+func TestLocalRepetitionLeavesUnresolvedParaphrasesUnclaimed(t *testing.T) {
+	for _, text := range []string{
+		"Definitions come from one source, `docs/site/src/glossary.ts`, so the same term cannot come to mean two " +
+			"different things on two pages.\n\nThen link here from the pages that use it.\n\n" +
+			"The definition stays in the map and is rendered in one place, which is what keeps a word from meaning " +
+			"one thing on one page and something else on the next.",
+		"In particular, ripgrep's dependencies (direct and transitive) will always be limited to permissive licenses. " +
+			"That is, ripgrep will never depend on code that is not permissively licensed.",
+		"The client uses permissive licenses for direct dependencies. " +
+			"The server uses permissive licenses for transitive dependencies.",
+	} {
+		for _, id := range []string{"repetition.repeated-claim", "repetition.explanatory-restart"} {
+			t.Run(id+"/"+text, func(t *testing.T) {
+				c := qt.New(t)
+				c.Assert(singleRuleResult(t, id, text, "", "").Findings, qt.HasLen, 0)
+			})
+		}
+	}
+}
