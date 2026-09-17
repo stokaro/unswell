@@ -76,6 +76,9 @@ func TestCandidateActivationsKeepExcludedProseOut(t *testing.T) {
 
 func TestCandidateActivationsRetainCancellationAndConcurrentOwnership(t *testing.T) {
 	for _, row := range []struct{ id, text string }{
+		{"filler.document-justification", "This guide covers deployment. It owns the sequence, not the detail."},
+		{"filler.evaluative-closure", "The reason is worth knowing in advance."},
+		{"filler.unscoped-assurance", "The service delivers unparalleled performance."},
 		{"repetition.adjacent-word", "The scanner requires requires an external decoder."},
 		{"repetition.repeated-claim", "The client retries the request. The client retries the request."},
 		{"repetition.explanatory-restart", "The process is complex, and it is complex because several callbacks share state."},

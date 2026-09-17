@@ -1,0 +1,85 @@
+"""Freeze untouched confirmation pages and disclose depleted source cells."""
+import argparse
+import gzip
+import hashlib
+import io
+import json
+from pathlib import Path
+import tarfile
+
+
+def digest(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--ptah-sources', type=Path, required=True)
+    parser.add_argument('--output', type=Path, required=True)
+    args = parser.parse_args()
+    if args.output.exists():
+        raise ValueError('Output must be new')
+    repo = Path(__file__).resolve().parents[4]
+    development = repo/'research/reviews/2026-09-17-full-page-recall/manifest.json'
+    manifest = json.loads(development.read_text())
+    previous = repo/'research/reviews/2026-09-17-framing-recall/confirmation/manifest.json'
+    scope = repo/'research/reviews/2026-09-17-repetition-scope/confirmation/manifest.json'
+    local = repo/'research/reviews/2026-09-17-local-repetition/confirmation/manifest.json'
+    used = {p['reference'] for p in manifest['pages'] + json.loads(previous.read_text())['pages']
+            + json.loads(scope.read_text())['pages'] + json.loads(local.read_text())['pages']}
+    pages, cells = [], []
+    for cohort in ('ptah', 'historical'):
+        for fmt in ('any',):
+            for length in ('short', 'medium', 'long'):
+                candidates = [p for p in manifest['frame'] if p['cohort'] == cohort and p['reference'] not in used
+                              and p['length_stratum'] == length and (fmt == 'any' or p['format'] == fmt)]
+                def rank(p):
+                    return digest(('context-recall-confirmation-v1\n'+p['reference']).encode())
+                cells.append(dict(cohort=cohort, length=length, requested=2, selected=min(2, len(candidates)), available=len(candidates)))
+                if not candidates:
+                    raise ValueError('Empty unexposed source cell')
+                for row in sorted(candidates, key=rank)[:2]:
+                    pid = f'c{len(pages)+1:02}'
+                    pages.append(dict(row, id=pid, path='sources/'+pid+Path(row['original_path']).suffix,
+                                      confirmation_rank=rank(row), eligible=len(candidates)))
+    files = {}
+    history = repo/'research/generation/studies/long-prose-v3/inputs.tar.gz'
+    if digest(history.read_bytes()) != manifest['historical_archive_sha256']:
+        raise ValueError('Historical archive drift')
+    with tarfile.open(history) as archive:
+        for page in pages:
+            notices = {}
+            if page['cohort'] == 'ptah':
+                data = (args.ptah_sources/page['input_path']).read_bytes()
+                notices['notices/ptah/LICENSE'] = (repo/'e2e/rhetoricdata/LICENSE.ptah').read_bytes()
+            else:
+                data = archive.extractfile(page['input_path']).read()
+                prefix = 'sources/historical/'+page['repository'].replace('/', '__')+'/'
+                for notice in page['notices']:
+                    content = archive.extractfile(prefix+notice['path']).read()
+                    if digest(content) != notice['sha256']:
+                        raise ValueError('Notice drift')
+                    notices['notices/'+page['repository'].replace('/', '__')+'/'+notice['path']] = content
+            if digest(data) != page['sha256'] or len(data) != page['bytes']:
+                raise ValueError('Source drift')
+            files[page['path']] = data
+            files.update(notices)
+            page['retained_notices'] = [dict(path=p, sha256=digest(b)) for p,b in notices.items()]
+    output = io.BytesIO()
+    with tarfile.open(fileobj=output, mode='w') as archive:
+        for path,data in sorted(files.items()):
+            info = tarfile.TarInfo(path)
+            info.size, info.mode = len(data), 0o644
+            archive.addfile(info, io.BytesIO(data))
+    args.output.mkdir(parents=True)
+    (args.output/'inputs.tar.gz').write_bytes(gzip.compress(output.getvalue(), mtime=0))
+    result = dict(version=1, selection='context-recall-confirmation-v1', development_manifest_sha256=digest(development.read_bytes()),
+                  previous_confirmation_manifest_sha256=digest(previous.read_bytes()),
+                  repetition_confirmation_manifest_sha256=digest(scope.read_bytes()),
+                  local_confirmation_manifest_sha256=digest(local.read_bytes()),
+                  inputs_sha256=digest((args.output/'inputs.tar.gz').read_bytes()), cells=cells, pages=pages)
+    (args.output/'manifest.json').write_text(json.dumps(result, indent=2)+'\n')
+
+
+if __name__ == '__main__':
+    main()
