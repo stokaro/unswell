@@ -47,13 +47,27 @@ func passiveActionMethod(tokens []document.Token, verb int) bool {
 	} else if !frameWord(tokens[end], "is", "are") {
 		return false
 	}
-	end++
-	if end+3 >= len(tokens) || !frameWord(tokens[end], "done", "performed", "accomplished", "achieved") ||
-		!frameWord(tokens[end+1], "by", "through") {
+	return performedMethod(tokens[end+1:])
+}
+
+func performedMethod(tokens []document.Token) bool {
+	if len(tokens) < 3 {
 		return false
 	}
-	end += 2
-	if frameWord(tokens[end], "directly", "simply") {
+	end := 1
+	if frameWord(tokens[0], "carried") && frameWord(tokens[1], "out") {
+		end++
+	} else if !frameWord(tokens[0], "done", "performed", "accomplished", "achieved") {
+		return false
+	}
+	if frameWord(tokens[end], "using") {
+		return projectionOperand(tokens[end:])
+	}
+	if !frameWord(tokens[end], "by", "through") {
+		return false
+	}
+	end++
+	if end < len(tokens) && frameWord(tokens[end], "directly", "simply") {
 		end++
 	}
 	return methodAction(tokens[end:])

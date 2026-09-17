@@ -181,3 +181,22 @@ Neither rule establishes semantic redundancy or the truth of a claim. An index
 and a gate are separate from construction recognition. Defaults deliberately
 expose the constructions without assigning editorial risk points or forbidding
 technical explanations. Projects can configure a stricter local policy.
+
+## Layered instruction wording
+
+`filler.instruction-scaffolding` version 4 follows bounded support predicates to
+an action and its operand: nominal ability, generic reader enablement, modal
+used-to clauses and nested intended-to-enable clauses. The diagnostic retains
+the actor, action, operands and conditions. Its advice preserves possibility;
+it does not change a capability into an obligation. Named actor permissions,
+negation, reported claims, hazards and a bare can-plus-action remain controls.
+These are surface relations over existing tokens and POS tags, not a dependency
+parse or a claim of semantic equivalence.
+
+An immediate anaphoric method can be related across two adjacent prose paragraphs.
+The source ranges remain separate. Headings, lists, excluded code and unrelated
+sentences break the relation; compound announcements are not linked across
+paragraphs. Independent comments and string literals remain separate. Other
+findings retain their block scope and existing occurrence policy. Bounds remain
+48 candidate tokens and 96 sentence tokens for the new projection. Default
+weights, thresholds and gates are unchanged.

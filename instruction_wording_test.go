@@ -49,9 +49,9 @@ func TestInstructionWordingContext(t *testing.T) {
 	}
 	text := "It is possible to display a label.\n\nThis is done by using the label option."
 	result := singleRuleResult(t, id, text, "", "")
-	// Separate paragraphs retain separate method diagnostics and no invented related range.
-	qt.New(t).Assert(result.Findings, qt.HasLen, 2)
-	qt.New(t).Assert(result.Findings[0].Related, qt.HasLen, 0)
+	// An adjacent method retains its real source range as related evidence.
+	qt.New(t).Assert(result.Findings, qt.HasLen, 1)
+	qt.New(t).Assert(result.Findings[0].Related, qt.HasLen, 1)
 }
 
 func TestInstructionWordingControls(t *testing.T) {
