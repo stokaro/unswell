@@ -49,7 +49,8 @@ func TestInstructionWordingContext(t *testing.T) {
 	}
 	text := "It is possible to display a label.\n\nThis is done by using the label option."
 	result := singleRuleResult(t, id, text, "", "")
-	qt.New(t).Assert(result.Findings, qt.HasLen, 1)
+	// Separate paragraphs retain separate method diagnostics and no invented related range.
+	qt.New(t).Assert(result.Findings, qt.HasLen, 2)
 	qt.New(t).Assert(result.Findings[0].Related, qt.HasLen, 0)
 }
 

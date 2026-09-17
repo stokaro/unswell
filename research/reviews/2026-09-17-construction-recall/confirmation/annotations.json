@@ -1,0 +1,1398 @@
+{
+  "version": 1,
+  "protocol": "unswell-editorial-v1",
+  "reviewer": "Codex implementing assistant; maintainer accepted under ADR 0041",
+  "review_phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "632d041083fecf059b4e150edc0d0654a695b7b7dc6f817d3250106db38da294",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4397,
+          "first_line": 1,
+          "last_line": 143,
+          "rationale": "Read all source prose from YAML selection through rendering, metadata, naming precedence and next steps; code examples and frontmatter are context only. Repeated API names identify separate target-specific contracts.",
+          "prose_blocks": 18,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c01-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1635,
+              "end": 1694,
+              "quote": "The rendered SQL proves Ptah understood the desired schema."
+            }
+          ],
+          "context": [
+            {
+              "start": 1635,
+              "end": 2107,
+              "quote": "The rendered SQL proves Ptah understood the desired schema. `--schema-file` is\naccepted wherever Ptah needs a desired schema: `ptah schema render`,\n`ptah schema compare`, `ptah schema drift`, the migration commands\n(`ptah migrations plan` / `ptah migrations generate`), and every target of\n[`ptah schema export`](../export/#sources) except `hcl`. That includes the two\ndocumentation targets, so\n[a Markdown or HTML reference](../document/) can be generated from this file."
+            }
+          ],
+          "rationale": "The anthropomorphic understanding claim adds no observable validation criterion to the rendered output.",
+          "proposed_edit": "Tell readers to inspect the rendered SQL for the intended schema, retaining the supported command list."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c01-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 732,
+              "end": 786,
+              "quote": "so a typo cannot masquerade as an intentional setting."
+            }
+          ],
+          "context": [
+            {
+              "start": 560,
+              "end": 786,
+              "quote": "Use YAML when Ptah owns the schema file and you want compact, explicit input\nwithout HCL syntax. The parser is strict: unknown keys fail instead of being\nsilently ignored, so a typo cannot masquerade as an intentional setting."
+            }
+          ],
+          "rationale": "The metaphor repeats unknown-key refusal but may clarify why strict parsing matters.",
+          "proposed_edit": "Optionally stop after unknown keys being rejected."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2906,
+              "end": 3385,
+              "quote": "The target-specific name wins over `api_name`, which wins over the database\nname. Table GraphQL and Protobuf values are type/message stems; column GraphQL\nand Protobuf values are exact field names. `api_type` changes only the generated\ncontract type, and `api_expose` accepts `read`, `write`, `read-write`, or\n`none`. Invalid or unknown keys fail before output. See\n[API schema export](../export/#names-in-the-contract) for target naming rules,\ncollisions, and exposure behavior."
+            }
+          ],
+          "context": [
+            {
+              "start": 2906,
+              "end": 3385,
+              "quote": "The target-specific name wins over `api_name`, which wins over the database\nname. Table GraphQL and Protobuf values are type/message stems; column GraphQL\nand Protobuf values are exact field names. `api_type` changes only the generated\ncontract type, and `api_expose` accepts `read`, `write`, `read-write`, or\n`none`. Invalid or unknown keys fail before output. See\n[API schema export](../export/#names-in-the-contract) for target naming rules,\ncollisions, and exposure behavior."
+            }
+          ],
+          "rationale": "Naming precedence, table-versus-column roles and exposure values define distinct contract rules.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2109,
+              "end": 2245,
+              "quote": "Path confinement is shared by every `--schema-file` source; see\n[Schema file paths](../../reference/native-commands/#schema-file-paths)."
+            }
+          ],
+          "context": [
+            {
+              "start": 2109,
+              "end": 2245,
+              "quote": "Path confinement is shared by every `--schema-file` source; see\n[Schema file paths](../../reference/native-commands/#schema-file-paths)."
+            }
+          ],
+          "rationale": "The source-path confinement link identifies shared operational scope.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "4d864640ed60ad19da68f3f7a9c6a9f4d6a425bf976072f32a7a0a222af15f69",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 7052,
+          "first_line": 1,
+          "last_line": 189,
+          "rationale": "Read all three table layouts, chunk identities, coverage gaps, cascade/filter exception, generation identity, representations and metric/operator matching. Preserve independently managed rows, optional layouts, precision tradeoffs and destructive-retirement conditions.",
+          "prose_blocks": 34,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 2530,
+              "end": 2585,
+              "quote": "A long document embedded as one vector retrieves badly:"
+            }
+          ],
+          "context": [
+            {
+              "start": 2530,
+              "end": 2808,
+              "quote": "A long document embedded as one vector retrieves badly: the model averages the\nwhole of it, and a query matching one paragraph competes with everything else in\nthe row. Splitting it is what `truncate: chunk` does, and it is why this layout\nexists rather than being a preference:"
+            }
+          ],
+          "rationale": "The unqualified quality claim gives neither a retrieval task nor a comparison; the following paragraph supplies the specific averaging problem.",
+          "proposed_edit": "Start with a single vector averaging the document and preserve the paragraph-matching explanation."
+        },
+        {
+          "id": "c02-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2744,
+              "end": 2808,
+              "quote": "and it is why this layout\nexists rather than being a preference:"
+            }
+          ],
+          "context": [
+            {
+              "start": 2530,
+              "end": 2808,
+              "quote": "A long document embedded as one vector retrieves badly: the model averages the\nwhole of it, and a query matching one paragraph competes with everything else in\nthe row. Splitting it is what `truncate: chunk` does, and it is why this layout\nexists rather than being a preference:"
+            }
+          ],
+          "rationale": "The existence-versus-preference justification repeats the need for several vectors without stating a new condition.",
+          "proposed_edit": "Keep that chunking splits the document and introduce its configuration."
+        },
+        {
+          "id": "c02-d03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 5050,
+              "end": 5135,
+              "quote": "It belongs to no generation, so a generation's verification is not where\nit is named."
+            }
+          ],
+          "context": [
+            {
+              "start": 4965,
+              "end": 5335,
+              "quote": "A row in the target table that no generation ever wrote is reported by none of\nthem. It belongs to no generation, so a generation's verification is not where\nit is named. That is the row you get from creating the sidecar row before the\nrun that fills it, and it does not block a cutover. Under `layout: own_table`\nthere is no such row, because Ptah is what creates them."
+            }
+          ],
+          "rationale": "The sentence restates the preceding rule that no generation reports an unwritten row.",
+          "proposed_edit": "Keep the rule once, followed by the sidecar timing example and cutover consequence."
+        },
+        {
+          "id": "c02-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5401,
+              "end": 5460,
+              "quote": "which is worth\nsaying because it looks as though it should:"
+            }
+          ],
+          "context": [
+            {
+              "start": 5337,
+              "end": 5654,
+              "quote": "The cascade does not make the out-of-scope finding unreachable, which is worth\nsaying because it looks as though it should: it removes the rows whose source\nrow is gone, and leaves the rows whose source row is still there and no longer\npasses the specification's `filter`. That second case is what the finding is\nfor."
+            }
+          ],
+          "rationale": "The worth and apparent-surprise announcement delays the concrete source-deletion versus filter distinction.",
+          "proposed_edit": "Say that cascade removes deleted-source rows but retains rows whose existing source no longer matches the filter."
+        },
+        {
+          "id": "c02-d05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5610,
+              "end": 5654,
+              "quote": "That second case is what the finding is\nfor."
+            }
+          ],
+          "context": [
+            {
+              "start": 5337,
+              "end": 5654,
+              "quote": "The cascade does not make the out-of-scope finding unreachable, which is worth\nsaying because it looks as though it should: it removes the rows whose source\nrow is gone, and leaves the rows whose source row is still there and no longer\npasses the specification's `filter`. That second case is what the finding is\nfor."
+            }
+          ],
+          "rationale": "The closing purpose statement repeats the already stated out-of-scope finding and second case.",
+          "proposed_edit": "End after the filter exception; retain the finding relationship in the direct statement."
+        },
+        {
+          "id": "c02-d06",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 5943,
+              "end": 5966,
+              "quote": "is what most people do."
+            }
+          ],
+          "context": [
+            {
+              "start": 5903,
+              "end": 6023,
+              "quote": "Naming: `embedding` then `embedding_v2` is what most people do. Ptah does not\ncare about the name, only that it differs."
+            }
+          ],
+          "rationale": "The naming recommendation appeals to an unsubstantiated majority rather than a requirement.",
+          "proposed_edit": "Present embedding and embedding_v2 as an example, preserving the distinct-name requirement."
+        },
+        {
+          "id": "c02-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6986,
+              "end": 7051,
+              "quote": "which\nis the failure mode worth knowing about before you meet it."
+            }
+          ],
+          "context": [
+            {
+              "start": 6911,
+              "end": 7051,
+              "quote": "A mismatch does not error. It returns the wrong rows in a plausible order, which\nis the failure mode worth knowing about before you meet it."
+            }
+          ],
+          "rationale": "The closing worth announcement adds no failure behavior after wrong rows in plausible order.",
+          "proposed_edit": "End after the mismatch returning wrong rows without an error."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c02-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5869,
+              "end": 5901,
+              "quote": "for a rollback to mean anything."
+            }
+          ],
+          "context": [
+            {
+              "start": 5689,
+              "end": 5901,
+              "quote": "Either layout needs a new column per generation. `prepare` refuses to write a\ngeneration into a column another one holds, and the reason is that the previous\ncorpus has to survive for a rollback to mean anything."
+            }
+          ],
+          "rationale": "The phrase is rhetorical but conveys that the earlier generation must remain usable for rollback.",
+          "proposed_edit": "Optionally say the previous corpus must survive so rollback remains possible."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3299,
+              "end": 3771,
+              "quote": "The ordinal orders the chunks; it does not identify them. Text that gains a\nsentence moves every boundary after it, so a re-embedding replaces the row's\n**whole set** rather than matching chunk against chunk — including removing the\nrows a shorter text no longer produces. Verification follows the same unit: a\nsource row is covered when its stored rows are exactly the set its current text\nimplies, and a key holding rows its set does not declare is a blocking finding."
+            }
+          ],
+          "context": [
+            {
+              "start": 3299,
+              "end": 3771,
+              "quote": "The ordinal orders the chunks; it does not identify them. Text that gains a\nsentence moves every boundary after it, so a re-embedding replaces the row's\n**whole set** rather than matching chunk against chunk — including removing the\nrows a shorter text no longer produces. Verification follows the same unit: a\nsource row is covered when its stored rows are exactly the set its current text\nimplies, and a key holding rows its set does not declare is a blocking finding."
+            }
+          ],
+          "rationale": "Chunk ordinals are positions rather than stable identities; replacement and verification consequences both matter.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6128,
+              "end": 6345,
+              "quote": "`vector` stores four bytes per dimension. `halfvec` stores two, at some loss of\nprecision — worth measuring on a large corpus where the index size matters.\n`sparsevec` is for models that produce mostly-zero vectors."
+            }
+          ],
+          "context": [
+            {
+              "start": 6128,
+              "end": 6345,
+              "quote": "`vector` stores four bytes per dimension. `halfvec` stores two, at some loss of\nprecision — worth measuring on a large corpus where the index size matters.\n`sparsevec` is for models that produce mostly-zero vectors."
+            }
+          ],
+          "rationale": "The recommendation to measure precision loss has a concrete workload and index-size tradeoff.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4303,
+              "end": 4435,
+              "quote": "Choose it when the sidecar table is one your application already writes to, or\nwhen it carries columns of its own beside the vector."
+            }
+          ],
+          "context": [
+            {
+              "start": 4303,
+              "end": 4435,
+              "quote": "Choose it when the sidecar table is one your application already writes to, or\nwhen it carries columns of its own beside the vector."
+            }
+          ],
+          "rationale": "The choose-it conditions state actual source ownership and data constraints.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "575040957421522d20279388ba4af0e3b538d5620bec5662a29347b1b347143f",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 38782,
+          "first_line": 1,
+          "last_line": 773,
+          "rationale": "Read the full apply workflow, output and revision states, directive parsing, all batch/resume restrictions, flags, transaction capability table, hooks, OCI provenance and failure recovery. Long technical enumerations retain distinct dialect, transaction, privilege and partial-commit cases; source code and literal diagnostics are context, not editorial targets.",
+          "prose_blocks": 133,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 10346,
+              "end": 10382,
+              "quote": "The defaults are safe for most runs."
+            }
+          ],
+          "context": [
+            {
+              "start": 10346,
+              "end": 10457,
+              "quote": "The defaults are safe for most runs. These controls matter once several people\nand pipelines share a directory:"
+            }
+          ],
+          "rationale": "Safety and most runs have no stated workload boundary; shared-directory controls do not justify a general assurance.",
+          "proposed_edit": "Introduce the controls for shared directories directly or name the safe operating assumptions."
+        },
+        {
+          "id": "c03-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11287,
+              "end": 11443,
+              "quote": "because an operator who writes\n  `txmode none`, sees exit `0`, and believes the file ran outside a transaction\n  is the failure this rule exists to prevent."
+            }
+          ],
+          "context": [
+            {
+              "start": 10868,
+              "end": 11916,
+              "quote": "Ptah transaction, timeout, and online-DDL directives are significant only\n  **before the first executable statement**. Atlas transaction mode uses its\n  own stricter header rule described below. A directive written below the\n  statements it claims to govern is not honored — and it is not dropped in\n  silence either. Ptah reports it at `WARN` on stderr, naming the file, the\n  line, the directive and how to fix it, because an operator who writes\n  `txmode none`, sees exit `0`, and believes the file ran outside a transaction\n  is the failure this rule exists to prevent. The `-- atlas:` spelling keeps\n  Atlas's own stricter acceptance inside that region: only the unbroken run of\n  line comments that begins on line 1, each starting in column 1. A leading\n  blank line, an indented directive, or a blank line between the directive and\n  an earlier comment all put it outside that block, so Atlas CE ignores it and\n  so does Ptah — with the same warning. `-- +ptah` directives accept the whole\n  region, blank lines and indentation included."
+            }
+          ],
+          "rationale": "The operator scenario and failure-exists-to-prevent frame repeat the ignored-directive warning at length.",
+          "proposed_edit": "State that the warning identifies an ignored transaction directive even when the run exits 0; retain file, line and remedy."
+        },
+        {
+          "id": "c03-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 12053,
+              "end": 12134,
+              "quote": "never from a separate\n  list of dialects, which is how the two would drift apart."
+            }
+          ],
+          "context": [
+            {
+              "start": 11920,
+              "end": 12533,
+              "quote": "The region uses the target database's comment grammar, read from the same\n  lexer options Ptah splits the file's statements with — never from a separate\n  list of dialects, which is how the two would drift apart. A leading `#`\n  comment therefore stays part of the header wherever that reader treats it as\n  a comment, which is every supported target except SQL Server, and does not\n  hide the `no_transaction`, `lock_timeout` or `statement_timeout` directives\n  that follow it. On SQL Server `#` is not a comment, so a directive below one\n  really does sit below the first non-comment line and Ptah reports it."
+            }
+          ],
+          "rationale": "The hypothetical maintenance justification adds no lexer or dialect behavior.",
+          "proposed_edit": "Keep that header parsing uses the target lexer options and retain the hash-comment examples."
+        },
+        {
+          "id": "c03-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 13050,
+              "end": 13079,
+              "quote": "That direction is deliberate:"
+            }
+          ],
+          "context": [
+            {
+              "start": 12929,
+              "end": 13457,
+              "quote": "Before a connection exists the dialect is unresolved, and there Ptah reads\n  the header the widest way any target would. That direction is deliberate:\n  loading a file happens first and its verdict is final, so a header cut short\n  there would refuse a correctly placed directive as being below the first SQL\n  statement and offer a remedy — move it up — that the line already satisfies.\n  Ptah then resolves the effective timeouts and transaction mode with the\n  execution dialect before it validates or runs the migration."
+            }
+          ],
+          "rationale": "The intention announcement adds nothing before the concrete load-order explanation.",
+          "proposed_edit": "Connect the widest grammar directly to loading before the dialect resolves."
+        },
+        {
+          "id": "c03-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 13774,
+              "end": 13917,
+              "quote": "so you\n  are not told the value is nonsense, told nothing about the line being in the\n  wrong place, and left to discover that on the next run."
+            }
+          ],
+          "context": [
+            {
+              "start": 13461,
+              "end": 14446,
+              "quote": "Position and value are separate facts, and a bad value is not demoted to a\n  position warning. A `-- +ptah` directive whose key Ptah recognizes but whose\n  **value** it cannot read — `no_transaction=maybe`, `lock_timeout=soon` — fails\n  the run wherever the line sits, and the refusal names the position too, so you\n  are not told the value is nonsense, told nothing about the line being in the\n  wrong place, and left to discover that on the next run. A timeout key written\n  with no value at all — `-- +ptah lock_timeout` — fails the same way, and it\n  does so whatever else shares the line: a neighboring field Ptah can read says\n  nothing about whether the timeout has a value. A bare word Ptah does not\n  recognize as a directive (`-- +ptah revisit this`) is an ordinary comment and\n  is neither refused nor reported, and neither is a word inside an ordered\n  `-- +ptah check` line, whose quoted arguments are that directive's own grammar\n  rather than `key=value` fields."
+            }
+          ],
+          "rationale": "The repeated told/not-told scenario restates why the refusal includes the position.",
+          "proposed_edit": "Keep that the invalid-value refusal also identifies the misplaced directive."
+        },
+        {
+          "id": "c03-d06",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 22362,
+              "end": 22441,
+              "quote": "A flag typed beside the other's variable wins,\n  and the variable is withdrawn."
+            }
+          ],
+          "context": [
+            {
+              "start": 22012,
+              "end": 22441,
+              "quote": "Passing `--limit` as well is refused: the two select different prefixes of the\n  pending list and neither outranks the other. The refusal reads the values, not\n  the spelling, so `PTAH_TO_VERSION` beside `PTAH_LIMIT` is refused before the\n  run connects, while `--to-version \"\"` and `--limit 0` ask for no bound and\n  leave the other flag to decide. A flag typed beside the other's variable wins,\n  and the variable is withdrawn."
+            }
+          ],
+          "rationale": "The other/variable references obscure precedence among two flags and their environment settings.",
+          "proposed_edit": "Name that an explicitly supplied bound overrides the other bound supplied through its environment variable; preserve which value is discarded."
+        },
+        {
+          "id": "c03-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 26135,
+              "end": 26194,
+              "quote": "One spelling, two surfaces, two unrelated safety questions."
+            }
+          ],
+          "context": [
+            {
+              "start": 26135,
+              "end": 26409,
+              "quote": "One spelling, two surfaces, two unrelated safety questions. The collision is\npermanent — the compatibility surface registers the flag Atlas registers, and\nthe native surface registers the one Ptah has always had — so read the flag\nagainst the command it was typed after:"
+            }
+          ],
+          "rationale": "The slogan repeats the heading before the actual command-specific definitions.",
+          "proposed_edit": "Start with the compatibility reason or the command table."
+        },
+        {
+          "id": "c03-d08",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 27528,
+              "end": 27607,
+              "quote": "Production-like runs should be configured, not wrapped in ad hoc shell\nscripts."
+            }
+          ],
+          "context": [
+            {
+              "start": 27528,
+              "end": 27638,
+              "quote": "Production-like runs should be configured, not wrapped in ad hoc shell\nscripts. `ptah migrations up` supports:"
+            }
+          ],
+          "rationale": "The blanket preference gives no failure or maintenance criterion for the rejected alternative.",
+          "proposed_edit": "Introduce the supported hooks and configuration options without a general ban on shell wrappers."
+        },
+        {
+          "id": "c03-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 28494,
+              "end": 28570,
+              "quote": "An engine the revision table cannot be is refused before any statement runs."
+            }
+          ],
+          "context": [
+            {
+              "start": 28106,
+              "end": 28570,
+              "quote": "`--migrations-engine` — the storage engine the revision table is created with.\n  It exists for ClickHouse, where a replicated deployment needs\n  `ReplicatedMergeTree(...)` or the migration history lives on one node while\n  every replica reports itself consistent; see\n  [the ClickHouse revision table's storage engine](../../databases/clickhouse/#the-revision-tables-storage-engine).\n  An engine the revision table cannot be is refused before any statement runs."
+            }
+          ],
+          "rationale": "The cannot-be description obscures what constitutes an invalid engine.",
+          "proposed_edit": "State that an unsupported revision-table engine is rejected before executing statements, with the existing reference for accepted engines."
+        },
+        {
+          "id": "c03-d10",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 36371,
+              "end": 36418,
+              "quote": "retrying the body is what the refusal is\nabout."
+            }
+          ],
+          "context": [
+            {
+              "start": 36330,
+              "end": 37143,
+              "quote": "`--allow-dirty` does not bypass this — retrying the body is what the refusal is\nabout. An invalid *unique* index enforces nothing, so without the refusal the\nrun would exit `0`, report the database up to date, and keep accepting duplicate\nrows. Rebuild the index with the `REINDEX` the message names, or drop it so the\nname is free and the statement builds it, then run again. Only indexes named by\n`CREATE INDEX ... IF NOT EXISTS` are checked, and only on PostgreSQL; ordinary\ncreates retain PostgreSQL's normal error semantics and may be renamed or removed\nby later statements. Other dialects\nhave no concurrent index build to leave half-finished. A dry run is exempt,\nbecause it records nothing. `ptah migrations repair` refuses on the same\ngrounds — see [Maintain migration history](../maintain-history/)."
+            }
+          ],
+          "rationale": "The purpose restatement does not explain any additional bypass condition or recovery action.",
+          "proposed_edit": "Keep that allow-dirty does not bypass the check, then the invalid-unique-index consequence and repair steps."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c03-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 21156,
+              "end": 21236,
+              "quote": "It is equally how you take half a backlog deliberately and watch what\n  happens."
+            }
+          ],
+          "context": [
+            {
+              "start": 20926,
+              "end": 21236,
+              "quote": "Version bound** (`--to-version`): apply pending migrations up to and\n  including one exact version, and stop there. An approved plan names the\n  versions it covers before the run starts, and this is how the run is held to\n  them. It is equally how you take half a backlog deliberately and watch what\n  happens."
+            }
+          ],
+          "rationale": "The conversational example repeats staged rollout but may help distinguish version bounds from counts.",
+          "proposed_edit": "Optionally shorten it to an example of staged rollout while keeping the version bound."
+        },
+        {
+          "id": "c03-u02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 34650,
+              "end": 34799,
+              "quote": "Recorded progress therefore excludes transactional work that a rollback undid,\nwhile non-transactional mode retains work that no rollback could undo."
+            }
+          ],
+          "context": [
+            {
+              "start": 34650,
+              "end": 35036,
+              "quote": "Recorded progress therefore excludes transactional work that a rollback undid,\nwhile non-transactional mode retains work that no rollback could undo.\nOn MySQL and MariaDB, non-transactional mode keeps revision bookkeeping on a\nseparate checked metadata session while the migration body runs on its own\ndiscarded session, so body-local temporary objects cannot shadow the metadata\ntable."
+            }
+          ],
+          "rationale": "The sentence repeats prior cases, but acts as a summary after a long dialect-specific explanation.",
+          "proposed_edit": "Optionally shorten the summary; keep the following metadata-session behavior."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 14450,
+              "end": 14823,
+              "quote": "The `-- atlas:` spelling deliberately has no equivalent refusal. Measured on\n  Atlas CE `v1.3.0`, `migrate apply` over a directory carrying\n  `-- atlas:txmode bogus` exits `1` when the line is the header and `0` when it\n  sits below the statement. Refusing the second would exit non-zero where Atlas\n  CE exits `0`, so Ptah reports it and applies the directory, as CE does."
+            }
+          ],
+          "context": [
+            {
+              "start": 14450,
+              "end": 14823,
+              "quote": "The `-- atlas:` spelling deliberately has no equivalent refusal. Measured on\n  Atlas CE `v1.3.0`, `migrate apply` over a directory carrying\n  `-- atlas:txmode bogus` exits `1` when the line is the header and `0` when it\n  sits below the statement. Refusing the second would exit non-zero where Atlas\n  CE exits `0`, so Ptah reports it and applies the directory, as CE does."
+            }
+          ],
+          "rationale": "The native and Atlas paths deliberately have different measured exit behavior; their comparison explains a real compatibility constraint.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 19982,
+              "end": 20208,
+              "quote": "The migration advisory lock serializes Ptah clients that use the same lock\n  name. It cannot freeze DDL from a client that ignores that lock. Do not run\n  out-of-band DDL from the safety preflight until the migration finishes."
+            }
+          ],
+          "context": [
+            {
+              "start": 14829,
+              "end": 20921,
+              "quote": "Batch limit** (`--limit`): apply only the first N pending migrations —\n  useful for staged rollouts and verifying one step at a time. `--allow-dirty`\n  is the explicit recovery escape hatch that proceeds past a dirty revision\n  row. When the dirty row belongs to a migration that is still pending — the\n  usual case, a body that failed part-way — the retry reuses that row rather\n  than recording a second one, and skips the statements the earlier attempt\n  committed. Before it skips anything, Ptah verifies that the committed source\n  prefix is unchanged. Native rows carry a `partial:h1:` prefix checksum;\n  Atlas-format rows carry cumulative `partial_hashes`. Editing only the\n  unapplied suffix is allowed. A failed retry cannot reduce `applied` below the\n  previously committed prefix, even when the transaction mode changed.\n  Every `none` attempt runs its migration SQL on one pinned physical database\n  session, so a statement such as `SET search_path` remains effective for the\n  statements that follow. On server databases, revision checkpoints remain on\n  the original connection and cannot be redirected by that session state.\n  SQLite uses the pinned session but qualifies its revision table in `main`, so\n  in-memory databases do not deadlock and temporary objects cannot shadow the\n  metadata. A resumed attempt uses a fresh session: Ptah replays recognized\n  session-control statements from the verified prefix, skips recognized durable\n  DDL and DML, and refuses prefixes that created temporary objects or whose\n  session-local effect cannot be classified safely.\n  A `none` body cannot contain top-level transaction-control statements such as\n  `BEGIN`, `COMMIT`, `ROLLBACK`, savepoint commands, MySQL or MariaDB\n  `SET autocommit`, or SQL Server `SET IMPLICIT_TRANSACTIONS`. Ptah validates\n  the complete body and pins its physical session before changing revision\n  metadata, so either failure leaves a new version absent and preserves an\n  existing dirty row unchanged.\n  MySQL and MariaDB also reject transaction-control statements in `file` mode:\n  Ptah owns that file transaction, and changing `autocommit` inside the body\n  would make a post-DDL checkpoint ambiguous. Their revision metadata, default\n  storage engine, and every existing base table in the selected database must\n  use InnoDB. A migration that explicitly selects another storage engine,\n  resets an engine setting to `DEFAULT`, or inherits one through\n  `CREATE TABLE ... LIKE` is refused before its first statement. `DEFAULT` can\n  resolve differently from the session default that preflight verified. On\n  MySQL, the migration account must hold `TRIGGER` at database or\n  global scope so Ptah can see a complete trigger catalog. MariaDB exposes each\n  trigger's identity and target table without `TRIGGER`, so it does not require\n  that privilege for this catalog check. Ptah refuses MySQL `file` mode when it\n  cannot prove complete visibility. The MySQL grant must be global or must name\n  the selected database exactly in `SHOW GRANTS`. Ptah decodes escaped literal\n  wildcard characters in the database name, but deliberately does not infer\n  coverage from an unescaped `%` or `_` pattern because MySQL's\n  `partial_revokes` setting changes that pattern's meaning. Every `sql_mode`\n  assignment is also refused because changing grammar or quoting rules after\n  preflight can make the server execute SQL that Ptah did not inspect. A session\n  that already enables parser-changing `ANSI_QUOTES`, `MSSQL`, or\n  `NO_BACKSLASH_ESCAPES` behavior through the connection DSN or server default\n  is refused for the same reason. Durable server-state operations such as\n  `SET GLOBAL`, `SET PERSIST`, `RESET`, and `CREATE`,\n  `ALTER`, or `DROP DATABASE` are refused for the same reason: their effects do\n  not share the InnoDB transaction containing the witness. `SELECT` or `TABLE`\n  with `INTO OUTFILE` or `INTO DUMPFILE` is also refused because it writes\n  outside that transaction. The equivalent `SCHEMA` statements and `USE` are rejected as\n  well; select the target database in `--db-url` so Ptah can validate the\n  database it will modify. A statement that names another database is inspected\n  rather than refused: the engine preflight and the object catalog cover every\n  database a migration names. Ptah also refuses executable comments, `CALL`,\n  prepared or dynamic SQL, table locks, definitions of views, triggers,\n  routines, and events, references to existing views or trigger-bearing tables,\n  and calls to stored routines. Those forms can hide work that does not share\n  the witness transaction. A custom `MigrationFunc` is opaque for the same\n  reason and must use `none`; a `StatementInterceptor` is also opaque because\n  it can replace the inspected statement with different SQL. MySQL-family\n  `file` mode accepts directly executed SQL-backed migrations only.\n  Statement-level rejection diagnostics identify the statement number and\n  safety class without echoing the SQL, which may contain credentials.\n  Migration-function and interceptor refusals identify the affected direction\n  instead because their inner statements are opaque.\n  The migration advisory lock serializes Ptah clients that use the same lock\n  name. It cannot freeze DDL from a client that ignores that lock. Do not run\n  out-of-band DDL from the safety preflight until the migration finishes.\n  Pre-migration checks are not rerun after committed progress because they\n  describe the original pre-migration state. Automatic continuation is\n  up-direction only: a row left dirty by an interrupted rollback is refused so\n  up SQL cannot be resumed from a down-statement offset. Use\n  `ptah migrations repair` when the row cannot be resumed automatically: an\n  interrupted rollback, a process whose last statement has an unknown outcome,\n  changed or unverifiable committed-prefix metadata, an edit that changed the\n  file's statement count, or a dirty row for a migration whose file was rebased\n  away. Legacy dirty rows without prefix metadata may resume only while their\n  full-file checksum still matches."
+            }
+          ],
+          "rationale": "The lock limitation and prohibition define a necessary concurrency boundary.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 26808,
+              "end": 27163,
+              "quote": "Neither can be expressed in terms of the other, and neither implies the other.\nMeasured against the pinned community binary, its `--allow-dirty` releases no\ndirty-revision guard at all: an operator who passes it there has said nothing\nabout revision rows, and one who passes it to `ptah migrations up` has said\nnothing about adopting a populated database."
+            }
+          ],
+          "context": [
+            {
+              "start": 26808,
+              "end": 27163,
+              "quote": "Neither can be expressed in terms of the other, and neither implies the other.\nMeasured against the pinned community binary, its `--allow-dirty` releases no\ndirty-revision guard at all: an operator who passes it there has said nothing\nabout revision rows, and one who passes it to `ptah migrations up` has said\nnothing about adopting a populated database."
+            }
+          ],
+          "rationale": "The explicit nonimplication between identically named flags prevents a dangerous command-surface confusion.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 29180,
+              "end": 29629,
+              "quote": "Pin the digest deliberately: `--verify-sum` checks the pulled directory against\nthe sum shipped inside the same artifact, so over a movable tag it proves the\nfiles are internally consistent, not that they are the reviewed ones. `up`\nprints that qualification, along with the digest the tag resolved to and the\nreference that pins it, whenever a sum verifies over a tag-resolved artifact.\nThe run still succeeds; a digest reference gets no such line."
+            }
+          ],
+          "context": [
+            {
+              "start": 29180,
+              "end": 29629,
+              "quote": "Pin the digest deliberately: `--verify-sum` checks the pulled directory against\nthe sum shipped inside the same artifact, so over a movable tag it proves the\nfiles are internally consistent, not that they are the reviewed ones. `up`\nprints that qualification, along with the digest the tag resolved to and the\nreference that pins it, whenever a sum verifies over a tag-resolved artifact.\nThe run still succeeds; a digest reference gets no such line."
+            }
+          ],
+          "rationale": "A digest pin and an internally consistent movable tag prove different properties; both conditions and outcomes must remain.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c05",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 37145,
+              "end": 37807,
+              "quote": "An intentional `DROP INDEX` followed by a matching create is allowed when the\ndrop will execute in the current attempt. A statement skipped by dirty-resume\ncannot serve as that cleanup. Ptah resolves both unqualified drops and target\ntables through `search_path`, then checks the schema-level relation name. An\nindex on another table or a non-index relation with that name is a conflict.\nAfter the body, Ptah positively verifies on the active transaction or connection\nthat every conditional create's statement-local schema, target table, and index\nname still describe a usable result. Equal raw names under different\n`search_path` values remain distinct checks."
+            }
+          ],
+          "context": [
+            {
+              "start": 37145,
+              "end": 37807,
+              "quote": "An intentional `DROP INDEX` followed by a matching create is allowed when the\ndrop will execute in the current attempt. A statement skipped by dirty-resume\ncannot serve as that cleanup. Ptah resolves both unqualified drops and target\ntables through `search_path`, then checks the schema-level relation name. An\nindex on another table or a non-index relation with that name is a conflict.\nAfter the body, Ptah positively verifies on the active transaction or connection\nthat every conditional create's statement-local schema, target table, and index\nname still describe a usable result. Equal raw names under different\n`search_path` values remain distinct checks."
+            }
+          ],
+          "rationale": "Executed versus skipped drops, schema resolution, table identity and postconditions are distinct safety requirements.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "91d792bf92578db93a6b35c7c8bf03e654c8ec9529541a1889def1126cb73012",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 57924,
+          "first_line": 1,
+          "last_line": 1559,
+          "rationale": "Reviewed all comments and prose-bearing option/message strings across the complete CMake file, including SSL, LDAP, CA selection, feature probes, compiler flags, exports and installation. CMake syntax, identifiers, generated C snippets and quoted API contract values are not editorial prose. The inherited text format exposes program syntax and legal notice; retain that genre/extraction limitation in evaluation instead of calling program lines bad prose. No diagnostic output was used.",
+          "prose_blocks": 170,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 1704,
+              "end": 1725,
+              "quote": "(most obvious thing:)"
+            }
+          ],
+          "context": [
+            {
+              "start": 1070,
+              "end": 2182,
+              "quote": "# TODO:\n# The output .so file lacks the soname number which we currently have within the lib/Makefile.am file\n# Add full (4 or 5 libs) SSL support\n# Add INSTALL target (EXTRA_DIST variables in Makefile.am may be moved to Makefile.inc so that CMake/CPack is aware of what's to include).\n# Check on all possible platforms\n# Test with as many configurations possible (With or without any option)\n# Create scripts that help keeping the CMake build system up to date (to reduce maintenance). According to Tetetest:\n#  - lists of headers that 'configure' checks for;\n#  - curl-specific tests (the ones that are in m4/curl-*.m4 files);\n#  - (most obvious thing:) curl version numbers.\n# Add documentation subproject\n#\n# To check:\n# (From Daniel Stenberg) The cmake build selected to run gcc with -fPIC on my box while the plain configure script did not.\n# (From Daniel Stenberg) The gcc command line use neither -g nor any -O options. As a developer, I also treasure our configure scripts's --enable-debug option that sets a long range of \"picky\" compiler options.\ncmake_minimum_required(VERSION 3.2...3.16 FATAL_ERROR)"
+            }
+          ],
+          "rationale": "The parenthetical judges obviousness instead of adding a maintenance item.",
+          "proposed_edit": "Keep curl version numbers without the obviousness judgment."
+        },
+        {
+          "id": "c04-d02",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 5691,
+              "end": 5704,
+              "quote": "surprisingly,"
+            }
+          ],
+          "context": [
+            {
+              "start": 5166,
+              "end": 6516,
+              "quote": "if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_CLANG)\n  if(PICKY_COMPILER)\n    foreach(_CCOPT -pedantic -Wall -W -Wpointer-arith -Wwrite-strings -Wunused -Wshadow -Winline -Wnested-externs -Wmissing-declarations -Wmissing-prototypes -Wfloat-equal -Wsign-compare -Wundef -Wendif-labels -Wstrict-prototypes -Wdeclaration-after-statement -Wstrict-aliasing=3 -Wcast-align -Wtype-limits -Wold-style-declaration -Wmissing-parameter-type -Wempty-body -Wclobbered -Wignored-qualifiers -Wconversion -Wvla -Wdouble-promotion)\n      # surprisingly, CHECK_C_COMPILER_FLAG needs a new variable to store each new\n      # test result in.\n      string(MAKE_C_IDENTIFIER \"OPT${_CCOPT}\" _optvarname)\n      check_c_compiler_flag(${_CCOPT} ${_optvarname})\n      if(${_optvarname})\n        set(CMAKE_C_FLAGS \"${CMAKE_C_FLAGS} ${_CCOPT}\")\n      endif()\n    endforeach()\n    foreach(_CCOPT long-long multichar format-nonliteral sign-conversion system-headers pedantic-ms-format)\n      # GCC only warns about unknown -Wno- options if there are also other diagnostic messages,\n      # so test for the positive form instead\n      string(MAKE_C_IDENTIFIER \"OPT${_CCOPT}\" _optvarname)\n      check_c_compiler_flag(\"-W${_CCOPT}\" ${_optvarname})\n      if(${_optvarname})\n        set(CMAKE_C_FLAGS \"${CMAKE_C_FLAGS} -Wno-${_CCOPT}\")\n      endif()\n    endforeach()\n  endif()\nendif()"
+            }
+          ],
+          "rationale": "The surprise judgment adds no requirement to the fresh-variable rule.",
+          "proposed_edit": "State that CHECK_C_COMPILER_FLAG requires a new variable per result."
+        },
+        {
+          "id": "c04-d03",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 47341,
+              "end": 47366,
+              "quote": "Ugly (but functional) way"
+            }
+          ],
+          "context": [
+            {
+              "start": 47338,
+              "end": 47725,
+              "quote": "\n# Ugly (but functional) way to include \"Makefile.inc\" by transforming it (= regenerate it).\nfunction(transform_makefile_inc INPUT_FILE OUTPUT_FILE)\n  file(READ ${INPUT_FILE} MAKEFILE_INC_TEXT)\n  string(REPLACE \"$(top_srcdir)\"   \"\\${CURL_SOURCE_DIR}\" MAKEFILE_INC_TEXT ${MAKEFILE_INC_TEXT})\n  string(REPLACE \"$(top_builddir)\" \"\\${CURL_BINARY_DIR}\" MAKEFILE_INC_TEXT ${MAKEFILE_INC_TEXT})"
+            }
+          ],
+          "rationale": "The aesthetic appraisal adds no mechanism to the Makefile transformation comment.",
+          "proposed_edit": "Describe transforming Makefile.inc to include its definitions without the appraisal."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c04-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 57264,
+              "end": 57310,
+              "quote": "Workaround for MSVS10 to avoid the Dialog Hell"
+            }
+          ],
+          "context": [
+            {
+              "start": 57262,
+              "end": 57593,
+              "quote": "# Workaround for MSVS10 to avoid the Dialog Hell\n# FIXME: This could be removed with future version of CMake.\nif(MSVC_VERSION EQUAL 1600)\n  set(CURL_SLN_FILENAME \"${CMAKE_CURRENT_BINARY_DIR}/CURL.sln\")\n  if(EXISTS \"${CURL_SLN_FILENAME}\")\n    file(APPEND \"${CURL_SLN_FILENAME}\" \"\\n# This should be regenerated!\\n\")\n  endif()\nendif()"
+            }
+          ],
+          "rationale": "Dialog Hell is an informal symptom name, but the exact repeated-dialog behavior is not described.",
+          "proposed_edit": "Optionally name the dialog behavior the workaround avoids."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 29859,
+              "end": 29930,
+              "quote": "Skip autodetection of unset CA path because CA bundle is set explicitly"
+            }
+          ],
+          "context": [
+            {
+              "start": 29804,
+              "end": 30178,
+              "quote": "if(CURL_CA_BUNDLE_SET AND CURL_CA_PATH_AUTODETECT)\n  # Skip autodetection of unset CA path because CA bundle is set explicitly\nelseif(CURL_CA_PATH_SET AND CURL_CA_BUNDLE_AUTODETECT)\n  # Skip autodetection of unset CA bundle because CA path is set explicitly\nelseif(CURL_CA_PATH_AUTODETECT OR CURL_CA_BUNDLE_AUTODETECT)\n  # first try autodetecting a CA bundle, then a CA path"
+            }
+          ],
+          "rationale": "The nearby inverse bundle/path condition is a different configuration branch.",
+          "proposed_edit": "Keep both branch-specific comments."
+        },
+        {
+          "id": "c04-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 46906,
+              "end": 46992,
+              "quote": "Requested LTO but your cmake version ${CMAKE_VERSION} is to old. You need at least 3.9"
+            }
+          ],
+          "context": [
+            {
+              "start": 46831,
+              "end": 47004,
+              "quote": "if(CURL_LTO)\n  if(CMAKE_VERSION VERSION_LESS 3.9)\n    message(FATAL_ERROR \"Requested LTO but your cmake version ${CMAKE_VERSION} is to old. You need at least 3.9\")\n  endif()"
+            }
+          ],
+          "rationale": "The required version gives a concrete remedy; the spelling error is outside this editorial rubric.",
+          "proposed_edit": "Keep the version and remedy; a separate spelling pass may fix the typo."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "1c98599c7d863f8d8759512275ee6458abca5bcc6ce7745067b347182a197ac8",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 24835,
+          "first_line": 1,
+          "last_line": 419,
+          "rationale": "Read image descriptors and platform selection, content-store example, every label type, garbage-collection ownership, snapshot construction and hash identity through final container creation. Repeated hashes and code output identify corresponding artifacts; list recaps and index/manifest distinctions remain necessary. Malformed Markdown link destinations are an extraction limitation, not invented prose.",
+          "prose_blocks": 91,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 16,
+              "end": 198,
+              "quote": "A major goal of containerd is to create a system wherein content can be used for executing containers.\nIn order to execute on that flow, containerd requires content and to manage it."
+            }
+          ],
+          "context": [
+            {
+              "start": 16,
+              "end": 198,
+              "quote": "A major goal of containerd is to create a system wherein content can be used for executing containers.\nIn order to execute on that flow, containerd requires content and to manage it."
+            }
+          ],
+          "rationale": "The abstract major-goal introduction and requiring content to manage it repeat the premise before explaining the content flow.",
+          "proposed_edit": "Start with containerd loading image content and preparing snapshots to execute containers."
+        },
+        {
+          "id": "c05-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1701,
+              "end": 1807,
+              "quote": "The rest of this document looks at the content in each area in detail, and how they relate to one another."
+            }
+          ],
+          "context": [
+            {
+              "start": 1701,
+              "end": 1807,
+              "quote": "The rest of this document looks at the content in each area in detail, and how they relate to one another."
+            }
+          ],
+          "rationale": "The rest-of-document announcement repeats the scope already stated in the opening paragraph.",
+          "proposed_edit": "Remove this repeated outline and start Image Format."
+        },
+        {
+          "id": "c05-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 13989,
+              "end": 14027,
+              "quote": "This sub-section describes the labels."
+            }
+          ],
+          "context": [
+            {
+              "start": 13931,
+              "end": 14090,
+              "quote": "Note that each chunk of content has several labels on it. This sub-section describes the labels.\nThis is not intended to be a comprehensive overview of labels."
+            }
+          ],
+          "rationale": "The announcement repeats the Labels heading and immediate label descriptions.",
+          "proposed_edit": "Keep the limited-coverage caveat and introduce the labels directly."
+        },
+        {
+          "id": "c05-d04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 18484,
+              "end": 18618,
+              "quote": "That doesn't hurt; it just means that the others will not be garbage collected either. Since\nthey aren't there, they won't be removed."
+            }
+          ],
+          "context": [
+            {
+              "start": 18236,
+              "end": 18618,
+              "quote": "Notice that there are 8 children to the index, but all of them are for platforms other than ours, `linux/amd64`,\nand thus only one of them, `sha256:a5aae2581826d13e906ff5c961d4c2817a9b96c334fd97b072d976990384156a` actually is\nin our content store. That doesn't hurt; it just means that the others will not be garbage collected either. Since\nthey aren't there, they won't be removed."
+            }
+          ],
+          "rationale": "The absent-content explanation repeats that nonexistent local entries are not collected.",
+          "proposed_edit": "State once that references to absent local content do not require removal; retain the one matching platform distinction."
+        },
+        {
+          "id": "c05-d05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 18829,
+              "end": 18958,
+              "quote": "Even if one could,\nwe want to leave our immutable content not only unchanged, but unchangeable, even by accident, i.e. immutable."
+            }
+          ],
+          "context": [
+            {
+              "start": 18635,
+              "end": 18958,
+              "quote": "The content in the content store is immutable, but also in formats that often are unusable. For example,\nmost container layers are in a tar-gzip format. One cannot simply mount a tar-gzip file. Even if one could,\nwe want to leave our immutable content not only unchanged, but unchangeable, even by accident, i.e. immutable."
+            }
+          ],
+          "rationale": "The hypothetical mounting detour restates immutability several times without naming a new requirement.",
+          "proposed_edit": "State that snapshots provide a mountable filesystem while content-store blobs remain immutable."
+        },
+        {
+          "id": "c05-d06",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 21004,
+              "end": 21053,
+              "quote": "This matches how the layers are built, as layers."
+            }
+          ],
+          "context": [
+            {
+              "start": 20891,
+              "end": 21053,
+              "quote": "Each snapshot has a parent, except for the root. It is a tree, or a stacked cake, starting with the first layer.\nThis matches how the layers are built, as layers."
+            }
+          ],
+          "rationale": "The sentence repeats the layer concept without identifying an additional parent relationship.",
+          "proposed_edit": "Keep the root exception and parent-tree description."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 15435,
+              "end": 15850,
+              "quote": "The labels on the manifest also begin with `containerd.io/gc.ref`, indicating that they are used to control\ngarbage collection. A manifest has several \"children\". These normally are the config and the layers. We want\nto ensure that as long as the image remains around, i.e. the manifest, the children do not get garbage collected.\nThus, we have labels referencing each child, `containerd.io/gc.ref.content.<index>`."
+            }
+          ],
+          "context": [
+            {
+              "start": 15435,
+              "end": 15850,
+              "quote": "The labels on the manifest also begin with `containerd.io/gc.ref`, indicating that they are used to control\ngarbage collection. A manifest has several \"children\". These normally are the config and the layers. We want\nto ensure that as long as the image remains around, i.e. the manifest, the children do not get garbage collected.\nThus, we have labels referencing each child, `containerd.io/gc.ref.content.<index>`."
+            }
+          ],
+          "rationale": "The manifest and index label explanations share structure, but name different child objects and ownership levels.",
+          "proposed_edit": "Optionally factor their common garbage-collection mechanism while preserving which objects reference which."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 21066,
+              "end": 21465,
+              "quote": "The key, or name, for the snapshot does not match the hash from the content store. This is because the hash from the\ncontent store is the hash of the _original_ content, in this case tar-gzipped. The snapshot expands it out into the\nfilesystem to make it useful. It also does not match the uncompressed content, i.e. the tar file without gzip, and as\ngiven on the label `containerd.io/uncompressed`."
+            }
+          ],
+          "context": [
+            {
+              "start": 21066,
+              "end": 21465,
+              "quote": "The key, or name, for the snapshot does not match the hash from the content store. This is because the hash from the\ncontent store is the hash of the _original_ content, in this case tar-gzipped. The snapshot expands it out into the\nfilesystem to make it useful. It also does not match the uncompressed content, i.e. the tar file without gzip, and as\ngiven on the label `containerd.io/uncompressed`."
+            }
+          ],
+          "rationale": "Compressed blob, uncompressed tar and applied snapshot hashes identify different representations; repeated hash terminology is required.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 22933,
+              "end": 23371,
+              "quote": "Note as well, that the label on the config in the content store starts with `containerd.io/gc.ref`. This is\na garbage collection label. It is this label that keeps the garbage collector from removing the snapshot.\nBecause the config has a reference to it, the top layer is \"protected\" from garbage collection. This layer,\nin turn, depends on the next layer down, so it is protected from collection, and so on until the root or base layer."
+            }
+          ],
+          "context": [
+            {
+              "start": 22933,
+              "end": 23371,
+              "quote": "Note as well, that the label on the config in the content store starts with `containerd.io/gc.ref`. This is\na garbage collection label. It is this label that keeps the garbage collector from removing the snapshot.\nBecause the config has a reference to it, the top layer is \"protected\" from garbage collection. This layer,\nin turn, depends on the next layer down, so it is protected from collection, and so on until the root or base layer."
+            }
+          ],
+          "rationale": "Garbage-collection retention propagates from configuration through parent snapshots; each edge explains actual retention.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 24584,
+              "end": 24765,
+              "quote": "Create a container using [NewContainer()](https://godoc.org/github.com/containerd/containerd#Client.NewContainer), optionally telling it to create a snapshot with [WithNewSnapshot()"
+            }
+          ],
+          "context": [
+            {
+              "start": 24584,
+              "end": 24765,
+              "quote": "Create a container using [NewContainer()](https://godoc.org/github.com/containerd/containerd#Client.NewContainer), optionally telling it to create a snapshot with [WithNewSnapshot()"
+            }
+          ],
+          "rationale": "The final step names container creation and its optional snapshot behavior, not an empty conclusion.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "9eda1a288a6aab5c0a99ec6b65f325075428f5935a809327188825856d47b580",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 6781,
+          "first_line": 1,
+          "last_line": 207,
+          "rationale": "Read the complete Mermaid API setup prose, repeated method tables and return descriptions, sanitized configuration semantics, render callbacks and default examples. Obvious malformed words and wrong copied API names are recorded only when they create a rubric defect; do not equate a format artifact or spelling typo with AI authorship.",
+          "prose_blocks": 106,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c06-d01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 412,
+              "end": 417,
+              "quote": "is is"
+            }
+          ],
+          "context": [
+            {
+              "start": 409,
+              "end": 549,
+              "quote": "It is is then up to the user of the API to make use of the svg, either insert it somewhere in the page or do something completely different."
+            }
+          ],
+          "rationale": "An adjacent duplicated auxiliary adds no meaning.",
+          "proposed_edit": "Use a single is."
+        },
+        {
+          "id": "c06-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 409,
+              "end": 549,
+              "quote": "It is is then up to the user of the API to make use of the svg, either insert it somewhere in the page or do something completely different."
+            }
+          ],
+          "context": [
+            {
+              "start": 409,
+              "end": 549,
+              "quote": "It is is then up to the user of the API to make use of the svg, either insert it somewhere in the page or do something completely different."
+            }
+          ],
+          "rationale": "Apart from the duplicate auxiliary, the up-to-user frame and unspecified completely-different alternative delay the concrete responsibility.",
+          "proposed_edit": "Say the caller inserts or otherwise uses the returned SVG; keep that the API does not insert it automatically."
+        },
+        {
+          "id": "c06-d03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2977,
+              "end": 3010,
+              "quote": "Returns **any** the currentConfig"
+            },
+            {
+              "start": 3012,
+              "end": 3045,
+              "quote": "Returns **any** the currentConfig"
+            }
+          ],
+          "context": [
+            {
+              "start": 2968,
+              "end": 3010,
+              "quote": "Notes**:\nReturns **any** the currentConfig"
+            },
+            {
+              "start": 3012,
+              "end": 3045,
+              "quote": "Returns **any** the currentConfig"
+            }
+          ],
+          "rationale": "The same return description appears twice consecutively with no additional qualifier.",
+          "proposed_edit": "State the return value once."
+        },
+        {
+          "id": "c06-d04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 4426,
+              "end": 4549,
+              "quote": "`mermaidAPI.initialize` is a call to the mermaid API, that targets `config` and changes the before the diagram is rendered."
+            }
+          ],
+          "context": [
+            {
+              "start": 4426,
+              "end": 4549,
+              "quote": "`mermaidAPI.initialize` is a call to the mermaid API, that targets `config` and changes the before the diagram is rendered."
+            }
+          ],
+          "rationale": "The phrase changes the before has no object, so the configuration timing instruction is incomplete.",
+          "proposed_edit": "Clarify that initialize changes the configuration before rendering, verifying the missing object rather than silently inventing another API action."
+        },
+        {
+          "id": "c06-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4553,
+              "end": 4694,
+              "quote": "Notes**: `Config` is a variable that contains various configurable elements that can alter how the rendered SVG Diagram/Chart will look like."
+            }
+          ],
+          "context": [
+            {
+              "start": 4553,
+              "end": 4694,
+              "quote": "Notes**: `Config` is a variable that contains various configurable elements that can alter how the rendered SVG Diagram/Chart will look like."
+            }
+          ],
+          "rationale": "Variable that contains various configurable elements that can alter repeats configuration through two relative clauses.",
+          "proposed_edit": "Describe config as settings that control the rendered diagram appearance."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c06-u01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 4185,
+              "end": 4263,
+              "quote": "\\*Notes :\n(default: current siteConfig ) (optional, default `getSiteConfig()`)"
+            }
+          ],
+          "context": [
+            {
+              "start": 4185,
+              "end": 4263,
+              "quote": "\\*Notes :\n(default: current siteConfig ) (optional, default `getSiteConfig()`)"
+            }
+          ],
+          "rationale": "Two default notations repeat the default, but one names the resolving function and the other its returned setting.",
+          "proposed_edit": "Optionally consolidate the default description while preserving optionality and the function name."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2328,
+              "end": 2548,
+              "quote": "Notes**:\nSets the currentConfig. The parameter conf is sanitized based on the siteConfig.secure keys. Any\nvalues found in conf with key found in siteConfig.secure will be replaced with the corresponding\nsiteConfig value."
+            }
+          ],
+          "context": [
+            {
+              "start": 2328,
+              "end": 2548,
+              "quote": "Notes**:\nSets the currentConfig. The parameter conf is sanitized based on the siteConfig.secure keys. Any\nvalues found in conf with key found in siteConfig.secure will be replaced with the corresponding\nsiteConfig value."
+            }
+          ],
+          "rationale": "The incoming configuration and protected site configuration have distinct roles in sanitization.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5291,
+              "end": 5530,
+              "quote": "`container`  selector to element in which a div with the graph temporarily will be inserted. In one is\n    provided a hidden div will be inserted in the body of the page instead. The element will be removed when rendering is\n    completed."
+            }
+          ],
+          "context": [
+            {
+              "start": 5291,
+              "end": 5530,
+              "quote": "`container`  selector to element in which a div with the graph temporarily will be inserted. In one is\n    provided a hidden div will be inserted in the body of the page instead. The element will be removed when rendering is\n    completed."
+            }
+          ],
+          "rationale": "The supplied-container and fallback hidden-container branches and cleanup timing are separate behaviors; the typo belongs to another check.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}

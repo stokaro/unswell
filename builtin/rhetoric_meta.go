@@ -13,6 +13,10 @@ func documentJustification(clauses []frameClause, index int) (rhetoricalFrame, b
 			return frame, true
 		}
 		for i := range c.tokens() {
+			if !quotedClaim(c.sentence.Tokens) && documentMaintenance(c.tokens()[i:]) &&
+				(embeddedClauseStart(c.tokens(), i) || frameWord(c.tokens()[i], "rather", "instead")) {
+				return localFrame(c, i)
+			}
 			if embeddedClauseStart(c.tokens(), i) && documentEarnsPlace(c.tokens()[i:]) {
 				return localFrame(c, i)
 			}
@@ -55,6 +59,10 @@ func evaluativeClosure(clauses []frameClause, index int) (rhetoricalFrame, bool)
 	for i := range c.tokens() {
 		if !embeddedClauseStart(c.tokens(), i) {
 			continue
+		}
+		if !quotedClaim(c.sentence.Tokens) &&
+			(informationNotice(c.tokens()[i:]) || cognitiveAnnouncement(c.tokens()[i:])) {
+			return localFrame(c, i)
 		}
 		if end := evaluationEnd(c.tokens()[i:]); end > 0 {
 			c.end = c.start + i + end

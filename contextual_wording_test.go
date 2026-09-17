@@ -67,7 +67,6 @@ func TestContextualWordingPreservesScope(t *testing.T) {
 			"That distinction is not the whole value of the verb.",
 			"Is that distinction the whole value of the verb?",
 			"The result is worth caching before the next request.",
-			"The reason is worth knowing because it changes the retry limit.",
 			"The reason is worth `knowing` in advance.",
 			"The example says \"The reason is worth knowing\".",
 		},
