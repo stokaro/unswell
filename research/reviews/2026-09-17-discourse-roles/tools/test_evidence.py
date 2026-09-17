@@ -76,5 +76,34 @@ class EvidenceTests(unittest.TestCase):
             m.validate_abstentions(report, 'confirmation')
 
 
+    def test_confirmation_regression_remains_visible(self):
+        data = m.audit.read(m.ROOT/'dispositions.json')['confirmation']['strict']
+        for phase, expected in [('before', {'c02-d10','c04-d13'}), ('after', {'c02-d10'})]:
+            report = m.audit.read(m.ROOT/'reports/confirmation'/phase/'strict.json.gz')
+            _, found = m.metrics.page_metrics(report, data[phase], self.pages, self.events, True)
+            self.assertEqual(found, expected)
+        self.assertEqual(data['after'][20]['partial_events'], ['c04-d09'])
+
+    def test_lost_named_function_detection(self):
+        pages, _, events = self.sets['exposed_clauses']
+        data = m.audit.read(m.ROOT/'dispositions.json')['exposed_clauses']['strict']
+        for phase, expected in [('before', True), ('after', False)]:
+            report = m.audit.read(m.ROOT/'reports/exposed_clauses'/phase/'strict.json.gz')
+            _, found = m.metrics.page_metrics(report, data[phase], pages, events, True)
+            self.assertEqual('c04-d19' in found, expected)
+
+    def test_additional_repairs_cannot_increase_recall(self):
+        rows = copy.deepcopy(self.rows)
+        rows[15]['events'] = ['c04-d01']
+        with self.assertRaisesRegex(ValueError, 'cannot receive frozen credit'):
+            self.check(rows)
+
+    def test_incidental_length_does_not_credit_wordiness(self):
+        rows = copy.deepcopy(self.rows)
+        rows[0].update(status='actionable', events=['c02-d02'])
+        with self.assertRaisesRegex(ValueError, 'Unsupported credit'):
+            self.check(rows)
+
+
 if __name__ == '__main__':
     unittest.main()
