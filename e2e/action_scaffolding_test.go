@@ -14,7 +14,8 @@ func TestActionScaffoldingRevision(t *testing.T) {
 	c := qt.New(t)
 	work := t.TempDir()
 	files := map[string]string{
-		"draft.md":    "The clause allows specifying labels to be attached to the alert.\n\nUser management can be done by using the connection API.",
+		"draft.md": "The clause allows specifying labels to be attached to the alert.\n\n" +
+			"User management can be done by using the connection API.",
 		"revision.md": "The clause adds labels to the alert.\n\nYou can manage users through the connection API.",
 		"control.md":  "The interface allows configuration files to be uploaded.\n\nThe console allows administrators to configure the service.",
 	}
@@ -23,7 +24,8 @@ func TestActionScaffoldingRevision(t *testing.T) {
 	}
 	binary := buildCLI(t)
 	for _, profile := range []string{"technical", "strict"} {
-		stdout, stderr, code := invoke(t, binary, work, []string{"check", "--profile", profile, "--include-source", "--report", "json:result.json", "draft.md", "revision.md", "control.md"}, nil)
+		stdout, stderr, code := invoke(t, binary, work, []string{"check", "--profile", profile,
+			"--include-source", "--report", "json:result.json", "draft.md", "revision.md", "control.md"}, nil)
 		c.Assert(code, qt.Equals, 0, qt.Commentf("%s\n%s", stdout, stderr))
 		var result unswell.RunResult
 		decodeFile(t, filepath.Join(work, "result.json"), &result)

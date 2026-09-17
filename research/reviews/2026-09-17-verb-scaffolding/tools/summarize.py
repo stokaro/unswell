@@ -18,6 +18,24 @@ metrics = previous.metrics
 # actual full/partial credit still requires a source-bound editorial judgment.
 metrics.SEMANTICS['filler.evaluative-closure'] |= {'wordiness'}
 
+# Keep useful findings absent from the frozen annotations separate. They cannot
+# increase recall or the frozen-label actionable fraction after seeing output.
+base_validate_claim = metrics.validate_claim
+
+
+def validate_claim(finding, row, pages, events):
+    if row['status'] == 'additional_actionable':
+        audit.require(not row['events'] and not row.get('partial_events') and
+                      row.get('proposed_edit') and
+                      row.get('review_phase') == 'diagnostic_assisted_not_frozen',
+                      'Additional finding cannot receive frozen credit')
+        base_validate_claim(finding, dict(row, status='uncertain'), pages, events)
+    else:
+        base_validate_claim(finding, row, pages, events)
+
+
+metrics.validate_claim = validate_claim
+
 
 def frozen_inputs():
     for filename, field in [('input-freeze.json', 'files'), ('annotation-freeze.json', 'sha256')]:

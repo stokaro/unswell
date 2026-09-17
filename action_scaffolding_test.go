@@ -24,7 +24,7 @@ func TestActionScaffolding(t *testing.T) {
 			c.Assert(r.Findings, qt.HasLen, 1)
 			f := r.Findings[0]
 			c.Assert(f.Primary.Snippet, qt.Equals, text[f.Primary.Span.Start:f.Primary.Span.End])
-			c.Assert(strings.Contains(f.Evidence.Suggestion, "actors"), qt.IsTrue)
+			c.Assert(f.Evidence.Suggestion, qt.Contains, "actors")
 		})
 	}
 }
