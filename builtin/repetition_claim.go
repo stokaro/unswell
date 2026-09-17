@@ -63,6 +63,9 @@ func repeatedClaims(ctx context.Context, view rule.View, emit rule.Emitter) erro
 			return err
 		}
 	}
+	if err := reformulatedClaims(view, c.budget, emit); err != nil {
+		return err
+	}
 	return c.observations.finish(ctx, view)
 }
 

@@ -18,6 +18,7 @@ func localRepetitionRules() []rule.Rule {
 		{Text: "The client had had enough time to close the connection."}}
 	claim := descriptor("repetition.repeated-claim", "These passages repeat an assertion; check whether the explanation can be shared.",
 		"repetition", "document", 15)
+	claim.Version = "2"
 	claim.Contexts = []string{"paragraph", "comment", "string"}
 	claim.Requires = append(claim.Requires, nlp.POS)
 	claim.RequiresStructure, claim.BlockObservations, claim.TermExemptions = true, true, true
@@ -25,11 +26,16 @@ func localRepetitionRules() []rule.Rule {
 	claim.Parameters = []string{"min_words", "window_sentences"}
 	claim.Description = "Compares short complete assertions, assertions containing opaque inline-code atoms, " +
 		"and prefixes before a nonrestrictive ', which' clause, within one section and sentence window. " +
-		"Case, operands, punctuation, negation and conditions remain part of the identity."
-	claim.Limitations += " Requires a surface finite-verb cue; it does not resolve pronouns or prove semantic equivalence. " +
+		"Case, operands, punctuation, negation and conditions remain part of the exact identity. " +
+		"Also compares adjacent explicit reformulations of an only restriction as rejection of its negated property. " +
+		"Actors, predicates, tense, properties and objects must agree. A bounded possessive dependency-role conversion " +
+		"compares an owner's license restriction with its refusal of code not licensed under that property."
+	claim.Limitations += " Requires a surface finite-verb cue; it does not resolve pronouns or prove general semantic equivalence. " +
 		"Questions, quoted text, lists, cells, arbitrary code, and claims over 64 tokens are excluded. " +
 		"Full unprotected sentences of twelve or more words remain with repetition.exact-sentence. " +
-		"A relative-clause prefix must match a complete assertion, not another partial prefix."
+		"A relative-clause prefix must match a complete assertion, not another partial prefix. " +
+		"Restriction reformulations require That is or In other words, stay inside one block, and reject " +
+		"quantities, conditions, quotations, protected operands and unresolved scope or modality."
 	claim.Examples = []rule.Example{
 		{Text: "The command exits `1` because drift was found, which confirms the check worked.\n\n" +
 			"The command exits `1` because drift was found.", Format: document.Markdown, Match: true},
@@ -37,10 +43,11 @@ func localRepetitionRules() []rule.Rule {
 			"The command exits `0` because drift was found.", Format: document.Markdown},
 	}
 	restart := localRhetoricRule("repetition.explanatory-restart", explanatoryRestart,
-		"The explanation repeats its initial judgment before giving the reason.",
-		"State the judgment once and retain the actual cause and its qualifications.",
+		"The explanation repeats a judgment; state it once and name the concrete cause.",
+		"State the judgment once. Retain an actual cause and its qualifications; replace a repeated bare judgment with its concrete mechanism.",
 		"A nominal subject and a copular adjective are repeated as 'and it/they is/are ADJECTIVE because'. "+
-			"The repeated copula and adjective must agree; negation, quantities, conditions and ambiguous noun antecedents are excluded.",
+			"The repeated copula and adjective must agree; negation, quantities, conditions and ambiguous noun antecedents are excluded. "+
+			"A reason-subject setup also includes a final abstract optimization or design judgment repeating the same adjective.",
 		[]rule.Example{{Text: "The process is complex, and it is complex because several callbacks share state.", Match: true},
 			{Text: "The process is complex because several callbacks share state."}})
 	return []rule.Rule{check{word, adjacentWords}, check{claim, repeatedClaims}, restart}
