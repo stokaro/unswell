@@ -10,6 +10,9 @@ import (
 // suggested edit preserves optionality instead of changing a capability to a duty.
 func instructionScaffolding(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	c := clauses[index]
+	if frame, ok := indirectInstruction(clauses, index); ok {
+		return frame, true
+	}
 	if !instructionEligible(c) {
 		return rhetoricalFrame{}, false
 	}
@@ -73,11 +76,13 @@ func capabilityInstruction(tokens []document.Token) bool {
 // Failure and permission statements need their possibility qualifier. Only a
 // bounded transitive configuration or presentation action establishes a candidate.
 func instructionAction(tokens []document.Token) bool {
-	if len(tokens) < 2 || (tokens[0].Tag != "VB" && tokens[0].Tag != "VBP") || !frameWord(tokens[0],
+	// The infinitive/imperative construction supplies the grammatical role.
+	// POS taggers can label an uncommon base-form action as a noun.
+	if len(tokens) < 2 || !frameWord(tokens[0],
 		"add", "set", "specify", "configure", "enable", "disable", "activate", "deactivate",
 		"show", "display", "express", "highlight", "attach", "define", "select", "choose",
 		"change", "adjust", "customize", "create", "declare", "render", "format", "bind",
-		"include", "insert", "escape", "put", "use", "get") {
+		"include", "insert", "escape", "put", "use", "get", "apply", "predefine", "write") {
 		return false
 	}
 	for _, token := range tokens[1:] {

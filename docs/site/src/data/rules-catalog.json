@@ -58,7 +58,7 @@
         },
         {
           "id": "filler.document-justification",
-          "version": "3",
+          "version": "4",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -74,7 +74,7 @@
           "weight": 12,
           "cap": 24,
           "summary": "State the scope or destination directly instead of explaining why this page exists.",
-          "description": "A document subject followed by 'exists so/to/because', deliberate non-repetition of material, a statement that a document part earns its place, a page explaining what its fields mean, or editorial ownership. Ownership may use a pronoun only after an adjacent explicit document announcement in the same block. Storage existence and ordinary scope exclusions do not match. Reports complete matched clauses, once per clause, within a single block.",
+          "description": "A document subject followed by 'exists so/to/because', deliberate non-repetition of material, a statement that a document part earns its place, a page explaining what its fields mean, editorial ownership, or announcements that definitions or counts are repeated or omitted here. Ownership may use a pronoun only after an adjacent explicit document announcement in the same block. Storage existence and ordinary scope exclusions do not match. Reports complete matched clauses, once per clause, within a single block.",
           "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
@@ -120,7 +120,7 @@
         },
         {
           "id": "filler.evaluative-closure",
-          "version": "3",
+          "version": "4",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -135,13 +135,13 @@
           "gate": "none",
           "weight": 12,
           "cap": 24,
-          "summary": "This evaluative clause announces a purpose or endorses a result; state the consequence directly.",
-          "description": "An anaphoric purpose tail ('which is the point of doing it', 'which is what doing it is for'), a bare whole-point/design declaration, an anaphoric assertion of value or verification, or a nominal subject announcing that information is worth knowing. Named purposes, conditions and measurements are excluded from the added constructions. Reports complete matched clauses, once per clause, within a single block.",
+          "summary": "This clause announces information or endorses a result; state the information directly.",
+          "description": "An anaphoric purpose tail ('which is the point of doing it', 'which is what doing it is for'), a bare whole-point/design declaration, an anaphoric assertion of value or verification, an information subject announcing cognitive worth, or an impersonal modal notice followed by a that-clause. Named purposes and measured evaluations stay excluded; notice and cognitive-worth frames retain their attached conditions. Reports complete matched clauses, once per clause, within a single block.",
           "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "filler.instruction-scaffolding",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -157,7 +157,7 @@
           "weight": 12,
           "cap": 24,
           "summary": "State the supported action directly; preserve its conditions and optionality.",
-          "description": "An affirmative impersonal capability with a transitive configuration or presentation action, or a reader-intention clause introducing an instruction. Adjacent method announcements remain related evidence. Failure, permission, negation and quoted constructions do not match. Reports complete matched clauses, once per clause, within a single block.",
+          "description": "An affirmative impersonal capability with a transitive configuration or presentation action, or a reader-intention clause introducing an instruction. Anaphoric gerund methods, nominalized methods and reader-purpose clauses are also recognized. Adjacent method announcements remain related evidence. Failure, permission, negation and quoted constructions do not match. Reports complete matched clauses, once per clause, within a single block.",
           "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
@@ -533,7 +533,7 @@
         },
         {
           "id": "repetition.definition-echo",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -548,8 +548,8 @@
           "gate": "none",
           "weight": 12,
           "cap": 24,
-          "summary": "The definition repeats its subject before the contrast; explain the distinction directly.",
-          "description": "A positive copula repeats the same nominal phrase, ignoring articles, immediately before ', not' and a nominal alternative. Added modifiers, conditions, code identifiers, and uncontrasted identity statements are excluded. Reports complete matched clauses, once per clause, within a single block.",
+          "summary": "The definition repeats its subject; state the distinguishing information directly.",
+          "description": "A positive copula repeats the same nominal phrase, ignoring articles, immediately before ', not' and a nominal alternative. Also recognizes a still-qualified repetition of the same nominal subject. Added modifiers, conditions and code identifiers are excluded; bare uncontrasted identities stay outside the rule. Reports complete matched clauses, once per clause, within a single block.",
           "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
@@ -724,7 +724,7 @@
         },
         {
           "id": "repetition.redundant-predicate",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -740,7 +740,7 @@
           "weight": 12,
           "cap": 24,
           "summary": "The predicate repeats the relation already named by its subject.",
-          "description": "A path/location subject followed by is located/situated at/in, or a reason subject followed by is because. The grammatical subject must name the repeated relation; files, identifiers and control-flow conditions do not qualify. Reports complete matched clauses, once per clause, within a single block.",
+          "description": "A category/type label describing its own unqualified category/type, or a path/location subject followed by is located/situated at/in, or a reason subject followed by is because. The grammatical subject must name the repeated relation; files, identifiers and control-flow conditions do not qualify. Reports complete matched clauses, once per clause, within a single block.",
           "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {

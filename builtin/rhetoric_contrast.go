@@ -14,11 +14,34 @@ func definitionEcho(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	}
 	tokens := c.tokens()
 	for i := 1; i < min(len(tokens), 9); i++ {
+		if frameWord(tokens[i], "is", "are", "was", "were") && !quotedClaim(c.sentence.Tokens) {
+			if end := persistentIdentity(tokens[:i], tokens[i+1:]); end > 0 {
+				c.end = c.start + i + 1 + end
+				return localFrame(c, 0)
+			}
+		}
 		if frameWord(tokens[i], "is", "are", "was", "were") && echoedDefinition(tokens[:i], tokens[i+1:]) {
 			return localFrame(c, 0)
 		}
 	}
 	return rhetoricalFrame{}, false
+}
+
+func persistentIdentity(subject, rest []document.Token) int {
+	if len(rest) < 3 || !frameWord(rest[0], "still") {
+		return 0
+	}
+	end := len(rest)
+	for i := 1; i < len(rest); i++ {
+		if frameWord(rest[i], ",") {
+			end = i
+			break
+		}
+	}
+	if nominalEcho(withoutArticle(subject), withoutArticle(rest[1:end])) {
+		return end
+	}
+	return 0
 }
 
 func echoedDefinition(subject, rest []document.Token) bool {

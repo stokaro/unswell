@@ -48,3 +48,8 @@ Independent human review is not a prerequisite for this work.
   detections from 4/99 to 12/99. All eight gains occur on one historical Mermaid
   page; Ptah remains at 2/35. The records retain partial matches, review burden
   and the unchanged candidate-budget abstention on a long reference page.
+
+- [2026-09-17-construction-recall](2026-09-17-construction-recall/README.md):
+  local grammatical scaffolding raises exposed instruction-page recall from
+  12/99 to 27/99; six new complete pages move from 0/32 to 1/32. Existing
+  review burden and embedded-program false alarms remain visible.

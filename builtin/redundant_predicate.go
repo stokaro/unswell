@@ -12,6 +12,9 @@ func redundantPredicate(clauses []frameClause, index int) (rhetoricalFrame, bool
 		return rhetoricalFrame{}, false
 	}
 	tokens := c.tokens()
+	if metadataPredicate(tokens) {
+		return localFrame(c, 0)
+	}
 	for i := 1; i < min(len(tokens)-3, 18); i++ {
 		if !frameWord(tokens[i], "is", "are", "was", "were") {
 			continue
@@ -21,6 +24,13 @@ func redundantPredicate(clauses []frameClause, index int) (rhetoricalFrame, bool
 		}
 	}
 	return rhetoricalFrame{}, false
+}
+
+func metadataPredicate(tokens []document.Token) bool {
+	tokens = withoutArticle(tokens)
+	return len(tokens) == 5 && frameWord(tokens[0], "category", "type") &&
+		frameWord(tokens[1], "label") && frameWord(tokens[2], "describes", "identifies", "names") &&
+		frameWord(tokens[3], "the", "a") && frameWord(tokens[4], tokens[0].Normal)
 }
 
 func predicateRepeats(head string, rest []document.Token) bool {
