@@ -69,3 +69,7 @@ Independent human review is not a prerequisite for this work.
   two under a stricter capability guard. Six fresh pages remain at 4/58, while
   three capability false positives disappear. The complete report retains the
   losses, partial matches and 54 missed events.
+- [2026-09-17-claim-budget](2026-09-17-claim-budget/README.md):
+  a combined identity/source-map pass removes the long-reference budget
+  abstention. All 82 pages retain their findings and assessments; a separate
+  generous-budget replay preserves every block activation and its ownership.
