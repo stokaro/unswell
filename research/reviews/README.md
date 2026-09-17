@@ -37,3 +37,8 @@ Independent human review is not a prerequisite for this work.
   repeated assertions and adjacent-word fixes, with all diagnostic deltas and
   12 newly annotated complete pages. The new pages show no detection gain;
   broad recall and default qualification remain open.
+
+- [2026-09-17-context-recall](2026-09-17-context-recall/README.md): five contextual
+  wording warnings recover six more exposed defects. The eleven new pages stay
+  at 1/42 detected events, with all diagnostics reviewed. The full-page objective
+  remains unmet.
