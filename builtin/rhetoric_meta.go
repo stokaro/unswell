@@ -59,19 +59,30 @@ func evaluativeClosure(clauses []frameClause, index int) (rhetoricalFrame, bool)
 		if !ok || !embeddedClauseStart(c.tokens(), i) {
 			continue
 		}
-		if scopedInformationNotice(c, i) {
-			return localFrame(c, i)
+		if frame, found := evaluationCandidateFrame(c, candidate, i); found {
+			return frame, true
 		}
-		if end := evaluationEnd(c.tokens()[i:]); end > 0 {
-			c.end = c.start + i + end
-			return localFrame(c, i)
-		}
-		if evaluativeTail(c.tokens()[i:]) {
-			return localFrame(c, i)
-		}
-		if candidateEvaluation(candidate) {
-			return localFrame(c, i)
-		}
+	}
+	return nominalNotice(c)
+}
+
+func evaluationCandidateFrame(c, candidate frameClause, start int) (rhetoricalFrame, bool) {
+	if scopedInformationNotice(c, start) {
+		return localFrame(candidate, 0)
+	}
+	if end := evaluationEnd(candidate.tokens()); end > 0 {
+		candidate.end = candidate.start + end
+		return localFrame(candidate, 0)
+	}
+	if evaluativeTail(candidate.tokens()) {
+		return localFrame(candidate, 0)
+	}
+	if end := rhetoricalRelationEnd(candidate); end > 0 {
+		candidate.end = candidate.start + end
+		return localFrame(candidate, 0)
+	}
+	if candidateEvaluation(candidate) {
+		return localFrame(candidate, 0)
 	}
 	return rhetoricalFrame{}, false
 }

@@ -76,6 +76,9 @@ func relevantPart(tokens []document.Token) bool {
 }
 
 func nominalWorth(tokens []document.Token) bool {
+	if !affirmativeRelation(tokens) {
+		return false
+	}
 	for i := 2; i < min(len(tokens)-1, 6); i++ {
 		if frameWord(tokens[i], "worth") && nominalSubject(tokens[:i]) &&
 			(cognitiveWorth(tokens[i:]) || cognitiveWorthAbout(tokens[i:])) {

@@ -72,7 +72,7 @@ func readerAssurance(c frameClause) (rhetoricalFrame, bool) {
 func readerCandidate(c, candidate frameClause, start int) (rhetoricalFrame, bool) {
 	tokens := candidate.tokens()
 	boundary := embeddedClauseStart(c.tokens(), start)
-	majority := boundary && readerPrevalence(tokens)
+	majority := boundary && (readerPrevalence(tokens) || readerResult(tokens))
 	if start > 0 && frameWord(c.tokens()[start-1], "what", "policy") {
 		majority = majority || readerMajority(tokens)
 	}
