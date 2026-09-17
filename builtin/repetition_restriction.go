@@ -60,16 +60,28 @@ func emitRestriction(view rule.View, block document.Block, first, second documen
 	if !ok {
 		return nil
 	}
-	if err := budget.spend(a[len(a)-1].End - a[0].Start + b[len(b)-1].End - b[0].Start); err != nil {
-		return err
-	}
-	if !claimMappingEligible(view.Document.Source, block, a) || !claimMappingEligible(view.Document.Source, block, b) {
-		return nil
+	for _, tokens := range [][]document.Token{a, b} {
+		valid, err := restrictionMappingEligible(view.Document.Source, block, tokens, budget)
+		if err != nil || !valid {
+			return err
+		}
 	}
 	parts := []rule.Occurrence{tokenOccurrence(first, 0, len(a)), tokenOccurrence(second, 0, len(b))}
 	evidence := measured("heuristic", "restriction-restatements", "patterns", 1, 0, 1, parts)
 	evidence.Suggestion = "State the restriction once. Keep the original actor, scope, modality, property and exceptions."
 	return emit.Emit(evidence)
+}
+
+// Restrictions use the shared source-map walk without serializing an identity.
+func restrictionMappingEligible(source []byte, block document.Block, tokens []document.Token,
+	budget *repetitionBudget) (bool, error) {
+	start, end := tokens[0].Start, tokens[len(tokens)-1].End
+	if start < 0 || end > len(block.Map) || start >= end {
+		return false, nil
+	}
+	walk := claimIdentityWalk{source: source, mapped: block.Map, budget: budget,
+		position: start, previous: block.Map[start].Start, previousStart: block.Map[start].Start}
+	return walk.advance(end, "")
 }
 
 func restrictionTokens(sentence document.Sentence) []document.Token {
