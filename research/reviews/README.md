@@ -58,3 +58,8 @@ Independent human review is not a prerequisite for this work.
   purpose and reader-claim rules recover ten exposed defects. Six new complete
   pages remain at 1/28, with no new detection; the record retains all 27 misses
   and the distinction between useful examples and broad recall.
+
+- [2026-09-17-claim-budget](2026-09-17-claim-budget/README.md):
+  a combined identity/source-map pass removes the long-reference budget
+  abstention. All 82 pages retain their findings and assessments; a separate
+  generous-budget replay preserves every block activation and its ownership.
