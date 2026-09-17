@@ -50,6 +50,8 @@ func localRhetoricRules() []rule.Rule {
 				"output claiming to prove understanding, or an impersonal modal notice followed by a that-clause. "+
 				"Also recognizes cognitive notices modifying information nouns, gerund-anaphor purpose clefts, "+
 				"relative feature-purpose predicates and discourse subjects declaring importance or editorial integrity. "+
+				"Information judgments may join adjacent evaluative predicates and retain a quoted noun-phrase subject. "+
+				"Attribution is scoped through the candidate clause; later operational reporting does not erase a preceding judgment. "+
 				"Concrete component purposes and measured evaluations stay excluded; "+
 				"notice and cognitive-worth frames retain their attached conditions.",
 			[]rule.Example{{Text: "The approval stops applying, which is what binding it to a digest is for.", Match: true},
@@ -99,10 +101,10 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 		d.Version = "4"
 	}
 	if id == "filler.evaluative-closure" {
-		d.Version = "6"
+		d.Version = "7"
 	}
 	if id == "filler.instruction-scaffolding" {
-		d.Version = "4"
+		d.Version = "5"
 	}
 	d.Requires = append(d.Requires, nlp.POS)
 	d.Description = description + " Reports complete matched clauses, once per clause."

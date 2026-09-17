@@ -67,6 +67,15 @@ func evaluativeClosure(clauses []frameClause, index int) (rhetoricalFrame, bool)
 }
 
 func evaluationCandidateFrame(c, candidate frameClause, start int) (rhetoricalFrame, bool) {
+	if rhetoricAttributed(candidate) || rhetoricQuoteOpen(candidate) {
+		return rhetoricalFrame{}, false
+	}
+	if frame, found := informationEvaluation(candidate); found {
+		return frame, true
+	}
+	if rhetoricQuoted(candidate) {
+		return rhetoricalFrame{}, false
+	}
 	if scopedInformationNotice(c, start) {
 		return localFrame(candidate, 0)
 	}
@@ -88,7 +97,7 @@ func evaluationCandidateFrame(c, candidate frameClause, start int) (rhetoricalFr
 }
 
 func candidateEvaluation(candidate frameClause) bool {
-	if candidateRhetoricScoped(candidate) {
+	if evaluationScoped(candidate) {
 		return false
 	}
 	tokens := candidate.tokens()
