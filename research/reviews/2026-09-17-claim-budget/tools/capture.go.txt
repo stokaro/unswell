@@ -1,0 +1,37 @@
+package main
+
+import (
+	"context"
+	"encoding/gob"
+	"github.com/stokaro/unswell"
+	"github.com/stokaro/unswell/builtin"
+	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/rule"
+	"os"
+)
+
+type capture struct{ rule.Rule }
+
+func (r capture) Evaluate(_ context.Context, v rule.View, _ rule.Emitter) error {
+	return gob.NewEncoder(os.Stdout).Encode(v.Document)
+}
+func main() {
+	data, err := os.ReadFile(os.Args[1])
+	if err != nil {
+		panic(err)
+	}
+	var rules []rule.Rule
+	for _, r := range builtin.Rules() {
+		if r.Descriptor().ID == "repetition.repeated-claim" {
+			rules = append(rules, capture{r})
+		}
+	}
+	e, err := unswell.New(unswell.Options{Rules: rules, Config: []byte("version: 1\nextends: [builtin:custom]\nrules:\n  repetition.repeated-claim: {enabled: true}\n")})
+	if err != nil {
+		panic(err)
+	}
+	_, err = e.Analyze(context.Background(), document.Source{Name: "c05.md", Format: document.Markdown, Bytes: data})
+	if err != nil {
+		panic(err)
+	}
+}

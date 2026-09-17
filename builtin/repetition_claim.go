@@ -214,34 +214,6 @@ func assertionShape(tokens []document.Token, minimum int) bool {
 	return len(tokens) > 0 && tokens[0].Tag != "VB" && finite && words >= minimum
 }
 
-func claimIdentity(source []byte, block document.Block, tokens []document.Token, budget *repetitionBudget) (string, bool, error) {
-	var key strings.Builder
-	opaque := false
-	for _, token := range tokens {
-		if err := budget.spend(len(token.Text) + 1); err != nil {
-			return "", false, err
-		}
-		value := token.Text
-		if token.Protected {
-			atom, err := opaqueClaimAtom(source, token, budget)
-			if err != nil || atom == "" {
-				return "", false, err
-			}
-			value, opaque = atom, true
-		}
-		fmt.Fprintf(&key, "%t:%q/", token.Protected, value)
-	}
-	// Invalid code atoms already returned. Charge the mapping walk only when
-	// it runs; rejected commands must not consume work for an unused traversal.
-	if err := budget.spend(tokens[len(tokens)-1].End - tokens[0].Start); err != nil {
-		return "", false, err
-	}
-	if !claimMappingEligible(source, block, tokens) {
-		return "", false, nil
-	}
-	return key.String(), opaque, nil
-}
-
 // Code operands remain opaque and retain their delimiters, case and punctuation.
 // Spaces, commands and expressions do not become editorial vocabulary.
 func opaqueClaimAtom(source []byte, token document.Token, budget *repetitionBudget) (string, error) {
@@ -273,24 +245,4 @@ func validClaimAtom(raw string) bool {
 	return !strings.ContainsFunc(atom, func(r rune) bool {
 		return !unicode.IsLetter(r) && !unicode.IsDigit(r) && !strings.ContainsRune("._-", r)
 	})
-}
-
-// Invisible link destinations must not collapse into equal assertions. Check the
-// mapped claim itself; surrounding comment delimiters are not part of that claim.
-func claimMappingEligible(source []byte, block document.Block, tokens []document.Token) bool {
-	start, end := tokens[0].Start, tokens[len(tokens)-1].End
-	if start < 0 || end > len(block.Map) || start >= end {
-		return false
-	}
-	previous, previousStart := block.Map[start].Start, block.Map[start].Start
-	for _, span := range block.Map[start:end] {
-		if !span.Valid(len(source)) || span.Start < previousStart {
-			return false
-		}
-		if span.Start > previous && !emphasisGap(string(source[previous:span.Start])) {
-			return false
-		}
-		previous, previousStart = max(previous, span.End), span.Start
-	}
-	return true
 }
