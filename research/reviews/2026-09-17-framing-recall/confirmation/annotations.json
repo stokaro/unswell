@@ -1,0 +1,552 @@
+[
+  {
+    "version": 1,
+    "page": "c01",
+    "source_sha256": "04c2df67ae1f27397a088f61e7a0c17a3acfc203d71ddf711214a42b220ad396",
+    "reviewer": "Codex assistant implementing issue 299; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Three contextual framing/assurance families in protocol.md; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 3363,
+        "first_line": 1,
+        "last_line": 95,
+        "rationale": "Reviewed all extracted prose in source order, retaining headings, tables and surrounding code as context. Frontmatter, code, imports and image contents are not positive prose units; imported components and images were not expanded."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c01-d01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 3263,
+            "end": 3362,
+            "quote": "The second is what most people want after discovering the source was not as\npaused as they thought."
+          }
+        ],
+        "rationale": "Claims what most operators want without a stated observation; the operational choice is whether later writes need replay.",
+        "proposed_edit": "Use the outbox when the source may receive writes that must be replayed."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c01-u01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 1918,
+            "end": 1945,
+            "quote": "That refusal is deliberate."
+          }
+        ],
+        "rationale": "The intention announcement is removable, but it introduces a concrete false-success failure in the next sentence.",
+        "proposed_edit": "Consider deleting the first sentence while keeping the failure explanation."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c01-c01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 974,
+            "end": 1197,
+            "quote": "It does **not** apply to a table that is merely quiet. \"Nothing has written for\nan hour\" is not the same as \"nothing will write\", and the difference is a row\nthat silently keeps a vector computed from text it no longer has."
+          }
+        ],
+        "rationale": "An observed quiet interval does not establish that future writes are disabled; this contrast changes the safety decision.",
+        "proposed_edit": "Keep the distinction."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c02",
+    "source_sha256": "790df151759ed82cad9416258f82605d23ecf2f2216be6196674309c56574293",
+    "reviewer": "Codex assistant implementing issue 299; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Three contextual framing/assurance families in protocol.md; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 6701,
+        "first_line": 1,
+        "last_line": 171,
+        "rationale": "Reviewed all extracted prose in source order, retaining headings, tables and surrounding code as context. Frontmatter, code, imports and image contents are not positive prose units; imported components and images were not expanded."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c02-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 1195,
+            "end": 1224,
+            "quote": "This is the part people miss."
+          }
+        ],
+        "rationale": "The paragraph announces reader error without explaining the procedure; the following paragraph already names the rollback precondition.",
+        "proposed_edit": "Delete this paragraph."
+      },
+      {
+        "id": "c02-d02",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 2831,
+            "end": 2950,
+            "quote": "That is the honest answer rather than a gap. Going back to it would be going\nback to something that is not what it was."
+          }
+        ],
+        "rationale": "The honest-answer defense and circular return-to-changed-state paraphrase repeat the preceding reason that the old source is stale.",
+        "proposed_edit": "Delete this paragraph; retain the preceding statement that writes have changed the source."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "id": "c02-c01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 1692,
+            "end": 1987,
+            "quote": "`--maintain-for` catches the generation up and extends the promise that it is\ncurrent, in one call. Put it on a schedule for the length of\nthe window. A window extended without a catch-up behind it is a promise nobody\nkept; a catch-up whose window expired left a generation current and unusable."
+          }
+        ],
+        "rationale": "The two window/catch-up cases distinguish promised availability from usable state.",
+        "proposed_edit": "Keep both conditions."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c03",
+    "source_sha256": "455f2cb8936292b37db27b2e74639393f6e8752d8ba8fbeb2129b8ae45cba254",
+    "reviewer": "Codex assistant implementing issue 299; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Three contextual framing/assurance families in protocol.md; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 19804,
+        "first_line": 1,
+        "last_line": 349,
+        "rationale": "Reviewed all extracted prose in source order, retaining headings, tables and surrounding code as context. Frontmatter, code, imports and image contents are not positive prose units; imported components and images were not expanded."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c03-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 6722,
+            "end": 6778,
+            "quote": "matching the community binary is what the surface\nis for"
+          }
+        ],
+        "rationale": "The compatibility rationale repeats the named compatibility contract rather than specifying how loss is handled.",
+        "proposed_edit": "Remove the parenthesis and retain that the document is unchanged and the loss is reported."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c03-u01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 7719,
+            "end": 7783,
+            "quote": "Which modules this build registers is asked rather than assumed."
+          }
+        ],
+        "rationale": "Abstract asked-versus-assumed framing precedes a concrete catalog query and exact result; deleting it may improve economy but it does identify the inquiry.",
+        "proposed_edit": "Consider starting with the PRAGMA query and its seven modules."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c03-c01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 18186,
+            "end": 18423,
+            "quote": "Ptah's rebuild planning is intentionally conservative: where it cannot prove\nthe rebuild is safe, it reports an explicit rebuild-required error instead of\nemitting unsafe or partial SQL. Changes that still report as rebuild-required\nare:"
+          }
+        ],
+        "rationale": "The conservative claim immediately states the failure condition and the resulting error.",
+        "proposed_edit": "Keep the condition and behavior."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c04",
+    "source_sha256": "c81453070c9f527f6f03849852b69befbc1657a3c4f65d213cd7dd76c380208d",
+    "reviewer": "Codex assistant implementing issue 299; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Three contextual framing/assurance families in protocol.md; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 5755,
+        "first_line": 1,
+        "last_line": 195,
+        "rationale": "Reviewed all extracted prose in source order, retaining headings, tables and surrounding code as context. Frontmatter, code, imports and image contents are not positive prose units; imported components and images were not expanded."
+      }
+    ],
+    "defects": [],
+    "uncertain": [
+      {
+        "id": "c04-u01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 2400,
+            "end": 2474,
+            "quote": "It is the fastest way to check that Ptah read a\nfile the way you meant it:"
+          }
+        ],
+        "rationale": "An unmeasured superlative recommends a specific check; the preceding no-connection property supplies a relevant cost reason, so the editorial requirement is uncertain.",
+        "proposed_edit": "Consider: Use it to check how Ptah reads the file."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c04-c01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 4858,
+            "end": 5294,
+            "quote": "It prints nothing and exits `0` when every named dialect can express the\nschema. Otherwise it exits `1` and prints every structural problem it found,\none line per problem, each naming the dialect it was found under. That is the\ncheapest check to put in front of a review: it needs no server and no migration\ndirectory.\n[Validate and format schema files](../validate-and-format/) covers the verb in\nfull, and `ptah schema fmt` beside it."
+          }
+        ],
+        "rationale": "The cheapest-check recommendation is tied to needing neither server nor migration directory and is followed by exact exit behavior.",
+        "proposed_edit": "Preserve the costs and exit statuses."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c05",
+    "source_sha256": "b37d7121b47c21fdf709e0d92e087b493fb527b0f627782d294d7d5ea7bafa2d",
+    "reviewer": "Codex assistant implementing issue 299; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Three contextual framing/assurance families in protocol.md; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 15226,
+        "first_line": 1,
+        "last_line": 385,
+        "rationale": "Reviewed all extracted prose in source order, retaining headings, tables and surrounding code as context. Frontmatter, code, imports and image contents are not positive prose units; imported components and images were not expanded."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c05-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 6916,
+            "end": 6980,
+            "quote": "which is the question a reviewer opens a\nsafety report to answer"
+          }
+        ],
+        "rationale": "Claims the report answers the reader's purpose after already specifying its severity counts; removing it preserves the report behavior.",
+        "proposed_edit": "Delete this relative clause; retain the counts and offline behavior."
+      },
+      {
+        "id": "c05-d02",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 12657,
+            "end": 12709,
+            "quote": "This is a first-class\norigin rather than a fallback:"
+          }
+        ],
+        "rationale": "Assigns status to the documented workflow before the concrete cases that already justify using it.",
+        "proposed_edit": "Start the next sentence with A project that describes no desired schema; preserve all use cases."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "id": "c05-c01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 10656,
+            "end": 11024,
+            "quote": "Before shadow verification, Ptah captures the existing migration directory\nonce and checks `ptah.sum` when the directory is hashed. The shadow run replays\nthat snapshot rather than reopening the path. Publication then compares the\nbound output directory with the authorized snapshot; if history changed during\ngeneration, no migration or refreshed checksum is written."
+          }
+        ],
+        "rationale": "This paragraph gives concrete integrity checks before publication.",
+        "proposed_edit": "Retain the verification conditions."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c06",
+    "source_sha256": "ecc504e92e99b6c5f2354a225774c1fc345968658bc965fbc47dd2d25386facf",
+    "reviewer": "Codex assistant implementing issue 299; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Three contextual framing/assurance families in protocol.md; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 93341,
+        "first_line": 1,
+        "last_line": 1870,
+        "rationale": "Reviewed all extracted prose in source order, retaining headings, tables and surrounding code as context. Frontmatter, code, imports and image contents are not positive prose units; imported components and images were not expanded."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c06-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 4435,
+            "end": 4505,
+            "quote": "and refusing would copy a limitation this\nimplementation does not have"
+          }
+        ],
+        "rationale": "Defends a rejected design after SQLite support and the reader behavior are already explicit.",
+        "proposed_edit": "Delete this final coordinated clause."
+      },
+      {
+        "id": "c06-d02",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 19337,
+            "end": 19455,
+            "quote": "matching is the floor\nrather than the ceiling, and a silent scope failure is the one answer Ptah\ndeclines to reproduce"
+          }
+        ],
+        "rationale": "Metaphor and self-praise repeat the already stated divergence and concrete diagnostic behavior.",
+        "proposed_edit": "Keep the measured Atlas behavior and the preceding Ptah refusal; remove the metaphor and moralized refusal."
+      },
+      {
+        "id": "c06-d03",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 22628,
+            "end": 22691,
+            "quote": "A pattern that\ndeep is almost always an attempt to name a table"
+          }
+        ],
+        "rationale": "Makes an unmeasured prevalence claim about intent. The potential destructive interpretation is sufficient to explain refusal.",
+        "proposed_edit": "A pattern that deep may be intended to name a table."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c06-u01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 47660,
+            "end": 47681,
+            "quote": "and neither is exotic"
+          }
+        ],
+        "rationale": "The frequency assertion has no measurement, but is a minor setup for two concrete cases; editorial necessity is uncertain.",
+        "proposed_edit": "Consider deleting the assertion and retaining both cases."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c06-c01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 43513,
+            "end": 44344,
+            "quote": "Two implicit resolutions are **not** covered, and both were measured rather than\nassumed. An extension-supplied implicit cast leaves no catalog handle on the\nobject that uses it: across the 45 extensions in the `postgres:17` image, every\nsuch cast has its own extension's type on one side (`citext`, `isbn` and its\nsiblings), so naming that type is what keeps the extension, and a cast between\ntwo core types would be a gap. No extension in that image supplies a collation\nat all. A primary key or a single-column unique constraint is backed by an index\ntoo, but its operator class is the default for the column's own type: the\nextension-supplied default classes on core types in that image are all `gin`,\n`gist` or `bloom` classes and none is `btree`, so no such constraint can rest on\none without naming the type that carries it."
+          }
+        ],
+        "rationale": "Measured-versus-assumed wording is followed by the measured image, 45-extension population, results and explicit gap.",
+        "proposed_edit": "Keep the measurement and its limitations."
+      },
+      {
+        "id": "c06-c02",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 69959,
+            "end": 70248,
+            "quote": "`diff` refuses because a successful synced result can green-light a CI check\nthat compared nothing. `apply` refuses because the empty selection leaves its\ntarget untouched. `inspect` keeps exit status 0 because an empty read is a\nlegitimate result, but its warning makes the cause visible."
+          }
+        ],
+        "rationale": "The per-command reasons distinguish exit-code contracts and empty selections.",
+        "proposed_edit": "Keep these reasons."
+      },
+      {
+        "id": "c06-c03",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 77492,
+            "end": 77979,
+            "quote": "That list is best-effort and not exhaustive, and the replay is not a\nsandbox.** SQL dialects offer many ways to address something other than the\nconnected database — server-side language extensions, foreign-data wrappers,\nstorage-engine options, loadable modules, and engine-specific pragmas and\nfunctions — and new ones arrive with new engine versions. Treat the deny-list\nas a tripwire for honest mistakes and known tricks, not as a security\nboundary against a hostile plan author."
+          }
+        ],
+        "rationale": "Explicitly limits a best-effort deny-list and distinguishes it from a security boundary.",
+        "proposed_edit": "Preserve the limitation."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c07",
+    "source_sha256": "6a285ec1973daaf0b6888eb7ac202d592f04649da7b47b722af869a61c38490f",
+    "reviewer": "Codex assistant implementing issue 299; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Three contextual framing/assurance families in protocol.md; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 4373,
+        "first_line": 1,
+        "last_line": 139,
+        "rationale": "Reviewed all extracted prose in source order, retaining headings, tables and surrounding code as context. Frontmatter, code, imports and image contents are not positive prose units; imported components and images were not expanded."
+      }
+    ],
+    "defects": [],
+    "uncertain": [],
+    "controls": [
+      {
+        "id": "c07-c01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 2162,
+            "end": 2280,
+            "quote": "Diesel will automatically keep track of which migrations have already been run,\nensuring that they're never run twice."
+          }
+        ],
+        "rationale": "Migration tracking explains the no-double-run contract; no generic quality announcement is needed.",
+        "proposed_edit": "Keep the tracking behavior."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c08",
+    "source_sha256": "9bde2744f00cb30b0069ae6a60fe9b2a4acf25f5eecc26f88bd0e6d77d0a17ea",
+    "reviewer": "Codex assistant implementing issue 299; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Three contextual framing/assurance families in protocol.md; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 19091,
+        "first_line": 1,
+        "last_line": 229,
+        "rationale": "Reviewed all extracted prose in source order, retaining headings, tables and surrounding code as context. Frontmatter, code, imports and image contents are not positive prose units; imported components and images were not expanded."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c08-d01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 1053,
+            "end": 1063,
+            "quote": "bloat-free"
+          }
+        ],
+        "rationale": "An undefined efficiency claim; no size, cost or comparison defines bloat. The same paragraph separately specifies the useful dependency property.",
+        "proposed_edit": "Delete bloat-free and retain the description and no-external-dependencies fact."
+      },
+      {
+        "id": "c08-d02",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 6292,
+            "end": 6382,
+            "quote": "It is less error prone (less code and less bugs) than traditional retained-mode interfaces"
+          }
+        ],
+        "rationale": "Broad comparative claims about code and bugs lack a task, measurement or condition; architectural state reduction does not establish the general comparison.",
+        "proposed_edit": "Describe reduced state synchronization without claiming fewer bugs across retained-mode interfaces."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c08-u01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 9525,
+            "end": 9609,
+            "quote": "it should take you less than two hours to integrate Dear ImGui in your custom engine"
+          }
+        ],
+        "rationale": "The estimate is qualified by experience and listed prerequisites; no evidence is given, but it could be useful planning guidance.",
+        "proposed_edit": "Consider identifying this as an estimate and naming which integration is included."
+      },
+      {
+        "id": "c08-u02",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 13530,
+            "end": 13752,
+            "quote": "We occasionally tag [Releases](https://github.com/ocornut/imgui/releases) but it is generally safe and recommended to sync to master/latest. The library is fairly stable and regressions tend to be fixed fast when reported."
+          }
+        ],
+        "rationale": "The general safety recommendation lacks version criteria but is maintenance guidance, and may reflect the maintainer's experience; do not force a defect label.",
+        "proposed_edit": "Consider explaining the stability and update policy instead of generally safe."
+      }
+    ],
+    "controls": []
+  },
+  {
+    "version": 1,
+    "page": "c09",
+    "source_sha256": "8fb486e2ced8489345c62e2089aa53685947ad9bcaa6a91124ea96184d1becff",
+    "reviewer": "Codex assistant implementing issue 299; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Three contextual framing/assurance families in protocol.md; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 22319,
+        "first_line": 1,
+        "last_line": 653,
+        "rationale": "Reviewed all extracted prose in source order, retaining headings, tables and surrounding code as context. Frontmatter, code, imports and image contents are not positive prose units; imported components and images were not expanded."
+      }
+    ],
+    "defects": [],
+    "uncertain": [],
+    "controls": [
+      {
+        "id": "c09-c01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 14780,
+            "end": 15237,
+            "quote": "The `-R` option is needed to interpret ANSI colors correctly. The second option (`-F`) instructs\nless to exit immediately if the output size is smaller than the vertical size of the terminal.\nThis is convenient for small files because you do not have to press `q` to quit the pager. The\nthird option (`-X`) is needed to fix a bug with the `--quit-if-one-screen` feature in old versions\nof `less`. Unfortunately, it also breaks mouse-wheel support in `less`."
+          }
+        ],
+        "rationale": "The convenience claim gives the small-file interaction saved.",
+        "proposed_edit": "Keep the behavior and its small-file scope."
+      }
+    ]
+  }
+]

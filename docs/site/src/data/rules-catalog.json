@@ -1,6 +1,6 @@
 {
   "schema": "unswell-docs-rules-catalog-v1",
-  "rule_count": 46,
+  "rule_count": 47,
   "families": [
     {
       "name": "density",
@@ -58,7 +58,7 @@
         },
         {
           "id": "filler.document-justification",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -74,8 +74,8 @@
           "weight": 12,
           "cap": 24,
           "summary": "State the scope or destination directly instead of explaining why this page exists.",
-          "description": "A document subject followed by 'exists so/to/because', or deliberate non-repetition of material. Storage existence and ordinary scope exclusions do not match. Reports complete matched clauses, once per clause, within a single block.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals, not human-qualified precision estimates."
+          "description": "A document subject followed by 'exists so/to/because', deliberate non-repetition of material, or a statement that a document part earns its place. Storage existence and ordinary scope exclusions do not match. Reports complete matched clauses, once per clause, within a single block.",
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "filler.document-metadiscourse",
@@ -120,7 +120,7 @@
         },
         {
           "id": "filler.evaluative-closure",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -135,9 +135,9 @@
           "gate": "none",
           "weight": 12,
           "cap": 24,
-          "summary": "This closing judgment repeats a purpose or calls a result honest; state the consequence directly.",
-          "description": "An anaphoric purpose tail ('which is the point of doing it', 'which is what doing it is for'), or a deictic copular clause calling the result 'the honest answer'. A newly named purpose is excluded. Reports complete matched clauses, once per clause, within a single block.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals, not human-qualified precision estimates."
+          "summary": "This evaluative clause announces a purpose or endorses a result; state the consequence directly.",
+          "description": "An anaphoric purpose tail ('which is the point of doing it', 'which is what doing it is for'), a bare whole-point/design declaration, or an anaphoric assertion of value or verification. Named purposes, conditions and measurements are excluded from the added constructions. Reports complete matched clauses, once per clause, within a single block.",
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "filler.modern-world-opening",
@@ -203,6 +203,27 @@
           "description": "Counts distinct configured modal/adverb cues in one clause; commas, punctuation, conjunctions, and code end a clause.",
           "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. A token boundary is not a dependency parse. Multiple independent uncertainties can be justified.",
           "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It counts hedges stacked inside one sentence."
+        },
+        {
+          "id": "filler.unscoped-assurance",
+          "version": "1",
+          "status": "experimental",
+          "group": "rhetorical-patterns",
+          "scope": "block",
+          "contexts": [
+            "comment",
+            "list-item",
+            "paragraph",
+            "string"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "State the behavior, scope or evidence behind this quality claim.",
+          "description": "A positive copular clause announces intentional quality without a mechanism, calls a choice nearly always right, or promises the fastest/best/easiest way to understand everything. Conditional, quantified and protected constructions are excluded. Reports complete matched clauses, once per clause, within a single block.",
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "filler.weak-intensifiers",
@@ -485,7 +506,7 @@
           "cap": 24,
           "summary": "The definition repeats its subject before the contrast; explain the distinction directly.",
           "description": "A positive copula repeats the same nominal phrase, ignoring articles, immediately before ', not' and a nominal alternative. Added modifiers, conditions, code identifiers, and uncontrasted identity statements are excluded. Reports complete matched clauses, once per clause, within a single block.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals, not human-qualified precision estimates."
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "repetition.exact-sentence",
@@ -994,7 +1015,7 @@
           "cap": 24,
           "summary": "The contrast names abstract actions without their objects; name the check and its failure condition.",
           "description": "A short nominal subject and a bare check/verify/prove verb opposed to a bare trust/assume/assert verb. Both verbs must lack objects and qualifiers; concrete alternatives and refusal/guessing contrasts are excluded. Reports complete matched clauses, once per clause, within a single block.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals, not human-qualified precision estimates."
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "syntax.triad-density",

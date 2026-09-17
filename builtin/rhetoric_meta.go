@@ -10,6 +10,9 @@ func documentJustification(clauses []frameClause, index int) (rhetoricalFrame, b
 	c := clauses[index]
 	if c.eligible() {
 		for i := range c.tokens() {
+			if embeddedClauseStart(c.tokens(), i) && documentEarnsPlace(c.tokens()[i:]) {
+				return localFrame(c, i)
+			}
 			if embeddedClauseStart(c.tokens(), i) && documentJustifies(c.tokens()[i:]) {
 				return localFrame(c, i)
 			}
@@ -43,11 +46,19 @@ func documentJustifies(tokens []document.Token) bool {
 
 func evaluativeClosure(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	c := clauses[index]
-	if c.eligible() {
-		for i := range c.tokens() {
-			if embeddedClauseStart(c.tokens(), i) && evaluativeTail(c.tokens()[i:]) {
-				return localFrame(c, i)
-			}
+	if !c.eligible() {
+		return rhetoricalFrame{}, false
+	}
+	for i := range c.tokens() {
+		if !embeddedClauseStart(c.tokens(), i) {
+			continue
+		}
+		if end := evaluationEnd(c.tokens()[i:]); end > 0 {
+			c.end = c.start + i + end
+			return localFrame(c, i)
+		}
+		if evaluativeTail(c.tokens()[i:]) {
+			return localFrame(c, i)
 		}
 	}
 	return rhetoricalFrame{}, false

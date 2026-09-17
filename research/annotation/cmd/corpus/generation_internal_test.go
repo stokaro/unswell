@@ -105,7 +105,7 @@ func TestGenerationCommandsRunEndToEnd(t *testing.T) {
 	var pairedOut bytes.Buffer
 	datasetPath := generationDataset(c, dir, shardData)
 	c.Assert(run(t.Context(), []string{"paired", "--plan", datasetPath, "--records", records, "--tasks", tasksPath,
-		"--classes", "../../../methods/rule-classes-v1-r4.json", "--findings", findings}, nil, &pairedOut), qt.IsNil)
+		"--classes", "../../../methods/rule-classes-v1-r5.json", "--findings", findings}, nil, &pairedOut), qt.IsNil)
 	var paired patterns.Paired
 	c.Assert(json.Unmarshal(pairedOut.Bytes(), &paired), qt.IsNil)
 	c.Assert(paired.Version, qt.Equals, patterns.PairedVersion)
