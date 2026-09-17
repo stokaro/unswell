@@ -1,0 +1,289 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "repetition.repeated-claim",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "These passages repeat an assertion; check whether the explanation can be shared.",
+      "primary": {
+        "path": "claims.md",
+        "span": {
+          "start": 15,
+          "end": 60
+        },
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 3,
+          "column": 46
+        },
+        "segments": [
+          {
+            "start": 15,
+            "end": 18
+          },
+          {
+            "start": 19,
+            "end": 26
+          },
+          {
+            "start": 27,
+            "end": 32
+          },
+          {
+            "start": 33,
+            "end": 36
+          },
+          {
+            "start": 37,
+            "end": 44
+          },
+          {
+            "start": 45,
+            "end": 50
+          },
+          {
+            "start": 51,
+            "end": 54
+          },
+          {
+            "start": 55,
+            "end": 60
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "claims.md",
+          "span": {
+            "start": 165,
+            "end": 210
+          },
+          "start": {
+            "line": 9,
+            "column": 1
+          },
+          "end": {
+            "line": 9,
+            "column": 46
+          },
+          "segments": [
+            {
+              "start": 165,
+              "end": 168
+            },
+            {
+              "start": 169,
+              "end": 176
+            },
+            {
+              "start": 177,
+              "end": 182
+            },
+            {
+              "start": 183,
+              "end": 186
+            },
+            {
+              "start": 187,
+              "end": 194
+            },
+            {
+              "start": 195,
+              "end": 200
+            },
+            {
+              "start": 201,
+              "end": 204
+            },
+            {
+              "start": 205,
+              "end": 210
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "repetition.explanatory-restart",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "block",
+      "message": "The explanation repeats its initial judgment before giving the reason.",
+      "primary": {
+        "path": "restart.md",
+        "span": {
+          "start": 3,
+          "end": 25
+        },
+        "start": {
+          "line": 1,
+          "column": 2
+        },
+        "end": {
+          "line": 1,
+          "column": 24
+        },
+        "segments": [
+          {
+            "start": 3,
+            "end": 6
+          },
+          {
+            "start": 7,
+            "end": 14
+          },
+          {
+            "start": 15,
+            "end": 17
+          },
+          {
+            "start": 18,
+            "end": 25
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "restart.md",
+          "span": {
+            "start": 31,
+            "end": 44
+          },
+          "start": {
+            "line": 1,
+            "column": 30
+          },
+          "end": {
+            "line": 1,
+            "column": 43
+          },
+          "segments": [
+            {
+              "start": 31,
+              "end": 33
+            },
+            {
+              "start": 34,
+              "end": 36
+            },
+            {
+              "start": 37,
+              "end": 44
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "repetition.adjacent-word",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "This word occurs twice in succession; check for an accidental duplicate.",
+      "primary": {
+        "path": "words.md",
+        "span": {
+          "start": 3,
+          "end": 6
+        },
+        "start": {
+          "line": 1,
+          "column": 2
+        },
+        "end": {
+          "line": 1,
+          "column": 5
+        },
+        "segments": [
+          {
+            "start": 3,
+            "end": 6
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "words.md",
+          "span": {
+            "start": 7,
+            "end": 10
+          },
+          "start": {
+            "line": 1,
+            "column": 6
+          },
+          "end": {
+            "line": 1,
+            "column": 9
+          },
+          "segments": [
+            {
+              "start": 7,
+              "end": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rule_id": "repetition.adjacent-word",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "sentence",
+      "message": "This word occurs twice in succession; check for an accidental duplicate.",
+      "primary": {
+        "path": "words.md",
+        "span": {
+          "start": 86,
+          "end": 94
+        },
+        "start": {
+          "line": 3,
+          "column": 13
+        },
+        "end": {
+          "line": 3,
+          "column": 21
+        },
+        "segments": [
+          {
+            "start": 86,
+            "end": 94
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "words.md",
+          "span": {
+            "start": 95,
+            "end": 103
+          },
+          "start": {
+            "line": 3,
+            "column": 22
+          },
+          "end": {
+            "line": 3,
+            "column": 30
+          },
+          "segments": [
+            {
+              "start": 95,
+              "end": 103
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

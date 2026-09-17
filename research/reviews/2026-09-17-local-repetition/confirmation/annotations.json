@@ -1,0 +1,1888 @@
+[
+  {
+    "version": 1,
+    "page": "c01",
+    "source_sha256": "041f8a6e63e6a5a1b02a684f3840be78a797abaf7bc3e5e83f5b729bd09d6c6e",
+    "reviewer": "Codex assistant implementing issues 304 and 305; maintainer-accepted assistant review, not human or independent annotation",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "All seven categories of the whole-page editorial rubric; source text only, no authorship labels",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 7364,
+        "first_line": 1,
+        "last_line": 143,
+        "rationale": "Read engine and release tables, generated-table notes, support definitions and navigation. Repeated cells belong to different engines/versions; command code and frontmatter provide context only."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c01-d01",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 7332,
+            "end": 7362,
+            "quote": "instead of being repeated here"
+          }
+        ],
+        "rationale": "The destination is already provided; this tail explains the absence of repeated content without adding navigation.",
+        "proposed_edit": "End the sentence after the linked engine pages."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c01-u01",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 843,
+            "end": 888,
+            "quote": "Use this page to answer two lookup questions:"
+          }
+        ],
+        "rationale": "The opening names the two lookup tasks; it may be useful orientation rather than empty self-description.",
+        "proposed_edit": "Optionally start with the two supported lookup questions."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c01-c01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 1687,
+            "end": 1732,
+            "quote": "Supported, with dialect-specific limitations."
+          },
+          {
+            "start": 1787,
+            "end": 1832,
+            "quote": "Supported, with dialect-specific limitations."
+          },
+          {
+            "start": 2104,
+            "end": 2159,
+            "quote": "PostgreSQL-compatible path with capability differences."
+          },
+          {
+            "start": 2261,
+            "end": 2316,
+            "quote": "PostgreSQL-compatible path with capability differences."
+          }
+        ],
+        "rationale": "Equal capability descriptions belong to different engines and do not duplicate a table entry.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      },
+      {
+        "id": "c01-c02",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 3779,
+            "end": 3933,
+            "quote": "The table is generated from the single declaration the CI matrix also reads, so\nthe declared set cannot say one thing here and another in a workflow file."
+          }
+        ],
+        "rationale": "The single declaration feeding both table and CI is a concrete consistency mechanism, not an unsupported safety promise.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c02",
+    "source_sha256": "efd32270f4edd576f617d76a812b76215eb80f1c7fa68ef6d2400bb35d973e10",
+    "reviewer": "Codex assistant implementing issues 304 and 305; maintainer-accepted assistant review, not human or independent annotation",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "All seven categories of the whole-page editorial rubric; source text only, no authorship labels",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 6613,
+        "first_line": 1,
+        "last_line": 159,
+        "rationale": "Read provider identity, local endpoints, credential references, probe examples, failure behavior and privacy limits. Protected fields are context; no external endpoint or linked page was consulted."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c02-d01",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 656,
+            "end": 761,
+            "quote": "This page is what\neach of them means, and how to find out whether they are right before anything\nis sent."
+          }
+        ],
+        "rationale": "This announces the explanation instead of naming the configuration and probe tasks.",
+        "proposed_edit": "Configure the provider fields, then probe the endpoint before sending a corpus."
+      },
+      {
+        "id": "c02-d02",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 4113,
+            "end": 4161,
+            "quote": "That distinction is the whole value of the verb:"
+          }
+        ],
+        "rationale": "The judgment of the command's entire value adds nothing to the concrete credential and reachability behavior that follows.",
+        "proposed_edit": "Remove the value declaration and keep the credential failure behavior."
+      },
+      {
+        "id": "c02-d03",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 4336,
+            "end": 4427,
+            "quote": "the probe\nsays the credential could not be used and that reachability was **not measured**:"
+          },
+          {
+            "start": 4822,
+            "end": 4888,
+            "quote": "Nothing was asked of the endpoint, so nothing is claimed about it."
+          }
+        ],
+        "rationale": "The closing sentence repeats the preceding unmeasured/no-request explanation after its example without a new condition.",
+        "proposed_edit": "Keep the concrete probe result and remove the concluding restatement."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c02-u01",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 1576,
+            "end": 1623,
+            "quote": "rather than a quiet change of who has your text"
+          }
+        ],
+        "rationale": "The phrasing is rhetorical, but it explains a consequential privacy boundary.",
+        "proposed_edit": "Optionally say that a provider-class change creates a different generation identity."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c02-c01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 5808,
+            "end": 6144,
+            "quote": "If the endpoint you named fails, Ptah does not try another one. It could not do\nso safely: a different provider is a different generation identity and a\ndifferent privacy boundary, and choosing one for you would send your text\nsomewhere you did not authorize while producing vectors that are not comparable\nwith the ones already stored."
+          }
+        ],
+        "rationale": "The no-fallback explanation identifies both privacy and vector-comparability constraints; these are distinct reasons.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c03",
+    "source_sha256": "29329967912f20a4de7e7704331252b90f73b5dbb632952ee27ddb04478559d9",
+    "reviewer": "Codex assistant implementing issues 304 and 305; maintainer-accepted assistant review, not human or independent annotation",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "All seven categories of the whole-page editorial rubric; source text only, no authorship labels",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 17943,
+        "first_line": 1,
+        "last_line": 494,
+        "rationale": "Read Action behavior, input/output tables, changeset policy, every CI-platform section, exit codes and safety guidance. CI YAML and shell examples are context; independent platform instructions remain distinct."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c03-d01",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 7761,
+            "end": 7801,
+            "quote": "An immutable history is not a changeset."
+          }
+        ],
+        "rationale": "The aphoristic contrast repeats the concrete explanation that shipped migrations cannot be edited.",
+        "proposed_edit": "Keep the changeset instruction and the reason for excluding historical migrations."
+      },
+      {
+        "id": "c03-d02",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 9146,
+            "end": 9292,
+            "quote": "The Action is GitHub-shaped, and the parts of it that are not are the two\nmachine-readable outputs it renders. Both are available to any platform:"
+          }
+        ],
+        "rationale": "The nested description of which parts are not GitHub-shaped obscures the two portable outputs.",
+        "proposed_edit": "Other CI platforms can consume the safety JSON and lint reports directly."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c03-u01",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 4498,
+            "end": 4687,
+            "quote": "The summary lines are the review surface; the collapsed sections carry the\nevidence. A reviewer who only reads the four lines still learns the safety\nverdict and whether any command failed."
+          }
+        ],
+        "rationale": "The paragraph describes the review interface, but the four-line promise partly repeats the preceding summary description.",
+        "proposed_edit": "Consider retaining only the distinction between summary and collapsed evidence."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c03-c01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 13628,
+            "end": 13999,
+            "quote": "The upload step needs the `security-events: write` permission. Use\n`--fail-on none` when code scanning owns the failure policy — above the\nthreshold the report goes to stderr and the command exits `1`, so a plain\nstdout redirect would capture an empty file. Prefer\n`--format github-actions` when inline annotations are wanted without the\ncode-scanning permission model."
+          },
+          {
+            "start": 14714,
+            "end": 14942,
+            "quote": "Use `--fail-on none` when the report owns the outcome, for the same reason as\nthe SARIF step above: above the threshold the findings go to stderr and the\ncommand exits `1`, so a plain stdout redirect would capture an empty file."
+          }
+        ],
+        "rationale": "The same redirect warning belongs to two independently usable platform instructions; neither occurrence is automatically redundant.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      },
+      {
+        "id": "c03-c02",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 10688,
+            "end": 11029,
+            "quote": "One run cannot do both. Above the threshold the report goes to stderr and the\ncommand exits `1`, so a step that redirects stdout and relies on the exit code\npublishes an empty artifact on exactly the run it exists to report. `--fail-on\nnone` puts the report on stdout and exits `0`; a second run at the real\nthreshold is what fails the step."
+          }
+        ],
+        "rationale": "The two-run requirement has an explicit stream/exit-code mechanism and must remain.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c04",
+    "source_sha256": "9ee99bf50f712e7464b564c24f5258927248e86a3216bfb9102782258577abbb",
+    "reviewer": "Codex assistant implementing issues 304 and 305; maintainer-accepted assistant review, not human or independent annotation",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "All seven categories of the whole-page editorial rubric; source text only, no authorship labels",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 9067,
+        "first_line": 1,
+        "last_line": 236,
+        "rationale": "Read workflow stages, publish/promotion/apply/verify prose, direct-schema route, operator/GitOps alternatives and next-step links. Native MDX source only; imported components are not expanded."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c04-d01",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 969,
+            "end": 1050,
+            "quote": "It owns the sequence, not the detail: each stage links to the\nguide that owns it."
+          }
+        ],
+        "rationale": "This explains the page's editorial ownership after the workflow scope has already been stated.",
+        "proposed_edit": "Keep the workflow start and end; let stage links provide navigation."
+      },
+      {
+        "id": "c04-d02",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 2373,
+            "end": 2424,
+            "quote": "which is the only identifier worth carrying forward"
+          }
+        ],
+        "rationale": "Worth is a broad judgment; the required digest and retagging risk can be stated directly.",
+        "proposed_edit": "Carry the manifest digest into each later deployment command."
+      },
+      {
+        "id": "c04-d03",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 3364,
+            "end": 3643,
+            "quote": "`ptah oci tag` moves an alias without rebuilding the artifact, and `ptah oci\ncopy` preserves the manifest digest across repositories. Attached reports stay\nat the source unless the copy is recursive, so a destination that must carry\nits lint or plan evidence needs `--recursive`."
+          },
+          {
+            "start": 3877,
+            "end": 4163,
+            "quote": "`ptah oci tag` moves an alias inside one repository. `ptah oci copy` moves the\nartifact to another repository, which is what a separate per-environment\nregistry needs, and it preserves the manifest digest: the artifact staging\napproved is the artifact production applies, byte for byte."
+          }
+        ],
+        "rationale": "The promotion section restates both alias movement and cross-repository copying already explained immediately above it.",
+        "proposed_edit": "Move the command definitions into the promotion section and use a short link in the resolve-once section."
+      },
+      {
+        "id": "c04-d04",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 3498,
+            "end": 3562,
+            "quote": "Attached reports stay\nat the source unless the copy is recursive"
+          },
+          {
+            "start": 4365,
+            "end": 4473,
+            "quote": "Without it the copy\ntakes the artifact alone and the lint and plan reports attached to it stay at\nthe source"
+          }
+        ],
+        "rationale": "Both passages explain the same recursive-copy requirement in adjacent workflow sections.",
+        "proposed_edit": "Keep the report-copy explanation once beside the copy command."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c04-u01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 3645,
+            "end": 3842,
+            "quote": "Promotion moves an artifact. It does not move a plan or an observation: both of\nthose are specific to the database they were made against, so staging's clean\napply is not evidence about production."
+          },
+          {
+            "start": 4746,
+            "end": 4901,
+            "quote": "An observation.** `migrations status` and `schema drift` answer for the\n  database they read, so staging's clean result is not evidence about\n  production."
+          },
+          {
+            "start": 4906,
+            "end": 5002,
+            "quote": "A plan.** It binds the artifact to a target's observed state, and the next\n  target has its own."
+          }
+        ],
+        "rationale": "The no-plan/no-observation limitation recurs, but its repetition in an operational checklist may prevent a deployment mistake.",
+        "proposed_edit": "Consider linking the checklist to the earlier explanation while retaining its warning."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c04-c01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 5823,
+            "end": 6007,
+            "quote": "An apply that exits `0` reports that the statements ran. Whether the database\nnow matches the schema the change intended is a separate question, and drift\ndetection is what answers it:"
+          }
+        ],
+        "rationale": "A successful apply and observed convergence are distinct checks; the contrast conveys necessary operational information.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c05",
+    "source_sha256": "d2a19dda32ce895fc12902d86c46c9d24530098832124dc70abdf2fd99b10705",
+    "reviewer": "Codex assistant implementing issues 304 and 305; maintainer-accepted assistant review, not human or independent annotation",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "All seven categories of the whole-page editorial rubric; source text only, no authorship labels",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 21350,
+        "first_line": 1,
+        "last_line": 481,
+        "rationale": "Read every command description, flag table, provider/retention limits, checkpoint/fencing behavior, approval/cutover/rollback/retirement sections and environment variables. Protected CLI syntax is context, not a prose defect."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c05-d01",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 1855,
+            "end": 1995,
+            "quote": "which is what makes it usable where every other one cannot be: writing a specification, and asking in\nCI whether an edit changed the corpus."
+          }
+        ],
+        "rationale": "The long exclusive-purpose construction can be replaced by the two concrete use cases without changing the offline guarantee.",
+        "proposed_edit": "Use the offline form while writing a specification or checking corpus changes in CI."
+      },
+      {
+        "id": "c05-d02",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 5271,
+            "end": 5345,
+            "quote": "What it cannot establish is whether the provider retains what you send it."
+          },
+          {
+            "start": 5346,
+            "end": 5413,
+            "quote": "That\nis outside Ptah's knowledge and nothing here claims otherwise."
+          }
+        ],
+        "rationale": "The second sentence repeats the same inability to determine provider retention.",
+        "proposed_edit": "Keep the explicit limitation once."
+      },
+      {
+        "id": "c05-d03",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 6351,
+            "end": 6419,
+            "quote": "which is what an operator asking a\nquestion of a specification wants"
+          }
+        ],
+        "rationale": "The tail speculates about what an operator wants after stating the no-output behavior.",
+        "proposed_edit": "End after the statement that no destination leaves no artifact."
+      },
+      {
+        "id": "c05-d04",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 8827,
+            "end": 8957,
+            "quote": "a window is kept true by the catch-up that moves it, so a backfill carrying the\nflag would extend a promise with nothing behind it"
+          }
+        ],
+        "rationale": "The promise metaphor obscures the concrete distinction between catch-up and backfill.",
+        "proposed_edit": "Backfill does not apply the subsequent changes needed to extend the stabilization window."
+      },
+      {
+        "id": "c05-d05",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 10722,
+            "end": 10792,
+            "quote": "a\nverification that found something is the evidence somebody will want"
+          }
+        ],
+        "rationale": "The closing endorsement adds no condition to the statement that failed verification records are kept.",
+        "proposed_edit": "Keep the record-retention behavior without the endorsement."
+      },
+      {
+        "id": "c05-d06",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 12403,
+            "end": 12441,
+            "quote": "Nothing is lost and nothing is undone."
+          }
+        ],
+        "rationale": "The absolute announcement is broader than the following guarantee about committed work and saved checkpoints.",
+        "proposed_edit": "State that committed work and the saved checkpoint remain intact."
+      },
+      {
+        "id": "c05-d07",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 12655,
+            "end": 12711,
+            "quote": "That is what makes it take effect rather than take note:"
+          }
+        ],
+        "rationale": "The rhetorical contrast precedes a sufficient concrete explanation of the fencing token.",
+        "proposed_edit": "Connect the token advance directly to preventing the old worker from committing."
+      },
+      {
+        "id": "c05-d08",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 12990,
+            "end": 13016,
+            "quote": "That is the pause working."
+          }
+        ],
+        "rationale": "This endorses the already explained newer-token rejection without adding behavior.",
+        "proposed_edit": "Remove the closing sentence."
+      },
+      {
+        "id": "c05-d09",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 13066,
+            "end": 13126,
+            "quote": "A paused run whose reason is\nempty is one nobody can act on."
+          }
+        ],
+        "rationale": "The universal inability to act is unsupported and unnecessary to describe the required reason field.",
+        "proposed_edit": "Keep that the reason is required and printed, or explain which operator decision it supports."
+      },
+      {
+        "id": "c05-d10",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 13376,
+            "end": 13434,
+            "quote": "This changes what the run is, not what is happening\nto it:"
+          }
+        ],
+        "rationale": "The abstract identity/action contrast makes the concrete distinction between state changes and worker execution harder to read.",
+        "proposed_edit": "Resume changes the run state; backfill or catch-up must be started separately."
+      },
+      {
+        "id": "c05-d11",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 15934,
+            "end": 15983,
+            "quote": "under the policy\nmost production environments run"
+          }
+        ],
+        "rationale": "The text asserts a majority practice without a stated basis.",
+        "proposed_edit": "State the condition: when approval is supplied after the readiness gate."
+      },
+      {
+        "id": "c05-d12",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 18830,
+            "end": 18918,
+            "quote": "a signature over\nsixty-four hex characters attests to a number nobody could have checked"
+          }
+        ],
+        "rationale": "The absolute nobody claim dismisses workflows that verify hashes against inspected plans.",
+        "proposed_edit": "Explain that signing the readable plan binds the reviewed operation and digest together."
+      },
+      {
+        "id": "c05-d13",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 19144,
+            "end": 19219,
+            "quote": "Puts the previous generation back, while it is still a place to go back to."
+          }
+        ],
+        "rationale": "The circular way-back description does not name the eligibility condition.",
+        "proposed_edit": "Restore the previous generation if it still satisfies rollback eligibility checks."
+      },
+      {
+        "id": "c05-d14",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 21086,
+            "end": 21109,
+            "quote": "is worth the extra step"
+          }
+        ],
+        "rationale": "The recommendation is expressed as a bare value judgment after the irreversible-operation condition.",
+        "proposed_edit": "Name the required signed-plan verification behavior directly, retaining the irreversible-operation context."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c05-u01",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 3682,
+            "end": 3995,
+            "quote": "Every fact a plan states about a provider is configured rather than measured:\nthe model identifier and the output dimension are what somebody typed. Until\nthis verb, the first thing that checked them was the backfill — which had\nalready sent source rows to the endpoint by the time it found the width was\nwrong."
+          }
+        ],
+        "rationale": "The statement about behavior before this command may need version evidence, but factual history is outside this wording review.",
+        "proposed_edit": "If retained, identify the version where preflight provider checks were introduced."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c05-c01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 11991,
+            "end": 12139,
+            "quote": "The numbers carry the query parameters they were taken under, because recall at\none `ivfflat.probes` setting is not comparable to recall at another."
+          }
+        ],
+        "rationale": "Different retrieval-depth settings make recall measurements noncomparable; this is a real measurement condition.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      },
+      {
+        "id": "c05-c02",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 14540,
+            "end": 15027,
+            "quote": "Ptah refuses the operation when it would leave an active generation, or a\ngeneration promised by a maintenance window, without another usable live feeder\nto keep it current. For outbox consistency, that sibling must have a durable,\nreadable resume position; an unprepared or damaged run cannot stand in for the\nfeeder being ended. Start a replacement run first, or move queries and let the\nmaintenance window end. Use `retire` only when the intended outcome is to\ndestroy the generation."
+          }
+        ],
+        "rationale": "The feeder, maintenance-window and readable-position conditions describe separate failure cases and must remain.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c06",
+    "source_sha256": "cd3c60919c14701d11588aafcb1a731ce919d629aa7bd378c9a11a5a2a749b16",
+    "reviewer": "Codex assistant implementing issues 304 and 305; maintainer-accepted assistant review, not human or independent annotation",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "All seven categories of the whole-page editorial rubric; source text only, no authorship labels",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 22889,
+        "first_line": 1,
+        "last_line": 395,
+        "rationale": "Read ClickHouse capability, cleanup, engine/view round trips, destructive view changes, access-control limits, revision engines and legacy metadata behavior. Protected identifiers and code examples preserve technical context."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c06-d01",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 1850,
+            "end": 1894,
+            "quote": "so a table Ptah\ncreates reads back as itself"
+          }
+        ],
+        "rationale": "The self-identity metaphor repeats preservation of the sorting key without identifying the preserved value.",
+        "proposed_edit": "Keep that introspection preserves the table's sorting key."
+      },
+      {
+        "id": "c06-d02",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 2649,
+            "end": 2766,
+            "quote": "so a table read and\nreplayed is the table that was read rather than a MergeTree that happens to hold\nthe same columns"
+          }
+        ],
+        "rationale": "The long identity contrast can name the actual preservation requirement directly.",
+        "proposed_edit": "Preserve engine parameters and clauses, not just columns, during read and replay."
+      },
+      {
+        "id": "c06-d03",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 6218,
+            "end": 6292,
+            "quote": "Several ClickHouse-specific points are worth knowing\nbefore adopting them:"
+          }
+        ],
+        "rationale": "The introduction announces the value of the following limitations instead of naming them.",
+        "proposed_edit": "Introduce the list as ClickHouse materialized-view limitations."
+      },
+      {
+        "id": "c06-d04",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 12972,
+            "end": 13023,
+            "quote": "and the reason for\neach is worth knowing in advance"
+          }
+        ],
+        "rationale": "The tail announces importance after stating that five cases fail before changes.",
+        "proposed_edit": "Keep the five-refusal introduction without the value announcement."
+      },
+      {
+        "id": "c06-d05",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 13995,
+            "end": 14123,
+            "quote": "resolving an access-control decision against whichever\n  database a session happens to have selected is not a formatting mistake"
+          }
+        ],
+        "rationale": "The negative characterization leaves the actual security consequence implicit.",
+        "proposed_edit": "An unqualified name could select a different database and grant privileges on the wrong object."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c06-u01",
+        "category": "needless_complexity",
+        "subtype": "needless_complexity",
+        "targets": [
+          {
+            "start": 9955,
+            "end": 10542,
+            "quote": "A materialized view created elsewhere with `TO <target table>` is still read, and\nit is read as though it owned its storage: `system.tables` reports the same\nengine and the same `as_select` for both forms, and the target appears only in\n`create_table_query`, which this reader does not consult. Such a view therefore\ncompares as synchronized against a declaration of the same query, and a later\nbody change is planned as a drop and a create that recreates it in the\ninner-storage form, so inserts stop reaching the original target table. Do not\nmanage a `TO` materialized view with Ptah."
+          }
+        ],
+        "rationale": "The materialized-view warning contains several linked conditions; splitting could help, but every condition contributes to the destructive-operation warning.",
+        "proposed_edit": "Consider separating reader behavior, planned recreation and the do-not-manage instruction."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c06-c01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 8512,
+            "end": 9098,
+            "quote": "A query written without a database qualifier is read back carrying one.\n  ClickHouse resolves the query when the view is created and records what it\n  resolved, so `SELECT count() AS c FROM users` comes back from\n  `system.tables.as_select` as `SELECT count() AS c FROM <database>.users`.\n  Comparison removes the qualifier the object's own database added, the same way\n  it does for an ordinary view, so an unchanged declaration is not reported as\n  drift and is never planned as a drop and a create. A qualifier naming some\n  other database is a real difference and is still reported."
+          }
+        ],
+        "rationale": "Local qualification and qualification of another database are meaningfully different cases, not empty contrast.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      },
+      {
+        "id": "c06-c02",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 21518,
+            "end": 21854,
+            "quote": "Declaring the column text resolves to `Nullable(String)` on both, which stores\nthe same JSON null every other dialect stores. This is stated by behavior rather\nthan by a version cut-off on purpose: the release that changed `Nullable(JSON)`\nfrom rejected to accepted was not measured, and the column type is correct on\neither side of it."
+          }
+        ],
+        "rationale": "The explanation states an unknown version boundary while giving behavior for both known outcomes; it is a justified limitation.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c07",
+    "source_sha256": "32be1dae0206fd62cd8724f67d58012d88e83aab210fed9dd4f17e36538be775",
+    "reviewer": "Codex assistant implementing issues 304 and 305; maintainer-accepted assistant review, not human or independent annotation",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "All seven categories of the whole-page editorial rubric; source text only, no authorship labels",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 8494,
+        "first_line": 1,
+        "last_line": 163,
+        "rationale": "Read lazy-pull scope, limitations, both worker setups, examples, registry configuration and format/tool explanations. Independent worker instructions and export exceptions were kept distinct."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c07-d01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 58,
+            "end": 346,
+            "quote": "This document describes the configuration that allows buildkit to lazily pull [stargz](https://github.com/google/crfs/blob/master/README.md#introducing-stargz)/[eStargz](https://github.com/containerd/stargz-snapshotter/blob/master/docs/stargz-estargz.md)-formatted images from registries."
+          },
+          {
+            "start": 1013,
+            "end": 1081,
+            "quote": "This document describes the configuration and usage of this feature."
+          }
+        ],
+        "rationale": "The introductory self-description appears twice before the configuration instructions.",
+        "proposed_edit": "Keep one concise scope sentence and remove the second announcement."
+      },
+      {
+        "id": "c07-d02",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 955,
+            "end": 1012,
+            "quote": "This can hopefully reduce the time to take for the build."
+          }
+        ],
+        "rationale": "Hopefully and the time-to-take construction add no measurement or qualification beyond can.",
+        "proposed_edit": "This can reduce build time."
+      },
+      {
+        "id": "c07-d03",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 2342,
+            "end": 2432,
+            "quote": "The example Dockerfile which leverages eStargz-formatted base image will be the following."
+          }
+        ],
+        "rationale": "This announces that the following example will be an example, after the example has already been introduced.",
+        "proposed_edit": "Use a short Dockerfile label or proceed to the example."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c07-u01",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 1903,
+            "end": 1969,
+            "quote": "This is the easiest way to use this lazy pull feature on buildkit."
+          }
+        ],
+        "rationale": "The comparison is evaluative, but the alternative requires a separate service and configuration.",
+        "proposed_edit": "Optionally recommend the built-in setup by naming the avoided service."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c07-c01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 4600,
+            "end": 4842,
+            "quote": "Spawn `containerd-stargz-grpc` as a separated process.\nThen run `buildkitd` with an option `--oci-worker-proxy-snapshotter-path=/run/containerd-stargz-grpc/containerd-stargz-grpc.sock` which makes it recognize this snapshotter via the socket."
+          },
+          {
+            "start": 5422,
+            "end": 5603,
+            "quote": "Then spawn `containerd-stargz-grpc` and `containerd`, and run `buildkitd` with an option `--containerd-worker-snapshotter=stargz` which tells `containerd` to use stargz snapshotter."
+          }
+        ],
+        "rationale": "OCI and containerd worker setup steps are distinct despite parallel starts and repeated process names.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c08",
+    "source_sha256": "3b4c14f5a33ec7600e8b963d6a1efd2f3feb8a3d2fb5db6c1aa9586d5654cdbd",
+    "reviewer": "Codex assistant implementing issues 304 and 305; maintainer-accepted assistant review, not human or independent annotation",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "All seven categories of the whole-page editorial rubric; source text only, no authorship labels",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 8086,
+        "first_line": 1,
+        "last_line": 157,
+        "rationale": "Read feature claims, installation/build instructions, configuration overview, documentation/help guidance and trademark text. Images and linked documents are not expanded; marketing claims were judged by the same wording rubric."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c08-d01",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 2053,
+            "end": 2093,
+            "quote": "Easy configuration** with the [Caddyfile"
+          }
+        ],
+        "rationale": "Easy is not defined by a task or comparison.",
+        "proposed_edit": "Name the Caddyfile configuration interface."
+      },
+      {
+        "id": "c08-d02",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 2139,
+            "end": 2192,
+            "quote": "Powerful configuration** with its [native JSON config"
+          }
+        ],
+        "rationale": "Powerful does not identify a capability.",
+        "proposed_edit": "Name the JSON configuration interface and its specific capabilities."
+      },
+      {
+        "id": "c08-d03",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 2753,
+            "end": 2875,
+            "quote": "Highly extensible** [modular architecture](https://caddyserver.com/docs/architecture) lets Caddy do anything without bloat"
+          }
+        ],
+        "rationale": "Anything without bloat is an unbounded capability and cost promise.",
+        "proposed_edit": "Describe supported module extensions and their resource limits."
+      },
+      {
+        "id": "c08-d04",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 2880,
+            "end": 2945,
+            "quote": "Runs anywhere** with **no external dependencies** (not even libc)"
+          }
+        ],
+        "rationale": "Runs anywhere is an unbounded platform claim.",
+        "proposed_edit": "Name the supported platforms and retain the absence of external dependencies."
+      },
+      {
+        "id": "c08-d05",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 2948,
+            "end": 3033,
+            "quote": "Written in Go, a language with higher **memory safety guarantees** than other servers"
+          }
+        ],
+        "rationale": "The comparison conflates a language property with unspecified competing servers.",
+        "proposed_edit": "State the memory-safety properties of the implementation without a universal server comparison."
+      },
+      {
+        "id": "c08-d06",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 3036,
+            "end": 3057,
+            "quote": "Actually **fun to use"
+          }
+        ],
+        "rationale": "Fun supplies no technical feature or criterion.",
+        "proposed_edit": "Remove the subjective feature claim."
+      },
+      {
+        "id": "c08-d07",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 3062,
+            "end": 3090,
+            "quote": "So, so much more to discover"
+          }
+        ],
+        "rationale": "The discovery teaser supplies no feature or destination.",
+        "proposed_edit": "Remove it or link to a specific feature catalog."
+      },
+      {
+        "id": "c08-d08",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 5936,
+            "end": 6024,
+            "quote": "Caddy exposes an unprecedented level of control compared to any web server in existence."
+          }
+        ],
+        "rationale": "The all-competitor superlative lacks a defined capability comparison.",
+        "proposed_edit": "Describe the configuration control exposed by the API."
+      },
+      {
+        "id": "c08-d09",
+        "category": "unjustified_intensifiers",
+        "subtype": "unjustified_intensifiers",
+        "targets": [
+          {
+            "start": 6201,
+            "end": 6322,
+            "quote": "Caddy is also ridiculously extensible, with a powerful plugin system that makes vast improvements over other web servers."
+          }
+        ],
+        "rationale": "Ridiculously, powerful and vast amplify an unspecified comparison.",
+        "proposed_edit": "Describe the plugin interfaces and supported extensions."
+      },
+      {
+        "id": "c08-d10",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 6324,
+            "end": 6357,
+            "quote": "To wield the power of this design"
+          }
+        ],
+        "rationale": "The power metaphor adds promotion to a straightforward link to configuration structure.",
+        "proposed_edit": "Link directly to the configuration structure documentation."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c08-u01",
+        "category": "unjustified_intensifiers",
+        "subtype": "unjustified_intensifiers",
+        "targets": [
+          {
+            "start": 5208,
+            "end": 5225,
+            "quote": "instantly benefit"
+          }
+        ],
+        "rationale": "The wording implies immediate integration benefit, but the listed facilities are specific and may be automatic.",
+        "proposed_edit": "Optionally describe which facilities are supplied by the module interfaces."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c08-c01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 6565,
+            "end": 6855,
+            "quote": "Nearly all of Caddy's configuration is contained in a single config document, rather than being scattered across CLI flags and env variables and a configuration file as with other web servers. This makes managing your server config more straightforward and reduces hidden variables/factors."
+          }
+        ],
+        "rationale": "One config document versus scattered flags and files is a specific design distinction; the supporting explanation should remain.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c09",
+    "source_sha256": "00c9a206992ed8925a7310e54606951cf083ead680c03e38615c88c7cacfdf77",
+    "reviewer": "Codex assistant implementing issues 304 and 305; maintainer-accepted assistant review, not human or independent annotation",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "All seven categories of the whole-page editorial rubric; source text only, no authorship labels",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 11475,
+        "first_line": 1,
+        "last_line": 158,
+        "rationale": "Read the schedule table, shepherd duties, branch/version policy, dependency updates, release preparation, tagging/publication and wrap-up. Historical commands are context; current factual correctness is not scored."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c09-d01",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 226,
+            "end": 285,
+            "quote": "Release cadence of first pre-releases being cut is 6 weeks."
+          }
+        ],
+        "rationale": "The nominal chain obscures a simple release interval.",
+        "proposed_edit": "Cut the first pre-release every six weeks."
+      },
+      {
+        "id": "c09-d02",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 3593,
+            "end": 3642,
+            "quote": "In practice, things might not work out as nicely."
+          }
+        ],
+        "rationale": "The vague aside adds no failure condition to the subsequent branch-check instruction.",
+        "proposed_edit": "Keep the instruction to inspect master before the scheduled release."
+      },
+      {
+        "id": "c09-d03",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 5142,
+            "end": 5204,
+            "quote": "We aspire to unify the release procedures as much as possible."
+          }
+        ],
+        "rationale": "The aspiration provides no current release action or supported scope.",
+        "proposed_edit": "Keep the scope limitation without the aspiration."
+      },
+      {
+        "id": "c09-d04",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 8545,
+            "end": 8670,
+            "quote": "as this gives others the opportunity to chime in on the release in general and on the addition to the changelog in particular"
+          }
+        ],
+        "rationale": "The general/in-particular expansion repeats the ordinary review purpose at unnecessary length.",
+        "proposed_edit": "Submit the version and changelog changes for review in a release-branch PR."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "id": "c09-c01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 10320,
+            "end": 10895,
+            "quote": "Finally, wait for the build step for the tag to finish. The point here is to wait for tarballs to be uploaded to the Github release and the container images to be pushed to the Docker Hub and Quay.io. Once that has happened, click _Publish release_, which will make the release publicly visible and create a GitHub notification.\n** Note: ** for a release candidate version ensure the _This is a pre-release_ box is checked when drafting the release in the Github UI. The CI job should take care of this but it's a good idea to double check before clicking _Publish release_.`"
+          }
+        ],
+        "rationale": "Waiting for published assets and verifying the pre-release checkbox are actionable release checks, not empty ceremony.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c10",
+    "source_sha256": "2718559ba20ea4f4f1247b78318806f847e0de716a146517fd229a15a8f6ec42",
+    "reviewer": "Codex assistant implementing issues 304 and 305; maintainer-accepted assistant review, not human or independent annotation",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "All seven categories of the whole-page editorial rubric; source text only, no authorship labels",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 10216,
+        "first_line": 1,
+        "last_line": 255,
+        "rationale": "Read naming, authoring commands, flags, configuration, I/O, filesystems, event-order tables, logging, errors and protocol notes. Independent subcommands and event types remain separate even when their wording repeats."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c10-d01",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 788,
+            "end": 939,
+            "quote": "This section is dedicated to runtime authors wishing to build a shim.\nIt will detail how the API works and different considerations when building shim."
+          }
+        ],
+        "rationale": "The paragraph announces the section and its future explanation rather than beginning the authoring instructions.",
+        "proposed_edit": "Start with the shim interface requirements, retaining the audience in the heading if needed."
+      },
+      {
+        "id": "c10-d02",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 1833,
+            "end": 1988,
+            "quote": "This command allows containerd to delete any container resources created, mounted, and/or run by a shim when containerd can no longer communicate over rpc."
+          },
+          {
+            "start": 2051,
+            "end": 2142,
+            "quote": "These resources will need to be cleaned up when containerd looses the connection to a shim."
+          }
+        ],
+        "rationale": "The second sentence repeats the cleanup purpose and lost-connection condition, while the SIGKILL and restart examples add separate facts.",
+        "proposed_edit": "Remove the repeated cleanup sentence; keep both examples."
+      },
+      {
+        "id": "c10-d03",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 5328,
+            "end": 5421,
+            "quote": "In order for the an upstream caller (such as Docker) to get these events in the correct order"
+          }
+        ],
+        "rationale": "The opening uses a wordy purpose construction; the article typo is not a separate scored event.",
+        "proposed_edit": "To deliver events in order to upstream callers such as Docker, ..."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "id": "c10-c01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 4970,
+            "end": 5268,
+            "quote": "Shims are responsible for mounting the filesystem into the `rootfs/` directory of the bundle.\nShims are also responsible for unmounting of the filesystem.\nDuring a `delete` binary call, the shim MUST ensure that filesystem is also unmounted.\nFilesystems are provided by the containerd snapshotters."
+          }
+        ],
+        "rationale": "Mounting, ordinary unmounting and cleanup during delete are distinct obligations; repeated Shims is not enough to establish redundancy.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      },
+      {
+        "id": "c10-c02",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 1220,
+            "end": 1264,
+            "quote": "`-namespace` the namespace for the container"
+          },
+          {
+            "start": 2365,
+            "end": 2409,
+            "quote": "`-namespace` the namespace for the container"
+          }
+        ],
+        "rationale": "Namespace flags belong to different subcommands and need separate documentation.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c11",
+    "source_sha256": "c101c12f88100aa4af50ab131d0b0932505d7bfe56c4d4da074fedd6830cd427",
+    "reviewer": "Codex assistant implementing issues 304 and 305; maintainer-accepted assistant review, not human or independent annotation",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "All seven categories of the whole-page editorial rubric; source text only, no authorship labels",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 33387,
+        "first_line": 1,
+        "last_line": 769,
+        "rationale": "Read all plain-text sections from scope/compatibility through APIs, finalization, performance, platform changes, testing and contribution notes. Embedded code is contextual; spelling and historical factual drift are outside the seven-category denominator."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c11-d01",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 533,
+            "end": 612,
+            "quote": "  NOTE: I am very sure that I missed some thing on this list.  Caveat\n  haxxor."
+          }
+        ],
+        "rationale": "The personal certainty and joke obscure the useful statement that the list may be incomplete.",
+        "proposed_edit": "This list may omit changes; consult the ChangeLog for additional entries."
+      },
+      {
+        "id": "c11-d02",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 5209,
+            "end": 5282,
+            "quote": "This should never be strictly necessary, but it's sometimes\n  convenient."
+          }
+        ],
+        "rationale": "The necessity/convenience judgment gives no use case or condition.",
+        "proposed_edit": "Name a use case for accessing the running event, or remove this judgment."
+      },
+      {
+        "id": "c11-d03",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 11896,
+            "end": 11989,
+            "quote": "  There's also been some work done to try to make the debugging logs\n  more generally useful."
+          }
+        ],
+        "rationale": "The release note names no change beyond an attempt to make logs more useful.",
+        "proposed_edit": "Describe the additional log context or remove the unspecified entry."
+      },
+      {
+        "id": "c11-d04",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 12813,
+            "end": 12851,
+            "quote": "Better still, the code is smart enough"
+          }
+        ],
+        "rationale": "The evaluation is unnecessary before the concrete sendfile/mapping behavior.",
+        "proposed_edit": "State the conditional mapping and sendfile selection directly."
+      },
+      {
+        "id": "c11-d05",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 17484,
+            "end": 17518,
+            "quote": "That's almost never what you want."
+          }
+        ],
+        "rationale": "The broad reader-preference assertion is unnecessary to explain which sockets receive the flag.",
+        "proposed_edit": "Keep the old and new flag behavior without guessing user preferences."
+      },
+      {
+        "id": "c11-d06",
+        "category": "unjustified_intensifiers",
+        "subtype": "unjustified_intensifiers",
+        "targets": [
+          {
+            "start": 23693,
+            "end": 23730,
+            "quote": "a huge number of gettimeofday() calls"
+          }
+        ],
+        "rationale": "Huge is not quantified; the five-second polling change is the useful mechanism.",
+        "proposed_edit": "This reduces gettimeofday() calls."
+      },
+      {
+        "id": "c11-d07",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 24484,
+            "end": 24577,
+            "quote": "  The EVBUFFER_EOL_CRLF line-ending type is now much faster, thanks to\n  smart optimizations."
+          }
+        ],
+        "rationale": "The entry claims a speedup through smart optimizations without naming a mechanism, measurement or workload.",
+        "proposed_edit": "Describe the CRLF scanning change or provide a measured comparison."
+      },
+      {
+        "id": "c11-d08",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 26017,
+            "end": 26036,
+            "quote": "socket is socket is"
+          }
+        ],
+        "rationale": "The socket-is phrase is accidentally duplicated inside one clause.",
+        "proposed_edit": "Keep socket is once."
+      },
+      {
+        "id": "c11-d09",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 27458,
+            "end": 27586,
+            "quote": "or in large amounts due to users who move their system clocks all over\n  the timeline in order to keep nagware from nagging them"
+          }
+        ],
+        "rationale": "The imagined user motive lengthens the clock-change explanation without affecting the timing behavior.",
+        "proposed_edit": "Keep manual system-clock adjustments as the second example alongside NTP."
+      },
+      {
+        "id": "c11-d10",
+        "category": "wordiness",
+        "subtype": "wordiness",
+        "targets": [
+          {
+            "start": 27640,
+            "end": 27767,
+            "quote": "When a thread other than the one in which the main event loop is\n  running needs to wake the thread running the main event loop"
+          }
+        ],
+        "rationale": "The repeated descriptions of the same main-loop thread obscure the notification action.",
+        "proposed_edit": "When another thread needs to wake the main event loop, ..."
+      },
+      {
+        "id": "c11-d11",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 28679,
+            "end": 28796,
+            "quote": "  Faster unit tests are great, since they let programmers test their\n  changes without losing their train of thought."
+          }
+        ],
+        "rationale": "This endorses faster tests after concrete timings and implementation changes have already established the benefit.",
+        "proposed_edit": "End the section after the measured test times."
+      },
+      {
+        "id": "c11-d12",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 31307,
+            "end": 31361,
+            "quote": "so there shouldn't be any mistakes, but you never know"
+          }
+        ],
+        "rationale": "Automated edits alone do not support the no-mistakes assurance, and the hedge adds no verification evidence.",
+        "proposed_edit": "Keep that scripts performed the changes and state any actual verification separately."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c11-u01",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 26134,
+            "end": 26281,
+            "quote": "  We now use GetSystemTimeAsFileTime to implement gettimeofday.  It's\n  significantly faster and more accurate than our old ftime()-based approach."
+          }
+        ],
+        "rationale": "The comparison identifies the replaced API but supplies no measurement. It may be conventional concise release reporting.",
+        "proposed_edit": "Consider adding a timing/precision comparison if available."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c11-c01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 1179,
+            "end": 1488,
+            "quote": "  Our source-compatibility policy is that correct code (that is to say,\n  code that uses public interfaces of Libevent and relies only on their\n  documented behavior) should have forward source compatibility: any\n  such code that worked with a previous version of Libevent should work\n  with this version too."
+          }
+        ],
+        "rationale": "The expanded source-compatibility definition constrains the guarantee to documented public behavior; its length is necessary.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      },
+      {
+        "id": "c11-c02",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 28520,
+            "end": 28677,
+            "quote": "  On my desktop, a full \"make verify\" run of Libevent 2.0.18-stable\n  requires about 218 seconds.  Libevent 2.1.1-alpha cuts this down to\n  about 78 seconds."
+          }
+        ],
+        "rationale": "The performance claim gives versions, approximate times and the author's host context.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c12",
+    "source_sha256": "2fea51638d3aaed491d0e5f88d7fd682b12b4427298ccc694263304ee2d74ea5",
+    "reviewer": "Codex assistant implementing issues 304 and 305; maintainer-accepted assistant review, not human or independent annotation",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "All seven categories of the whole-page editorial rubric; source text only, no authorship labels",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 33399,
+        "first_line": 1,
+        "last_line": 1022,
+        "rationale": "Read every release entry from 0.24.3 through 0.9.3, including nested item explanations and linked release-comparison summaries. Distinguish unspecified change labels from supported summaries; repeated items under different releases are not duplicate events."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c12-d01",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 198,
+            "end": 224,
+            "quote": "Bug fixes and improvements"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d02",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 14432,
+            "end": 14456,
+            "quote": "Performance optimization"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d03",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 14638,
+            "end": 14662,
+            "quote": "Performance optimization"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d04",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 16082,
+            "end": 16143,
+            "quote": "Bug fixes and improvements in Vim plugin and shell extensions"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d05",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 16161,
+            "end": 16193,
+            "quote": "Minor bug fixes and improvements"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d06",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 16262,
+            "end": 16277,
+            "quote": "Minor bug fixes"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d07",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 16420,
+            "end": 16446,
+            "quote": "Bug fixes and improvements"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d08",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 17523,
+            "end": 17555,
+            "quote": "Minor bug fixes and improvements"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d09",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 22924,
+            "end": 22981,
+            "quote": "Fixes and improvements in Vim plugin and shell extensions"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d10",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 23029,
+            "end": 23044,
+            "quote": "Minor bug fixes"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d11",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 23119,
+            "end": 23164,
+            "quote": "Some fixes in Vim plugin and shell extensions"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d12",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 24811,
+            "end": 24853,
+            "quote": "Fixes and improvements in shell extensions"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d13",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 25138,
+            "end": 25170,
+            "quote": "More robust handling of SIGWINCH"
+          }
+        ],
+        "rationale": "This isolated change label does not identify a corrected behavior, optimization mechanism or linked issue; readers cannot tell what changed.",
+        "proposed_edit": "Name the affected behavior or link to the specific changes; do not merely restate that it improved."
+      },
+      {
+        "id": "c12-d14",
+        "category": "empty_framing",
+        "subtype": "empty_framing",
+        "targets": [
+          {
+            "start": 20197,
+            "end": 20235,
+            "quote": "but I believe it makes much more sense"
+          }
+        ],
+        "rationale": "The endorsement adds nothing to the next sentence explaining unpredictable inverse fuzzy matches.",
+        "proposed_edit": "Keep the breaking-change notice and concrete matching rationale."
+      },
+      {
+        "id": "c12-d15",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 21212,
+            "end": 21237,
+            "quote": "Advanced scoring criteria"
+          }
+        ],
+        "rationale": "The ranking/scoring label gives no criterion or behavior behind advanced/enhanced.",
+        "proposed_edit": "Name the changed ranking criterion or link to its definition."
+      },
+      {
+        "id": "c12-d16",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 23000,
+            "end": 23026,
+            "quote": "Enhanced ranking algorithm"
+          }
+        ],
+        "rationale": "The ranking/scoring label gives no criterion or behavior behind advanced/enhanced.",
+        "proposed_edit": "Name the changed ranking criterion or link to its definition."
+      },
+      {
+        "id": "c12-d17",
+        "category": "unjustified_intensifiers",
+        "subtype": "unjustified_intensifiers",
+        "targets": [
+          {
+            "start": 31644,
+            "end": 31714,
+            "quote": "The difference is hugely noticeable when\nthe input is extremely large."
+          }
+        ],
+        "rationale": "Hugely noticeable is a subjective magnitude claim; the example input does not quantify the memory reduction.",
+        "proposed_edit": "Keep the avoided pointer-copy mechanism and example, and report measured memory use if available."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c12-u01",
+        "category": "vague_claims",
+        "subtype": "vague_claims",
+        "targets": [
+          {
+            "start": 13073,
+            "end": 13154,
+            "quote": "Better error messages when the default command or `$FZF_DEFAULT_COMMAND`\n  fails."
+          }
+        ],
+        "rationale": "The error context is named, but the improved message is not shown; conventional short changelog form may be sufficient.",
+        "proposed_edit": "Optionally show the newly reported failure detail."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c12-c01",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 11804,
+            "end": 11830,
+            "quote": "Bug fixes and improvements"
+          },
+          {
+            "start": 11837,
+            "end": 11894,
+            "quote": "See https://github.com/junegunn/fzf/milestone/14?closed=1"
+          },
+          {
+            "start": 11936,
+            "end": 11962,
+            "quote": "Bug fixes and improvements"
+          },
+          {
+            "start": 11969,
+            "end": 12026,
+            "quote": "See https://github.com/junegunn/fzf/milestone/13?closed=1"
+          }
+        ],
+        "rationale": "The generic change summaries are accompanied by links to their concrete release comparisons.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      },
+      {
+        "id": "c12-c02",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 21487,
+            "end": 21511,
+            "quote": "Performance optimization"
+          },
+          {
+            "start": 21518,
+            "end": 21569,
+            "quote": "Memory footprint for ascii string is reduced by 60%"
+          },
+          {
+            "start": 21576,
+            "end": 21618,
+            "quote": "15 to 20% improvement of query performance"
+          },
+          {
+            "start": 21625,
+            "end": 21690,
+            "quote": "Up to 45% better performance of `--nth` with non-regex delimiters"
+          }
+        ],
+        "rationale": "The optimization heading is supported by the quantified changes immediately below it.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      },
+      {
+        "id": "c12-c03",
+        "category": "needless_repetition",
+        "subtype": "needless_repetition",
+        "targets": [
+          {
+            "start": 31897,
+            "end": 32129,
+            "quote": "One might argue that this option is unnecessary since we can already put `tac`\nor `tail -r` in the command pipeline to achieve the same result. However, the\nadvantage of `--tac` is that it does not block until the input is complete."
+          }
+        ],
+        "rationale": "The reverse-order alternative blocks until input completes, so its contrast with the new option describes a real behavioral difference.",
+        "proposed_edit": "Keep the distinct technical information and its scope."
+      }
+    ]
+  }
+]

@@ -1,6 +1,6 @@
 # Which rules ship enabled
 
-The catalog holds 48 rules. Twenty-five are on in the shipped profiles and 23 are
+The catalog holds 51 rules. Twenty-eight are on in the shipped profiles and 23 are
 opt-in. This page says how that split was chosen and what each opt-in rule was
 measured at. Every rule also carries its own reason: `unswell rules show ID`
 prints it, the rules page shows it, and a test fails if an opt-in rule has
