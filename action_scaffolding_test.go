@@ -31,7 +31,6 @@ func TestActionScaffolding(t *testing.T) {
 
 func TestActionScaffoldingControls(t *testing.T) {
 	for _, text := range []string{
-		"The interface allows users to configure the service.",
 		"The interface allows requests to be canceled.",
 		"The interface allows messages to be received.",
 		"The interface allows configuration files to be uploaded.",

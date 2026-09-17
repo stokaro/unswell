@@ -1,0 +1,1598 @@
+{
+  "version": 1,
+  "protocol": "unswell-editorial-v1",
+  "reviewer": "Codex implementing assistant; maintainer accepted under ADR 0041",
+  "review_phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "16ae9f6684a00db5efc6f47907060cdb3b0b0341dcf032487d232e4def488653",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4399,
+          "first_line": 1,
+          "last_line": 99,
+          "rationale": "Read all 20 operator overview blocks, including scope, deployment boundary, maturity, version selection, support evidence, external guide and recorded runs. Preserve distinct project ownership, unsupported migration resources, approval isolation and declared versus verified compatibility.",
+          "prose_blocks": 20,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c01-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 852,
+              "end": 960,
+              "quote": "this page exists so the operator is reachable from here and so\nits boundary is stated where a reader decides"
+            }
+          ],
+          "context": [
+            {
+              "start": 609,
+              "end": 961,
+              "quote": "Ptah Operator](https://github.com/stokaro/ptah-operator) is a Kubernetes\ncontrol plane that converges a database on a desired schema published as an OCI\nartifact. It is a separate project with its own repository, releases, and\nsupport matrix; this page exists so the operator is reachable from here and so\nits boundary is stated where a reader decides."
+            }
+          ],
+          "rationale": "The page explains its own placement after already identifying the separate project, without adding an operator property or navigation destination.",
+          "proposed_edit": "Keep the separate repository, releases and support matrix; remove the page-purpose tail."
+        },
+        {
+          "id": "c01-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2684,
+              "end": 3095,
+              "quote": "Which Ptah build an operator version runs is the operator's claim, not this\nsite's, and it changes when the operator measures something new. It is\npublished as a current table at\n[the operator compatibility matrix](https://docs.ptah.run/compatibility/operator/),\noutside this site's per-version archives so that it answers with the present\ncatalog rather than with whatever was true when a Ptah release shipped."
+            }
+          ],
+          "context": [
+            {
+              "start": 2684,
+              "end": 3095,
+              "quote": "Which Ptah build an operator version runs is the operator's claim, not this\nsite's, and it changes when the operator measures something new. It is\npublished as a current table at\n[the operator compatibility matrix](https://docs.ptah.run/compatibility/operator/),\noutside this site's per-version archives so that it answers with the present\ncatalog rather than with whatever was true when a Ptah release shipped."
+            }
+          ],
+          "rationale": "The claim/site/personification and present-catalog versus whatever-was-true layers obscure the actual ownership and freshness rule.",
+          "proposed_edit": "Say the operator's compatibility matrix records the Ptah builds supported by each operator version and stays current outside Ptah's per-version archives; keep the link."
+        },
+        {
+          "id": "c01-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3516,
+              "end": 3641,
+              "quote": "and this page deliberately does not restate any of them -- a second\ncopy of an install command is a second thing to get wrong"
+            }
+          ],
+          "context": [
+            {
+              "start": 3278,
+              "end": 3642,
+              "quote": "The operator's guide is a site of its own, with its own versions:\n[operator.ptah.run](https://operator.ptah.run/). Installation, the chart values,\nthe approval model, operations, the security model and the support windows all\nlive there, and this page deliberately does not restate any of them -- a second\ncopy of an install command is a second thing to get wrong."
+            }
+          ],
+          "rationale": "The defensive explanation for avoiding duplicate documentation adds no destination or installation constraint.",
+          "proposed_edit": "Keep the operator guide link, versioning and covered topics; remove the justification."
+        },
+        {
+          "id": "c01-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4069,
+              "end": 4152,
+              "quote": "so what a reader watches is a session that happened\nrather than a screencast of one"
+            }
+          ],
+          "context": [
+            {
+              "start": 3666,
+              "end": 4153,
+              "quote": "Recorded runs](https://operator.ptah.run/demo/) are terminal sessions\ncaptured while the operator ran against a Kubernetes cluster: applying a schema,\nchanging it, approving a plan, refusing a destructive change, closing drift,\nfailing and recovering. Each one is checked while it is recorded -- the\nconditions the session claims are read off the live objects -- and published\nonly if every check held, so what a reader watches is a session that happened\nrather than a screencast of one."
+            }
+          ],
+          "rationale": "The closing authenticity comparison repeats the already stated live recording and checked publication conditions.",
+          "proposed_edit": "Keep the recorded operations, live checks and publication condition; remove the closing comparison."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c01-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2422,
+              "end": 2664,
+              "quote": "Ptah's version selector on this site does not select an operator version. The\noperator tracks its own releases and publishes its own guide, with a selector\nof its own, and that guide is the authority on what a given operator version\nsupports."
+            }
+          ],
+          "context": [
+            {
+              "start": 2422,
+              "end": 2664,
+              "quote": "Ptah's version selector on this site does not select an operator version. The\noperator tracks its own releases and publishes its own guide, with a selector\nof its own, and that guide is the authority on what a given operator version\nsupports."
+            }
+          ],
+          "rationale": "Repeated own/selector/guide wording can be tightened, but separate version selection is important to avoid confusing two products.",
+          "proposed_edit": "Consider a shorter explanation of the separate operator version selector and authoritative guide."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 1257,
+              "end": 1551,
+              "quote": "Database work runs in short-lived Jobs. The controller itself has no permission\nto read database Secrets, and registry and database credentials are kept apart\nfrom each other. Destructive plans are disabled by default, and enabling them\nstill requires an approval bound to the exact plan bytes."
+            }
+          ],
+          "context": [
+            {
+              "start": 1257,
+              "end": 1551,
+              "quote": "Database work runs in short-lived Jobs. The controller itself has no permission\nto read database Secrets, and registry and database credentials are kept apart\nfrom each other. Destructive plans are disabled by default, and enabling them\nstill requires an approval bound to the exact plan bytes."
+            }
+          ],
+          "rationale": "Secret isolation, credential separation, disabled destructive plans and byte-bound approval are independent safeguards.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1938,
+              "end": 2212,
+              "quote": "So a team on the versioned workflow deploys with `ptah migrations up` against a\npinned artifact, as [Deliver a schema change](../deliver/) describes. Running\nthe operator does not make that step unnecessary, and there is no resource that\napplies a migration directory today."
+            }
+          ],
+          "context": [
+            {
+              "start": 1938,
+              "end": 2212,
+              "quote": "So a team on the versioned workflow deploys with `ptah migrations up` against a\npinned artifact, as [Deliver a schema change](../deliver/) describes. Running\nthe operator does not make that step unnecessary, and there is no resource that\napplies a migration directory today."
+            }
+          ],
+          "rationale": "The deployment command gives an actionable alternative to an unsupported operator resource.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3097,
+              "end": 3254,
+              "quote": "The table keeps declared support and verified support apart, and says which\ncombinations nobody has measured. An untested pairing is not an incompatible\none."
+            }
+          ],
+          "context": [
+            {
+              "start": 3097,
+              "end": 3254,
+              "quote": "The table keeps declared support and verified support apart, and says which\ncombinations nobody has measured. An untested pairing is not an incompatible\none."
+            }
+          ],
+          "rationale": "Declared, verified and untested pairings are different evidence states, not rhetorical contrast.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "12c4b48f08905a9cef829a1d7965ccde107ad2a407b37e040f16740dfe030624",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 6051,
+          "first_line": 1,
+          "last_line": 134,
+          "rationale": "Read all 36 consistency blocks and mode table cells. Preserve transaction guarantees, retention floor, shared-trigger union, generation agreement, retire/abandon distinction, reporting-surface absence, planned mode limits and fail-closed readiness. Editorial review does not resolve possible implementation/factual ambiguity about enforcing the paused-source declaration.",
+          "prose_blocks": 36,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 596,
+              "end": 662,
+              "quote": "A consistency mode is\nyour answer to what happens to those writes."
+            }
+          ],
+          "context": [
+            {
+              "start": 538,
+              "end": 662,
+              "quote": "A backfill takes time. Your application writes during it. A consistency mode is\nyour answer to what happens to those writes."
+            }
+          ],
+          "rationale": "The answer-to-what-happens wrapper delays the actual role of a consistency mode.",
+          "proposed_edit": "Say a consistency mode determines how writes during backfill are handled; retain the concurrent-write context."
+        },
+        {
+          "id": "c02-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1637,
+              "end": 1700,
+              "quote": "That is the whole guarantee, and it is worth stating precisely:"
+            }
+          ],
+          "context": [
+            {
+              "start": 1637,
+              "end": 1852,
+              "quote": "That is the whole guarantee, and it is worth stating precisely: a change that\ncommitted has an event, because a transaction that committed committed both. A\nchange that rolled back has no event, for the same reason."
+            }
+          ],
+          "rationale": "The guarantee/precision announcement adds no condition to the transaction explanation.",
+          "proposed_edit": "Begin with the actual commit and rollback guarantee."
+        },
+        {
+          "id": "c02-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1701,
+              "end": 1790,
+              "quote": "a change that\ncommitted has an event, because a transaction that committed committed both"
+            }
+          ],
+          "context": [
+            {
+              "start": 1637,
+              "end": 1852,
+              "quote": "That is the whole guarantee, and it is worth stating precisely: a change that\ncommitted has an event, because a transaction that committed committed both. A\nchange that rolled back has no event, for the same reason."
+            }
+          ],
+          "rationale": "The repeated committed predicate restates the single-transaction relationship circularly.",
+          "proposed_edit": "Say the change and its event commit together; keep the rollback case."
+        },
+        {
+          "id": "c02-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2012,
+              "end": 2029,
+              "quote": "The cost is real:"
+            }
+          ],
+          "context": [
+            {
+              "start": 2012,
+              "end": 2363,
+              "quote": "The cost is real: two triggers on a table your application writes to, and a\ntable alongside it. The two have different lifetimes. Events go as they are\npassed, so the table tracks the backlog rather than the whole history of the\nmigration. The triggers and the table itself remain until the last non-retired\noutbox generation over that source retires."
+            }
+          ],
+          "rationale": "The cost announcement adds no measured or operational detail beyond the following table and trigger counts.",
+          "proposed_edit": "Begin with the two triggers and companion table and preserve their distinct lifetimes."
+        },
+        {
+          "id": "c02-d05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2365,
+              "end": 2424,
+              "quote": "\"Every usable live feeder\" is the part worth reading twice."
+            }
+          ],
+          "context": [
+            {
+              "start": 2365,
+              "end": 2782,
+              "quote": "\"Every usable live feeder\" is the part worth reading twice. One source table\nhas one companion table, so two generations over that source share it, and an\nevent survives until the slower run has processed it. An outbox feeder must be\nnonterminal, source-matched, and carry a readable durable resume position. When\nthat floor is behind the run performing catch-up, the output names each holding\nrun and its generation."
+            }
+          ],
+          "rationale": "The reading advice does not define usable or add a retention condition.",
+          "proposed_edit": "Begin with the shared table and slower-reader retention condition; keep the precise usable-feeder requirements."
+        },
+        {
+          "id": "c02-d06",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 4113,
+              "end": 4122,
+              "quote": "genuinely"
+            }
+          ],
+          "context": [
+            {
+              "start": 4097,
+              "end": 4226,
+              "quote": "Use it when you genuinely control the writes: a batch-loaded table, a read\nreplica, a table behind a feature flag you turned off."
+            }
+          ],
+          "rationale": "The emphasis adds no operational criterion to controlling writes; the examples already specify the intended circumstances.",
+          "proposed_edit": "Use it when you control the writes; keep all examples."
+        },
+        {
+          "id": "c02-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4359,
+              "end": 4636,
+              "quote": "What is missing is the reporting surface:\nthe assessment that would hold a writer's evidence to a policy is written and\ntested, and nothing exists for a writer to report *through*, so a run selecting\nthe mode could only ever be told that its writer had never reported anything."
+            }
+          ],
+          "context": [
+            {
+              "start": 4247,
+              "end": 4685,
+              "quote": "This build does not accept `dual_write`.** A specification selecting it is\nrefused, naming the modes there are. What is missing is the reporting surface:\nthe assessment that would hold a writer's evidence to a policy is written and\ntested, and nothing exists for a writer to report *through*, so a run selecting\nthe mode could only ever be told that its writer had never reported anything.\nRefusing it is what this build can honestly say."
+            }
+          ],
+          "rationale": "The missing-reporting-surface explanation repeats inability to report in three forms.",
+          "proposed_edit": "Say the evidence assessment is implemented and tested, but writers have no reporting interface, so this build rejects the mode; keep the named alternatives."
+        },
+        {
+          "id": "c02-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4637,
+              "end": 4685,
+              "quote": "Refusing it is what this build can honestly say."
+            }
+          ],
+          "context": [
+            {
+              "start": 4247,
+              "end": 4685,
+              "quote": "This build does not accept `dual_write`.** A specification selecting it is\nrefused, naming the modes there are. What is missing is the reporting surface:\nthe assessment that would hold a writer's evidence to a policy is written and\ntested, and nothing exists for a writer to report *through*, so a run selecting\nthe mode could only ever be told that its writer had never reported anything.\nRefusing it is what this build can honestly say."
+            }
+          ],
+          "rationale": "The honesty self-evaluation adds no failure behavior beyond the explicit rejection.",
+          "proposed_edit": "Keep the rejection and missing interface; remove the self-evaluation."
+        },
+        {
+          "id": "c02-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4687,
+              "end": 4807,
+              "quote": "The design below is what the mode means, and it is recorded here because the\nmode is coming back rather than going away."
+            }
+          ],
+          "context": [
+            {
+              "start": 4687,
+              "end": 4807,
+              "quote": "The design below is what the mode means, and it is recorded here because the\nmode is coming back rather than going away."
+            }
+          ],
+          "rationale": "The design/mode-means/recorded-here/coming-back-versus-going-away chain lengthens one concrete future-support statement.",
+          "proposed_edit": "Introduce the following section as the planned application-managed mode; preserve that it is intended to return."
+        },
+        {
+          "id": "c02-d10",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 4962,
+              "end": 5007,
+              "quote": "and the one whose weakness is\neasiest to miss"
+            }
+          ],
+          "context": [
+            {
+              "start": 4917,
+              "end": 5236,
+              "quote": "This is the mode with the weakest guarantee, and the one whose weakness is\neasiest to miss. If your writer forgets to report a change, Ptah has no way to\nknow. Nothing detects the gap — the row keeps its old vector, and\nverification's freshness layer reports it only if the source version moved in a\nway Ptah can see."
+            }
+          ],
+          "rationale": "The comparative prediction about reader comprehension has no evidence or technical criterion.",
+          "proposed_edit": "Keep the weakest-guarantee description and the precise missing-report and freshness conditions."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c02-u01",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 5287,
+              "end": 5309,
+              "quote": "genuinely unacceptable"
+            }
+          ],
+          "context": [
+            {
+              "start": 5238,
+              "end": 5365,
+              "quote": "It is for the case where the outbox triggers are genuinely unacceptable and your\nwriter is a single, well-understood code path."
+            }
+          ],
+          "rationale": "The emphasis may be removable but also reinforces that the weaker mode is a last choice when trigger cost cannot be accepted.",
+          "proposed_edit": "Consider stating the actual unacceptable trigger constraint."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 2784,
+              "end": 3217,
+              "quote": "Those generations may embed different input fields or use different filters.\nPtah keeps their shared update trigger watching the union, so an edit relevant\nonly to the older generation still produces an event. They must agree on the\nordered source key fields, version strategy, and version field: one shared\nevent stores one key and one source version. `prepare` refuses an incompatible\ngeneration without replacing the live trigger."
+            }
+          ],
+          "context": [
+            {
+              "start": 2784,
+              "end": 3217,
+              "quote": "Those generations may embed different input fields or use different filters.\nPtah keeps their shared update trigger watching the union, so an edit relevant\nonly to the older generation still produces an event. They must agree on the\nordered source key fields, version strategy, and version field: one shared\nevent stores one key and one source version. `prepare` refuses an incompatible\ngeneration without replacing the live trigger."
+            }
+          ],
+          "rationale": "Shared union of fields and mandatory agreement on keys/version are distinct trigger requirements.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 3219,
+              "end": 3760,
+              "quote": "Two actions release a reader for different reasons. `retire` destroys an entire\ngeneration and its vectors. `abandon` permanently ends one run while preserving\nthe generation, its vectors, and the run's checkpoint for inspection. Ptah\nrefuses to abandon the last usable live feeder for an active generation or one\ninside a maintenance window, because either state still promises that a\npositioned, source-matched run will follow source changes. A duplicate\nsuperseded run may be abandoned while another usable live feeder keeps that\npromise."
+            }
+          ],
+          "context": [
+            {
+              "start": 3219,
+              "end": 3760,
+              "quote": "Two actions release a reader for different reasons. `retire` destroys an entire\ngeneration and its vectors. `abandon` permanently ends one run while preserving\nthe generation, its vectors, and the run's checkpoint for inspection. Ptah\nrefuses to abandon the last usable live feeder for an active generation or one\ninside a maintenance window, because either state still promises that a\npositioned, source-matched run will follow source changes. A duplicate\nsuperseded run may be abandoned while another usable live feeder keeps that\npromise."
+            }
+          ],
+          "rationale": "Retiring a generation and abandoning one run have different preservation and safety conditions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4809,
+              "end": 4915,
+              "quote": "Your application tells Ptah what it changed. Ptah observes those reports; it does\nnot observe your writes."
+            }
+          ],
+          "context": [
+            {
+              "start": 4809,
+              "end": 4915,
+              "quote": "Your application tells Ptah what it changed. Ptah observes those reports; it does\nnot observe your writes."
+            }
+          ],
+          "rationale": "Reports versus observed writes is a concrete epistemic limit, not a rhetorical denial.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 5700,
+              "end": 6050,
+              "quote": "Choose a consistency mode](../../strategies/choose-a-consistency-mode/) is the\ndecision page. The short version: `outbox` unless you have a specific reason,\n`immutable` when writes are genuinely stopped; `dual_write` is not selectable in this build, and when it returns it is only for a source you own the\nwriter and the trigger cost is unacceptable."
+            }
+          ],
+          "context": [
+            {
+              "start": 5700,
+              "end": 6050,
+              "quote": "Choose a consistency mode](../../strategies/choose-a-consistency-mode/) is the\ndecision page. The short version: `outbox` unless you have a specific reason,\n`immutable` when writes are genuinely stopped; `dual_write` is not selectable in this build, and when it returns it is only for a source you own the\nwriter and the trigger cost is unacceptable."
+            }
+          ],
+          "rationale": "The final mode-selection summary helps readers choose after detailed definitions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "c5d07936203e6150f4106e4ccd47ff944ca67fc9d19e6f5a0936eeb2dc1ccd7f",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 24069,
+          "first_line": 1,
+          "last_line": 647,
+          "rationale": "Read all 125 component-reference blocks and package/example tables. Preserve API stability limits, AST coverage, validation ownership, live catalog requirements, conservative fallbacks, selector defaults, immutable snapshots and rule registration scope. Similar table rows and final scope recap support reference lookup.",
+          "prose_blocks": 125,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4368,
+              "end": 4406,
+              "quote": "That separation matters for embedders:"
+            }
+          ],
+          "context": [
+            {
+              "start": 4368,
+              "end": 4406,
+              "quote": "That separation matters for embedders:"
+            }
+          ],
+          "rationale": "The importance announcement adds no mechanism beyond the specific embedding consequences that follow.",
+          "proposed_edit": "Begin with the listed embedding consequences."
+        },
+        {
+          "id": "c03-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 9384,
+              "end": 9429,
+              "quote": "Nothing downstream\nknows which one filled it."
+            }
+          ],
+          "context": [
+            {
+              "start": 9091,
+              "end": 9429,
+              "quote": "YAML is one of the authoring formats that produce Ptah's schema IR, alongside\nGo annotations, HCL, SQL, and DBML. `core/yamlschema` is its reader: `Parse`\ntakes the document as bytes, `ParseFile` reads it from a path, and both return\nthe same `*schemamodel.Database` the other readers return. Nothing downstream\nknows which one filled it."
+            }
+          ],
+          "rationale": "The anthropomorphic closing repeats that all readers return the same schema representation.",
+          "proposed_edit": "Keep the reader functions and common IR return type; remove the closing personification."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c03-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 4410,
+              "end": 4479,
+              "quote": "AST construction is easier to unit-test than raw SQL string assembly."
+            }
+          ],
+          "context": [
+            {
+              "start": 4410,
+              "end": 4479,
+              "quote": "AST construction is easier to unit-test than raw SQL string assembly."
+            }
+          ],
+          "rationale": "The relative ease of testing is unmeasured, although typed node structure provides a plausible mechanism.",
+          "proposed_edit": "Consider describing how tests assert typed AST nodes rather than claiming general ease."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 417,
+              "end": 458,
+              "quote": "Ptah can be used in three different ways:"
+            }
+          ],
+          "context": [
+            {
+              "start": 417,
+              "end": 458,
+              "quote": "Ptah can be used in three different ways:"
+            }
+          ],
+          "rationale": "The three use modes enumerate actual interfaces rather than generic capability promotion.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 3551,
+              "end": 4075,
+              "quote": "Index identity remains table-qualified in schema diffs even when the target\ndatabase uses a broader namespace. Planners apply the target rules when ordering\nreplacements: PostgreSQL, YugabyteDB, Spanner, and SQLite use schema-scoped\nindex names; CockroachDB, MySQL, MariaDB, SQL Server, and ClickHouse use\ntable-scoped index names.\nOn schema-scoped engines, an unqualified owner denotes the dialect's default\nschema (`public` for the PostgreSQL family and `main` for SQLite) and remains\nindependent from other named schemas."
+            }
+          ],
+          "context": [
+            {
+              "start": 3551,
+              "end": 4075,
+              "quote": "Index identity remains table-qualified in schema diffs even when the target\ndatabase uses a broader namespace. Planners apply the target rules when ordering\nreplacements: PostgreSQL, YugabyteDB, Spanner, and SQLite use schema-scoped\nindex names; CockroachDB, MySQL, MariaDB, SQL Server, and ClickHouse use\ntable-scoped index names.\nOn schema-scoped engines, an unqualified owner denotes the dialect's default\nschema (`public` for the PostgreSQL family and `main` for SQLite) and remains\nindependent from other named schemas."
+            }
+          ],
+          "rationale": "Naming defaults and dialect-specific schema/name scopes are required reference details.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 16433,
+              "end": 16891,
+              "quote": "Use `lint.AnalyzeFS` when more than findings are needed. It captures every SQL\nfile plus migration metadata (`atlas.sum`, `ptah.sum`, and\n`.ptah-lint.yaml`) once and excludes unrelated files. The immutable result\ncontains prepared files, exact statement spans, finding-to-statement contexts,\nand a read-only filesystem snapshot. Replay, checksum, report, and\nmigration-provider code can consume that snapshot without reopening a changing\nmigration directory:"
+            }
+          ],
+          "context": [
+            {
+              "start": 16433,
+              "end": 16891,
+              "quote": "Use `lint.AnalyzeFS` when more than findings are needed. It captures every SQL\nfile plus migration metadata (`atlas.sum`, `ptah.sum`, and\n`.ptah-lint.yaml`) once and excludes unrelated files. The immutable result\ncontains prepared files, exact statement spans, finding-to-statement contexts,\nand a read-only filesystem snapshot. Replay, checksum, report, and\nmigration-provider code can consume that snapshot without reopening a changing\nmigration directory:"
+            }
+          ],
+          "rationale": "The snapshot prevents reopening changing source files between linting and execution.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 18384,
+              "end": 19016,
+              "quote": "A host tool can add its own analyzers to the same run without reimplementing\nthe dialect-aware scanner. `Options.ExtraRules` appends per-run rules — the\npreferred shape, with no global state. `lint.Register` separately installs a\nrule process-wide and returns an error for invalid or duplicate rules; callers\nmust handle that error during initialization. Either way, the rule receives statements Ptah has already\nprepared: `Statement.Words` is the comment-free token-word sequence the\nbuilt-in rules scan, and `Statement.Canonical` is the uppercased display\nform. This example is compile-checked in `examples/reusable_components`:"
+            }
+          ],
+          "context": [
+            {
+              "start": 18384,
+              "end": 19016,
+              "quote": "A host tool can add its own analyzers to the same run without reimplementing\nthe dialect-aware scanner. `Options.ExtraRules` appends per-run rules — the\npreferred shape, with no global state. `lint.Register` separately installs a\nrule process-wide and returns an error for invalid or duplicate rules; callers\nmust handle that error during initialization. Either way, the rule receives statements Ptah has already\nprepared: `Statement.Words` is the comment-free token-word sequence the\nbuilt-in rules scan, and `Statement.Canonical` is the uppercased display\nform. This example is compile-checked in `examples/reusable_components`:"
+            }
+          ],
+          "rationale": "Per-run rules and the separate global registration API have different lifetime and concurrency implications.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "e8be62ad5897e9949673e8b8ad9af5257dd477639a4b51d010919129a347fd23",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 43094,
+          "first_line": 1,
+          "last_line": 1687,
+          "rationale": "Read all 468 etcdctl reference blocks, flags, output definitions and examples with protected code as context. Repeated option/format descriptions enable command-local lookup. Preserve authorization, key ranges, revisions, lock expiry, transformer protocol, compatibility scopes and destructive-operation warnings. Historical factual claims and typos are not relabeled as editorial defects.",
+          "prose_blocks": 468,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 136,
+              "end": 152,
+              "quote": "make sure to set"
+            }
+          ],
+          "context": [
+            {
+              "start": 72,
+              "end": 221,
+              "quote": "The v3 API is used by default on master branch. For the v2 API, make sure to set environment variable `ETCDCTL_API=2`. See also [READMEv2][READMEv2]."
+            }
+          ],
+          "rationale": "The assurance wrapper adds no verification step to setting the environment variable.",
+          "proposed_edit": "Set ETCDCTL_API=2 for the v2 API; keep the default and link."
+        },
+        {
+          "id": "c04-d02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1929,
+              "end": 1974,
+              "quote": "For example, following case is not supported:"
+            }
+          ],
+          "context": [
+            {
+              "start": 1813,
+              "end": 1974,
+              "quote": "Providing \\<value\\> in a new line after using `carriage return` is not supported and etcdctl may hang in that case. For example, following case is not supported:"
+            }
+          ],
+          "rationale": "The example preface repeats unsupported syntax already stated immediately before it.",
+          "proposed_edit": "Use a short example label; retain the newline restriction and possible hang."
+        },
+        {
+          "id": "c04-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 30111,
+              "end": 30189,
+              "quote": "ROLE is used to specify different roles which can be assigned to etcd user(s)."
+            }
+          ],
+          "context": [
+            {
+              "start": 30111,
+              "end": 30189,
+              "quote": "ROLE is used to specify different roles which can be assigned to etcd user(s)."
+            }
+          ],
+          "rationale": "Is used to specify wraps a direct command capability. The assignment clause is meaningful and must remain.",
+          "proposed_edit": "Say ROLE specifies roles that can be assigned to etcd users; do not turn role assignment into a permission grant."
+        },
+        {
+          "id": "c04-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 38435,
+              "end": 38455,
+              "quote": "due to the fact that"
+            }
+          ],
+          "context": [
+            {
+              "start": 38373,
+              "end": 38589,
+              "quote": "Shows examples of both, pass and fail, status. The failure is due to the fact that a large workload was tried on a single node etcd cluster running on a laptop environment created for development and testing purpose."
+            }
+          ],
+          "rationale": "The causal wrapper can be replaced without changing the example failure explanation.",
+          "proposed_edit": "Use because; preserve workload, single-node and development-laptop conditions."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c04-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 41945,
+              "end": 41996,
+              "quote": "We try out best to ensure fully compatible releases"
+            }
+          ],
+          "context": [
+            {
+              "start": 41908,
+              "end": 42226,
+              "quote": "etcdctl is still in its early stage. We try out best to ensure fully compatible releases, however we might break compatibility to fix bugs or improve commands. If we intend to release a version of etcdctl with backward incompatibilities, we will provide notice prior to release and have instructions on how to upgrade."
+            }
+          ],
+          "rationale": "The effort claim is not measurable, but the paragraph immediately limits it and states the concrete notice policy.",
+          "proposed_edit": "Consider beginning with possible compatibility breaks and retaining prior notice and upgrade instructions."
+        },
+        {
+          "id": "c04-u02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 42433,
+              "end": 42819,
+              "quote": "Output includes output from etcdctl and its exit code. etcdctl provides `simple` output format by default.\nWe ensure compatibility for the `simple` output format of normal commands in non-interactive mode. Currently, we do not ensure\nbackward compatibility for `JSON` format and the format in non-interactive mode. Currently, we do not ensure backward compatibility of utility commands."
+            }
+          ],
+          "context": [
+            {
+              "start": 42433,
+              "end": 42819,
+              "quote": "Output includes output from etcdctl and its exit code. etcdctl provides `simple` output format by default.\nWe ensure compatibility for the `simple` output format of normal commands in non-interactive mode. Currently, we do not ensure\nbackward compatibility for `JSON` format and the format in non-interactive mode. Currently, we do not ensure backward compatibility of utility commands."
+            }
+          ],
+          "rationale": "Repeated compatibility predicates can be combined, but each format/command/mode scope is important and one source scope is ambiguous.",
+          "proposed_edit": "Clarify and then consolidate the unsupported compatibility cases without guessing the intended mode."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 21304,
+              "end": 21536,
+              "quote": "Note that defragmentation request does not get replicated over cluster. That is, the request is only applied to the local node. Specify all members in `--endpoints` flag or `--cluster` flag to automatically find all cluster members."
+            }
+          ],
+          "context": [
+            {
+              "start": 21304,
+              "end": 21536,
+              "quote": "Note that defragmentation request does not get replicated over cluster. That is, the request is only applied to the local node. Specify all members in `--endpoints` flag or `--cluster` flag to automatically find all cluster members."
+            }
+          ],
+          "rationale": "No replication explains why every member must be specified; the local-node restatement supports an operational warning.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 28160,
+              "end": 28369,
+              "quote": "If LOCK is abnormally terminated or fails to contact the cluster to release the lock, the lock will remain held until the lease expires. Progress may be delayed by up to the default lease length of 60 seconds."
+            }
+          ],
+          "context": [
+            {
+              "start": 28160,
+              "end": 28369,
+              "quote": "If LOCK is abnormally terminated or fails to contact the cluster to release the lock, the lock will remain held until the lease expires. Progress may be delayed by up to the default lease length of 60 seconds."
+            }
+          ],
+          "rationale": "Failure to release a lock and lease expiry explain a real maximum delay.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 31442,
+              "end": 31508,
+              "quote": "Grant read and write permission on the key `foo` to role `myrole`:"
+            }
+          ],
+          "context": [
+            {
+              "start": 31442,
+              "end": 31508,
+              "quote": "Grant read and write permission on the key `foo` to role `myrole`:"
+            }
+          ],
+          "rationale": "Granting read/write permission names actual authorization, not a removable capability wrapper.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 36627,
+              "end": 37029,
+              "quote": "Users can provide a customized 1:n transformer function that transforms a key from the v2 store to any number of keys in the mvcc store. The migration program writes JSON formatted [v2 store keys][v2key] to the transformer program's stdin, reads protobuf formatted [mvcc keys][v3key] back from the transformer program's stdout, and finishes migration by saving the transformed keys into the mvcc store."
+            }
+          ],
+          "context": [
+            {
+              "start": 36627,
+              "end": 37029,
+              "quote": "Users can provide a customized 1:n transformer function that transforms a key from the v2 store to any number of keys in the mvcc store. The migration program writes JSON formatted [v2 store keys][v2key] to the transformer program's stdin, reads protobuf formatted [mvcc keys][v3key] back from the transformer program's stdout, and finishes migration by saving the transformed keys into the mvcc store."
+            }
+          ],
+          "rationale": "Input/output encodings, process streams and destination storage define the transformer protocol.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c05",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 40841,
+              "end": 40971,
+              "quote": "If a command fails, returning a non-zero exit code, an error string will be written to standard error regardless of output format."
+            }
+          ],
+          "context": [
+            {
+              "start": 40841,
+              "end": 40971,
+              "quote": "If a command fails, returning a non-zero exit code, an error string will be written to standard error regardless of output format."
+            }
+          ],
+          "rationale": "Stderr output on nonzero exit applies regardless of selected output format.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "8ff9ea9b1f4c8368d6145324ea1fde0de19ef34f9e034fcea0706722e1cfaefd",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 6116,
+          "first_line": 1,
+          "last_line": 166,
+          "rationale": "Read all 58 curl checksrc blocks and warning entries. Preserve known incomplete coverage, expensive warnings disabled by default, per-file suppressions, exact count versus bounded regions and directory-ignore deprecation. Rule names and protected examples are context, not targets.",
+          "prose_blocks": 58,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 251,
+              "end": 300,
+              "quote": "skip that file and excludes it from being checked"
+            }
+          ],
+          "context": [
+            {
+              "start": 240,
+              "end": 359,
+              "quote": "`-W[file]` skip that file and excludes it from being checked. Helpful\nwhen, for example, one of the files is generated."
+            }
+          ],
+          "rationale": "The two predicates express the same skip behavior.",
+          "proposed_edit": "Say the option skips the file; keep the generated-file example."
+        },
+        {
+          "id": "c05-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 544,
+              "end": 656,
+              "quote": "does not check and verify the code against the entire style guide,\nbut the script is instead an effort to detect"
+            }
+          ],
+          "context": [
+            {
+              "start": 535,
+              "end": 865,
+              "quote": "checksrc does not check and verify the code against the entire style guide,\nbut the script is instead an effort to detect the most common mistakes and\nsyntax mistakes that contributors make before they get accustomed to our code\nstyle. Heck, many of us regulars do the mistakes too and this script helps us\nkeep the code in shape."
+            }
+          ],
+          "rationale": "Check and verify plus script-is-an-effort lengthen the useful limit and purpose.",
+          "proposed_edit": "Say checksrc checks common mistakes rather than the entire style guide; retain the contributor context."
+        },
+        {
+          "id": "c05-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 887,
+              "end": 981,
+              "quote": "Lists how to use the script and it lists all existing warnings it has and\nproblems it detects."
+            }
+          ],
+          "context": [
+            {
+              "start": 887,
+              "end": 1046,
+              "quote": "Lists how to use the script and it lists all existing warnings it has and\nproblems it detects. At the time of this writing, the existing checksrc\nwarnings are:"
+            }
+          ],
+          "rationale": "Repeated lists and warnings-it-has/problems-it-detects wrap the usage and warning list.",
+          "proposed_edit": "Say the help lists usage and supported warnings; retain the following warning catalog."
+        },
+        {
+          "id": "c05-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4079,
+              "end": 4210,
+              "quote": "place a `.checksrc` file in\nthe directory where they should be activated with commands to enable the\nwarnings you are interested in"
+            }
+          ],
+          "context": [
+            {
+              "start": 3956,
+              "end": 4304,
+              "quote": "Some warnings are quite computationally expensive to perform, so they are\nturned off by default. To enable these warnings, place a `.checksrc` file in\nthe directory where they should be activated with commands to enable the\nwarnings you are interested in. The format of the file is to enable one\nwarning per line like so: `enable <EXTENDEDWARNING>`"
+            }
+          ],
+          "rationale": "The directory/activation/enabling wording repeats the same instruction before the next sentence supplies the per-line syntax.",
+          "proposed_edit": "Add the selected warning names to .checksrc in the target directory, one per line; keep the default-cost explanation and syntax."
+        },
+        {
+          "id": "c05-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4495,
+              "end": 4622,
+              "quote": "Due to the nature of the source code and the flaws of the checksrc tool, there\nis sometimes a need to ignore specific warnings."
+            }
+          ],
+          "context": [
+            {
+              "start": 4495,
+              "end": 4671,
+              "quote": "Due to the nature of the source code and the flaws of the checksrc tool, there\nis sometimes a need to ignore specific warnings. checksrc allows a few\ndifferent ways to do this."
+            }
+          ],
+          "rationale": "The vague nature/flaws/there-is-a-need wrapper delays suppression guidance.",
+          "proposed_edit": "Say some code triggers false positives and checksrc supports suppressing those warnings; retain the following methods."
+        },
+        {
+          "id": "c05-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4692,
+              "end": 4817,
+              "quote": "You can control what to ignore within a specific source file by providing\ninstructions to checksrc in the source code itself."
+            }
+          ],
+          "context": [
+            {
+              "start": 4692,
+              "end": 5035,
+              "quote": "You can control what to ignore within a specific source file by providing\ninstructions to checksrc in the source code itself. You need a magic marker\nthat is `!checksrc!` followed by the instruction. The instruction can ask to\nignore a specific warning N number of times or you ignore all of them until\nyou mark the end of the ignored section."
+            }
+          ],
+          "rationale": "Within-a-source-file and in-the-source-code repeat the location while providing-instructions wraps the suppression action.",
+          "proposed_edit": "Put checksrc suppression instructions in the source file; preserve the marker, count and region choices."
+        },
+        {
+          "id": "c05-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5281,
+              "end": 5339,
+              "quote": "If the enabling isn't performed before the end of the file"
+            }
+          ],
+          "context": [
+            {
+              "start": 5281,
+              "end": 5392,
+              "quote": "If the enabling isn't performed before the end of the file, it will be enabled\nautomatically for the next file."
+            }
+          ],
+          "rationale": "The nominal enabling/passive performed wrapper obscures the re-enable action.",
+          "proposed_edit": "If the warning is not re-enabled before end of file, it is re-enabled automatically for the next file."
+        },
+        {
+          "id": "c05-d08",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 5708,
+              "end": 5717,
+              "quote": "of course"
+            }
+          ],
+          "context": [
+            {
+              "start": 5576,
+              "end": 5850,
+              "quote": "... and the warning for long lines will be enabled again automatically after\nit has ignored that single warning. The number `1` can of course be changed to\nany other integer number. It can be used to make sure only the exact intended\ninstances are ignored and nothing extra."
+            }
+          ],
+          "rationale": "The presumption about reader knowledge adds no range information.",
+          "proposed_edit": "State that the count can be changed to any integer."
+        },
+        {
+          "id": "c05-d09",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 5758,
+              "end": 5850,
+              "quote": "It can be used to make sure only the exact intended\ninstances are ignored and nothing extra."
+            }
+          ],
+          "context": [
+            {
+              "start": 5576,
+              "end": 5850,
+              "quote": "... and the warning for long lines will be enabled again automatically after\nit has ignored that single warning. The number `1` can of course be changed to\nany other integer number. It can be used to make sure only the exact intended\ninstances are ignored and nothing extra."
+            }
+          ],
+          "rationale": "The intended-only/nothing-extra purpose repeats the explicit counted-suppression behavior already described.",
+          "proposed_edit": "Keep the counted example and configurable integer; remove this repeated assurance."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 771,
+              "end": 865,
+              "quote": "Heck, many of us regulars do the mistakes too and this script helps us\nkeep the code in shape."
+            }
+          ],
+          "context": [
+            {
+              "start": 535,
+              "end": 865,
+              "quote": "checksrc does not check and verify the code against the entire style guide,\nbut the script is instead an effort to detect the most common mistakes and\nsyntax mistakes that contributors make before they get accustomed to our code\nstyle. Heck, many of us regulars do the mistakes too and this script helps us\nkeep the code in shape."
+            }
+          ],
+          "rationale": "The informal aside provides contributor reassurance; its usefulness depends on the intended welcoming tone.",
+          "proposed_edit": "Consider shortening it while retaining that experienced contributors also make these mistakes."
+        },
+        {
+          "id": "c05-u02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5037,
+              "end": 5108,
+              "quote": "Inline ignores are only done for that single specific source code file."
+            }
+          ],
+          "context": [
+            {
+              "start": 5037,
+              "end": 5108,
+              "quote": "Inline ignores are only done for that single specific source code file."
+            }
+          ],
+          "rationale": "Single specific is redundant, but the standalone sentence reinforces an important per-file boundary.",
+          "proposed_edit": "Consider shortening it to Inline ignores apply only to that file."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 2217,
+              "end": 2380,
+              "quote": "`INDENTATION`: detected a wrong start column for code. Note that this\n   warning only checks some specific places and will certainly miss many bad\n   indentations."
+            }
+          ],
+          "context": [
+            {
+              "start": 2217,
+              "end": 2380,
+              "quote": "`INDENTATION`: detected a wrong start column for code. Note that this\n   warning only checks some specific places and will certainly miss many bad\n   indentations."
+            }
+          ],
+          "rationale": "The indentation warning explicitly covers only some locations; that limitation is useful.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1189,
+              "end": 1345,
+              "quote": "`ASTERISKNOSPACE`: A pointer was declared like `char* name` instead of the more\n   appropriate `char *name` style. The asterisk should sit next to the name."
+            }
+          ],
+          "context": [
+            {
+              "start": 1189,
+              "end": 1345,
+              "quote": "`ASTERISKNOSPACE`: A pointer was declared like `char* name` instead of the more\n   appropriate `char *name` style. The asterisk should sit next to the name."
+            }
+          ],
+          "rationale": "Pointer asterisk position distinguishes a concrete style defect and its repair.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 5394,
+              "end": 5533,
+              "quote": "You can also opt to ignore just N violations so that if you have a single long\nline you just can't shorten and is agreed to be fine anyway:"
+            }
+          ],
+          "context": [
+            {
+              "start": 5394,
+              "end": 5533,
+              "quote": "You can also opt to ignore just N violations so that if you have a single long\nline you just can't shorten and is agreed to be fine anyway:"
+            }
+          ],
+          "rationale": "The fixed-count exception differs from an open-ended disable region.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5888,
+              "end": 5973,
+              "quote": "This is a method we've transitioned away from. Use inline ignores as far as\npossible."
+            }
+          ],
+          "context": [
+            {
+              "start": 5888,
+              "end": 5973,
+              "quote": "This is a method we've transitioned away from. Use inline ignores as far as\npossible."
+            }
+          ],
+          "rationale": "Deprecating directory-wide ignores changes the recommended workflow, not just its presentation.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "a40823e3c428ac31329f3662a169134842a6fe0131d33707c49ebfd1095a9cf4",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 6094,
+          "first_line": 1,
+          "last_line": 119,
+          "rationale": "Read all 121 Prometheus template reference blocks, function-table cells and type-specific variables. Preserve function result types, stable sorting, number-format bases, escaping hazards, console-only availability, URL parameter cardinality and reserved template namespaces. Tables and repeated labels support lookup.",
+          "prose_blocks": 121,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c06-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 178,
+              "end": 302,
+              "quote": "Templates have the ability to run\nqueries against the local database, iterate over data, use conditionals,\nformat data, etc."
+            }
+          ],
+          "context": [
+            {
+              "start": 70,
+              "end": 416,
+              "quote": "Prometheus supports templating in the annotations and labels of alerts,\nas well as in served console pages. Templates have the ability to run\nqueries against the local database, iterate over data, use conditionals,\nformat data, etc. The Prometheus templating language is based on the [Go\ntemplating](https://golang.org/pkg/text/template/) system."
+            }
+          ],
+          "rationale": "Have the ability to wraps the actual capabilities without adding a limit or permission distinction.",
+          "proposed_edit": "Say templates can query the local database, iterate over data, use conditionals and format data; retain capability rather than asserting execution."
+        },
+        {
+          "id": "c06-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1688,
+              "end": 1779,
+              "quote": "`first`, `label` and `value` are intended to make query results easily usable in pipelines."
+            }
+          ],
+          "context": [
+            {
+              "start": 1688,
+              "end": 1779,
+              "quote": "`first`, `label` and `value` are intended to make query results easily usable in pipelines."
+            }
+          ],
+          "rationale": "Intended-to-make and easily-usable add layers around the purpose of the pipeline helper functions.",
+          "proposed_edit": "Say these helpers let query results be passed through pipelines; keep the function names."
+        },
+        {
+          "id": "c06-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2478,
+              "end": 2566,
+              "quote": "Humanizing functions are intended to produce reasonable output for consumption\nby humans"
+            }
+          ],
+          "context": [
+            {
+              "start": 2478,
+              "end": 2646,
+              "quote": "Humanizing functions are intended to produce reasonable output for consumption\nby humans, and are not guaranteed to return the same results between Prometheus\nversions."
+            }
+          ],
+          "rationale": "Intended-to-produce/consumption-by-humans lengthens the display-format purpose.",
+          "proposed_edit": "Say humanizing functions format values for display; keep that output may change across versions."
+        },
+        {
+          "id": "c06-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4114,
+              "end": 4185,
+              "quote": "This is intended to allow multiple arguments to be passed to templates."
+            }
+          ],
+          "context": [
+            {
+              "start": 4047,
+              "end": 4185,
+              "quote": "This converts a list of objects to a map with keys arg0, arg1 etc. This is intended to allow multiple arguments to be passed to templates."
+            }
+          ],
+          "rationale": "Intended-to-allow/to-be-passed nests purpose and capability around the concrete argument mechanism.",
+          "proposed_edit": "Say the generated argument map supports passing multiple arguments to templates; retain the key mapping."
+        },
+        {
+          "id": "c06-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4548,
+              "end": 4686,
+              "quote": "Each of the types of templates provide different information that can be used to\nparameterize templates, and have a few other differences."
+            }
+          ],
+          "context": [
+            {
+              "start": 4548,
+              "end": 4686,
+              "quote": "Each of the types of templates provide different information that can be used to\nparameterize templates, and have a few other differences."
+            }
+          ],
+          "rationale": "Each-of-the-types, information-that-can-be-used-to, and unspecified-other-differences create a vague preview instead of naming the type-specific context.",
+          "proposed_edit": "Say template types provide different parameter data, then introduce the listed alert and console contexts; preserve that the following sections also describe other differences."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c06-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 966,
+              "end": 1017,
+              "quote": "for easier processing of query\nresults in templates"
+            }
+          ],
+          "context": [
+            {
+              "start": 817,
+              "end": 1018,
+              "quote": "In addition to the [default\nfunctions](https://golang.org/pkg/text/template/#hdr-Functions) provided by Go\ntemplating, Prometheus provides functions for easier processing of query\nresults in templates."
+            }
+          ],
+          "rationale": "The ease comparison is unmeasured but the extra helper functions provide a concrete mechanism.",
+          "proposed_edit": "Consider describing the added query-result operations directly."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 2109,
+              "end": 2169,
+              "quote": "Like `humanize`, but uses 1024 as the base rather than 1000."
+            }
+          ],
+          "context": [
+            {
+              "start": 2109,
+              "end": 2169,
+              "quote": "Like `humanize`, but uses 1024 as the base rather than 1000."
+            }
+          ],
+          "rationale": "The 1024 versus 1000 contrast defines different numeric scaling.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 4241,
+              "end": 4418,
+              "quote": "Like the built-in `template`, but allows non-literals as the template name. Note that the result is assumed to be safe, and will not be auto-escaped. Only available in consoles."
+            }
+          ],
+          "context": [
+            {
+              "start": 4241,
+              "end": 4418,
+              "quote": "Like the built-in `template`, but allows non-literals as the template name. Note that the result is assumed to be safe, and will not be auto-escaped. Only available in consoles."
+            }
+          ],
+          "rationale": "Nonliteral names, unsafe escaping assumptions and console-only scope are independent constraints.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 5281,
+              "end": 5702,
+              "quote": "URL parameters are available as a map in `.Params`. To access multiple URL\nparameters by the same name, `.RawParams` is a map of the list values for each\nparameter. The URL path is available in `.Path`, excluding the `/consoles/`\nprefix. The globally configured external labels are available as\n`.ExternalLabels`. There are also convenience variables for all four:\n`$rawParams`, `$params`, `$path`, and `$externalLabels`."
+            }
+          ],
+          "context": [
+            {
+              "start": 5281,
+              "end": 5702,
+              "quote": "URL parameters are available as a map in `.Params`. To access multiple URL\nparameters by the same name, `.RawParams` is a map of the list values for each\nparameter. The URL path is available in `.Path`, excluding the `/consoles/`\nprefix. The globally configured external labels are available as\n`.ExternalLabels`. There are also convenience variables for all four:\n`$rawParams`, `$params`, `$path`, and `$externalLabels`."
+            }
+          ],
+          "rationale": "Single versus multiple parameter values, path prefixes and globals have distinct variables.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 5704,
+              "end": 6093,
+              "quote": "Consoles also have access to all the templates defined with `{{define\n\"templateName\"}}...{{end}}` found in `*.lib` files in the directory pointed to\nby the `-web.console.libraries` flag. As this is a shared namespace, take care\nto avoid clashes with other users. Template names beginning with `prom`,\n`_prom`, and `__` are reserved for use by Prometheus, as are the functions\nlisted above."
+            }
+          ],
+          "context": [
+            {
+              "start": 5704,
+              "end": 6093,
+              "quote": "Consoles also have access to all the templates defined with `{{define\n\"templateName\"}}...{{end}}` found in `*.lib` files in the directory pointed to\nby the `-web.console.libraries` flag. As this is a shared namespace, take care\nto avoid clashes with other users. Template names beginning with `prom`,\n`_prom`, and `__` are reserved for use by Prometheus, as are the functions\nlisted above."
+            }
+          ],
+          "rationale": "Shared namespace collisions and reserved prefixes are operational warnings, not generic reading advice.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}

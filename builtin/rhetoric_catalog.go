@@ -15,7 +15,9 @@ func localRhetoricRules() []rule.Rule {
 				"or a reader-intention clause introducing an instruction. Anaphoric gerund methods, nominalized "+
 				"methods and reader-purpose clauses are also recognized. Nested enables/allows plus an action nominalization "+
 				"and passive infinitive, and nominal actions performed through a gerund method, also qualify. "+
-				"Ordinary actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. "+
+				"Actor-to-action projection also recognizes ability nouns, generic reader enablement, modal used-to actions, "+
+				"and nested intended-to-enable passive actions. Preserve their modal meaning and conditions. "+
+				"Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. "+
 				"Failure, permission, negation and quoted constructions do not match.",
 			[]rule.Example{{Text: "It is possible to display a label. This is done by using the label option.", Match: true},
 				{Text: "It is possible to lose data after a failed write."}}),
@@ -100,10 +102,10 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 		d.Version = "6"
 	}
 	if id == "filler.instruction-scaffolding" {
-		d.Version = "3"
+		d.Version = "4"
 	}
 	d.Requires = append(d.Requires, nlp.POS)
-	d.Description = description + " Reports complete matched clauses, once per clause, within a single block."
+	d.Description = description + " Reports complete matched clauses, once per clause."
 	d.Limitations = "Bounded token constructions, not a semantic or authorship classifier. " +
 		"Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. " +
 		"Protected text is never construction vocabulary. " +
@@ -112,5 +114,9 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 	d.Parameters = []string{"window_sentences", "allowed_occurrences", "saturation_occurrences"}
 	d.Defaults.Parameters = rule.Parameters{WindowSentences: 8, SaturationOccurrences: 1}
 	d.Examples = examples
+	if id == "filler.instruction-scaffolding" {
+		d.Description += " An immediate anaphoric method may be related across adjacent prose paragraphs, without crossing structural boundaries."
+		return check{d, instructionRhetoric(find, id, suggestion)}
+	}
 	return check{d, localRhetoric(find, id, suggestion)}
 }

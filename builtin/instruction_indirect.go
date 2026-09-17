@@ -33,7 +33,7 @@ func indirectForm(tokens []document.Token, embedded, owned bool) bool {
 
 func ownedMethod(clauses []frameClause, index int) bool {
 	return index > 0 && adjacentInstruction(clauses[index-1], clauses[index]) &&
-		(capabilityInstruction(clauses[index-1].tokens()) || readerGoal(clauses[index-1].tokens()))
+		(instructionAnnouncement(clauses[index-1]) || readerGoal(clauses[index-1].tokens()))
 }
 
 func possibilityNoun(tokens []document.Token) bool {

@@ -10,9 +10,21 @@ import (
 // suggested edit preserves optionality instead of changing a capability to a duty.
 func instructionScaffolding(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	c := clauses[index]
+	if projectedInstruction(c) {
+		parts := []frameClause{c}
+		if instructionContinuation(clauses, index) {
+			parts = append(parts, clauses[index+1])
+		}
+		return rhetoricalFrame{parts: parts}, true
+	}
 	if frame, ok := indirectInstruction(clauses, index); ok {
 		return frame, true
 	}
+	return announcedInstruction(clauses, index)
+}
+
+func announcedInstruction(clauses []frameClause, index int) (rhetoricalFrame, bool) {
+	c := clauses[index]
 	if !instructionEligible(c) {
 		return rhetoricalFrame{}, false
 	}
@@ -55,7 +67,7 @@ func instructionContinuation(clauses []frameClause, index int) bool {
 }
 
 func adjacentInstruction(a, b frameClause) bool {
-	return a.eligible() && b.eligible() && a.sentence.BlockID == b.sentence.BlockID &&
+	return a.eligible() && b.eligible() &&
 		a.ordinal+1 == b.ordinal && a.start == 0 && b.start == 0 &&
 		!instructionGuard(a.tokens()) && !instructionGuard(b.tokens()) &&
 		!quotedClaim(a.sentence.Tokens) && !quotedClaim(b.sentence.Tokens)
