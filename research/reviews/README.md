@@ -59,6 +59,10 @@ Independent human review is not a prerequisite for this work.
   pages remain at 1/28, with no new detection; the record retains all 27 misses
   and the distinction between useful examples and broad recall.
 
+- [2026-09-17-verb-scaffolding](2026-09-17-verb-scaffolding/README.md): nested
+  action and passive method diagnostics recover three exposed historical defects.
+  Six new pages remain at 0/43. Additional post-diagnostic editing observations
+  stay separate from frozen recall; Ptah has no measured gain in this iteration.
 - [2026-09-17-claim-budget](2026-09-17-claim-budget/README.md):
   a combined identity/source-map pass removes the long-reference budget
   abstention. All 82 pages retain their findings and assessments; a separate

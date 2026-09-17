@@ -1,0 +1,1660 @@
+{
+  "version": 1,
+  "protocol": "unswell-editorial-v1",
+  "reviewer": "Codex implementing assistant; maintainer accepted under ADR 0041",
+  "review_phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "c57a0ce8d54da6e91aae838b2672f3f149c9edf4aa9ddac2bb6fc75be34f84f6",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4359,
+          "first_line": 1,
+          "last_line": 97,
+          "rationale": "Read all lifecycle prose, phase table, separate decisions, capture boundary, high-water state, resume and failure behavior. Preserve lifecycle distinctions and transactional guarantees; code operands are context.",
+          "prose_blocks": 41,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c01-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1780,
+              "end": 1859,
+              "quote": "treating them as one command would\nhide the places where you are meant to look."
+            }
+          ],
+          "context": [
+            {
+              "start": 1738,
+              "end": 1859,
+              "quote": "Because none of them implies another, and treating them as one command would\nhide the places where you are meant to look."
+            }
+          ],
+          "rationale": "The unnamed places and reader intention add no decision criterion before three concrete distinctions.",
+          "proposed_edit": "Introduce the three distinctions directly."
+        },
+        {
+          "id": "c01-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2990,
+              "end": 3070,
+              "quote": "which is what stops a\nhalf-built corpus from becoming the one your users search."
+            }
+          ],
+          "context": [
+            {
+              "start": 2858,
+              "end": 3070,
+              "quote": "Run `catchup` until it reports nothing left. A cutover is refused while the\nbackfill is unfinished or the change log has a backlog, which is what stops a\nhalf-built corpus from becoming the one your users search."
+            }
+          ],
+          "rationale": "The closing rationale repeats that cutover rejects unfinished backfill and backlog.",
+          "proposed_edit": "Retain the refusal conditions without the rhetorical consequence."
+        },
+        {
+          "id": "c01-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4034,
+              "end": 4105,
+              "quote": "A run that stops leaves everything it committed and nothing it did not."
+            }
+          ],
+          "context": [
+            {
+              "start": 4034,
+              "end": 4358,
+              "quote": "A run that stops leaves everything it committed and nothing it did not. The\nprovider being unreachable, the process being killed, the lease being taken by\nanother worker — each stops the run and none of them corrupts the generation\nbeing built. [Resume and recover](../../guides/resume-and-recover/) is the\npractical page."
+            }
+          ],
+          "rationale": "The committed-versus-not-committed tautology obscures the concrete resume guarantee stated next.",
+          "proposed_edit": "State that committed vectors survive interruption and incomplete work is resumed."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c01-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2237,
+              "end": 2413,
+              "quote": "The expensive step is the backfill, and it is the one you may want to run\novernight. The irreversible step is `retire`, and it is the one you want to run\nmuch later, if at all."
+            }
+          ],
+          "context": [
+            {
+              "start": 2237,
+              "end": 2413,
+              "quote": "The expensive step is the backfill, and it is the one you may want to run\novernight. The irreversible step is `retire`, and it is the one you want to run\nmuch later, if at all."
+            }
+          ],
+          "rationale": "The overnight/later guidance is informal but expresses differing operational costs.",
+          "proposed_edit": "Consider naming cost and irreversibility without predicting reader preferences."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1863,
+              "end": 2012,
+              "quote": "A **finished backfill** means every source row that existed at the boundary\n  has a vector. It says nothing about whether those vectors are any good."
+            }
+          ],
+          "context": [
+            {
+              "start": 1863,
+              "end": 2012,
+              "quote": "A **finished backfill** means every source row that existed at the boundary\n  has a vector. It says nothing about whether those vectors are any good."
+            }
+          ],
+          "rationale": "Backfill completion and vector quality are different properties.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3587,
+              "end": 3877,
+              "quote": "`backfill` and `catchup` are resumable. An interrupted run continues from its\ncheckpoint when you run the same command again, because the checkpoint and the\nvectors it describes are written in one transaction — there is no state in which\nthe vectors landed and the record of them did not."
+            }
+          ],
+          "context": [
+            {
+              "start": 3587,
+              "end": 3877,
+              "quote": "`backfill` and `catchup` are resumable. An interrupted run continues from its\ncheckpoint when you run the same command again, because the checkpoint and the\nvectors it describes are written in one transaction — there is no state in which\nthe vectors landed and the record of them did not."
+            }
+          ],
+          "rationale": "The transaction coupling explains why checkpoint and vectors cannot diverge; preserve the invariant.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "586a5717bb0afce64af4d22b980a8d60741ded9617f548ff538f2ec75b6c4bbf",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 22344,
+          "first_line": 1,
+          "last_line": 526,
+          "rationale": "Read the whole query-builder introduction, scope, dialect matrices, SQL safety guarantees, examples and reference tables. Protected SQL and API names are context. Preserve placeholder order, unsupported versions, opt-in requirements and statement distinctions. Apparent stale overview dialect coverage needs a separate factual audit.",
+          "prose_blocks": 156,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2607,
+              "end": 2656,
+              "quote": "which is what an unframed window means everywhere"
+            }
+          ],
+          "context": [
+            {
+              "start": 2502,
+              "end": 2700,
+              "quote": "One thing is deliberately absent: a window **frame** clause. Without one the\nengine applies its default, which is what an unframed window means everywhere,\nand guessing a frame would change results."
+            }
+          ],
+          "rationale": "The universal aside restates that omitting the frame selects the engine default.",
+          "proposed_edit": "Keep the default-frame and changed-results explanation."
+        },
+        {
+          "id": "c02-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3621,
+              "end": 3672,
+              "quote": "Three of those rows carry a decision worth stating:"
+            }
+          ],
+          "context": [
+            {
+              "start": 3621,
+              "end": 3672,
+              "quote": "Three of those rows carry a decision worth stating:"
+            }
+          ],
+          "rationale": "A decision-worth-stating announcement adds no scope to the following dialect explanations.",
+          "proposed_edit": "Introduce the three dialect behaviors directly."
+        },
+        {
+          "id": "c02-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4911,
+              "end": 4963,
+              "quote": "and for an engine reason rather than an untaught one"
+            }
+          ],
+          "context": [
+            {
+              "start": 4885,
+              "end": 4964,
+              "quote": "One statement is refused, and for an engine reason rather than an untaught one:"
+            }
+          ],
+          "rationale": "The taught-versus-engine contrast adds no technical reason beyond the following refusal.",
+          "proposed_edit": "Name the unsupported statement and database restriction."
+        },
+        {
+          "id": "c02-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5710,
+              "end": 5780,
+              "quote": "a renderer test proves\nthe string, and only the server proves the SQL."
+            }
+          ],
+          "context": [
+            {
+              "start": 5231,
+              "end": 5780,
+              "quote": "Every dialect name `renderer.SupportedDialects()` returns is pinned against all\nfour render functions — one cell per (dialect, verb) pair, each pinned to an\nexact SQL string or an exact error — in\n`core/renderer/dml_dialect_matrix_test.go`, so the builder cannot\nacquire or lose a dialect without that table saying so. What each dialect\nrenders is also executed against a live server for SQL Server and ClickHouse in\n`integration/gonative/dml_execution_integration_test.go`: a renderer test proves\nthe string, and only the server proves the SQL."
+            }
+          ],
+          "rationale": "The slogan repeats the already stated exact-string tests and live execution checks.",
+          "proposed_edit": "Keep the test locations and coverage limits."
+        },
+        {
+          "id": "c02-d05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 13484,
+              "end": 13749,
+              "quote": "with `args` equal to `[]any{tenantID, int64(5), int64(10)}`. A `HAVING` value is\nbound **after** every `WHERE` value and **before** `LIMIT`/`OFFSET`, so\nplaceholder numbering still follows left-to-right emission order across `WHERE`,\n`HAVING`, and `LIMIT`/`OFFSET`."
+            }
+          ],
+          "context": [
+            {
+              "start": 13484,
+              "end": 13749,
+              "quote": "with `args` equal to `[]any{tenantID, int64(5), int64(10)}`. A `HAVING` value is\nbound **after** every `WHERE` value and **before** `LIMIT`/`OFFSET`, so\nplaceholder numbering still follows left-to-right emission order across `WHERE`,\n`HAVING`, and `LIMIT`/`OFFSET`."
+            }
+          ],
+          "rationale": "The same placeholder-order explanation appears under joins and in the safety model; this section only needs the HAVING position.",
+          "proposed_edit": "State HAVING values follow WHERE and precede LIMIT/OFFSET, omitting another left-to-right summary."
+        },
+        {
+          "id": "c02-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 18856,
+              "end": 18893,
+              "quote": "A projection has nowhere to go there."
+            }
+          ],
+          "context": [
+            {
+              "start": 18618,
+              "end": 18893,
+              "quote": "Oracle** has the keyword and not this shape: measured on 23.26,\n  `INSERT INTO t (id) VALUES (99) RETURNING id INTO :out` is accepted with an\n  out-parameter bound, while the same statement ending at `RETURNING id` answers\n  `ORA-00925`. A projection has nowhere to go there."
+            }
+          ],
+          "rationale": "The metaphor repeats the concrete missing out-parameter and error already given.",
+          "proposed_edit": "Retain the measured Oracle forms and error."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c02-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3017,
+              "end": 3056,
+              "quote": "so the table is also\nthat list of names"
+            }
+          ],
+          "context": [
+            {
+              "start": 2723,
+              "end": 3057,
+              "quote": "`RenderSelect`, `RenderInsert`, `RenderUpdate`, and `RenderDelete` render for\nevery dialect `renderer.SupportedDialects()` returns. What differs between them\nis the placeholder, the identifier quoting, and how a row limit is written. The\nfirst column holds the strings you pass as the dialect, so the table is also\nthat list of names:"
+            }
+          ],
+          "rationale": "The self-reference may help users discover accepted dialect names.",
+          "proposed_edit": "Optionally introduce the column as accepted dialect names."
+        },
+        {
+          "id": "c02-u02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 16808,
+              "end": 16832,
+              "quote": "which is rarely\nintended"
+            }
+          ],
+          "context": [
+            {
+              "start": 16742,
+              "end": 17043,
+              "quote": "An `UPDATE` or `DELETE` with no `WHERE` clause mutates every row, which is rarely\nintended. Rather than make that the accidental default, the builder requires an\nexplicit opt-in: call `.Unconditional()`. Without it, the renderer rejects a\n`WHERE`-less statement rather than run a whole-table mutation."
+            }
+          ],
+          "rationale": "The prevalence claim is unmeasured but motivates a destructive-operation opt-in.",
+          "proposed_edit": "Consider retaining the whole-table effect and explicit opt-in without estimating intent."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 6462,
+              "end": 6911,
+              "quote": "Identifiers are always quoted.** Table and column names are emitted through\n  dialect-aware identifier quoting, so an attacker-shaped identifier cannot\n  terminate the quoted identifier and inject SQL. As with Ptah's DDL rendering,\n  deciding *which* identifiers a caller may supply — for example, an allow-list\n  of sortable columns — remains the caller's responsibility. The builder\n  guarantees quoting and the absence of value interpolation."
+            }
+          ],
+          "context": [
+            {
+              "start": 6462,
+              "end": 6911,
+              "quote": "Identifiers are always quoted.** Table and column names are emitted through\n  dialect-aware identifier quoting, so an attacker-shaped identifier cannot\n  terminate the quoted identifier and inject SQL. As with Ptah's DDL rendering,\n  deciding *which* identifiers a caller may supply — for example, an allow-list\n  of sortable columns — remains the caller's responsibility. The builder\n  guarantees quoting and the absence of value interpolation."
+            }
+          ],
+          "rationale": "Identifier quoting and caller authorization are distinct safety responsibilities.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 17964,
+              "end": 18217,
+              "quote": "MariaDB** supports `RETURNING` for `INSERT` and `DELETE` but not `UPDATE`. To\n  keep one rule across all three write statements, Ptah treats MariaDB as\n  unsupported and rejects a non-empty `RETURNING`\n  (`renderer: mariadb does not support RETURNING`)."
+            }
+          ],
+          "context": [
+            {
+              "start": 17964,
+              "end": 18217,
+              "quote": "MariaDB** supports `RETURNING` for `INSERT` and `DELETE` but not `UPDATE`. To\n  keep one rule across all three write statements, Ptah treats MariaDB as\n  unsupported and rejects a non-empty `RETURNING`\n  (`renderer: mariadb does not support RETURNING`)."
+            }
+          ],
+          "rationale": "MariaDB statement-specific support and the uniform builder refusal are distinct.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 21664,
+              "end": 21684,
+              "quote": "OFFSET without LIMIT"
+            }
+          ],
+          "context": [
+            {
+              "start": 21664,
+              "end": 21684,
+              "quote": "OFFSET without LIMIT"
+            }
+          ],
+          "rationale": "Dialect-specific sentinels, literal versus bound values and order clauses are necessary constraints.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "d54b96f1ffea534eabacddf864fb7ec77617b4af1e4685d3af94d933aa0f27c4",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 44802,
+          "first_line": 1,
+          "last_line": 787,
+          "rationale": "Read all 279 extracted blocks through retained divergences, measurement tables, recovery distinctions, path boundaries, schema selectors and resolved cases. Repeated table headings and local measured outcomes support separate cases. Preserve exact exit codes, ownership, timing, negative guards and test coverage; judge only removable rhetoric and redundant explanation.",
+          "prose_blocks": 279,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1899,
+              "end": 1920,
+              "quote": "does the better thing"
+            }
+          ],
+          "context": [
+            {
+              "start": 1625,
+              "end": 1953,
+              "quote": "The direction stated above — never exit `0` where the pinned binary exits `1` —\nis the first of two commitments. The second is that a defect is not reproduced\nfor the sake of being identical. Where a measured behavior loses something the\nauthor asked for, `ptah-compat` does the better thing and records the difference\nhere."
+            }
+          ],
+          "rationale": "The unqualified moral judgment substitutes for the concrete differing behavior.",
+          "proposed_edit": "State that Ptah preserves the requested behavior and records the measured divergence."
+        },
+        {
+          "id": "c03-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5330,
+              "end": 5468,
+              "quote": "The\nstrict profile never turns an authored safety contract into an ignored comment\nor configuration block merely to copy an edition limit."
+            }
+          ],
+          "context": [
+            {
+              "start": 4877,
+              "end": 5468,
+              "quote": "The same fail-closed boundary covers authored extensions. Strict schema\nworkflows refuse YAML sources and a `schema apply` lint policy that the CE path\ncannot enforce. Commands that execute, convert, or replay migration bodies\nrefuse Atlas txtar, Ptah directives, and SQL templates; a bare or unknown\n`-- +ptah` directive marker is refused rather than ignored. Checksum-only reads\npreserve those bytes. Default mode retains and executes the extensions. The\nstrict profile never turns an authored safety contract into an ignored comment\nor configuration block merely to copy an edition limit."
+            }
+          ],
+          "rationale": "The closing policy slogan repeats the enumerated authored-extension refusals.",
+          "proposed_edit": "Retain extension refusal cases, checksum exception and mode distinction."
+        },
+        {
+          "id": "c03-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 11291,
+              "end": 11336,
+              "quote": "would trade a silent loss for a\nfalse promise"
+            }
+          ],
+          "context": [
+            {
+              "start": 11176,
+              "end": 11412,
+              "quote": "The flag keeps its `string` type rather than claiming CE's `strings`.\nAdvertising a list this surface then refuses would trade a silent loss for a\nfalse promise, and the reader learns the limit from the refusal at the moment it\nmatters."
+            }
+          ],
+          "rationale": "The abstract exchange repeats the preceding one-file restriction and misleading list type.",
+          "proposed_edit": "State that the flag retains its single-file type."
+        },
+        {
+          "id": "c03-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 12965,
+              "end": 13082,
+              "quote": "A tool that answers a question the operator\ndid not ask, with no sign that it did so, is worse than one that refuses."
+            }
+          ],
+          "context": [
+            {
+              "start": 12547,
+              "end": 13239,
+              "quote": "The argument that keeps the refusal is that on every one of these verbs the\ndiscarded value is the one an operator meant to pass to a flag. `migrate status\nmigrations` and `schema inspect sqlite://s.db` are both the natural typo for\nthe correct command, and both are exit `0` on that binary against the wrong\ntarget: the first reports on `./migrations` because the flag defaulted, not\nbecause the positional was read. A tool that answers a question the operator\ndid not ask, with no sign that it did so, is worse than one that refuses. This\nis the reasoning the `--dir` defaults landed under, where a default that\nsilently swallowed a typo would have migrated the wrong directory at exit `0`."
+            }
+          ],
+          "rationale": "The comparative maxim restates the concrete wrong-target example without adding a condition.",
+          "proposed_edit": "Keep the command typo, selected target, exit and refusal."
+        },
+        {
+          "id": "c03-d05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 13739,
+              "end": 13801,
+              "quote": "That cell is measured now, and it lands on this\nsame argument."
+            }
+          ],
+          "context": [
+            {
+              "start": 13628,
+              "end": 13893,
+              "quote": "`migrate hash` takes no positional either and refuses through the same helper,\n`cmdutil.NoPositionalArgsHint`. That cell is measured now, and it lands on this\nsame argument. Read 2026-08-17 on a hashed SQLite directory, exit status taken\nfrom an unpiped invocation:"
+            }
+          ],
+          "rationale": "The abstract argument transition adds nothing to the date and measurement immediately following.",
+          "proposed_edit": "Keep the measurement date and invocation conditions."
+        },
+        {
+          "id": "c03-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 17853,
+              "end": 17929,
+              "quote": "That is the argument for the refusal, and it is not a strictness preference."
+            }
+          ],
+          "context": [
+            {
+              "start": 17853,
+              "end": 18243,
+              "quote": "That is the argument for the refusal, and it is not a strictness preference.\nReproducing an exit `0` that discards an operator's migration silently is the\nkind of defect the parity rule declines to copy. The refusal names the version\nit will not apply and both flags that resolve it, so the operator chooses\nbetween skipping and applying rather than having the choice made and not\nreported."
+            }
+          ],
+          "rationale": "The defense-of-argument sentence repeats the measured silent-skip consequence.",
+          "proposed_edit": "Start with the concrete migration behavior and remedy."
+        },
+        {
+          "id": "c03-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 17930,
+              "end": 18056,
+              "quote": "Reproducing an exit `0` that discards an operator's migration silently is the\nkind of defect the parity rule declines to copy."
+            }
+          ],
+          "context": [
+            {
+              "start": 17853,
+              "end": 18243,
+              "quote": "That is the argument for the refusal, and it is not a strictness preference.\nReproducing an exit `0` that discards an operator's migration silently is the\nkind of defect the parity rule declines to copy. The refusal names the version\nit will not apply and both flags that resolve it, so the operator chooses\nbetween skipping and applying rather than having the choice made and not\nreported."
+            }
+          ],
+          "rationale": "The moralized policy restatement repeats the preceding unexecuted migration evidence.",
+          "proposed_edit": "Keep the refusal and two explicit recovery flags."
+        },
+        {
+          "id": "c03-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 20408,
+              "end": 20475,
+              "quote": "The third row is the one that matters most and the two agree on it."
+            }
+          ],
+          "context": [
+            {
+              "start": 20408,
+              "end": 20646,
+              "quote": "The third row is the one that matters most and the two agree on it. The\nfix-and-rerun flow that #1241 called permanently wedged recovers under the\ndefault transaction mode, because a confirmed rollback that committed nothing\nis discarded."
+            }
+          ],
+          "rationale": "The importance announcement adds no information beyond the following fix-and-rerun result.",
+          "proposed_edit": "Start with both tools recovering after a confirmed rollback."
+        },
+        {
+          "id": "c03-d09",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 23906,
+              "end": 23962,
+              "quote": "The last of\nthose is the one that keeps the entry honest"
+            }
+          ],
+          "context": [
+            {
+              "start": 23382,
+              "end": 24078,
+              "quote": "The issue #1241 entries above are pinned by a test in\n`internal/cli/atlas/compat_1241_retained_divergence_test.go`, and the trailing-positional\nrows for `migrate status`, `migrate validate` and `schema inspect` are pinned in\n`internal/cli/atlas/compat_overstrict_test.go`. The same focused file also pins all three\norders of the prefix insertion: the default refuses, `--exec-order\nnon-linear` applies and remains idempotent, and `--exec-order linear-skip`\nleaves the insertion unapplied and stays that way on a repeat run. The last of\nthose is the one that keeps the entry honest — it is the claim that the pinned\nbinary's own outcome is still reachable, so it is guarded rather than asserted."
+            }
+          ],
+          "rationale": "The honesty judgment describes presentation quality rather than test behavior.",
+          "proposed_edit": "Keep that the compatibility outcome is covered by a regression test."
+        },
+        {
+          "id": "c03-d10",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 25402,
+              "end": 25609,
+              "quote": "Refusing it in the two attributes that most need it would make the function\nuseless where it is most useful, to match a refusal that costs the operator a\ncapability rather than protecting them from anything."
+            }
+          ],
+          "context": [
+            {
+              "start": 25247,
+              "end": 25758,
+              "quote": "Why it stays.** `sql()` exists so a schema file can carry an expression the\nHCL grammar has no spelling for, and a CHECK body is the clearest case of one.\nRefusing it in the two attributes that most need it would make the function\nuseless where it is most useful, to match a refusal that costs the operator a\ncapability rather than protecting them from anything. Nothing a document writes\nthis way renders differently: the call reduces to its argument text, which is\nwhat an unquoted expression would have been."
+            }
+          ],
+          "rationale": "The useful/useless rhetorical loop repeats that raw SQL is required where HCL cannot express it.",
+          "proposed_edit": "Retain the CHECK/default examples and conversion to argument text."
+        },
+        {
+          "id": "c03-d11",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 30220,
+              "end": 30284,
+              "quote": "This is stricter than the community binary in the safe direction"
+            }
+          ],
+          "context": [
+            {
+              "start": 30220,
+              "end": 30386,
+              "quote": "This is stricter than the community binary in the safe direction: uncertain\nrecovery exits non-zero instead of skipping SQL on the strength of a stale\ninteger offset."
+            }
+          ],
+          "rationale": "The safety ranking repeats the subsequent explicit refusal outcome.",
+          "proposed_edit": "State that uncertain recovery exits nonzero rather than trusting the offset."
+        },
+        {
+          "id": "c03-d12",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 34197,
+              "end": 34282,
+              "quote": "That is a different class of\ncost from the footguns the drop-in rule was written for."
+            }
+          ],
+          "context": [
+            {
+              "start": 33915,
+              "end": 34419,
+              "quote": "The reason is that an `atlas.hcl` is usually repository-controlled and `file()`\nis evaluated before anything is applied. Without confinement, a config file\narriving in a pull request can read any file the process can and place the\ncontents somewhere a reader of the output can see. That is a different class of\ncost from the footguns the drop-in rule was written for. The exit code is `1`\neither way for a configuration that works, so nothing a project already runs\nchanges; the refusal names its reason."
+            }
+          ],
+          "rationale": "The footgun comparison adds no threat detail beyond the arbitrary file-read example.",
+          "proposed_edit": "Retain the file-read threat and confinement behavior."
+        },
+        {
+          "id": "c03-d13",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 34421,
+              "end": 34469,
+              "quote": "Both halves are measured rather than remembered."
+            }
+          ],
+          "context": [
+            {
+              "start": 34421,
+              "end": 34784,
+              "quote": "Both halves are measured rather than remembered. The Ptah half is pinned by\n`TestOraclePlacesOutsideFileContentsWhereTheCallerCanSeeThem` in\n`config/projectconfig`; the community half is pinned by four `ce-gating`\nscenarios in the conformance repository, so the day a community build starts\nconfining `file()` the gate goes red and this divergence can be retired."
+            }
+          ],
+          "rationale": "The evidence slogan repeats the next sentence listing both pinned tests.",
+          "proposed_edit": "Start with the test locations."
+        },
+        {
+          "id": "c03-d14",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 36685,
+              "end": 36846,
+              "quote": "The divergence is stricter, not looser: `ptah-compat` exits `1` where the binary\nexits `0`, never the reverse, so no invocation the binary refuses succeeds here."
+            }
+          ],
+          "context": [
+            {
+              "start": 36685,
+              "end": 36846,
+              "quote": "The divergence is stricter, not looser: `ptah-compat` exits `1` where the binary\nexits `0`, never the reverse, so no invocation the binary refuses succeeds here."
+            }
+          ],
+          "rationale": "The general stricter-direction policy repeats the introduction after the table already shows the specific exit difference.",
+          "proposed_edit": "Keep the measured exit table and refer to the introductory parity rule if needed."
+        },
+        {
+          "id": "c03-d15",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 42485,
+              "end": 42642,
+              "quote": "This\nis a defect Ptah does not copy; the complete compatibility surface keeps the\ncoherent behavior rather than narrowing it to this community-binary result."
+            }
+          ],
+          "context": [
+            {
+              "start": 42176,
+              "end": 42642,
+              "quote": "Ptah keeps the literal PostgreSQL answer on both source kinds. Making the\nselector a no-op only for a file diff would make one accepted scoping\ninstruction mean two different things depending on its input. It would also report success\nwhile leaving exactly the table the selector names in the migration plan. This\nis a defect Ptah does not copy; the complete compatibility surface keeps the\ncoherent behavior rather than narrowing it to this community-binary result."
+            }
+          ],
+          "rationale": "The evaluative closing repeats the preserved selector behavior and failure already stated.",
+          "proposed_edit": "Keep the source-independent selector semantics and test."
+        },
+        {
+          "id": "c03-d16",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 44737,
+              "end": 44801,
+              "quote": "Neither is an unknown on this page any more (stokaro/ptah#1623)."
+            }
+          ],
+          "context": [
+            {
+              "start": 44737,
+              "end": 44801,
+              "quote": "Neither is an unknown on this page any more (stokaro/ptah#1623)."
+            }
+          ],
+          "rationale": "The statement that neither result is unknown repeats the two explicit conclusions above.",
+          "proposed_edit": "Keep the issue link with the measured conclusions."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c03-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 10810,
+              "end": 11174,
+              "quote": "The refusal exists because the alternative is a silent reduction. A surface that\nreads one file out of two the operator named has to say which one it dropped, or\nthe next diagnostic blames whatever the missing half declared: an env selected\nfrom the discarded file reads as an env that does not exist, which sends the\noperator to fix the file they actually passed."
+            }
+          ],
+          "context": [
+            {
+              "start": 10810,
+              "end": 11174,
+              "quote": "The refusal exists because the alternative is a silent reduction. A surface that\nreads one file out of two the operator named has to say which one it dropped, or\nthe next diagnostic blames whatever the missing half declared: an env selected\nfrom the discarded file reads as an env that does not exist, which sends the\noperator to fix the file they actually passed."
+            }
+          ],
+          "rationale": "The long hypothetical operator narrative may be useful to explain a misleading follow-on error.",
+          "proposed_edit": "Consider shortening while preserving the missing-environment consequence."
+        },
+        {
+          "id": "c03-u02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 31353,
+              "end": 31767,
+              "quote": "What is left is `modernc.org/sqlite`'s wording. Closing it would mean rewriting\ndriver messages per driver and per dialect to match a different driver's\nphrasing, which trades a cosmetic difference for a table of string edits that\ngoes stale silently. The native revision format is unaffected either way: this\napplies only where the revision table is Atlas-shaped, and Ptah's own surface\nkeeps the context it adds."
+            }
+          ],
+          "context": [
+            {
+              "start": 31353,
+              "end": 31767,
+              "quote": "What is left is `modernc.org/sqlite`'s wording. Closing it would mean rewriting\ndriver messages per driver and per dialect to match a different driver's\nphrasing, which trades a cosmetic difference for a table of string edits that\ngoes stale silently. The native revision format is unaffected either way: this\napplies only where the revision table is Atlas-shaped, and Ptah's own surface\nkeeps the context it adds."
+            }
+          ],
+          "rationale": "The stale-string-table risk explains a maintenance tradeoff, though the wording is long.",
+          "proposed_edit": "Consider shortening the rationale while preserving driver-specific errors and native context."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 4103,
+              "end": 4571,
+              "quote": "Cleanup validation uses the writer's schema scope: a global\nextension installed in another PostgreSQL schema does not block cleaning the\nselected schema. A sequence backing a `SERIAL` or identity column is likewise\nnot treated as a forbidden standalone sequence, because it rides with the\ntable that owns it. A selector cannot split that ownership: selecting the\nsequence without its table, or excluding it while the table remains selected,\nis refused before mutation."
+            }
+          ],
+          "context": [
+            {
+              "start": 4103,
+              "end": 4571,
+              "quote": "Cleanup validation uses the writer's schema scope: a global\nextension installed in another PostgreSQL schema does not block cleaning the\nselected schema. A sequence backing a `SERIAL` or identity column is likewise\nnot treated as a forbidden standalone sequence, because it rides with the\ntable that owns it. A selector cannot split that ownership: selecting the\nsequence without its table, or excluding it while the table remains selected,\nis refused before mutation."
+            }
+          ],
+          "rationale": "Extension location versus ownership and sequence versus table ownership are distinct constraints.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 16224,
+              "end": 16563,
+              "quote": "An insertion between two applied revisions is a different observable state.\nMeasured on SQLite and PostgreSQL 17.10 on 2026-08-10, both binaries refuse\nthat interval insertion at the default order and apply it under `non-linear`.\nThe lower applied revision is the state that distinguishes that parity cell\nfrom the prefix divergence below."
+            }
+          ],
+          "context": [
+            {
+              "start": 16224,
+              "end": 16563,
+              "quote": "An insertion between two applied revisions is a different observable state.\nMeasured on SQLite and PostgreSQL 17.10 on 2026-08-10, both binaries refuse\nthat interval insertion at the default order and apply it under `non-linear`.\nThe lower applied revision is the state that distinguishes that parity cell\nfrom the prefix divergence below."
+            }
+          ],
+          "rationale": "Prefix and interval insertion have different observable states; the distinction is necessary.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 26695,
+              "end": 27027,
+              "quote": "The compatibility cleanup is fail-closed. It removes a zero-progress row only\nafter `Rollback` returns success. A rollback error, commit error, unknown\nstatement outcome, or any committed statement keeps the row. Those states\nstill require explicit recovery, so parity does not erase evidence when the\ndatabase outcome is uncertain."
+            }
+          ],
+          "context": [
+            {
+              "start": 26695,
+              "end": 27027,
+              "quote": "The compatibility cleanup is fail-closed. It removes a zero-progress row only\nafter `Rollback` returns success. A rollback error, commit error, unknown\nstatement outcome, or any committed statement keeps the row. Those states\nstill require explicit recovery, so parity does not erase evidence when the\ndatabase outcome is uncertain."
+            }
+          ],
+          "rationale": "Unknown outcomes, rollback errors and committed statements are distinct reasons to retain recovery state.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 40753,
+              "end": 41322,
+              "quote": "The second of those commands is decided by the pattern-depth rule rather than\nthe field rule, so its exit status follows the URL. On a schema-bound URL both\nbinaries refuse it — the schema slot is already filled by the connection. That\nbinary quotes the prefixed pattern,\n`too many parts in pattern: \"public.public.*[type=table].comment\"`; Ptah quotes\nthe one that was typed. On a URL that names no schema the pattern is\nrealm-relative, `public` fills the schema slot itself, and both binaries accept\nit. Measured on both URLs against the same PostgreSQL 17 database."
+            }
+          ],
+          "context": [
+            {
+              "start": 40753,
+              "end": 41322,
+              "quote": "The second of those commands is decided by the pattern-depth rule rather than\nthe field rule, so its exit status follows the URL. On a schema-bound URL both\nbinaries refuse it — the schema slot is already filled by the connection. That\nbinary quotes the prefixed pattern,\n`too many parts in pattern: \"public.public.*[type=table].comment\"`; Ptah quotes\nthe one that was typed. On a URL that names no schema the pattern is\nrealm-relative, `public` fills the schema slot itself, and both binaries accept\nit. Measured on both URLs against the same PostgreSQL 17 database."
+            }
+          ],
+          "rationale": "Schema-bound and realm-relative URLs genuinely change selector depth and exit status.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "c1bb1f5a908d701c8f7db3d9860f0eadddead95a916a1467a58577f70baf9dbe",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 11930,
+          "first_line": 1,
+          "last_line": 266,
+          "rationale": "Read all curl bug-reporting prose, private security reporting, diagnosis, version policy, response expectations and inactive issue lifecycle. Preserve voluntary support, privacy and reproduction instructions. Grammar and historical policy validity are outside this wording rubric.",
+          "prose_blocks": 73,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 174,
+              "end": 238,
+              "quote": " Of course there are lots of bugs left. And lots of misfeatures."
+            }
+          ],
+          "context": [
+            {
+              "start": 174,
+              "end": 238,
+              "quote": " Of course there are lots of bugs left. And lots of misfeatures."
+            }
+          ],
+          "rationale": "The second assertion that bugs remain repeats the opening development explanation.",
+          "proposed_edit": "Remove the repeated bugs/misfeatures statement."
+        },
+        {
+          "id": "c04-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 424,
+              "end": 472,
+              "quote": "try to report an as\n detailed report as possible"
+            }
+          ],
+          "context": [
+            {
+              "start": 366,
+              "end": 658,
+              "quote": " If you can't fix a bug yourself and submit a fix for it, try to report an as\n detailed report as possible to a curl mailing list to allow one of us to have\n a go at a solution. You can optionally also submit your problem in [curl's\n bug tracking system](https://github.com/curl/curl/issues)."
+            }
+          ],
+          "rationale": "Report/report and as/as framing obscure a direct request.",
+          "proposed_edit": "Ask for a detailed bug report, preserving where to send it."
+        },
+        {
+          "id": "c04-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1319,
+              "end": 1567,
+              "quote": " This ensures that the report reaches the curl security team so that they\n first can be deal with the report away from the public to minimize the harm\n and impact it will have on existing users out there who might be using the\n vulnerable versions."
+            }
+          ],
+          "context": [
+            {
+              "start": 1319,
+              "end": 1567,
+              "quote": " This ensures that the report reaches the curl security team so that they\n first can be deal with the report away from the public to minimize the harm\n and impact it will have on existing users out there who might be using the\n vulnerable versions."
+            }
+          ],
+          "rationale": "Multiple report/team/public/harm clauses repeat the private-handling purpose.",
+          "proposed_edit": "Say private reporting lets the security team address the issue before exposing users; keep the security process link."
+        },
+        {
+          "id": "c04-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2168,
+              "end": 2219,
+              "quote": "and anything and everything else you think matters."
+            }
+          ],
+          "context": [
+            {
+              "start": 2168,
+              "end": 2518,
+              "quote": "and anything and everything else you think matters. Tell us what you expected\n to happen, tell use what did happen, tell us how you could make it work\n another way. Dig around, try out, test. Then include all the tiny bits and\n pieces in your report. You will benefit from this yourself, as it will enable\n us to help you quicker and more accurately."
+            }
+          ],
+          "rationale": "Anything and everything repeats the same universal request.",
+          "proposed_edit": "Ask for other relevant details."
+        },
+        {
+          "id": "c04-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3363,
+              "end": 3379,
+              "quote": "like for example"
+            }
+          ],
+          "context": [
+            {
+              "start": 3246,
+              "end": 3514,
+              "quote": " Tell us the libcurl version and your operating system. Tell us the name and\n version of all relevant sub-components like for example the SSL library\n you're using and what name resolving your libcurl uses. If you use SFTP or\n SCP, the libssh2 version is relevant etc."
+            }
+          ],
+          "rationale": "Like and for example duplicate the example introduction.",
+          "proposed_edit": "Use either like or for example."
+        },
+        {
+          "id": "c04-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4083,
+              "end": 4184,
+              "quote": " If the problems or bugs you describe are considered to be bugs, we want to\n have the problems fixed."
+            }
+          ],
+          "context": [
+            {
+              "start": 4083,
+              "end": 4184,
+              "quote": " If the problems or bugs you describe are considered to be bugs, we want to\n have the problems fixed."
+            }
+          ],
+          "rationale": "Problems considered bugs and want problems fixed repeats the same intent without a process step.",
+          "proposed_edit": "Begin with the volunteer-support policy."
+        },
+        {
+          "id": "c04-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4335,
+              "end": 4426,
+              "quote": "We do\n it out of an ambition to keep curl and libcurl excellent products and out of\n pride."
+            }
+          ],
+          "context": [
+            {
+              "start": 4186,
+              "end": 4426,
+              "quote": " There are no developers in the curl project that are paid to work on bugs.\n All developers that take on reported bugs do this on a voluntary basis. We do\n it out of an ambition to keep curl and libcurl excellent products and out of\n pride."
+            }
+          ],
+          "rationale": "The self-praise adds no support obligation or expected response behavior.",
+          "proposed_edit": "Keep that developers work voluntarily."
+        },
+        {
+          "id": "c04-d08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6758,
+              "end": 6788,
+              "quote": "when you experience the\n issue"
+            }
+          ],
+          "context": [
+            {
+              "start": 6633,
+              "end": 6979,
+              "quote": " When you experience a problem and want to report it, you really SHOULD\n include the version number of the curl you're using when you experience the\n issue. If that version number shows us that you're using an out-of-date curl,\n you should also try out a modern curl version to see if the problem persists\n or how/if it has changed in appearance."
+            }
+          ],
+          "rationale": "The timing repeats the initial when-you-experience condition.",
+          "proposed_edit": "Keep the request for the affected version and testing a current release."
+        },
+        {
+          "id": "c04-d09",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7939,
+              "end": 8008,
+              "quote": "Maybe they took the day off,\n maybe they're off in the woods hunting."
+            }
+          ],
+          "context": [
+            {
+              "start": 7812,
+              "end": 8094,
+              "quote": " When a new issue is posted in the issue tracker or on the mailing list, the\n team of developers first need to see the report. Maybe they took the day off,\n maybe they're off in the woods hunting. Have patience. Allow at least a few\n days before expecting someone to have responded."
+            }
+          ],
+          "rationale": "The imagined absence examples lengthen the concrete wait-a-few-days advice.",
+          "proposed_edit": "Keep volunteer availability and the expected response interval."
+        },
+        {
+          "id": "c04-d10",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 8730,
+              "end": 8770,
+              "quote": "Or maybe you can\n help us figure it out."
+            }
+          ],
+          "context": [
+            {
+              "start": 8595,
+              "end": 8873,
+              "quote": " You should then respond to these follow-up questions and provide more info\n about the problem, so that we can help you figure it out. Or maybe you can\n help us figure it out. An active back-and-forth communication is important\n and the key for finding a cure and landing a fix."
+            }
+          ],
+          "rationale": "The reversal repeats the shared troubleshooting request without a new action.",
+          "proposed_edit": "Keep the request to answer follow-up questions."
+        },
+        {
+          "id": "c04-d11",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9272,
+              "end": 9393,
+              "quote": "follow-up questions or questions asking for clarifications or\n for discussing possible ways to move forward with the task"
+            }
+          ],
+          "context": [
+            {
+              "start": 9183,
+              "end": 9462,
+              "quote": " If the problem haven't been understood or reproduced, and there's nobody\n responding to follow-up questions or questions asking for clarifications or\n for discussing possible ways to move forward with the task, we take that as a\n strong suggestion that the bug is not important."
+            }
+          ],
+          "rationale": "The series repeats the same request for responsive troubleshooting.",
+          "proposed_edit": "Say no one responds to requests for clarification or further diagnosis."
+        },
+        {
+          "id": "c04-d12",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 10123,
+              "end": 10463,
+              "quote": " This is a list of known bugs. Bugs we know exist and that have been pointed\n out but that haven't yet been fixed. The reasons for why they haven't been\n fixed can involve anything really, but the primary reason is that nobody has\n considered these problems to be important enough to spend the necessary time\n and effort to have them fixed."
+            }
+          ],
+          "context": [
+            {
+              "start": 10123,
+              "end": 10463,
+              "quote": " This is a list of known bugs. Bugs we know exist and that have been pointed\n out but that haven't yet been fixed. The reasons for why they haven't been\n fixed can involve anything really, but the primary reason is that nobody has\n considered these problems to be important enough to spend the necessary time\n and effort to have them fixed."
+            }
+          ],
+          "rationale": "Known bugs and lack of interest were defined in the preceding paragraph; this repeats both.",
+          "proposed_edit": "Keep the known-bugs list location and invitation to contribute."
+        },
+        {
+          "id": "c04-d13",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 10989,
+              "end": 11312,
+              "quote": " The `TODO` document is full of ideas and suggestions of what we can add or\n fix one day. You're always encouraged and free to grab one of those items and\n take up a discussion with the curl development team on how that could be\n implemented or provided in the project so that you can work on ticking it odd\n that document."
+            }
+          ],
+          "context": [
+            {
+              "start": 10989,
+              "end": 11312,
+              "quote": " The `TODO` document is full of ideas and suggestions of what we can add or\n fix one day. You're always encouraged and free to grab one of those items and\n take up a discussion with the curl development team on how that could be\n implemented or provided in the project so that you can work on ticking it odd\n that document."
+            }
+          ],
+          "rationale": "The invitation winds through ideas, items, discussion, implementation and ticking off the document.",
+          "proposed_edit": "Invite contributors to discuss and implement a TODO item, preserving the discussion prerequisite."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c04-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 3581,
+              "end": 3615,
+              "quote": "the best way\n to get our attention"
+            }
+          ],
+          "context": [
+            {
+              "start": 3516,
+              "end": 3742,
+              "quote": " Showing us a real source code example repeating your problem is the best way\n to get our attention and it will greatly increase our chances to understand\n your problem and to work on a fix (if we agree it truly is a problem)."
+            }
+          ],
+          "rationale": "The superlative is unsupported but source reproduction is concrete advice.",
+          "proposed_edit": "Consider asking directly for a reproducing source example."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 880,
+              "end": 1145,
+              "quote": " If you find a bug or problem in curl or libcurl that you think has a security\n impact, for example a bug that can put users in danger or make them\n vulnerable if the bug becomes public knowledge, then please report that bug\n using our security development process."
+            }
+          ],
+          "context": [
+            {
+              "start": 880,
+              "end": 1145,
+              "quote": " If you find a bug or problem in curl or libcurl that you think has a security\n impact, for example a bug that can put users in danger or make them\n vulnerable if the bug becomes public knowledge, then please report that bug\n using our security development process."
+            }
+          ],
+          "rationale": "Security impact and private reporting justify a separate reporting path.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 2692,
+              "end": 2974,
+              "quote": " If curl crashed, causing a core dump (in unix), there is hardly any use to\n send that huge file to anyone of us. Unless we have an exact same system\n setup as you, we can't do much with it. Instead we ask you to get a stack\n trace and send that (much smaller) output to us instead!"
+            }
+          ],
+          "context": [
+            {
+              "start": 2692,
+              "end": 2974,
+              "quote": " If curl crashed, causing a core dump (in unix), there is hardly any use to\n send that huge file to anyone of us. Unless we have an exact same system\n setup as you, we can't do much with it. Instead we ask you to get a stack\n trace and send that (much smaller) output to us instead!"
+            }
+          ],
+          "rationale": "A core dump depends on matching system state; a stack trace is the requested alternative.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 9464,
+              "end": 9658,
+              "quote": " Unimportant issues will be closed as inactive sooner or later as they can't\n be fixed. The inactivity period (waiting for responses) should not be shorter\n than two weeks but may extend months."
+            }
+          ],
+          "context": [
+            {
+              "start": 9464,
+              "end": 9658,
+              "quote": " Unimportant issues will be closed as inactive sooner or later as they can't\n be fixed. The inactivity period (waiting for responses) should not be shorter\n than two weeks but may extend months."
+            }
+          ],
+          "rationale": "The minimum two weeks and possible months specify separate bounds.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "cb3d9f89db910fef7f46fa04afe5c82b4ecf1c851ba99f3f03bb422fa73af16f",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 11390,
+          "first_line": 1,
+          "last_line": 197,
+          "rationale": "Read the entire Raft library README, feature list, users, setup, Node.Ready ordering, snapshots, membership and two-node failure behavior. Preserve algorithm requirements and nondeterministic commitment; linked user taglines are third-party descriptions. Grammar-only issues are outside scope.",
+          "prose_blocks": 62,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 140,
+              "end": 175,
+              "quote": "through the use of a replicated log"
+            }
+          ],
+          "context": [
+            {
+              "start": 16,
+              "end": 330,
+              "quote": "Raft is a protocol with which a cluster of nodes can maintain a replicated state machine.\nThe state machine is kept in sync through the use of a replicated log.\nFor more details on Raft, see \"In Search of an Understandable Consensus Algorithm\"\n(https://raft.github.io/raft.pdf) by Diego Ongaro and John Ousterhout."
+            }
+          ],
+          "rationale": "Through the use of adds a nominal layer around the replication mechanism.",
+          "proposed_edit": "Use through a replicated log or using a replicated log."
+        },
+        {
+          "id": "c05-d02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 880,
+              "end": 943,
+              "quote": "This minimalism buys flexibility, determinism, and performance."
+            }
+          ],
+          "context": [
+            {
+              "start": 644,
+              "end": 943,
+              "quote": "Most Raft implementations have a monolithic design, including storage handling, messaging serialization, and network transport. This library instead follows a minimalistic design philosophy by only implementing the core raft algorithm. This minimalism buys flexibility, determinism, and performance."
+            }
+          ],
+          "rationale": "Performance has no metric or mechanism in this broad benefit list; the next paragraph gives the actual interface boundary.",
+          "proposed_edit": "Describe separate storage and transport interfaces and the deterministic state machine."
+        },
+        {
+          "id": "c05-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2075,
+              "end": 2150,
+              "quote": "This raft implementation is a full feature implementation of Raft protocol."
+            }
+          ],
+          "context": [
+            {
+              "start": 2075,
+              "end": 2169,
+              "quote": "This raft implementation is a full feature implementation of Raft protocol. Features includes:"
+            }
+          ],
+          "rationale": "The full-feature announcement repeats the introduction and precedes the concrete feature list.",
+          "proposed_edit": "Introduce the listed implemented features directly."
+        },
+        {
+          "id": "c05-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9142,
+              "end": 9262,
+              "quote": "To propose changes to the state machine from the node to take application data, serialize it into a byte slice and call:"
+            }
+          ],
+          "context": [
+            {
+              "start": 9142,
+              "end": 9262,
+              "quote": "To propose changes to the state machine from the node to take application data, serialize it into a byte slice and call:"
+            }
+          ],
+          "rationale": "Propose changes from the node to take application data obscures the serialize-and-propose instruction.",
+          "proposed_edit": "To propose an application update, serialize it into bytes and call the shown method."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 332,
+              "end": 642,
+              "quote": "This Raft library is stable and feature complete. As of 2016, it is **the most widely used** Raft library in production, serving tens of thousands clusters each day. It powers distributed systems such as etcd, Kubernetes, Docker Swarm, Cloud Foundry Diego, CockroachDB, TiDB, Project Calico, Flannel, and more."
+            }
+          ],
+          "context": [
+            {
+              "start": 332,
+              "end": 642,
+              "quote": "This Raft library is stable and feature complete. As of 2016, it is **the most widely used** Raft library in production, serving tens of thousands clusters each day. It powers distributed systems such as etcd, Kubernetes, Docker Swarm, Cloud Foundry Diego, CockroachDB, TiDB, Project Calico, Flannel, and more."
+            }
+          ],
+          "rationale": "Production scale is quantified and dated but most-widely-used has no cited comparison.",
+          "proposed_edit": "Keep the dated deployments; consider removing the comparative ranking."
+        },
+        {
+          "id": "c05-u02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6403,
+              "end": 6423,
+              "quote": "It is important that"
+            }
+          ],
+          "context": [
+            {
+              "start": 6349,
+              "end": 7135,
+              "quote": "Send all Messages to the nodes named in the To field. It is important that no messages be sent until the latest HardState has been persisted to disk, and all Entries written by any previous Ready batch (Messages may be sent while entries from the same batch are being persisted). To reduce the I/O latency, an optimization can be applied to make leader write to disk in parallel with its followers (as explained at section 10.2.1 in Raft thesis). If any Message has type MsgSnap, call Node.ReportSnapshot() after it has been sent (these messages may be large). Note: Marshalling messages is not thread-safe; it is important to make sure that no new entries are persisted while marshalling. The easiest way to achieve this is to serialise the messages directly inside the main raft loop."
+            }
+          ],
+          "rationale": "Importance framing may be removable, but this is a safety-critical ordering requirement.",
+          "proposed_edit": "Consider a direct must-not-send instruction without losing the timing constraint."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 4895,
+              "end": 5133,
+              "quote": "To allow a new node to join this cluster, do not pass in any peers. First, add the node to the existing cluster by calling `ProposeConfChange` on any existing node inside the cluster. Then, start the node with an empty peer list, like so:"
+            }
+          ],
+          "context": [
+            {
+              "start": 4895,
+              "end": 5133,
+              "quote": "To allow a new node to join this cluster, do not pass in any peers. First, add the node to the existing cluster by calling `ProposeConfChange` on any existing node inside the cluster. Then, start the node with an empty peer list, like so:"
+            }
+          ],
+          "rationale": "Join authorization and an empty initial peer list are separate ordered operations.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 7140,
+              "end": 7629,
+              "quote": "Apply Snapshot (if any) and CommittedEntries to the state machine. If any committed Entry has Type EntryConfChange, call Node.ApplyConfChange() to apply it to the node. The configuration change may be cancelled at this point by setting the NodeID field to zero before calling ApplyConfChange (but ApplyConfChange must be called one way or the other, and the decision to cancel must be based solely on the state machine and not external information such as the observed health of the node)."
+            }
+          ],
+          "context": [
+            {
+              "start": 7140,
+              "end": 7629,
+              "quote": "Apply Snapshot (if any) and CommittedEntries to the state machine. If any committed Entry has Type EntryConfChange, call Node.ApplyConfChange() to apply it to the node. The configuration change may be cancelled at this point by setting the NodeID field to zero before calling ApplyConfChange (but ApplyConfChange must be called one way or the other, and the decision to cancel must be based solely on the state machine and not external information such as the observed health of the node)."
+            }
+          ],
+          "rationale": "ApplyConfChange invocation and cancellation source are distinct correctness requirements.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 10134,
+              "end": 10755,
+              "quote": "This implementation is up to date with the final Raft thesis (https://github.com/ongardie/dissertation/blob/master/stanford.pdf), although this implementation of the membership change protocol differs somewhat from that described in chapter 4. The key invariant that membership changes happen one node at a time is preserved, but in our implementation the membership change takes effect when its entry is applied, not when it is added to the log (so the entry is committed under the old membership instead of the new). This is equivalent in terms of safety, since the old and new configurations are guaranteed to overlap."
+            }
+          ],
+          "context": [
+            {
+              "start": 10134,
+              "end": 10755,
+              "quote": "This implementation is up to date with the final Raft thesis (https://github.com/ongardie/dissertation/blob/master/stanford.pdf), although this implementation of the membership change protocol differs somewhat from that described in chapter 4. The key invariant that membership changes happen one node at a time is preserved, but in our implementation the membership change takes effect when its entry is applied, not when it is added to the log (so the entry is committed under the old membership instead of the new). This is equivalent in terms of safety, since the old and new configurations are guaranteed to overlap."
+            }
+          ],
+          "rationale": "Apply-time versus log-time membership changes alter semantics despite an invariant safety result.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 11043,
+              "end": 11389,
+              "quote": "This approach introduces a problem when removing a member from a two-member cluster: If one of the members dies before the other one receives the commit of the confchange entry, then the member cannot be removed any more since the cluster cannot make progress. For this reason it is highly recommended to use three or more nodes in every cluster."
+            }
+          ],
+          "context": [
+            {
+              "start": 11043,
+              "end": 11389,
+              "quote": "This approach introduces a problem when removing a member from a two-member cluster: If one of the members dies before the other one receives the commit of the confchange entry, then the member cannot be removed any more since the cluster cannot make progress. For this reason it is highly recommended to use three or more nodes in every cluster."
+            }
+          ],
+          "rationale": "The two-member failure sequence justifies the recommended minimum and is not removable repetition.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "3d96509398732ac2f0ad178d7524e3747c4dc680e389f486203afd7556586d67",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 15841,
+          "first_line": 1,
+          "last_line": 224,
+          "rationale": "Read all supported-language table cells, aliases and package links, core versus external-language distinction and alias-overlap instructions. Most blocks are identifiers; repeated aliases are intentional reference data.",
+          "prose_blocks": 445,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c06-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15373,
+              "end": 15394,
+              "quote": "please be sure to\nuse"
+            }
+          ],
+          "context": [
+            {
+              "start": 15313,
+              "end": 15450,
+              "quote": "If you are using either of these languages at the same time please be sure to\nuse the full name and not the alias to avoid any ambiguity."
+            }
+          ],
+          "rationale": "The assurance request adds a verb layer to a direct instruction.",
+          "proposed_edit": "Use the full language name when both overlapping languages are enabled; preserve the condition."
+        }
+      ],
+      "uncertain": [],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 23,
+              "end": 267,
+              "quote": "The table below shows the full list of supported languages (and corresponding classes/aliases).  Note: Which languages are available may depend on how you've built or included the library in your app. See [Getting the Library][1] in the README."
+            }
+          ],
+          "context": [
+            {
+              "start": 23,
+              "end": 267,
+              "quote": "The table below shows the full list of supported languages (and corresponding classes/aliases).  Note: Which languages are available may depend on how you've built or included the library in your app. See [Getting the Library][1] in the README."
+            }
+          ],
+          "rationale": "Build-dependent availability is a real scope limit on the reference table.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 269,
+              "end": 434,
+              "quote": "Languages that listed a **Package** below are 3rd party languages and are not bundled with the core library.  You can find their repositories by following the links."
+            }
+          ],
+          "context": [
+            {
+              "start": 269,
+              "end": 434,
+              "quote": "Languages that listed a **Package** below are 3rd party languages and are not bundled with the core library.  You can find their repositories by following the links."
+            }
+          ],
+          "rationale": "Package links distinguish third-party grammars from bundled languages.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}

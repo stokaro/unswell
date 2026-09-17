@@ -7,6 +7,9 @@ import (
 )
 
 func indirectInstruction(clauses []frameClause, index int) (rhetoricalFrame, bool) {
+	if frame, ok := actionScaffolding(clauses[index]); ok {
+		return frame, true
+	}
 	c := clauses[index]
 	if !c.eligible() || quotedClaim(c.sentence.Tokens) {
 		return rhetoricalFrame{}, false
