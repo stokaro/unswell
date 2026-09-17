@@ -25,11 +25,13 @@ reporting, so `check-performance`, `check-research-cost` and `check-reproducible
 ran outside it and passed. Six Linux/macOS/Windows amd64/arm64 binaries reproduced
 byte for byte on this host with cgo disabled.
 
-CLI and MCP self-checking matched evidence for 1,031 documents; failure, rewrite
-and malformed-input probes passed. The staged working-tree scan reported 823
-findings and passed its gate. The new evidence documents add only three ARI
-measurements in the immutable protocol; the technical wording is retained.
-A final rebuild and CLI/MCP check follow the evidence commit. Race detection,
+CLI and MCP self-checking first matched evidence for 1,031 documents; failure,
+rewrite and malformed-input probes passed. After committing all evidence files,
+the CLI scanned 1,035 documents, reported 833 findings and passed its gate.
+The new documentation has nine ARI measurements, three passive-construction
+warnings and one paired-contrast note. Review retained the technical descriptions,
+review-provenance distinction and immutable protocol. The final CLI/MCP replay
+also includes these newly tracked documents. Race detection,
 active fuzzing and coverage remain deferred under #123. No Docker resources
 were created.
 
