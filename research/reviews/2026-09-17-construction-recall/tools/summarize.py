@@ -13,6 +13,10 @@ previous = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(previous)
 audit, prior = previous.audit, previous.prior
 metrics = previous.previous
+# Removing an information announcement can be labeled wordiness or empty framing
+# in the frozen rubric. Apply the same admissible semantics to both engines;
+# actual full/partial credit still requires a source-bound editorial judgment.
+metrics.SEMANTICS['filler.evaluative-closure'] |= {'wordiness'}
 
 
 def frozen_inputs():
@@ -117,6 +121,21 @@ def run(split, phase, profile, pages, files):
     return report, record
 
 
+def finding_delta(before, after):
+    b = {prior.key(f): i for i, f in enumerate(before['findings'])}
+    a = {prior.key(f): i for i, f in enumerate(after['findings'])}
+    audit.require(len(b) == len(before['findings']) and len(a) == len(after['findings']), 'Duplicate finding key')
+    def comparable(f):
+        return {k:v for k,v in f.items() if k not in ('id','fingerprint','rule_version','message')}
+    changed = {key for key in a.keys() & b.keys()
+               if comparable(before['findings'][b[key]]) != comparable(after['findings'][a[key]])}
+    # A changed suggestion is evidence, so it receives a fresh disposition even
+    # when the source location is stable. Other evidence changes do too.
+    return dict(added=sorted(a[k] for k in a.keys()-b.keys() | changed),
+                removed=sorted(b[k] for k in b.keys()-a.keys() | changed),
+                changed_at_same_location=len(changed))
+
+
 def evaluate():
     frozen_inputs()
     sets = data_sets()
@@ -129,7 +148,7 @@ def evaluate():
             before, bc = run(split, 'before', profile, pages, files)
             after, ac = run(split, 'after', profile, pages, files)
             audit.require(bc['tool_commit'] == commits['before'] and ac['tool_commit'] == commits['after'], 'Engine revision drift')
-            delta = prior.delta(before, after)
+            delta = finding_delta(before, after)
             judgments = review[split][profile]
             for kind, report in [('added', after), ('removed', before)]:
                 rows = audit.unique(judgments[kind], 'index', 'delta review')
