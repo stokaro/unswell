@@ -10,10 +10,12 @@ func localRhetoricRules() []rule.Rule {
 		localRhetoricRule("filler.instruction-scaffolding", instructionScaffolding,
 			"State the supported action directly; preserve its conditions and optionality.",
 			"Replace the capability or reader-intention preface with the action and its method. "+
-				"Keep operands, alternatives and limits; a capability is not an obligation.",
+				"Keep actors, operands, alternatives and limits; a capability is not an obligation.",
 			"An affirmative impersonal capability with a transitive configuration or presentation action, "+
 				"or a reader-intention clause introducing an instruction. Anaphoric gerund methods, nominalized "+
-				"methods and reader-purpose clauses are also recognized. Adjacent method announcements remain related evidence. "+
+				"methods and reader-purpose clauses are also recognized. Nested enables/allows plus an action nominalization "+
+				"and passive infinitive, and nominal actions performed through a gerund method, also qualify. "+
+				"Ordinary actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. "+
 				"Failure, permission, negation and quoted constructions do not match.",
 			[]rule.Example{{Text: "It is possible to display a label. This is done by using the label option.", Match: true},
 				{Text: "It is possible to lose data after a failed write."}}),
@@ -89,6 +91,9 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 		d.Version = "2"
 	}
 	if id == "filler.unscoped-assurance" {
+		d.Version = "3"
+	}
+	if id == "filler.instruction-scaffolding" {
 		d.Version = "3"
 	}
 	d.Requires = append(d.Requires, nlp.POS)
