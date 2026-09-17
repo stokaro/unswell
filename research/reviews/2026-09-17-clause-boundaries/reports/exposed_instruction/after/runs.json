@@ -1,0 +1,56 @@
+{
+  "technical": {
+    "path": "technical.json.gz",
+    "sha256": "67071ff37c8618738321f821d60727897cd190effda292ab51dabf79aa2b721a",
+    "binary_sha256": "aca71ac2d51c469c79045d4b4cc1ebe2458f2e54b37e973817691166b9a039d5",
+    "config_sha256": "2d4022ba45dbce20922b62ac1118f22de777ef222e8d73123326bc7c43683412",
+    "tool_commit": "dbd11d798beabf030142aab5a11f120a8ef53e26",
+    "config_identity_sha256": "ee0b909dd894eaa715011f334e0520b43b3aba8308d14cd7bcb9dfe89a5d351f",
+    "host": "macOS-26.5-arm64-arm-64bit-Mach-O",
+    "exit_code": 0,
+    "wall_seconds": 1.1442689159885049,
+    "cpu_seconds": 1.322228,
+    "max_rss_bytes": 178618368,
+    "command": [
+      "unswell",
+      "check",
+      "--config",
+      "technical.yaml",
+      "--project-root",
+      ".",
+      "--include-source",
+      "--report",
+      "json:/private/tmp/unswell-clause-boundaries/runs/exposed_instruction/after/technical.json",
+      "--timeout",
+      "5m",
+      "sources"
+    ]
+  },
+  "strict": {
+    "path": "strict.json.gz",
+    "sha256": "36c0a6ec18b903e2705b6a5d60f429eca8a8a2e6ffdb695b67d464e98da2e977",
+    "binary_sha256": "aca71ac2d51c469c79045d4b4cc1ebe2458f2e54b37e973817691166b9a039d5",
+    "config_sha256": "d1828aec60920d86931cf9c2daff32cc5d03ce65f3f2072eb41cc4c9f6432589",
+    "tool_commit": "dbd11d798beabf030142aab5a11f120a8ef53e26",
+    "config_identity_sha256": "922646b9d75d1970eef843aefda08e1e96ed749b9a57089f0a582e19d8ef4f08",
+    "host": "macOS-26.5-arm64-arm-64bit-Mach-O",
+    "exit_code": 1,
+    "wall_seconds": 1.0180547498166561,
+    "cpu_seconds": 1.330626,
+    "max_rss_bytes": 166789120,
+    "command": [
+      "unswell",
+      "check",
+      "--config",
+      "strict.yaml",
+      "--project-root",
+      ".",
+      "--include-source",
+      "--report",
+      "json:/private/tmp/unswell-clause-boundaries/runs/exposed_instruction/after/strict.json",
+      "--timeout",
+      "5m",
+      "sources"
+    ]
+  }
+}
