@@ -42,3 +42,9 @@ Independent human review is not a prerequisite for this work.
   wording warnings recover six more exposed defects. The eleven new pages stay
   at 1/42 detected events, with all diagnostics reviewed. The full-page objective
   remains unmet.
+
+- [2026-09-17-instruction-recall](2026-09-17-instruction-recall/README.md):
+  indirect instruction and redundant-predicate rules raise new complete-page
+  detections from 4/99 to 12/99. All eight gains occur on one historical Mermaid
+  page; Ptah remains at 2/35. The records retain partial matches, review burden
+  and the unchanged candidate-budget abstention on a long reference page.
