@@ -58,7 +58,7 @@
         },
         {
           "id": "filler.document-justification",
-          "version": "4",
+          "version": "5",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -74,8 +74,8 @@
           "weight": 12,
           "cap": 24,
           "summary": "State the scope or destination directly instead of explaining why this page exists.",
-          "description": "A document subject followed by 'exists so/to/because', deliberate non-repetition of material, a statement that a document part earns its place, a page explaining what its fields mean, editorial ownership, or announcements that definitions or counts are repeated or omitted here. Ownership may use a pronoun only after an adjacent explicit document announcement in the same block. Storage existence and ordinary scope exclusions do not match. Reports complete matched clauses, once per clause, within a single block.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
+          "description": "A document subject followed by 'exists so/to/because', deliberate non-repetition of material, a statement that a document part earns its place, a page explaining what its fields mean, editorial ownership, document dedication or future-presentation clauses, or announcements that definitions or counts are repeated or omitted here. Ownership may use a pronoun only after an adjacent explicit document announcement in the same block. Storage existence and ordinary scope exclusions do not match. Reports complete matched clauses, once per clause, within a single block.",
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "filler.document-metadiscourse",
@@ -120,7 +120,7 @@
         },
         {
           "id": "filler.evaluative-closure",
-          "version": "4",
+          "version": "5",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -136,8 +136,8 @@
           "weight": 12,
           "cap": 24,
           "summary": "This clause announces information or endorses a result; state the information directly.",
-          "description": "An anaphoric purpose tail ('which is the point of doing it', 'which is what doing it is for'), a bare whole-point/design declaration, an anaphoric assertion of value or verification, an information subject announcing cognitive worth, or an impersonal modal notice followed by a that-clause. Named purposes and measured evaluations stay excluded; notice and cognitive-worth frames retain their attached conditions. Reports complete matched clauses, once per clause, within a single block.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
+          "description": "An anaphoric purpose tail ('which is the point of doing it', 'which is what doing it is for'), a bare whole-point/design declaration, an anaphoric assertion of value or verification, an information subject announcing cognitive worth, abstract feature-purpose or intentionality closures, output claiming to prove understanding, or an impersonal modal notice followed by a that-clause. Concrete component purposes and measured evaluations stay excluded; notice and cognitive-worth frames retain their attached conditions. Reports complete matched clauses, once per clause, within a single block.",
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "filler.instruction-scaffolding",
@@ -158,7 +158,7 @@
           "cap": 24,
           "summary": "State the supported action directly; preserve its conditions and optionality.",
           "description": "An affirmative impersonal capability with a transitive configuration or presentation action, or a reader-intention clause introducing an instruction. Anaphoric gerund methods, nominalized methods and reader-purpose clauses are also recognized. Adjacent method announcements remain related evidence. Failure, permission, negation and quoted constructions do not match. Reports complete matched clauses, once per clause, within a single block.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "filler.modern-world-opening",
@@ -227,7 +227,7 @@
         },
         {
           "id": "filler.unscoped-assurance",
-          "version": "2",
+          "version": "3",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -243,8 +243,8 @@
           "weight": 12,
           "cap": 24,
           "summary": "State the behavior, scope or evidence behind this quality claim.",
-          "description": "A positive copular clause announces intentional quality without a mechanism, calls a choice nearly always right, or promises the fastest/best/easiest way to understand everything. Also recognizes affirmative extreme quality predicates and unrestricted claims about what everybody or nobody knows, wants or can verify. Conditional, quantified and protected constructions are excluded. Reports complete matched clauses, once per clause, within a single block.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
+          "description": "A positive copular clause announces intentional quality without a mechanism, calls a choice nearly always right, or promises the fastest/best/easiest way to understand everything. Also recognizes affirmative extreme quality predicates and unrestricted claims about what everybody or nobody knows, wants or can verify, and unsupported majority claims about reader preferences or practice. Conditional, quantified and protected constructions are excluded. Reports complete matched clauses, once per clause, within a single block.",
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "filler.weak-intensifiers",
@@ -550,7 +550,7 @@
           "cap": 24,
           "summary": "The definition repeats its subject; state the distinguishing information directly.",
           "description": "A positive copula repeats the same nominal phrase, ignoring articles, immediately before ', not' and a nominal alternative. Also recognizes a still-qualified repetition of the same nominal subject. Added modifiers, conditions and code identifiers are excluded; bare uncontrasted identities stay outside the rule. Reports complete matched clauses, once per clause, within a single block.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "repetition.duplicate-list-item",
@@ -612,7 +612,7 @@
           "cap": 24,
           "summary": "The explanation repeats its initial judgment before giving the reason.",
           "description": "A nominal subject and a copular adjective are repeated as 'and it/they is/are ADJECTIVE because'. The repeated copula and adjective must agree; negation, quantities, conditions and ambiguous noun antecedents are excluded. Reports complete matched clauses, once per clause, within a single block.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "repetition.heading-echo",
@@ -741,7 +741,7 @@
           "cap": 24,
           "summary": "The predicate repeats the relation already named by its subject.",
           "description": "A category/type label describing its own unqualified category/type, or a path/location subject followed by is located/situated at/in, or a reason subject followed by is because. The grammatical subject must name the repeated relation; files, identifiers and control-flow conditions do not qualify. Reports complete matched clauses, once per clause, within a single block.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "repetition.repeated-claim",
@@ -1139,7 +1139,7 @@
           "cap": 24,
           "summary": "The contrast names abstract actions without their objects; name the check and its failure condition.",
           "description": "A short nominal subject and a bare check/verify/prove verb opposed to a bare trust/assume/assert verb. Both verbs must lack objects and qualifiers; concrete alternatives and refusal/guessing contrasts are excluded. Reports complete matched clauses, once per clause, within a single block.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
           "id": "syntax.triad-density",

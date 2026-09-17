@@ -53,3 +53,8 @@ Independent human review is not a prerequisite for this work.
   local grammatical scaffolding raises exposed instruction-page recall from
   12/99 to 27/99; six new complete pages move from 0/32 to 1/32. Existing
   review burden and embedded-program false alarms remain visible.
+
+- [2026-09-17-purpose-recall](2026-09-17-purpose-recall/README.md): contextual
+  purpose and reader-claim rules recover ten exposed defects. Six new complete
+  pages remain at 1/28, with no new detection; the record retains all 27 misses
+  and the distinction between useful examples and broad recall.
