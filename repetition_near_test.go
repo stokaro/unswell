@@ -102,7 +102,8 @@ func TestNearSentenceClusterVersionAndBaseline(t *testing.T) {
 
 func TestNearSentenceCandidateBudget(t *testing.T) {
 	c := qt.New(t)
-	engine := singleRuleEngine(t, "repetition.near-sentence", "", "analysis: {max_candidates: 1}\n")
+	// Two scopes fit; the shared-bigram candidate index still exceeds the budget.
+	engine := singleRuleEngine(t, "repetition.near-sentence", "", "analysis: {max_candidates: 2}\n")
 	text := nearContrastSentence + "\n\n" + strings.Replace(nearContrastSentence, "may", "must", 1)
 	result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)})
 	c.Assert(err, qt.IsNil)

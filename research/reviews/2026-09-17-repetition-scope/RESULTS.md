@@ -71,12 +71,13 @@ Per-page event credit is identical between profiles.
 
 One fresh process per scan, including model startup and reports. These are local
 observations, not an isolated performance comparison. Other development checks
-ran on the host. Order: development-before, development-after, confirmation-before,
-confirmation-after; technical preceded strict within each pair.
+ran during the initial before scans; no other task tests ran during the bounded
+after scans. Both before sets preceded both bounded after sets; development
+preceded confirmation and technical preceded strict within each phase.
 
 | Set / profile | Wall seconds before / after | CPU seconds before / after | Peak RSS MiB before / after |
 | --- | ---: | ---: | ---: |
-| development / technical | 5.331 / 3.257 | 2.497 / 2.368 | 207.8 / 207.8 |
-| development / strict | 4.527 / 2.186 | 2.538 / 2.337 | 200.3 / 196.9 |
-| confirmation / technical | 0.717 / 0.523 | 0.868 / 0.778 | 128.8 / 130.8 |
-| confirmation / strict | 0.545 / 0.543 | 0.780 / 0.802 | 126.0 / 117.4 |
+| development / technical | 5.331 / 2.330 | 2.497 / 1.764 | 207.8 / 199.1 |
+| development / strict | 4.527 / 1.449 | 2.538 / 1.730 | 200.3 / 196.9 |
+| confirmation / technical | 0.717 / 0.504 | 0.868 / 0.734 | 128.8 / 114.0 |
+| confirmation / strict | 0.545 / 0.504 | 0.780 / 0.735 | 126.0 / 116.8 |

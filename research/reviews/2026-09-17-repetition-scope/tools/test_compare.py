@@ -12,7 +12,7 @@ import compare as c
 class EvidenceTests(unittest.TestCase):
  @classmethod
  def setUpClass(cls):
-  _,cls.pages,_,_,cls.events=c.audit.load(c.DEVELOPMENT)
+  _,cls.pages,cls.files,_,cls.events=c.audit.load(c.DEVELOPMENT)
   cls.report=c.audit.read(c.ROOT/'reports/development/after/technical.json.gz')
   cls.review=c.audit.read(c.ROOT/'dispositions.json')
   cls.row=cls.review['development']['technical']['added'][0]
@@ -54,5 +54,15 @@ class EvidenceTests(unittest.TestCase):
   def read(path):return review if path==c.ROOT/'dispositions.json' else original(path)
   with patch.object(c.audit,'read',side_effect=read):
    with self.assertRaisesRegex(ValueError,'Incomplete delta review'):c.evaluate()
+
+ def test_reject_hidden_abstention(self):
+  report=copy.deepcopy(self.report)
+  report['abstentions']=[{'rule_id':'repetition.exact-sentence','reason':'budget_exhausted'}]
+  original=c.audit.read
+  target=c.ROOT/'reports/development/after/technical.json.gz'
+  def read(path):return report if path==target else original(path)
+  with patch.object(c.audit,'read',side_effect=read):
+   with self.assertRaisesRegex(ValueError,'zero-abstention'):
+    c.run(c.ROOT,'development','after','technical',self.pages,self.files)
 
 if __name__=='__main__':unittest.main()

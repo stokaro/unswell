@@ -75,6 +75,7 @@ def run(root, split, phase, profile, pages, files):
     audit.require(audit.sha(path.read_bytes()) == record['sha256'], 'Report drift')
     report = audit.read(path)
     audit.require(report['status'] == 'complete' and report['manifest']['complete'] and not report['errors'], 'Incomplete run')
+    audit.require(not report.get('abstentions'), 'Published zero-abstention claim does not match the report')
     audit.require(report['manifest']['tool_commit'] == record['tool_commit'] and not report['manifest']['skipped_rules'], 'Engine or capability drift')
     audit.require(not report['manifest']['no_gate'] and report['manifest']['include_source'], 'Changed output policy')
     audit.require(report['manifest']['scoring_profile'] == profile+'-v1' and

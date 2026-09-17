@@ -65,9 +65,12 @@ claim and gives the new rule no credit for that event.
   configuration identities, commands and per-process time and memory.
 
 Before is `6f854b634657f45206221b205fe6abb8b4bb7d6d`; after is
-`2ded5ff7e3a15b68d722a6d2b8e1599eca9351e7`. The reproduced baseline findings
-match the preceding framing study exactly. The separate resource amendment
-records the context-serialization budget added after the initial measurements.
+`d9fad0c4a98c7b06cd38e163dc54a6b8e237543c`. The reproduced baseline findings
+match the preceding framing study exactly. The [resource comparison](resource-check.json) verifies that findings,
+assessments, abstentions and gates match the initial implementation at
+`2ded5ff7e3a15b68d722a6d2b8e1599eca9351e7` after adding the serialization budget.
+All four bounded scans have zero abstentions. Subsequent changes concern only
+test fixtures, research evidence and documentation.
 
 The same Codex assistant implemented and reviewed the diagnostics. The maintainer
 accepts this review under ADR 0041. It is not independent, blinded or human

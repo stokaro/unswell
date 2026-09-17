@@ -34,7 +34,7 @@ lines+=['','The gain is p014-d01; the loss is p004-d01. Development recall is un
 for profiles in results.values():
  for p in profiles['technical']['pages']:
   lines.append(f'| {p["page"]} | {p["cohort"]} / {p["selection"]} | {p["defects"]} | {p["before"]} | {p["after"]} |')
-lines+=['','Per-page event credit is identical between profiles.','', '## Resource observations','','One fresh process per scan, including model startup and reports. These are local','observations, not an isolated performance comparison. Other development checks','ran on the host. Order: development-before, development-after, confirmation-before,','confirmation-after; technical preceded strict within each pair.','',
+lines+=['','Per-page event credit is identical between profiles.','', '## Resource observations','','One fresh process per scan, including model startup and reports. These are local','observations, not an isolated performance comparison. Other development checks','ran during the initial before scans; no other task tests ran during the bounded','after scans. Both before sets preceded both bounded after sets; development','preceded confirmation and technical preceded strict within each phase.','',
 '| Set / profile | Wall seconds before / after | CPU seconds before / after | Peak RSS MiB before / after |','| --- | ---: | ---: | ---: |']
 for split,profiles in results.items():
  for profile,data in profiles.items():
@@ -45,20 +45,38 @@ review=c.audit.read(r/'dispositions.json')
 lines=['# Diagnostic changes','','Both profiles add one actionable diagnostic and remove twelve development','diagnostics: eleven nonactionable findings and one actionable finding.','Confirmation removes one nonactionable finding and adds none.','',
 'Every change below has source-bound review in `dispositions.json`. Unchanged','development findings inherit the original audit and framing follow-up judgments.','This is assistant review; no independent agreement statistic is claimed.',
 'Rendered snippets trim trailing line whitespace; the JSON reports retain exact text.','']
-for split in ('development','confirmation'):
- for kind,phase in [('added','after'),('removed','before')]:
-  report=c.audit.read(r/'reports'/split/phase/'technical.json.gz')
-  for row in review[split]['technical'][kind]:
-   f=report['findings'][row['index']]
-   lines += [f'## {split}: {kind} {f["rule_id"]} ({row["status"]})','',row['rationale'],'']
-   for loc in c.audit.locations(f):
-    s=loc['span'];lines += [f'{loc["path"]}, bytes [{s["start"]}, {s["end"]}):','','```text',loc['snippet'],'```','']
+for split in ('development', 'confirmation'):
+    for kind, phase in [('added', 'after'), ('removed', 'before')]:
+        report = c.audit.read(r/'reports'/split/phase/'technical.json.gz')
+        groups = {}
+        for row in review[split]['technical'][kind]:
+            finding = report['findings'][row['index']]
+            key = (finding['rule_id'], row['status'], row['rationale'])
+            groups.setdefault(key, []).append((row, finding))
+        for (rule_id, status, rationale), rows in groups.items():
+            lines += [f'## {split}: {kind} {rule_id} ({status})', '', rationale, '']
+            for row, finding in rows:
+                lines += [f'Diagnostic index: {row["index"]}.', '']
+                for location in c.audit.locations(finding):
+                    span = location['span']
+                    lines += [f'{location["path"]}, bytes [{span["start"]}, {span["end"]}):', '',
+                              '```text', location['snippet'], '```', '']
 markdown('CHANGES.md', lines)
 pages,_,events=c.confirmation(r)
 lines=['# Remaining confirmation defects','','All five defects below remain missed. Adjacent-word repetitions, repeated','clauses and paraphrases are distinct from complete list-item duplicates.','The labels were frozen before diagnostic outputs were opened.','']
+groups = {}
 for event in events.values():
- if event['kind']!='defects':continue
- p=pages[event['page']];lines += [f'## {event["id"]}: {event["subtype"]}','',f'[{p["repository"]}/{p["original_path"]}]({p["reference"]})','']
- for target in event['targets']:lines+=['```text',target['quote'],'```','']
- lines += [event['rationale'],'','Proposed edit: '+event['proposed_edit'],'']
+    if event['kind'] == 'defects':
+        key = (event['page'], event['subtype'], event['rationale'], event['proposed_edit'])
+        groups.setdefault(key, []).append(event)
+for (page_id, subtype, rationale, edit), grouped in groups.items():
+    page = pages[page_id]
+    ids = ', '.join(event['id'] for event in grouped)
+    lines += [f'## {ids}: {subtype}', '',
+              f'[{page["repository"]}/{page["original_path"]}]({page["reference"]})', '']
+    for event in grouped:
+        for target in event['targets']:
+            lines += [f'{event["id"]}, bytes [{target["start"]}, {target["end"]}):', '',
+                      '```text', target['quote'], '```', '']
+    lines += [rationale, '', 'Proposed edit: ' + edit, '']
 markdown('CONFIRMATION-MISSES.md', lines)
