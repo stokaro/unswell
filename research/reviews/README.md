@@ -53,3 +53,8 @@ Independent human review is not a prerequisite for this work.
   local grammatical scaffolding raises exposed instruction-page recall from
   12/99 to 27/99; six new complete pages move from 0/32 to 1/32. Existing
   review burden and embedded-program false alarms remain visible.
+
+- [2026-09-17-claim-budget](2026-09-17-claim-budget/README.md):
+  a combined identity/source-map pass removes the long-reference budget
+  abstention. All 82 pages retain their findings and assessments; a separate
+  generous-budget replay preserves every block activation and its ownership.

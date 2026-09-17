@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"strings"
 	"testing"
 
 	qt "github.com/frankban/quicktest"
@@ -36,7 +35,7 @@ func TestRepeatedClaimBudgetOnLongReference(t *testing.T) {
 	c.Assert(bounded.Features.Sources, qt.HasLen, 1)
 	c.Assert(len(bounded.Features.Sources[0].Units) > 0, qt.IsTrue)
 	c.Assert(reference.Features.Sources, qt.HasLen, 1)
-	c.Assert(len(bounded.Features.Sources[0].Units), qt.Equals, len(reference.Features.Sources[0].Units))
+	c.Assert(bounded.Features.Sources[0].Units, qt.HasLen, len(reference.Features.Sources[0].Units))
 	measured := 0
 	for i, unit := range bounded.Features.Sources[0].Units {
 		// Input identities include the budget policy. Compare the observations and
@@ -101,7 +100,7 @@ func TestRepeatedClaimIdentityPreservesMappedText(t *testing.T) {
 			c.Assert(result.Findings, qt.HasLen, row.want)
 			for _, finding := range result.Findings {
 				c.Assert(text[finding.Primary.Span.Start:finding.Primary.Span.End], qt.Equals, finding.Primary.Snippet)
-				c.Assert(strings.Contains(text, finding.Related[0].Snippet), qt.IsTrue)
+				c.Assert(text, qt.Contains, finding.Related[0].Snippet)
 			}
 		})
 	}
