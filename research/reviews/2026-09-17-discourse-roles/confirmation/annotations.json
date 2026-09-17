@@ -1,0 +1,1897 @@
+{
+  "version": 1,
+  "rubric": "unswell-editorial-v1",
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "8353629cac4e6149f827eac920078c295ecf7e3ab83376cd955bdefef4310d02",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4443,
+          "first_line": 1,
+          "last_line": 71,
+          "rationale": "Read all 55 extracted prose blocks and table cells with original Markdown context. This is a concise diagnostic-code lookup. Preserve missing-tool versus refusal, token binding, rollback verification and narrow authorization boundaries. No required editorial repair found in any of the seven categories.",
+          "prose_blocks": 55,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [],
+      "uncertain": [],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3645,
+              "end": 3805,
+              "quote": "An artifact tool missing from `tools/list` means the process was started without\n`--workspace`; a missing tool is different from a tool that returned a refusal."
+            }
+          ],
+          "context": [
+            {
+              "start": 3645,
+              "end": 3805,
+              "quote": "An artifact tool missing from `tools/list` means the process was started without\n`--workspace`; a missing tool is different from a tool that returned a refusal."
+            }
+          ],
+          "rationale": "A missing tool and an explicit refusal are different process states, despite repeated missing/tool language.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4209,
+              "end": 4442,
+              "quote": "Do not fix a narrow refusal by granting a general shell or a broader filesystem\nroot. Ptah's refusal is evidence that its scoped operation stayed inside the\ndeclared boundary; a client-provided tool may bypass that boundary entirely."
+            }
+          ],
+          "context": [
+            {
+              "start": 4209,
+              "end": 4442,
+              "quote": "Do not fix a narrow refusal by granting a general shell or a broader filesystem\nroot. Ptah's refusal is evidence that its scoped operation stayed inside the\ndeclared boundary; a client-provided tool may bypass that boundary entirely."
+            }
+          ],
+          "rationale": "The broad-shell warning states a concrete authorization boundary; it is not an abstract safety endorsement.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4024,
+              "end": 4183,
+              "quote": "After `gate_failed`, confirm that the response says `rolled_back: true` and read\nthe artifact again. Its digest should match the state before the failed apply."
+            }
+          ],
+          "context": [
+            {
+              "start": 4024,
+              "end": 4183,
+              "quote": "After `gate_failed`, confirm that the response says `rolled_back: true` and read\nthe artifact again. Its digest should match the state before the failed apply."
+            }
+          ],
+          "rationale": "Both rollback confirmation and a new digest comparison are necessary verification steps.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "056c4cb6d222973801e1c3d6729d36b696017863b06b1b80d75d22d9687f4c33",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 14313,
+          "first_line": 1,
+          "last_line": 338,
+          "rationale": "Read all 73 extracted prose blocks and table cells with original Markdown and command context. Preserve cluster-wide roles, ownership versus grants, native versus compatible output, absent versus unsupported objects, projection scope and dev replay requirements. Errors in the source are retained, including The The. Length alone is not a defect.",
+          "prose_blocks": 73,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 589,
+              "end": 748,
+              "quote": "You want to see the schema a live database actually has \u2014 to review it in the\nterminal, commit it as a file, or turn it into a schema source Ptah can manage."
+            }
+          ],
+          "context": [
+            {
+              "start": 589,
+              "end": 840,
+              "quote": "You want to see the schema a live database actually has \u2014 to review it in the\nterminal, commit it as a file, or turn it into a schema source Ptah can manage.\nPtah reads a live schema through three commands, each producing a different\nrepresentation:"
+            }
+          ],
+          "rationale": "The assumed-reader-goal introduction repeats the following three command purposes.",
+          "proposed_edit": "Begin with the three live-schema commands and retain their output and use-case distinctions in the table."
+        },
+        {
+          "id": "c02-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2433,
+              "end": 2604,
+              "quote": "a role that holds a\nprivilege on a relation in them or on one of the schemas, a role that granted\none, or a role a row-level security policy on a table in them applies to."
+            }
+          ],
+          "context": [
+            {
+              "start": 2303,
+              "end": 2708,
+              "quote": "PostgreSQL roles are cluster-wide rather than per-database, so a read reports\nonly the roles the schemas being read actually use: a role that holds a\nprivilege on a relation in them or on one of the schemas, a role that granted\none, or a role a row-level security policy on a table in them applies to. A\nrole that merely exists elsewhere on the server belongs to no schema being read\nand is not described."
+            }
+          ],
+          "rationale": "Nested role/one/them references obscure three distinct selection criteria.",
+          "proposed_edit": "List privilege holders, privilege grantors, and roles referenced by row-level security policies, explicitly scoped to selected schemas."
+        },
+        {
+          "id": "c02-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3042,
+              "end": 3170,
+              "quote": "For the same reason a read no longer reports\nthe built-in privileges an owner holds on a relation nobody has granted\nanything on"
+            }
+          ],
+          "context": [
+            {
+              "start": 2710,
+              "end": 3285,
+              "quote": "Equivalently, a read describes a role exactly when some other statement in the\nsame output names it, so the output never refers to a role it does not create.\nOwnership alone is not a reason: Ptah writes no `OWNER TO` and no\n`CREATE SCHEMA ... AUTHORIZATION`, so an owner would be a role the output\ncreates and never mentions again. For the same reason a read no longer reports\nthe built-in privileges an owner holds on a relation nobody has granted\nanything on -- no `GRANT` produced them, and `CREATE TABLE` re-establishes them\nfor the new owner when the output is replayed."
+            }
+          ],
+          "rationale": "Nested negatives and unnamed nobody/anything obscure the exact no-explicit-GRANT condition.",
+          "proposed_edit": "State that implicit owner privileges are omitted when no explicit GRANT exists; retain restoration by CREATE TABLE."
+        },
+        {
+          "id": "c02-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3585,
+              "end": 3684,
+              "quote": "which is what you want when the point of the read is to\nreproduce a cluster's roles somewhere else."
+            }
+          ],
+          "context": [
+            {
+              "start": 3484,
+              "end": 3937,
+              "quote": "That describes every role Ptah manages on the server \u2014 what a read produced\nbefore the scoping \u2014 which is what you want when the point of the read is to\nreproduce a cluster's roles somewhere else. It changes the description only:\ncomparison already treats those roles as present either way. Reserved `pg_`\nnames and the bootstrap `postgres` superuser stay out of both. See\n[PostgreSQL roles and grants](../../databases/postgresql/#roles-and-grants)."
+            }
+          ],
+          "rationale": "The reader-desire and point-of-read frame adds no behavior to the stated full-role export purpose.",
+          "proposed_edit": "Say to use the full read to reproduce cluster roles elsewhere; preserve reserved-name exclusions and comparison behavior."
+        },
+        {
+          "id": "c02-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6746,
+              "end": 6882,
+              "quote": "that filtering is a\nproperty of `ptah-compat` alone, never reaches this command, and\n`PTAH_ATLAS_INSPECT_ALL_BLOCKS` has no effect here."
+            }
+          ],
+          "context": [
+            {
+              "start": 6460,
+              "end": 7029,
+              "quote": "Native inspection describes every construct Ptah models, including PostgreSQL\nextensions, sequences, and row-level security policies. The Atlas-compatible\nbinary leaves those three block types out of its HCL by default, because the\ntool it stands in for refuses a file containing them; that filtering is a\nproperty of `ptah-compat` alone, never reaches this command, and\n`PTAH_ATLAS_INSPECT_ALL_BLOCKS` has no effect here. See\n[Blocks the compatibility surface leaves out by default](../../atlas/schema-commands/#blocks-the-compatibility-surface-leaves-out-by-default)."
+            }
+          ],
+          "rationale": "Three clauses describe filter ownership indirectly; the native command and environment-variable behavior can be stated directly.",
+          "proposed_edit": "State that native inspection does not filter these block types and ignores PTAH_ATLAS_INSPECT_ALL_BLOCKS."
+        },
+        {
+          "id": "c02-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7263,
+              "end": 7291,
+              "quote": "which is what you asked for."
+            }
+          ],
+          "context": [
+            {
+              "start": 7031,
+              "end": 7497,
+              "quote": "Because this command leaves no block type out, its output claims to describe\neverything the HCL format can express, and it carries no `ptah:not-described`\nheader. Delete a block from it and the plan that follows removes the object,\nwhich is what you asked for. The compatibility surface, which does leave blocks\nout, says so in the document; see\n[The document says what it does not describe](../../atlas/schema-commands/#the-document-says-what-it-does-not-describe)."
+            }
+          ],
+          "rationale": "The reader-intention endorsement adds no information to removal of an omitted supported object.",
+          "proposed_edit": "Delete the endorsement and keep the precise omission/removal behavior."
+        },
+        {
+          "id": "c02-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7499,
+              "end": 7634,
+              "quote": "What HCL has no syntax for at all is a different question, and it is answered\nwhen the document is read rather than when it is written."
+            }
+          ],
+          "context": [
+            {
+              "start": 7499,
+              "end": 8329,
+              "quote": "What HCL has no syntax for at all is a different question, and it is answered\nwhen the document is read rather than when it is written. A SQLite virtual table\nhas no block, so a document written in this format could not have named one \u2014\nand reading its silence as intent would make `ptah schema inspect > out.hcl`\nfollowed by `ptah schema apply --to file://out.hcl` drop it, through Ptah's own\noutput. Every loader records those limits for the format it read, so the\ncomparison withholds the removal. HCL **does** have a `synonym`, an\n`extended_property`, a `hypertable` and a `continuous_aggregate` block, as a Go\nschema does, so silence about one of those in this format still removes it \u2014\nexcept a hypertable, whose removal TimescaleDB has no statement for and which is\nrefused instead. YAML has a key for none of the four."
+            }
+          ],
+          "rationale": "The question/answer frame obscures the concrete loader-stage format capability check.",
+          "proposed_edit": "State that loaders record object types the input format cannot express."
+        },
+        {
+          "id": "c02-d08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11754,
+              "end": 11800,
+              "quote": "That is the selector the transport\nbelongs to:"
+            }
+          ],
+          "context": [
+            {
+              "start": 11634,
+              "end": 12204,
+              "quote": "`--schema-file` also accepts an `oci://` schema artifact, the same way every\nother command with a `--schema-file` does. That is the selector the transport\nbelongs to: `schema diff` takes its desired-schema sources through\n`--from`/`--to`, does not resolve `oci://`, and does not register\n`--plain-http`. The artifact is pulled to its canonical HCL, then materialized\nand introspected like any other schema file, so the output is byte-identical to\ninspecting the same artifact after `ptah schema pull`. GHCR uses HTTPS by\ndefault, so this command needs no transport flag:"
+            }
+          ],
+          "rationale": "The selector-ownership metaphor delays the concrete difference between schema-file transport and diff inputs.",
+          "proposed_edit": "State directly that OCI resolution is supported by --schema-file, while schema diff --from/--to does not resolve it."
+        },
+        {
+          "id": "c02-d09",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 12734,
+              "end": 12753,
+              "quote": "That is\ndeliberate:"
+            }
+          ],
+          "context": [
+            {
+              "start": 12594,
+              "end": 12861,
+              "quote": "The Atlas-compatible `ptah-compat schema inspect --url` does not accept\n`oci://` and refuses it with `sql/sqlclient: unknown driver \"oci\"`. That is\ndeliberate: the compat surface's contract is to match the pinned community\nbinary, which has no `oci://` driver at all."
+            }
+          ],
+          "rationale": "The intention announcement adds no compatibility condition to the following pinned-driver explanation.",
+          "proposed_edit": "Keep the unknown-driver refusal and pinned-community parity explanation."
+        },
+        {
+          "id": "c02-d10",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 13453,
+              "end": 13460,
+              "quote": "The\nThe"
+            }
+          ],
+          "context": [
+            {
+              "start": 13379,
+              "end": 13556,
+              "quote": "An unreachable database fails with exit code `2` on every native command. The\nThe `ptah db read` standard error stream ends with a connection checklist and\nthe underlying error:"
+            }
+          ],
+          "rationale": "The adjacent article is duplicated.",
+          "proposed_edit": "Keep one The."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c02-u01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2710,
+              "end": 2867,
+              "quote": "Equivalently, a read describes a role exactly when some other statement in the\nsame output names it, so the output never refers to a role it does not create."
+            }
+          ],
+          "context": [
+            {
+              "start": 2710,
+              "end": 3285,
+              "quote": "Equivalently, a read describes a role exactly when some other statement in the\nsame output names it, so the output never refers to a role it does not create.\nOwnership alone is not a reason: Ptah writes no `OWNER TO` and no\n`CREATE SCHEMA ... AUTHORIZATION`, so an owner would be a role the output\ncreates and never mentions again. For the same reason a read no longer reports\nthe built-in privileges an owner holds on a relation nobody has granted\nanything on -- no `GRANT` produced them, and `CREATE TABLE` re-establishes them\nfor the new owner when the output is replayed."
+            }
+          ],
+          "rationale": "This repeats selection criteria but the invariant may help explain replay completeness. Whether to remove it is uncertain.",
+          "proposed_edit": "Optionally combine the invariant with the selection list while preserving referential closure."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 4213,
+              "end": 4614,
+              "quote": "Role creation statements in PostgreSQL output are intended for\na clean target. If a role already exists, running the SQL by hand\nfails before its description or grants are changed; this prevents privileges\nfrom being attached to a role with unverified security attributes. Role\ndescriptions are restored with `COMMENT ON ROLE`; schema and table grants are\nstill emitted after successful role creation."
+            }
+          ],
+          "context": [
+            {
+              "start": 4213,
+              "end": 4614,
+              "quote": "Role creation statements in PostgreSQL output are intended for\na clean target. If a role already exists, running the SQL by hand\nfails before its description or grants are changed; this prevents privileges\nfrom being attached to a role with unverified security attributes. Role\ndescriptions are restored with `COMMENT ON ROLE`; schema and table grants are\nstill emitted after successful role creation."
+            }
+          ],
+          "rationale": "Clean-target SQL failure prevents grants attaching to an unverified existing role; the consequence is material.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4616,
+              "end": 5189,
+              "quote": "Feeding that description back through Ptah is different, because Ptah knows the\nrole is already there. `ptah-compat schema apply` plans no `CREATE ROLE` for a\nrole the target's server has, and evaluating the document on a `--dev-url` dev\ndatabase does not re-create one either \u2014 a dev database is reset before the\ndocument is materialized on it, and resetting a database does not clear the\nserver's roles. Roles the dev database was not given are named on standard\nerror and are left exactly as the server has them; a role the server does not\nhave is still created there."
+            }
+          ],
+          "context": [
+            {
+              "start": 4616,
+              "end": 5189,
+              "quote": "Feeding that description back through Ptah is different, because Ptah knows the\nrole is already there. `ptah-compat schema apply` plans no `CREATE ROLE` for a\nrole the target's server has, and evaluating the document on a `--dev-url` dev\ndatabase does not re-create one either \u2014 a dev database is reset before the\ndocument is materialized on it, and resetting a database does not clear the\nserver's roles. Roles the dev database was not given are named on standard\nerror and are left exactly as the server has them; a role the server does not\nhave is still created there."
+            }
+          ],
+          "rationale": "Database reset does not clear server roles; existing and absent roles have different replay behavior.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 8002,
+              "end": 8292,
+              "quote": "HCL **does** have a `synonym`, an\n`extended_property`, a `hypertable` and a `continuous_aggregate` block, as a Go\nschema does, so silence about one of those in this format still removes it \u2014\nexcept a hypertable, whose removal TimescaleDB has no statement for and which is\nrefused instead."
+            }
+          ],
+          "context": [
+            {
+              "start": 7499,
+              "end": 8329,
+              "quote": "What HCL has no syntax for at all is a different question, and it is answered\nwhen the document is read rather than when it is written. A SQLite virtual table\nhas no block, so a document written in this format could not have named one \u2014\nand reading its silence as intent would make `ptah schema inspect > out.hcl`\nfollowed by `ptah schema apply --to file://out.hcl` drop it, through Ptah's own\noutput. Every loader records those limits for the format it read, so the\ncomparison withholds the removal. HCL **does** have a `synonym`, an\n`extended_property`, a `hypertable` and a `continuous_aggregate` block, as a Go\nschema does, so silence about one of those in this format still removes it \u2014\nexcept a hypertable, whose removal TimescaleDB has no statement for and which is\nrefused instead. YAML has a key for none of the four."
+            }
+          ],
+          "rationale": "The exception and named object distinctions carry actual format semantics; do not delete them merely to shorten the sentence.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 10172,
+              "end": 10835,
+              "quote": "Child resources \u2014 columns, indexes, constraints, triggers, policies, grants \u2014\nride along with their parent and cannot be selected on their own; a selector\nthat names one with `[type=column]` fails before the database is contacted.\nA positional spelling such as `users.email` is not refused on its shape,\nbecause it is indistinguishable from a table literally named `users.email`.\nWhether it matched is decided by the projection: `path.Match` treats `.` as an\nordinary character, so `users.email`, `users*email`, `users?email`, and\n`users[.]email` all select nothing, and inspection says so on standard error\nwhile keeping exit status 0 and its rendered bytes."
+            }
+          ],
+          "context": [
+            {
+              "start": 10172,
+              "end": 10835,
+              "quote": "Child resources \u2014 columns, indexes, constraints, triggers, policies, grants \u2014\nride along with their parent and cannot be selected on their own; a selector\nthat names one with `[type=column]` fails before the database is contacted.\nA positional spelling such as `users.email` is not refused on its shape,\nbecause it is indistinguishable from a table literally named `users.email`.\nWhether it matched is decided by the projection: `path.Match` treats `.` as an\nordinary character, so `users.email`, `users*email`, `users?email`, and\n`users[.]email` all select nothing, and inspection says so on standard error\nwhile keeping exit status 0 and its rendered bytes."
+            }
+          ],
+          "rationale": "A positional dot and an explicit child-type selector have different validation and matching behavior.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11229,
+              "end": 11632,
+              "quote": "The source does not have to be a live database: `--schema-file` inspects a\nlocal `.hcl`, `.yaml`, `.yml`, `.sql`, or `.dbml` schema file, and `--migrations-dir`\ninspects an Atlas-format migration directory. Both require `--dev-url` \u2014 a\ndisposable database that is reset, has the source materialized on it, and is\nthen introspected, so the output is normalized by a real database of the\ntarget dialect."
+            }
+          ],
+          "context": [
+            {
+              "start": 11229,
+              "end": 11632,
+              "quote": "The source does not have to be a live database: `--schema-file` inspects a\nlocal `.hcl`, `.yaml`, `.yml`, `.sql`, or `.dbml` schema file, and `--migrations-dir`\ninspects an Atlas-format migration directory. Both require `--dev-url` \u2014 a\ndisposable database that is reset, has the source materialized on it, and is\nthen introspected, so the output is normalized by a real database of the\ntarget dialect."
+            }
+          ],
+          "rationale": "The dev database is reset, materialized and introspected; these are distinct destructive and normalization steps.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "95882b4d6a7a64e29536d51179bee04be14b5aef85b53d1c4f1d5bd26228ec09",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 34117,
+          "first_line": 1,
+          "last_line": 726,
+          "rationale": "Read all 256 extracted FAQ prose blocks, headings and link labels with original source context. Repeated question-and-answer organization is functional. Preserve scope, approval, server capabilities, destructive replay boundaries and identity/authenticity distinctions. Repeated No prefixes on open questions are a source-bound template defect, not evidence of authorship; do not label ordinary yes/no answers.",
+          "prose_blocks": 256,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4046,
+              "end": 4092,
+              "quote": "because the need often already has a spelling."
+            }
+          ],
+          "context": [
+            {
+              "start": 3964,
+              "end": 4224,
+              "quote": "Describe the task and the outcome you need rather than the flag you have in\nmind, because the need often already has a spelling. Ptah is pre-GA and the\nsurface still moves, so a suggestion that names a workflow is easier to place\nthan one that names an option."
+            }
+          ],
+          "rationale": "The spelling metaphor substitutes an unnamed syntax claim for an existing feature explanation.",
+          "proposed_edit": "Say that an existing command or option may already support the task."
+        },
+        {
+          "id": "c03-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5587,
+              "end": 5622,
+              "quote": "One question behind three symptoms:"
+            }
+          ],
+          "context": [
+            {
+              "start": 5587,
+              "end": 5695,
+              "quote": "One question behind three symptoms: the Atlas-shaped surface and the native surface are separate on purpose."
+            }
+          ],
+          "rationale": "This announces the FAQ grouping without explaining an additional condition.",
+          "proposed_edit": "Start with the native-versus-compatible surface distinction."
+        },
+        {
+          "id": "c03-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 13164,
+              "end": 13206,
+              "quote": "reports what Ptah makes of a project\nfile."
+            }
+          ],
+          "context": [
+            {
+              "start": 12930,
+              "end": 13206,
+              "quote": "Check the selected environment, the environment variables, and the explicit CLI\nflags, which take precedence. Diagnose the connection with a read-only command\nusing the same parameters before repeating a schema change. `ptah project` reports what Ptah makes of a project\nfile."
+            }
+          ],
+          "rationale": "The anthropomorphic makes-of phrase hides the resolved-configuration result.",
+          "proposed_edit": "Say that ptah project reports the resolved project configuration."
+        },
+        {
+          "id": "c03-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 14144,
+              "end": 14201,
+              "quote": "Do not read a checkpoint as permission to delete history."
+            }
+          ],
+          "context": [
+            {
+              "start": 14140,
+              "end": 14386,
+              "quote": "No. Do not read a checkpoint as permission to delete history. Existing databases may\nstill need old migrations they have not run, applied history is tied to revision\nmetadata, and speeding up new databases does not require removing the old files."
+            }
+          ],
+          "rationale": "This repeats the opening No and the question before giving the concrete reasons.",
+          "proposed_edit": "Keep No and the requirements for unapplied migrations and revision metadata."
+        },
+        {
+          "id": "c03-d05",
+          "category": "formulaic_transitions",
+          "subtype": "formulaic_transitions",
+          "targets": [
+            {
+              "start": 14633,
+              "end": 14636,
+              "quote": "No."
+            },
+            {
+              "start": 25387,
+              "end": 25390,
+              "quote": "No."
+            },
+            {
+              "start": 27716,
+              "end": 27719,
+              "quote": "No."
+            },
+            {
+              "start": 29155,
+              "end": 29158,
+              "quote": "No."
+            }
+          ],
+          "context": [
+            {
+              "start": 14633,
+              "end": 14813,
+              "quote": "No. A checkpoint captures the resulting schema, not table contents. Data a new\ndatabase needs has to have its own initialization path, such as seed files or\nmanaged reference data."
+            },
+            {
+              "start": 25387,
+              "end": 25580,
+              "quote": "No. Migration status answers a question about recorded history, not about whether the\nlive schema matches an expectation. For the second question use `ptah schema\ndrift` with the desired state."
+            },
+            {
+              "start": 27716,
+              "end": 27881,
+              "quote": "No. On the native surface a missing integrity file is allowed, while a file that\nexists is verified. Use `--verify-sum` where the file has to be present and\nchecked."
+            },
+            {
+              "start": 29155,
+              "end": 29388,
+              "quote": "No. A tag is a mutable pointer. Promote one verified digest between environments\nrather than expecting a tag to hold the same contents across two deployments. See\n[OCI registry artifacts](../operate/oci-registry/#choose-a-reference)."
+            }
+          ],
+          "rationale": "The same binary-answer opener is inserted into four why/how questions, where it negates no proposition and distracts from the explanations.",
+          "proposed_edit": "Remove No from these open-question answers and keep their technical explanations."
+        },
+        {
+          "id": "c03-d06",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 16557,
+              "end": 16566,
+              "quote": "genuinely"
+            }
+          ],
+          "context": [
+            {
+              "start": 16409,
+              "end": 16595,
+              "quote": "Use environment-scoped seed files for initial filling. Declarative reference data\nanswers a different question: keeping the contents of tables Ptah genuinely\nmanages at a declared state."
+            }
+          ],
+          "rationale": "The emphasis adds no criterion to the managed-table scope.",
+          "proposed_edit": "Delete genuinely and retain the requirement that Ptah manages the table."
+        },
+        {
+          "id": "c03-d07",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 23350,
+              "end": 23359,
+              "quote": "genuinely"
+            }
+          ],
+          "context": [
+            {
+              "start": 23317,
+              "end": 23529,
+              "quote": "Partly, only if its contents can genuinely be destroyed. The shadow and replay workflows\nclear the database to get a reproducible run of the history, which rules out a\nshared dev, staging, or production database."
+            }
+          ],
+          "rationale": "This intensifier adds no permission or disposability condition.",
+          "proposed_edit": "Delete genuinely while keeping the destructive-cleanup warning."
+        },
+        {
+          "id": "c03-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 26901,
+              "end": 26987,
+              "quote": "A difference does not stop existing because no supported planning\noperation covers it."
+            }
+          ],
+          "context": [
+            {
+              "start": 26883,
+              "end": 27203,
+              "quote": "Yes, it is drift. A difference does not stop existing because no supported planning\noperation covers it. Check the reported category and the engine capabilities; a\nhand-written migration or a change to the desired schema may be needed. See\n[Compare and drift](../direct/compare-and-drift/#compare-the-difference-as-sql)."
+            }
+          ],
+          "rationale": "The existence aphorism restates the Yes drift answer and delays the practical limitation.",
+          "proposed_edit": "State that Ptah can detect differences for which the engine has no supported SQL planning operation."
+        },
+        {
+          "id": "c03-d09",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 28882,
+              "end": 28962,
+              "quote": "Which registry you use and whether a Docker daemon runs are different\nquestions."
+            }
+          ],
+          "context": [
+            {
+              "start": 28790,
+              "end": 28962,
+              "quote": "No. `ptah oci login` is a separate authentication path that does not need Docker\ninstalled. Which registry you use and whether a Docker daemon runs are different\nquestions."
+            }
+          ],
+          "rationale": "The closing comparison repeats the immediately preceding independent ptah oci login path without adding a restriction.",
+          "proposed_edit": "Keep the statement that ptah oci login works without Docker installed."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c03-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 21336,
+              "end": 21420,
+              "quote": "The mode asks for one\ntransaction; it cannot grant the engine a capability it lacks."
+            }
+          ],
+          "context": [
+            {
+              "start": 21208,
+              "end": 21420,
+              "quote": "Some statements cannot run inside a transaction on the target engine, and some\nengines do not carry DDL transactionally at all. The mode asks for one\ntransaction; it cannot grant the engine a capability it lacks."
+            }
+          ],
+          "rationale": "The anthropomorphic wording restates the limit, but may clarify why the flag cannot enforce unsupported transactional DDL.",
+          "proposed_edit": "Optionally state directly that the flag cannot make unsupported DDL transactional."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5781,
+              "end": 6212,
+              "quote": "One spelling covers two unrelated safety questions. On `ptah migrations up` it\nasks for a verified retry of a migration body that failed part-way; on\n`ptah-compat migrate apply` it asks to adopt a database that already holds\nobjects this history did not create. Neither implies the other, so read the flag\nagainst the command it was typed after. See\n[Apply migrations](../versioned/apply/#--allow-dirty-means-two-different-things)."
+            }
+          ],
+          "context": [
+            {
+              "start": 5781,
+              "end": 6212,
+              "quote": "One spelling covers two unrelated safety questions. On `ptah migrations up` it\nasks for a verified retry of a migration body that failed part-way; on\n`ptah-compat migrate apply` it asks to adopt a database that already holds\nobjects this history did not create. Neither implies the other, so read the flag\nagainst the command it was typed after. See\n[Apply migrations](../versioned/apply/#--allow-dirty-means-two-different-things)."
+            }
+          ],
+          "rationale": "The same flag spelling means verified retry on one surface and adoption on another; both definitions are needed.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 15925,
+              "end": 16247,
+              "quote": "Partly. The check speaks for the database you named; it does not prove\nthat nobody applied the migration or pulled it from a registry. Treat published\nhistory as shared even when your local database has not seen it yet. See\n[Maintain migration history](../versioned/maintain-history/#applied-is-not-the-same-as-published)."
+            }
+          ],
+          "context": [
+            {
+              "start": 15925,
+              "end": 16247,
+              "quote": "Partly. The check speaks for the database you named; it does not prove\nthat nobody applied the migration or pulled it from a registry. Treat published\nhistory as shared even when your local database has not seen it yet. See\n[Maintain migration history](../versioned/maintain-history/#applied-is-not-the-same-as-published)."
+            }
+          ],
+          "rationale": "A local database check cannot establish whether history was distributed elsewhere.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 20766,
+              "end": 21008,
+              "quote": "`set` moves the recorded history boundary without running SQL, and `repair`\nwithout a resume reconciles the record of the failing migration. Neither replaces\nfixing the database itself; both should record a state you have already\nestablished."
+            }
+          ],
+          "context": [
+            {
+              "start": 20766,
+              "end": 21008,
+              "quote": "`set` moves the recorded history boundary without running SQL, and `repair`\nwithout a resume reconciles the record of the failing migration. Neither replaces\nfixing the database itself; both should record a state you have already\nestablished."
+            }
+          ],
+          "rationale": "Recorded-history repair differs from a database change and from resumed execution.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 22008,
+              "end": 22264,
+              "quote": "No. The classification is not a promise of zero downtime or of compatibility with\nevery reader and writer. For live systems, judge locking, data volume, and\nrollout order separately, and stage the application and schema change when they\nare not compatible."
+            }
+          ],
+          "context": [
+            {
+              "start": 22008,
+              "end": 22264,
+              "quote": "No. The classification is not a promise of zero downtime or of compatibility with\nevery reader and writer. For live systems, judge locking, data volume, and\nrollout order separately, and stage the application and schema change when they\nare not compatible."
+            }
+          ],
+          "rationale": "The safety classification does not establish zero downtime or application compatibility.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 23735,
+              "end": 23914,
+              "quote": "Save the plan, review it, and use the signed approval at apply time. That\nseparates agreeing to a specific piece of SQL from permission to run whatever\nplan the tool builds later."
+            }
+          ],
+          "context": [
+            {
+              "start": 23735,
+              "end": 23914,
+              "quote": "Save the plan, review it, and use the signed approval at apply time. That\nseparates agreeing to a specific piece of SQL from permission to run whatever\nplan the tool builds later."
+            }
+          ],
+          "rationale": "Approval binds a specific plan rather than granting arbitrary future execution.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c06",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 29518,
+              "end": 29869,
+              "quote": "No. They establish identity and internal consistency, not who published the\nbytes. `ptah oci verify` enforces a policy before an artifact is consumed, and\nits `require_signature` checks that a signature is attached without running any\ncryptography. Keep signing and cryptographic verification with cosign or\nNotation, and use registry access controls."
+            }
+          ],
+          "context": [
+            {
+              "start": 29518,
+              "end": 29869,
+              "quote": "No. They establish identity and internal consistency, not who published the\nbytes. `ptah oci verify` enforces a policy before an artifact is consumed, and\nits `require_signature` checks that a signature is attached without running any\ncryptography. Keep signing and cryptographic verification with cosign or\nNotation, and use registry access controls."
+            }
+          ],
+          "rationale": "Identity, consistency, signature attachment and cryptographic trust are distinct claims.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 31842,
+              "end": 32163,
+              "quote": "Granting a class of operations and allowing it without a prompt are separate\nsettings. For a trusted non-interactive job, add `--auto-approve` for the class\nyou need; it grants no database access and lifts none of the other gates. See\n[Configure agent permissions](../operate/ai-agent-permissions/#run-non-interactively)."
+            }
+          ],
+          "context": [
+            {
+              "start": 31842,
+              "end": 32163,
+              "quote": "Granting a class of operations and allowing it without a prompt are separate\nsettings. For a trusted non-interactive job, add `--auto-approve` for the class\nyou need; it grants no database access and lifts none of the other gates. See\n[Configure agent permissions](../operate/ai-agent-permissions/#run-non-interactively)."
+            }
+          ],
+          "rationale": "Operation class and noninteractive approval are separate settings; neither grants database access.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "f2102e94dc604d34dff45c5fedffa9bd8abfc523713c7f5398092c84e00dbaa3",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 20405,
+          "first_line": 1,
+          "last_line": 509,
+          "rationale": "Read all 193 extracted blocks, including the platform-name list, and original install command context. Preserve build prerequisites, paths, optional dependency branches, CRT safety, toolchain limits and measured binary sizes. Qualitative judgments with explicit mechanisms are not automatically defects. Historical provenance is not a human-quality label.",
+          "prose_blocks": 193,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 132,
+              "end": 316,
+              "quote": "This\ndocument does not describe how to install curl or libcurl using such a binary\npackage. This document describes how to compile, build and install curl and\nlibcurl from source code."
+            }
+          ],
+          "context": [
+            {
+              "start": 66,
+              "end": 316,
+              "quote": "Lots of people download binary distributions of curl and libcurl. This\ndocument does not describe how to install curl or libcurl using such a binary\npackage. This document describes how to compile, build and install curl and\nlibcurl from source code."
+            }
+          ],
+          "rationale": "Two document-subject clauses redundantly establish the scope through exclusion and inclusion.",
+          "proposed_edit": "Say that these instructions build and install curl and libcurl from source, not binary packages."
+        },
+        {
+          "id": "c04-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1040,
+              "end": 1097,
+              "quote": "A normal Unix installation is made in three or four steps"
+            }
+          ],
+          "context": [
+            {
+              "start": 1040,
+              "end": 1141,
+              "quote": "A normal Unix installation is made in three or four steps (after you've\nunpacked the source archive):"
+            }
+          ],
+          "rationale": "The passive installation-is-made scaffold obscures the direct sequence introduction.",
+          "proposed_edit": "Introduce the commands as the Unix installation steps, preserving the unpacking prerequisite."
+        },
+        {
+          "id": "c04-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2398,
+              "end": 2422,
+              "quote": "If you insist on forcing"
+            }
+          ],
+          "context": [
+            {
+              "start": 2398,
+              "end": 2543,
+              "quote": "If you insist on forcing a build without SSL support, even though you may\nhave OpenSSL installed in your system, you can run configure like this:"
+            }
+          ],
+          "rationale": "This imputes stubbornness to the reader choosing a supported build option.",
+          "proposed_edit": "Use To build without SSL support and preserve the installed-library qualification."
+        },
+        {
+          "id": "c04-d04",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 3701,
+              "end": 3717,
+              "quote": "a decent default"
+            }
+          ],
+          "context": [
+            {
+              "start": 3575,
+              "end": 3804,
+              "quote": "curl can be built to use a whole range of libraries to provide various useful\nservices, and configure will try to auto-detect a decent default. But if you\nwant to alter it, you can select how to deal with each individual library."
+            }
+          ],
+          "rationale": "The evaluative default claim has no criterion; auto-detection is the actual behavior.",
+          "proposed_edit": "State that configure auto-detects libraries, or name its selection priority."
+        },
+        {
+          "id": "c04-d05",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 4487,
+              "end": 4499,
+              "quote": "at\n any cost"
+            }
+          ],
+          "context": [
+            {
+              "start": 4345,
+              "end": 4500,
+              "quote": " As a general rule, building a DLL with static CRT linkage is highly\n discouraged, and intermixing CRTs in the same app is something to avoid at\n any cost."
+            }
+          ],
+          "rationale": "The absolute intensifier adds no technical criterion to avoiding mixed CRTs.",
+          "proposed_edit": "Keep the CRT warning and explain the relevant linking or memory-ownership consequence."
+        },
+        {
+          "id": "c04-d06",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 4503,
+              "end": 4621,
+              "quote": "Reading and comprehending Microsoft Knowledge Base articles KB94248 and\n KB140584 is a must for any Windows developer."
+            }
+          ],
+          "context": [
+            {
+              "start": 4502,
+              "end": 4720,
+              "quote": " Reading and comprehending Microsoft Knowledge Base articles KB94248 and\n KB140584 is a must for any Windows developer. Especially important is full\n understanding if you are not going to follow the advice given above."
+            }
+          ],
+          "rationale": "The universal audience obligation exceeds the Windows DLL/CRT scope of this section.",
+          "proposed_edit": "Direct developers changing CRT linkage to the two articles; retain the specific warning."
+        },
+        {
+          "id": "c04-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7044,
+              "end": 7057,
+              "quote": "unfortunately"
+            }
+          ],
+          "context": [
+            {
+              "start": 7021,
+              "end": 7210,
+              "quote": "The configure utility, unfortunately, is not available for the Windows\nenvironment, therefore, you cannot use the various disable-protocol options of\nthe configure utility on this platform."
+            }
+          ],
+          "rationale": "The author reaction adds no Windows configure limitation.",
+          "proposed_edit": "Delete unfortunately."
+        },
+        {
+          "id": "c04-d08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7949,
+              "end": 8072,
+              "quote": "it is\nnecessary to make definition of preprocessor symbol `USE_LWIPSOCK` visible to\nlibcurl and curl compilation processes."
+            }
+          ],
+          "context": [
+            {
+              "start": 7878,
+              "end": 8132,
+              "quote": "In order to compile libcurl and curl using BSD-style lwIP TCP/IP stack it is\nnecessary to make definition of preprocessor symbol `USE_LWIPSOCK` visible to\nlibcurl and curl compilation processes. To set this definition you have the\nfollowing alternatives:"
+            }
+          ],
+          "rationale": "The necessity/make-definition-visible construction hides the actual compiler definition.",
+          "proposed_edit": "Instruct readers to define USE_LWIPSOCK when compiling curl and libcurl against lwIP."
+        },
+        {
+          "id": "c04-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 8593,
+              "end": 8689,
+              "quote": "in\norder to use it with your program it is mandatory that your program includes\nlwIP header file"
+            }
+          ],
+          "context": [
+            {
+              "start": 8518,
+              "end": 8892,
+              "quote": "Once that libcurl has been built with BSD-style lwIP TCP/IP stack support, in\norder to use it with your program it is mandatory that your program includes\nlwIP header file `<lwip/opt.h>` (or another lwIP header that includes this)\nbefore including any libcurl header. Your program does not need the\n`USE_LWIPSOCK` preprocessor definition which is for libcurl internals only."
+            }
+          ],
+          "rationale": "Nested purpose and mandatory-that scaffolding can become a direct requirement without changing include ordering.",
+          "proposed_edit": "Say that programs using this build must include the lwIP header before any libcurl header."
+        },
+        {
+          "id": "c04-d10",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9136,
+              "end": 9204,
+              "quote": "must be considered experimental given\nthat it has been verified that"
+            }
+          ],
+          "context": [
+            {
+              "start": 9095,
+              "end": 9310,
+              "quote": "This BSD-style lwIP TCP/IP stack support must be considered experimental given\nthat it has been verified that lwIP 1.4.0 still needs some polish, and libcurl\nmight yet need some additional adjustment, caveat emptor."
+            }
+          ],
+          "rationale": "The passive consider/verify layers obscure the experimental status and its basis.",
+          "proposed_edit": "State that support is experimental because the named lwIP release and libcurl integration still require fixes."
+        },
+        {
+          "id": "c04-d11",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 9296,
+              "end": 9309,
+              "quote": "caveat emptor"
+            }
+          ],
+          "context": [
+            {
+              "start": 9095,
+              "end": 9310,
+              "quote": "This BSD-style lwIP TCP/IP stack support must be considered experimental given\nthat it has been verified that lwIP 1.4.0 still needs some polish, and libcurl\nmight yet need some additional adjustment, caveat emptor."
+            }
+          ],
+          "rationale": "The closing slogan repeats the experimental-support caution.",
+          "proposed_edit": "Delete the slogan and retain the limitations."
+        },
+        {
+          "id": "c04-d12",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 10543,
+              "end": 10552,
+              "quote": "of course"
+            }
+          ],
+          "context": [
+            {
+              "start": 10295,
+              "end": 10734,
+              "quote": "When Secure Transport is in use, the curl options `--cacert` and `--capath`\nand their libcurl equivalents, will be ignored, because Secure Transport uses\nthe certificates stored in the Keychain to evaluate whether or not to trust\nthe server. This, of course, includes the root certificates that ship with the\nOS. The `--cert` and `--engine` options, and their libcurl equivalents, are\ncurrently unimplemented in curl with Secure Transport."
+            }
+          ],
+          "rationale": "The assumed-reader-knowledge aside adds no certificate selection behavior.",
+          "proposed_edit": "Delete the aside."
+        },
+        {
+          "id": "c04-d13",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15155,
+              "end": 15309,
+              "quote": "There are a number of configure options that can be used to reduce the size of\nlibcurl for embedded applications where binary size is an important factor."
+            }
+          ],
+          "context": [
+            {
+              "start": 15155,
+              "end": 15588,
+              "quote": "There are a number of configure options that can be used to reduce the size of\nlibcurl for embedded applications where binary size is an important factor.\nFirst, be sure to set the `CFLAGS` variable when configuring with any relevant\ncompiler optimization flags to reduce the size of the binary.  For gcc, this\nwould mean at minimum the -Os option, and potentially the `-march=X`,\n`-mdynamic-no-pic` and `-flto` options as well, e.g."
+            }
+          ],
+          "rationale": "Existential and can-be-used scaffolding delays the concrete size-reduction options.",
+          "proposed_edit": "Say that configure options reduce embedded libcurl size; retain the compiler flags and feature tradeoffs."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c04-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5112,
+              "end": 5201,
+              "quote": "If your app is misbehaving in some strange way, or it is suffering from\nmemory corruption"
+            }
+          ],
+          "context": [
+            {
+              "start": 5112,
+              "end": 5366,
+              "quote": "If your app is misbehaving in some strange way, or it is suffering from\nmemory corruption, before asking for further help, please try first to\nrebuild every single library your app uses as well as your app using the\ndebug multithreaded dynamic C runtime."
+            }
+          ],
+          "rationale": "The first alternative is imprecise but broadens the debugging advice beyond memory corruption; an exact replacement needs supported symptoms.",
+          "proposed_edit": "Optionally name known CRT mismatch symptoms before the rebuild instruction."
+        },
+        {
+          "id": "c04-u02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6049,
+              "end": 6066,
+              "quote": "be sure\nto verify"
+            }
+          ],
+          "context": [
+            {
+              "start": 5981,
+              "end": 6237,
+              "quote": "If you have any problems linking libraries or finding header files, be sure\nto verify that the provided `Makefile.m32` files use the proper paths, and\nadjust as necessary. It is also possible to override these paths with\nenvironment variables, for example:"
+            }
+          ],
+          "rationale": "The assurance wrapper may be unnecessary, but verification is a genuine diagnostic action distinct from changing the path.",
+          "proposed_edit": "Optionally write verify while preserving the conditional failure context."
+        },
+        {
+          "id": "c04-u03",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 11712,
+              "end": 11753,
+              "quote": "the easiest way to build curl\nfor Android"
+            }
+          ],
+          "context": [
+            {
+              "start": 11596,
+              "end": 12162,
+              "quote": "When building curl for Android it's recommended to use a Linux environment\nsince using curl's `configure` script is the easiest way to build curl\nfor Android. Before you can build curl for Android, you need to install the\nAndroid NDK first. This can be done using the SDK Manager that is part of\nAndroid Studio. Once you have installed the Android NDK, you need to figure out\nwhere it has been installed and then set up some environment variables before\nlaunching `configure`. On macOS, those variables could look like this to compile\nfor `aarch64` and API level 29:"
+            }
+          ],
+          "rationale": "The ranking is unsupported, but the configure/Linux toolchain context gives a practical basis that may justify a recommendation.",
+          "proposed_edit": "Optionally state the supported configure-based build path without ranking it."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1370,
+              "end": 1483,
+              "quote": "If you want to install curl in a different file hierarchy than `/usr/local`,\nspecify that when running configure:"
+            }
+          ],
+          "context": [
+            {
+              "start": 1370,
+              "end": 1483,
+              "quote": "If you want to install curl in a different file hierarchy than `/usr/local`,\nspecify that when running configure:"
+            }
+          ],
+          "rationale": "Different installation prefixes are an actual goal condition for configure, not a useless if-you-want wrapper.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2576,
+              "end": 2808,
+              "quote": "If you have OpenSSL installed, but with the libraries in one place and the\nheader files somewhere else, you have to set the `LDFLAGS` and `CPPFLAGS`\nenvironment variables prior to running configure.  Something like this should\nwork:"
+            }
+          ],
+          "context": [
+            {
+              "start": 2576,
+              "end": 2808,
+              "quote": "If you have OpenSSL installed, but with the libraries in one place and the\nheader files somewhere else, you have to set the `LDFLAGS` and `CPPFLAGS`\nenvironment variables prior to running configure.  Something like this should\nwork:"
+            }
+          ],
+          "rationale": "Separate library and header paths require two different environment variables.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 9352,
+              "end": 9539,
+              "quote": "When building an application that uses the static libcurl library on Windows,\nyou must add `-DCURL_STATICLIB` to your `CFLAGS`.  Otherwise the linker will\nlook for dynamic import symbols."
+            }
+          ],
+          "context": [
+            {
+              "start": 9352,
+              "end": 9539,
+              "quote": "When building an application that uses the static libcurl library on Windows,\nyou must add `-DCURL_STATICLIB` to your `CFLAGS`.  Otherwise the linker will\nlook for dynamic import symbols."
+            }
+          ],
+          "rationale": "The static-library definition has a specific missing-symbol failure consequence.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c04",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 17764,
+              "end": 18004,
+              "quote": "Using these techniques it is possible to create a basic HTTP-only shared\nlibcurl library for i386 Linux platforms that is only 113 KiB in size, and an\nFTP-only library that is 113 KiB in size (as of libcurl version 7.50.3, using\ngcc 5.4.0)."
+            }
+          ],
+          "context": [
+            {
+              "start": 17764,
+              "end": 18004,
+              "quote": "Using these techniques it is possible to create a basic HTTP-only shared\nlibcurl library for i386 Linux platforms that is only 113 KiB in size, and an\nFTP-only library that is 113 KiB in size (as of libcurl version 7.50.3, using\ngcc 5.4.0)."
+            }
+          ],
+          "rationale": "The binary-size claim names architecture, protocol, compiler and version as measurement scope.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 18132,
+              "end": 18489,
+              "quote": "Note that the curl test harness can detect the use of some, but not all, of\nthe `--disable` statements suggested above. Use will cause tests relying on\nthose features to fail.  The test harness can be manually forced to skip the\nrelevant tests by specifying certain key words on the `runtests.pl` command\nline.  Following is a list of appropriate key words:"
+            }
+          ],
+          "context": [
+            {
+              "start": 18132,
+              "end": 18489,
+              "quote": "Note that the curl test harness can detect the use of some, but not all, of\nthe `--disable` statements suggested above. Use will cause tests relying on\nthose features to fail.  The test harness can be manually forced to skip the\nrelevant tests by specifying certain key words on the `runtests.pl` command\nline.  Following is a list of appropriate key words:"
+            }
+          ],
+          "rationale": "Disabling features can break their tests; the skip keywords are practical controls, not repeated functionality claims.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "38737af92503c76aba5083c61f420782dbcbcfc1fa402f6851f0884eb9d1caa6",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 8695,
+          "first_line": 1,
+          "last_line": 210,
+          "rationale": "Read all 62 extracted blocks and original examples. Preserve defaults, aliases, environment case rules, Windows differences, file-location semantics, source priority and secret handling. Obsolete API names are not editorial defects; do not conflate field or source priority with rhetorical repetition.",
+          "prose_blocks": 62,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 0,
+              "end": 66,
+              "quote": "One of pydantic's most useful applications is settings management."
+            }
+          ],
+          "context": [
+            {
+              "start": 0,
+              "end": 66,
+              "quote": "One of pydantic's most useful applications is settings management."
+            }
+          ],
+          "rationale": "The usefulness ranking has no audience criterion or evidence.",
+          "proposed_edit": "Say that pydantic supports settings management."
+        },
+        {
+          "id": "c05-d02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 349,
+              "end": 371,
+              "quote": "This makes it easy to:"
+            }
+          ],
+          "context": [
+            {
+              "start": 349,
+              "end": 371,
+              "quote": "This makes it easy to:"
+            }
+          ],
+          "rationale": "The ease endorsement is unscoped; the following concrete capabilities stand alone.",
+          "proposed_edit": "Introduce the three supported configuration actions directly."
+        },
+        {
+          "id": "c05-d03",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 3561,
+              "end": 3636,
+              "quote": "make it easy to use environment variables in a\nplatform-independent manner."
+            }
+          ],
+          "context": [
+            {
+              "start": 3497,
+              "end": 3636,
+              "quote": "Dotenv files (generally named `.env`) are a common pattern that make it easy to use environment variables in a\nplatform-independent manner."
+            }
+          ],
+          "rationale": "Ease is asserted without a reader condition; platform-independent loading is the concrete property.",
+          "proposed_edit": "State that dotenv files define environment variables in a platform-independent format."
+        },
+        {
+          "id": "c05-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4600,
+              "end": 4703,
+              "quote": "From there, *pydantic* will handle everything for you by loading in your variables and\nvalidating them."
+            }
+          ],
+          "context": [
+            {
+              "start": 4454,
+              "end": 4703,
+              "quote": "In either case, the value of the passed argument can be any valid path or filename, either absolute or relative to the\ncurrent working directory. From there, *pydantic* will handle everything for you by loading in your variables and\nvalidating them."
+            }
+          ],
+          "rationale": "Everything-for-you overstates and frames the two exact actions instead of stating them directly.",
+          "proposed_edit": "Say that pydantic loads and validates the variables from the supplied path."
+        },
+        {
+          "id": "c05-d05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6692,
+              "end": 6795,
+              "quote": "From there, *pydantic* will handle everything for you by loading in your variables and\nvalidating them."
+            }
+          ],
+          "context": [
+            {
+              "start": 6553,
+              "end": 6795,
+              "quote": "In either case, the value of the passed argument can be any valid directory, either absolute or relative to the\ncurrent working directory. From there, *pydantic* will handle everything for you by loading in your variables and\nvalidating them."
+            }
+          ],
+          "rationale": "The generic service promise repeats the dotenv wording while obscuring the exact secret-loading scope.",
+          "proposed_edit": "Say that pydantic loads and validates values from files in the supplied directory."
+        },
+        {
+          "id": "c05-d06",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 7330,
+              "end": 7401,
+              "quote": "To use these secrets in a *pydantic* application the process is simple."
+            }
+          ],
+          "context": [
+            {
+              "start": 7219,
+              "end": 7578,
+              "quote": "Docker Secrets can be used to provide sensitive configuration to an application running in a Docker container.\nTo use these secrets in a *pydantic* application the process is simple. More information regarding creating, managing\nand using secrets in Docker see the official\n[Docker documentation](https://docs.docker.com/engine/reference/commandline/secret/)."
+            }
+          ],
+          "rationale": "The process-ease judgment adds no prerequisite to the steps and does not state for whom it is simple.",
+          "proposed_edit": "Start with the configuration and container steps."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5157,
+              "end": 5392,
+              "quote": "You can also use the keyword argument override to tell Pydantic not to load any file at all (even if one is set in\nthe `Config` class) by passing `None` as the instantiation keyword argument, e.g. `settings = Settings(_env_file=None)`."
+            }
+          ],
+          "context": [
+            {
+              "start": 5157,
+              "end": 5392,
+              "quote": "You can also use the keyword argument override to tell Pydantic not to load any file at all (even if one is set in\nthe `Config` class) by passing `None` as the instantiation keyword argument, e.g. `settings = Settings(_env_file=None)`."
+            }
+          ],
+          "rationale": "The keyword override instruction is long but needs to explain explicit None overriding a configured path. A shorter safe form is possible, but required revision is uncertain.",
+          "proposed_edit": "Optionally write Pass _env_file=None to disable dotenv loading, including a path configured on the class."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1535,
+              "end": 1618,
+              "quote": "When specifying a list of strings, order matters: the first detected value is used."
+            }
+          ],
+          "context": [
+            {
+              "start": 1535,
+              "end": 1618,
+              "quote": "When specifying a list of strings, order matters: the first detected value is used."
+            }
+          ],
+          "rationale": "Order matters has an immediate concrete first-found-value consequence; it is not an unsupported importance judgment.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2651,
+              "end": 2865,
+              "quote": "!!! note\n    On Windows, python's `os` module always treats environment variables as case-insensitive, so the\n    `case_sensitive` config setting will have no effect - settings will always be updated ignoring case."
+            }
+          ],
+          "context": [
+            {
+              "start": 2651,
+              "end": 2865,
+              "quote": "!!! note\n    On Windows, python's `os` module always treats environment variables as case-insensitive, so the\n    `case_sensitive` config setting will have no effect - settings will always be updated ignoring case."
+            }
+          ],
+          "rationale": "Windows case handling overrides the configuration switch; the consequence is necessary.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 4905,
+              "end": 5155,
+              "quote": "Passing a file path via the `_env_file` keyword argument on instantiation (method 2) will override\nthe value (if any) set on the `Config` class. If the above snippets were used in conjunction, `prod.env` would be loaded\nwhile `.env` would be ignored."
+            }
+          ],
+          "context": [
+            {
+              "start": 4905,
+              "end": 5155,
+              "quote": "Passing a file path via the `_env_file` keyword argument on instantiation (method 2) will override\nthe value (if any) set on the `Config` class. If the above snippets were used in conjunction, `prod.env` would be loaded\nwhile `.env` would be ignored."
+            }
+          ],
+          "rationale": "Constructor arguments override configured file paths, separate from environment-over-file priority.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6797,
+              "end": 7038,
+              "quote": "Even when using a secrets directory, *pydantic* will still read environment variables from a dotenv file or the environment,\n**a dotenv file and environment variables will always take priority over values loaded from the secrets directory**."
+            }
+          ],
+          "context": [
+            {
+              "start": 6797,
+              "end": 7038,
+              "quote": "Even when using a secrets directory, *pydantic* will still read environment variables from a dotenv file or the environment,\n**a dotenv file and environment variables will always take priority over values loaded from the secrets directory**."
+            }
+          ],
+          "rationale": "The secret-directory priority differs from the dotenv priority and must remain explicit.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "2ebbcf723d3f12eefb2b8aeca0f64f605544e6236e96106a14e24c3c62f3168b",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 9120,
+          "first_line": 1,
+          "last_line": 212,
+          "rationale": "Read all 153 extracted prose blocks and table cells plus original source context. Preserve configuration levels, secure-array ownership and initialization/reset distinctions. Malformed table content and apparent API description inconsistencies require factual verification and are not silently repaired. Measured-looking performance claims lacking methodology remain uncertain.",
+          "prose_blocks": 153,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c06-d01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 661,
+              "end": 700,
+              "quote": "sane defaults and simple implementation"
+            }
+          ],
+          "context": [
+            {
+              "start": 512,
+              "end": 701,
+              "quote": "With version 8.6.0 comes the release of directives for mermaid, a new system for modifying configurations, with the aim of establishing centralized, sane defaults and simple implementation."
+            }
+          ],
+          "rationale": "The two quality adjectives provide no default-selection or implementation criterion.",
+          "proposed_edit": "State centralized defaults and identify the implementation change, or remove the quality adjectives."
+        },
+        {
+          "id": "c06-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 822,
+              "end": 1068,
+              "quote": "This allows site Diagram Authors to instantiate temporary modifications to `config` through the use of [Directives](), which are parsed before rendering diagram definitions. This allows the Diagram Authors to alter the appearance of the diagrams."
+            }
+          ],
+          "context": [
+            {
+              "start": 703,
+              "end": 1068,
+              "quote": "`directives` allow for a single-use overwriting of `config`, as it has been discussed in [Configurations](./Setup.md).\nThis allows site Diagram Authors to instantiate temporary modifications to `config` through the use of [Directives](), which are parsed before rendering diagram definitions. This allows the Diagram Authors to alter the appearance of the diagrams."
+            }
+          ],
+          "rationale": "Repeated allows framing and instantiate-modifications nominalization obscure the action; the second sentence restates its visual purpose.",
+          "proposed_edit": "Say that diagram authors use directives to temporarily change configuration and appearance before rendering, retaining the parsing order."
+        },
+        {
+          "id": "c06-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1073,
+              "end": 1179,
+              "quote": "A likely application for this is in the creation of diagrams/charts inside company/organizational webpages"
+            }
+          ],
+          "context": [
+            {
+              "start": 1073,
+              "end": 1234,
+              "quote": "A likely application for this is in the creation of diagrams/charts inside company/organizational webpages, that rely on mermaid for diagram and chart rendering."
+            }
+          ],
+          "rationale": "The application-is-in-the-creation scaffold hides a concrete use case.",
+          "proposed_edit": "Name diagrams on company or organization webpages as an example."
+        },
+        {
+          "id": "c06-d04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 2024,
+              "end": 2271,
+              "quote": "Notes**: secure arrays work like nesting dolls, with the Global Configurations\u2019 secure array being the default and immutable list of immutable parameters, or the smallest doll, to which site owners may add to, but implementors may not modify it."
+            }
+          ],
+          "context": [
+            {
+              "start": 2024,
+              "end": 2271,
+              "quote": "Notes**: secure arrays work like nesting dolls, with the Global Configurations\u2019 secure array being the default and immutable list of immutable parameters, or the smallest doll, to which site owners may add to, but implementors may not modify it."
+            }
+          ],
+          "rationale": "Nested doll analogy, repeated immutable modifiers and embedded ownership clauses obscure which actor can add or modify entries.",
+          "proposed_edit": "State the global secure entries are immutable, site owners may add entries, and implementors may not modify the secure array."
+        },
+        {
+          "id": "c06-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3062,
+              "end": 3152,
+              "quote": "gives the user the ability to overwrite and change the values for configuration parameters"
+            }
+          ],
+          "context": [
+            {
+              "start": 3004,
+              "end": 3205,
+              "quote": "`init`, or `initialize`: the init or initialize directive gives the user the ability to overwrite and change the values for configuration parameters, with respect to the secure array that is in effect."
+            }
+          ],
+          "rationale": "Gives-the-ability scaffold and overwrite/change duplication obscure the actual override operation.",
+          "proposed_edit": "Say that init overrides configuration parameter values subject to the secure array."
+        },
+        {
+          "id": "c06-d06",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 5655,
+              "end": 5691,
+              "quote": "a sane mechanism for merging objects"
+            }
+          ],
+          "context": [
+            {
+              "start": 5507,
+              "end": 5734,
+              "quote": "\u2022\t**assignWithDepth** - this is an improvement on previous functions with config.js and Object.assign. The purpose of this function is to provide a sane mechanism for merging objects, similar to object.assign, but with depth."
+            }
+          ],
+          "rationale": "Sane supplies no behavioral criterion; depth-aware merging is the specific property.",
+          "proposed_edit": "Describe depth-aware object merging and preserve the Object.assign comparison."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c06-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 5423,
+              "end": 5505,
+              "quote": "It reduces the rendering time for computationally intensive diagrams by about 90%."
+            }
+          ],
+          "context": [
+            {
+              "start": 5350,
+              "end": 5505,
+              "quote": "\u2022\t**memoize**: simple caching for computationally expensive functions. It reduces the rendering time for computationally intensive diagrams by about 90%."
+            }
+          ],
+          "rationale": "The numeric gain lacks benchmark and diagram scope in this page, but may refer to measurements elsewhere. Verification is needed before calling the claim unsupported.",
+          "proposed_edit": "Name the benchmark and diagram types or link to the measurement."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2588,
+              "end": 2687,
+              "quote": "Implementors can only modify configurations using directives, but cannot change the `secure` array."
+            }
+          ],
+          "context": [
+            {
+              "start": 2588,
+              "end": 2687,
+              "quote": "Implementors can only modify configurations using directives, but cannot change the `secure` array."
+            }
+          ],
+          "rationale": "Implementor restrictions are distinct from site-owner additions to the secure array.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2856,
+              "end": 2995,
+              "quote": "Older versions of mermaid will not parse directives because `%%` will comment out the directive. This makes the update backward compatible."
+            }
+          ],
+          "context": [
+            {
+              "start": 2856,
+              "end": 2995,
+              "quote": "Older versions of mermaid will not parse directives because `%%` will comment out the directive. This makes the update backward compatible."
+            }
+          ],
+          "rationale": "Backward compatibility is supported by an explicit parser comment mechanism.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 5067,
+              "end": 5178,
+              "quote": "globalReset** will reset both the current configuration AND the site configuration back to the global defaults."
+            }
+          ],
+          "context": [
+            {
+              "start": 5067,
+              "end": 5178,
+              "quote": "globalReset** will reset both the current configuration AND the site configuration back to the global defaults."
+            }
+          ],
+          "rationale": "globalReset resets two levels, unlike reset; preserve the distinction.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5182,
+              "end": 5318,
+              "quote": "Notes**:  both reset and globalReset are only available to site owners, as such implementors would have to edit their configs with init."
+            }
+          ],
+          "context": [
+            {
+              "start": 5182,
+              "end": 5318,
+              "quote": "Notes**:  both reset and globalReset are only available to site owners, as such implementors would have to edit their configs with init."
+            }
+          ],
+          "rationale": "Only site owners can call resets; implementors must use init. This is an actor restriction.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}

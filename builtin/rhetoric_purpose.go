@@ -57,7 +57,7 @@ func namedPurpose(tokens []document.Token) bool {
 	// Abstract feature/finding purposes add no named action. A concrete wrapper,
 	// lock, buffer or database purpose is not enough to establish this frame.
 	if len(tokens) < 5 || !frameWord(tokens[0], "what") || !frameWord(tokens[1], "the", "this", "that") ||
-		!frameWord(tokens[2], "feature", "finding", "refusal", "verb", "distinction", "difference", "rule") ||
+		!abstractPurposeObject(tokens[2]) ||
 		!frameWord(tokens[3], "is", "was") {
 		return false
 	}

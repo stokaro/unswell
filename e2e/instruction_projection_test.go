@@ -39,7 +39,7 @@ func TestInstructionProjectionRevision(t *testing.T) {
 		related := 0
 		for _, f := range result.Findings {
 			c.Assert(f.RuleID, qt.Equals, "filler.instruction-scaffolding")
-			c.Assert(f.RuleVersion, qt.Equals, "7")
+			c.Assert(f.RuleVersion, qt.Equals, "8")
 			c.Assert(f.Primary.Path, qt.Equals, "draft.md")
 			c.Assert(files["draft.md"][f.Primary.Span.Start:f.Primary.Span.End], qt.Equals, f.Primary.Snippet)
 			for _, loc := range f.Related {

@@ -76,9 +76,20 @@ func relativeOperation(tokens []document.Token, verb int) (bool, bool) {
 			continue
 		}
 		subject := tokens[start:end]
-		if operationSubject(subject) || projectionSubject(subject) {
+		if relativeActionSubject(subject) {
 			return true, operationSubject(subject)
 		}
 	}
 	return false, false
+}
+
+// Relative modal usage alone does not establish agency. A checksum, label or
+// other supplied operand can be used by a caller without performing the action.
+func relativeActionActor(tokens []document.Token) bool {
+	return len(tokens) > 0 && frameWord(tokens[len(tokens)-1], "reader", "writer", "parser", "client", "server",
+		"service", "worker", "process", "library", "utility", "tool", "function", "method", "command", "handler", "callback")
+}
+
+func relativeActionSubject(tokens []document.Token) bool {
+	return operationSubject(tokens) || projectionSubject(tokens) && relativeActionActor(tokens)
 }

@@ -73,7 +73,7 @@ func ordinalAnaphor(tokens []document.Token) bool {
 
 func discourseNoun(token document.Token) bool {
 	return frameWord(token, "distinction", "difference", "choice", "decision", "entry", "example", "explanation",
-		"paragraph", "argument", "point", "row", "case", "result", "outcome")
+		"paragraph", "argument", "point", "row", "column", "step", "detail", "fact", "case", "result", "outcome")
 }
 
 func relativePurpose(tokens []document.Token) bool {

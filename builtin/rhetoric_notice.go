@@ -4,7 +4,8 @@ import "github.com/stokaro/unswell/document"
 
 func scopedInformationNotice(c frameClause, i int) bool {
 	c.start += i
-	return !rhetoricQuoted(c) && !rhetoricAttributed(c) && (informationNotice(c.tokens()) || cognitiveAnnouncement(c.tokens()))
+	return !rhetoricQuoted(c) && !rhetoricAttributed(c) && (informationNotice(c.tokens()) ||
+		cognitiveAnnouncement(c.tokens()) || authorNotice(c.tokens()) || documentEndorsement(c.tokens()))
 }
 
 // Notice frames describe presenting information, not its operational truth. A

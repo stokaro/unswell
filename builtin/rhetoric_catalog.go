@@ -18,7 +18,7 @@ func localRhetoricRules() []rule.Rule {
 				"Actor-to-action projection recognizes ability nouns, modal used-to/used-for actions, named method predicates, "+
 				"and nested intended-to-enable actions. Narrated prerequisites and repeated same-actor obligations can introduce an action. "+
 				"Standalone generic reader enablement requires an adjacent method; concrete capability explanations remain controls. "+
-				"Infinitive reader goals admit coordinated actions. Relative nominal antecedents can carry nested support; "+
+				"Infinitive reader goals admit coordinated actions. Relative operation or actor antecedents can carry nested support; "+
 				"capable-of gerunds, imperative assurance and purpose-to-steps announcements also qualify. "+
 				"A second method may be anchored by a repeated two-noun object and explicit reader action. "+
 				"Preserve modal meaning, named actors and conditions. "+
@@ -56,6 +56,8 @@ func localRhetoricRules() []rule.Rule {
 				"Also recognizes cognitive notices modifying information nouns, gerund-anaphor purpose clefts, "+
 				"relative feature-purpose predicates and discourse subjects declaring importance or editorial integrity. "+
 				"Information judgments may join adjacent evaluative predicates and retain a quoted noun-phrase subject. "+
+				"Discourse subjects admit selecting importance and attention predicates; author notices and document-outcome endorsements qualify. "+
+				"Gerund action subjects can close with abstract functional clefts. Bare noun/counts compounds remain excluded. "+
 				"Attribution is scoped through the candidate clause; later operational reporting does not erase a preceding judgment. "+
 				"Concrete component purposes and measured evaluations stay excluded; "+
 				"notice and cognitive-worth frames retain their attached conditions.",
@@ -70,7 +72,8 @@ func localRhetoricRules() []rule.Rule {
 				"Also recognizes affirmative extreme quality predicates and unrestricted claims about "+
 				"what everybody or nobody knows, wants or can verify, unsupported majority claims about reader preferences or practice, "+
 				"and anaphoric result tails predicting generic readers' preferences or understanding. "+
-				"Conditional, quantified and protected constructions are excluded.",
+				"Ordinary copular quality or difficulty judgments require a complete predicate without a stated local mechanism. "+
+				"Technical adjective-noun phrases, conditional, quantified and protected constructions are excluded.",
 			[]rule.Example{{Text: "The configuration is intentionally explicit.", Match: true},
 				{Text: "The configuration is explicit about unknown keys."}}),
 		localRhetoricRule("repetition.definition-echo", definitionEcho,
@@ -120,15 +123,15 @@ func localRhetoricVersion(id string) string {
 	case "filler.document-justification":
 		return "5"
 	case "filler.instruction-scaffolding":
-		return "7"
+		return "8"
 	case "filler.evaluative-closure":
-		return "7"
+		return "8"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":
 		return "2"
 	case "repetition.definition-echo":
 		return "3"
 	case "filler.unscoped-assurance":
-		return "4"
+		return "5"
 	default:
 		return "1"
 	}
