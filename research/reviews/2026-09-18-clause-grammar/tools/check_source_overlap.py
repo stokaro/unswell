@@ -1,4 +1,4 @@
-import argparse,json,pathlib,tarfile
+import argparse,hashlib,json,pathlib,tarfile
 root=pathlib.Path(__file__).resolve().parent.parent
 parser=argparse.ArgumentParser(description='Audit extracted source-only packets for exact prior prose. No diagnostic input is used.')
 parser.add_argument('--packets',type=pathlib.Path,required=True,help='Directory containing cNN.json extractor packets and archived source basenames')
@@ -18,6 +18,7 @@ for m in sorted(list(root.parent.glob('*/confirmation/manifest.json'))+[root.par
 matched=[]
 for p in manifest['pages']:
     raw=(scratch/pathlib.Path(p['path']).name).read_bytes()
+    assert hashlib.sha256(raw).hexdigest()==p['sha256'], 'Source hash differs: '+p['id']
     packet=json.loads((scratch/(p['id']+'.json')).read_text())
     for b in packet['blocks']:
         if b.get('excluded'):continue

@@ -20,6 +20,17 @@ def frozen_inputs():
             audit.require(audit.sha((ROOT/name).read_bytes()) == digest, 'Frozen artifact drift: '+name)
 
 
+def code_freeze(record):
+    audit.require(record['phase'] == 'before_confirmation_diagnostic_output_review', 'Code-freeze phase drift')
+    audit.require(record['commit'] == audit.read(ROOT/'engines.json')['after'], 'Code-freeze revision drift')
+    archive = ROOT/'runtime-inputs.tar.gz'
+    audit.require(audit.sha(archive.read_bytes()) == record['source_archive_sha256'], 'Runtime archive drift')
+    files = audit.archive_sources(archive)
+    audit.require(set(files) == set(record['sha256']), 'Runtime file set drift')
+    for name, digest in record['sha256'].items():
+        audit.require(audit.sha(files[name]) == digest, 'Runtime changed after confirmation: '+name)
+
+
 def confirmation():
     manifest = audit.read(ROOT/'confirmation/manifest.json')
     pages = audit.unique(manifest['pages'], 'id', 'confirmation page')
@@ -158,6 +169,7 @@ def exposure_metrics(summary):
 
 def evaluate():
     frozen_inputs()
+    code_freeze(audit.read(ROOT/'code-freeze.json'))
     sets = data_sets()
     review = audit.read(ROOT/'dispositions.json')
     commits = audit.read(ROOT/'engines.json')
