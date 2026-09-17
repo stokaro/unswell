@@ -5,11 +5,11 @@ import "github.com/stokaro/unswell/document"
 // informationEvaluation keeps a complete judgment and can join two adjacent
 // evaluative predicates. Operational continuations remain outside the span.
 func informationEvaluation(c frameClause) (rhetoricalFrame, bool) {
-	if evaluationScoped(c) {
-		return rhetoricalFrame{}, false
-	}
 	tokens := c.tokens()
 	end := informationUnitEnd(tokens)
+	if informationScoped(c, end) {
+		return rhetoricalFrame{}, false
+	}
 	if !informationJudgment(tokens[:end]) {
 		return rhetoricalFrame{}, false
 	}
@@ -39,7 +39,7 @@ func informationJudgment(tokens []document.Token) bool {
 		if !evaluationSubject(subject) {
 			continue
 		}
-		if frameWord(tokens[i], "matters", "counts") && importanceAudience(rest) {
+		if importanceVerb(tokens[i], subject, rest) {
 			return true
 		}
 		if frameWord(tokens[i], "is", "are", "was", "were") && informationComplement(rest) {
@@ -64,7 +64,7 @@ func quotedInformationSubject(tokens []document.Token) bool {
 }
 
 func informationComplement(tokens []document.Token) bool {
-	if wholeAbstractValue(tokens) || bareAbstractAnnouncement(tokens) || cognitiveInformation(tokens) {
+	if wholeAbstractValue(tokens) || bareAbstractAnnouncement(tokens) || discourseSelection(tokens) {
 		return true
 	}
 	if len(tokens) > 2 && frameWord(tokens[0], "the", "a", "one") &&
@@ -87,11 +87,29 @@ func cognitiveInformation(tokens []document.Token) bool {
 	if len(tokens) == 2 {
 		return true
 	}
-	return len(tokens) == 3 && frameWord(tokens[2], "precisely", "carefully", "closely", "twice", "again", "here")
+	return len(tokens) == 3 && frameWord(tokens[2], "precisely", "carefully", "closely", "twice", "again", "here") ||
+		len(tokens) == 4 && frameWord(tokens[2], "in") && frameWord(tokens[3], "full")
 }
 
 func importanceAudience(tokens []document.Token) bool {
 	return len(tokens) == 0 || len(tokens) == 1 && frameWord(tokens[0], "here", "most") ||
 		len(tokens) == 2 && frameWord(tokens[0], "for", "to") &&
 			frameWord(tokens[1], "readers", "users", "operators", "maintainers", "embedders")
+}
+
+// Bare counts after a noun is also a plural nominal (row counts). Require an
+// anaphoric subject or an explicit audience to resolve that ambiguous reading.
+func importanceVerb(verb document.Token, subject, rest []document.Token) bool {
+	return importanceAudience(rest) && (frameWord(verb, "matters") ||
+		frameWord(verb, "counts") && (len(subject) == 1 || len(rest) > 0))
+}
+
+func informationScoped(c frameClause, end int) bool {
+	tokens := c.tokens()
+	candidate := c
+	candidate.end = c.start + end
+	if end+1 < len(tokens) && frameWord(tokens[end], ",") && !frameWord(tokens[end+1], "and", "but") {
+		candidate.end = c.end
+	}
+	return evaluationScoped(candidate)
 }

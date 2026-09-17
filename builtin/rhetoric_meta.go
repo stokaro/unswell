@@ -101,7 +101,7 @@ func candidateEvaluation(candidate frameClause) bool {
 		return false
 	}
 	tokens := candidate.tokens()
-	return contextualEvaluation(tokens) || purposeEvaluation(tokens) ||
+	return contextualEvaluation(tokens) || purposeEvaluation(tokens) || functionalCleft(tokens) ||
 		intentionalityAnnouncement(tokens) || outputUnderstanding(tokens)
 }
 

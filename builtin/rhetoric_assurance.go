@@ -14,6 +14,9 @@ func unscopedAssurance(clauses []frameClause, index int) (rhetoricalFrame, bool)
 	if c.end < len(c.sentence.Tokens) && frameWord(c.sentence.Tokens[c.end], ":") {
 		return rhetoricalFrame{}, false
 	}
+	if frame, ok := qualitativeAssurance(c); ok {
+		return frame, true
+	}
 	if frame, ok := contextualAssuranceFrame(c); ok {
 		return frame, true
 	}

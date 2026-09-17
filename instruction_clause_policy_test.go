@@ -23,7 +23,7 @@ func TestInstructionClauseMappingAndPolicy(t *testing.T) {
 		c.Assert(err, qt.IsNil)
 		c.Assert(r.Findings, qt.HasLen, 1)
 		f := r.Findings[0]
-		c.Assert(f.RuleVersion, qt.Equals, "7")
+		c.Assert(f.RuleVersion, qt.Equals, "8")
 		c.Assert(f.Primary.Snippet, qt.Equals, string(source.Bytes[f.Primary.Span.Start:f.Primary.Span.End]))
 		c.Assert(f.Evidence.Suggestion, qt.Contains, "prerequisites")
 	}
