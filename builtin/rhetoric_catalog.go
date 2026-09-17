@@ -12,14 +12,16 @@ func localRhetoricRules() []rule.Rule {
 			"Replace the capability or reader-intention preface with the action and its method. "+
 				"Keep operands, alternatives and limits; a capability is not an obligation.",
 			"An affirmative impersonal capability with a transitive configuration or presentation action, "+
-				"or a reader-intention clause introducing an instruction. Anaphoric gerund methods, nominalized methods and reader-purpose clauses are also recognized. Adjacent method announcements remain related evidence. "+
+				"or a reader-intention clause introducing an instruction. Anaphoric gerund methods, nominalized "+
+				"methods and reader-purpose clauses are also recognized. Adjacent method announcements remain related evidence. "+
 				"Failure, permission, negation and quoted constructions do not match.",
 			[]rule.Example{{Text: "It is possible to display a label. This is done by using the label option.", Match: true},
 				{Text: "It is possible to lose data after a failed write."}}),
 		localRhetoricRule("repetition.redundant-predicate", redundantPredicate,
 			"The predicate repeats the relation already named by its subject.",
 			"State the relation once. Preserve the path, actor, conditions and technical distinction.",
-			"A category/type label describing its own unqualified category/type, or a path/location subject followed by is located/situated at/in, or a reason subject followed by is because. "+
+			"A category/type label describing its own unqualified category/type, or a path/location subject "+
+				"followed by is located/situated at/in, or a reason subject followed by is because. "+
 				"The grammatical subject must name the repeated relation; files, identifiers and control-flow conditions do not qualify.",
 			[]rule.Example{{Text: "The default path for the configuration file is located at `/etc/example.conf`.", Match: true},
 				{Text: "The configuration file is located at `/etc/example.conf`."}}),
@@ -27,14 +29,16 @@ func localRhetoricRules() []rule.Rule {
 			"State the scope or destination directly instead of explaining why this page exists.",
 			"Keep the link, ownership, and scope; remove the explanation of the document's existence or deliberate non-repetition.",
 			"A document subject followed by 'exists so/to/because', deliberate non-repetition of material, "+
-				"a statement that a document part earns its place, a page explaining what its fields mean, editorial ownership, or announcements that definitions or counts are repeated or omitted here. "+
+				"a statement that a document part earns its place, a page explaining what its fields mean, editorial "+
+				"ownership, or announcements that definitions or counts are repeated or omitted here. "+
 				"Ownership may use a pronoun only after an adjacent explicit document announcement in the same block. "+
 				"Storage existence and ordinary scope exclusions do not match.",
 			[]rule.Example{{Text: "This page exists so the operator is reachable from here.", Match: true},
 				{Text: "This page does not describe authentication."}}),
 		localRhetoricRule("filler.evaluative-closure", evaluativeClosure,
 			"This clause announces information or endorses a result; state the information directly.",
-			"Keep the behavior, reasons, conditions and instructions. Remove the announcement or judgment while preserving the information it introduces.",
+			"Keep the behavior, reasons, conditions and instructions. Remove the announcement or judgment while "+
+				"preserving the information it introduces.",
 			"An anaphoric purpose tail ('which is the point of doing it', 'which is what doing it is for'), "+
 				"a bare whole-point/design declaration, an anaphoric assertion of value or verification, "+
 				"an information subject announcing cognitive worth, or an impersonal modal notice followed by a that-clause. "+
@@ -56,7 +60,8 @@ func localRhetoricRules() []rule.Rule {
 			"The definition repeats its subject; state the distinguishing information directly.",
 			"State the definition or distinction once. Preserve modifiers, negation and limits.",
 			"A positive copula repeats the same nominal phrase, ignoring articles, immediately before ', not' and a nominal alternative. "+
-				"Also recognizes a still-qualified repetition of the same nominal subject. Added modifiers, conditions and code identifiers are excluded; bare uncontrasted identities stay outside the rule.",
+				"Also recognizes a still-qualified repetition of the same nominal subject. Added modifiers, "+
+				"conditions and code identifiers are excluded; bare uncontrasted identities stay outside the rule.",
 			[]rule.Example{{Text: "The default is a default, not a fallback.", Match: true},
 				{Text: "The default is a safe fallback, not a mandatory value."}}),
 		localRhetoricRule("syntax.slogan-contrast", sloganContrast,

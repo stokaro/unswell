@@ -8,21 +8,19 @@ import (
 
 func documentJustification(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	c := clauses[index]
-	if c.eligible() {
-		if frame, ok := contextualDocumentFrame(clauses, index); ok {
-			return frame, true
+	if !c.eligible() {
+		return rhetoricalFrame{}, false
+	}
+	if frame, ok := contextualDocumentFrame(clauses, index); ok {
+		return frame, true
+	}
+	for i := range c.tokens() {
+		if documentMaintenanceStart(c, i) {
+			return localFrame(c, i)
 		}
-		for i := range c.tokens() {
-			if !quotedClaim(c.sentence.Tokens) && documentMaintenance(c.tokens()[i:]) &&
-				(embeddedClauseStart(c.tokens(), i) || frameWord(c.tokens()[i], "rather", "instead")) {
-				return localFrame(c, i)
-			}
-			if embeddedClauseStart(c.tokens(), i) && documentEarnsPlace(c.tokens()[i:]) {
-				return localFrame(c, i)
-			}
-			if embeddedClauseStart(c.tokens(), i) && documentJustifies(c.tokens()[i:]) {
-				return localFrame(c, i)
-			}
+		if embeddedClauseStart(c.tokens(), i) &&
+			(documentEarnsPlace(c.tokens()[i:]) || documentJustifies(c.tokens()[i:])) {
+			return localFrame(c, i)
 		}
 	}
 	return rhetoricalFrame{}, false
@@ -60,8 +58,7 @@ func evaluativeClosure(clauses []frameClause, index int) (rhetoricalFrame, bool)
 		if !embeddedClauseStart(c.tokens(), i) {
 			continue
 		}
-		if !quotedClaim(c.sentence.Tokens) &&
-			(informationNotice(c.tokens()[i:]) || cognitiveAnnouncement(c.tokens()[i:])) {
+		if scopedInformationNotice(c, i) {
 			return localFrame(c, i)
 		}
 		if end := evaluationEnd(c.tokens()[i:]); end > 0 {

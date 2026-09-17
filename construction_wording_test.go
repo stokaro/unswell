@@ -111,12 +111,17 @@ func TestConstructionNoticePreservesConditionsAndOffsets(t *testing.T) {
 
 func TestConstructionRewritesKeepConditions(t *testing.T) {
 	for _, row := range []struct{ id, before, after string }{
-		{"filler.evaluative-closure", "It should be noted that the client retries only after a timeout.", "The client retries only after a timeout."},
-		{"filler.evaluative-closure", "Two type mappings are worth knowing because the engine has no Boolean type.", "The engine has no Boolean type; use these two type mappings."},
-		{"filler.instruction-scaffolding", "It is possible to apply `compact.css` to the dashboard.", "You can apply `compact.css` to the dashboard."},
+		{"filler.evaluative-closure", "It should be noted that the client retries only after a timeout.",
+			"The client retries only after a timeout."},
+		{"filler.evaluative-closure", "Two type mappings are worth knowing because the engine has no Boolean type.",
+			"The engine has no Boolean type; use these two type mappings."},
+		{"filler.instruction-scaffolding", "It is possible to apply `compact.css` to the dashboard.",
+			"You can apply `compact.css` to the dashboard."},
 		{"filler.instruction-scaffolding", "This is done by defining `retry_limit` as `3`.", "Define `retry_limit` as `3` to configure retries."},
-		{"filler.instruction-scaffolding", "If you need a horizontal divider you just need to put three dashes on a line.", "To insert a horizontal divider, put three dashes on a line."},
-		{"filler.document-justification", "Use the reference rather than this page restating a list that drifts.", "Use the reference for the current list."},
+		{"filler.instruction-scaffolding", "If you need a horizontal divider you just need to put three dashes on a line.",
+			"To insert a horizontal divider, put three dashes on a line."},
+		{"filler.document-justification", "Use the reference rather than this page restating a list that drifts.",
+			"Use the reference for the current list."},
 	} {
 		t.Run(row.id+"/"+row.before, func(t *testing.T) {
 			c := qt.New(t)

@@ -2,6 +2,10 @@ package builtin
 
 import "github.com/stokaro/unswell/document"
 
+func scopedInformationNotice(c frameClause, i int) bool {
+	return !quotedClaim(c.sentence.Tokens) && (informationNotice(c.tokens()[i:]) || cognitiveAnnouncement(c.tokens()[i:]))
+}
+
 // Notice frames describe presenting information, not its operational truth. A
 // following condition remains source context and is not a reason to erase it.
 func informationNotice(tokens []document.Token) bool {
@@ -32,14 +36,15 @@ func cognitiveAnnouncement(tokens []document.Token) bool {
 			"knowing", "noting", "remembering", "understanding", "mentioning", "stating", "saying") {
 			return false
 		}
-		// The existing phrase rule owns this exact announcement.
-		if i == 1 && frameWord(tokens[0], "it") && len(rest) > 2 &&
-			frameWord(rest[1], "noting") && frameWord(rest[2], "that") {
-			return false
-		}
-		return true
+		return !phraseOwnsNotice(tokens[:i], rest)
 	}
 	return false
+}
+
+// The existing phrase rule owns this exact announcement.
+func phraseOwnsNotice(subject, rest []document.Token) bool {
+	return len(subject) == 1 && frameWord(subject[0], "it") && len(rest) > 2 &&
+		frameWord(rest[1], "noting") && frameWord(rest[2], "that")
 }
 
 func informationSubject(tokens []document.Token) bool {
