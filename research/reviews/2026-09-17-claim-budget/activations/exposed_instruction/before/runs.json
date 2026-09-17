@@ -1,0 +1,60 @@
+{
+  "technical": {
+    "path": "technical.json.gz",
+    "sha256": "4c37a5aeb4f7a33528d9c909e4136a2b53860379815f6fdc1d5fea5d8c752f75",
+    "binary_sha256": "2f71ab9d94e78b5d701683d6aed4f3186c8ddfadf73d74cc2bce64df8140311a",
+    "config_sha256": "fab3f71fa89f727f6eb45d64fb8f7f005dadbb9d6c066a4b7108663fc6f8af2c",
+    "config_identity_sha256": "ad4ee7fb0dc3ae970315fe1304ef916a5a94bef7cdb44151408cceb27af2e532",
+    "tool_commit": "fcb6cdd8dc69569c726cd6df4dda8ef32345534e",
+    "host": "macOS-26.5-arm64-arm-64bit-Mach-O",
+    "exit_code": 0,
+    "wall_seconds": 1.0852951670531183,
+    "cpu_seconds": 1.378206,
+    "max_rss_bytes": 207962112,
+    "command": [
+      "unswell",
+      "check",
+      "--project-root",
+      ".",
+      "--config",
+      "technical.yaml",
+      "--include-source",
+      "--report",
+      "json:/private/tmp/unswell-claim-budget/activation-v2/exposed_instruction/before/technical.json",
+      "--timeout",
+      "5m",
+      "--feature",
+      "activation/repetition.repeated-claim",
+      "sources"
+    ]
+  },
+  "strict": {
+    "path": "strict.json.gz",
+    "sha256": "02ea62af7be7aca51c3b6435e8ca703a336703cfca7ef2f0bc9a6a65d76fd305",
+    "binary_sha256": "2f71ab9d94e78b5d701683d6aed4f3186c8ddfadf73d74cc2bce64df8140311a",
+    "config_sha256": "c709455689d43759c783f08b0bcd3409c2bbbe658b1e305a4f7baf18796b3459",
+    "config_identity_sha256": "235449c50fc129908f894226e360b07d8d54815fbb236535d014b5ceb0c848ba",
+    "tool_commit": "fcb6cdd8dc69569c726cd6df4dda8ef32345534e",
+    "host": "macOS-26.5-arm64-arm-64bit-Mach-O",
+    "exit_code": 1,
+    "wall_seconds": 1.1019157499540597,
+    "cpu_seconds": 1.388668,
+    "max_rss_bytes": 223133696,
+    "command": [
+      "unswell",
+      "check",
+      "--project-root",
+      ".",
+      "--config",
+      "strict.yaml",
+      "--include-source",
+      "--report",
+      "json:/private/tmp/unswell-claim-budget/activation-v2/exposed_instruction/before/strict.json",
+      "--timeout",
+      "5m",
+      "--feature",
+      "activation/repetition.repeated-claim",
+      "sources"
+    ]
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "technical": {
+    "path": "technical.json.gz",
+    "sha256": "fa44ef1cb8e7068ba236a05eef8701d657f3d681880e0309ccfb12b96369403d",
+    "binary_sha256": "e068bb9c696239f5f62daf15be510c221fe1d450a07d06380a0760d0250b05c0",
+    "config_sha256": "fab3f71fa89f727f6eb45d64fb8f7f005dadbb9d6c066a4b7108663fc6f8af2c",
+    "config_identity_sha256": "ad4ee7fb0dc3ae970315fe1304ef916a5a94bef7cdb44151408cceb27af2e532",
+    "tool_commit": "d0e29d2475833a8198c47f67898761c42dcac083",
+    "host": "macOS-26.5-arm64-arm-64bit-Mach-O",
+    "exit_code": 0,
+    "wall_seconds": 1.1342096668668091,
+    "cpu_seconds": 1.423066,
+    "max_rss_bytes": 228605952,
+    "command": [
+      "unswell",
+      "check",
+      "--project-root",
+      ".",
+      "--config",
+      "technical.yaml",
+      "--include-source",
+      "--report",
+      "json:/private/tmp/unswell-claim-budget/activation-v2/exposed_instruction/after/technical.json",
+      "--timeout",
+      "5m",
+      "--feature",
+      "activation/repetition.repeated-claim",
+      "sources"
+    ]
+  },
+  "strict": {
+    "path": "strict.json.gz",
+    "sha256": "acc3cb7c11798571ca801bad769d7d4a7b73e728b72a52face18ebce864a0d3e",
+    "binary_sha256": "e068bb9c696239f5f62daf15be510c221fe1d450a07d06380a0760d0250b05c0",
+    "config_sha256": "c709455689d43759c783f08b0bcd3409c2bbbe658b1e305a4f7baf18796b3459",
+    "config_identity_sha256": "235449c50fc129908f894226e360b07d8d54815fbb236535d014b5ceb0c848ba",
+    "tool_commit": "d0e29d2475833a8198c47f67898761c42dcac083",
+    "host": "macOS-26.5-arm64-arm-64bit-Mach-O",
+    "exit_code": 1,
+    "wall_seconds": 1.0757740419358015,
+    "cpu_seconds": 1.3629220000000002,
+    "max_rss_bytes": 200835072,
+    "command": [
+      "unswell",
+      "check",
+      "--project-root",
+      ".",
+      "--config",
+      "strict.yaml",
+      "--include-source",
+      "--report",
+      "json:/private/tmp/unswell-claim-budget/activation-v2/exposed_instruction/after/strict.json",
+      "--timeout",
+      "5m",
+      "--feature",
+      "activation/repetition.repeated-claim",
+      "sources"
+    ]
+  }
+}
