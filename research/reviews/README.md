@@ -8,10 +8,13 @@ configuration, and the counts, and it says what the judgments do not
 establish. It is the review item of
 [ADR 0037](../../docs/adr/0037-diagnostics-not-authorship.md).
 
-A review is not human validation of a rule, not a precision figure, and
-not a claim about who wrote the text. It shows where a diagnostic earns
-its place on the text at hand and where it fires on something other than
-the construction it names.
+Under [ADR 0041](../../docs/adr/0041-assistant-review-acceptance.md), the
+maintainer accepts assistant review for diagnostic development and rule
+acceptance. The review identifies its actual author and measures behavior
+against that author's judgments on the stated sample. It shows where a
+diagnostic finds the intended construction and where it fires without a
+useful reason. It also records missed defects when whole pages are annotated.
+Independent human review is not a prerequisite for this work.
 
 - [2026-09-11-ptah](2026-09-11-ptah/README.md): every rule on the Ptah
   repository, one reader, ten findings per rule.
@@ -27,5 +30,5 @@ the construction it names.
 
 - [2026-09-17-full-page-recall](2026-09-17-full-page-recall/README.md): complete
   sources annotated before new detector-output review, missed-event recall,
-  all-finding dispositions and historical controls. Single-assistant development
-  labels remain separate from human qualification.
+  all-finding dispositions and historical controls. The maintainer accepted these
+  single-assistant judgments as diagnostic development evidence.

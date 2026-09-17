@@ -7,16 +7,17 @@ qualified model. The [acceptance audit](acceptance.md) separates merged features
 published release evidence, ongoing work, and deferred requirements.
 
 [ADR 0037](adr/0037-diagnostics-not-authorship.md) defines the current release
-path: explainable diagnostics on technical prose. Human qualification, calibrated
-probabilities, origin analysis, and detector comparisons retain their original
-criteria below but are outside that mandatory path. The published alpha does not
-claim completion of the original specification.
+path: explainable diagnostics on technical prose.
+[ADR 0041](adr/0041-assistant-review-acceptance.md) accepts assistant review for
+diagnostic development and rule acceptance. Independent human review is not a
+prerequisite. Calibrated probabilities, origin analysis and detector comparisons
+retain their separate criteria below and remain outside the mandatory path.
 
 ## Issue queue
 
 The table preserves the original issue sequence. An issue is complete only after its acceptance
-evidence passes on the merged commit. Human annotation and measured quality require
-real data; implementation alone cannot satisfy those requirements.
+evidence passes on the merged commit. Diagnostic quality requires actual source
+examples and recorded judgments; implementation alone cannot supply those judgments.
 
 Research work runs on two branches since September 10, 2026. The active branch,
 [#154](https://github.com/stokaro/unswell/issues/154), collects
@@ -36,13 +37,15 @@ the mandatory path under [ADR 0037](adr/0037-diagnostics-not-authorship.md).
 The stage that follows is the one in the next section.
 
 The human-validation branch is on hold indefinitely, by the maintainer's
-decision of September 11, 2026. Its acceptance criteria are unchanged. It
-holds [#22](https://github.com/stokaro/unswell/issues/22), the umbrella
+decision of September 11, 2026. Its deferred model-research criteria remain in
+[#22](https://github.com/stokaro/unswell/issues/22), the umbrella
 [#59](https://github.com/stokaro/unswell/issues/59), the held-out
-evaluation of #25, the rule qualification of #26, and the editorial
-comparisons of #50, #51, #52, and #58. Their engineering parts are closed
-with evidence. What waits is human judgment. Without a qualified pack the
-product reports revision probability as unavailable with a reason and
+evaluation of #25, and the editorial comparisons of #50, #51, #52, and #58.
+The September 17 decision in ADR 0041 removes #26 from that human-review hold:
+assistant judgments accepted by the maintainer can support diagnostic rule
+qualification. Model-research engineering is recorded separately from the missing
+data and calibration. Without a qualified pack the product reports revision
+probability as unavailable with a reason and
 enables no probability gate. Cohort measurements from the active branch
 never count toward those criteria.
 
@@ -104,20 +107,21 @@ consumer tests, and the public package ledger remain maintained.
 
 ## Next stage: diagnostics on real texts
 
-The current follow-ups are [#217](https://github.com/stokaro/unswell/issues/217)
-for replaying dated diagnostic reviews after engine fixes,
-[#218](https://github.com/stokaro/unswell/issues/218) for longer technical prose,
-and [#219](https://github.com/stokaro/unswell/issues/219) for complete scans and
-resource measurements of a published release. The summary reconciliation is
-tracked in [#220](https://github.com/stokaro/unswell/issues/220); the continuing
-pattern study remains in #154. Each requires its own evidence.
+The [whole-page audit](../research/reviews/2026-09-17-full-page-recall/README.md)
+was merged in #298. Its measured misses and false alarms drive the next work:
+[#299](https://github.com/stokaro/unswell/issues/299) for contextual framing and
+certainty, and [#300](https://github.com/stokaro/unswell/issues/300) for repetition
+scope and short duplicates. Both require before/after evidence and separately
+frozen confirmation pages. The same assistant may review those pages.
+[#26](https://github.com/stokaro/unswell/issues/26) records per-rule acceptance;
+it no longer waits for independent human reviewers.
 
 The maintainer restated the goal on September 11, 2026, and
 [ADR 0037](adr/0037-diagnostics-not-authorship.md) records the audit
 against it. Unswell finds concrete constructions and explains the edit; it
 does not establish authorship. This stage improves named diagnostics on
-texts the project already has. It builds no platform and claims no
-precision figure.
+texts the project already has. Report measurements against the stated reviewer
+and sample under ADR 0041.
 
 | Item | Deliverable | Acceptance |
 | --- | --- | --- |
@@ -224,9 +228,10 @@ experiments is reported as a completed benchmark.
 - Record the disposition of the original specification's 13 final criteria.
   Validate diagnostics, interfaces, distribution, and resources on the current
   release path; preserve deferred stage 3 requirements without claiming completion.
-- Preserve the deferred rule-qualification criteria in #26: at least 15 positive
-  and 15 negative examples per rule and
-  corpus evidence. Target 98% precision for hard defaults and 85% for soft defaults,
+- Apply #26 to assistant-reviewed evidence accepted by the maintainer under
+  ADR 0041: at least 15 positive and 15 negative examples per rule and
+  contextual corpus evidence, including separate confirmation pages. Target 98%
+  precision for hard defaults and 85% for soft defaults,
   with sample sizes and uncertainty; measure clean-block false positives separately.
 - Meet the stated coverage goals: 90% for engine/rules/scoring/config/source mapping
   and 85% overall, without hiding difficult packages.

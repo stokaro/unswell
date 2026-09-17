@@ -4,6 +4,13 @@ Rubric ID: `unswell-editorial-v1`. Artifact format: `unswell-annotation-v1`.
 This is the protocol for [#21](https://github.com/stokaro/unswell/issues/21), under
 the [research umbrella](https://github.com/stokaro/unswell/issues/59).
 
+This document defines the deferred model-research annotation protocol. For
+editorial diagnostic acceptance, [ADR 0041](adr/0041-assistant-review-acceptance.md)
+permits maintainer-accepted assistant review without an independent human rater.
+Reuse the rubric below while recording the actual reviewer in diagnostic review
+artifacts. The human-rater requirements and artifact checks later in this document
+apply to the model-research corpus, not to that diagnostic acceptance path.
+
 Unswell aims to keep formulaic AI-style wording out of code and documents. The
 annotation target is the need for editorial revision under a stated policy.
 Origin is a separate research variable. A useful AI-assisted explanation may need
