@@ -45,6 +45,9 @@ func anaphoricEvaluationEnd(tokens []document.Token) int {
 	if bareVerification(tokens) || bareWorth(tokens) || bareQuestion(tokens) || bareWorthSeeing(tokens) {
 		return len(tokens)
 	}
+	if len(tokens) > 4 && bareWorth(tokens[:4]) && frameWord(tokens[4], "because") {
+		return 4
+	}
 	return 0
 }
 

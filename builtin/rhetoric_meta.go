@@ -51,11 +51,12 @@ func documentJustifies(tokens []document.Token) bool {
 
 func evaluativeClosure(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	c := clauses[index]
-	if !c.eligible() {
+	if len(c.sentence.Tokens) > 96 || question(c.sentence) {
 		return rhetoricalFrame{}, false
 	}
 	for i := range c.tokens() {
-		if !embeddedClauseStart(c.tokens(), i) {
+		candidate, ok := localRhetoricCandidate(c, i)
+		if !ok || !embeddedClauseStart(c.tokens(), i) {
 			continue
 		}
 		if scopedInformationNotice(c, i) {
@@ -68,11 +69,20 @@ func evaluativeClosure(clauses []frameClause, index int) (rhetoricalFrame, bool)
 		if evaluativeTail(c.tokens()[i:]) {
 			return localFrame(c, i)
 		}
-		if !contextualRhetoricScoped(c) && contextualEvaluation(c.tokens()[i:]) {
+		if candidateEvaluation(candidate) {
 			return localFrame(c, i)
 		}
 	}
 	return rhetoricalFrame{}, false
+}
+
+func candidateEvaluation(candidate frameClause) bool {
+	if candidateRhetoricScoped(candidate) {
+		return false
+	}
+	tokens := candidate.tokens()
+	return contextualEvaluation(tokens) || purposeEvaluation(tokens) ||
+		intentionalityAnnouncement(tokens) || outputUnderstanding(tokens)
 }
 
 func evaluativeTail(tokens []document.Token) bool {

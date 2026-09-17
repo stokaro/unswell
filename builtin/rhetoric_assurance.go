@@ -4,6 +4,9 @@ import "github.com/stokaro/unswell/document"
 
 func unscopedAssurance(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	c := clauses[index]
+	if frame, ok := readerAssurance(c); ok {
+		return frame, true
+	}
 	if !c.eligible() {
 		return rhetoricalFrame{}, false
 	}
