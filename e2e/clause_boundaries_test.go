@@ -15,7 +15,8 @@ func TestClauseBoundaryRepairs(t *testing.T) {
 	work := t.TempDir()
 	files := map[string]string{
 		"draft.md": "The library includes a function `Decode` that can be used to parse records.\n\n" +
-			"To configure the client, the process is straightforward.",
+			"To configure the client, the process is straightforward.\n\n" +
+			"The library provides the ability to parse records.\n\nSetting up a configuration file is simple.",
 		"revision.md": "The `Decode` function parses records.\n\nSet the client address in its configuration file.",
 		"control.md": "Raise `--connect-timeout` for databases that are slow to accept connections.\n\n" +
 			"The response includes a checksum `function` that can be used to cache results.",
@@ -40,6 +41,6 @@ func TestClauseBoundaryRepairs(t *testing.T) {
 			c.Assert(f.Primary.Path, qt.Equals, "draft.md")
 			c.Assert(files["draft.md"][f.Primary.Span.Start:f.Primary.Span.End], qt.Equals, f.Primary.Snippet)
 		}
-		c.Assert(counts, qt.DeepEquals, map[string]int{"filler.instruction-scaffolding": 1, "filler.unscoped-assurance": 1})
+		c.Assert(counts, qt.DeepEquals, map[string]int{"filler.instruction-scaffolding": 2, "filler.unscoped-assurance": 2})
 	}
 }

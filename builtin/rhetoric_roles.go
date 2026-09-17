@@ -14,11 +14,19 @@ func discourseSelection(tokens []document.Token) bool {
 	if len(tokens) >= 3 && frameWord(tokens[0], "the") &&
 		frameWord(tokens[1], "one", "ones", "part", "point", "detail", "thing") {
 		tokens = tokens[2:]
+		if attentionPart(tokens) {
+			return true
+		}
 		if frameWord(tokens[0], "that", "which") {
 			tokens = tokens[1:]
 		}
 	}
-	return importancePredicate(tokens) || cognitiveInformation(tokens) || readerMisses(tokens) || importanceQuality(tokens)
+	return selectedInformation(tokens)
+}
+
+func selectedInformation(tokens []document.Token) bool {
+	return importancePredicate(tokens) || cognitiveInformation(tokens) || readerMisses(tokens) ||
+		importanceQuality(tokens) || readerAttention(tokens)
 }
 
 func readerMisses(tokens []document.Token) bool {

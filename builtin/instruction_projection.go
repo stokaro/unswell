@@ -96,6 +96,8 @@ func projectSupport(tokens []document.Token, at, layers int) (instructionProject
 	switch {
 	case frameWord(tokens[at], "has", "have"):
 		return projectAbility(tokens, at+1, layers)
+	case frameWord(tokens[at], "supports", "support", "provides", "provide", "offers", "offer", "gives", "give"):
+		return projectCapability(tokens, at+1, layers)
 	case frameWord(tokens[at], "allows", "allow", "enables", "enable"):
 		return projectEnabling(tokens, at+1, layers)
 	case frameWord(tokens[at], "can", "may", "could"):
@@ -107,6 +109,14 @@ func projectSupport(tokens []document.Token, at, layers int) (instructionProject
 		return projectPassive(tokens, at+1, layers)
 	}
 	return instructionProjection{}, false
+}
+
+func projectCapability(tokens []document.Token, at, layers int) (instructionProjection, bool) {
+	at = supportAdverb(tokens, at)
+	if readerEnd := genericInstructionReader(tokens, at); readerEnd > at {
+		at = readerEnd
+	}
+	return projectAbility(tokens, at, layers)
 }
 
 func projectAbility(tokens []document.Token, at, layers int) (instructionProjection, bool) {

@@ -1,0 +1,1773 @@
+{
+  "version": 1,
+  "rubric": "unswell-editorial-v1",
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "88d5300bb826deaf156bd0337cae4c9852ef3ed5f6bd96189f7747c3c3715c72",
+      "reviewer": "Codex assistant reviewing the clause-grammar iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4499,
+          "first_line": 1,
+          "last_line": 74,
+          "rationale": "Read all 27 extracted blocks and original source context under all seven categories. Licensing, observed behavior, independent implementation, imported code, fixtures and provenance are separate claims. This review assesses wording, not legal validity; repeated boundaries are not automatically redundant.",
+          "prose_blocks": 27,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [],
+      "uncertain": [
+        {
+          "id": "c01-u01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 907,
+              "end": 1334,
+              "quote": "Ptah does not reverse engineer proprietary implementations. It does not decompile or disassemble proprietary binaries, access proprietary source code, or copy protected implementation expression from Atlas or from any other product. The Ptah implementation contains no third-party product code, Atlas code included. External implementation code enters the project only through dependencies declared in the repository manifests."
+            }
+          ],
+          "context": [
+            {
+              "start": 907,
+              "end": 1334,
+              "quote": "Ptah does not reverse engineer proprietary implementations. It does not decompile or disassemble proprietary binaries, access proprietary source code, or copy protected implementation expression from Atlas or from any other product. The Ptah implementation contains no third-party product code, Atlas code included. External implementation code enters the project only through dependencies declared in the repository manifests."
+            }
+          ],
+          "rationale": "Independent implementation and no imported implementation recur, but this page defines different provenance boundaries.",
+          "proposed_edit": "Retain unless the legal and implementation scopes can be consolidated without changing them."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2255,
+              "end": 2670,
+              "quote": "Ptah CI may build an Apache-2.0 Atlas CE release into a disposable executable\nand invoke it as an external black-box test oracle. The build verifies the\nrelease tag's locked commit, downloads that immutable commit archive, checks\nits committed SHA-256 digest, and validates the exact version string before any\ncomparison. The source archive and executable are never imported, vendored,\nlinked, or shipped with Ptah."
+            }
+          ],
+          "context": [
+            {
+              "start": 2255,
+              "end": 2670,
+              "quote": "Ptah CI may build an Apache-2.0 Atlas CE release into a disposable executable\nand invoke it as an external black-box test oracle. The build verifies the\nrelease tag's locked commit, downloads that immutable commit archive, checks\nits committed SHA-256 digest, and validates the exact version string before any\ncomparison. The source archive and executable are never imported, vendored,\nlinked, or shipped with Ptah."
+            }
+          ],
+          "rationale": "Version, digest and upstream source identity serve different reproducibility checks.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3953,
+              "end": 4157,
+              "quote": "Legal questions about Ptah's development and compatibility work are addressed under Czech and European Union law. This page records the project's development and provenance policy. It is not legal advice."
+            }
+          ],
+          "context": [
+            {
+              "start": 3953,
+              "end": 4157,
+              "quote": "Legal questions about Ptah's development and compatibility work are addressed under Czech and European Union law. This page records the project's development and provenance policy. It is not legal advice."
+            }
+          ],
+          "rationale": "The policy scope and legal-advice limitation qualify the purpose of this page.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c03",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 4344,
+              "end": 4498,
+              "quote": "Do not say `full parity`, `drop-in replacement`, or equivalent claims until\n  conformance reports and the documented gap register both support that claim."
+            }
+          ],
+          "context": [
+            {
+              "start": 4344,
+              "end": 4498,
+              "quote": "Do not say `full parity`, `drop-in replacement`, or equivalent claims until\n  conformance reports and the documented gap register both support that claim."
+            }
+          ],
+          "rationale": "The parity claim is explicitly conditional on conformance evidence and a gap register.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "4098d9eca09f38bf6a72a02a5d84f73cffbeaeb9c63e46f30a86b3b9ac61b536",
+      "reviewer": "Codex assistant reviewing the clause-grammar iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 11828,
+          "first_line": 1,
+          "last_line": 236,
+          "rationale": "Read all 53 extracted MDX blocks and original test examples. Distinguish desired-schema input from disposable execution database, seed guard bypass, ephemeral versus shared state, additive application, and exit-code behavior. Embedded code is not judged as prose.",
+          "prose_blocks": 53,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6010,
+              "end": 6077,
+              "quote": "One selector names the desired schema, and each says what it takes:"
+            }
+          ],
+          "context": [
+            {
+              "start": 6010,
+              "end": 6077,
+              "quote": "One selector names the desired schema, and each says what it takes:"
+            }
+          ],
+          "rationale": "The selector-says-what-it-takes wrapper obscures a direct introduction to the input choices.",
+          "proposed_edit": "Select the desired schema source with one of these options; retain the table of accepted inputs."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c02-u01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 11597,
+              "end": 11827,
+              "quote": "The runner is exported as `ptah.run/migration/dbtest`\n(`RunMigrationTest` / `RunSchemaTest`, with the `Case`/`Step`/`Assertion` model),\nso migration and schema tests can be driven directly from Go \u2014 no CLI, no account,\nno cloud."
+            }
+          ],
+          "context": [
+            {
+              "start": 11597,
+              "end": 11827,
+              "quote": "The runner is exported as `ptah.run/migration/dbtest`\n(`RunMigrationTest` / `RunSchemaTest`, with the `Case`/`Step`/`Assertion` model),\nso migration and schema tests can be driven directly from Go \u2014 no CLI, no account,\nno cloud."
+            }
+          ],
+          "rationale": "The no-CLI/account/cloud statement repeats earlier distribution information, but addresses Go embedding specifically.",
+          "proposed_edit": "Keep the embedding interface and consider a link for distribution details."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2522,
+              "end": 2665,
+              "quote": "The database reader measures the live catalog; the destination must be throwaway and a non-SQLite source needs an explicit matching `--db-url`."
+            }
+          ],
+          "context": [
+            {
+              "start": 2522,
+              "end": 2665,
+              "quote": "The database reader measures the live catalog; the destination must be throwaway and a non-SQLite source needs an explicit matching `--db-url`."
+            }
+          ],
+          "rationale": "Desired-schema database and disposable execution database have different roles; preserve both.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 6351,
+              "end": 6583,
+              "quote": "Naming two of them is refused before the throwaway database is provisioned.\n`--source-db-url` is separate from `--db-url` because that one names the\nthrowaway database the cases run against; a database source must share its\ndialect."
+            }
+          ],
+          "context": [
+            {
+              "start": 6351,
+              "end": 6583,
+              "quote": "Naming two of them is refused before the throwaway database is provisioned.\n`--source-db-url` is separate from `--db-url` because that one names the\nthrowaway database the cases run against; a database source must share its\ndialect."
+            }
+          ],
+          "rationale": "Mutual exclusion and dialect matching constrain when provisioning is valid.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c03",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 7399,
+              "end": 7819,
+              "quote": "The HTML format keeps summary counts, each case, and every step result in one\nportable artifact. It is self-contained: opening it fetches no stylesheet, font\nor script, so it reads the same attached to a review as it does on a machine\nwith no network, and it follows the reader's light or dark preference. The\npassing and failing reports below come from the same migration directory; only\nthe selected assertion changes."
+            }
+          ],
+          "context": [
+            {
+              "start": 7399,
+              "end": 7819,
+              "quote": "The HTML format keeps summary counts, each case, and every step result in one\nportable artifact. It is self-contained: opening it fetches no stylesheet, font\nor script, so it reads the same attached to a review as it does on a machine\nwith no network, and it follows the reader's light or dark preference. The\npassing and failing reports below come from the same migration directory; only\nthe selected assertion changes."
+            }
+          ],
+          "rationale": "Self-contained HTML has a concrete offline behavior: viewing the report fetches no resources.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 10681,
+              "end": 11144,
+              "quote": "Pass `--db-url` to run against a specific\n[throwaway database](../../concepts/database-urls-and-dev-databases/) (for\nexample to exercise a real PostgreSQL or MySQL dialect). All cases then share that one\ndatabase \u2014 it is provisioned once, cases accumulate state, and keeping them\nindependent is the caller's responsibility. Never point `--db-url` at a real\ndatabase: tests mutate schema and data, and seed steps bypass the seeder's\nprotected-environment guards."
+            }
+          ],
+          "context": [
+            {
+              "start": 10681,
+              "end": 11144,
+              "quote": "Pass `--db-url` to run against a specific\n[throwaway database](../../concepts/database-urls-and-dev-databases/) (for\nexample to exercise a real PostgreSQL or MySQL dialect). All cases then share that one\ndatabase \u2014 it is provisioned once, cases accumulate state, and keeping them\nindependent is the caller's responsibility. Never point `--db-url` at a real\ndatabase: tests mutate schema and data, and seed steps bypass the seeder's\nprotected-environment guards."
+            }
+          ],
+          "rationale": "Shared state and seed protection differ from ephemeral test cases and require their own warning.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c05",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 11146,
+              "end": 11448,
+              "quote": "Desired-schema application is additive at object boundaries: unrelated objects\ncreated by migrations remain in place, while declared objects are planned with\nthe live target's capabilities and identifier semantics. Roles and grants are\nnot accepted because their security effects can be cluster-scoped."
+            }
+          ],
+          "context": [
+            {
+              "start": 11146,
+              "end": 11448,
+              "quote": "Desired-schema application is additive at object boundaries: unrelated objects\ncreated by migrations remain in place, while declared objects are planned with\nthe live target's capabilities and identifier semantics. Roles and grants are\nnot accepted because their security effects can be cluster-scoped."
+            }
+          ],
+          "rationale": "Additive application does not remove unrelated objects; cluster roles are a separate scope.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "8f61de7acefc57c63fbfe855120fd366072c9d768c7b6915abda0200ea7fe6cb",
+      "reviewer": "Codex assistant reviewing the clause-grammar iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 34875,
+          "first_line": 1,
+          "last_line": 698,
+          "rationale": "Read all 137 extracted blocks and original command/configuration examples. Preserve checksum membership, recovery versus execution, native versus compatibility behavior, bypasses, migration ordering, preview limitations, source identity and concrete security mechanisms. Repeated warnings with different triggers are not merged merely for brevity.",
+          "prose_blocks": 137,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 627,
+              "end": 800,
+              "quote": "You are about to let migrations touch a database other people depend on. This\npage shows the gates that decide whether the directory in front of you is the\none you reviewed:"
+            }
+          ],
+          "context": [
+            {
+              "start": 627,
+              "end": 1038,
+              "quote": "You are about to let migrations touch a database other people depend on. This\npage shows the gates that decide whether the directory in front of you is the\none you reviewed: the integrity file, replay validation, and pre-migration\nassertion checks \u2014 and what each one's failure looks like. Which SQL those\nmigrations are allowed to contain is a separate decision, made on\n[Lint and gate unsafe SQL](../lint/)."
+            }
+          ],
+          "rationale": "Reader presumption and page announcement delay the concrete verification gates.",
+          "proposed_edit": "Introduce the three gates directly, retaining the distinction from SQL linting."
+        },
+        {
+          "id": "c03-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2582,
+              "end": 2629,
+              "quote": "not a list of verbs that happened to be\nnoticed"
+            }
+          ],
+          "context": [
+            {
+              "start": 2544,
+              "end": 2630,
+              "quote": "The gated set is the executing class, not a list of verbs that happened to be\nnoticed:"
+            }
+          ],
+          "rationale": "The defensive noticed-versus-class contrast adds no membership condition.",
+          "proposed_edit": "State that the gate covers commands that execute migration SQL."
+        },
+        {
+          "id": "c03-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3890,
+              "end": 3924,
+              "quote": "and the\ndistinction is deliberate."
+            }
+          ],
+          "context": [
+            {
+              "start": 3827,
+              "end": 4344,
+              "quote": "`repair` is on that list only in its `--resume-from` spelling, and the\ndistinction is deliberate. A plain `repair` rewrites revision metadata and\nexecutes none of the directory's SQL, so it keeps working on a drifted\ndirectory \u2014 clearing a dirty row is a recovery step you may need *before* you\ncan sensibly re-hash anything, and a gate there would send you to fix the\ndirectory you are still trying to reason about. `--resume-from` executes\nstatements straight out of the migration file, so it gates like the rest."
+            }
+          ],
+          "rationale": "Intentionality endorsement adds no behavior to the execution-versus-metadata distinction.",
+          "proposed_edit": "Delete this clause and retain what each recovery command changes."
+        },
+        {
+          "id": "c03-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4541,
+              "end": 4603,
+              "quote": "they are outside the class by the\npredicate, not by oversight."
+            }
+          ],
+          "context": [
+            {
+              "start": 4346,
+              "end": 4603,
+              "quote": "`status` and `set` read the directory but execute none of its SQL. `hash`,\n`edit`, `rebase` and `rm` exist to **rewrite** the integrity file, so verifying\nit first would refuse their purpose \u2014 they are outside the class by the\npredicate, not by oversight."
+            }
+          ],
+          "rationale": "The author-defense contrast repeats the stated checksum-writing exception.",
+          "proposed_edit": "Keep why these commands can rewrite an out-of-date checksum without defending the implementation choice."
+        },
+        {
+          "id": "c03-d05",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 4654,
+              "end": 4688,
+              "quote": "it was the worst one to leave\nout."
+            }
+          ],
+          "context": [
+            {
+              "start": 4605,
+              "end": 5183,
+              "quote": "`down` was the last member outside the gate, and it was the worst one to leave\nout. Measured on one hashed directory whose `_init.down.sql` was rewritten with\n`ptah.sum` left stale, `up` exited `2` and refused while\n`down --target 0 --confirm` exited `0` and executed the rewritten file; a\ncatalog census afterwards listed a table that appears in no committed\nmigration. Verification guarding the constructive direction and not the\ndestructive one is backwards, because `down` is the direction where the result\ncannot be inspected afterwards \u2014 the objects are gone either way."
+            }
+          ],
+          "rationale": "The superlative ranks omissions without a comparison; the next text supplies the actual destructive risk.",
+          "proposed_edit": "Keep the rollback risk without ranking historical omissions."
+        },
+        {
+          "id": "c03-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5648,
+              "end": 5694,
+              "quote": "It\nexists for the case that genuinely needs it"
+            }
+          ],
+          "context": [
+            {
+              "start": 5499,
+              "end": 5864,
+              "quote": "Refusing outright would remove a capability, so the gate has an escape:\n`PTAH_ALLOW_UNVERIFIED_MIGRATION_DIR=1` executes a drifted directory anyway. It\nexists for the case that genuinely needs it \u2014 rolling back through a directory\nwhose sum is stale while recovering from a botched edit, where re-hashing first\nwould record the botched bytes as the intended ones."
+            }
+          ],
+          "rationale": "The needs-it assertion repeats purpose without identifying an additional use condition.",
+          "proposed_edit": "Start with the concrete rollback use case and retain override and no-rehash behavior."
+        },
+        {
+          "id": "c03-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7456,
+              "end": 7524,
+              "quote": "The verbs that **write** are on that list for a reason of their own."
+            }
+          ],
+          "context": [
+            {
+              "start": 7456,
+              "end": 7980,
+              "quote": "The verbs that **write** are on that list for a reason of their own. A gate that\nfired only on the reading verbs would still let `migrate new` append a file to a\ntampered directory and re-hash it on the way out, so the tampering would end up\ninside a directory that verifies clean \u2014 the laundering shape recorded for\n`migrate import` in [#1095](https://github.com/stokaro/ptah/issues/1095). All\nsix verbs refuse before anything is written, which is what the pinned Atlas\ncommunity binary v1.3.0 does on the same directory."
+            }
+          ],
+          "rationale": "The reason announcement precedes the actual tampered-directory append mechanism.",
+          "proposed_edit": "Start with that mechanism and retain the covered writing commands."
+        },
+        {
+          "id": "c03-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 9674,
+              "end": 9712,
+              "quote": "Recovery is a decision, not a command:"
+            }
+          ],
+          "context": [
+            {
+              "start": 9674,
+              "end": 10013,
+              "quote": "Recovery is a decision, not a command: if the change is intentional, review\nit and re-run `ptah migrations hash`; if it is not, restore the file from\nversion control. Use `git diff` on the migration directory to tell the two\napart. Run `validate` in CI and hash every shared directory so drift is\ncaught at review time, not at deploy time."
+            }
+          ],
+          "rationale": "Abstract contrast delays the actual intentional-versus-accidental recovery choices.",
+          "proposed_edit": "Present the two recovery cases directly."
+        },
+        {
+          "id": "c03-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 10053,
+              "end": 10180,
+              "quote": "Drift is one question; \"there is no sum file at all\" is a different one, and\nthe two surfaces answer it differently on purpose."
+            }
+          ],
+          "context": [
+            {
+              "start": 10053,
+              "end": 10180,
+              "quote": "Drift is one question; \"there is no sum file at all\" is a different one, and\nthe two surfaces answer it differently on purpose."
+            }
+          ],
+          "rationale": "Question/answer and intentionality framing obscure a direct comparison of missing versus mismatched checksums.",
+          "proposed_edit": "Name missing and mismatched checksum states, then compare native and compatible command behavior."
+        },
+        {
+          "id": "c03-d10",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 13364,
+              "end": 13420,
+              "quote": "A sum check is worth what the sum's provenance is worth."
+            }
+          ],
+          "context": [
+            {
+              "start": 13364,
+              "end": 13970,
+              "quote": "A sum check is worth what the sum's provenance is worth.** Either gate\ncompares a directory against the sum stored beside it. For a local directory\nthat sum was reviewed in version control next to the migrations. For an\n`oci://` artifact the sum travels inside the artifact, so anyone who can push\nto the repository can rewrite the migrations, rehash them, repoint a tag, and\nwatch the check pass over bytes nobody reviewed. `ptah migrations up` therefore\nqualifies the claim when a sum verifies over a tag-resolved artifact, naming\nthe digest the tag resolved to and the `@sha256:` reference that pins it:"
+            }
+          ],
+          "rationale": "The recursive worth slogan adds no trust condition before the concrete artifact-provenance explanation.",
+          "proposed_edit": "Start with the trusted-source requirement and retain the artifact and write-permission constraints."
+        },
+        {
+          "id": "c03-d11",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 18817,
+              "end": 18858,
+              "quote": "and importing it is\nwhat the verb is for."
+            }
+          ],
+          "context": [
+            {
+              "start": 18525,
+              "end": 19372,
+              "quote": "`migrate import` is gated on the source directory, with one exemption.** A\nsource that carries an `atlas.sum` must verify against it before anything is\nconverted or written; a source that carries no `atlas.sum` at all is imported,\nbecause a directory another tool wrote has never been hashed and importing it is\nwhat the verb is for. That is the one place the rule differs from `apply`,\n`status` and `set`, which refuse an unhashed directory outright, and it matches\nAtlas on both halves. An unchecked source converts a directory `migrate apply`\nrefuses, and the destination is then hashed over whatever the conversion\nproduced \u2014 so a tampered source comes out as a directory `migrate validate`\ncalls clean ([#1095](https://github.com/stokaro/ptah/issues/1095)). Nothing is\nwritten when the check fails; the destination directory is not created."
+            }
+          ],
+          "rationale": "The command-purpose endorsement repeats the import action already stated.",
+          "proposed_edit": "Retain that never-hashed input is accepted while stale hashed input is gated."
+        },
+        {
+          "id": "c03-d12",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 21867,
+              "end": 21892,
+              "quote": "and not by special-casing"
+            }
+          ],
+          "context": [
+            {
+              "start": 21833,
+              "end": 22057,
+              "quote": "`flyway` is exempt on both tools, and not by special-casing: Atlas walks a\nFlyway tree instead of globbing it, so a directory is a node it descends into\nand never reads. A migration nested inside one is covered as usual.\n:::"
+            }
+          ],
+          "rationale": "The implementation-defense contrast adds no operation beyond the shared walker described next.",
+          "proposed_edit": "Keep the walker mechanism and the files it includes."
+        },
+        {
+          "id": "c03-d13",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 23288,
+              "end": 23338,
+              "quote": "The first row is the one that costs you something."
+            }
+          ],
+          "context": [
+            {
+              "start": 23288,
+              "end": 23730,
+              "quote": "The first row is the one that costs you something. Nothing on stdout, nothing on\nstderr and no `migrate status` line says the file was skipped \u2014 `migrate status`\nreports `OK` with `Pending Files: 0` on a database missing the object \u2014 and once\nthe squash retires the superseded files from `atlas.sum`, nothing can re-derive\nit. A production database and a fresh one built from the same directory diverge\npermanently, both reported healthy."
+            }
+          ],
+          "rationale": "The ordinal attention marker and cost metaphor delay the concrete version-skipping consequence.",
+          "proposed_edit": "Start with how the B10 baseline skips lower-version objects."
+        },
+        {
+          "id": "c03-d14",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 24323,
+              "end": 24396,
+              "quote": "That is the\n  fresh-install path a converted Flyway directory exists for."
+            }
+          ],
+          "context": [
+            {
+              "start": 24258,
+              "end": 24396,
+              "quote": "A database with **no recorded history** still runs the baseline. That is the\n  fresh-install path a converted Flyway directory exists for."
+            }
+          ],
+          "rationale": "Purpose endorsement repeats the immediately described fresh-install behavior.",
+          "proposed_edit": "Keep the no-history execution behavior without this sentence."
+        },
+        {
+          "id": "c03-d15",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 25264,
+              "end": 25337,
+              "quote": "which\nis what makes the flag a way forward rather than a second dead end."
+            }
+          ],
+          "context": [
+            {
+              "start": 24740,
+              "end": 25367,
+              "quote": "Atlas CE follows only halfway there. For a baseline it refuses as out of order\nit does the same thing \u2014 `B2.5__base.sql` on a database at `V1`, `V2`, `V3` is\nexit 1 without the flag and `Migrating to version 2.5 from 3` with it. For a\nbaseline it *skips silently*, the first row of the table above, neither flag\nchanges anything: `V2` plus `B10__base.sql` still prints\n`No migration files to execute` at exit 0 under `--exec-order=non-linear` and\nunder `--exec-order=linear-skip`. `ptah-compat` runs the baseline in both, which\nis what makes the flag a way forward rather than a second dead end. Both tools\nexit 0 either way."
+            }
+          ],
+          "rationale": "The way-forward/dead-end contrast adds no behavior to the workaround.",
+          "proposed_edit": "Delete this conclusion and retain what the flag permits and its limits."
+        },
+        {
+          "id": "c03-d16",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 30851,
+              "end": 30911,
+              "quote": "which is where a precondition is often worth asserting most."
+            }
+          ],
+          "context": [
+            {
+              "start": 30696,
+              "end": 31021,
+              "quote": "A check guards the direction it is written in. A `-- +ptah check` in the up\nbody runs before the migration; one in the down body runs before the rollback,\nwhich is where a precondition is often worth asserting most. The two are\nindependent: an up check does not guard a rollback and a down check does not\nguard the migration."
+            }
+          ],
+          "rationale": "An unscoped importance ranking adds no requirement to downward preconditions.",
+          "proposed_edit": "Keep the separate downward precondition behavior without ranking its value."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c03-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15784,
+              "end": 16315,
+              "quote": "That rule replaced a recursive one. Ptah used to discover and execute nested\nfiles while hashing only the top level, so a migration in a subdirectory ran\nwith no checksum reaching it: `migrate validate` reported the directory clean,\nand editing that file afterwards changed what ran without changing any hash.\nConverging the executed set onto the covered set is what makes `atlas.sum` mean\nsomething; refusing such directories, which is what the previous release did for\nthe unhashed half only, never closed the hashed half at all."
+            }
+          ],
+          "context": [
+            {
+              "start": 15784,
+              "end": 16315,
+              "quote": "That rule replaced a recursive one. Ptah used to discover and execute nested\nfiles while hashing only the top level, so a migration in a subdirectory ran\nwith no checksum reaching it: `migrate validate` reported the directory clean,\nand editing that file afterwards changed what ran without changing any hash.\nConverging the executed set onto the covered set is what makes `atlas.sum` mean\nsomething; refusing such directories, which is what the previous release did for\nthe unhashed half only, never closed the hashed half at all."
+            }
+          ],
+          "rationale": "The executed-versus-covered set explanation is abstract but describes a real checksum membership gap.",
+          "proposed_edit": "A direct explanation may help, but preserve both hashed-but-unexecuted and executed-but-unhashed cases."
+        },
+        {
+          "id": "c03-u02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 17536,
+              "end": 17803,
+              "quote": "`migrate lint` is deliberately not gated**, on either tool: inspecting a\ndirectory that has drifted is the point of linting it. That exemption covers a\n*missing* integrity file only \u2014 on a hashed directory that has since drifted,\nboth `lint` implementations exit 1."
+            }
+          ],
+          "context": [
+            {
+              "start": 17536,
+              "end": 17803,
+              "quote": "`migrate lint` is deliberately not gated**, on either tool: inspecting a\ndirectory that has drifted is the point of linting it. That exemption covers a\n*missing* integrity file only \u2014 on a hashed directory that has since drifted,\nboth `lint` implementations exit 1."
+            }
+          ],
+          "rationale": "Inspecting drift as a lint purpose may conflict with the later checksum condition; this requires scope verification, not an invented prose repair.",
+          "proposed_edit": "Verify whether drift means schema drift or directory checksum mismatch before editing."
+        },
+        {
+          "id": "c03-u03",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 31219,
+              "end": 31323,
+              "quote": "The vocabulary is deliberately small, and every limit below is a refusal rather\nthan a silent narrowing:"
+            }
+          ],
+          "context": [
+            {
+              "start": 31219,
+              "end": 31323,
+              "quote": "The vocabulary is deliberately small, and every limit below is a refusal rather\nthan a silent narrowing:"
+            }
+          ],
+          "rationale": "Small vocabulary is an editorial description followed by the exact accepted forms.",
+          "proposed_edit": "Optionally omit deliberate/small while preserving all supported assertions."
+        },
+        {
+          "id": "c03-u04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 32711,
+              "end": 33039,
+              "quote": "A check is a read, and a dry run intercepts only writes. Evaluating every\ncheck in a preview would therefore ask each migration's guard about state that\nonly exists once its predecessors apply \u2014 state the dry run has, by\nconstruction, refused to produce. The answer would be a fact about the preview,\nnot about the migrations."
+            }
+          ],
+          "context": [
+            {
+              "start": 32711,
+              "end": 33039,
+              "quote": "A check is a read, and a dry run intercepts only writes. Evaluating every\ncheck in a preview would therefore ask each migration's guard about state that\nonly exists once its predecessors apply \u2014 state the dry run has, by\nconstruction, refused to produce. The answer would be a fact about the preview,\nnot about the migrations."
+            }
+          ],
+          "rationale": "Preview-versus-migration facts restate the limitation but may prevent a dangerous interpretation.",
+          "proposed_edit": "Keep the limitation unless the adjacent explanation conveys it unambiguously."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 6056,
+              "end": 6390,
+              "quote": "The command that owns a replay gate parses this variable at entry, before\nargument validation, directory access, or a database connection. A present\nempty value or another invalid boolean is therefore always an error; it cannot\nhide behind a dry run, a missing required flag, or a branch that happens not to\nreach the integrity check."
+            }
+          ],
+          "context": [
+            {
+              "start": 6056,
+              "end": 6390,
+              "quote": "The command that owns a replay gate parses this variable at entry, before\nargument validation, directory access, or a database connection. A present\nempty value or another invalid boolean is therefore always an error; it cannot\nhide behind a dry run, a missing required flag, or a branch that happens not to\nreach the integrity check."
+            }
+          ],
+          "rationale": "Environment parsing and invalid nonempty values determine whether execution starts.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 12520,
+              "end": 12908,
+              "quote": "That does not retire `--verify-sum` on the consuming verbs, and the reason is\ntiming rather than coverage. `validate` resolves the reference in its own\nprocess; the consuming verb resolves it again in the next one. A movable tag\ncan select different bytes in between, so only the flag verifies the artifact\nthe same invocation is about to execute. Pin a digest, or pass the flag, or\nboth."
+            }
+          ],
+          "context": [
+            {
+              "start": 12520,
+              "end": 12908,
+              "quote": "That does not retire `--verify-sum` on the consuming verbs, and the reason is\ntiming rather than coverage. `validate` resolves the reference in its own\nprocess; the consuming verb resolves it again in the next one. A movable tag\ncan select different bytes in between, so only the flag verifies the artifact\nthe same invocation is about to execute. Pin a digest, or pass the flag, or\nboth."
+            }
+          ],
+          "rationale": "Checking at execution prevents a time-of-check/time-of-use gap; a separate validation command is insufficient.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 19376,
+              "end": 19968,
+              "quote": "Directories read through `?format=` are gated too.** A goose, flyway,\nliquibase, dbmate or golang-migrate directory is converted in memory and the\nconverted filesystem carries no integrity file \u2014 but the directory it was read\n*from* carries `atlas.sum` beside its own migrations, and that is what is\nverified, before the source layout is parsed and before the database is opened.\nRun `ptah-compat migrate hash --dir 'file://migrations?format=goose'` once and\ncommit the file. The same applies when the layout comes from `atlas.hcl`\n(`migration { format = goose }`) rather than from the URL."
+            }
+          ],
+          "context": [
+            {
+              "start": 19376,
+              "end": 19968,
+              "quote": "Directories read through `?format=` are gated too.** A goose, flyway,\nliquibase, dbmate or golang-migrate directory is converted in memory and the\nconverted filesystem carries no integrity file \u2014 but the directory it was read\n*from* carries `atlas.sum` beside its own migrations, and that is what is\nverified, before the source layout is parsed and before the database is opened.\nRun `ptah-compat migrate hash --dir 'file://migrations?format=goose'` once and\ncommit the file. The same applies when the layout comes from `atlas.hcl`\n(`migration { format = goose }`) rather than from the URL."
+            }
+          ],
+          "rationale": "Hashing the original source rather than in-memory conversion is a concrete identity constraint.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 25369,
+              "end": 25893,
+              "quote": "A baseline that squashes away the whole recorded history still runs on both\ntools \u2014 `B3__base.sql` on a database at `V2`, `B2__base.sql` on one at `V10` \u2014\nand both execute its SQL rather than merely recording it, so a baseline\nrestating DDL that is already there fails loudly on both. The exception is a\nbaseline whose own version is one the database has already applied\n(`B2__base.sql` on a database at `V1`, `V2`): Atlas CE skips that one silently,\nand `ptah-compat` refuses it under the second half of the rule above."
+            }
+          ],
+          "context": [
+            {
+              "start": 25369,
+              "end": 25893,
+              "quote": "A baseline that squashes away the whole recorded history still runs on both\ntools \u2014 `B3__base.sql` on a database at `V2`, `B2__base.sql` on one at `V10` \u2014\nand both execute its SQL rather than merely recording it, so a baseline\nrestating DDL that is already there fails loudly on both. The exception is a\nbaseline whose own version is one the database has already applied\n(`B2__base.sql` on a database at `V1`, `V2`): Atlas CE skips that one silently,\nand `ptah-compat` refuses it under the second half of the rule above."
+            }
+          ],
+          "rationale": "Baselining a whole history differs from recording an already-applied version.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 29587,
+              "end": 29972,
+              "quote": "This best-effort check cannot defeat coordinated writers or ABA changes that\nrestore the original bytes before the next observation. Hostile writers\nrequire trusted immutable input, manifest or process controls, or\nfilesystem-level snapshots. Relative CLI directories are rooted at the working\ndirectory and symlink escapes are rejected, while explicit absolute paths\nremain supported."
+            }
+          ],
+          "context": [
+            {
+              "start": 29587,
+              "end": 29972,
+              "quote": "This best-effort check cannot defeat coordinated writers or ABA changes that\nrestore the original bytes before the next observation. Hostile writers\nrequire trusted immutable input, manifest or process controls, or\nfilesystem-level snapshots. Relative CLI directories are rooted at the working\ndirectory and symlink escapes are rejected, while explicit absolute paths\nremain supported."
+            }
+          ],
+          "rationale": "The ABA limitation qualifies capture-once behavior rather than repeating an assurance.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c06",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 33041,
+              "end": 33452,
+              "quote": "So a dry run evaluates a migration's assertions only where the state it\nobserves is the state a real apply would evaluate them against: **the first\nmigration executed in the run**. That is a position in the run, not a version\nand not a place in the directory \u2014 a migration sitting second in its directory\nis first in the run once its predecessor is applied, and its checks are\nevaluated normally from then on."
+            }
+          ],
+          "context": [
+            {
+              "start": 33041,
+              "end": 33452,
+              "quote": "So a dry run evaluates a migration's assertions only where the state it\nobserves is the state a real apply would evaluate them against: **the first\nmigration executed in the run**. That is a position in the run, not a version\nand not a place in the directory \u2014 a migration sitting second in its directory\nis first in the run once its predecessor is applied, and its checks are\nevaluated normally from then on."
+            }
+          ],
+          "rationale": "First execution is distinct from migration version and statement index.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "458904a40a8b4ec1009d586729f60e9ea0e7477b67157940de009962d13e9dbc",
+      "reviewer": "Codex assistant reviewing the clause-grammar iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 46004,
+          "first_line": 1,
+          "last_line": 1575,
+          "rationale": "Reviewed the natural-language comments and quoted help/error strings throughout all 238 extracted blocks, with original CMake context. Metadata selected this build file as long text; retain that sampling limitation. CMake commands, identifiers and embedded programs are not editorial prose despite the text parser exposing them. Do not replace this source after seeing it. Typos alone are outside the seven-category rubric.",
+          "prose_blocks": 238,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 17458,
+              "end": 17488,
+              "quote": "# we're just getting lazy now."
+            }
+          ],
+          "context": [
+            {
+              "start": 17458,
+              "end": 17633,
+              "quote": "# we're just getting lazy now.\nCHECK_TYPE_SIZE(\"uintptr_t\" EVENT__HAVE_UINTPTR_T)\nCHECK_TYPE_SIZE(\"void *\" EVENT__SIZEOF_VOID_P)\nCHECK_TYPE_SIZE(\"time_t\" EVENT__SIZEOF_TIME_T)"
+            }
+          ],
+          "rationale": "Self-deprecating author commentary supplies no type-size behavior or maintenance instruction.",
+          "proposed_edit": "Delete the comment; retain the three type-size checks."
+        },
+        {
+          "id": "c04-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 17716,
+              "end": 17916,
+              "quote": "# XXX: Why is this here? we don't even use it. Well, we don't even use it\n#      on top of that, why is it set in the config.h?! IT_MAKES_NO_SENSE\n#      I'm commenting it out for now.\n#      - ellzey"
+            }
+          ],
+          "context": [
+            {
+              "start": 17716,
+              "end": 17916,
+              "quote": "# XXX: Why is this here? we don't even use it. Well, we don't even use it\n#      on top of that, why is it set in the config.h?! IT_MAKES_NO_SENSE\n#      I'm commenting it out for now.\n#      - ellzey"
+            }
+          ],
+          "rationale": "Repeated we-do-not-use-it questions and the capitalized complaint obscure the reason for disabling the check.",
+          "proposed_edit": "State once that the unused file-offset check is disabled, retaining attribution and the config-header concern if actionable."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c04-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 774,
+              "end": 977,
+              "quote": "# get rid of the extra default configurations\n# what? why would you get id of other useful build types? - Ellzey\nset(CMAKE_CONFIGURATION_TYPES \"Debug;Release\" CACHE STRING \"Limited configurations\" FORCE)"
+            }
+          ],
+          "context": [
+            {
+              "start": 774,
+              "end": 977,
+              "quote": "# get rid of the extra default configurations\n# what? why would you get id of other useful build types? - Ellzey\nset(CMAKE_CONFIGURATION_TYPES \"Debug;Release\" CACHE STRING \"Limited configurations\" FORCE)"
+            }
+          ],
+          "rationale": "The attributed question appears to be an unresolved review objection to removing build configurations.",
+          "proposed_edit": "Resolve the build-type decision before removing a potentially actionable objection."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3931,
+              "end": 4239,
+              "quote": "option(EVENT__FORCE_KQUEUE_CHECK\n    \"When crosscompiling forces running a test program that verifies that Kqueue works with pipes. Note that this requires you to manually run the test program on the cross compilation target to verify that it works. See cmake documentation for try_run for more details\" OFF)"
+            }
+          ],
+          "context": [
+            {
+              "start": 3931,
+              "end": 4239,
+              "quote": "option(EVENT__FORCE_KQUEUE_CHECK\n    \"When crosscompiling forces running a test program that verifies that Kqueue works with pipes. Note that this requires you to manually run the test program on the cross compilation target to verify that it works. See cmake documentation for try_run for more details\" OFF)"
+            }
+          ],
+          "rationale": "The note requires manually running a cross-compilation probe on the target; it is a real prerequisite.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 6027,
+              "end": 7005,
+              "quote": "# Detect library type\nset(EVENT_LIBRARY_TYPE)\nif (\"${EVENT__LIBRARY_TYPE}\" STREQUAL \"DEFAULT\")\n    if (${MSVC})\n        set(EVENT_LIBRARY_TYPE SHARED)\n    else()\n        set(EVENT_LIBRARY_TYPE BOTH)\n    endif()\nelse()\n    string(TOUPPER \"${EVENT__LIBRARY_TYPE}\" EVENT_LIBRARY_TYPE)\nendif()\nif ((${MSVC}) AND (\"${EVENT_LIBRARY_TYPE}\" STREQUAL \"BOTH\"))\n    message(WARNING\n      \"Building SHARED and STATIC is not supported for MSVC \"\n      \"(due to conflicts in library name\"\n      \" between STATIC library and IMPORTED library for SHARED libraries)\")\nendif()\nset(EVENT_LIBRARY_STATIC OFF)\nset(EVENT_LIBRARY_SHARED OFF)\nif (\"${EVENT_LIBRARY_TYPE}\" STREQUAL \"BOTH\")\n    set(EVENT_LIBRARY_STATIC ON)\n    set(EVENT_LIBRARY_SHARED ON)\nelseif (\"${EVENT_LIBRARY_TYPE}\" STREQUAL \"STATIC\")\n    set(EVENT_LIBRARY_STATIC ON)\nelseif (\"${EVENT_LIBRARY_TYPE}\" STREQUAL \"SHARED\")\n    set(EVENT_LIBRARY_SHARED ON)\nelse()\n    message(FATAL_ERROR \"${EVENT_LIBRARY_TYPE} is not supported\")\nendif()"
+            }
+          ],
+          "context": [
+            {
+              "start": 6027,
+              "end": 7005,
+              "quote": "# Detect library type\nset(EVENT_LIBRARY_TYPE)\nif (\"${EVENT__LIBRARY_TYPE}\" STREQUAL \"DEFAULT\")\n    if (${MSVC})\n        set(EVENT_LIBRARY_TYPE SHARED)\n    else()\n        set(EVENT_LIBRARY_TYPE BOTH)\n    endif()\nelse()\n    string(TOUPPER \"${EVENT__LIBRARY_TYPE}\" EVENT_LIBRARY_TYPE)\nendif()\nif ((${MSVC}) AND (\"${EVENT_LIBRARY_TYPE}\" STREQUAL \"BOTH\"))\n    message(WARNING\n      \"Building SHARED and STATIC is not supported for MSVC \"\n      \"(due to conflicts in library name\"\n      \" between STATIC library and IMPORTED library for SHARED libraries)\")\nendif()\nset(EVENT_LIBRARY_STATIC OFF)\nset(EVENT_LIBRARY_SHARED OFF)\nif (\"${EVENT_LIBRARY_TYPE}\" STREQUAL \"BOTH\")\n    set(EVENT_LIBRARY_STATIC ON)\n    set(EVENT_LIBRARY_SHARED ON)\nelseif (\"${EVENT_LIBRARY_TYPE}\" STREQUAL \"STATIC\")\n    set(EVENT_LIBRARY_STATIC ON)\nelseif (\"${EVENT_LIBRARY_TYPE}\" STREQUAL \"SHARED\")\n    set(EVENT_LIBRARY_SHARED ON)\nelse()\n    message(FATAL_ERROR \"${EVENT_LIBRARY_TYPE} is not supported\")\nendif()"
+            }
+          ],
+          "rationale": "The shared/static restriction names the specific MSVC library-name collision.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 14851,
+              "end": 15066,
+              "quote": "if(WIN32)\n    # These aren't available until Windows Vista.\n    # But you can still link them. They just won't be found when running the exe.\n    set(EVENT__HAVE_INET_NTOP 0)\n    set(EVENT__HAVE_INET_PTON 0)\nendif()"
+            }
+          ],
+          "context": [
+            {
+              "start": 14851,
+              "end": 15066,
+              "quote": "if(WIN32)\n    # These aren't available until Windows Vista.\n    # But you can still link them. They just won't be found when running the exe.\n    set(EVENT__HAVE_INET_NTOP 0)\n    set(EVENT__HAVE_INET_PTON 0)\nendif()"
+            }
+          ],
+          "rationale": "Available symbols and runtime support differ across Windows versions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 24246,
+              "end": 24505,
+              "quote": "# We use BEFORE here so we don't accidentally look in system directories\n# first for some previous versions of the headers that are installed.\ninclude_directories(BEFORE ${PROJECT_SOURCE_DIR}\n    ${PROJECT_SOURCE_DIR}/compat\n    ${PROJECT_SOURCE_DIR}/include)"
+            }
+          ],
+          "context": [
+            {
+              "start": 24246,
+              "end": 24505,
+              "quote": "# We use BEFORE here so we don't accidentally look in system directories\n# first for some previous versions of the headers that are installed.\ninclude_directories(BEFORE ${PROJECT_SOURCE_DIR}\n    ${PROJECT_SOURCE_DIR}/compat\n    ${PROJECT_SOURCE_DIR}/include)"
+            }
+          ],
+          "rationale": "Header search order avoids selecting an installed older version.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 38638,
+              "end": 39183,
+              "quote": "    # Add a \"make verify\" target, same as for autoconf.\n    # (Important! This will unset all EVENT_NO* environment variables.\n    #  If they are set in the shell the tests are running using simply \"ctest\" or \"make test\" will fail)\n    if (WIN32)\n        # Windows doesn't have \"unset\". But you can use \"set VAR=\" instead.\n        # We need to guard against the possibility taht EVENT_NOWIN32 is set, and all test failing\n        # since no event backend being available.\n        file(TO_NATIVE_PATH ${CMAKE_CTEST_COMMAND} WINDOWS_CTEST_COMMAND)"
+            }
+          ],
+          "context": [
+            {
+              "start": 38638,
+              "end": 39183,
+              "quote": "    # Add a \"make verify\" target, same as for autoconf.\n    # (Important! This will unset all EVENT_NO* environment variables.\n    #  If they are set in the shell the tests are running using simply \"ctest\" or \"make test\" will fail)\n    if (WIN32)\n        # Windows doesn't have \"unset\". But you can use \"set VAR=\" instead.\n        # We need to guard against the possibility taht EVENT_NOWIN32 is set, and all test failing\n        # since no event backend being available.\n        file(TO_NATIVE_PATH ${CMAKE_CTEST_COMMAND} WINDOWS_CTEST_COMMAND)"
+            }
+          ],
+          "rationale": "The warning names environment variables that can disable every backend; preserve the reset behavior.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 39929,
+              "end": 40558,
+              "quote": "        add_custom_target(verify COMMAND \"${VERIFY_PATH}\"\n                          DEPENDS event ${ALL_TESTPROGS})\n    else()\n        # On some platforms doing exec(unset) as CMake does won't work, so make sure\n        # we run the unset command in a shell instead.\n        # First we write the script contents.\n        file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/tmp/verify_tests.sh\n            \"\n            #!/bin/bash\n            unset EVENT_NOEPOLL; unset EVENT_NOPOLL; unset EVENT_NOSELECT; unset EVENT_NOWIN32; unset EVENT_NOEVPORT; unset EVENT_NOKQUEUE; unset EVENT_NODEVPOLL\n            ${CMAKE_CTEST_COMMAND}\n            \")"
+            }
+          ],
+          "context": [
+            {
+              "start": 39929,
+              "end": 40558,
+              "quote": "        add_custom_target(verify COMMAND \"${VERIFY_PATH}\"\n                          DEPENDS event ${ALL_TESTPROGS})\n    else()\n        # On some platforms doing exec(unset) as CMake does won't work, so make sure\n        # we run the unset command in a shell instead.\n        # First we write the script contents.\n        file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/tmp/verify_tests.sh\n            \"\n            #!/bin/bash\n            unset EVENT_NOEPOLL; unset EVENT_NOPOLL; unset EVENT_NOSELECT; unset EVENT_NOWIN32; unset EVENT_NOEVPORT; unset EVENT_NOKQUEUE; unset EVENT_NODEVPOLL\n            ${CMAKE_CTEST_COMMAND}\n            \")"
+            }
+          ],
+          "rationale": "Running unset through a shell addresses platforms where direct exec does not work.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "ec1202da87e800e9059f30749a1b66077b73588b1041f03a3791285aae1689f0",
+      "reviewer": "Codex assistant reviewing the clause-grammar iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 7815,
+          "first_line": 1,
+          "last_line": 148,
+          "rationale": "Read all 65 extracted blocks with the full contribution guide and command/test examples. The intended audience includes new contributors. Preserve branch targets, reviewer and collaborator permissions, published-doc branch, Ruby setup, screenshot comparison and novice UI instructions. Optional friendliness is not automatically a defect.",
+          "prose_blocks": 65,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 161,
+              "end": 228,
+              "quote": "Here are a few things to know to get you started on the right path."
+            }
+          ],
+          "context": [
+            {
+              "start": 161,
+              "end": 228,
+              "quote": "Here are a few things to know to get you started on the right path."
+            }
+          ],
+          "rationale": "Generic know/start/right-path framing adds no prerequisite before the actual contribution instructions.",
+          "proposed_edit": "Remove the sentence and begin with the contribution workflow."
+        },
+        {
+          "id": "c05-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 984,
+              "end": 1189,
+              "quote": "As we have many pull requests from developers new to mermaid, we have put in place a process, wherein *knsv, Knut Sveidqvist* is the primary reviewer of changes and merging pull requests. It is as follows:"
+            }
+          ],
+          "context": [
+            {
+              "start": 945,
+              "end": 1189,
+              "quote": "We make all changes via pull requests. As we have many pull requests from developers new to mermaid, we have put in place a process, wherein *knsv, Knut Sveidqvist* is the primary reviewer of changes and merging pull requests. It is as follows:"
+            }
+          ],
+          "rationale": "The process-existence wrapper delays the responsible reviewer and exception list.",
+          "proposed_edit": "Name knsv (Knut Sveidqvist) as the primary reviewer, then list the exceptions."
+        },
+        {
+          "id": "c05-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1756,
+              "end": 1892,
+              "quote": "If it is not in the documentation, it's like it never happened. Wouldn't that be sad? With all the effort that was put into the feature?"
+            }
+          ],
+          "context": [
+            {
+              "start": 1756,
+              "end": 1892,
+              "quote": "If it is not in the documentation, it's like it never happened. Wouldn't that be sad? With all the effort that was put into the feature?"
+            }
+          ],
+          "rationale": "The sad/effort rhetorical questions substitute emotional pressure for the documentation requirement.",
+          "proposed_edit": "Require documenting the feature and link the editing instructions."
+        },
+        {
+          "id": "c05-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2433,
+              "end": 2466,
+              "quote": "We are a little less strict here,"
+            }
+          ],
+          "context": [
+            {
+              "start": 2433,
+              "end": 2545,
+              "quote": "We are a little less strict here, it is OK to commit directly in the `develop` branch if you are a collaborator."
+            }
+          ],
+          "rationale": "Relative strictness commentary adds no permission beyond the following collaborator-only rule.",
+          "proposed_edit": "Start with collaborators may commit documentation directly to develop."
+        },
+        {
+          "id": "c05-d05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1894,
+              "end": 1964,
+              "quote": "The docs are located in the `docs` folder and are written in MarkDown."
+            },
+            {
+              "start": 2547,
+              "end": 2646,
+              "quote": "The documentation is located in the `docs` directory and organized according to relevant subfolder."
+            }
+          ],
+          "context": [
+            {
+              "start": 1894,
+              "end": 2080,
+              "quote": "The docs are located in the `docs` folder and are written in MarkDown. Just pick the right section and start typing. If you want to propose changes to the structure of the documentation:"
+            },
+            {
+              "start": 2547,
+              "end": 2646,
+              "quote": "The documentation is located in the `docs` directory and organized according to relevant subfolder."
+            }
+          ],
+          "rationale": "The same documentation-location guidance appears twice without a new constraint.",
+          "proposed_edit": "Keep one location reference; retain any distinct navigation instructions."
+        },
+        {
+          "id": "c05-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3411,
+              "end": 3687,
+              "quote": "This is important so that, if someone else does a change to the grammar that does not know about this great feature, gets notified early on when that change breaks the parser. Another important aspect is that without proper parsing tests refactoring is pretty much impossible."
+            }
+          ],
+          "context": [
+            {
+              "start": 3411,
+              "end": 3687,
+              "quote": "This is important so that, if someone else does a change to the grammar that does not know about this great feature, gets notified early on when that change breaks the parser. Another important aspect is that without proper parsing tests refactoring is pretty much impossible."
+            }
+          ],
+          "rationale": "Repeated important/important and a long nested contributor description obscure the regression-test purpose; impossible overstates the refactoring constraint.",
+          "proposed_edit": "Explain that parser tests expose grammar regressions to other contributors and protect refactoring."
+        },
+        {
+          "id": "c05-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3888,
+              "end": 3915,
+              "quote": "Less chance that it breaks!"
+            }
+          ],
+          "context": [
+            {
+              "start": 3712,
+              "end": 3915,
+              "quote": "This tests the rendering and visual apearance of the diagram. This ensures that the rendering of that feature in the e2e will be reviewed in the release process going forward. Less chance that it breaks!"
+            }
+          ],
+          "rationale": "Generic success reassurance repeats the preceding visual-review mechanism.",
+          "proposed_edit": "Keep the rendering-review mechanism without the final exclamation."
+        },
+        {
+          "id": "c05-d08",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 4160,
+              "end": 4215,
+              "quote": "The rendering tests are very straightforward to create."
+            }
+          ],
+          "context": [
+            {
+              "start": 4160,
+              "end": 4353,
+              "quote": "The rendering tests are very straightforward to create. There is a function imgSnapshotTest. This function takes a diagram in text form, the mermaid options and renders that diagram in cypress."
+            }
+          ],
+          "rationale": "Unscoped ease assertion supplies no test-creation requirement.",
+          "proposed_edit": "Start with imgSnapshotTest and its arguments."
+        },
+        {
+          "id": "c05-d09",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 5033,
+              "end": 5126,
+              "quote": "if it is not in the documentation, no one will know about it and then **no one will use it**."
+            }
+          ],
+          "context": [
+            {
+              "start": 5024,
+              "end": 5199,
+              "quote": "Finally, if it is not in the documentation, no one will know about it and then **no one will use it**. Wouldn't that be sad? With all the effort that was put into the feature?"
+            }
+          ],
+          "rationale": "The universal no-one claim overstates the effect of absent documentation.",
+          "proposed_edit": "Require documenting the feature without asserting universal discovery and use outcomes."
+        },
+        {
+          "id": "c05-d10",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5127,
+              "end": 5199,
+              "quote": "Wouldn't that be sad? With all the effort that was put into the feature?"
+            }
+          ],
+          "context": [
+            {
+              "start": 5024,
+              "end": 5199,
+              "quote": "Finally, if it is not in the documentation, no one will know about it and then **no one will use it**. Wouldn't that be sad? With all the effort that was put into the feature?"
+            }
+          ],
+          "rationale": "Repeated emotional questions add no documentation action.",
+          "proposed_edit": "Delete the questions and retain the documentation instructions."
+        },
+        {
+          "id": "c05-d11",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 7315,
+              "end": 7369,
+              "quote": "We have a great community with only encouraging words."
+            }
+          ],
+          "context": [
+            {
+              "start": 7265,
+              "end": 7492,
+              "quote": "Don't get daunted if it is hard in the beginning. We have a great community with only encouraging words. So if you get stuck, ask for help and hints in the slack forum. If you want to show off something good, show it off there."
+            }
+          ],
+          "rationale": "Blanket praise and an absolute only-encouraging promise are unsupported.",
+          "proposed_edit": "Keep the concrete invitation to ask for help in the Slack forum."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 20,
+              "end": 54,
+              "quote": "So you want to help? That's great!"
+            }
+          ],
+          "context": [
+            {
+              "start": 20,
+              "end": 54,
+              "quote": "So you want to help? That's great!"
+            }
+          ],
+          "rationale": "The greeting is optional conversational warmth rather than a necessary technical claim.",
+          "proposed_edit": "An editor may remove it, but this is not a required repair."
+        },
+        {
+          "id": "c05-u02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 815,
+              "end": 921,
+              "quote": "This means... **you should branch off your pull request from develop** and direct all Pull Requests to it."
+            }
+          ],
+          "context": [
+            {
+              "start": 815,
+              "end": 921,
+              "quote": "This means... **you should branch off your pull request from develop** and direct all Pull Requests to it."
+            }
+          ],
+          "rationale": "The branch target repeats earlier guidance but is the direct actionable summary for a new contributor.",
+          "proposed_edit": "Keep unless the workflow is consolidated without losing the target branch."
+        },
+        {
+          "id": "c05-u03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 5201,
+              "end": 5427,
+              "quote": "The docs are located in the docs folder and are ofc written in markdown. Just pick the right section and start typing. If you want to add to the structure as in adding a new section and new file you do that via the _navbar.md."
+            }
+          ],
+          "context": [
+            {
+              "start": 5201,
+              "end": 5427,
+              "quote": "The docs are located in the docs folder and are ofc written in markdown. Just pick the right section and start typing. If you want to add to the structure as in adding a new section and new file you do that via the _navbar.md."
+            }
+          ],
+          "rationale": "The documentation-editing recap repeats an earlier section, but also adds how to introduce a new section.",
+          "proposed_edit": "Consolidate only if the new-section navigation step remains discoverable."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 1193,
+              "end": 1266,
+              "quote": "Large changes reviewed by knsv or other developer asked to review by knsv"
+            }
+          ],
+          "context": [
+            {
+              "start": 1193,
+              "end": 1266,
+              "quote": "Large changes reviewed by knsv or other developer asked to review by knsv"
+            }
+          ],
+          "rationale": "Large-change review and delegation define actual merge permissions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2909,
+              "end": 3070,
+              "quote": "If you want to preview the documentation site on your machine, you will need to install  [Ruby development environment](https://jekyllrb.com/docs/installation/):"
+            }
+          ],
+          "context": [
+            {
+              "start": 2909,
+              "end": 3070,
+              "quote": "If you want to preview the documentation site on your machine, you will need to install  [Ruby development environment](https://jekyllrb.com/docs/installation/):"
+            }
+          ],
+          "rationale": "Installing Ruby is a prerequisite for locally previewing this documentation.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4355,
+              "end": 4508,
+              "quote": "When running in ci it will take a snapshot of the rendered diagram and compare it with the snapshot from last build and flag for review it if it differs."
+            }
+          ],
+          "context": [
+            {
+              "start": 4355,
+              "end": 4508,
+              "quote": "When running in ci it will take a snapshot of the rendered diagram and compare it with the snapshot from last build and flag for review it if it differs."
+            }
+          ],
+          "rationale": "The screenshot comparison names a concrete automated review mechanism.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6189,
+              "end": 6267,
+              "quote": "If you want to use an editor on your own computer, you may follow these steps:"
+            }
+          ],
+          "context": [
+            {
+              "start": 6189,
+              "end": 6267,
+              "quote": "If you want to use an editor on your own computer, you may follow these steps:"
+            }
+          ],
+          "rationale": "Local editing and browser editing are different supported workflows; preserve their branches.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "0fd541cd51ee993be724f7cb4a10ab0c0c75ac38e9d332209a58b99470ad4dee",
+      "reviewer": "Codex assistant reviewing the clause-grammar iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 8474,
+          "first_line": 1,
+          "last_line": 252,
+          "rationale": "Read all 38 extracted blocks and original configurations, queries and graphs. This is a novice tutorial. Preserve endpoint roles, quantiles, production/canary labels, scrape timing, five-minute aggregation and rule reload steps. Task-selection conditions and exercises are not filler solely for using the reader voice.",
+          "prose_blocks": 38,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c06-d01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 870,
+              "end": 983,
+              "quote": "While a Prometheus server that collects only data about itself is not very\nuseful, it is a good starting example."
+            }
+          ],
+          "context": [
+            {
+              "start": 870,
+              "end": 1067,
+              "quote": "While a Prometheus server that collects only data about itself is not very\nuseful, it is a good starting example. Save the following basic\nPrometheus configuration as a file named `prometheus.yml`:"
+            }
+          ],
+          "rationale": "Unscoped useful/good judgments add no setup behavior before the configuration instructions.",
+          "proposed_edit": "Begin with the example configuration and retain self-scraping as the exercise."
+        },
+        {
+          "id": "c06-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2631,
+              "end": 2694,
+              "quote": "Let us explore data that Prometheus has collected about itself."
+            }
+          ],
+          "context": [
+            {
+              "start": 2631,
+              "end": 2837,
+              "quote": "Let us explore data that Prometheus has collected about itself. To\nuse Prometheus's built-in expression browser, navigate to\nhttp://localhost:9090/graph and choose the \"Console\" view within the \"Graph\" tab."
+            }
+          ],
+          "rationale": "Announces exploration before the exact expression-browser instructions without adding a prerequisite.",
+          "proposed_edit": "Start with the expression-browser location and query."
+        },
+        {
+          "id": "c06-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2839,
+              "end": 2918,
+              "quote": "As you can gather from [localhost:9090/metrics](http://localhost:9090/metrics),"
+            }
+          ],
+          "context": [
+            {
+              "start": 2839,
+              "end": 3141,
+              "quote": "As you can gather from [localhost:9090/metrics](http://localhost:9090/metrics),\none metric that Prometheus exports about itself is named\n`prometheus_target_interval_length_seconds` (the actual amount of time between\ntarget scrapes). Enter the below into the expression console and then click \"Execute\":"
+            }
+          ],
+          "rationale": "The reader-can-gather wrapper delays the metric description.",
+          "proposed_edit": "Describe the metric directly and retain the metrics endpoint as a reference."
+        },
+        {
+          "id": "c06-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4956,
+              "end": 5017,
+              "quote": "Now we will configure Prometheus to scrape these new targets."
+            }
+          ],
+          "context": [
+            {
+              "start": 4956,
+              "end": 5463,
+              "quote": "Now we will configure Prometheus to scrape these new targets. Let's group all\nthree endpoints into one job called `node`. We will imagine that the\nfirst two endpoints are production targets, while the third one represents a\ncanary instance. To model this in Prometheus, we can add several groups of\nendpoints to a single job, adding extra labels to each group of targets. In\nthis example, we will add the `group=\"production\"` label to the first group of\ntargets, while adding `group=\"canary\"` to the second."
+            }
+          ],
+          "rationale": "Announces the configuration action already identified by the section before the actual grouping instructions.",
+          "proposed_edit": "Begin with grouping the three endpoints into the node job, retaining production/canary labels."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c06-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 64,
+              "end": 366,
+              "quote": "This guide is a \"Hello World\"-style tutorial which shows how to install,\nconfigure, and use a simple Prometheus instance. You will download and run\nPrometheus locally, configure it to scrape itself and an example application,\nthen work with queries, rules, and graphs to use collected time\nseries data."
+            }
+          ],
+          "context": [
+            {
+              "start": 64,
+              "end": 366,
+              "quote": "This guide is a \"Hello World\"-style tutorial which shows how to install,\nconfigure, and use a simple Prometheus instance. You will download and run\nPrometheus locally, configure it to scrape itself and an example application,\nthen work with queries, rules, and graphs to use collected time\nseries data."
+            }
+          ],
+          "rationale": "The first scope sentence overlaps the following itinerary, but an overview may help novice readers.",
+          "proposed_edit": "Optionally combine the two sentences without removing the concrete sequence."
+        },
+        {
+          "id": "c06-u02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4265,
+              "end": 4319,
+              "quote": "Let's add additional targets for Prometheus to scrape."
+            }
+          ],
+          "context": [
+            {
+              "start": 4265,
+              "end": 4319,
+              "quote": "Let's add additional targets for Prometheus to scrape."
+            }
+          ],
+          "rationale": "The add-targets opening repeats the heading but marks a transition to a distinct exercise.",
+          "proposed_edit": "Optional removal; preserve the Node Exporter example."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 586,
+              "end": 633,
+              "quote": "Before starting Prometheus, let's configure it."
+            }
+          ],
+          "context": [
+            {
+              "start": 586,
+              "end": 633,
+              "quote": "Before starting Prometheus, let's configure it."
+            }
+          ],
+          "rationale": "Configuration precedes startup; this is an operational ordering requirement.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3476,
+              "end": 3556,
+              "quote": "If we are interested only in 99th percentile latencies, we could use this\nquery:"
+            }
+          ],
+          "context": [
+            {
+              "start": 3476,
+              "end": 3556,
+              "quote": "If we are interested only in 99th percentile latencies, we could use this\nquery:"
+            }
+          ],
+          "rationale": "The quantile condition selects which query fulfills the reader goal.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 6212,
+              "end": 6728,
+              "quote": "Though not a problem in our example, queries that aggregate over thousands of\ntime series can get slow when computed ad-hoc. To make this more efficient,\nPrometheus can prerecord expressions into new persisted\ntime series via configured _recording rules_. Let's say we are interested in\nrecording the per-second rate of cpu time (`node_cpu_seconds_total`) averaged\nover all cpus per instance (but preserving the `job`, `instance` and `mode`\ndimensions) as measured over a window of 5 minutes. We could write this as:"
+            }
+          ],
+          "context": [
+            {
+              "start": 6212,
+              "end": 6728,
+              "quote": "Though not a problem in our example, queries that aggregate over thousands of\ntime series can get slow when computed ad-hoc. To make this more efficient,\nPrometheus can prerecord expressions into new persisted\ntime series via configured _recording rules_. Let's say we are interested in\nrecording the per-second rate of cpu time (`node_cpu_seconds_total`) averaged\nover all cpus per instance (but preserving the `job`, `instance` and `mode`\ndimensions) as measured over a window of 5 minutes. We could write this as:"
+            }
+          ],
+          "rationale": "Precomputed five-minute averages address repeated expensive aggregation; retain dimensions and window.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7228,
+              "end": 7362,
+              "quote": "To make Prometheus pick up this new rule, add a `rule_files` statement in your `prometheus.yml`. The config should now\nlook like this:"
+            }
+          ],
+          "context": [
+            {
+              "start": 7228,
+              "end": 7362,
+              "quote": "To make Prometheus pick up this new rule, add a `rule_files` statement in your `prometheus.yml`. The config should now\nlook like this:"
+            }
+          ],
+          "rationale": "Adding rule_files is a real loading requirement rather than an empty purpose clause.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}
