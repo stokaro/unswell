@@ -1,0 +1,151 @@
+package builtin
+
+// White-box tests: This temporary measurement compares the private old and new
+// identity encodings and work charges; public results expose neither value.
+import (
+	"bytes"
+	"crypto/sha256"
+	"encoding/gob"
+	"encoding/hex"
+	"encoding/json"
+	"flag"
+	"fmt"
+	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/rule"
+	"os"
+	"strings"
+	"testing"
+)
+
+var claimDocument = flag.String("claim-document", "", "Prepared document gob captured through the public rule view")
+
+func TestClaimFusionProbe(t *testing.T) {
+	data, err := os.ReadFile(*claimDocument)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var doc document.Document
+	if err := gob.NewDecoder(bytes.NewReader(data)).Decode(&doc); err != nil {
+		t.Fatal(err)
+	}
+	hash := sha256.Sum256(doc.Source)
+	if len(doc.Source) != 97753 || hex.EncodeToString(hash[:]) != "330fb59a5fe90f3659d64d53cff20c403bdfe5fb29325c53c7a6f4d67905ed1a" {
+		t.Fatal("prepared document does not match the retained migration reference")
+	}
+	v := rule.View{Document: &doc, MaxCandidates: 1000000}
+	for _, r := range Rules() {
+		if r.Descriptor().ID == "repetition.repeated-claim" {
+			v.Parameters = r.Descriptor().Defaults.Parameters
+		}
+	}
+	stats := map[string]int{}
+	forward, reverse := map[string]string{}, map[string]string{}
+	for _, b := range doc.Blocks {
+		stats["blocks"]++
+		if claimBlockReason(b, v.Parameters.MinWords) != "" {
+			continue
+		}
+		for _, s := range b.Sentences {
+			a, z := &repetitionBudget{t.Context(), 1000000}, &repetitionBudget{t.Context(), 1000000}
+			before, err := referenceRepeatedClaim(v, b, s, a)
+			if err != nil {
+				t.Fatal(err)
+			}
+			after, err := makeRepeatedClaim(v, b, s, z)
+			if err != nil {
+				t.Fatal(err)
+			}
+			stats["sentences"]++
+			stats["before_work"] += 1000000 - a.remaining
+			stats["after_work"] += 1000000 - z.remaining
+			if (before.key == "") != (after.key == "") {
+				t.Fatalf("eligibility changed: %s", s.Text)
+			}
+			if before.key == "" {
+				continue
+			}
+			stats["eligible"]++
+			if f, ok := forward[before.key]; ok && f != after.key {
+				t.Fatal("identity split")
+			}
+			if r, ok := reverse[after.key]; ok && r != before.key {
+				t.Fatal("identity collision")
+			}
+			forward[before.key] = after.key
+			reverse[after.key] = before.key
+		}
+	}
+	raw, err := json.Marshal(stats)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(string(raw))
+}
+func referenceRepeatedClaim(view rule.View, block document.Block, sentence document.Sentence, budget *repetitionBudget) (repeatedClaim, error) {
+	if err := budget.spend(len(sentence.Tokens) + 1); err != nil {
+		return repeatedClaim{}, err
+	}
+	tokens := sentence.Tokens
+	if !eligibleClaimSentence(sentence) {
+		return repeatedClaim{}, nil
+	}
+	end, complete := claimEnd(tokens)
+	if !complete && qualifiedClaimTail(tokens[end:]) {
+		return repeatedClaim{}, nil
+	}
+	tokens = tokens[:end]
+	if !assertionShape(tokens, view.Parameters.MinWords) || view.Exempts(sentence, 0, end) {
+		return repeatedClaim{}, nil
+	}
+	key, opaque, err := referenceClaimIdentity(view.Document.Source, block, tokens, budget)
+	if err != nil || key == "" {
+		return repeatedClaim{}, err
+	}
+	return repeatedClaim{key, tokenOccurrence(sentence, 0, end), complete, novelClaim(complete, opaque, sentence.Words)}, nil
+}
+
+func referenceClaimIdentity(source []byte, block document.Block, tokens []document.Token, budget *repetitionBudget) (string, bool, error) {
+	var key strings.Builder
+	opaque := false
+	for _, token := range tokens {
+		if err := budget.spend(len(token.Text) + 1); err != nil {
+			return "", false, err
+		}
+		value := token.Text
+		if token.Protected {
+			atom, err := opaqueClaimAtom(source, token, budget)
+			if err != nil || atom == "" {
+				return "", false, err
+			}
+			value, opaque = atom, true
+		}
+		fmt.Fprintf(&key, "%t:%q/", token.Protected, value)
+	}
+	// Invalid code atoms already returned. Charge the mapping walk only when
+	// it runs; rejected commands must not consume work for an unused traversal.
+	if err := budget.spend(tokens[len(tokens)-1].End - tokens[0].Start); err != nil {
+		return "", false, err
+	}
+	if !referenceClaimMappingEligible(source, block, tokens) {
+		return "", false, nil
+	}
+	return key.String(), opaque, nil
+}
+
+func referenceClaimMappingEligible(source []byte, block document.Block, tokens []document.Token) bool {
+	start, end := tokens[0].Start, tokens[len(tokens)-1].End
+	if start < 0 || end > len(block.Map) || start >= end {
+		return false
+	}
+	previous, previousStart := block.Map[start].Start, block.Map[start].Start
+	for _, span := range block.Map[start:end] {
+		if !span.Valid(len(source)) || span.Start < previousStart {
+			return false
+		}
+		if span.Start > previous && !emphasisGap(string(source[previous:span.Start])) {
+			return false
+		}
+		previous, previousStart = max(previous, span.End), span.Start
+	}
+	return true
+}
