@@ -104,3 +104,7 @@ Their recognition was developed on declared probes; no cohort association or
 editorial precision is claimed. Current command tests use this revision.
 `rule-classes-v1.json` remains the unchanged 40-rule snapshot referenced by frozen
 research runs. Existing classifications and archived measurements are unchanged.
+
+[`rule-classes-v1-r6.json`](rule-classes-v1-r6.json) covers the 48-rule catalog,
+adding complete duplicate list items as general style. It retains all revision 5
+classes; the earlier manifests and their measurements remain frozen.

@@ -25,7 +25,7 @@ func TestRepetitionGroupObservationsRetainEmptyBlocksAndFailures(t *testing.T) {
 			c := qt.New(t)
 			observer := &phraseObserver{}
 			view := rule.View{Document: &document.Document{Blocks: []document.Block{{ID: 0, Kind: "paragraph"}, {ID: 1, Kind: "heading"}}},
-				Parameters: d.Defaults.Parameters, Observer: observer}
+				Parameters: d.Defaults.Parameters, Observer: observer, MaxCandidates: 10}
 			c.Assert(implementation.Evaluate(t.Context(), view, observer), qt.IsNil)
 			headingReason := "unsupported_unit"
 			if d.ID == "repetition.exact-sentence" {

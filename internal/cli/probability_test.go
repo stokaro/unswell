@@ -2,21 +2,23 @@ package cli_test
 
 import (
 	"bytes"
+	"context"
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
 	"slices"
+	"strings"
 	"testing"
 
 	qt "github.com/frankban/quicktest"
 
 	"github.com/stokaro/unswell"
+	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/internal/cli"
 	"github.com/stokaro/unswell/nlp"
-	"github.com/stokaro/unswell/nlp/english"
 	"github.com/stokaro/unswell/probability"
 )
 
@@ -36,13 +38,13 @@ func commandPack(c *qt.C, root, name, config, task string) string {
 	}
 	encoded, err := json.Marshal(columns)
 	c.Assert(err, qt.IsNil)
-	provider, err := english.New()
-	c.Assert(err, qt.IsNil)
+	prepared := commandPreparation(c, config)
 	file := probability.File{Version: probability.Version, ID: "command-fixture", DeclaredStatus: "experimental",
 		HumanCorpus: "not_qualified", Task: task, Rubric: "fixture-rubric-v1", Kind: "sentence",
 		Contract: probability.Contract{FeatureContract: feature.UnitContract, UnitContract: nlp.UnitContract,
-			Columns: columns, ColumnsSHA256: fmt.Sprintf("%x", sha256.Sum256(encoded)), NLP: provider.Identity(),
-			Capabilities: []nlp.Capability{nlp.Tokens, nlp.Sentences}, PreparationHash: commandPreparation(c, config)},
+			Columns: columns, ColumnsSHA256: fmt.Sprintf("%x", sha256.Sum256(encoded)), NLP: prepared.NLP,
+			Capabilities: []nlp.Capability{nlp.Tokens, nlp.Sentences}, PreparationHash: prepared.PreparationHash,
+			IncludeQuotes: prepared.IncludeQuotes, IncludeStructure: prepared.IncludeStructure},
 		Limits: probability.Limits{MinWords: 4}, Estimator: "logistic",
 		Logistic: &probability.Logistic{Means: []float64{8, 0.9}, Scales: []float64{4, 0.2},
 			Weights: []float64{0.2, -0.1}, Intercept: 0},
@@ -57,20 +59,20 @@ func commandPack(c *qt.C, root, name, config, task string) string {
 	return name
 }
 
-// commandPreparation reads the effective policy without requesting a model, so
-// the fixture matches whatever extraction the configuration under test selects.
-func commandPreparation(c *qt.C, config string) string {
+// commandPreparation reads the effective preparation from the public engine,
+// including structural requirements of the configuration under test.
+func commandPreparation(c *qt.C, config string) unswell.PreparedFeatureSource {
 	c.Helper()
-	engine, err := unswell.New(unswell.Options{Config: []byte(config)})
+	config = strings.ReplaceAll(config, "  model: pack\n  accept_experimental: true\n", "  model: none\n")
+	engine, err := unswell.New(unswell.Options{Config: []byte(config),
+		PreparedFeatures: []string{"prose-words"}, PreparedKinds: []string{"sentence"},
+	})
 	c.Assert(err, qt.IsNil)
-	policy, err := engine.PolicyForFile("")
+	result, err := engine.Analyze(context.Background(), document.Source{Name: "draft.md", Format: document.Markdown,
+		Bytes: []byte("The client retries after a transport failure.\n")})
 	c.Assert(err, qt.IsNil)
-	extraction, err := json.Marshal(policy.Extraction)
-	c.Assert(err, qt.IsNil)
-	preparation, err := nlp.PreparationHash(fmt.Sprintf("%x", sha256.Sum256(extraction)),
-		policy.Analysis.IncludeQuotes, false)
-	c.Assert(err, qt.IsNil)
-	return preparation
+	c.Assert(result.PreparedFeatures.Sources, qt.HasLen, 1)
+	return result.PreparedFeatures.Sources[0]
 }
 
 func TestCheckReportsProbabilityFromAnExplicitPack(t *testing.T) {

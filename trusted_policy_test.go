@@ -118,8 +118,8 @@ func TestTrustedPermissionUnionRequiresEveryContributingPermission(t *testing.T)
 	c.Assert(err, qt.IsNil)
 	permission := "<!-- unswell-disable-next-block repetition.exact-sentence -- Quoted contract wording. -->\n\n"
 	prose := "The client opens a new connection after the server closes the previous connection."
-	before := changedSource("# First\n\n" + permission + prose + "\n\n# Second\n\n" + permission + prose)
-	after := changedSource(string(before[0].Bytes) + "\n\n# Third\n\n" + permission + prose)
+	before := changedSource("# Connections\n\n" + permission + prose + " First attempt.\n\n" + permission + prose + " Second attempt.")
+	after := changedSource(string(before[0].Bytes) + "\n\n" + permission + prose + " Third attempt.")
 	result, err := engine.AnalyzeChangedWithOptions(t.Context(), before, after, unswell.ChangeOptions{TrustedPolicy: true})
 	c.Assert(err, qt.IsNil)
 	c.Assert(result.Gate.Passed, qt.IsFalse)

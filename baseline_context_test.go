@@ -16,12 +16,12 @@ func TestBaselineRepetitionRechecksUnchangedUnits(t *testing.T) {
 		"gate:\n  paragraph_score: {fail_at: 1, min_words: 1}\n  sentence_score: {fail_at: 1, min_words: 1}\n"
 	prose := "The client opens a new connection after the server closes the previous connection."
 	source := document.Source{Name: "guide.md", Format: document.Markdown,
-		Bytes: []byte("# First\n\n" + prose + "\n\n# Second\n\n" + prose)}
+		Bytes: []byte("# Connections\n\n" + prose + " First attempt.\n\n" + prose + " Second attempt.")}
 	data, before := captureDebt(t, policy, source)
 	c.Assert(before.Gate.Passed, qt.IsFalse)
 	engine, err := unswell.New(unswell.Options{Config: []byte(policy), Baseline: data, GateMode: "new"})
 	c.Assert(err, qt.IsNil)
-	source.Bytes = append(source.Bytes, []byte("\n\n# Third\n\n"+prose)...)
+	source.Bytes = append(source.Bytes, []byte("\n\n"+prose+" Third attempt.")...)
 	after, err := engine.Analyze(t.Context(), source)
 	c.Assert(err, qt.IsNil)
 	c.Assert(after.Gate.Passed, qt.IsFalse)

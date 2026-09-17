@@ -81,7 +81,7 @@ func TestNearSentenceClusterVersionAndBaseline(t *testing.T) {
 	c.Assert(err, qt.IsNil)
 	c.Assert(result.Findings, qt.HasLen, 1)
 	finding := result.Findings[0]
-	c.Assert(finding.RuleVersion, qt.Equals, "2")
+	c.Assert(finding.RuleVersion, qt.Equals, "3")
 	c.Assert(finding.Primary.Snippet, qt.Equals, first)
 	c.Assert(finding.Primary.Start.Line, qt.Equals, 1)
 	c.Assert(finding.Primary.Span.Start, qt.Equals, len("\ufeff"))
@@ -92,7 +92,7 @@ func TestNearSentenceClusterVersionAndBaseline(t *testing.T) {
 	candidates := result.BaselineSnapshot.Candidates
 	c.Assert(len(candidates) > 0, qt.IsTrue)
 	c.Assert(candidates[0].Kind, qt.Equals, "finding")
-	c.Assert(candidates[0].RuleVersion, qt.Equals, "2")
+	c.Assert(candidates[0].RuleVersion, qt.Equals, "3")
 	previous := candidates[0]
 	previous.RuleVersion = "1"
 	oldFingerprint, err := baseline.Fingerprint(previous)
@@ -102,7 +102,8 @@ func TestNearSentenceClusterVersionAndBaseline(t *testing.T) {
 
 func TestNearSentenceCandidateBudget(t *testing.T) {
 	c := qt.New(t)
-	engine := singleRuleEngine(t, "repetition.near-sentence", "", "analysis: {max_candidates: 1}\n")
+	// Two scopes fit; the shared-bigram candidate index still exceeds the budget.
+	engine := singleRuleEngine(t, "repetition.near-sentence", "", "analysis: {max_candidates: 2}\n")
 	text := nearContrastSentence + "\n\n" + strings.Replace(nearContrastSentence, "may", "must", 1)
 	result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)})
 	c.Assert(err, qt.IsNil)

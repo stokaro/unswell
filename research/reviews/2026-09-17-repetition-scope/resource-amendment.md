@@ -1,0 +1,30 @@
+# Context serialization budget
+
+Code review after the initial scans found that repeated heading labels could
+amplify context serialization work: a long heading can be copied for every short
+block below it. This is an implementation resource issue, not a confirmation
+finding used to tune a matcher.
+
+Scope construction now charges each block and each structural label's bytes
+against `analysis.max_candidates` before serialization. Exhaustion returns the
+existing typed rule abstention and discards partial findings. The matching
+predicates, thresholds, frozen sources and annotations are unchanged.
+
+The first guard also serialized inherited headings for independent table cells.
+That unnecessary work exhausted the budget of all five rules on development
+page p003, without changing its findings. Each cell already owns a unique scope,
+so the final implementation assigns that identity directly and does not serialize
+its headings. This removes the work instead of increasing the budget. A blackbox
+control checks that a table under a long heading fits the small declared budget.
+
+Blackbox tests exercise all five affected rules with a long heading and a small
+budget. The published after reports are regenerated from the bounded code;
+compare every diagnostic and abstention against the initial implementation at
+`2ded5ff7e3a15b68d722a6d2b8e1599eca9351e7`. Any difference must be reported rather
+than tuning the budget from confirmation outcomes.
+
+The repeated measurements from `d9fad0c4a98c7b06cd38e163dc54a6b8e237543c` have
+identical findings, assessments, abstentions and gates in all four scans. No
+scan abstains. `resource-check.json` records both report hashes; the initial
+reports are retained in Git at `4e3d5888eaf3dab295a803cc8d39630ccaffb46b`, before
+the evidence refresh.

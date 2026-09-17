@@ -1,6 +1,6 @@
 {
   "schema": "unswell-docs-rules-catalog-v1",
-  "rule_count": 47,
+  "rule_count": 48,
   "families": [
     {
       "name": "density",
@@ -509,8 +509,26 @@
           "limitations": "Bounded token constructions, not a semantic or authorship classifier. Clauses are limited to 48 tokens; protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
-          "id": "repetition.exact-sentence",
+          "id": "repetition.duplicate-list-item",
           "version": "1",
+          "status": "experimental",
+          "group": "repetition",
+          "scope": "document",
+          "contexts": [
+            "list-item"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 15,
+          "cap": 30,
+          "summary": "This complete list item is repeated in the same list; check whether both entries describe the same change.",
+          "description": "Compares complete simple unordered items within one grammar list and section, preserving case, punctuation and references.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only a single identifier may compare across plain text and inline-code formatting. Other protected content, ordered/task lists and complex items are inapplicable. Identity is not a semantic paraphrase test."
+        },
+        {
+          "id": "repetition.exact-sentence",
+          "version": "2",
           "status": "experimental",
           "group": "repetition",
           "scope": "document",
@@ -528,7 +546,7 @@
           "weight": 30,
           "cap": 60,
           "summary": "This sentence is repeated; consider whether every occurrence is needed.",
-          "description": "This sentence is repeated; consider whether every occurrence is needed.",
+          "description": "Compares sentences within one structural section, with separate table-cell and leading-condition scopes.",
           "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
         },
         {
@@ -553,7 +571,7 @@
         },
         {
           "id": "repetition.near-sentence",
-          "version": "2",
+          "version": "3",
           "status": "experimental",
           "group": "repetition",
           "scope": "document",
@@ -572,7 +590,7 @@
           "cap": 44,
           "summary": "These sentences have high lexical overlap; check for repeated information.",
           "description": "Compares indexed sentence candidates with set Jaccard and a shared technical-contrast signature.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Modal, condition, and state cues are retained in token order. Numeric-unit protection retains the token after a number, not a complete unit expression. Equal signatures do not establish semantic equivalence."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Modal, condition, and state cues are retained in token order. Numeric-unit protection retains the token after a number, not a complete unit expression. Equal signatures do not establish semantic equivalence; comparisons stay within structural and task scopes."
         },
         {
           "id": "repetition.ngram-density",
@@ -597,7 +615,7 @@
         },
         {
           "id": "repetition.paragraph-openers",
-          "version": "2",
+          "version": "3",
           "status": "experimental",
           "group": "repetition",
           "scope": "document",
@@ -616,7 +634,7 @@
           "cap": 36,
           "summary": "Several paragraphs repeat the same opening formula.",
           "description": "Groups opening words from each paragraph's first sentence. The word minimum applies to the complete paragraph.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Repeated openings do not establish duplicate meaning; technical facts may differ."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Repeated openings do not establish duplicate meaning. Structural sections and leading conditions bound comparisons."
         },
         {
           "id": "repetition.paragraph-overlap",
@@ -641,7 +659,7 @@
         },
         {
           "id": "repetition.sentence-openers",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "repetition",
           "scope": "document",
@@ -660,7 +678,7 @@
           "cap": 30,
           "summary": "Several sentences repeat the same opening; consider removing repeated setup.",
           "description": "Several sentences repeat the same opening; consider removing repeated setup.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Groups stay within structural sections and explicit leading conditions. Repeated form need not mean redundant information."
         },
         {
           "id": "repetition.summary-echo",

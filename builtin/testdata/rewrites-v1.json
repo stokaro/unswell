@@ -72,6 +72,12 @@
       "after": "The client opens a connection to the server and sends the request with its credentials. The server validates the SessionToken."
     },
     {
+      "rule": "repetition.duplicate-list-item",
+      "format": "markdown",
+      "before": "- Add documentation for `Literal` type, #651.\n- Add documentation for Literal type, #651.\n",
+      "after": "- Add documentation for `Literal` type, #651.\n"
+    },
+    {
       "rule": "repetition.near-sentence",
       "before": "The client opens a connection to the server and sends the request with its credentials. The client creates a connection to the server and sends the request with its credentials.",
       "after": "The client opens a connection to the server and sends the request with its credentials. It then waits for the response and closes the connection."

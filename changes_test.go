@@ -63,8 +63,8 @@ func TestChangedRepetitionSelectsOlderOccurrences(t *testing.T) {
 	engine, err := unswell.New(unswell.Options{Config: []byte(policy)})
 	c.Assert(err, qt.IsNil)
 	prose := "The client opens a new connection after the server closes the previous connection."
-	before := changedSource("# First\n\n" + prose + "\n\n# Second\n\n" + prose)
-	after := changedSource(string(before[0].Bytes) + "\n\n# Third\n\n" + prose)
+	before := changedSource("# Connections\n\n" + prose + " First attempt.\n\n" + prose + " Second attempt.")
+	after := changedSource(string(before[0].Bytes) + "\n\n" + prose + " Third attempt.")
 	result, err := engine.AnalyzeChanged(t.Context(), before, after)
 	c.Assert(err, qt.IsNil)
 	c.Assert(result.Gate.Passed, qt.IsFalse)

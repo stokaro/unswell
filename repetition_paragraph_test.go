@@ -31,7 +31,7 @@ func TestParagraphOpenersKeepSentenceBoundariesAndTechnicalFacts(t *testing.T) {
 	c.Assert(result.Documents[0].Sentences, qt.Equals, 6)
 	c.Assert(result.Findings, qt.HasLen, 1)
 	finding := result.Findings[0]
-	c.Assert(finding.RuleVersion, qt.Equals, "2")
+	c.Assert(finding.RuleVersion, qt.Equals, "3")
 	c.Assert(finding.Primary.Snippet, qt.Equals, "Measured on PostgreSQL 18.6.")
 	c.Assert(finding.Primary.Span.Start, qt.Equals, len("\ufeff"))
 	c.Assert(finding.Related, qt.HasLen, 2)
@@ -43,7 +43,7 @@ func TestParagraphOpenersKeepSentenceBoundariesAndTechnicalFacts(t *testing.T) {
 	c.Assert(result.Features.Sources[0].RulesetHash, qt.Equals, result.Manifest.RulesetHash)
 	c.Assert(result.BaselineSnapshot, qt.IsNotNil)
 	candidates := result.BaselineSnapshot.Candidates
-	c.Assert(candidates[0].RuleVersion, qt.Equals, "2")
+	c.Assert(candidates[0].RuleVersion, qt.Equals, "3")
 	previous := candidates[0]
 	previous.RuleVersion = "1"
 	oldFingerprint, err := baseline.Fingerprint(previous)
