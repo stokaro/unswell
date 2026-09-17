@@ -1,0 +1,2373 @@
+{
+  "version": 1,
+  "protocol": "unswell-editorial-v1",
+  "reviewer": "Codex implementing assistant; maintainer accepted under ADR 0041",
+  "review_phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "36a24da9479db9a8212a953115df7162864b07d5106369cd1b5286c74dbd48b7",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 7817,
+          "first_line": 1,
+          "last_line": 169,
+          "rationale": "Read all 20 native-MDX prose blocks and surrounding JSX links. The concise overview separates migration workflows, source evidence and compatibility boundaries. No definite defect under the seven-category rubric; navigation and time estimate retain useful context.",
+          "prose_blocks": 20,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [],
+      "uncertain": [
+        {
+          "id": "c01-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7402,
+              "end": 7420,
+              "quote": "a separate journey"
+            }
+          ],
+          "context": [
+            {
+              "start": 7379,
+              "end": 7682,
+              "quote": "Atlas compatibility is a separate journey through the `ptah-compat` binary.\nThe [Atlas overview](./atlas/overview/) distinguishes default compatibility,\nstrict Community Edition mode, native Ptah, measured parity, and retained\ndivergences. The native `ptah` binary does not register Atlas command paths."
+            }
+          ],
+          "rationale": "The metaphor could be shortened, but it introduces a distinct compatibility workflow without hiding the binary boundary.",
+          "proposed_edit": "Consider replacing journey with workflow."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2984,
+              "end": 3112,
+              "quote": "These are generated from committed fixtures by the same commands the linked\npages document—not mockups or conceptual diagrams."
+            }
+          ],
+          "context": [
+            {
+              "start": 2984,
+              "end": 3112,
+              "quote": "These are generated from committed fixtures by the same commands the linked\npages document—not mockups or conceptual diagrams."
+            }
+          ],
+          "rationale": "The fixture provenance distinguishes actual outputs from illustrative images.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 5742,
+              "end": 5934,
+              "quote": "Keep the active generation available while Ptah builds, catches up, and verifies\na candidate generation. Cutover changes the active pointer only after the\ncandidate passes the required checks."
+            }
+          ],
+          "context": [
+            {
+              "start": 5742,
+              "end": 5934,
+              "quote": "Keep the active generation available while Ptah builds, catches up, and verifies\na candidate generation. Cutover changes the active pointer only after the\ncandidate passes the required checks."
+            }
+          ],
+          "rationale": "Candidate, active generation and verified cutover are distinct lifecycle roles.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 7163,
+              "end": 7377,
+              "quote": "Support levels describe what this repository exercises, not what a server is\nallowed to do. The [database support matrix](./databases/support-matrix/) is\ngenerated from the same release-line declaration used by CI."
+            }
+          ],
+          "context": [
+            {
+              "start": 7163,
+              "end": 7377,
+              "quote": "Support levels describe what this repository exercises, not what a server is\nallowed to do. The [database support matrix](./databases/support-matrix/) is\ngenerated from the same release-line declaration used by CI."
+            }
+          ],
+          "rationale": "Exercise coverage and server capability are different claims; the support-matrix provenance is useful.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "c08297bb9d441f907b5c8d35806bf55c4fb18634dc6571b9c8acdeaa2270894d",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 12043,
+          "first_line": 1,
+          "last_line": 300,
+          "rationale": "Read all 47 SQL-guide blocks and source examples. Preserve dialect-dependent tokenization, version guards, import confinement, live defaults, round-trip failures and per-engine constraint behavior. Judge wording rather than factual parity claims.",
+          "prose_blocks": 47,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1643,
+              "end": 1690,
+              "quote": "it proves the parser\nunderstood every statement"
+            }
+          ],
+          "context": [
+            {
+              "start": 1590,
+              "end": 2155,
+              "quote": "Rendering SQL back out of a SQL file is not a no-op: it proves the parser\nunderstood every statement, and it can retarget the schema at another dialect.\n`--schema-file` is accepted wherever Ptah needs a desired schema:\n`ptah schema render`, `ptah schema compare`, `ptah schema drift`, the\nmigration commands (`ptah migrations plan` / `ptah migrations generate`), and\nevery target of [`ptah schema export`](../export/#sources) except `hcl`. That\nincludes the two documentation targets, so\n[a Markdown or HTML reference](../document/) can be generated from this file."
+            }
+          ],
+          "rationale": "The understanding claim personifies the parser and overstates the observable parse/render result.",
+          "proposed_edit": "State that rendering validates the parsed statements, retaining retargeting and failure limits."
+        },
+        {
+          "id": "c02-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3059,
+              "end": 3114,
+              "quote": "Two consequences are worth knowing before you pick one."
+            }
+          ],
+          "context": [
+            {
+              "start": 3059,
+              "end": 3114,
+              "quote": "Two consequences are worth knowing before you pick one."
+            }
+          ],
+          "rationale": "The worth-knowing announcement adds no consequence or selection guidance.",
+          "proposed_edit": "Introduce the two consequences directly."
+        },
+        {
+          "id": "c02-d03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 4084,
+              "end": 4119,
+              "quote": "No dialect means no\ndialect's rules"
+            }
+          ],
+          "context": [
+            {
+              "start": 4034,
+              "end": 4261,
+              "quote": "Omitting `--dialect` keeps a permissive reader.** No dialect means no\ndialect's rules, which is what lets one file mixing conventions be read at all.\nName the dialect when the file belongs to one engine, which is nearly always."
+            }
+          ],
+          "rationale": "This restates the immediately preceding permissive-reader explanation without naming a new rule.",
+          "proposed_edit": "Keep the permissive-reader behavior and mixed-convention consequence."
+        },
+        {
+          "id": "c02-d04",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 4238,
+              "end": 4260,
+              "quote": "which is nearly always"
+            }
+          ],
+          "context": [
+            {
+              "start": 4034,
+              "end": 4261,
+              "quote": "Omitting `--dialect` keeps a permissive reader.** No dialect means no\ndialect's rules, which is what lets one file mixing conventions be read at all.\nName the dialect when the file belongs to one engine, which is nearly always."
+            }
+          ],
+          "rationale": "The frequency claim about single-engine files lacks a stated population or evidence.",
+          "proposed_edit": "Keep the conditional instruction to name the dialect for a single-engine file."
+        },
+        {
+          "id": "c02-d05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4566,
+              "end": 4606,
+              "quote": "What follows is specific to this source."
+            }
+          ],
+          "context": [
+            {
+              "start": 4274,
+              "end": 4606,
+              "quote": "Everything a desired schema is for — comparing, gating on drift, generating\nmigrations, applying directly, composing sources, validating across dialects —\nis the same for every source and lives on\n[Work with a desired schema](../work-with-a-source/). For SQL the flag is\n`--schema-file`. What follows is specific to this source."
+            }
+          ],
+          "rationale": "The paragraph announces the following section after already linking shared operations.",
+          "proposed_edit": "Keep the shared-operations link and SQL flag; remove the announcement."
+        },
+        {
+          "id": "c02-d06",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 6149,
+              "end": 6155,
+              "quote": "loudly"
+            }
+          ],
+          "context": [
+            {
+              "start": 6062,
+              "end": 6351,
+              "quote": "A change that a SQLite dev database cannot express as an in-place `ALTER`\n  is refused loudly rather than turned into an incomplete diff. For example,\n  adding a `NOT NULL` column to an existing table exits with\n  `sqlite: adding column email to table users requires a table rebuild plan`."
+            }
+          ],
+          "rationale": "The explicit refusal and exit diagnostic already convey visibility.",
+          "proposed_edit": "Use refused and retain the exact failure example."
+        },
+        {
+          "id": "c02-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6697,
+              "end": 6762,
+              "quote": "which is the level a name lives at. A\n  default has no such level"
+            }
+          ],
+          "context": [
+            {
+              "start": 6505,
+              "end": 6803,
+              "quote": "A constraint name on `DEFAULT` is refused. Ptah keeps a name on `NOT NULL`,\n  `CHECK`, `REFERENCES`, `UNIQUE` and `PRIMARY KEY`; the last two are read as\n  the table constraint they describe, which is the level a name lives at. A\n  default has no such level and no engine Ptah supports records one:"
+            }
+          ],
+          "rationale": "The level/lives-at metaphor repeats structural ownership while delaying the actual unsupported default-name behavior.",
+          "proposed_edit": "Say these names belong to table constraints, while supported engines do not record default constraint names."
+        },
+        {
+          "id": "c02-d08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9964,
+              "end": 10075,
+              "quote": "A primary key has nowhere to live without its table, and the document is not\n  one any engine would run either."
+            }
+          ],
+          "context": [
+            {
+              "start": 9964,
+              "end": 10136,
+              "quote": "A primary key has nowhere to live without its table, and the document is not\n  one any engine would run either. Declare the table in the same file, or drop\n  the statement."
+            }
+          ],
+          "rationale": "The nowhere-to-live and not-one-any-engine-would-run layers obscure the missing table requirement.",
+          "proposed_edit": "Say the primary-key declaration requires its table in the same schema file, then retain both repair options."
+        },
+        {
+          "id": "c02-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 10376,
+              "end": 10458,
+              "quote": "and text nothing read cannot be compared, so it has no place in a\n  desired schema"
+            }
+          ],
+          "context": [
+            {
+              "start": 10140,
+              "end": 10459,
+              "quote": "A routine whose body Ptah did not parse is refused rather than dropped. The\n  parser understands the outer boundary of every `CREATE PROCEDURE` and\n  `CREATE FUNCTION` it accepts; where it cannot model the body, it keeps the\n  text — and text nothing read cannot be compared, so it has no place in a\n  desired schema:"
+            }
+          ],
+          "rationale": "The text-nothing-read and no-place layers repeat why an unparsed routine cannot participate in comparison.",
+          "proposed_edit": "Say an unparsed routine body cannot be compared as desired state; retain the accepted body forms."
+        }
+      ],
+      "uncertain": [],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 3118,
+              "end": 3527,
+              "quote": "A file that the named engine would reject is rejected here.** PostgreSQL runs\nwith `standard_conforming_strings` on, so a backslash is an ordinary character\nand `DEFAULT 'a\\'b'` is an unterminated string — PostgreSQL 18 answers\n`unterminated bit string literal`. Read with `--dialect postgres`, Ptah refuses\nit too. Read with `--dialect mysql`, where a backslash escapes, the same bytes\nare a valid default."
+            }
+          ],
+          "context": [
+            {
+              "start": 3118,
+              "end": 3527,
+              "quote": "A file that the named engine would reject is rejected here.** PostgreSQL runs\nwith `standard_conforming_strings` on, so a backslash is an ordinary character\nand `DEFAULT 'a\\'b'` is an unterminated string — PostgreSQL 18 answers\n`unterminated bit string literal`. Read with `--dialect postgres`, Ptah refuses\nit too. Read with `--dialect mysql`, where a backslash escapes, the same bytes\nare a valid default."
+            }
+          ],
+          "rationale": "The same bytes have different escape semantics and errors under named dialects.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 5205,
+              "end": 5524,
+              "quote": "Each path is relative to the file that writes it and must stay inside the entry\npoint's own directory. An absolute path, a path that climbs out with `..`, a\nfile that does not exist, one that is not `.sql`, and a cycle are each refused\nby name. An entry point that imports nothing is read exactly as any other SQL\nfile."
+            }
+          ],
+          "context": [
+            {
+              "start": 5205,
+              "end": 5524,
+              "quote": "Each path is relative to the file that writes it and must stay inside the entry\npoint's own directory. An absolute path, a path that climbs out with `..`, a\nfile that does not exist, one that is not `.sql`, and a cycle are each refused\nby name. An entry point that imports nothing is read exactly as any other SQL\nfile."
+            }
+          ],
+          "rationale": "Relative paths, directory confinement, extension validation and cycles are separate import failures.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 11131,
+              "end": 11732,
+              "quote": "A constraint name on `NOT NULL` is carried where the target **persists** it.\n  The distinction is not whether the syntax parses: PostgreSQL 17 accepts\n  `CONSTRAINT c_x NOT NULL` and stores nothing, while PostgreSQL 18 records one\n  row per `NOT NULL` in `pg_constraint` with `contype = 'n'`, keyed to the\n  column through `conkey`, and can drop, add and rename it by name. MariaDB 12.3\n  answers `ERROR 1064 (42000)` for the syntax outright. So the name is gated on\n  the target's measured capability, and a target that cannot keep it refuses the\n  declaration rather than silently dropping the name."
+            }
+          ],
+          "context": [
+            {
+              "start": 11131,
+              "end": 11732,
+              "quote": "A constraint name on `NOT NULL` is carried where the target **persists** it.\n  The distinction is not whether the syntax parses: PostgreSQL 17 accepts\n  `CONSTRAINT c_x NOT NULL` and stores nothing, while PostgreSQL 18 records one\n  row per `NOT NULL` in `pg_constraint` with `contype = 'n'`, keyed to the\n  column through `conkey`, and can drop, add and rename it by name. MariaDB 12.3\n  answers `ERROR 1064 (42000)` for the syntax outright. So the name is gated on\n  the target's measured capability, and a target that cannot keep it refuses the\n  declaration rather than silently dropping the name."
+            }
+          ],
+          "rationale": "Versioned catalog behavior explains why parse acceptance is insufficient for a named constraint.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "ac8da0d6f9e2402725abe0179d0a2260ab437d578d42b3638bbc7b9de88b7d5c",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 99636,
+          "first_line": 1,
+          "last_line": 1798,
+          "rationale": "Read all 598 Atlas-reference blocks and table cells, with protected command examples as context. Repeated per-verb flags and native twins support independent lookup. Preserve exact tokens, checksums, source layouts, strict-mode exits, advisory locks, plan verification, unsupported forms and cleanup boundaries. Do not label complex lists or concrete CE/native contrasts automatically.",
+          "prose_blocks": 598,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1458,
+              "end": 1534,
+              "quote": "so it names\nevery command path the binary answers to and no path it does not"
+            }
+          ],
+          "context": [
+            {
+              "start": 1392,
+              "end": 1859,
+              "quote": "The index below is generated from the `ptah-compat` command tree, so it names\nevery command path the binary answers to and no path it does not. Rows are\nsorted, which keeps a namespace's verbs together, and the **What it does**\ncell is the command's own one-line description. What each verb does in full,\nand where it differs from Atlas, is the section for that verb further down;\n`version`, `license` and `completion` are under\n[Utility commands](#utility-commands)."
+            }
+          ],
+          "rationale": "The positive and negative completeness restatement repeats that the index is generated from the command tree.",
+          "proposed_edit": "Say the generated index lists all registered command paths; keep ordering and description provenance."
+        },
+        {
+          "id": "c03-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 8241,
+              "end": 8282,
+              "quote": "and they are the ones worth knowing about"
+            }
+          ],
+          "context": [
+            {
+              "start": 8221,
+              "end": 8695,
+              "quote": "Two paths exit `0`, and they are the ones worth knowing about.\n`ptah-compat migrate ls` and `ptah-compat migrate show` are not registered\nunder `PTAH_ATLAS_STRICT_COMPAT=1`, so the `migrate` group runs in their place:\nit writes its own help to standard output, writes nothing to standard error,\nand exits `0`. A caller testing only the exit code cannot tell that from the\nverb having run and found nothing. Test for the output the verb produces, or\nleave the variable unset."
+            }
+          ],
+          "rationale": "The attention announcement adds nothing to the following specific misleading-success behavior.",
+          "proposed_edit": "Keep the two exit-0 paths and the prescribed output check."
+        },
+        {
+          "id": "c03-d03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 17430,
+              "end": 17499,
+              "quote": "What executes is what the verified checksum covers, for every layout."
+            }
+          ],
+          "context": [
+            {
+              "start": 17035,
+              "end": 17499,
+              "quote": "Directories in an external tool's format are gated on the `atlas.sum` the source\ndirectory carries, verified before the source layout is parsed and before the\ndatabase is opened. The covered file set is Atlas's for that layout, so a\ngolang-migrate down file and a Flyway undo file are not covered, and a layout\nthat carries no `atlas.sum` and whose covered set is empty is not a checksum\nerror. What executes is what the verified checksum covers, for every layout."
+            }
+          ],
+          "rationale": "The final sentence repeats the already specified verified covered file set.",
+          "proposed_edit": "Keep the layout-specific coverage rules and checksum ordering."
+        },
+        {
+          "id": "c03-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 21749,
+              "end": 21819,
+              "quote": "only the compatibility surface is a contract with an existing\npipeline"
+            }
+          ],
+          "context": [
+            {
+              "start": 21657,
+              "end": 21820,
+              "quote": "Native twin: [`ptah migrations status`](../native-commands/), which keeps its\nown block — only the compatibility surface is a contract with an existing\npipeline."
+            }
+          ],
+          "rationale": "The broad contract judgment justifies presentation rather than specifying the native output difference.",
+          "proposed_edit": "Keep the native twin and distinct output format."
+        },
+        {
+          "id": "c03-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 26957,
+              "end": 27051,
+              "quote": "The note exists because\ndropping the key is what Atlas does and saying nothing about it is not"
+            }
+          ],
+          "context": [
+            {
+              "start": 26833,
+              "end": 27316,
+              "quote": "The exit code and everything on standard output are unchanged, so a script\nreading either sees exactly what Atlas produces. The note exists because\ndropping the key is what Atlas does and saying nothing about it is not: a\nmisspelled `?fromat=goose` selects no layout on either tool, so the directory is\nread as the atlas layout while you believe it is being read as Goose. Set\n[`PTAH_STRICT_DIR_QUERY=1`](../extension-variables/#ptah_strict_dir_query) to make that a\nrefusal instead."
+            }
+          ],
+          "rationale": "The note-exists and what-does/not layers obscure the concrete diagnostic difference.",
+          "proposed_edit": "Say Ptah preserves Atlas query behavior but warns about ignored keys; keep the typo example and strict option."
+        },
+        {
+          "id": "c03-d06",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 27769,
+              "end": 27787,
+              "quote": "all of them loudly"
+            }
+          ],
+          "context": [
+            {
+              "start": 27720,
+              "end": 27788,
+              "quote": "Inputs that stay refused where Atlas CE exits 0, all of them loudly:"
+            }
+          ],
+          "rationale": "Visibility emphasis adds no separate refusal condition.",
+          "proposed_edit": "Introduce the refused inputs directly."
+        },
+        {
+          "id": "c03-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 37367,
+              "end": 37430,
+              "quote": "so the present token is not an anonymous\ngap in operator output"
+            }
+          ],
+          "context": [
+            {
+              "start": 36718,
+              "end": 37431,
+              "quote": "Moves Atlas revision history to the positional version without executing\nmigration SQL, with Atlas revision-table metadata and Atlas-format migration\ndirectories by default. With `--env`, reads `env.url`, `migration.dir`, and\n`migration.revisions_schema` from `atlas.hcl`; explicit `--dir`, `--url`, and\n`--revisions-schema` flags keep CLI precedence. Flyway operands match exact\nsource tokens byte for byte, so `01` and `1` name different migrations. An\nexplicit empty positional operand selects a single repeatable's empty token.\nThe success summary renders that identity as `\"\"`, both on the current-version\nline and beside the changed revision, so the present token is not an anonymous\ngap in operator output."
+            }
+          ],
+          "rationale": "The gap metaphor repeats the explicitly documented empty-string representation.",
+          "proposed_edit": "Keep the exact output spelling and both locations."
+        },
+        {
+          "id": "c03-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 53435,
+              "end": 53500,
+              "quote": "refusing an unimplemented spelling loudly is the intended\noutcome"
+            }
+          ],
+          "context": [
+            {
+              "start": 53258,
+              "end": 53636,
+              "quote": "`?format=` on this verb's `--dir` URL is still refused; use `--dir-format`. CE\naborts every `migrate checkpoint` invocation, so there is no CE behavior to\ndiverge from here and refusing an unimplemented spelling loudly is the intended\noutcome. The eight verbs that accept a `--dir` query honor the parameter;\n`migrate diff` writes forward and reverse SQL in the selected layout."
+            }
+          ],
+          "rationale": "The intent endorsement adds no accepted spelling or compatibility fact.",
+          "proposed_edit": "Keep the refusal, supported spelling and CE scope."
+        },
+        {
+          "id": "c03-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 60348,
+              "end": 60405,
+              "quote": "still write a document that means what the database holds"
+            }
+          ],
+          "context": [
+            {
+              "start": 60268,
+              "end": 60643,
+              "quote": "A field is subtractable when Ptah can remove it from the inspected document and\nstill write a document that means what the database holds. That is the whole\ncriterion, and it is narrower than \"a field the reader captured\": a column's\ntype is captured and cannot be subtracted, because a column without one is not\na column. A comment can go, and the table is still that table."
+            }
+          ],
+          "rationale": "The document-means-what-the-database-holds wrapper obscures semantic preservation.",
+          "proposed_edit": "Say removing a field must preserve the represented schema."
+        },
+        {
+          "id": "c03-d10",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 60407,
+              "end": 60434,
+              "quote": "That is the whole\ncriterion"
+            }
+          ],
+          "context": [
+            {
+              "start": 60268,
+              "end": 60643,
+              "quote": "A field is subtractable when Ptah can remove it from the inspected document and\nstill write a document that means what the database holds. That is the whole\ncriterion, and it is narrower than \"a field the reader captured\": a column's\ntype is captured and cannot be subtracted, because a column without one is not\na column. A comment can go, and the table is still that table."
+            }
+          ],
+          "rationale": "The completeness announcement adds nothing to the definition.",
+          "proposed_edit": "Keep the definition and captured-versus-removable distinction."
+        },
+        {
+          "id": "c03-d11",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 60545,
+              "end": 60643,
+              "quote": "because a column without one is not\na column. A comment can go, and the table is still that table."
+            }
+          ],
+          "context": [
+            {
+              "start": 60268,
+              "end": 60643,
+              "quote": "A field is subtractable when Ptah can remove it from the inspected document and\nstill write a document that means what the database holds. That is the whole\ncriterion, and it is narrower than \"a field the reader captured\": a column's\ntype is captured and cannot be subtracted, because a column without one is not\na column. A comment can go, and the table is still that table."
+            }
+          ],
+          "rationale": "The circular identities repeat the type/comment examples without clarifying their semantics.",
+          "proposed_edit": "Say a column requires a type, while a comment can be removed without changing schema behavior."
+        },
+        {
+          "id": "c03-d12",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 64997,
+              "end": 65035,
+              "quote": "Typing both flags is\nstill typing both"
+            }
+          ],
+          "context": [
+            {
+              "start": 64939,
+              "end": 65159,
+              "quote": "The variable does not work in the other direction either. Typing both flags is\nstill typing both, so adding `--dry-run` to the command line above is refused\nwith the same sentence whether or not the variable is exported."
+            }
+          ],
+          "rationale": "The identity repeats the explicit presence of both flags without adding their precedence.",
+          "proposed_edit": "State that supplying both flags is rejected regardless of the environment variable."
+        },
+        {
+          "id": "c03-d13",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 76633,
+              "end": 76749,
+              "quote": "so there was no shape to match — only one to choose and write down.\nWhat it is chosen to match is the sibling verb"
+            }
+          ],
+          "context": [
+            {
+              "start": 76320,
+              "end": 76848,
+              "quote": "The payload's field names are Ptah's. On the other eight verbs the shape\nfollows what Atlas prints, because Atlas executes those verbs and the names are\ntherefore observable; Atlas keeps `schema plan` in its Pro registry flow and\npublishes help text for this flag and nothing a template could be written\nagainst, so there was no shape to match — only one to choose and write down.\nWhat it is chosen to match is the sibling verb: `.Changes[].Cmd` is\n`schema diff`'s spelling, so a template written there reads a plan unchanged."
+            }
+          ],
+          "rationale": "The no-shape/choose/chosen-to-match chain repeats the reason for selecting the sibling output contract.",
+          "proposed_edit": "Say the unavailable Atlas payload leaves Ptah free to use the schema-diff field names; retain provenance limits."
+        },
+        {
+          "id": "c03-d14",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 78730,
+              "end": 78787,
+              "quote": "which is why the position is not the operator's to\nchoose"
+            }
+          ],
+          "context": [
+            {
+              "start": 78475,
+              "end": 78788,
+              "quote": "`-d`/`--directive` writes a migration directive into the plan file, in the\nleading comment block its readers honor — the unbroken run of line comments\nthat starts the migration body, closed by a blank line. A directive below that\nblock governs nothing, which is why the position is not the operator's to\nchoose."
+            }
+          ],
+          "rationale": "The judgment about operator choice repeats the leading-comment-block placement rule.",
+          "proposed_edit": "Keep the recognized header boundary and ignored later directive behavior."
+        },
+        {
+          "id": "c03-d15",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 82881,
+              "end": 82945,
+              "quote": "and the second question is the one this command exists\nto answer"
+            }
+          ],
+          "context": [
+            {
+              "start": 82628,
+              "end": 83035,
+              "quote": "The replay always runs, in both plan formats — unlike `schema apply --plan`,\nwhich may skip it for a fingerprint-verified native plan. A matching\nfrom-fingerprint says the plan was computed against this database, not that its\nstatements reach `--to`, and the second question is the one this command exists\nto answer. A SQLite target gets a throwaway dev database; every other dialect\nrequires `--dev-url`."
+            }
+          ],
+          "rationale": "The purpose endorsement repeats the already stated replay/end-state check.",
+          "proposed_edit": "Keep the fingerprint limitation and mandatory replay, removing the endorsement."
+        },
+        {
+          "id": "c03-d16",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 84743,
+              "end": 84870,
+              "quote": "a report about a plan that does not describe this transition would be\nan accurate report about a change nobody is about to make"
+            }
+          ],
+          "context": [
+            {
+              "start": 84513,
+              "end": 84871,
+              "quote": "The plan is verified before it is analyzed, with the same two checks\n`schema plan validate` runs and on the same terms, including the `--dev-url`\nrefusals above. A plan that fails either check is refused, and nothing is\nanalyzed: a report about a plan that does not describe this transition would be\nan accurate report about a change nobody is about to make."
+            }
+          ],
+          "rationale": "The nested report/plan/transition/change explanation repeats the need to validate the plan first.",
+          "proposed_edit": "Say validation ensures the lint report describes the requested transition; preserve both checks."
+        },
+        {
+          "id": "c03-d17",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 85377,
+              "end": 85598,
+              "quote": "A plan is a document an operator reviews and\napproves, the lint report is what they review it with, and a report that\nrefuses on their behalf is one they cannot approve anything with. Both of the\nfollowing are deliberate:"
+            }
+          ],
+          "context": [
+            {
+              "start": 85265,
+              "end": 85598,
+              "quote": "Findings do not change the exit code.** A plan carrying a destructive change\nexits 0 with the change described. A plan is a document an operator reviews and\napproves, the lint report is what they review it with, and a report that\nrefuses on their behalf is one they cannot approve anything with. Both of the\nfollowing are deliberate:"
+            }
+          ],
+          "rationale": "The reviewer/review/approval defense obscures the explicit opt-in gate and coverage disclaimer.",
+          "proposed_edit": "Keep the default exit behavior, opt-in gate and coverage disclaimer; introduce the two policies directly."
+        },
+        {
+          "id": "c03-d18",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 89333,
+              "end": 89373,
+              "quote": "which is what makes a case mean\nanything"
+            }
+          ],
+          "context": [
+            {
+              "start": 89292,
+              "end": 89478,
+              "quote": "Steps run in the order they are written, which is what makes a case mean\nanything: a plan describes a transition **from** a state, so `schema` has to\nestablish that state before `apply`."
+            }
+          ],
+          "rationale": "The meaning endorsement adds no ordering requirement.",
+          "proposed_edit": "Keep the requirement to establish the starting state before apply."
+        },
+        {
+          "id": "c03-d19",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 90042,
+              "end": 90085,
+              "quote": "is precisely what this verb\nexists to catch"
+            }
+          ],
+          "context": [
+            {
+              "start": 89920,
+              "end": 90117,
+              "quote": "The plan's own statements are executed, never recomputed. A plan file that\nstopped matching what the planner now produces is precisely what this verb\nexists to catch, and recomputing would hide it."
+            }
+          ],
+          "rationale": "The emphatic purpose clause can be replaced by the actual test consequence.",
+          "proposed_edit": "Say recomputing would hide a saved plan that no longer matches the planner; keep execution of the saved statements."
+        },
+        {
+          "id": "c03-d20",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 90520,
+              "end": 91212,
+              "quote": "`lint` was deferred alongside it for a different reason, and that reason is\nanswered rather than outstanding. The worry was a linter in a gating position\nreporting clean on a plan a wider rule set would flag. Ptah's answer is to take\nthe gate out of the default and put the coverage on the output: the verb\nreports, the exit code is not a verdict unless a pipeline asks for one with\n`PTAH_ATLAS_PLAN_LINT_FAIL_ON_ERROR`, and every run says on stderr that a\nreport without findings describes the rules rather than the plan. The analyzer\ncoverage itself is not private to this verb — it is the published set in\n[Lint rules](../lint-rules/), reported identically by `ptah-compat migrate\nlint`."
+            }
+          ],
+          "context": [
+            {
+              "start": 90520,
+              "end": 91212,
+              "quote": "`lint` was deferred alongside it for a different reason, and that reason is\nanswered rather than outstanding. The worry was a linter in a gating position\nreporting clean on a plan a wider rule set would flag. Ptah's answer is to take\nthe gate out of the default and put the coverage on the output: the verb\nreports, the exit code is not a verdict unless a pipeline asks for one with\n`PTAH_ATLAS_PLAN_LINT_FAIL_ON_ERROR`, and every run says on stderr that a\nreport without findings describes the rules rather than the plan. The analyzer\ncoverage itself is not private to this verb — it is the published set in\n[Lint rules](../lint-rules/), reported identically by `ptah-compat migrate\nlint`."
+            }
+          ],
+          "rationale": "The closing historical defense repeats the default gate and coverage policy already given in the same sub-verb section.",
+          "proposed_edit": "Remove the repeated defense or replace it with a short link to the gate and coverage policy."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c03-u01",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 14328,
+              "end": 14337,
+              "quote": "genuinely"
+            }
+          ],
+          "context": [
+            {
+              "start": 14109,
+              "end": 14387,
+              "quote": "In `--format '{{ json . }}'` output, an exact empty current or target identity\nis emitted as an explicit empty `Current` or `Target` member. Pending and\napplied file records likewise keep an explicit empty `Version`. A genuinely\nabsent current or target state omits that member."
+            }
+          ],
+          "rationale": "The emphasis may be removable, but empty versus absent is the exact distinction being specified.",
+          "proposed_edit": "Consider absent without emphasis; do not merge empty and absent."
+        },
+        {
+          "id": "c03-u02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 61261,
+              "end": 61281,
+              "quote": "the two cannot drift"
+            }
+          ],
+          "context": [
+            {
+              "start": 61087,
+              "end": 61282,
+              "quote": "Adding a field is a change to `excludeFieldSelectors` in\n`internal/atlasfilter`, and this table is checked against it\n(`TestExcludeFieldSelectors_MatchTheDocumentedSet`) — the two cannot drift."
+            }
+          ],
+          "rationale": "The absolute phrasing overstates a regression check, but the named test provides a concrete mechanism.",
+          "proposed_edit": "Consider saying the test detects drift rather than claiming impossibility."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 13375,
+              "end": 14107,
+              "quote": "Direct Flyway apply records each source version token byte for byte, including\ndotted, dot-prefixed, padded, nonnumeric, baseline, token-ending-`R`, and empty\nrepeatable tokens. `--baseline` and the extended `--to-version` address those\nexact tokens; the numeric projection controls execution order only. One\nrepeatable migration can own the empty token and remains settled after its body\nis edited and rehashed. Two repeatables collide and are refused before the\ntarget opens. Applied opaque history remains readable after its source file is\nremoved, without recreating pending work; its exact token still protects\nsource order. The known `.atlas_cloud_identifier` bookkeeping row remains\nmetadata rather than becoming a migration."
+            }
+          ],
+          "context": [
+            {
+              "start": 13375,
+              "end": 14107,
+              "quote": "Direct Flyway apply records each source version token byte for byte, including\ndotted, dot-prefixed, padded, nonnumeric, baseline, token-ending-`R`, and empty\nrepeatable tokens. `--baseline` and the extended `--to-version` address those\nexact tokens; the numeric projection controls execution order only. One\nrepeatable migration can own the empty token and remains settled after its body\nis edited and rehashed. Two repeatables collide and are refused before the\ntarget opens. Applied opaque history remains readable after its source file is\nremoved, without recreating pending work; its exact token still protects\nsource order. The known `.atlas_cloud_identifier` bookkeeping row remains\nmetadata rather than becoming a migration."
+            }
+          ],
+          "rationale": "Exact Flyway identities, order and retired-source behavior each define a separate contract.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 41637,
+              "end": 41941,
+              "quote": "A derived plan is an inference about structure, while a down file is a statement\nof intent. A down body can preserve data a derived `DROP` will not, and can order\noperations in a way a structural comparison has no reason to choose. That is why\n`--plan` is opt-in and the authored bodies stay the default."
+            }
+          ],
+          "context": [
+            {
+              "start": 41637,
+              "end": 41941,
+              "quote": "A derived plan is an inference about structure, while a down file is a statement\nof intent. A down body can preserve data a derived `DROP` will not, and can order\noperations in a way a structural comparison has no reason to choose. That is why\n`--plan` is opt-in and the authored bodies stay the default."
+            }
+          ],
+          "rationale": "A derived plan and authored rollback have distinct preservation behavior, so the contrast is substantive.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 68226,
+              "end": 68894,
+              "quote": "Real enforcement exists only on SQLite dev databases** — the ephemeral one\n  Ptah creates for SQLite targets, and an operator-supplied SQLite\n  `--dev-url`, since the restriction keys on the dev dialect. Their sessions\n  refuse `ATTACH`, `DETACH`, and `VACUUM INTO` at the engine level and cannot\n  load extensions; Ptah verifies the restriction is in force before rehearsing\n  and refuses to rehearse if it is not. Storage-directory pragmas and\n  `writable_schema` are not covered, so the converges-to-`--to` verdict is a\n  good-faith check rather than an adversarial one. See\n  [Save and execute plan files](../../atlas/schema-commands/#where-enforcement-is-real)."
+            }
+          ],
+          "context": [
+            {
+              "start": 68226,
+              "end": 68894,
+              "quote": "Real enforcement exists only on SQLite dev databases** — the ephemeral one\n  Ptah creates for SQLite targets, and an operator-supplied SQLite\n  `--dev-url`, since the restriction keys on the dev dialect. Their sessions\n  refuse `ATTACH`, `DETACH`, and `VACUUM INTO` at the engine level and cannot\n  load extensions; Ptah verifies the restriction is in force before rehearsing\n  and refuses to rehearse if it is not. Storage-directory pragmas and\n  `writable_schema` are not covered, so the converges-to-`--to` verdict is a\n  good-faith check rather than an adversarial one. See\n  [Save and execute plan files](../../atlas/schema-commands/#where-enforcement-is-real)."
+            }
+          ],
+          "rationale": "Engine-level enforcement and uncovered operations limit the replay guarantee.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 54440,
+              "end": 54902,
+              "quote": "Forwards to `ptah migrations edit`: the positional maps to the native\n`--version` (a migration file name contributes its leading version digits),\n`--dir` maps to the native migration directory (Atlas-format by default via\n`--dir-format`), the editor resolves from `$VISUAL`, then `$EDITOR`, and the\ndirectory checksum is rewritten afterwards. Atlas keeps `migrate edit` outside\nits community build, so this is a free Ptah capability rather than an Atlas CE\nstub."
+            }
+          ],
+          "context": [
+            {
+              "start": 54440,
+              "end": 54902,
+              "quote": "Forwards to `ptah migrations edit`: the positional maps to the native\n`--version` (a migration file name contributes its leading version digits),\n`--dir` maps to the native migration directory (Atlas-format by default via\n`--dir-format`), the editor resolves from `$VISUAL`, then `$EDITOR`, and the\ndirectory checksum is rewritten afterwards. Atlas keeps `migrate edit` outside\nits community build, so this is a free Ptah capability rather than an Atlas CE\nstub."
+            }
+          ],
+          "rationale": "CE availability and the native twin must remain available to readers entering a single command section.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c05",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 83037,
+              "end": 83682,
+              "quote": "An explicit `--dev-url` is refused when it identifies the `--from` target,\neven through an equivalent or percent-encoded SQLite path, a symlink or hard\nlink, or a network URL with different credentials, default-port spelling,\nloopback alias, or driver-level endpoint/database override. Network URLs with\nthe same dialect and selected database name fail closed even across different\nendpoints because DNS aliases and replicas cannot be proven independent.\nMalformed target and desired-state URLs also fail closed. These shared checks\nprotect both `schema apply` simulation and `schema plan validate`, and run\nbefore the dev database can be reset."
+            }
+          ],
+          "context": [
+            {
+              "start": 83037,
+              "end": 83682,
+              "quote": "An explicit `--dev-url` is refused when it identifies the `--from` target,\neven through an equivalent or percent-encoded SQLite path, a symlink or hard\nlink, or a network URL with different credentials, default-port spelling,\nloopback alias, or driver-level endpoint/database override. Network URLs with\nthe same dialect and selected database name fail closed even across different\nendpoints because DNS aliases and replicas cannot be proven independent.\nMalformed target and desired-state URLs also fail closed. These shared checks\nprotect both `schema apply` simulation and `schema plan validate`, and run\nbefore the dev database can be reset."
+            }
+          ],
+          "rationale": "Alias and realm checks define destructive cleanup safety boundaries.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c06",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 96211,
+              "end": 97005,
+              "quote": "Objects that vanish as collateral of a listed drop are not listed separately:\nindexes, triggers, non-foreign-key constraints, RLS policies, and comments. The\nreport order is alphabetical by object kind rather than an execution order. An\nunscoped cleanup rebuilds its statements from the live catalog; a scoped\ncleanup executes the reported `Cmd` values in a separate deterministic order\nthat removes known dependents before their dependencies. PostgreSQL uses live\ncatalog depth to order dependent views and materialized views of the same kind.\nEvery PostgreSQL-family target executes the complete scoped plan in one\ntransaction and retries selected dependencies after a `RESTRICT` refusal. An\nexternal dependency rolls back earlier selected drops instead of leaving a\npartially cleaned schema."
+            }
+          ],
+          "context": [
+            {
+              "start": 96211,
+              "end": 97005,
+              "quote": "Objects that vanish as collateral of a listed drop are not listed separately:\nindexes, triggers, non-foreign-key constraints, RLS policies, and comments. The\nreport order is alphabetical by object kind rather than an execution order. An\nunscoped cleanup rebuilds its statements from the live catalog; a scoped\ncleanup executes the reported `Cmd` values in a separate deterministic order\nthat removes known dependents before their dependencies. PostgreSQL uses live\ncatalog depth to order dependent views and materialized views of the same kind.\nEvery PostgreSQL-family target executes the complete scoped plan in one\ntransaction and retries selected dependencies after a `RESTRICT` refusal. An\nexternal dependency rolls back earlier selected drops instead of leaving a\npartially cleaned schema."
+            }
+          ],
+          "rationale": "Report order, dependency order and transaction rollback are different operational properties.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "d14862520c45757b8c16d6c5a9810b33f2d2ec4413778d80f75d3d314cd4e422",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 43726,
+          "first_line": 1,
+          "last_line": 1100,
+          "rationale": "Read all 319 curl-internals blocks, including function inventories, platform requirements, memory tracing and handle ownership. Preserve historical/version scope, conditional platform behavior, callback sequencing, resource lifetimes and uncertainty about old Windows linking behavior. Typos and outdated factual claims are outside this editorial rubric.",
+          "prose_blocks": 319,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1449,
+              "end": 1511,
+              "quote": "the library is designed to allow other applications to\n use it"
+            }
+          ],
+          "context": [
+            {
+              "start": 1351,
+              "end": 1512,
+              "quote": " This project is split in two. The library and the client. The client part\n uses the library, but the library is designed to allow other applications to\n use it."
+            }
+          ],
+          "rationale": "Designed-to-allow-to-use adds layers around library reuse without a named design constraint.",
+          "proposed_edit": "Say other applications can use the library; do not claim they actually do."
+        },
+        {
+          "id": "c04-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2307,
+              "end": 2383,
+              "quote": "we\n want it to remain functional and buildable with these and later versions"
+            }
+          ],
+          "context": [
+            {
+              "start": 2235,
+              "end": 2458,
+              "quote": " We write libcurl to build and work with lots of third party tools, and we\n want it to remain functional and buildable with these and later versions\n (older versions may still work but is not what we work hard to maintain):"
+            }
+          ],
+          "rationale": "The want-to-remain/functional-and-buildable wording lengthens the support objective.",
+          "proposed_edit": "State that the project aims to support the listed and later tool versions; retain the older-version caveat."
+        },
+        {
+          "id": "c04-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5254,
+              "end": 5277,
+              "quote": "Don't walk on the edge!"
+            }
+          ],
+          "context": [
+            {
+              "start": 5157,
+              "end": 5277,
+              "quote": " Generally speaking: always remember that this will be compiled on dozens of\n operating systems. Don't walk on the edge!"
+            }
+          ],
+          "rationale": "The metaphor supplies no portability constraint or action.",
+          "proposed_edit": "Keep the multi-platform reminder and specify unsupported assumptions if known."
+        },
+        {
+          "id": "c04-d04",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 5568,
+              "end": 5628,
+              "quote": "All of those functions are\n rather small and easy-to-follow."
+            }
+          ],
+          "context": [
+            {
+              "start": 5442,
+              "end": 5702,
+              "quote": " There are plenty of entry points to the library, namely each publicly defined\n function that libcurl offers to applications. All of those functions are\n rather small and easy-to-follow. All the ones prefixed with `curl_easy` are\n put in the `lib/easy.c` file."
+            }
+          ],
+          "rationale": "The universal ease judgment has no reader or complexity criterion.",
+          "proposed_edit": "Keep the entry-point and file-location facts; remove the ease claim."
+        },
+        {
+          "id": "c04-d05",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 6084,
+              "end": 6141,
+              "quote": "This\n makes sure we stay absolutely platform independent."
+            }
+          ],
+          "context": [
+            {
+              "start": 6010,
+              "end": 6141,
+              "quote": " All printf()-style functions use the supplied clones in `lib/mprintf.c`. This\n makes sure we stay absolutely platform independent."
+            }
+          ],
+          "rationale": "One replacement-function mechanism does not establish absolute platform independence.",
+          "proposed_edit": "Say the replacement functions handle platform differences in printf behavior."
+        },
+        {
+          "id": "c04-d06",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 6864,
+              "end": 6873,
+              "quote": "basically"
+            }
+          ],
+          "context": [
+            {
+              "start": 6777,
+              "end": 7022,
+              "quote": "`curl_easy_perform()` is just a wrapper function that makes use of the multi\n API.  It basically calls `curl_multi_init()`, `curl_multi_add_handle()`,\n `curl_multi_wait()`, and `curl_multi_perform()` until the transfer is done\n and then returns."
+            }
+          ],
+          "rationale": "The listed call sequence needs no approximation filler.",
+          "proposed_edit": "Introduce the call sequence directly."
+        },
+        {
+          "id": "c04-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7037,
+              "end": 7065,
+              "quote": "most important key functions"
+            }
+          ],
+          "context": [
+            {
+              "start": 7024,
+              "end": 7168,
+              "quote": " Some of the most important key functions in `url.c` are called from\n `multi.c` when certain key steps are to be made in the transfer operation."
+            }
+          ],
+          "rationale": "Important and key duplicate emphasis without distinguishing function roles.",
+          "proposed_edit": "Say key functions and retain when they are called."
+        },
+        {
+          "id": "c04-d08",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 8221,
+              "end": 8230,
+              "quote": "of course"
+            }
+          ],
+          "context": [
+            {
+              "start": 8186,
+              "end": 8448,
+              "quote": "   The protocol-specific functions of course deal with protocol-specific\n   negotiations and setup. When they're ready to start the actual file\n   transfer they call the `Curl_setup_transfer()` function (in\n   `lib/transfer.c`) to setup the transfer and returns."
+            }
+          ],
+          "rationale": "The assumed reader knowledge adds no protocol behavior.",
+          "proposed_edit": "State the protocol-specific negotiation and setup directly."
+        },
+        {
+          "id": "c04-d09",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 9336,
+              "end": 9415,
+              "quote": "This function takes care of everything\n   that has to be done after a transfer."
+            }
+          ],
+          "context": [
+            {
+              "start": 9300,
+              "end": 9642,
+              "quote": "   Called after a transfer is done. This function takes care of everything\n   that has to be done after a transfer. This function attempts to leave\n   matters in a state so that `multi_do()` should be possible to call again on\n   the same connection (in a persistent connection case). It might also soon\n   be closed with `Curl_disconnect()`."
+            }
+          ],
+          "rationale": "This circular sentence repeats the preceding post-transfer timing and adds no cleanup action.",
+          "proposed_edit": "Keep the timing, reuse preparation and possible disconnect."
+        },
+        {
+          "id": "c04-d10",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 11022,
+              "end": 11068,
+              "quote": "An interesting detail with the HTTP(S) request"
+            }
+          ],
+          "context": [
+            {
+              "start": 11021,
+              "end": 11336,
+              "quote": " An interesting detail with the HTTP(S) request, is the `Curl_add_buffer()`\n series of functions we use. They append data to one single buffer, and when\n the building is finished the entire request is sent off in one single write.\n This is done this way to overcome problems with flawed firewalls and lame\n servers."
+            }
+          ],
+          "rationale": "The interest announcement delays the actual request-buffer implementation.",
+          "proposed_edit": "Name the buffering functions directly; retain single-write behavior and reason."
+        },
+        {
+          "id": "c04-d11",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 12860,
+              "end": 12864,
+              "quote": "neat"
+            }
+          ],
+          "context": [
+            {
+              "start": 12773,
+              "end": 13109,
+              "quote": "`lib/getenv.c` offers `curl_getenv()` which is for reading environment\n variables in a neat platform independent way. That's used in the client, but\n also in `lib/url.c` when checking the proxy environment variables. Note that\n contrary to the normal unix `getenv()`, this returns an allocated buffer that\n must be `free()`ed after use."
+            }
+          ],
+          "rationale": "The compliment adds no environment-variable or allocation semantics.",
+          "proposed_edit": "Keep platform independence and the allocated-buffer difference."
+        },
+        {
+          "id": "c04-d12",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 14509,
+              "end": 14518,
+              "quote": "of course"
+            }
+          ],
+          "context": [
+            {
+              "start": 14307,
+              "end": 14519,
+              "quote": "When the transfer operation is complete, the connection is left\n   open. Particular options may tell libcurl not to, and protocols may signal\n   closure on connections and then they won't be kept open, of course."
+            }
+          ],
+          "rationale": "The reader-knowledge assumption adds no closure condition.",
+          "proposed_edit": "Retain all option and protocol closure conditions."
+        },
+        {
+          "id": "c04-d13",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 14611,
+              "end": 14620,
+              "quote": "of course"
+            }
+          ],
+          "context": [
+            {
+              "start": 14524,
+              "end": 14664,
+              "quote": "When `curl_easy_cleanup()` is called, we close all still opened connections,\n   unless of course the multi interface \"owns\" the connections."
+            }
+          ],
+          "rationale": "The assumption adds no multi-interface ownership condition.",
+          "proposed_edit": "Keep the ownership exception."
+        },
+        {
+          "id": "c04-d14",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 15183,
+              "end": 15192,
+              "quote": "perfectly"
+            }
+          ],
+          "context": [
+            {
+              "start": 15083,
+              "end": 15214,
+              "quote": " One of the primary reasons we introduced c-ares support was to allow the name\n resolve phase to be perfectly non-blocking as well."
+            }
+          ],
+          "rationale": "Nonblocking is the operative property; the intensifier supplies no extra criterion.",
+          "proposed_edit": "Say nonblocking and retain the name-resolution scope."
+        },
+        {
+          "id": "c04-d15",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15275,
+              "end": 15291,
+              "quote": "adapt and adjust"
+            }
+          ],
+          "context": [
+            {
+              "start": 15216,
+              "end": 15633,
+              "quote": " The FTP and the SFTP/SCP protocols are examples of how we adapt and adjust\n the code to allow non-blocking operations even on multi-stage command-\n response protocols. They are built around state machines that return when\n they would otherwise block waiting for data.  The DICT, LDAP and TELNET\n protocols are crappy examples and they are subject for rewrite in the future\n to better fit the libcurl protocol family."
+            }
+          ],
+          "rationale": "The two verbs repeat the same code change here.",
+          "proposed_edit": "Use adapt and retain state-machine and protocol distinctions."
+        },
+        {
+          "id": "c04-d16",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 15527,
+              "end": 15542,
+              "quote": "crappy examples"
+            }
+          ],
+          "context": [
+            {
+              "start": 15216,
+              "end": 15633,
+              "quote": " The FTP and the SFTP/SCP protocols are examples of how we adapt and adjust\n the code to allow non-blocking operations even on multi-stage command-\n response protocols. They are built around state machines that return when\n they would otherwise block waiting for data.  The DICT, LDAP and TELNET\n protocols are crappy examples and they are subject for rewrite in the future\n to better fit the libcurl protocol family."
+            }
+          ],
+          "rationale": "The dismissive evaluation does not identify the implementation problem.",
+          "proposed_edit": "Describe the blocking behavior or rewrite need without the insult."
+        },
+        {
+          "id": "c04-d17",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 15950,
+              "end": 16003,
+              "quote": "To deal with this internally in the best way possible"
+            }
+          ],
+          "context": [
+            {
+              "start": 15949,
+              "end": 16324,
+              "quote": " To deal with this internally in the best way possible, we have a generic SSL\n function API as provided by the `vtls/vtls.[ch]` system, and they are the only\n SSL functions we must use from within libcurl. vtls is then crafted to use\n the appropriate lower-level function calls to whatever SSL library that is in\n use. For example `vtls/openssl.[ch]` for the OpenSSL library."
+            }
+          ],
+          "rationale": "The optimality preface gives no measurable API property.",
+          "proposed_edit": "Begin with the generic SSL API and required use."
+        },
+        {
+          "id": "c04-d18",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 16929,
+              "end": 16953,
+              "quote": "I've made things simple."
+            }
+          ],
+          "context": [
+            {
+              "start": 16928,
+              "end": 17250,
+              "quote": " I've made things simple. Almost every function in libcurl returns a CURLcode,\n that must be `CURLE_OK` if everything is OK or otherwise a suitable error\n code as the `curl/curl.h` include file defines. The very spot that detects an\n error must use the `Curl_failf()` function to set the human-readable error\n description."
+            }
+          ],
+          "rationale": "The self-assessment adds no return-code behavior.",
+          "proposed_edit": "Begin with the return-code contract."
+        },
+        {
+          "id": "c04-d19",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 17634,
+              "end": 17684,
+              "quote": "not export or show internals or how internals work"
+            }
+          ],
+          "context": [
+            {
+              "start": 17612,
+              "end": 17793,
+              "quote": " We make an effort to not export or show internals or how internals work, as\n that makes it easier to keep a solid API/ABI over time. See docs/libcurl/ABI\n for our promise to users."
+            }
+          ],
+          "rationale": "The overlapping export/show/internals phrases can be consolidated without losing the encapsulation goal.",
+          "proposed_edit": "Say the project tries to keep implementation details out of the public API; retain the stability rationale."
+        },
+        {
+          "id": "c04-d20",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 19023,
+              "end": 19076,
+              "quote": "The functions in the memdebug system do nothing fancy"
+            }
+          ],
+          "context": [
+            {
+              "start": 18802,
+              "end": 19223,
+              "quote": " The file `lib/memdebug.c` contains debug-versions of a few functions.\n Functions such as `malloc()`, `free()`, `fopen()`, `fclose()`, etc that\n somehow deal with resources that might give us problems if we \"leak\" them.\n The functions in the memdebug system do nothing fancy, they do their normal\n function and then log information about what they just did. The logged data\n can then be analyzed after a complete session,"
+            }
+          ],
+          "rationale": "The simplicity endorsement does not describe the wrappers.",
+          "proposed_edit": "Begin with normal operation followed by logging."
+        },
+        {
+          "id": "c04-d21",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 21751,
+              "end": 21779,
+              "quote": "Next thing I did was I added"
+            }
+          ],
+          "context": [
+            {
+              "start": 21750,
+              "end": 21870,
+              "quote": " Next thing I did was I added the path for the ares includes to the include\n path, and the libares.lib to the libraries."
+            }
+          ],
+          "rationale": "The narrative action wrapper adds no installation step.",
+          "proposed_edit": "Next, I added the include path and library; preserve the retrospective context."
+        },
+        {
+          "id": "c04-d22",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 28491,
+              "end": 28507,
+              "quote": "Please note that"
+            }
+          ],
+          "context": [
+            {
+              "start": 28489,
+              "end": 28663,
+              "quote": "  Please note that this memory leak system is not adjusted to work in more\n  than one thread. If you want/need to use it in a multi-threaded app. Please\n  adjust accordingly."
+            }
+          ],
+          "rationale": "The notice wrapper delays the threading limitation.",
+          "proposed_edit": "State the single-thread limitation directly."
+        },
+        {
+          "id": "c04-d23",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 29333,
+              "end": 29367,
+              "quote": "Make sure you rebuild your program"
+            }
+          ],
+          "context": [
+            {
+              "start": 29214,
+              "end": 29458,
+              "quote": "  This will make the malloc debug system output a full trace of all resource\n  using functions to the given file name. Make sure you rebuild your program\n  and that you link with the same libcurl you built for this purpose as\n  described above."
+            }
+          ],
+          "rationale": "This assurance wrapper adds no verification separate from the rebuild step.",
+          "proposed_edit": "Rebuild the program and link it with the instrumented library."
+        },
+        {
+          "id": "c04-d24",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 29899,
+              "end": 29948,
+              "quote": "This report is very fine for posting to the list!"
+            }
+          ],
+          "context": [
+            {
+              "start": 29810,
+              "end": 29948,
+              "quote": "  This now outputs a report on what resources that were allocated but never\n  freed etc. This report is very fine for posting to the list!"
+            }
+          ],
+          "rationale": "The quality endorsement can be replaced by the actual suggested action.",
+          "proposed_edit": "Suggest posting the report to the mailing list."
+        },
+        {
+          "id": "c04-d25",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 31569,
+              "end": 31578,
+              "quote": "Of course"
+            }
+          ],
+          "context": [
+            {
+              "start": 30998,
+              "end": 31738,
+              "quote": " We also added a timer callback that makes libcurl call the application when\n the timeout value changes, and you set that with [`curl_multi_setopt()`][9]\n and the [`CURLMOPT_TIMERFUNCTION`][10] option. To get this to work,\n Internally, there's an added struct to each easy handle in which we store\n an \"expire time\" (if any). The structs are then \"splay sorted\" so that we\n can add and remove times from the linked list and yet somewhat swiftly\n figure out both how long there is until the next nearest timer expires\n and which timer (handle) we should take care of now. Of course, the upside\n of all this is that we get a [`curl_multi_timeout()`][8] that should also\n work with old-style applications that use [`curl_multi_perform()`][11]."
+            }
+          ],
+          "rationale": "The assumed obviousness adds no backward-compatibility behavior.",
+          "proposed_edit": "Keep the compatibility statement and callback mechanism."
+        },
+        {
+          "id": "c04-d26",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 34347,
+              "end": 34438,
+              "quote": "Multiplexing\n  makes it even more important to keep things associated with the right thing!"
+            }
+          ],
+          "context": [
+            {
+              "start": 34207,
+              "end": 34438,
+              "quote": "  When doing multiplexed HTTP/2 transfers, each `Curl_easy` is associated with\n  an individual stream, sharing the same connectdata struct. Multiplexing\n  makes it even more important to keep things associated with the right thing!"
+            }
+          ],
+          "rationale": "The vague importance judgment repeats the specific stream/connection ownership explanation.",
+          "proposed_edit": "Keep the exact stream and shared-connection relationship."
+        },
+        {
+          "id": "c04-d27",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 34483,
+              "end": 34733,
+              "quote": "  A general idea in libcurl is to keep connections around in a connection\n  \"cache\" after they have been used in case they will be used again and then\n  re-use an existing one instead of creating a new as it creates a significant\n  performance boost."
+            }
+          ],
+          "context": [
+            {
+              "start": 34483,
+              "end": 34733,
+              "quote": "  A general idea in libcurl is to keep connections around in a connection\n  \"cache\" after they have been used in case they will be used again and then\n  re-use an existing one instead of creating a new as it creates a significant\n  performance boost."
+            }
+          ],
+          "rationale": "Keep-around/after-use/used-again/reuse layers repeat connection caching.",
+          "proposed_edit": "Say libcurl caches reusable connections to avoid creating new ones; preserve that reuse is conditional."
+        },
+        {
+          "id": "c04-d28",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 36305,
+              "end": 36343,
+              "quote": "This makes everything multi interface."
+            }
+          ],
+          "context": [
+            {
+              "start": 36208,
+              "end": 36343,
+              "quote": "  Internally, the easy interface is implemented as a wrapper around multi\n  interface functions. This makes everything multi interface."
+            }
+          ],
+          "rationale": "The conclusion repeats that the easy API wraps the multi API.",
+          "proposed_edit": "Keep the wrapper relationship."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c04-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11735,
+              "end": 11770,
+              "quote": "to make firewalls and similar happy"
+            }
+          ],
+          "context": [
+            {
+              "start": 11503,
+              "end": 11771,
+              "quote": "`Curl_ftpsendf()` is used for sending FTP commands to the remote server. It\n was made a separate function to prevent us programmers from forgetting that\n they must be CRLF terminated. They must also be sent in one single `write()`\n to make firewalls and similar happy."
+            }
+          ],
+          "rationale": "The anthropomorphic shorthand could be replaced, but the exact compatibility fault is not stated here.",
+          "proposed_edit": "Clarify which firewall behavior requires a single send rather than inventing it."
+        },
+        {
+          "id": "c04-u02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 32565,
+              "end": 32717,
+              "quote": "This section should cover 7.32.0 pretty accurately, but will make sense even\nfor older and later versions as things don't change drastically that often."
+            }
+          ],
+          "context": [
+            {
+              "start": 32565,
+              "end": 32717,
+              "quote": "This section should cover 7.32.0 pretty accurately, but will make sense even\nfor older and later versions as things don't change drastically that often."
+            }
+          ],
+          "rationale": "Cross-version applicability is estimated without evidence, but the version and uncertainty are clearly declared.",
+          "proposed_edit": "Consider naming known version boundaries rather than promising broad applicability."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 8450,
+              "end": 8833,
+              "quote": "   If this DO function fails and the connection is being re-used, libcurl will\n   then close this connection, setup a new connection and re-issue the DO\n   request on that. This is because there is no way to be perfectly sure that\n   we have discovered a dead connection before the DO function and thus we\n   might wrongly be re-using a connection that was closed by the remote peer."
+            }
+          ],
+          "context": [
+            {
+              "start": 8450,
+              "end": 8833,
+              "quote": "   If this DO function fails and the connection is being re-used, libcurl will\n   then close this connection, setup a new connection and re-issue the DO\n   request on that. This is because there is no way to be perfectly sure that\n   we have discovered a dead connection before the DO function and thus we\n   might wrongly be re-using a connection that was closed by the remote peer."
+            }
+          ],
+          "rationale": "Retrying a reused connection after DO failure addresses a concrete detection race.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 21872,
+              "end": 22182,
+              "quote": " Lastly, I also changed libcurl to be single-threaded rather than\n multi-threaded, again this was to prevent some duplicate symbol errors. I'm\n not sure why I needed to change everything to single-threaded, but when I\n didn't I got redefinition errors for several CRT functions (`malloc()`,\n `stricmp()`, etc.)"
+            }
+          ],
+          "context": [
+            {
+              "start": 21872,
+              "end": 22182,
+              "quote": " Lastly, I also changed libcurl to be single-threaded rather than\n multi-threaded, again this was to prevent some duplicate symbol errors. I'm\n not sure why I needed to change everything to single-threaded, but when I\n didn't I got redefinition errors for several CRT functions (`malloc()`,\n `stricmp()`, etc.)"
+            }
+          ],
+          "rationale": "The linking workaround is explicitly uncertain historical experience, not an unqualified guarantee.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 26308,
+              "end": 26600,
+              "quote": " The [`CURLOPT_ACCEPT_ENCODING`][5] must be set to any non-NULL value for\n content to be automatically decoded.  If it is not set and the server still\n sends encoded content (despite not having been asked), the data is returned\n in its raw form and the `Content-Encoding` type is not checked."
+            }
+          ],
+          "context": [
+            {
+              "start": 26308,
+              "end": 26600,
+              "quote": " The [`CURLOPT_ACCEPT_ENCODING`][5] must be set to any non-NULL value for\n content to be automatically decoded.  If it is not set and the server still\n sends encoded content (despite not having been asked), the data is returned\n in its raw form and the `Content-Encoding` type is not checked."
+            }
+          ],
+          "rationale": "Unrequested encoded data and explicit decoding configuration are different cases.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 35353,
+              "end": 35883,
+              "quote": "  As a special complexity, some protocols supported by libcurl require a\n  special disconnect procedure that is more than just shutting down the\n  socket. It can involve sending one or more commands to the server before\n  doing so. Since connections are kept in the connection cache after use, the\n  original `Curl_easy` may no longer be around when the time comes to shut down\n  a particular connection. For this purpose, libcurl holds a special dummy\n  `closure_handle` `Curl_easy` in the `Curl_multi` struct to use when needed."
+            }
+          ],
+          "context": [
+            {
+              "start": 35353,
+              "end": 35883,
+              "quote": "  As a special complexity, some protocols supported by libcurl require a\n  special disconnect procedure that is more than just shutting down the\n  socket. It can involve sending one or more commands to the server before\n  doing so. Since connections are kept in the connection cache after use, the\n  original `Curl_easy` may no longer be around when the time comes to shut down\n  a particular connection. For this purpose, libcurl holds a special dummy\n  `closure_handle` `Curl_easy` in the `Curl_multi` struct to use when needed."
+            }
+          ],
+          "rationale": "The dummy handle is needed because cached connections outlive their original transfer handle.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 33357,
+              "end": 33800,
+              "quote": "  When the `Curl_easy` struct is added to a multi handle, as it must be in\n  order to do any transfer, the `->multi` member will point to the `Curl_multi`\n  struct it belongs to. The `->prev` and `->next` members will then be used by\n  the multi code to keep a linked list of `Curl_easy` structs that are added to\n  that same multi handle. libcurl always uses multi so `->multi` *will* point\n  to a `Curl_multi` when a transfer is in progress."
+            }
+          ],
+          "context": [
+            {
+              "start": 33357,
+              "end": 33800,
+              "quote": "  When the `Curl_easy` struct is added to a multi handle, as it must be in\n  order to do any transfer, the `->multi` member will point to the `Curl_multi`\n  struct it belongs to. The `->prev` and `->next` members will then be used by\n  the multi code to keep a linked list of `Curl_easy` structs that are added to\n  that same multi handle. libcurl always uses multi so `->multi` *will* point\n  to a `Curl_multi` when a transfer is in progress."
+            }
+          ],
+          "rationale": "Handle membership and active-transfer ownership are useful assertions in this internal reference.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "2240889fae25a6f15a072869b76cba21f866d76637f99b78141e8dba7e035728",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 17320,
+          "first_line": 1,
+          "last_line": 702,
+          "rationale": "Read all 123 Mermaid class-diagram blocks and source examples. Preserve syntax, visibility, cardinality, security configuration, style attachment order and unsupported nested types. Distinguish duplicated explanatory setup from table labels useful for lookup.",
+          "prose_blocks": 123,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3263,
+              "end": 3385,
+              "quote": "UML provides mechanisms to represent class members, such as attributes and methods, and additional information about them."
+            }
+          ],
+          "context": [
+            {
+              "start": 3263,
+              "end": 3385,
+              "quote": "UML provides mechanisms to represent class members, such as attributes and methods, and additional information about them."
+            }
+          ],
+          "rationale": "This sentence repeats the general UML mechanisms introduction without new member syntax.",
+          "proposed_edit": "Remove the repeated setup and begin with attributes versus methods."
+        },
+        {
+          "id": "c05-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3587,
+              "end": 3765,
+              "quote": "There are two ways to define the members of a class, and regardless of whichever syntax is used to define the members, the output will still be same. The two different ways are :"
+            }
+          ],
+          "context": [
+            {
+              "start": 3587,
+              "end": 3765,
+              "quote": "There are two ways to define the members of a class, and regardless of whichever syntax is used to define the members, the output will still be same. The two different ways are :"
+            }
+          ],
+          "rationale": "The repeated two-ways announcement and regardless-of-whichever-syntax clause obscure a simple equivalence.",
+          "proposed_edit": "Say either of the following two syntaxes produces the same members."
+        },
+        {
+          "id": "c05-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4295,
+              "end": 4342,
+              "quote": "where members are grouped within curly brackets"
+            }
+          ],
+          "context": [
+            {
+              "start": 4243,
+              "end": 4404,
+              "quote": "Associate members of a class using **{}** brackets, where members are grouped within curly brackets. Suitable for defining multiple members at once. For example:"
+            }
+          ],
+          "rationale": "This repeats the immediately preceding bracket instruction.",
+          "proposed_edit": "Keep the grouped-member syntax and multiple-member use case."
+        },
+        {
+          "id": "c05-d04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 6056,
+              "end": 6150,
+              "quote": "Optionally you can end the method/function definition with the data type that will be returned"
+            }
+          ],
+          "context": [
+            {
+              "start": 6056,
+              "end": 6150,
+              "quote": "Optionally you can end the method/function definition with the data type that will be returned"
+            }
+          ],
+          "rationale": "The standalone return-type sentence repeats the preceding Return Type section and adds no generic-specific instruction.",
+          "proposed_edit": "Keep one return-type section with spacing and generic examples."
+        },
+        {
+          "id": "c05-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6245,
+              "end": 6319,
+              "quote": "these notations may be placed before the member's name, but it is optional"
+            }
+          ],
+          "context": [
+            {
+              "start": 6169,
+              "end": 6320,
+              "quote": "To specify the visibility of a class member (i.e. any attribute or method), these notations may be placed before the member's name, but it is optional:"
+            }
+          ],
+          "rationale": "May-be-placed and optional repeat modality around the same instruction.",
+          "proposed_edit": "Optionally prefix the member name with a visibility marker."
+        },
+        {
+          "id": "c05-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7608,
+              "end": 7667,
+              "quote": "Also, arrowheads can be used in opposite directions as well"
+            }
+          ],
+          "context": [
+            {
+              "start": 7534,
+              "end": 7669,
+              "quote": "We can use the labels to describe nature of relation between two classes. Also, arrowheads can be used in opposite directions as well :"
+            }
+          ],
+          "rationale": "Also and as well repeat addition, while can-be-used lengthens the directional syntax.",
+          "proposed_edit": "Arrowheads can also point in the opposite direction; retain the example."
+        },
+        {
+          "id": "c05-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 8259,
+              "end": 8308,
+              "quote": "It is possible to add a label text to a relation:"
+            }
+          ],
+          "context": [
+            {
+              "start": 8259,
+              "end": 8308,
+              "quote": "It is possible to add a label text to a relation:"
+            }
+          ],
+          "rationale": "The possibility announcement delays the direct labeling instruction.",
+          "proposed_edit": "Add label text to a relationship using the shown syntax."
+        },
+        {
+          "id": "c05-d08",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 9126,
+              "end": 9132,
+              "quote": "easily"
+            }
+          ],
+          "context": [
+            {
+              "start": 9107,
+              "end": 9238,
+              "quote": "Cardinality can be easily defined by placing cardinality text within quotes `\"` before(optional) and after(optional) a given arrow."
+            }
+          ],
+          "rationale": "The ease claim adds no placement or quoting requirement.",
+          "proposed_edit": "Keep optional placement and quoted cardinality syntax."
+        },
+        {
+          "id": "c05-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9601,
+              "end": 9789,
+              "quote": "It is possible to annotate classes with a specific marker text which is like meta-data for the class, giving a clear indication about its nature. Some common annotations examples could be:"
+            }
+          ],
+          "context": [
+            {
+              "start": 9601,
+              "end": 9789,
+              "quote": "It is possible to annotate classes with a specific marker text which is like meta-data for the class, giving a clear indication about its nature. Some common annotations examples could be:"
+            }
+          ],
+          "rationale": "It-is-possible-to, specific-marker-text and clear-indication-of-nature layer vague descriptions over class annotations.",
+          "proposed_edit": "Say class annotations identify interfaces, abstract classes, services or enums; retain the examples."
+        },
+        {
+          "id": "c05-d10",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 10042,
+              "end": 10166,
+              "quote": "There are two ways to add an annotation to a class and regardless of the syntax used output will be same. The two ways are :"
+            }
+          ],
+          "context": [
+            {
+              "start": 9976,
+              "end": 10166,
+              "quote": "Annotations are defined within the opening `<<` and closing `>>`. There are two ways to add an annotation to a class and regardless of the syntax used output will be same. The two ways are :"
+            }
+          ],
+          "rationale": "The announcement repeats both the count and syntax equivalence.",
+          "proposed_edit": "Introduce the two equivalent annotation syntaxes once."
+        },
+        {
+          "id": "c05-d11",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11286,
+              "end": 11332,
+              "quote": "It is possible to bind a click event to a node"
+            }
+          ],
+          "context": [
+            {
+              "start": 11286,
+              "end": 11565,
+              "quote": "It is possible to bind a click event to a node, the click can lead to either a javascript callback or to a link which will be opened in a new browser tab. **Note**: This functionality is disabled when using `securityLevel='strict'` and enabled when using `securityLevel='loose'`."
+            }
+          ],
+          "rationale": "The possibility wrapper adds no binding constraint.",
+          "proposed_edit": "Bind a click event to a node; preserve both target choices and security-level restrictions."
+        },
+        {
+          "id": "c05-d12",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 13679,
+              "end": 13917,
+              "quote": "It is possible to apply specific styles such as a thicker border or a different background color to individual nodes. This is done by predefining classes in css styles that can be applied from the graph definition as in the example\nbelow:"
+            }
+          ],
+          "context": [
+            {
+              "start": 13679,
+              "end": 13917,
+              "quote": "It is possible to apply specific styles such as a thicker border or a different background color to individual nodes. This is done by predefining classes in css styles that can be applied from the graph definition as in the example\nbelow:"
+            }
+          ],
+          "rationale": "It-is-possible and this-is-done wrappers repeat capability and method before the example.",
+          "proposed_edit": "Define CSS classes and attach them to nodes to set borders and background colors; retain the attachment steps."
+        },
+        {
+          "id": "c05-d13",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 14151,
+              "end": 14225,
+              "quote": "It is also possible to attach a class to a list of nodes in one statement:"
+            }
+          ],
+          "context": [
+            {
+              "start": 14151,
+              "end": 14225,
+              "quote": "It is also possible to attach a class to a list of nodes in one statement:"
+            }
+          ],
+          "rationale": "The possibility preface adds no operation to the following grouped-node syntax.",
+          "proposed_edit": "Attach a class to several nodes in one statement."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 11079,
+              "end": 11113,
+              "quote": "including any class diagram syntax"
+            }
+          ],
+          "context": [
+            {
+              "start": 10810,
+              "end": 11113,
+              "quote": "Comments can be entered within a class diagram, which will be ignored by the parser. Comments need to be on their own line, and must be prefaced with `%%` (double percent signs). Any text after the start of the comment to the next newline will be treated as a comment, including any class diagram syntax"
+            }
+          ],
+          "rationale": "The clarification is logically implied by any text, but helps distinguish commented diagram syntax from active syntax.",
+          "proposed_edit": "Consider retaining this concise clarification."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 5223,
+              "end": 5464,
+              "quote": "Members can be defined using generic types, such as `List<int>`, for fields, parameters and return types by enclosing the type within `~` (**tilde**). Note: **nested** type declarations (such as `List<List<int>>`) are not currently supported"
+            }
+          ],
+          "context": [
+            {
+              "start": 5223,
+              "end": 5464,
+              "quote": "Members can be defined using generic types, such as `List<int>`, for fields, parameters and return types by enclosing the type within `~` (**tilde**). Note: **nested** type declarations (such as `List<List<int>>`) are not currently supported"
+            }
+          ],
+          "rationale": "Generic syntax and the nested-type limitation are separate requirements.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 8609,
+              "end": 8848,
+              "quote": "Multiplicity or cardinality in class diagrams indicates the number of instances of one class linked to one instance of the other class. For example, one company will have one or more employees, but each employee works for just one company."
+            }
+          ],
+          "context": [
+            {
+              "start": 8609,
+              "end": 8848,
+              "quote": "Multiplicity or cardinality in class diagrams indicates the number of instances of one class linked to one instance of the other class. For example, one company will have one or more employees, but each employee works for just one company."
+            }
+          ],
+          "rationale": "The company/employee example explains direction-sensitive cardinality.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 14544,
+              "end": 14643,
+              "quote": "?> cssClasses cannot be added using this shorthand method at the same time as a relation statement."
+            }
+          ],
+          "context": [
+            {
+              "start": 14544,
+              "end": 14643,
+              "quote": "?> cssClasses cannot be added using this shorthand method at the same time as a relation statement."
+            }
+          ],
+          "rationale": "The shorthand cannot share a relation statement, which changes valid syntax.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "dca30a49a14b28ed0ce0c8607f91ef455d703fbf51b121799efe1d7ebab4b451",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 6890,
+          "first_line": 1,
+          "last_line": 168,
+          "rationale": "Read all 55 Pydantic export blocks with protected examples and argument lists. Preserve unset/default/null distinctions, recursive versus raw dictionaries, immutable copy semantics, encoder restrictions, nested selection and list indexes. Repeated runnable-example notes and argument labels support independent use.",
+          "prose_blocks": 55,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c06-d01",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 6392,
+              "end": 6401,
+              "quote": "Of course"
+            }
+          ],
+          "context": [
+            {
+              "start": 6273,
+              "end": 6443,
+              "quote": "The ellipsis (``...``) indicates that we want to exclude or include an entire key, just as if we included it in a set.\nOf course, the same can be done at any depth level."
+            }
+          ],
+          "rationale": "The assumed obviousness adds no nested-selection behavior.",
+          "proposed_edit": "State that the same syntax applies at any depth."
+        },
+        {
+          "id": "c06-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6445,
+              "end": 6557,
+              "quote": "Special care must be taken when including or excluding fields from a list or tuple of submodels or dictionaries."
+            }
+          ],
+          "context": [
+            {
+              "start": 6445,
+              "end": 6780,
+              "quote": "Special care must be taken when including or excluding fields from a list or tuple of submodels or dictionaries.  In this scenario,\n`dict` and related methods expect integer keys for element-wise inclusion or exclusion. To exclude a field from **every**\nmember of a list or tuple, the dictionary key `'__all__'` can be used as follows:"
+            }
+          ],
+          "rationale": "The caution announces a need for care rather than stating the following exact integer-key requirement.",
+          "proposed_edit": "Begin with the integer-key requirement for lists and tuples; retain the all-elements alternative."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c06-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 5859,
+              "end": 5868,
+              "quote": "efficient"
+            }
+          ],
+          "context": [
+            {
+              "start": 5796,
+              "end": 5893,
+              "quote": "Using the same plumbing as `copy()`, *pydantic* models support efficient pickling and unpickling."
+            }
+          ],
+          "rationale": "The performance adjective lacks a measurement, but shared implementation offers context without a universal comparison.",
+          "proposed_edit": "Consider stating pickling support directly."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1312,
+              "end": 1581,
+              "quote": "pydantic* models can also be converted to dictionaries using `dict(model)`, and you can also\niterate over a model's field using `for field_name, value in model:`. With this approach the raw field values are\nreturned, so sub-models will not be converted to dictionaries."
+            }
+          ],
+          "context": [
+            {
+              "start": 1312,
+              "end": 1581,
+              "quote": "pydantic* models can also be converted to dictionaries using `dict(model)`, and you can also\niterate over a model's field using `for field_name, value in model:`. With this approach the raw field values are\nreturned, so sub-models will not be converted to dictionaries."
+            }
+          ],
+          "rationale": "Raw field values deliberately contrast with recursive model.dict conversion.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1723,
+              "end": 1814,
+              "quote": "`copy()` allows models to be duplicated, which is particularly useful for immutable models."
+            }
+          ],
+          "context": [
+            {
+              "start": 1723,
+              "end": 1814,
+              "quote": "`copy()` allows models to be duplicated, which is particularly useful for immutable models."
+            }
+          ],
+          "rationale": "Copying immutable models has a concrete use case; this is not an empty capability boast.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 5228,
+              "end": 5479,
+              "quote": "`ujson` generally cannot be used to dump JSON since it doesn't support encoding of objects like datetimes and does\nnot accept a `default` fallback function argument. To do this, you may use another library like\n[orjson](https://github.com/ijl/orjson)."
+            }
+          ],
+          "context": [
+            {
+              "start": 5228,
+              "end": 5479,
+              "quote": "`ujson` generally cannot be used to dump JSON since it doesn't support encoding of objects like datetimes and does\nnot accept a `default` fallback function argument. To do this, you may use another library like\n[orjson](https://github.com/ijl/orjson)."
+            }
+          ],
+          "rationale": "Datetime encoding and fallback support explain the library restriction.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1228,
+              "end": 1276,
+              "quote": "(This script is complete, it should run \"as is\")"
+            }
+          ],
+          "context": [
+            {
+              "start": 1228,
+              "end": 1276,
+              "quote": "(This script is complete, it should run \"as is\")"
+            }
+          ],
+          "rationale": "The standalone runnable-example note helps readers copy one example without surrounding setup.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}

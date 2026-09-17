@@ -5,7 +5,7 @@ import "github.com/stokaro/unswell/document"
 // Relations retain the written subject and predicate. These bounded surface
 // checks do not infer dependencies or equality between different propositions.
 func rhetoricalRelationEnd(candidate frameClause) int {
-	if candidateRhetoricScoped(candidate) {
+	if rhetoricQuoted(candidate) || evaluationScoped(candidate) {
 		return 0
 	}
 	tokens := candidate.tokens()

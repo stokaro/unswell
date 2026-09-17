@@ -3,7 +3,8 @@ package builtin
 import "github.com/stokaro/unswell/document"
 
 func scopedInformationNotice(c frameClause, i int) bool {
-	return !quotedClaim(c.sentence.Tokens) && (informationNotice(c.tokens()[i:]) || cognitiveAnnouncement(c.tokens()[i:]))
+	c.start += i
+	return !rhetoricQuoted(c) && !rhetoricAttributed(c) && (informationNotice(c.tokens()) || cognitiveAnnouncement(c.tokens()))
 }
 
 // Notice frames describe presenting information, not its operational truth. A

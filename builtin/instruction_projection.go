@@ -34,7 +34,31 @@ func projectionSubject(tokens []document.Token) bool {
 	if len(tokens) > 2 && frameWord(tokens[0], "optionally", "also") && frameWord(tokens[1], ",") {
 		tokens = tokens[2:]
 	}
-	return len(tokens) > 0 && len(tokens) <= 12 && nominalSubject(tokens)
+	if len(tokens) == 0 || len(tokens) > 12 || !nominalSubject(tokens) {
+		return false
+	}
+	for _, token := range tokens {
+		if projectionRelativeOrNumber(token, len(tokens)) {
+			return false
+		}
+	}
+	return projectionActorHead(tokens)
+}
+
+func projectionRelativeOrNumber(token document.Token, length int) bool {
+	return !token.Protected && (token.Tag == "CD" || length > 1 && frameWord(token, "that", "which", "who", "whom"))
+}
+
+func projectionActorHead(tokens []document.Token) bool {
+	last := tokens[len(tokens)-1]
+	if len(tokens) > 1 && frameWord(last, "also") {
+		last = tokens[len(tokens)-2]
+	}
+	// The tagger sometimes marks a noun such as "library" as an adjective.
+	// A determiner anchors that nominal role; an issue number alone cannot.
+	return last.Protected || strings.HasPrefix(last.Tag, "NN") ||
+		last.Tag == "JJ" && frameWord(tokens[0], "the", "a", "an", "this", "that") ||
+		frameWord(last, "this", "that", "it", "they", "these", "those")
 }
 
 func projectionGuard(tokens []document.Token) bool {
