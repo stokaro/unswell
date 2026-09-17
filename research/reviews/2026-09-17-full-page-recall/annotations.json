@@ -1,0 +1,2557 @@
+[
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p001",
+    "source_sha256": "d1b182415b5f020d6346927562af18f331e6de28c97383fbe83dc2f04dd368a3",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 610,
+        "first_line": 1,
+        "last_line": 18,
+        "rationale": "Administrative frontmatter is context, not target prose."
+      },
+      {
+        "start": 610,
+        "end": 7897,
+        "first_line": 19,
+        "last_line": 122,
+        "rationale": "Read dialect, index, constraint and key-name comparisons. Most repeated alternatives carry different server versions, objects or error codes. Flag the redundant announcement of two refusals."
+      },
+      {
+        "start": 7897,
+        "end": 13340,
+        "first_line": 123,
+        "last_line": 197,
+        "rationale": "Read live collision probes and column/index identity restrictions. Retain exact case-folding counterexamples and reserved-word behavior; separate promotional framing from the concrete probing method."
+      },
+      {
+        "start": 13340,
+        "end": 14862,
+        "first_line": 198,
+        "last_line": 232,
+        "rationale": "Read global cleanup privilege requirements, non-atomic online-DDL instructions and destination links; conditions and commands are necessary."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p001-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 5375,
+            "end": 5452,
+            "quote": "Two\n  refusals go with it, and they are different facts rather than one rule:"
+          }
+        ],
+        "rationale": "The following MariaDB/MySQL cases state both refusals and their scope. This introductory assertion adds no condition or action.",
+        "proposed_edit": "Remove this sentence fragment; begin with the MariaDB case."
+      },
+      {
+        "id": "p001-d02",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 7901,
+            "end": 7966,
+            "quote": "A comparison that reaches the target asks it instead of guessing."
+          }
+        ],
+        "rationale": "The emphasized heading personifies a comparison and leaves the operation unspecified. The next sentences identify live index-name collision probes.",
+        "proposed_edit": "Live comparisons test possible index-name collisions on the target server."
+      },
+      {
+        "id": "p001-d03",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 8695,
+            "end": 8724,
+            "quote": "which is exactly the question"
+          }
+        ],
+        "rationale": "The temporary-table success or duplicate-name error already describes the test. This aside only declares that the test answers the question.",
+        "proposed_edit": "Remove the aside and retain the session-local namespace explanation."
+      },
+      {
+        "id": "p001-d04",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 8890,
+            "end": 8971,
+            "quote": "so a schema whose index names are\n  all ASCII reaches no server and pays nothing."
+          }
+        ],
+        "rationale": "The context limits the saving to extra collision probes. The unqualified claim of no server access and no cost overstates that scope for a live comparison.",
+        "proposed_edit": "so a schema with only ASCII index names requires no collision probes."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "p001-u01",
+        "category": "wordiness",
+        "targets": [
+          {
+            "start": 3043,
+            "end": 3081,
+            "quote": "where a method\n  has somewhere to live"
+          }
+        ],
+        "rationale": "The metaphor could be replaced by an access-method field, but it may explain the representation adequately; stylistic preference alone is not a required edit.",
+        "proposed_edit": "Optional: which supports an access-method field."
+      }
+    ],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 13222,
+            "end": 13339,
+            "quote": "DDL commits implicitly on both engines, so a failed migration cannot be\n  rolled back by the surrounding transaction."
+          }
+        ],
+        "rationale": "The causal sentence gives a safety consequence; its negation must remain."
+      },
+      {
+        "targets": [
+          {
+            "start": 6291,
+            "end": 6364,
+            "quote": "The name is decided when the SQL is read rather than when it is\n  written"
+          }
+        ],
+        "rationale": "This contrast identifies a concrete timing choice needed for catalog convergence."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p002",
+    "source_sha256": "064cbfe0da8f3bdb90903c3643a33f46504d099f977819f99d3ac489d9eea443",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 485,
+        "first_line": 1,
+        "last_line": 18,
+        "rationale": "Administrative frontmatter."
+      },
+      {
+        "start": 485,
+        "end": 5523,
+        "first_line": 19,
+        "last_line": 148,
+        "rationale": "Read supported blocks and mapping table. Repeated default phrases describe different settings and remain useful; protected configuration examples supply context."
+      },
+      {
+        "start": 5523,
+        "end": 13752,
+        "first_line": 149,
+        "last_line": 301,
+        "rationale": "Read baseline, schema selection, error handling, precedence, migration formats and source resolution. Preserve the distinctions between absent and explicit empty values."
+      },
+      {
+        "start": 13752,
+        "end": 24598,
+        "first_line": 302,
+        "last_line": 545,
+        "rationale": "Read function availability, path confinement, scoped variables, lazy evaluation and remote-source contracts. Identify the self-evident scoping judgment separately from the boundary rules."
+      },
+      {
+        "start": 24598,
+        "end": 34715,
+        "first_line": 546,
+        "last_line": 798,
+        "rationale": "Read SQL, external, runtime-variable and template sources, program opt-in, rooted paths and named templates. Separate design self-commentary from user-visible contracts."
+      },
+      {
+        "start": 34715,
+        "end": 40171,
+        "first_line": 799,
+        "last_line": 921,
+        "rationale": "Read native/compatibility config selection, variable parsing, scope and multi-environment execution. Preserve the exact flags, branches and failure order."
+      },
+      {
+        "start": 40171,
+        "end": 49403,
+        "first_line": 922,
+        "last_line": 1099,
+        "rationale": "Read supported/ignored/unsupported outcomes, field types, structural validation and the final environment-selection boundary. The repeated scope qualifications address different names and cannot be merged indiscriminately."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p002-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 18653,
+            "end": 18716,
+            "quote": "The scoping is the whole point, and it runs in both directions."
+          }
+        ],
+        "rationale": "Calling scoping the whole point is a circular value judgment. The useful assertion is that both directions are isolated, demonstrated immediately below.",
+        "proposed_edit": "The isolation applies in both directions."
+      },
+      {
+        "id": "p002-d02",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 33929,
+            "end": 34187,
+            "quote": "That is the whole\ndesign: the two verbs already render through templates, so a named format needs\nno evaluator of its own, and a declarative description of output structure would\nhave been a second language to learn, document and version for the same result."
+          }
+        ],
+        "rationale": "After describing a named template, the paragraph defends an unchosen design and its maintenance burden. That counterfactual does not change how a user configures or invokes the exporter.",
+        "proposed_edit": "Remove the design defense; retain the preceding description of a named template over the same report."
+      },
+      {
+        "id": "p002-d03",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 36191,
+            "end": 36271,
+            "quote": "backwards for a project moving from the\ncompatibility surface to the native one."
+          }
+        ],
+        "rationale": "The preceding before/after availability is useful migration history. Calling the old design backwards adds a judgment without a new consequence or instruction.",
+        "proposed_edit": "Remove this trailing judgment and retain the availability history."
+      },
+      {
+        "id": "p002-d04",
+        "category": "wordiness",
+        "targets": [
+          {
+            "start": 37582,
+            "end": 37754,
+            "quote": "A\nscope closed against the flag but open to the environment would be no scope at\nall, and the leak would be silent: the run still passes, against a schema\nnobody asked for."
+          }
+        ],
+        "rationale": "The denial/redefinition repeats the isolation requirement with an absolute label before giving the actual failure consequence. State that consequence directly without losing the distinction between flag and environment.",
+        "proposed_edit": "Applying the restriction to flags but not environment variables could let the run pass against an unintended schema."
+      },
+      {
+        "id": "p002-d05",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 42766,
+            "end": 42807,
+            "quote": "and that is measured\nrather than assumed."
+          }
+        ],
+        "rationale": "The next sentence gives the actual community-binary behavior and examples. This assurance adds no measurement details or condition.",
+        "proposed_edit": "Remove the assurance and retain the concrete compatibility examples."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "p002-u01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 16836,
+            "end": 16932,
+            "quote": "Both measured runs\nexit 1, so no working configuration changes; Ptah's refusal names its reason."
+          }
+        ],
+        "rationale": "The paragraph previously describes Atlas exiting 0; the actor of these two exit-1 runs is implicit, and the compatibility assertion may need source-history verification. Treat as unresolved rather than asserting a factual defect.",
+        "proposed_edit": "Name Ptah as the actor of the two refusing runs and specify which configurations remain compatible."
+      },
+      {
+        "id": "p002-u02",
+        "category": "wordiness",
+        "targets": [
+          {
+            "start": 48311,
+            "end": 48361,
+            "quote": "a known remaining divergence in the\nloud direction"
+          }
+        ],
+        "rationale": "The failure-direction metaphor may slow readers but is explained by the following rejection contract; necessity of editing is uncertain.",
+        "proposed_edit": "Optional: a known divergence that rejects some inputs accepted by Atlas CE."
+      }
+    ],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 6447,
+            "end": 6518,
+            "quote": "The list restricts the schema universe rather than filtering the output"
+          }
+        ],
+        "rationale": "This distinguishes resources not read from results merely hidden, which affects scope and cost."
+      },
+      {
+        "targets": [
+          {
+            "start": 17065,
+            "end": 17147,
+            "quote": "It is not a claim\nthat `atlas.hcl` cannot name a path outside its directory at all"
+          }
+        ],
+        "rationale": "This prevents applying the confinement restriction to explicit schema-source paths; the negation has a necessary technical function."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p003",
+    "source_sha256": "3f2425cd9e9ea8c7346d6801c016bbf48ee74a4fe656c0beecae44e0d4bf0921",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 746,
+        "first_line": 1,
+        "last_line": 24,
+        "rationale": "Generated-page metadata and generation directive are not target prose."
+      },
+      {
+        "start": 746,
+        "end": 2213,
+        "first_line": 25,
+        "last_line": 52,
+        "rationale": "Read all introductory paragraphs and column definitions with approval exceptions. Two self-justifications distract from the flag contract."
+      },
+      {
+        "start": 2213,
+        "end": 86618,
+        "first_line": 53,
+        "last_line": 2271,
+        "rationale": "Reviewed every extracted prose form across the full generated inventory: five recurring column headings, hidden and inherited-by-subcommands notes. Identical table cells were grouped with all block IDs retained in the packet; protected command/flag/value cells supply context, not rhetorical positives."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p003-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 1256,
+            "end": 1393,
+            "quote": "The\ncommand path is outside the table so the five measured flag fields fit the\ndocumentation column without hiding the right-hand fields."
+          }
+        ],
+        "rationale": "This explains the page layout rather than a flag contract or a reader action. The preceding sentence already locates each table.",
+        "proposed_edit": "Remove this layout explanation."
+      },
+      {
+        "id": "p003-d02",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 1663,
+            "end": 1710,
+            "quote": "Approval is where the\n  column earns its place:"
+          }
+        ],
+        "rationale": "This praises the table column before explaining the actual approval behavior. The explicit native/compatibility distinction is the useful information.",
+        "proposed_edit": "Remove the preface; retain the complete approval and environment-variable explanation."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 1869,
+            "end": 1941,
+            "quote": "That is a rule about the\n  native surface rather than about the spelling"
+          }
+        ],
+        "rationale": "This contrast prevents assuming a similarly named compatibility flag has the same environment binding."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p004",
+    "source_sha256": "9e8504e46ddbb1a39c570a79b260b174160eea73ef3d87204a624d6e572dca03",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 663,
+        "first_line": 1,
+        "last_line": 26,
+        "rationale": "Frontmatter records the purpose and source files; excluded from editorial labels."
+      },
+      {
+        "start": 663,
+        "end": 5065,
+        "first_line": 27,
+        "last_line": 170,
+        "rationale": "Read setup, compare and drift examples including output context. The drift exit explanation is repeated without a changed condition."
+      },
+      {
+        "start": 5065,
+        "end": 10216,
+        "first_line": 171,
+        "last_line": 292,
+        "rationale": "Read reference-row semantics, permissions, policy identity, JSON version history and constraints. Most parallel wording distinguishes real structural and row behavior."
+      },
+      {
+        "start": 10216,
+        "end": 16267,
+        "first_line": 293,
+        "last_line": 466,
+        "rationale": "Read plan/apply/recheck sequence, source resolution, arbitrary schema diffs and failure modes. Preserve the workflow transitions, exit codes and schema limitations."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p004-d01",
+        "category": "needless_repetition",
+        "targets": [
+          {
+            "start": 3877,
+            "end": 3977,
+            "quote": "The command exits `1` because drift was found, which is the check working\nrather than a fault in it."
+          },
+          {
+            "start": 4158,
+            "end": 4204,
+            "quote": "The command exits `1` because drift was found."
+          }
+        ],
+        "rationale": "The same exit reason appears directly before and after the example output. The latter sentence adds no changed condition; keep the detailed explanation of findings that follows.",
+        "proposed_edit": "Remove the second occurrence of the exit-reason sentence."
+      },
+      {
+        "id": "p004-d02",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 7149,
+            "end": 7200,
+            "quote": "because a check has to report rather than fall over"
+          }
+        ],
+        "rationale": "The sentence already says a missing structure produces a defined answer instead of an error. This generic justification repeats the goal without explaining the behavior.",
+        "proposed_edit": "Remove this clause and retain the concrete missing-table and missing-column cases."
+      },
+      {
+        "id": "p004-d03",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 10860,
+            "end": 10903,
+            "quote": "Applying that plan is what closes the loop."
+          }
+        ],
+        "rationale": "The following sentence and apply/recheck commands provide the action and result; the metaphor adds no instruction.",
+        "proposed_edit": "Remove this sentence and keep the direct-apply instruction."
+      },
+      {
+        "id": "p004-d04",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 14073,
+            "end": 14138,
+            "quote": "a DDL parser\nis wrong for every dialect it was not tested against"
+          }
+        ],
+        "rationale": "Lack of testing does not establish that every result is wrong. The usable warning is that consuming DDL requires dialect-specific parser support.",
+        "proposed_edit": "parsing DDL requires support and validation for each target dialect"
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "p004-u01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 8764,
+            "end": 8840,
+            "quote": "A consumer reading that field reads\n`.policy_name` now; nothing was removed."
+          }
+        ],
+        "rationale": "The release/API claim may be misleading, but source context alone does not establish whether it refers to a removed field or lost information. This audit does not verify API history.",
+        "proposed_edit": "Clarify whether no field, no policy, or no information was removed."
+      }
+    ],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 3423,
+            "end": 3451,
+            "quote": "exit `1` on a non-empty diff"
+          }
+        ],
+        "rationale": "This is an operational exit-code contract, not empty contrast."
+      },
+      {
+        "targets": [
+          {
+            "start": 14728,
+            "end": 14806,
+            "quote": "a collection with\nno members encodes as `null` or `[]` — read both as empty."
+          }
+        ],
+        "rationale": "The alternatives define consumer behavior and cannot be collapsed into a generic warning."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p005",
+    "source_sha256": "1b5d449458cac1e9b7af1261a40c268651eb3b86d84444da119a510f9979fc81",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 564,
+        "first_line": 1,
+        "last_line": 20,
+        "rationale": "Frontmatter is administrative context."
+      },
+      {
+        "start": 564,
+        "end": 2360,
+        "first_line": 21,
+        "last_line": 78,
+        "rationale": "Read artifact access examples and database classes. Repeated authority boundaries distinguish permissions that must not be conflated."
+      },
+      {
+        "start": 2360,
+        "end": 4862,
+        "first_line": 79,
+        "last_line": 141,
+        "rationale": "Read verdicts, repository restrictions, unattended operation, result verification and audit logging. The final repetition that auto-approval does not bypass checks is a useful safety distinction."
+      }
+    ],
+    "defects": [],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 4033,
+            "end": 4152,
+            "quote": "Auto-approval removes the prompt. Path containment, capability policy, digest\nchecks, and verification gates still run."
+          }
+        ],
+        "rationale": "Short parallel statements distinguish convenience from authority and safety checks."
+      },
+      {
+        "targets": [
+          {
+            "start": 2683,
+            "end": 2791,
+            "quote": "A client that cannot present a prompt treats `ask` as a refusal. It never\npromotes the operation to `allow`."
+          }
+        ],
+        "rationale": "The second sentence makes the failure behavior explicit; it is not a redundant sales claim."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p006",
+    "source_sha256": "58b20b3c736a45aa72d3d24306f07c472c850cf5dbf1a87756ffc32bcb7dd649",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 624,
+        "first_line": 1,
+        "last_line": 20,
+        "rationale": "Frontmatter is administrative context."
+      },
+      {
+        "start": 624,
+        "end": 2496,
+        "first_line": 21,
+        "last_line": 60,
+        "rationale": "Read audience limits, model-change consequences, ownership table and provider failure semantics. Preserve exclusions that distinguish migration from model serving."
+      },
+      {
+        "start": 2496,
+        "end": 4622,
+        "first_line": 61,
+        "last_line": 102,
+        "rationale": "Read separate migration commands, explicit non-implications, navigation and current database/API limits. These contrasts name distinct state transitions."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p006-d01",
+        "category": "unjustified_intensifiers",
+        "targets": [
+          {
+            "start": 1772,
+            "end": 1849,
+            "quote": "and keeping them apart is the fastest way to\nunderstand everything else here."
+          }
+        ],
+        "rationale": "This asserts an unmeasured superlative about comprehension. The component table already supplies the distinction without that promise.",
+        "proposed_edit": "Remove the clause; keep \"Four components are involved.\""
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 3296,
+            "end": 3403,
+            "quote": "A passing verification does not move your queries. A\ncompleted cutover does not throw the old vectors away."
+          }
+        ],
+        "rationale": "The parallel negative sentences specify two different lifecycle guarantees; repetition is useful."
+      },
+      {
+        "targets": [
+          {
+            "start": 730,
+            "end": 751,
+            "quote": "this area is for you."
+          }
+        ],
+        "rationale": "The opening gives an explicit PostgreSQL/embedding-model audience boundary, so its navigation function is useful."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p007",
+    "source_sha256": "ff1104e738bd3238b4f1a40f989ba0d5386cb8c1daa0b48d9d7d498078a6b7eb",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 974,
+        "first_line": 1,
+        "last_line": 32,
+        "rationale": "Administrative metadata, component imports and sample URL expression are context."
+      },
+      {
+        "start": 974,
+        "end": 7630,
+        "first_line": 33,
+        "last_line": 151,
+        "rationale": "Read contract targets, artifact links, exclusions, options and source forms. Separate the reassurance about what this page does not pretend to show from actual missing runtime features."
+      },
+      {
+        "start": 7630,
+        "end": 11522,
+        "first_line": 152,
+        "last_line": 279,
+        "rationale": "Read OpenAPI and GraphQL schemas, defaults, query/input shapes and cautions. Required absent-runtime warnings are retained."
+      },
+      {
+        "start": 11522,
+        "end": 20736,
+        "first_line": 280,
+        "last_line": 516,
+        "rationale": "Read API/persistence identity, per-format names, collisions and Protobuf compatibility. Parallel negatives prevent invalid interpretation and are not defects by themselves."
+      },
+      {
+        "start": 20736,
+        "end": 26209,
+        "first_line": 517,
+        "last_line": 685,
+        "rationale": "Read type overrides, enum directions, missing runtime conversion and wire compatibility. Identify evaluative labels that can be replaced with the concrete mapping rules."
+      },
+      {
+        "start": 26209,
+        "end": 35204,
+        "first_line": 686,
+        "last_line": 885,
+        "rationale": "Read mapping table, projection limits, exposure controls, security warnings, release review and next steps. Security repetition at distinct trust-boundary decisions is retained."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p007-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 2122,
+            "end": 2189,
+            "quote": "so this page does not show a consumer UI and imply\nthat one exists."
+          }
+        ],
+        "rationale": "The page already names the absent UI/server features. Its claim about avoiding a misleading illustration is self-justification rather than an additional product limitation.",
+        "proposed_edit": "End the previous clause after the list of unbundled components."
+      },
+      {
+        "id": "p007-d02",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 20869,
+            "end": 20985,
+            "quote": "That is the right answer nearly always, and the wrong\none exactly where the stored type is not what the value means:"
+          }
+        ],
+        "rationale": "Nearly always asserts prevalence without a defined workload. The useful condition is when the storage type differs from the required API representation.",
+        "proposed_edit": "Override the mapping when the stored type differs from the required API representation:"
+      },
+      {
+        "id": "p007-d03",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 23704,
+            "end": 23734,
+            "quote": "which is the case worth having"
+          }
+        ],
+        "rationale": "The following reason explains a real use on dialects without enum types. Calling one direction worth having contributes no additional distinction.",
+        "proposed_edit": "Remove this judgment and retain the explanation about dialects without native enum types."
+      },
+      {
+        "id": "p007-d04",
+        "category": "wordiness",
+        "targets": [
+          {
+            "start": 25547,
+            "end": 25816,
+            "quote": "The two are different kinds\nof event: an unmapped column type is a fact about the schema, and the export\nstill has something honest to say about it, while an unmapped override is an\nauthoring mistake whose only possible outcome is a contract the author did not\nask for."
+          }
+        ],
+        "rationale": "The moral description of an honest answer and an authoring mistake obscures the actual fallback-versus-explicit-request contract, already established in the paragraph.",
+        "proposed_edit": "An unknown storage type has a string fallback; an explicit override must name a supported type."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "p007-u01",
+        "category": "wordiness",
+        "targets": [
+          {
+            "start": 11549,
+            "end": 11619,
+            "quote": "A column or table has two identities, and they are not the same thing:"
+          }
+        ],
+        "rationale": "The tail is logically redundant, but it introduces an important separation for readers unfamiliar with API projection. Necessity of editing is uncertain.",
+        "proposed_edit": "Optional: A column or table has a persistence identity and an API identity:"
+      }
+    ],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 8749,
+            "end": 8821,
+            "quote": "That is the whole\ndefault export: no `Query`, no inputs, no connections."
+          }
+        ],
+        "rationale": "This gives concrete absent definitions and is a useful limitation even though it uses a whole-export formula."
+      },
+      {
+        "targets": [
+          {
+            "start": 24517,
+            "end": 24597,
+            "quote": "an override that nothing implements produces a document\nthat lies about the API."
+          }
+        ],
+        "rationale": "The warning describes a real mismatch between a declaration and implementation; the metaphor has a concrete referent here."
+      },
+      {
+        "targets": [
+          {
+            "start": 31165,
+            "end": 31224,
+            "quote": "They are not authorization, they are not row-level security"
+          }
+        ],
+        "rationale": "The parallel negatives distinguish document projection from two runtime enforcement mechanisms."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p008",
+    "source_sha256": "4cd866dbfa09228d3b18002efa72dfecf52aab171e589fd46c4cc9eb0e41333a",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 473,
+        "first_line": 1,
+        "last_line": 19,
+        "rationale": "Administrative metadata and Tabs import."
+      },
+      {
+        "start": 473,
+        "end": 4346,
+        "first_line": 20,
+        "last_line": 108,
+        "rationale": "Read precedence, approval/database flag exceptions and boolean environment validation. Preserve the concrete destructive-target risk while marking unqualified cost and abstract identity claims."
+      },
+      {
+        "start": 4346,
+        "end": 9103,
+        "first_line": 109,
+        "last_line": 194,
+        "rationale": "Read strict CE profile, registry selection, retained controls, global failure order and native/compatibility boundaries. Technical exceptions remain intact."
+      },
+      {
+        "start": 9103,
+        "end": 15216,
+        "first_line": 195,
+        "last_line": 327,
+        "rationale": "Read merge presence, typed snapshots, source paths, shared project model and environment examples. Treat stale API claims as factual questions outside this wording audit."
+      },
+      {
+        "start": 15216,
+        "end": 21717,
+        "first_line": 328,
+        "last_line": 414,
+        "rationale": "Read operational settings, external execution opt-in and full compatibility/type-validation note. Separate an assurance about explicitness from the concrete failure contract."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p008-d01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 2162,
+            "end": 2259,
+            "quote": "Requiring the flag costs nothing, because a throwaway target is\na decision rather than a default."
+          }
+        ],
+        "rationale": "The earlier sentences establish why an explicit target avoids accidental destruction. Zero cost is unqualified, and the abstract decision/default contrast supplies no additional safeguard.",
+        "proposed_edit": "Remove this sentence; retain the explicit-flag requirement and its destructive-target explanation."
+      },
+      {
+        "id": "p008-d02",
+        "category": "wordiness",
+        "targets": [
+          {
+            "start": 2615,
+            "end": 2763,
+            "quote": "A Kubernetes Job passes it in `args:` rather than `env:`, which is the same\ndistinction: what the workload *is* versus what it is *configured with*."
+          }
+        ],
+        "rationale": "The concrete args/env instruction is sufficient. The subsequent distinction between identity and configuration obscures it because both fields configure a workload.",
+        "proposed_edit": "Pass these flags in a Kubernetes Job's `args`, not its `env`."
+      },
+      {
+        "id": "p008-d03",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 13391,
+            "end": 13427,
+            "quote": "What differs is reach, not standing."
+          }
+        ],
+        "rationale": "The next sentence specifies the difference in supported settings. The abstract status contrast adds no reader action or usable definition.",
+        "proposed_edit": "Remove the sentence and start with the supported-setting difference."
+      },
+      {
+        "id": "p008-d04",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 19838,
+            "end": 19884,
+            "quote": "Ptah config parsing is intentionally explicit."
+          }
+        ],
+        "rationale": "The following sentences state exactly which keys fail, which are accepted and how errors locate them. The quality announcement adds nothing to that contract.",
+        "proposed_edit": "Remove the announcement; begin with the unknown-key behavior."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "p008-u01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 7460,
+            "end": 7498,
+            "quote": "and there is no\nsecond list to forget."
+          }
+        ],
+        "rationale": "The registry explanation may matter to maintainers reading a configuration reference, but its relevance to an operator is unclear. Retain as uncertain rather than declaring all implementation rationale defective.",
+        "proposed_edit": "Optional: move registry maintenance rationale to contributor documentation."
+      }
+    ],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 3905,
+            "end": 3982,
+            "quote": "an invalid value is rejected even on a run that would never\nhave consulted it"
+          }
+        ],
+        "rationale": "This unusual validation-order constraint matters to automation and should not be simplified away."
+      },
+      {
+        "targets": [
+          {
+            "start": 3367,
+            "end": 3520,
+            "quote": "a quoting or expansion mistake in a YAML\nmanifest, a CI environment file or a systemd unit is exactly the configuration\nerror this rule exists to surface"
+          }
+        ],
+        "rationale": "This purpose clause gives concrete error sources and explains rejecting whitespace; it is not a free-standing evaluative closure."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p009",
+    "source_sha256": "db2a6a566be5b01e08d52a62514d1cf13bd8320cb2ed6dcf8d8c964555e589a9",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 421,
+        "first_line": 1,
+        "last_line": 16,
+        "rationale": "Administrative frontmatter."
+      },
+      {
+        "start": 421,
+        "end": 3523,
+        "first_line": 17,
+        "last_line": 75,
+        "rationale": "Read row interpretation, capability questions, render behavior and named object skips. Retain the differences between measured/carried and certified/legacy-tested states."
+      },
+      {
+        "start": 3523,
+        "end": 7910,
+        "first_line": 76,
+        "last_line": 147,
+        "rationale": "Read version and engine boundaries, foreign-key policies, session constraints and include-index support. Different cases justify repeated conditions and identifiers."
+      },
+      {
+        "start": 7910,
+        "end": 11362,
+        "first_line": 148,
+        "last_line": 178,
+        "rationale": "Read database-test and OCI workflow sections, including the complete long integrity bullet. Preserve integrity/reproducibility/authenticity distinctions; record presentation uncertainty separately."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p009-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 909,
+            "end": 1028,
+            "quote": "from\n`docs/site/src/glossary.ts` rather than from this page, so the meanings cannot\ndrift from the ones used elsewhere."
+          }
+        ],
+        "rationale": "The reader needs the glossary link and row definitions. This implementation-level justification for reusing it adds no capability interpretation.",
+        "proposed_edit": "End the preceding clause after \"defines each word\"."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "p009-u01",
+        "category": "needless_complexity",
+        "targets": [
+          {
+            "start": 9620,
+            "end": 9945,
+            "quote": "On `migrations up`, `down` and `status` it is the *pulled* one, and there the limit bites: a sum checks a directory against the sum stored beside it, and for an artifact that sum travels *inside* the artifact — so over a movable tag it proves the pulled files are internally consistent, not that they are the reviewed ones."
+          }
+        ],
+        "rationale": "This is a long, nested threat-model explanation. Splitting could help, but each qualification supports the integrity distinction; length alone is insufficient for a required edit.",
+        "proposed_edit": "Optional: separate the location of the sum from the mutable-tag consequence."
+      }
+    ],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 10171,
+            "end": 10276,
+            "quote": "Pinning it fixes which bytes a later pull gets, which is reproducibility rather than proof of a publisher"
+          }
+        ],
+        "rationale": "The contrast distinguishes immutable content from authenticated provenance and preserves a necessary security boundary."
+      },
+      {
+        "targets": [
+          {
+            "start": 5461,
+            "end": 5516,
+            "quote": "The skip comment is not a\nchange a database can absorb."
+          }
+        ],
+        "rationale": "This explains why an unsupported-object diagnostic recurs rather than converging away."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p010",
+    "source_sha256": "183ab3247cba1b44d98e30b952d9ab05fff88cd13ab08c16e35fc2ef7340cf10",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 931,
+        "first_line": 1,
+        "last_line": 27,
+        "rationale": "Frontmatter, component imports and sample definitions; external preview content is not source prose."
+      },
+      {
+        "start": 931,
+        "end": 4753,
+        "first_line": 28,
+        "last_line": 122,
+        "rationale": "Read desired-source and live-database distinction, prerequisites, preview behavior and target choice."
+      },
+      {
+        "start": 4753,
+        "end": 8225,
+        "first_line": 123,
+        "last_line": 224,
+        "rationale": "Read Markdown and HTML outputs, file receipt, deterministic ordering, diagram and metadata inventory. Footer attribution rationale has a concrete recipient and function."
+      },
+      {
+        "start": 8225,
+        "end": 10623,
+        "first_line": 225,
+        "last_line": 303,
+        "rationale": "Read accessible SVG description, theme behavior, offline check, footer link and browser-open behavior. An importance announcement can be removed without losing the check."
+      },
+      {
+        "start": 10623,
+        "end": 14894,
+        "first_line": 304,
+        "last_line": 397,
+        "rationale": "Read title and table filters, source variants, all failures and limitations, field exposure warning and next steps. Keep target-specific omissions and destructive trust-boundary conditions."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p010-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 9265,
+            "end": 9294,
+            "quote": "and it is worth seeing which:"
+          }
+        ],
+        "rationale": "The command immediately identifies the footer address. Announcing that it is worth seeing adds no instruction beyond performing the check.",
+        "proposed_edit": "End the preceding clause with a colon."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 10229,
+            "end": 10282,
+            "quote": "A run that cannot open a browser is not a failed run."
+          }
+        ],
+        "rationale": "This establishes exit semantics under CI/headless conditions and is followed by the concrete behavior."
+      },
+      {
+        "targets": [
+          {
+            "start": 8098,
+            "end": 8224,
+            "quote": "The document travels: it reaches people who did not run the command, and the\n  link is how one of them finds out what made it."
+          }
+        ],
+        "rationale": "The metaphor is immediately explained as a concrete attribution function for distributed artifacts; retain it as a technical control."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p011",
+    "source_sha256": "8f4fe7deb7c56eab5d197bd170a1dca5ba6356f2c8275c12716ab03f2cc9cf7a",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 716,
+        "first_line": 1,
+        "last_line": 27,
+        "rationale": "Frontmatter and Tabs import are context."
+      },
+      {
+        "start": 716,
+        "end": 3442,
+        "first_line": 28,
+        "last_line": 145,
+        "rationale": "Read prerequisites, state-reconstruction instructions, schema change, plan/apply steps and disposable-database caution. Each step changes the reader action."
+      },
+      {
+        "start": 3442,
+        "end": 5030,
+        "first_line": 146,
+        "last_line": 211,
+        "rationale": "Read independent column inspection, exit-code table, cleanup and links. Contrasts separate actual database state, declarations and execution errors."
+      }
+    ],
+    "defects": [],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 2854,
+            "end": 2956,
+            "quote": "The plan alters the existing table; it does not create another table or replay\nthe original statement."
+          }
+        ],
+        "rationale": "The negative alternatives prevent confusing direct alteration with recreate/replay."
+      },
+      {
+        "targets": [
+          {
+            "start": 4059,
+            "end": 4108,
+            "quote": "Branch on the exit status, not on captured prose:"
+          }
+        ],
+        "rationale": "Concrete automation advice names both alternatives and gives exact exit contracts."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p012",
+    "source_sha256": "6fd268787ccbe5ca8273d62ddc0bd7f87aebfc8c823bdb55b1ea8b451cd5f162",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 466,
+        "first_line": 1,
+        "last_line": 19,
+        "rationale": "Administrative frontmatter and GlossaryList import; component-generated definitions are not present in this source. This audit covers the full source, not unexpanded external component output."
+      },
+      {
+        "start": 466,
+        "end": 915,
+        "first_line": 20,
+        "last_line": 29,
+        "rationale": "Read introduction and shared-definition explanation. Keep navigation purpose without assuming contemporary origin implies bad text."
+      },
+      {
+        "start": 915,
+        "end": 1470,
+        "first_line": 30,
+        "last_line": 41,
+        "rationale": "Read contributor instructions and final repeated centralization explanation; the last clause restates the first two paragraphs."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p012-d01",
+        "category": "needless_repetition",
+        "targets": [
+          {
+            "start": 590,
+            "end": 724,
+            "quote": "Definitions come from one\nsource, `docs/site/src/glossary.ts`, so the same term cannot come to mean two\ndifferent things on two pages."
+          },
+          {
+            "start": 1314,
+            "end": 1469,
+            "quote": "The definition stays in the map and\nis rendered in one place, which is what keeps a word from meaning one thing on\none page and something else on the next."
+          }
+        ],
+        "rationale": "The last sentence repeats both the single-source implementation and its asserted benefit after those were established in the opening. The preceding instruction to link the term supplies the actual contributor action.",
+        "proposed_edit": "Remove the final sentence; keep \"Then link here from the pages that use it.\""
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 1183,
+            "end": 1269,
+            "quote": "`check-glossary-coverage.mjs` refuses an entry that names a\npage which does not exist."
+          }
+        ],
+        "rationale": "This gives a concrete validation failure relevant to contributors."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p013",
+    "source_sha256": "b415c74b0e6b69d4554b25f9c98fb182f3bba8eda04343e66fbd883bdc9046c8",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 2527,
+        "first_line": 1,
+        "last_line": 78,
+        "rationale": "Read recent releases, beta summary, soundness and scheduling fixes. Future-proofing is an unbounded claim, unlike named removed APIs."
+      },
+      {
+        "start": 2527,
+        "end": 11266,
+        "first_line": 79,
+        "last_line": 300,
+        "rationale": "Read versioned feature additions, platform fixes and migration changes; repeated Added/Fixed structures identify distinct changes."
+      },
+      {
+        "start": 11266,
+        "end": 23032,
+        "first_line": 301,
+        "last_line": 618,
+        "rationale": "Read older scheduler, synchronization, I/O and dependency changes. Summary/detail overlap serves release navigation and issue links retain detail."
+      },
+      {
+        "start": 23032,
+        "end": 31991,
+        "first_line": 619,
+        "last_line": 789,
+        "rationale": "Remaining source consists of Markdown issue reference definitions, retained as context rather than editorial prose."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p013-d01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 2430,
+            "end": 2467,
+            "quote": "APIs are polished and future-proofed."
+          }
+        ],
+        "rationale": "Future-proofing promises unspecified compatibility beyond the concrete 1.0 stabilization scope.",
+        "proposed_edit": "Replace with \"APIs have been prepared for 1.0 stabilization.\""
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 2394,
+            "end": 2429,
+            "quote": "This represents a 1.0 beta release."
+          }
+        ],
+        "rationale": "The beta status changes the compatibility expectation and is not empty release framing."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p014",
+    "source_sha256": "d239fd1ca0c11c374f1871d9c17549becbe759e2b14b8aa27e15f8fe23ffcc2b",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 13794,
+        "first_line": 1,
+        "last_line": 175,
+        "rationale": "Read releases through 1.5, with concrete API, validation and performance changes. Attribution and sponsor acknowledgments have an explicit function."
+      },
+      {
+        "start": 13794,
+        "end": 26562,
+        "first_line": 176,
+        "last_line": 335,
+        "rationale": "Read 1.4 through 1.0 beta changes; retain migration names, changed defaults, conditions and links."
+      },
+      {
+        "start": 26562,
+        "end": 30518,
+        "first_line": 336,
+        "last_line": 417,
+        "rationale": "Read 0.32 through 0.27; the Literal documentation change appears twice within 0.31."
+      },
+      {
+        "start": 30518,
+        "end": 38001,
+        "first_line": 418,
+        "last_line": 566,
+        "rationale": "Read 0.27 prerelease through 0.14, including dataclass ordering, schema generation and compatibility conditions."
+      },
+      {
+        "start": 38001,
+        "end": 43956,
+        "first_line": 567,
+        "last_line": 731,
+        "rationale": "Read remaining early releases and initial history. Terse release summaries with issue references are not automatically vague claims."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p014-d01",
+        "category": "needless_repetition",
+        "targets": [
+          {
+            "start": 28114,
+            "end": 28169,
+            "quote": "add documentation for `Literal` type, #651 by @dmontagu"
+          },
+          {
+            "start": 28380,
+            "end": 28433,
+            "quote": "add documentation for Literal type, #651 by @dmontagu"
+          }
+        ],
+        "rationale": "The same documentation change and issue appear twice in the same release list; no distinct effect or audience is identified.",
+        "proposed_edit": "Keep one entry for #651."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "p014-u01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 27581,
+            "end": 27609,
+            "quote": "update numerous dependencies"
+          }
+        ],
+        "rationale": "The entry names neither dependencies nor a reference, but historical changelog brevity makes whether this requires repair less clear than duplicate entries.",
+        "proposed_edit": "Consider listing affected dependencies or linking the update commit."
+      }
+    ],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 7038,
+            "end": 7180,
+            "quote": "Instead of computing all the items in the iterable and storing them in memory, they are computed one-by-one and never\n  stored as a huge list."
+          }
+        ],
+        "rationale": "The contrast explains the claimed runtime/memory effect with a concrete mechanism rather than free-standing praise."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p015",
+    "source_sha256": "3711df0a44283a9e395129750b2d249d11a3a7ed0ad83f9e3be5feb9572db81c",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 4276,
+        "first_line": 1,
+        "last_line": 138,
+        "rationale": "Read recent CLI, syntax and packaging changes; dependency removal gives an actionable packager consequence."
+      },
+      {
+        "start": 4276,
+        "end": 10167,
+        "first_line": 139,
+        "last_line": 260,
+        "rationale": "Read library introduction, beta constraints, syntax mappings and fixes; separate legitimate credits from ease claims."
+      },
+      {
+        "start": 10167,
+        "end": 15443,
+        "first_line": 261,
+        "last_line": 407,
+        "rationale": "Read later release sections and platform/package changes; repeated headings distinguish releases."
+      },
+      {
+        "start": 15443,
+        "end": 19480,
+        "first_line": 408,
+        "last_line": 550,
+        "rationale": "Read configuration, pager, dependency, syntax and installation changes. Protected examples and issue references provide context."
+      },
+      {
+        "start": 19480,
+        "end": 26907,
+        "first_line": 551,
+        "last_line": 755,
+        "rationale": "Read initial releases through the end; preserve contributor acknowledgments and version-specific repeated fixes."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p015-d01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 2034,
+            "end": 2098,
+            "quote": "Some syntaxes and themes have been updated to the latest version"
+          }
+        ],
+        "rationale": "The entry identifies neither affected assets nor a reference. A user cannot tell which highlighting behavior changed.",
+        "proposed_edit": "Name the updated syntaxes/themes or link the update changeset."
+      },
+      {
+        "id": "p015-d02",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 7244,
+            "end": 7312,
+            "quote": "I want to stress that this is the very first release of the library."
+          }
+        ],
+        "rationale": "The first-person emphasis delays the actual beta warning, which the next sentences explain.",
+        "proposed_edit": "Write \"This is the first library release; its API may change and its documentation is incomplete.\""
+      },
+      {
+        "id": "p015-d03",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 15413,
+            "end": 15442,
+            "quote": "Code improvements (@barskern)"
+          }
+        ],
+        "rationale": "No behavior, component or changeset identifies the improvement; the contributor name alone cannot locate it.",
+        "proposed_edit": "Name the changed component or link its changeset, retaining the credit."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "p015-u01",
+        "category": "unjustified_intensifiers",
+        "targets": [
+          {
+            "start": 5571,
+            "end": 5658,
+            "quote": "A completely new \"high level\" API has been added that is much more convenient\n  to use."
+          }
+        ],
+        "rationale": "Convenience is subjective, but the following examples and supported API boundary may substantiate the recommendation.",
+        "proposed_edit": "Optional: state the reduced setup or call sequence instead of much more convenient."
+      }
+    ],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 4238,
+            "end": 4275,
+            "quote": "The high-level API is not\n  affected."
+          }
+        ],
+        "rationale": "This limits the scope of a breaking low-level API change and is useful contrast."
+      },
+      {
+        "targets": [
+          {
+            "start": 2938,
+            "end": 3014,
+            "quote": "This removes the need for `libclang(-dev)` to be installed to compile `bat`."
+          }
+        ],
+        "rationale": "A concrete build prerequisite change justifies the preceding dependency explanation."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p016",
+    "source_sha256": "a314da6f5e9d2e91913e2953b0b3f83cb88edf0864cd856eb5e25d60441938ea",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 1223,
+        "first_line": 1,
+        "last_line": 26,
+        "rationale": "Read scope, support guidance and release notation. Keep the scope list but remove self-reassurance about the document."
+      },
+      {
+        "start": 1223,
+        "end": 5854,
+        "first_line": 27,
+        "last_line": 108,
+        "rationale": "Read release branching, upgrade path and all support-table cells. Version-specific compatibility examples and conditional horizons are necessary."
+      },
+      {
+        "start": 5854,
+        "end": 7932,
+        "first_line": 109,
+        "last_line": 165,
+        "rationale": "Read complete backport workflow and commands; repeated assurances of straightforwardness do not change any step."
+      },
+      {
+        "start": 7932,
+        "end": 11575,
+        "first_line": 166,
+        "last_line": 243,
+        "rationale": "Read API support table, gRPC, metrics, plugins, error and opaque-field contracts. Preserve precise exceptions."
+      },
+      {
+        "start": 11575,
+        "end": 15154,
+        "first_line": 244,
+        "last_line": 321,
+        "rationale": "Read Go/CRI/ctr and daemon contracts, exclusions, exceptions and deprecation table. Distinguish an unsupported tool from criticism of contributors."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p016-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 96,
+            "end": 223,
+            "quote": "Stability\nis a top goal for this project and we hope that this document and the processes\nit entails will help to achieve that."
+          }
+        ],
+        "rationale": "The surrounding sentences state the release-policy scope. This hope about the document adds no support promise or action.",
+        "proposed_edit": "Remove this sentence; retain the policy scope."
+      },
+      {
+        "id": "p016-d02",
+        "category": "needless_repetition",
+        "targets": [
+          {
+            "start": 6085,
+            "end": 6190,
+            "quote": "For the most part,\nthis process is straightforward and we are here to help make it as smooth as\npossible."
+          },
+          {
+            "start": 6632,
+            "end": 6680,
+            "quote": "Opening a backport PR is\nfairly straightforward."
+          }
+        ],
+        "rationale": "Two ease assurances interrupt the same workflow without specifying a step or support channel; the surrounding text already names the ways to request help.",
+        "proposed_edit": "Remove both assurances and retain the three request channels and branch-specific steps."
+      },
+      {
+        "id": "p016-d03",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 13156,
+            "end": 13253,
+            "quote": "Targeting `ctr` for feature additions reflects a misunderstanding of the containerd\narchitecture."
+          }
+        ],
+        "rationale": "The judgment about a contributor is unnecessary to the following concrete direction to extend the client API.",
+        "proposed_edit": "Start with the instruction to focus feature additions on the client Go API."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 7807,
+            "end": 7931,
+            "quote": "Only when the bug is not seen in master and must be made for the specific\nrelease branch should you open a PR with new code."
+          }
+        ],
+        "rationale": "This is a necessary branch-specific exception, not redundant complication."
+      },
+      {
+        "targets": [
+          {
+            "start": 9629,
+            "end": 9710,
+            "quote": "New service methods\nand new fields on messages may be added if they are optional."
+          }
+        ],
+        "rationale": "The optionality condition materially limits a compatibility promise."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p017",
+    "source_sha256": "aab9ce323fa8c30c9554c64300addb3cd7f3e60d3825922f3dcaee2d7a0eea0c",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 4418,
+        "first_line": 1,
+        "last_line": 87,
+        "rationale": "Read scope, defaults, benchmark setup and all table prose. Benchmarks are qualified by workload and machine; repeated corpus descriptions within one paragraph are unnecessary."
+      },
+      {
+        "start": 4418,
+        "end": 9660,
+        "first_line": 88,
+        "last_line": 189,
+        "rationale": "Read feature inventory, alternatives and performance mechanism. Repeated technical terms and concrete caveats are controls, not automatic defects."
+      },
+      {
+        "start": 9660,
+        "end": 14409,
+        "first_line": 190,
+        "last_line": 350,
+        "rationale": "Read every installation variant and compiler/build warnings. Platform-specific repeated introductions serve independent readers."
+      },
+      {
+        "start": 14409,
+        "end": 17283,
+        "first_line": 351,
+        "last_line": 433,
+        "rationale": "Read build options, linking, test command and translation disclaimer. A future hope adds nothing to current SIMD requirements."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p017-d01",
+        "category": "needless_repetition",
+        "targets": [
+          {
+            "start": 3038,
+            "end": 3090,
+            "quote": "The corpus is the same as in the\nprevious benchmark,"
+          }
+        ],
+        "rationale": "The immediately preceding sentence already says this is another benchmark on the same corpus as above.",
+        "proposed_edit": "Remove this clause and retain the statement that command flags ensure equivalent work."
+      },
+      {
+        "id": "p017-d02",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 4939,
+            "end": 5069,
+            "quote": "whereas there are many bugs related to that functionality in other code\n  search tools claiming to provide the same functionality."
+          },
+          {
+            "start": 6681,
+            "end": 6781,
+            "quote": "In other words, use ripgrep if you like speed, filtering by default, fewer\nbugs and Unicode support."
+          }
+        ],
+        "rationale": "The bug superiority claim identifies neither competitors nor examples; the benchmark evidence establishes speed, not fewer bugs.",
+        "proposed_edit": "Remove the comparative bug claim or link specific compatibility cases; retain the filtering and Unicode features."
+      },
+      {
+        "id": "p017-d03",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 15250,
+            "end": 15330,
+            "quote": "Hopefully, some day, the\n`simd-accel` feature will similarly become unnecessary."
+          }
+        ],
+        "rationale": "The hope is not a commitment or current build instruction and interrupts the useful distinction between search and transcoding SIMD.",
+        "proposed_edit": "Remove this sentence; retain the distinction and compilation warning."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 4323,
+            "end": 4385,
+            "quote": "ugrep\ntimes are unaffected by the presence or absence of `-n`."
+          }
+        ],
+        "rationale": "The negative contrast reports a specific measured option effect."
+      },
+      {
+        "targets": [
+          {
+            "start": 15156,
+            "end": 15249,
+            "quote": "They are not necessary to get SIMD optimizations\nfor search; those are enabled automatically."
+          }
+        ],
+        "rationale": "This distinction prevents an unnecessary optional build dependency."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p018",
+    "source_sha256": "819f31ab468be529755a299f700b3496c9a822f46d4adf8449300e2b1f12a542",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 2803,
+        "first_line": 1,
+        "last_line": 54,
+        "rationale": "Read default-font constraints, index, atlas lifetime and DPI guidance. Navigation and repeated index links serve distinct sections."
+      },
+      {
+        "start": 2803,
+        "end": 7285,
+        "first_line": 55,
+        "last_line": 161,
+        "rationale": "Read complete loading sequence and oversized-atlas troubleshooting. Code examples are context; the largest-benefit promise is unqualified."
+      },
+      {
+        "start": 7285,
+        "end": 12550,
+        "first_line": 162,
+        "last_line": 267,
+        "rationale": "Read icons, rasterizers, custom ranges and beta APIs; protect API order and multi-DPI compatibility caveats."
+      },
+      {
+        "start": 12550,
+        "end": 17641,
+        "first_line": 268,
+        "last_line": 382,
+        "rationale": "Read embedded assets, filenames, credits and font resources. Source/binary size contrast is technically meaningful."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p018-d01",
+        "category": "unjustified_intensifiers",
+        "targets": [
+          {
+            "start": 6720,
+            "end": 6749,
+            "quote": "this will be the biggest win!"
+          }
+        ],
+        "rationale": "The size reduction depends on the current ranges and font settings; no comparison establishes it as universally the largest improvement.",
+        "proposed_edit": "Remove this clause and retain the glyph-range reduction instruction."
+      },
+      {
+        "id": "p018-d02",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 9588,
+            "end": 9677,
+            "quote": "Correct sRGB space blending will have an important effect on your font rendering quality."
+          }
+        ],
+        "rationale": "Important effect does not explain the visible difference or identify the relevant blending setting.",
+        "proposed_edit": "Describe the rendering artifact corrected by sRGB blending and link the applicable setup instructions."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 13166,
+            "end": 13320,
+            "quote": "The tool can optionally output Base85 encoding to reduce the size of _source code_ but the read-only arrays in the actual binary will be about 20% bigger."
+          }
+        ],
+        "rationale": "The contrast names different artifacts and a concrete tradeoff; it should not be flattened."
+      },
+      {
+        "targets": [
+          {
+            "start": 11278,
+            "end": 11421,
+            "quote": "This API is beta because it is likely to change in order to support multi-dpi (multiple viewports on multiple monitors with varying DPI scale)."
+          }
+        ],
+        "rationale": "The reason specifies a compatibility risk and planned capability, not generic self-praise."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p019",
+    "source_sha256": "6a738bb8dcb18f588131ced56c2ac9b2a567dd64d8e769813a9abf037ee6c372",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 2640,
+        "first_line": 1,
+        "last_line": 69,
+        "rationale": "Read overview, Pros and full table of contents. Unsupported performance and completeness superlatives differ from the named included integrations."
+      },
+      {
+        "start": 2640,
+        "end": 6407,
+        "first_line": 70,
+        "last_line": 186,
+        "rationale": "Read installation variants, optional hooks and upgrade methods, including code context."
+      },
+      {
+        "start": 6407,
+        "end": 11459,
+        "first_line": 187,
+        "last_line": 339,
+        "rationale": "Read input/output behavior, matching modes, table examples and shell bindings. Repetition of keys with different operations is necessary."
+      },
+      {
+        "start": 11459,
+        "end": 15625,
+        "first_line": 340,
+        "last_line": 507,
+        "rationale": "Read completion triggers, platform differences and customization examples."
+      },
+      {
+        "start": 15625,
+        "end": 21920,
+        "first_line": 508,
+        "last_line": 701,
+        "rationale": "Read performance caveats, reload, preview, exclusion settings, integrations and license. Preserve match-quality tradeoffs and non-file input warnings."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p019-d01",
+        "category": "unjustified_intensifiers",
+        "targets": [
+          {
+            "start": 577,
+            "end": 591,
+            "quote": "Blazingly fast"
+          }
+        ],
+        "rationale": "The speed intensifier states no workload or observable benefit.",
+        "proposed_edit": "Use \"Performance benchmarks\" with the existing benchmark link, or remove the item."
+      },
+      {
+        "id": "p019-d02",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 594,
+            "end": 628,
+            "quote": "The most comprehensive feature set"
+          }
+        ],
+        "rationale": "The superlative defines neither comparison set nor coverage criterion.",
+        "proposed_edit": "List the features that matter or link a scoped comparison."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "p019-u01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 15690,
+            "end": 15744,
+            "quote": "Performance should not be\na problem in most use cases."
+          }
+        ],
+        "rationale": "The nearby performance link provides some evidence, but the denominator of most use cases is unspecified.",
+        "proposed_edit": "Optional: report the demonstrated input sizes instead."
+      }
+    ],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 16309,
+            "end": 16420,
+            "quote": "However, this algorithm is not guaranteed to find the optimal\n  ordering of the matches and is not recommended."
+          }
+        ],
+        "rationale": "A concrete greedy-algorithm tradeoff qualifies the performance recommendation."
+      },
+      {
+        "targets": [
+          {
+            "start": 19888,
+            "end": 19957,
+            "quote": "Since fzf is a general-purpose text filter rather than a file finder,"
+          }
+        ],
+        "rationale": "The distinction explains why a global file-preview command fails on non-file inputs."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p020",
+    "source_sha256": "8a1bfbe5e6c8c996985f2cb6d617fd25d8f2995d3083f352002b1383dcabd604",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 1017,
+        "first_line": 1,
+        "last_line": 27,
+        "rationale": "Read disclosure boundaries and public reporting prohibition. Repeating the prohibition before the ordered process is a useful security reminder."
+      },
+      {
+        "start": 1017,
+        "end": 4068,
+        "first_line": 28,
+        "last_line": 94,
+        "rationale": "Read all reporting, triage, disclosure, distribution and release steps; preserve embargo and platform constraints."
+      },
+      {
+        "start": 4068,
+        "end": 5746,
+        "first_line": 95,
+        "last_line": 140,
+        "rationale": "Read membership criteria and advisory publication steps through bounty link. Mark conversational repetition of membership criteria while preserving all requirements."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p020-d01",
+        "category": "wordiness",
+        "targets": [
+          {
+            "start": 4183,
+            "end": 4608,
+            "quote": "Who is on this list? There are a couple of criteria you must meet, and then we\nmight ask you to join the list or you can ask to join it. It really isn't very\nformal. We basically only require that you have a long-term presence in the\ncurl project and you have shown an understanding for the project and its way\nof working. You must've been around for a good while and you should have no\nplans in vanishing in the near future."
+          }
+        ],
+        "rationale": "The paragraph repeatedly introduces criteria and repeats long-term participation. Those repetitions obscure the actual membership conditions.",
+        "proposed_edit": "Write: Membership is informal, by invitation or request. Members must have a long-term presence in curl, understand how the project works, and expect to remain involved."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 2939,
+            "end": 3055,
+            "quote": "Note that\n  'distros' won't accept an embargo longer than 14 days and they do not care\n  for Windows-specific flaws."
+          }
+        ],
+        "rationale": "Both constraints determine whether to use this notification channel; length alone does not make the sentence defective."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p021",
+    "source_sha256": "7f2f68a5ae17a874aa8e1d0814563cf8529a8b85a50190b9bb6c82204b71fcbb",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 1817,
+        "first_line": 1,
+        "last_line": 58,
+        "rationale": "Read extension introduction, option precedence and renderer example. The design-principle/ease preface can be replaced by the actual extension entry point."
+      },
+      {
+        "start": 1817,
+        "end": 5427,
+        "first_line": 59,
+        "last_line": 204,
+        "rationale": "Read renderer and tokenizer signatures, code examples and conversion helpers; identifiers remain protected context."
+      },
+      {
+        "start": 5427,
+        "end": 8591,
+        "first_line": 205,
+        "last_line": 364,
+        "rationale": "Read walkTokens order, parser/lexer access, examples and structured output. Summary plus worked example is useful instructional progression."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p021-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 21,
+            "end": 225,
+            "quote": "To champion the single-responsibility and open/closed principles, we have tried to make it relatively painless to extend marked. If you are looking to add custom functionality, this is the place to start."
+          }
+        ],
+        "rationale": "The opening promotes the design and announces the page without giving an extension action; the next section supplies the actual entry point.",
+        "proposed_edit": "Begin with the marked.use(options) instruction and its supported extension points."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 749,
+            "end": 903,
+            "quote": "When calling `use` multiple times with different `walkTokens` functions each function will be called in the **reverse** order in which they were assigned."
+          }
+        ],
+        "rationale": "The ordering condition is essential even though the sentence repeats function and call."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p022",
+    "source_sha256": "f38d613636215ad2ecd88da44089a41dc1a9b35ee7add7aad0644ce8ec818ea1",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 1529,
+        "first_line": 1,
+        "last_line": 34,
+        "rationale": "Read submission restrictions and source organization; repeated generated-file warnings occur at distinct actions and prevent wrong edits."
+      },
+      {
+        "start": 1529,
+        "end": 2596,
+        "first_line": 35,
+        "last_line": 64,
+        "rationale": "Read environment setup and locale approval policy; the exclusive claim conflicts with the immediately following permitted alternative."
+      },
+      {
+        "start": 2596,
+        "end": 4250,
+        "first_line": 65,
+        "last_line": 103,
+        "rationale": "Read task list, formatting instruction and membership responsibilities. Informal appreciation and contributor humor are not technical claims requiring removal."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p022-d01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 2321,
+            "end": 2422,
+            "quote": "Because I don't know any languages I can't\njudge your locale changes, only the original author can :)"
+          }
+        ],
+        "rationale": "Only the original author can judge is an overbroad assertion contradicted by the next paragraph accepting another native speaker. The actual policy is the useful information.",
+        "proposed_edit": "Remove this explanation; retain the request to mention the author and the native-speaker approval alternative."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 3012,
+            "end": 3178,
+            "quote": "`grunt transpile:fr,ru` Build custom locale bundles `moment-with-locales.custom.js` and `locales.custom.js` inside `build/umd/min` containing just French and Russian."
+          }
+        ],
+        "rationale": "The length comes from exact output paths and the language-selection example, not empty elaboration."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p023",
+    "source_sha256": "0af7ea1191eb8a9761a0204dc5a87370320653d26891255d7ee70758246859f0",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 1935,
+        "first_line": 1,
+        "last_line": 28,
+        "rationale": "Read summary and feature inventory; evaluative adjectives do not describe which query operations are supported."
+      },
+      {
+        "start": 1935,
+        "end": 2931,
+        "first_line": 29,
+        "last_line": 55,
+        "rationale": "Read architecture and installation options with the container example."
+      },
+      {
+        "start": 2931,
+        "end": 4886,
+        "first_line": 56,
+        "last_line": 96,
+        "rationale": "Read source builds and asset caveats; preserve the different runtime working-directory requirements."
+      },
+      {
+        "start": 4886,
+        "end": 5883,
+        "first_line": 97,
+        "last_line": 118,
+        "rationale": "Read frontend development, community, contribution and license references; trailing links are context."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p023-d01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 1452,
+            "end": 1526,
+            "quote": "a **powerful and flexible query language** to leverage this dimensionality"
+          }
+        ],
+        "rationale": "The evaluative adjectives replace a description of what users can query in the multidimensional model.",
+        "proposed_edit": "Write \"a query language for selecting and aggregating multidimensional time series\" or name the supported operations explicitly."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 3768,
+            "end": 3918,
+            "quote": "Note also that these directories do not include the\nnew experimental React UI unless it has been built explicitly using `make assets` or `make build`."
+          }
+        ],
+        "rationale": "This exception determines which assets exist and must survive a shorter explanation."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p024",
+    "source_sha256": "b0cf3e6c4de5bb7d6582f0a53d57c41d92439605336e6b44bac3b2f4016c0cf0",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 2495,
+        "first_line": 1,
+        "last_line": 35,
+        "rationale": "Read development warning, feature list, production use and references. Technical benefit claims mostly name mechanisms; the assurance about testing is broader than those mechanisms."
+      },
+      {
+        "start": 2495,
+        "end": 4543,
+        "first_line": 36,
+        "last_line": 79,
+        "rationale": "Read meeting logistics and installation paths; dated operational details are not judged against current facts."
+      },
+      {
+        "start": 4543,
+        "end": 6136,
+        "first_line": 80,
+        "last_line": 136,
+        "rationale": "Read single-node and cluster examples with expected output and ports; repeated ports in a named reference section are useful."
+      },
+      {
+        "start": 6136,
+        "end": 8431,
+        "first_line": 137,
+        "last_line": 191,
+        "rationale": "Read follow-up guides, contacts, reporting, emeritus acknowledgments and license. Credit language serves its stated purpose."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p024-d01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 2056,
+            "end": 2169,
+            "quote": "Reliability is further ensured by [**rigorous testing**](https://github.com/etcd-io/etcd/tree/master/functional)."
+          }
+        ],
+        "rationale": "The functional-test link gives a concrete basis, but ensured still turns test evidence into a general reliability guarantee.",
+        "proposed_edit": "Write that functional tests exercise reliability, retaining the existing test-suite link; avoid saying they ensure it."
+      },
+      {
+        "id": "p024-d02",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 6152,
+            "end": 6213,
+            "quote": "Now it's time to dig into the full etcd API and other guides."
+          }
+        ],
+        "rationale": "The Next steps heading and immediately following links already supply the navigation; the announcement adds no selection criterion.",
+        "proposed_edit": "Remove this sentence and retain the links."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "p024-u01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 1826,
+            "end": 1896,
+            "quote": "the development team stands behind it in critical deployment scenarios"
+          }
+        ],
+        "rationale": "This could be an informal support commitment, but its scope is unspecified and adjacent integrations do not define the commitment.",
+        "proposed_edit": "Clarify the supported channels or remove the assurance."
+      }
+    ],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 1062,
+            "end": 1146,
+            "quote": "The `master` branch may be in an *unstable or even broken state* during development."
+          }
+        ],
+        "rationale": "This warning is a concrete reason to install releases; emphasis does not make it empty hype."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p025",
+    "source_sha256": "0c75ecbfdba8c8b8d472dcfd0f0e9c7b5da82ca07382e496887815a3e7d66f90",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 616,
+        "first_line": 1,
+        "last_line": 21,
+        "rationale": "Frontmatter records scope and source ownership; kept as context."
+      },
+      {
+        "start": 616,
+        "end": 3455,
+        "first_line": 22,
+        "last_line": 87,
+        "rationale": "Read introduction, connection/version requirements, object inventory and unlogged-table semantics. Repeated technical contrasts describe concrete alternatives."
+      },
+      {
+        "start": 3455,
+        "end": 6023,
+        "first_line": 88,
+        "last_line": 138,
+        "rationale": "Read function changes and materialized-view refresh. Preserve operational reasoning while removing the defensive judgment about missing features."
+      },
+      {
+        "start": 6023,
+        "end": 14546,
+        "first_line": 139,
+        "last_line": 279,
+        "rationale": "Read all role/grant rules, scoping, replay, error examples and overrides. Mark repeated compatibility rationale and editorial assurances, retaining tenant-privacy and destructive-operation constraints."
+      },
+      {
+        "start": 14546,
+        "end": 22766,
+        "first_line": 280,
+        "last_line": 420,
+        "rationale": "Read RLS identity/case handling, extensions, sequences and type dependency order. These detailed distinctions change rendered SQL and must survive editing."
+      },
+      {
+        "start": 22766,
+        "end": 29918,
+        "first_line": 421,
+        "last_line": 557,
+        "rationale": "Read concurrent-index heuristics, overrides, missing statistics, partitioned indexes and removal. Source conditions and target state explain the distinct cases."
+      },
+      {
+        "start": 29918,
+        "end": 34877,
+        "first_line": 558,
+        "last_line": 665,
+        "rationale": "Read locking, transaction poolers and search_path recovery. Mark trust slogans and measured-versus-plan commentary without removing the actual test or failure behavior."
+      },
+      {
+        "start": 34877,
+        "end": 39666,
+        "first_line": 666,
+        "last_line": 767,
+        "rationale": "Read Timescale aggregate lifecycle, transaction requirements and server-normalized comparisons; preserve loss-of-materialization warnings."
+      },
+      {
+        "start": 39666,
+        "end": 44816,
+        "first_line": 768,
+        "last_line": 879,
+        "rationale": "Read hypertables, dimensions, offline capabilities and format limitations through navigation. Preserve limitations and explicit failure reasons."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p025-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 4709,
+            "end": 4758,
+            "quote": "That is a boundary rather than a missing feature."
+          }
+        ],
+        "rationale": "The sentence defends the product classification instead of describing its behavior; the following sentences already explain why refresh is an operator action.",
+        "proposed_edit": "Remove this sentence and retain the refresh-state distinction."
+      },
+      {
+        "id": "p025-d02",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 10129,
+            "end": 10170,
+            "quote": "You are never left to infer the omission."
+          }
+        ],
+        "rationale": "The following sentence directly states what stderr reports. This reader reassurance restates that behavior abstractly.",
+        "proposed_edit": "Start with \"When a read leaves roles out, Ptah says so on standard error\"."
+      },
+      {
+        "id": "p025-d03",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 10778,
+            "end": 10818,
+            "quote": "which is the point of scoping it\nat all."
+          }
+        ],
+        "rationale": "The clause praises the rationale already explained by the concrete replay example and adds no restriction or action.",
+        "proposed_edit": "End the sentence after \"replayable one\"."
+      },
+      {
+        "id": "p025-d04",
+        "category": "needless_repetition",
+        "targets": [
+          {
+            "start": 9904,
+            "end": 10127,
+            "quote": "It is an\nenvironment variable rather than a flag because `ptah-compat` registers exactly\nthe flags the Atlas community CLI registers. Reserved roles stay out of the\nwidened read too, for the reason the next paragraph gives."
+          },
+          {
+            "start": 13218,
+            "end": 13442,
+            "quote": "The\nreads are untouched, so a `pg_` name still fails at the server whatever you set\nit to. It is an environment variable rather than a flag because `ptah-compat`\nregisters exactly the flags the Atlas community CLI registers."
+          }
+        ],
+        "rationale": "Two nearby override descriptions repeat the same compatibility rationale verbatim. Both can refer to one explanation next to the shared boolean-parsing contract.",
+        "proposed_edit": "State the no-new-compatibility-flags rationale once for both variables, retaining each variable's separate behavior."
+      },
+      {
+        "id": "p025-d05",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 30810,
+            "end": 30845,
+            "quote": "So Ptah checks, rather than trusts."
+          }
+        ],
+        "rationale": "The slogan adds no content before the exact second-connection verification algorithm.",
+        "proposed_edit": "Remove it and begin with the lock-check operation."
+      },
+      {
+        "id": "p025-d06",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 32576,
+            "end": 32620,
+            "quote": "so it is a measured fact rather than a plan."
+          }
+        ],
+        "rationale": "The preceding clause already says a live test pins the property. This self-certification does not explain additional behavior.",
+        "proposed_edit": "End the sentence after \"live test\"."
+      },
+      {
+        "id": "p025-d07",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 34659,
+            "end": 34688,
+            "quote": "so nothing is taken on trust."
+          }
+        ],
+        "rationale": "Preserving one proxy error does not establish an unlimited trust guarantee. The specific error-propagation fact is sufficient.",
+        "proposed_edit": "Remove this clause, keeping the preserved FATAL and proxy configuration alternative."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "p025-u01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 7520,
+            "end": 7557,
+            "quote": "The rule is exact in both directions:"
+          }
+        ],
+        "rationale": "The phrase may be dispensable, but it introduces a precise if-and-only-if condition rather than mere praise.",
+        "proposed_edit": "Optional: state the condition directly."
+      }
+    ],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 28833,
+            "end": 28892,
+            "quote": "The attachment is the test, not the name and not the table."
+          }
+        ],
+        "rationale": "The next sentence gives both counterexamples; this contrast defines how to distinguish server-created indexes."
+      },
+      {
+        "targets": [
+          {
+            "start": 31923,
+            "end": 31996,
+            "quote": "It does not\nskip the lock, only the proof that the lock excludes anybody."
+          }
+        ],
+        "rationale": "This changes the meaning of the unsafe override and is necessary."
+      },
+      {
+        "targets": [
+          {
+            "start": 24390,
+            "end": 24470,
+            "quote": "An explicit `false`\n  is an instruction, and a description does not overrule it."
+          }
+        ],
+        "rationale": "This precedence rule explains how a configured false differs from omission."
+      }
+    ]
+  },
+  {
+    "version": "unswell-page-review-v1",
+    "page": "p026",
+    "source_sha256": "9fff3f89117111fbd829bf0c6f99befdf84d6f5b320f885cc12c1a0793ed2c64",
+    "reviewer": "Codex assistant; single auxiliary reviewer, no human qualification",
+    "phase": "before_new_detector_output_review",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 448,
+        "first_line": 1,
+        "last_line": 16,
+        "rationale": "Frontmatter and source metadata retained as context."
+      },
+      {
+        "start": 448,
+        "end": 2182,
+        "first_line": 17,
+        "last_line": 44,
+        "rationale": "Read role introduction, all URL syntax table cells and alias behavior. Page-organization self-description is separate from the actual role definitions."
+      },
+      {
+        "start": 2182,
+        "end": 4344,
+        "first_line": 45,
+        "last_line": 82,
+        "rationale": "Read all four database-role definitions, cleanup order, target isolation and live verification. The dev-definition sentence mixes three distinct command groups."
+      },
+      {
+        "start": 4344,
+        "end": 9529,
+        "first_line": 83,
+        "last_line": 157,
+        "rationale": "Read every consequence, engine-specific privilege condition, cleanup exclusion, lock scope and flag mapping. Repeated names and cautions prevent unsafe substitutions."
+      },
+      {
+        "start": 9529,
+        "end": 11279,
+        "first_line": 158,
+        "last_line": 187,
+        "rationale": "Read denied statement forms, allowed removals and links. Lists are deliberately explicit and not defects simply because long."
+      }
+    ],
+    "defects": [
+      {
+        "id": "p026-d01",
+        "category": "empty_framing",
+        "targets": [
+          {
+            "start": 743,
+            "end": 820,
+            "quote": "This\npage defines all four; other pages link here instead of redefining them."
+          }
+        ],
+        "rationale": "The heading and following role definitions already establish the scope; the linking policy is maintainer information unrelated to choosing a database.",
+        "proposed_edit": "Remove the sentence or move the linking policy to contributor guidance."
+      },
+      {
+        "id": "p026-d02",
+        "category": "needless_complexity",
+        "targets": [
+          {
+            "start": 2383,
+            "end": 2747,
+            "quote": "A dev database** (`--dev-url`) is a disposable replay target used for\nvalidation: `ptah migrations validate` and `ptah migrations lint` clean it and\nreplay the migration directory on it to prove the SQL executes, `schema apply`\nrehearses its plan on it before touching the target, and Atlas-compatible verbs\nuse it for planning, linting, and rollback verification."
+          }
+        ],
+        "rationale": "One sentence embeds three command-specific purposes after the definition. Readers must retain all three subjects and predicates to map commands to behavior.",
+        "proposed_edit": "Keep the dev-database definition, then list validate/lint replay, schema apply rehearsal and Atlas-compatible planning/linting/rollback as three items. Preserve every operation and target-order constraint."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "p026-u01",
+        "category": "vague_claims",
+        "targets": [
+          {
+            "start": 2311,
+            "end": 2379,
+            "quote": "It is the only database\nwhose state matters after the command exits."
+          }
+        ],
+        "rationale": "The disposable/target role distinction is useful, but matters can be read too broadly because cleanup state is also operationally relevant.",
+        "proposed_edit": "Optional: say that the target is the persistent application database."
+      }
+    ],
+    "controls": [
+      {
+        "targets": [
+          {
+            "start": 5106,
+            "end": 5160,
+            "quote": "Migration-diff scope does not reduce the replay realm."
+          }
+        ],
+        "rationale": "This heads an explicit destructive-scope distinction; removing it would weaken an important warning."
+      },
+      {
+        "targets": [
+          {
+            "start": 8737,
+            "end": 8843,
+            "quote": "Different users, different temporary directories, other\n  hosts, and non-Ptah clients are not coordinated."
+          }
+        ],
+        "rationale": "The explicit exclusion list prevents an unsafe assumption about file locks."
+      }
+    ]
+  }
+]
