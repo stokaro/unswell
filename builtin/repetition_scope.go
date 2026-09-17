@@ -22,6 +22,12 @@ func repetitionScopes(ctx context.Context, view rule.View) (map[int]int, error) 
 		if err := budget.spend(1); err != nil {
 			return nil, err
 		}
+		// Cells already have independent scopes; serializing their inherited
+		// headings adds work without changing any comparison.
+		if block.Kind == "table-cell" {
+			scopes[block.ID] = -block.ID - 1
+			continue
+		}
 		owner, err := repetitionSection(block.Context, &budget)
 		if err != nil {
 			return nil, err
@@ -30,7 +36,7 @@ func repetitionScopes(ctx context.Context, view rule.View) (map[int]int, error) 
 			headings[owner] = block.ID + 1
 		}
 		key := fmt.Sprintf("%s/%d", owner, headings[owner])
-		if block.Kind == "heading" || block.Kind == "table-cell" {
+		if block.Kind == "heading" {
 			key += fmt.Sprintf("/block:%d", block.ID)
 		}
 		if len(block.Sentences) > 0 {

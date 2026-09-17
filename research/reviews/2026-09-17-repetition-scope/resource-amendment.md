@@ -10,6 +10,13 @@ against `analysis.max_candidates` before serialization. Exhaustion returns the
 existing typed rule abstention and discards partial findings. The matching
 predicates, thresholds, frozen sources and annotations are unchanged.
 
+The first guard also serialized inherited headings for independent table cells.
+That unnecessary work exhausted the budget of all five rules on development
+page p003, without changing its findings. Each cell already owns a unique scope,
+so the final implementation assigns that identity directly and does not serialize
+its headings. This removes the work instead of increasing the budget. A blackbox
+control checks that a table under a long heading fits the small declared budget.
+
 Blackbox tests exercise all five affected rules with a long heading and a small
 budget. The published after reports are regenerated from the bounded code;
 compare every diagnostic and abstention against the initial implementation at
