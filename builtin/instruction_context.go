@@ -75,5 +75,5 @@ func instructionBlockLink(a, b document.Sentence) bool {
 }
 
 func instructionAnnouncement(c frameClause) bool {
-	return capabilityInstruction(c.tokens()) || projectedInstruction(c)
+	return capabilityInstruction(c.tokens()) || projectedInstructionWithMethod(c, true)
 }

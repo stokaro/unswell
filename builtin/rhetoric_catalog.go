@@ -9,14 +9,16 @@ func localRhetoricRules() []rule.Rule {
 	return []rule.Rule{
 		localRhetoricRule("filler.instruction-scaffolding", instructionScaffolding,
 			"State the supported action directly; preserve its conditions and optionality.",
-			"Replace the capability or reader-intention preface with the action and its method. "+
-				"Keep actors, operands, alternatives and limits; a capability is not an obligation.",
+			"Remove narrated setup or nested support layers around the action and its method. "+
+				"Keep prerequisites, actors, operands, alternatives and limits; a capability is not an obligation.",
 			"An affirmative impersonal capability with a transitive configuration or presentation action, "+
 				"or a reader-intention clause introducing an instruction. Anaphoric gerund methods, nominalized "+
 				"methods and reader-purpose clauses are also recognized. Nested enables/allows plus an action nominalization "+
 				"and passive infinitive, and nominal actions performed through a gerund method, also qualify. "+
-				"Actor-to-action projection also recognizes ability nouns, generic reader enablement, modal used-to actions, "+
-				"and nested intended-to-enable passive actions. Preserve their modal meaning and conditions. "+
+				"Actor-to-action projection recognizes ability nouns, modal used-to/used-for actions, named method predicates, "+
+				"and nested intended-to-enable actions. Narrated prerequisites and repeated same-actor obligations can introduce an action. "+
+				"Standalone generic reader enablement requires an adjacent method; concrete capability explanations remain controls. "+
+				"Preserve modal meaning, named actors and conditions. "+
 				"Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. "+
 				"Failure, permission, negation and quoted constructions do not match.",
 			[]rule.Example{{Text: "It is possible to display a label. This is done by using the label option.", Match: true},
@@ -112,8 +114,10 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 
 func localRhetoricVersion(id string) string {
 	switch id {
-	case "filler.document-justification", "filler.instruction-scaffolding":
+	case "filler.document-justification":
 		return "5"
+	case "filler.instruction-scaffolding":
+		return "6"
 	case "filler.evaluative-closure":
 		return "7"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":

@@ -10,24 +10,34 @@ import (
 // bounded surface relations, not dependency edges or a license to rewrite text.
 type instructionProjection struct {
 	action, layers int
+	capabilityOnly bool
 }
 
-func projectedInstruction(c frameClause) bool {
-	if !c.eligible() || len(c.sentence.Tokens) > 96 || quotedClaim(c.sentence.Tokens) ||
-		projectionGuard(c.sentence.Tokens) {
+func projectedInstructionWithMethod(c frameClause, method bool) bool {
+	if !c.eligible() || len(c.sentence.Tokens) > 96 || rhetoricQuoted(c) || rhetoricAttributed(c) ||
+		projectionGuard(c.tokens()) {
 		return false
 	}
 	tokens := c.tokens()
 	for verb := 1; verb+3 < len(tokens); verb++ {
-		if !projectionSubject(tokens[:verb]) {
-			continue
-		}
-		p, ok := projectSupport(tokens, verb, 0)
-		if ok && p.layers > 0 && projectionOperand(tokens[p.action:]) {
+		if projectedPredicate(tokens, verb, method) {
 			return true
 		}
 	}
 	return false
+}
+
+func projectedPredicate(tokens []document.Token, verb int, method bool) bool {
+	operation := operationSubject(tokens[:verb])
+	if !projectionSubject(tokens[:verb]) && !operation {
+		return false
+	}
+	layers := 0
+	if operation {
+		layers = 1
+	}
+	p, ok := projectSupport(tokens, verb, layers)
+	return ok && p.layers > 0 && (!p.capabilityOnly || method) && actionOperand(tokens[p.action:])
 }
 
 func projectionSubject(tokens []document.Token) bool {
@@ -85,8 +95,9 @@ func projectSupport(tokens []document.Token, at, layers int) (instructionProject
 	case frameWord(tokens[at], "allows", "allow", "enables", "enable"):
 		return projectEnabling(tokens, at+1, layers)
 	case frameWord(tokens[at], "can", "may", "could"):
-		if frameWord(tokens[at+1], "be") {
-			return projectPassive(tokens, at+2, layers+1)
+		next := supportAdverb(tokens, at+1)
+		if next < len(tokens) && frameWord(tokens[next], "be") {
+			return projectPassive(tokens, next+1, layers+1)
 		}
 	case frameWord(tokens[at], "is", "are", "be"):
 		return projectPassive(tokens, at+1, layers)
@@ -106,15 +117,21 @@ func projectAbility(tokens []document.Token, at, layers int) (instructionProject
 }
 
 func projectPassive(tokens []document.Token, at, layers int) (instructionProjection, bool) {
-	if at+2 >= len(tokens) || !frameWord(tokens[at+1], "to") {
+	at = supportAdverb(tokens, at)
+	if at+2 >= len(tokens) {
 		return instructionProjection{}, false
 	}
-	if frameWord(tokens[at], "intended", "designed") {
+	if frameWord(tokens[at+1], "to") && frameWord(tokens[at], "intended", "designed") {
 		// A single purpose relation carries information; require another layer.
 		return projectSupport(tokens, at+2, layers+1)
 	}
 	if layers > 0 && frameWord(tokens[at], "used") {
-		return projectAction(tokens, at+2, layers+1)
+		if frameWord(tokens[at+1], "to") {
+			return projectAction(tokens, at+2, layers+1)
+		}
+		if frameWord(tokens[at+1], "for") && methodAction(tokens[at+2:]) {
+			return instructionProjection{action: at + 2, layers: layers + 1}, true
+		}
 	}
 	return instructionProjection{}, false
 }
@@ -122,17 +139,21 @@ func projectPassive(tokens []document.Token, at, layers int) (instructionProject
 func projectEnabling(tokens []document.Token, at, layers int) (instructionProjection, bool) {
 	readerEnd := genericInstructionReader(tokens, at)
 	if readerEnd > at && readerEnd+1 < len(tokens) && frameWord(tokens[readerEnd], "to") {
-		return projectAction(tokens, readerEnd+1, layers+1)
+		p, ok := projectAction(tokens, readerEnd+1, layers+1)
+		p.capabilityOnly = p.layers == 1
+		return p, ok
 	}
-	// Intended-to-allow plus a passive action has two support layers. A bare
-	// allows + object + passive is a capability statement and stays a control.
+	// A nested intention or ability already supplies one support layer. Bare
+	// enablement of another actor remains a concrete capability statement.
 	if layers == 0 {
 		return instructionProjection{}, false
 	}
-	for end := at + 1; end+3 < min(len(tokens), at+13); end++ {
-		if frameWord(tokens[end], "to") && frameWord(tokens[end+1], "be") &&
-			nominalSubject(tokens[at:end]) && projectedParticiple(tokens[end+2]) {
-			return instructionProjection{end + 2, layers + 1}, true
+	for end := at + 1; end+2 < min(len(tokens), at+13); end++ {
+		if !frameWord(tokens[end], "to") || !projectionSubject(tokens[at:end]) {
+			continue
+		}
+		if p, ok := enabledComplement(tokens, end+1, layers+1); ok {
+			return p, true
 		}
 	}
 	return instructionProjection{}, false
@@ -155,8 +176,8 @@ func projectAction(tokens []document.Token, at, layers int) (instructionProjecti
 	if p, ok := projectSupport(tokens, at, layers); ok {
 		return p, true
 	}
-	if projectionVerb(tokens[at]) && projectionOperand(tokens[at:]) {
-		return instructionProjection{at, layers}, true
+	if projectionVerb(tokens[at]) && actionOperand(tokens[at:]) {
+		return instructionProjection{action: at, layers: layers}, true
 	}
 	return instructionProjection{}, false
 }
