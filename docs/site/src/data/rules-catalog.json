@@ -533,7 +533,7 @@
         },
         {
           "id": "repetition.definition-echo",
-          "version": "2",
+          "version": "3",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -549,7 +549,7 @@
           "weight": 12,
           "cap": 24,
           "summary": "The definition repeats its subject; state the distinguishing information directly.",
-          "description": "A positive copula repeats the same nominal phrase, ignoring articles, immediately before ', not' and a nominal alternative. Also recognizes a still-qualified repetition of the same nominal subject. Added modifiers, conditions and code identifiers are excluded; bare uncontrasted identities stay outside the rule. Reports complete matched clauses, once per clause.",
+          "description": "A positive copula repeats the same nominal phrase, ignoring articles, immediately before ', not' and a nominal alternative. Also recognizes a still-qualified repetition of the same nominal or gerund subject, including a bounded both-object ellipsis. Added modifiers, conditions and code identifiers are excluded; bare uncontrasted identities stay outside the rule. Reports complete matched clauses, once per clause.",
           "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
@@ -595,7 +595,7 @@
         },
         {
           "id": "repetition.explanatory-restart",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -610,8 +610,8 @@
           "gate": "none",
           "weight": 12,
           "cap": 24,
-          "summary": "The explanation repeats its initial judgment before giving the reason.",
-          "description": "A nominal subject and a copular adjective are repeated as 'and it/they is/are ADJECTIVE because'. The repeated copula and adjective must agree; negation, quantities, conditions and ambiguous noun antecedents are excluded. Reports complete matched clauses, once per clause.",
+          "summary": "The explanation repeats a judgment; state it once and name the concrete cause.",
+          "description": "A nominal subject and a copular adjective are repeated as 'and it/they is/are ADJECTIVE because'. The repeated copula and adjective must agree; negation, quantities, conditions and ambiguous noun antecedents are excluded. A reason-subject setup also includes a final abstract optimization or design judgment repeating the same adjective. Reports complete matched clauses, once per clause.",
           "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
@@ -745,7 +745,7 @@
         },
         {
           "id": "repetition.repeated-claim",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "repetition",
           "scope": "document",
@@ -760,8 +760,8 @@
           "weight": 15,
           "cap": 30,
           "summary": "These passages repeat an assertion; check whether the explanation can be shared.",
-          "description": "Compares short complete assertions, assertions containing opaque inline-code atoms, and prefixes before a nonrestrictive ', which' clause, within one section and sentence window. Case, operands, punctuation, negation and conditions remain part of the identity.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Requires a surface finite-verb cue; it does not resolve pronouns or prove semantic equivalence. Questions, quoted text, lists, cells, arbitrary code, and claims over 64 tokens are excluded. Full unprotected sentences of twelve or more words remain with repetition.exact-sentence. A relative-clause prefix must match a complete assertion, not another partial prefix."
+          "description": "Compares short complete assertions, assertions containing opaque inline-code atoms, and prefixes before a nonrestrictive ', which' clause, within one section and sentence window. Case, operands, punctuation, negation and conditions remain part of the exact identity. Also compares adjacent explicit reformulations of an only restriction as rejection of its negated property. Actors, predicates, tense, properties and objects must agree. A bounded possessive dependency-role conversion compares an owner's license restriction with its refusal of code not licensed under that property.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Requires a surface finite-verb cue; it does not resolve pronouns or prove general semantic equivalence. Questions, quoted text, lists, cells, arbitrary code, and claims over 64 tokens are excluded. Full unprotected sentences of twelve or more words remain with repetition.exact-sentence. A relative-clause prefix must match a complete assertion, not another partial prefix. Restriction reformulations require That is or In other words, stay inside one block, and reject quantities, conditions, quotations, protected operands and unresolved scope or modality."
         },
         {
           "id": "repetition.sentence-openers",

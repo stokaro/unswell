@@ -38,7 +38,7 @@ func persistentIdentity(subject, rest []document.Token) int {
 			break
 		}
 	}
-	if nominalEcho(withoutArticle(subject), withoutArticle(rest[1:end])) {
+	if nominalEcho(withoutArticle(subject), withoutArticle(rest[1:end])) || gerundIdentity(subject, rest[1:end]) {
 		return end
 	}
 	return 0

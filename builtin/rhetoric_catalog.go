@@ -72,7 +72,8 @@ func localRhetoricRules() []rule.Rule {
 			"The definition repeats its subject; state the distinguishing information directly.",
 			"State the definition or distinction once. Preserve modifiers, negation and limits.",
 			"A positive copula repeats the same nominal phrase, ignoring articles, immediately before ', not' and a nominal alternative. "+
-				"Also recognizes a still-qualified repetition of the same nominal subject. Added modifiers, "+
+				"Also recognizes a still-qualified repetition of the same nominal or gerund subject, "+
+				"including a bounded both-object ellipsis. Added modifiers, "+
 				"conditions and code identifiers are excluded; bare uncontrasted identities stay outside the rule.",
 			[]rule.Example{{Text: "The default is a default, not a fallback.", Match: true},
 				{Text: "The default is a safe fallback, not a mandatory value."}}),
@@ -91,21 +92,7 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 	d.Contexts = []string{"paragraph", "comment", "string", "list-item"}
 	d.BlockObservations = true
 	d.TermExemptions = true
-	if id == "filler.document-justification" || id == "filler.evaluative-closure" {
-		d.Version = "5"
-	}
-	if id == "filler.instruction-scaffolding" || id == "repetition.redundant-predicate" || id == "repetition.definition-echo" {
-		d.Version = "2"
-	}
-	if id == "filler.unscoped-assurance" {
-		d.Version = "4"
-	}
-	if id == "filler.evaluative-closure" {
-		d.Version = "7"
-	}
-	if id == "filler.instruction-scaffolding" {
-		d.Version = "5"
-	}
+	d.Version = localRhetoricVersion(id)
 	d.Requires = append(d.Requires, nlp.POS)
 	d.Description = description + " Reports complete matched clauses, once per clause."
 	d.Limitations = "Bounded token constructions, not a semantic or authorship classifier. " +
@@ -121,4 +108,21 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 		return check{d, instructionRhetoric(find, id, suggestion)}
 	}
 	return check{d, localRhetoric(find, id, suggestion)}
+}
+
+func localRhetoricVersion(id string) string {
+	switch id {
+	case "filler.document-justification", "filler.instruction-scaffolding":
+		return "5"
+	case "filler.evaluative-closure":
+		return "7"
+	case "repetition.redundant-predicate", "repetition.explanatory-restart":
+		return "2"
+	case "repetition.definition-echo":
+		return "3"
+	case "filler.unscoped-assurance":
+		return "4"
+	default:
+		return "1"
+	}
 }

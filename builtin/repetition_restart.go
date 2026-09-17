@@ -23,7 +23,13 @@ func explanatoryRestart(clauses []frameClause, index int) (rhetoricalFrame, bool
 		left, right := c, c
 		left.end = c.start + i
 		right.start, right.end = c.start+i+2, c.start+i+5
-		return rhetoricalFrame{parts: []frameClause{left, right}}, true
+		parts := []frameClause{left, right}
+		if circularReason(tokens[:i], tokens[i+6:]) {
+			cause := c
+			cause.start = c.start + i + 6
+			parts = append(parts, cause)
+		}
+		return rhetoricalFrame{parts: parts}, true
 	}
 	return rhetoricalFrame{}, false
 }

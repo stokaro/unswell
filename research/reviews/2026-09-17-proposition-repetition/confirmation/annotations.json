@@ -1,0 +1,1932 @@
+{
+  "version": 1,
+  "rubric": "unswell-editorial-v1",
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "1a28694d236cce80e434a5057259920c0c119866b6abaf62cc820ef43d5098af",
+      "reviewer": "Codex assistant implementing issue 305; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4124,
+          "first_line": 1,
+          "last_line": 110,
+          "rationale": "Read all 23 prose blocks, including credential/URL refusals and agent disclosure boundaries. Protected command examples are context, not judged prose.",
+          "prose_blocks": 23,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c01-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 554,
+              "end": 611,
+              "quote": "This page says exactly what, and\nwhat the boundaries are."
+            }
+          ],
+          "context": [
+            {
+              "start": 508,
+              "end": 611,
+              "quote": "A migration sends your data to a third party. This page says exactly what, and\nwhat the boundaries are."
+            }
+          ],
+          "rationale": "The sentence announces the page after the preceding concrete third-party data warning.",
+          "proposed_edit": "Remove the announcement and retain the data-transfer warning and section headings."
+        },
+        {
+          "id": "c01-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1505,
+              "end": 1549,
+              "quote": "It is documentation with teeth,\nnot a check."
+            }
+          ],
+          "context": [
+            {
+              "start": 1301,
+              "end": 1549,
+              "quote": "Ptah cannot tell from an address who operates it. `endpoint_class` is your\nstatement about the endpoint, carried into the plan and the generation identity\nso that a change of class is a change of corpus. It is documentation with teeth,\nnot a check."
+            }
+          ],
+          "rationale": "The metaphor repeats the declared-not-measured distinction without naming an additional behavior.",
+          "proposed_edit": "Retain the preceding class declaration and corpus-identity consequences; omit the metaphor."
+        },
+        {
+          "id": "c01-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2097,
+              "end": 2156,
+              "quote": "so it is a credential\nthat arrived through the other field."
+            }
+          ],
+          "context": [
+            {
+              "start": 1881,
+              "end": 2191,
+              "quote": "`endpoint` is held to the same rule, because it reaches the same wire. A URL\nwritten with userinfo — `https://user:secret@api.example.com/v1` — becomes an\n`Authorization: Basic` header on every provider request, so it is a credential\nthat arrived through the other field. Ptah refuses such a specification:"
+            }
+          ],
+          "rationale": "The other-field metaphor repeats the already specified userinfo-to-authorization-header conversion.",
+          "proposed_edit": "Retain the URL userinfo conversion, scope and refusal; remove this trailing restatement."
+        },
+        {
+          "id": "c01-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3052,
+              "end": 3138,
+              "quote": "which\nis what somebody deciding whether to authorize a run needs, and is not the text."
+            }
+          ],
+          "context": [
+            {
+              "start": 2899,
+              "end": 3138,
+              "quote": "Neither returns a source row, a rendered model input, or a vector. What they\nreport instead is the **names** of the columns whose text would be sent — which\nis what somebody deciding whether to authorize a run needs, and is not the text."
+            }
+          ],
+          "rationale": "The approval-needs judgment endorses the already described column-name output and repeats the no-source-text limit.",
+          "proposed_edit": "Keep the tool outputs and explicit excluded data; remove the endorsement tail."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c01-u01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3388,
+              "end": 3493,
+              "quote": "An agent explaining why a cutover is blocked is a different thing from\nan agent authorized to unblock it."
+            }
+          ],
+          "context": [
+            {
+              "start": 3297,
+              "end": 3493,
+              "quote": "There is deliberately no tool that prepares, backfills, cuts over, rolls back, or\nretires. An agent explaining why a cutover is blocked is a different thing from\nan agent authorized to unblock it."
+            }
+          ],
+          "rationale": "The contrast restates the read-only boundary but may help distinguish explanation from authorization.",
+          "proposed_edit": "Consider deleting only if the preceding tool-permission list is sufficient for the intended reader."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 753,
+              "end": 878,
+              "quote": "Nothing else. Not the primary keys, not the columns you did not name, not the\nschema. `plan` reports it before anything runs:"
+            }
+          ],
+          "context": [
+            {
+              "start": 753,
+              "end": 878,
+              "quote": "Nothing else. Not the primary keys, not the columns you did not name, not the\nschema. `plan` reports it before anything runs:"
+            }
+          ],
+          "rationale": "The list excludes three different data classes; similar negative wording does not make them redundant.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2409,
+              "end": 2736,
+              "quote": "The refusal is at the document rather than at the request, so it holds for every\nverb, and for a release fetched with `--release` as well as a file read with\n`--spec`. The message names the host and not the URL: an error that quoted the\nvalue back would write the credential to your terminal and into whatever\ncollects the log."
+            }
+          ],
+          "context": [
+            {
+              "start": 2409,
+              "end": 2736,
+              "quote": "The refusal is at the document rather than at the request, so it holds for every\nverb, and for a release fetched with `--release` as well as a file read with\n`--spec`. The message names the host and not the URL: an error that quoted the\nvalue back would write the credential to your terminal and into whatever\ncollects the log."
+            }
+          ],
+          "rationale": "The refusal location, release/file parity and host-only error each preserve a separate security condition.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3140,
+              "end": 3295,
+              "quote": "The backfill's resume position is also withheld, because over a keyed source it\nis a list of source key values, which is row identity rather than progress."
+            }
+          ],
+          "context": [
+            {
+              "start": 3140,
+              "end": 3295,
+              "quote": "The backfill's resume position is also withheld, because over a keyed source it\nis a list of source key values, which is row identity rather than progress."
+            }
+          ],
+          "rationale": "Withholding resume keys has a concrete row-identity consequence, not a generic information-value endorsement.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c04",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 3665,
+              "end": 3856,
+              "quote": "A model that changed under a stable name.** If the provider exposes no\n  immutable revision, `plan` reports the reproducibility as partial and names the\n  reason. It cannot detect the change."
+            }
+          ],
+          "context": [
+            {
+              "start": 3665,
+              "end": 3856,
+              "quote": "A model that changed under a stable name.** If the provider exposes no\n  immutable revision, `plan` reports the reproducibility as partial and names the\n  reason. It cannot detect the change."
+            }
+          ],
+          "rationale": "Missing immutable revisions explicitly limit reproducibility and detection; the warning is scoped.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "a7377486e075db542cad7f83c5aab713dd35e3ca08bca734ba743289748785b0",
+      "reviewer": "Codex assistant implementing issue 305; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 7960,
+          "first_line": 1,
+          "last_line": 190,
+          "rationale": "Read all 45 extracted blocks and table cells with command and configuration context. Reviewed adoption steps, independent project/history state, optional normalization and layout preservation.",
+          "prose_blocks": 45,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 553,
+              "end": 586,
+              "quote": "Adoption is a path, not a switch."
+            }
+          ],
+          "context": [
+            {
+              "start": 553,
+              "end": 669,
+              "quote": "Adoption is a path, not a switch. Each step below leaves a project that works,\nand each one can be taken on its own:"
+            }
+          ],
+          "rationale": "The path/switch slogan precedes a precise independently usable steps explanation.",
+          "proposed_edit": "Delete the slogan; retain that each step leaves a working project and is optional."
+        },
+        {
+          "id": "c02-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 794,
+              "end": 875,
+              "quote": "The two halves of adoption are separate concerns and are treated separately\nhere:"
+            }
+          ],
+          "context": [
+            {
+              "start": 794,
+              "end": 1138,
+              "quote": "The two halves of adoption are separate concerns and are treated separately\nhere: the **project configuration**, which is a file, and the **database\nhistory**, which is persisted state. A project file can be perfectly adoptable\nin front of a database that is not, and the reverse. Nothing on this page\nconverts one on the strength of the other."
+            }
+          ],
+          "rationale": "This announces separate treatment twice before naming the two actual kinds of state.",
+          "proposed_edit": "Introduce project configuration and persisted database history directly as separate checks."
+        },
+        {
+          "id": "c02-d03",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 1002,
+              "end": 1021,
+              "quote": "perfectly adoptable"
+            }
+          ],
+          "context": [
+            {
+              "start": 794,
+              "end": 1138,
+              "quote": "The two halves of adoption are separate concerns and are treated separately\nhere: the **project configuration**, which is a file, and the **database\nhistory**, which is persisted state. A project file can be perfectly adoptable\nin front of a database that is not, and the reverse. Nothing on this page\nconverts one on the strength of the other."
+            }
+          ],
+          "rationale": "Perfectly adds emphasis to adoptability without another criterion.",
+          "proposed_edit": "Use adoptable and retain the independent history condition."
+        },
+        {
+          "id": "c02-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1514,
+              "end": 1565,
+              "quote": "is not a temporary staging area to be escaped from."
+            }
+          ],
+          "context": [
+            {
+              "start": 1416,
+              "end": 1565,
+              "quote": "Nothing has to change to take this step, and nothing later on this page removes\nit. `ptah-compat` is not a temporary staging area to be escaped from."
+            }
+          ],
+          "rationale": "The escape metaphor restates continuing compatibility support.",
+          "proposed_edit": "State that the compatibility CLI remains supported; retain the no-required-change condition."
+        },
+        {
+          "id": "c02-d05",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 2049,
+              "end": 2092,
+              "quote": "This is the step most projects can stop at."
+            }
+          ],
+          "context": [
+            {
+              "start": 2049,
+              "end": 2410,
+              "quote": "This is the step most projects can stop at. HCL is a supported project language\nin its own right, not an import format, and the supported Atlas HCL subset and\nnative Ptah HCL are meant to describe one project model wherever their concepts\noverlap. Extensions Ptah adds are extensions to a native language; a project\nusing one is no longer a project Atlas reads."
+            }
+          ],
+          "rationale": "Most projects is an unsupported population claim; the next sentence can state HCL support without it.",
+          "proposed_edit": "State the supported HCL scope without asserting how many projects need further steps."
+        },
+        {
+          "id": "c02-d06",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2297,
+              "end": 2354,
+              "quote": "Extensions Ptah adds are extensions to a native language;"
+            }
+          ],
+          "context": [
+            {
+              "start": 2049,
+              "end": 2410,
+              "quote": "This is the step most projects can stop at. HCL is a supported project language\nin its own right, not an import format, and the supported Atlas HCL subset and\nnative Ptah HCL are meant to describe one project model wherever their concepts\noverlap. Extensions Ptah adds are extensions to a native language; a project\nusing one is no longer a project Atlas reads."
+            }
+          ],
+          "rationale": "The clause defines extensions by repeating extensions after the native-language explanation.",
+          "proposed_edit": "Start with the actual portability condition: projects using Ptah extensions are no longer read by Atlas."
+        },
+        {
+          "id": "c02-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3478,
+              "end": 3618,
+              "quote": "That is\nthe answer normalization is optional against — a file that already means what it\nshould does not need to be rewritten to prove it."
+            }
+          ],
+          "context": [
+            {
+              "start": 3328,
+              "end": 3618,
+              "quote": "A project with nothing in the last two classes is **native-ready**: it can be\noperated by native Ptah as it stands, without its file being rewritten. That is\nthe answer normalization is optional against — a file that already means what it\nshould does not need to be rewritten to prove it."
+            }
+          ],
+          "rationale": "The answer-against and prove-it layers repeat the preceding native-ready definition.",
+          "proposed_edit": "Keep the definition and say normalization is optional for native-ready projects."
+        },
+        {
+          "id": "c02-d08",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 5450,
+              "end": 5461,
+              "quote": "confidently"
+            }
+          ],
+          "context": [
+            {
+              "start": 5317,
+              "end": 5506,
+              "quote": "It takes no URL: the project file is where the answer to \"which database\"\nalready lives, and a flag disagreeing with it would report confidently about a\nhistory the project does not target."
+            }
+          ],
+          "rationale": "The mismatch of database targets is the defect; confidently adds no verifiable behavior.",
+          "proposed_edit": "Remove confidently; retain the target-selection rationale."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c02-u01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 6286,
+              "end": 6333,
+              "quote": "Moving\nthe rows is a choice, not a requirement."
+            }
+          ],
+          "context": [
+            {
+              "start": 6057,
+              "end": 6333,
+              "quote": "A history in the Atlas-compatible layout does not have to move. Naming that\nlayout in the project's migration revision format is enough for native Ptah to\ncontinue it in place — no rows are rewritten, and no migration re-runs. Moving\nthe rows is a choice, not a requirement."
+            }
+          ],
+          "rationale": "This repeats the opening no-required-move statement but may serve as a useful conclusion after the configuration mechanism.",
+          "proposed_edit": "Consider removing the final sentence if the opening statement and in-place continuation suffice."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2446,
+              "end": 2877,
+              "quote": "`ptah.yaml` and `atlas.hcl` are both read when both are present, and merged.\nWhere the two name the same setting, **`atlas.hcl` wins**. That makes an\nincremental move possible in either direction: settings Ptah alone needs can go\nin `ptah.yaml` while `atlas.hcl` stays authoritative for everything it declares.\n[Configuration](../../reference/configuration/) has the full precedence table,\nflags and environment variables included."
+            }
+          ],
+          "context": [
+            {
+              "start": 2446,
+              "end": 2877,
+              "quote": "`ptah.yaml` and `atlas.hcl` are both read when both are present, and merged.\nWhere the two name the same setting, **`atlas.hcl` wins**. That makes an\nincremental move possible in either direction: settings Ptah alone needs can go\nin `ptah.yaml` while `atlas.hcl` stays authoritative for everything it declares.\n[Configuration](../../reference/configuration/) has the full precedence table,\nflags and environment variables included."
+            }
+          ],
+          "rationale": "The merge, precedence and incremental-placement rules are distinct conditions, despite repeated file identifiers.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4362,
+              "end": 4814,
+              "quote": "The preflight reads the revision history in the database the project points at\nand reports, per dimension, whether native Ptah may take it over: which layout\nholds the rows and where, whether the recorded revisions and the migration\ndirectory name the same migrations, whether the recorded checksums are ones that\ndirectory accounts for, whether anything is unfinished, whether any row is\nrecorded as applied without having run, and who wrote the rows."
+            }
+          ],
+          "context": [
+            {
+              "start": 4362,
+              "end": 4814,
+              "quote": "The preflight reads the revision history in the database the project points at\nand reports, per dimension, whether native Ptah may take it over: which layout\nholds the rows and where, whether the recorded revisions and the migration\ndirectory name the same migrations, whether the recorded checksums are ones that\ndirectory accounts for, whether anything is unfinished, whether any row is\nrecorded as applied without having run, and who wrote the rows."
+            }
+          ],
+          "rationale": "The preflight list gives distinct history/checksum/applied-state/author checks; length alone is not a defect.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5510,
+              "end": 5821,
+              "quote": "The preflight writes nothing** — not the revision table it looks for, and not\nthe layout of one it finds. Some states it refuses rather than works around: a\ndatabase holding both a native and an Atlas revision table is two histories, and\nchoosing between them would be guessing which one describes the schema."
+            }
+          ],
+          "context": [
+            {
+              "start": 5510,
+              "end": 5821,
+              "quote": "The preflight writes nothing** — not the revision table it looks for, and not\nthe layout of one it finds. Some states it refuses rather than works around: a\ndatabase holding both a native and an Atlas revision table is two histories, and\nchoosing between them would be guessing which one describes the schema."
+            }
+          ],
+          "rationale": "The two-history example explains a specific refusal and destructive ambiguity.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 5823,
+              "end": 6018,
+              "quote": "The section is printed whether or not `--preflight` was passed. Without it, the\nreport says the database was not inspected, because a clean verdict about a file\nis not a verdict about a database."
+            }
+          ],
+          "context": [
+            {
+              "start": 5823,
+              "end": 6018,
+              "quote": "The section is printed whether or not `--preflight` was passed. Without it, the\nreport says the database was not inspected, because a clean verdict about a file\nis not a verdict about a database."
+            }
+          ],
+          "rationale": "The file/database contrast defines what an uninspected database result means; it is an operational distinction.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 7111,
+              "end": 7184,
+              "quote": "Rewriting migration SQL.** Existing migration files are kept as they are."
+            }
+          ],
+          "context": [
+            {
+              "start": 7111,
+              "end": 7184,
+              "quote": "Rewriting migration SQL.** Existing migration files are kept as they are."
+            }
+          ],
+          "rationale": "Migration SQL preservation is distinct from configuration conversion and plan regeneration.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "aecc39464b7ea0d23a52f76d935dc1dd817f347d218c523e1b700cd6b2109e0e",
+      "reviewer": "Codex assistant implementing issue 305; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 25337,
+          "first_line": 1,
+          "last_line": 458,
+          "rationale": "Read all 116 prose blocks and table cells, including the dense API signatures as protected context. Reviewed observer ordering, checkpoints, resume identity, session lifetime, schema plans and API policy independently.",
+          "prose_blocks": 116,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 24705,
+              "end": 24779,
+              "quote": "and an example\nnobody outside this module can import is not documentation."
+            }
+          ],
+          "context": [
+            {
+              "start": 24488,
+              "end": 24779,
+              "quote": "The ledger's second category is a short list of sample packages that stay\nimportable because published documentation reaches them. The migrator's godoc\nexamples import the sample migration directory they run against, and an example\nnobody outside this module can import is not documentation."
+            }
+          ],
+          "rationale": "This broad judgment justifies the importable examples after the actual godoc import requirement was already stated.",
+          "proposed_edit": "Retain that the godoc examples import the sample directory; remove the judgment about what counts as documentation."
+        },
+        {
+          "id": "c03-d02",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 24819,
+              "end": 24830,
+              "quote": "of any kind"
+            }
+          ],
+          "context": [
+            {
+              "start": 24781,
+              "end": 25044,
+              "quote": "They carry no compatibility guarantee of any kind. Their contents change with\nthe documentation they serve, `apidiff` does not compare them against a release\nbaseline, and they are absent from the table above for that reason. Read them;\ndo not build against them."
+            }
+          ],
+          "rationale": "The unqualified no-compatibility-guarantee statement is already complete.",
+          "proposed_edit": "Remove of any kind and retain the explicit documentation-only restriction."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c03-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6331,
+              "end": 6355,
+              "quote": "and nothing of their own"
+            }
+          ],
+          "context": [
+            {
+              "start": 6125,
+              "end": 6548,
+              "quote": "`core/astbuilder` writes `core/ast` DDL nodes as method chains: `NewTable` and\n`NewIndex` build one statement, `NewSchema` builds an `*ast.StatementList` in\ndeclaration order. The builders return AST types and nothing of their own, so a\nchain and a hand-written literal mix freely. They validate nothing — an unknown\ntype or an unresolved foreign key reaches the AST and is reported by\n`core/renderer` or by the database."
+            }
+          ],
+          "rationale": "The phrase can be shortened, but it also emphasizes that builders introduce no wrapper types; whether this needs editing depends on the API audience.",
+          "proposed_edit": "Consider saying the builders return AST values directly while preserving the no-wrapper distinction."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 6550,
+              "end": 6996,
+              "quote": "`core/yamlschema` reads Ptah's YAML authoring format: `Parse` from bytes,\n`ParseFile` from a path, both returning the `*schemamodel.Database` that Go\nannotations, HCL, SQL, and DBML also produce. Parsing refuses an unknown key\nand refuses a second YAML document in the same stream, so a misspelled\nattribute cannot pass as an intentional setting. Use `core/schemasource` when\nthe YAML is written by an external program rather than held in a file."
+            }
+          ],
+          "context": [
+            {
+              "start": 6550,
+              "end": 6996,
+              "quote": "`core/yamlschema` reads Ptah's YAML authoring format: `Parse` from bytes,\n`ParseFile` from a path, both returning the `*schemamodel.Database` that Go\nannotations, HCL, SQL, and DBML also produce. Parsing refuses an unknown key\nand refuses a second YAML document in the same stream, so a misspelled\nattribute cannot pass as an intentional setting. Use `core/schemasource` when\nthe YAML is written by an external program rather than held in a file."
+            }
+          ],
+          "rationale": "Unknown keys and multiple YAML documents are distinct refusal conditions; the spelling example explains their consequence.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 9799,
+              "end": 10320,
+              "quote": "For SQL-backed `no_transaction` migrations, Ptah writes a durable progress\ncheckpoint before invoking the observer. Before each statement, it first marks\nthat statement's outcome as unknown; after success, it advances the completed\ncount and clears the marker. Process exit, context cancellation, or deadline\nwhile execution is in flight preserves the unknown-outcome marker. This\nincludes Atlas-format down execution. A custom `MigrationFunc` is opaque to the\nmigrator and does not receive statement-level checkpointing."
+            }
+          ],
+          "context": [
+            {
+              "start": 9799,
+              "end": 10320,
+              "quote": "For SQL-backed `no_transaction` migrations, Ptah writes a durable progress\ncheckpoint before invoking the observer. Before each statement, it first marks\nthat statement's outcome as unknown; after success, it advances the completed\ncount and clears the marker. Process exit, context cancellation, or deadline\nwhile execution is in flight preserves the unknown-outcome marker. This\nincludes Atlas-format down execution. A custom `MigrationFunc` is opaque to the\nmigrator and does not receive statement-level checkpointing."
+            }
+          ],
+          "rationale": "Unknown outcome before execution and completed count after success are different checkpoint states.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11268,
+              "end": 11913,
+              "quote": "SQL-backed `MigrationTxModeNone` attempts pin their migration SQL to one\nphysical database session. Server-database revision metadata remains on the\noriginal connection; SQLite uses the pinned session with a `main`-qualified\ntable to support its single-connection in-memory mode. Resume replays recognized\nsession controls from the verified committed prefix on a fresh session and\nrefuses prefixes whose session-local state cannot be reconstructed safely.\nTop-level transaction-control statements are rejected before session pinning or\nrevision mutation because their commit boundary would conflict with Ptah's\ndurable per-statement checkpoints."
+            }
+          ],
+          "context": [
+            {
+              "start": 11268,
+              "end": 11913,
+              "quote": "SQL-backed `MigrationTxModeNone` attempts pin their migration SQL to one\nphysical database session. Server-database revision metadata remains on the\noriginal connection; SQLite uses the pinned session with a `main`-qualified\ntable to support its single-connection in-memory mode. Resume replays recognized\nsession controls from the verified committed prefix on a fresh session and\nrefuses prefixes whose session-local state cannot be reconstructed safely.\nTop-level transaction-control statements are rejected before session pinning or\nrevision mutation because their commit boundary would conflict with Ptah's\ndurable per-statement checkpoints."
+            }
+          ],
+          "rationale": "Connection ownership, replayable session state and transaction boundaries constrain different operations.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 14088,
+              "end": 14478,
+              "quote": "`MigrateUpOptions.DiscardRolledBackFailure` applies only to the Atlas\nrevision-table format; it has no effect with native Ptah metadata. It removes\nonly the failed revision written by the current invocation, and only after\ntransaction rollback succeeds. Existing dirty revisions and commit, rollback,\npartial-progress, and unknown-outcome failures remain recorded and block\nautomatic retry."
+            }
+          ],
+          "context": [
+            {
+              "start": 14088,
+              "end": 14478,
+              "quote": "`MigrateUpOptions.DiscardRolledBackFailure` applies only to the Atlas\nrevision-table format; it has no effect with native Ptah metadata. It removes\nonly the failed revision written by the current invocation, and only after\ntransaction rollback succeeds. Existing dirty revisions and commit, rollback,\npartial-progress, and unknown-outcome failures remain recorded and block\nautomatic retry."
+            }
+          ],
+          "rationale": "The Atlas-only restriction, successful rollback requirement and preservation of older failures must all remain.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 18076,
+              "end": 18808,
+              "quote": "Row-level security policies use the same shape. `RLSPoliciesAdded` and\n`RLSPoliciesRemoved` are `[]RLSPolicyRef`, `RLSPoliciesModified` is\n`[]RLSPolicyDiff`, and every entry names the owning table next to the policy\nname. That pair is the policy's identity: a PostgreSQL policy name is scoped to\nits table, so two tables in one schema may each carry `tenant_isolation`. The\ntable half is compared under the diff's identifier semantics, not as a raw\nstring, so the desired spelling `public.orders` and the introspected spelling\n`orders` resolve to one table in both the forward and the reverse direction.\nA reference the target schema cannot resolve is rejected with\n`ptaherr.ErrInvalidSchemaDiff`; it is never dropped from the plan."
+            }
+          ],
+          "context": [
+            {
+              "start": 18076,
+              "end": 18808,
+              "quote": "Row-level security policies use the same shape. `RLSPoliciesAdded` and\n`RLSPoliciesRemoved` are `[]RLSPolicyRef`, `RLSPoliciesModified` is\n`[]RLSPolicyDiff`, and every entry names the owning table next to the policy\nname. That pair is the policy's identity: a PostgreSQL policy name is scoped to\nits table, so two tables in one schema may each carry `tenant_isolation`. The\ntable half is compared under the diff's identifier semantics, not as a raw\nstring, so the desired spelling `public.orders` and the introspected spelling\n`orders` resolve to one table in both the forward and the reverse direction.\nA reference the target schema cannot resolve is rejected with\n`ptaherr.ErrInvalidSchemaDiff`; it is never dropped from the plan."
+            }
+          ],
+          "rationale": "Policy identity includes its table and table-name comparison rules; repeated identity language is not tautology.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 19352,
+              "end": 19686,
+              "quote": "A plan holds the migration directory open until it is published, so an\nembedder that may not publish should `defer plan.Close()`. `Close` is a no-op\non a published plan and a no-op called twice; skipping it leaves the directory\nheld until the plan is garbage collected, which on Windows blocks removing or\nrenaming it in the meantime."
+            }
+          ],
+          "context": [
+            {
+              "start": 19352,
+              "end": 19686,
+              "quote": "A plan holds the migration directory open until it is published, so an\nembedder that may not publish should `defer plan.Close()`. `Close` is a no-op\non a published plan and a no-op called twice; skipping it leaves the directory\nheld until the plan is garbage collected, which on Windows blocks removing or\nrenaming it in the meantime."
+            }
+          ],
+          "rationale": "The lifetime explanation names an observable Windows removal/rename consequence.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c07",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 19931,
+              "end": 20196,
+              "quote": "`generator.GenerateCheckpointFromShadow` and `shadow.VerifyBaseline` apply the\nsame SQLite-only validation before connecting to or mutating a shadow database.\nThe checkpoint path therefore cannot drop and replay a shadow database before\nreporting a malformed value."
+            }
+          ],
+          "context": [
+            {
+              "start": 19931,
+              "end": 20196,
+              "quote": "`generator.GenerateCheckpointFromShadow` and `shadow.VerifyBaseline` apply the\nsame SQLite-only validation before connecting to or mutating a shadow database.\nThe checkpoint path therefore cannot drop and replay a shadow database before\nreporting a malformed value."
+            }
+          ],
+          "rationale": "Checkpoint and baseline entry points need their own pre-mutation validation guarantee.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "203c635879b2b55b81200447551d66e0e1bb8229bc8c23a67e8da854c6972405",
+      "reviewer": "Codex assistant implementing issue 305; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 16634,
+          "first_line": 1,
+          "last_line": 161,
+          "rationale": "Read all 50 extracted blocks of the solver design with interface code as context. Reviewed graph identity, scheduling, cache modes, state transitions and edge merging; retained operational conditions and uncertain equivalence.",
+          "prose_blocks": 50,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 189,
+              "end": 206,
+              "quote": "heavily optimized"
+            }
+          ],
+          "context": [
+            {
+              "start": 171,
+              "end": 428,
+              "quote": "Solver package is heavily optimized for deduplication of work, concurrent requests, remote and local caching and different per-vertex caching modes. It also allows operations and frontends to call back to itself with new definition that they have generated."
+            }
+          ],
+          "rationale": "The intensity claim has no measurement here; the concrete optimization targets that follow convey the scope.",
+          "proposed_edit": "Use optimized and retain all optimization targets."
+        },
+        {
+          "id": "c04-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 430,
+              "end": 610,
+              "quote": "The implementation of the solver is quite complicated, mostly because it is supposed to be performant with snapshot-based storage layer and distribution model using layer tarballs."
+            }
+          ],
+          "context": [
+            {
+              "start": 430,
+              "end": 1127,
+              "quote": "The implementation of the solver is quite complicated, mostly because it is supposed to be performant with snapshot-based storage layer and distribution model using layer tarballs. It is expected that calculating the content based checksum of snapshots between every operation or after every command execution is too slow for common use cases and needs to be postponed to when it is likely to have a meaningful impact. Ideally, the user shouldn't realize that these optimizations are taking place and just get intuitive caching. It is also hoped that if some implementations can provide better cache capabilities, the solver would take advantage of that without requiring significant modification."
+            }
+          ],
+          "rationale": "The complicated/supposed-to-be-performant setup delays the concrete snapshot and layer-tarball constraints.",
+          "proposed_edit": "State that the solver must handle snapshot storage and layer-tarball distribution, then retain the checksum-cost explanation."
+        },
+        {
+          "id": "c04-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 959,
+              "end": 1127,
+              "quote": "It is also hoped that if some implementations can provide better cache capabilities, the solver would take advantage of that without requiring significant modification."
+            }
+          ],
+          "context": [
+            {
+              "start": 430,
+              "end": 1127,
+              "quote": "The implementation of the solver is quite complicated, mostly because it is supposed to be performant with snapshot-based storage layer and distribution model using layer tarballs. It is expected that calculating the content based checksum of snapshots between every operation or after every command execution is too slow for common use cases and needs to be postponed to when it is likely to have a meaningful impact. Ideally, the user shouldn't realize that these optimizations are taking place and just get intuitive caching. It is also hoped that if some implementations can provide better cache capabilities, the solver would take advantage of that without requiring significant modification."
+            }
+          ],
+          "rationale": "The hoped-if-would construction obscures a design requirement without adding uncertainty beyond that requirement.",
+          "proposed_edit": "Say the solver should support improved cache implementations without major changes; keep it as a design goal, not an achieved guarantee."
+        },
+        {
+          "id": "c04-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1850,
+              "end": 1966,
+              "quote": "The solver takes in a build definition in the form of a content addressable operation definition that forms a graph."
+            }
+          ],
+          "context": [
+            {
+              "start": 1850,
+              "end": 1966,
+              "quote": "The solver takes in a build definition in the form of a content addressable operation definition that forms a graph."
+            }
+          ],
+          "rationale": "The repeated definition and form wording can be replaced by the graph representation directly.",
+          "proposed_edit": "Say the solver takes a graph of content-addressable operation definitions."
+        },
+        {
+          "id": "c04-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4494,
+              "end": 4596,
+              "quote": "It can also be used for associating messages with the vertex that can be helpful for tracing purposes."
+            }
+          ],
+          "context": [
+            {
+              "start": 4265,
+              "end": 4596,
+              "quote": "Options contain extra information that can be associated with the vertex but what doesn't change the definition(or equality check) of it. Normally this is either a hint to the solver, for example, to ignore cache when executing. It can also be used for associating messages with the vertex that can be helpful for tracing purposes."
+            }
+          ],
+          "rationale": "The used-for and helpful-for-purpose layers obscure the optional association of tracing messages.",
+          "proposed_edit": "Say options can associate tracing messages with a vertex; preserve optionality."
+        },
+        {
+          "id": "c04-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6539,
+              "end": 6600,
+              "quote": "it is important that this digest is a stable secure checksum."
+            }
+          ],
+          "context": [
+            {
+              "start": 6279,
+              "end": 6707,
+              "quote": "`CacheMap` is a description for calculating the cache key. It contains a digest that is combined with the cache keys of the inputs to determine the stable checksum that can be used to cache the operation result. For the vertexes that don't have inputs(roots), it is important that this digest is a stable secure checksum. For example, in LLB this digest is a manifest digest for container images or a commit SHA for git sources."
+            }
+          ],
+          "rationale": "The importance preface weakens the actual root-digest requirement.",
+          "proposed_edit": "State that the digest must be a stable secure checksum for root vertices; retain both examples."
+        },
+        {
+          "id": "c04-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6804,
+              "end": 6971,
+              "quote": "A selector is combined with the input cache key and useful for describing when different parts of an input are being used, and inputs cache key needs to be customized."
+            }
+          ],
+          "context": [
+            {
+              "start": 6709,
+              "end": 7179,
+              "quote": "`CacheMap` may also define optional selectors or content-based cache functions for its inputs. A selector is combined with the input cache key and useful for describing when different parts of an input are being used, and inputs cache key needs to be customized. Content-based cache function allows computing a new cache key for an input after it has completed. In LLB this is used for calculating cache key based on the checksum of file contents of the input snapshots."
+            }
+          ],
+          "rationale": "The useful-for-describing and needs-customizing clauses obscure how selectors distinguish input portions.",
+          "proposed_edit": "Say a selector customizes the input cache key to distinguish the portion being used."
+        },
+        {
+          "id": "c04-d08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7933,
+              "end": 8190,
+              "quote": "After vertexes have been loaded to the job, it is safe to request a result from an edge pointing to a previously loaded vertex. To do this `build(ctx, Edge) (CachedResult, error)` method is called on the static scheduler instance associated with the solver."
+            }
+          ],
+          "context": [
+            {
+              "start": 7933,
+              "end": 8190,
+              "quote": "After vertexes have been loaded to the job, it is safe to request a result from an edge pointing to a previously loaded vertex. To do this `build(ctx, Edge) (CachedResult, error)` method is called on the static scheduler instance associated with the solver."
+            }
+          ],
+          "rationale": "The safe-to-request and to-do-this passive sequence delays the scheduler call that requests an already loaded vertex.",
+          "proposed_edit": "After vertices load into the job, call the scheduler method to request a result from an edge to a loaded vertex; preserve the ordering requirement."
+        },
+        {
+          "id": "c04-d09",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 8771,
+              "end": 8813,
+              "quote": "Scheduler tries do handle all these cases."
+            }
+          ],
+          "context": [
+            {
+              "start": 8207,
+              "end": 8813,
+              "quote": "The scheduler is a component responsible for invoking the individual operations needed to find the result for the graph. While the build definition is defined with vertexes, the scheduler is solving edges. In the case of LLB solver, a result of a solved edge is associated with a snapshot. Usually, to solve an edge, the input edges need to be solved first and this can be done concurrently, but there are many exceptions like edge may be cached but its input might be not, or solving one input might cause a cache hit while solving others would just be wasteful. Scheduler tries do handle all these cases."
+            }
+          ],
+          "rationale": "This generic closing statement repeats the scheduler role without specifying how any listed exception is handled.",
+          "proposed_edit": "Remove the closing statement and retain the distinct cache-hit exceptions."
+        },
+        {
+          "id": "c04-d10",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 10919,
+              "end": 10972,
+              "quote": "The initial state is the starting state for any edge."
+            }
+          ],
+          "context": [
+            {
+              "start": 10919,
+              "end": 11293,
+              "quote": "The initial state is the starting state for any edge. If a state has reached a cache-fast state, it means that all the definition based cache key lookups have been performed. Cache-slow means that content-based cache lookup has been performed as well. If possible, the scheduler will avoid looking up the slow keys of inputs if they are unnecessary for solving current edge."
+            }
+          ],
+          "rationale": "Initial is defined only by its synonym starting, without an entry condition or behavior.",
+          "proposed_edit": "Begin with the cache-fast definition or state when an edge enters initial state."
+        },
+        {
+          "id": "c04-d11",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 12288,
+              "end": 12350,
+              "quote": "There are a couple of possibilities how this check may end up."
+            }
+          ],
+          "context": [
+            {
+              "start": 12147,
+              "end": 13111,
+              "quote": "Third, the edge will go over all of its incoming requests, to determine if the current internal state is sufficient for satisfying them all. There are a couple of possibilities how this check may end up. If all requests can be completed and there are no outgoing requests the requests finish and unpark method returns. If there are outgoing requests but the edge has reached the completed state or all incoming requests have been canceled, the outgoing requests are canceled. This is an async operation as well and will cause unpark to be called again after completion. If this condition didn't apply but requests could be completed and there are outgoing requests, then the incoming request is answered but not completed. The receiver can then decide to cancel this request if needed. If no new data has appeared to answer the incoming requests, the desired state for an edge is determined for an edge from the incoming requests, and we continue to the next step."
+            }
+          ],
+          "rationale": "The sentence announces branches immediately before listing them.",
+          "proposed_edit": "Remove the announcement; preserve every branch and cancellation condition."
+        },
+        {
+          "id": "c04-d12",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 14911,
+              "end": 15013,
+              "quote": "Query method is used to determine if there exist a possible cache link between the input and a vertex."
+            }
+          ],
+          "context": [
+            {
+              "start": 14911,
+              "end": 15129,
+              "quote": "Query method is used to determine if there exist a possible cache link between the input and a vertex. It takes parameters provided by `op.CacheMap` and cache keys returned by the calling the same method on its inputs."
+            }
+          ],
+          "rationale": "The used-to-determine-if construction delays the operation.",
+          "proposed_edit": "Say Query checks for a possible cache link between the input and a vertex."
+        },
+        {
+          "id": "c04-d13",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15457,
+              "end": 15527,
+              "quote": "Load method is used to load a specific record into a result reference."
+            }
+          ],
+          "context": [
+            {
+              "start": 15457,
+              "end": 15600,
+              "quote": "Load method is used to load a specific record into a result reference. This value is the same type as the one returned by the `op.Exec` method."
+            }
+          ],
+          "rationale": "The predicate repeats the method action through a used-to wrapper.",
+          "proposed_edit": "Say Load loads a specific record into a result reference."
+        },
+        {
+          "id": "c04-d14",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15669,
+              "end": 15783,
+              "quote": "One final piece of solver logic allows merging two edges into one when they have both returned the same cache key."
+            }
+          ],
+          "context": [
+            {
+              "start": 15669,
+              "end": 16078,
+              "quote": "One final piece of solver logic allows merging two edges into one when they have both returned the same cache key. In practice, this appears for example when a build uses image references `alpine:latest` and `alpine@sha256:abcabc` in its definition and they actually point to the same image. Another case where this appears is when same source files from different sources are being used as part of the build."
+            }
+          ],
+          "rationale": "The piece-of-logic-allows wrapper obscures the direct merge rule.",
+          "proposed_edit": "Say the solver merges two edges when both return the same cache key; retain the validation conditions below."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c04-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 849,
+              "end": 958,
+              "quote": "Ideally, the user shouldn't realize that these optimizations are taking place and just get intuitive caching."
+            }
+          ],
+          "context": [
+            {
+              "start": 430,
+              "end": 1127,
+              "quote": "The implementation of the solver is quite complicated, mostly because it is supposed to be performant with snapshot-based storage layer and distribution model using layer tarballs. It is expected that calculating the content based checksum of snapshots between every operation or after every command execution is too slow for common use cases and needs to be postponed to when it is likely to have a meaningful impact. Ideally, the user shouldn't realize that these optimizations are taking place and just get intuitive caching. It is also hoped that if some implementations can provide better cache capabilities, the solver would take advantage of that without requiring significant modification."
+            }
+          ],
+          "rationale": "Intuitive caching is undefined, but this is explicitly an aspiration in a design document rather than a measured product claim.",
+          "proposed_edit": "Define the intended cache behavior if the design goal needs a testable criterion."
+        },
+        {
+          "id": "c04-u02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 10400,
+              "end": 10504,
+              "quote": "Similarly, if an incoming request remains pending, at least one outgoing request needs to exist as well."
+            }
+          ],
+          "context": [
+            {
+              "start": 10200,
+              "end": 10621,
+              "quote": "To avoid bugs and deadlocks in this logic, the unpark method needs to follow the following rules. If unpark has finished without completing all incoming requests it needs to create outgoing requests. Similarly, if an incoming request remains pending, at least one outgoing request needs to exist as well. Failing to comply with this rule will cause the scheduler to panic as a precaution to avoid leaks and hiding errors."
+            }
+          ],
+          "rationale": "This resembles the previous condition, but the previous sentence is explicitly after unpark finishes and this one may state an invariant during handling.",
+          "proposed_edit": "Clarify timing before removing either condition; do not assume equivalence from pending-request wording."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2248,
+              "end": 2637,
+              "quote": "Every vertex has a content-addressable digest that represents a checksum of the definition graph up to that vertex including all of its inputs. If two vertexes have the same checksum, they are considered identical when they are executing concurrently. That means that if two other vertexes request a vertex with the same digest as an input, they will wait for the same operation to finish."
+            }
+          ],
+          "context": [
+            {
+              "start": 2248,
+              "end": 2637,
+              "quote": "Every vertex has a content-addressable digest that represents a checksum of the definition graph up to that vertex including all of its inputs. If two vertexes have the same checksum, they are considered identical when they are executing concurrently. That means that if two other vertexes request a vertex with the same digest as an input, they will wait for the same operation to finish."
+            }
+          ],
+          "rationale": "Identity equality and waiting on the same concurrent operation have different explanatory roles; the consequence is useful.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2639,
+              "end": 3161,
+              "quote": "The vertex digest can only be used for comparison while the solver is running and not between different invocations. For example, if parallel builds require using `docker.io/library/alpine:latest` image as one of the operations, it is pulled only once. But if a build using `docker.io/library/alpine:latest` was built earlier, the checksum based on that name can't be used for finding if the vertex was already built because the image might have changed in the registry and \"latest\" tag might be pointing to another image."
+            }
+          ],
+          "context": [
+            {
+              "start": 2639,
+              "end": 3161,
+              "quote": "The vertex digest can only be used for comparison while the solver is running and not between different invocations. For example, if parallel builds require using `docker.io/library/alpine:latest` image as one of the operations, it is pulled only once. But if a build using `docker.io/library/alpine:latest` was built earlier, the checksum based on that name can't be used for finding if the vertex was already built because the image might have changed in the registry and \"latest\" tag might be pointing to another image."
+            }
+          ],
+          "rationale": "Within-solve sharing differs from reuse across invocations, and the mutable tag explains why.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3768,
+              "end": 4263,
+              "quote": "`Inputs()` returns an array of other vertexes the current vertex depends on. A vertex may have zero inputs. After an operation has executed, it returns an array of return references. If another operation wants to depend on any of these references they would define an input with that vertex and an index of the reference from the return array(starting from zero). Inputs need to be contained in the `Digest()` of the vertex - two vertexes with different inputs should never have the same digest."
+            }
+          ],
+          "context": [
+            {
+              "start": 3768,
+              "end": 4263,
+              "quote": "`Inputs()` returns an array of other vertexes the current vertex depends on. A vertex may have zero inputs. After an operation has executed, it returns an array of return references. If another operation wants to depend on any of these references they would define an input with that vertex and an index of the reference from the return array(starting from zero). Inputs need to be contained in the `Digest()` of the vertex - two vertexes with different inputs should never have the same digest."
+            }
+          ],
+          "rationale": "Inputs are references with indices; digest inclusion is a distinct identity invariant.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 8815,
+              "end": 9457,
+              "quote": "The scheduler is implemented as a single threaded non-blocking event loop. The single threaded constraint is for simplicity and might be removed in the future - currently, it is not known if this would have any performance impact. All the events in the scheduler have one fixed sender and receiver. The interface for interacting with the scheduler is to create a \"pipe\" between a sender and a receiver. One or both sides of the pipe may be an edge instance of the graph. If a pipe is added it to the scheduler and an edge receives an event from the pipe, the scheduler will \"unpark\" that edge so it can process all the events it had received."
+            }
+          ],
+          "context": [
+            {
+              "start": 8815,
+              "end": 9457,
+              "quote": "The scheduler is implemented as a single threaded non-blocking event loop. The single threaded constraint is for simplicity and might be removed in the future - currently, it is not known if this would have any performance impact. All the events in the scheduler have one fixed sender and receiver. The interface for interacting with the scheduler is to create a \"pipe\" between a sender and a receiver. One or both sides of the pipe may be an edge instance of the graph. If a pipe is added it to the scheduler and an edge receives an event from the pipe, the scheduler will \"unpark\" that edge so it can process all the events it had received."
+            }
+          ],
+          "rationale": "The loop/pipe mechanics and event delivery are separate operational details.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15131,
+              "end": 15455,
+              "quote": "If a cache key has been found, the matching records can be asked for them. A cache key can have zero or more records. Having a record means that a cached result can be loaded for a specific vertex. The solver supports partial cache chains, meaning that not all inputs need to have a cache record to match cache for a vertex."
+            }
+          ],
+          "context": [
+            {
+              "start": 15131,
+              "end": 15455,
+              "quote": "If a cache key has been found, the matching records can be asked for them. A cache key can have zero or more records. Having a record means that a cached result can be loaded for a specific vertex. The solver supports partial cache chains, meaning that not all inputs need to have a cache record to match cache for a vertex."
+            }
+          ],
+          "rationale": "Multiple records and partial input-cache chains constrain different cache decisions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "7606db0f83ca5dabd1b7ffa03bd2c403c43e0a3771519364e059f9a40473c9cc",
+      "reviewer": "Codex assistant implementing issue 305; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 15148,
+          "first_line": 1,
+          "last_line": 431,
+          "rationale": "Read all 41 extracted prose blocks with Go and shell examples as protected context. Reviewed client setup, namespaces, snapshots, task versus metadata lifetime, wait-before-start ordering and cleanup.",
+          "prose_blocks": 41,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 35,
+              "end": 83,
+              "quote": "There are many different ways to use containerd."
+            }
+          ],
+          "context": [
+            {
+              "start": 35,
+              "end": 368,
+              "quote": "There are many different ways to use containerd.\nIf you are a developer working on containerd you can use the `ctr` tool to quickly test features and functionality without writing extra code.\nHowever, if you want to integrate containerd into your project we have an easy to use client package that allows you to work with containerd."
+            }
+          ],
+          "rationale": "The generic opening provides no choice criterion before the concrete developer and embedder alternatives.",
+          "proposed_edit": "Start with the developer and embedding alternatives."
+        },
+        {
+          "id": "c05-d02",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 301,
+              "end": 312,
+              "quote": "easy to use"
+            }
+          ],
+          "context": [
+            {
+              "start": 35,
+              "end": 368,
+              "quote": "There are many different ways to use containerd.\nIf you are a developer working on containerd you can use the `ctr` tool to quickly test features and functionality without writing extra code.\nHowever, if you want to integrate containerd into your project we have an easy to use client package that allows you to work with containerd."
+            }
+          ],
+          "rationale": "Ease is asserted without a stated user task or measure.",
+          "proposed_edit": "Retain the client-package option without the ease judgment."
+        },
+        {
+          "id": "c05-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2654,
+              "end": 2718,
+              "quote": "Now that we have a client to work with we need to pull an image."
+            }
+          ],
+          "context": [
+            {
+              "start": 2654,
+              "end": 2787,
+              "quote": "Now that we have a client to work with we need to pull an image.\nWe can use the redis image based on Alpine Linux from the DockerHub."
+            }
+          ],
+          "rationale": "The recap and need-to setup can state the next action directly.",
+          "proposed_edit": "Say to pull the Redis image with the client; retain the selected Alpine variant."
+        },
+        {
+          "id": "c05-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4302,
+              "end": 4475,
+              "quote": "Now that we have an image to base our container off of, we need to generate an OCI runtime specification that the container can be based off of as well as the new container."
+            }
+          ],
+          "context": [
+            {
+              "start": 4302,
+              "end": 4475,
+              "quote": "Now that we have an image to base our container off of, we need to generate an OCI runtime specification that the container can be based off of as well as the new container."
+            }
+          ],
+          "rationale": "The repeated based-off and now-that setup obscures the two next objects to create.",
+          "proposed_edit": "Say to generate an OCI runtime specification and create the new container from the pulled image."
+        },
+        {
+          "id": "c05-d05",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 4497,
+              "end": 4516,
+              "quote": "reasonable defaults"
+            }
+          ],
+          "context": [
+            {
+              "start": 4477,
+              "end": 4641,
+              "quote": "containerd provides reasonable defaults for generating OCI runtime specs.\nThere is also an `Opt` for modifying the default config based on the image that we pulled."
+            }
+          ],
+          "rationale": "Reasonable does not state which defaults or their applicability.",
+          "proposed_edit": "Describe the default OCI settings or link to them; retain the option for applying image configuration."
+        },
+        {
+          "id": "c05-d06",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 5466,
+              "end": 5472,
+              "quote": "easily"
+            }
+          ],
+          "context": [
+            {
+              "start": 5263,
+              "end": 5527,
+              "quote": "When creating a new snapshot for the container we need to provide a snapshot ID as well as the Image that the container will be based on.\nBy providing a separate snapshot ID than the container ID we can easily reuse, existing snapshots across different containers."
+            }
+          ],
+          "rationale": "The distinct snapshot ID explains reuse; easily adds no condition or operation.",
+          "proposed_edit": "Remove easily while retaining the different-ID requirement."
+        },
+        {
+          "id": "c05-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7149,
+              "end": 7172,
+              "quote": "Let's see it in action."
+            }
+          ],
+          "context": [
+            {
+              "start": 7149,
+              "end": 7172,
+              "quote": "Let's see it in action."
+            }
+          ],
+          "rationale": "The invitation merely announces execution of the immediately following example.",
+          "proposed_edit": "Remove the invitation; keep the command and its output."
+        },
+        {
+          "id": "c05-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7441,
+              "end": 7560,
+              "quote": "One thing that may be confusing at first for new containerd users is the separation between a `Container` and a `Task`."
+            }
+          ],
+          "context": [
+            {
+              "start": 7441,
+              "end": 7795,
+              "quote": "One thing that may be confusing at first for new containerd users is the separation between a `Container` and a `Task`.\nA container is a metadata object that resources are allocated and attached to.\nA task is a live, running process on the system.\nTasks should be deleted after each run while a container can be used, updated, and queried multiple times."
+            }
+          ],
+          "rationale": "The predicted reader confusion delays the actual metadata/process distinction.",
+          "proposed_edit": "Begin with the container and task definitions and retain their different lifetimes."
+        },
+        {
+          "id": "c05-d09",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 7970,
+              "end": 7978,
+              "quote": "actually"
+            }
+          ],
+          "context": [
+            {
+              "start": 7933,
+              "end": 8213,
+              "quote": "The new task that we just created is actually a running process on your system.\nWe use `cio.WithStdio` so that all IO from the container is sent to our `main.go` process.\nThis is a `cio.Opt` that configures the `Streams` used by `NewCreator` to return a `cio.IO`\nfor the new task."
+            }
+          ],
+          "rationale": "Actually adds surprise to the process statement without changing its scope.",
+          "proposed_edit": "Remove actually; separately retain the created-versus-started clarification below."
+        },
+        {
+          "id": "c05-d10",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 8979,
+              "end": 8997,
+              "quote": "Pretty cool right?"
+            }
+          ],
+          "context": [
+            {
+              "start": 8979,
+              "end": 8997,
+              "quote": "Pretty cool right?"
+            }
+          ],
+          "rationale": "The rhetorical approval question adds no information about metrics.",
+          "proposed_edit": "Remove the question; retain the metrics example."
+        },
+        {
+          "id": "c05-d11",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9023,
+              "end": 9122,
+              "quote": "Now that we have a task in the created state we need to make sure that we wait on the task to exit."
+            }
+          ],
+          "context": [
+            {
+              "start": 9023,
+              "end": 9462,
+              "quote": "Now that we have a task in the created state we need to make sure that we wait on the task to exit.\nIt is essential to wait for the task to finish so that we can close our example and cleanup the resources that we created.\nYou always want to make sure you `Wait` before calling `Start` on a task.\nThis makes sure that you do not encounter any races if the task has a simple program like `/bin/true` that exits promptly after calling start."
+            }
+          ],
+          "rationale": "The recap, need-to and make-sure layers delay the wait registration instruction.",
+          "proposed_edit": "State the wait operation directly while retaining the created state and wait-before-start ordering."
+        },
+        {
+          "id": "c05-d12",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 9843,
+              "end": 9849,
+              "quote": "simply"
+            }
+          ],
+          "context": [
+            {
+              "start": 9714,
+              "end": 9957,
+              "quote": "Since we are running a long running server we will need to kill the task in order to exit out of our example.\nTo do this we will simply call `Kill` on the task after waiting a couple of seconds so we have a chance to see the redis-server logs."
+            }
+          ],
+          "rationale": "Simply minimizes a concrete signal/wait procedure without adding a condition.",
+          "proposed_edit": "Remove simply; preserve the signal and delay."
+        },
+        {
+          "id": "c05-d13",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 10480,
+              "end": 10499,
+              "quote": "We got you covered."
+            }
+          ],
+          "context": [
+            {
+              "start": 10231,
+              "end": 10499,
+              "quote": "We wait on our exit status channel that we setup to ensure the task has fully exited and we get the exit status.\nIf you have to reload containers or miss waiting on a task, `Delete` will also return the exit status when you finally delete the task.\nWe got you covered."
+            }
+          ],
+          "rationale": "The reassurance repeats the concrete exit-status fallback already given.",
+          "proposed_edit": "Remove the reassurance; retain the Delete exit-status behavior."
+        },
+        {
+          "id": "c05-d14",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 12649,
+              "end": 12684,
+              "quote": "to see our hard work come together."
+            }
+          ],
+          "context": [
+            {
+              "start": 12601,
+              "end": 12684,
+              "quote": "We can build this example and run it as follows to see our hard work come together."
+            }
+          ],
+          "rationale": "The shared-accomplishment tail adds no build or execution information.",
+          "proposed_edit": "Keep the build/run instruction without the celebratory tail."
+        },
+        {
+          "id": "c05-d15",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 14799,
+              "end": 14882,
+              "quote": "In the end, we really did not write that much code when you use the client package."
+            }
+          ],
+          "context": [
+            {
+              "start": 14799,
+              "end": 14882,
+              "quote": "In the end, we really did not write that much code when you use the client package."
+            }
+          ],
+          "rationale": "The closing appraisal of how little code was written is not a setup or API fact.",
+          "proposed_edit": "Remove the appraisal; retain the full example."
+        },
+        {
+          "id": "c05-d16",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 14884,
+              "end": 14951,
+              "quote": "I hope this guide helped to get you up and running with containerd."
+            }
+          ],
+          "context": [
+            {
+              "start": 14884,
+              "end": 15147,
+              "quote": "I hope this guide helped to get you up and running with containerd.\nFeel free to join the [slack channel](https://dockr.ly/community) if you have any questions and like all things, if you want to help contribute to containerd or this guide, submit a pull request."
+            }
+          ],
+          "rationale": "The closing hope adds no support or contribution route.",
+          "proposed_edit": "Keep the Slack and pull-request instructions without the hope sentence."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 5634,
+              "end": 5807,
+              "quote": "Here is example code to pull the redis image based on alpine linux from Dockerhub, create an OCI spec, create a container based on the spec and finally delete the container."
+            }
+          ],
+          "context": [
+            {
+              "start": 5634,
+              "end": 5807,
+              "quote": "Here is example code to pull the redis image based on alpine linux from Dockerhub, create an OCI spec, create a container based on the spec and finally delete the container."
+            }
+          ],
+          "rationale": "The example preface repeats earlier operations but may help a reader find the complete code sample.",
+          "proposed_edit": "Consider a concise example label, retaining the combined sample if readers use it independently."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2926,
+              "end": 3191,
+              "quote": "The containerd client uses the `Opts` pattern for many of the method calls.\nWe use the `containerd.WithPullUnpack` so that we not only fetch and download the content into containerd's content store but also unpack it into a snapshotter for use as a root filesystem."
+            }
+          ],
+          "context": [
+            {
+              "start": 2926,
+              "end": 3191,
+              "quote": "The containerd client uses the `Opts` pattern for many of the method calls.\nWe use the `containerd.WithPullUnpack` so that we not only fetch and download the content into containerd's content store but also unpack it into a snapshotter for use as a root filesystem."
+            }
+          ],
+          "rationale": "Downloading content and unpacking a snapshot are distinct operations despite the additive construction.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5144,
+              "end": 5261,
+              "quote": "If you have an existing OCI specification created you can use `containerd.WithSpec(spec)` to set it on the container."
+            }
+          ],
+          "context": [
+            {
+              "start": 5144,
+              "end": 5261,
+              "quote": "If you have an existing OCI specification created you can use `containerd.WithSpec(spec)` to set it on the container."
+            }
+          ],
+          "rationale": "The existing-spec condition determines which option applies and must be kept.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 8215,
+              "end": 8777,
+              "quote": "If you are familiar with the OCI runtime actions, the task is currently in the \"created\" state.\nThis means that the namespaces, root filesystem, and various container level settings have been initialized but the user defined process, in this example \"redis-server\", has not been started.\nThis gives users a chance to setup network interfaces or attach different tools to monitor the container.\ncontainerd also takes this opportunity to monitor your container as well.\nWaiting on things like the container's exit status and cgroup metrics are setup at this point."
+            }
+          ],
+          "context": [
+            {
+              "start": 8215,
+              "end": 8777,
+              "quote": "If you are familiar with the OCI runtime actions, the task is currently in the \"created\" state.\nThis means that the namespaces, root filesystem, and various container level settings have been initialized but the user defined process, in this example \"redis-server\", has not been started.\nThis gives users a chance to setup network interfaces or attach different tools to monitor the container.\ncontainerd also takes this opportunity to monitor your container as well.\nWaiting on things like the container's exit status and cgroup metrics are setup at this point."
+            }
+          ],
+          "rationale": "Created state, initialized resources and an unstarted user process are distinct state facts, not conflicting restatements.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 8779,
+              "end": 8931,
+              "quote": "If you are familiar with prometheus you can curl the containerd metrics endpoint (in the `config.toml` that we created) to see your container's metrics:"
+            }
+          ],
+          "context": [
+            {
+              "start": 8779,
+              "end": 8931,
+              "quote": "If you are familiar with prometheus you can curl the containerd metrics endpoint (in the `config.toml` that we created) to see your container's metrics:"
+            }
+          ],
+          "rationale": "The metrics endpoint and namespace are concrete prerequisites, not a generic audience judgment.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "e888945ea6657e1b791fe8e8f2d897ab0c99e5f0ec0ced0e1ec6b96bdefd1b5e",
+      "reviewer": "Codex assistant implementing issue 305; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4519,
+          "first_line": 1,
+          "last_line": 83,
+          "rationale": "Read all 35 extracted prose/list blocks with build commands and linked targets as context. Reviewed editor versions, working directory, proxy routing, test modes and full-binary integration.",
+          "prose_blocks": 35,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c06-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 600,
+              "end": 651,
+              "quote": "you will need to have the following tools installed"
+            }
+          ],
+          "context": [
+            {
+              "start": 568,
+              "end": 652,
+              "quote": "To work with the React UI code, you will need to have the following tools installed:"
+            }
+          ],
+          "rationale": "The future need-to-have wrapper obscures a present prerequisite.",
+          "proposed_edit": "State that React UI development requires the listed tools, without requiring reinstalling tools already present."
+        },
+        {
+          "id": "c06-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4447,
+              "end": 4463,
+              "quote": "and then finally"
+            }
+          ],
+          "context": [
+            {
+              "start": 4362,
+              "end": 4518,
+              "quote": "This installs npm dependencies via Yarn, builds a production build of the React app, and then finally compiles in all web assets into the Prometheus binary."
+            }
+          ],
+          "rationale": "Then and finally repeat the same sequencing function.",
+          "proposed_edit": "Use then or finally once; preserve dependency installation, UI build and binary embedding order."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c06-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 257,
+              "end": 274,
+              "quote": "a popular toolkit"
+            }
+          ],
+          "context": [
+            {
+              "start": 114,
+              "end": 433,
+              "quote": "The [React-based](https://reactjs.org/) Prometheus UI was bootstrapped using [Create React App](https://github.com/facebook/create-react-app), a popular toolkit for generating React application setups. You can find general information about Create React App on [their documentation site](https://create-react-app.dev/)."
+            }
+          ],
+          "rationale": "Popularity has no source here, but the brief orientation may be acceptable and is not essential to the setup.",
+          "proposed_edit": "Consider describing the toolkit function alone without treating this as a mandatory edit."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1321,
+              "end": 1561,
+              "quote": "NOTE**: When using Visual Studio Code, be sure to open the `web/ui/react-app` directory in the editor instead of the root of the repository. This way, the right ESLint and TypeScript configuration will be picked up from the React workspace."
+            }
+          ],
+          "context": [
+            {
+              "start": 1321,
+              "end": 1561,
+              "quote": "NOTE**: When using Visual Studio Code, be sure to open the `web/ui/react-app` directory in the editor instead of the root of the repository. This way, the right ESLint and TypeScript configuration will be picked up from the React workspace."
+            }
+          ],
+          "rationale": "The specific workspace directory and its ESLint/TypeScript configuration are a necessary editor setup condition.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2427,
+              "end": 2722,
+              "quote": "Due to a `\"proxy\": \"http://localhost:9090\"` setting in the `package.json` file, any API requests from the React UI are proxied to `localhost` on port `9090` by the development server. This allows you to run a normal Prometheus server to handle API requests, while iterating separately on the UI."
+            }
+          ],
+          "context": [
+            {
+              "start": 2427,
+              "end": 2722,
+              "quote": "Due to a `\"proxy\": \"http://localhost:9090\"` setting in the `package.json` file, any API requests from the React UI are proxied to `localhost` on port `9090` by the development server. This allows you to run a normal Prometheus server to handle API requests, while iterating separately on the UI."
+            }
+          ],
+          "rationale": "The proxy setting enables separate UI iteration while a server handles API requests; the purpose is concrete.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3987,
+              "end": 4158,
+              "quote": "NOTE:** You will likely not need to do this directly. Instead, this is taken care of by the `build` target in the main Prometheus `Makefile` when building the full binary."
+            }
+          ],
+          "context": [
+            {
+              "start": 3987,
+              "end": 4158,
+              "quote": "NOTE:** You will likely not need to do this directly. Instead, this is taken care of by the `build` target in the main Prometheus `Makefile` when building the full binary."
+            }
+          ],
+          "rationale": "The full-binary target explains why the separate production step is usually unnecessary.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 29,
+              "end": 95,
+              "quote": "This file explains how to work with the React-based Prometheus UI."
+            }
+          ],
+          "context": [
+            {
+              "start": 29,
+              "end": 95,
+              "quote": "This file explains how to work with the React-based Prometheus UI."
+            }
+          ],
+          "rationale": "A concise opening scope sentence is acceptable for a development README.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}
