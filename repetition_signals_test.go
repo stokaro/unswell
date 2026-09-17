@@ -9,6 +9,7 @@ import (
 	"github.com/stokaro/unswell"
 	"github.com/stokaro/unswell/builtin"
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/rule"
 )
 
 const repeatedPhraseProse = "The clear release notes explain the release schedule for every new reader. " +
@@ -25,7 +26,14 @@ func singleRuleEngine(t *testing.T, id, parameters, extra string) *unswell.Engin
 	}
 	config := "version: 1\nextends: [builtin:custom]\nrules:\n  " + id +
 		":\n    enabled: true\n    gate: forbid\n    parameters: " + parameters + "\n" + extra
-	engine, err := unswell.New(unswell.Options{Config: []byte(config), IncludeSource: true})
+	var selected []rule.Rule
+	for _, candidate := range builtin.Rules() {
+		if candidate.Descriptor().ID == id {
+			selected = append(selected, candidate)
+		}
+	}
+	c.Assert(selected, qt.HasLen, 1)
+	engine, err := unswell.New(unswell.Options{Config: []byte(config), IncludeSource: true, Rules: selected})
 	c.Assert(err, qt.IsNil)
 	return engine
 }
