@@ -1,13 +1,14 @@
 # Which rules ship enabled
 
-The catalog holds 46 rules. Twenty-three are on in the shipped profiles and 23 are
+The catalog holds 47 rules. Twenty-four are on in the shipped profiles and 23 are
 opt-in. This page says how that split was chosen and what each opt-in rule was
 measured at. Every rule also carries its own reason: `unswell rules show ID`
 prints it, the rules page shows it, and a test fails if an opt-in rule has
 none.
 
-Four local constructions now request an edit review: document self-justification,
-evaluative closing clauses, circular definitions, and bare verification slogans.
+Five local constructions now request an edit review: document self-justification,
+evaluative closing clauses, circular definitions, bare verification slogans,
+and unscoped assurances.
 They have warning severity, weight 12, cap 24, and no rule prohibition in both
 profiles. The [Ptah evaluation](research/ptah-rhetoric.md) records their source
 cases and review load. The weights are editorial policy, not measured

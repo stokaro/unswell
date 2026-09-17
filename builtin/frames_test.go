@@ -18,7 +18,7 @@ func TestFrameRulesPropagateObservationCancellationAndBudget(t *testing.T) {
 	for _, implementation := range builtin.Rules() {
 		id := implementation.Descriptor().ID
 		if !slices.Contains([]string{"syntax.repeated-reframing", "filler.document-metadiscourse", "filler.document-justification",
-			"filler.evaluative-closure", "repetition.definition-echo", "syntax.slogan-contrast"}, id) {
+			"filler.evaluative-closure", "filler.unscoped-assurance", "repetition.definition-echo", "syntax.slogan-contrast"}, id) {
 			continue
 		}
 		t.Run(id, func(t *testing.T) {

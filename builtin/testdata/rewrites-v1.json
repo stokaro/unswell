@@ -245,6 +245,11 @@
       "format": "markdown",
       "before": "So Ptah checks, rather than trusts. After taking the lock it asks a second\nconnection for the same one; if that succeeds, the lock excludes nothing and the\ncommand refuses before it changes anything:",
       "after": "After taking the lock, Ptah asks a second\nconnection for the same one; if that succeeds, the lock excludes nothing and the\ncommand refuses before it changes anything:"
+    },
+    {
+      "rule": "filler.unscoped-assurance",
+      "before": "The QueryCache configuration is intentionally explicit. It rejects unknown keys and reports the source line.",
+      "after": "The QueryCache configuration rejects unknown keys and reports the source line."
     }
   ]
 }
