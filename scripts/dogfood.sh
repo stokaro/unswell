@@ -2,7 +2,9 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p artifacts/dogfood
-bin/unswell check . --config .unswell.yaml --include-source \
+# This full repository scan includes more than 1,000 documents and shared
+# feature measurements. Keep a bounded CI budget for that complete workload.
+bin/unswell check . --config .unswell.yaml --include-source --timeout 2m \
   --prepared-feature prose-words --prepared-feature noun-token-ratio \
   --prepared-kind sentence --prepared-kind paragraph --prepared-kind fragment \
   --feature prose-words --feature type-token-ratio --feature activation/readability.long-paragraph \
