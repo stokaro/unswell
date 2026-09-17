@@ -11,14 +11,19 @@ import (
 )
 
 func TestInstructionClausesRevision(t *testing.T) {
-	c := qt.New(t)
-	work := t.TempDir()
 	files := map[string]string{
 		"draft.md": "Now that we have a task in the created state we need to make sure that we wait on the task to exit.\n\n" +
 			"The library is designed to allow other applications to use it.",
 		"revision.md": "Once the task is created, wait on it to exit.\n\nThe library is intended for use by other applications.",
 		"control.md":  "The proxy allows you to run a local server to handle API requests, while developing the UI separately.",
 	}
+	checkInstructionRevision(t, files, 2)
+}
+
+func checkInstructionRevision(t *testing.T, files map[string]string, want int) {
+	t.Helper()
+	c := qt.New(t)
+	work := t.TempDir()
 	for name, text := range files {
 		c.Assert(os.WriteFile(filepath.Join(work, name), []byte(text), 0o600), qt.IsNil)
 	}
@@ -34,11 +39,11 @@ func TestInstructionClausesRevision(t *testing.T) {
 		for _, f := range result.Findings {
 			if f.RuleID == "filler.instruction-scaffolding" {
 				count++
-				c.Assert(f.RuleVersion, qt.Equals, "6")
+				c.Assert(f.RuleVersion, qt.Equals, "7")
 				c.Assert(f.Primary.Path, qt.Equals, "draft.md")
 				c.Assert(files["draft.md"][f.Primary.Span.Start:f.Primary.Span.End], qt.Equals, f.Primary.Snippet)
 			}
 		}
-		c.Assert(count, qt.Equals, 2)
+		c.Assert(count, qt.Equals, want)
 	}
 }

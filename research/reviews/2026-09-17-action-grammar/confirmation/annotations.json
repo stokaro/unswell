@@ -1,0 +1,2474 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "6468eeca4765387791e12473f25514803608df0f21787b42ed3a69338efbad46",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4804,
+          "first_line": 1,
+          "last_line": 127,
+          "rationale": "Read all 82 prose blocks and table cells. This is a compact tool and argument reference; repeated type/requirement labels map distinct contracts. No definite wording defect was established. Protected tool names and frontmatter remain outside judged prose.",
+          "prose_blocks": 82,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [],
+      "uncertain": [],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 568,
+              "end": 764,
+              "quote": "The running server's `tools/list` response is authoritative for its\n`agentapi.Version`. Use the index below to find a Ptah-owned tool, then use that\nresponse for its machine-generated JSON Schema."
+            }
+          ],
+          "context": [
+            {
+              "start": 568,
+              "end": 764,
+              "quote": "The running server's `tools/list` response is authoritative for its\n`agentapi.Version`. Use the index below to find a Ptah-owned tool, then use that\nresponse for its machine-generated JSON Schema."
+            }
+          ],
+          "rationale": "The running tools/list response is the correct source for versioned machine schema; the index instruction explains how to obtain it.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2928,
+              "end": 3148,
+              "quote": "`inference_plan` and `inference_status` use the argument schemas advertised by\nthe running server. Their responses distinguish measured state, inferred state,\nunsupported behavior, and text that would leave the database."
+            }
+          ],
+          "context": [
+            {
+              "start": 2928,
+              "end": 3148,
+              "quote": "`inference_plan` and `inference_status` use the argument schemas advertised by\nthe running server. Their responses distinguish measured state, inferred state,\nunsupported behavior, and text that would leave the database."
+            }
+          ],
+          "rationale": "Measured, inferred, unsupported and outbound-text states are distinct response meanings, not repeated claims.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4114,
+              "end": 4298,
+              "quote": "The token is single-use and expires after fifteen minutes. Apply compares the\nartifact digest again, runs the configured gates, and either keeps the result or\nrestores the prior bytes."
+            }
+          ],
+          "context": [
+            {
+              "start": 4114,
+              "end": 4298,
+              "quote": "The token is single-use and expires after fifteen minutes. Apply compares the\nartifact digest again, runs the configured gates, and either keeps the result or\nrestores the prior bytes."
+            }
+          ],
+          "rationale": "Single use, expiration, recheck, gate execution and rollback are separate application requirements.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4335,
+              "end": 4603,
+              "quote": "`schema inspect`, `schema diff`, and `migrations lint` need a scratch database\nthat Ptah resets destructively. They are not exposed behind read-only MCP names.\nRun them through the native CLI, where the person starting the operation also\nnames the disposable database."
+            }
+          ],
+          "context": [
+            {
+              "start": 4335,
+              "end": 4603,
+              "quote": "`schema inspect`, `schema diff`, and `migrations lint` need a scratch database\nthat Ptah resets destructively. They are not exposed behind read-only MCP names.\nRun them through the native CLI, where the person starting the operation also\nnames the disposable database."
+            }
+          ],
+          "rationale": "The excluded tools require destructive scratch operations; the native CLI destination and database ownership explain the boundary.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "68e73401ebe518846d4648174cc3d60b8d2e196f86c8f94ab6e6645f76984bdb",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 8072,
+          "first_line": 1,
+          "last_line": 196,
+          "rationale": "Read all 49 prose blocks and table cells, including verification layers, approval/digest distinctions, query ownership and rollback/retirement conditions. Preserve operational contrasts; label rhetorical self-endorsement and unnecessary narrator setup separately.",
+          "prose_blocks": 49,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 545,
+              "end": 615,
+              "quote": "Three operations are easy to confuse, and confusing them is expensive."
+            }
+          ],
+          "context": [
+            {
+              "start": 545,
+              "end": 641,
+              "quote": "Three operations are easy to confuse, and confusing them is expensive. This page\nseparates them."
+            }
+          ],
+          "rationale": "The ease-of-confusion and cost judgments give no reader context or cost condition before the concrete definitions.",
+          "proposed_edit": "Introduce verification, cutover and rollback directly, retaining their different effects."
+        },
+        {
+          "id": "c02-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 616,
+              "end": 641,
+              "quote": "This page\nseparates them."
+            }
+          ],
+          "context": [
+            {
+              "start": 545,
+              "end": 641,
+              "quote": "Three operations are easy to confuse, and confusing them is expensive. This page\nseparates them."
+            }
+          ],
+          "rationale": "The page announcement repeats the immediately following three definitions.",
+          "proposed_edit": "Keep the definitions without announcing the page."
+        },
+        {
+          "id": "c02-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2034,
+              "end": 2144,
+              "quote": "and says so rather than letting a\nreport that names only what it checked read as though it checked everything."
+            }
+          ],
+          "context": [
+            {
+              "start": 1915,
+              "end": 2144,
+              "quote": "`verify` also reports what it did not measure. It checks a stored vector's\ndimension without reading every value back, and says so rather than letting a\nreport that names only what it checked read as though it checked everything."
+            }
+          ],
+          "rationale": "The names/checked/checks-everything chain restates the need to disclose unmeasured layers indirectly.",
+          "proposed_edit": "State that the report identifies unmeasured layers; retain the dimension-without-value-read example."
+        },
+        {
+          "id": "c02-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2435,
+              "end": 2460,
+              "quote": "and worth stating in full"
+            }
+          ],
+          "context": [
+            {
+              "start": 2340,
+              "end": 2736,
+              "quote": "Neither of them proves your application is correct. What a passing run\nestablishes is narrower and worth stating in full: Ptah verified the configured\nstructural, freshness, consistency and retrieval-evaluation conditions for the\nexact recorded generation. Whether the answers that corpus returns are the ones\nyour users should get is a question about your application, and no check here\nasks it."
+            }
+          ],
+          "rationale": "The attention announcement adds no limit to the explicit verified-condition list.",
+          "proposed_edit": "Keep the exact generation and condition list without the worth-stating announcement."
+        },
+        {
+          "id": "c02-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3198,
+              "end": 3254,
+              "quote": "A name given this way is a name the operator wrote down."
+            }
+          ],
+          "context": [
+            {
+              "start": 3198,
+              "end": 3540,
+              "quote": "A name given this way is a name the operator wrote down. A signature over the\nplan file is a different claim — whose key covered these exact bytes — and the\npublished record says which it was, in `approval_signed`. A cutover and a\nretirement both carry it, and a record with the field absent was authorized by a\nname rather than by a key."
+            }
+          ],
+          "rationale": "The name/name/wrote-down phrasing indirectly defines an operator assertion.",
+          "proposed_edit": "State that this authorization records an operator-supplied name, and retain the distinction from a signature and approval_signed."
+        },
+        {
+          "id": "c02-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4620,
+              "end": 4693,
+              "quote": "The\nacceptance of blocking findings is the line that carries that weight:"
+            }
+          ],
+          "context": [
+            {
+              "start": 4476,
+              "end": 4859,
+              "quote": "An approval binds to the digest, so anything the digest covers and the file\nomits is something the approver signed for and could not have read. The\nacceptance of blocking findings is the line that carries that weight: it is what\nseparates a cutover going ahead over a failed verification from one going ahead\nbecause verification passed, and the two are otherwise the same operation."
+            }
+          ],
+          "rationale": "The weight metaphor postpones the precise accepted-findings distinction.",
+          "proposed_edit": "Name the accepted blocking findings directly, retaining why they must be in the signed plan."
+        },
+        {
+          "id": "c02-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4897,
+              "end": 5043,
+              "quote": "A file silent about accepted findings cannot\nbe told from one whose author had nothing to say, and the reader deciding is the\none who cannot tell."
+            }
+          ],
+          "context": [
+            {
+              "start": 4861,
+              "end": 5043,
+              "quote": "Empty lists still write their line. A file silent about accepted findings cannot\nbe told from one whose author had nothing to say, and the reader deciding is the\none who cannot tell."
+            }
+          ],
+          "rationale": "The author/reader/tell scenario repeats the ambiguity of an omitted empty list.",
+          "proposed_edit": "Say that an explicit empty list distinguishes no accepted findings from omitted information."
+        },
+        {
+          "id": "c02-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5212,
+              "end": 5272,
+              "quote": "Two\nconsequences follow, and both are why the line is there:"
+            }
+          ],
+          "context": [
+            {
+              "start": 5045,
+              "end": 5272,
+              "quote": "`verification report` is a digest of what the report *measured* — the verdict, the row\ncounts, the findings, the layers that did not run — and not of when it ran. Two\nconsequences follow, and both are why the line is there:"
+            }
+          ],
+          "rationale": "The justification announces the following consequences without adding a digest condition.",
+          "proposed_edit": "Present the two consequences directly."
+        },
+        {
+          "id": "c02-d09",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5592,
+              "end": 5647,
+              "quote": "which is what makes it a citation rather than a number."
+            }
+          ],
+          "context": [
+            {
+              "start": 5505,
+              "end": 5647,
+              "quote": "The value is reproducible. Anybody holding the verification record can\n  recompute it, which is what makes it a citation rather than a number."
+            }
+          ],
+          "rationale": "The citation-versus-number judgment repeats the already stated recomputability without another verification step.",
+          "proposed_edit": "Keep that a holder of the record can recompute the digest."
+        },
+        {
+          "id": "c02-d10",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 6381,
+              "end": 6413,
+              "quote": "The second is what most teams do"
+            }
+          ],
+          "context": [
+            {
+              "start": 6381,
+              "end": 6488,
+              "quote": "The second is what most teams do, and it means the cutover and the deploy are two\nsteps you order yourself."
+            }
+          ],
+          "rationale": "The majority claim about teams has no stated evidence or population.",
+          "proposed_edit": "Describe the second approach and the required ordering without the majority claim."
+        },
+        {
+          "id": "c02-d11",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6493,
+              "end": 6529,
+              "quote": "Rollback is a property, not a button"
+            }
+          ],
+          "context": [
+            {
+              "start": 6493,
+              "end": 6529,
+              "quote": "Rollback is a property, not a button"
+            }
+          ],
+          "rationale": "The property-versus-button slogan does not name the concrete freshness and stabilization prerequisites.",
+          "proposed_edit": "Use a heading such as Rollback requirements; retain both conditions below."
+        },
+        {
+          "id": "c02-d12",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6688,
+              "end": 6729,
+              "quote": "and this is the part worth reading twice."
+            }
+          ],
+          "context": [
+            {
+              "start": 6650,
+              "end": 6729,
+              "quote": "That window is not enough on its own, and this is the part worth reading twice."
+            }
+          ],
+          "rationale": "The attention instruction adds no rollback prerequisite.",
+          "proposed_edit": "State directly that the window alone is insufficient, then explain catch-up."
+        },
+        {
+          "id": "c02-d13",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7446,
+              "end": 7484,
+              "quote": "which is the honest answer, not a gap."
+            }
+          ],
+          "context": [
+            {
+              "start": 7184,
+              "end": 7484,
+              "quote": "`rollback` measures the previous generation before it moves anything: is it\npresent, is it still being maintained, how many rows are stale or missing, is its\nindex valid, and was the cutover recent enough for the window. A generation that\ndrifted is refused — which is the honest answer, not a gap."
+            }
+          ],
+          "rationale": "The honesty and gap judgments endorse the refusal instead of adding an operational condition.",
+          "proposed_edit": "Keep the explicit refusal of a drifted previous generation."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c02-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2597,
+              "end": 2736,
+              "quote": "Whether the answers that corpus returns are the ones\nyour users should get is a question about your application, and no check here\nasks it."
+            }
+          ],
+          "context": [
+            {
+              "start": 2340,
+              "end": 2736,
+              "quote": "Neither of them proves your application is correct. What a passing run\nestablishes is narrower and worth stating in full: Ptah verified the configured\nstructural, freshness, consistency and retrieval-evaluation conditions for the\nexact recorded generation. Whether the answers that corpus returns are the ones\nyour users should get is a question about your application, and no check here\nasks it."
+            }
+          ],
+          "rationale": "The application-quality limitation partly repeats the opening, but separates corpus-specific evaluation from user needs. Necessity of shortening is unresolved.",
+          "proposed_edit": "Optionally combine the application-correctness limitation while retaining its scope."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1729,
+              "end": 1913,
+              "quote": "It cannot tell you the vectors are *good*. Every layer above is a deterministic\nquestion about shape, coverage, and freshness — none of them asks whether the\nsearch results improved."
+            }
+          ],
+          "context": [
+            {
+              "start": 1729,
+              "end": 1913,
+              "quote": "It cannot tell you the vectors are *good*. Every layer above is a deterministic\nquestion about shape, coverage, and freshness — none of them asks whether the\nsearch results improved."
+            }
+          ],
+          "rationale": "Shape/coverage/freshness verification is distinct from retrieval improvement; the contrast defines applicability.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3542,
+              "end": 3742,
+              "quote": "The approval binds to the digest. If anything the plan rests on changed between\nyou reading it and approving it, the digest changes and the approval is refused\nrather than applied to a different plan."
+            }
+          ],
+          "context": [
+            {
+              "start": 3542,
+              "end": 3742,
+              "quote": "The approval binds to the digest. If anything the plan rests on changed between\nyou reading it and approving it, the digest changes and the approval is refused\nrather than applied to a different plan."
+            }
+          ],
+          "rationale": "Digest changes invalidate approval and prevent applying approval to a different plan; the consequence is concrete.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3744,
+              "end": 3901,
+              "quote": "The digest covers the plan, not the clock. What is true *now* — the pointer, the\nfreshness, the findings — is checked again at the moment of the cutover."
+            }
+          ],
+          "context": [
+            {
+              "start": 3744,
+              "end": 3901,
+              "quote": "The digest covers the plan, not the clock. What is true *now* — the pointer, the\nfreshness, the findings — is checked again at the moment of the cutover."
+            }
+          ],
+          "rationale": "Plan identity and current runtime state must be checked separately; this is a necessary temporal distinction.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 5937,
+              "end": 6048,
+              "quote": "Moving the pointer does not rewrite your application's SQL, and Ptah will not do\nthat for you. Two shapes work:"
+            }
+          ],
+          "context": [
+            {
+              "start": 5937,
+              "end": 6048,
+              "quote": "Moving the pointer does not rewrite your application's SQL, and Ptah will not do\nthat for you. Two shapes work:"
+            }
+          ],
+          "rationale": "Moving the internal pointer does not change application SQL; the two integration choices depend on that limitation.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7620,
+              "end": 7956,
+              "quote": "`retire` drops a generation's index and, by default, its column. The vectors\nlive in that column, so `--drop-column=false` keeps them: the run becomes an\nindex drop. It takes the same digest-bound approval a cutover does, the digest\nbinds which of the two answers was approved, and it is refused while queries\nstill read the generation."
+            }
+          ],
+          "context": [
+            {
+              "start": 7620,
+              "end": 7956,
+              "quote": "`retire` drops a generation's index and, by default, its column. The vectors\nlive in that column, so `--drop-column=false` keeps them: the run becomes an\nindex drop. It takes the same digest-bound approval a cutover does, the digest\nbinds which of the two answers was approved, and it is refused while queries\nstill read the generation."
+            }
+          ],
+          "rationale": "Index-only versus column removal, approval binding and the active-generation refusal are different retirement contracts.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7958,
+              "end": 8071,
+              "quote": "There is no undo. The vectors are gone, and rebuilding them means paying the\nprovider for the whole corpus again."
+            }
+          ],
+          "context": [
+            {
+              "start": 7958,
+              "end": 8071,
+              "quote": "There is no undo. The vectors are gone, and rebuilding them means paying the\nprovider for the whole corpus again."
+            }
+          ],
+          "rationale": "No undo and provider recomputation are concrete consequences of dropping vector storage.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "881f2ed0a2a3c77016e7e84a2e4da49489f4f19ea338e28f0fd1e3fbf0a081c7",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 26741,
+          "first_line": 1,
+          "last_line": 694,
+          "rationale": "Read all 152 prose blocks and table cells. Preserve registry authentication, integrity/authenticity limits, failure ordering, publication subjects, tag behavior, race evidence and schema row contracts. Repeated command-specific requirements remain distinct. Possible contradictory feature descriptions need factual verification and are outside this editorial review.",
+          "prose_blocks": 152,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3801,
+              "end": 3877,
+              "quote": "because taking it away would log you out\nof something you did not ask about."
+            }
+          ],
+          "context": [
+            {
+              "start": 3690,
+              "end": 3877,
+              "quote": "`ptah oci logout` removes what Ptah stored and nothing else. A credential\n`docker login` placed is left alone, because taking it away would log you out\nof something you did not ask about."
+            }
+          ],
+          "rationale": "The indirect something-you-did-not-ask-about clause restates the Docker credential boundary through an unnamed consequence.",
+          "proposed_edit": "State that Docker-managed logins remain available; preserve the separate Ptah store boundary."
+        },
+        {
+          "id": "c03-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6786,
+              "end": 6889,
+              "quote": "for what that verification establishes over a movable tag, which is less than\nthe flag's name suggests:"
+            }
+          ],
+          "context": [
+            {
+              "start": 6494,
+              "end": 7169,
+              "quote": "`--verify-sum` is available on `up`, `down` and `status`. It verifies the pulled\nartifact before opening the database and, unlike the always-on gate, refuses an\nartifact that carries no integrity file at all. Read\n[Identity, integrity, and authenticity](#identity-integrity-and-authenticity)\nfor what that verification establishes over a movable tag, which is less than\nthe flag's name suggests: the sum travels inside the artifact, so it proves the\npulled files are internally consistent, not that they are the reviewed ones.\nPin a digest to fix which bytes a later pull gets; that section also explains\nwhy pinning one is not by itself a statement about who published them."
+            }
+          ],
+          "rationale": "The expectation-of-the-name preface delays the exact internal-consistency limit.",
+          "proposed_edit": "Link to the explanation and state the internal-consistency limit directly, retaining digest and publisher distinctions."
+        },
+        {
+          "id": "c03-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 13832,
+              "end": 13943,
+              "quote": "because one\nthat accepted the manifest and built no entry looks exactly like one that did\nuntil somebody checks"
+            }
+          ],
+          "context": [
+            {
+              "start": 13392,
+              "end": 14026,
+              "quote": "A registry that gained the referrers index after Ptah published through its\ndurable tag holds attachments no other OCI client can find, and nothing about\nthe artifact says so. `ptah oci reindex` repairs that by republishing the\nmanifest: the content is byte-identical, so the digest does not move, and a\nregistry serving the index builds the entry when it receives a manifest\ncarrying a subject. The pass ends by asking the registry again, because one\nthat accepted the manifest and built no entry looks exactly like one that did\nuntil somebody checks — anything still missing is reported as unrepaired rather\nthan counted as fixed."
+            }
+          ],
+          "rationale": "The one/one/did/somebody chain obscures the requirement to verify the index entry after upload.",
+          "proposed_edit": "Say that successful manifest upload does not prove an index entry exists; retain the final check and unrepaired status."
+        },
+        {
+          "id": "c03-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 14472,
+              "end": 14546,
+              "quote": "Four questions come up before an artifact is applied, and each has a verb."
+            }
+          ],
+          "context": [
+            {
+              "start": 14472,
+              "end": 14546,
+              "quote": "Four questions come up before an artifact is applied, and each has a verb."
+            }
+          ],
+          "rationale": "The questions-and-verbs announcement repeats the structure of the following four command entries.",
+          "proposed_edit": "Start with the four questions and their commands."
+        },
+        {
+          "id": "c03-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 14601,
+              "end": 14740,
+              "quote": "The aliases are what a\npromotion moves and what a pin replaces, so this is the view that says which of\nthem a repository currently carries."
+            }
+          ],
+          "context": [
+            {
+              "start": 14550,
+              "end": 14740,
+              "quote": "Which aliases exist?** `ptah oci tags` lists them. The aliases are what a\npromotion moves and what a pin replaces, so this is the view that says which of\nthem a repository currently carries."
+            }
+          ],
+          "rationale": "The what/what/view-that-says chain repeats the tag-listing purpose instead of naming it directly.",
+          "proposed_edit": "Say tags lists current aliases; retain the promotion-versus-pinning distinction where needed."
+        },
+        {
+          "id": "c03-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 15536,
+              "end": 15584,
+              "quote": "and the source column is the part worth\nreading."
+            }
+          ],
+          "context": [
+            {
+              "start": 15501,
+              "end": 15842,
+              "quote": "It reports referrer discovery too, and the source column is the part worth\nreading. Ptah writes both the standard referrers index and its own\ncontent-derived durable tag; a referrer listed as `durable-tag` came back from\nthe second mechanism only, which means Ptah finds it and another OCI client may\nnot. `--no-referrers` skips that lookup."
+            }
+          ],
+          "rationale": "The attention judgment adds no condition to the following durable-tag interpretation.",
+          "proposed_edit": "Explain the source column directly and retain the cross-client limitation."
+        },
+        {
+          "id": "c03-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 16186,
+              "end": 16336,
+              "quote": "A refusal naming the API as unsupported is the registry saying\nno; anything else is a failure to ask, and is reported as an error rather than\nas a no."
+            }
+          ],
+          "context": [
+            {
+              "start": 16020,
+              "end": 16336,
+              "quote": "The question is put with the client pinned to the referrers API, so it cannot\nquietly fall back to the tag schema and report a success that came from\nsomewhere else. A refusal naming the API as unsupported is the registry saying\nno; anything else is a failure to ask, and is reported as an error rather than\nas a no."
+            }
+          ],
+          "rationale": "The saying-no/failure-to-ask metaphor obscures two exact outcomes.",
+          "proposed_edit": "Distinguish an explicit unsupported-API response from other request errors without the conversational metaphor."
+        },
+        {
+          "id": "c03-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 21822,
+              "end": 21909,
+              "quote": "the command-surface test keeps the flag and resolver paired as\nnew consumers are added."
+            }
+          ],
+          "context": [
+            {
+              "start": 21657,
+              "end": 21909,
+              "quote": "Every native command that accepts `--schema-file` resolves `oci://` through it\nand exposes `--plain-http` for a trusted local registry. This includes\n`schema test`; the command-surface test keeps the flag and resolver paired as\nnew consumers are added."
+            }
+          ],
+          "rationale": "The testing-process claim adds no current command behavior after the flag and resolver scope is already stated.",
+          "proposed_edit": "Keep the supported command scope and schema test example without narrating the CI mechanism."
+        },
+        {
+          "id": "c03-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 24550,
+              "end": 24638,
+              "quote": "does not make the Atlas-compatible `migrate push` or\n`schema push` implemented commands."
+            }
+          ],
+          "context": [
+            {
+              "start": 24530,
+              "end": 24806,
+              "quote": "The native workflow does not make the Atlas-compatible `migrate push` or\n`schema push` implemented commands. Those paths remain Atlas community-edition\nboundary stubs in the `ptah-compat` binary, and the Atlas-compatible apply\ncommand does not gain native OCI transport flags."
+            }
+          ],
+          "rationale": "Make-commands-implemented is an indirect description of the unavailable compatible verbs.",
+          "proposed_edit": "State that the Atlas-compatible migrate push and schema push remain unimplemented; retain the native-versus-compatible distinction and flag behavior."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c03-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7993,
+              "end": 8040,
+              "quote": "there is no movable\npointer left to warn about."
+            }
+          ],
+          "context": [
+            {
+              "start": 7771,
+              "end": 8040,
+              "quote": "When the reference is a tag, a successful run prints on standard error the same\nmovable-tag qualifier `up`, `down` and `status` print, naming the digest the tag\nresolved to. A digest-pinned reference prints nothing extra: there is no movable\npointer left to warn about."
+            }
+          ],
+          "rationale": "The closing rationale repeats digest immutability but can clarify why stderr differs. Its editorial necessity is unresolved.",
+          "proposed_edit": "Optionally keep only the exact digest-pinned output behavior."
+        },
+        {
+          "id": "c03-u02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 20586,
+              "end": 20664,
+              "quote": "so the layer beside the schema is the only account of the rows a\nconsumer has."
+            }
+          ],
+          "context": [
+            {
+              "start": 20259,
+              "end": 20937,
+              "quote": "An artifact that declares reference rows is written as two files: the canonical\nHCL at `--out`, and `managed-data.json` beside it. Both paths are printed. The\nHCL carries the declaration and not the rows -- a `data` block names the row\nfile of the working copy that published the artifact, and that path exists\nnowhere else -- so the layer beside the schema is the only account of the rows a\nconsumer has. Keep the pair together: `--schema-file` reads the rows from it,\nwhether you name the HCL or the directory holding it. Neither file is written\nwhen the other cannot be, because a canonical HCL beside a missing row layer\nreads exactly like an artifact that declares no rows."
+            }
+          ],
+          "rationale": "The account-of-the-rows wording is indirect, but reinforces a meaningful two-file portability requirement.",
+          "proposed_edit": "Optionally say the adjacent row layer supplies the consumer data; retain atomic writing and pair ownership."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2088,
+              "end": 2530,
+              "quote": ":::caution[Tags are not immutable]\nPtah rejects a generated or explicit version tag that already resolves to\ndifferent content, and generated tags include cryptographic randomness.\nThis is a client-side preflight: concurrent writers reusing an explicit\n`--version` still require registry-side immutable-tag policy. Positional,\n`--tag`, and `latest` aliases remain movable. Only the returned\n`@sha256:...` digest is mechanically immutable.\n:::"
+            }
+          ],
+          "context": [
+            {
+              "start": 2088,
+              "end": 2530,
+              "quote": ":::caution[Tags are not immutable]\nPtah rejects a generated or explicit version tag that already resolves to\ndifferent content, and generated tags include cryptographic randomness.\nThis is a client-side preflight: concurrent writers reusing an explicit\n`--version` still require registry-side immutable-tag policy. Positional,\n`--tag`, and `latest` aliases remain movable. Only the returned\n`@sha256:...` digest is mechanically immutable.\n:::"
+            }
+          ],
+          "rationale": "Client preflight does not prevent concurrent tag races; registry policy and digest immutability are separate guarantees.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4490,
+              "end": 4699,
+              "quote": "An OCI digest identifies exact bytes, not the publisher. `ptah.sum` and\n`atlas.sum` detect changes inside a migration directory, but they are not\nsignatures. Ptah does not currently verify artifact signatures."
+            }
+          ],
+          "context": [
+            {
+              "start": 4490,
+              "end": 4699,
+              "quote": "An OCI digest identifies exact bytes, not the publisher. `ptah.sum` and\n`atlas.sum` detect changes inside a migration directory, but they are not\nsignatures. Ptah does not currently verify artifact signatures."
+            }
+          ],
+          "rationale": "Digest identity, directory integrity and publisher authenticity are distinct security properties.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 8042,
+              "end": 8238,
+              "quote": "It does not replace `--verify-sum` on the consuming verbs: a separate call\nresolves the tag in its own process, so a movable tag can select different bytes\nbefore `up` or `down` resolves it again."
+            }
+          ],
+          "context": [
+            {
+              "start": 8042,
+              "end": 8238,
+              "quote": "It does not replace `--verify-sum` on the consuming verbs: a separate call\nresolves the tag in its own process, so a movable tag can select different bytes\nbefore `up` or `down` resolves it again."
+            }
+          ],
+          "rationale": "A separate validation call cannot bind a later movable-tag resolution; this is an essential ordering limitation.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 8621,
+              "end": 9120,
+              "quote": ":::caution[Fixed: this did not hold on Windows]\nEarlier releases installed the staged directory with a move that asks Windows\nto replace whatever it finds. An entry appearing at the destination between the\nabsence check and the install was therefore **overwritten there, and its\ncontents lost** — measured on `windows-latest`, a file written at the\ndestination mid-pull was gone and the pulled directory stood in its place. Unix\nwas unaffected, where the same move refuses an occupied destination."
+            }
+          ],
+          "context": [
+            {
+              "start": 8621,
+              "end": 9120,
+              "quote": ":::caution[Fixed: this did not hold on Windows]\nEarlier releases installed the staged directory with a move that asks Windows\nto replace whatever it finds. An entry appearing at the destination between the\nabsence check and the install was therefore **overwritten there, and its\ncontents lost** — measured on `windows-latest`, a file written at the\ndestination mid-pull was gone and the pulled directory stood in its place. Unix\nwas unaffected, where the same move refuses an occupied destination."
+            }
+          ],
+          "rationale": "The historical Windows race and observed data loss explain a platform-specific correction rather than repeating a success claim.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11324,
+              "end": 11626,
+              "quote": "Plan attachment requires exactly one OCI `--schema-file`. Combining that source\nwith a local schema file, Go root, or external schema command is rejected\nbecause Ptah cannot choose an unambiguous subject. Planning without `--attach`\ncan still include OCI schema artifacts in a composite desired schema."
+            }
+          ],
+          "context": [
+            {
+              "start": 11324,
+              "end": 11626,
+              "quote": "Plan attachment requires exactly one OCI `--schema-file`. Combining that source\nwith a local schema file, Go root, or external schema command is rejected\nbecause Ptah cannot choose an unambiguous subject. Planning without `--attach`\ncan still include OCI schema artifacts in a composite desired schema."
+            }
+          ],
+          "rationale": "Exactly one OCI source is required for an attachment subject, while unattached planning permits a composite schema. Both branches matter.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c06",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 12310,
+              "end": 12571,
+              "quote": "The content-derived tags are a Ptah extension. A different client that reads\nonly the standard tag-schema index can miss an entry after concurrent\ncross-process publication. Use a registry with the native Referrers API for\ncomplete cross-client audit discovery."
+            }
+          ],
+          "context": [
+            {
+              "start": 12310,
+              "end": 12571,
+              "quote": "The content-derived tags are a Ptah extension. A different client that reads\nonly the standard tag-schema index can miss an entry after concurrent\ncross-process publication. Use a registry with the native Referrers API for\ncomplete cross-client audit discovery."
+            }
+          ],
+          "rationale": "Ptah-specific durable tags do not establish discovery by other OCI clients; the native API condition is necessary.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 16791,
+              "end": 17334,
+              "quote": "That second layer carries the declared rows themselves, under\n`application/vnd.stokaro.ptah.managed-data.v1+json`. A `data` block names a file\nin the working copy that declared it, and an artifact travels without that\nworking copy, so the rows travel instead. Each value keeps the YAML tag it\nresolved to and the text that declared it: `007` and `\"007\"` are different\nvalues in the same column, and resolving them to Go values loses the\ndifference. A column absent from a row was not declared, and a column written as\n`null` was declared null."
+            }
+          ],
+          "context": [
+            {
+              "start": 16791,
+              "end": 17334,
+              "quote": "That second layer carries the declared rows themselves, under\n`application/vnd.stokaro.ptah.managed-data.v1+json`. A `data` block names a file\nin the working copy that declared it, and an artifact travels without that\nworking copy, so the rows travel instead. Each value keeps the YAML tag it\nresolved to and the text that declared it: `007` and `\"007\"` are different\nvalues in the same column, and resolving them to Go values loses the\ndifference. A column absent from a row was not declared, and a column written as\n`null` was declared null."
+            }
+          ],
+          "rationale": "YAML tags, declared lexemes and absent-versus-null fields preserve different source identities and cannot be merged into one value claim.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 21244,
+              "end": 21626,
+              "quote": ":::caution\nA source that declares no tables is published rather than refused. The push\nexits `0` and writes an artifact whose canonical HCL is the generated-file\nheader and nothing else, so a build step that reads only the exit code can move\n`latest` onto an empty schema. Check that the source parsed —\n`ptah schema render` over it prints the tables — before the push step.\n:::"
+            }
+          ],
+          "context": [
+            {
+              "start": 21244,
+              "end": 21626,
+              "quote": ":::caution\nA source that declares no tables is published rather than refused. The push\nexits `0` and writes an artifact whose canonical HCL is the generated-file\nheader and nothing else, so a build step that reads only the exit code can move\n`latest` onto an empty schema. Check that the source parsed —\n`ptah schema render` over it prints the tables — before the push step.\n:::"
+            }
+          ],
+          "rationale": "Successful publication of an empty schema can move latest; the render check is a concrete mitigation.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "9c6497f30ca0e318157a7e532f9b018fae7ab3a2dfbe1c4f248b0f34feb8dc6c",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 26344,
+          "first_line": 1,
+          "last_line": 609,
+          "rationale": "Read all 159 extracted blocks and the surrounding text, including release compatibility, thread ownership, buffer APIs, operating-system branches and examples. Text-mode extraction also contains literal C examples; they were not judged as natural-language defects. This page has shared prose with the previously reviewed Libevent 2.1 notes and is reported separately as partially exposed. Preserve actual capability changes and unoptimized-code caveats.",
+          "prose_blocks": 159,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 278,
+              "end": 357,
+              "quote": "  NOTE: I am very sure that I missed some thing on this list.  Caveat\n  haxxor."
+            }
+          ],
+          "context": [
+            {
+              "start": 278,
+              "end": 357,
+              "quote": "  NOTE: I am very sure that I missed some thing on this list.  Caveat\n  haxxor."
+            }
+          ],
+          "rationale": "The personal certainty and joke wrap a simple incompleteness notice without specifying a missing feature. This wording was already exposed in the 2.1 notes.",
+          "proposed_edit": "State that the list may be incomplete."
+        },
+        {
+          "id": "c04-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1134,
+              "end": 1276,
+              "quote": "This is nothing new; we have never been good at\n  preserving binary compatibility between releases.  We'll try harder in the\n  future, though:"
+            }
+          ],
+          "context": [
+            {
+              "start": 1035,
+              "end": 1291,
+              "quote": "  Binaries linked against Libevent 1.4 will need to be recompiled to link\n  against Libevent 2.0.  This is nothing new; we have never been good at\n  preserving binary compatibility between releases.  We'll try harder in the\n  future, though: see 2.1 below."
+            }
+          ],
+          "rationale": "Self-evaluation and an unspecified promise add no current binary compatibility contract.",
+          "proposed_edit": "Keep the required recompilation and the link to the header-layout explanation."
+        },
+        {
+          "id": "c04-d03",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 1391,
+              "end": 1470,
+              "quote": "to make it easier for programmers to\n  write good, well-supported libevent code"
+            }
+          ],
+          "context": [
+            {
+              "start": 1352,
+              "end": 1520,
+              "quote": "  Libevent 2.0 has a new header layout to make it easier for programmers to\n  write good, well-supported libevent code.  The new headers are divided\n  into three types."
+            }
+          ],
+          "rationale": "The ease and code-quality claims name no outcome or condition beyond the subsequent specific header categories.",
+          "proposed_edit": "Describe the regular, compatibility and structure header separation directly."
+        },
+        {
+          "id": "c04-d04",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 1599,
+              "end": 1651,
+              "quote": "the functions that most programmers will want to use"
+            }
+          ],
+          "context": [
+            {
+              "start": 1522,
+              "end": 1652,
+              "quote": "  There are *regular headers*, like event2/event.h.  These headers contain\n  the functions that most programmers will want to use."
+            }
+          ],
+          "rationale": "The majority and reader-preference claims do not identify the current supported function category.",
+          "proposed_edit": "Describe these as the regular API functions and preserve the example header."
+        },
+        {
+          "id": "c04-d05",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 2696,
+              "end": 2739,
+              "quote": "unless they really know what they are doing"
+            }
+          ],
+          "context": [
+            {
+              "start": 2105,
+              "end": 2929,
+              "quote": "  Finally, there are *structure headers*, like event2/event_struct.h.\n  These headers contain definitions of some structures that Libevent has\n  historically exposed.  Exposing them caused problems in the past,\n  since programs that were compiled to work with one version of Libevent\n  would often stop working with another version that changed the size or\n  layout of some object.  We've moving them into separate headers so\n  that programmers can know that their code is not depending on any\n  unstable aspect of the Libvent ABI.  New programs should generally not\n  include these headers unless they really know what they are doing, are\n  willing to rebuild their software whenever they want to link it\n  against a new version of Libevent, and are willing to risk their code\n  breaking if and when data structures change."
+            }
+          ],
+          "rationale": "Reader confidence is not a usable condition for depending on an unstable ABI.",
+          "proposed_edit": "Keep the concrete willingness to rebuild and tolerate structure changes as the conditions; remove the knowledge judgment."
+        },
+        {
+          "id": "c04-d06",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 3485,
+              "end": 3502,
+              "quote": "harder-to-mess-up"
+            }
+          ],
+          "context": [
+            {
+              "start": 3444,
+              "end": 3507,
+              "quote": "2.2. New thread-safe, binary-compatible, harder-to-mess-up APIs"
+            }
+          ],
+          "rationale": "The heading promises nonspecific ease beside two concrete compatibility properties.",
+          "proposed_edit": "Keep thread-safe and binary-compatible and let the explicit base and allocation mechanisms explain error prevention."
+        },
+        {
+          "id": "c04-d07",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 4052,
+              "end": 4072,
+              "quote": "horribly error-prone"
+            }
+          ],
+          "context": [
+            {
+              "start": 3750,
+              "end": 4073,
+              "quote": "     1) Dependence on the \"current\" event_base.  In an application with\n        multiple event_bases, Libevent previously had a notion of the\n        \"current\" event_base.  New events were linked to this base, and\n        the caller needed to explicitly reattach them to another base.\n        This was horribly error-prone."
+            }
+          ],
+          "rationale": "The severity adjective supplies no failure rate or additional failure mechanism.",
+          "proposed_edit": "Describe the risk of attaching to the wrong base, retaining the explicit reattachment requirement."
+        },
+        {
+          "id": "c04-d08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5055,
+              "end": 5229,
+              "quote": "        (For people who do really want to allocate a struct event on the\n        stack, or put one inside another structure, you can still use\n        event2/event_compat.h.)"
+            }
+          ],
+          "context": [
+            {
+              "start": 5055,
+              "end": 5229,
+              "quote": "        (For people who do really want to allocate a struct event on the\n        stack, or put one inside another structure, you can still use\n        event2/event_compat.h.)"
+            }
+          ],
+          "rationale": "The for-people/want/can frame surrounds a concrete alternative for two allocation goals.",
+          "proposed_edit": "For stack allocation or embedding in another structure, use event2/event_compat.h; retain the version-compatibility caveat from context."
+        },
+        {
+          "id": "c04-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5923,
+              "end": 6132,
+              "quote": "If you want to override the allocation functions used by libevent\n  (for example, to use a specialized allocator, or debug memory\n  issues, or so on), you can replace them by calling\n  event_set_mem_functions."
+            }
+          ],
+          "context": [
+            {
+              "start": 5921,
+              "end": 6194,
+              "quote": "  If you want to override the allocation functions used by libevent\n  (for example, to use a specialized allocator, or debug memory\n  issues, or so on), you can replace them by calling\n  event_set_mem_functions.  It takes replacements for malloc(),\n  free(), and realloc()."
+            }
+          ],
+          "rationale": "Reader intention and replacement restate the same overriding goal before the named operation.",
+          "proposed_edit": "To override allocation functions, call event_set_mem_functions; keep the specialized allocator/debug examples and the required timing below."
+        },
+        {
+          "id": "c04-d10",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 6784,
+              "end": 6898,
+              "quote": "This was annoying\n  to programmers who wanted to pick a backend explicitly without messing\n  with the environment."
+            }
+          ],
+          "context": [
+            {
+              "start": 6588,
+              "end": 6898,
+              "quote": "  Older versions of Libevent would always got the fastest backend\n  available, unless you reconfigured their behavior with the environment\n  variables EVENT_NOSELECT, EVENT_NOPOLL, and so forth.  This was annoying\n  to programmers who wanted to pick a backend explicitly without messing\n  with the environment."
+            }
+          ],
+          "rationale": "The reader-reaction judgment adds no technical constraint to the lack of direct backend selection.",
+          "proposed_edit": "State that explicit backend selection required environment changes."
+        },
+        {
+          "id": "c04-d11",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6908,
+              "end": 6932,
+              "quote": "despite our best efforts"
+            }
+          ],
+          "context": [
+            {
+              "start": 6900,
+              "end": 7272,
+              "quote": "  Also, despite our best efforts, not every backend supports every\n  operation we might like.  Some features (like edge-triggered events, or\n  working with non-socket file descriptors) only work with some operating\n  systems' fast backends.  Previously, programmers who cared about this\n  needed to know which backends supported what.  This tended to get quite\n  ungainly."
+            }
+          ],
+          "rationale": "The effort endorsement does not explain which backends lack a feature.",
+          "proposed_edit": "Keep the backend and operating-system limitations directly."
+        },
+        {
+          "id": "c04-d12",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 7236,
+              "end": 7272,
+              "quote": "This tended to get quite\n  ungainly."
+            }
+          ],
+          "context": [
+            {
+              "start": 6900,
+              "end": 7272,
+              "quote": "  Also, despite our best efforts, not every backend supports every\n  operation we might like.  Some features (like edge-triggered events, or\n  working with non-socket file descriptors) only work with some operating\n  systems' fast backends.  Previously, programmers who cared about this\n  needed to know which backends supported what.  This tended to get quite\n  ungainly."
+            }
+          ],
+          "rationale": "The closing evaluation adds no detail to the need to track backend feature support.",
+          "proposed_edit": "Keep the specific old selection requirement and the replacement API."
+        },
+        {
+          "id": "c04-d13",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 8466,
+              "end": 8602,
+              "quote": "This is not what\n  applications tend to want.  Instead, applications tend to want every\n  triggering of the event to re-set the timeout."
+            }
+          ],
+          "context": [
+            {
+              "start": 8343,
+              "end": 8833,
+              "quote": "  Previously, it wasn't useful to set a timeout on a persistent event:\n  the timeout would trigger once, and never again.  This is not what\n  applications tend to want.  Instead, applications tend to want every\n  triggering of the event to re-set the timeout.  So now, if you set\n  up an event like this:\n       struct event *ev;\n       struct timeval tv;\n       ev = event_new(base, fd, EV_READ|EV_PERSIST, cb, NULL);\n       tv.tv_sec = 1;\n       tv.tv_usec = 0;\n       event_add(ev, &tv);"
+            }
+          ],
+          "rationale": "The repeated application-preference framing delays the actual change to persistent timeout resetting.",
+          "proposed_edit": "State that each event trigger now resets the timeout, retaining both readiness and elapsed-time trigger behavior."
+        },
+        {
+          "id": "c04-d14",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9543,
+              "end": 9644,
+              "quote": "If you want threading support and you're using pthreads, you can just\n  call evthread_use_pthreads()."
+            }
+          ],
+          "context": [
+            {
+              "start": 9541,
+              "end": 9782,
+              "quote": "  If you want threading support and you're using pthreads, you can just\n  call evthread_use_pthreads().  (You'll need to link against the\n  libevent_pthreads library in addition to libevent_core.  These functions are\n  not in libevent_core.)"
+            }
+          ],
+          "rationale": "The reader desire and can-just-call frame delays the direct initialization instruction.",
+          "proposed_edit": "To enable threading with pthreads, call evthread_use_pthreads(); keep both required libraries and their ownership."
+        },
+        {
+          "id": "c04-d15",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9784,
+              "end": 9893,
+              "quote": "  If you want threading support and you're using Windows, you can just\n  call evthread_use_windows_threads()."
+            }
+          ],
+          "context": [
+            {
+              "start": 9784,
+              "end": 9893,
+              "quote": "  If you want threading support and you're using Windows, you can just\n  call evthread_use_windows_threads()."
+            }
+          ],
+          "rationale": "The reader desire and can-just-call frame surrounds the Windows-specific threading operation.",
+          "proposed_edit": "To enable threading on Windows, call evthread_use_windows_threads()."
+        },
+        {
+          "id": "c04-d16",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 11734,
+              "end": 11823,
+              "quote": "It's been pretty easy to forget to delete all your events before you\n  re-initialize them"
+            }
+          ],
+          "context": [
+            {
+              "start": 11732,
+              "end": 12132,
+              "quote": "  It's been pretty easy to forget to delete all your events before you\n  re-initialize them, or otherwise put Libevent in an internally inconsistent\n  state.  You can tell libevent to catch these and other common errors with\n  the new event_enable_debug_mode() call.  Just invoke it before you do\n  any calls to other libevent functions, and it'll catch many common\n  event-level errors in your code."
+            }
+          ],
+          "rationale": "The ease-of-forgetting judgment is about users; the actual inconsistent-state risk can be stated directly.",
+          "proposed_edit": "Describe reinitializing events without deletion as an error; preserve the requirement to enable debugging before other library calls."
+        },
+        {
+          "id": "c04-d17",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 13410,
+              "end": 13442,
+              "quote": "This is supposed to be\n  faster."
+            }
+          ],
+          "context": [
+            {
+              "start": 13292,
+              "end": 13442,
+              "quote": "  When we need to wake the event loop up from another thread, we use\n  an epollfd to do so, instead of a socketpair.  This is supposed to be\n  faster."
+            }
+          ],
+          "rationale": "The speed comparison has neither a measurement nor a condition and is expressly speculative.",
+          "proposed_edit": "Keep the epollfd-versus-socketpair change and state any performance result only when measured."
+        },
+        {
+          "id": "c04-d18",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 13458,
+              "end": 13487,
+              "quote": "better support for everything"
+            }
+          ],
+          "context": [
+            {
+              "start": 13444,
+              "end": 13487,
+              "quote": "3.3. Windows: better support for everything"
+            }
+          ],
+          "rationale": "The universal improvement claim overstates the bounded Windows mechanisms below.",
+          "proposed_edit": "Use a heading naming Windows IO and build support."
+        },
+        {
+          "id": "c04-d19",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 13663,
+              "end": 13728,
+              "quote": "This should be much faster than using event-based\n  notification."
+            }
+          ],
+          "context": [
+            {
+              "start": 13489,
+              "end": 13728,
+              "quote": "  Bufferevents on Windows can use a new mechanism (off-by-default; see below)\n  to send their data via Windows overlapped IO and get their notifications\n  via the IOCP API.  This should be much faster than using event-based\n  notification."
+            }
+          ],
+          "rationale": "The speculative magnitude has no workload or result.",
+          "proposed_edit": "Keep overlapped IO and IOCP, including off-by-default status; omit the unmeasured speed promise."
+        },
+        {
+          "id": "c04-d20",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 13964,
+              "end": 14001,
+              "quote": "Data structures are a little smarter:"
+            }
+          ],
+          "context": [
+            {
+              "start": 13962,
+              "end": 14118,
+              "quote": "  Data structures are a little smarter: our lookups from socket to pending\n  event are now done with O(1) hash tables rather than O(lg n) red-black\n  trees."
+            }
+          ],
+          "rationale": "The intelligence metaphor adds no property beyond the following explicit asymptotic lookup comparison.",
+          "proposed_edit": "Start with socket-to-pending-event lookups and retain O(1) versus O(lg n)."
+        },
+        {
+          "id": "c04-d21",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 14678,
+              "end": 14754,
+              "quote": "the implementation\n  was very inefficient and lacked some desirable features"
+            }
+          ],
+          "context": [
+            {
+              "start": 14548,
+              "end": 14804,
+              "quote": "  Libevent has long had an \"evbuffer\" implementation to wrap access to an\n  input or output memory buffer.  In previous versions, the implementation\n  was very inefficient and lacked some desirable features.  We've made many\n  improvements in Libevent 2.0."
+            }
+          ],
+          "rationale": "The general efficiency and desirability claims precede the actual copying costs and specific additions without a defined measure.",
+          "proposed_edit": "Name the realloc/memmove costs and the added capabilities directly."
+        },
+        {
+          "id": "c04-d22",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 14757,
+              "end": 14804,
+              "quote": "We've made many\n  improvements in Libevent 2.0."
+            }
+          ],
+          "context": [
+            {
+              "start": 14548,
+              "end": 14804,
+              "quote": "  Libevent has long had an \"evbuffer\" implementation to wrap access to an\n  input or output memory buffer.  In previous versions, the implementation\n  was very inefficient and lacked some desirable features.  We've made many\n  improvements in Libevent 2.0."
+            }
+          ],
+          "rationale": "The self-announcement duplicates the immediately following improvement sections.",
+          "proposed_edit": "Proceed to the specific changes."
+        },
+        {
+          "id": "c04-d23",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 15096,
+              "end": 15161,
+              "quote": "  Needless to say, this is a terrible interface for networked IO."
+            }
+          ],
+          "context": [
+            {
+              "start": 15096,
+              "end": 15161,
+              "quote": "  Needless to say, this is a terrible interface for networked IO."
+            }
+          ],
+          "rationale": "The obviousness claim and terrible-interface judgment add no mechanism beyond realloc/memmove costs.",
+          "proposed_edit": "Keep the old copying behavior and the new chunked design without the judgment."
+        },
+        {
+          "id": "c04-d24",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 17934,
+              "end": 17950,
+              "quote": "Now, you can now"
+            }
+          ],
+          "context": [
+            {
+              "start": 17932,
+              "end": 18055,
+              "quote": "  Now, you can now use the evbuffer_add_cb() function to add a callback that\n  does not interfere with any other callbacks."
+            }
+          ],
+          "rationale": "Two now markers announce the same temporal change in one clause.",
+          "proposed_edit": "Use one now marker or state the new evbuffer_add_cb operation directly."
+        },
+        {
+          "id": "c04-d25",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 21514,
+              "end": 21646,
+              "quote": "If you want to wrap an\n   SSL layer around an existing bufferevent, you would call the\n   bufferevent_openssl_filter_new() function."
+            }
+          ],
+          "context": [
+            {
+              "start": 21403,
+              "end": 21733,
+              "quote": "   There are two ways to construct one of these bufferevents, both\n   declared in <event2/bufferevent_ssl.h>.  If you want to wrap an\n   SSL layer around an existing bufferevent, you would call the\n   bufferevent_openssl_filter_new() function.  If you want to do SSL\n   on a socket directly, call bufferevent_openssl_socket_new()."
+            }
+          ],
+          "rationale": "Reader desire and would-call frame delay a direct purpose/API mapping.",
+          "proposed_edit": "To wrap an SSL layer around an existing bufferevent, call bufferevent_openssl_filter_new(); retain the distinct socket alternative."
+        },
+        {
+          "id": "c04-d26",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 21648,
+              "end": 21733,
+              "quote": "If you want to do SSL\n   on a socket directly, call bufferevent_openssl_socket_new()."
+            }
+          ],
+          "context": [
+            {
+              "start": 21403,
+              "end": 21733,
+              "quote": "   There are two ways to construct one of these bufferevents, both\n   declared in <event2/bufferevent_ssl.h>.  If you want to wrap an\n   SSL layer around an existing bufferevent, you would call the\n   bufferevent_openssl_filter_new() function.  If you want to do SSL\n   on a socket directly, call bufferevent_openssl_socket_new()."
+            }
+          ],
+          "rationale": "The reader desire is unnecessary before the explicit socket-specific instruction.",
+          "proposed_edit": "For SSL directly on a socket, call bufferevent_openssl_socket_new()."
+        },
+        {
+          "id": "c04-d27",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 21855,
+              "end": 21971,
+              "quote": "Supposedly, this will eventually make Windows IO much faster for\n   programs using bufferevents.  We'll have to see;"
+            }
+          ],
+          "context": [
+            {
+              "start": 21782,
+              "end": 22130,
+              "quote": "   There is now a bufferevents backend that supports IOCP on Windows.\n   Supposedly, this will eventually make Windows IO much faster for\n   programs using bufferevents.  We'll have to see; the code is not\n   currently optimized at all.  To try it out, call the\n   event_base_start_iocp() method on an event_base before contructing\n   bufferevents."
+            }
+          ],
+          "rationale": "The speculative future speed promise does not describe the current backend.",
+          "proposed_edit": "Keep that IOCP is available but unoptimized and preserve the enablement order."
+        },
+        {
+          "id": "c04-d28",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 22526,
+              "end": 22703,
+              "quote": "   If you need to limit the number of bytes read/written by a single\n   bufferevent, or by a group of them, you can do this with a new set of\n   bufferevent rate-limiting calls."
+            }
+          ],
+          "context": [
+            {
+              "start": 22526,
+              "end": 22703,
+              "quote": "   If you need to limit the number of bytes read/written by a single\n   bufferevent, or by a group of them, you can do this with a new set of\n   bufferevent rate-limiting calls."
+            }
+          ],
+          "rationale": "The need-to-limit/can-do-this support chain repeats the rate-limiting goal instead of naming the calls directly.",
+          "proposed_edit": "Use the new rate-limiting calls to limit bytes read or written by one bufferevent or a group."
+        },
+        {
+          "id": "c04-d29",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 23502,
+              "end": 23526,
+              "quote": "but it\n   is quite close"
+            }
+          ],
+          "context": [
+            {
+              "start": 23294,
+              "end": 23527,
+              "quote": "   There's now an asynchronous getaddrinfo clone, evdns_getaddrinfo(),\n   to make the results of the evdns functions more usable.  It doesn't\n   support every feature of a typical platform getaddrinfo() yet, but it\n   is quite close."
+            }
+          ],
+          "rationale": "The proximity claim leaves the unsupported getaddrinfo features unspecified.",
+          "proposed_edit": "Keep partial support explicit and identify unsupported features if known; do not invent them."
+        },
+        {
+          "id": "c04-d30",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 24159,
+              "end": 24168,
+              "quote": "of course"
+            }
+          ],
+          "context": [
+            {
+              "start": 23923,
+              "end": 24187,
+              "quote": "   Like an event base, evdns operations are now supposed to use an evdns_base\n   argument.  This makes them easier to wrap for other (more OO) languages,\n   and easier to control the lifetime of.  The old evdns functions will\n   still, of course, continue working."
+            }
+          ],
+          "rationale": "The obviousness aside adds nothing to the compatibility guarantee.",
+          "proposed_edit": "Keep that the old evdns functions continue working."
+        },
+        {
+          "id": "c04-d31",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 24212,
+              "end": 24386,
+              "quote": "   You can now more easily automate setting up a bound socket to listen for\n   TCP connections.  Just use the evconnlistener_*() functions in the\n   event2/listener.h header."
+            }
+          ],
+          "context": [
+            {
+              "start": 24212,
+              "end": 24386,
+              "quote": "   You can now more easily automate setting up a bound socket to listen for\n   TCP connections.  Just use the evconnlistener_*() functions in the\n   event2/listener.h header."
+            }
+          ],
+          "rationale": "The can-more-easily announcement restates the bound TCP listener operation before the actual functions.",
+          "proposed_edit": "Use evconnlistener_* in event2/listener.h to set up a bound TCP listening socket."
+        },
+        {
+          "id": "c04-d32",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 24837,
+              "end": 24878,
+              "quote": "a fairly secure\n   random stream of bytes"
+            }
+          ],
+          "context": [
+            {
+              "start": 24474,
+              "end": 24879,
+              "quote": "   Network code very frequently needs a secure, hard-to-predict random number\n   generator.  Some operating systems provide a good C implementation of one;\n   others do not.  Libevent 2.0 now provides a consistent implementation\n   based on the arc4random code originally from OpenBSD.  Libevent (and you)\n   can use the evutil_secure_rng_*() functions to access a fairly secure\n   random stream of bytes."
+            }
+          ],
+          "rationale": "The degree of security has no defined threat property or scope.",
+          "proposed_edit": "Name the RNG implementation and supported security properties without inventing a guarantee."
+        },
+        {
+          "id": "c04-d33",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 25094,
+              "end": 25124,
+              "quote": "detect errors\n   more usefully"
+            }
+          ],
+          "context": [
+            {
+              "start": 25036,
+              "end": 25306,
+              "quote": "   The evhttp query parsing and URI parsing logic can now detect errors\n   more usefully.  Moreover, we include an actual URI parsing function\n   (evhttp_uri_parse()) to correctly parse URIs, so as to discourage\n   people from rolling their own ad-hoc parsing functions."
+            }
+          ],
+          "rationale": "The comparative utility claim does not say which errors are detected or how reporting differs.",
+          "proposed_edit": "Describe the specific parsing error change if known; keep the separate URI parser API."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c04-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4721,
+              "end": 4760,
+              "quote": "binary-compatibility\n        nightmares"
+            }
+          ],
+          "context": [
+            {
+              "start": 4448,
+              "end": 5053,
+              "quote": "     2) Structure dependence.  Applications needed to allocate 'struct\n        event' themselves, since there was no function in Libevent to do it\n        for them.  But since the size and contents of struct event can\n        change between libevent versions, this created binary-compatibility\n        nightmares.  All structures of this kind are now isolated in\n        _struct.h header (see 2.1), and there are new allocate-and-\n        initialize functions you can use instead of the old initialize-only\n        functions.  For example, instead of malloc and event_set, you\n        can use event_new()."
+            }
+          ],
+          "rationale": "The metaphor is imprecise, but the preceding size/layout change already identifies the concrete compatibility risk. Whether an edit is required is uncertain.",
+          "proposed_edit": "Optionally call them binary compatibility failures."
+        },
+        {
+          "id": "c04-u02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 13188,
+              "end": 13198,
+              "quote": "weird bugs"
+            }
+          ],
+          "context": [
+            {
+              "start": 12869,
+              "end": 13253,
+              "quote": "  This logic is on for the kqueue backend, and available (but off by\n  default) for the epoll backend.  To turn it on for the epoll backend,\n  set the EVENT_BASE_FLAG_EPOLL_USE_CHANGELIST flag in the\n  event_base_cofig, or set the EVENT_EPOLL_USE_CHANGELIST environment\n  variable.  Doing this with epoll may result in weird bugs if you give\n  any fds closed by dup() or its variants."
+            }
+          ],
+          "rationale": "The bug class is unnamed, but the file-descriptor condition precisely identifies when the warning matters.",
+          "proposed_edit": "Optionally name the failure mode without weakening the dup-related warning."
+        },
+        {
+          "id": "c04-u03",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 26112,
+              "end": 26157,
+              "quote": "our unit tests are much better than\n   before"
+            }
+          ],
+          "context": [
+            {
+              "start": 26075,
+              "end": 26342,
+              "quote": "   Despite all the code we've added, our unit tests are much better than\n   before.  Right now, iterating over the different backends on various\n   platforms, I'm getting between 78% and 81% test coverage, compared\n   with less than 45% test coverage in Libevent 1.4."
+            }
+          ],
+          "rationale": "Coverage alone is not test quality, but the next sentence provides a measured and scoped comparison. Editorial necessity is unresolved.",
+          "proposed_edit": "Optionally say coverage increased; preserve the platform/backend range and both percentage intervals."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 78,
+              "end": 276,
+              "quote": "  This document describes the key differences between Libevent 1.4 and\n  Libevent 2.0, from a user's point of view.  It was most recently\n  updated based on features in git master as of August 2010."
+            }
+          ],
+          "context": [
+            {
+              "start": 78,
+              "end": 276,
+              "quote": "  This document describes the key differences between Libevent 1.4 and\n  Libevent 2.0, from a user's point of view.  It was most recently\n  updated based on features in git master as of August 2010."
+            }
+          ],
+          "rationale": "The introduction supplies the compared versions, audience and August 2010 snapshot; it is not just document narration.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6196,
+              "end": 6415,
+              "quote": "  If you're going to use this facility, you need to call it _before_\n  Libevent does any memory allocation; otherwise, Libevent may allocate some\n  memory with malloc(), and free it with the free() function you provide."
+            }
+          ],
+          "context": [
+            {
+              "start": 6196,
+              "end": 6415,
+              "quote": "  If you're going to use this facility, you need to call it _before_\n  Libevent does any memory allocation; otherwise, Libevent may allocate some\n  memory with malloc(), and free it with the free() function you provide."
+            }
+          ],
+          "rationale": "Allocation replacement must precede all allocation; mismatched allocator/free ownership is the exact safety consequence.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 8049,
+              "end": 8289,
+              "quote": "  All APIs that formerly accepted int as a socket type now accept\n  \"evutil_socket_t\".  On Unix, this is just an alias for \"int\" as\n  before.  On Windows, however, it's an alias for SOCKET, which can\n  be wider than int on 64-bit platforms."
+            }
+          ],
+          "context": [
+            {
+              "start": 8049,
+              "end": 8289,
+              "quote": "  All APIs that formerly accepted int as a socket type now accept\n  \"evutil_socket_t\".  On Unix, this is just an alias for \"int\" as\n  before.  On Windows, however, it's an alias for SOCKET, which can\n  be wider than int on 64-bit platforms."
+            }
+          ],
+          "rationale": "Unix int and Windows SOCKET widths differ; the platform-specific comparison is required.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 9006,
+              "end": 9171,
+              "quote": "  Older versions of Libevent allowed at most one EV_READ event and at most\n  one EV_WRITE event per socket, per event base.  This restriction is no\n  longer present."
+            }
+          ],
+          "context": [
+            {
+              "start": 9006,
+              "end": 9171,
+              "quote": "  Older versions of Libevent allowed at most one EV_READ event and at most\n  one EV_WRITE event per socket, per event base.  This restriction is no\n  longer present."
+            }
+          ],
+          "rationale": "The old maximum and its removal define an actual capability change.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 10178,
+              "end": 10635,
+              "quote": "  Once locking functions are enabled, every new event_base is created with a\n  lock.  You can prevent a single event_base from being built with a lock\n  disabled by using the EVENT_BASE_FLAG_NOLOCK flag in its\n  event_config.  If an event_base is created with a lock, it is safe to call\n  event_del, event_add, and event_active on its events from any thread.  The\n  event callbacks themselves are still all executed from the thread running\n  the event loop."
+            }
+          ],
+          "context": [
+            {
+              "start": 10178,
+              "end": 10635,
+              "quote": "  Once locking functions are enabled, every new event_base is created with a\n  lock.  You can prevent a single event_base from being built with a lock\n  disabled by using the EVENT_BASE_FLAG_NOLOCK flag in its\n  event_config.  If an event_base is created with a lock, it is safe to call\n  event_del, event_add, and event_active on its events from any thread.  The\n  event callbacks themselves are still all executed from the thread running\n  the event loop."
+            }
+          ],
+          "rationale": "Lock configuration, cross-thread operations and the single callback thread are separate concurrency guarantees.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c06",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 11269,
+              "end": 11696,
+              "quote": "  The heap-based priority queue timer implementation for Libevent 1.4 is good\n  for randomly distributed timeouts, but suboptimal if you have huge numbers\n  of timeouts that all expire in the same amount of time after their\n  creation.  The new event_base_init_common_timeout() logic lets you signal\n  that a given timeout interval will be very common, and should use a linked\n  list implementation instead of a priority queue."
+            }
+          ],
+          "context": [
+            {
+              "start": 11269,
+              "end": 11696,
+              "quote": "  The heap-based priority queue timer implementation for Libevent 1.4 is good\n  for randomly distributed timeouts, but suboptimal if you have huge numbers\n  of timeouts that all expire in the same amount of time after their\n  creation.  The new event_base_init_common_timeout() logic lets you signal\n  that a given timeout interval will be very common, and should use a linked\n  list implementation instead of a priority queue."
+            }
+          ],
+          "rationale": "Timeout distribution and shared intervals explain the choice between heap and linked-list implementations.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 15491,
+              "end": 15670,
+              "quote": "  To avoid excessive calls to read and write, we use the readv/writev\n  interfaces (or WSASend/WSARecv on Windows) to do IO on multiple chunks at\n  once with a single system call."
+            }
+          ],
+          "context": [
+            {
+              "start": 15491,
+              "end": 15670,
+              "quote": "  To avoid excessive calls to read and write, we use the readv/writev\n  interfaces (or WSASend/WSARecv on Windows) to do IO on multiple chunks at\n  once with a single system call."
+            }
+          ],
+          "rationale": "One system call over multiple chunks is the mechanism for reducing read/write calls.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15948,
+              "end": 16163,
+              "quote": "  If you need access to the whole buffer as a linear chunk of memory, the\n  EVBUFFER_DATA() function still works.  Watch out, though: it needs to copy\n  the buffer's contents in a linear chunk before you can use it."
+            }
+          ],
+          "context": [
+            {
+              "start": 15948,
+              "end": 16163,
+              "quote": "  If you need access to the whole buffer as a linear chunk of memory, the\n  EVBUFFER_DATA() function still works.  Watch out, though: it needs to copy\n  the buffer's contents in a linear chunk before you can use it."
+            }
+          ],
+          "rationale": "Contiguous access can require copying; the cost must remain visible.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c09",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 17211,
+              "end": 17601,
+              "quote": "  You can add a piece of memory to an evbuffer without copying it.\n  Instead, Libevent adds a new element to the evbuffer's linked list of\n  chunks with a pointer to the memory you supplied.  You can do this\n  either with a reference-counted chunk (via evbuffer_add_reference), or\n  by asking Libevent for a pointer to its internal vectors (via\n  evbuffer_reserve_space or evbuffer_peek())."
+            }
+          ],
+          "context": [
+            {
+              "start": 17211,
+              "end": 17601,
+              "quote": "  You can add a piece of memory to an evbuffer without copying it.\n  Instead, Libevent adds a new element to the evbuffer's linked list of\n  chunks with a pointer to the memory you supplied.  You can do this\n  either with a reference-counted chunk (via evbuffer_add_reference), or\n  by asking Libevent for a pointer to its internal vectors (via\n  evbuffer_reserve_space or evbuffer_peek())."
+            }
+          ],
+          "rationale": "A reference-counted external chunk and internal vector pointers are distinct zero-copy mechanisms.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c10",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 19329,
+              "end": 19694,
+              "quote": "   You can have an evbuffer defer all of its callbacks, so that rather than\n   being invoked immediately when the evbuffer's length changes, they are\n   invoked from within the event_loop.  This is useful when you have a\n   complex set of callbacks that can change the length of other evbuffers,\n   and you want to avoid having them recurse and overflow your stack."
+            }
+          ],
+          "context": [
+            {
+              "start": 19329,
+              "end": 19694,
+              "quote": "   You can have an evbuffer defer all of its callbacks, so that rather than\n   being invoked immediately when the evbuffer's length changes, they are\n   invoked from within the event_loop.  This is useful when you have a\n   complex set of callbacks that can change the length of other evbuffers,\n   and you want to avoid having them recurse and overflow your stack."
+            }
+          ],
+          "rationale": "Deferred callbacks prevent a specified recursion/stack-overflow scenario, not an unspecified ease claim.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c11",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 21144,
+              "end": 21401,
+              "quote": "   There is now a bufferevent type that supports SSL/TLS using the\n   OpenSSL library.  The code for this is build in a separate\n   library, libevent_openssl, so that your programs don't need to\n   link against OpenSSL unless they actually want SSL support."
+            }
+          ],
+          "context": [
+            {
+              "start": 21144,
+              "end": 21401,
+              "quote": "   There is now a bufferevent type that supports SSL/TLS using the\n   OpenSSL library.  The code for this is build in a separate\n   library, libevent_openssl, so that your programs don't need to\n   link against OpenSSL unless they actually want SSL support."
+            }
+          ],
+          "rationale": "The separate OpenSSL library prevents a mandatory link dependency for users without SSL.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c12",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 25713,
+              "end": 26049,
+              "quote": "   We now use a unit test framework that Nick wrote called \"tinytest\".\n   The main benefit from Libevent's point of view is that tests which\n   might mess with global state can all run each in their own\n   subprocess.  This way, when there's a bug that makes one unit test\n   crash or mess up global state, it doesn't affect any others."
+            }
+          ],
+          "context": [
+            {
+              "start": 25713,
+              "end": 26049,
+              "quote": "   We now use a unit test framework that Nick wrote called \"tinytest\".\n   The main benefit from Libevent's point of view is that tests which\n   might mess with global state can all run each in their own\n   subprocess.  This way, when there's a bug that makes one unit test\n   crash or mess up global state, it doesn't affect any others."
+            }
+          ],
+          "rationale": "Process isolation has a concrete consequence for crashed tests and global state.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "0ca5260560ba73c0992810cd5e598754e4340fddc556cc9263dab633978ac31d",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 15544,
+          "first_line": 1,
+          "last_line": 423,
+          "rationale": "Read all 80 extracted blocks, including each function, examples, gauge/counter restrictions, range extrapolation, histogram edge cases and repeated function contracts. The uniform API template aids comparison and is not a defect by itself. Markdown divides one numeric continuation into a list item; preserve the original numeric context when interpreting it.",
+          "prose_blocks": 80,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 956,
+              "end": 995,
+              "quote": "tries to be smart about deriving labels"
+            }
+          ],
+          "context": [
+            {
+              "start": 918,
+              "end": 1049,
+              "quote": "In the first two examples, `absent()` tries to be smart about deriving labels\nof the 1-element output vector from the input vector."
+            }
+          ],
+          "rationale": "The intelligence judgment obscures the documented operation and supplies no derivation rule.",
+          "proposed_edit": "State that absent derives the output labels from the input in these examples; retain the example scope."
+        },
+        {
+          "id": "c05-d02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 1677,
+              "end": 1716,
+              "quote": "tries to be smart about deriving\nlabels"
+            }
+          ],
+          "context": [
+            {
+              "start": 1629,
+              "end": 1770,
+              "quote": "In the first two examples, `absent_over_time()` tries to be smart about deriving\nlabels of the 1-element output vector from the input vector."
+            }
+          ],
+          "rationale": "The intelligence judgment does not specify label derivation for absent_over_time.",
+          "proposed_edit": "Describe the derivation for these examples directly without claiming intelligence."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 8975,
+              "end": 8984,
+              "quote": "Note that"
+            }
+          ],
+          "context": [
+            {
+              "start": 8975,
+              "end": 9289,
+              "quote": "Note that when combining `irate()` with an\n[aggregation operator](operators.md#aggregation-operators) (e.g. `sum()`)\nor a function aggregating over time (any function ending in `_over_time`),\nalways take a `irate()` first, then aggregate. Otherwise `irate()` cannot detect\ncounter resets when your target restarts."
+            }
+          ],
+          "rationale": "The attention marker can be removed, but it introduces a required aggregation ordering and a specific counter-reset consequence; a required defect is uncertain.",
+          "proposed_edit": "Optionally start with the ordering condition and retain the consequence."
+        },
+        {
+          "id": "c05-u02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 12426,
+              "end": 12435,
+              "quote": "Note that"
+            }
+          ],
+          "context": [
+            {
+              "start": 12426,
+              "end": 12699,
+              "quote": "Note that when combining `rate()` with an aggregation operator (e.g. `sum()`)\nor a function aggregating over time (any function ending in `_over_time`),\nalways take a `rate()` first, then aggregate. Otherwise `rate()` cannot detect\ncounter resets when your target restarts."
+            }
+          ],
+          "rationale": "This is a parallel mandatory aggregation-order warning for a different function, not needless repetition of the irate contract.",
+          "proposed_edit": "Optionally remove the attention marker without removing the independent rate warning."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1276,
+              "end": 1408,
+              "quote": "This is useful for alerting on when no time series exist for a given metric name\nand label combination for a certain amount of time."
+            }
+          ],
+          "context": [
+            {
+              "start": 1276,
+              "end": 1408,
+              "quote": "This is useful for alerting on when no time series exist for a given metric name\nand label combination for a certain amount of time."
+            }
+          ],
+          "rationale": "An interval without samples differs from the instant-vector absence check; the shared wording maps separate functions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2896,
+              "end": 3295,
+              "quote": "`delta(v range-vector)` calculates the difference between the\nfirst and last value of each time series element in a range vector `v`,\nreturning an instant vector with the given deltas and equivalent labels.\nThe delta is extrapolated to cover the full time range as specified in\nthe range vector selector, so that it is possible to get a non-integer\nresult even if the sample values are all integers."
+            }
+          ],
+          "context": [
+            {
+              "start": 2896,
+              "end": 3295,
+              "quote": "`delta(v range-vector)` calculates the difference between the\nfirst and last value of each time series element in a range vector `v`,\nreturning an instant vector with the given deltas and equivalent labels.\nThe delta is extrapolated to cover the full time range as specified in\nthe range vector selector, so that it is possible to get a non-integer\nresult even if the sample values are all integers."
+            }
+          ],
+          "rationale": "Extrapolation can yield fractional deltas from integer samples, a meaningful numerical consequence.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 6333,
+              "end": 6501,
+              "quote": "If `b` has 0 observations, `NaN` is returned. If `b` contains fewer than two buckets,\n`NaN` is returned. For φ < 0, `-Inf` is returned. For φ > 1, `+Inf` is returned."
+            }
+          ],
+          "context": [
+            {
+              "start": 6333,
+              "end": 6501,
+              "quote": "If `b` has 0 observations, `NaN` is returned. If `b` contains fewer than two buckets,\n`NaN` is returned. For φ < 0, `-Inf` is returned. For φ > 1, `+Inf` is returned."
+            }
+          ],
+          "rationale": "Each NaN or infinity outcome has a distinct input condition.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 8732,
+              "end": 8973,
+              "quote": "`irate` should only be used when graphing volatile, fast-moving counters.\nUse `rate` for alerts and slow-moving counters, as brief changes\nin the rate can reset the `FOR` clause and graphs consisting entirely of rare\nspikes are hard to read."
+            }
+          ],
+          "context": [
+            {
+              "start": 8732,
+              "end": 8973,
+              "quote": "`irate` should only be used when graphing volatile, fast-moving counters.\nUse `rate` for alerts and slow-moving counters, as brief changes\nin the rate can reset the `FOR` clause and graphs consisting entirely of rare\nspikes are hard to read."
+            }
+          ],
+          "rationale": "Graphing and alerting need different rate behavior; the FOR-reset effect explains the distinction.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 13012,
+              "end": 13322,
+              "quote": "`round(v instant-vector, to_nearest=1 scalar)` rounds the sample values of all\nelements in `v` to the nearest integer. Ties are resolved by rounding up. The\noptional `to_nearest` argument allows specifying the nearest multiple to which\nthe sample values should be rounded. This multiple may also be a fraction."
+            }
+          ],
+          "context": [
+            {
+              "start": 13012,
+              "end": 13322,
+              "quote": "`round(v instant-vector, to_nearest=1 scalar)` rounds the sample values of all\nelements in `v` to the nearest integer. Ties are resolved by rounding up. The\noptional `to_nearest` argument allows specifying the nearest multiple to which\nthe sample values should be rounded. This multiple may also be a fraction."
+            }
+          ],
+          "rationale": "Nearest multiple, rounding direction and fractional multiples are separate numeric contracts.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 13831,
+              "end": 14011,
+              "quote": "`time()` returns the number of seconds since January 1, 1970 UTC. Note that\nthis does not actually return the current time, but the time at which the\nexpression is to be evaluated."
+            }
+          ],
+          "context": [
+            {
+              "start": 13831,
+              "end": 14011,
+              "quote": "`time()` returns the number of seconds since January 1, 1970 UTC. Note that\nthis does not actually return the current time, but the time at which the\nexpression is to be evaluated."
+            }
+          ],
+          "rationale": "Evaluation time is not necessarily wall-clock current time; the contrast prevents a specific misunderstanding.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c07",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 15390,
+              "end": 15543,
+              "quote": "Note that all values in the specified interval have the same weight in the\naggregation even if the values are not equally spaced throughout the interval."
+            }
+          ],
+          "context": [
+            {
+              "start": 15390,
+              "end": 15543,
+              "quote": "Note that all values in the specified interval have the same weight in the\naggregation even if the values are not equally spaced throughout the interval."
+            }
+          ],
+          "rationale": "Equal aggregation weight despite unequal time spacing is a necessary numerical limitation.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "01c400d6339b2c2b27a67dc986fc3499f0f35f7313f62a58178f93b70004e0e2",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4245,
+          "first_line": 1,
+          "last_line": 125,
+          "rationale": "Read all 32 prose blocks, including build/run steps, fault recovery, dynamic membership and the component data flow. Sequential markers identify genuine procedure order. No definite editorial defect was established; the possible introductory simplification remains uncertain.",
+          "prose_blocks": 32,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [],
+      "uncertain": [
+        {
+          "id": "c06-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 97,
+              "end": 114,
+              "quote": "a simple REST API"
+            }
+          ],
+          "context": [
+            {
+              "start": 15,
+              "end": 192,
+              "quote": "raftexample is an example usage of etcd's [raft library](../../raft). It provides a simple REST API for a key-value store cluster backed by the [Raft][raft] consensus algorithm."
+            }
+          ],
+          "rationale": "Simple does not identify an exact property, but the short example shows the limited key/value API immediately. Required editing is uncertain.",
+          "proposed_edit": "Optionally call it a REST API for a key-value store."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "formulaic_transitions",
+          "subtype": "formulaic_transitions",
+          "targets": [
+            {
+              "start": 1866,
+              "end": 1950,
+              "quote": "Finally, bring the node back up and verify it recovers with the updated value \"bar\":"
+            }
+          ],
+          "context": [
+            {
+              "start": 1866,
+              "end": 1950,
+              "quote": "Finally, bring the node back up and verify it recovers with the updated value \"bar\":"
+            }
+          ],
+          "rationale": "Finally identifies the actual last recovery-test operation after stopping and updating a node.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1365,
+              "end": 1479,
+              "quote": "Now it's possible to write a key-value pair to any member of the cluster and likewise retrieve it from any member."
+            }
+          ],
+          "context": [
+            {
+              "start": 1365,
+              "end": 1479,
+              "quote": "Now it's possible to write a key-value pair to any member of the cluster and likewise retrieve it from any member."
+            }
+          ],
+          "rationale": "Write/read from any cluster member is a concrete newly available capability, not just a reader-desire frame.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2946,
+              "end": 3025,
+              "quote": "The new node should join the cluster and be able to service key/value requests."
+            }
+          ],
+          "context": [
+            {
+              "start": 2946,
+              "end": 3025,
+              "quote": "The new node should join the cluster and be able to service key/value requests."
+            }
+          ],
+          "rationale": "Joining the cluster and serving requests are distinct expected outcomes after startup.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3375,
+              "end": 3677,
+              "quote": "The raft-backed key-value store is a key-value map that holds all committed key-values.\nThe store bridges communication between the raft server and the REST server.\nKey-value updates are issued through the store to the raft server.\nThe store updates its map once raft reports the updates are committed."
+            }
+          ],
+          "context": [
+            {
+              "start": 3375,
+              "end": 3677,
+              "quote": "The raft-backed key-value store is a key-value map that holds all committed key-values.\nThe store bridges communication between the raft server and the REST server.\nKey-value updates are issued through the store to the raft server.\nThe store updates its map once raft reports the updates are committed."
+            }
+          ],
+          "rationale": "Proposal forwarding and applying only committed updates are separate state transitions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3914,
+              "end": 4243,
+              "quote": "The raft server participates in consensus with its cluster peers.\nWhen the REST server submits a proposal, the raft server transmits the proposal to its peers.\nWhen raft reaches a consensus, the server publishes all committed updates over a commit channel.\nFor raftexample, this commit channel is consumed by the key-value store."
+            }
+          ],
+          "context": [
+            {
+              "start": 3914,
+              "end": 4243,
+              "quote": "The raft server participates in consensus with its cluster peers.\nWhen the REST server submits a proposal, the raft server transmits the proposal to its peers.\nWhen raft reaches a consensus, the server publishes all committed updates over a commit channel.\nFor raftexample, this commit channel is consumed by the key-value store."
+            }
+          ],
+          "rationale": "The commit channel and its consumer describe actual ownership of consensus results.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}

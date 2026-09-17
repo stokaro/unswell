@@ -30,7 +30,11 @@ func projectedInstructionWithMethod(c frameClause, method bool) bool {
 func projectedPredicate(tokens []document.Token, verb int, method bool) bool {
 	operation := operationSubject(tokens[:verb])
 	if !projectionSubject(tokens[:verb]) && !operation {
-		return false
+		var relative bool
+		relative, operation = relativeOperation(tokens, verb)
+		if !relative {
+			return false
+		}
 	}
 	layers := 0
 	if operation {
@@ -121,10 +125,17 @@ func projectPassive(tokens []document.Token, at, layers int) (instructionProject
 	if at+2 >= len(tokens) {
 		return instructionProjection{}, false
 	}
+	if frameWord(tokens[at], "capable") && frameWord(tokens[at+1], "of") && methodAction(tokens[at+2:]) {
+		return instructionProjection{action: at + 2, layers: layers + 1}, true
+	}
 	if frameWord(tokens[at+1], "to") && frameWord(tokens[at], "intended", "designed") {
 		// A single purpose relation carries information; require another layer.
 		return projectSupport(tokens, at+2, layers+1)
 	}
+	return projectUsage(tokens, at, layers)
+}
+
+func projectUsage(tokens []document.Token, at, layers int) (instructionProjection, bool) {
 	if layers > 0 && frameWord(tokens[at], "used") {
 		if frameWord(tokens[at+1], "to") {
 			return projectAction(tokens, at+2, layers+1)
@@ -140,7 +151,7 @@ func projectEnabling(tokens []document.Token, at, layers int) (instructionProjec
 	readerEnd := genericInstructionReader(tokens, at)
 	if readerEnd > at && readerEnd+1 < len(tokens) && frameWord(tokens[readerEnd], "to") {
 		p, ok := projectAction(tokens, readerEnd+1, layers+1)
-		p.capabilityOnly = p.layers == 1
+		p.capabilityOnly = p.layers == 1 && !supportedOperand(tokens[readerEnd+1:])
 		return p, ok
 	}
 	// A nested intention or ability already supplies one support layer. Bare
