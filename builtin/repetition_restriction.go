@@ -26,17 +26,32 @@ func reformulatedClaims(view rule.View, budget *repetitionBudget, emit rule.Emit
 		if claimBlockReason(block, view.Parameters.MinWords) != "" || view.Parameters.WindowSentences < 2 {
 			continue
 		}
-		for i := 1; i < len(block.Sentences); i++ {
-			first, second := block.Sentences[i-1], block.Sentences[i]
-			if err := budget.spend(len(first.Tokens) + len(second.Tokens) + 1); err != nil {
-				return err
-			}
-			if err := emitRestriction(view, block, first, second, budget, emit); err != nil {
-				return err
-			}
+		if err := reformulatedBlock(view, block, budget, emit); err != nil {
+			return err
 		}
 	}
 	return budget.ctx.Err()
+}
+
+func reformulatedBlock(view rule.View, block document.Block, budget *repetitionBudget, emit rule.Emitter) error {
+	for i := 1; i < len(block.Sentences); i++ {
+		first, second := block.Sentences[i-1], block.Sentences[i]
+		if err := budget.spend(1); err != nil {
+			return err
+		}
+		// The marker check reads at most four tokens. Unmarked pairs never
+		// enter the argument comparison and must not pay for that walk.
+		if reformulationStart(restrictionTokens(second)) == 0 {
+			continue
+		}
+		if err := budget.spend(len(first.Tokens) + len(second.Tokens)); err != nil {
+			return err
+		}
+		if err := emitRestriction(view, block, first, second, budget, emit); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func emitRestriction(view rule.View, block document.Block, first, second document.Sentence,

@@ -85,3 +85,15 @@ func TestRestrictionEvidenceMappingAndPolicy(t *testing.T) {
 	_, err := singleRuleEngine(t, id, "", "").Analyze(ctx, document.Source{Name: "page.md", Format: document.Markdown, Bytes: []byte(text)})
 	c.Assert(err, qt.ErrorIs, context.Canceled)
 }
+
+func TestRestrictionBudgetSkipsUnmarkedPairs(t *testing.T) {
+	c := qt.New(t)
+	const paragraph = "The engine uses `open file` to read the selected source and preserve its original contents. " +
+		"The writer uses `close file` to release the selected source and preserve its recorded metadata.\n\n"
+	text := strings.Repeat(paragraph, 100) +
+		"The client accepts only signed requests. That is, the client never accepts requests that are not signed."
+	result := singleRuleResult(t, "repetition.repeated-claim", text, "", "analysis: {max_candidates: 10000}\n")
+	c.Assert(result.Abstentions, qt.HasLen, 0)
+	c.Assert(result.Findings, qt.HasLen, 1)
+	c.Assert(result.Findings[0].Evidence.Metrics[0].Name, qt.Equals, "restriction-restatements")
+}
