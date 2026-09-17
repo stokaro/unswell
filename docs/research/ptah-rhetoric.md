@@ -97,3 +97,11 @@ that every Ptah page needs editing, or that all unwanted rhetoric is covered.
 General metaphor, factual relevance, and whether two differently worded claims
 add meaning still require a reader or a separately qualified model. A passing
 page must not be described as proven high-quality or proven human-written.
+
+## Follow-up on missed constructions
+
+The [whole-page framing comparison](../../research/reviews/2026-09-17-framing-recall/README.md)
+adds version 2 evaluation and document-justification constructions plus the
+experimental `filler.unscoped-assurance` warning. It detects seven more frozen
+development events, but no additional event on nine separate confirmation pages.
+The earlier measurements above remain tied to their original engine.

@@ -10,6 +10,7 @@ import sys
 import time
 from pathlib import Path
 
+sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parent.parent
 DEVELOPMENT = ROOT.parent / '2026-09-17-full-page-recall'
 sys.path.insert(0, str(DEVELOPMENT / 'tools'))
@@ -68,6 +69,7 @@ def main():
         (output/name).write_bytes(compressed)
         runs[profile] = dict(path=name, sha256=sha(compressed), binary_sha256=sha(binary.read_bytes()),
                              config_sha256=sha(config), tool_commit=report['manifest']['tool_commit'],
+                             config_identity_sha256=report['manifest']['config_sources'][0]['sha256'],
                              host=platform.platform(), **cost)
         print(f'{profile}: {len(report["documents"])} documents, {len(report["findings"])} findings, exit {cost["exit_code"]}', flush=True)
     write(output/'runs.json', runs)

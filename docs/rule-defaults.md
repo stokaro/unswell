@@ -11,7 +11,8 @@ evaluative closing clauses, circular definitions, bare verification slogans,
 and unscoped assurances.
 They have warning severity, weight 12, cap 24, and no rule prohibition in both
 profiles. The [Ptah evaluation](research/ptah-rhetoric.md) records their source
-cases and review load. The weights are editorial policy, not measured
+cases and review load. The [framing recall follow-up](../research/reviews/2026-09-17-framing-recall/README.md)
+records seven additional development detections and no confirmation gain. The weights are editorial policy, not measured
 probabilities. The ordinary index gate can still pass a page with these warnings.
 
 ## The decision rule
