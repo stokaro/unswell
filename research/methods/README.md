@@ -109,7 +109,12 @@ research runs. Existing classifications and archived measurements are unchanged.
 adding complete duplicate list items as general style. It retains all revision 5
 classes; the earlier manifests and their measurements remain frozen.
 
-Revision 7, [`rule-classes-v1-r7.json`](rule-classes-v1-r7.json), covers the current
+Revision 7, [`rule-classes-v1-r7.json`](rule-classes-v1-r7.json), covers the
 51-rule catalog. Adjacent word duplication, repeated assertions and explanatory
-restarts are general style signals. Current command tests use revision 7;
+restarts are general style signals. Command tests at that revision used it;
 previous manifests and their results stay frozen.
+
+Revision 8, [`rule-classes-v1-r8.json`](rule-classes-v1-r8.json), covers the current
+53-rule catalog. Instruction scaffolding and redundant predicates are general
+style signals. Current command tests use revision 8. Earlier classes and
+measurements stay frozen; these additions make no claim about authorship.

@@ -27,7 +27,7 @@ func TestAnalyzeCommandBuildsTablesFromMeasuredFindings(t *testing.T) {
 	c.Assert(run(t.Context(), []string{"measure", "--root", root, "--policy", policy}, &artifact, &measured), qt.IsNil)
 	findings := filepath.Join(dir, "findings.json")
 	c.Assert(os.WriteFile(findings, measured.Bytes(), 0o600), qt.IsNil)
-	classes := "../../../methods/rule-classes-v1-r7.json"
+	classes := "../../../methods/rule-classes-v1-r8.json"
 	var tables bytes.Buffer
 	c.Assert(run(t.Context(), []string{"analyze", "--classes", classes, "--findings", findings}, nil, &tables), qt.IsNil)
 	var decoded patterns.Tables

@@ -7,6 +7,22 @@ import (
 
 func localRhetoricRules() []rule.Rule {
 	return []rule.Rule{
+		localRhetoricRule("filler.instruction-scaffolding", instructionScaffolding,
+			"State the supported action directly; preserve its conditions and optionality.",
+			"Replace the capability or reader-intention preface with the action and its method. "+
+				"Keep operands, alternatives and limits; a capability is not an obligation.",
+			"An affirmative impersonal capability with a transitive configuration or presentation action, "+
+				"or a reader-intention clause introducing an instruction. Adjacent method announcements remain related evidence. "+
+				"Failure, permission, negation and quoted constructions do not match.",
+			[]rule.Example{{Text: "It is possible to display a label. This is done by using the label option.", Match: true},
+				{Text: "It is possible to lose data after a failed write."}}),
+		localRhetoricRule("repetition.redundant-predicate", redundantPredicate,
+			"The predicate repeats the relation already named by its subject.",
+			"State the location or cause once. Preserve the path, actor, conditions and technical distinction.",
+			"A path/location subject followed by is located/situated at/in, or a reason subject followed by is because. "+
+				"The grammatical subject must name the repeated relation; files, identifiers and control-flow conditions do not qualify.",
+			[]rule.Example{{Text: "The default path for the configuration file is located at `/etc/example.conf`.", Match: true},
+				{Text: "The configuration file is located at `/etc/example.conf`."}}),
 		localRhetoricRule("filler.document-justification", documentJustification,
 			"State the scope or destination directly instead of explaining why this page exists.",
 			"Keep the link, ownership, and scope; remove the explanation of the document's existence or deliberate non-repetition.",

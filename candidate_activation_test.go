@@ -11,7 +11,8 @@ import (
 )
 
 func candidateActivationIDs() []string {
-	return []string{"repetition.adjacent-word", "repetition.repeated-claim", "repetition.explanatory-restart",
+	return []string{"filler.instruction-scaffolding", "repetition.redundant-predicate",
+		"repetition.adjacent-word", "repetition.repeated-claim", "repetition.explanatory-restart",
 		"repetition.duplicate-list-item",
 		"format.list-fragmentation", "repetition.heading-echo", "repetition.near-sentence",
 		"repetition.ngram-density", "repetition.paragraph-overlap", "repetition.summary-echo", "repetition.syntax-template"}
