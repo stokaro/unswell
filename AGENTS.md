@@ -52,5 +52,11 @@ source integrity, and library boundaries remain required.
 Every repository policy check needs a negative test proving it rejects a violation.
 Document alpha limitations and preserve later requirements in the roadmap.
 
+For editorial diagnostics, maintainer-accepted assistant review is sufficient;
+do not block work on an independent human or native-speaker review. Identify
+the actual reviewer, preserve frozen labels and use separate confirmation pages
+as defined in `docs/adr/0041-assistant-review-acceptance.md`. Keep model-research
+qualification separate and never record an assistant as a human annotator.
+
 Docker work must use an explicit remote context according to the user's global
 instructions. Remove only resources created for this task.

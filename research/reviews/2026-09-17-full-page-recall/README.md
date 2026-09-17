@@ -69,10 +69,12 @@ those outside the original denominator makes the review's own omissions visible.
    task and table row before treating recurring text as debt. Test the Pydantic
    duplicate alongside changing sponsor lists, platform instructions and capability
    rows. Preserve source segments across the entire repeated event.
-3. **Independent confirmation.** Any implementation tuned on these records needs
+3. **Separate confirmation pages.** Any implementation tuned on these records needs
    separately selected complete pages before reporting an improvement. The current
-   sample is development material from now on. Independent human adjudication and
-   stable-default qualification remain the work of #22 and #26.
+   sample is development material from now on. The same assistant may review the
+   confirmation pages. The maintainer accepted assistant review on September 17,
+   2026; [ADR 0041](../../../docs/adr/0041-assistant-review-acceptance.md) records
+   that decision. Rule acceptance in #26 no longer waits for human adjudication.
 
 These priorities extend the existing engine. No rule, weight, threshold, profile,
 public API or playground runtime changes in this record.

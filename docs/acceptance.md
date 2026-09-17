@@ -3,7 +3,8 @@
 This page records the state of every acceptance requirement the project states,
 with a link to evidence a reader can reproduce. It is a status record, not a
 claim that the product is finished. Implemented tooling, published artifacts,
-research observations, and human qualification have separate acceptance criteria.
+research observations, diagnostic review and model qualification have separate
+acceptance criteria.
 
 This September 13, 2026 snapshot uses merged source through
 [`06b3861`](https://github.com/stokaro/unswell/commit/06b38615d4483970b65a6fbe2187aeb4864830dc),
@@ -31,8 +32,10 @@ Each row uses one of five states.
   it on hold. Its criteria remain intact; deferral is not completion.
 
 Under [ADR 0037](adr/0037-diagnostics-not-authorship.md), the active release path
-improves explainable diagnostics. Human qualification, calibrated probabilities,
-origin analysis, and detector comparisons are deferred. #123 has its own explicit
+improves explainable diagnostics. [ADR 0041](adr/0041-assistant-review-acceptance.md)
+records the September 17 decision to accept assistant review for diagnostic
+changes without an independent human reviewer. Calibrated probabilities, origin
+analysis and detector comparisons remain deferred. #123 has its own explicit
 start restriction and remains required for final validation.
 
 ## Stages 0 and 1: alpha acceptance
@@ -66,7 +69,7 @@ start restriction and remains required for final validation.
 | Committed changed-unit analysis | Met | [changes](changes.md) and [ADR 0006](adr/0006-committed-changes.md) |
 | Trusted base policy | Met | [trusted policy](trusted-policy.md) and [ADR 0007](adr/0007-trusted-policy.md) |
 | Public `go/analysis` adapter | Met | [Go analysis adapter](go-analysis.md) and [ADR 0008](adr/0008-go-analysis-adapter.md) |
-| Extended signal catalogs | Partly met | The [editorial](editorial-patterns.md), [repetition](repetition-signals.md), and [surface](surface-signals.md) catalogs are implemented. The replay in [#217](https://github.com/stokaro/unswell/issues/217) and the [complete-document study](../research/generation/studies/long-prose-v3/results.md) provide construction evidence. Human qualification remains deferred in [#26](https://github.com/stokaro/unswell/issues/26) |
+| Extended signal catalogs | Partly met | The [editorial](editorial-patterns.md), [repetition](repetition-signals.md), and [surface](surface-signals.md) catalogs are implemented. The replay in [#217](https://github.com/stokaro/unswell/issues/217) and the [complete-document study](../research/generation/studies/long-prose-v3/results.md) provide construction evidence. Rule acceptance proceeds with maintainer-accepted assistant review under [ADR 0041](adr/0041-assistant-review-acceptance.md); per-rule evidence remains required in [#26](https://github.com/stokaro/unswell/issues/26) |
 
 ## Stage 3: calibrated revision probability
 
@@ -107,14 +110,14 @@ state.
 | Regression fixtures per rule | Met | `builtin/testdata/rewrites-v1.json` holds one pair for every builtin rule: a text that carries the construction and a rewrite that keeps its identifiers, numbers, and at least half of its words. `TestRewriteFixturesStopFiringAfterTheRewrite` in the root package asserts that the rule fires on the first and stays silent on the second in ordinary CI |
 | Role stratum | Met | Every row of the pattern tables carries `roles`, the same counts and interval per document role; the [role run](../research/acquisition/runs/2026-09-11-roles/README.md) records the tables of the current measurement with it |
 | Frequency command | Met | `corpus frequencies` counts constructions per cohort and role and contrasts each stratum with its baseline; the [frequency run](../research/acquisition/runs/2026-09-11-frequencies/README.md) records the output on the current corpus |
-| Review on real texts | Partly met | The dated reviews cover [Ptah](../research/reviews/2026-09-15-contextual/README.md), [complete technical documents and generated responses](../research/generation/studies/long-prose-v3/inspection.md), and [this repository](../research/reviews/2026-09-11-unswell/README.md). The [offline fixtures](../e2e/testdata/long_prose_research/README.md) preserve concrete edits and technical counterexamples. These are agent reviews and construction regressions; independent human quality qualification remains deferred to #22/#26 |
+| Review on real texts | Partly met | The dated reviews cover [Ptah](../research/reviews/2026-09-15-contextual/README.md), [complete technical documents and generated responses](../research/generation/studies/long-prose-v3/inspection.md), and [this repository](../research/reviews/2026-09-11-unswell/README.md). The [offline fixtures](../e2e/testdata/long_prose_research/README.md) preserve concrete edits and technical counterexamples. The [whole-page audit](../research/reviews/2026-09-17-full-page-recall/README.md) adds missed-event recall and complete finding dispositions. The maintainer accepted its assistant judgments; #299/#300 require separate confirmation pages under ADR 0041 |
 | Sources beyond repositories | Met | `scripts/acquire-documents.sh` brings published specifications into the historical cohort under the corpus contract; the [document run](../research/acquisition/runs/2026-09-11-documents/README.md) records three RFC sets of eight texts with their tables |
 
 ## Stage 4: first product release
 
 | Requirement | State | Evidence |
 | --- | --- | --- |
-| Stable rule qualification against a real corpus | Deferred | Needs a human decision per finding on a labeled corpus, on hold with [#22](https://github.com/stokaro/unswell/issues/22) and [#26](https://github.com/stokaro/unswell/issues/26); the alpha claims no precision figure |
+| Stable rule qualification against a real corpus | Open | [#26](https://github.com/stokaro/unswell/issues/26) accepts assistant-reviewed evidence under [ADR 0041](adr/0041-assistant-review-acceptance.md). Each rule still needs contextual positives/negatives, confirmation results and a recorded default decision. Independent human review is no longer a blocker; the whole-page audit does not qualify all defaults |
 | Coverage and failure-path targets | Partly met | Failure-path tests and the [measurement recorded on #27](https://github.com/stokaro/unswell/issues/27): configuration 91.9%, engine and scoring 91.9%, rules 92.7%, source mapping 90.9%, 86.7% overall; the CI gate that enforces them is deferred to #123 |
 | Reproducible performance and resource limits | Met | [Alpha.4 measurements](performance/alpha4/README.md): all 24 scans complete within 10 seconds and 512 MiB under a two-CPU quota. Synthetic, pytest, and FastAPI each exceed 100,000 prose words. Date-fns is smaller; its row establishes completeness and measured cost, not the word-count target. Historical failures and coverage changes remain recorded |
 | SARIF consumers, reproducible releases and formats | Met | [SARIF](sarif.md), [reproducible builds](reproducible-builds.md), the [release audit](release/v0.1.0-alpha.3-audit.json) and the format checks in [reports](reports.md) |
@@ -125,10 +128,11 @@ state.
 
 ## What this alpha does not claim
 
-The rule catalog is experimental. No precision or recall figure is published for
-any rule, because that number requires the labeled corpus stage 3 defines. A
-revision probability is unavailable without an accepted pack, and an absent
-estimate carries a reason rather than a zero. The origin channel never gates a
+The rule catalog is experimental. Diagnostic review metrics describe agreement
+with the named reviewer on the declared sample. The whole-page audit publishes
+recall against assistant annotations; it establishes neither population accuracy
+nor independent human agreement. A revision probability is unavailable without
+an accepted pack, and an absent estimate carries a reason rather than a zero. The origin channel never gates a
 build. Distribution automation completed the alpha.3 cycle documented in
 [#66](https://github.com/stokaro/unswell/issues/66) and the
 [release evidence](alpha-distribution-evidence.md). That success does not verify
