@@ -1,6 +1,10 @@
 package builtin
 
-import "github.com/stokaro/unswell/document"
+import (
+	"strings"
+
+	"github.com/stokaro/unswell/document"
+)
 
 // qualitativeAssurance requires a copular quality predicate, not an adjective
 // inside a technical noun phrase. It requests scope, not proof of falsehood.
@@ -10,7 +14,7 @@ func qualitativeAssurance(c frameClause) (rhetoricalFrame, bool) {
 	}
 	for i := range c.tokens() {
 		candidate, ok := localRhetoricCandidate(c, i)
-		if ok && embeddedClauseStart(c.tokens(), i) && qualityJudgment(candidate.tokens()) {
+		if ok && qualityClauseStart(c.tokens(), i) && qualityJudgment(candidate.tokens()) {
 			return localFrame(candidate, 0)
 		}
 	}
@@ -19,7 +23,7 @@ func qualitativeAssurance(c frameClause) (rhetoricalFrame, bool) {
 
 func qualityJudgment(tokens []document.Token) bool {
 	for i := 1; i < min(len(tokens)-1, 16); i++ {
-		if !positiveRhetoricSubject(tokens[:i]) {
+		if !qualitySubject(tokens[:i]) {
 			continue
 		}
 		if end := qualityCopula(tokens[i:]); end > 0 && qualityComplement(tokens[i+end:]) {
@@ -82,4 +86,48 @@ func qualityMechanism(tokens []document.Token) bool {
 		}
 	}
 	return false
+}
+
+// A quality predicate needs its own subject. Conjunctions and a relative
+// restriction inside an imperative cannot stand in for that subject.
+func qualitySubject(tokens []document.Token) bool {
+	if len(tokens) == 0 || !positiveRhetoricSubject(tokens) {
+		return false
+	}
+	if !qualitySubjectStart(tokens[0]) {
+		return false
+	}
+	for i, token := range tokens[1:] {
+		if frameWord(token, "that", "which", "who", "whom", "whose") ||
+			brokenNominalSequence(tokens[i], token) {
+			return false
+		}
+	}
+	return true
+}
+
+// An introductory goal does not scope an ease judgment. Only an explicit
+// infinitive with an operand permits a later main subject; finite clauses and
+// relative restrictions remain boundaries. The goal stays out of the finding.
+func qualityClauseStart(tokens []document.Token, at int) bool {
+	if embeddedClauseStart(tokens, at) {
+		return true
+	}
+	if at < 3 || at > 18 || !frameWord(tokens[0], "to") {
+		return false
+	}
+	prefix := tokens[1:at]
+	if frameWord(prefix[len(prefix)-1], ",") {
+		prefix = prefix[:len(prefix)-1]
+	}
+	return grammaticalAction(prefix) && nominalSubject(prefix[1:])
+}
+
+func qualitySubjectStart(token document.Token) bool {
+	return token.Protected || strings.HasPrefix(token.Tag, "NN") || token.Tag == "VBG" ||
+		frameWord(token, "a", "an", "the", "this", "that", "these", "those", "it", "they", "our", "your", "its")
+}
+
+func brokenNominalSequence(previous, current document.Token) bool {
+	return !current.Protected && current.Tag == "DT" && previous.Tag != "IN" && previous.Tag != "VBG" && previous.Tag != "POS"
 }

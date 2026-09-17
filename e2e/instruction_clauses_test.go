@@ -39,7 +39,7 @@ func checkInstructionRevision(t *testing.T, files map[string]string, want int) {
 		for _, f := range result.Findings {
 			if f.RuleID == "filler.instruction-scaffolding" {
 				count++
-				c.Assert(f.RuleVersion, qt.Equals, "8")
+				c.Assert(f.RuleVersion, qt.Equals, "9")
 				c.Assert(f.Primary.Path, qt.Equals, "draft.md")
 				c.Assert(files["draft.md"][f.Primary.Span.Start:f.Primary.Span.End], qt.Equals, f.Primary.Snippet)
 			}

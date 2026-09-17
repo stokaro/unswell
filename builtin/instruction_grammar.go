@@ -71,6 +71,14 @@ func relativeOperation(tokens []document.Token, verb int) (bool, bool) {
 	if end > 0 && frameWord(tokens[end-1], ",") {
 		end--
 	}
+	return relativeAntecedent(tokens[:end])
+}
+
+func relativeAntecedent(tokens []document.Token) (bool, bool) {
+	end := len(tokens)
+	if end >= 2 && relativeConfiguration(tokens[end-2:end]) {
+		return true, false
+	}
 	for start := max(0, end-12); start < end; start++ {
 		if start > 0 && !frameWord(tokens[start], "a", "an", "the", "this", "that") {
 			continue
@@ -86,10 +94,22 @@ func relativeOperation(tokens []document.Token, verb int) (bool, bool) {
 // Relative modal usage alone does not establish agency. A checksum, label or
 // other supplied operand can be used by a caller without performing the action.
 func relativeActionActor(tokens []document.Token) bool {
+	if len(tokens) > 1 && tokens[len(tokens)-1].Protected {
+		tokens = tokens[:len(tokens)-1]
+	}
 	return len(tokens) > 0 && frameWord(tokens[len(tokens)-1], "reader", "writer", "parser", "client", "server",
 		"service", "worker", "process", "library", "utility", "tool", "function", "method", "command", "handler", "callback")
 }
 
 func relativeActionSubject(tokens []document.Token) bool {
-	return operationSubject(tokens) || projectionSubject(tokens) && relativeActionActor(tokens)
+	return operationSubject(tokens) || relativeConfiguration(tokens) ||
+		projectionSubject(tokens) && relativeActionActor(tokens)
+}
+
+// Configuration options describe selectable operations. Requiring the explicit
+// modifier avoids promoting every label, checksum or other operand to an actor.
+func relativeConfiguration(tokens []document.Token) bool {
+	end := len(tokens)
+	return end >= 2 && frameWord(tokens[end-1], "option", "options") &&
+		frameWord(tokens[end-2], "configure", "configuration") && nominalSubject(tokens[:end-2])
 }

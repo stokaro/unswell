@@ -16,6 +16,10 @@ func supportAdverb(tokens []document.Token, at int) int {
 // A method/function head establishes an operation role even when the name is
 // tagged as a verb. The role is not inferred for an arbitrary component.
 func operationSubject(tokens []document.Token) bool {
+	return namedOperationSubject(tokens) || trailingOperationHead(tokens)
+}
+
+func trailingOperationHead(tokens []document.Token) bool {
 	if len(tokens) < 2 || len(tokens) > 6 || !frameWord(tokens[len(tokens)-1], "method", "function") {
 		return false
 	}
@@ -57,4 +61,14 @@ func enabledComplement(tokens []document.Token, at, layers int) (instructionProj
 		return instructionProjection{action: at + 1, layers: layers}, true
 	}
 	return projectAction(tokens, at, layers)
+}
+
+// A protected name following an explicit operation head is an opaque identifier,
+// not the head of the noun phrase. Never inspect its contents for role words.
+func namedOperationSubject(tokens []document.Token) bool {
+	if len(tokens) < 2 || len(tokens) > 6 || !tokens[len(tokens)-1].Protected {
+		return false
+	}
+	head := tokens[:len(tokens)-1]
+	return frameWord(head[len(head)-1], "function", "method") && projectionSubject(head)
 }

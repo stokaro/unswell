@@ -1,0 +1,2055 @@
+{
+  "version": 1,
+  "rubric": "unswell-editorial-v1",
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "aca98ce681e766197574be7e91a03254997a2a6e067889a33c837cd5058f132e",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4080,
+          "first_line": 1,
+          "last_line": 126,
+          "rationale": "Read all 18 prose blocks and source context. The provider, reading/writing permissions, trace evidence, initial versus resumed request, audit retention, and exit codes each supply distinct requirements. No required repair in any of the seven categories; fluent output versus verified operations is a necessary trust boundary.",
+          "prose_blocks": 18,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [],
+      "uncertain": [],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1936,
+              "end": 2138,
+              "quote": "The answer is the model's prose. The tool trace is the evidence that Ptah read,\nvalidated, or rendered something. Do not treat fluent prose as verified merely\nbecause it came through the `ptah` process."
+            }
+          ],
+          "context": [
+            {
+              "start": 1936,
+              "end": 2138,
+              "quote": "The answer is the model's prose. The tool trace is the evidence that Ptah read,\nvalidated, or rendered something. Do not treat fluent prose as verified merely\nbecause it came through the `ptah` process."
+            }
+          ],
+          "rationale": "The distinction between model prose and a tool trace changes what the user can treat as verified.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2314,
+              "end": 2636,
+              "quote": "`context` builds the same first provider request as the real run but sends\nnothing. It reports bytes for Ptah instructions, tool schemas, conversation,\nand total input. On a new session, project content reaches the provider only\nafter a tool answers. A resumed session includes its prior conversation in the\nfirst request."
+            }
+          ],
+          "context": [
+            {
+              "start": 2314,
+              "end": 2636,
+              "quote": "`context` builds the same first provider request as the real run but sends\nnothing. It reports bytes for Ptah instructions, tool schemas, conversation,\nand total input. On a new session, project content reaches the provider only\nafter a tool answers. A resumed session includes its prior conversation in the\nfirst request."
+            }
+          ],
+          "rationale": "New-session content follows tool answers; resumed-session content is in the initial request. These are different disclosure states.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3164,
+              "end": 3411,
+              "quote": "When a patch requires approval, Ptah shows the artifact, paths, and exact digest\nbefore asking whether to allow it once or for the session. The one-shot\n`--non-interactive` mode refuses an operation that needs approval instead of\nassuming consent."
+            }
+          ],
+          "context": [
+            {
+              "start": 3164,
+              "end": 3411,
+              "quote": "When a patch requires approval, Ptah shows the artifact, paths, and exact digest\nbefore asking whether to allow it once or for the session. The one-shot\n`--non-interactive` mode refuses an operation that needs approval instead of\nassuming consent."
+            }
+          ],
+          "rationale": "Once/session authorization, digest binding, and noninteractive refusal are separate conditions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3852,
+              "end": 4079,
+              "quote": "Use `--ephemeral` when the conversation must not be saved. The separate agent\naudit log still records Ptah's permission decisions. Read\n[Manage Ptah Assist sessions](../ai-assist-sessions/) for storage, resuming, and\nretention."
+            }
+          ],
+          "context": [
+            {
+              "start": 3852,
+              "end": 4079,
+              "quote": "Use `--ephemeral` when the conversation must not be saved. The separate agent\naudit log still records Ptah's permission decisions. Read\n[Manage Ptah Assist sessions](../ai-assist-sessions/) for storage, resuming, and\nretention."
+            }
+          ],
+          "rationale": "Ephemeral conversation does not disable the separate audit record; preserve both retention policies.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "0bd6e144ba2e9791909cc1cc78fe10ebaa4e7a1a144dfea4feb4fced8255598b",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 16775,
+          "first_line": 1,
+          "last_line": 404,
+          "rationale": "Read all 89 extracted MDX prose blocks/table cells and original source context. Preserve read/write and none/unknown distinctions, dialect-specific variable rules, unresolved attribution, exact versus incomplete writes, and arithmetic-expression misattribution. Repeated safety examples are not automatically redundant. Imported graph data and protected examples are outside editorial prose.",
+          "prose_blocks": 89,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1661,
+              "end": 1717,
+              "quote": "which is the part of the output a reader has to look at."
+            }
+          ],
+          "context": [
+            {
+              "start": 1488,
+              "end": 1717,
+              "quote": "The analysis reads a schema source and contacts no database, so it answers\nbefore a change is applied. What it cannot attribute it reports as undecided\ninstead of dropping, which is the part of the output a reader has to look at."
+            }
+          ],
+          "rationale": "Reader-attention endorsement adds no behavior after the explicit undecided reporting explanation.",
+          "proposed_edit": "Delete the endorsement; retain that unattributed dependencies are reported as undecided."
+        },
+        {
+          "id": "c02-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2255,
+              "end": 2329,
+              "quote": "which is what makes it a review artifact a\nrepository can commit and diff."
+            }
+          ],
+          "context": [
+            {
+              "start": 2062,
+              "end": 2329,
+              "quote": "The graph draws an unresolved view dashed and carries its reason as a tooltip\nrather than leaving it out, and it sorts every node and edge so the same schema\nrenders byte-identically twice \u2014 which is what makes it a review artifact a\nrepository can commit and diff."
+            }
+          ],
+          "rationale": "The nested what-makes-it frame delays the direct consequence of deterministic output.",
+          "proposed_edit": "Say that deterministic output can be committed and diffed."
+        },
+        {
+          "id": "c02-d03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3377,
+              "end": 3417,
+              "quote": "Nothing else \u2014 no database, no server."
+            }
+          ],
+          "context": [
+            {
+              "start": 3274,
+              "end": 3417,
+              "quote": "Prerequisites: an installed `ptah` binary ([Install Ptah](../../start/install/))\nand a desired schema. Nothing else \u2014 no database, no server."
+            }
+          ],
+          "rationale": "The preceding paragraph already states the analysis contacts no database, and installed binary plus desired schema are the prerequisites.",
+          "proposed_edit": "Keep the prerequisite list without repeating the offline promise."
+        },
+        {
+          "id": "c02-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4932,
+              "end": 5001,
+              "quote": "The second block is what tells you whether the first one is complete."
+            }
+          ],
+          "context": [
+            {
+              "start": 4932,
+              "end": 5176,
+              "quote": "The second block is what tells you whether the first one is complete. A view\nbody that resolves only partially is reported under `undecided` with its\nreason, and the whole view goes there rather than the one column that could not\nbe attributed."
+            }
+          ],
+          "rationale": "Ordinal block references and is-what-tells-you obscure the named edge and undecided lists.",
+          "proposed_edit": "State that the undecided list identifies views missing from the resolved edge list."
+        },
+        {
+          "id": "c02-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7186,
+              "end": 7451,
+              "quote": "Two of those tables say `READ BY` and are not the same list. The first is a\nroutine whose whole body is one `SELECT`, resolved column to column like a view;\nthe second is a column a statement inside a procedural body reads, and its third\ncolumn names the statement."
+            }
+          ],
+          "context": [
+            {
+              "start": 7186,
+              "end": 7502,
+              "quote": "Two of those tables say `READ BY` and are not the same list. The first is a\nroutine whose whole body is one `SELECT`, resolved column to column like a view;\nthe second is a column a statement inside a procedural body reads, and its third\ncolumn names the statement. A routine appears in one or the other, never both."
+            }
+          ],
+          "rationale": "Nested first/second/third and mixed table/routine/column referents make two concrete output types hard to distinguish.",
+          "proposed_edit": "Name the whole-body SELECT table and per-statement read table directly; retain statement-column meaning and mutual exclusivity."
+        },
+        {
+          "id": "c02-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7504,
+              "end": 7572,
+              "quote": "The boundary is the same one the view half draws, in the same place."
+            }
+          ],
+          "context": [
+            {
+              "start": 7504,
+              "end": 7777,
+              "quote": "The boundary is the same one the view half draws, in the same place. A body\nthat is a single `SELECT` -- which is the shape a `LANGUAGE sql` routine has --\nresolves to the columns it reads, through the same reader and with the same four\nundecided shapes in the table above."
+            }
+          ],
+          "rationale": "The boundary metaphor repeats sameness immediately explained by the following single-SELECT rule.",
+          "proposed_edit": "Start with the single-SELECT body and retain the shared reader and undecided shapes."
+        },
+        {
+          "id": "c02-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 9375,
+              "end": 9443,
+              "quote": "would\nbe a wrong answer about the one question this verb exists for."
+            }
+          ],
+          "context": [
+            {
+              "start": 9222,
+              "end": 9565,
+              "quote": "A read is a column named in a statement, and the danger is a local variable or\nparameter carrying a column's name: reporting it as a read of that column would\nbe a wrong answer about the one question this verb exists for. Each engine\nresolves that ambiguity differently, and the difference is what decides whether\nreads can be answered at all."
+            }
+          ],
+          "rationale": "The purpose-of-verb endorsement adds no information to the variable/column collision error.",
+          "proposed_edit": "State that misclassifying a local variable reports a nonexistent column read."
+        },
+        {
+          "id": "c02-d08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9497,
+              "end": 9565,
+              "quote": "the difference is what decides whether\nreads can be answered at all."
+            }
+          ],
+          "context": [
+            {
+              "start": 9222,
+              "end": 9565,
+              "quote": "A read is a column named in a statement, and the danger is a local variable or\nparameter carrying a column's name: reporting it as a read of that column would\nbe a wrong answer about the one question this verb exists for. Each engine\nresolves that ambiguity differently, and the difference is what decides whether\nreads can be answered at all."
+            }
+          ],
+          "rationale": "The cleft and vague answered-at-all phrasing obscures support for deriving reads.",
+          "proposed_edit": "Say that dialect name-resolution rules determine whether column reads can be derived."
+        },
+        {
+          "id": "c02-d09",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 10400,
+              "end": 10482,
+              "quote": "because a body read by the wrong one is a wrong answer rather\nthan a cautious one."
+            }
+          ],
+          "context": [
+            {
+              "start": 10224,
+              "end": 10604,
+              "quote": "Each engine writes routine bodies in its own procedural language, and each has\nits own parser here. `--dialect` is what selects one; there is no shared parser\nto fall back on, because a body read by the wrong one is a wrong answer rather\nthan a cautious one. A dialect with no routine-body parser reports that, by\nname, instead of being analyzed by whichever parser was reachable."
+            }
+          ],
+          "rationale": "The wrong/cautious contrast restates parser mismatch rhetorically without identifying an additional failure mode.",
+          "proposed_edit": "Keep that --dialect selects the engine parser and unsupported dialects report no analysis."
+        },
+        {
+          "id": "c02-d10",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 11209,
+              "end": 11265,
+              "quote": "That distinction is the whole point of reading the list."
+            }
+          ],
+          "context": [
+            {
+              "start": 11209,
+              "end": 11363,
+              "quote": "That distinction is the whole point of reading the list. A routine reported with\nwrites and nothing else would say its reads are none rather than unknown."
+            }
+          ],
+          "rationale": "Importance/purpose assertion delays the concrete none-versus-unknown consequence in the next sentence.",
+          "proposed_edit": "Remove the first sentence and retain the distinction between absent reads and unknown reads."
+        },
+        {
+          "id": "c02-d11",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15583,
+              "end": 15669,
+              "quote": "which is how the same question is asked about a database nobody has a\ndeclaration for:"
+            }
+          ],
+          "context": [
+            {
+              "start": 15505,
+              "end": 15669,
+              "quote": "`--db-url` traces the schema a server reports instead of one a file declares,\nwhich is how the same question is asked about a database nobody has a\ndeclaration for:"
+            }
+          ],
+          "rationale": "Question/answer and nobody-has wording restates the already-stated live-schema input.",
+          "proposed_edit": "End after the live database versus file distinction."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c02-u01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 13288,
+              "end": 13476,
+              "quote": "A completed trace exits `0`, whether or not any view landed in `undecided`. A\nusage error exits `2` with one line on stderr. See\n[Exit codes](../../reference/exit-codes/) for the contract."
+            }
+          ],
+          "context": [
+            {
+              "start": 13288,
+              "end": 13476,
+              "quote": "A completed trace exits `0`, whether or not any view landed in `undecided`. A\nusage error exits `2` with one line on stderr. See\n[Exit codes](../../reference/exit-codes/) for the contract."
+            }
+          ],
+          "rationale": "Repeats the exit-zero condition from the undecided explanation, but this is the designated failure-mode reference section.",
+          "proposed_edit": "Keep unless the exit-code reference can serve both readers without losing discoverability."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5178,
+              "end": 5426,
+              "quote": "`customer_orders` above reads two tables, so `email` and `total_cents` cannot be\nattributed to one of them. A reader who saw only the edge list would conclude\nthat nothing reads `customers.email`, and dropping it on that basis would break\nthe view."
+            }
+          ],
+          "context": [
+            {
+              "start": 5178,
+              "end": 5426,
+              "quote": "`customer_orders` above reads two tables, so `email` and `total_cents` cannot be\nattributed to one of them. A reader who saw only the edge list would conclude\nthat nothing reads `customers.email`, and dropping it on that basis would break\nthe view."
+            }
+          ],
+          "rationale": "The two-table attribution example names the concrete false drop inference, not generic danger.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 9989,
+              "end": 10188,
+              "quote": "A column a statement assigns to is a write and not a read. In `SET country =\n'CZ' WHERE id = 1` only `id` is read; in `SET email = lower(email)` the column\n`email` is both, and appears in both lists."
+            }
+          ],
+          "context": [
+            {
+              "start": 9989,
+              "end": 10188,
+              "quote": "A column a statement assigns to is a write and not a read. In `SET country =\n'CZ' WHERE id = 1` only `id` is read; in `SET email = lower(email)` the column\n`email` is both, and appears in both lists."
+            }
+          ],
+          "rationale": "A column can be a read and write in one expression; two examples establish different cases.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 13963,
+              "end": 14388,
+              "quote": "A **write** is resolved from the statement that performs it, so it is exact\n  about the table and about the columns an `UPDATE` assigns or an `INSERT`\n  lists. Which statements are reached depends on the dialect; see the table\n  above. A statement naming the table alone -- a `DELETE`, a `TRUNCATE`, an\n  `INSERT` with no column list -- is reported with no column, which means the\n  whole table rather than an unknown column."
+            }
+          ],
+          "context": [
+            {
+              "start": 13963,
+              "end": 14388,
+              "quote": "A **write** is resolved from the statement that performs it, so it is exact\n  about the table and about the columns an `UPDATE` assigns or an `INSERT`\n  lists. Which statements are reached depends on the dialect; see the table\n  above. A statement naming the table alone -- a `DELETE`, a `TRUNCATE`, an\n  `INSERT` with no column list -- is reported with no column, which means the\n  whole table rather than an unknown column."
+            }
+          ],
+          "rationale": "No-column means whole-table, not unknown-column; the INSERT/UPDATE distinctions are necessary.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 14605,
+              "end": 15091,
+              "quote": "An arithmetic expression in the select list with no alias produces an edge\n  that is wrong rather than an `undecided` entry. For a view declared\n  `SELECT a + b FROM t`, the command reports one edge, `t.a` feeding a view\n  column named `b`: the source is the first identifier in the expression, and\n  the target names a column the view does not have. Nothing reports `t.b`,\n  which the view reads. Alias the expression \u2014 `SELECT a + b AS total` \u2014 and\n  both edges resolve correctly."
+            }
+          ],
+          "context": [
+            {
+              "start": 14605,
+              "end": 15091,
+              "quote": "An arithmetic expression in the select list with no alias produces an edge\n  that is wrong rather than an `undecided` entry. For a view declared\n  `SELECT a + b FROM t`, the command reports one edge, `t.a` feeding a view\n  column named `b`: the source is the first identifier in the expression, and\n  the target names a column the view does not have. Nothing reports `t.b`,\n  which the view reads. Alias the expression \u2014 `SELECT a + b AS total` \u2014 and\n  both edges resolve correctly."
+            }
+          ],
+          "rationale": "The arithmetic expression bug requires both omitted and invented edge identities; preserve all identifiers and alias workaround.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 15767,
+              "end": 15950,
+              "quote": "The dialect comes from the server rather than from `--dialect`: a lineage traced\nagainst a live database is about that database, and a routine body is read by\nits own engine's parser."
+            }
+          ],
+          "context": [
+            {
+              "start": 15767,
+              "end": 15950,
+              "quote": "The dialect comes from the server rather than from `--dialect`: a lineage traced\nagainst a live database is about that database, and a routine body is read by\nits own engine's parser."
+            }
+          ],
+          "rationale": "Server dialect overrides a flag for a live schema, which is a material source-selection rule.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "853fc595b9d859da72bda49c645d80e583f8b1d4750e884a62a965cf6c0044e6",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 25056,
+          "first_line": 1,
+          "last_line": 504,
+          "rationale": "Read all 126 blocks/table cells and original SQL/YAML context. Preserve apply versus lint, default versus configured severity, exact-code versus prefix, dialect families, unmet-capability evidence and tamper-evidence limitations. Factual consistency of the severity vocabulary is not silently repaired as prose.",
+          "prose_blocks": 126,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 954,
+              "end": 1036,
+              "quote": "Whether that directory is the one you\nreviewed is a separate question, answered by"
+            }
+          ],
+          "context": [
+            {
+              "start": 874,
+              "end": 1086,
+              "quote": "Prerequisites: a migration directory (see\n[Generate migrations](../generate/)). Whether that directory is the one you\nreviewed is a separate question, answered by\n[Integrity and safety](../integrity-and-safety/)."
+            }
+          ],
+          "rationale": "The question/answer wrapper obscures a direct verification reference.",
+          "proposed_edit": "Link to Integrity and safety for verification that the directory matches the reviewed one."
+        },
+        {
+          "id": "c03-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2658,
+              "end": 2728,
+              "quote": "A rollback that cannot run is only discovered\n  when someone needs it."
+            }
+          ],
+          "context": [
+            {
+              "start": 2552,
+              "end": 2728,
+              "quote": "`PG103` \u2014 a `CONCURRENTLY` statement in a file with no `no_transaction`\n  marker cannot execute at all. A rollback that cannot run is only discovered\n  when someone needs it."
+            }
+          ],
+          "rationale": "The warning is a generic dramatic consequence after the specific execution restriction; it adds no timing or validation requirement.",
+          "proposed_edit": "Keep the CONCURRENTLY/no_transaction requirement without this flourish."
+        },
+        {
+          "id": "c03-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4977,
+              "end": 5209,
+              "quote": "A rule that compares a statement with that\n  state stays quiet without it, a rule the state only refines reports from\n  the text alone, and the run names both kinds as unmet so the thinner\n  report is never mistaken for a clean one."
+            }
+          ],
+          "context": [
+            {
+              "start": 4133,
+              "end": 5427,
+              "quote": "`--dialect` gates dialect-specific rules; accepted values are `postgres`,\n  `mysql`, `mariadb`, `sqlite`, `sqlserver`, `clickhouse`, `cockroachdb`,\n  `yugabytedb`, and `spanner`. Every documented alias of those names is\n  accepted too and resolves to the canonical one, so `--dialect pgx`,\n  `--dialect postgresql` and `--dialect postgres` are the same request \u2014 see\n  [Dialects and capabilities](../../concepts/dialects-and-capabilities/) for\n  the full spelling table. `--dev-url` infers the dialect and additionally\n  replays the directory on the dev database. Before each analyzed version\n  the run reads the schema state that version starts from and hands it to\n  the rules that ask for it: the columns with their type, nullability,\n  default, character set and collation, the indexes with their key parts,\n  and what reads each column. A rule that compares a statement with that\n  state stays quiet without it, a rule the state only refines reports from\n  the text alone, and the run names both kinds as unmet so the thinner\n  report is never mistaken for a clean one. Two info-severity rules, `MY130P`\n  and `PG301P`, say where the state shows a column change applied in place,\n  and by which algorithm, so quiet cost rules read as a judgment rather than\n  as a rule that did not look."
+            }
+          ],
+          "rationale": "Three nested rule/state references obscure two precise missing-context behaviors.",
+          "proposed_edit": "Separate rules requiring schema state from rules refined by it; explicitly say both report unmet context."
+        },
+        {
+          "id": "c03-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7863,
+              "end": 7928,
+              "quote": "so the vocabulary gained a level rather than becoming permissive."
+            }
+          ],
+          "context": [
+            {
+              "start": 7243,
+              "end": 7928,
+              "quote": "`severity` accepts `info`, `warning` or `error` and replaces the rule's\n  default severity on its findings \u2014 the level that `--fail-on` and the\n  apply-time destructive gate below evaluate. Only `error` gates: a rule set to\n  `info` or `warning` is reported and exits `0`. `info` exists so a rule can be\n  introduced to a repository that still violates it, and so a team can say\n  \"surface this, never block on it\" without the alternatives being loud enough\n  to fail or absent from the report entirely. In SARIF the three levels are\n  `note`, `warning` and `error`. Any other value fails config parsing (exit\n  `2`), so the vocabulary gained a level rather than becoming permissive."
+            }
+          ],
+          "rationale": "Abstract vocabulary contrast repeats the exact allowed values and invalid-config behavior.",
+          "proposed_edit": "Delete this clause and retain that unknown severities exit 2."
+        },
+        {
+          "id": "c03-d05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 10203,
+              "end": 10252,
+              "quote": "because the convention is the project's to\nstate."
+            }
+          ],
+          "context": [
+            {
+              "start": 9867,
+              "end": 10252,
+              "quote": "A `naming` section makes the six `NM` rules check every name a migration\nintroduces against the patterns the project chooses: a schema or table it\ncreates or renames to, a column it declares, adds or renames to, an index or\nunique key it names, and a foreign key or check constraint it names. Without\nthe section the rules stay silent, because the convention is the project's to\nstate."
+            }
+          ],
+          "rationale": "The ownership-of-convention phrase repeats the preceding project-chosen patterns and absence-of-config behavior.",
+          "proposed_edit": "Keep that naming rules are silent without a naming section."
+        },
+        {
+          "id": "c03-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 11370,
+              "end": 11450,
+              "quote": "so a naming block never\n  reads as a convention enforced while checking nothing."
+            }
+          ],
+          "context": [
+            {
+              "start": 11245,
+              "end": 11450,
+              "quote": "A pattern that does not compile, a kind block without a `match`, and a\n  section with no pattern at all fail config parsing, so a naming block never\n  reads as a convention enforced while checking nothing."
+            }
+          ],
+          "rationale": "The reads-as contrast repeats the three explicit validation failures.",
+          "proposed_edit": "End after the invalid-config conditions."
+        },
+        {
+          "id": "c03-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15087,
+              "end": 15178,
+              "quote": "Evaluation is a pure\nfunction of the statement, which is what makes a finding reproducible."
+            }
+          ],
+          "context": [
+            {
+              "start": 14798,
+              "end": 15178,
+              "quote": "There is deliberately no `file`, `fileset`, `getenv` or `print`. A rule that\ncould read a file or the environment would report findings that depend on the\nmachine it ran on, so the same migration would lint clean on one checkout and\nfail in CI with nothing in the migration to explain it. Evaluation is a pure\nfunction of the statement, which is what makes a finding reproducible."
+            }
+          ],
+          "rationale": "The is-what-makes cleft adds a layer between the deterministic evaluation and reproducible output.",
+          "proposed_edit": "Write that pure statement evaluation makes findings reproducible; retain no filesystem/environment access."
+        },
+        {
+          "id": "c03-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 17425,
+              "end": 17471,
+              "quote": "and the page you are reading keeps them\napart."
+            }
+          ],
+          "context": [
+            {
+              "start": 17312,
+              "end": 17642,
+              "quote": "A rule being implemented, a rule running on a command, and a rule refusing to\nproceed are three different facts, and the page you are reading keeps them\napart. The [lint rules reference](../../reference/lint-rules/) lists what is\nimplemented. This table says where each of those rules runs and what a finding\ndoes on that surface:"
+            }
+          ],
+          "rationale": "Self-description of the page adds no distinction to implementation, execution and gating.",
+          "proposed_edit": "Remove this clause; retain all three categories and the reference/table."
+        },
+        {
+          "id": "c03-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 23052,
+              "end": 23093,
+              "quote": "That makes the escape hatch\nproportional:"
+            }
+          ],
+          "context": [
+            {
+              "start": 22935,
+              "end": 23688,
+              "quote": "The gate otherwise uses the same dialect selection, rule configuration, and\npath matching as `ptah migrations lint`. That makes the escape hatch\nproportional: a rule downgraded with\n`severity: warning`, listed under `disabled-rules`, or excluded for a path\nstops blocking exactly that reviewed pattern \u2014 a widening\n`ALTER COLUMN ... TYPE` under `rules: {DS103: {severity: warning}}` applies\nwithout `--allow-destructive` \u2014 while a `DROP TABLE` in another pending\nfile of the same batch still aborts the apply. `--allow-destructive`\nremains the all-or-nothing per-run override rather than the only way past\na single warning-grade finding. `--allow-destructive` bypasses the findings\ngate, but it does not bypass loading or validating the lint policy."
+            }
+          ],
+          "rationale": "Abstract proportional-escape-hatch metaphor precedes exact per-rule behavior and can be removed.",
+          "proposed_edit": "Start with how warning severity, disabled rules and exclusions affect only matched findings."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c03-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7660,
+              "end": 7748,
+              "quote": "without the alternatives being loud enough\n  to fail or absent from the report entirely."
+            }
+          ],
+          "context": [
+            {
+              "start": 7243,
+              "end": 7928,
+              "quote": "`severity` accepts `info`, `warning` or `error` and replaces the rule's\n  default severity on its findings \u2014 the level that `--fail-on` and the\n  apply-time destructive gate below evaluate. Only `error` gates: a rule set to\n  `info` or `warning` is reported and exits `0`. `info` exists so a rule can be\n  introduced to a repository that still violates it, and so a team can say\n  \"surface this, never block on it\" without the alternatives being loud enough\n  to fail or absent from the report entirely. In SARIF the three levels are\n  `note`, `warning` and `error`. Any other value fails config parsing (exit\n  `2`), so the vocabulary gained a level rather than becoming permissive."
+            }
+          ],
+          "rationale": "The loudness metaphor restates report-without-gate semantics but may clarify the motivation for info.",
+          "proposed_edit": "Optionally shorten to reporting without failing, preserving info behavior."
+        },
+        {
+          "id": "c03-u02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 24353,
+              "end": 24658,
+              "quote": "Loosening the gate is a visible committed change only if your process makes it\none: commit `.ptah-lint.yaml`, treat any edit to it as an edit to the gate in\nreview, and restrict writes to the deployed migration directory, because the\nintegrity file does not protect the policy the way it protects the SQL."
+            }
+          ],
+          "context": [
+            {
+              "start": 24353,
+              "end": 24658,
+              "quote": "Loosening the gate is a visible committed change only if your process makes it\none: commit `.ptah-lint.yaml`, treat any edit to it as an edit to the gate in\nreview, and restrict writes to the deployed migration directory, because the\nintegrity file does not protect the policy the way it protects the SQL."
+            }
+          ],
+          "rationale": "Restates SQL-only checksum coverage while giving concrete commit/review/write-permission mitigations; unclear whether to remove repetition.",
+          "proposed_edit": "Retain the mitigation actions and consider linking the earlier checksum explanation."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 2731,
+              "end": 3271,
+              "quote": "`TX101` \u2014 a file mixing autocommit-only statements with transactional DDL.\n  The classification is semantic, not keyword-based: a file that adds a value to\n  an enum type it creates itself is not a mix, because PostgreSQL allows the new\n  value immediately when the type is new in the same transaction, while a file\n  adding a value to a pre-existing type and then using it is one. The migrator\n  refuses that second shape before its first statement runs, using the same\n  classification, so lint and apply cannot disagree about one file."
+            }
+          ],
+          "context": [
+            {
+              "start": 2731,
+              "end": 3271,
+              "quote": "`TX101` \u2014 a file mixing autocommit-only statements with transactional DDL.\n  The classification is semantic, not keyword-based: a file that adds a value to\n  an enum type it creates itself is not a mix, because PostgreSQL allows the new\n  value immediately when the type is new in the same transaction, while a file\n  adding a value to a pre-existing type and then using it is one. The migrator\n  refuses that second shape before its first statement runs, using the same\n  classification, so lint and apply cannot disagree about one file."
+            }
+          ],
+          "rationale": "New versus existing enum types change transaction semantics; apparent repetition expresses distinct legal states.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 6529,
+              "end": 7065,
+              "quote": "`disabled-rules` lists rule codes (`DS101`) or family prefixes (`MY`) to\n  skip entirely; entries merge with `--disable` flags. Selectors and custom\n  rule codes use uppercase ASCII letters and digits and start with a letter.\n  A selector that is a rule's own code selects that rule alone, and any other\n  selector is a prefix: `MF101` disables the unique-index check and leaves\n  the missing-down rule `MF101P` running, while `MF` disables both and `PG3`\n  disables every `PG3xx` rule. The same rule decides a `ptah:nolint`\n  selector."
+            }
+          ],
+          "context": [
+            {
+              "start": 6529,
+              "end": 7065,
+              "quote": "`disabled-rules` lists rule codes (`DS101`) or family prefixes (`MY`) to\n  skip entirely; entries merge with `--disable` flags. Selectors and custom\n  rule codes use uppercase ASCII letters and digits and start with a letter.\n  A selector that is a rule's own code selects that rule alone, and any other\n  selector is a prefix: `MF101` disables the unique-index check and leaves\n  the missing-down rule `MF101P` running, while `MF` disables both and `PG3`\n  disables every `PG3xx` rule. The same rule decides a `ptah:nolint`\n  selector."
+            }
+          ],
+          "rationale": "MF101 and MF101P illustrate exact code versus family prefix; the difference changes which rule is disabled.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 16696,
+              "end": 17254,
+              "quote": "The `atlas:` spelling follows Atlas's matching rule rather than Ptah's, so a\ncode selector there matches one code exactly: `-- ptah:nolint DS` silences\nthe data-safety family and `-- atlas:nolint DS` silences nothing. An\nunrecognized `atlas:nolint` selector is accepted and silences nothing,\nwithout a warning; `.ptah-lint.yaml` `disabled-rules` stays strict and\nrejects a selector matching no registered rule. Whole-file `atlas:nolint`\nheaders take effect only on the Atlas-compatible surface \u2014 see\n[Atlas migrate commands](../../atlas/migrate-commands/)."
+            }
+          ],
+          "context": [
+            {
+              "start": 16696,
+              "end": 17254,
+              "quote": "The `atlas:` spelling follows Atlas's matching rule rather than Ptah's, so a\ncode selector there matches one code exactly: `-- ptah:nolint DS` silences\nthe data-safety family and `-- atlas:nolint DS` silences nothing. An\nunrecognized `atlas:nolint` selector is accepted and silences nothing,\nwithout a warning; `.ptah-lint.yaml` `disabled-rules` stays strict and\nrejects a selector matching no registered rule. Whole-file `atlas:nolint`\nheaders take effect only on the Atlas-compatible surface \u2014 see\n[Atlas migrate commands](../../atlas/migrate-commands/)."
+            }
+          ],
+          "rationale": "Atlas ignores unknown selectors while native policy rejects them. This compatibility difference is essential.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 19365,
+              "end": 19801,
+              "quote": "Lint and apply are separate on purpose: a locking hazard, a naming convention,\nor a rewrite the operator has planned for is something to review, not\nsomething the migrator should refuse to run on its own. A project that wants a\nfinding to stop a deploy has two explicit places to say so: the lint run in\nCI with `--fail-on`, and the `gate` section, which widens the apply-time gate\nby family for the rules the project has rated `error`."
+            }
+          ],
+          "context": [
+            {
+              "start": 19365,
+              "end": 19801,
+              "quote": "Lint and apply are separate on purpose: a locking hazard, a naming convention,\nor a rewrite the operator has planned for is something to review, not\nsomething the migrator should refuse to run on its own. A project that wants a\nfinding to stop a deploy has two explicit places to say so: the lint run in\nCI with `--fail-on`, and the `gate` section, which widens the apply-time gate\nby family for the rules the project has rated `error`."
+            }
+          ],
+          "rationale": "The two explicit gate locations are actionable configuration decisions, not a generic control promise.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 23989,
+              "end": 24351,
+              "quote": "`ptah.sum` hashes only the migration `*.sql` files, so `ptah migrations\nvalidate` and `up --verify-sum` still pass when `.ptah-lint.yaml` is added or\nedited out-of-band, and the apply prints no notice when the config suppresses\na destructive finding \u2014 a one-line `disabled-rules: [DS]` dropped next to the\nmigrations at deploy time disables this gate silently."
+            }
+          ],
+          "context": [
+            {
+              "start": 23989,
+              "end": 24351,
+              "quote": "`ptah.sum` hashes only the migration `*.sql` files, so `ptah migrations\nvalidate` and `up --verify-sum` still pass when `.ptah-lint.yaml` is added or\nedited out-of-band, and the apply prints no notice when the config suppresses\na destructive finding \u2014 a one-line `disabled-rules: [DS]` dropped next to the\nmigrations at deploy time disables this gate silently."
+            }
+          ],
+          "rationale": "The one-line DS suppression exploit and missing checksum notice explain a concrete gap.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "56176d6f7def6748a6935cdab128af251fe83d7f56c528ab820367b9d3761fe1",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 39915,
+          "first_line": 1,
+          "last_line": 1008,
+          "rationale": "Read all 166 extracted blocks and original command examples. This is a novice tutorial; worked examples, local explanations and reader questions are not defects solely for being conversational. Preserve output-only replacement, ignore precedence, Unicode/raw-byte behavior, binary mode and memory-map caveats. Performance examples can supply real measurements.",
+          "prose_blocks": 166,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 15,
+              "end": 119,
+              "quote": "This guide is intended to give an elementary description of ripgrep and an\noverview of its capabilities."
+            }
+          ],
+          "context": [
+            {
+              "start": 15,
+              "end": 396,
+              "quote": "This guide is intended to give an elementary description of ripgrep and an\noverview of its capabilities. This guide assumes that ripgrep is\n[installed](README.md#installation)\nand that readers have passing familiarity with using command line tools. This\nalso assumes a Unix-like system, although most commands are probably easily\ntranslatable to any command line shell environment."
+            }
+          ],
+          "rationale": "Guide-purpose announcement repeats the title and section list before the concrete prerequisites.",
+          "proposed_edit": "Start with installed ripgrep, command-line familiarity and the Unix-like environment assumption."
+        },
+        {
+          "id": "c04-d02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 311,
+              "end": 396,
+              "quote": "most commands are probably easily\ntranslatable to any command line shell environment."
+            }
+          ],
+          "context": [
+            {
+              "start": 15,
+              "end": 396,
+              "quote": "This guide is intended to give an elementary description of ripgrep and an\noverview of its capabilities. This guide assumes that ripgrep is\n[installed](README.md#installation)\nand that readers have passing familiarity with using command line tools. This\nalso assumes a Unix-like system, although most commands are probably easily\ntranslatable to any command line shell environment."
+            }
+          ],
+          "rationale": "Probable ease and any-shell scope are unsupported; actual shell compatibility is unspecified.",
+          "proposed_edit": "Name the tested shell environment and say other shells may require syntax changes."
+        },
+        {
+          "id": "c04-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1159,
+              "end": 1262,
+              "quote": "The best way to see how this works is with an example. To show an example, we\nneed something to search."
+            }
+          ],
+          "context": [
+            {
+              "start": 1159,
+              "end": 1418,
+              "quote": "The best way to see how this works is with an example. To show an example, we\nneed something to search. Let's try searching ripgrep's source code. First\ngrab a ripgrep source archive from\nhttps://github.com/BurntSushi/ripgrep/archive/0.7.1.zip\nand extract it:"
+            }
+          ],
+          "rationale": "The best-way endorsement and need-something setup repeat the following archive-search instruction.",
+          "proposed_edit": "Start with downloading the source archive for the search example."
+        },
+        {
+          "id": "c04-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3132,
+              "end": 3184,
+              "quote": "ripgrep supports the ability to specify patterns via"
+            }
+          ],
+          "context": [
+            {
+              "start": 2973,
+              "end": 3383,
+              "quote": "In this example, we searched for something called a \"literal\" string. This\nmeans that our pattern was just some normal text that we asked ripgrep to\nfind. But ripgrep supports the ability to specify patterns via [regular\nexpressions](https://en.wikipedia.org/wiki/Regular_expression). As an example,\nwhat if we wanted to find all lines have a word that contains `fast` followed\nby some number of other letters?"
+            }
+          ],
+          "rationale": "Supports-the-ability duplicates the capability verb before the direct pattern mechanism.",
+          "proposed_edit": "Say ripgrep accepts regular-expression patterns."
+        },
+        {
+          "id": "c04-d05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4974,
+              "end": 5139,
+              "quote": "In the previous section, we showed how to use ripgrep to search a single file.\nIn this section, we'll show how to use ripgrep to search an entire directory\nof files."
+            }
+          ],
+          "context": [
+            {
+              "start": 4974,
+              "end": 5288,
+              "quote": "In the previous section, we showed how to use ripgrep to search a single file.\nIn this section, we'll show how to use ripgrep to search an entire directory\nof files. In fact, *recursively* searching your current working directory is\nthe default mode of operation for ripgrep, which means doing this is very\nsimple."
+            }
+          ],
+          "rationale": "Section recap/announcement duplicates the recursive-search heading and following default behavior.",
+          "proposed_edit": "Start with recursively searching the current directory as the default."
+        },
+        {
+          "id": "c04-d06",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 5250,
+              "end": 5288,
+              "quote": "which means doing this is very\nsimple."
+            }
+          ],
+          "context": [
+            {
+              "start": 4974,
+              "end": 5288,
+              "quote": "In the previous section, we showed how to use ripgrep to search a single file.\nIn this section, we'll show how to use ripgrep to search an entire directory\nof files. In fact, *recursively* searching your current working directory is\nthe default mode of operation for ripgrep, which means doing this is very\nsimple."
+            }
+          ],
+          "rationale": "Ease endorsement adds no command or prerequisite to the default behavior.",
+          "proposed_edit": "Delete this clause and retain the command example."
+        },
+        {
+          "id": "c04-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 10721,
+              "end": 10806,
+              "quote": "In the previous section, we talked about ripgrep's filtering that it does by\ndefault."
+            }
+          ],
+          "context": [
+            {
+              "start": 10721,
+              "end": 10957,
+              "quote": "In the previous section, we talked about ripgrep's filtering that it does by\ndefault. It is \"automatic\" because it reacts to your environment. That is, it\nuses already existing `.gitignore` files to produce more relevant search\nresults."
+            }
+          ],
+          "rationale": "Section recap precedes and duplicates the concrete automatic-filter definition.",
+          "proposed_edit": "Start with the definition of automatic filtering."
+        },
+        {
+          "id": "c04-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 11164,
+              "end": 11248,
+              "quote": "This section covers glob\npatterns while the next section covers file type filtering."
+            }
+          ],
+          "context": [
+            {
+              "start": 10959,
+              "end": 11248,
+              "quote": "In addition to automatic filtering, ripgrep also provides more manual or ad hoc\nfiltering. This comes in two varieties: additional glob patterns specified in\nyour ripgrep commands and file type filtering. This section covers glob\npatterns while the next section covers file type filtering."
+            }
+          ],
+          "rationale": "Navigation announcement duplicates adjacent section headings without adding behavior.",
+          "proposed_edit": "Keep the two filter types and their headings."
+        },
+        {
+          "id": "c04-d09",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 12737,
+              "end": 12751,
+              "quote": "Interestingly,"
+            }
+          ],
+          "context": [
+            {
+              "start": 12737,
+              "end": 13078,
+              "quote": "Interestingly, reversing the order of the globs in this case will match\nnothing, since the presence of at least one non-blacklist glob will institute a\nrequirement that every file searched must match at least one glob. In this\ncase, the blacklist glob takes precedence over the previous glob and prevents\nany file from being searched at all!"
+            }
+          ],
+          "rationale": "The interest judgment does not alter the counterintuitive glob-order condition.",
+          "proposed_edit": "Start with reversing the glob order and keep the reason it matches nothing."
+        },
+        {
+          "id": "c04-d10",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 13518,
+              "end": 13564,
+              "quote": "The way the `--type` flag functions is simple."
+            }
+          ],
+          "context": [
+            {
+              "start": 13518,
+              "end": 13846,
+              "quote": "The way the `--type` flag functions is simple. It acts as a name that is\nassigned to one or more globs that match the relevant files. This lets you\nwrite a single type that might encompass a broad range of file extensions. For\nexample, if you wanted to search C files, you'd have to check both C source\nfiles and C header files:"
+            }
+          ],
+          "rationale": "An unsupported simplicity judgment precedes an adequate concrete definition.",
+          "proposed_edit": "Start with the flag naming one or more globs."
+        },
+        {
+          "id": "c04-d11",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 15190,
+              "end": 15225,
+              "quote": "It is important to stress here that"
+            }
+          ],
+          "context": [
+            {
+              "start": 15190,
+              "end": 15466,
+              "quote": "It is important to stress here that the `--type-add` flag only applies to the\ncurrent command. It does not add a new file type and save it somewhere in a\npersistent form. If you want a type to be available in every ripgrep command,\nthen you should either create a shell alias:"
+            }
+          ],
+          "rationale": "Attention/importance notice can be removed without changing persistence semantics.",
+          "proposed_edit": "Start with --type-add applying only to the current command."
+        },
+        {
+          "id": "c04-d12",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 16587,
+              "end": 16690,
+              "quote": "ripgrep provides a limited ability to modify its output by replacing matched\ntext with some other text."
+            }
+          ],
+          "context": [
+            {
+              "start": 16587,
+              "end": 16801,
+              "quote": "ripgrep provides a limited ability to modify its output by replacing matched\ntext with some other text. This is easiest to explain with an example. Remember\nwhen we searched for the word `fast` in ripgrep's README?"
+            }
+          ],
+          "rationale": "Provides-an-ability delays the replacement action and uses vague limited scope.",
+          "proposed_edit": "Say that ripgrep replaces matching portions of its output; preserve that files remain unchanged."
+        },
+        {
+          "id": "c04-d13",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 19649,
+              "end": 19677,
+              "quote": "It is important to note that"
+            }
+          ],
+          "context": [
+            {
+              "start": 19649,
+              "end": 19834,
+              "quote": "It is important to note that ripgrep **will never modify your files**. The\n`--replace` flag only controls ripgrep's output. (And there is no flag to let\nyou do a replacement in a file.)"
+            }
+          ],
+          "rationale": "Attention notice is separate from the critical output-only guarantee.",
+          "proposed_edit": "Remove only the notice; retain will never modify your files and the flag scope."
+        },
+        {
+          "id": "c04-d14",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 20046,
+              "end": 20088,
+              "quote": "Setting up a configuration file is simple."
+            }
+          ],
+          "context": [
+            {
+              "start": 20046,
+              "end": 20462,
+              "quote": "Setting up a configuration file is simple. ripgrep will not look in any\npredetermined directory for a config file automatically. Instead, you need to\nset the `RIPGREP_CONFIG_PATH` environment variable to the file path of your\nconfig file. Once the environment variable is set, open the file and just type\nin the flags you want set automatically. There are only two rules for\ndescribing the format of the config file:"
+            }
+          ],
+          "rationale": "Ease judgment adds no setup requirement to the following environment/path/format instructions.",
+          "proposed_edit": "Start with how RIPGREP_CONFIG_PATH selects the configuration file."
+        },
+        {
+          "id": "c04-d15",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 22061,
+              "end": 22072,
+              "quote": "Thankfully,"
+            }
+          ],
+          "context": [
+            {
+              "start": 21892,
+              "end": 22529,
+              "quote": "So let's say you're using the above configuration file, but while you're at a\nterminal, you really want to be able to see lines longer than 150 columns. What\ndo you do? Thankfully, all you need to do is pass `--max-columns 0` (or `-M0`\nfor short) on the command line, which will override your configuration file's\nsetting. This works because ripgrep's configuration file is *prepended* to the\nexplicit arguments you give it on the command line. Since flags given later\noverride flags given earlier, everything works as expected. This works for most\nother flags as well, and each flag's documentation states which other flags\noverride it."
+            }
+          ],
+          "rationale": "Emotional relief judgment adds no behavior to command-line override precedence.",
+          "proposed_edit": "Start with passing --max-columns 0."
+        },
+        {
+          "id": "c04-d16",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 22391,
+              "end": 22420,
+              "quote": "everything works as expected."
+            }
+          ],
+          "context": [
+            {
+              "start": 21892,
+              "end": 22529,
+              "quote": "So let's say you're using the above configuration file, but while you're at a\nterminal, you really want to be able to see lines longer than 150 columns. What\ndo you do? Thankfully, all you need to do is pass `--max-columns 0` (or `-M0`\nfor short) on the command line, which will override your configuration file's\nsetting. This works because ripgrep's configuration file is *prepended* to the\nexplicit arguments you give it on the command line. Since flags given later\noverride flags given earlier, everything works as expected. This works for most\nother flags as well, and each flag's documentation states which other flags\noverride it."
+            }
+          ],
+          "rationale": "The success endorsement adds no detail after the explicit later-argument precedence.",
+          "proposed_edit": "Keep later flags overriding earlier ones, without the generic endorsement."
+        },
+        {
+          "id": "c04-d17",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 26387,
+              "end": 26472,
+              "quote": "Of course, that's just an example meant to show how one can drop down into\nraw bytes."
+            }
+          ],
+          "context": [
+            {
+              "start": 26387,
+              "end": 26541,
+              "quote": "Of course, that's just an example meant to show how one can drop down into\nraw bytes. Namely, the simpler command works as you might expect automatically:"
+            }
+          ],
+          "rationale": "Self-commentary repeats the preceding raw-byte example purpose.",
+          "proposed_edit": "Move directly to the simpler automatically decoded command."
+        },
+        {
+          "id": "c04-d18",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 27809,
+              "end": 27880,
+              "quote": "the most effective heuristic that balances\ncorrectness with performance"
+            }
+          ],
+          "context": [
+            {
+              "start": 27627,
+              "end": 28056,
+              "quote": "Unfortunately, unlike skipping hidden files and respecting your `.gitignore`\nrules, a file cannot as easily be classified as binary. In order to figure out\nwhether a file is binary, the most effective heuristic that balances\ncorrectness with performance is to simply look for `NUL` bytes. At that point,\nthe determination is simple: a file is considered \"binary\" if and only if it\ncontains a `NUL` byte somewhere in its contents."
+            }
+          ],
+          "rationale": "Superlative optimization claim gives no comparison or tradeoff criterion; NUL detection is the concrete policy.",
+          "proposed_edit": "State that ripgrep uses NUL-byte detection; retain the later search-strategy limitations."
+        },
+        {
+          "id": "c04-d19",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 27916,
+              "end": 27959,
+              "quote": "At that point,\nthe determination is simple:"
+            }
+          ],
+          "context": [
+            {
+              "start": 27627,
+              "end": 28056,
+              "quote": "Unfortunately, unlike skipping hidden files and respecting your `.gitignore`\nrules, a file cannot as easily be classified as binary. In order to figure out\nwhether a file is binary, the most effective heuristic that balances\ncorrectness with performance is to simply look for `NUL` bytes. At that point,\nthe determination is simple: a file is considered \"binary\" if and only if it\ncontains a `NUL` byte somewhere in its contents."
+            }
+          ],
+          "rationale": "The simplicity/metacommentary wrapper delays the exact binary definition.",
+          "proposed_edit": "State the NUL-byte condition directly."
+        },
+        {
+          "id": "c04-d20",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 31918,
+              "end": 31927,
+              "quote": "excellent"
+            }
+          ],
+          "context": [
+            {
+              "start": 31703,
+              "end": 32091,
+              "quote": "One common example is searching PDFs. PDFs are first and foremost meant to be\ndisplayed to users. But PDFs often have text streams in them that can be useful\nto search. In our case, we want to search Bruce Watson's excellent\ndissertation,\n[Taxonomies and Toolkits of Regular Language Algorithms](https://burntsushi.net/stuff/1995-watson.pdf).\nAfter downloading it, let's try searching it:"
+            }
+          ],
+          "rationale": "Praise for the example dissertation does not affect the PDF-search procedure.",
+          "proposed_edit": "Remove the endorsement while keeping the citation."
+        },
+        {
+          "id": "c04-d21",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 32591,
+              "end": 32620,
+              "quote": "does great in a lot of cases."
+            }
+          ],
+          "context": [
+            {
+              "start": 32489,
+              "end": 32743,
+              "quote": "One way to fix this is to convert the PDF to plain text first. This won't work\nwell for all PDFs, but does great in a lot of cases. (Note that the tool we\nuse, `pdftotext`, is part of the [poppler](https://poppler.freedesktop.org)\nPDF rendering library.)"
+            }
+          ],
+          "rationale": "Unspecified success frequency and quality obscure supported PDF extraction limitations.",
+          "proposed_edit": "State that pdftotext extracts available text streams and retain the warning that it does not work for every PDF."
+        },
+        {
+          "id": "c04-d22",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 38122,
+              "end": 38291,
+              "quote": "This section\nis intended to give you a sampling of some of the most important and frequently\nused options that will likely impact how you use ripgrep on a regular basis."
+            }
+          ],
+          "context": [
+            {
+              "start": 38055,
+              "end": 38291,
+              "quote": "ripgrep has a lot of flags. Too many to keep in your head at once. This section\nis intended to give you a sampling of some of the most important and frequently\nused options that will likely impact how you use ripgrep on a regular basis."
+            }
+          ],
+          "rationale": "Section-purpose, ranking and likely-impact claims duplicate Common options and delay the actual flag list.",
+          "proposed_edit": "Introduce the list as common options without predicting reader impact."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c04-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 7383,
+              "end": 7444,
+              "quote": "ripgrep's most important feature is what it *doesn't*\nsearch."
+            }
+          ],
+          "context": [
+            {
+              "start": 7359,
+              "end": 7527,
+              "quote": "After recursive search, ripgrep's most important feature is what it *doesn't*\nsearch. By default, when you search a directory, ripgrep will ignore all of\nthe following:"
+            }
+          ],
+          "rationale": "Importance ranking is subjective, but could be a deliberate overview of a central tool distinction.",
+          "proposed_edit": "Optionally introduce default exclusions without the ranking."
+        },
+        {
+          "id": "c04-u02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 10495,
+              "end": 10528,
+              "quote": "a significant performance penalty"
+            }
+          ],
+          "context": [
+            {
+              "start": 10256,
+              "end": 10567,
+              "quote": "To process `.gitignore` and `.ignore` files case insensitively, use the flag\n`--ignore-file-case-insensitive`. This is especially useful on case insensitive\nfile systems like those on Windows and macOS. Note though that this can come\nwith a significant performance penalty, and is therefore disabled by default."
+            }
+          ],
+          "rationale": "The potential slowdown lacks a size estimate but is a real caveat for case-insensitive rule matching.",
+          "proposed_edit": "Add measurements if available without removing the caveat."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7984,
+              "end": 8180,
+              "quote": "Binary files can be searched via the `--text` (`-a` for short) flag.\n   Be careful with this flag! Binary files may emit control characters to your\n   terminal, which might cause strange behavior."
+            }
+          ],
+          "context": [
+            {
+              "start": 7984,
+              "end": 8180,
+              "quote": "Binary files can be searched via the `--text` (`-a` for short) flag.\n   Be careful with this flag! Binary files may emit control characters to your\n   terminal, which might cause strange behavior."
+            }
+          ],
+          "rationale": "Binary control characters can alter a terminal; the warning describes a concrete effect.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 12102,
+              "end": 12500,
+              "quote": "This will give you a lot of results again as above, but they won't include\nfiles ending with `.toml`. Note that the use of a `!` here to mean \"negation\"\nis a bit non-standard, but it was chosen to be consistent with how globs in\n`.gitignore` files are written. (Although, the meaning is reversed. In\n`.gitignore` files, a `!` prefix means whitelist, and on the command line, a\n`!` means blacklist.)"
+            }
+          ],
+          "context": [
+            {
+              "start": 12102,
+              "end": 12500,
+              "quote": "This will give you a lot of results again as above, but they won't include\nfiles ending with `.toml`. Note that the use of a `!` here to mean \"negation\"\nis a bit non-standard, but it was chosen to be consistent with how globs in\n`.gitignore` files are written. (Although, the meaning is reversed. In\n`.gitignore` files, a `!` prefix means whitelist, and on the command line, a\n`!` means blacklist.)"
+            }
+          ],
+          "rationale": "A leading ! has reversed meaning in ignore files and command-line globs; both meanings are needed.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 24128,
+              "end": 24515,
+              "quote": "ripgrep works best with UTF-8. For example, ripgrep's regular expression\n  engine supports Unicode features. Namely, character classes like `\\w` will\n  match all word characters by Unicode's definition and `.` will match any\n  Unicode codepoint instead of any byte. These constructions assume UTF-8,\n  so they simply won't match when they come across bytes in a file that aren't\n  UTF-8."
+            }
+          ],
+          "context": [
+            {
+              "start": 24128,
+              "end": 24515,
+              "quote": "ripgrep works best with UTF-8. For example, ripgrep's regular expression\n  engine supports Unicode features. Namely, character classes like `\\w` will\n  match all word characters by Unicode's definition and `.` will match any\n  Unicode codepoint instead of any byte. These constructions assume UTF-8,\n  so they simply won't match when they come across bytes in a file that aren't\n  UTF-8."
+            }
+          ],
+          "rationale": "UTF-8-aware classes failing on invalid bytes is a specific limitation, not unsupported best-quality prose.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 29314,
+              "end": 30131,
+              "quote": "Binary mode is similar to the default mode, except it will not always\n   stop searching after it sees a `NUL` byte. Namely, in this mode, ripgrep\n   will continue searching a file that is known to be binary until the first\n   of two conditions is met: 1) the end of the file has been reached or 2) a\n   match is or has been seen. This means that in binary mode, if ripgrep\n   reports no matches, then there are no matches in the file. When a match does\n   occur, ripgrep prints a message similar to one it prints when in its default\n   mode indicating that the search has stopped prematurely. This mode can be\n   forcefully enabled for all files with the `--binary` flag. The purpose of\n   binary mode is to provide a way to discover matches in all files, but to\n   avoid having binary data dumped into your terminal."
+            }
+          ],
+          "context": [
+            {
+              "start": 29314,
+              "end": 30131,
+              "quote": "Binary mode is similar to the default mode, except it will not always\n   stop searching after it sees a `NUL` byte. Namely, in this mode, ripgrep\n   will continue searching a file that is known to be binary until the first\n   of two conditions is met: 1) the end of the file has been reached or 2) a\n   match is or has been seen. This means that in binary mode, if ripgrep\n   reports no matches, then there are no matches in the file. When a match does\n   occur, ripgrep prints a message similar to one it prints when in its default\n   mode indicating that the search has stopped prematurely. This mode can be\n   forcefully enabled for all files with the `--binary` flag. The purpose of\n   binary mode is to provide a way to discover matches in all files, but to\n   avoid having binary data dumped into your terminal."
+            }
+          ],
+          "rationale": "Two stopping conditions and no-match completeness define binary mode; do not shorten away either condition.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c05",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 34966,
+              "end": 35060,
+              "quote": "As a bonus, this turns out to be quite a bit faster than other specialized PDF\ngrepping tools:"
+            }
+          ],
+          "context": [
+            {
+              "start": 34966,
+              "end": 35060,
+              "quote": "As a bonus, this turns out to be quite a bit faster than other specialized PDF\ngrepping tools:"
+            }
+          ],
+          "rationale": "The speed comparison is immediately followed by concrete commands and measured timing outputs, supplying comparison scope.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c06",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 36977,
+              "end": 37489,
+              "quote": "There is one more problem with the above approach: it requires running a\npreprocessor for every single file that ripgrep searches. If every file needs\na preprocessor, then this is OK. But if most don't, then this can substantially\nslow down searches because of the overhead of launching new processors. You\ncan avoid this by telling ripgrep to only invoke the preprocessor when the file\npath matches a glob. For example, consider the performance difference even when\nsearching a repository as small as ripgrep's:"
+            }
+          ],
+          "context": [
+            {
+              "start": 36977,
+              "end": 37489,
+              "quote": "There is one more problem with the above approach: it requires running a\npreprocessor for every single file that ripgrep searches. If every file needs\na preprocessor, then this is OK. But if most don't, then this can substantially\nslow down searches because of the overhead of launching new processors. You\ncan avoid this by telling ripgrep to only invoke the preprocessor when the file\npath matches a glob. For example, consider the performance difference even when\nsearching a repository as small as ripgrep's:"
+            }
+          ],
+          "rationale": "Per-file process overhead and the glob filter provide a mechanism plus measured example, not a generic speed claim.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "146b83b8be3d5bc4830bd8f337dce54605add6bb9f6369f033ac5c7998acd4b3",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 7852,
+          "first_line": 1,
+          "last_line": 265,
+          "rationale": "Read all 51 prose blocks and the original C examples. Style mandates are an explicitly selected repository policy. Do not treat every preference as an unsupported factual claim. Keep C89 comment syntax, line-width, operator exceptions, continuation rules and conditional-build behavior.",
+          "prose_blocks": 51,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 133,
+              "end": 392,
+              "quote": "It helps making the code feel like one\nsingle code base. Easy-to-read is a very important property of code and helps\nmaking it easier to review when new things are added and it helps debugging\ncode when developers are trying to figure out why things go wrong."
+            }
+          ],
+          "context": [
+            {
+              "start": 21,
+              "end": 499,
+              "quote": "Source code that has a common style is easier to read than code that uses\ndifferent styles in different places. It helps making the code feel like one\nsingle code base. Easy-to-read is a very important property of code and helps\nmaking it easier to review when new things are added and it helps debugging\ncode when developers are trying to figure out why things go wrong. A unified\nstyle is more important than individual contributors having their own personal\ntastes satisfied."
+            }
+          ],
+          "rationale": "Repeated helps/making and readability justification obscure the concrete review/debugging rationale.",
+          "proposed_edit": "Say that consistent style supports code review and debugging; keep project consistency taking precedence over personal taste."
+        },
+        {
+          "id": "c05-d02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 735,
+              "end": 799,
+              "quote": "It is normally not a problem for anyone to follow the guidelines"
+            }
+          ],
+          "context": [
+            {
+              "start": 735,
+              "end": 932,
+              "quote": "It is normally not a problem for anyone to follow the guidelines, as you just\nneed to copy the style already used in the source code and there are no\nparticularly unusual rules in our set of rules."
+            }
+          ],
+          "rationale": "Universal ease claim ignores contributors with different experience; copying existing style is the actionable advice.",
+          "proposed_edit": "Start with following the style already used in the code."
+        },
+        {
+          "id": "c05-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1229,
+              "end": 1428,
+              "quote": "It doesn't necessarily have to mean that you should use the same as in\nother places of the code, just that the names should be logical,\nunderstandable and be named according to what they're used for."
+            }
+          ],
+          "context": [
+            {
+              "start": 1146,
+              "end": 1498,
+              "quote": "Try using a non-confusing naming scheme for your new functions and variable\nnames. It doesn't necessarily have to mean that you should use the same as in\nother places of the code, just that the names should be logical,\nunderstandable and be named according to what they're used for. File-local\nfunctions should be made static. We like lower case names."
+            }
+          ],
+          "rationale": "Layered negation and generic logical/understandable qualifiers delay the concrete naming criterion.",
+          "proposed_edit": "Use names describing purpose; following names elsewhere is optional. Keep static/local and lowercase rules."
+        },
+        {
+          "id": "c05-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2103,
+              "end": 2168,
+              "quote": "even in the modern era of very large and high\nresolution screens:"
+            }
+          ],
+          "context": [
+            {
+              "start": 2001,
+              "end": 2168,
+              "quote": "Source code in curl may never be wider than 79 columns and there are two\nreasons for maintaining this even in the modern era of very large and high\nresolution screens:"
+            }
+          ],
+          "rationale": "Modern-era contrast adds no style requirement or new reason.",
+          "proposed_edit": "Keep the 79-column limit and its two reasons."
+        },
+        {
+          "id": "c05-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4005,
+              "end": 4030,
+              "quote": "We frown upon this style:"
+            }
+          ],
+          "context": [
+            {
+              "start": 3885,
+              "end": 4030,
+              "quote": "To increase readability and reduce complexity of conditionals, we avoid\nassigning variables within if/while conditions. We frown upon this style:"
+            }
+          ],
+          "rationale": "Anthropomorphic disapproval repeats the explicit ban on assignments in conditions.",
+          "proposed_edit": "Introduce the prohibited example directly."
+        },
+        {
+          "id": "c05-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5460,
+              "end": 5514,
+              "quote": "In such a case the statement will span multiple lines."
+            }
+          ],
+          "context": [
+            {
+              "start": 5299,
+              "end": 5514,
+              "quote": "Some statements cannot be completed on a single line because the line would be\ntoo long, the statement too hard to read, or due to other style guidelines\nabove. In such a case the statement will span multiple lines."
+            }
+          ],
+          "rationale": "Restates the opening cannot-be-completed-on-one-line condition without adding formatting guidance.",
+          "proposed_edit": "Keep the reasons and proceed to alignment instructions."
+        },
+        {
+          "id": "c05-d07",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 7209,
+              "end": 7235,
+              "quote": "to make the code\nseamless."
+            }
+          ],
+          "context": [
+            {
+              "start": 7075,
+              "end": 7341,
+              "quote": "We also encourage use of macros/functions that possibly are empty or defined\nto constants when libcurl is built without that feature, to make the code\nseamless. Like this example where the **magic()** function works differently\ndepending on a build-time conditional:"
+            }
+          ],
+          "rationale": "Seamless supplies no behavior beyond the explicit empty/constant macro mechanism.",
+          "proposed_edit": "Delete the endorsement and retain the build-time conditional example."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 2173,
+              "end": 2304,
+              "quote": "Narrower columns are easier to read than very wide ones. There's a reason\n   newspapers have used columns for decades or centuries."
+            }
+          ],
+          "context": [
+            {
+              "start": 2173,
+              "end": 2304,
+              "quote": "Narrower columns are easier to read than very wide ones. There's a reason\n   newspapers have used columns for decades or centuries."
+            }
+          ],
+          "rationale": "The newspaper analogy is loose evidence for readability, but line-width is an explicit style policy rather than a qualified ergonomic study.",
+          "proposed_edit": "Optionally keep only side-by-side code and debugging-window rationale."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1813,
+              "end": 1955,
+              "quote": "Since we write C89 code, **//** comments are not allowed. They weren't\nintroduced in the C standard until C99. We use only **/* comments */**."
+            }
+          ],
+          "context": [
+            {
+              "start": 1813,
+              "end": 1955,
+              "quote": "Since we write C89 code, **//** comments are not allowed. They weren't\nintroduced in the C standard until C99. We use only **/* comments */**."
+            }
+          ],
+          "rationale": "C89 versus C99 is a concrete reason for the comment-syntax rule.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2309,
+              "end": 2569,
+              "quote": "Narrower columns allow developers to easier show multiple pieces of code\n   next to each other in different windows. I often have two or three source\n   code windows next to each other on the same screen - as well as multiple\n   terminal and debugging windows."
+            }
+          ],
+          "context": [
+            {
+              "start": 2309,
+              "end": 2569,
+              "quote": "Narrower columns allow developers to easier show multiple pieces of code\n   next to each other in different windows. I often have two or three source\n   code windows next to each other on the same screen - as well as multiple\n   terminal and debugging windows."
+            }
+          ],
+          "rationale": "Side-by-side code and terminal windows are actual workspace constraints for line width.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 4503,
+              "end": 4673,
+              "quote": "Please use spaces on both sides of operators in C expressions.  Postfix **(),\n[], ->, ., ++, --** and Unary **+, - !, ~, &** operators excluded they should\nhave no space."
+            }
+          ],
+          "context": [
+            {
+              "start": 4503,
+              "end": 4673,
+              "quote": "Please use spaces on both sides of operators in C expressions.  Postfix **(),\n[], ->, ., ++, --** and Unary **+, - !, ~, &** operators excluded they should\nhave no space."
+            }
+          ],
+          "rationale": "Postfix and unary operators are explicit exceptions to the spacing rule.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c04",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 5516,
+              "end": 5825,
+              "quote": "If a continuation line is part of an expression or sub-expression then you\nshould align on the appropriate column so that it's easy to tell what part of\nthe statement it is. Operators should not start continuation lines. In other\ncases follow the 2-space indent guideline. Here are some examples from\nlibcurl:"
+            }
+          ],
+          "context": [
+            {
+              "start": 5516,
+              "end": 5825,
+              "quote": "If a continuation line is part of an expression or sub-expression then you\nshould align on the appropriate column so that it's easy to tell what part of\nthe statement it is. Operators should not start continuation lines. In other\ncases follow the 2-space indent guideline. Here are some examples from\nlibcurl:"
+            }
+          ],
+          "rationale": "Column alignment identifies expression structure; this is a mechanism for the policy, not an unscoped ease endorsement.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "40aa3b048e030840b073337b60e8867122dd1b12e3acf50f57f0700cb2965781",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 3291,
+          "first_line": 1,
+          "last_line": 112,
+          "rationale": "Read all 27 prose blocks and original grammar/JavaScript examples. Preserve parser data transfer, diagram detection keys and renderer dispatch. Broken identifiers and numbering may require factual verification; do not invent their correction. Conversational step transitions can be removed without deleting operations.",
+          "prose_blocks": 27,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c06-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 81,
+              "end": 146,
+              "quote": "This would be to define a jison grammar for the new diagram type."
+            }
+          ],
+          "context": [
+            {
+              "start": 81,
+              "end": 360,
+              "quote": "This would be to define a jison grammar for the new diagram type. That should start with a way to identify that the text in the mermaid tag is a diagram of that type. Create a new folder under diagrams for your new diagram type and a parser folder in it. This leads us to step 2."
+            }
+          ],
+          "rationale": "Would-be-to setup weakens a direct required implementation step.",
+          "proposed_edit": "Write Define a Jison grammar for the new diagram type."
+        },
+        {
+          "id": "c06-d02",
+          "category": "formulaic_transitions",
+          "subtype": "formulaic_transitions",
+          "targets": [
+            {
+              "start": 336,
+              "end": 360,
+              "quote": "This leads us to step 2."
+            }
+          ],
+          "context": [
+            {
+              "start": 81,
+              "end": 360,
+              "quote": "This would be to define a jison grammar for the new diagram type. That should start with a way to identify that the text in the mermaid tag is a diagram of that type. Create a new folder under diagrams for your new diagram type and a parser folder in it. This leads us to step 2."
+            }
+          ],
+          "rationale": "Step-transition commentary adds no dependency and is redundant with headings.",
+          "proposed_edit": "Remove the transition."
+        },
+        {
+          "id": "c06-d03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 684,
+              "end": 833,
+              "quote": "You can during the parsing call a object provided to the parser by the user of the parser. This object can be called during parsing for storing data."
+            }
+          ],
+          "context": [
+            {
+              "start": 527,
+              "end": 833,
+              "quote": "There are some jison specific sub steps here where the parser stores the data encountered when parsing the diagram, this data is later used by the renderer. You can during the parsing call a object provided to the parser by the user of the parser. This object can be called during parsing for storing data."
+            }
+          ],
+          "rationale": "The second sentence repeats the parser callback operation; stacked parser references obscure actor and purpose.",
+          "proposed_edit": "State once that the parser calls a caller-provided object to store data for rendering."
+        },
+        {
+          "id": "c06-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1061,
+              "end": 1141,
+              "quote": "it is defined that a call to the setTitle method in the data object will be done"
+            }
+          ],
+          "context": [
+            {
+              "start": 1024,
+              "end": 1192,
+              "quote": "In the extract of the grammar above, it is defined that a call to the setTitle method in the data object will be done when parsing and the title keyword is encountered."
+            }
+          ],
+          "rationale": "Impersonal passive/call nominalization obscures the direct grammar action.",
+          "proposed_edit": "Say that the grammar calls data.setTitle when parsing the title keyword, preserving the actual method spelling."
+        },
+        {
+          "id": "c06-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1819,
+              "end": 1868,
+              "quote": "To look at an example look at sequendeRenderer.js"
+            }
+          ],
+          "context": [
+            {
+              "start": 1740,
+              "end": 1938,
+              "quote": "Write a renderer that given the data found during parsing renders the diagram. To look at an example look at sequendeRenderer.js rather then the flowchart renderer as this is a more generic example."
+            }
+          ],
+          "rationale": "The repeated look-at wrapper obscures the direct source reference.",
+          "proposed_edit": "Use See sequendeRenderer.js for an example; verify the filename separately."
+        },
+        {
+          "id": "c06-d06",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2093,
+              "end": 2100,
+              "quote": "new new"
+            }
+          ],
+          "context": [
+            {
+              "start": 2031,
+              "end": 2207,
+              "quote": "The second thing to do is to add the capability to detect the new new diagram to type to the detectType in utils.js. The detection should return a key for the new diagram type."
+            }
+          ],
+          "rationale": "Duplicated adjective does not change diagram-type semantics.",
+          "proposed_edit": "Keep one new; separately verify the malformed surrounding sentence."
+        },
+        {
+          "id": "c06-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2031,
+              "end": 2088,
+              "quote": "The second thing to do is to add the capability to detect"
+            }
+          ],
+          "context": [
+            {
+              "start": 2031,
+              "end": 2207,
+              "quote": "The second thing to do is to add the capability to detect the new new diagram to type to the detectType in utils.js. The detection should return a key for the new diagram type."
+            }
+          ],
+          "rationale": "Thing-to-do and add-the-capability nominalization delay the direct implementation action.",
+          "proposed_edit": "Say to extend detectType in utils.js to recognize the diagram type; preserve the key it returns."
+        }
+      ],
+      "uncertain": [],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2266,
+              "end": 2687,
+              "quote": "At this point when mermaid is trying to render the diagram, it will detect it as being of the new type but there will be no match when trying to render the diagram. To fix this add a new case in the switch statement in main.js:init this should match the diagram type returned from step #2. The code in this new case statement should call the renderer for the diagram type with the data found by the parser as an argument."
+            }
+          ],
+          "context": [
+            {
+              "start": 2266,
+              "end": 2687,
+              "quote": "At this point when mermaid is trying to render the diagram, it will detect it as being of the new type but there will be no match when trying to render the diagram. To fix this add a new case in the switch statement in main.js:init this should match the diagram type returned from step #2. The code in this new case statement should call the renderer for the diagram type with the data found by the parser as an argument."
+            }
+          ],
+          "rationale": "Detection and render dispatch are separate registrations; the missing renderer match is a real integration failure.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3125,
+              "end": 3191,
+              "quote": "Note that the parse needs a graph object to store the data as per:"
+            }
+          ],
+          "context": [
+            {
+              "start": 3125,
+              "end": 3191,
+              "quote": "Note that the parse needs a graph object to store the data as per:"
+            }
+          ],
+          "rationale": "The required graph object holds parser output; retaining the data object requirement is necessary.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}

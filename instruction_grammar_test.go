@@ -29,7 +29,7 @@ func TestInstructionActionGrammar(t *testing.T) {
 			r := singleRuleResult(t, "filler.instruction-scaffolding", text, "", "")
 			c.Assert(r.Findings, qt.HasLen, 1)
 			c.Assert(r.Findings[0].Primary.Snippet, qt.Equals, strings.TrimSuffix(text, "."))
-			c.Assert(r.Findings[0].RuleVersion, qt.Equals, "8")
+			c.Assert(r.Findings[0].RuleVersion, qt.Equals, "9")
 		})
 	}
 }

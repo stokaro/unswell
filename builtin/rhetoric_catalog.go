@@ -72,7 +72,7 @@ func localRhetoricRules() []rule.Rule {
 				"Also recognizes affirmative extreme quality predicates and unrestricted claims about "+
 				"what everybody or nobody knows, wants or can verify, unsupported majority claims about reader preferences or practice, "+
 				"and anaphoric result tails predicting generic readers' preferences or understanding. "+
-				"Ordinary copular quality or difficulty judgments require a complete predicate without a stated local mechanism. "+
+				"Ordinary copular quality or difficulty judgments require a main subject and a complete predicate without a stated local mechanism. "+
 				"Technical adjective-noun phrases, conditional, quantified and protected constructions are excluded.",
 			[]rule.Example{{Text: "The configuration is intentionally explicit.", Match: true},
 				{Text: "The configuration is explicit about unknown keys."}}),
@@ -123,7 +123,7 @@ func localRhetoricVersion(id string) string {
 	case "filler.document-justification":
 		return "5"
 	case "filler.instruction-scaffolding":
-		return "8"
+		return "9"
 	case "filler.evaluative-closure":
 		return "8"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":
@@ -131,7 +131,7 @@ func localRhetoricVersion(id string) string {
 	case "repetition.definition-echo":
 		return "3"
 	case "filler.unscoped-assurance":
-		return "5"
+		return "6"
 	default:
 		return "1"
 	}
