@@ -63,6 +63,7 @@ def data_sets():
         hashes = {p['sha256'] for p in pages.values()}
         audit.require(not seen & hashes, 'Repeated source bytes')
         seen |= hashes
+    validate_exposure(sets, audit.read(ROOT/'confirmation/source-overlap.json'))
     return sets
 
 
@@ -128,6 +129,26 @@ def finding_delta(before, after):
     return dict(added=sorted(a[k] for k in a.keys()-b.keys() | changed),
                 removed=sorted(b[k] for k in b.keys()-a.keys() | changed),
                 changed_at_same_location=len(changed))
+
+
+def validate_exposure(sets, record):
+    pages, files, _ = sets['confirmation']
+    sources = {p['reference']: raw[p['path']] for name, (ps, raw, _) in sets.items()
+               if name != 'confirmation' for p in ps.values()}
+    audit.require(record['prior_references_scanned'] == len(sources), 'Exposure source count drift')
+    matched = set()
+    for match in record['matches']:
+        audit.require(match['page'] in pages and match['matches'], 'Invalid exposure match')
+        source = files[pages[match['page']]['path']]
+        audit.span(source, match)
+        quote = ' '.join(match['quote'].split())
+        audit.require(len(quote.split()) >= 12, 'Exposure match below declared minimum')
+        for earlier in match['matches']:
+            reference = earlier['reference']
+            audit.require(reference in sources and quote in ' '.join(sources[reference].decode().split()),
+                          'Exposure quote absent from prior source')
+        matched.add(match['page'])
+    audit.require(matched == set(record['known_partially_exposed_pages']), 'Hidden partial exposure')
 
 
 def exposure_metrics(summary):
