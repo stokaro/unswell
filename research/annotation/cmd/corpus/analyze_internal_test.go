@@ -34,7 +34,7 @@ func TestAnalyzeCommandBuildsTablesFromMeasuredFindings(t *testing.T) {
 	c.Assert(json.Unmarshal(tables.Bytes(), &decoded), qt.IsNil)
 	c.Assert(decoded.Version, qt.Equals, patterns.Version)
 	c.Assert(decoded.HumanCorpus, qt.Equals, "not_qualified")
-	c.Assert(decoded.Rules, qt.HasLen, 51)
+	c.Assert(decoded.Rules, qt.HasLen, 53)
 	// The Ptah fixture declares no snapshot, so every document stays unassigned.
 	c.Assert(decoded.Unassigned, qt.Equals, 8)
 	c.Assert(decoded.Cohorts, qt.HasLen, 0)

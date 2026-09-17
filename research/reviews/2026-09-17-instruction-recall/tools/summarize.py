@@ -13,7 +13,8 @@ previous = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(previous)
 audit, prior = previous.audit, previous.prior
 previous.SEMANTICS.update({'filler.instruction-scaffolding': {'wordiness', 'empty_framing'},
-                          'repetition.redundant-predicate': {'wordiness', 'needless_repetition'}})
+                          'repetition.redundant-predicate': {'wordiness', 'needless_repetition'},
+                          'filler.announced-importance': {'empty_framing'}})
 
 
 def frozen_inputs():
@@ -79,6 +80,44 @@ def inherited_claims(split, profile):
     return after, judgments['after']
 
 
+def validate_abstentions(report, split):
+    expected = [dict(path='sources/c05.md', rule_id='repetition.repeated-claim', rule_version='1',
+                     reason='budget_exhausted', detail='repetition work exceeds max_candidates')] if split == 'confirmation' else []
+    audit.require(report.get('abstentions', []) == expected, 'Abstention evidence drift')
+
+
+def run(split, phase, profile, pages, files):
+    # The inherited validator assumes zero abstentions. This larger confirmation
+    # page exhausts one existing rule in both engines; preserve and expose that
+    # limitation while retaining the other source, policy and run checks.
+    folder = ROOT/'reports'/split/phase
+    record = audit.read(folder/'runs.json')[profile]
+    path = folder/(profile+'.json.gz')
+    audit.require(audit.sha(path.read_bytes()) == record['sha256'], 'Report drift')
+    report = audit.read(path)
+    audit.require(report['status'] == 'complete' and report['manifest']['complete'] and not report['errors'], 'Incomplete run')
+    validate_abstentions(report, split)
+    audit.require(report['manifest']['tool_commit'] == record['tool_commit'] and not report['manifest']['skipped_rules'], 'Engine or capability drift')
+    audit.require(not report['manifest']['no_gate'] and report['manifest']['include_source'], 'Changed output policy')
+    audit.require(report['manifest']['scoring_profile'] == profile+'-v1' and
+                  record['config_sha256'] == audit.sha((prior.DEVELOPMENT/(profile+'.yaml')).read_bytes()), 'Profile drift')
+    audit.require(report['manifest']['config_sources'] == [dict(path=profile+'.yaml', kind='config',
+                  sha256=record['config_identity_sha256'])], 'Config provenance drift')
+    audit.require(record['exit_code'] == (0 if report['gate']['passed'] else 1), 'Operational exit/gate mismatch')
+    docs = audit.unique(report['documents'], 'name', 'document')
+    audit.require(set(docs) == {p['path'] for p in pages.values()}, 'Document set differs')
+    for page in pages.values():
+        doc = docs[page['path']]
+        audit.require(doc['source'].encode() == files[page['path']] and doc['source_hash'] == page['sha256'] and
+                      doc['format'] == page['format'], 'Reported source drift')
+    for finding in report['findings']:
+        for loc in audit.locations(finding):
+            audit.span(files[loc['path']], loc['span'])
+            for segment in loc.get('segments', []):
+                audit.span(files[loc['path']], segment)
+    return report, record
+
+
 def evaluate():
     frozen_inputs()
     sets = data_sets()
@@ -88,8 +127,8 @@ def evaluate():
     for split, (pages, files, events) in sets.items():
         result[split] = {}
         for profile in ('technical', 'strict'):
-            before, bc = prior.run(ROOT, split, 'before', profile, pages, files)
-            after, ac = prior.run(ROOT, split, 'after', profile, pages, files)
+            before, bc = run(split, 'before', profile, pages, files)
+            after, ac = run(split, 'after', profile, pages, files)
             audit.require(bc['tool_commit'] == commits['before'] and ac['tool_commit'] == commits['after'], 'Engine revision drift')
             delta = prior.delta(before, after)
             judgments = review[split][profile]
@@ -112,7 +151,8 @@ def evaluate():
                 previous.check_rows(report, rows, pages, events, complete)
             summary = previous.profile_metrics(before, after, dict(before=bclaims, after=aclaims), pages, events, complete)
             result[split][profile] = dict(summary, delta=delta,
-                gate=dict(before=before['gate'], after=after['gate']), costs=dict(before=bc, after=ac))
+                gate=dict(before=before['gate'], after=after['gate']), costs=dict(before=bc, after=ac),
+                abstentions=dict(before=before.get('abstentions', []), after=after.get('abstentions', [])))
     return result
 
 
