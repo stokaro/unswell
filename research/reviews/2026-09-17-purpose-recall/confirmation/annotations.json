@@ -1,0 +1,1240 @@
+{
+  "version": 1,
+  "protocol": "unswell-editorial-v1",
+  "reviewer": "Codex implementing assistant; maintainer accepted under ADR 0041",
+  "review_phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "9ade138f29027e9e8e625d36a3e2ff6c5ab786b304d65085a4037679008473b8",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 2397,
+          "first_line": 1,
+          "last_line": 55,
+          "rationale": "Read the complete native-MDX prose, task landing introduction, safety boundaries and references. Imported link-card labels are navigation context. Preserve the distinct database roles and task-specific warnings.",
+          "prose_blocks": 7,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c01-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 857,
+              "end": 895,
+              "quote": "Choose the task that owns that result."
+            }
+          ],
+          "context": [
+            {
+              "start": 689,
+              "end": 992,
+              "quote": "Delivery work should leave an observable result: a sealed artifact, a recorded\nrevision, an observation of the target, or a diagnostic tied to a stable error\nfragment. Choose the task that owns that result. Proving the change correct\nbefore it gets here is [testing and safety](../../testing/overview/)."
+            }
+          ],
+          "rationale": "The abstract task-owns-result instruction adds no selection criterion to the immediately following task links.",
+          "proposed_edit": "Remove it; retain the observable outcomes and the task links."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c01-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2113,
+              "end": 2228,
+              "quote": "Commands that mutate a database keep their warning and verification step on the\ntask page where the operation runs."
+            }
+          ],
+          "context": [
+            {
+              "start": 2113,
+              "end": 2228,
+              "quote": "Commands that mutate a database keep their warning and verification step on the\ntask page where the operation runs."
+            }
+          ],
+          "rationale": "The placement statement may help readers find the warning, but identifies no specific task link or safety action.",
+          "proposed_edit": "Consider linking to the relevant warning instead of describing its placement."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1844,
+              "end": 2111,
+              "quote": "Use a throwaway database for tests, a dev or shadow database for replay and\nplanning, and a reviewed target URL for a real apply. These roles are not\ninterchangeable; [database URLs and dev databases](../../concepts/database-urls-and-dev-databases/)\ndefines each one."
+            }
+          ],
+          "context": [
+            {
+              "start": 1844,
+              "end": 2111,
+              "quote": "Use a throwaway database for tests, a dev or shadow database for replay and\nplanning, and a reviewed target URL for a real apply. These roles are not\ninterchangeable; [database URLs and dev databases](../../concepts/database-urls-and-dev-databases/)\ndefines each one."
+            }
+          ],
+          "rationale": "Throwaway, dev/shadow and reviewed target databases have different safety roles; the distinction and definition link matter.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "04426a0d8910fabd5eb81dac0e6e892dfa8756e3ba54e5c52038edaeb8bafc04",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 9142,
+          "first_line": 1,
+          "last_line": 289,
+          "rationale": "Read every installer route, flag table, archive naming and verification step, macOS observation, signing prerequisites, completion and optional dependency. Preserve security checks, versions and commands. Factual contradictions or changing platform behavior are outside this wording rubric.",
+          "prose_blocks": 72,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 800,
+              "end": 832,
+              "quote": "is the shortest supported route."
+            }
+          ],
+          "context": [
+            {
+              "start": 763,
+              "end": 979,
+              "quote": "The [default installer](../install/) is the shortest supported route. Use this\npage when you need a pinned version, a custom destination, a package manager, a\nmanual verification trail, or a binary built from source."
+            }
+          ],
+          "rationale": "Shortest has no stated measure among several supported routes, including other one-command routes.",
+          "proposed_edit": "Identify the default installer and when to use the alternatives, without an unsupported ranking."
+        },
+        {
+          "id": "c02-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6741,
+              "end": 6792,
+              "quote": "which is what the commands on this page already do."
+            }
+          ],
+          "context": [
+            {
+              "start": 6645,
+              "end": 6872,
+              "quote": "Two ways through. Fetch the archive with `curl` or `gh release download` rather\nthan a browser, which is what the commands on this page already do. Or, for an\narchive a browser fetched, clear the attribute before the first run:"
+            }
+          ],
+          "rationale": "The editorial self-reference repeats the displayed commands without adding a download condition.",
+          "proposed_edit": "Keep the curl/gh versus browser distinction and the quarantine-removal instructions."
+        },
+        {
+          "id": "c02-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7273,
+              "end": 7323,
+              "quote": "which is why this is documented rather than solved"
+            }
+          ],
+          "context": [
+            {
+              "start": 7085,
+              "end": 7470,
+              "quote": "Developer ID signing and notarization would make a browser download run with no\nuser action. They need an Apple Developer Program membership and a certificate\nheld as a repository secret, which is why this is documented rather than solved;\n[#2363](https://github.com/stokaro/ptah/issues/2363) tracks it. Homebrew and\n`go install` are unaffected, because neither attaches the attribute."
+            }
+          ],
+          "rationale": "The documented-versus-solved aside repeats the preceding missing signing prerequisites.",
+          "proposed_edit": "Keep the prerequisites and tracking issue; omit the commentary about documentation."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c02-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7042,
+              "end": 7083,
+              "quote": "the two sections around this one are how."
+            }
+          ],
+          "context": [
+            {
+              "start": 6942,
+              "end": 7083,
+              "quote": "Clearing it says you trust the download, so verify the checksum and the release\nsignature first — the two sections around this one are how."
+            }
+          ],
+          "rationale": "The informal navigation adds no named links but does locate the two required checks.",
+          "proposed_edit": "Optionally link the checksum and signature sections directly."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 7971,
+              "end": 8173,
+              "quote": "Then run the SHA-256 comparison for the archive. Signature verification and\narchive checksum verification answer different questions; use both when the\nrelease provenance is part of your trust decision."
+            }
+          ],
+          "context": [
+            {
+              "start": 7971,
+              "end": 8173,
+              "quote": "Then run the SHA-256 comparison for the archive. Signature verification and\narchive checksum verification answer different questions; use both when the\nrelease provenance is part of your trust decision."
+            }
+          ],
+          "rationale": "Signature and checksum verification answer distinct trust questions; retaining both does not repeat a single check.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 6406,
+              "end": 6476,
+              "quote": "Measured on macOS 26.5 arm64 against `ptah_0.3.0_darwin_arm64.tar.gz`:"
+            }
+          ],
+          "context": [
+            {
+              "start": 6406,
+              "end": 6476,
+              "quote": "Measured on macOS 26.5 arm64 against `ptah_0.3.0_darwin_arm64.tar.gz`:"
+            }
+          ],
+          "rationale": "The macOS claim is explicitly tied to a measured platform/version and diagnostic output.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "5597c7ea030c9740783994b54b50de341e029e8895187a7c47ee738ac0cf96cd",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 35497,
+          "first_line": 1,
+          "last_line": 826,
+          "rationale": "Read all extracted prose from export scope through field numbering, types, exposure, compatibility flags, failure table and limitations. Code and literal diagnostics are context. Preserve every field number, source identity, API distinction and failure precondition. Review wording rather than verifying Protobuf facts; apparent inconsistent comment defaults need a separate technical audit.",
+          "prose_blocks": 189,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 11435,
+              "end": 11520,
+              "quote": "a source-breaking\n  change Ptah has no business making on a downstream team's behalf."
+            }
+          ],
+          "context": [
+            {
+              "start": 11311,
+              "end": 11520,
+              "quote": "It changes generated Go for every consumer.** Edition 2024 switches\n  `protoc-gen-go` to the Opaque API for the whole file, a source-breaking\n  change Ptah has no business making on a downstream team's behalf."
+            }
+          ],
+          "rationale": "The moralized no-business aside adds no technical condition beyond the source-breaking change.",
+          "proposed_edit": "State that the Opaque API changes downstream source compatibility."
+        },
+        {
+          "id": "c03-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 16810,
+              "end": 16855,
+              "quote": "Three properties are worth stating precisely:"
+            }
+          ],
+          "context": [
+            {
+              "start": 16810,
+              "end": 16855,
+              "quote": "Three properties are worth stating precisely:"
+            }
+          ],
+          "rationale": "The worth-stating announcement delays three concrete properties without adding one.",
+          "proposed_edit": "Introduce the three properties directly."
+        },
+        {
+          "id": "c03-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 17755,
+              "end": 17839,
+              "quote": "which is exactly the review this flag exists to\nmake explicit rather than automatic."
+            }
+          ],
+          "context": [
+            {
+              "start": 17649,
+              "end": 17839,
+              "quote": "`all` remains the default. Flipping it would rewrite every already published\n`.proto` on the next export, which is exactly the review this flag exists to\nmake explicit rather than automatic."
+            }
+          ],
+          "rationale": "The purpose commentary repeats that the changed default rewrites published files.",
+          "proposed_edit": "Keep the default and rewrite consequence without the evaluative closing tail."
+        },
+        {
+          "id": "c03-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 19923,
+              "end": 19967,
+              "quote": "Which also means it carries the same weight."
+            }
+          ],
+          "context": [
+            {
+              "start": 19923,
+              "end": 20331,
+              "quote": "Which also means it carries the same weight. Changing the `proto_name`, or the\n`api_name` when no `proto_name` is declared, is the opposite case — it retires\nan identity consumers hold, so it is refused by default and handled by\n[Handle removals and incompatible changes](#handle-removals-and-incompatible-changes).\nThe two identities are explained on\n[API schema export](../export/#names-in-the-contract)."
+            }
+          ],
+          "rationale": "The abstract weight transition has no named consequence; the next sentence gives the actual retirement/refusal behavior.",
+          "proposed_edit": "Start with the change retiring the published identity."
+        },
+        {
+          "id": "c03-d05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 22734,
+              "end": 22794,
+              "quote": "precisely the incompatibility the baseline exists to\nprevent"
+            }
+          ],
+          "context": [
+            {
+              "start": 22472,
+              "end": 22816,
+              "quote": "The file a message lives in is where its field numbers are recorded, so turning\n`--proto-split` on for a schema that already has a baseline moves every message\nout of `--out`. Handled as a removal plus an addition that restarts the message\nat field number 1 — precisely the incompatibility the baseline exists to\nprevent — so it is refused:"
+            }
+          ],
+          "rationale": "The purpose aside restates why restarting at field number 1 is incompatible.",
+          "proposed_edit": "Keep removal plus addition, number restart and default refusal."
+        },
+        {
+          "id": "c03-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 30319,
+              "end": 30453,
+              "quote": "Every bullet below ends with either the issue that tracks it or the reason it is\npermanent, so nothing on this list is an unowned gap."
+            }
+          ],
+          "context": [
+            {
+              "start": 30319,
+              "end": 30453,
+              "quote": "Every bullet below ends with either the issue that tracks it or the reason it is\npermanent, so nothing on this list is an unowned gap."
+            }
+          ],
+          "rationale": "The introductory assurance of no unowned gaps comments on the quality of the list rather than a product limitation.",
+          "proposed_edit": "Start the limitations directly and retain their reasons and tracking links."
+        },
+        {
+          "id": "c03-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 32639,
+              "end": 32690,
+              "quote": "which is the one thing a\n  wire format must not do."
+            }
+          ],
+          "context": [
+            {
+              "start": 31992,
+              "end": 32690,
+              "quote": "Additive compatibility is not the same as intentional exposure. Adding a\n  column to a selected table adds a field on the next export under the default\n  field policy; pass `--api-field-policy=allowlist` so only columns declaring\n  `api_expose` are exported and a new column enters nothing until it is\n  declared. Withholding a column a previous export published retires its number\n  and reserves its name, exactly as removing it does, so pass\n  `--proto-on-field-removal=reserve` the first time. That the default stays\n  permissive is permanent because changing it would rewrite the contract of\n  every schema exported before the policy existed, which is the one thing a\n  wire format must not do."
+            }
+          ],
+          "rationale": "The emphatic one-thing closing generalizes beyond the specific compatibility consequence.",
+          "proposed_edit": "Keep that changing the default rewrites existing contracts."
+        },
+        {
+          "id": "c03-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 33544,
+              "end": 33591,
+              "quote": "publishing them is a decision, not an accident."
+            }
+          ],
+          "context": [
+            {
+              "start": 33177,
+              "end": 33801,
+              "quote": "Comment suppression is all-or-nothing.\n  [`--proto-comments all`](#control-what-the-contract-says) copies every comment\n  the source schema supplies, and there is no per-table or per-column form.\n  The default is `none`, so passing `all` means reviewing table and column\n  comments for internal implementation details or sensitive operational\n  information first — publishing them is a decision, not an accident. The\n  all-or-nothing shape is permanent because a table comment can\n  carry exactly the internal detail a column comment can, so a partial switch\n  would report a boundary the published contract does not have."
+            }
+          ],
+          "rationale": "The slogan repeats the explicit requirement to review comments before enabling publication.",
+          "proposed_edit": "Retain the review requirement and exposure conditions."
+        },
+        {
+          "id": "c03-d09",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 33592,
+              "end": 33801,
+              "quote": "The\n  all-or-nothing shape is permanent because a table comment can\n  carry exactly the internal detail a column comment can, so a partial switch\n  would report a boundary the published contract does not have."
+            }
+          ],
+          "context": [
+            {
+              "start": 33177,
+              "end": 33801,
+              "quote": "Comment suppression is all-or-nothing.\n  [`--proto-comments all`](#control-what-the-contract-says) copies every comment\n  the source schema supplies, and there is no per-table or per-column form.\n  The default is `none`, so passing `all` means reviewing table and column\n  comments for internal implementation details or sensitive operational\n  information first — publishing them is a decision, not an accident. The\n  all-or-nothing shape is permanent because a table comment can\n  carry exactly the internal detail a column comment can, so a partial switch\n  would report a boundary the published contract does not have."
+            }
+          ],
+          "rationale": "The same table-versus-column exposure rationale is already explained in Control what the contract says.",
+          "proposed_edit": "Keep the limitation and link back to the earlier rationale instead of repeating it in full."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c03-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 18579,
+              "end": 18626,
+              "quote": "That is what makes a storage rename survivable."
+            }
+          ],
+          "context": [
+            {
+              "start": 18579,
+              "end": 18779,
+              "quote": "That is what makes a storage rename survivable. Declare the published name once\nand the column underneath can change without touching the wire. Each authoring\nformat spells the same identity directly:"
+            }
+          ],
+          "rationale": "The summary may help distinguish storage from published identity but the next sentence states the same consequence more precisely.",
+          "proposed_edit": "Optionally start with declaring the published name once."
+        },
+        {
+          "id": "c03-u02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 24074,
+              "end": 24132,
+              "quote": "rather\nthan choosing your compatibility trade-off for you."
+            }
+          ],
+          "context": [
+            {
+              "start": 23924,
+              "end": 24132,
+              "quote": "Three schema edits cannot be projected safely without a decision. Each has a\npolicy flag that defaults to `error`, so Ptah refuses and names the flag rather\nthan choosing your compatibility trade-off for you."
+            }
+          ],
+          "rationale": "The wording is rhetorical but explains why a policy decision is required.",
+          "proposed_edit": "Optionally retain just the default refusal and explicit policy choice."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1148,
+              "end": 1579,
+              "quote": "Ptah emits messages and enums, not Protobuf services or remote procedure calls\n(RPCs). It does not create a server, access database rows, or implement\nauthorization. Publishing the generated file still reveals the selected table\nand column names, translated types, and enum values. It does **not** carry the\ncomments the source schema supplies unless you ask for them with\n[`--proto-comments all`](#control-what-the-contract-says)."
+            }
+          ],
+          "context": [
+            {
+              "start": 1148,
+              "end": 1579,
+              "quote": "Ptah emits messages and enums, not Protobuf services or remote procedure calls\n(RPCs). It does not create a server, access database rows, or implement\nauthorization. Publishing the generated file still reveals the selected table\nand column names, translated types, and enum values. It does **not** carry the\ncomments the source schema supplies unless you ask for them with\n[`--proto-comments all`](#control-what-the-contract-says)."
+            }
+          ],
+          "rationale": "Not emitting services, not implementing authorization and exposing schema metadata are separate scope and security properties.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 19412,
+              "end": 19921,
+              "quote": "`proto_name` scopes that identity to this export. It exists because Protobuf's\nnaming rules are not the other formats': `buf lint` wants `lower_snake_case`,\nwhere a GraphQL field is conventionally camelCase, so a schema that publishes\n`amountMinor` in GraphQL declares `proto_name=\"amount_minor\"` here rather than\npicking one spelling for both. A pinned `proto_name` absorbs a change to the\ncolumn **and** to the shared `api_name` — the number follows the published name,\nand the published name is this one."
+            }
+          ],
+          "context": [
+            {
+              "start": 19412,
+              "end": 19921,
+              "quote": "`proto_name` scopes that identity to this export. It exists because Protobuf's\nnaming rules are not the other formats': `buf lint` wants `lower_snake_case`,\nwhere a GraphQL field is conventionally camelCase, so a schema that publishes\n`amountMinor` in GraphQL declares `proto_name=\"amount_minor\"` here rather than\npicking one spelling for both. A pinned `proto_name` absorbs a change to the\ncolumn **and** to the shared `api_name` — the number follows the published name,\nand the published name is this one."
+            }
+          ],
+          "rationale": "Target-specific versus shared API naming and pinned identity have distinct contract effects that must remain.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 22087,
+              "end": 22436,
+              "quote": ":::caution\nThe inventory line, not the version number, is what marks a set: every file of a\nmulti-file export declares the same `ptah:protobuf-export-version=2` a\nsingle-file export does. The line sits inside the digest-covered header block,\nso editing it out to shrink the set is refused as a modified file rather than\nread as a smaller export.\n:::"
+            }
+          ],
+          "context": [
+            {
+              "start": 22087,
+              "end": 22436,
+              "quote": ":::caution\nThe inventory line, not the version number, is what marks a set: every file of a\nmulti-file export declares the same `ptah:protobuf-export-version=2` a\nsingle-file export does. The line sits inside the digest-covered header block,\nso editing it out to shrink the set is refused as a modified file rather than\nread as a smaller export.\n:::"
+            }
+          ],
+          "rationale": "The header inventory and version number play distinct roles in identifying a multi-file set.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 31347,
+              "end": 31989,
+              "quote": "Database identifiers determine generated API identifiers after Protobuf name\n  normalization only when the schema declares neither `proto_name` nor\n  `api_name`. Pin one of those API identities before a storage rename to keep\n  the message or field name stable. Renaming both storage and published\n  identity reads as one field removed and another added, so it is refused by\n  default like every other contract change; pass\n  `--proto-on-field-removal=reserve` to retire the old number and name. This is\n  permanent because only an explicitly retained API identity can distinguish a\n  storage rename from a real contract removal and addition."
+            }
+          ],
+          "context": [
+            {
+              "start": 31347,
+              "end": 31989,
+              "quote": "Database identifiers determine generated API identifiers after Protobuf name\n  normalization only when the schema declares neither `proto_name` nor\n  `api_name`. Pin one of those API identities before a storage rename to keep\n  the message or field name stable. Renaming both storage and published\n  identity reads as one field removed and another added, so it is refused by\n  default like every other contract change; pass\n  `--proto-on-field-removal=reserve` to retire the old number and name. This is\n  permanent because only an explicitly retained API identity can distinguish a\n  storage rename from a real contract removal and addition."
+            }
+          ],
+          "rationale": "The reason for permanent identity handling explains a real ambiguity between a storage rename and a contract removal.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "a97fdd0ebd6d6f60899ca2c42e393588f002583172014eb510602cee7dfbb4aa",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 28956,
+          "first_line": 1,
+          "last_line": 590,
+          "rationale": "Read the full README prose, DSN and feature tables, platform build instructions, authentication, FAQ, contributions and license context. Do not treat repeated reference links, API entries or platform-scoped advice as redundant. Spelling and grammar defects alone are outside the seven-category rubric.",
+          "prose_blocks": 366,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 8398,
+              "end": 8561,
+              "quote": "This package allows additional configuration of features available within SQLite3 to be enabled or disabled by golang build constraints also known as build `tags`."
+            }
+          ],
+          "context": [
+            {
+              "start": 8398,
+              "end": 8561,
+              "quote": "This package allows additional configuration of features available within SQLite3 to be enabled or disabled by golang build constraints also known as build `tags`."
+            }
+          ],
+          "rationale": "The nested allows-configuration-to-be-enabled frame obscures the direct action and repeats configuration.",
+          "proposed_edit": "Say that Go build tags enable or disable optional SQLite3 features, keeping the build-tag reference."
+        },
+        {
+          "id": "c04-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 13688,
+              "end": 13891,
+              "quote": "If you need to add additional CFLAGS or LDFLAGS to the build command, and do not want to modify this package. Then this can be achieved by  using the `CGO_CFLAGS` and `CGO_LDFLAGS` environment variables."
+            }
+          ],
+          "context": [
+            {
+              "start": 13688,
+              "end": 13891,
+              "quote": "If you need to add additional CFLAGS or LDFLAGS to the build command, and do not want to modify this package. Then this can be achieved by  using the `CGO_CFLAGS` and `CGO_LDFLAGS` environment variables."
+            }
+          ],
+          "rationale": "The split if/then and this-can-be-achieved frame lengthen a direct conditional instruction.",
+          "proposed_edit": "To add CFLAGS or LDFLAGS without modifying the package, set CGO_CFLAGS or CGO_LDFLAGS."
+        },
+        {
+          "id": "c04-d03",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 14598,
+              "end": 14690,
+              "quote": "The simplest way to cross compile from OSX is to use [xgo](https://github.com/karalabe/xgo)."
+            }
+          ],
+          "context": [
+            {
+              "start": 14598,
+              "end": 14690,
+              "quote": "The simplest way to cross compile from OSX is to use [xgo](https://github.com/karalabe/xgo)."
+            }
+          ],
+          "rationale": "The simplest-way ranking gives no criterion or comparison.",
+          "proposed_edit": "Present xgo as a supported way to cross-compile and retain its link and steps."
+        },
+        {
+          "id": "c04-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15977,
+              "end": 16083,
+              "quote": "For OSX there is an additional package install which is required if you wish to build the `icu` extension."
+            }
+          ],
+          "context": [
+            {
+              "start": 15977,
+              "end": 16083,
+              "quote": "For OSX there is an additional package install which is required if you wish to build the `icu` extension."
+            }
+          ],
+          "rationale": "There is an additional package install which is required repeats a simple prerequisite through several auxiliaries.",
+          "proposed_edit": "On macOS, install the additional package to build the ICU extension; retain its name in the following command."
+        },
+        {
+          "id": "c04-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 19739,
+              "end": 19842,
+              "quote": "Operations on the database regarding to user management can only be preformed by an administrator user."
+            }
+          ],
+          "context": [
+            {
+              "start": 19739,
+              "end": 19842,
+              "quote": "Operations on the database regarding to user management can only be preformed by an administrator user."
+            }
+          ],
+          "rationale": "Operations on the database regarding to user management can only be performed lengthens the administrator restriction.",
+          "proposed_edit": "Only administrators can manage database users."
+        },
+        {
+          "id": "c04-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 19965,
+              "end": 20039,
+              "quote": "User management can be done by directly using the `*SQLiteConn` or by SQL."
+            }
+          ],
+          "context": [
+            {
+              "start": 19965,
+              "end": 20039,
+              "quote": "User management can be done by directly using the `*SQLiteConn` or by SQL."
+            }
+          ],
+          "rationale": "User management can be done by directly using obscures the available interfaces.",
+          "proposed_edit": "Manage users through SQLiteConn or SQL, preserving the exact API reference."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c04-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 19251,
+              "end": 19275,
+              "quote": "which is quite insecure."
+            }
+          ],
+          "context": [
+            {
+              "start": 19102,
+              "end": 19389,
+              "quote": "The passwords within the user authentication module of SQLite are encoded with the SQLite function `sqlite_cryp`.\nThis function uses a ceasar-cypher which is quite insecure.\nThis library provides several additional password encoders which can be configured through the connection string."
+            }
+          ],
+          "rationale": "The Caesar-cipher weakness is credible, but the degree adds no concrete threat; the algorithm itself supports a warning.",
+          "proposed_edit": "Consider naming the protection limitation instead of a degree adjective."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 16239,
+              "end": 16326,
+              "quote": "If you wish to link directly to libsqlite3 then you can use the `libsqlite3` build tag."
+            }
+          ],
+          "context": [
+            {
+              "start": 16239,
+              "end": 16326,
+              "quote": "If you wish to link directly to libsqlite3 then you can use the `libsqlite3` build tag."
+            }
+          ],
+          "rationale": "The libsqlite3 instruction repeats Linux advice in a separately navigated macOS section; this is useful local context.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 24090,
+              "end": 24509,
+              "quote": "  Each connection to `\":memory:\"` opens a brand new in-memory sql database, so if\n    the stdlib's sql engine happens to open another connection and you've only\n    specified `\":memory:\"`, that connection will see a brand new database. A\n    workaround is to use `\"file::memory:?cache=shared\"` (or `\"file:foobar?mode=memory&cache=shared\"`). Every\n    connection to this string will point to the same in-memory database."
+            }
+          ],
+          "context": [
+            {
+              "start": 24090,
+              "end": 24509,
+              "quote": "  Each connection to `\":memory:\"` opens a brand new in-memory sql database, so if\n    the stdlib's sql engine happens to open another connection and you've only\n    specified `\":memory:\"`, that connection will see a brand new database. A\n    workaround is to use `\"file::memory:?cache=shared\"` (or `\"file:foobar?mode=memory&cache=shared\"`). Every\n    connection to this string will point to the same in-memory database."
+            }
+          ],
+          "rationale": "Separate versus shared in-memory databases explain a connection-specific failure and its concrete workaround.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c03",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 26159,
+              "end": 26420,
+              "quote": "This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].\n<a href=\"https://github.com/mattn/go-sqlite3/graphs/contributors\"><img src=\"https://opencollective.com/mattn-go-sqlite3/contributors.svg?width=890&button=false\" /></a>"
+            }
+          ],
+          "context": [
+            {
+              "start": 26159,
+              "end": 26420,
+              "quote": "This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].\n<a href=\"https://github.com/mattn/go-sqlite3/graphs/contributors\"><img src=\"https://opencollective.com/mattn-go-sqlite3/contributors.svg?width=890&button=false\" /></a>"
+            }
+          ],
+          "rationale": "Contributor thanks is intentional community acknowledgment, not a technical quality claim.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "3b1f9057d1c4507b4e4763d1a711cc94dbf5b31a5d31bfc614cad600cdbe8515",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 6479,
+          "first_line": 1,
+          "last_line": 167,
+          "rationale": "Read the complete governance document, BDFL rationale, ownership, donations, support, roles, server administration, maintainer requirements and joining/leaving guidance. Community gratitude, aspirations and permission statements are not unsupported product assurances.",
+          "prose_blocks": 60,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 120,
+              "end": 197,
+              "quote": "was started by and has to some extent been pushed forward over\nthe years with"
+            }
+          ],
+          "context": [
+            {
+              "start": 107,
+              "end": 308,
+              "quote": "This project was started by and has to some extent been pushed forward over\nthe years with Daniel Stenberg as the driving force. It matches a standard\nBDFL (Benevolent Dictator For Life) style project."
+            }
+          ],
+          "rationale": "The vague progression phrase delays the named founder and leadership role.",
+          "proposed_edit": "Say Daniel Stenberg started the project and remains its driving force, preserving the historical attribution."
+        },
+        {
+          "id": "c05-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 335,
+              "end": 400,
+              "quote": "due to convenience and the fact that is has worked\nfine this far."
+            }
+          ],
+          "context": [
+            {
+              "start": 310,
+              "end": 632,
+              "quote": "This setup has been used due to convenience and the fact that is has worked\nfine this far. It is not because someone thinks of it as a superior project\nleadership model. It will also only continue working as long as Daniel manages\nto listen in to what the project and the general user population wants and\nexpects from us."
+            }
+          ],
+          "rationale": "Due-to and fact-that scaffolding lengthen the stated practical rationale.",
+          "proposed_edit": "Use because it has been convenient and has worked so far; preserve that this is not a claim of superiority."
+        },
+        {
+          "id": "c05-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1207,
+              "end": 1262,
+              "quote": "All and any changes that have been done or will be done"
+            }
+          ],
+          "context": [
+            {
+              "start": 1207,
+              "end": 1426,
+              "quote": "All and any changes that have been done or will be done are eligible to bring\nup for discussion, to object to or to praise. Ideally, we find consensus for\nthe appropriate way forward in any given situation or challenge."
+            }
+          ],
+          "rationale": "All and any plus done/will-be-done repeats the universal scope.",
+          "proposed_edit": "Use any past or proposed change; preserve discussion, objection and praise rights."
+        },
+        {
+          "id": "c05-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2537,
+              "end": 2548,
+              "quote": "Maintainers"
+            }
+          ],
+          "context": [
+            {
+              "start": 2537,
+              "end": 2548,
+              "quote": "Maintainers"
+            }
+          ],
+          "rationale": "Individual-who-has-been-given-permissions turns a short role definition into a relative-clause chain.",
+          "proposed_edit": "A maintainer has permission to push commits to a curl repository."
+        },
+        {
+          "id": "c05-d05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 4579,
+              "end": 4712,
+              "quote": "A curl maintainer is a project volunteer who has the authority and rights to\nmerge changes into a git repository in the curl project."
+            }
+          ],
+          "context": [
+            {
+              "start": 4579,
+              "end": 4712,
+              "quote": "A curl maintainer is a project volunteer who has the authority and rights to\nmerge changes into a git repository in the curl project."
+            }
+          ],
+          "rationale": "The second maintainer definition repeats the earlier push/merge authority definition without a distinct role boundary.",
+          "proposed_edit": "Refer back to the maintainer definition, retaining the volunteer status."
+        },
+        {
+          "id": "c05-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4805,
+              "end": 4847,
+              "quote": "We hope and wish that maintainers consider"
+            }
+          ],
+          "context": [
+            {
+              "start": 4774,
+              "end": 4974,
+              "quote": "There are no mandatory duties. We hope and wish that maintainers consider\nreviewing patches and help merging them, especially when the changes are\nwithin the area of personal expertise and experience."
+            }
+          ],
+          "rationale": "Hope and wish duplicate the same nonmandatory expectation.",
+          "proposed_edit": "Say maintainers are encouraged to review and merge patches, keeping the expertise condition and nonmandatory status."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 804,
+              "end": 819,
+              "quote": "great products."
+            }
+          ],
+          "context": [
+            {
+              "start": 651,
+              "end": 940,
+              "quote": "There is no legal entity. The curl project is just a bunch of people scattered\naround the globe with the common goal to produce source code that creates\ngreat products. We are not part of any umbrella organization and we are not\nlocated in any specific country. We are totally independent."
+            }
+          ],
+          "rationale": "This is a mission statement rather than evidence of a particular product property; a neutral description would be more specific.",
+          "proposed_edit": "Optionally describe the intended products or purpose."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 4714,
+              "end": 4760,
+              "quote": "Anyone can aspire to become a curl maintainer."
+            }
+          ],
+          "context": [
+            {
+              "start": 4714,
+              "end": 4760,
+              "quote": "Anyone can aspire to become a curl maintainer."
+            }
+          ],
+          "rationale": "Anyone can aspire is an inclusive permission, not a promise of universal comprehension or success.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 3235,
+              "end": 3379,
+              "quote": "Getting push permissions removed is not a punishment. Everyone who ever worked\non maintaining curl is considered a hero, for all time hereafter."
+            }
+          ],
+          "context": [
+            {
+              "start": 3235,
+              "end": 3379,
+              "quote": "Getting push permissions removed is not a punishment. Everyone who ever worked\non maintaining curl is considered a hero, for all time hereafter."
+            }
+          ],
+          "rationale": "Maintainer appreciation is a deliberate community acknowledgment in the former-maintainer section.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 6358,
+              "end": 6478,
+              "quote": "If you (appear to) not be active in the project anymore, you may be removed as\na maintainer. Thank you for your service!"
+            }
+          ],
+          "context": [
+            {
+              "start": 6358,
+              "end": 6478,
+              "quote": "If you (appear to) not be active in the project anymore, you may be removed as\na maintainer. Thank you for your service!"
+            }
+          ],
+          "rationale": "Thanks for service is social acknowledgment and the removal condition remains explicit.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "15cd734ebaf6163a1d0e1d76e99d4184be80e89b0b20213f8753e358bb9d8c2f",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4265,
+          "first_line": 1,
+          "last_line": 105,
+          "rationale": "Read all alert-rule definitions, timing, labels, annotations, template variables, inspection, synthetic time-series states and Alertmanager integration. Code and template examples are context. Preserve pending versus firing, durations, overwritten-label behavior and independent notification responsibilities.",
+          "prose_blocks": 16,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c06-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1230,
+              "end": 1303,
+              "quote": "allows specifying a set of additional labels to be attached\nto the alert."
+            }
+          ],
+          "context": [
+            {
+              "start": 1210,
+              "end": 1391,
+              "quote": "The `labels` clause allows specifying a set of additional labels to be attached\nto the alert. Any existing conflicting labels will be overwritten. The label\nvalues can be templated."
+            }
+          ],
+          "rationale": "Allows-specifying-to-be-attached lengthens what the labels clause does.",
+          "proposed_edit": "Say the labels clause adds labels to the alert; retain overwrite and templating behavior."
+        },
+        {
+          "id": "c06-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1418,
+              "end": 1513,
+              "quote": "specifies a set of informational labels that can be used to store longer additional information"
+            }
+          ],
+          "context": [
+            {
+              "start": 1393,
+              "end": 1598,
+              "quote": "The `annotations` clause specifies a set of informational labels that can be used to store longer additional information such as alert descriptions or runbook links. The annotation values can be templated."
+            }
+          ],
+          "rationale": "Informational labels and additional information repeat through a can-be-used-to frame.",
+          "proposed_edit": "Say annotations store longer descriptions or runbook links; retain templating."
+        },
+        {
+          "id": "c06-d03",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 3564,
+              "end": 3611,
+              "quote": "are good at figuring what is broken *right now*"
+            }
+          ],
+          "context": [
+            {
+              "start": 3536,
+              "end": 4264,
+              "quote": "Prometheus's alerting rules are good at figuring what is broken *right now*, but\nthey are not a fully-fledged notification solution. Another layer is needed to\nadd summarization, notification rate limiting, silencing and alert dependencies\non top of the simple alert definitions. In Prometheus's ecosystem, the\n[Alertmanager](https://prometheus.io/docs/alerting/alertmanager/) takes on this\nrole. Thus, Prometheus may be configured to periodically send information about\nalert states to an Alertmanager instance, which then takes care of dispatching\nthe right notifications.  \nPrometheus can be [configured](configuration.md) to automatically discover available\nAlertmanager instances through its service discovery integrations."
+            }
+          ],
+          "rationale": "The broad quality judgment does not name the configured expression conditions that determine an alert.",
+          "proposed_edit": "Say alert rules detect configured conditions, keeping the Alertmanager responsibilities and service discovery."
+        }
+      ],
+      "uncertain": [],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 809,
+              "end": 1208,
+              "quote": "The optional `for` clause causes Prometheus to wait for a certain duration\nbetween first encountering a new expression output vector element and counting an alert as firing for this element. In this case, Prometheus will check that the alert continues to be active during each evaluation for 10 minutes before firing the alert. Elements that are active, but not firing yet, are in the pending state."
+            }
+          ],
+          "context": [
+            {
+              "start": 809,
+              "end": 1208,
+              "quote": "The optional `for` clause causes Prometheus to wait for a certain duration\nbetween first encountering a new expression output vector element and counting an alert as firing for this element. In this case, Prometheus will check that the alert continues to be active during each evaluation for 10 minutes before firing the alert. Elements that are active, but not firing yet, are in the pending state."
+            }
+          ],
+          "rationale": "Evaluation duration, active state and pending/firing distinction are necessary to specify when an alert fires.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3147,
+              "end": 3501,
+              "quote": "For pending and firing alerts, Prometheus also stores synthetic time series of\nthe form `ALERTS{alertname=\"<alert name>\", alertstate=\"<pending or firing>\", <additional alert labels>}`.\nThe sample value is set to `1` as long as the alert is in the indicated active\n(pending or firing) state, and the series is marked stale when this is no\nlonger the case."
+            }
+          ],
+          "context": [
+            {
+              "start": 3147,
+              "end": 3501,
+              "quote": "For pending and firing alerts, Prometheus also stores synthetic time series of\nthe form `ALERTS{alertname=\"<alert name>\", alertstate=\"<pending or firing>\", <additional alert labels>}`.\nThe sample value is set to `1` as long as the alert is in the indicated active\n(pending or firing) state, and the series is marked stale when this is no\nlonger the case."
+            }
+          ],
+          "rationale": "The time-series label set, sample value and stale-state behavior describe distinct observable properties.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}

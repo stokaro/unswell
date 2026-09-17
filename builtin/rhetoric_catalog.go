@@ -30,7 +30,8 @@ func localRhetoricRules() []rule.Rule {
 			"Keep the link, ownership, and scope; remove the explanation of the document's existence or deliberate non-repetition.",
 			"A document subject followed by 'exists so/to/because', deliberate non-repetition of material, "+
 				"a statement that a document part earns its place, a page explaining what its fields mean, editorial "+
-				"ownership, or announcements that definitions or counts are repeated or omitted here. "+
+				"ownership, document dedication or future-presentation clauses, or announcements "+
+				"that definitions or counts are repeated or omitted here. "+
 				"Ownership may use a pronoun only after an adjacent explicit document announcement in the same block. "+
 				"Storage existence and ordinary scope exclusions do not match.",
 			[]rule.Example{{Text: "This page exists so the operator is reachable from here.", Match: true},
@@ -41,8 +42,10 @@ func localRhetoricRules() []rule.Rule {
 				"preserving the information it introduces.",
 			"An anaphoric purpose tail ('which is the point of doing it', 'which is what doing it is for'), "+
 				"a bare whole-point/design declaration, an anaphoric assertion of value or verification, "+
-				"an information subject announcing cognitive worth, or an impersonal modal notice followed by a that-clause. "+
-				"Named purposes and measured evaluations stay excluded; notice and cognitive-worth frames retain their attached conditions.",
+				"an information subject announcing cognitive worth, abstract feature-purpose or intentionality closures, "+
+				"output claiming to prove understanding, or an impersonal modal notice followed by a that-clause. "+
+				"Concrete component purposes and measured evaluations stay excluded; "+
+				"notice and cognitive-worth frames retain their attached conditions.",
 			[]rule.Example{{Text: "The approval stops applying, which is what binding it to a digest is for.", Match: true},
 				{Text: "The command starts a new batch, which is what the wrapper is for."}}),
 		localRhetoricRule("filler.unscoped-assurance", unscopedAssurance,
@@ -52,7 +55,7 @@ func localRhetoricRules() []rule.Rule {
 			"A positive copular clause announces intentional quality without a mechanism, calls a choice nearly always right, "+
 				"or promises the fastest/best/easiest way to understand everything. "+
 				"Also recognizes affirmative extreme quality predicates and unrestricted claims about "+
-				"what everybody or nobody knows, wants or can verify. "+
+				"what everybody or nobody knows, wants or can verify, and unsupported majority claims about reader preferences or practice. "+
 				"Conditional, quantified and protected constructions are excluded.",
 			[]rule.Example{{Text: "The configuration is intentionally explicit.", Match: true},
 				{Text: "The configuration is explicit about unknown keys."}}),
@@ -80,18 +83,19 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 	d.BlockObservations = true
 	d.TermExemptions = true
 	if id == "filler.document-justification" || id == "filler.evaluative-closure" {
-		d.Version = "4"
+		d.Version = "5"
 	}
 	if id == "filler.instruction-scaffolding" || id == "repetition.redundant-predicate" || id == "repetition.definition-echo" {
 		d.Version = "2"
 	}
 	if id == "filler.unscoped-assurance" {
-		d.Version = "2"
+		d.Version = "3"
 	}
 	d.Requires = append(d.Requires, nlp.POS)
 	d.Description = description + " Reports complete matched clauses, once per clause, within a single block."
 	d.Limitations = "Bounded token constructions, not a semantic or authorship classifier. " +
-		"Clauses are limited to 48 tokens; protected text is never construction vocabulary. " +
+		"Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. " +
+		"Protected text is never construction vocabulary. " +
 		"Warnings request an editorial review and do not prove that a sentence can be deleted. " +
 		"Defaults are experimental policy proposals; review results describe only their declared samples."
 	d.Parameters = []string{"window_sentences", "allowed_occurrences", "saturation_occurrences"}

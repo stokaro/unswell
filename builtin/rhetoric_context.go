@@ -92,7 +92,32 @@ func contextualDocumentFrame(clauses []frameClause, index int) (rhetoricalFrame,
 
 func contextualDocumentPredicate(tokens []document.Token) bool {
 	subject := documentSubjectEnd(tokens)
-	return subject > 0 && (documentMeaning(tokens[subject:]) || editorialOwnership(tokens[subject:]))
+	return documentPresentation(tokens) || subject > 0 && (documentMeaning(tokens[subject:]) || editorialOwnership(tokens[subject:]))
+}
+
+func documentPresentation(tokens []document.Token) bool {
+	start := presentationSubjectEnd(tokens)
+	if start == 0 || start+2 >= len(tokens) {
+		return false
+	}
+	rest := tokens[start:]
+	return documentDedication(rest) ||
+		frameWord(rest[0], "looks", "look") && frameWord(rest[1], "at") ||
+		frameWord(rest[0], "will") && frameWord(rest[1], "detail", "describe", "explain")
+}
+
+func presentationSubjectEnd(tokens []document.Token) int {
+	if len(tokens) >= 7 && frameWord(tokens[0], "the") && frameWord(tokens[1], "rest", "remainder") &&
+		frameWord(tokens[2], "of") {
+		if end := documentSubjectEnd(tokens[3:]); end > 0 {
+			return 3 + end
+		}
+	}
+	return documentSubjectEnd(tokens)
+}
+
+func documentDedication(tokens []document.Token) bool {
+	return frameWord(tokens[0], "is", "was") && frameWord(tokens[1], "dedicated", "devoted") && frameWord(tokens[2], "to")
 }
 
 func nearbyDocumentAntecedent(clauses []frameClause, index int) bool {
