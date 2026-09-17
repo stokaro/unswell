@@ -1,0 +1,2309 @@
+{
+  "version": 1,
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "bd079960d9ecd4e5ee6b2952a014dee9d4413a7737b7b37c2a9d28170ee7ccca",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 3977,
+          "first_line": 1,
+          "last_line": 75,
+          "rationale": "Read all 20 prose blocks and source-format lists. Retain declaration-versus-capability boundaries, composite identities and format-specific metadata limits.",
+          "prose_blocks": 20,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c01-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 485,
+              "end": 537,
+              "quote": "Everything in Ptah starts from one declarative idea:"
+            }
+          ],
+          "context": [
+            {
+              "start": 485,
+              "end": 805,
+              "quote": "Everything in Ptah starts from one declarative idea: you describe the schema a\ndatabase *should* have — the **desired schema** — and Ptah computes what\nseparates any concrete database from it. Migration files, direct applies,\ndrift checks, and tests are all different ways of consuming that same\ncomputed difference."
+            }
+          ],
+          "rationale": "The broad opening announces an idea before giving the independently usable desired-schema definition.",
+          "proposed_edit": "Start with describing the desired schema; retain comparison, migration and workflow meanings."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c01-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2189,
+              "end": 2673,
+              "quote": "Sources converge on one IR.** `ptah schema export` converts Go annotations\n  to HCL, and a brownfield database can be introspected into source at any time.\n  Canonical HCL preserves the currently modeled API names, contract type\n  overrides, and exposure declarations. Export still reports opaque SQL bodies,\n  byte-level normalization, and any other value it cannot prove lossless before\n  destructive cleanup; HCL may additionally express semantics with no Go\n  annotation spelling."
+            }
+          ],
+          "context": [
+            {
+              "start": 2189,
+              "end": 2673,
+              "quote": "Sources converge on one IR.** `ptah schema export` converts Go annotations\n  to HCL, and a brownfield database can be introspected into source at any time.\n  Canonical HCL preserves the currently modeled API names, contract type\n  overrides, and exposure declarations. Export still reports opaque SQL bodies,\n  byte-level normalization, and any other value it cannot prove lossless before\n  destructive cleanup; HCL may additionally express semantics with no Go\n  annotation spelling."
+            }
+          ],
+          "rationale": "The export paragraph combines modeled metadata, loss reporting and HCL-only semantics; a split may help, but shortening must preserve all three.",
+          "proposed_edit": "Optionally separate export preservation from loss-reporting limitations without changing either contract."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 1261,
+              "end": 1594,
+              "quote": "Every source parses into the same internal schema representation before any\nplanning or rendering happens. The source format is therefore independent of\nboth the target dialect and the workflow: a YAML file can produce PostgreSQL\nmigrations, and the same Go annotations can drive versioned files or a direct\napply without remodeling."
+            }
+          ],
+          "context": [
+            {
+              "start": 1261,
+              "end": 1594,
+              "quote": "Every source parses into the same internal schema representation before any\nplanning or rendering happens. The source format is therefore independent of\nboth the target dialect and the workflow: a YAML file can produce PostgreSQL\nmigrations, and the same Go annotations can drive versioned files or a direct\napply without remodeling."
+            }
+          ],
+          "rationale": "The shared representation explains concrete independence between source format, target dialect and workflow, with examples.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1596,
+              "end": 1989,
+              "quote": "Sources compose. `--root-dir` and `--schema-file` repeat and mix freely, and\nthe merged result is the **composite desired schema**. Objects are matched by\ntheir database identity, identical definitions are deduplicated, and\nconflicting definitions stop the command before it renders SQL or connects to\na database — the merge rules live on\n[Composite desired schema](../../schema/composite/)."
+            }
+          ],
+          "context": [
+            {
+              "start": 1596,
+              "end": 1989,
+              "quote": "Sources compose. `--root-dir` and `--schema-file` repeat and mix freely, and\nthe merged result is the **composite desired schema**. Objects are matched by\ntheir database identity, identical definitions are deduplicated, and\nconflicting definitions stop the command before it renders SQL or connects to\na database — the merge rules live on\n[Composite desired schema](../../schema/composite/)."
+            }
+          ],
+          "rationale": "Duplicate and conflicting definitions have different outcomes; the merge rule and source link must remain.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2678,
+              "end": 3174,
+              "quote": "A transport is not an expressiveness promise.** YAML, HCL, and Go can\n  author Ptah API export metadata. SQL and DBML can still feed contract exports,\n  but they have no lossless spelling for that metadata, so names and contract\n  types are derived from storage. An external program has exactly the\n  expressiveness of its declared SQL, YAML, or HCL payload, and an OCI artifact\n  carries canonical HCL. Accepted input does not mean that every format can\n  declare every Ptah object or attribute."
+            }
+          ],
+          "context": [
+            {
+              "start": 2678,
+              "end": 3174,
+              "quote": "A transport is not an expressiveness promise.** YAML, HCL, and Go can\n  author Ptah API export metadata. SQL and DBML can still feed contract exports,\n  but they have no lossless spelling for that metadata, so names and contract\n  types are derived from storage. An external program has exactly the\n  expressiveness of its declared SQL, YAML, or HCL payload, and an OCI artifact\n  carries canonical HCL. Accepted input does not mean that every format can\n  declare every Ptah object or attribute."
+            }
+          ],
+          "rationale": "The transport/expressiveness heading introduces specific supported and unsupported metadata, rather than a content-free slogan.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3179,
+              "end": 3359,
+              "quote": "Declaring is not supporting.** What a concrete target accepts is decided\n  later, by capability-aware planning — see\n  [Dialects and capabilities](../dialects-and-capabilities/)."
+            }
+          ],
+          "context": [
+            {
+              "start": 3179,
+              "end": 3359,
+              "quote": "Declaring is not supporting.** What a concrete target accepts is decided\n  later, by capability-aware planning — see\n  [Dialects and capabilities](../dialects-and-capabilities/)."
+            }
+          ],
+          "rationale": "Declaring versus supporting is a real planning-stage boundary with a capability reference.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "bac5477c165d1aef0d9882efe01f006e87b4a69c9498bdea7c0b412df095239c",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 11119,
+          "first_line": 1,
+          "last_line": 257,
+          "rationale": "Read all 54 prose blocks, including every cause/fix pair and command example as context. Preserve refusal order, shared-source identity, generation retirement, resume state and approval binding.",
+          "prose_blocks": 54,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 1581,
+              "end": 1619,
+              "quote": "truncate` is the one most often missed"
+            }
+          ],
+          "context": [
+            {
+              "start": 1442,
+              "end": 1703,
+              "quote": "Fix.** Write the field. The [specification\nreference](../reference/specification/) marks which fields a specification is\nrefused without; `truncate` is the one most often missed, because it is required\neven where `max_input_bytes` names no cap for it to act at."
+            }
+          ],
+          "rationale": "The frequency ranking has no stated population or measurement; the special required-without-a-cap condition is independently useful.",
+          "proposed_edit": "State that truncate is required even when max_input_bytes has no cap; omit or substantiate the frequency ranking."
+        },
+        {
+          "id": "c02-d02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3940,
+              "end": 3998,
+              "quote": "the changes it would read are ones\nthe backfill still owes"
+            }
+          ],
+          "context": [
+            {
+              "start": 3742,
+              "end": 3999,
+              "quote": "Fix.** Run `backfill` until it reports the walk complete, then `catchup`.\nCatch-up covers what changed *after* the snapshot the backfill walked, so before\nthat walk finishes there is no such range: the changes it would read are ones\nthe backfill still owes."
+            }
+          ],
+          "rationale": "This personified tail repeats the immediately preceding explanation that catch-up starts after the backfilled snapshot.",
+          "proposed_edit": "Keep the ordering requirement and snapshot-range explanation; remove the repeated tail."
+        },
+        {
+          "id": "c02-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4001,
+              "end": 4040,
+              "quote": "Nothing is spent to reach this refusal."
+            }
+          ],
+          "context": [
+            {
+              "start": 4001,
+              "end": 4154,
+              "quote": "Nothing is spent to reach this refusal. It is raised before the first provider\nrequest, so no vector is written and the catch-up watermark does not move."
+            }
+          ],
+          "rationale": "This blanket cost announcement precedes the exact provider-request, vector-write and watermark facts.",
+          "proposed_edit": "Keep the three exact effects; omit the broad cost announcement."
+        },
+        {
+          "id": "c02-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4282,
+              "end": 4299,
+              "quote": "That is ordinary,"
+            }
+          ],
+          "context": [
+            {
+              "start": 4156,
+              "end": 4394,
+              "quote": "Running `catchup` again once the run is past `backfilled` — after an index, a\nverification, or a cutover — is unaffected. That is ordinary, because the source\nkeeps moving, and [the phase is a high-water mark](../concepts/lifecycle/)."
+            }
+          ],
+          "rationale": "This evaluates normality before the concrete reason that the source continues changing.",
+          "proposed_edit": "Keep the source-change reason and phase link without judging the behavior ordinary."
+        },
+        {
+          "id": "c02-d05",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 6454,
+              "end": 6473,
+              "quote": "genuinely different"
+            }
+          ],
+          "context": [
+            {
+              "start": 6148,
+              "end": 6524,
+              "quote": "Ptah now resolves both halves of `source` and `target` against the connected\nsession before it derives any of that, so the two spellings share one outbox,\none floor, one lock and one target pointer. An omitted schema resolves through\nthe session's `search_path` rather than defaulting to `public`, and two\ngenuinely different schemas holding the same table name stay separate."
+            }
+          ],
+          "rationale": "Different schemas already defines the identity distinction; genuinely adds emphasis rather than a test.",
+          "proposed_edit": "Use different schemas and retain identical table-name handling."
+        },
+        {
+          "id": "c02-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6747,
+              "end": 6801,
+              "quote": "which is the\nordinary state during a generation change"
+            }
+          ],
+          "context": [
+            {
+              "start": 6526,
+              "end": 6802,
+              "quote": "The generation identity is deliberately not resolved. It is a content address\nof the document, which `ptah inference describe` computes with no database at\nall, so two spellings remain two generations over one source — which is the\nordinary state during a generation change."
+            }
+          ],
+          "rationale": "The ordinary-state judgment repeats the preceding two-generations/one-source example without an additional contract.",
+          "proposed_edit": "Retain content-addressed generation identity and the two-spelling result."
+        },
+        {
+          "id": "c02-d07",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 8365,
+              "end": 8378,
+              "quote": "almost always"
+            }
+          ],
+          "context": [
+            {
+              "start": 8232,
+              "end": 8441,
+              "quote": "Fix.** See the table in\n[Resume and recover](../guides/resume-and-recover/#verification-found-something).\n`freshness` and `coverage` almost always mean a phase has more to do rather than\nsomething being wrong."
+            }
+          ],
+          "rationale": "The frequency qualifier is not tied to measured verification outcomes.",
+          "proposed_edit": "Name the circumstances under which freshness and coverage indicate unfinished work, or omit the frequency claim."
+        },
+        {
+          "id": "c02-d08",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 8551,
+              "end": 8580,
+              "quote": "which is the sensible default"
+            }
+          ],
+          "context": [
+            {
+              "start": 8503,
+              "end": 8581,
+              "quote": "Cause.** `policy.require_exact_approval` is on, which is the sensible default."
+            }
+          ],
+          "rationale": "The sensible-default endorsement does not explain why exact approval is required.",
+          "proposed_edit": "Keep the enabled policy and exact-digest fix; explain approval binding if a rationale is needed."
+        },
+        {
+          "id": "c02-d09",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 8963,
+              "end": 9000,
+              "quote": "The refusal is the mechanism\nworking:"
+            }
+          ],
+          "context": [
+            {
+              "start": 8920,
+              "end": 9058,
+              "quote": "Fix.** Read the new plan and approve that. The refusal is the mechanism\nworking: it stopped an approval being applied to a different plan."
+            }
+          ],
+          "rationale": "This evaluates the mechanism before giving the exact protection it provides.",
+          "proposed_edit": "Say the refusal prevents approval of a different plan; retain the instruction to read and approve the new plan."
+        },
+        {
+          "id": "c02-d10",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 9350,
+              "end": 9379,
+              "quote": "and that is the\nhonest answer"
+            }
+          ],
+          "context": [
+            {
+              "start": 9289,
+              "end": 9459,
+              "quote": "Fix.** There is no way to roll back to a drifted generation, and that is the\nhonest answer. Catch it up first if it is close enough to be worth it; otherwise\nfix forward."
+            }
+          ],
+          "rationale": "The honesty judgment adds no rollback precondition or recovery action.",
+          "proposed_edit": "Keep the refusal to roll back to a drifted generation and both recovery alternatives."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c02-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 7539,
+              "end": 7561,
+              "quote": "Usually rate limiting."
+            }
+          ],
+          "context": [
+            {
+              "start": 7530,
+              "end": 7623,
+              "quote": "Cause.** Usually rate limiting. Ptah does not implement backoff against a\nprovider's limiter."
+            }
+          ],
+          "rationale": "The likely-cause statement may be useful troubleshooting prioritization; source-only review cannot validate that ranking.",
+          "proposed_edit": "If retained, describe an observable way to distinguish rate limiting from other provider errors."
+        },
+        {
+          "id": "c02-u02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 10918,
+              "end": 11118,
+              "quote": "Fix.** It is not necessarily an error — a migration can run with an uncounted\nsource. It is telling you that a decision rests on something nobody checked, and\nwhether that matters is yours to judge."
+            }
+          ],
+          "context": [
+            {
+              "start": 10918,
+              "end": 11118,
+              "quote": "Fix.** It is not necessarily an error — a migration can run with an uncounted\nsource. It is telling you that a decision rests on something nobody checked, and\nwhether that matters is yours to judge."
+            }
+          ],
+          "rationale": "The unknown-state explanation is indirect but distinguishes missing evidence from a failed migration; necessity of shortening is unresolved.",
+          "proposed_edit": "Optional: explain that an unchecked fact can still permit migration and needs an operator decision."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2620,
+              "end": 2932,
+              "quote": "Fix.** Keep `source.key_fields`, `version_strategy`, and `version_field`\nidentical until the earlier run is abandoned or its generation is retired.\nInput and filter columns may differ; Ptah makes the shared trigger watch their\nunion. The refusal occurs before target DDL and leaves the existing trigger in\nplace."
+            }
+          ],
+          "context": [
+            {
+              "start": 2620,
+              "end": 2932,
+              "quote": "Fix.** Keep `source.key_fields`, `version_strategy`, and `version_field`\nidentical until the earlier run is abandoned or its generation is retired.\nInput and filter columns may differ; Ptah makes the shared trigger watch their\nunion. The refusal occurs before target DDL and leaves the existing trigger in\nplace."
+            }
+          ],
+          "rationale": "Shared source fields, watched-column union, pre-DDL refusal and preservation of the existing trigger each constrain the fix.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 5189,
+              "end": 5687,
+              "quote": "The next catch-up prunes events the remaining runs have all passed. The\nabandoned run cannot resume. Ptah refuses this action when it would leave an\nactive or maintained generation without another usable live feeder: for outbox\nmode, that means a nonterminal, source-matched run with a readable durable\nresume position. Start a positioned replacement, move queries elsewhere, or\nfinish the maintenance window first. Use `retire` instead only when the\ngeneration and its vectors should be destroyed."
+            }
+          ],
+          "context": [
+            {
+              "start": 5189,
+              "end": 5687,
+              "quote": "The next catch-up prunes events the remaining runs have all passed. The\nabandoned run cannot resume. Ptah refuses this action when it would leave an\nactive or maintained generation without another usable live feeder: for outbox\nmode, that means a nonterminal, source-matched run with a readable durable\nresume position. Start a positioned replacement, move queries elsewhere, or\nfinish the maintenance window first. Use `retire` instead only when the\ngeneration and its vectors should be destroyed."
+            }
+          ],
+          "rationale": "Abandon and retire affect resumability and stored vectors differently; repeated generation names preserve their referents.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7351,
+              "end": 7476,
+              "quote": "Fix.** Everything committed stays committed. Fix the endpoint and run the same\ncommand again; it resumes from its checkpoint."
+            }
+          ],
+          "context": [
+            {
+              "start": 7351,
+              "end": 7476,
+              "quote": "Fix.** Everything committed stays committed. Fix the endpoint and run the same\ncommand again; it resumes from its checkpoint."
+            }
+          ],
+          "rationale": "The committed-state statement is a concrete resume guarantee after endpoint failure, not a circular definition.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 8585,
+              "end": 8700,
+              "quote": "Fix.** Run `cutover` once to see the plan digest, then approve that exact\ndigest with `--approve` and `--approver`."
+            }
+          ],
+          "context": [
+            {
+              "start": 8585,
+              "end": 8700,
+              "quote": "Fix.** Run `cutover` once to see the plan digest, then approve that exact\ndigest with `--approve` and `--approver`."
+            }
+          ],
+          "rationale": "The plan digest and both approval flags describe one required action with its exact operands.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 10056,
+              "end": 10292,
+              "quote": "Fix.** Check the operator first — `<=>` for cosine, `<->` for l2, `<#>` for\ninner product — because a mismatch returns plausible-looking wrong rows without\nerroring. Then measure with `evaluate --baseline` rather than by impression."
+            }
+          ],
+          "context": [
+            {
+              "start": 10056,
+              "end": 10292,
+              "quote": "Fix.** Check the operator first — `<=>` for cosine, `<->` for l2, `<#>` for\ninner product — because a mismatch returns plausible-looking wrong rows without\nerroring. Then measure with `evaluate --baseline` rather than by impression."
+            }
+          ],
+          "rationale": "Metric/operator pairs and evaluation ordering prevent plausible wrong results and are necessary conditions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "8a3c1836b0a8cc4eb36422357862530be87ac6ad1b14bb508d4c0e89e5caf9ff",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 17565,
+          "first_line": 1,
+          "last_line": 322,
+          "rationale": "Read all 62 prose and table blocks with environment-variable headings as context. Preserve scope of compatibility switches, catalog identities, destructive drops, external execution and exact CE differences.",
+          "prose_blocks": 62,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1801,
+              "end": 1915,
+              "quote": "Each entry below carries the default, the reason for it, and what the pinned\ncommunity CLI does on the same input."
+            }
+          ],
+          "context": [
+            {
+              "start": 1801,
+              "end": 1915,
+              "quote": "Each entry below carries the default, the reason for it, and what the pinned\ncommunity CLI does on the same input."
+            }
+          ],
+          "rationale": "This repeats the inventory/default/reason announcement in the opening under an At a glance heading.",
+          "proposed_edit": "Use the table directly; retain each default, reason and measured CLI difference in the entries."
+        },
+        {
+          "id": "c03-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 8180,
+              "end": 8227,
+              "quote": "and no value of a variable makes a module exist"
+            }
+          ],
+          "context": [
+            {
+              "start": 8038,
+              "end": 8456,
+              "quote": "Adding such a table has no opt-in. A plan carrying\n  `CREATE VIRTUAL TABLE ... USING fts4` fails on this build with\n  `no such module: fts4`, and no value of a variable makes a module exist. This\n  fires only where that statement would actually be planned — virtual on the\n  desired side, absent from the database — so two databases that both already\n  hold the same `fts4` index compare normally under the opt-in."
+            }
+          ],
+          "rationale": "This restates the immediately established missing-module failure as a slogan.",
+          "proposed_edit": "Retain the no-opt-in condition and exact missing-module error, then the planned-versus-existing distinction."
+        },
+        {
+          "id": "c03-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 12011,
+              "end": 12149,
+              "quote": "A plan is a document an operator\nreviews and approves, and a report that refuses on their behalf is one they\ncannot approve anything with."
+            }
+          ],
+          "context": [
+            {
+              "start": 11856,
+              "end": 12276,
+              "quote": "By default, `ptah-compat schema plan\nlint` reports and does not gate: a plan carrying a destructive change is\ndescribed on stdout and the command exits 0. A plan is a document an operator\nreviews and approves, and a report that refuses on their behalf is one they\ncannot approve anything with. Set it to `1` when a pipeline needs the report to\ngate, and an error-severity finding exits 1 with the report still on stdout."
+            }
+          ],
+          "rationale": "The layered plan/report/operator explanation defends the default indirectly instead of explaining report-only behavior.",
+          "proposed_edit": "Keep the report-only default and the pipeline opt-in that lets an error finding decide the exit code."
+        },
+        {
+          "id": "c03-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 12427,
+              "end": 12496,
+              "quote": "so a report\nwithout findings describes the rules rather than the plan"
+            }
+          ],
+          "context": [
+            {
+              "start": 12278,
+              "end": 12729,
+              "quote": "Either way the command states on stderr what the report covers: Ptah's rule set\nis its own and does not name every hazard a schema change can carry, so a report\nwithout findings describes the rules rather than the plan. It is an environment\nvariable rather than a flag for the same reason the two above are — the\nconformance `cli-surface` tier asserts flag parity with the pinned binary, and an\nenvironment variable is invisible to the help surface."
+            }
+          ],
+          "rationale": "The rules-versus-plan metaphor indirectly restates the limited hazard coverage.",
+          "proposed_edit": "State directly that no findings does not guarantee a safe plan; retain the stderr disclosure."
+        },
+        {
+          "id": "c03-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 13890,
+              "end": 14011,
+              "quote": "Which kinds refuse is measured rather than chosen: a repeat is refused where the\ncommunity CLI refuses the same document."
+            }
+          ],
+          "context": [
+            {
+              "start": 13890,
+              "end": 14011,
+              "quote": "Which kinds refuse is measured rather than chosen: a repeat is refused where the\ncommunity CLI refuses the same document."
+            }
+          ],
+          "rationale": "Measured-versus-chosen framing and the repeated refuses wording obscure the direct compatibility rule.",
+          "proposed_edit": "Say that the refused kinds match the pinned community CLI results; keep the exact kind lists."
+        },
+        {
+          "id": "c03-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 14779,
+              "end": 14855,
+              "quote": "Refusing them is above the drop-in\nfloor rather than on it, so it is opt-in."
+            }
+          ],
+          "context": [
+            {
+              "start": 14553,
+              "end": 15114,
+              "quote": "By default, a repeated `view`,\n`materialized`, `role` or `unique` block is read at exit 0, because the\ncommunity CLI reads it at exit 0: it drops the first three unread and merges two\n`unique` blocks sharing a label into one. Refusing them is above the drop-in\nfloor rather than on it, so it is opt-in. Set the variable to `1` and each of\nthe four is refused within one document, which is the rule an HCL schema\n*directory* already applies across its files. The kinds refused by default are\nstill refused with it set; the four exceptions above are still exempt."
+            }
+          ],
+          "rationale": "The floor metaphor repeats the already described accepted-input difference instead of naming that compatibility condition.",
+          "proposed_edit": "Say refusal is opt-in because the community CLI accepts those four kinds."
+        },
+        {
+          "id": "c03-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 16842,
+              "end": 16887,
+              "quote": "which is the one outcome worse than a refusal"
+            }
+          ],
+          "context": [
+            {
+              "start": 16237,
+              "end": 16888,
+              "quote": "This is not a gap Ptah can close. Measured on PostgreSQL 17, the community CLI's\nown inspect of that database emits\n`default = sql(\"nextval('order_seq'::regclass)\")` with no `sequence` block, and\nthen cannot read its own output back: `pq: relation \"order_seq\" does not exist`.\nThere is no faithful description of that database the CLI can read — not Ptah's\nand not its own. Ptah keeps the sequence, so the document is at least readable\nby Ptah and true about the database, and says so on standard error. Dropping the\ncolumn's default to make the file readable would describe a database you do not\nhave, which is the one outcome worse than a refusal."
+            }
+          ],
+          "rationale": "The broad ranking endorses the preceding concrete mismatch without specifying another consequence.",
+          "proposed_edit": "Keep that removing the default misrepresents the database; omit the comparative endorsement."
+        },
+        {
+          "id": "c03-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 16890,
+              "end": 17177,
+              "quote": "So `ptah-compat schema inspect` is not a promise that every PostgreSQL database\nproduces community-CLI-readable HCL. It is a promise that the output is always\nself-consistent, that nothing disappears without being reported, and that the\nfull description is one environment variable away."
+            }
+          ],
+          "context": [
+            {
+              "start": 16890,
+              "end": 17177,
+              "quote": "So `ptah-compat schema inspect` is not a promise that every PostgreSQL database\nproduces community-CLI-readable HCL. It is a promise that the output is always\nself-consistent, that nothing disappears without being reported, and that the\nfull description is one environment variable away."
+            }
+          ],
+          "rationale": "The repeated promise wording advertises guarantees already stated as explicit output and reporting behavior.",
+          "proposed_edit": "State the compatibility limitation, self-consistent output and reporting/opt-in behavior directly, without promise framing."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c03-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 16237,
+              "end": 16270,
+              "quote": "This is not a gap Ptah can close."
+            }
+          ],
+          "context": [
+            {
+              "start": 16237,
+              "end": 16888,
+              "quote": "This is not a gap Ptah can close. Measured on PostgreSQL 17, the community CLI's\nown inspect of that database emits\n`default = sql(\"nextval('order_seq'::regclass)\")` with no `sequence` block, and\nthen cannot read its own output back: `pq: relation \"order_seq\" does not exist`.\nThere is no faithful description of that database the CLI can read — not Ptah's\nand not its own. Ptah keeps the sequence, so the document is at least readable\nby Ptah and true about the database, and says so on standard error. Dropping the\ncolumn's default to make the file readable would describe a database you do not\nhave, which is the one outcome worse than a refusal."
+            }
+          ],
+          "rationale": "The attribution may usefully prevent an invalid expectation of Ptah, while the following measured example already explains the limit.",
+          "proposed_edit": "Optional: introduce the upstream sequence limitation directly and retain its measured PostgreSQL version."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1520,
+              "end": 1783,
+              "quote": "The value is read on every run of the command that owns it, not only on the runs\nthat would have used the enabled behavior, so `PTAH_ATLAS_LINT_ALL_VERSIONS=yes`\nin a CI environment file fails the next run rather than the next run that\nhappens to omit `--latest`."
+            }
+          ],
+          "context": [
+            {
+              "start": 1520,
+              "end": 1783,
+              "quote": "The value is read on every run of the command that owns it, not only on the runs\nthat would have used the enabled behavior, so `PTAH_ATLAS_LINT_ALL_VERSIONS=yes`\nin a CI environment file fails the next run rather than the next run that\nhappens to omit `--latest`."
+            }
+          ],
+          "rationale": "Validation on every command invocation is stronger than validation only when the selected behavior runs; the example is necessary.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4244,
+              "end": 4888,
+              "quote": "By default, a PostgreSQL read describes\nonly the roles the inspected schemas use, because roles are cluster-wide and a\ndescription of one database is not a place to list another tenant's roles. Each\nread reports on standard error how many managed roles it left out. Set it to\n`1` and every role Ptah manages on the server is described again, which is what\nyou need to reproduce one cluster's roles in another. It widens the description\nonly: comparison already treats undescribed roles as present, so the planned\nstatements are identical either way. Reserved `pg_` names and the bootstrap\n`postgres` superuser are outside it in both directions."
+            }
+          ],
+          "context": [
+            {
+              "start": 4244,
+              "end": 4888,
+              "quote": "By default, a PostgreSQL read describes\nonly the roles the inspected schemas use, because roles are cluster-wide and a\ndescription of one database is not a place to list another tenant's roles. Each\nread reports on standard error how many managed roles it left out. Set it to\n`1` and every role Ptah manages on the server is described again, which is what\nyou need to reproduce one cluster's roles in another. It widens the description\nonly: comparison already treats undescribed roles as present, so the planned\nstatements are identical either way. Reserved `pg_` names and the bootstrap\n`postgres` superuser are outside it in both directions."
+            }
+          ],
+          "rationale": "Role scope and a second tenant supply a concrete reason for the default, while description and planning effects differ.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6135,
+              "end": 6352,
+              "quote": "A malformed value refuses every SQLite comparison command and public\n  migration-generator call before filesystem path resolution, schema source\n  loading, database connection, or SQL. Non-SQLite operations ignore it."
+            }
+          ],
+          "context": [
+            {
+              "start": 6135,
+              "end": 6352,
+              "quote": "A malformed value refuses every SQLite comparison command and public\n  migration-generator call before filesystem path resolution, schema source\n  loading, database connection, or SQL. Non-SQLite operations ignore it."
+            }
+          ],
+          "rationale": "The malformed-value rejection order and non-SQLite exception are public behavioral constraints.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7679,
+              "end": 7891,
+              "quote": "Excluding the virtual table is **not** an escape here and is not suggested:\n  the tables at risk are the module's own storage, not the table an operator\n  would name, and Ptah cannot list them without the module."
+            }
+          ],
+          "context": [
+            {
+              "start": 7679,
+              "end": 7891,
+              "quote": "Excluding the virtual table is **not** an escape here and is not suggested:\n  the tables at risk are the module's own storage, not the table an operator\n  would name, and Ptah cannot list them without the module."
+            }
+          ],
+          "rationale": "Excluding a virtual table does not exclude unknown shadow storage; the repeated object distinction prevents destructive misuse.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9283,
+              "end": 9749,
+              "quote": "A change SQLite can make in place is not asked for it either. A table whose\n  only change is a column the desired state adds is planned as\n  `ALTER TABLE ... ADD COLUMN`, which drops and rebuilds nothing, so a narrowed\n  comparison such as `--include users` against a database holding an `fts4`\n  index runs at exit 0 and prints that one statement. Remove or change a column\n  on the same table, or change a constraint, and it is a rebuild again and\n  refused again."
+            }
+          ],
+          "context": [
+            {
+              "start": 9283,
+              "end": 9749,
+              "quote": "A change SQLite can make in place is not asked for it either. A table whose\n  only change is a column the desired state adds is planned as\n  `ALTER TABLE ... ADD COLUMN`, which drops and rebuilds nothing, so a narrowed\n  comparison such as `--include users` against a database holding an `fts4`\n  index runs at exit 0 and prints that one statement. Remove or change a column\n  on the same table, or change a constraint, and it is a rebuild again and\n  refused again."
+            }
+          ],
+          "rationale": "Add-column behavior differs from a rebuild, so the per-change distinction cannot be condensed into a universal refusal.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c06",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 15151,
+              "end": 15883,
+              "quote": "By default, two `enum` blocks sharing a bare\nname are one object however they are spelled, because the community CLI keys\nenums by their bare name and answers `duplicate enum \"mood\"` at exit 1 for\n`enum \"mood\"` in two schemas and for the two-label `enum \"public\" \"mood\"` /\n`enum \"other\" \"mood\"` alike. Set the variable to `1` and they are keyed by their\nqualified name, which is what `public.mood` and `other.mood` are. This is the\nsetting under which `ptah-compat schema inspect` of a database holding one enum\nname in two schemas can be applied again: the document names both, and reading\nit back re-renders it byte for byte. The community CLI has no such setting and\nrefuses the document its own inspect writes for that database."
+            }
+          ],
+          "context": [
+            {
+              "start": 15151,
+              "end": 15883,
+              "quote": "By default, two `enum` blocks sharing a bare\nname are one object however they are spelled, because the community CLI keys\nenums by their bare name and answers `duplicate enum \"mood\"` at exit 1 for\n`enum \"mood\"` in two schemas and for the two-label `enum \"public\" \"mood\"` /\n`enum \"other\" \"mood\"` alike. Set the variable to `1` and they are keyed by their\nqualified name, which is what `public.mood` and `other.mood` are. This is the\nsetting under which `ptah-compat schema inspect` of a database holding one enum\nname in two schemas can be applied again: the document names both, and reading\nit back re-renders it byte for byte. The community CLI has no such setting and\nrefuses the document its own inspect writes for that database."
+            }
+          ],
+          "rationale": "Bare and qualified enum identities produce different duplicate behavior and round-trip capability; repeated enum names preserve those identities.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "fa030eb371cfc0365b50c5dec944d918f166bcca4b57394e08993eb04656683a",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 23812,
+          "first_line": 1,
+          "last_line": 612,
+          "rationale": "Read all 181 extracted prose/list blocks and all example references. Keep parsing/validation distinctions, ORM behavior, error classes, Python-version restrictions, field ordering, generic type parameters and security warnings. Protected snippets and template directives are context only.",
+          "prose_blocks": 181,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 0,
+              "end": 126,
+              "quote": "The primary means of defining objects in *pydantic* is via models \n(models are simply classes which inherit from `BaseModel`)."
+            }
+          ],
+          "context": [
+            {
+              "start": 0,
+              "end": 126,
+              "quote": "The primary means of defining objects in *pydantic* is via models \n(models are simply classes which inherit from `BaseModel`)."
+            }
+          ],
+          "rationale": "The primary-means/via/classes framing delays the direct relationship between a model and BaseModel.",
+          "proposed_edit": "Say objects are defined as models, which are classes inheriting from BaseModel; retain the definition without simply."
+        },
+        {
+          "id": "c04-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2389,
+              "end": 2463,
+              "quote": "The example above only shows the tip of the iceberg of what models can do."
+            }
+          ],
+          "context": [
+            {
+              "start": 2389,
+              "end": 2517,
+              "quote": "The example above only shows the tip of the iceberg of what models can do. \nModels possess the following methods and attributes:"
+            }
+          ],
+          "rationale": "The iceberg metaphor advertises breadth immediately before a concrete method inventory.",
+          "proposed_edit": "Omit the metaphor and keep the methods and attributes inventory."
+        },
+        {
+          "id": "c04-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4826,
+              "end": 4938,
+              "quote": "You may want to name a Column after a reserved SQLAlchemy field. In that case, Field aliases will be\nconvenient:"
+            }
+          ],
+          "context": [
+            {
+              "start": 4826,
+              "end": 4938,
+              "quote": "You may want to name a Column after a reserved SQLAlchemy field. In that case, Field aliases will be\nconvenient:"
+            }
+          ],
+          "rationale": "Predicted desire and convenience judgments wrap the actual reserved-field alias instruction.",
+          "proposed_edit": "To name a column after a reserved SQLAlchemy field, use a field alias; retain the population-priority warning."
+        },
+        {
+          "id": "c04-d04",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 8364,
+              "end": 8376,
+              "quote": "very similar"
+            }
+          ],
+          "context": [
+            {
+              "start": 8341,
+              "end": 8542,
+              "quote": "`parse_obj`**: this is very similar to the `__init__` method of the model, except it takes a dict\n  rather than keyword arguments. If the object passed is not a dict a `ValidationError` will be raised."
+            }
+          ],
+          "rationale": "Very adds emphasis while the next clause names the exact dictionary-versus-keyword-argument difference.",
+          "proposed_edit": "Use similar and retain the argument and ValidationError distinction."
+        },
+        {
+          "id": "c04-d05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 10439,
+              "end": 10473,
+              "quote": "For example, in the example above,"
+            }
+          ],
+          "context": [
+            {
+              "start": 10439,
+              "end": 10569,
+              "quote": "For example, in the example above, if `_fields_set` was not provided, \n`new_user.__fields_set__` would be `{'id', 'age', 'name'}`."
+            }
+          ],
+          "rationale": "The same example reference is announced twice before the conditional result.",
+          "proposed_edit": "Use In the example above and keep the omitted-fields-set condition and exact field set."
+        },
+        {
+          "id": "c04-d06",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 10639,
+              "end": 10690,
+              "quote": "to make it easier to reuse a common model structure"
+            }
+          ],
+          "context": [
+            {
+              "start": 10590,
+              "end": 10691,
+              "quote": "Pydantic supports the creation of generic models to make it easier to reuse a common model structure."
+            }
+          ],
+          "rationale": "Easier asserts an unmeasured user benefit; reuse is the concrete purpose.",
+          "proposed_edit": "State support for reusing a common model structure through generic models without the ease claim."
+        },
+        {
+          "id": "c04-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 10879,
+              "end": 10948,
+              "quote": "In order to declare a generic model, you perform the following steps:"
+            }
+          ],
+          "context": [
+            {
+              "start": 10879,
+              "end": 10948,
+              "quote": "In order to declare a generic model, you perform the following steps:"
+            }
+          ],
+          "rationale": "The perform-the-following-steps layer is unnecessary before an explicit ordered procedure.",
+          "proposed_edit": "Introduce the steps with To declare a generic model; preserve their order and all type parameters."
+        },
+        {
+          "id": "c04-d08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11256,
+              "end": 11329,
+              "quote": "where you will want to replace them with other types or\n  pydantic models"
+            }
+          ],
+          "context": [
+            {
+              "start": 11213,
+              "end": 11330,
+              "quote": "Use the `TypeVar` instances as annotations where you will want to replace them with other types or\n  pydantic models."
+            }
+          ],
+          "rationale": "Predicted future desire obscures which fields receive replaceable type parameters.",
+          "proposed_edit": "Use TypeVar annotations for fields whose types will be replaced; retain support for other pydantic models."
+        },
+        {
+          "id": "c04-d09",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 11385,
+              "end": 11398,
+              "quote": "easily-reused"
+            }
+          ],
+          "context": [
+            {
+              "start": 11332,
+              "end": 11429,
+              "quote": "Here is an example using `GenericModel` to create an easily-reused HTTP response payload wrapper:"
+            }
+          ],
+          "rationale": "The example demonstrates reuse but does not define a measure or prerequisite for ease.",
+          "proposed_edit": "Use reusable and retain the HTTP response payload wrapper example."
+        },
+        {
+          "id": "c04-d10",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11768,
+              "end": 11950,
+              "quote": "Pydantic's generics also integrate properly with mypy, so you get all the type checking\nyou would expect mypy to provide if you were to declare the type without using `GenericModel`."
+            }
+          ],
+          "context": [
+            {
+              "start": 11768,
+              "end": 11950,
+              "quote": "Pydantic's generics also integrate properly with mypy, so you get all the type checking\nyou would expect mypy to provide if you were to declare the type without using `GenericModel`."
+            }
+          ],
+          "rationale": "Expected type checking and the hypothetical non-generic declaration repeat the integration claim indirectly.",
+          "proposed_edit": "Say mypy type-checks concrete generic models as it does explicitly declared types; keep the concrete comparison."
+        },
+        {
+          "id": "c04-d11",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 13173,
+              "end": 13236,
+              "quote": "when it\ncomes to leaving them unparameterized, or using bounded"
+            }
+          ],
+          "context": [
+            {
+              "start": 13064,
+              "end": 13257,
+              "quote": "Pydantic also treats `GenericModel` similarly to how it treats built-in generic types like `List` and `Dict` when it\ncomes to leaving them unparameterized, or using bounded `TypeVar` instances:"
+            }
+          ],
+          "rationale": "The when-it-comes-to layer delays the two generic-parameter cases.",
+          "proposed_edit": "Introduce the unparameterized and bounded-TypeVar cases directly, preserving their separate behavior."
+        },
+        {
+          "id": "c04-d12",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 15703,
+              "end": 15749,
+              "quote": "This is demonstrated in the following example:"
+            }
+          ],
+          "context": [
+            {
+              "start": 15703,
+              "end": 15749,
+              "quote": "This is demonstrated in the following example:"
+            }
+          ],
+          "rationale": "This merely announces the adjacent example after the branch list has already introduced the behavior.",
+          "proposed_edit": "Keep the branch list and example; remove the generic demonstration announcement."
+        },
+        {
+          "id": "c04-d13",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 16066,
+              "end": 16256,
+              "quote": "If you want to access items in the `__root__` field directly or to iterate over the items, you can implement custom `__iter__` and `__getitem__` functions, as shown in the following example."
+            }
+          ],
+          "context": [
+            {
+              "start": 16066,
+              "end": 16256,
+              "quote": "If you want to access items in the `__root__` field directly or to iterate over the items, you can implement custom `__iter__` and `__getitem__` functions, as shown in the following example."
+            }
+          ],
+          "rationale": "The reader-desire condition and can-implement wrapper delay a concrete iteration and indexing instruction.",
+          "proposed_edit": "To access or iterate over root items directly, implement the named methods; retain both methods and the example."
+        },
+        {
+          "id": "c04-d14",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 16624,
+              "end": 16659,
+              "quote": "If developers are determined/stupid"
+            }
+          ],
+          "context": [
+            {
+              "start": 16568,
+              "end": 16718,
+              "quote": "!!! warning\n    Immutability in python is never strict. If developers are determined/stupid they can always\n    modify a so-called \"immutable\" object."
+            }
+          ],
+          "rationale": "The personal judgment supplies no technical condition for mutability.",
+          "proposed_edit": "Describe the operations that can mutate the object; retain the shallow-immutability caveat without judging developers."
+        },
+        {
+          "id": "c04-d15",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 19226,
+              "end": 19348,
+              "quote": "If you want to specify a field that can take a `None` value while still being required,\nyou can use `Optional` with `...`:"
+            }
+          ],
+          "context": [
+            {
+              "start": 19226,
+              "end": 19348,
+              "quote": "If you want to specify a field that can take a `None` value while still being required,\nyou can use `Optional` with `...`:"
+            }
+          ],
+          "rationale": "The want-to/can-use construction can state the required-but-nullable field instruction directly.",
+          "proposed_edit": "For a required field that accepts None, use Optional with the ellipsis default; preserve both requiredness and nullability."
+        },
+        {
+          "id": "c04-d16",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 19674,
+              "end": 19834,
+              "quote": "When declaring a field with a default value, you may want it to be dynamic (i.e. different for each model).\nTo do this, you may want to use a `default_factory`."
+            }
+          ],
+          "context": [
+            {
+              "start": 19674,
+              "end": 19834,
+              "quote": "When declaring a field with a default value, you may want it to be dynamic (i.e. different for each model).\nTo do this, you may want to use a `default_factory`."
+            }
+          ],
+          "rationale": "Two may-want announcements obscure a per-instance-default instruction.",
+          "proposed_edit": "For a default computed for each model instance, use default_factory; preserve the beta warning below."
+        },
+        {
+          "id": "c04-d17",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 20165,
+              "end": 20181,
+              "quote": "extremely useful"
+            }
+          ],
+          "context": [
+            {
+              "start": 19836,
+              "end": 20287,
+              "quote": "!!! info \"In Beta\"\n    The `default_factory` argument is in **beta**, it has been added to *pydantic* in **v1.5** on a\n    **provisional basis**. It may change significantly in future releases and its signature or behaviour will not\n    be concrete until **v2**. Feedback from the community while it's still provisional would be extremely useful;\n    either comment on [#866](https://github.com/samuelcolvin/pydantic/issues/866) or create a new issue."
+            }
+          ],
+          "rationale": "Extremely adds an unmeasured degree to a feedback request.",
+          "proposed_edit": "Ask for feedback through the two listed channels without the intensity claim; retain beta and version constraints."
+        },
+        {
+          "id": "c04-d18",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 20757,
+              "end": 20865,
+              "quote": "If you need to use internal attributes excluded from model fields, you can declare them using `PrivateAttr`:"
+            }
+          ],
+          "context": [
+            {
+              "start": 20757,
+              "end": 20865,
+              "quote": "If you need to use internal attributes excluded from model fields, you can declare them using `PrivateAttr`:"
+            }
+          ],
+          "rationale": "The need-to-use/can-declare sequence adds a support layer around the private-attribute instruction.",
+          "proposed_edit": "Declare internal attributes excluded from model fields with PrivateAttr; retain the underscore-name requirement."
+        },
+        {
+          "id": "c04-d19",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 21478,
+              "end": 21749,
+              "quote": "Pydantic includes a standalone utility function `parse_obj_as` that can be used to apply the parsing\nlogic used to populate pydantic models in a more ad-hoc way. This function behaves similarly to\n`BaseModel.parse_obj`, but works with arbitrary pydantic-compatible types."
+            }
+          ],
+          "context": [
+            {
+              "start": 21478,
+              "end": 21749,
+              "quote": "Pydantic includes a standalone utility function `parse_obj_as` that can be used to apply the parsing\nlogic used to populate pydantic models in a more ad-hoc way. This function behaves similarly to\n`BaseModel.parse_obj`, but works with arbitrary pydantic-compatible types."
+            }
+          ],
+          "rationale": "The utility/can-be-used/apply-logic sequence obscures the direct parsing API distinction.",
+          "proposed_edit": "Say parse_obj_as parses values into arbitrary pydantic-compatible types, unlike model-bound parse_obj; keep both method identities."
+        },
+        {
+          "id": "c04-d20",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 21991,
+              "end": 22012,
+              "quote": "is capable of parsing"
+            }
+          ],
+          "context": [
+            {
+              "start": 21977,
+              "end": 22087,
+              "quote": "This function is capable of parsing data into any of the types pydantic can handle as fields of a `BaseModel`."
+            }
+          ],
+          "rationale": "Capable of parsing can be expressed as can parse without changing possibility or supported types.",
+          "proposed_edit": "Use can parse and retain the exact supported-field-type range."
+        },
+        {
+          "id": "c04-d21",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 22587,
+              "end": 22627,
+              "quote": "in general it's the most useful approach"
+            }
+          ],
+          "context": [
+            {
+              "start": 22538,
+              "end": 22733,
+              "quote": "This is a deliberate decision of *pydantic*, and in general it's the most useful approach. See \n[here](https://github.com/samuelcolvin/pydantic/issues/578) for a longer discussion on the subject."
+            }
+          ],
+          "rationale": "The broad usefulness ranking is unsupported by the local conversion example.",
+          "proposed_edit": "Keep the intentional conversion policy and discussion link; omit or substantiate the usefulness ranking."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c04-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 12069,
+              "end": 12103,
+              "quote": "there is essentially zero overhead"
+            }
+          ],
+          "context": [
+            {
+              "start": 11952,
+              "end": 12147,
+              "quote": "!!! note\n    Internally, pydantic uses `create_model` to generate a (cached) concrete `BaseModel` at runtime,\n    so there is essentially zero overhead introduced by making use of `GenericModel`."
+            }
+          ],
+          "rationale": "Caching supplies a mechanism but not an overhead measurement; the scope of overhead is unresolved.",
+          "proposed_edit": "Clarify which operation avoids repeated class creation and state measurement scope if an overhead claim is retained."
+        },
+        {
+          "id": "c04-u02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 456,
+              "end": 649,
+              "quote": "!!! note\n    *pydantic* is primarily a parsing library, **not a validation library**.\n    Validation is a means to an end: building a model which conforms to the types and constraints provided."
+            }
+          ],
+          "context": [
+            {
+              "start": 456,
+              "end": 649,
+              "quote": "!!! note\n    *pydantic* is primarily a parsing library, **not a validation library**.\n    Validation is a means to an end: building a model which conforms to the types and constraints provided."
+            }
+          ],
+          "rationale": "The parsing-versus-validation distinction may benefit from a direct description, but its local warning corrects a real API misconception.",
+          "proposed_edit": "Optional: state which type guarantees follow parsing and preserve the validation distinction."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 257,
+              "end": 454,
+              "quote": "Untrusted data can be passed to a model, and after parsing and validation *pydantic* guarantees that the fields\nof the resultant model instance will conform to the field types defined on the model."
+            }
+          ],
+          "context": [
+            {
+              "start": 257,
+              "end": 454,
+              "quote": "Untrusted data can be passed to a model, and after parsing and validation *pydantic* guarantees that the fields\nof the resultant model instance will conform to the field types defined on the model."
+            }
+          ],
+          "rationale": "The guarantee is a specific output-field type contract, not an unspecified claim that validation is perfect.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 4143,
+              "end": 4191,
+              "quote": "(This script is complete, it should run \"as is\")"
+            }
+          ],
+          "context": [
+            {
+              "start": 4143,
+              "end": 4191,
+              "quote": "(This script is complete, it should run \"as is\")"
+            }
+          ],
+          "rationale": "The standalone-script note records execution completeness for an individual example and can legitimately recur for separate examples.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6286,
+              "end": 6536,
+              "quote": "!!! note\n    Validation code should not raise `ValidationError` itself, but rather raise `ValueError`, `TypeError` or\n    `AssertionError` (or subclasses of `ValueError` or `TypeError`) which will be caught and used to populate\n    `ValidationError`."
+            }
+          ],
+          "context": [
+            {
+              "start": 6286,
+              "end": 6536,
+              "quote": "!!! note\n    Validation code should not raise `ValidationError` itself, but rather raise `ValueError`, `TypeError` or\n    `AssertionError` (or subclasses of `ValueError` or `TypeError`) which will be caught and used to populate\n    `ValidationError`."
+            }
+          ],
+          "rationale": "ValidationError versus ValueError/TypeError/AssertionError distinguishes framework and validator responsibilities.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9300,
+              "end": 9489,
+              "quote": "!!! info\n    Because it can result in arbitrary code execution, as a security measure, you need\n    to explicitly pass `allow_pickle` to the parsing function in order to load `pickle` data."
+            }
+          ],
+          "context": [
+            {
+              "start": 9300,
+              "end": 9489,
+              "quote": "!!! info\n    Because it can result in arbitrary code execution, as a security measure, you need\n    to explicitly pass `allow_pickle` to the parsing function in order to load `pickle` data."
+            }
+          ],
+          "rationale": "Explicit pickle opt-in is a security requirement caused by code-execution risk, not removable modal setup.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 10202,
+              "end": 10436,
+              "quote": "The `_fields_set` keyword argument to `construct()` is optional, but allows you to be more precise about \nwhich fields were originally set and which weren't. If it's omitted `__fields_set__` will just be the keys\nof the data provided."
+            }
+          ],
+          "context": [
+            {
+              "start": 10202,
+              "end": 10436,
+              "quote": "The `_fields_set` keyword argument to `construct()` is optional, but allows you to be more precise about \nwhich fields were originally set and which weren't. If it's omitted `__fields_set__` will just be the keys\nof the data provided."
+            }
+          ],
+          "rationale": "The optional fields-set parameter controls recorded field provenance and has a concrete default; its capability explanation is useful.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 12839,
+              "end": 12956,
+              "quote": "Using the same TypeVar in nested models allows you to enforce typing relationships at different points in your model:"
+            }
+          ],
+          "context": [
+            {
+              "start": 12839,
+              "end": 12956,
+              "quote": "Using the same TypeVar in nested models allows you to enforce typing relationships at different points in your model:"
+            }
+          ],
+          "rationale": "Using a shared TypeVar establishes a concrete relationship between model positions; allows-you wording alone is not a defect.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 17962,
+              "end": 18174,
+              "quote": "!!! warning\n    As demonstrated by the example above, combining the use of annotated and non-annotated fields\n    in the same model can result in surprising field orderings. (This is due to limitations of python)"
+            }
+          ],
+          "context": [
+            {
+              "start": 17962,
+              "end": 18174,
+              "quote": "!!! warning\n    As demonstrated by the example above, combining the use of annotated and non-annotated fields\n    in the same model can result in surprising field orderings. (This is due to limitations of python)"
+            }
+          ],
+          "rationale": "Mixed annotated/unannotated fields have a specified ordering caveat; the warning is not merely a long-sentence defect.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 20492,
+              "end": 20726,
+              "quote": "!!! warning\n    The `default_factory` expects the field type to be set.\n    Moreover if you want to validate default values with `validate_all`,\n    *pydantic* will need to call the `default_factory`, which could lead to side effects!"
+            }
+          ],
+          "context": [
+            {
+              "start": 20492,
+              "end": 20726,
+              "quote": "!!! warning\n    The `default_factory` expects the field type to be set.\n    Moreover if you want to validate default values with `validate_all`,\n    *pydantic* will need to call the `default_factory`, which could lead to side effects!"
+            }
+          ],
+          "rationale": "Validation may invoke the factory and cause side effects; the requirement and uncertainty must not become a guaranteed instruction.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c09",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 23330,
+              "end": 23533,
+              "quote": "If a field's alias and name are both invalid identifiers, a `**data` argument will be added.\nIn addition, the `**data` argument will always be present in the signature if `Config.extra` is `Extra.allow`."
+            }
+          ],
+          "context": [
+            {
+              "start": 23330,
+              "end": 23533,
+              "quote": "If a field's alias and name are both invalid identifiers, a `**data` argument will be added.\nIn addition, the `**data` argument will always be present in the signature if `Config.extra` is `Extra.allow`."
+            }
+          ],
+          "rationale": "Invalid field identifiers and Extra.allow independently add the data argument; the repeated result preserves distinct conditions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "563b9b8b2b74b35deed5d5534ea967e893bb26f560a0b19151859753e0900489",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 12333,
+          "first_line": 1,
+          "last_line": 289,
+          "rationale": "Read all 69 prose/list/table blocks with badges and examples outside judged prose. Reviewed lifecycle roles, namespaces, platform/kernel requirements, plugins, stability, communication and licenses independently.",
+          "prose_blocks": 69,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 1333,
+              "end": 1350,
+              "quote": "industry-standard"
+            }
+          ],
+          "context": [
+            {
+              "start": 1316,
+              "end": 1662,
+              "quote": "containerd is an industry-standard container runtime with an emphasis on simplicity, robustness and portability. It is available as a daemon for Linux and Windows, which can manage the complete container lifecycle of its host system: image transfer and storage, container execution and supervision, low-level storage and network attachments, etc."
+            }
+          ],
+          "rationale": "The status claim has no named standard, adoption measure or scope.",
+          "proposed_edit": "Name the concrete runtime role and supported platforms without the unspecified standard claim."
+        },
+        {
+          "id": "c05-d02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 1369,
+              "end": 1427,
+              "quote": "with an emphasis on simplicity, robustness and portability"
+            }
+          ],
+          "context": [
+            {
+              "start": 1316,
+              "end": 1662,
+              "quote": "containerd is an industry-standard container runtime with an emphasis on simplicity, robustness and portability. It is available as a daemon for Linux and Windows, which can manage the complete container lifecycle of its host system: image transfer and storage, container execution and supervision, low-level storage and network attachments, etc."
+            }
+          ],
+          "rationale": "The three broad quality claims lack definitions or measurements, while the next sentence lists concrete functions.",
+          "proposed_edit": "Use the concrete lifecycle and platform description; define a property before claiming it."
+        },
+        {
+          "id": "c05-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2093,
+              "end": 2202,
+              "quote": "If you are interested in trying out containerd see our example at [Getting Started](docs/getting-started.md)."
+            }
+          ],
+          "context": [
+            {
+              "start": 2093,
+              "end": 2202,
+              "quote": "If you are interested in trying out containerd see our example at [Getting Started](docs/getting-started.md)."
+            }
+          ],
+          "rationale": "The reader-interest condition wraps a direct link to an example.",
+          "proposed_edit": "Link to the Getting Started example for trying containerd without predicting reader interest."
+        },
+        {
+          "id": "c05-d04",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 2589,
+              "end": 2642,
+              "quote": "Runtime requirements for containerd are very minimal."
+            }
+          ],
+          "context": [
+            {
+              "start": 2589,
+              "end": 2952,
+              "quote": "Runtime requirements for containerd are very minimal. Most interactions with\nthe Linux and Windows container feature sets are handled via [runc](https://github.com/opencontainers/runc) and/or\nOS-specific libraries (e.g. [hcsshim](https://github.com/Microsoft/hcsshim) for Microsoft). The current required version of `runc` is always listed in [RUNC.md](/RUNC.md)."
+            }
+          ],
+          "rationale": "Very minimal gives neither a resource measure nor a prerequisite list; the paragraph already explains delegation and the runc version reference.",
+          "proposed_edit": "Start with delegated runtime support and the actual dependency/version reference."
+        },
+        {
+          "id": "c05-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3081,
+              "end": 3136,
+              "quote": "With the understood caveat of distro kernel versioning,"
+            }
+          ],
+          "context": [
+            {
+              "start": 2954,
+              "end": 3207,
+              "quote": "There are specific features\nused by containerd core code and snapshotters that will require a minimum kernel\nversion on Linux. With the understood caveat of distro kernel versioning, a\nreasonable starting point for Linux is a minimum 4.x kernel version."
+            }
+          ],
+          "rationale": "Understood caveat is indirect and assumes prior knowledge of the qualification.",
+          "proposed_edit": "State the distribution-kernel-version caveat directly and keep the recommended kernel baseline."
+        },
+        {
+          "id": "c05-d06",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 3815,
+              "end": 3834,
+              "quote": "full client package"
+            }
+          ],
+          "context": [
+            {
+              "start": 3795,
+              "end": 3887,
+              "quote": "containerd offers a full client package to help you integrate containerd into your platform."
+            }
+          ],
+          "rationale": "Full gives no completeness criterion for the client package.",
+          "proposed_edit": "Use client package and keep the integration purpose."
+        },
+        {
+          "id": "c05-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5281,
+              "end": 5397,
+              "quote": "We have built in functions to help you generate runtime specifications based on images as well as custom parameters."
+            }
+          ],
+          "context": [
+            {
+              "start": 5200,
+              "end": 5397,
+              "quote": "containerd fully supports the OCI runtime specification for running containers.  We have built in functions to help you generate runtime specifications based on images as well as custom parameters."
+            }
+          ],
+          "rationale": "The narrator/help layer can state what the built-in functions generate directly.",
+          "proposed_edit": "Say built-in functions generate runtime specifications from images and custom parameters; retain both inputs."
+        },
+        {
+          "id": "c05-d08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6457,
+              "end": 6586,
+              "quote": "Taking a container object and turning it into a runnable process on a system is done by creating a new `Task` from the container."
+            }
+          ],
+          "context": [
+            {
+              "start": 6457,
+              "end": 6644,
+              "quote": "Taking a container object and turning it into a runnable process on a system is done by creating a new `Task` from the container.  A task represents the runnable object within containerd."
+            }
+          ],
+          "rationale": "The nominalized taking/turning/is-done sequence delays the task-creation action.",
+          "proposed_edit": "Create a Task from the container to run it as a process; retain the metadata-versus-runnable-task distinction."
+        },
+        {
+          "id": "c05-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9294,
+              "end": 9312,
+              "quote": "you will find that"
+            }
+          ],
+          "context": [
+            {
+              "start": 9244,
+              "end": 9508,
+              "quote": "For other architectures and distribution support, you will find that many\nLinux distributions package their own containerd and provide it across several\narchitectures, such as [Canonical's Ubuntu packaging](https://launchpad.net/ubuntu/bionic/+package/containerd)."
+            }
+          ],
+          "rationale": "The predicted discovery adds a layer before the distribution-packaging fact.",
+          "proposed_edit": "State directly that distributions package containerd across architectures; retain the Ubuntu example."
+        },
+        {
+          "id": "c05-d10",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 10423,
+              "end": 10488,
+              "quote": "This will be the best place to discuss design and implementation."
+            }
+          ],
+          "context": [
+            {
+              "start": 10314,
+              "end": 10488,
+              "quote": "For async communication and long running discussions please use issues and pull requests on the github repo.\nThis will be the best place to discuss design and implementation."
+            }
+          ],
+          "rationale": "The unsupported best-place endorsement repeats the preceding instruction to use issues and pull requests for long discussions.",
+          "proposed_edit": "Keep the asynchronous communication instruction without ranking its quality."
+        },
+        {
+          "id": "c05-d11",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11447,
+              "end": 11730,
+              "quote": "containerd** is the primary open source project within the broader containerd GitHub repository.\nHowever, all projects within the repo have common maintainership, governance, and contributing\nguidelines which are stored in a `project` repository commonly for all containerd projects."
+            }
+          ],
+          "context": [
+            {
+              "start": 11447,
+              "end": 11730,
+              "quote": "containerd** is the primary open source project within the broader containerd GitHub repository.\nHowever, all projects within the repo have common maintainership, governance, and contributing\nguidelines which are stored in a `project` repository commonly for all containerd projects."
+            }
+          ],
+          "rationale": "The repeated common/all/projects/repository wording obscures the single shared-governance location.",
+          "proposed_edit": "State that containerd projects share governance, maintainership and contributing guidelines in containerd/project; retain the primary-project distinction."
+        },
+        {
+          "id": "c05-d12",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11732,
+              "end": 11792,
+              "quote": "Please find all these core project documents, including the:"
+            }
+          ],
+          "context": [
+            {
+              "start": 11732,
+              "end": 11792,
+              "quote": "Please find all these core project documents, including the:"
+            }
+          ],
+          "rationale": "The please-find-all-these setup adds a layer before the linked project documents.",
+          "proposed_edit": "Introduce the governance, maintainer and contribution links directly, retaining their repository location."
+        },
+        {
+          "id": "c05-d13",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 12172,
+              "end": 12214,
+              "quote": "Interested to see who is using containerd?"
+            }
+          ],
+          "context": [
+            {
+              "start": 12172,
+              "end": 12332,
+              "quote": "Interested to see who is using containerd? Are you using containerd in a project?\nPlease add yourself via pull request to our [ADOPTERS.md](./ADOPTERS.md) file."
+            }
+          ],
+          "rationale": "The rhetorical invitation precedes the adopter-list action without adding an eligibility condition.",
+          "proposed_edit": "Keep the adopter list and the instruction for projects using containerd."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 5211,
+              "end": 5255,
+              "quote": "fully supports the OCI runtime specification"
+            }
+          ],
+          "context": [
+            {
+              "start": 5200,
+              "end": 5397,
+              "quote": "containerd fully supports the OCI runtime specification for running containers.  We have built in functions to help you generate runtime specifications based on images as well as custom parameters."
+            }
+          ],
+          "rationale": "Full support could be a specific conformance claim, but the page supplies no version or test evidence.",
+          "proposed_edit": "If retained, specify the supported OCI version and conformance scope."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1664,
+              "end": 1783,
+              "quote": "containerd is designed to be embedded into a larger system, rather than being used directly by developers or end-users."
+            }
+          ],
+          "context": [
+            {
+              "start": 1664,
+              "end": 1783,
+              "quote": "containerd is designed to be embedded into a larger system, rather than being used directly by developers or end-users."
+            }
+          ],
+          "rationale": "Embedding versus direct end-user use distinguishes the intended integration role and is useful purpose information.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2438,
+              "end": 2562,
+              "quote": "Please be aware: nightly builds might have critical bugs, it's not recommended for use in prodution and no support provided."
+            }
+          ],
+          "context": [
+            {
+              "start": 2438,
+              "end": 2562,
+              "quote": "Please be aware: nightly builds might have critical bugs, it's not recommended for use in prodution and no support provided."
+            }
+          ],
+          "rationale": "The unstable nightly build and absent support require a clear production-use warning; do not erase it as generic caution.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4113,
+              "end": 4307,
+              "quote": "Namespaces allow multiple consumers to use the same containerd without conflicting with each other.  It has the benefit of sharing content but still having separation with containers and images."
+            }
+          ],
+          "context": [
+            {
+              "start": 4113,
+              "end": 4307,
+              "quote": "Namespaces allow multiple consumers to use the same containerd without conflicting with each other.  It has the benefit of sharing content but still having separation with containers and images."
+            }
+          ],
+          "rationale": "Namespaces enable multiple consumers with separate containers/images and shared content; those are distinct concrete capabilities.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5633,
+              "end": 5771,
+              "quote": "containerd allows you to use overlay or snapshot filesystems with your containers.  It comes with builtin support for overlayfs and btrfs."
+            }
+          ],
+          "context": [
+            {
+              "start": 5633,
+              "end": 5771,
+              "quote": "containerd allows you to use overlay or snapshot filesystems with your containers.  It comes with builtin support for overlayfs and btrfs."
+            }
+          ],
+          "rationale": "Overlay/snapshot filesystem support and the two built-in providers are concrete capabilities, not an indirect instruction by themselves.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7118,
+              "end": 7324,
+              "quote": "If you have [criu](https://criu.org/Main_Page) installed on your machine you can checkpoint and restore containers and their tasks.  This allow you to clone and/or live migrate containers to other machines."
+            }
+          ],
+          "context": [
+            {
+              "start": 7118,
+              "end": 7324,
+              "quote": "If you have [criu](https://criu.org/Main_Page) installed on your machine you can checkpoint and restore containers and their tasks.  This allow you to clone and/or live migrate containers to other machines."
+            }
+          ],
+          "rationale": "CRIU availability gates checkpoint/restore and live migration, so the condition and capability explanation are both necessary.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 10102,
+              "end": 10293,
+              "quote": "Provide documentation to users to `source` this file into their shell if\nyou don't place the autocomplete file in a location where it is automatically\nloaded for the user's shell environment."
+            }
+          ],
+          "context": [
+            {
+              "start": 10102,
+              "end": 10293,
+              "quote": "Provide documentation to users to `source` this file into their shell if\nyou don't place the autocomplete file in a location where it is automatically\nloaded for the user's shell environment."
+            }
+          ],
+          "rationale": "Manual sourcing depends on whether the completion file is installed in an automatically loaded location.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "05763a3984af61d10c136e977d755d53e377049c70b2f18559c4bc4df8f1d4b9",
+      "reviewer": "Codex assistant implementing issue 309; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4618,
+          "first_line": 1,
+          "last_line": 85,
+          "rationale": "Read all 26 prose/list blocks and commands as context. Preserve contributor routing, DCO, independent commit correctness, review-request alternatives and module/vendor ordering.",
+          "prose_blocks": 26,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c06-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 591,
+              "end": 646,
+              "quote": "and surely give you and us a good deal\n  of inspiration"
+            }
+          ],
+          "context": [
+            {
+              "start": 389,
+              "end": 796,
+              "quote": "If you plan to do something more involved, first discuss your ideas\n  on our [mailing list](https://groups.google.com/forum/?fromgroups#!forum/prometheus-developers).\n  This will avoid unnecessary work and surely give you and us a good deal\n  of inspiration. Also please see our [non-goals issue](https://github.com/prometheus/docs/issues/149) on areas that the Prometheus community doesn't plan to work on."
+            }
+          ],
+          "rationale": "The promised inspiration is an unmeasured benefit beyond the concrete avoided-duplicate-work reason.",
+          "proposed_edit": "Keep the discussion-first instruction and avoided-work rationale without promising inspiration."
+        },
+        {
+          "id": "c06-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1111,
+              "end": 1130,
+              "quote": "Be sure to sign off"
+            }
+          ],
+          "context": [
+            {
+              "start": 1111,
+              "end": 1142,
+              "quote": "Be sure to sign off on the [DCO"
+            }
+          ],
+          "rationale": "The attention wrapper can become the direct sign-off requirement.",
+          "proposed_edit": "Use Sign off and retain the DCO link and requiredness."
+        },
+        {
+          "id": "c06-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1214,
+              "end": 1335,
+              "quote": "Should you wish to work on an issue, please claim it first by commenting on the GitHub issue that you want to work on it."
+            }
+          ],
+          "context": [
+            {
+              "start": 1214,
+              "end": 1410,
+              "quote": "Should you wish to work on an issue, please claim it first by commenting on the GitHub issue that you want to work on it. This is to prevent duplicated efforts from contributors on the same issue."
+            }
+          ],
+          "rationale": "Wish-to and want-to repeat the contributor intention around the concrete issue-claim action.",
+          "proposed_edit": "Before working on an issue, claim it with a comment; retain the duplication-avoidance reason."
+        },
+        {
+          "id": "c06-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2584,
+              "end": 2715,
+              "quote": "Use this sparingly though, fixing the code to comply with the linter's recommendation is in general the preferred course of action."
+            }
+          ],
+          "context": [
+            {
+              "start": 2302,
+              "end": 2715,
+              "quote": "We use [`golangci-lint`](https://github.com/golangci/golangci-lint) for linting the code. If it reports an issue and you think that the warning needs to be disregarded or is a false-positive, you can add a special comment `//nolint:linter1[,linter2,...]` before the offending line. Use this sparingly though, fixing the code to comply with the linter's recommendation is in general the preferred course of action."
+            }
+          ],
+          "rationale": "The preferred-course-of-action judgment states the fix-first policy indirectly.",
+          "proposed_edit": "Prefer fixing the code; suppress a warning only when justified, preserving the false-positive exception."
+        },
+        {
+          "id": "c06-d05",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 3643,
+              "end": 3664,
+              "quote": "for the easiest start"
+            }
+          ],
+          "context": [
+            {
+              "start": 3350,
+              "end": 3734,
+              "quote": "If your patch is not getting reviewed or you need a specific person to review it, you can @-reply a reviewer asking for a review in the pull request or a comment, or you can ask for a review on IRC channel [#prometheus](https://webchat.freenode.net/?channels=#prometheus) on irc.freenode.net (for the easiest start, [join via Riot](https://riot.im/app/#/room/#prometheus:matrix.org))."
+            }
+          ],
+          "rationale": "Easiest ranks the chat client without a stated user context or criterion.",
+          "proposed_edit": "Retain the Riot link as an option without ranking ease."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c06-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1412,
+              "end": 1829,
+              "quote": "Please check the [`low-hanging-fruit`](https://github.com/prometheus/prometheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22low+hanging+fruit%22) label to find issues that are good for getting started. If you have questions about one of the issues, with or without the tag, please comment on them and one of the maintainers will clarify it. For a quicker response, contact us over [IRC](https://prometheus.io/community)."
+            }
+          ],
+          "context": [
+            {
+              "start": 1412,
+              "end": 1829,
+              "quote": "Please check the [`low-hanging-fruit`](https://github.com/prometheus/prometheus/issues?q=is%3Aissue+is%3Aopen+label%3A%22low+hanging+fruit%22) label to find issues that are good for getting started. If you have questions about one of the issues, with or without the tag, please comment on them and one of the maintainers will clarify it. For a quicker response, contact us over [IRC](https://prometheus.io/community)."
+            }
+          ],
+          "rationale": "The issue-discovery paragraph combines labels, clarification and response channels; splitting could help, but each branch serves a distinct contributor need.",
+          "proposed_edit": "Optionally split discovery and clarification instructions while retaining both contact channels."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 159,
+              "end": 385,
+              "quote": "If you have a trivial fix or improvement, go ahead and create a pull request,\n  addressing (with `@...`) a suitable maintainer of this repository (see\n  [MAINTAINERS.md](MAINTAINERS.md)) in the description of the pull request."
+            }
+          ],
+          "context": [
+            {
+              "start": 159,
+              "end": 385,
+              "quote": "If you have a trivial fix or improvement, go ahead and create a pull request,\n  addressing (with `@...`) a suitable maintainer of this repository (see\n  [MAINTAINERS.md](MAINTAINERS.md)) in the description of the pull request."
+            }
+          ],
+          "rationale": "Trivial fixes may go straight to a PR, while larger work needs prior discussion; the condition is useful.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1831,
+              "end": 1953,
+              "quote": "You can [spin up a prebuilt dev environment](https://gitpod.io/#https://github.com/prometheus/prometheus) using Gitpod.io."
+            }
+          ],
+          "context": [
+            {
+              "start": 1831,
+              "end": 1953,
+              "quote": "You can [spin up a prebuilt dev environment](https://gitpod.io/#https://github.com/prometheus/prometheus) using Gitpod.io."
+            }
+          ],
+          "rationale": "The prebuilt environment link names a concrete capability and method without redundant setup.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3199,
+              "end": 3346,
+              "quote": "Commits should be as small as possible, while ensuring that each commit is correct independently (i.e., each commit should compile and pass tests)."
+            }
+          ],
+          "context": [
+            {
+              "start": 3199,
+              "end": 3346,
+              "quote": "Commits should be as small as possible, while ensuring that each commit is correct independently (i.e., each commit should compile and pass tests)."
+            }
+          ],
+          "rationale": "Small commits remain subject to independent correctness; the qualifier cannot be shortened to small commits alone.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4501,
+              "end": 4617,
+              "quote": "You have to commit the changes to `go.mod`, `go.sum` and the `vendor/` directory before submitting the pull request."
+            }
+          ],
+          "context": [
+            {
+              "start": 4501,
+              "end": 4617,
+              "quote": "You have to commit the changes to `go.mod`, `go.sum` and the `vendor/` directory before submitting the pull request."
+            }
+          ],
+          "rationale": "Committing all module, checksum and vendor changes before submitting a PR is a concrete ordering requirement.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}

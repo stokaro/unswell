@@ -77,15 +77,15 @@ func TestInstructionProjectionSubjectBoundary(t *testing.T) {
 		"The option which allows users to upload files is disabled.",
 		"[#2848](https://example.test/2848) Allow user to get/set the rounding method used when calculating relative time.",
 		"Allow users to configure the rounding method.",
+		"This allows users to configure the method.",
+		"The upload form allows users to select the file.",
 	} {
 		t.Run(text, func(t *testing.T) {
 			qt.New(t).Assert(singleRuleResult(t, "filler.instruction-scaffolding", text, "", "").Findings, qt.HasLen, 0)
 		})
 	}
 	for _, text := range []string{
-		"This allows users to configure the method.",
 		"The `Field` function can be used to configure the label.",
-		"The upload form allows users to select the file.",
 	} {
 		qt.New(t).Assert(singleRuleResult(t, "filler.instruction-scaffolding", text, "", "").Findings, qt.HasLen, 1)
 	}

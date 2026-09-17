@@ -12,9 +12,6 @@ import (
 
 func TestInstructionProjection(t *testing.T) {
 	for _, text := range []string{
-		"The interface allows users to configure the service.",
-		"The client enables you to specify a header.",
-		"The library allows the reader to parse an archive.",
 		"The adapter has the ability to query a local index.",
 		"The renderer also has the capability to format a date.",
 		"The renderer has the ability to format a date.",
@@ -38,6 +35,9 @@ func TestInstructionProjection(t *testing.T) {
 
 func TestInstructionProjectionControls(t *testing.T) {
 	for _, text := range []string{
+		"The interface allows users to configure the service.",
+		"The client enables you to specify a header.",
+		"The library allows the reader to parse an archive.",
 		"The interface allows administrators to configure the service.",
 		"The interface grants users access to configure the service.",
 		"The interface allows users to configure the service only after approval.",

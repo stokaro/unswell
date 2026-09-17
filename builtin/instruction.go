@@ -10,7 +10,10 @@ import (
 // suggested edit preserves optionality instead of changing a capability to a duty.
 func instructionScaffolding(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	c := clauses[index]
-	if projectedInstruction(c) {
+	if frame, ok := narratedInstruction(c); ok {
+		return frame, true
+	}
+	if projectedInstructionWithMethod(c, instructionContinuation(clauses, index)) {
 		parts := []frameClause{c}
 		if instructionContinuation(clauses, index) {
 			parts = append(parts, clauses[index+1])

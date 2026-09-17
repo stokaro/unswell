@@ -33,7 +33,7 @@ func TestActionScaffoldingRevision(t *testing.T) {
 		c.Assert(result.Findings, qt.HasLen, 2)
 		for _, f := range result.Findings {
 			c.Assert(f.RuleID, qt.Equals, "filler.instruction-scaffolding")
-			c.Assert(f.RuleVersion, qt.Equals, "5")
+			c.Assert(f.RuleVersion, qt.Equals, "6")
 			c.Assert(f.Primary.Path, qt.Equals, "draft.md")
 			c.Assert(files["draft.md"][f.Primary.Span.Start:f.Primary.Span.End], qt.Equals, f.Primary.Snippet)
 		}
