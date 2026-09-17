@@ -28,6 +28,7 @@ func indirectInstruction(clauses []frameClause, index int) (rhetoricalFrame, boo
 
 func indirectForm(tokens []document.Token, embedded, owned bool) bool {
 	return readerPurpose(tokens) || possibilityNoun(tokens) || nominalizedMethod(tokens) ||
+		imperativeAssurance(tokens) || procedureAnnouncement(tokens) ||
 		(embedded && capabilityInstruction(tokens)) || (concreteMethod(tokens) && !owned)
 }
 
@@ -108,7 +109,7 @@ func intentionGoal(tokens []document.Token) bool {
 		return false
 	}
 	if frameWord(tokens[1], "want", "wish", "intend", "need") {
-		return (frameWord(tokens[2], "to") && instructionAction(tokens[3:])) ||
+		return (frameWord(tokens[2], "to") && grammaticalAction(tokens[3:])) ||
 			(frameWord(tokens[1], "need") && nominalSubject(tokens[2:]))
 	}
 	return interestedGoal(tokens)
@@ -132,7 +133,7 @@ func directInstruction(tokens []document.Token) bool {
 		i++
 	}
 	return !instructionCondition(tokens[i:]) &&
-		(instructionAction(tokens[i:]) || (i+1 == len(tokens) && frameWord(tokens[i], "write")))
+		(grammaticalAction(tokens[i:]) || (i+1 == len(tokens) && frameWord(tokens[i], "write")))
 }
 
 func readerActionStart(tokens []document.Token) (int, bool) {
@@ -147,9 +148,9 @@ func readerActionStart(tokens []document.Token) (int, bool) {
 		return 0, false
 	}
 	switch {
-	case frameWord(tokens[i], "can", "could", "may"):
+	case frameWord(tokens[i], "can", "could", "may", "would", "should"):
 		return i + 1, true
-	case frameWord(tokens[i], "need") && frameWord(tokens[i+1], "to"):
+	case frameWord(tokens[i], "need", "have") && frameWord(tokens[i+1], "to"):
 		return i + 2, true
 	default:
 		return 0, false

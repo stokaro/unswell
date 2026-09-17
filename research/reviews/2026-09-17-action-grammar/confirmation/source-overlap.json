@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "phase": "before_runtime_changes_and_confirmation_diagnostics",
+  "method": "Exact whole extracted block substring after whitespace normalization, minimum 12 whitespace tokens; source bytes only. This is a narrow overlap audit, not semantic deduplication.",
+  "prior_references_scanned": 124,
+  "known_partially_exposed_pages": [
+    "c04"
+  ],
+  "matches": [
+    {
+      "page": "c04",
+      "block": 4,
+      "start": 278,
+      "end": 357,
+      "quote": "  NOTE: I am very sure that I missed some thing on this list.  Caveat\n  haxxor.",
+      "matches": [
+        {
+          "reference": "https://github.com/libevent/libevent/blob/5df3037d10556bfcb675bc73e516978b75fc7bc7/whatsnew-2.1.txt",
+          "manifest": "2026-09-17-local-repetition/confirmation/manifest.json"
+        }
+      ]
+    }
+  ],
+  "limitation": "No matching block does not prove independent provenance or absence of paraphrased, shorter, or partial overlap."
+}

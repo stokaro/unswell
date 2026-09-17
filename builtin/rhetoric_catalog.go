@@ -18,6 +18,9 @@ func localRhetoricRules() []rule.Rule {
 				"Actor-to-action projection recognizes ability nouns, modal used-to/used-for actions, named method predicates, "+
 				"and nested intended-to-enable actions. Narrated prerequisites and repeated same-actor obligations can introduce an action. "+
 				"Standalone generic reader enablement requires an adjacent method; concrete capability explanations remain controls. "+
+				"Infinitive reader goals admit coordinated actions. Relative nominal antecedents can carry nested support; "+
+				"capable-of gerunds, imperative assurance and purpose-to-steps announcements also qualify. "+
+				"A second method may be anchored by a repeated two-noun object and explicit reader action. "+
 				"Preserve modal meaning, named actors and conditions. "+
 				"Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. "+
 				"Failure, permission, negation and quoted constructions do not match.",
@@ -117,7 +120,7 @@ func localRhetoricVersion(id string) string {
 	case "filler.document-justification":
 		return "5"
 	case "filler.instruction-scaffolding":
-		return "6"
+		return "7"
 	case "filler.evaluative-closure":
 		return "7"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":

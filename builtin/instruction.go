@@ -65,7 +65,7 @@ func instructionContinuation(clauses []frameClause, index int) bool {
 	if index+1 >= len(clauses) || !adjacentInstruction(clauses[index], clauses[index+1]) {
 		return false
 	}
-	return methodAnnouncement(clauses[index+1].tokens()) ||
+	return methodAnnouncement(clauses[index+1].tokens()) || relatedReaderMethod(clauses[index], clauses[index+1]) ||
 		(readerGoal(clauses[index].tokens()) && capabilityInstruction(clauses[index+1].tokens()))
 }
 
@@ -126,7 +126,7 @@ func readerGoal(tokens []document.Token) bool {
 	}
 	i := readerIntentionStart(tokens)
 	return i > 0 && i+3 < len(tokens) && frameWord(tokens[i], "want", "wish", "intend") &&
-		frameWord(tokens[i+1], "to") && instructionAction(tokens[i+2:])
+		frameWord(tokens[i+1], "to") && grammaticalAction(tokens[i+2:])
 }
 
 func readerIntentionStart(tokens []document.Token) int {
@@ -165,7 +165,7 @@ func readerInstruction(tokens []document.Token) bool {
 		if len(rest) > 2 && frameWord(rest[0], "you") && frameWord(rest[1], "can") {
 			rest = rest[2:]
 		}
-		return !instructionCondition(rest) && instructionAction(rest)
+		return !instructionCondition(rest) && grammaticalAction(rest)
 	}
 	return false
 }
