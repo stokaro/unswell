@@ -9,6 +9,9 @@ import (
 func documentJustification(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	c := clauses[index]
 	if c.eligible() {
+		if frame, ok := contextualDocumentFrame(clauses, index); ok {
+			return frame, true
+		}
 		for i := range c.tokens() {
 			if embeddedClauseStart(c.tokens(), i) && documentEarnsPlace(c.tokens()[i:]) {
 				return localFrame(c, i)
@@ -58,6 +61,9 @@ func evaluativeClosure(clauses []frameClause, index int) (rhetoricalFrame, bool)
 			return localFrame(c, i)
 		}
 		if evaluativeTail(c.tokens()[i:]) {
+			return localFrame(c, i)
+		}
+		if !contextualRhetoricScoped(c) && contextualEvaluation(c.tokens()[i:]) {
 			return localFrame(c, i)
 		}
 	}
