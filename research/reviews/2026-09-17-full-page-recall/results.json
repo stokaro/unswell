@@ -1,0 +1,1483 @@
+{
+  "version": "unswell-full-page-results-v1",
+  "review": "Single assistant, auxiliary development labels",
+  "freeze_sha256": "3e074e7a6ad8c5dddd28e65c6903602b60b0b78d844469399a894fe0156b3853",
+  "profiles": {
+    "technical": {
+      "groups": {
+        "ptah-sample": {
+          "pages": 12,
+          "defects": 27,
+          "detected": 1,
+          "recall": 0.037037037037037035,
+          "findings": 78,
+          "dispositions": {
+            "actionable": 7,
+            "nonactionable": 44,
+            "uncertain": 27
+          },
+          "actionable_fraction": 0.08974358974358974,
+          "uncertain_fraction": 0.34615384615384615,
+          "findings_per_1000_words": 3.819597473189364,
+          "categories": {
+            "empty_framing": {
+              "defects": 16,
+              "detected": 0
+            },
+            "formulaic_transitions": {
+              "defects": 0,
+              "detected": 0
+            },
+            "needless_complexity": {
+              "defects": 0,
+              "detected": 0
+            },
+            "needless_repetition": {
+              "defects": 2,
+              "detected": 1
+            },
+            "unjustified_intensifiers": {
+              "defects": 1,
+              "detected": 0
+            },
+            "vague_claims": {
+              "defects": 5,
+              "detected": 0
+            },
+            "wordiness": {
+              "defects": 3,
+              "detected": 0
+            }
+          },
+          "sensitivity": {
+            "page_bootstrap_percentile_95": [
+              0.0,
+              0.07407407407407407
+            ],
+            "valid_bootstrap_replicates": 2000,
+            "leave_one_page_out_range": [
+              0.0,
+              0.045454545454545456
+            ]
+          }
+        },
+        "historical-sample": {
+          "pages": 12,
+          "defects": 21,
+          "detected": 0,
+          "recall": 0.0,
+          "findings": 15,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 9,
+            "uncertain": 6
+          },
+          "actionable_fraction": 0.0,
+          "uncertain_fraction": 0.4,
+          "findings_per_1000_words": 0.7216742843396681,
+          "categories": {
+            "empty_framing": {
+              "defects": 6,
+              "detected": 0
+            },
+            "formulaic_transitions": {
+              "defects": 0,
+              "detected": 0
+            },
+            "needless_complexity": {
+              "defects": 0,
+              "detected": 0
+            },
+            "needless_repetition": {
+              "defects": 3,
+              "detected": 0
+            },
+            "unjustified_intensifiers": {
+              "defects": 2,
+              "detected": 0
+            },
+            "vague_claims": {
+              "defects": 9,
+              "detected": 0
+            },
+            "wordiness": {
+              "defects": 1,
+              "detected": 0
+            }
+          },
+          "sensitivity": {
+            "page_bootstrap_percentile_95": [
+              0.0,
+              0.0
+            ],
+            "valid_bootstrap_replicates": 2000,
+            "leave_one_page_out_range": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "ptah-exposed_anchor": {
+          "pages": 2,
+          "defects": 9,
+          "detected": 4,
+          "recall": 0.4444444444444444,
+          "findings": 37,
+          "dispositions": {
+            "actionable": 9,
+            "nonactionable": 23,
+            "uncertain": 5
+          },
+          "actionable_fraction": 0.24324324324324326,
+          "uncertain_fraction": 0.13513513513513514,
+          "findings_per_1000_words": 5.470944846961408,
+          "categories": {
+            "empty_framing": {
+              "defects": 6,
+              "detected": 3
+            },
+            "formulaic_transitions": {
+              "defects": 0,
+              "detected": 0
+            },
+            "needless_complexity": {
+              "defects": 1,
+              "detected": 1
+            },
+            "needless_repetition": {
+              "defects": 1,
+              "detected": 0
+            },
+            "unjustified_intensifiers": {
+              "defects": 0,
+              "detected": 0
+            },
+            "vague_claims": {
+              "defects": 1,
+              "detected": 0
+            },
+            "wordiness": {
+              "defects": 0,
+              "detected": 0
+            }
+          },
+          "sensitivity": null
+        }
+      },
+      "pages": [
+        {
+          "page": "p001",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "docs/site/src/content/docs/databases/mysql.md",
+          "words": 2003,
+          "defects": 4,
+          "detected": 0,
+          "missed": [
+            "p001-d01",
+            "p001-d02",
+            "p001-d03",
+            "p001-d04"
+          ],
+          "findings": 14,
+          "dispositions": {
+            "actionable": 4,
+            "nonactionable": 3,
+            "uncertain": 7
+          }
+        },
+        {
+          "page": "p002",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "docs/site/src/content/docs/atlas/project-config.md",
+          "words": 5400,
+          "defects": 5,
+          "detected": 0,
+          "missed": [
+            "p002-d01",
+            "p002-d02",
+            "p002-d03",
+            "p002-d04",
+            "p002-d05"
+          ],
+          "findings": 23,
+          "dispositions": {
+            "actionable": 1,
+            "nonactionable": 13,
+            "uncertain": 9
+          }
+        },
+        {
+          "page": "p003",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "docs/site/src/content/docs/reference/command-flags.md",
+          "words": 1039,
+          "defects": 2,
+          "detected": 0,
+          "missed": [
+            "p003-d01",
+            "p003-d02"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p004",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "docs/site/src/content/docs/direct/compare-and-drift.md",
+          "words": 1730,
+          "defects": 4,
+          "detected": 1,
+          "missed": [
+            "p004-d02",
+            "p004-d03",
+            "p004-d04"
+          ],
+          "findings": 9,
+          "dispositions": {
+            "actionable": 1,
+            "nonactionable": 5,
+            "uncertain": 3
+          }
+        },
+        {
+          "page": "p005",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "short",
+          "path": "docs/site/src/content/docs/operate/ai-agent-permissions.md",
+          "words": 365,
+          "defects": 0,
+          "detected": 0,
+          "missed": [],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p006",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "short",
+          "path": "docs/site/src/content/docs/inference/overview.md",
+          "words": 486,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p006-d01"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p007",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "mdx",
+          "length_stratum": "long",
+          "path": "docs/site/src/content/docs/schema/export.mdx",
+          "words": 3645,
+          "defects": 4,
+          "detected": 0,
+          "missed": [
+            "p007-d01",
+            "p007-d02",
+            "p007-d03",
+            "p007-d04"
+          ],
+          "findings": 12,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 9,
+            "uncertain": 3
+          }
+        },
+        {
+          "page": "p008",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "mdx",
+          "length_stratum": "long",
+          "path": "docs/site/src/content/docs/reference/configuration.mdx",
+          "words": 2448,
+          "defects": 4,
+          "detected": 0,
+          "missed": [
+            "p008-d01",
+            "p008-d02",
+            "p008-d03",
+            "p008-d04"
+          ],
+          "findings": 14,
+          "dispositions": {
+            "actionable": 1,
+            "nonactionable": 10,
+            "uncertain": 3
+          }
+        },
+        {
+          "page": "p009",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "mdx",
+          "length_stratum": "medium",
+          "path": "docs/site/src/content/docs/reference/capabilities.mdx",
+          "words": 1368,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p009-d01"
+          ],
+          "findings": 4,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 2,
+            "uncertain": 2
+          }
+        },
+        {
+          "page": "p010",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "mdx",
+          "length_stratum": "medium",
+          "path": "docs/site/src/content/docs/schema/document.mdx",
+          "words": 1453,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p010-d01"
+          ],
+          "findings": 2,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 2,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p011",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "mdx",
+          "length_stratum": "short",
+          "path": "docs/site/src/content/docs/start/quick-start-direct.mdx",
+          "words": 317,
+          "defects": 0,
+          "detected": 0,
+          "missed": [],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p012",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "mdx",
+          "length_stratum": "short",
+          "path": "docs/site/src/content/docs/reference/glossary.mdx",
+          "words": 167,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p012-d01"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p013",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "tokio/CHANGELOG.md",
+          "words": 2362,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p013-d01"
+          ],
+          "findings": 1,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 1
+          }
+        },
+        {
+          "page": "p014",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "HISTORY.md",
+          "words": 5065,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p014-d01"
+          ],
+          "findings": 3,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 3,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p015",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "CHANGELOG.md",
+          "words": 3402,
+          "defects": 3,
+          "detected": 0,
+          "missed": [
+            "p015-d01",
+            "p015-d02",
+            "p015-d03"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p016",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "RELEASES.md",
+          "words": 2101,
+          "defects": 3,
+          "detected": 0,
+          "missed": [
+            "p016-d01",
+            "p016-d02",
+            "p016-d03"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p017",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "README.md",
+          "words": 1895,
+          "defects": 3,
+          "detected": 0,
+          "missed": [
+            "p017-d01",
+            "p017-d02",
+            "p017-d03"
+          ],
+          "findings": 5,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 3,
+            "uncertain": 2
+          }
+        },
+        {
+          "page": "p018",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "docs/FONTS.md",
+          "words": 1266,
+          "defects": 2,
+          "detected": 0,
+          "missed": [
+            "p018-d01",
+            "p018-d02"
+          ],
+          "findings": 1,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 1
+          }
+        },
+        {
+          "page": "p019",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "README.md",
+          "words": 1653,
+          "defects": 2,
+          "detected": 0,
+          "missed": [
+            "p019-d01",
+            "p019-d02"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p020",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "docs/SECURITY-PROCESS.md",
+          "words": 865,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p020-d01"
+          ],
+          "findings": 3,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 3,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p021",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "short",
+          "path": "docs/USING_PRO.md",
+          "words": 493,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p021-d01"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p022",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "short",
+          "path": "CONTRIBUTING.md",
+          "words": 483,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p022-d01"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p023",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "short",
+          "path": "README.md",
+          "words": 488,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p023-d01"
+          ],
+          "findings": 1,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 1
+          }
+        },
+        {
+          "page": "p024",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "short",
+          "path": "README.md",
+          "words": 712,
+          "defects": 2,
+          "detected": 0,
+          "missed": [
+            "p024-d01",
+            "p024-d02"
+          ],
+          "findings": 1,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 1
+          }
+        },
+        {
+          "page": "p025",
+          "cohort": "ptah",
+          "selection": "exposed_anchor",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "docs/site/src/content/docs/databases/postgresql.md",
+          "words": 5539,
+          "defects": 7,
+          "detected": 2,
+          "missed": [
+            "p025-d01",
+            "p025-d02",
+            "p025-d04",
+            "p025-d06",
+            "p025-d07"
+          ],
+          "findings": 31,
+          "dispositions": {
+            "actionable": 6,
+            "nonactionable": 20,
+            "uncertain": 5
+          }
+        },
+        {
+          "page": "p026",
+          "cohort": "ptah",
+          "selection": "exposed_anchor",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "docs/site/src/content/docs/concepts/database-urls-and-dev-databases.md",
+          "words": 1224,
+          "defects": 2,
+          "detected": 2,
+          "missed": [],
+          "findings": 6,
+          "dispositions": {
+            "actionable": 3,
+            "nonactionable": 3,
+            "uncertain": 0
+          }
+        }
+      ],
+      "provisional_clean_paragraphs": {
+        "ptah_min1_units": 1517,
+        "ptah_min1_alarmed": 47,
+        "ptah_min20_units": 291,
+        "ptah_min20_alarmed": 44,
+        "ptah_min40_units": 143,
+        "ptah_min40_alarmed": 37,
+        "historical_min1_units": 2274,
+        "historical_min1_alarmed": 26,
+        "historical_min20_units": 211,
+        "historical_min20_alarmed": 8,
+        "historical_min40_units": 48,
+        "historical_min40_alarmed": 3
+      },
+      "gate": {
+        "passed": true,
+        "reasons": []
+      },
+      "exclusions": {
+        "front-matter": 14,
+        "inline-protected": 7282,
+        "code": 251,
+        "html": 270,
+        "mdx-esm": 7,
+        "mdx-tag": 72,
+        "mdx-expression": 1,
+        "link-definition": 199,
+        "url": 34,
+        "quote": 1
+      },
+      "abstentions": []
+    },
+    "strict": {
+      "groups": {
+        "ptah-sample": {
+          "pages": 12,
+          "defects": 27,
+          "detected": 1,
+          "recall": 0.037037037037037035,
+          "findings": 88,
+          "dispositions": {
+            "actionable": 7,
+            "nonactionable": 52,
+            "uncertain": 29
+          },
+          "actionable_fraction": 0.07954545454545454,
+          "uncertain_fraction": 0.32954545454545453,
+          "findings_per_1000_words": 4.30928945693159,
+          "categories": {
+            "empty_framing": {
+              "defects": 16,
+              "detected": 0
+            },
+            "formulaic_transitions": {
+              "defects": 0,
+              "detected": 0
+            },
+            "needless_complexity": {
+              "defects": 0,
+              "detected": 0
+            },
+            "needless_repetition": {
+              "defects": 2,
+              "detected": 1
+            },
+            "unjustified_intensifiers": {
+              "defects": 1,
+              "detected": 0
+            },
+            "vague_claims": {
+              "defects": 5,
+              "detected": 0
+            },
+            "wordiness": {
+              "defects": 3,
+              "detected": 0
+            }
+          },
+          "sensitivity": {
+            "page_bootstrap_percentile_95": [
+              0.0,
+              0.07407407407407407
+            ],
+            "valid_bootstrap_replicates": 2000,
+            "leave_one_page_out_range": [
+              0.0,
+              0.045454545454545456
+            ]
+          }
+        },
+        "historical-sample": {
+          "pages": 12,
+          "defects": 21,
+          "detected": 0,
+          "recall": 0.0,
+          "findings": 15,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 9,
+            "uncertain": 6
+          },
+          "actionable_fraction": 0.0,
+          "uncertain_fraction": 0.4,
+          "findings_per_1000_words": 0.7216742843396681,
+          "categories": {
+            "empty_framing": {
+              "defects": 6,
+              "detected": 0
+            },
+            "formulaic_transitions": {
+              "defects": 0,
+              "detected": 0
+            },
+            "needless_complexity": {
+              "defects": 0,
+              "detected": 0
+            },
+            "needless_repetition": {
+              "defects": 3,
+              "detected": 0
+            },
+            "unjustified_intensifiers": {
+              "defects": 2,
+              "detected": 0
+            },
+            "vague_claims": {
+              "defects": 9,
+              "detected": 0
+            },
+            "wordiness": {
+              "defects": 1,
+              "detected": 0
+            }
+          },
+          "sensitivity": {
+            "page_bootstrap_percentile_95": [
+              0.0,
+              0.0
+            ],
+            "valid_bootstrap_replicates": 2000,
+            "leave_one_page_out_range": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "ptah-exposed_anchor": {
+          "pages": 2,
+          "defects": 9,
+          "detected": 4,
+          "recall": 0.4444444444444444,
+          "findings": 46,
+          "dispositions": {
+            "actionable": 9,
+            "nonactionable": 30,
+            "uncertain": 7
+          },
+          "actionable_fraction": 0.1956521739130435,
+          "uncertain_fraction": 0.15217391304347827,
+          "findings_per_1000_words": 6.8017152151412095,
+          "categories": {
+            "empty_framing": {
+              "defects": 6,
+              "detected": 3
+            },
+            "formulaic_transitions": {
+              "defects": 0,
+              "detected": 0
+            },
+            "needless_complexity": {
+              "defects": 1,
+              "detected": 1
+            },
+            "needless_repetition": {
+              "defects": 1,
+              "detected": 0
+            },
+            "unjustified_intensifiers": {
+              "defects": 0,
+              "detected": 0
+            },
+            "vague_claims": {
+              "defects": 1,
+              "detected": 0
+            },
+            "wordiness": {
+              "defects": 0,
+              "detected": 0
+            }
+          },
+          "sensitivity": null
+        }
+      },
+      "pages": [
+        {
+          "page": "p001",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "docs/site/src/content/docs/databases/mysql.md",
+          "words": 2003,
+          "defects": 4,
+          "detected": 0,
+          "missed": [
+            "p001-d01",
+            "p001-d02",
+            "p001-d03",
+            "p001-d04"
+          ],
+          "findings": 14,
+          "dispositions": {
+            "actionable": 4,
+            "nonactionable": 3,
+            "uncertain": 7
+          }
+        },
+        {
+          "page": "p002",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "docs/site/src/content/docs/atlas/project-config.md",
+          "words": 5400,
+          "defects": 5,
+          "detected": 0,
+          "missed": [
+            "p002-d01",
+            "p002-d02",
+            "p002-d03",
+            "p002-d04",
+            "p002-d05"
+          ],
+          "findings": 28,
+          "dispositions": {
+            "actionable": 1,
+            "nonactionable": 17,
+            "uncertain": 10
+          }
+        },
+        {
+          "page": "p003",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "docs/site/src/content/docs/reference/command-flags.md",
+          "words": 1039,
+          "defects": 2,
+          "detected": 0,
+          "missed": [
+            "p003-d01",
+            "p003-d02"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p004",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "docs/site/src/content/docs/direct/compare-and-drift.md",
+          "words": 1730,
+          "defects": 4,
+          "detected": 1,
+          "missed": [
+            "p004-d02",
+            "p004-d03",
+            "p004-d04"
+          ],
+          "findings": 11,
+          "dispositions": {
+            "actionable": 1,
+            "nonactionable": 7,
+            "uncertain": 3
+          }
+        },
+        {
+          "page": "p005",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "short",
+          "path": "docs/site/src/content/docs/operate/ai-agent-permissions.md",
+          "words": 365,
+          "defects": 0,
+          "detected": 0,
+          "missed": [],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p006",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "short",
+          "path": "docs/site/src/content/docs/inference/overview.md",
+          "words": 486,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p006-d01"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p007",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "mdx",
+          "length_stratum": "long",
+          "path": "docs/site/src/content/docs/schema/export.mdx",
+          "words": 3645,
+          "defects": 4,
+          "detected": 0,
+          "missed": [
+            "p007-d01",
+            "p007-d02",
+            "p007-d03",
+            "p007-d04"
+          ],
+          "findings": 13,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 10,
+            "uncertain": 3
+          }
+        },
+        {
+          "page": "p008",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "mdx",
+          "length_stratum": "long",
+          "path": "docs/site/src/content/docs/reference/configuration.mdx",
+          "words": 2448,
+          "defects": 4,
+          "detected": 0,
+          "missed": [
+            "p008-d01",
+            "p008-d02",
+            "p008-d03",
+            "p008-d04"
+          ],
+          "findings": 16,
+          "dispositions": {
+            "actionable": 1,
+            "nonactionable": 11,
+            "uncertain": 4
+          }
+        },
+        {
+          "page": "p009",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "mdx",
+          "length_stratum": "medium",
+          "path": "docs/site/src/content/docs/reference/capabilities.mdx",
+          "words": 1368,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p009-d01"
+          ],
+          "findings": 4,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 2,
+            "uncertain": 2
+          }
+        },
+        {
+          "page": "p010",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "mdx",
+          "length_stratum": "medium",
+          "path": "docs/site/src/content/docs/schema/document.mdx",
+          "words": 1453,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p010-d01"
+          ],
+          "findings": 2,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 2,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p011",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "mdx",
+          "length_stratum": "short",
+          "path": "docs/site/src/content/docs/start/quick-start-direct.mdx",
+          "words": 317,
+          "defects": 0,
+          "detected": 0,
+          "missed": [],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p012",
+          "cohort": "ptah",
+          "selection": "sample",
+          "format": "mdx",
+          "length_stratum": "short",
+          "path": "docs/site/src/content/docs/reference/glossary.mdx",
+          "words": 167,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p012-d01"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p013",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "tokio/CHANGELOG.md",
+          "words": 2362,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p013-d01"
+          ],
+          "findings": 1,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 1
+          }
+        },
+        {
+          "page": "p014",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "HISTORY.md",
+          "words": 5065,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p014-d01"
+          ],
+          "findings": 3,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 3,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p015",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "CHANGELOG.md",
+          "words": 3402,
+          "defects": 3,
+          "detected": 0,
+          "missed": [
+            "p015-d01",
+            "p015-d02",
+            "p015-d03"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p016",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "RELEASES.md",
+          "words": 2101,
+          "defects": 3,
+          "detected": 0,
+          "missed": [
+            "p016-d01",
+            "p016-d02",
+            "p016-d03"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p017",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "README.md",
+          "words": 1895,
+          "defects": 3,
+          "detected": 0,
+          "missed": [
+            "p017-d01",
+            "p017-d02",
+            "p017-d03"
+          ],
+          "findings": 5,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 3,
+            "uncertain": 2
+          }
+        },
+        {
+          "page": "p018",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "docs/FONTS.md",
+          "words": 1266,
+          "defects": 2,
+          "detected": 0,
+          "missed": [
+            "p018-d01",
+            "p018-d02"
+          ],
+          "findings": 1,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 1
+          }
+        },
+        {
+          "page": "p019",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "README.md",
+          "words": 1653,
+          "defects": 2,
+          "detected": 0,
+          "missed": [
+            "p019-d01",
+            "p019-d02"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p020",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "docs/SECURITY-PROCESS.md",
+          "words": 865,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p020-d01"
+          ],
+          "findings": 3,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 3,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p021",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "short",
+          "path": "docs/USING_PRO.md",
+          "words": 493,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p021-d01"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p022",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "short",
+          "path": "CONTRIBUTING.md",
+          "words": 483,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p022-d01"
+          ],
+          "findings": 0,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 0
+          }
+        },
+        {
+          "page": "p023",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "short",
+          "path": "README.md",
+          "words": 488,
+          "defects": 1,
+          "detected": 0,
+          "missed": [
+            "p023-d01"
+          ],
+          "findings": 1,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 1
+          }
+        },
+        {
+          "page": "p024",
+          "cohort": "historical",
+          "selection": "sample",
+          "format": "markdown",
+          "length_stratum": "short",
+          "path": "README.md",
+          "words": 712,
+          "defects": 2,
+          "detected": 0,
+          "missed": [
+            "p024-d01",
+            "p024-d02"
+          ],
+          "findings": 1,
+          "dispositions": {
+            "actionable": 0,
+            "nonactionable": 0,
+            "uncertain": 1
+          }
+        },
+        {
+          "page": "p025",
+          "cohort": "ptah",
+          "selection": "exposed_anchor",
+          "format": "markdown",
+          "length_stratum": "long",
+          "path": "docs/site/src/content/docs/databases/postgresql.md",
+          "words": 5539,
+          "defects": 7,
+          "detected": 2,
+          "missed": [
+            "p025-d01",
+            "p025-d02",
+            "p025-d04",
+            "p025-d06",
+            "p025-d07"
+          ],
+          "findings": 38,
+          "dispositions": {
+            "actionable": 6,
+            "nonactionable": 26,
+            "uncertain": 6
+          }
+        },
+        {
+          "page": "p026",
+          "cohort": "ptah",
+          "selection": "exposed_anchor",
+          "format": "markdown",
+          "length_stratum": "medium",
+          "path": "docs/site/src/content/docs/concepts/database-urls-and-dev-databases.md",
+          "words": 1224,
+          "defects": 2,
+          "detected": 2,
+          "missed": [],
+          "findings": 8,
+          "dispositions": {
+            "actionable": 3,
+            "nonactionable": 4,
+            "uncertain": 1
+          }
+        }
+      ],
+      "provisional_clean_paragraphs": {
+        "ptah_min1_units": 1517,
+        "ptah_min1_alarmed": 52,
+        "ptah_min20_units": 291,
+        "ptah_min20_alarmed": 49,
+        "ptah_min40_units": 143,
+        "ptah_min40_alarmed": 42,
+        "historical_min1_units": 2274,
+        "historical_min1_alarmed": 26,
+        "historical_min20_units": 211,
+        "historical_min20_alarmed": 8,
+        "historical_min40_units": 48,
+        "historical_min40_alarmed": 3
+      },
+      "gate": {
+        "passed": true,
+        "reasons": []
+      },
+      "exclusions": {
+        "front-matter": 14,
+        "inline-protected": 7282,
+        "code": 251,
+        "html": 270,
+        "mdx-esm": 7,
+        "mdx-tag": 72,
+        "mdx-expression": 1,
+        "link-definition": 199,
+        "url": 34,
+        "quote": 1
+      },
+      "abstentions": []
+    }
+  }
+}

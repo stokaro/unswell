@@ -24,3 +24,8 @@ the construction it names.
 - [2026-09-13-replay](2026-09-13-replay/README.md): the same pinned inputs
   under old and repaired engines, source-based alignment, revisited samples,
   retained positive controls, and bounded follow-ups.
+
+- [2026-09-17-full-page-recall](2026-09-17-full-page-recall/README.md): complete
+  sources annotated before new detector-output review, missed-event recall,
+  all-finding dispositions and historical controls. Single-assistant development
+  labels remain separate from human qualification.

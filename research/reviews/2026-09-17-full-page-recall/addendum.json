@@ -1,0 +1,152 @@
+{
+  "phase": "after_detector_output_review",
+  "reviewer": "Codex assistant; same reviewer",
+  "events": [
+    {
+      "id": "p001-post01",
+      "page": "p001",
+      "category": "needless_complexity",
+      "targets": [
+        {
+          "start": 3354,
+          "end": 3644,
+          "quote": "`HASH` is\n  carried, and whether the server honors it belongs to the storage engine\n  rather than to the dialect: on InnoDB, MySQL 8.4 records `BTREE` and drops\n  the clause from `SHOW CREATE TABLE` while MariaDB 11.8 records `HASH` and\n  prints it back, and on `MEMORY` both record `HASH`."
+        }
+      ],
+      "rationale": "The sentence nests a storage-engine distinction inside a dialect distinction and then adds a second storage engine.",
+      "proposed_edit": "Use a table with dialect, storage engine, catalog type and rendered clause; preserve all three cases."
+    },
+    {
+      "id": "p001-post02",
+      "page": "p001",
+      "category": "needless_complexity",
+      "targets": [
+        {
+          "start": 6553,
+          "end": 6899,
+          "quote": "The two engines fold\n  such names differently and not in a way one rule covers: measured on MySQL\n  8.4.11 and MariaDB 11.8.9 over a `utf8mb4` connection, `I` beside dotless\n  `ı` and `Σ` beside final `ς` are accepted by MySQL and answer `ERROR 1061` on\n  MariaDB, while dotted `İ` beside `i` and the Kelvin sign beside `K` do the\n  opposite."
+        }
+      ],
+      "rationale": "Four Unicode-pair examples and two opposite server outcomes are embedded in one comparison sentence.",
+      "proposed_edit": "Give a two-row comparison table for the pair groups, retaining server versions and connection encoding."
+    },
+    {
+      "id": "p001-post03",
+      "page": "p001",
+      "category": "needless_complexity",
+      "targets": [
+        {
+          "start": 9764,
+          "end": 10096,
+          "quote": "Beyond ASCII the two disagree, and the same\n  fold decides both questions: MySQL calls `İ`/`i` and the Kelvin sign/`K` one\n  column and MariaDB calls `I`/`ı` and `σ`/`ς` one column, each engine\n  accepting a foreign key written with either spelling of a pair it folds and\n  reporting a missing key column for a pair it does not."
+        },
+        {
+          "start": 10366,
+          "end": 10710,
+          "quote": "Asked\n  whether two columns differing only by the pair are one name, MySQL folds\n  dotted `İ`/`i` and the Kelvin sign/`K` while MariaDB folds `I`/`ı` and\n  `σ`/`ς` -- and MariaDB folds the Kelvin pair for that question while treating\n  the two as different columns when it resolves a foreign key, so the rule is\n  not one per engine either."
+        }
+      ],
+      "rationale": "Adjacent descriptions alternate between column-name equivalence and foreign-key resolution, with the Kelvin-pair exception nested at the end.",
+      "proposed_edit": "Use a matrix of dialect, identifier pair, duplicate-column outcome and foreign-key outcome; retain the MariaDB exception."
+    },
+    {
+      "id": "p002-post04",
+      "page": "p002",
+      "category": "needless_complexity",
+      "targets": [
+        {
+          "start": 14949,
+          "end": 15272,
+          "quote": "a value that evaluates and then **fails a rule** is scrubbed when the\n  expression names the variable directly, so the reason survives\n  (`unsupported URL scheme: (sensitive value)`), and withheld when the value\n  was derived — `upper(var.token)` puts bytes in the message that replacing the\n  original value cannot find."
+        }
+      ],
+      "rationale": "One sentence embeds both direct and derived sensitive-value handling and a separate explanation of why substitution fails.",
+      "proposed_edit": "State the direct-variable behavior, derived-value behavior and upper(var.token) reason in separate sentences."
+    },
+    {
+      "id": "p008-post05",
+      "page": "p008",
+      "category": "needless_complexity",
+      "targets": [
+        {
+          "start": 16908,
+          "end": 17390,
+          "quote": "The native `diff` block shapes what `ptah migrations generate` emits: `diff.skip`\nlists destructive change kinds (`drop_table`, `drop_column`, `drop_index`,\n`drop_enum`) to omit — a `-- SKIP: ...` comment is written in their place — and\n`diff.concurrent_index: true` requests `CREATE INDEX CONCURRENTLY` for new\nindexes (PostgreSQL, capability-gated), while\n`diff.concurrent_index_drop: true` requests `DROP INDEX CONCURRENTLY` for\nstandalone index removals under the same gate."
+        }
+      ],
+      "rationale": "Three native diff settings with different effects and gating conditions are crowded into one sentence.",
+      "proposed_edit": "Use one item for diff.skip, one for concurrent creation and one for concurrent removal, preserving capability and standalone-removal conditions."
+    },
+    {
+      "id": "p025-post06",
+      "page": "p025",
+      "category": "needless_complexity",
+      "targets": [
+        {
+          "start": 8999,
+          "end": 9304,
+          "quote": "Measured on PostgreSQL 17.10, on a database holding one table and roles nothing\ngrants anything to, `ptah db read` went from four `CREATE ROLE` statements to\nnone, and `ptah-compat schema apply --dry-run` against an empty database in a\n**second** cluster went from planning three of them to planning none."
+        }
+      ],
+      "rationale": "Two measured operations with different target clusters and different before/after counts share a heavily nested sentence.",
+      "proposed_edit": "Separate the db read result from the apply dry-run result; keep PostgreSQL version, input fixture, second-cluster condition and both counts."
+    },
+    {
+      "id": "p025-post07",
+      "page": "p025",
+      "category": "needless_complexity",
+      "targets": [
+        {
+          "start": 13444,
+          "end": 13803,
+          "quote": "Both variables on this page are booleans and read the same way: unset selects\nthe default described above, a valid boolean is honored, and anything else fails\nthe command before it reads or compares anything — including on a run that\ndeclares no reserved role and leaves no role out, which is what makes a typo\nvisible before the day it would have mattered."
+        }
+      ],
+      "rationale": "The sentence combines three Boolean states, validation order, two inactive-use cases and a concluding rationale.",
+      "proposed_edit": "List the three parsing outcomes, then state that validation precedes reading/comparison even when neither variable affects the run."
+    },
+    {
+      "id": "p025-post08",
+      "page": "p025",
+      "category": "needless_complexity",
+      "targets": [
+        {
+          "start": 14855,
+          "end": 15167,
+          "quote": "Enablement is compared against `pg_class.relrowsecurity` and planned in both\ndirections: a table your schema declares that the database has row-level\nsecurity off for gets `ALTER TABLE ... ENABLE ROW LEVEL SECURITY`, and a table\nthe database secures that your schema does not declare gets the matching\n`DISABLE`."
+        }
+      ],
+      "rationale": "The relative clauses table your schema declares that the database has off for and table the database secures that your schema does not declare obscure the two RLS transitions.",
+      "proposed_edit": "Use two parallel cases: desired enabled/current disabled produces ENABLE; desired disabled/current enabled produces DISABLE."
+    },
+    {
+      "id": "p025-post09",
+      "page": "p025",
+      "category": "needless_complexity",
+      "targets": [
+        {
+          "start": 24875,
+          "end": 25302,
+          "quote": "The decision reads `pg_class.reltuples` and `pg_stat_all_tables.n_live_tup`,\nand PostgreSQL reports **no row statistics at all** in more situations than it\nreports zero rows: `reltuples` is `-1` until something vacuums or analyzes the\nrelation, and `n_live_tup` reads `0` after the cumulative counters are reset —\nwhich happens on a crash-recovery restart, on `pg_stat_reset()`, and for a\ntable restored into a fresh cluster."
+        }
+      ],
+      "rationale": "The sentence interleaves two statistic fields, their sentinel values and three reset causes inside a long parenthetical dependency chain.",
+      "proposed_edit": "Explain reltuples=-1 and n_live_tup=0 in separate sentences, then list the reset/restore cases without dropping any condition."
+    },
+    {
+      "id": "p026-post10",
+      "page": "p026",
+      "category": "needless_complexity",
+      "targets": [
+        {
+          "start": 3300,
+          "end": 3708,
+          "quote": "A shadow database** (`--shadow-db`) is a disposable verification target for\ncommands that write or record migrations: `ptah migrations generate` replays\nthe directory — including the new migration, up, down, and up again — before\nkeeping any files, and `ptah migrations checkpoint` and\n`ptah migrations baseline` use it to verify that migrations reproduce the\nexpected schema before anything is recorded."
+        }
+      ],
+      "rationale": "The shadow definition combines generate replay order, checkpoint verification and baseline verification in one sentence.",
+      "proposed_edit": "Keep the definition, then separate generate, checkpoint and baseline behaviors; preserve up/down/up order and verification before retaining files."
+    }
+  ],
+  "limitation": "Detector-assisted complexity labels are excluded from frozen recall; they contribute only to diagnostic usefulness."
+}
