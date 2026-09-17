@@ -179,6 +179,10 @@ not redundant by themselves. Repeated sentences inside a cell remain eligible.
 This conservative scope can miss deliberate repetition across sections or cells.
 Source declarations without heading structure keep their existing document scope;
 two differently named string constants remain eligible for comparison.
+Scope construction charges block visits and serialized context bytes against
+`analysis.max_candidates`; exhaustion produces an explicit rule abstention.
+These enabled rules now require structural extraction. A model pack declaring
+preparation without structure is incompatible and must be rebuilt for that policy.
 
 An explicit leading `if`, `when`, or `unless` clause also separates task variants.
 The complete antecedent up to a comma, colon, or `then` must match, including case,

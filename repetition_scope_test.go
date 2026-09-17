@@ -112,3 +112,20 @@ func TestDuplicateListApplicabilityAndBudget(t *testing.T) {
 	c.Assert(err, qt.IsNil)
 	assertBudgetAbstention(t, result, "guide.md", "repetition.duplicate-list-item", "max_candidates")
 }
+
+func TestRepetitionScopeConstructionAbstainsWithinItsWorkBudget(t *testing.T) {
+	for _, id := range []string{"repetition.exact-sentence", "repetition.near-sentence",
+		"repetition.sentence-openers", "repetition.paragraph-openers", "repetition.duplicate-list-item"} {
+		t.Run(id, func(t *testing.T) {
+			c := qt.New(t)
+			engine := singleRuleEngine(t, id, "", "analysis: {max_candidates: 500}\n")
+			text := "# " + strings.Repeat("Schema ", 80) + "\n\n" + strings.Repeat(overlapParagraph+"\n\n", 3)
+			result, err := engine.Analyze(t.Context(), document.Source{
+				Name: "guide.md", Format: document.Markdown, Bytes: []byte(text),
+			})
+			c.Assert(err, qt.IsNil)
+			c.Assert(result.Findings, qt.HasLen, 0)
+			assertBudgetAbstention(t, result, "guide.md", id, "max_candidates")
+		})
+	}
+}

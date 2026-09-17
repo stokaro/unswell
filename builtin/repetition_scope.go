@@ -16,12 +16,16 @@ import (
 func repetitionScopes(ctx context.Context, view rule.View) (map[int]int, error) {
 	scopes := make(map[int]int, len(view.Document.Blocks))
 	identities := make(map[string]int)
+	budget := repetitionBudget{ctx, view.MaxCandidates}
 	headings := make(map[string]int)
 	for _, block := range view.Document.Blocks {
-		if err := ctx.Err(); err != nil {
+		if err := budget.spend(1); err != nil {
 			return nil, err
 		}
-		owner := repetitionSection(block.Context)
+		owner, err := repetitionSection(block.Context, &budget)
+		if err != nil {
+			return nil, err
+		}
 		if block.Kind == "heading" {
 			headings[owner] = block.ID + 1
 		}
@@ -40,14 +44,18 @@ func repetitionScopes(ctx context.Context, view rule.View) (map[int]int, error) 
 	return scopes, nil
 }
 
-func repetitionSection(labels []string) string {
+func repetitionSection(labels []string, budget *repetitionBudget) (string, error) {
 	var section []string
 	for _, label := range labels {
 		if strings.HasPrefix(label, "heading-") || strings.HasPrefix(label, "container:") {
+			// A heading can recur in many blocks. Charge its bytes before copying.
+			if err := budget.spend(len(label)); err != nil {
+				return "", err
+			}
 			section = append(section, label)
 		}
 	}
-	return fmt.Sprintf("%q", section)
+	return fmt.Sprintf("%q", section), nil
 }
 
 // Compare explicit task antecedents, not just "If you're a". An unresolved

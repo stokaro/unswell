@@ -171,7 +171,12 @@ def evaluate(root=ROOT):
                 page_rows.append(dict(page=pid,cohort=p['cohort'],selection=p.get('selection','confirmation'),
                     defects=len(ids),before=len(ids & found[0]),after=len(ids & found[1]),
                     missed=sorted(ids-found[1])))
-            result[split][profile] = dict(pages=page_rows,delta=changes,
+            repetition_ids = {e['id'] for e in events.values()
+                              if e['kind'] == 'defects' and e['category'] == 'needless_repetition'}
+            repetition = dict(defects=len(repetition_ids), before=len(repetition_ids & found[0]),
+                              after=len(repetition_ids & found[1]),
+                              missed=sorted(repetition_ids-found[1]))
+            result[split][profile] = dict(pages=page_rows,delta=changes,repetition=repetition,
                 added_dispositions=dict(Counter(r['status'] for r in judgments['added'])),
                 findings=dict(before=len(before['findings']),after=len(after['findings'])),
                 gate=dict(before=before['gate'],after=after['gate']),

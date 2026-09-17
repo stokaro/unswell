@@ -1,6 +1,7 @@
 package unswell_test
 
 import (
+	"context"
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
@@ -13,7 +14,6 @@ import (
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/nlp"
-	"github.com/stokaro/unswell/nlp/english"
 	"github.com/stokaro/unswell/probability"
 )
 
@@ -62,26 +62,25 @@ func packFixtureContract(c *qt.C, kind string) probability.Contract {
 	}
 	encoded, err := json.Marshal(columns)
 	c.Assert(err, qt.IsNil)
-	provider, err := english.New()
-	c.Assert(err, qt.IsNil)
+	prepared := packPreparation(c)
 	return probability.Contract{FeatureContract: feature.UnitContract, UnitContract: nlp.UnitContract, Columns: columns,
-		ColumnsSHA256: fmt.Sprintf("%x", sha256.Sum256(encoded)), NLP: provider.Identity(),
-		Capabilities: []nlp.Capability{nlp.Tokens, nlp.Sentences}, PreparationHash: packPreparationHash(c)}
+		ColumnsSHA256: fmt.Sprintf("%x", sha256.Sum256(encoded)), NLP: prepared.NLP,
+		Capabilities: []nlp.Capability{nlp.Tokens, nlp.Sentences}, PreparationHash: prepared.PreparationHash,
+		IncludeQuotes: prepared.IncludeQuotes, IncludeStructure: prepared.IncludeStructure}
 }
 
-// packPreparationHash reproduces the engine's effective preparation identity
-// from its public policy, without assuming a fixed default extraction policy.
-func packPreparationHash(c *qt.C) string {
+// packPreparation reads the actual model-free preparation contract, including
+// structural requirements of the enabled rules, through the public engine.
+func packPreparation(c *qt.C) unswell.PreparedFeatureSource {
 	c.Helper()
-	probe, err := unswell.New(unswell.Options{})
+	probe, err := unswell.New(unswell.Options{
+		PreparedFeatures: []string{"prose-words"}, PreparedKinds: []string{"sentence"},
+	})
 	c.Assert(err, qt.IsNil)
-	policy, err := probe.PolicyForFile("")
+	result, err := probe.Analyze(context.Background(), packSource())
 	c.Assert(err, qt.IsNil)
-	extraction, err := json.Marshal(policy.Extraction)
-	c.Assert(err, qt.IsNil)
-	preparation, err := nlp.PreparationHash(fmt.Sprintf("%x", sha256.Sum256(extraction)), policy.Analysis.IncludeQuotes, false)
-	c.Assert(err, qt.IsNil)
-	return preparation
+	c.Assert(result.PreparedFeatures.Sources, qt.HasLen, 1)
+	return result.PreparedFeatures.Sources[0]
 }
 
 func packStatuses(assessments []unswell.Assessment, scope string) []string {
