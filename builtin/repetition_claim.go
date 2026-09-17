@@ -212,9 +212,6 @@ func assertionShape(tokens []document.Token, minimum int) bool {
 }
 
 func claimIdentity(source []byte, block document.Block, tokens []document.Token, budget *repetitionBudget) (string, bool, error) {
-	if err := budget.spend(tokens[len(tokens)-1].End - tokens[0].Start); err != nil {
-		return "", false, err
-	}
 	var key strings.Builder
 	opaque := false
 	for _, token := range tokens {
@@ -230,6 +227,11 @@ func claimIdentity(source []byte, block document.Block, tokens []document.Token,
 			value, opaque = atom, true
 		}
 		fmt.Fprintf(&key, "%t:%q/", token.Protected, value)
+	}
+	// Invalid code atoms already returned. Charge the mapping walk only when
+	// it runs; rejected commands must not consume work for an unused traversal.
+	if err := budget.spend(tokens[len(tokens)-1].End - tokens[0].Start); err != nil {
+		return "", false, err
 	}
 	if !claimMappingEligible(source, block, tokens) {
 		return "", false, nil

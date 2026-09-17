@@ -119,8 +119,18 @@ func TestExplanatoryRestarts(t *testing.T) {
 			c.Assert(result.Findings, qt.HasLen, row.want)
 			if row.want > 0 {
 				c.Assert(result.Findings[0].Related, qt.HasLen, 1)
-				c.Assert(strings.Contains(result.Findings[0].Related[0].Snippet, "because"), qt.IsFalse)
+				c.Assert(result.Findings[0].Related[0].Snippet, qt.Not(qt.Contains), "because")
 			}
 		})
 	}
+}
+
+func TestRepeatedClaimsChargeOnlyMappingWalksThatRun(t *testing.T) {
+	c := qt.New(t)
+	const unsupported = "The engine uses `open file` to read the selected source and preserve its original contents.\n\n"
+	text := strings.Repeat(unsupported, 200) + "The client retries the request. The client retries the request."
+	result := singleRuleResult(t, "repetition.repeated-claim", text, "", "analysis: {max_candidates: 10000}\n")
+	c.Assert(result.Abstentions, qt.HasLen, 0)
+	c.Assert(result.Findings, qt.HasLen, 1)
+	c.Assert(result.Findings[0].Primary.Snippet, qt.Equals, "The client retries the request")
 }
