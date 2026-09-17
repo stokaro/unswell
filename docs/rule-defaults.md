@@ -1,6 +1,6 @@
 # Which rules ship enabled
 
-The catalog holds 47 rules. Twenty-four are on in the shipped profiles and 23 are
+The catalog holds 48 rules. Twenty-five are on in the shipped profiles and 23 are
 opt-in. This page says how that split was chosen and what each opt-in rule was
 measured at. Every rule also carries its own reason: `unswell rules show ID`
 prints it, the rules page shows it, and a test fails if an opt-in rule has
@@ -14,6 +14,11 @@ profiles. The [Ptah evaluation](research/ptah-rhetoric.md) records their source
 cases and review load. The [framing recall follow-up](../research/reviews/2026-09-17-framing-recall/README.md)
 records seven additional development detections and no confirmation gain. The weights are editorial policy, not measured
 probabilities. The ordinary index gate can still pass a page with these warnings.
+
+The complete-list-item duplicate rule also ships as an experimental warning,
+weight 15, cap 30, with no unconditional gate. It preserves issue references and
+identifier spelling within one list. [Repetition scope](repetition-signals.md#comparison-scope-and-short-complete-items)
+documents its boundaries and evidence.
 
 ## The decision rule
 

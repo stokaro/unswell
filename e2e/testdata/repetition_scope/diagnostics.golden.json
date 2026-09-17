@@ -1,0 +1,60 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": false,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "repetition.duplicate-list-item",
+      "severity": "warning",
+      "gate": "forbid",
+      "scope": "document",
+      "message": "This complete list item is repeated in the same list; check whether both entries describe the same change.",
+      "primary": {
+        "path": "changes.md",
+        "span": {
+          "start": 30,
+          "end": 85
+        },
+        "start": {
+          "line": 3,
+          "column": 3
+        },
+        "end": {
+          "line": 3,
+          "column": 58
+        },
+        "segments": [
+          {
+            "start": 30,
+            "end": 85
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "changes.md",
+          "span": {
+            "start": 347,
+            "end": 400
+          },
+          "start": {
+            "line": 7,
+            "column": 3
+          },
+          "end": {
+            "line": 7,
+            "column": 56
+          },
+          "segments": [
+            {
+              "start": 347,
+              "end": 400
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -11,7 +11,7 @@ import (
 )
 
 func candidateActivationIDs() []string {
-	return []string{"format.list-fragmentation", "repetition.heading-echo", "repetition.near-sentence",
+	return []string{"repetition.duplicate-list-item", "format.list-fragmentation", "repetition.heading-echo", "repetition.near-sentence",
 		"repetition.ngram-density", "repetition.paragraph-overlap", "repetition.summary-echo", "repetition.syntax-template"}
 }
 

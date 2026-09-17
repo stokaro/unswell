@@ -333,9 +333,9 @@ Three repetition rules report the eligibility of their existing grouping keys:
 
 | Rule | Eligible input |
 | --- | --- |
-| `repetition.exact-sentence` | A sentence meeting `min_words` with a nonempty exact key. Any protected token invalidates that sentence's key. All extracted block kinds retain their existing scope. |
+| `repetition.exact-sentence` | A sentence meeting `min_words` with a nonempty exact key. Any protected token invalidates that sentence's key. Structural section, table-cell and leading-condition scopes bound grouping. |
 | `repetition.sentence-openers` | A sentence in a paragraph meeting `min_words` with at least `opener_words` normalized words. |
-| `repetition.paragraph-openers` | As of rule version `2`, the paragraph meets `min_words` and its first sentence has at least `opener_words` normalized words. Later sentences count toward the paragraph minimum but never supply its opening key. |
+| `repetition.paragraph-openers` | As of rule version `3`, the paragraph meets `min_words` and its first sentence has at least `opener_words` normalized words. Later sentences count toward the paragraph minimum but never supply its opening key. |
 
 A grouping key below the occurrence threshold yields zero, including a singleton.
 Clusters activate their occurrence blocks. Adding an unrelated eligible paragraph
@@ -359,7 +359,7 @@ The remaining seven builtin rules record their actual candidate comparisons:
 
 | Rule | Eligible input |
 | --- | --- |
-| `repetition.near-sentence` | Two prepared sentences reached by the existing shared-bigram index. All extracted block kinds retain their scope. |
+| `repetition.near-sentence` | Two prepared sentences reached by the existing shared-bigram index. Structural section, table-cell and leading-condition scopes bound candidate comparisons. |
 | `repetition.paragraph-overlap` | Prepared prose blocks of the same kind reached by the content-key index within `window_blocks`. |
 | `repetition.summary-echo` | An indexed comparison from an earlier nonsummary block to a later block under a selected summary heading. |
 | `repetition.heading-echo` | A selected heading and its adjacent paragraph, both meeting the lexical requirements without an excluded boundary between them. |
@@ -429,3 +429,8 @@ descriptor even when a full block also matches an annotated sentence or paragrap
 The original prepared target kind is retained separately. See the
 [training workflow](../research/annotation/training/README.md) for explicit
 policy selection, missing-value handling, and qualification boundaries.
+
+`repetition.duplicate-list-item` records an eligible complete-item comparison or
+an explicit `unsupported_unit`, `insufficient_words`, or `no_eligible_tokens`
+observation. It groups within one list and structural scope. Protected identifiers
+participate only in identity comparison, never as restored editorial prose.

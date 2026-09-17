@@ -81,7 +81,7 @@ func TestNearSentenceClusterVersionAndBaseline(t *testing.T) {
 	c.Assert(err, qt.IsNil)
 	c.Assert(result.Findings, qt.HasLen, 1)
 	finding := result.Findings[0]
-	c.Assert(finding.RuleVersion, qt.Equals, "2")
+	c.Assert(finding.RuleVersion, qt.Equals, "3")
 	c.Assert(finding.Primary.Snippet, qt.Equals, first)
 	c.Assert(finding.Primary.Start.Line, qt.Equals, 1)
 	c.Assert(finding.Primary.Span.Start, qt.Equals, len("\ufeff"))
@@ -92,7 +92,7 @@ func TestNearSentenceClusterVersionAndBaseline(t *testing.T) {
 	candidates := result.BaselineSnapshot.Candidates
 	c.Assert(len(candidates) > 0, qt.IsTrue)
 	c.Assert(candidates[0].Kind, qt.Equals, "finding")
-	c.Assert(candidates[0].RuleVersion, qt.Equals, "2")
+	c.Assert(candidates[0].RuleVersion, qt.Equals, "3")
 	previous := candidates[0]
 	previous.RuleVersion = "1"
 	oldFingerprint, err := baseline.Fingerprint(previous)

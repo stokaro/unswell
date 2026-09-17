@@ -80,7 +80,7 @@ grammatical structure. It makes no dependency-parser claim.
 The core `repetition.near-sentence` rule uses the shared technical signature as of
 rule version `2` (#102). Its default minimum remains 12 words and its set-Jaccard
 threshold remains 0.85. Candidates share a word bigram and are compared within a
-document; exact copies remain the responsibility of `repetition.exact-sentence`.
+structural scope as of version `3`; exact copies remain the responsibility of `repetition.exact-sentence`.
 Matching pairs form connected clusters with original source locations.
 
 Near-sentence matching retains these cues in token order:
@@ -169,3 +169,37 @@ with source hashes. On that Mac, scanning 2048 synthetic blocks took about 200 m
 for n-grams and 74 ms for templates or paragraph overlap. These are local measurements,
 not release resource guarantees. The four-file Ptah sample produced no new repetition
 findings; its size and absence of quality labels prevent an accuracy conclusion.
+
+## Comparison scope and short complete items
+
+The default exact-sentence (v2), near-sentence (v3), sentence-openers (v2), and
+paragraph-openers (v3) rules compare within one grammar-derived heading/container section. Repeated headings start new sections even when their titles match. Each
+table cell is independent: equal capability values in distinct provider rows are
+not redundant by themselves. Repeated sentences inside a cell remain eligible.
+This conservative scope can miss deliberate repetition across sections or cells.
+Source declarations without heading structure keep their existing document scope;
+two differently named string constants remain eligible for comparison.
+
+An explicit leading `if`, `when`, or `unless` clause also separates task variants.
+The complete antecedent up to a comma, colon, or `then` must match, including case,
+numbers and punctuation. A protected or unresolved antecedent stays local to its
+block; the bound is 64 tokens. This distinguishes installation introductions for
+different package managers without a list of platform names. It is not a general
+model of tasks, coreference or conditions later in a paragraph.
+
+`repetition.duplicate-list-item` compares complete short items within the same
+unordered list and section. It requires four prose words by default and a single
+sentence in a simple item. The existing sentence rules keep their word minimums.
+Case, punctuation, numbers, negation and issue references remain part of identity.
+A single identifier such as `Literal` may compare with its plain-text spelling;
+arbitrary inline code, commands, URLs, link targets, ordered/task lists and complex
+items are inapplicable. Prose whitespace and emphasis formatting may differ.
+All occurrences remain attached to one diagnostic. Candidate-budget exhaustion
+produces an abstention and discards partial rule findings.
+
+The new rule is an experimental warning, weight 15, cap 30, with no unconditional
+gate. It does not detect paraphrases or prove that repeated information is useless.
+The [whole-page follow-up](../research/reviews/2026-09-17-repetition-scope/README.md)
+reports observed gains, removed warnings and remaining misses against the same
+assistant's frozen judgments. Default qualification remains separate from this
+bounded development result.

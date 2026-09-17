@@ -76,6 +76,7 @@ func TestCandidateActivationsKeepExcludedProseOut(t *testing.T) {
 
 func TestCandidateActivationsRetainCancellationAndConcurrentOwnership(t *testing.T) {
 	for _, row := range []struct{ id, text string }{
+		{"repetition.duplicate-list-item", "- Add documentation for Literal type, #651.\n- Add documentation for Literal type, #651.\n"},
 		{"format.list-fragmentation", fragmentedLists},
 		{"repetition.heading-echo", "# A practical approach to the delivery process\n\nA practical approach to the delivery process."},
 		{"repetition.near-sentence", overlapParagraph + "\n\n" + strings.Replace(overlapParagraph, "opens", "creates", 1)},

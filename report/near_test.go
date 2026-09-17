@@ -23,7 +23,7 @@ func TestNearSentenceSavedVersion(t *testing.T) {
 	result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown, Bytes: []byte(text)})
 	c.Assert(err, qt.IsNil)
 	c.Assert(result.Findings, qt.HasLen, 1)
-	c.Assert(result.Findings[0].RuleVersion, qt.Equals, "2")
+	c.Assert(result.Findings[0].RuleVersion, qt.Equals, "3")
 	var encoded bytes.Buffer
 	c.Assert(report.Write(&encoded, "json", result, report.Options{}), qt.IsNil)
 	saved, err := report.Read(&encoded)

@@ -22,6 +22,9 @@ func repetitionRules() []rule.Rule {
 		30,
 	)
 	exact.Defaults.Parameters = rule.Parameters{MinWords: 12, Window: "document"}
+	exact.Version = "2"
+	exact.RequiresStructure = true
+	exact.Description = "Compares sentences within one structural section, with separate table-cell and leading-condition scopes."
 	exact.BlockObservations = true
 	exact.Parameters = []string{"min_words", "window"}
 	sample := "The client opens a connection to the server and sends the request with its credentials."
@@ -34,12 +37,13 @@ func repetitionRules() []rule.Rule {
 		22,
 	)
 	near.Requires = append(near.Requires, nlp.POS)
-	near.Version = "2"
+	near.Version = "3"
+	near.RequiresStructure = true
 	near.BlockObservations = true
 	near.Description = "Compares indexed sentence candidates with set Jaccard and a shared technical-contrast signature."
 	near.Limitations += " Modal, condition, and state cues are retained in token order."
 	near.Limitations += " Numeric-unit protection retains the token after a number, not a complete unit expression."
-	near.Limitations += " Equal signatures do not establish semantic equivalence."
+	near.Limitations += " Equal signatures do not establish semantic equivalence; comparisons stay within structural and task scopes."
 	near.Defaults.Parameters = rule.Parameters{
 		MinWords:           12,
 		Similarity:         0.85,
@@ -63,6 +67,10 @@ func repetitionRules() []rule.Rule {
 		15,
 	)
 	sentence.Defaults.Parameters = rule.Parameters{MinWords: 8, OpenerWords: 3, AllowedOccurrences: 2, SaturationOccurrences: 5}
+	sentence.Version = "2"
+	sentence.RequiresStructure = true
+	sentence.Limitations += " Groups stay within structural sections and explicit leading conditions."
+	sentence.Limitations += " Repeated form need not mean redundant information."
 	sentence.BlockObservations = true
 	sentence.Parameters = []string{"min_words", "opener_words", "allowed_occurrences", "saturation_occurrences"}
 	sentence.Examples = []rule.Example{
@@ -81,9 +89,11 @@ func repetitionRules() []rule.Rule {
 		18,
 	)
 	paragraph.Defaults.Parameters = sentence.Defaults.Parameters
-	paragraph.Version = "2"
+	paragraph.Version = "3"
+	paragraph.RequiresStructure = true
 	paragraph.Description = "Groups opening words from each paragraph's first sentence. The word minimum applies to the complete paragraph."
-	paragraph.Limitations += " Repeated openings do not establish duplicate meaning; technical facts may differ."
+	paragraph.Limitations += " Repeated openings do not establish duplicate meaning."
+	paragraph.Limitations += " Structural sections and leading conditions bound comparisons."
 	paragraph.BlockObservations = true
 	paragraph.Parameters = slices.Clone(sentence.Parameters)
 	paragraph.Examples = []rule.Example{
@@ -96,6 +106,7 @@ func repetitionRules() []rule.Rule {
 	}
 	return []rule.Rule{
 		check{exact, exactRepetition},
+		duplicateListRule(),
 		check{near, nearRepetition},
 		check{sentence, sentenceOpeners},
 		check{paragraph, paragraphOpeners},
@@ -103,12 +114,16 @@ func repetitionRules() []rule.Rule {
 }
 
 func exactRepetition(ctx context.Context, view rule.View, emit rule.Emitter) error {
+	scopes, err := repetitionScopes(ctx, view)
+	if err != nil {
+		return err
+	}
 	groups := make(map[string][]rule.Occurrence)
 	for _, block := range view.Document.Blocks {
 		if err := ctx.Err(); err != nil {
 			return err
 		}
-		if err := addExactBlock(ctx, view, block, groups); err != nil {
+		if err := addExactBlock(ctx, view, block, groups, scopes[block.ID]); err != nil {
 			return err
 		}
 	}
@@ -142,6 +157,10 @@ func paragraphOpeners(ctx context.Context, view rule.View, emit rule.Emitter) er
 }
 
 func openers(ctx context.Context, view rule.View, emit rule.Emitter, paragraphs bool) error {
+	scopes, err := repetitionScopes(ctx, view)
+	if err != nil {
+		return err
+	}
 	groups := make(map[string][]rule.Occurrence)
 	for _, block := range view.Document.Blocks {
 		if err := ctx.Err(); err != nil {
@@ -153,7 +172,7 @@ func openers(ctx context.Context, view rule.View, emit rule.Emitter, paragraphs 
 			}
 			continue
 		}
-		if err := addOpenerBlock(ctx, view, block, groups, paragraphs); err != nil {
+		if err := addOpenerBlock(ctx, view, block, groups, scopes[block.ID], paragraphs); err != nil {
 			return err
 		}
 	}
@@ -180,6 +199,10 @@ func nearRepetition(ctx context.Context, view rule.View, emit rule.Emitter) erro
 
 func linkNearCandidates(ctx context.Context, view rule.View, sentences []document.Sentence,
 	observations *candidateObservations) ([]int, error) {
+	scopes, err := repetitionScopes(ctx, view)
+	if err != nil {
+		return nil, err
+	}
 	units := make([]nearSentence, len(sentences))
 	index := candidateIndex{postings: make(map[string][]int), remaining: view.MaxCandidates}
 	parents := make([]int, len(sentences))
@@ -198,6 +221,7 @@ func linkNearCandidates(ctx context.Context, view rule.View, sentences []documen
 			continue
 		}
 		units[i] = unit
+		scopeShingles(shingles, scopes[sentence.BlockID])
 		ordered, err := index.candidates(ctx, shingles)
 		if err != nil {
 			return nil, err

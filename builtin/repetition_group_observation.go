@@ -2,6 +2,7 @@ package builtin
 
 import (
 	"context"
+	"fmt"
 	"strings"
 
 	"github.com/stokaro/unswell/document"
@@ -29,7 +30,7 @@ func (o repetitionGroupObservation) reason(block document.Block) string {
 	}
 }
 
-func addExactBlock(ctx context.Context, view rule.View, block document.Block, groups map[string][]rule.Occurrence) error {
+func addExactBlock(ctx context.Context, view rule.View, block document.Block, groups map[string][]rule.Occurrence, scope int) error {
 	observation := repetitionGroupObservation{}
 	for _, sentence := range block.Sentences {
 		if err := ctx.Err(); err != nil {
@@ -41,6 +42,7 @@ func addExactBlock(ctx context.Context, view rule.View, block document.Block, gr
 		observation.minimumReached = true
 		key := sentenceKey(sentence)
 		if key != "" {
+			key = fmt.Sprintf("%d/%s", scope, key)
 			groups[key] = append(groups[key], sentenceOccurrence(sentence))
 			observation.evaluated = true
 		}
@@ -48,7 +50,8 @@ func addExactBlock(ctx context.Context, view rule.View, block document.Block, gr
 	return observation.observe(view, block)
 }
 
-func addOpenerBlock(ctx context.Context, view rule.View, block document.Block, groups map[string][]rule.Occurrence, firstOnly bool) error {
+func addOpenerBlock(ctx context.Context, view rule.View, block document.Block,
+	groups map[string][]rule.Occurrence, scope int, firstOnly bool) error {
 	observation := repetitionGroupObservation{}
 	for i, sentence := range block.Sentences {
 		if firstOnly && i > 0 {
@@ -70,6 +73,7 @@ func addOpenerBlock(ctx context.Context, view rule.View, block document.Block, g
 			continue
 		}
 		key := strings.Join(words[:view.Parameters.OpenerWords], " ")
+		key = fmt.Sprintf("%d/%s", scope, key)
 		groups[key] = append(groups[key], sentenceOccurrence(sentence))
 		observation.evaluated = true
 	}

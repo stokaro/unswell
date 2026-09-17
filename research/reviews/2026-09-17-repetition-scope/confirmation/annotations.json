@@ -1,0 +1,630 @@
+[
+  {
+    "version": 1,
+    "page": "c01",
+    "source_sha256": "8cd52036c01b98672f0df639f07000f6eb04fe92fa3133b28374e61f0b3c7f95",
+    "reviewer": "Codex assistant implementing issue 300; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Repeated information, duplicated wording and independently useful parallel text; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 4109,
+        "first_line": 1,
+        "last_line": 142,
+        "rationale": "Reviewed every extracted prose block in source order, including headings, list items and table cells, with original source spans and protected values as context. Frontmatter, code, imports and images are not positive prose units; imported components and image contents were not expanded."
+      }
+    ],
+    "defects": [],
+    "uncertain": [],
+    "controls": [
+      {
+        "id": "c01-c01",
+        "category": "needless_repetition",
+        "subtype": "task_variants",
+        "targets": [
+          {
+            "start": 2362,
+            "end": 2459,
+            "quote": "On Linux and macOS, the installer prints this only when the destination is not\nalready on `PATH`:"
+          },
+          {
+            "start": 2511,
+            "end": 2676,
+            "quote": "Run it for the current terminal and add it to your shell startup file to keep\nit. On Windows, the installer updates the user `Path` unless you disable that\nbehavior."
+          }
+        ],
+        "rationale": "Linux/macOS PATH instructions and the Windows PATH behavior answer different platform questions; repeated PATH is necessary.",
+        "proposed_edit": "Keep the platform-specific instructions."
+      },
+      {
+        "id": "c01-c02",
+        "category": "needless_repetition",
+        "subtype": "task_variants",
+        "targets": [
+          {
+            "start": 3216,
+            "end": 3358,
+            "quote": "Add the install directory to the running shell as shown above, then run\n`ptah version` again. The binaries may already be installed correctly."
+          }
+        ],
+        "rationale": "The troubleshooting reminder repeats the PATH action at the point a failed verification needs it.",
+        "proposed_edit": "Keep the recovery action."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c02",
+    "source_sha256": "04ec7f8b4dbb018339269a5d5faa4de72f604d431326bfa3f9c236306c55f258",
+    "reviewer": "Codex assistant implementing issue 300; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Repeated information, duplicated wording and independently useful parallel text; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 15162,
+        "first_line": 1,
+        "last_line": 558,
+        "rationale": "Reviewed every extracted prose block in source order, including headings, list items and table cells, with original source spans and protected values as context. Frontmatter, code, imports and images are not positive prose units; imported components and image contents were not expanded."
+      }
+    ],
+    "defects": [],
+    "uncertain": [
+      {
+        "id": "c02-u01",
+        "category": "needless_repetition",
+        "subtype": "section_summary",
+        "targets": [
+          {
+            "start": 7413,
+            "end": 7646,
+            "quote": "The adopted database already has this schema, so the initial migration must never run against it. `ptah migrations baseline` writes revision-table rows only — it does not execute migration SQL on the target. Preview the rows first:"
+          },
+          {
+            "start": 14721,
+            "end": 14835,
+            "quote": "`ptah migrations baseline` records revision rows; it never creates, alters, or drops schema objects on the target."
+          }
+        ],
+        "rationale": "The limitations checklist repeats the safety fact that baseline writes revision rows without executing DDL. Consolidation is possible, but repeating a destructive-operation boundary can be useful.",
+        "proposed_edit": "Consider linking the limitation to step 4; retain the no-DDL warning."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c02-c01",
+        "category": "needless_repetition",
+        "subtype": "task_variants",
+        "targets": [
+          {
+            "start": 2225,
+            "end": 2260,
+            "quote": "Expected output on standard output:"
+          },
+          {
+            "start": 2919,
+            "end": 2954,
+            "quote": "Expected output on standard output:"
+          },
+          {
+            "start": 5695,
+            "end": 5730,
+            "quote": "Expected output on standard output:"
+          },
+          {
+            "start": 7269,
+            "end": 7304,
+            "quote": "Expected output on standard output:"
+          },
+          {
+            "start": 7756,
+            "end": 7791,
+            "quote": "Expected output on standard output:"
+          },
+          {
+            "start": 9062,
+            "end": 9097,
+            "quote": "Expected output on standard output:"
+          },
+          {
+            "start": 9316,
+            "end": 9351,
+            "quote": "Expected output on standard output:"
+          },
+          {
+            "start": 12006,
+            "end": 12041,
+            "quote": "Expected output on standard output:"
+          },
+          {
+            "start": 12200,
+            "end": 12235,
+            "quote": "Expected output on standard output:"
+          }
+        ],
+        "rationale": "Expected-output introductions refer to different command invocations and outcomes, not the same event repeated.",
+        "proposed_edit": "Keep each expected-output label beside its command."
+      },
+      {
+        "id": "c02-c02",
+        "category": "needless_repetition",
+        "subtype": "section_summary",
+        "targets": [
+          {
+            "start": 4866,
+            "end": 5088,
+            "quote": "There is no direct database-to-YAML command. Use SQL, HCL, DBML, or Go for the\nadoption, or author YAML separately and prove it with the same drift check.\nFrom this point, edit the selected source rather than the database."
+          },
+          {
+            "start": 14350,
+            "end": 14549,
+            "quote": "`ptah introspect` writes annotated Go models only. Use `schema inspect` for\n  direct HCL or DBML output and `db read` for direct SQL output. Ptah does not\n  have a direct database-to-YAML conversion."
+          }
+        ],
+        "rationale": "The unavailable YAML conversion appears in the source-selection step and in a separate limitations checklist used for lookup.",
+        "proposed_edit": "Keep the limitation in both navigation contexts."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c03",
+    "source_sha256": "97f1846e4eb9f36339f17bb47738dedfda197e26618ed6233748878af8147b5f",
+    "reviewer": "Codex assistant implementing issue 300; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Repeated information, duplicated wording and independently useful parallel text; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 50811,
+        "first_line": 1,
+        "last_line": 776,
+        "rationale": "Reviewed every extracted prose block in source order, including headings, list items and table cells, with original source spans and protected values as context. Frontmatter, code, imports and images are not positive prose units; imported components and image contents were not expanded."
+      }
+    ],
+    "defects": [],
+    "uncertain": [
+      {
+        "id": "c03-u01",
+        "category": "needless_repetition",
+        "subtype": "cross_section",
+        "targets": [
+          {
+            "start": 529,
+            "end": 841,
+            "quote": "The native `ptah` surface uses Ptah-owned spellings; Atlas aliases are\nintentionally absent from this binary. The index below contains every command\npath it answers to, followed by per-verb details. The separate `ptah-compat`\ndrop-in binary has its own reference:\n[Atlas-compatible commands](../atlas-commands/)."
+          },
+          {
+            "start": 1054,
+            "end": 1410,
+            "quote": "The index below is generated from the `ptah` command tree, so it names every\ncommand path the binary answers to and no path it does not. Rows are sorted,\nwhich keeps a namespace's verbs together; which verb to reach for first is\n[Choose a workflow](../../start/choose-a-workflow/). Use `ptah <command> --help`\nfor the exact flag set in an installed binary."
+          }
+        ],
+        "rationale": "The opening and index introduction both promise every command path. Removing the opening preview would shorten the page, but it also orients readers before the index.",
+        "proposed_edit": "Consider removing only the opening sentence about what the index contains; keep the generated-command-tree provenance."
+      },
+      {
+        "id": "c03-u02",
+        "category": "needless_repetition",
+        "subtype": "within_block",
+        "targets": [
+          {
+            "start": 20702,
+            "end": 20940,
+            "quote": "Pass an absolute pathname when you intentionally read a schema file outside the\nworking directory, such as `--schema-file /srv/schemas/app.sql`. Absolute\npathnames retain their existing reach and are not confined to the working\ndirectory."
+          }
+        ],
+        "rationale": "The instruction to pass an absolute path outside the working directory is followed by the same lack-of-confinement statement. The latter may clarify that existing absolute-path behavior is intentional.",
+        "proposed_edit": "Consider retaining the instruction and example while dropping the final sentence if users already understand absolute paths."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c03-c01",
+        "category": "needless_repetition",
+        "subtype": "table_roles",
+        "targets": [
+          {
+            "start": 4182,
+            "end": 4297,
+            "quote": "Writes a bash completion script to stdout, generated from the command tree; it opens no database and writes no file"
+          },
+          {
+            "start": 4333,
+            "end": 4448,
+            "quote": "Writes a fish completion script to stdout, generated from the command tree; it opens no database and writes no file"
+          },
+          {
+            "start": 4490,
+            "end": 4611,
+            "quote": "Writes a PowerShell completion script to stdout, generated from the command tree; it opens no database and writes no file"
+          },
+          {
+            "start": 4646,
+            "end": 4760,
+            "quote": "Writes a zsh completion script to stdout, generated from the command tree; it opens no database and writes no file"
+          }
+        ],
+        "rationale": "The completion commands produce scripts for four different shells. Similar wording has a different command and output role in each row.",
+        "proposed_edit": "Keep each shell-specific row."
+      },
+      {
+        "id": "c03-c02",
+        "category": "needless_repetition",
+        "subtype": "technical_contrast",
+        "targets": [
+          {
+            "start": 26269,
+            "end": 26701,
+            "quote": "Every verb that has a machine-readable format, except the two lint verbs below,\nwrites that document to **stdout** whatever the outcome, and keeps stderr for\ndiagnostics. That includes the\nexpected-negative cases: `ptah schema drift --format json` writes its report to\nstdout and exits 1 when there is drift, exactly as\n`ptah migrations status --json --exit-code` writes its report to stdout and\nexits 1 when migrations are pending."
+          },
+          {
+            "start": 26703,
+            "end": 27442,
+            "quote": "`ptah sql lint` and `ptah migrations lint` are the exception, and it is\ndeliberate. They trade the streams on the outcome: a failing run writes the\nreport to stderr and leaves stdout for the run's prose, and a passing run writes\nthe report to stdout and the prose to stderr. Neither stream ever carries a\nsentence inside a document a consumer decodes, which is what that choice buys.\nIt applies to every format each verb accepts -- `text` and `json` for\n`ptah sql lint`, and `text`, `json`, `github-actions`, `sarif` and `gitlab` for\n`ptah migrations lint`. A caller therefore reads stderr on exit `1` and stdout\non exit `0`, or merges the two with `2>&1`; reading stdout alone on a failing\nrun gets the prose or nothing, never the report."
+          }
+        ],
+        "rationale": "The general stdout rule and the lint exception prescribe opposite stream handling; shared output terminology is necessary.",
+        "proposed_edit": "Keep both contracts."
+      },
+      {
+        "id": "c03-c03",
+        "category": "needless_repetition",
+        "subtype": "task_variants",
+        "targets": [
+          {
+            "start": 45408,
+            "end": 45726,
+            "quote": "`migrations lint` can attach its canonical report with `--attach`, and a plan\nwith exactly one OCI schema source can attach its canonical safety report. Use\ndigest pins for reproducible runs and reserve `--plain-http` for an explicitly\ntrusted local registry. See [OCI registry\nartifacts](../../operate/oci-registry/)."
+          },
+          {
+            "start": 46729,
+            "end": 47195,
+            "quote": "`ptah oci referrers <oci-reference>` lists direct attachment descriptors.\n`--type` accepts `all`, `lint`, `plan`, or `deployment`; `--format` accepts\n`text` or `json`. Unqualified subjects resolve to `:latest`, tags resolve to\ntheir current manifest, and digest subjects remain immutable. Docker\ncredentials and HTTPS are the defaults; `--plain-http` is only for an\nexplicitly trusted local registry. The command lists metadata; `ptah oci fetch`\nreturns the payload."
+          }
+        ],
+        "rationale": "The plain-HTTP restriction is stated for the common OCI workflow and repeated next to a specific command reference. These are separate lookup contexts.",
+        "proposed_edit": "Keep the trust restriction with the command."
+      },
+      {
+        "id": "c03-c04",
+        "category": "needless_repetition",
+        "subtype": "task_variants",
+        "targets": [
+          {
+            "start": 47464,
+            "end": 47967,
+            "quote": "`ptah oci inspect <oci-reference>` reads the manifest and stops there: artifact\ntype, subject, annotations, and each file layer's name, media type, size, and\ndigest, without downloading the files. It also reports how each referrer was\ndiscovered. Ptah writes both the standard referrers index and its own\ncontent-derived durable tag, and a referrer reported as `durable-tag` was\nreturned by the second mechanism alone — Ptah finds it and another OCI client\nmay not. `--no-referrers` skips that lookup."
+          },
+          {
+            "start": 49504,
+            "end": 50083,
+            "quote": "`ptah oci capabilities <oci-reference>` asks the registry whether it answers\nthe referrers API. Ptah publishes referrers both through the standard index and\nthrough its own content-derived tag and merges them on read, so its own\ndiscovery works whether or not the registry answers that API — and where the\nAPI is absent, a referrer Ptah published is one another OCI client may never\nfind. The question is put with the client pinned to the API so a success cannot\nhave come from the tag-schema fallback, and a failure to ask is reported as an\nerror rather than folded into a no."
+          }
+        ],
+        "rationale": "The durable-tag explanation serves inspect output interpretation in one entry and the capabilities probe in another. The operations and reasons differ.",
+        "proposed_edit": "Keep the interpretation and probe semantics."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c04",
+    "source_sha256": "b406e9699b7ed8369de7dd8dcfcbd9ce61d309f0c1a41fbf69c10aab1d7bac2d",
+    "reviewer": "Codex assistant implementing issue 300; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Repeated information, duplicated wording and independently useful parallel text; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 4014,
+        "first_line": 1,
+        "last_line": 91,
+        "rationale": "Reviewed every extracted prose block in source order, including headings, list items and table cells, with original source spans and protected values as context. Frontmatter, code, imports and images are not positive prose units; imported components and image contents were not expanded."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c04-d01",
+        "category": "needless_repetition",
+        "subtype": "adjacent_word",
+        "targets": [
+          {
+            "start": 3587,
+            "end": 3590,
+            "quote": "See"
+          },
+          {
+            "start": 3591,
+            "end": 3594,
+            "quote": "See"
+          }
+        ],
+        "rationale": "The adjacent imperative is copied twice without a second instruction. This is a local editing defect regardless of the issue target.",
+        "proposed_edit": "Delete one occurrence of See; preserve the issue link."
+      },
+      {
+        "id": "c04-d02",
+        "category": "needless_repetition",
+        "subtype": "adjacent_word",
+        "targets": [
+          {
+            "start": 3944,
+            "end": 3947,
+            "quote": "See"
+          },
+          {
+            "start": 3948,
+            "end": 3951,
+            "quote": "See"
+          }
+        ],
+        "rationale": "The adjacent imperative is copied twice without a second instruction. This is a local editing defect regardless of the issue target.",
+        "proposed_edit": "Delete one occurrence of See; preserve the issue link."
+      }
+    ],
+    "uncertain": [],
+    "controls": [
+      {
+        "id": "c04-c01",
+        "category": "needless_repetition",
+        "subtype": "references",
+        "targets": [
+          {
+            "start": 1303,
+            "end": 1318,
+            "quote": "See [Issue #338"
+          },
+          {
+            "start": 1539,
+            "end": 1554,
+            "quote": "See [Issue #345"
+          },
+          {
+            "start": 1806,
+            "end": 1821,
+            "quote": "See [Issue #434"
+          },
+          {
+            "start": 2319,
+            "end": 2397,
+            "quote": "See [Issue #347](https://github.com/nats-io/gnatsd/issues/347) and [Issue #348"
+          },
+          {
+            "start": 2683,
+            "end": 2698,
+            "quote": "See [Issue #346"
+          },
+          {
+            "start": 3108,
+            "end": 3123,
+            "quote": "See [Issue #344"
+          }
+        ],
+        "rationale": "Repeated See Issue introductions point to different roadmap tasks; their issue IDs must remain distinct.",
+        "proposed_edit": "Keep each task link."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c05",
+    "source_sha256": "015d966a31d3e6613a0fb5aacc80aab2c68068027143563a4467e93c230f8f45",
+    "reviewer": "Codex assistant implementing issue 300; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Repeated information, duplicated wording and independently useful parallel text; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 13662,
+        "first_line": 1,
+        "last_line": 343,
+        "rationale": "Reviewed every extracted prose block in source order, including headings, list items and table cells, with original source spans and protected values as context. Frontmatter, code, imports and images are not positive prose units; imported components and image contents were not expanded."
+      }
+    ],
+    "defects": [],
+    "uncertain": [
+      {
+        "id": "c05-u01",
+        "category": "needless_repetition",
+        "subtype": "within_block",
+        "targets": [
+          {
+            "start": 5547,
+            "end": 5749,
+            "quote": "When you need a bit more control over the initialization of\nhighlight.js, you can use the [`highlightBlock`][3] and [`configure`][4]\nfunctions. This allows you to control *what* to highlight and *when*."
+          }
+        ],
+        "rationale": "The custom-initialization paragraph announces greater control and then says it controls what and when. This can be compressed, but the two dimensions explain the API choice.",
+        "proposed_edit": "Consider combining the two sentences while preserving the named APIs and what/when distinction."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c05-c01",
+        "category": "needless_repetition",
+        "subtype": "task_variants",
+        "targets": [
+          {
+            "start": 11423,
+            "end": 11480,
+            "quote": "See our [building documentation][6] for more information."
+          },
+          {
+            "start": 12502,
+            "end": 12559,
+            "quote": "See our [building documentation][6] for more information."
+          }
+        ],
+        "rationale": "The same build-documentation link supports the browser-build and Node server-module sections, each independently useful.",
+        "proposed_edit": "Keep each reference in its build context."
+      },
+      {
+        "id": "c05-c02",
+        "category": "needless_repetition",
+        "subtype": "distinct_facts",
+        "targets": [
+          {
+            "start": 3147,
+            "end": 3367,
+            "quote": "Highlight.js is a syntax highlighter written in JavaScript. It works in\nthe browser as well as on the server. It works with pretty much any\nmarkup, doesn’t depend on any framework, and has automatic language\ndetection."
+          }
+        ],
+        "rationale": "Browser/server support, markup support, framework independence and language detection are different capabilities, despite the repeated subject.",
+        "proposed_edit": "Keep the distinct capability statements."
+      }
+    ]
+  },
+  {
+    "version": 1,
+    "page": "c06",
+    "source_sha256": "fd9d5752ce2730a7cf5ff6160bfbf5c6fe2a6c0ac0ee8b6845c3050312dac5a8",
+    "reviewer": "Codex assistant implementing issue 300; maintainer-authorized assistant review",
+    "phase": "before_confirmation_diagnostic_output_review",
+    "scope": "Repeated information, duplicated wording and independently useful parallel text; not an all-defect or authorship annotation",
+    "coverage": [
+      {
+        "start": 0,
+        "end": 41083,
+        "first_line": 1,
+        "last_line": 1004,
+        "rationale": "Reviewed every extracted prose block in source order, including headings, list items and table cells, with original source spans and protected values as context. Frontmatter, code, imports and images are not positive prose units; imported components and image contents were not expanded."
+      }
+    ],
+    "defects": [
+      {
+        "id": "c06-d01",
+        "category": "needless_repetition",
+        "subtype": "adjacent_word",
+        "targets": [
+          {
+            "start": 5281,
+            "end": 5289,
+            "quote": "requires"
+          },
+          {
+            "start": 5290,
+            "end": 5298,
+            "quote": "requires"
+          }
+        ],
+        "rationale": "The same verb is accidentally adjacent; it contributes no additional requirement.",
+        "proposed_edit": "Delete the second requires and retain the list of binaries."
+      },
+      {
+        "id": "c06-d02",
+        "category": "needless_repetition",
+        "subtype": "within_sentence",
+        "targets": [
+          {
+            "start": 15011,
+            "end": 15057,
+            "quote": "The reasons for why this is are quite complex,"
+          },
+          {
+            "start": 15058,
+            "end": 15160,
+            "quote": "and they are complex because the optimizations that ripgrep uses to implement\nfast search are complex."
+          }
+        ],
+        "rationale": "The explanation repeats complex three times instead of naming a source of cost. The next paragraphs actually identify line-by-line searching and Unicode validation.",
+        "proposed_edit": "Replace the two clauses with a direct preview of line-by-line search and Unicode validation, preserving the subsequent explanation."
+      },
+      {
+        "id": "c06-d03",
+        "category": "needless_repetition",
+        "subtype": "within_block",
+        "targets": [
+          {
+            "start": 34691,
+            "end": 34799,
+            "quote": "In particular, ripgrep's dependencies (direct and transitive)\nwill always be limited to permissive licenses."
+          },
+          {
+            "start": 34800,
+            "end": 34877,
+            "quote": "That is, ripgrep will never\ndepend on code that is not permissively licensed."
+          }
+        ],
+        "rationale": "The second sentence states the same permissive-only constraint by negating its complement. The following copyleft examples and weak-copyleft boundary already explain the scope.",
+        "proposed_edit": "Delete the That is sentence; retain the direct/transitive scope and the copyleft examples."
+      }
+    ],
+    "uncertain": [
+      {
+        "id": "c06-u01",
+        "category": "needless_repetition",
+        "subtype": "within_block",
+        "targets": [
+          {
+            "start": 36996,
+            "end": 37162,
+            "quote": "Do you need to search UTF-16 files and you don't want to bother explicitly\n  transcoding them? Great. ripgrep does this for you automatically. No need\n  to enable it."
+          }
+        ],
+        "rationale": "Automatically and No need to enable it repeat the default behavior, but the final sentence can reassure a reader deciding whether a flag is required.",
+        "proposed_edit": "Consider combining the automatic/default statements without changing the encoding claim."
+      }
+    ],
+    "controls": [
+      {
+        "id": "c06-c01",
+        "category": "needless_repetition",
+        "subtype": "technical_contrast",
+        "targets": [
+          {
+            "start": 12344,
+            "end": 12556,
+            "quote": "Increasing the limit to 1GB does not necessarily mean that ripgrep will use\nthat much memory. The limit just says that it's allowed to (approximately) use\nthat much memory for constructing the regular expression."
+          },
+          {
+            "start": 12803,
+            "end": 13402,
+            "quote": "If this pattern file gets too big, then it is possible ripgrep will slow down\ndramatically. *Typically* this is because an internal cache is too small, and\nwill cause ripgrep to spill over to a slower but more robust regular expression\nengine. If this is indeed the problem, then it is possible to increase this\ncache and regain speed. The cache can be controlled via the `--dfa-size-limit`\nflag. For example, using `--dfa-size-limit 1G` will set the cache size to 1GB.\n(Note that this doesn't mean ripgrep will use 1GB of memory automatically, but\nit will allow the regex engine to if it needs to.)"
+          }
+        ],
+        "rationale": "One memory limit bounds regex construction and the other bounds the DFA cache. Repeating that a limit is not immediate allocation prevents distinct misunderstandings.",
+        "proposed_edit": "Keep both limit explanations."
+      },
+      {
+        "id": "c06-c02",
+        "category": "needless_repetition",
+        "subtype": "section_summary",
+        "targets": [
+          {
+            "start": 25953,
+            "end": 26152,
+            "quote": "At this point, we can combine all of our insights above: let's try to get off\nof the slow line-by-line searcher by enabling multiline mode, and let's stop\nUTF-8 decoding by disabling Unicode support:"
+          },
+          {
+            "start": 27040,
+            "end": 27311,
+            "quote": "In summary, if you want PCRE2 to go as fast as possible and you don't care\nabout Unicode and you don't care about matches possibly spanning across\nmultiple lines, then enable multiline mode with `-U` and disable PCRE2's\nUnicode support with the `--no-pcre2-unicode` flag."
+          }
+        ],
+        "rationale": "The closing recommendation preserves the Unicode and multiline tradeoffs after a long worked comparison. It is an actionable summary rather than another benchmark result.",
+        "proposed_edit": "Keep the qualified recommendation."
+      },
+      {
+        "id": "c06-c03",
+        "category": "needless_repetition",
+        "subtype": "task_variants",
+        "targets": [
+          {
+            "start": 28116,
+            "end": 28213,
+            "quote": "Temporarily bypass an existing `rg` alias by calling ripgrep as\n  `command rg`, `\\rg`, or `'rg'`."
+          },
+          {
+            "start": 28216,
+            "end": 28363,
+            "quote": "Temporarily bypass an existing alias or another tool named `rg` by calling\n  ripgrep by its full path (e.g., `/usr/bin/rg` or `/usr/local/bin/rg`)."
+          }
+        ],
+        "rationale": "Bypassing an alias and bypassing another executable named rg require different mechanisms. Shared wording does not make the steps interchangeable.",
+        "proposed_edit": "Keep both alternatives and their command examples."
+      }
+    ]
+  }
+]
