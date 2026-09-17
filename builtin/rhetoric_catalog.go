@@ -46,6 +46,8 @@ func localRhetoricRules() []rule.Rule {
 				"a bare whole-point/design declaration, an anaphoric assertion of value or verification, "+
 				"an information subject announcing cognitive worth, abstract feature-purpose or intentionality closures, "+
 				"output claiming to prove understanding, or an impersonal modal notice followed by a that-clause. "+
+				"Also recognizes cognitive notices modifying information nouns, gerund-anaphor purpose clefts, "+
+				"relative feature-purpose predicates and discourse subjects declaring importance or editorial integrity. "+
 				"Concrete component purposes and measured evaluations stay excluded; "+
 				"notice and cognitive-worth frames retain their attached conditions.",
 			[]rule.Example{{Text: "The approval stops applying, which is what binding it to a digest is for.", Match: true},
@@ -57,7 +59,8 @@ func localRhetoricRules() []rule.Rule {
 			"A positive copular clause announces intentional quality without a mechanism, calls a choice nearly always right, "+
 				"or promises the fastest/best/easiest way to understand everything. "+
 				"Also recognizes affirmative extreme quality predicates and unrestricted claims about "+
-				"what everybody or nobody knows, wants or can verify, and unsupported majority claims about reader preferences or practice. "+
+				"what everybody or nobody knows, wants or can verify, unsupported majority claims about reader preferences or practice, "+
+				"and anaphoric result tails predicting generic readers' preferences or understanding. "+
 				"Conditional, quantified and protected constructions are excluded.",
 			[]rule.Example{{Text: "The configuration is intentionally explicit.", Match: true},
 				{Text: "The configuration is explicit about unknown keys."}}),
@@ -91,7 +94,10 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 		d.Version = "2"
 	}
 	if id == "filler.unscoped-assurance" {
-		d.Version = "3"
+		d.Version = "4"
+	}
+	if id == "filler.evaluative-closure" {
+		d.Version = "6"
 	}
 	if id == "filler.instruction-scaffolding" {
 		d.Version = "3"

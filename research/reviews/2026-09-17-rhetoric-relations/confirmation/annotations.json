@@ -1,0 +1,1772 @@
+{
+  "version": 1,
+  "protocol": "unswell-editorial-v1",
+  "reviewer": "Codex implementing assistant; maintainer accepted under ADR 0041",
+  "review_phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "20a4690588cb9d8ed7334f03a33f014503a9db6af31055cec8c96ecbb715c05c",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 3114,
+          "first_line": 1,
+          "last_line": 134,
+          "rationale": "Read all connection instructions, client table, permission roots, capability-versus-reachability distinction and write authorization guidance. No definite wording defect found; short operational instructions retain necessary conditions and scope.",
+          "prose_blocks": 29,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [],
+      "uncertain": [],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2068,
+              "end": 2219,
+              "quote": "References with a scheme such as `oci://` or `https://` are refused. Fetching is\na network operation and this surface has no capability that grants it."
+            }
+          ],
+          "context": [
+            {
+              "start": 2068,
+              "end": 2219,
+              "quote": "References with a scheme such as `oci://` or `https://` are refused. Fetching is\na network operation and this surface has no capability that grants it."
+            }
+          ],
+          "rationale": "Rejecting network URLs is a distinct permission boundary, not repetition of directory authorization.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2468,
+              "end": 2616,
+              "quote": "A capability row can say `database.inspect:dev ask` while the database list is\nempty. The first is policy; the second says no target was configured."
+            }
+          ],
+          "context": [
+            {
+              "start": 2468,
+              "end": 2616,
+              "quote": "A capability row can say `database.inspect:dev ask` while the database list is\nempty. The first is policy; the second says no target was configured."
+            }
+          ],
+          "rationale": "Policy permission and a configured reachable database are different; the contrast explains a real diagnostic state.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 2955,
+              "end": 3113,
+              "quote": "This exposes artifact tools but still permits no write. Read\n[Agent permissions](../ai-agent-permissions/) before adding `--allow-write` or a\ndatabase target."
+            }
+          ],
+          "context": [
+            {
+              "start": 2955,
+              "end": 3113,
+              "quote": "This exposes artifact tools but still permits no write. Read\n[Agent permissions](../ai-agent-permissions/) before adding `--allow-write` or a\ndatabase target."
+            }
+          ],
+          "rationale": "Read versus write permissions and database access are separate grants.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "16fade33e49f1731f4da9c3a8c2df3f8ba8a867efa5f461a4d687107bedbf140",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 13619,
+          "first_line": 1,
+          "last_line": 400,
+          "rationale": "Read the complete plan, sign, verify and apply workflow, failure exercises, approval-file governance and SSH dependency. Preserve byte coverage, namespaces, identities, database fingerprint checks and the limits of approval. Examples are context rather than prose targets.",
+          "prose_blocks": 74,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6697,
+              "end": 6731,
+              "quote": "This is what the signature is for."
+            }
+          ],
+          "context": [
+            {
+              "start": 6697,
+              "end": 6837,
+              "quote": "This is what the signature is for. Copy the approved plan and its signature,\nchange one statement in the copy, and hand the copy to `apply`:"
+            }
+          ],
+          "rationale": "The purpose announcement repeats the already explained integrity role before a concrete tampering exercise.",
+          "proposed_edit": "Begin with copying the approved plan and changing one statement; keep the exercise."
+        },
+        {
+          "id": "c02-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7696,
+              "end": 7754,
+              "quote": "rather than a set of fields chosen as the\nones that matter"
+            }
+          ],
+          "context": [
+            {
+              "start": 7503,
+              "end": 7755,
+              "quote": "The command exits `2` and the database is untouched: the check runs before the\nplan is executed. A whitespace-only edit is refused the same way, because the\nsignature covers the whole document rather than a set of fields chosen as the\nones that matter."
+            }
+          ],
+          "rationale": "The vague field-selection comparison lengthens the already precise whole-document guarantee.",
+          "proposed_edit": "Say the signature covers the whole document, including whitespace."
+        },
+        {
+          "id": "c02-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 12292,
+              "end": 12350,
+              "quote": "so this control is worth what review of that file is worth"
+            }
+          ],
+          "context": [
+            {
+              "start": 12138,
+              "end": 12351,
+              "quote": "The set of approvers is a file in your repository. Whoever can change\n`.ptah/allowed_signers` and the plan in the same change can approve their own\nplan, so this control is worth what review of that file is worth."
+            }
+          ],
+          "rationale": "The circular worth/review formulation obscures the specific dependence on reviewing approver-file changes.",
+          "proposed_edit": "Say the protection depends on reviewing changes to allowed_signers; retain who can self-approve."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c02-u01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 13109,
+              "end": 13303,
+              "quote": "A plan file carries the fingerprint of the database it was computed against.\n  Applying it to a database in a different state refuses on that fingerprint,\n  whether or not the approval verifies."
+            }
+          ],
+          "context": [
+            {
+              "start": 13109,
+              "end": 13303,
+              "quote": "A plan file carries the fingerprint of the database it was computed against.\n  Applying it to a database in a different state refuses on that fingerprint,\n  whether or not the approval verifies."
+            }
+          ],
+          "rationale": "The fingerprint limitation repeats prior material but belongs to a distinct final limitations summary.",
+          "proposed_edit": "Consider linking to the earlier fingerprint check while keeping the limitation visible."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4892,
+              "end": 5163,
+              "quote": "`namespaces=\"ptah-plan\"` is optional and worth writing. Ptah signs plans in the\n`ptah-plan` namespace, and the option restricts that key entry to the same\nnamespace. A signature the same key made over the same bytes for another\npurpose does not verify as a plan approval."
+            }
+          ],
+          "context": [
+            {
+              "start": 4892,
+              "end": 5163,
+              "quote": "`namespaces=\"ptah-plan\"` is optional and worth writing. Ptah signs plans in the\n`ptah-plan` namespace, and the option restricts that key entry to the same\nnamespace. A signature the same key made over the same bytes for another\npurpose does not verify as a plan approval."
+            }
+          ],
+          "rationale": "Worth writing refers to a namespace option with a specific cross-purpose signature defense, not to presenting information.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 9682,
+              "end": 10149,
+              "quote": "The plan changed after it was approved. Or a key the list does not name signed\nit — signing succeeds whatever the key is, because `approve` never reads\n`allowed_signers`. Or `ssh-keygen` could not run: verification discards what\n`ssh-keygen` reported and prints the two-cause message anyway, so a `PATH` that\nholds no `ssh-keygen` produces this line byte for byte. Check that\n`ssh-keygen -Y verify` runs on the machine before reading the message as a\ntampered plan."
+            }
+          ],
+          "context": [
+            {
+              "start": 9682,
+              "end": 10149,
+              "quote": "The plan changed after it was approved. Or a key the list does not name signed\nit — signing succeeds whatever the key is, because `approve` never reads\n`allowed_signers`. Or `ssh-keygen` could not run: verification discards what\n`ssh-keygen` reported and prints the two-cause message anyway, so a `PATH` that\nholds no `ssh-keygen` produces this line byte for byte. Check that\n`ssh-keygen -Y verify` runs on the machine before reading the message as a\ntampered plan."
+            }
+          ],
+          "rationale": "Different verification failures deliberately collapse to one exit behavior; preserve the cases.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 11858,
+              "end": 11966,
+              "quote": "That the database still matches the plan.** The fingerprint check answers\n  that, separately, at apply time."
+            }
+          ],
+          "context": [
+            {
+              "start": 11858,
+              "end": 11966,
+              "quote": "That the database still matches the plan.** The fingerprint check answers\n  that, separately, at apply time."
+            }
+          ],
+          "rationale": "Signature validity and database drift are independent properties.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "cbfeddcbb8ea083b016fc6c2343799dc0e9c7727e0330863371f1eca1ae635ba",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 59000,
+          "first_line": 1,
+          "last_line": 518,
+          "rationale": "Read all 1095 blocks, including every matrix cell, legend, command counts, data-distribution overview, evidence method and limitations. Repeated column labels and row-specific outcomes serve reference lookup. Preserve actual measurements and edition distinctions. A truncated identifier in the source table is outside this editorial rubric; no missing code is reconstructed.",
+          "prose_blocks": 1095,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1039,
+              "end": 1077,
+              "quote": "It is a status index, not an argument."
+            }
+          ],
+          "context": [
+            {
+              "start": 1039,
+              "end": 1323,
+              "quote": "It is a status index, not an argument. The measured evidence is on\n[Conformance](../conformance/), the differences Ptah keeps on purpose are on\n[Compatibility differences](../retained-divergences/), and the Atlas-documentation\ncrosswalk is on [Atlas docs coverage](../docs-coverage/)."
+            }
+          ],
+          "rationale": "The defensive argument contrast adds no scope to the preceding matrix description or following evidence links.",
+          "proposed_edit": "Keep the description and links without the defensive sentence."
+        },
+        {
+          "id": "c03-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2127,
+              "end": 2241,
+              "quote": "and the only thing absent is speaking\nthe wire protocol of a service somebody else hosts behind their own accounts"
+            }
+          ],
+          "context": [
+            {
+              "start": 1776,
+              "end": 2388,
+              "quote": "🔷 and 🟡 answer different questions, and the difference decides whether a\nreader should wait for a release. 🟡 means the work is unfinished: the\ndifference column names the issue that owns it, and a later Ptah closes it. 🔷\nmeans the capability is already here under a Ptah spelling, running against\ninfrastructure the team already operates, and the only thing absent is speaking\nthe wire protocol of a service somebody else hosts behind their own accounts.\nNo release closes that, so a 🔷 cell carries no tracking issue. A capability\nthat is merely incomplete is never 🔷, whatever it sits next to."
+            }
+          ],
+          "rationale": "The thing-absent/speaking/somebody-else framing overextends the specific hosted-protocol limitation.",
+          "proposed_edit": "Say it cannot interoperate with the account-bound hosted service; preserve the capability and release distinction."
+        },
+        {
+          "id": "c03-d03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 5958,
+              "end": 6058,
+              "quote": "A 🔷 names no\nissue on purpose, because nothing an independent implementation can build\ncloses it."
+            }
+          ],
+          "context": [
+            {
+              "start": 5735,
+              "end": 6203,
+              "quote": "Every 🟡 and every ❌ in the Ptah column names its specific limitation and the\nissue that owns it, reproduced against a binary built from this repository;\nAtlas-column verdicts rest on the cited Atlas-side sources only. A 🔷 names no\nissue on purpose, because nothing an independent implementation can build\ncloses it. Confirmed gaps are tracked in\n[#926 to #942](https://github.com/stokaro/ptah/issues/926) and [#944](https://github.com/stokaro/ptah/issues/944)."
+            }
+          ],
+          "rationale": "The absence of a tracking issue and its hosted-service reason were already stated in the immediately preceding legend discussion.",
+          "proposed_edit": "Keep the limitation/issue rule and gap links; remove this repeated explanation."
+        },
+        {
+          "id": "c03-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 47850,
+              "end": 47921,
+              "quote": "Ptah's registry story differs from Atlas's in storage, not in function."
+            }
+          ],
+          "context": [
+            {
+              "start": 47850,
+              "end": 48211,
+              "quote": "Ptah's registry story differs from Atlas's in storage, not in function.\nEverything artifact distribution needs — publish a migration directory or a\ndesired schema, pull it elsewhere, pin an exact version, run migrations\nstraight from the registry — works against any OCI-compliant registry: GHCR,\nECR, GAR, Harbor, Docker Hub, or a self-hosted `registry:2`."
+            }
+          ],
+          "rationale": "The registry-story contrast introduces the same storage and operation distinction immediately detailed in the next sentence.",
+          "proposed_edit": "State the supported operations and OCI storage directly."
+        },
+        {
+          "id": "c03-d05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 52338,
+              "end": 52384,
+              "quote": "so the function is here and the service is not"
+            }
+          ],
+          "context": [
+            {
+              "start": 52207,
+              "end": 52385,
+              "quote": "All three name a repository in the hosted registry and fail loudly. Ptah's plan workflow saves and reads local plan files instead, so the function is here and the service is not."
+            }
+          ],
+          "rationale": "The slogan repeats that local plan files replace a hosted repository service.",
+          "proposed_edit": "Keep the local plan-file behavior and hosted-verb failure."
+        },
+        {
+          "id": "c03-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 53203,
+              "end": 53256,
+              "quote": "Local by its flag set, and now by its implementation."
+            }
+          ],
+          "context": [
+            {
+              "start": 53092,
+              "end": 53256,
+              "quote": "Runs `test \"plan\"` cases: establish a state, verify the plan was computed for it, apply the plan file, assert. Local by its flag set, and now by its implementation."
+            }
+          ],
+          "rationale": "The closing self-evaluation adds no behavior to the explicit local test steps.",
+          "proposed_edit": "Keep the ordered test steps."
+        },
+        {
+          "id": "c03-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 55558,
+              "end": 55589,
+              "quote": "so the claim can be argued with"
+            }
+          ],
+          "context": [
+            {
+              "start": 55243,
+              "end": 55687,
+              "quote": "🔷 is the one verdict `--help` cannot settle on its own. It is claimed only\nwhere both of these hold: the capability is demonstrable on a Ptah\nbinary in a Ptah spelling, and the remainder is access to a service another\ncompany hosts behind its own accounts. Both halves are stated in the row's\ndifference column, so the claim can be argued with. Where only the first holds,\nthe row is ✅; where only the second does, it is ❌ with an issue."
+            }
+          ],
+          "rationale": "The reader-disputation tail adds no verification instruction beyond the recorded two-part evidence.",
+          "proposed_edit": "Keep the two evidence requirements and where they are recorded."
+        },
+        {
+          "id": "c03-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 56346,
+              "end": 56365,
+              "quote": "without archaeology"
+            }
+          ],
+          "context": [
+            {
+              "start": 56136,
+              "end": 56366,
+              "quote": "The full per-row evidence — the command that was run or the source cited for\nevery cell — is version-controlled at\n`docs/site/scripts/data/feature-matrix-rows.json`, so a row can be re-verified\nor disputed without archaeology."
+            }
+          ],
+          "rationale": "The metaphor adds no retrieval step to the exact version-controlled evidence path.",
+          "proposed_edit": "Keep the path and reproducibility statement."
+        },
+        {
+          "id": "c03-d09",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 58116,
+              "end": 58193,
+              "quote": "A green conformance run is a floor on the distance to Atlas, never a ceiling."
+            }
+          ],
+          "context": [
+            {
+              "start": 58116,
+              "end": 58345,
+              "quote": "A green conformance run is a floor on the distance to Atlas, never a ceiling.\nThe conformance repository states it directly: no number it produces is a\nfull feature-set parity test, and several runtime dimensions stay unmeasured."
+            }
+          ],
+          "rationale": "The floor/ceiling/distance metaphor makes the following explicit incomplete-coverage limitation harder to interpret.",
+          "proposed_edit": "Begin with the concrete statement that the run does not prove full feature parity."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c03-u01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 50788,
+              "end": 51107,
+              "quote": "This is where 🔷 and ❌ have to be read apart. 🔷 means the row's job is done\nhere already, over an ordinary OCI registry and local plan files, and only the\nhosted protocol is out of reach — nothing to wait for. ❌ means the capability\nis genuinely absent and the difference column names the issue that owns it."
+            }
+          ],
+          "context": [
+            {
+              "start": 50788,
+              "end": 51107,
+              "quote": "This is where 🔷 and ❌ have to be read apart. 🔷 means the row's job is done\nhere already, over an ordinary OCI registry and local plan files, and only the\nhosted protocol is out of reach — nothing to wait for. ❌ means the capability\nis genuinely absent and the difference column names the issue that owns it."
+            }
+          ],
+          "rationale": "The legend is repeated but separated from its first occurrence by a long matrix and may help section-only readers.",
+          "proposed_edit": "Consider a short legend link while retaining the hosted-versus-missing distinction."
+        },
+        {
+          "id": "c03-u02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 55082,
+              "end": 55140,
+              "quote": "are the strongest available proof that a capability\nexists"
+            }
+          ],
+          "context": [
+            {
+              "start": 54991,
+              "end": 55241,
+              "quote": "The Ptah column is derived from the built binaries. `ptah --help` and\n`ptah-compat --help` are the strongest available proof that a capability\nexists, and a row that could not be demonstrated that way is marked 🟡 with the\nlimitation named, or ❌."
+            }
+          ],
+          "rationale": "Help output is described as the strongest proof, but evaluating this claim requires factual implementation evidence beyond the prose rubric.",
+          "proposed_edit": "State which evidence is used without ranking it as strongest."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6205,
+              "end": 6870,
+              "quote": "The command surface is counted separately, because it is measured rather than\nassessed. The conformance harness inventories every command in the pinned Atlas\nCE binary and compares it with the `ptah-compat` surface: 19 of the 37\ninventoried commands are open parity targets, and they match on help usage and\nflags across 107 observations with one gap — `schema inspect --include`, a\nPro-surface flag the pinned CE binary does not register and Ptah implements\nopenly ([#951](https://github.com/stokaro/ptah/issues/951)). The remaining 18\nare registry, Cloud, or Pro verbs that are not drop-in targets. Ptah implements\nseven of them as open capabilities regardless."
+            }
+          ],
+          "context": [
+            {
+              "start": 6205,
+              "end": 6870,
+              "quote": "The command surface is counted separately, because it is measured rather than\nassessed. The conformance harness inventories every command in the pinned Atlas\nCE binary and compares it with the `ptah-compat` surface: 19 of the 37\ninventoried commands are open parity targets, and they match on help usage and\nflags across 107 observations with one gap — `schema inspect --include`, a\nPro-surface flag the pinned CE binary does not register and Ptah implements\nopenly ([#951](https://github.com/stokaro/ptah/issues/951)). The remaining 18\nare registry, Cloud, or Pro verbs that are not drop-in targets. Ptah implements\nseven of them as open capabilities regardless."
+            }
+          ],
+          "rationale": "Counted versus assessed is followed by exact command and observation counts; do not treat measured results as rhetorical self-praise.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 34172,
+              "end": 34354,
+              "quote": "migration/dbtest exports RunMigrationTest and RunSchemaTest. CE stays unknown: a CLI probe cannot see a Go API; an Atlas-side source naming a test-runner entry point would settle it."
+            }
+          ],
+          "context": [
+            {
+              "start": 34172,
+              "end": 34354,
+              "quote": "migration/dbtest exports RunMigrationTest and RunSchemaTest. CE stays unknown: a CLI probe cannot see a Go API; an Atlas-side source naming a test-runner entry point would settle it."
+            }
+          ],
+          "rationale": "A CLI probe cannot settle a Go API question; the uncertainty explains a real evidence limit.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 48898,
+              "end": 49094,
+              "quote": "On migrations push (local, pre-upload) and on up/down/status (pulled). A sum checks a directory against the sum stored beside it, so an `oci://` tag proves internal consistency only; pin a digest."
+            }
+          ],
+          "context": [
+            {
+              "start": 48898,
+              "end": 49094,
+              "quote": "On migrations push (local, pre-upload) and on up/down/status (pulled). A sum checks a directory against the sum stored beside it, so an `oci://` tag proves internal consistency only; pin a digest."
+            }
+          ],
+          "rationale": "Internal checksum consistency and artifact identity are distinct properties requiring different checks.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c03-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 58347,
+              "end": 58598,
+              "quote": "Specifically, this page does not claim that Ptah reproduces Atlas byte for\nbyte, that a ✅ row behaves identically under every flag combination, or that\nthe Atlas columns are exhaustive for capabilities Atlas ships outside its\ndocumented CLI surface."
+            }
+          ],
+          "context": [
+            {
+              "start": 58347,
+              "end": 58598,
+              "quote": "Specifically, this page does not claim that Ptah reproduces Atlas byte for\nbyte, that a ✅ row behaves identically under every flag combination, or that\nthe Atlas columns are exhaustive for capabilities Atlas ships outside its\ndocumented CLI surface."
+            }
+          ],
+          "rationale": "Flag combinations, byte equality and undocumented capabilities are separate limits, not paraphrases.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "90b46ad9a9fa973b5a252b55635097d0c3e27f4036f4451f82366446987573a8",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 36902,
+          "first_line": 1,
+          "last_line": 1011,
+          "rationale": "Read all 263 curl tutorial blocks, with command examples as context: protocols, authentication, proxying, transfer control, cookies, TLS, LDAP, netrc, telnet, reuse, IPv6, Metalink and mailing lists. Preserve historical technical conditions without treating this review as current security guidance. Repeated protocol examples and local warnings are useful; labels target removable framing and indirect instructions.",
+          "prose_blocks": 263,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4673,
+              "end": 4763,
+              "quote": "A comma-separated list of hosts and domains which do not use the proxy can be\nspecified as"
+            }
+          ],
+          "context": [
+            {
+              "start": 4673,
+              "end": 4764,
+              "quote": "A comma-separated list of hosts and domains which do not use the proxy can be\nspecified as:"
+            }
+          ],
+          "rationale": "The passive list-can-be-specified wrapper delays a direct configuration instruction.",
+          "proposed_edit": "Specify hosts and domains that bypass the proxy as a comma-separated list."
+        },
+        {
+          "id": "c04-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5904,
+              "end": 5994,
+              "quote": "Using this, a client can request to get only\none or more subparts of a specified document."
+            }
+          ],
+          "context": [
+            {
+              "start": 5871,
+              "end": 6033,
+              "quote": "HTTP 1.1 introduced byte-ranges. Using this, a client can request to get only\none or more subparts of a specified document. Curl supports this with the `-r`\nflag."
+            }
+          ],
+          "rationale": "Request to get and subparts of a specified document obscure a direct byte-range description.",
+          "proposed_edit": "Say a client can request one or more byte ranges from a document."
+        },
+        {
+          "id": "c04-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6192,
+              "end": 6247,
+              "quote": "Curl also supports simple ranges for FTP files as well."
+            }
+          ],
+          "context": [
+            {
+              "start": 6192,
+              "end": 6298,
+              "quote": "Curl also supports simple ranges for FTP files as well. Then you can only\nspecify start and stop position."
+            }
+          ],
+          "rationale": "Also and as well repeat the additive relation.",
+          "proposed_edit": "Keep one additive marker and the following start/stop restriction."
+        },
+        {
+          "id": "c04-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7571,
+              "end": 7684,
+              "quote": "If curl fails where it isn't supposed to, if the servers don't let you in, if\nyou can't understand the responses:"
+            }
+          ],
+          "context": [
+            {
+              "start": 7571,
+              "end": 7888,
+              "quote": "If curl fails where it isn't supposed to, if the servers don't let you in, if\nyou can't understand the responses: use the `-v` flag to get verbose\nfetching. Curl will output lots of info and what it sends and receives in\norder to let the user see all client-server interaction (but it won't show you\nthe actual data)."
+            }
+          ],
+          "rationale": "The three generic failure descriptions delay the same debugging instruction without distinguishing actions.",
+          "proposed_edit": "Introduce verbose output as a troubleshooting step; preserve what it includes and excludes."
+        },
+        {
+          "id": "c04-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7925,
+              "end": 7983,
+              "quote": "To get even more details and information on what curl does"
+            }
+          ],
+          "context": [
+            {
+              "start": 7925,
+              "end": 8080,
+              "quote": "To get even more details and information on what curl does, try using the\n`--trace` or `--trace-ascii` options with a given file name to log to, like\nthis:"
+            }
+          ],
+          "rationale": "Details and information duplicate the same request.",
+          "proposed_edit": "To record more detail about a transfer, use the shown tracing options."
+        },
+        {
+          "id": "c04-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 9049,
+              "end": 9083,
+              "quote": "It's easy to post data using curl."
+            }
+          ],
+          "context": [
+            {
+              "start": 9049,
+              "end": 9160,
+              "quote": "It's easy to post data using curl. This is done using the `-d <data>` option.\nThe post data must be urlencoded."
+            }
+          ],
+          "rationale": "The ease claim adds no instruction and is followed by the actual option and encoding requirement.",
+          "proposed_edit": "Begin with the option and required encoding."
+        },
+        {
+          "id": "c04-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9084,
+              "end": 9102,
+              "quote": "This is done using"
+            }
+          ],
+          "context": [
+            {
+              "start": 9049,
+              "end": 9160,
+              "quote": "It's easy to post data using curl. This is done using the `-d <data>` option.\nThe post data must be urlencoded."
+            }
+          ],
+          "rationale": "The anaphoric passive wrapper separates the action from its option.",
+          "proposed_edit": "Use the shown option to post data; preserve URL encoding."
+        },
+        {
+          "id": "c04-d08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 12828,
+              "end": 12899,
+              "quote": "Curl allows you to specify the referrer to be\nused on the command line."
+            }
+          ],
+          "context": [
+            {
+              "start": 12721,
+              "end": 13041,
+              "quote": "An HTTP request has the option to include information about which address\nreferred it to the actual page.  Curl allows you to specify the referrer to be\nused on the command line. It is especially useful to fool or trick stupid\nservers or CGI scripts that rely on that information being available or\ncontain certain data."
+            }
+          ],
+          "rationale": "Allows you to specify and to be used add two layers around a direct instruction.",
+          "proposed_edit": "Specify the referrer on the command line."
+        },
+        {
+          "id": "c04-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 13211,
+              "end": 13262,
+              "quote": "Curl allows it to be specified on the command line."
+            }
+          ],
+          "context": [
+            {
+              "start": 13111,
+              "end": 13368,
+              "quote": "An HTTP request has the option to include information about the browser that\ngenerated the request. Curl allows it to be specified on the command line. It\nis especially useful to fool or trick stupid servers or CGI scripts that only\naccept certain browsers."
+            }
+          ],
+          "rationale": "The indirect passive wrapper obscures the user-agent option.",
+          "proposed_edit": "Specify the user agent on the command line."
+        },
+        {
+          "id": "c04-d10",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 12941,
+              "end": 12970,
+              "quote": "stupid\nservers or CGI scripts"
+            },
+            {
+              "start": 13304,
+              "end": 13333,
+              "quote": "stupid servers or CGI scripts"
+            }
+          ],
+          "context": [
+            {
+              "start": 12721,
+              "end": 13041,
+              "quote": "An HTTP request has the option to include information about which address\nreferred it to the actual page.  Curl allows you to specify the referrer to be\nused on the command line. It is especially useful to fool or trick stupid\nservers or CGI scripts that rely on that information being available or\ncontain certain data."
+            },
+            {
+              "start": 13111,
+              "end": 13368,
+              "quote": "An HTTP request has the option to include information about the browser that\ngenerated the request. Curl allows it to be specified on the command line. It\nis especially useful to fool or trick stupid servers or CGI scripts that only\naccept certain browsers."
+            }
+          ],
+          "rationale": "The disparaging label adds no technical property beyond the particular header checks already described.",
+          "proposed_edit": "Refer to servers or scripts that require the specified header; remove the insult."
+        },
+        {
+          "id": "c04-d11",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15021,
+              "end": 15104,
+              "quote": "Curl also has the ability to use previously received cookies in following\nsessions."
+            }
+          ],
+          "context": [
+            {
+              "start": 15021,
+              "end": 15186,
+              "quote": "Curl also has the ability to use previously received cookies in following\nsessions. If you get cookies from a server and store them in a file in a\nmanner similar to:"
+            }
+          ],
+          "rationale": "Has the ability to use lengthens the concrete reuse operation.",
+          "proposed_edit": "Curl can reuse received cookies in later sessions."
+        },
+        {
+          "id": "c04-d12",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 15384,
+              "end": 15513,
+              "quote": "While saving headers to a file is a working way to store cookies, it is\nhowever error-prone and not the preferred way to do this."
+            }
+          ],
+          "context": [
+            {
+              "start": 15384,
+              "end": 15613,
+              "quote": "While saving headers to a file is a working way to store cookies, it is\nhowever error-prone and not the preferred way to do this. Instead, make curl\nsave the incoming cookies using the well-known netscape cookie format like\nthis:"
+            }
+          ],
+          "rationale": "While/however and not-preferred/next-instead duplicate the same contrast.",
+          "proposed_edit": "Say saving response headers is error-prone and recommend the cookie-file option; retain the format."
+        },
+        {
+          "id": "c04-d13",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 17853,
+              "end": 17883,
+              "quote": "doesn't\nneed much explanation!"
+            }
+          ],
+          "context": [
+            {
+              "start": 17786,
+              "end": 17883,
+              "quote": "The `-#` option will display a totally different progress bar that doesn't\nneed much explanation!"
+            }
+          ],
+          "rationale": "The prediction about reader comprehension replaces a description of the alternate progress bar.",
+          "proposed_edit": "Name the alternate progress bar and remove the comprehension claim."
+        },
+        {
+          "id": "c04-d14",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 17901,
+              "end": 18007,
+              "quote": "Curl allows the user to set the transfer speed conditions that must be met to\nlet the transfer keep going."
+            }
+          ],
+          "context": [
+            {
+              "start": 17901,
+              "end": 18155,
+              "quote": "Curl allows the user to set the transfer speed conditions that must be met to\nlet the transfer keep going. By using the switch `-y` and `-Y` you can make\ncurl abort transfers if the transfer speed is below the specified lowest limit\nfor a specified time."
+            }
+          ],
+          "rationale": "The generic setup repeats the concrete speed and duration condition in the next sentence.",
+          "proposed_edit": "Begin with the two options and the low-speed duration condition."
+        },
+        {
+          "id": "c04-d15",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 18305,
+              "end": 18351,
+              "quote": "This can very well be used in combination with"
+            }
+          ],
+          "context": [
+            {
+              "start": 18305,
+              "end": 18449,
+              "quote": "This can very well be used in combination with the overall time limit, so\nthat the above operation must be completed in whole within 30 minutes:"
+            }
+          ],
+          "rationale": "Very well and used in combination with lengthen an ordinary composition instruction.",
+          "proposed_edit": "Combine this with the overall time limit; keep both time limits."
+        },
+        {
+          "id": "c04-d16",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 21042,
+              "end": 21175,
+              "quote": "When using curl in your own very special programs, you may end up needing\nto pass on your own custom headers when getting a web page."
+            }
+          ],
+          "context": [
+            {
+              "start": 21042,
+              "end": 21215,
+              "quote": "When using curl in your own very special programs, you may end up needing\nto pass on your own custom headers when getting a web page. You can do\nthis by using the `-H` flag."
+            }
+          ],
+          "rationale": "The imagined special-program scenario delays the header instruction without narrowing its application.",
+          "proposed_edit": "To send custom headers when fetching a page, use the shown flag."
+        },
+        {
+          "id": "c04-d17",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 23057,
+              "end": 23089,
+              "quote": "the other way to do it is to use"
+            }
+          ],
+          "context": [
+            {
+              "start": 22902,
+              "end": 23226,
+              "quote": "If the server, for example, is behind a firewall that doesn't allow\nconnections on ports other than 21 (or if it just doesn't support the `PASV`\ncommand), the other way to do it is to use the `PORT` command and instruct the\nserver to connect to the client on the given IP number and port (as parameters\nto the PORT command)."
+            }
+          ],
+          "rationale": "The way-to-do-it wrapper adds no alternative beyond the named PORT command.",
+          "proposed_edit": "Use the PORT command under the stated firewall or PASV restriction; keep address and port details."
+        },
+        {
+          "id": "c04-d18",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 27544,
+              "end": 27614,
+              "quote": "LDAP is a complex thing and writing an LDAP query is not an easy task."
+            }
+          ],
+          "context": [
+            {
+              "start": 27544,
+              "end": 27739,
+              "quote": "LDAP is a complex thing and writing an LDAP query is not an easy task. I do\nadvise you to dig up the syntax description for that elsewhere. One such place\nmight be: [RFC 2255, The LDAP URL\nFormat"
+            }
+          ],
+          "rationale": "The difficulty announcement provides no query syntax or particular obstacle.",
+          "proposed_edit": "Point to the LDAP URL syntax reference directly."
+        },
+        {
+          "id": "c04-d19",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 27775,
+              "end": 27820,
+              "quote": "To show you an example, this is how I can get"
+            }
+          ],
+          "context": [
+            {
+              "start": 27775,
+              "end": 27911,
+              "quote": "To show you an example, this is how I can get all people from my local LDAP\nserver that has a certain sub-domain in their email address:"
+            }
+          ],
+          "rationale": "The example-of-how announcement can be replaced by the actual query objective.",
+          "proposed_edit": "Get people whose email address has the given subdomain, preserving the example scope."
+        },
+        {
+          "id": "c04-d20",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 30446,
+              "end": 30522,
+              "quote": "To better allow script programmers to get to know about the progress of curl"
+            }
+          ],
+          "context": [
+            {
+              "start": 30446,
+              "end": 30662,
+              "quote": "To better allow script programmers to get to know about the progress of curl,\nthe `-w`/`--write-out` option was introduced. Using this, you can specify what\ninformation from the previous transfer you want to extract."
+            }
+          ],
+          "rationale": "The purpose announcement indirectly repeats the next sentence describing extraction of transfer information.",
+          "proposed_edit": "State the option and which completed-transfer information it selects."
+        },
+        {
+          "id": "c04-d21",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 31379,
+              "end": 31395,
+              "quote": "very easy to use"
+            }
+          ],
+          "context": [
+            {
+              "start": 31342,
+              "end": 31528,
+              "quote": "The curl telnet support is basic and very easy to use. Curl passes all data\npassed to it on stdin to the remote server. Connect to a remote telnet server\nusing a command line similar to:"
+            }
+          ],
+          "rationale": "The ease judgment supplies no property of the basic telnet interface.",
+          "proposed_edit": "Keep the basic support scope, stdin behavior and example."
+        },
+        {
+          "id": "c04-d22",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 33269,
+              "end": 33291,
+              "quote": "As is mentioned above,"
+            }
+          ],
+          "context": [
+            {
+              "start": 33269,
+              "end": 33589,
+              "quote": "As is mentioned above, you can download multiple files with one command line\nby simply adding more URLs. If you want those to get saved to a local file\ninstead of just printed to stdout, you need to add one save option for each\nURL you specify. Note that this also goes for the `-O` option (but not\n`--remote-name-all`)."
+            }
+          ],
+          "rationale": "The self-reference adds no location and delays the actual multi-URL instruction.",
+          "proposed_edit": "Begin with the multi-URL instruction; keep the per-URL output-option requirement."
+        },
+        {
+          "id": "c04-d23",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 35915,
+              "end": 35936,
+              "quote": "For your convenience,"
+            }
+          ],
+          "context": [
+            {
+              "start": 35915,
+              "end": 36072,
+              "quote": "For your convenience, we have several open mailing lists to discuss curl, its\ndevelopment and things relevant to this. Get all info at\nhttps://curl.se/mail/."
+            }
+          ],
+          "rationale": "The reader-benefit preface adds no information about mailing-list purpose or routing.",
+          "proposed_edit": "Start with the available mailing lists."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c04-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 32855,
+              "end": 32884,
+              "quote": "far\nbetter use of the network"
+            }
+          ],
+          "context": [
+            {
+              "start": 32557,
+              "end": 32885,
+              "quote": "libcurl will attempt to use persistent connections for the transfers so that\nthe second transfer to the same host can use the same connection that was\nalready initiated and was left open in the previous transfer. This greatly\ndecreases connection time for all but the first transfer and it makes a far\nbetter use of the network."
+            }
+          ],
+          "rationale": "The comparative benefit lacks a metric, but connection reuse gives a plausible mechanism.",
+          "proposed_edit": "Consider naming fewer connection handshakes instead of the broad ranking."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 2462,
+              "end": 2980,
+              "quote": "This is similar to FTP, but you can use the `--key` option to specify a\nprivate key to use instead of a password. Note that the private key may itself\nbe protected by a password that is unrelated to the login password of the\nremote system; this password is specified using the `--pass` option.\nTypically, curl will automatically extract the public key from the private key\nfile, but in cases where curl does not have the proper library support, a\nmatching public key file must be specified using the `--pubkey` option."
+            }
+          ],
+          "context": [
+            {
+              "start": 2462,
+              "end": 2980,
+              "quote": "This is similar to FTP, but you can use the `--key` option to specify a\nprivate key to use instead of a password. Note that the private key may itself\nbe protected by a password that is unrelated to the login password of the\nremote system; this password is specified using the `--pass` option.\nTypically, curl will automatically extract the public key from the private key\nfile, but in cases where curl does not have the proper library support, a\nmatching public key file must be specified using the `--pubkey` option."
+            }
+          ],
+          "rationale": "Key-file password, remote login password and public-key availability are distinct conditions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 12354,
+              "end": 12706,
+              "quote": "To send a field value literally without interpreting a leading `@` or `<`, or\nan embedded `;type=`, use `--form-string` instead of `-F`. This is recommended\nwhen the value is obtained from a user or some other unpredictable\nsource. Under these circumstances, using `-F` instead of `--form-string` could\nallow a user to trick curl into uploading a file."
+            }
+          ],
+          "context": [
+            {
+              "start": 12354,
+              "end": 12706,
+              "quote": "To send a field value literally without interpreting a leading `@` or `<`, or\nan embedded `;type=`, use `--form-string` instead of `-F`. This is recommended\nwhen the value is obtained from a user or some other unpredictable\nsource. Under these circumstances, using `-F` instead of `--form-string` could\nallow a user to trick curl into uploading a file."
+            }
+          ],
+          "rationale": "Literal field values prevent interpreting user input as local upload instructions; preserve this consequence.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 16587,
+              "end": 16728,
+              "quote": "The progress meter exists to show a user that something actually is\nhappening. The different fields in the output have the following meaning:"
+            }
+          ],
+          "context": [
+            {
+              "start": 16587,
+              "end": 16728,
+              "quote": "The progress meter exists to show a user that something actually is\nhappening. The different fields in the output have the following meaning:"
+            }
+          ],
+          "rationale": "The progress-meter purpose is a concrete user-facing function, followed by its field reference.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 22632,
+              "end": 22873,
+              "quote": "The default way for curl is to issue the PASV command which causes the server\nto open another port and await another connection performed by the\nclient. This is good if the client is behind a firewall that doesn't allow\nincoming connections."
+            }
+          ],
+          "context": [
+            {
+              "start": 22632,
+              "end": 22873,
+              "quote": "The default way for curl is to issue the PASV command which causes the server\nto open another port and await another connection performed by the\nclient. This is good if the client is behind a firewall that doesn't allow\nincoming connections."
+            }
+          ],
+          "rationale": "The benefit depends on a particular firewall configuration; it is not a generic praise claim.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c05",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 34241,
+              "end": 34673,
+              "quote": "When this style is used, the `-g` option must be given to stop curl from\ninterpreting the square brackets as special globbing characters.  Link local\nand site local addresses including a scope identifier, such as `fe80::1234%1`,\nmay also be used, but the scope portion must be numeric or match an existing\nnetwork interface on Linux and the percent character must be URL escaped. The\nprevious example in an SFTP URL might look like:"
+            }
+          ],
+          "context": [
+            {
+              "start": 34241,
+              "end": 34673,
+              "quote": "When this style is used, the `-g` option must be given to stop curl from\ninterpreting the square brackets as special globbing characters.  Link local\nand site local addresses including a scope identifier, such as `fe80::1234%1`,\nmay also be used, but the scope portion must be numeric or match an existing\nnetwork interface on Linux and the percent character must be URL escaped. The\nprevious example in an SFTP URL might look like:"
+            }
+          ],
+          "rationale": "IPv6 brackets, scope identifiers and escaping impose separate syntax requirements.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "be430cf5f4c4df6c173d0fc868523ed0fc942ef5b14ff824f88426ef643f087b",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 8074,
+          "first_line": 1,
+          "last_line": 197,
+          "rationale": "Read all schema-generation prose, field arguments, unenforced-constraint warnings, custom-type examples, top-level schemas and configuration hooks. The unexpanded schema-mapping include is recorded as an include marker, not as unseen reviewed prose. Preserve constraints, alias defaults, references and callable mutation semantics.",
+          "prose_blocks": 63,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11,
+              "end": 59,
+              "quote": "allows auto creation of JSON Schemas from models"
+            }
+          ],
+          "context": [
+            {
+              "start": 1,
+              "end": 60,
+              "quote": "Pydantic* allows auto creation of JSON Schemas from models:"
+            }
+          ],
+          "rationale": "The nominal creation wrapper delays the direct generation action.",
+          "proposed_edit": "Pydantic generates JSON Schemas from models."
+        },
+        {
+          "id": "c05-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1648,
+              "end": 1754,
+              "quote": "Optionally, the `Field` function can be used to provide extra information about the field and validations."
+            }
+          ],
+          "context": [
+            {
+              "start": 1648,
+              "end": 1786,
+              "quote": "Optionally, the `Field` function can be used to provide extra information about the field and validations.\nIt has the following arguments:"
+            }
+          ],
+          "rationale": "Can be used to provide wraps a direct optional configuration instruction.",
+          "proposed_edit": "Optionally use Field to add field information and validation constraints."
+        },
+        {
+          "id": "c05-d03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1861,
+              "end": 1960,
+              "quote": "Since the `Field` replaces the field's default, this first argument can be used to set the default."
+            }
+          ],
+          "context": [
+            {
+              "start": 1790,
+              "end": 2020,
+              "quote": "`default`: (a positional argument) the default value of the field.\n    Since the `Field` replaces the field's default, this first argument can be used to set the default.\n    Use ellipsis (`...`) to indicate the field is required."
+            }
+          ],
+          "rationale": "The positional default argument was defined in the previous sentence; the next sentence already handles required fields.",
+          "proposed_edit": "Keep the positional default definition and ellipsis instruction."
+        },
+        {
+          "id": "c05-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 7085,
+              "end": 7160,
+              "quote": "It's also possible to extend/override the generated JSON schema in a model."
+            },
+            {
+              "start": 7162,
+              "end": 7224,
+              "quote": "To do it, use the `Config` sub-class attribute `schema_extra`."
+            }
+          ],
+          "context": [
+            {
+              "start": 7085,
+              "end": 7160,
+              "quote": "It's also possible to extend/override the generated JSON schema in a model."
+            },
+            {
+              "start": 7162,
+              "end": 7224,
+              "quote": "To do it, use the `Config` sub-class attribute `schema_extra`."
+            }
+          ],
+          "rationale": "Possible-to-extend plus to-do-it spreads a direct configuration instruction over two sentences.",
+          "proposed_edit": "Use the model Config.schema_extra attribute to extend or override its generated schema."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6815,
+              "end": 6926,
+              "quote": "This is useful if you need to extend or modify the JSON Schema default definitions location. E.g. with OpenAPI:"
+            }
+          ],
+          "context": [
+            {
+              "start": 6815,
+              "end": 6926,
+              "quote": "This is useful if you need to extend or modify the JSON Schema default definitions location. E.g. with OpenAPI:"
+            }
+          ],
+          "rationale": "The useful-if sentence repeats customization but introduces the OpenAPI example and may aid navigation.",
+          "proposed_edit": "Consider introducing the OpenAPI example directly."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 732,
+              "end": 865,
+              "quote": "All sub-models' (and their sub-models') schemas are put directly in a top-level `definitions` JSON key for easy re-use\nand reference."
+            }
+          ],
+          "context": [
+            {
+              "start": 732,
+              "end": 865,
+              "quote": "All sub-models' (and their sub-models') schemas are put directly in a top-level `definitions` JSON key for easy re-use\nand reference."
+            }
+          ],
+          "rationale": "Recursive submodel inclusion and top-level placement add facts to the prior reference description.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 867,
+              "end": 1021,
+              "quote": "\"Sub-models\" with modifications (via the `Field` class) like a custom title, description or default value,\nare recursively included instead of referenced."
+            }
+          ],
+          "context": [
+            {
+              "start": 867,
+              "end": 1021,
+              "quote": "\"Sub-models\" with modifications (via the `Field` class) like a custom title, description or default value,\nare recursively included instead of referenced."
+            }
+          ],
+          "rationale": "Modified submodels are inlined instead of referenced; preserve the condition.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 4775,
+              "end": 4925,
+              "quote": "Instead of using `Field`, the `fields` property of [the Config class](model_config.md) can be used\nto set all of the arguments above except `default`."
+            }
+          ],
+          "context": [
+            {
+              "start": 4775,
+              "end": 4925,
+              "quote": "Instead of using `Field`, the `fields` property of [the Config class](model_config.md) can be used\nto set all of the arguments above except `default`."
+            }
+          ],
+          "rationale": "Config.fields supports the listed settings except default; the exception is necessary.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 7454,
+              "end": 7823,
+              "quote": "For more fine-grained control, you can alternatively set `schema_extra` to a callable and post-process the generated schema.\nThe callable can have one or two positional arguments.\nThe first will be the schema dictionary.\nThe second, if accepted, will be the model class.\nThe callable is expected to mutate the schema dictionary *in-place*; the return value is not used."
+            }
+          ],
+          "context": [
+            {
+              "start": 7454,
+              "end": 7823,
+              "quote": "For more fine-grained control, you can alternatively set `schema_extra` to a callable and post-process the generated schema.\nThe callable can have one or two positional arguments.\nThe first will be the schema dictionary.\nThe second, if accepted, will be the model class.\nThe callable is expected to mutate the schema dictionary *in-place*; the return value is not used."
+            }
+          ],
+          "rationale": "Callable arity, in-place changes and ignored return values impose separate requirements.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "0cc7fe7d7433d7828eaf632027c907a6d441c43efc60a4131e90b181dc0c41fa",
+      "reviewer": "Codex assistant implementing issue 299; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 13300,
+          "first_line": 1,
+          "last_line": 384,
+          "rationale": "Read all Gantt explanations, date-format references, styling classes, margins, configuration tables and click/security behavior. Repeated class descriptions are lookup data. Preserve excluded-day behavior, dependencies, security-level conditions and configuration units. Images and linked pages are outside judged prose.",
+          "prose_blocks": 78,
+          "review_boundary": "Read every nonexcluded prose block with source context. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c06-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 634,
+              "end": 666,
+              "quote": "It is important to remember that"
+            }
+          ],
+          "context": [
+            {
+              "start": 633,
+              "end": 1003,
+              "quote": " It is important to remember that when a date, day, or collection of dates specific to a task are \"excluded\", the Gantt Chart will accomodate those changes by extending an equal number of day, towards the right, not by creating a gap inside the task.\n As shown here ![](https://raw.githubusercontent.com/NeilCuzon/mermaid/develop/docs/img/Gantt-excluded-days-within.png)"
+            }
+          ],
+          "rationale": "The importance preface can be removed while preserving the complete excluded-date condition and its behavior.",
+          "proposed_edit": "State that excluded dates extend the task duration rather than creating an internal gap."
+        },
+        {
+          "id": "c06-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1349,
+              "end": 1537,
+              "quote": " A Gantt chart is useful for tracking the amount of time it would take before a project is finished, but it can also be used to graphically represent \"non-working days\", with a few tweaks."
+            }
+          ],
+          "context": [
+            {
+              "start": 1349,
+              "end": 1537,
+              "quote": " A Gantt chart is useful for tracking the amount of time it would take before a project is finished, but it can also be used to graphically represent \"non-working days\", with a few tweaks."
+            }
+          ],
+          "rationale": "Useful-for-tracking and can-also-be-used-to-represent lengthen two straightforward diagram functions; few tweaks adds no method.",
+          "proposed_edit": "Say Gantt charts show project duration and can represent nonworking days; keep both functions."
+        },
+        {
+          "id": "c06-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4743,
+              "end": 4764,
+              "quote": "It is possible to set"
+            }
+          ],
+          "context": [
+            {
+              "start": 4743,
+              "end": 4806,
+              "quote": "It is possible to set multiple dependencies separated by space:"
+            }
+          ],
+          "rationale": "The possibility announcement delays the direct dependency instruction.",
+          "proposed_edit": "Set multiple dependencies separated by spaces."
+        },
+        {
+          "id": "c06-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9097,
+              "end": 9172,
+              "quote": "Styling of the a gantt diagram is done by defining a number of css classes."
+            }
+          ],
+          "context": [
+            {
+              "start": 9097,
+              "end": 9268,
+              "quote": "Styling of the a gantt diagram is done by defining a number of css classes. During rendering, these classes are extracted from the file located at src/themes/sequence.scss"
+            }
+          ],
+          "rationale": "The nominal styling/is-done wrapper obscures the direct CSS mechanism.",
+          "proposed_edit": "Define CSS classes to style a Gantt diagram; keep the stylesheet location."
+        },
+        {
+          "id": "c06-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11036,
+              "end": 11105,
+              "quote": "It is possible to adjust the margins for rendering the gantt diagram."
+            },
+            {
+              "start": 11107,
+              "end": 11183,
+              "quote": "This is done by defining the `ganttConfig` part of the configuration object."
+            }
+          ],
+          "context": [
+            {
+              "start": 11036,
+              "end": 11105,
+              "quote": "It is possible to adjust the margins for rendering the gantt diagram."
+            },
+            {
+              "start": 11107,
+              "end": 11258,
+              "quote": "This is done by defining the `ganttConfig` part of the configuration object.\nHow to use the CLI is described in the [mermaidCLI](mermaidCLI.html) page."
+            }
+          ],
+          "rationale": "Possible-to-adjust followed by this-is-done restates the same instruction across two blocks.",
+          "proposed_edit": "Set ganttConfig on the configuration object to adjust Gantt rendering margins; keep the CLI reference."
+        },
+        {
+          "id": "c06-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 11854,
+              "end": 11876,
+              "quote": "It is possible to bind"
+            }
+          ],
+          "context": [
+            {
+              "start": 11854,
+              "end": 12139,
+              "quote": "It is possible to bind a click event to a task. The click can lead to either a javascript callback or to a link which will be opened in the current browser tab. **Note**: This functionality is disabled when using `securityLevel='strict'` and enabled when using `securityLevel='loose'`."
+            }
+          ],
+          "rationale": "The possibility wrapper delays the click-binding action.",
+          "proposed_edit": "Bind a click event to a task; preserve both callback/link choices and security-level restrictions."
+        }
+      ],
+      "uncertain": [],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1006,
+              "end": 1347,
+              "quote": " However, if the excluded dates are between two tasks that are set to start consecutively, the excluded dates will be skipped graphically and left blank, and the following task will begin after the end of the excluded dates.\n As shown here ![](https://raw.githubusercontent.com/NeilCuzon/mermaid/develop/docs/img/Gantt-long-weekend-look.png)"
+            }
+          ],
+          "context": [
+            {
+              "start": 1006,
+              "end": 1347,
+              "quote": " However, if the excluded dates are between two tasks that are set to start consecutively, the excluded dates will be skipped graphically and left blank, and the following task will begin after the end of the excluded dates.\n As shown here ![](https://raw.githubusercontent.com/NeilCuzon/mermaid/develop/docs/img/Gantt-long-weekend-look.png)"
+            }
+          ],
+          "rationale": "Gaps between consecutive tasks differ from excluded dates within a task.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 5543,
+              "end": 5714,
+              "quote": "`dateFormat` defines the format of the date **input** of your gantt elements. How these dates are represented in the rendered chart **output** are defined by `axisFormat`."
+            }
+          ],
+          "context": [
+            {
+              "start": 5543,
+              "end": 5714,
+              "quote": "`dateFormat` defines the format of the date **input** of your gantt elements. How these dates are represented in the rendered chart **output** are defined by `axisFormat`."
+            }
+          ],
+          "rationale": "Input dates and displayed axis dates use distinct settings.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 11696,
+              "end": 11834,
+              "quote": "Adjusts how far down the graph ended. Wide borders styles with css could generate unwanted clipping which is why this config param exists."
+            }
+          ],
+          "context": [
+            {
+              "start": 11696,
+              "end": 11834,
+              "quote": "Adjusts how far down the graph ended. Wide borders styles with css could generate unwanted clipping which is why this config param exists."
+            }
+          ],
+          "rationale": "The margin parameter has a concrete clipping consequence; its explanation is useful.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 12243,
+              "end": 12428,
+              "quote": "callback is the name of a javascript function defined on the page displaying the graph, the function will be called with the taskId as the parameter if no other arguments are specified."
+            }
+          ],
+          "context": [
+            {
+              "start": 12243,
+              "end": 12428,
+              "quote": "callback is the name of a javascript function defined on the page displaying the graph, the function will be called with the taskId as the parameter if no other arguments are specified."
+            }
+          ],
+          "rationale": "Callback naming and the passed task ID define the invocation contract.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}
