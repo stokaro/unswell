@@ -510,7 +510,7 @@
       "rules": [
         {
           "id": "repetition.adjacent-word",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "repetition",
           "scope": "sentence",
@@ -528,8 +528,8 @@
           "weight": 12,
           "cap": 24,
           "summary": "This word occurs twice in succession; check for an accidental duplicate.",
-          "description": "Locates adjacent equal prose words separated only by whitespace. Quoted examples, protected text, repeated adjectives/adverbs, and ambiguous grammatical repetitions are excluded.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Deliberate repetition and technical compounds can still match; this is not an authorship signal."
+          "description": "Locates adjacent equal prose words separated only by whitespace. Quoted examples, protected text, repeated adjectives/adverbs, and ambiguous grammatical repetitions are excluded. Quotation protection follows the repeated tokens, including quotes spanning sentences in one block.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Deliberate repetition and technical compounds can still match; this is not an authorship signal. Unclosed quotations and ambiguous plural possessives inside single quotes protect the remaining passage."
         },
         {
           "id": "repetition.definition-echo",

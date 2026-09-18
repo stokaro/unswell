@@ -16,9 +16,10 @@ func adjacentWords(ctx context.Context, view rule.View, emit rule.Emitter) error
 			return err
 		}
 		evaluated := false
+		quotes := &adjacentQuoteScope{}
 		if !block.Excluded {
 			for _, sentence := range block.Sentences {
-				if err := adjacentSentence(view, block, sentence, budget, emit, &evaluated); err != nil {
+				if err := adjacentSentence(view, block, sentence, budget, emit, &evaluated, quotes); err != nil {
 					return err
 				}
 			}
@@ -31,16 +32,14 @@ func adjacentWords(ctx context.Context, view rule.View, emit rule.Emitter) error
 }
 
 func adjacentSentence(view rule.View, block document.Block, sentence document.Sentence, budget *repetitionBudget,
-	emit rule.Emitter, evaluated *bool) error {
+	emit rule.Emitter, evaluated *bool, quotes *adjacentQuoteScope) error {
 	if err := budget.spend(len(sentence.Tokens) + len(sentence.Text) + 1); err != nil {
 		return err
 	}
-	if quotedClaim(sentence.Tokens) {
-		return nil
-	}
+	quoted := quotes.tokens(block.Text, sentence.Tokens)
 	for i := 1; i < len(sentence.Tokens); i++ {
 		left, right := sentence.Tokens[i-1], sentence.Tokens[i]
-		if !adjacentProseWords(left, right) || view.Exempts(sentence, i-1, i+1) {
+		if !unquotedAdjacentWords(sentence.Tokens, quoted, i) || view.Exempts(sentence, i-1, i+1) {
 			continue
 		}
 		*evaluated = true
@@ -55,6 +54,10 @@ func adjacentSentence(view rule.View, block document.Block, sentence document.Se
 		i++
 	}
 	return nil
+}
+
+func unquotedAdjacentWords(tokens []document.Token, quoted []bool, i int) bool {
+	return !quoted[i-1] && !quoted[i] && adjacentProseWords(tokens[i-1], tokens[i])
 }
 
 func ambiguousDuplicate(left, right document.Token, tokens []document.Token) bool {

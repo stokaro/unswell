@@ -10,10 +10,13 @@ func localRepetitionRules() []rule.Rule {
 	word := descriptor("repetition.adjacent-word", "This word occurs twice in succession; check for an accidental duplicate.",
 		"repetition", "sentence", 12)
 	word.Requires = append(word.Requires, nlp.POS)
+	word.Version = "2"
 	word.BlockObservations, word.TermExemptions = true, true
 	word.Description = "Locates adjacent equal prose words separated only by whitespace. " +
-		"Quoted examples, protected text, repeated adjectives/adverbs, and ambiguous grammatical repetitions are excluded."
+		"Quoted examples, protected text, repeated adjectives/adverbs, and ambiguous grammatical repetitions are excluded. " +
+		"Quotation protection follows the repeated tokens, including quotes spanning sentences in one block."
 	word.Limitations += " Deliberate repetition and technical compounds can still match; this is not an authorship signal."
+	word.Limitations += " Unclosed quotations and ambiguous plural possessives inside single quotes protect the remaining passage."
 	word.Examples = []rule.Example{{Text: "The scanner requires requires an external decoder.", Match: true},
 		{Text: "The client had had enough time to close the connection."}}
 	claim := descriptor("repetition.repeated-claim", "These passages repeat an assertion; check whether the explanation can be shared.",
