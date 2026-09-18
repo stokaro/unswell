@@ -1,0 +1,3306 @@
+{
+  "version": 1,
+  "rubric": "unswell-editorial-v1",
+  "pages": [
+    {
+      "version": 1,
+      "page": "c01",
+      "source_sha256": "5e7087b257ca6dce2ed32981324450232bb80bd65a710abce24270b67a5d5d02",
+      "reviewer": "Codex assistant reviewing the structural-wordiness iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 6138,
+          "first_line": 1,
+          "last_line": 162,
+          "rationale": "Read all live-table migration prose, including capture atomicity, per-pass stopping counts, tombstones, skip versus gap, verification barriers, shared outbox ownership and pruning. Preserve transaction and lifecycle distinctions.",
+          "prose_blocks": 29,
+          "review_boundary": "Read every nonexcluded prose block and inspected original source context for selected judgments and protected operands. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c01-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 586,
+              "end": 630,
+              "quote": "This page is about not losing\nthose changes."
+            }
+          ],
+          "context": [
+            {
+              "start": 536,
+              "end": 630,
+              "quote": "The table keeps changing while the backfill runs. This page is about not losing\nthose changes."
+            }
+          ],
+          "rationale": "The second sentence announces the page topic after the concrete live-update problem; the following procedure supplies the solution.",
+          "proposed_edit": "Remove the page announcement; retain that the table keeps changing during backfill."
+        },
+        {
+          "id": "c01-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1920,
+              "end": 1972,
+              "quote": "which is what makes the\nline a stop condition at all"
+            }
+          ],
+          "context": [
+            {
+              "start": 1867,
+              "end": 2032,
+              "quote": "The numbers are **this pass's** work, not the run's, which is what makes the\nline a stop condition at all: a count that included the backfill could never\nreach zero."
+            }
+          ],
+          "rationale": "A relative cleft and emphatic tail wrap the causal link between per-pass counts and the zero stop condition.",
+          "proposed_edit": "Use \"so the line can serve as a stop condition\"; preserve per-pass versus whole-run counts and the backfill counterexample."
+        },
+        {
+          "id": "c01-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2368,
+              "end": 2395,
+              "quote": "The tombstone is what stops"
+            }
+          ],
+          "context": [
+            {
+              "start": 2280,
+              "end": 2525,
+              "quote": "A row deleted from the source becomes a **tombstone** rather than a deleted\ntarget row. The tombstone is what stops a late-arriving embedding — one already\nin flight when the delete happened — from recreating a row your source no longer\nhas."
+            }
+          ],
+          "rationale": "The subject cleft adds grammatical support to a concrete prevention action. The preceding sentence already distinguishes a tombstone from deletion.",
+          "proposed_edit": "Use \"The tombstone stops\"; retain the in-flight embedding qualifier and the deleted-source-row consequence."
+        },
+        {
+          "id": "c01-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2981,
+              "end": 3059,
+              "quote": "The two\nare one finding apart in the same layer, and Ptah keeps them distinct."
+            }
+          ],
+          "context": [
+            {
+              "start": 2908,
+              "end": 3059,
+              "quote": "A row that *nothing* ever embedded is a real gap and is reported as one. The two\nare one finding apart in the same layer, and Ptah keeps them distinct."
+            }
+          ],
+          "rationale": "The metaphor about being one finding apart obscures the concrete skip-versus-gap reporting distinction.",
+          "proposed_edit": "Ptah reports skipped empty input separately from rows that were never embedded."
+        },
+        {
+          "id": "c01-d05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4436,
+              "end": 4510,
+              "quote": "that is the cost of the guarantee,\nand it is worth knowing it is not free."
+            }
+          ],
+          "context": [
+            {
+              "start": 4308,
+              "end": 4510,
+              "quote": "`retire` removes the generation and its bookkeeping. Until then the outbox table\nand its triggers stay on your source table — that is the cost of the guarantee,\nand it is worth knowing it is not free."
+            }
+          ],
+          "rationale": "This restates that retained outbox resources have a cost without naming another resource or operational limit.",
+          "proposed_edit": "Remove this tail; keep the outbox table and triggers remaining until retirement."
+        },
+        {
+          "id": "c01-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4661,
+              "end": 4758,
+              "quote": "The question\nis asked about the source rather than the target, and about both halves of its\nname:"
+            }
+          ],
+          "context": [
+            {
+              "start": 4512,
+              "end": 4978,
+              "quote": "The outbox belongs to the source **table**, not to one generation, so retiring a\ngeneration while another still reads that table leaves it in place. The question\nis asked about the source rather than the target, and about both halves of its\nname: a second generation reading the same table but writing into a different\none still needs the capture, and a same-named table in another schema does not\ncount as a reader. `retire` says which it did, and names the source:"
+            }
+          ],
+          "rationale": "The personified question describes an ownership test indirectly instead of naming its key.",
+          "proposed_edit": "Ownership is checked by source schema and table, independently of the destination; retain both following examples."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c01-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 650,
+              "end": 693,
+              "quote": "`prepare` has two effects that matter here."
+            }
+          ],
+          "context": [
+            {
+              "start": 650,
+              "end": 886,
+              "quote": "`prepare` has two effects that matter here. It installs a companion table and two\ntriggers on your source, and it records a **boundary** — the point in the\ndatabase's transaction ordering that the backfill will embed the source as of."
+            }
+          ],
+          "rationale": "The numbered preview could be folded into the following action sentence, but it also signals two independent effects.",
+          "proposed_edit": "Consider naming both effects directly without changing the boundary definition."
+        },
+        {
+          "id": "c01-u02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1022,
+              "end": 1122,
+              "quote": "That is the guarantee:\na change that committed has an event, because one transaction committed both."
+            }
+          ],
+          "context": [
+            {
+              "start": 888,
+              "end": 1122,
+              "quote": "From then on, every committed change to a source row writes a row into the\ncompanion table **in the same transaction as the change**. That is the guarantee:\na change that committed has an event, because one transaction committed both."
+            }
+          ],
+          "rationale": "This restates same-transaction atomicity, but makes its event-delivery consequence explicit for readers unfamiliar with transactions.",
+          "proposed_edit": "Consider combining the atomicity statement and its committed-event consequence."
+        },
+        {
+          "id": "c01-u03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3185,
+              "end": 3273,
+              "quote": "Verification measures a moving target, and the consistency layer is where that\nshows up:"
+            }
+          ],
+          "context": [
+            {
+              "start": 3185,
+              "end": 3473,
+              "quote": "Verification measures a moving target, and the consistency layer is where that\nshows up: it refuses if the backfill has not finished or catch-up has not reached\nthe barrier. A freshness finding on a busy table is often the last few\nseconds of writes — run `catchup` again and re-verify."
+            }
+          ],
+          "rationale": "The framing is indirect but connects concurrent writes to the following refusal and freshness behavior.",
+          "proposed_edit": "Consider introducing the concrete consistency checks directly while retaining all barrier and freshness conditions."
+        },
+        {
+          "id": "c01-u04",
+          "category": "formulaic_transitions",
+          "subtype": "formulaic_transitions",
+          "targets": [
+            {
+              "start": 5649,
+              "end": 5694,
+              "quote": "The same fact decides how big the table gets."
+            }
+          ],
+          "context": [
+            {
+              "start": 5649,
+              "end": 6137,
+              "quote": "The same fact decides how big the table gets. `catchup` removes the events every\nusable live feeder reading that table has passed, so the table holds the backlog and not\nthe history — but a run that is behind holds its events for everyone. If that\nattempt is over, `abandon` releases its floor position without deleting its\ngeneration or vectors. `retire` remains the destructive generation-level lever,\nand removes the shared outbox only after the last generation that owns it is\ngone."
+            }
+          ],
+          "rationale": "The transition is vague by itself but may help link shared ownership with pruning across live readers.",
+          "proposed_edit": "Consider naming shared source ownership explicitly; preserve pruning floors and retirement behavior."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c01-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 888,
+              "end": 1021,
+              "quote": "From then on, every committed change to a source row writes a row into the\ncompanion table **in the same transaction as the change**."
+            }
+          ],
+          "context": [
+            {
+              "start": 888,
+              "end": 1122,
+              "quote": "From then on, every committed change to a source row writes a row into the\ncompanion table **in the same transaction as the change**. That is the guarantee:\na change that committed has an event, because one transaction committed both."
+            }
+          ],
+          "rationale": "The committed change and companion row must remain in the same transaction; shortening must not weaken that atomicity guarantee.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2280,
+              "end": 2367,
+              "quote": "A row deleted from the source becomes a **tombstone** rather than a deleted\ntarget row."
+            },
+            {
+              "start": 2426,
+              "end": 2472,
+              "quote": "one already\nin flight when the delete happened"
+            }
+          ],
+          "context": [
+            {
+              "start": 2280,
+              "end": 2525,
+              "quote": "A row deleted from the source becomes a **tombstone** rather than a deleted\ntarget row. The tombstone is what stops a late-arriving embedding — one already\nin flight when the delete happened — from recreating a row your source no longer\nhas."
+            }
+          ],
+          "rationale": "The tombstone and a deleted target row differ operationally; the late in-flight embedding is a necessary condition, not redundant narrative.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 3274,
+              "end": 3358,
+              "quote": "it refuses if the backfill has not finished or catch-up has not reached\nthe barrier."
+            },
+            {
+              "start": 3359,
+              "end": 3473,
+              "quote": "A freshness finding on a busy table is often the last few\nseconds of writes — run `catchup` again and re-verify."
+            }
+          ],
+          "context": [
+            {
+              "start": 3185,
+              "end": 3473,
+              "quote": "Verification measures a moving target, and the consistency layer is where that\nshows up: it refuses if the backfill has not finished or catch-up has not reached\nthe barrier. A freshness finding on a busy table is often the last few\nseconds of writes — run `catchup` again and re-verify."
+            }
+          ],
+          "rationale": "Unfinished backfill and catch-up below the barrier are separate refusal conditions. Freshness can reflect recent writes rather than a permanent gap.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 5285,
+              "end": 5647,
+              "quote": "Which mode the generation was built with is read from the specification the\nregistry recorded for it, not from the file you pass to `retire`. Retiring an\noutbox-built generation while holding a specification that declares `immutable`\nstill removes the triggers, and an `immutable` generation over the same source\nis not a reader of an outbox it was never fed by."
+            }
+          ],
+          "context": [
+            {
+              "start": 5285,
+              "end": 5647,
+              "quote": "Which mode the generation was built with is read from the specification the\nregistry recorded for it, not from the file you pass to `retire`. Retiring an\noutbox-built generation while holding a specification that declares `immutable`\nstill removes the triggers, and an `immutable` generation over the same source\nis not a reader of an outbox it was never fed by."
+            }
+          ],
+          "rationale": "Registered generation mode differs from the specification passed to retire; immutable generations are not outbox readers.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c01-c05",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 5695,
+              "end": 5778,
+              "quote": "`catchup` removes the events every\nusable live feeder reading that table has passed"
+            },
+            {
+              "start": 5891,
+              "end": 5997,
+              "quote": "If that\nattempt is over, `abandon` releases its floor position without deleting its\ngeneration or vectors."
+            },
+            {
+              "start": 5998,
+              "end": 6137,
+              "quote": "`retire` remains the destructive generation-level lever,\nand removes the shared outbox only after the last generation that owns it is\ngone."
+            }
+          ],
+          "context": [
+            {
+              "start": 5649,
+              "end": 6137,
+              "quote": "The same fact decides how big the table gets. `catchup` removes the events every\nusable live feeder reading that table has passed, so the table holds the backlog and not\nthe history — but a run that is behind holds its events for everyone. If that\nattempt is over, `abandon` releases its floor position without deleting its\ngeneration or vectors. `retire` remains the destructive generation-level lever,\nand removes the shared outbox only after the last generation that owns it is\ngone."
+            }
+          ],
+          "rationale": "Abandon releases a floor without deleting a generation or vectors; retire is destructive and removes a shared outbox only after the last owner.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c02",
+      "source_sha256": "05c9ca5840e720cc26c053aad30b479ac72010c7d913b3af0ffa260348efec3e",
+      "reviewer": "Codex assistant reviewing the structural-wordiness iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 5293,
+          "first_line": 1,
+          "last_line": 131,
+          "rationale": "Read the evaluation corpus schema and all explanatory prose. Preserve key encoding, positive grades, required-versus-relevant expectations, fallback grades, digest identity and query/filter distinctions.",
+          "prose_blocks": 38,
+          "review_boundary": "Read every nonexcluded prose block and inspected original source context for selected judgments and protected operands. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c02-d01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 808,
+              "end": 880,
+              "quote": "It is the only thing that answers \"is this generation actually working\"."
+            }
+          ],
+          "context": [
+            {
+              "start": 808,
+              "end": 1093,
+              "quote": "It is the only thing that answers \"is this generation actually working\".\nVerification measures coverage and freshness — every row has a vector, and that\nvector was computed from the text the row holds now — and neither of those is a\nstatement about whether search results are good."
+            }
+          ],
+          "rationale": "The sentence makes an exclusive, unbounded quality claim. A labeled query corpus evaluates retrieval on its cases, not every meaning of working.",
+          "proposed_edit": "The corpus evaluates retrieval quality on its labeled queries; keep the separate coverage and freshness description."
+        },
+        {
+          "id": "c02-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2216,
+              "end": 2302,
+              "quote": "A key here is matched against what you wrote, so it has to be\nsomething you can write."
+            }
+          ],
+          "context": [
+            {
+              "start": 2055,
+              "end": 2302,
+              "quote": "This is the corpus file's spelling, and it is deliberately not the identity\nverification compares rows by — that one is length-prefixed and reads\n`6:acme1:2`. A key here is matched against what you wrote, so it has to be\nsomething you can write."
+            }
+          ],
+          "rationale": "The circular writeability explanation adds no encoding requirement to the concrete corpus-versus-verification distinction.",
+          "proposed_edit": "Remove this sentence; keep the documented corpus encoding and the length-prefixed verification example."
+        },
+        {
+          "id": "c02-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3391,
+              "end": 3453,
+              "quote": "because a case naming a right answer is\nnaming a right answer."
+            }
+          ],
+          "context": [
+            {
+              "start": 3272,
+              "end": 3570,
+              "quote": "All three read `relevant`. A case that declares `required` and no `relevant` is\nread as grading each required key `1`, because a case naming a right answer is\nnaming a right answer. Declaring `relevant` explicitly overrides that, which is\nhow an author says one right answer is better than another."
+            }
+          ],
+          "rationale": "The repeated proposition supplies no reason beyond itself for the required-key fallback.",
+          "proposed_edit": "Remove the tautology; retain required keys receiving grade 1 only when relevant is absent and explicit grades overriding the fallback."
+        },
+        {
+          "id": "c02-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3572,
+              "end": 3615,
+              "quote": "That derivation matters more than it looks."
+            }
+          ],
+          "context": [
+            {
+              "start": 3572,
+              "end": 4025,
+              "quote": "That derivation matters more than it looks. A case contributing no grades\ncontributes to no ranked measure at all — which is right for a case that\nexpects nothing, and wrong for one that named its answer under `required`. Were\nsuch a case ungraded, a corpus made entirely of them would score nothing, and\nthe mean of nothing is zero: `recall 0.000` for a generation answering every\nquery perfectly, and a `--max-recall-drop` gate comparing against it."
+            }
+          ],
+          "rationale": "The importance announcement precedes the complete concrete explanation of the ungraded-case failure.",
+          "proposed_edit": "Remove the opening sentence; retain the no-observations mean and gate example."
+        },
+        {
+          "id": "c02-d05",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 5063,
+              "end": 5121,
+              "quote": "Ten to thirty cases is usually enough to see a regression."
+            }
+          ],
+          "context": [
+            {
+              "start": 5063,
+              "end": 5292,
+              "quote": "Ten to thirty cases is usually enough to see a regression. What matters more\nthan the count is that they are questions somebody asked: a corpus of questions\nyou invented measures how well the model answers questions you invented."
+            }
+          ],
+          "rationale": "An unspecific case-count claim promises regression sensitivity without identifying query coverage or regression size.",
+          "proposed_edit": "Describe 10–30 cases as a starting set, not demonstrated regression coverage; state that coverage depends on the selected queries."
+        },
+        {
+          "id": "c02-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5198,
+              "end": 5292,
+              "quote": "a corpus of questions\nyou invented measures how well the model answers questions you invented."
+            }
+          ],
+          "context": [
+            {
+              "start": 5063,
+              "end": 5292,
+              "quote": "Ten to thirty cases is usually enough to see a regression. What matters more\nthan the count is that they are questions somebody asked: a corpus of questions\nyou invented measures how well the model answers questions you invented."
+            }
+          ],
+          "rationale": "The closing repetition restates its premise instead of explaining why the source of questions matters.",
+          "proposed_edit": "Use actual user queries to cover the retrieval tasks users perform; keep the distinction between real and invented queries without declaring invented tests invalid."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c02-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2576,
+              "end": 2655,
+              "quote": "so a listed zero reads as \"this one matters\" and scores as \"this one does not\"."
+            }
+          ],
+          "context": [
+            {
+              "start": 2497,
+              "end": 2655,
+              "quote": "A grade must be greater than zero. Zero is what an unlisted key already means,\nso a listed zero reads as \"this one matters\" and scores as \"this one does not\"."
+            }
+          ],
+          "rationale": "The personification is longer than the numeric rule but explains why explicitly listing grade zero would mislead an author.",
+          "proposed_edit": "Consider stating that zero already means unlisted; keep the strictly positive grade constraint."
+        },
+        {
+          "id": "c02-u02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4796,
+              "end": 4831,
+              "quote": "That is what\n`--baseline` rests on."
+            }
+          ],
+          "context": [
+            {
+              "start": 4732,
+              "end": 4831,
+              "quote": "Two evaluations are comparable when their corpus digests match. That is what\n`--baseline` rests on."
+            }
+          ],
+          "rationale": "The formulation is figurative, but the sentence supplies a useful link from digest identity to a specific option.",
+          "proposed_edit": "Consider \"--baseline requires matching corpus digests.\""
+        }
+      ],
+      "controls": [
+        {
+          "id": "c02-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 2055,
+              "end": 2215,
+              "quote": "This is the corpus file's spelling, and it is deliberately not the identity\nverification compares rows by — that one is length-prefixed and reads\n`6:acme1:2`."
+            }
+          ],
+          "context": [
+            {
+              "start": 2055,
+              "end": 2302,
+              "quote": "This is the corpus file's spelling, and it is deliberately not the identity\nverification compares rows by — that one is length-prefixed and reads\n`6:acme1:2`. A key here is matched against what you wrote, so it has to be\nsomething you can write."
+            }
+          ],
+          "rationale": "The corpus key spelling and the length-prefixed identity used by verification are distinct contracts; retain both.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2685,
+              "end": 2974,
+              "quote": "`required` is a hard expectation and `relevant` is a score, and they answer\ndifferent questions. A corpus that only scored would pass a generation that\nranks the one document the question is about eleventh; a corpus that only\nrequired would say nothing about the order of the ten above it."
+            }
+          ],
+          "context": [
+            {
+              "start": 2685,
+              "end": 2974,
+              "quote": "`required` is a hard expectation and `relevant` is a score, and they answer\ndifferent questions. A corpus that only scored would pass a generation that\nranks the one document the question is about eleventh; a corpus that only\nrequired would say nothing about the order of the ten above it."
+            }
+          ],
+          "rationale": "Hard required-document expectations and ranked relevance scores test different failures; eleventh versus top ten is substantive.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 3299,
+              "end": 3389,
+              "quote": "A case that declares `required` and no `relevant` is\nread as grading each required key `1`"
+            },
+            {
+              "start": 3454,
+              "end": 3500,
+              "quote": "Declaring `relevant` explicitly overrides that"
+            }
+          ],
+          "context": [
+            {
+              "start": 3272,
+              "end": 3570,
+              "quote": "All three read `relevant`. A case that declares `required` and no `relevant` is\nread as grading each required key `1`, because a case naming a right answer is\nnaming a right answer. Declaring `relevant` explicitly overrides that, which is\nhow an author says one right answer is better than another."
+            }
+          ],
+          "rationale": "Absent relevant and explicitly supplied relevant have different fallback behavior, and grade 1 must be preserved.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c02-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 3823,
+              "end": 4025,
+              "quote": "a corpus made entirely of them would score nothing, and\nthe mean of nothing is zero: `recall 0.000` for a generation answering every\nquery perfectly, and a `--max-recall-drop` gate comparing against it."
+            }
+          ],
+          "context": [
+            {
+              "start": 3572,
+              "end": 4025,
+              "quote": "That derivation matters more than it looks. A case contributing no grades\ncontributes to no ranked measure at all — which is right for a case that\nexpects nothing, and wrong for one that named its answer under `required`. Were\nsuch a case ungraded, a corpus made entirely of them would score nothing, and\nthe mean of nothing is zero: `recall 0.000` for a generation answering every\nquery perfectly, and a `--max-recall-drop` gate comparing against it."
+            }
+          ],
+          "rationale": "No observations yielding a zero mean can misrepresent correctly answered required-only cases. This is a concrete failure explanation.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c03",
+      "source_sha256": "1c3155d608cb70969f02e0598e42df4bda1e3d43231a8a6c5bc668276b94c261",
+      "reviewer": "Codex assistant reviewing the structural-wordiness iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 2444,
+          "first_line": 1,
+          "last_line": 53,
+          "rationale": "Read all extracted database overview prose. The page is short navigation plus explicit support precedence, with no definite editorial defect identified under the seven categories.",
+          "prose_blocks": 6,
+          "review_boundary": "Read every nonexcluded prose block and inspected original source context for selected judgments and protected operands. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [],
+      "uncertain": [],
+      "controls": [
+        {
+          "id": "c03-c01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 718,
+              "end": 990,
+              "quote": "Start with measured support, then open the guide for the target engine. A\ndialect name tells Ptah which SQL rules to use; a release-line support level\ntells you what this repository continuously exercises. Neither is a promise\nthat every construct renders on every target."
+            }
+          ],
+          "context": [
+            {
+              "start": 718,
+              "end": 990,
+              "quote": "Start with measured support, then open the guide for the target engine. A\ndialect name tells Ptah which SQL rules to use; a release-line support level\ntells you what this repository continuously exercises. Neither is a promise\nthat every construct renders on every target."
+            }
+          ],
+          "rationale": "The overview gives bounded database guidance or navigation, not an unqualified claim that accepting a dialect supports every construct.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c04",
+      "source_sha256": "639b0ab70de703b2f92d22cdf29c8a0306646c911fc15006d2c4bd24848da266",
+      "reviewer": "Codex assistant reviewing the structural-wordiness iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 5751,
+          "first_line": 1,
+          "last_line": 181,
+          "rationale": "Read the complete seed-data prose and flag descriptions. Preserve filename validation, environment restrictions, immutable checksums, dialect distinctions, duplicate handling and savepoint scope.",
+          "prose_blocks": 37,
+          "review_boundary": "Read every nonexcluded prose block and inspected original source context for selected judgments and protected operands. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c04-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4563,
+              "end": 4754,
+              "quote": "Adding a new seed file is the normal answer, for the same reason it is with\nmigrations: the rows the old file wrote are already in the database, and the new\nfile says what changes about them."
+            }
+          ],
+          "context": [
+            {
+              "start": 4563,
+              "end": 4821,
+              "quote": "Adding a new seed file is the normal answer, for the same reason it is with\nmigrations: the rows the old file wrote are already in the database, and the new\nfile says what changes about them. `--force` re-applies the edited file and\nrecords its new checksum."
+            }
+          ],
+          "rationale": "The answer-and-reason wrapper narrates the recommendation instead of stating the action and its applied-data reason.",
+          "proposed_edit": "Put later changes in a new seed file: the earlier file has already changed the database. Preserve the following --force behavior."
+        },
+        {
+          "id": "c04-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 4911,
+              "end": 4961,
+              "quote": "and is\n  what gets past the checksum refusal above"
+            }
+          ],
+          "context": [
+            {
+              "start": 4842,
+              "end": 5059,
+              "quote": "`--force` re-runs seeds that are already recorded in `schema_seeds`, and is\n  what gets past the checksum refusal above. Plain `INSERT` statements then hit\n  duplicate-key errors on tables with primary or unique keys."
+            }
+          ],
+          "rationale": "A coordinated subject cleft wraps the concrete bypass behavior.",
+          "proposed_edit": "Use \"and bypasses the checksum refusal above\"; retain reapplication of recorded seeds and the duplicate-key consequence."
+        }
+      ],
+      "uncertain": [],
+      "controls": [
+        {
+          "id": "c04-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 4963,
+              "end": 5059,
+              "quote": "Plain `INSERT` statements then hit\n  duplicate-key errors on tables with primary or unique keys."
+            }
+          ],
+          "context": [
+            {
+              "start": 4842,
+              "end": 5059,
+              "quote": "`--force` re-runs seeds that are already recorded in `schema_seeds`, and is\n  what gets past the checksum refusal above. Plain `INSERT` statements then hit\n  duplicate-key errors on tables with primary or unique keys."
+            }
+          ],
+          "rationale": "--force bypassing the checksum refusal does not prevent plain INSERT from violating primary or unique keys.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1227,
+              "end": 1373,
+              "quote": "`env` selects the environment: `002_demo_users.dev.sql` applies only with\n  `--env dev`, and `001_countries.all.sql` applies in every environment."
+            }
+          ],
+          "context": [
+            {
+              "start": 1227,
+              "end": 1373,
+              "quote": "`env` selects the environment: `002_demo_users.dev.sql` applies only with\n  `--env dev`, and `001_countries.all.sql` applies in every environment."
+            }
+          ],
+          "rationale": "The local seed command or flag documentation carries concrete operational scope; no definite removable framing identified here.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2772,
+              "end": 3014,
+              "quote": "`ptah seed` creates `schema_seeds` when at least one seed file matches the\nenvironment and the table is absent, and leaves an existing table in place. It\nholds the same columns on every engine: `seed_path`, `env`, `checksum` and\n`applied_at`."
+            }
+          ],
+          "context": [
+            {
+              "start": 2772,
+              "end": 3014,
+              "quote": "`ptah seed` creates `schema_seeds` when at least one seed file matches the\nenvironment and the table is absent, and leaves an existing table in place. It\nholds the same columns on every engine: `seed_path`, `env`, `checksum` and\n`applied_at`."
+            }
+          ],
+          "rationale": "The local seed command or flag documentation carries concrete operational scope; no definite removable framing identified here.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 3142,
+              "end": 3332,
+              "quote": "On SQL Server the statement is guarded with `IF OBJECT_ID(...) IS NULL`, and\n  `applied_at` is `DATETIME2`. In T-SQL, `TIMESTAMP` is a row version the\n  server fills in, not a point in time."
+            }
+          ],
+          "context": [
+            {
+              "start": 3142,
+              "end": 3332,
+              "quote": "On SQL Server the statement is guarded with `IF OBJECT_ID(...) IS NULL`, and\n  `applied_at` is `DATETIME2`. In T-SQL, `TIMESTAMP` is a row version the\n  server fills in, not a point in time."
+            }
+          ],
+          "rationale": "The local seed command or flag documentation carries concrete operational scope; no definite removable framing identified here.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c04-c05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5062,
+              "end": 5227,
+              "quote": "`--idempotent` treats a duplicate-key conflict as already-applied data,\n  using a per-file savepoint, so `--force --idempotent` re-runs cleanly over\n  existing rows."
+            }
+          ],
+          "context": [
+            {
+              "start": 5062,
+              "end": 5227,
+              "quote": "`--idempotent` treats a duplicate-key conflict as already-applied data,\n  using a per-file savepoint, so `--force --idempotent` re-runs cleanly over\n  existing rows."
+            }
+          ],
+          "rationale": "The local seed command or flag documentation carries concrete operational scope; no definite removable framing identified here.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c05",
+      "source_sha256": "d8a404f66976ff0b3c4007c0343eb471743824d802ddc95236bf45867de140fe",
+      "reviewer": "Codex assistant reviewing the structural-wordiness iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 12584,
+          "first_line": 1,
+          "last_line": 295,
+          "rationale": "Read the complete native-MDX extracted prose for schema serve and inspected commands in selected source blocks. Preserve read-only behavior, per-request rereads, authentication, HTTP status caveats, unsupported features, OCI refusal and external-loader limits.",
+          "prose_blocks": 69,
+          "review_boundary": "Read every nonexcluded prose block and inspected original source context for selected judgments and protected operands. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c05-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1361,
+              "end": 1442,
+              "quote": "so where `ptah schema compare` answers once, this keeps answering while\nyou work."
+            }
+          ],
+          "context": [
+            {
+              "start": 1203,
+              "end": 1442,
+              "quote": "`ptah schema serve` serves a read-only web page carrying the desired\nschema and how a live database differs from it. The page re-reads both on every\nrequest, so where `ptah schema compare` answers once, this keeps answering while\nyou work."
+            }
+          ],
+          "rationale": "The personified answers contrast narrates the one-shot-versus-per-request distinction indirectly.",
+          "proposed_edit": "Use \"unlike the one-shot ptah schema compare command\"; retain that both schema and database are reread on each request."
+        },
+        {
+          "id": "c05-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1519,
+              "end": 1582,
+              "quote": "It is\nnot a pipeline tool: a pipeline wants an exit code, which"
+            }
+          ],
+          "context": [
+            {
+              "start": 1444,
+              "end": 1735,
+              "quote": "Use it as a second window beside the editor while you are changing models. It is\nnot a pipeline tool: a pipeline wants an exit code, which\n[`ptah schema drift`](../../direct/compare-and-drift/) gives it. Nothing here\nwrites to the database, and no migration depends on the server having run."
+            }
+          ],
+          "rationale": "The pipeline is personified as wanting an exit code instead of giving the concrete command-selection instruction.",
+          "proposed_edit": "For pipeline exit codes, use the linked ptah schema drift command. Preserve that serve is read-only and no migration depends on it."
+        },
+        {
+          "id": "c05-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4726,
+              "end": 4786,
+              "quote": "because a live view whose\nage is unknown is not a live view."
+            }
+          ],
+          "context": [
+            {
+              "start": 4468,
+              "end": 4786,
+              "quote": "The status panel carries four counters — differing categories, destructive,\nwarning, safe — followed either by the sentence\n`The database matches the declared schema.` or by a **Drift** table. Under it\nsits a timestamp reading `compared` and a UTC time, because a live view whose\nage is unknown is not a live view."
+            }
+          ],
+          "rationale": "The nominal denial repeats a definition-like claim after the timestamp has already been specified.",
+          "proposed_edit": "Remove the closing claim; retain the compared timestamp and UTC time."
+        },
+        {
+          "id": "c05-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9577,
+              "end": 9856,
+              "quote": "Reading the source again on every\n  request is this command's whole contract, and a registry artifact fits neither\n  reading of it: pulling on every request puts a registry on a schedule nobody\n  asked for, and pulling once shows a copy that has stopped matching the\n  reference."
+            }
+          ],
+          "context": [
+            {
+              "start": 9536,
+              "end": 10144,
+              "quote": "An `oci://` artifact cannot be served.** Reading the source again on every\n  request is this command's whole contract, and a registry artifact fits neither\n  reading of it: pulling on every request puts a registry on a schedule nobody\n  asked for, and pulling once shows a copy that has stopped matching the\n  reference. The refusal happens before the server listens.\n  [`ptah schema drift`](../../direct/compare-and-drift/) takes the reference and\n  answers once. An external loader is absent for a separate reason: the command\n  registers no `--schema-cmd`, so render that program's output to a file first."
+            }
+          ],
+          "rationale": "The contract metaphor, two readings, and imagined objection wrap the concrete repeated-fetch versus stale-copy tradeoff.",
+          "proposed_edit": "The command rereads its source on every request. For a registry artifact, that would require repeated registry fetches; fetching once could leave a stale copy. Keep the actual OCI refusal before listening, the drift alternative, and the separate missing-loader reason."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c05-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 4871,
+              "end": 4926,
+              "quote": "so the first viewport answers whether action is needed."
+            }
+          ],
+          "context": [
+            {
+              "start": 4788,
+              "end": 4926,
+              "quote": "The matching view keeps the status decision above the diagram and table\nreference, so the first viewport answers whether action is needed."
+            }
+          ],
+          "rationale": "The claim could exceed the documented unsupported-feature limits, but in context it describes the position of the status decision rather than complete schema assurance.",
+          "proposed_edit": "Consider \"so the status decision is visible before scrolling\" without changing its diagnostic scope."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c05-c01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7459,
+              "end": 7608,
+              "quote": "There is no JSON endpoint. The HTML is the only machine-readable answer, and\nevery path returns the same page, so `curl` on `/` is a complete client:"
+            }
+          ],
+          "context": [
+            {
+              "start": 7459,
+              "end": 7608,
+              "quote": "There is no JSON endpoint. The HTML is the only machine-readable answer, and\nevery path returns the same page, so `curl` on `/` is a complete client:"
+            }
+          ],
+          "rationale": "The curl claim is scoped by every path returning the same HTML and no JSON endpoint; it documents a usable client rather than arbitrary praise.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 4179,
+              "end": 4360,
+              "quote": "Open the printed address in a browser. The address is read back from the\nlistener rather than echoed from the flag, so `--addr 127.0.0.1:0` prints the\nport that was actually chosen."
+            }
+          ],
+          "context": [
+            {
+              "start": 4179,
+              "end": 4360,
+              "quote": "Open the printed address in a browser. The address is read back from the\nlistener rather than echoed from the flag, so `--addr 127.0.0.1:0` prints the\nport that was actually chosen."
+            }
+          ],
+          "rationale": "This operational block names an actual limit, interface or condition; preserve its source-level contract instead of reducing text solely by length.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 7803,
+              "end": 8102,
+              "quote": "`GET` and `HEAD` answer; every other method gets `405` with the header\n`Allow: GET, HEAD`. The refusal is applied before any route runs, so the surface\nstays read-only whatever is added to it. Responses carry `Cache-Control:\nno-store`, since a cached copy would show drift that has since been fixed."
+            }
+          ],
+          "context": [
+            {
+              "start": 7803,
+              "end": 8102,
+              "quote": "`GET` and `HEAD` answer; every other method gets `405` with the header\n`Allow: GET, HEAD`. The refusal is applied before any route runs, so the surface\nstays read-only whatever is added to it. Responses carry `Cache-Control:\nno-store`, since a cached copy would show drift that has since been fixed."
+            }
+          ],
+          "rationale": "This operational block names an actual limit, interface or condition; preserve its source-level contract instead of reducing text solely by length.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c05-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 9336,
+              "end": 9512,
+              "quote": "An `oci://` reference passed to `--schema-file`. The rest of the message names [`ptah schema drift`](../../direct/compare-and-drift/), which reads that source and answers once."
+            }
+          ],
+          "context": [
+            {
+              "start": 9336,
+              "end": 9512,
+              "quote": "An `oci://` reference passed to `--schema-file`. The rest of the message names [`ptah schema drift`](../../direct/compare-and-drift/), which reads that source and answers once."
+            }
+          ],
+          "rationale": "This operational block names an actual limit, interface or condition; preserve its source-level contract instead of reducing text solely by length.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c06",
+      "source_sha256": "7105189b0fc45f31c3e208e472e5ef89c4f91bf459c9d5a78352a4f46a8ce920",
+      "reviewer": "Codex assistant reviewing the structural-wordiness iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 8768,
+          "first_line": 1,
+          "last_line": 211,
+          "rationale": "Read all ORM/external schema prose. Preserve provider syntax limits, argument splitting versus argv, process timeout/cleanup, stderr restrictions, opt-in configuration and supported provider distinctions.",
+          "prose_blocks": 38,
+          "review_boundary": "Read every nonexcluded prose block and inspected original source context for selected judgments and protected operands. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [],
+      "uncertain": [
+        {
+          "id": "c06-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 1722,
+              "end": 1773,
+              "quote": "so the loaded schema diffs and migrates faithfully."
+            }
+          ],
+          "context": [
+            {
+              "start": 1625,
+              "end": 1773,
+              "quote": "Primary keys, foreign keys, unique constraints, and indexes in the emitted DDL\nare all captured, so the loaded schema diffs and migrates faithfully."
+            }
+          ],
+          "rationale": "Faithfully is broad, but the immediately preceding list bounds the captured schema elements; the phrase may be a summary rather than unsupported general assurance.",
+          "proposed_edit": "Consider naming preservation of the listed keys, constraints and indexes directly."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c06-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 2417,
+              "end": 2686,
+              "quote": "No shell**: the program runs with an explicit argument vector split on\n  whitespace, so pipes, globbing, and variable expansion are not available and\n  arguments cannot contain spaces. Wrap a more complex invocation in a small\n  script and point `--schema-cmd` at that."
+            }
+          ],
+          "context": [
+            {
+              "start": 2417,
+              "end": 2686,
+              "quote": "No shell**: the program runs with an explicit argument vector split on\n  whitespace, so pipes, globbing, and variable expansion are not available and\n  arguments cannot contain spaces. Wrap a more complex invocation in a small\n  script and point `--schema-cmd` at that."
+            }
+          ],
+          "rationale": "The provider workflow or configuration description carries concrete scope; preserve the named capabilities and conditions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 4341,
+              "end": 4424,
+              "quote": "Set `--schema-cmd=` explicitly to disable the configured source for one\ninvocation."
+            }
+          ],
+          "context": [
+            {
+              "start": 4341,
+              "end": 4424,
+              "quote": "Set `--schema-cmd=` explicitly to disable the configured source for one\ninvocation."
+            }
+          ],
+          "rationale": "The provider workflow or configuration description carries concrete scope; preserve the named capabilities and conditions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c06-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 5285,
+              "end": 5780,
+              "quote": "The committed [`examples/orm-loaders/gorm`](https://github.com/stokaro/ptah/tree/master/examples/orm-loaders/gorm)\nrecipe contains a small GORM model module. It invokes the official standalone\n[`atlas-provider-gorm`](https://github.com/ariga/atlas-provider-gorm) command\nthrough `load-schema.sh` at the pinned version `v0.6.1`. The script uses an\nephemeral copy of the model module, so the provider and its transitive\ndependencies do not become part of the application module's dependency graph."
+            }
+          ],
+          "context": [
+            {
+              "start": 5285,
+              "end": 5780,
+              "quote": "The committed [`examples/orm-loaders/gorm`](https://github.com/stokaro/ptah/tree/master/examples/orm-loaders/gorm)\nrecipe contains a small GORM model module. It invokes the official standalone\n[`atlas-provider-gorm`](https://github.com/ariga/atlas-provider-gorm) command\nthrough `load-schema.sh` at the pinned version `v0.6.1`. The script uses an\nephemeral copy of the model module, so the provider and its transitive\ndependencies do not become part of the application module's dependency graph."
+            }
+          ],
+          "rationale": "The provider workflow or configuration description carries concrete scope; preserve the named capabilities and conditions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c07",
+      "source_sha256": "4be77af665e130435680ec23c9db0f267f30fee5a7bc3a459c8e3a6eb2360f74",
+      "reviewer": "Codex assistant reviewing the structural-wordiness iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 22623,
+          "first_line": 1,
+          "last_line": 737,
+          "rationale": "Read all 340 extracted blocks of the xDS test descriptions, including repeated fixtures, routing assertions, timeout cases and metadata matches. Test-case repetition and explicit request counts are controls, not presumed defects.",
+          "prose_blocks": 341,
+          "review_boundary": "Read every nonexcluded prose block and inspected original source context for selected judgments and protected operands. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c07-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2379,
+              "end": 2560,
+              "quote": "The xDS test client's behavior can be dynamically changed in the middle of tests.\nThis is achieved by invoking the `XdsUpdateClientConfigureService` gRPC service\non the test client."
+            }
+          ],
+          "context": [
+            {
+              "start": 2379,
+              "end": 2716,
+              "quote": "The xDS test client's behavior can be dynamically changed in the middle of tests.\nThis is achieved by invoking the `XdsUpdateClientConfigureService` gRPC service\non the test client. This can be useful for tests requiring special client behaviors\nthat are not desirable at test initialization and client warmup. The service is\ndefined as:"
+            }
+          ],
+          "rationale": "A capability announcement and anaphoric achievement sentence split one concrete action/method relation.",
+          "proposed_edit": "You can change the xDS test client's behavior during a test by invoking its XdsUpdateClientConfigureService gRPC service. Preserve the subsequent warmup/initialization rationale."
+        },
+        {
+          "id": "c07-d02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3789,
+              "end": 3799,
+              "quote": "Note that,"
+            }
+          ],
+          "context": [
+            {
+              "start": 3789,
+              "end": 4194,
+              "quote": "Note that, unlike our other interop tests, neither the client nor the server has\nany notion of which of the following test scenarios is under test. Instead, a\nseparate test driver is responsible for configuring the load balancer and the\nserver backends, running the client, and then querying the client's\n`LoadBalancerStatsService` to validate load balancer behavior for each of the\ntests described below."
+            }
+          ],
+          "rationale": "The attention directive adds no scope to the explicit contrast with other interop tests.",
+          "proposed_edit": "Start with \"Unlike our other interop tests\"; retain both the client/server ignorance and the separate test driver's responsibilities."
+        },
+        {
+          "id": "c07-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 6409,
+              "end": 6418,
+              "quote": "Note that"
+            }
+          ],
+          "context": [
+            {
+              "start": 6409,
+              "end": 6882,
+              "quote": "Note that the `LoadBalancerStatsResponse` contains the remote peer distribution\nof the next `num_rpcs` *sent* by the client after receiving the\n`LoadBalancerStatsRequest`. It is important that the remote peer distribution be\nrecorded for a block of consecutive outgoing RPCs, to validate the intended\ndistribution from the load balancer, rather than just looking at the next\n`num_rpcs` responses received from backends, as different backends may respond\nat different rates."
+            }
+          ],
+          "rationale": "The attention directive can be removed without changing the precise response distribution definition.",
+          "proposed_edit": "Start with LoadBalancerStatsResponse; preserve the next num_rpcs sent after receiving the request."
+        },
+        {
+          "id": "c07-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6581,
+              "end": 6642,
+              "quote": "It is important that the remote peer distribution be\nrecorded"
+            }
+          ],
+          "context": [
+            {
+              "start": 6409,
+              "end": 6882,
+              "quote": "Note that the `LoadBalancerStatsResponse` contains the remote peer distribution\nof the next `num_rpcs` *sent* by the client after receiving the\n`LoadBalancerStatsRequest`. It is important that the remote peer distribution be\nrecorded for a block of consecutive outgoing RPCs, to validate the intended\ndistribution from the load balancer, rather than just looking at the next\n`num_rpcs` responses received from backends, as different backends may respond\nat different rates."
+            }
+          ],
+          "rationale": "The importance wrapper hides a concrete recording requirement whose reason is already stated.",
+          "proposed_edit": "Record the remote peer distribution for a block of consecutive outgoing RPCs; preserve the comparison with next received responses and different backend response rates."
+        },
+        {
+          "id": "c07-d05",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 19129,
+              "end": 19188,
+              "quote": "The test case verifies a specific use case where it creates"
+            }
+          ],
+          "context": [
+            {
+              "start": 19129,
+              "end": 19406,
+              "quote": "The test case verifies a specific use case where it creates a second TD API \nlistener using the same name as the existing one and then delete the old one. \nThe test driver verifies this is a safe way to update the API listener \nconfiguration while keep using the existing name."
+            }
+          ],
+          "rationale": "Nested test-case/use-case support delays the concrete API-listener replacement operation.",
+          "proposed_edit": "The test creates a second TD API listener with the existing name, then deletes the old listener, and verifies the update is safe. Retain the order, shared name and later per-step traffic assertions."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c07-u01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 815,
+              "end": 866,
+              "quote": "The base behavior of the xDS test client is to send"
+            }
+          ],
+          "context": [
+            {
+              "start": 815,
+              "end": 1176,
+              "quote": "The base behavior of the xDS test client is to send a constant QPS of unary\nmessages and record the remote-peer distribution of the responses. Further, the\nclient must expose an implementation of the `LoadBalancerStatsService` gRPC\nservice to allow the test driver to validate the load balancing behavior for a\nparticular test case (see below for more details)."
+            }
+          ],
+          "rationale": "The nominal support can be shortened, but it distinguishes baseline traffic behavior from the required management service.",
+          "proposed_edit": "Consider \"The xDS test client sends\" while keeping constant QPS and response distribution."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c07-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 1483,
+              "end": 1783,
+              "quote": "If true, the client should exit with a non-zero return code if any RPCs\n        fail after at least one RPC has succeeded, indicating a valid xDS config\n        was received. This accounts for any startup-related delays in receiving\n        an initial config from the load balancer. Default is false."
+            }
+          ],
+          "context": [
+            {
+              "start": 1483,
+              "end": 1783,
+              "quote": "If true, the client should exit with a non-zero return code if any RPCs\n        fail after at least one RPC has succeeded, indicating a valid xDS config\n        was received. This accounts for any startup-related delays in receiving\n        an initial config from the load balancer. Default is false."
+            }
+          ],
+          "rationale": "An RPC failure is fatal only after a previous success; startup delays and default false are essential conditions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c07-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 6647,
+              "end": 6882,
+              "quote": "a block of consecutive outgoing RPCs, to validate the intended\ndistribution from the load balancer, rather than just looking at the next\n`num_rpcs` responses received from backends, as different backends may respond\nat different rates."
+            }
+          ],
+          "context": [
+            {
+              "start": 6409,
+              "end": 6882,
+              "quote": "Note that the `LoadBalancerStatsResponse` contains the remote peer distribution\nof the next `num_rpcs` *sent* by the client after receiving the\n`LoadBalancerStatsRequest`. It is important that the remote peer distribution be\nrecorded for a block of consecutive outgoing RPCs, to validate the intended\ndistribution from the load balancer, rather than just looking at the next\n`num_rpcs` responses received from backends, as different backends may respond\nat different rates."
+            }
+          ],
+          "rationale": "Sent RPCs versus received responses select different populations when backends respond at different rates.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c07-c03",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 7526,
+              "end": 7642,
+              "quote": "Once all backends receive at least one RPC, the following 100 RPCs are\n    evenly distributed across the 4 backends."
+            },
+            {
+              "start": 8228,
+              "end": 8375,
+              "quote": "Once all backends receive at least one RPC, the distribution for a block of\n    100 RPCs is the same as the distribution recorded prior to restart."
+            }
+          ],
+          "context": [
+            {
+              "start": 7526,
+              "end": 7642,
+              "quote": "Once all backends receive at least one RPC, the following 100 RPCs are\n    evenly distributed across the 4 backends."
+            },
+            {
+              "start": 8228,
+              "end": 8375,
+              "quote": "Once all backends receive at least one RPC, the distribution for a block of\n    100 RPCs is the same as the distribution recorded prior to restart."
+            }
+          ],
+          "rationale": "Repeated request counts refer to separate test stages and comparisons; do not merge independent assertions.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c07-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 12364,
+              "end": 12582,
+              "quote": "The test driver changes route and asserts RPCs are sent to expected backends. **Note** that the default route `\"/\"` is always pointing to MIG_default, so all RPCs not matching the new route will be sent to MIG_default."
+            },
+            {
+              "start": 13700,
+              "end": 13918,
+              "quote": "The test driver changes route and asserts RPCs are sent to expected backends. **Note** that the default route `\"/\"` is always pointing to MIG_default, so all RPCs not matching the new route will be sent to MIG_default."
+            }
+          ],
+          "context": [
+            {
+              "start": 12364,
+              "end": 12582,
+              "quote": "The test driver changes route and asserts RPCs are sent to expected backends. **Note** that the default route `\"/\"` is always pointing to MIG_default, so all RPCs not matching the new route will be sent to MIG_default."
+            },
+            {
+              "start": 13700,
+              "end": 13918,
+              "quote": "The test driver changes route and asserts RPCs are sent to expected backends. **Note** that the default route `\"/\"` is always pointing to MIG_default, so all RPCs not matching the new route will be sent to MIG_default."
+            }
+          ],
+          "rationale": "The same default-route explanation appears in separate path and header test cases, where each must stand alone.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c07-c05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 14935,
+              "end": 15079,
+              "quote": "This test verifies that traffic is partially diverted to a secondary locality\nwhen > 50% of the instances in the primary locality are unhealthy."
+            },
+            {
+              "start": 15899,
+              "end": 16050,
+              "quote": "This test verifies that traffic is partially diverted to a secondary locality\nwhen the QPS is greater than the configured RPS in the priority locality."
+            }
+          ],
+          "context": [
+            {
+              "start": 14935,
+              "end": 15079,
+              "quote": "This test verifies that traffic is partially diverted to a secondary locality\nwhen > 50% of the instances in the primary locality are unhealthy."
+            },
+            {
+              "start": 15899,
+              "end": 16050,
+              "quote": "This test verifies that traffic is partially diverted to a secondary locality\nwhen the QPS is greater than the configured RPS in the priority locality."
+            }
+          ],
+          "rationale": "Instance-health failure and QPS-versus-RPS overload trigger different failover scenarios.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c07-c06",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 17530,
+              "end": 17632,
+              "quote": "After reaching steady state, there are 500 UnaryCall RPCs in-flight\nand 1000 EmptyCall RPCs in-flight."
+            },
+            {
+              "start": 17734,
+              "end": 17802,
+              "quote": "After reaching steady state, there are 800 UnaryCall RPCs in-flight."
+            }
+          ],
+          "context": [
+            {
+              "start": 17530,
+              "end": 17632,
+              "quote": "After reaching steady state, there are 500 UnaryCall RPCs in-flight\nand 1000 EmptyCall RPCs in-flight."
+            },
+            {
+              "start": 17734,
+              "end": 17802,
+              "quote": "After reaching steady state, there are 800 UnaryCall RPCs in-flight."
+            }
+          ],
+          "rationale": "500/1000 outstanding requests and the later 800 limit are distinct circuit-breaker states.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c07-c07",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 18304,
+              "end": 18427,
+              "quote": "Test client configured to send UnaryCall RPCs with a 1s application\n      timeout, and metadata of `rpc-behavior: sleep-2`."
+            },
+            {
+              "start": 18536,
+              "end": 18655,
+              "quote": "Test client configured to send UnaryCall RPCs with the default\n      application timeout (20 seconds), and no metadata."
+            },
+            {
+              "start": 18810,
+              "end": 18978,
+              "quote": "Test client configured to send UnaryCall RPCs and EmptyCall RPCs with\n      the default application timeout (20 seconds), and metadata of\n      `rpc-behavior: sleep-4`."
+            },
+            {
+              "start": 18985,
+              "end": 19110,
+              "quote": "Test driver asserts client recieves ~100% status `OK` for EmptyCall\n      and ~100% status `DEADLINE_EXCEEDED` for UnaryCall."
+            }
+          ],
+          "context": [
+            {
+              "start": 18304,
+              "end": 18427,
+              "quote": "Test client configured to send UnaryCall RPCs with a 1s application\n      timeout, and metadata of `rpc-behavior: sleep-2`."
+            },
+            {
+              "start": 18536,
+              "end": 18655,
+              "quote": "Test client configured to send UnaryCall RPCs with the default\n      application timeout (20 seconds), and no metadata."
+            },
+            {
+              "start": 18810,
+              "end": 18978,
+              "quote": "Test client configured to send UnaryCall RPCs and EmptyCall RPCs with\n      the default application timeout (20 seconds), and metadata of\n      `rpc-behavior: sleep-4`."
+            },
+            {
+              "start": 18985,
+              "end": 19110,
+              "quote": "Test driver asserts client recieves ~100% status `OK` for EmptyCall\n      and ~100% status `DEADLINE_EXCEEDED` for UnaryCall."
+            }
+          ],
+          "rationale": "Application timeouts, routing timeouts and per-method statuses must remain attached to their respective test cases.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c08",
+      "source_sha256": "8f3f0d95320799071bafb7b415ead457db43d824c3f1facdb35b27c709a68b4b",
+      "reviewer": "Codex assistant reviewing the structural-wordiness iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 19868,
+          "first_line": 1,
+          "last_line": 515,
+          "rationale": "Read the complete build-constraint draft prose, historical examples and three-release transition. Preserve the draft status, Boolean operators, version arithmetic, placement exceptions and backward-build conditions.",
+          "prose_blocks": 118,
+          "review_boundary": "Read every nonexcluded prose block and inspected original source context for selected judgments and protected operands. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c08-d01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 2561,
+              "end": 2617,
+              "quote": "the convention was only a manual one,\nmaintained by hand"
+            }
+          ],
+          "context": [
+            {
+              "start": 2343,
+              "end": 2643,
+              "quote": "When the `go/build` package was written in August 2011,\nit added explicit support for the convention that files\nnamed `*_GOOS.*`, `*_GOARCH.*`, or `*_GOOS_GOARCH.*`\nonly compiled on those specific systems.\nUntil then, the convention was only a manual one,\nmaintained by hand in the package Makefiles."
+            }
+          ],
+          "rationale": "Manual and maintained by hand repeat the same support within one clause.",
+          "proposed_edit": "Use \"the convention was maintained manually in the package Makefiles\"; retain the earlier date and system-specific file convention."
+        },
+        {
+          "id": "c08-d02",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 7058,
+              "end": 7067,
+              "quote": "very good"
+            },
+            {
+              "start": 7090,
+              "end": 7099,
+              "quote": "certainly"
+            },
+            {
+              "start": 7212,
+              "end": 7219,
+              "quote": "clearly"
+            }
+          ],
+          "context": [
+            {
+              "start": 7039,
+              "end": 7348,
+              "quote": "Alan has written a very good book about Go—he is certainly an experienced developer—and [still got this wrong](https://github.com/google/starlark-go/pull/280).\nIt's all clearly too subtle.\nGetting ahead of ourselves just a little, if we used a standard boolean syntax,\nthen the first file would have used:"
+            }
+          ],
+          "rationale": "Personal appraisal and certainty intensifiers overstate an example that already demonstrates an experienced developer making a mistake.",
+          "proposed_edit": "State that Alan is an experienced Go author who still made this error; remove the appraisal and certainty adverbs without deleting the linked example."
+        },
+        {
+          "id": "c08-d03",
+          "category": "formulaic_transitions",
+          "subtype": "formulaic_transitions",
+          "targets": [
+            {
+              "start": 7232,
+              "end": 7273,
+              "quote": "Getting ahead of ourselves just a little,"
+            }
+          ],
+          "context": [
+            {
+              "start": 7039,
+              "end": 7348,
+              "quote": "Alan has written a very good book about Go—he is certainly an experienced developer—and [still got this wrong](https://github.com/google/starlark-go/pull/280).\nIt's all clearly too subtle.\nGetting ahead of ourselves just a little, if we used a standard boolean syntax,\nthen the first file would have used:"
+            }
+          ],
+          "rationale": "The narrative detour preface adds no condition to the following hypothetical syntax example.",
+          "proposed_edit": "Begin with the conditional \"if we used a standard boolean syntax\"."
+        },
+        {
+          "id": "c08-d04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 7546,
+              "end": 7625,
+              "quote": "In addition to confusion about syntax, there is also confusion\nabout placement."
+            }
+          ],
+          "context": [
+            {
+              "start": 7546,
+              "end": 7676,
+              "quote": "In addition to confusion about syntax, there is also confusion\nabout placement. The documentation (in `go doc go/build`) explains:"
+            }
+          ],
+          "rationale": "The same additive relationship is marked by both In addition to and also.",
+          "proposed_edit": "In addition to confusion about syntax, there is confusion about placement."
+        },
+        {
+          "id": "c08-d05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 8487,
+              "end": 8498,
+              "quote": "stops stops"
+            }
+          ],
+          "context": [
+            {
+              "start": 8425,
+              "end": 8618,
+              "quote": "Furthermore, to avoid confusion with doc comments,\nthe search stops stops at the last blank line before the\nnon-`//`, non-blank line, so this is an ignored build constraint\n(and a doc comment):"
+            }
+          ],
+          "rationale": "The finite verb is duplicated accidentally.",
+          "proposed_edit": "Keep one \"stops\" and preserve the exact blank-line boundary."
+        },
+        {
+          "id": "c08-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 9416,
+              "end": 9457,
+              "quote": "The core idea of the design is\nto replace"
+            }
+          ],
+          "context": [
+            {
+              "start": 9416,
+              "end": 9611,
+              "quote": "The core idea of the design is\nto replace the current `// +build` lines for build tag selection\nwith new `//go:build` lines that use more familiar boolean expressions.\nFor example, the old syntax"
+            }
+          ],
+          "rationale": "A nominal design-idea shell wraps the actual proposed replacement.",
+          "proposed_edit": "The design would replace the current lines with the new syntax; retain both directive spellings and the build-tag selection purpose."
+        },
+        {
+          "id": "c08-d07",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 10479,
+              "end": 10525,
+              "quote": "the combination of build tags is now done with"
+            }
+          ],
+          "context": [
+            {
+              "start": 10405,
+              "end": 10756,
+              "quote": "That is, the syntax of build tags is unchanged from its current form,\nbut the combination of build tags is now done with\nGo’s `||`, `&&`, and `!` operators and parentheses.\n(Note that build tags are not always valid Go expressions,\neven though they share the operators,\nbecause the tags are not always valid identifiers.\nFor example: “`go1.1`”.)"
+            }
+          ],
+          "rationale": "A nominalized combination and passive support verb hide the operation while adding no condition.",
+          "proposed_edit": "the design now combines build tags using; retain all operators, parentheses and the distinction between tags and valid Go identifiers."
+        },
+        {
+          "id": "c08-d08",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 12317,
+              "end": 12374,
+              "quote": "A smooth transition is critical for a successful rollout."
+            }
+          ],
+          "context": [
+            {
+              "start": 12317,
+              "end": 12923,
+              "quote": "A smooth transition is critical for a successful rollout.\nBy the [Go release policy](https://golang.org/doc/devel/release.html#policy),\nthe release of Go 1.N\nends support for Go 1.(N-2), but most users will still want to be\nable to write code that works with both Go 1.(N−1) and Go 1.N.\nIf Go 1.N introduces support for `//go:build` lines,\ncode that needs to build with the past two releases can’t fully adopt\nthe new syntax until Go 1.(N+1) is released.\nPublishers of popular dependencies may not realize this,\nwhich may lead to breakage in the Go ecosystem.\nWe must make accidental breakage unlikely."
+            }
+          ],
+          "rationale": "The opening announces the importance of a successful transition; the following release-policy constraints provide the substance.",
+          "proposed_edit": "Remove the opening sentence; preserve the complete version and compatibility explanation."
+        },
+        {
+          "id": "c08-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 12925,
+              "end": 13008,
+              "quote": "To help with the transition, we envision a plan\ncarried out over three Go releases."
+            }
+          ],
+          "context": [
+            {
+              "start": 12925,
+              "end": 13189,
+              "quote": "To help with the transition, we envision a plan\ncarried out over three Go releases.\nFor concreteness, we call them Go 1.(N−1), Go 1.N, and Go 1.(N+1).\nThe bulk of the work happens in Go 1.N,\nwith minor preparation in Go 1.(N−1) and minor cleanup in Go 1.(N+1)."
+            }
+          ],
+          "rationale": "The proposal/planning support delays the concrete three-release scope.",
+          "proposed_edit": "We propose a transition across three Go releases. Keep the exact release names and allocation of work."
+        },
+        {
+          "id": "c08-d10",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 16227,
+              "end": 16241,
+              "quote": "loud and clear"
+            }
+          ],
+          "context": [
+            {
+              "start": 16068,
+              "end": 16242,
+              "quote": "Packages that contain only `//go:build` lines will work fine when\n   using only Go 1.N.\n   If such packages are built using Go 1.(N−1), the build will fail, loud and clear."
+            }
+          ],
+          "rationale": "The idiom adds no diagnostic behavior to the stated build failure.",
+          "proposed_edit": "Remove the idiom; retain the failure on Go 1.(N−1)."
+        },
+        {
+          "id": "c08-d11",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 18125,
+              "end": 18294,
+              "quote": "The rationale for disallowing multiple `//go:build` lines\nis that the entire goal of this design is to replace\nimplicit AND and OR with explicit `&&` and `||` operators."
+            }
+          ],
+          "context": [
+            {
+              "start": 18125,
+              "end": 18353,
+              "quote": "The rationale for disallowing multiple `//go:build` lines\nis that the entire goal of this design is to replace\nimplicit AND and OR with explicit `&&` and `||` operators.\nAllowing multiple lines reintroduces an implicit operator."
+            }
+          ],
+          "rationale": "Nested rationale and goal shells surround the concrete reason for forbidding multiple lines.",
+          "proposed_edit": "The design disallows multiple //go:build lines because it replaces implicit AND and OR with explicit && and || operators. Preserve the following explanation that multiple lines reintroduce an implicit operator."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c08-u01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 9812,
+              "end": 9886,
+              "quote": "The key to the design is a smooth transition that avoids\nbreaking Go code."
+            }
+          ],
+          "context": [
+            {
+              "start": 9812,
+              "end": 9886,
+              "quote": "The key to the design is a smooth transition that avoids\nbreaking Go code."
+            }
+          ],
+          "rationale": "This is broad transition framing but also states the no-breakage design requirement before the implementation plan.",
+          "proposed_edit": "Consider stating the no-breakage requirement directly."
+        },
+        {
+          "id": "c08-u02",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 9888,
+              "end": 9962,
+              "quote": "The next three sections explain these three parts of the design in detail."
+            }
+          ],
+          "context": [
+            {
+              "start": 9888,
+              "end": 9962,
+              "quote": "The next three sections explain these three parts of the design in detail."
+            }
+          ],
+          "rationale": "The navigation sentence repeats the preceding list, but explicitly maps its three parts onto the next sections.",
+          "proposed_edit": "Optional removal if the headings already provide adequate navigation."
+        },
+        {
+          "id": "c08-u03",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 19282,
+              "end": 19334,
+              "quote": "the transition should be fairly smooth and low-cost."
+            }
+          ],
+          "context": [
+            {
+              "start": 18969,
+              "end": 19334,
+              "quote": "The main alternative to this design is to do nothing at all\nand simply stick with the current syntax.\nThat is an attractive option, since it avoids going through\na transition.\nOn the other hand, the benefit of the clearer syntax will only grow as we get\nmore and more Go developers and more and more Go code,\nand the transition should be fairly smooth and low-cost."
+            }
+          ],
+          "rationale": "The cost prediction is not measured, but is explicitly tentative and follows a detailed transition plan.",
+          "proposed_edit": "Consider naming expected tooling work and compatibility checks instead of a general cost prediction."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c08-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 77,
+              "end": 328,
+              "quote": "This is a **Draft Design**, not a formal Go proposal,\nbecause it describes\na potential [large change](https://research.swtch.com/proposals-large).\nThe goal of circulating this draft design is to collect feedback\nto shape an intended eventual proposal."
+            }
+          ],
+          "context": [
+            {
+              "start": 77,
+              "end": 328,
+              "quote": "This is a **Draft Design**, not a formal Go proposal,\nbecause it describes\na potential [large change](https://research.swtch.com/proposals-large).\nThe goal of circulating this draft design is to collect feedback\nto shape an intended eventual proposal."
+            }
+          ],
+          "rationale": "Draft design versus formal proposal is a real process-status distinction.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c08-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 6716,
+              "end": 6980,
+              "quote": "This is subtly wrong. He correctly negated each line, but repeated lines apply constraints independently,\nmeaning they are ANDed together. To negate the overall meaning, the two lines in the fallback need\nto be ORed together, meaning they need to be a single line:"
+            }
+          ],
+          "context": [
+            {
+              "start": 6716,
+              "end": 6980,
+              "quote": "This is subtly wrong. He correctly negated each line, but repeated lines apply constraints independently,\nmeaning they are ANDed together. To negate the overall meaning, the two lines in the fallback need\nto be ORed together, meaning they need to be a single line:"
+            }
+          ],
+          "rationale": "Negating each line is not equivalent to negating the AND of all lines; the Boolean transformation cannot be simplified away.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c08-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 11108,
+              "end": 11587,
+              "quote": "It remains useful for both people and programs like the `go` command\nnot to need to read the entire file to find any build constraints,\nso this design still ends the search for build constraints\nat the first non-comment text in the file.\nHowever, this design allows placing `//go:build` constraints\nafter `/* */` comments or in doc comments.\n([Proposal issue 37974](https://golang.org/issue/37974),\nwhich will ship in Go 1.15,\nstrips those `//go:` lines out of the doc comments.)"
+            }
+          ],
+          "context": [
+            {
+              "start": 11108,
+              "end": 11587,
+              "quote": "It remains useful for both people and programs like the `go` command\nnot to need to read the entire file to find any build constraints,\nso this design still ends the search for build constraints\nat the first non-comment text in the file.\nHowever, this design allows placing `//go:build` constraints\nafter `/* */` comments or in doc comments.\n([Proposal issue 37974](https://golang.org/issue/37974),\nwhich will ship in Go 1.15,\nstrips those `//go:` lines out of the doc comments.)"
+            }
+          ],
+          "rationale": "Ending the scan at non-comment text while allowing constraints after block comments is the proposed new placement behavior.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c08-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 14471,
+              "end": 14987,
+              "quote": "If a file contains both `//go:build` and `// +build` lines,\n   `gofmt` will consider the `//go:build` the source of truth\n   and update the `// +build` lines to match,\n   preserving compatibility with earlier versions of Go.\n   `Gofmt` will also reject `//go:build` lines that are deemed\n   too complex to convert into `// +build` format,\n   although this situation will be rare.\n   (Note the “If” at the start of this bullet.\n   `Gofmt` will _not_ add `// +build` lines to a file\n   that only has `//go:build`.)"
+            }
+          ],
+          "context": [
+            {
+              "start": 14471,
+              "end": 14987,
+              "quote": "If a file contains both `//go:build` and `// +build` lines,\n   `gofmt` will consider the `//go:build` the source of truth\n   and update the `// +build` lines to match,\n   preserving compatibility with earlier versions of Go.\n   `Gofmt` will also reject `//go:build` lines that are deemed\n   too complex to convert into `// +build` format,\n   although this situation will be rare.\n   (Note the “If” at the start of this bullet.\n   `Gofmt` will _not_ add `// +build` lines to a file\n   that only has `//go:build`.)"
+            }
+          ],
+          "rationale": "The parenthetical If guard prevents adding legacy constraints to files containing only the new syntax; it is an operational exception.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c08-c05",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 16309,
+              "end": 16722,
+              "quote": "A new fix in `go fix` will remove `// +build` stanzas,\n   making sure to leave behind equivalent `//go:build` lines.\n   The removal only happens when `go fix` is being run in a module\n   with a `go 1.N` (or later) line, which is taken as an explicit signal\n   that the developer no longer needs compatibility with Go 1.(N−1).\n   The removal is never done in GOPATH mode, which lacks\n   any such explicit signal."
+            }
+          ],
+          "context": [
+            {
+              "start": 16309,
+              "end": 16722,
+              "quote": "A new fix in `go fix` will remove `// +build` stanzas,\n   making sure to leave behind equivalent `//go:build` lines.\n   The removal only happens when `go fix` is being run in a module\n   with a `go 1.N` (or later) line, which is taken as an explicit signal\n   that the developer no longer needs compatibility with Go 1.(N−1).\n   The removal is never done in GOPATH mode, which lacks\n   any such explicit signal."
+            }
+          ],
+          "rationale": "Removing old constraints depends on an explicit module version and never happens in GOPATH mode.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c08-c06",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 17731,
+              "end": 18123,
+              "quote": "Tooling will need to keep supporting `// +build` lines indefinitely,\nin order to continue to build old code.\nSimilarly, the `go vet` check that `//go:build` and `// +build` lines\nmatch when both are present will be kept indefinitely.\nBut the `go fix` should at least help us remove `// +build` lines\nfrom new versions of code, so that most developers stop seeing them\nor needing to edit them."
+            }
+          ],
+          "context": [
+            {
+              "start": 17731,
+              "end": 18123,
+              "quote": "Tooling will need to keep supporting `// +build` lines indefinitely,\nin order to continue to build old code.\nSimilarly, the `go vet` check that `//go:build` and `// +build` lines\nmatch when both are present will be kept indefinitely.\nBut the `go fix` should at least help us remove `// +build` lines\nfrom new versions of code, so that most developers stop seeing them\nor needing to edit them."
+            }
+          ],
+          "rationale": "Indefinite tool support for old source is distinct from removal of legacy constraints in new code.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c09",
+      "source_sha256": "38d4c9a5ed10666cf04f5ec1a13b8fd24db11c6235ed7006350c27f333ae8049",
+      "reviewer": "Codex assistant reviewing the structural-wordiness iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 8544,
+          "first_line": 1,
+          "last_line": 206,
+          "rationale": "Read the complete node e2e prose, execution sequence and runner/service descriptions. Grammar mistakes alone are not editorial-rubric defects. Preserve local/remote scope, GCP restriction, prerequisites and startup conditions.",
+          "prose_blocks": 37,
+          "review_boundary": "Read every nonexcluded prose block and inspected original source context for selected judgments and protected operands. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c09-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 79,
+              "end": 93,
+              "quote": "at their core,"
+            },
+            {
+              "start": 166,
+              "end": 175,
+              "quote": "in a way,"
+            }
+          ],
+          "context": [
+            {
+              "start": 44,
+              "end": 324,
+              "quote": "Kubernetes end-to-end (e2e) tests, at their core, work by compiling test code and creating an executable.\nThe executable, in a way, is very much like any other application: it performs some tasks (it runs e2e tests) and to\nrun it needs a Kubernetes cluster or a machine to run on."
+            }
+          ],
+          "rationale": "The two framing phrases add no mechanism or qualification to the compiled-test explanation.",
+          "proposed_edit": "Remove these asides; keep compilation into an executable and its cluster or machine requirement."
+        },
+        {
+          "id": "c09-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 176,
+              "end": 324,
+              "quote": "is very much like any other application: it performs some tasks (it runs e2e tests) and to\nrun it needs a Kubernetes cluster or a machine to run on."
+            }
+          ],
+          "context": [
+            {
+              "start": 44,
+              "end": 324,
+              "quote": "Kubernetes end-to-end (e2e) tests, at their core, work by compiling test code and creating an executable.\nThe executable, in a way, is very much like any other application: it performs some tasks (it runs e2e tests) and to\nrun it needs a Kubernetes cluster or a machine to run on."
+            }
+          ],
+          "rationale": "A generic analogy and task placeholder defer the concrete test operation and duplicate run support.",
+          "proposed_edit": "The executable runs e2e tests on a Kubernetes cluster or machine."
+        },
+        {
+          "id": "c09-d03",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 514,
+              "end": 607,
+              "quote": "Node e2e tests differ from regular e2e tests in the fact that node e2e tests aim only to test"
+            }
+          ],
+          "context": [
+            {
+              "start": 514,
+              "end": 817,
+              "quote": "Node e2e tests differ from regular e2e tests in the fact that node e2e tests aim only to test the node component\nof Kubernetes, the kubelet. In this scenario, the infrastructure needed is a kubelet, an API server\n(since it is the managing component of Kubernetes), and an ETCD server for the API server."
+            }
+          ],
+          "rationale": "The difference-in-the-fact construction repeats the subject and wraps a direct scope statement.",
+          "proposed_edit": "Unlike regular e2e tests, node e2e tests target only the node component, the kubelet. Keep the required infrastructure."
+        },
+        {
+          "id": "c09-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 819,
+              "end": 1060,
+              "quote": "Because of this difference in infrastructure and environment needs, we had to create a test suite that would\nallow us to automate the management of the needed components during test runs and to allow\ncontributors to work on developing tests."
+            }
+          ],
+          "context": [
+            {
+              "start": 819,
+              "end": 1060,
+              "quote": "Because of this difference in infrastructure and environment needs, we had to create a test suite that would\nallow us to automate the management of the needed components during test runs and to allow\ncontributors to work on developing tests."
+            }
+          ],
+          "rationale": "A creation-and-permission narrative wraps the suite's concrete management and contributor functions.",
+          "proposed_edit": "These infrastructure requirements led us to create a suite that manages the components during tests and supports contributors developing tests."
+        },
+        {
+          "id": "c09-d05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1296,
+              "end": 1323,
+              "quote": "in the all too familiar way"
+            }
+          ],
+          "context": [
+            {
+              "start": 1272,
+              "end": 1519,
+              "quote": "Goal #1* is implemented in the all too familiar way by compiling test code and using ginkgo to implement\nan entrypoint that will hand down control from the caller of the binary to ginkgo itself, which in turn manages\nwhat e2e tests to run and how."
+            }
+          ],
+          "rationale": "The aside assumes familiarity and adds no execution mechanism.",
+          "proposed_edit": "Remove the familiarity aside; retain compilation, entrypoint and Ginkgo control flow."
+        },
+        {
+          "id": "c09-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1524,
+              "end": 1595,
+              "quote": "Goal #2* is done by offering two entry points into the node test suite:"
+            }
+          ],
+          "context": [
+            {
+              "start": 1524,
+              "end": 1826,
+              "quote": "Goal #2* is done by offering two entry points into the node test suite: a local and a remote runner. \nThe local runner executes the node test suite in the machine in which it is called. \nThe remote runner executes the node test suite in a remote machine (it currently only has an integration with GCP)."
+            }
+          ],
+          "rationale": "The goal-is-done support refers back to contributor access instead of naming the concrete entry points.",
+          "proposed_edit": "Contributors can use two entry points into the node test suite: a local and a remote runner. Preserve the distinct execution locations and current GCP limitation."
+        },
+        {
+          "id": "c09-d07",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 1851,
+              "end": 1941,
+              "quote": "As we already mentioned, node e2e tests can be executed locally or remotely (in a GCE VM)."
+            }
+          ],
+          "context": [
+            {
+              "start": 1851,
+              "end": 2072,
+              "quote": "As we already mentioned, node e2e tests can be executed locally or remotely (in a GCE VM). \nIn either case, in order to run e2e tests we will make use of a couple of utility scripts and programs \nthat exist in Kubernetes."
+            }
+          ],
+          "rationale": "The paragraph repeats the immediately preceding local/remote runner distinction under the next heading before introducing the scripts.",
+          "proposed_edit": "Remove the repeated setup; retain that the scripts apply to both local and remote execution and keep the earlier GCE scope."
+        },
+        {
+          "id": "c09-d08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1959,
+              "end": 2072,
+              "quote": "in order to run e2e tests we will make use of a couple of utility scripts and programs \nthat exist in Kubernetes."
+            }
+          ],
+          "context": [
+            {
+              "start": 1851,
+              "end": 2072,
+              "quote": "As we already mentioned, node e2e tests can be executed locally or remotely (in a GCE VM). \nIn either case, in order to run e2e tests we will make use of a couple of utility scripts and programs \nthat exist in Kubernetes."
+            }
+          ],
+          "rationale": "Future narrated use and nominal support delay the concrete means of running tests.",
+          "proposed_edit": "use Kubernetes utility scripts and programs to run e2e tests; preserve applicability in either location."
+        },
+        {
+          "id": "c09-d09",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2257,
+              "end": 2305,
+              "quote": "In order to run node e2e tests, we will focus on"
+            }
+          ],
+          "context": [
+            {
+              "start": 2257,
+              "end": 2427,
+              "quote": "In order to run node e2e tests, we will focus on the Makefile \n[test-e2e-node](https://github.com/kubernetes/kubernetes/blob/master/build/root/Makefile#L264-L270) target."
+            }
+          ],
+          "rationale": "The narrated focus on a target is longer and less direct than stating which target runs the tests.",
+          "proposed_edit": "Use the linked Makefile test-e2e-node target to run node e2e tests."
+        },
+        {
+          "id": "c09-d10",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 2448,
+              "end": 2632,
+              "quote": "This is a compilation of notes on how to run E2E locally. Here will come the dissection of the\nsteps that Make goes until Ginkgo runs the tests throughout the Kubernetes E2E framework."
+            }
+          ],
+          "context": [
+            {
+              "start": 2448,
+              "end": 2696,
+              "quote": "This is a compilation of notes on how to run E2E locally. Here will come the dissection of the\nsteps that Make goes until Ginkgo runs the tests throughout the Kubernetes E2E framework.\nThe first step to run the test in a local machine it should be:"
+            }
+          ],
+          "rationale": "Two announcements describe the upcoming explanation under an already explicit Local Runner heading.",
+          "proposed_edit": "Remove the announcements and begin with the local test command; retain the actual Make-to-Ginkgo steps below."
+        },
+        {
+          "id": "c09-d11",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 3293,
+              "end": 3481,
+              "quote": "There are two kinds of runners for the E2E tests, the first analyzed here is the local runner, \nit uses the machine to build and run the tests, the other is the remote mode used in the CI."
+            }
+          ],
+          "context": [
+            {
+              "start": 3293,
+              "end": 3481,
+              "quote": "There are two kinds of runners for the E2E tests, the first analyzed here is the local runner, \nit uses the machine to build and run the tests, the other is the remote mode used in the CI."
+            }
+          ],
+          "rationale": "This repeats the two-runner definition again inside Local Runner after that distinction and its location have already been established.",
+          "proposed_edit": "Keep only the new point that remote mode is used in CI; the local execution setting is already established."
+        },
+        {
+          "id": "c09-d12",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 7585,
+              "end": 7628,
+              "quote": "Finally, we have a crucial part that starts"
+            }
+          ],
+          "context": [
+            {
+              "start": 7585,
+              "end": 7684,
+              "quote": "Finally, we have a crucial part that starts the required background services to run the test suite."
+            }
+          ],
+          "rationale": "An importance appraisal and generic part placeholder wrap the concrete startup step.",
+          "proposed_edit": "Finally, start the required background services to run the test suite; retain its place in the sequence."
+        }
+      ],
+      "uncertain": [],
+      "controls": [
+        {
+          "id": "c09-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 1626,
+              "end": 1709,
+              "quote": "The local runner executes the node test suite in the machine in which it is called."
+            },
+            {
+              "start": 1711,
+              "end": 1826,
+              "quote": "The remote runner executes the node test suite in a remote machine (it currently only has an integration with GCP)."
+            }
+          ],
+          "context": [
+            {
+              "start": 1524,
+              "end": 1826,
+              "quote": "Goal #2* is done by offering two entry points into the node test suite: a local and a remote runner. \nThe local runner executes the node test suite in the machine in which it is called. \nThe remote runner executes the node test suite in a remote machine (it currently only has an integration with GCP)."
+            }
+          ],
+          "rationale": "Local and remote execution locations differ, and only GCP integration is claimed for the remote runner.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c09-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 3484,
+              "end": 3722,
+              "quote": "The header of the shell script will set the internal variables and check if *REMOTE=true*\nis passed as an argument, otherwise, the make target will run the local runner with some \ntranslations and defaulting in the arguments not inserted."
+            }
+          ],
+          "context": [
+            {
+              "start": 3484,
+              "end": 3722,
+              "quote": "The header of the shell script will set the internal variables and check if *REMOTE=true*\nis passed as an argument, otherwise, the make target will run the local runner with some \ntranslations and defaulting in the arguments not inserted."
+            }
+          ],
+          "rationale": "REMOTE=true changes runner selection; omitted arguments receive defaults in the local path.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c09-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 4338,
+              "end": 4552,
+              "quote": "On *run_local.go*, The first step is to build the targets used to run the tests (*builder.BuildGo()*), \nincluding the entire suite via Ginkgo pre-compilation, this is made with the flag *--build-dependencies=true*:"
+            }
+          ],
+          "context": [
+            {
+              "start": 4338,
+              "end": 4552,
+              "quote": "On *run_local.go*, The first step is to build the targets used to run the tests (*builder.BuildGo()*), \nincluding the entire suite via Ginkgo pre-compilation, this is made with the flag *--build-dependencies=true*:"
+            }
+          ],
+          "rationale": "The build-dependencies flag controls precompilation; the named builder and Ginkgo suite remain necessary details.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c09-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 6584,
+              "end": 6805,
+              "quote": "If no mode is used the test suite is executed, first a new *Fail handler* is registered, and then the \nspecs are started with a custom Junit format. Otherwise, the flags will control the startup of the\ncluster components."
+            }
+          ],
+          "context": [
+            {
+              "start": 6584,
+              "end": 6805,
+              "quote": "If no mode is used the test suite is executed, first a new *Fail handler* is registered, and then the \nspecs are started with a custom Junit format. Otherwise, the flags will control the startup of the\ncluster components."
+            }
+          ],
+          "rationale": "No selected mode runs specs, while flags can instead start cluster components; retain the branch condition.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c09-c05",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 7904,
+              "end": 8096,
+              "quote": "E2EServices.Start()* brings Kubelet in the background if the framework is not running as NodeConformance,\nand *startInternalServices* calls the test binary with the flag *--run-services-mode*."
+            }
+          ],
+          "context": [
+            {
+              "start": 7904,
+              "end": 8096,
+              "quote": "E2EServices.Start()* brings Kubelet in the background if the framework is not running as NodeConformance,\nand *startInternalServices* calls the test binary with the flag *--run-services-mode*."
+            }
+          ],
+          "rationale": "NodeConformance conditions Kubelet startup, and internal services start through a specific mode flag.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c10",
+      "source_sha256": "04053af5fc3775a3e34d50c4dfc65b67633e6fd89582bdfad686d58a4c8d6833",
+      "reviewer": "Codex assistant reviewing the structural-wordiness iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 10304,
+          "first_line": 1,
+          "last_line": 190,
+          "rationale": "Read all extracted ER-diagram prose and inspect entity/cardinality operands in the raw source. Preserve entity-type terminology, cardinalities, relationship direction, identifying existence constraints and attribute syntax.",
+          "prose_blocks": 59,
+          "review_boundary": "Read every nonexcluded prose block and inspected original source context for selected judgments and protected operands. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c10-d01",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 492,
+              "end": 501,
+              "quote": "Note that"
+            }
+          ],
+          "context": [
+            {
+              "start": 492,
+              "end": 978,
+              "quote": "Note that practitioners of ER modelling almost always refer to *entity types* simply as *entities*.  For example the `CUSTOMER` entity *type* would be referred to simply as the `CUSTOMER` entity.  This is so common it would be inadvisable to do anything else, but technically an entity is an abstract *instance* of an entity type, and this is what an ER diagram shows - abstract instances, and the relationships between them.  This is why entities are always named using singular nouns."
+            }
+          ],
+          "rationale": "The attention prefix adds no qualification to the following terminology convention.",
+          "proposed_edit": "Start with practitioners of ER modeling; preserve the distinction between entity types and instances."
+        },
+        {
+          "id": "c10-d02",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 1532,
+              "end": 1569,
+              "quote": "the most popular crow's foot notation"
+            }
+          ],
+          "context": [
+            {
+              "start": 1419,
+              "end": 1675,
+              "quote": "Relationships between entities are represented by lines with end markers representing cardinality.  Mermaid uses the most popular crow's foot notation. The crow's foot intuitively conveys the possibility of many instances of the entity that it connects to."
+            }
+          ],
+          "rationale": "The superlative popularity ranking has no stated population or evidence and is unnecessary to identify the notation.",
+          "proposed_edit": "Use \"crow's foot notation\" without the popularity ranking."
+        },
+        {
+          "id": "c10-d03",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 1587,
+              "end": 1598,
+              "quote": "intuitively"
+            }
+          ],
+          "context": [
+            {
+              "start": 1419,
+              "end": 1675,
+              "quote": "Relationships between entities are represented by lines with end markers representing cardinality.  Mermaid uses the most popular crow's foot notation. The crow's foot intuitively conveys the possibility of many instances of the entity that it connects to."
+            }
+          ],
+          "rationale": "The adverb assumes how a reader understands a symbol instead of defining its meaning.",
+          "proposed_edit": "State that the crow's foot denotes the possibility of many instances."
+        },
+        {
+          "id": "c10-d04",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1857,
+              "end": 1982,
+              "quote": "It can be useful to include attribute definitions on ER diagrams to aid comprehension of the purpose and meaning of entities."
+            }
+          ],
+          "context": [
+            {
+              "start": 1677,
+              "end": 2144,
+              "quote": "ER diagrams can be used for various purposes, ranging from abstract logical models devoid of any implementation details, through to physical models of relational database tables.  It can be useful to include attribute definitions on ER diagrams to aid comprehension of the purpose and meaning of entities.  These do not necessarily need to be exhaustive; often a small subset of attributes is enough.  Mermaid allows to be defined in terms of their *type* and *name*."
+            }
+          ],
+          "rationale": "A generic utility judgment and nominal comprehension phrase wrap the optional explanatory role of attributes.",
+          "proposed_edit": "Attribute definitions can help explain entities on an ER diagram; preserve that a nonexhaustive subset may suffice."
+        },
+        {
+          "id": "c10-d05",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3746,
+              "end": 3775,
+              "quote": "Ultimately, it's your choice."
+            }
+          ],
+          "context": [
+            {
+              "start": 2863,
+              "end": 3775,
+              "quote": "When including attributes on ER diagrams, you must decide whether to include foreign keys as attributes.  This probably depends on how closely you are trying to represent relational table structures.  If your diagram is a *logical* model which is not meant to imply a relational implementation, then it is better to leave these out because the associative relationships already convey the way that entities are associated.  For example, a JSON data structure can implement a one-to-many relationship without the need for foreign key properties, using arrays.  Similarly an object-oriented programming language may use pointers or references to collections.  Even for models that are intended for relational implementation, you might decide that inclusion of foreign key attributes duplicates information already portrayed by the relationships, and does not add meaning to entities.  Ultimately, it's your choice."
+            }
+          ],
+          "rationale": "The closing reminder repeats the explicit modeling choice after the conditions and alternatives have been explained.",
+          "proposed_edit": "Remove the closing reminder; retain the logical/relational conditions and foreign-key examples."
+        },
+        {
+          "id": "c10-d06",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 4631,
+              "end": 4647,
+              "quote": "You can see that"
+            }
+          ],
+          "context": [
+            {
+              "start": 4511,
+              "end": 5005,
+              "quote": "This statement can be read as *a property contains one or more rooms, and a room is part of one and only one property*. You can see that the label here is from the first entity's perspective: a property contains a room, but a room does not contain a property.  When considered from the perspective of the second entity, the equivalent label is usually very easy to infer. (Some ER diagrams label relationships from both perspectives, but this is not supported here, and is usually superfluous)."
+            }
+          ],
+          "rationale": "The perception preface adds no information to the concrete relationship-label direction.",
+          "proposed_edit": "Start with \"The label here is from the first entity's perspective\"; retain property versus room direction."
+        },
+        {
+          "id": "c10-d07",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 4855,
+              "end": 4881,
+              "quote": "usually very easy to infer"
+            }
+          ],
+          "context": [
+            {
+              "start": 4511,
+              "end": 5005,
+              "quote": "This statement can be read as *a property contains one or more rooms, and a room is part of one and only one property*. You can see that the label here is from the first entity's perspective: a property contains a room, but a room does not contain a property.  When considered from the perspective of the second entity, the equivalent label is usually very easy to infer. (Some ER diagrams label relationships from both perspectives, but this is not supported here, and is usually superfluous)."
+            }
+          ],
+          "rationale": "The ease appraisal assumes reader knowledge without defining the reverse label.",
+          "proposed_edit": "Give the inverse label if needed, or state that the label is from the first entity's perspective without an ease claim."
+        },
+        {
+          "id": "c10-d08",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 6995,
+              "end": 7049,
+              "quote": "In modelling this we might start out by observing that"
+            }
+          ],
+          "context": [
+            {
+              "start": 6640,
+              "end": 7698,
+              "quote": "Relationships may be classified as either *identifying* or *non-identifying* and these are rendered with either solid or dashed lines respectively. This is relevant when one of the entities in question can not have independent existence without the other.  For example a firm that insures people to drive cars might need to store data on `NAMED-DRIVER`s. In modelling this we might start out by observing that a `CAR` can be driven by many `PERSON` instances, and a `PERSON` can drive many `CAR`s - both entities can exist without the other, so this is a non-identifying relationship that we might specify in Mermaid as: `PERSON }|..|{ CAR : \"driver\"`.  Note the two dots in the middle of the relationship that will result in a dashed line being drawn between the two entities.  But when this many-to-many relationship is resolved into two one-to-many relationships, we observe that a `NAMED-DRIVER` cannot exist without both a `PERSON` and a `CAR` - the relationships become identifying and would be specified using hyphens, which translate to a solid line:"
+            }
+          ],
+          "rationale": "The narrated process of beginning to observe wraps the concrete cardinality relation.",
+          "proposed_edit": "Start with \"A CAR can be driven by many PERSON instances\"; preserve both directions and the hypothetical model context."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c10-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 689,
+              "end": 750,
+              "quote": "This is so common it would be inadvisable to do anything else"
+            }
+          ],
+          "context": [
+            {
+              "start": 492,
+              "end": 978,
+              "quote": "Note that practitioners of ER modelling almost always refer to *entity types* simply as *entities*.  For example the `CUSTOMER` entity *type* would be referred to simply as the `CUSTOMER` entity.  This is so common it would be inadvisable to do anything else, but technically an entity is an abstract *instance* of an entity type, and this is what an ER diagram shows - abstract instances, and the relationships between them.  This is why entities are always named using singular nouns."
+            }
+          ],
+          "rationale": "The blanket advice is strong, but its referent is a stated field-specific terminology convention rather than an arbitrary product claim.",
+          "proposed_edit": "Consider recommending the convention directly without ruling out every alternative context."
+        },
+        {
+          "id": "c10-u02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 5066,
+              "end": 5128,
+              "quote": "This makes it possible to show an entity with no relationships"
+            }
+          ],
+          "context": [
+            {
+              "start": 5007,
+              "end": 5272,
+              "quote": "Only the `first-entity` part of a statement is mandatory.  This makes it possible to show an entity with no relationships, which can be useful during iterative construction of diagrams.  If any other parts of a statement are specified, then all parts are mandatory."
+            }
+          ],
+          "rationale": "The support construction can be shortened, but expresses a real consequence of first-entity being the only required field.",
+          "proposed_edit": "Consider \"This permits an entity with no relationships\" while retaining the all-other-parts condition."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c10-c01",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 3064,
+              "end": 3285,
+              "quote": "If your diagram is a *logical* model which is not meant to imply a relational implementation, then it is better to leave these out because the associative relationships already convey the way that entities are associated."
+            }
+          ],
+          "context": [
+            {
+              "start": 2863,
+              "end": 3775,
+              "quote": "When including attributes on ER diagrams, you must decide whether to include foreign keys as attributes.  This probably depends on how closely you are trying to represent relational table structures.  If your diagram is a *logical* model which is not meant to imply a relational implementation, then it is better to leave these out because the associative relationships already convey the way that entities are associated.  For example, a JSON data structure can implement a one-to-many relationship without the need for foreign key properties, using arrays.  Similarly an object-oriented programming language may use pointers or references to collections.  Even for models that are intended for relational implementation, you might decide that inclusion of foreign key attributes duplicates information already portrayed by the relationships, and does not add meaning to entities.  Ultimately, it's your choice."
+            }
+          ],
+          "rationale": "Logical models and relational implementations have different reasons to include foreign keys; the alternatives are substantive.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c10-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 5194,
+              "end": 5272,
+              "quote": "If any other parts of a statement are specified, then all parts are mandatory."
+            }
+          ],
+          "context": [
+            {
+              "start": 5007,
+              "end": 5272,
+              "quote": "Only the `first-entity` part of a statement is mandatory.  This makes it possible to show an entity with no relationships, which can be useful during iterative construction of diagrams.  If any other parts of a statement are specified, then all parts are mandatory."
+            }
+          ],
+          "rationale": "Only first-entity is required until any other part is supplied, at which point all parts are mandatory.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c10-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 5584,
+              "end": 6069,
+              "quote": "Cardinality is a property that describes how many elements of another entity can be related to the entity in question.  In the above example a `PROPERTY` can have one or more `ROOM` instances associated to it, whereas a `ROOM` can only be associated with one `PROPERTY`.  In each cardinality marker there are two characters.  The outermost character represents a maximum value, and the innermost character represents a minimum value.  The table below summarises possible cardinalities."
+            }
+          ],
+          "context": [
+            {
+              "start": 5584,
+              "end": 6069,
+              "quote": "Cardinality is a property that describes how many elements of another entity can be related to the entity in question.  In the above example a `PROPERTY` can have one or more `ROOM` instances associated to it, whereas a `ROOM` can only be associated with one `PROPERTY`.  In each cardinality marker there are two characters.  The outermost character represents a maximum value, and the innermost character represents a minimum value.  The table below summarises possible cardinalities."
+            }
+          ],
+          "rationale": "Inner and outer cardinality characters denote minimum and maximum; reversing them would change meaning.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c10-c04",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 7523,
+              "end": 7588,
+              "quote": "a `NAMED-DRIVER` cannot exist without both a `PERSON` and a `CAR`"
+            }
+          ],
+          "context": [
+            {
+              "start": 6640,
+              "end": 7698,
+              "quote": "Relationships may be classified as either *identifying* or *non-identifying* and these are rendered with either solid or dashed lines respectively. This is relevant when one of the entities in question can not have independent existence without the other.  For example a firm that insures people to drive cars might need to store data on `NAMED-DRIVER`s. In modelling this we might start out by observing that a `CAR` can be driven by many `PERSON` instances, and a `PERSON` can drive many `CAR`s - both entities can exist without the other, so this is a non-identifying relationship that we might specify in Mermaid as: `PERSON }|..|{ CAR : \"driver\"`.  Note the two dots in the middle of the relationship that will result in a dashed line being drawn between the two entities.  But when this many-to-many relationship is resolved into two one-to-many relationships, we observe that a `NAMED-DRIVER` cannot exist without both a `PERSON` and a `CAR` - the relationships become identifying and would be specified using hyphens, which translate to a solid line:"
+            }
+          ],
+          "rationale": "A named driver depends on both a person and car, while the original entities can exist independently. Preserve that identifying-relationship distinction.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c10-c05",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 8828,
+              "end": 8933,
+              "quote": "If you want the relationship label to be more than one word, you must use double quotes around the phrase"
+            },
+            {
+              "start": 8936,
+              "end": 9030,
+              "quote": "If you don't want a label at all on a relationship, you must use an empty double-quoted string"
+            }
+          ],
+          "context": [
+            {
+              "start": 8828,
+              "end": 8933,
+              "quote": "If you want the relationship label to be more than one word, you must use double quotes around the phrase"
+            },
+            {
+              "start": 8936,
+              "end": 9030,
+              "quote": "If you don't want a label at all on a relationship, you must use an empty double-quoted string"
+            }
+          ],
+          "rationale": "A multiword label and no label require different quoted-string contents.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c11",
+      "source_sha256": "75ccaa07c811bb37ba7c9f1a9330cdd72b94d0bd4a057309046e4918d00ab1e5",
+      "reviewer": "Codex assistant reviewing the structural-wordiness iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 9985,
+          "first_line": 1,
+          "last_line": 267,
+          "rationale": "Read all plugin documentation prose and configuration operands. Preserve daemon/client responsibilities, external process/socket interfaces, initialization timing and unsupported-plugin diagnostics.",
+          "prose_blocks": 28,
+          "review_boundary": "Read every nonexcluded prose block and inspected original source context for selected judgments and protected operands. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c11-d01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 2289,
+              "end": 2371,
+              "quote": "Implementing a proxy plugin is as easy as implementing the gRPC API for a\nservice."
+            }
+          ],
+          "context": [
+            {
+              "start": 2289,
+              "end": 2668,
+              "quote": "Implementing a proxy plugin is as easy as implementing the gRPC API for a\nservice. For implementing a proxy plugin in Go, look at the go doc for\n[content store service](https://godoc.org/github.com/containerd/containerd/api/services/content/v1#ContentServer)\nand [snapshotter service](https://godoc.org/github.com/containerd/containerd/api/services/snapshots/v1#SnapshotsServer)."
+            }
+          ],
+          "rationale": "The comparison gives the necessary interface work but turns it into an unqualified ease claim.",
+          "proposed_edit": "To implement a proxy plugin, implement the gRPC API for a service; retain the Go documentation links."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c11-u01",
+          "category": "vague_claims",
+          "subtype": "vague_claims",
+          "targets": [
+            {
+              "start": 5140,
+              "end": 5200,
+              "quote": "decoupled, stable, and treated equally with external plugins"
+            }
+          ],
+          "context": [
+            {
+              "start": 5061,
+              "end": 5261,
+              "quote": "containerd uses plugins internally to ensure that internal implementations are\ndecoupled, stable, and treated equally with external plugins. To see all the\nplugins containerd has, use `ctr plugins ls`"
+            }
+          ],
+          "rationale": "The architecture claims are broad, especially stable, but are presented as the purpose of an internal plugin design; a source-only review cannot establish their technical scope.",
+          "proposed_edit": "Consider naming the common interface and the specific stability guarantee."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c11-c01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 235,
+              "end": 679,
+              "quote": "containerd has a smart client architecture, meaning any functionality which is\nnot required by the daemon is done by the client. This includes most high\nlevel interactions such as creating a container's specification, interacting\nwith an image registry, or loading an image from tar. containerd's Go client\ngives a user access to many points of extensions from creating their own\noptions on container creation to resolving image registry names."
+            }
+          ],
+          "context": [
+            {
+              "start": 235,
+              "end": 679,
+              "quote": "containerd has a smart client architecture, meaning any functionality which is\nnot required by the daemon is done by the client. This includes most high\nlevel interactions such as creating a container's specification, interacting\nwith an image registry, or loading an image from tar. containerd's Go client\ngives a user access to many points of extensions from creating their own\noptions on container creation to resolving image registry names."
+            }
+          ],
+          "rationale": "Smart client is defined by the daemon/client responsibility boundary and supported examples; do not treat the architectural term as empty praise.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c11-c02",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 791,
+              "end": 958,
+              "quote": "External plugins allow extending containerd's functionality using an officially\nreleased version of containerd without needing to recompile the daemon to add a\nplugin."
+            }
+          ],
+          "context": [
+            {
+              "start": 791,
+              "end": 958,
+              "quote": "External plugins allow extending containerd's functionality using an officially\nreleased version of containerd without needing to recompile the daemon to add a\nplugin."
+            }
+          ],
+          "rationale": "An officially released daemon can accept external plugins without recompilation; this is a concrete capability claim.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c11-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 1799,
+              "end": 2142,
+              "quote": "Update the containerd config file, which by default is at\n`/etc/containerd/config.toml`. Add a `[proxy_plugins]` section along with a\nsection for your given plugin `[proxy_plugins.myplugin]`. The `address` must\nrefer to a local socket file which the containerd process has access to. The\ncurrently supported types are `snapshot` and `content`."
+            }
+          ],
+          "context": [
+            {
+              "start": 1799,
+              "end": 2142,
+              "quote": "Update the containerd config file, which by default is at\n`/etc/containerd/config.toml`. Add a `[proxy_plugins]` section along with a\nsection for your given plugin `[proxy_plugins.myplugin]`. The `address` must\nrefer to a local socket file which the containerd process has access to. The\ncurrently supported types are `snapshot` and `content`."
+            }
+          ],
+          "rationale": "The local socket must be accessible to the process and only the named plugin types are claimed.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c11-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 7747,
+              "end": 8026,
+              "quote": "From the output all the plugins can be seen as well those which did not\nsuccessfully load. In this case `aufs` and `zfs` are expected not to load\nsince they are not support on the machine. The logs will show why it failed,\nbut you can also get more details using the `-d` option."
+            }
+          ],
+          "context": [
+            {
+              "start": 7747,
+              "end": 8026,
+              "quote": "From the output all the plugins can be seen as well those which did not\nsuccessfully load. In this case `aufs` and `zfs` are expected not to load\nsince they are not support on the machine. The logs will show why it failed,\nbut you can also get more details using the `-d` option."
+            }
+          ],
+          "rationale": "Expected failure of unsupported plugins differs from successful loading; logs and the details option have distinct uses.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    },
+    {
+      "version": 1,
+      "page": "c12",
+      "source_sha256": "45010480c69588fe7b3c274b26a23b6dda8fa765ab4b1c532ccdd677076f40de",
+      "reviewer": "Codex assistant reviewing the structural-wordiness iteration; maintainer-accepted assistant review, not human or independent annotation",
+      "phase": "before_confirmation_diagnostic_output_review_and_before_runtime_changes",
+      "scope": "All seven categories of unswell-editorial-v1; complete extracted source prose, no authorship labels",
+      "categories_reviewed": [
+        "empty_framing",
+        "needless_repetition",
+        "wordiness",
+        "unjustified_intensifiers",
+        "vague_claims",
+        "formulaic_transitions",
+        "needless_complexity"
+      ],
+      "coverage": [
+        {
+          "start": 0,
+          "end": 4318,
+          "first_line": 1,
+          "last_line": 90,
+          "rationale": "Read all refutability prose and inspected let/if-let/Some/None examples. Preserve universal versus conditional matching, compiler warning/error distinctions, fallback behavior and final-match-arm exceptions. Factual inconsistencies are outside this editorial rubric.",
+          "prose_blocks": 15,
+          "review_boundary": "Read every nonexcluded prose block and inspected original source context for selected judgments and protected operands. Protected code, frontmatter, images and linked destinations are outside the judged prose."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c12-d01",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 943,
+              "end": 1051,
+              "quote": "the functionality of a conditional is in its ability to perform\ndifferently depending on success or failure."
+            }
+          ],
+          "context": [
+            {
+              "start": 568,
+              "end": 1051,
+              "quote": "Function parameters, `let` statements, and `for` loops can only accept\nirrefutable patterns, because the program cannot do anything meaningful when\nvalues don’t match. The `if let` and `while let` expressions accept\nrefutable and irrefutable patterns, but the compiler warns against\nirrefutable patterns because by definition they’re intended to handle possible\nfailure: the functionality of a conditional is in its ability to perform\ndifferently depending on success or failure."
+            }
+          ],
+          "rationale": "Nested functionality and ability nouns wrap the ordinary branching behavior.",
+          "proposed_edit": "a conditional behaves differently on success and failure; retain the surrounding explanation of refutable and irrefutable patterns."
+        },
+        {
+          "id": "c12-d02",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 1170,
+              "end": 1285,
+              "quote": "you do need to be familiar with the concept\nof refutability so you can respond when you see it in an error message."
+            }
+          ],
+          "context": [
+            {
+              "start": 1053,
+              "end": 1442,
+              "quote": "In general, you shouldn’t have to worry about the distinction between refutable\nand irrefutable patterns; however, you do need to be familiar with the concept\nof refutability so you can respond when you see it in an error message. In\nthose cases, you’ll need to change either the pattern or the construct you’re\nusing the pattern with, depending on the intended behavior of the code."
+            }
+          ],
+          "rationale": "The familiarity-with-the-concept support obscures the concrete requirement to interpret a compiler message.",
+          "proposed_edit": "you need to understand refutability to respond to compiler errors; preserve the following choice of changing pattern or construct."
+        },
+        {
+          "id": "c12-d03",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1444,
+              "end": 1584,
+              "quote": "Let’s look at an example of what happens when we try to use a refutable pattern\nwhere Rust requires an irrefutable pattern and vice versa."
+            }
+          ],
+          "context": [
+            {
+              "start": 1444,
+              "end": 1741,
+              "quote": "Let’s look at an example of what happens when we try to use a refutable pattern\nwhere Rust requires an irrefutable pattern and vice versa. Listing 18-8 shows a\n`let` statement, but for the pattern we’ve specified `Some(x)`, a refutable\npattern. As you might expect, this code will not compile."
+            }
+          ],
+          "rationale": "The invitation narrates the upcoming example; the next sentence names the exact let/Some example and later examples cover the inverse.",
+          "proposed_edit": "Begin with Listing 18-8 and retain both directions of the refutability examples."
+        },
+        {
+          "id": "c12-d04",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 1693,
+              "end": 1713,
+              "quote": "As you might expect,"
+            }
+          ],
+          "context": [
+            {
+              "start": 1444,
+              "end": 1741,
+              "quote": "Let’s look at an example of what happens when we try to use a refutable pattern\nwhere Rust requires an irrefutable pattern and vice versa. Listing 18-8 shows a\n`let` statement, but for the pattern we’ve specified `Some(x)`, a refutable\npattern. As you might expect, this code will not compile."
+            }
+          ],
+          "rationale": "The preface predicts the reader's expectation without explaining the compiler behavior.",
+          "proposed_edit": "State directly that the code will not compile."
+        },
+        {
+          "id": "c12-d05",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 2542,
+              "end": 2552,
+              "quote": "rightfully"
+            }
+          ],
+          "context": [
+            {
+              "start": 2441,
+              "end": 2579,
+              "quote": "Because we didn’t cover (and couldn’t cover!) every valid value with the\npattern `Some(x)`, Rust rightfully produces a compiler error."
+            }
+          ],
+          "rationale": "The appraisal of the compiler adds no condition or explanation to its error.",
+          "proposed_edit": "Remove rightfully; retain the uncovered-value explanation."
+        },
+        {
+          "id": "c12-d06",
+          "category": "wordiness",
+          "subtype": "wordiness",
+          "targets": [
+            {
+              "start": 2581,
+              "end": 2764,
+              "quote": "To fix the problem where we have a refutable pattern where an irrefutable\npattern is needed, we can change the code that uses the pattern: instead of\nusing `let`, we can use `if let`."
+            }
+          ],
+          "context": [
+            {
+              "start": 2581,
+              "end": 2950,
+              "quote": "To fix the problem where we have a refutable pattern where an irrefutable\npattern is needed, we can change the code that uses the pattern: instead of\nusing `let`, we can use `if let`. Then if the pattern doesn’t match, the code\nwill just skip the code in the curly brackets, giving it a way to continue\nvalidly. Listing 18-9 shows how to fix the code in Listing 18-8."
+            }
+          ],
+          "rationale": "Repeated problem and code-change support wraps a concrete replacement already motivated by the preceding error.",
+          "proposed_edit": "For this refutable pattern, replace let with if let. Preserve the unmatched-value skip behavior and link to the revised listing."
+        },
+        {
+          "id": "c12-d07",
+          "category": "empty_framing",
+          "subtype": "empty_framing",
+          "targets": [
+            {
+              "start": 3168,
+              "end": 3198,
+              "quote": "We’ve given the code an out!"
+            }
+          ],
+          "context": [
+            {
+              "start": 3168,
+              "end": 3439,
+              "quote": "We’ve given the code an out! This code is perfectly valid, although it means we\ncannot use an irrefutable pattern without receiving an error. If we give `if\nlet` a pattern that will always match, such as `x`, as shown in Listing 18-10,\nthe compiler will give a warning."
+            }
+          ],
+          "rationale": "The anthropomorphic exclamation repeats the previously stated ability to skip an unmatched branch.",
+          "proposed_edit": "Remove the exclamation; retain the following validity and compiler-warning discussion."
+        },
+        {
+          "id": "c12-d08",
+          "category": "formulaic_transitions",
+          "subtype": "formulaic_transitions",
+          "targets": [
+            {
+              "start": 4155,
+              "end": 4317,
+              "quote": "Now that you know where to use patterns and the difference between refutable\nand irrefutable patterns, let’s cover all the syntax we can use to create\npatterns."
+            }
+          ],
+          "context": [
+            {
+              "start": 4155,
+              "end": 4317,
+              "quote": "Now that you know where to use patterns and the difference between refutable\nand irrefutable patterns, let’s cover all the syntax we can use to create\npatterns."
+            }
+          ],
+          "rationale": "The closing transition assumes the reader now knows the material and repeats the topic before announcing the next one.",
+          "proposed_edit": "Next: pattern syntax. Preserve navigation without claiming reader mastery."
+        }
+      ],
+      "uncertain": [
+        {
+          "id": "c12-u01",
+          "category": "unjustified_intensifiers",
+          "subtype": "unjustified_intensifiers",
+          "targets": [
+            {
+              "start": 3212,
+              "end": 3227,
+              "quote": "perfectly valid"
+            }
+          ],
+          "context": [
+            {
+              "start": 3168,
+              "end": 3439,
+              "quote": "We’ve given the code an out! This code is perfectly valid, although it means we\ncannot use an irrefutable pattern without receiving an error. If we give `if\nlet` a pattern that will always match, such as `x`, as shown in Listing 18-10,\nthe compiler will give a warning."
+            }
+          ],
+          "rationale": "Perfectly is emphatic, but valid has a binary compiler meaning in this context.",
+          "proposed_edit": "Consider simply valid without changing the claimed compiler result."
+        }
+      ],
+      "controls": [
+        {
+          "id": "c12-c01",
+          "category": "needless_repetition",
+          "subtype": "needless_repetition",
+          "targets": [
+            {
+              "start": 56,
+              "end": 566,
+              "quote": "Patterns come in two forms: refutable and irrefutable. Patterns that will match\nfor any possible value passed are *irrefutable*. An example would be `x` in the\nstatement `let x = 5;` because `x` matches anything and therefore cannot fail\nto match. Patterns that can fail to match for some possible value are\n*refutable*. An example would be `Some(x)` in the expression `if let Some(x) =\na_value` because if the value in the `a_value` variable is `None` rather than\n`Some`, the `Some(x)` pattern will not match."
+            }
+          ],
+          "context": [
+            {
+              "start": 56,
+              "end": 566,
+              "quote": "Patterns come in two forms: refutable and irrefutable. Patterns that will match\nfor any possible value passed are *irrefutable*. An example would be `x` in the\nstatement `let x = 5;` because `x` matches anything and therefore cannot fail\nto match. Patterns that can fail to match for some possible value are\n*refutable*. An example would be `Some(x)` in the expression `if let Some(x) =\na_value` because if the value in the `a_value` variable is `None` rather than\n`Some`, the `Some(x)` pattern will not match."
+            }
+          ],
+          "rationale": "Refutable and irrefutable definitions and their separate Some/None examples establish complementary cases, not duplicate claims.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c12-c02",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 1964,
+              "end": 2346,
+              "quote": "If `some_option_value` was a `None` value, it would fail to match the pattern\n`Some(x)`, meaning the pattern is refutable. However, the `let` statement can\nonly accept an irrefutable pattern because there is nothing valid the code can\ndo with a `None` value. At compile time, Rust will complain that we’ve tried to\nuse a refutable pattern where an irrefutable pattern is required:"
+            }
+          ],
+          "context": [
+            {
+              "start": 1964,
+              "end": 2346,
+              "quote": "If `some_option_value` was a `None` value, it would fail to match the pattern\n`Some(x)`, meaning the pattern is refutable. However, the `let` statement can\nonly accept an irrefutable pattern because there is nothing valid the code can\ndo with a `None` value. At compile time, Rust will complain that we’ve tried to\nuse a refutable pattern where an irrefutable pattern is required:"
+            }
+          ],
+          "rationale": "A None value cannot match Some(x), while let requires a match for all values; retain both sides of the incompatibility.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c12-c03",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 2765,
+              "end": 2894,
+              "quote": "Then if the pattern doesn’t match, the code\nwill just skip the code in the curly brackets, giving it a way to continue\nvalidly."
+            }
+          ],
+          "context": [
+            {
+              "start": 2581,
+              "end": 2950,
+              "quote": "To fix the problem where we have a refutable pattern where an irrefutable\npattern is needed, we can change the code that uses the pattern: instead of\nusing `let`, we can use `if let`. Then if the pattern doesn’t match, the code\nwill just skip the code in the curly brackets, giving it a way to continue\nvalidly. Listing 18-9 shows how to fix the code in Listing 18-8."
+            }
+          ],
+          "rationale": "if let skips the body on a nonmatch; it does not make the original refutable pattern irrefutable.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        },
+        {
+          "id": "c12-c04",
+          "category": "needless_complexity",
+          "subtype": "needless_complexity",
+          "targets": [
+            {
+              "start": 3828,
+              "end": 4153,
+              "quote": "For this reason, match arms must use refutable patterns, except for the last\narm, which should match any remaining values with an irrefutable pattern. Rust\nallows us to use an irrefutable pattern in a `match` with only one arm, but\nthis syntax isn’t particularly useful and could be replaced with a simpler\n`let` statement."
+            }
+          ],
+          "context": [
+            {
+              "start": 3828,
+              "end": 4153,
+              "quote": "For this reason, match arms must use refutable patterns, except for the last\narm, which should match any remaining values with an irrefutable pattern. Rust\nallows us to use an irrefutable pattern in a `match` with only one arm, but\nthis syntax isn’t particularly useful and could be replaced with a simpler\n`let` statement."
+            }
+          ],
+          "rationale": "The last match arm and a single-arm match have explicit exceptions that must remain scoped.",
+          "proposed_edit": "Keep the distinct technical information and its scope."
+        }
+      ]
+    }
+  ]
+}

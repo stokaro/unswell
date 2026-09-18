@@ -72,7 +72,8 @@ func instructionBlockLink(a, b document.Sentence) bool {
 		}
 	}
 	return instructionAnnouncement(left[0]) &&
-		(concreteMethod(right[0].tokens()) || relatedReaderMethod(left[0], right[0]))
+		(concreteMethod(right[0].tokens()) || nominalInstructionMethod(right[0].tokens()) ||
+			relatedReaderMethod(left[0], right[0]))
 }
 
 func instructionAnnouncement(c frameClause) bool {

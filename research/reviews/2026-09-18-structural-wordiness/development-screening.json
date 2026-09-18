@@ -1,0 +1,1276 @@
+{
+  "candidate": "development-v1",
+  "confirmation_diagnostics_seen": false,
+  "rows": [
+    {
+      "dataset": "confirmation",
+      "rule": "filler.nominal-support",
+      "page": "c08",
+      "span": {
+        "start": 14868,
+        "end": 15147
+      },
+      "snippet": "The rule manager is a [`rules.Manager`](https://github.com/prometheus/prometheus/blob/v2.3.1/rules/manager.go#L410-L418) that is responsible for evaluating recording and alerting rules on a periodic basis (as configured using the `evaluation_interval` configuration file setting)",
+      "context": "evaluation (at least in the case of the local TSDB). Expression evaluation returns a PromQL expression type, which most commonly is an instant vector or range vector of time series.\n\n## Rule manager\n\nThe rule manager is a [`rules.Manager`](https://github.com/prometheus/prometheus/blob/v2.3.1/rules/manager.go#L410-L418) that is responsible for evaluating recording and alerting rules on a periodic basis (as configured using the `evaluation_interval` configuration file setting). It evaluates all rules on every iteration using PromQL and writes the resulting time series back into the storage.\n\nFor alerting rules, the rule manager performs several actions ",
+      "events": [
+        {
+          "id": "c08-d12",
+          "kind": "defects",
+          "category": "wordiness",
+          "rationale": "The component performs the evaluation itself, at the explicitly configured interval; responsibility and periodic-basis wrappers add no condition.",
+          "proposed_edit": "that periodically evaluates recording and alerting rules",
+          "targets": [
+            {
+              "start": 14989,
+              "end": 15072,
+              "quote": "that is responsible for evaluating recording and alerting rules on a periodic basis"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "partial",
+        "event": "c08-d12",
+        "rationale": "The periodic-basis wrapper is identified, but the responsibility wrapper is not.",
+        "proposed_edit": "Evaluate the rules periodically; retain the configured interval.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "development",
+      "rule": "filler.nominal-support",
+      "page": "p019",
+      "span": {
+        "start": 21442,
+        "end": 21546
+      },
+      "snippet": "When using a custom `FZF_CTRL_T_COMMAND`, use the unexpanded `$dir` variable to\nmake use of this feature",
+      "context": "d-line as the root directory for the recursive search. For\ninstance, hitting `CTRL-T` at the end of the following command-line\n\n```sh\nls /var/\n```\n\nwill list all files and directories under `/var/`.\n\nWhen using a custom `FZF_CTRL_T_COMMAND`, use the unexpanded `$dir` variable to\nmake use of this feature. `$dir` defaults to `.` when the last token is not a\nvalid directory. Example:\n\n```sh\nset -g FZF_CTRL_T_COMMAND \"command find -L \\$dir -type f 2> /dev/null | sed '1d; s#^\\./##'\"\n`",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "The custom-command condition survives replacing make use of with use.",
+        "proposed_edit": "Use this feature if you have defined the custom command.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "development",
+      "rule": "syntax.subject-cleft",
+      "page": "p004",
+      "span": {
+        "start": 7912,
+        "end": 8022
+      },
+      "snippet": "`--ignore tables=...` is what excludes a table from it, and it\nexcludes the table from the structural half too",
+      "context": "ean at `--severity destructive`.\n\nThe comparison reads each declared table, so the role the check connects with\nneeds `SELECT` on those tables as well as the catalog access the structural\nhalf needs. `--ignore tables=...` is what excludes a table from it, and it\nexcludes the table from the structural half too.\n\n[Reference data](../../versioned/reference-data/) declares the rows and\nreconciles them.\n\nIn the JSON document, a PostgreSQL row-level-security policy is reported by the\ntable t",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The flag is being distinguished from the other access and comparison mechanisms. A cleft can carry that focus.",
+        "proposed_edit": "No required revision established.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "development",
+      "rule": "syntax.subject-cleft",
+      "page": "p025",
+      "span": {
+        "start": 4112,
+        "end": 4168
+      },
+      "snippet": "which is what selects it among the overloads\nof its name",
+      "context": "on and in its\nrollback. The drop names the function's argument list, so an overloaded name\nloses only the overload that changed. A function that takes no arguments is\nnamed with an empty list, `f()`, which is what selects it among the overloads\nof its name; the same holds for a function the schema stops declaring, and for\na procedure. The drop does not use `CASCADE`: when a\nview, policy, or trigger uses the function, the server refu",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The empty argument list selects one overload; the focus distinguishes an overloaded name from a full signature.",
+        "proposed_edit": "No required revision established.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "development",
+      "rule": "syntax.subject-cleft",
+      "page": "p025",
+      "span": {
+        "start": 13730,
+        "end": 13802
+      },
+      "snippet": "which is what makes a typo\nvisible before the day it would have mattered",
+      "context": "ult described above, a valid boolean is honored, and anything else fails\nthe command before it reads or compares anything — including on a run that\ndeclares no reserved role and leaves no role out, which is what makes a typo\nvisible before the day it would have mattered. See\n[Boolean environment variables](../../reference/configuration/#boolean-environment-variables).\n\n:::caution\nPtah never drops a role automatically. A role that disappears from ",
+      "events": [
+        {
+          "id": "p025-post07",
+          "kind": "addendum",
+          "category": "needless_complexity",
+          "rationale": "The sentence combines three Boolean states, validation order, two inactive-use cases and a concluding rationale.",
+          "proposed_edit": "List the three parsing outcomes, then state that validation precedes reading/comparison even when neither variable affects the run.",
+          "targets": [
+            {
+              "start": 13444,
+              "end": 13803,
+              "quote": "Both variables on this page are booleans and read the same way: unset selects\nthe default described above, a valid boolean is honored, and anything else fails\nthe command before it reads or compares anything — including on a run that\ndeclares no reserved role and leaves no role out, which is what makes a typo\nvisible before the day it would have mattered."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "The cleft delays the direct statement about why the earlier error was observable; this was a post-diagnostic addendum, not a frozen defect.",
+        "proposed_edit": "State directly that the earlier short rendering made the later instant look stale.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "development",
+      "rule": "syntax.subject-cleft",
+      "page": "p025",
+      "span": {
+        "start": 33237,
+        "end": 33291
+      },
+      "snippet": "A transaction is what makes\nthat safe through a pooler",
+      "context": "g('search_path', …, is_local => true)` inside a transaction that is\nrolled back — so PostgreSQL's own rule decides, including a list, a `$user`\nentry, and a schema the connected role may not use. A transaction is what makes\nthat safe through a pooler: the setting dies with the transaction, and a pooler\nkeeps one backend for the whole of one.\n\nMeasured on PostgreSQL 17 behind PgBouncer 1.25.2 in transaction mode, one\nserver rea",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The paragraph explains why transaction scope is required behind a pooler. Emphasizing that cause is defensible.",
+        "proposed_edit": "No required revision established.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_boundaries",
+      "rule": "filler.nominal-support",
+      "page": "c04",
+      "span": {
+        "start": 38122,
+        "end": 38290
+      },
+      "snippet": "This section\nis intended to give you a sampling of some of the most important and frequently\nused options that will likely impact how you use ripgrep on a regular basis",
+      "context": "errides.rs:1\ncrates/matcher/src/lib.rs:2\n\nreal    0.008\nuser    0.010\nsys     0.002\nmaxmem  7 MB\nfaults  0\n```\n\n\n### Common options\n\nripgrep has a lot of flags. Too many to keep in your head at once. This section\nis intended to give you a sampling of some of the most important and frequently\nused options that will likely impact how you use ripgrep on a regular basis.\n\n* `-h`: Show ripgrep's condensed help output.\n* `--help`: Show ripgrep's longer form help output. (Nearly what you'd find in\n  ripgrep's man page, so pipe it into a pager!)\n* `-",
+      "events": [
+        {
+          "id": "c04-d22",
+          "kind": "defects",
+          "category": "empty_framing",
+          "rationale": "Section-purpose, ranking and likely-impact claims duplicate Common options and delay the actual flag list.",
+          "proposed_edit": "Introduce the list as common options without predicting reader impact.",
+          "targets": [
+            {
+              "start": 38122,
+              "end": 38291,
+              "quote": "This section\nis intended to give you a sampling of some of the most important and frequently\nused options that will likely impact how you use ripgrep on a regular basis."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "Regular basis can become regularly, but that edit does not diagnose the frozen section announcement and importance claim.",
+        "proposed_edit": "Use regularly while preserving any independent assessment of the section introduction.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_boundaries",
+      "rule": "syntax.subject-cleft",
+      "page": "c02",
+      "span": {
+        "start": 2255,
+        "end": 2328
+      },
+      "snippet": "which is what makes it a review artifact a\nrepository can commit and diff",
+      "context": "</a>.\n\nThe graph draws an unresolved view dashed and carries its reason as a tooltip\nrather than leaving it out, and it sorts every node and edge so the same schema\nrenders byte-identically twice — which is what makes it a review artifact a\nrepository can commit and diff.\n\n<ProductPreview\n  id=\"schema-lineage-explanatory\"\n  src={lineageExplanation}\n  alt=\"An explanatory dependency diagram where orders.customer_id feeds order_totals.buyer, orders.t",
+      "events": [
+        {
+          "id": "c02-d02",
+          "kind": "defects",
+          "category": "wordiness",
+          "rationale": "The nested what-makes-it frame delays the direct consequence of deterministic output.",
+          "proposed_edit": "Say that deterministic output can be committed and diffed.",
+          "targets": [
+            {
+              "start": 2255,
+              "end": 2329,
+              "quote": "which is what makes it a review artifact a\nrepository can commit and diff."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "full",
+        "event": "c02-d02",
+        "rationale": "The warning identifies the nested what-makes-it wrapper named by the frozen wordiness event.",
+        "proposed_edit": "State that deterministic output can be committed and diffed.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_boundaries",
+      "rule": "syntax.subject-cleft",
+      "page": "c03",
+      "span": {
+        "start": 15135,
+        "end": 15177
+      },
+      "snippet": "which is what makes a finding reproducible",
+      "context": "hat depend on the\nmachine it ran on, so the same migration would lint clean on one checkout and\nfail in CI with nothing in the migration to explain it. Evaluation is a pure\nfunction of the statement, which is what makes a finding reproducible.\n\nAn expression must evaluate to a boolean; anything else is refused rather than\ncoerced, since a coerced value fires on every statement or on none and both\nlook like a working ru",
+      "events": [
+        {
+          "id": "c03-d07",
+          "kind": "defects",
+          "category": "wordiness",
+          "rationale": "The is-what-makes cleft adds a layer between the deterministic evaluation and reproducible output.",
+          "proposed_edit": "Write that pure statement evaluation makes findings reproducible; retain no filesystem/environment access.",
+          "targets": [
+            {
+              "start": 15087,
+              "end": 15178,
+              "quote": "Evaluation is a pure\nfunction of the statement, which is what makes a finding reproducible."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "full",
+        "event": "c03-d07",
+        "rationale": "The finding names the what-makes cleft, the complete editing operation frozen for this event.",
+        "proposed_edit": "Pure statement evaluation makes findings reproducible.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_clauses",
+      "rule": "filler.nominal-support",
+      "page": "c04",
+      "span": {
+        "start": 11530,
+        "end": 11699
+      },
+      "snippet": "If you set `Config` or make use of `validator` in your generic model definition, it is applied\nto concrete subclasses in the same way as when inheriting from `BaseModel`",
+      "context": "\n\nHere is an example using `GenericModel` to create an easily-reused HTTP response payload wrapper:\n\n```py\n{!.tmp_examples/models_generics.py!}\n```\n_(This script is complete, it should run \"as is\")_\n\nIf you set `Config` or make use of `validator` in your generic model definition, it is applied\nto concrete subclasses in the same way as when inheriting from `BaseModel`. Any methods defined on\nyour generic class will also be inherited.\n\nPydantic's generics also integrate properly with mypy, so you get all the type checking\nyou would expect mypy t",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "Use replaces make use of without changing the setConfig alternative or condition.",
+        "proposed_edit": "Retain both alternatives and replace make use of with use.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_clauses",
+      "rule": "filler.nominal-support",
+      "page": "c04",
+      "span": {
+        "start": 11956,
+        "end": 12146
+      },
+      "snippet": "note\n    Internally, pydantic uses `create_model` to generate a (cached) concrete `BaseModel` at runtime,\n    so there is essentially zero overhead introduced by making use of `GenericModel`",
+      "context": "inherited.\n\nPydantic's generics also integrate properly with mypy, so you get all the type checking\nyou would expect mypy to provide if you were to declare the type without using `GenericModel`.\n\n!!! note\n    Internally, pydantic uses `create_model` to generate a (cached) concrete `BaseModel` at runtime,\n    so there is essentially zero overhead introduced by making use of `GenericModel`.\n\nTo inherit from a GenericModel without replacing the `TypeVar` instance, a class must also inherit from \n`typing.Generic`:\n\n```py\n{!.tmp_examples/models_generics_inheritance.py!",
+      "events": [
+        {
+          "id": "c04-u01",
+          "kind": "uncertain",
+          "category": "vague_claims",
+          "rationale": "Caching supplies a mechanism but not an overhead measurement; the scope of overhead is unresolved.",
+          "proposed_edit": "Clarify which operation avoids repeated class creation and state measurement scope if an overhead claim is retained.",
+          "targets": [
+            {
+              "start": 12069,
+              "end": 12103,
+              "quote": "there is essentially zero overhead"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "Making use of can become using. This does not substantiate the separate uncertain zero-overhead claim.",
+        "proposed_edit": "Replace making use of GenericModel with using GenericModel.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_clauses",
+      "rule": "syntax.subject-cleft",
+      "page": "c02",
+      "span": {
+        "start": 2208,
+        "end": 2266
+      },
+      "snippet": "Keeping the previous one is what\nmakes a rollback possible",
+      "context": "this run is generation ...`\n\n**Cause.** You changed the model but not `target.column`, so a new generation\nwould overwrite the one your queries read.\n\n**Fix.** Give the new generation its own column. Keeping the previous one is what\nmakes a rollback possible.\n\n## `live generations sharing one source must use the same ordered key fields ...`\n\n**Cause.** The new outbox specification changes how a shared event identifies\nor versions a ro",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "Keeping the previous generation is a specific prerequisite for rollback, not an unsupported assurance. The cleft may emphasize that prerequisite.",
+        "proposed_edit": "No required revision established.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_construction",
+      "rule": "filler.nominal-support",
+      "page": "c06",
+      "span": {
+        "start": 409,
+        "end": 548
+      },
+      "snippet": "It is is then up to the user of the API to make use of the svg, either insert it somewhere in the page or do something completely different",
+      "context": "using the default integration provided by mermaid.js.\n\nThe core of this api is the [**render**][1] function which, given a graph\ndefinition, renders a graph/diagram and returns it as an svg element.\n\nIt is is then up to the user of the API to make use of the svg, either insert it somewhere in the page or do something completely different.\n\nIn addition to the render function, a number of behavioral configuration options are available.\n\n## setSiteConfig\n\n## setSiteConfig\n\n| Function      | Description               ",
+      "events": [
+        {
+          "id": "c06-d01",
+          "kind": "defects",
+          "category": "needless_repetition",
+          "rationale": "An adjacent duplicated auxiliary adds no meaning.",
+          "proposed_edit": "Use a single is.",
+          "targets": [
+            {
+              "start": 412,
+              "end": 417,
+              "quote": "is is"
+            }
+          ]
+        },
+        {
+          "id": "c06-d02",
+          "kind": "defects",
+          "category": "wordiness",
+          "rationale": "Apart from the duplicate auxiliary, the up-to-user frame and unspecified completely-different alternative delay the concrete responsibility.",
+          "proposed_edit": "Say the caller inserts or otherwise uses the returned SVG; keep that the API does not insert it automatically.",
+          "targets": [
+            {
+              "start": 409,
+              "end": 549,
+              "quote": "It is is then up to the user of the API to make use of the svg, either insert it somewhere in the page or do something completely different."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "partial",
+        "event": "c06-d02",
+        "rationale": "The use wrapper is diagnosed, but the up-to-user frame and unspecified alternative in the frozen operation remain. The duplicate auxiliary is a separate event.",
+        "proposed_edit": "Replace make use of with use; assess the remaining responsibility wording separately.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_context",
+      "rule": "filler.instruction-scaffolding",
+      "page": "c07",
+      "span": {
+        "start": 5474,
+        "end": 5535
+      },
+      "snippet": "It is possible to show actions that are happening in parallel",
+      "context": "ck\n        Bob->>Alice: Not so good :(\n    else is well\n        Bob->>Alice: Feeling fresh like a daisy\n    end\n    opt Extra response\n        Bob->>Alice: Thanks for asking\n    end\n```\n\n## Parallel\n\nIt is possible to show actions that are happening in parallel.\n\nThis is done by the notation\n\n```\npar [Action 1]\n... statements ...\nand [Action 2]\n... statements ...\nand [Action N]\n... statements ...\nend\n```\n\nSee the example below:\n\n```merma",
+      "events": [
+        {
+          "id": "c07-d06",
+          "kind": "defects",
+          "category": "wordiness",
+          "rationale": "The possibility announcement and notation setup can be replaced with the named action while retaining the syntax example.",
+          "proposed_edit": "Use par notation for parallel actions.",
+          "targets": [
+            {
+              "start": 5474,
+              "end": 5536,
+              "quote": "It is possible to show actions that are happening in parallel."
+            },
+            {
+              "start": 5538,
+              "end": 5566,
+              "quote": "This is done by the notation"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "full",
+        "event": "c07-d06",
+        "rationale": "The primary action and adjacent notation announcement are both included in the instruction diagnostic.",
+        "proposed_edit": "Use par notation for parallel actions; retain the syntax example.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_context",
+      "rule": "repetition.redundant-support",
+      "page": "c08",
+      "span": {
+        "start": 4311,
+        "end": 4424
+      },
+      "snippet": "In addition to the crates in this repository, the Tokio project also maintains\nseveral other libraries, including",
+      "context": "o happy to have\nyou! We have a [contributing guide][guide] to help you get involved in the Tokio\nproject.\n\n[guide]: https://github.com/tokio-rs/tokio/blob/master/CONTRIBUTING.md\n\n## Related Projects\n\nIn addition to the crates in this repository, the Tokio project also maintains\nseveral other libraries, including:\n\n* [`hyper`]: A fast and correct HTTP/1.1 and HTTP/2 implementation for Rust.\n\n* [`tonic`]: A gRPC over HTTP/2 implementation focused on high performance, interoperability, and f",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "In addition to and also mark the same addition of maintained libraries.",
+        "proposed_edit": "Keep one additive marker and the library distinction.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_context",
+      "rule": "syntax.subject-cleft",
+      "page": "c06",
+      "span": {
+        "start": 6668,
+        "end": 6714
+      },
+      "snippet": "Absence is what makes a shared schema converge",
+      "context": "red state. It is not skipped and not refused: nothing compares it, nothing\nplans it, and `ptah schema render` prints a note on stderr naming what was left\nout and which dialects it was declared for.\n\nAbsence is what makes a shared schema converge. Without a scope, a\nPostgreSQL-only object on a MySQL target is either passed over with a comment —\nin which case `schema apply` exits 0 having created nothing and the next\ncomp",
+      "events": [
+        {
+          "id": "c06-c01",
+          "kind": "controls",
+          "category": "vague_claims",
+          "rationale": "The convergence claim supplies the actual missing-scope failure mechanisms in the same paragraph.",
+          "proposed_edit": "Keep the distinct technical information and its scope.",
+          "targets": [
+            {
+              "start": 6668,
+              "end": 7041,
+              "quote": "Absence is what makes a shared schema converge. Without a scope, a\nPostgreSQL-only object on a MySQL target is either passed over with a comment —\nin which case `schema apply` exits 0 having created nothing and the next\ncomparison asks for the same object again, forever — or refused outright, which\nmakes one schema across `postgres`, `mysql` and `mariadb` impossible."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The following missing-scope mechanisms support the convergence explanation. The cleft can focus absence as the required semantic state.",
+        "proposed_edit": "Keep the scope and failure mechanisms; no required cleft edit established.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_framing",
+      "rule": "filler.nominal-support",
+      "page": "c09",
+      "span": {
+        "start": 16059,
+        "end": 16190
+      },
+      "snippet": "If you make use of the dark mode feature in macOS, you might want to configure `bat` to use a different\ntheme based on the OS theme",
+      "context": "paces instead of tabs. This behaviour is added to avoid indentation issues caused by the\nsidebar. Calling `bat` with `--tabs=0` will override it and let tabs be consumed by the pager.\n\n### Dark mode\n\nIf you make use of the dark mode feature in macOS, you might want to configure `bat` to use a different\ntheme based on the OS theme. The following snippet uses the `default` theme when in the _dark mode_\nand the `GitHub` theme when in the _light mode_.\n\n```bash\nalias cat=\"bat --theme=\\$(defaults read -globalDo",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "The dark-mode condition remains after replacing make use of with use.",
+        "proposed_edit": "If you use dark mode, retain the stated behavior.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_framing",
+      "rule": "syntax.subject-cleft",
+      "page": "c01",
+      "span": {
+        "start": 2330,
+        "end": 2393
+      },
+      "snippet": "Verification's freshness layer is what catches a broken promise",
+      "context": " the mode means before anything runs:\n\n```text\nConsistency mode: immutable\n  - this requires writes to be paused for the duration, and the run refuses to\n    declare itself ready if they are not\n```\n\nVerification's freshness layer is what catches a broken promise: a row whose\nsource version moved after its vector was computed is reported. If writes\nhappened during the backfill despite the declaration, that is where it surfaces.\n\nWhat Ptah ",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The freshness layer is the mechanism that detects a violated declaration. Focus on that layer is useful in this explanation.",
+        "proposed_edit": "No required revision established.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_framing",
+      "rule": "syntax.subject-cleft",
+      "page": "c06",
+      "span": {
+        "start": 55790,
+        "end": 55872
+      },
+      "snippet": "which is what makes inspecting a\ndatabase and applying its own output back a no-op",
+      "context": " cover the same schemas. A desired state that names schemas beyond the one\nthe connection is on — as an inspected document of a multi-schema database does\n— is compared against those schemas too, which is what makes inspecting a\ndatabase and applying its own output back a no-op. A desired state that names\nonly the connected schema reads only that one, so a schema the document never\nmentions is never planned for removal. An `atlas.hcl` environment's `sche",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The neighboring sentence contrasts a single-schema desired state. The focused consequence identifies the multi-schema behavior.",
+        "proposed_edit": "No required revision established.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_instruction",
+      "rule": "filler.nominal-support",
+      "page": "c08",
+      "span": {
+        "start": 14907,
+        "end": 14984
+      },
+      "snippet": "Sometimes your HTTP access is only available through the use of a HTTP\n proxy",
+      "context": "igest),\n [`--negotiate`](https://curl.se/docs/manpage.html#--negotiate) or even\n [`--anyauth`](https://curl.se/docs/manpage.html#--anyauth) might be\n options that suit you.\n\n## Proxy Authentication\n\n Sometimes your HTTP access is only available through the use of a HTTP\n proxy. This seems to be especially common at various companies. A HTTP proxy\n may require its own user and password to allow the client to get through to\n the Internet. To specify those",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "Through the use of adds a noun around the proxy mechanism; only must remain.",
+        "proposed_edit": "HTTP access is available only through an HTTP proxy.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_instruction",
+      "rule": "syntax.subject-cleft",
+      "page": "c02",
+      "span": {
+        "start": 1774,
+        "end": 1843
+      },
+      "snippet": "which is what lets Oracle write bare identifiers while the rest\nquote",
+      "context": "er and Oracle also ride,\nand CockroachDB, YugabyteDB, and Spanner ride the PostgreSQL family. Sharing a\nfamily is not sharing a dialect: each member keeps its own renderer and its own\ncapability set, which is what lets Oracle write bare identifiers while the rest\nquote. What distinguishes the members is their\n**capability set**: a validated map of known capability keys, with presets per\nengine and version line (PostgreSQL 12–13, 14–16, and 1",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The same sentence compares renderer behavior across dialects. Treat this as explicit technical contrast.",
+        "proposed_edit": "Retain the distinct dialect behavior.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_instruction",
+      "rule": "syntax.subject-cleft",
+      "page": "c03",
+      "span": {
+        "start": 3797,
+        "end": 3854
+      },
+      "snippet": "which is\nwhat stops a late answer overwriting a newer one",
+      "context": "ce` | The outbox's own ordering is the version. |\n| `input_hash` | A vector is stale when the text that produced it changed. |\n\nThe strategy also decides how two versions of one row are put in order, which is\nwhat stops a late answer overwriting a newer one. `updated_at` compares\ninstants, `monotonic` and `outbox_sequence` compare numbers, and `input_hash`\nrecords no version and orders nothing — under it a repeated answer is\nrecogn",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "The relative cleft can be a direct which prevents clause while preserving the late-answer ordering consequence.",
+        "proposed_edit": "Use which prevents a late answer from overwriting a newer vector.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_instruction",
+      "rule": "syntax.subject-cleft",
+      "page": "c03",
+      "span": {
+        "start": 4414,
+        "end": 4485
+      },
+      "snippet": "guessing is what made a shorter rendering of a later instant look\nstale",
+      "context": "olding a counter, gives\nversions that order nothing: a late retry then replaces a newer vector, because\nnothing establishes which is newer. Ptah does not guess an order for a value it\ncannot read — guessing is what made a shorter rendering of a later instant look\nstale — so this is a configuration error with a silent cost, and the pairing is\nworth checking when you write the specification.\n\n## `preprocessing`\n\nEvery field here is **identity**:",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The clause before the dash explicitly denies guessing. The cleft reinforces that contrast.",
+        "proposed_edit": "Retain the no-guessing condition and failure example.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_instruction",
+      "rule": "syntax.subject-cleft",
+      "page": "c05",
+      "span": {
+        "start": 58463,
+        "end": 58515
+      },
+      "snippet": "The scope selector is what makes that `0` legitimate",
+      "context": "-compat migrate lint --latest`\nfollows the same rule: an empty directory selects nothing and exits `0`, which\nis what a repository linting its migrations in CI does before the first\nmigration exists. The scope selector is what makes that `0` legitimate — an\nempty directory exits `0` only when `--latest` or `--git-base` was given. With\nneither, the run is refused before the directory is read (see\n[Lint migrations](#lint-migrati",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The tail after the dash supplies only-when scope. The cleft focuses that necessary condition.",
+        "proposed_edit": "Retain the selector condition and refusal case.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_instruction",
+      "rule": "syntax.subject-cleft",
+      "page": "c06",
+      "span": {
+        "start": 37207,
+        "end": 37257
+      },
+      "snippet": "which is what keeps this section short of complete",
+      "context": "s `.Checks` field carries them: each applied file lists the assertions its migration declares, and a refusal marks the assertion that made it. The Atlas Cloud approval-policy half stays out of scope, which is what keeps this section short of complete.\n\n**Conformance status.** Measured against Atlas: a failing txtar assertion aborts the apply before any body statement on both binaries, and no revision row is recorded. Ptah also",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "The relative cleft delays the direct consequence for the section coverage description.",
+        "proposed_edit": "State directly that the remaining gap keeps the section incomplete.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_local",
+      "rule": "filler.nominal-support",
+      "page": "c11",
+      "span": {
+        "start": 31234,
+        "end": 31361
+      },
+      "snippet": "These changes were made *mainly* through the use of automated scripts,\n  so there shouldn't be any mistakes, but you never know",
+      "context": "not\n  aware of having any collisions with system identifiers, but it's best\n  to fix these things before they cause trouble.\n\n  We now avoid all use of the _identifiers in the Libevent source code.\n  These changes were made *mainly* through the use of automated scripts,\n  so there shouldn't be any mistakes, but you never know.\n\n  As an exception, the names _EVENT_LOG_DEBUG, _EVENT_LOG_MSG_,\n  _EVENT_LOG_WARN, and _EVENT_LOG_ERR are still exposed in event.h: they\n  are now deprecated, but to support old",
+      "events": [
+        {
+          "id": "c11-d12",
+          "kind": "defects",
+          "category": "vague_claims",
+          "rationale": "Automated edits alone do not support the no-mistakes assurance, and the hedge adds no verification evidence.",
+          "proposed_edit": "Keep that scripts performed the changes and state any actual verification separately.",
+          "targets": [
+            {
+              "start": 31307,
+              "end": 31361,
+              "quote": "so there shouldn't be any mistakes, but you never know"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "Using automated scripts is shorter than through the use of automated scripts. It does not address the frozen unsupported no-mistakes claim.",
+        "proposed_edit": "Say the changes were made mainly using automated scripts; review the assurance independently.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_local",
+      "rule": "syntax.subject-cleft",
+      "page": "c02",
+      "span": {
+        "start": 3910,
+        "end": 3994
+      },
+      "snippet": "which is what lets a CI job run it\nagainst a specification somebody is still writing",
+      "context": "\n\nTwo fixed strings go out and nothing from your database does, so this is\nrunnable — and its output shareable — before anybody has decided to send a\ncorpus anywhere. It opens no database either, which is what lets a CI job run it\nagainst a specification somebody is still writing.\n\nIt returns 1 when a check fails.\n\nA check the probe could not make is reported as unmeasured rather than as a\npass. That distinction is the whole value of the verb: a credential",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "The relative cleft can be direct without losing the CI use case or in-progress qualifier.",
+        "proposed_edit": "Use which lets a CI job run it against an in-progress specification.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_local",
+      "rule": "syntax.subject-cleft",
+      "page": "c03",
+      "span": {
+        "start": 10971,
+        "end": 11028
+      },
+      "snippet": "a second run at the real\nthreshold is what fails the step",
+      "context": "nd exits `1`, so a step that redirects stdout and relies on the exit code\npublishes an empty artifact on exactly the run it exists to report. `--fail-on\nnone` puts the report on stdout and exits `0`; a second run at the real\nthreshold is what fails the step.\n\n### Azure DevOps\n\n```yaml\n- script: |\n    ptah migrations lint --dir ./migrations --dialect postgres \\\n      --fail-on none --format sarif > ptah-lint.sarif\n  displayName: Write",
+      "events": [
+        {
+          "id": "c03-c02",
+          "kind": "controls",
+          "category": "needless_repetition",
+          "rationale": "The two-run requirement has an explicit stream/exit-code mechanism and must remain.",
+          "proposed_edit": "Keep the distinct technical information and its scope.",
+          "targets": [
+            {
+              "start": 10688,
+              "end": 11029,
+              "quote": "One run cannot do both. Above the threshold the report goes to stderr and the\ncommand exits `1`, so a step that redirects stdout and relies on the exit code\npublishes an empty artifact on exactly the run it exists to report. `--fail-on\nnone` puts the report on stdout and exits `0`; a second run at the real\nthreshold is what fails the step."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "Two runs have distinct reporting and failure duties. The second-run focus is defensible; the frozen control remains intact.",
+        "proposed_edit": "Keep the two-run explanation.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_local",
+      "rule": "syntax.subject-cleft",
+      "page": "c05",
+      "span": {
+        "start": 1855,
+        "end": 1916
+      },
+      "snippet": "which is what makes it usable where every other one cannot be",
+      "context": "ead of a registry.\n\n## `describe`\n\nReads a specification and reports what it says on its own. **It opens no\ndatabase**, and with `--spec` no connection at all -- it reads the file and\nnothing else -- which is what makes it usable where every other one cannot be: writing a specification, and asking in\nCI whether an edit changed the corpus. `--release` fetches the release before it\ncan read anything, so that form does reach a registry.\n\n| ",
+      "events": [
+        {
+          "id": "c05-d01",
+          "kind": "defects",
+          "category": "wordiness",
+          "rationale": "The long exclusive-purpose construction can be replaced by the two concrete use cases without changing the offline guarantee.",
+          "proposed_edit": "Use the offline form while writing a specification or checking corpus changes in CI.",
+          "targets": [
+            {
+              "start": 1855,
+              "end": 1995,
+              "quote": "which is what makes it usable where every other one cannot be: writing a specification, and asking in\nCI whether an edit changed the corpus."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "partial",
+        "event": "c05-d01",
+        "rationale": "The cleft is only one layer of the frozen exclusive-purpose and use-case rewrite. The warning stops before the named use cases.",
+        "proposed_edit": "Simplify the cleft while retaining and separately editing the two concrete use cases.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_local",
+      "rule": "syntax.subject-cleft",
+      "page": "c05",
+      "span": {
+        "start": 5143,
+        "end": 5171
+      },
+      "snippet": "which is what lets it be run",
+      "context": "used request arrived as a classified error the engine can act on\n```\n\nIt returns 1 when a check fails, so a pipeline can gate on it. Two fixed strings\ngo out and no vector comes back into the report, which is what lets it be run —\nand its output pasted into an issue — before anybody has decided to send a\ncorpus anywhere.\n\nWhat it cannot establish is whether the provider retains what you send it. That\n",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "The relative cleft adds a layer before the stated ways the result can be used.",
+        "proposed_edit": "Use a direct which lets it be run clause and preserve the following alternatives.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_local",
+      "rule": "syntax.subject-cleft",
+      "page": "c05",
+      "span": {
+        "start": 8592,
+        "end": 8687
+      },
+      "snippet": "`--maintain-for` is what keeps a previous generation a way back during its\nstabilization window",
+      "context": "itted, and the only cost of a\nfailed removal is a larger table.\n\n| Flag | Meaning |\n| --- | --- |\n| `--maintain-for` | After catching up, extend this generation's stabilization window by this much |\n\n`--maintain-for` is what keeps a previous generation a way back during its\nstabilization window: it catches the generation up and extends the promise that\nit is current, in one command. That pairing is why `backfill` does not take it:\na window is kept true by the catch-up th",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The paragraph contrasts maintain-for and backfill. Focus on the flag explains which operation extends the rollback window.",
+        "proposed_edit": "No required revision established.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_local",
+      "rule": "syntax.subject-cleft",
+      "page": "c06",
+      "span": {
+        "start": 18327,
+        "end": 18377
+      },
+      "snippet": "which\nis what gives its `ptah_user` that authority",
+      "context": "needs the privileges these statements require —\n`ROLE ADMIN` plus `GRANT OPTION` on what it grants. The `docker-compose.yaml`\nin this repository configures `CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1`, which\nis what gives its `ptah_user` that authority.\n\n## The revision table's storage engine\n\nClickHouse gives a table no engine unless the statement names one, and whether\nan unnamed one is legal at all is decided by the server's ",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The configuration option grants a specific authority; calling it a wordiness defect is a stylistic preference without stronger context evidence.",
+        "proposed_edit": "Retain the authorization mechanism.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_proposition",
+      "rule": "repetition.redundant-support",
+      "page": "c04",
+      "span": {
+        "start": 1129,
+        "end": 1260
+      },
+      "snippet": "In addition to avoiding content checksum scanning the implementation is also designed to make decisions with minimum available data",
+      "context": "d just get intuitive caching. It is also hoped that if some implementations can provide better cache capabilities, the solver would take advantage of that without requiring significant modification.\n\nIn addition to avoiding content checksum scanning the implementation is also designed to make decisions with minimum available data. For example, for remote caching sources to be effective the solver will not require the cache to be loaded or exists for all the vertexes in the graph but will only load it for t",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "In addition to and also mark the same added protocol benefit.",
+        "proposed_edit": "Keep one additive marker and both distinct benefits.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_proposition",
+      "rule": "repetition.redundant-support",
+      "page": "c05",
+      "span": {
+        "start": 8609,
+        "end": 8681
+      },
+      "snippet": "containerd also takes this opportunity to monitor your container as well",
+      "context": "itialized but the user defined process, in this example \"redis-server\", has not been started.\nThis gives users a chance to setup network interfaces or attach different tools to monitor the container.\ncontainerd also takes this opportunity to monitor your container as well.\nWaiting on things like the container's exit status and cgroup metrics are setup at this point.\n\nIf you are familiar with prometheus you can curl the containerd metrics endpoint (",
+      "events": [
+        {
+          "id": "c05-c03",
+          "kind": "controls",
+          "category": "needless_repetition",
+          "rationale": "Created state, initialized resources and an unstarted user process are distinct state facts, not conflicting restatements.",
+          "proposed_edit": "Keep the distinct technical information and its scope.",
+          "targets": [
+            {
+              "start": 8215,
+              "end": 8777,
+              "quote": "If you are familiar with the OCI runtime actions, the task is currently in the \"created\" state.\nThis means that the namespaces, root filesystem, and various container level settings have been initialized but the user defined process, in this example \"redis-server\", has not been started.\nThis gives users a chance to setup network interfaces or attach different tools to monitor the container.\ncontainerd also takes this opportunity to monitor your container as well.\nWaiting on things like the container's exit status and cgroup metrics are setup at this point."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "Also can relate containerd to user-installed monitors, while as well can relate the monitoring action to its other setup work. The scopes are not proven identical.",
+        "proposed_edit": "Do not require deletion of either marker without resolving the scopes.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_proposition",
+      "rule": "syntax.subject-cleft",
+      "page": "c01",
+      "span": {
+        "start": 3897,
+        "end": 4002
+      },
+      "snippet": "`source.filter` is what narrows the set,\n  and the row count in the plan is what tells you whether it did",
+      "context": "ble name.** If the provider exposes no\n  immutable revision, `plan` reports the reproducibility as partial and names the\n  reason. It cannot detect the change.\n- **Rows you did not mean to include.** `source.filter` is what narrows the set,\n  and the row count in the plan is what tells you whether it did.\n\n## Telemetry\n\nNone. Ptah sends nothing anywhere except the database you name and the embedding\nendpoint you configure.\n",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The paragraph distinguishes the filter that narrows rows from the count that verifies it. The cleft focuses the different roles.",
+        "proposed_edit": "Retain both roles.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_purpose",
+      "rule": "syntax.subject-cleft",
+      "page": "c03",
+      "span": {
+        "start": 16244,
+        "end": 16287
+      },
+      "snippet": "`--proto-comments all` is what puts\nthem in",
+      "context": "\n\tEmail string\n\n\t//ptah:schema:field name=\"password_hash\" type=\"VARCHAR(255)\" not_null=\"true\" comment=\"bcrypt hash, never expose\"\n\tPasswordHash string\n}\n```\n\nThey are kept out of the file by default. `--proto-comments all` is what puts\nthem in; the default run needs no flag:\n\n```bash\nptah schema export --to protobuf \\\n  --root-dir ./models \\\n  --out ./proto/acme/inventory/v1/schema.proto \\\n  --proto-package acme.invento",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The immediately preceding sentence states that comments are excluded by default; the flag-focused cleft explains the alternative.",
+        "proposed_edit": "Retain the default and explicit flag behavior.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_relations",
+      "rule": "filler.nominal-support",
+      "page": "c04",
+      "span": {
+        "start": 34975,
+        "end": 35104
+      },
+      "snippet": "Curl will make use of the mirrors\nlisted within for failover if there are errors (such as the file or server not\nbeing available)",
+      "context": "interface` or `--ftp-port` options) should not be URL encoded.\n\n## Metalink\n\nCurl supports Metalink (both version 3 and 4 (RFC 5854) are supported), a way\nto list multiple URIs and hashes for a file. Curl will make use of the mirrors\nlisted within for failover if there are errors (such as the file or server not\nbeing available). It will also verify the hash of the file after the download\ncompletes. The Metalink file itself is downloaded and processed in memory and\nnot stored in the local file system.\n\nEx",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "The mirror mechanism and error condition survive replacing make use of with use.",
+        "proposed_edit": "Curl uses mirrors for failover when the stated errors occur.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_relations",
+      "rule": "repetition.redundant-support",
+      "page": "c04",
+      "span": {
+        "start": 6192,
+        "end": 6246
+      },
+      "snippet": "Curl also supports simple ranges for FTP files as well",
+      "context": "t. Curl supports this with the `-r`\nflag.\n\nGet the first 100 bytes of a document:\n\n    curl -r 0-99 http://www.get.this/\n\nGet the last 500 bytes of a document:\n\n    curl -r -500 http://www.get.this/\n\nCurl also supports simple ranges for FTP files as well. Then you can only\nspecify start and stop position.\n\nGet the first 100 bytes of a document using FTP:\n\n    curl -r 0-99 ftp://www.get.this/README\n\n## Uploading\n\n### FTP / FTPS / S",
+      "events": [
+        {
+          "id": "c04-d03",
+          "kind": "defects",
+          "category": "wordiness",
+          "rationale": "Also and as well repeat the additive relation.",
+          "proposed_edit": "Keep one additive marker and the following start/stop restriction.",
+          "targets": [
+            {
+              "start": 6192,
+              "end": 6247,
+              "quote": "Curl also supports simple ranges for FTP files as well."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "full",
+        "event": "c04-d03",
+        "rationale": "Also and as well duplicate the exact additive relation named in the frozen event.",
+        "proposed_edit": "Keep one additive marker and preserve the FTP range restriction.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_roles",
+      "rule": "filler.nominal-support",
+      "page": "c06",
+      "span": {
+        "start": 822,
+        "end": 994
+      },
+      "snippet": "This allows site Diagram Authors to instantiate temporary modifications to `config` through the use of [Directives](), which are parsed before rendering diagram definitions",
+      "context": "h the aim of establishing centralized, sane defaults and simple implementation.\n\n`directives` allow for a single-use overwriting of `config`, as it has been discussed in [Configurations](./Setup.md).\nThis allows site Diagram Authors to instantiate temporary modifications to `config` through the use of [Directives](), which are parsed before rendering diagram definitions. This allows the Diagram Authors to alter the appearance of the diagrams. \n\n**A likely application for this is in the creation of diagrams/charts inside company/organizational web",
+      "events": [
+        {
+          "id": "c06-d02",
+          "kind": "defects",
+          "category": "wordiness",
+          "rationale": "Repeated allows framing and instantiate-modifications nominalization obscure the action; the second sentence restates its visual purpose.",
+          "proposed_edit": "Say that diagram authors use directives to temporarily change configuration and appearance before rendering, retaining the parsing order.",
+          "targets": [
+            {
+              "start": 822,
+              "end": 1068,
+              "quote": "This allows site Diagram Authors to instantiate temporary modifications to `config` through the use of [Directives](), which are parsed before rendering diagram definitions. This allows the Diagram Authors to alter the appearance of the diagrams."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "partial",
+        "event": "c06-d02",
+        "rationale": "The instrument noun wrapper is diagnosed, but the repeated allows structure and appearance restatement remain.",
+        "proposed_edit": "Replace through the use of directives with using directives, retaining parsing order.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_scope",
+      "rule": "filler.nominal-support",
+      "page": "c04",
+      "span": {
+        "start": 6777,
+        "end": 6858
+      },
+      "snippet": "`curl_easy_perform()` is just a wrapper function that makes use of the multi\n API",
+      "context": "the option stuff must\n be passed in pairs: the parameter-ID and the parameter-value. The list of\n options is documented in the man page. This function mainly sets things in\n the `Curl_easy` struct.\n\n `curl_easy_perform()` is just a wrapper function that makes use of the multi\n API.  It basically calls `curl_multi_init()`, `curl_multi_add_handle()`,\n `curl_multi_wait()`, and `curl_multi_perform()` until the transfer is done\n and then returns.\n\n Some of the m",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "The wrapper operation can use the multi API directly in the wording.",
+        "proposed_edit": "Say the wrapper uses the multi API.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_scope",
+      "rule": "filler.nominal-support",
+      "page": "c04",
+      "span": {
+        "start": 10675,
+        "end": 10927
+      },
+      "snippet": "the connect procedure is different and the function used to read\n or write from the socket is different, although the latter fact is hidden in\n the source by the use of `Curl_read()` for reading and `Curl_write()` for\n writing data to the remote server",
+      "context": "nd more) is in `lib/base64.c`\n and all functions for parsing and sending cookies are found in\n `lib/cookie.c`.\n\n HTTPS uses in almost every case the same procedure as HTTP, with only two\n exceptions: the connect procedure is different and the function used to read\n or write from the socket is different, although the latter fact is hidden in\n the source by the use of `Curl_read()` for reading and `Curl_write()` for\n writing data to the remote server.\n\n `http_chunks.c` contains functions that understands HTTP 1.1 chunked transfer\n encoding.\n\n An interesting detail with the HTTP(S) request, is the `Curl_add_buffer()`\n series of",
+      "events": [],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "The instrumental support noun can be removed without changing which calls hide the procedure.",
+        "proposed_edit": "Use by the named read/write calls, preserving the actual mechanism.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_scope",
+      "rule": "repetition.redundant-support",
+      "page": "c05",
+      "span": {
+        "start": 7608,
+        "end": 7667
+      },
+      "snippet": "Also, arrowheads can be used in opposite directions as well",
+      "context": "C *-- classD\nclassE o-- classF\nclassG <-- classH\nclassI -- classJ\nclassK <.. classL\nclassM <|.. classN\nclassO .. classP\n\n```\n\nWe can use the labels to describe nature of relation between two classes. Also, arrowheads can be used in opposite directions as well :\n\n```\nclassDiagram\nclassA --|> classB : Inheritance\nclassC --* classD : Composition\nclassE --o classF : Aggregation\nclassG --> classH : Association\nclassI -- classJ : Link(Solid)",
+      "events": [
+        {
+          "id": "c05-d06",
+          "kind": "defects",
+          "category": "wordiness",
+          "rationale": "Also and as well repeat addition, while can-be-used lengthens the directional syntax.",
+          "proposed_edit": "Arrowheads can also point in the opposite direction; retain the example.",
+          "targets": [
+            {
+              "start": 7608,
+              "end": 7667,
+              "quote": "Also, arrowheads can be used in opposite directions as well"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "partial",
+        "event": "c05-d06",
+        "rationale": "The duplicate additive markers are identified; the separate can-be-used support in the frozen edit is not.",
+        "proposed_edit": "Keep one additive marker; preserve capability and direction.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_scope",
+      "rule": "syntax.subject-cleft",
+      "page": "c02",
+      "span": {
+        "start": 4121,
+        "end": 4182
+      },
+      "snippet": "which is what lets one file mixing conventions be read at all",
+      "context": "/*M!999999\\- enable the sandbox mode */` — a guard no server\nexecutes, because no server is version 999999.\n\n**Omitting `--dialect` keeps a permissive reader.** No dialect means no\ndialect's rules, which is what lets one file mixing conventions be read at all.\nName the dialect when the file belongs to one engine, which is nearly always.\n\n## Use it\n\nEverything a desired schema is for — comparing, gating on drift, generating\nmigrations",
+      "events": [],
+      "review": {
+        "status": "uncertain",
+        "event": null,
+        "rationale": "The paragraph contrasts omitted and explicit dialect selection. The relative cleft focuses why mixed input is permitted.",
+        "proposed_edit": "Retain the permissive-reader condition.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_scope",
+      "rule": "syntax.subject-cleft",
+      "page": "c03",
+      "span": {
+        "start": 89333,
+        "end": 89373
+      },
+      "snippet": "which is what makes a case mean\nanything",
+      "context": "through the same reader and executor as `schema apply --plan`. |\n| `exec { sql }` | Runs a statement. With `output`, runs it and compares the first result. |\n\nSteps run in the order they are written, which is what makes a case mean\nanything: a plan describes a transition **from** a state, so `schema` has to\nestablish that state before `apply`.\n\nBefore the plan runs, its recorded from-state is checked against the data",
+      "events": [
+        {
+          "id": "c03-d18",
+          "kind": "defects",
+          "category": "empty_framing",
+          "rationale": "The meaning endorsement adds no ordering requirement.",
+          "proposed_edit": "Keep the requirement to establish the starting state before apply.",
+          "targets": [
+            {
+              "start": 89333,
+              "end": 89373,
+              "quote": "which is what makes a case mean\nanything"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "nonactionable",
+        "event": null,
+        "rationale": "A direct makes-a-case-mean-anything rewrite retains the very meaning endorsement frozen as empty framing. The proposed rule does not diagnose that operation.",
+        "proposed_edit": "Keep the starting-state requirement without claiming the cleft warning resolves this defect.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_verb",
+      "rule": "filler.nominal-support",
+      "page": "c05",
+      "span": {
+        "start": 106,
+        "end": 175
+      },
+      "snippet": "The state machine is kept in sync through the use of a replicated log",
+      "context": "# Raft library\n\nRaft is a protocol with which a cluster of nodes can maintain a replicated state machine.\nThe state machine is kept in sync through the use of a replicated log.\nFor more details on Raft, see \"In Search of an Understandable Consensus Algorithm\"\n(https://raft.github.io/raft.pdf) by Diego Ongaro and John Ousterhout.\n\nThis Raft library is st",
+      "events": [
+        {
+          "id": "c05-d01",
+          "kind": "defects",
+          "category": "wordiness",
+          "rationale": "Through the use of adds a nominal layer around the replication mechanism.",
+          "proposed_edit": "Use through a replicated log or using a replicated log.",
+          "targets": [
+            {
+              "start": 140,
+              "end": 175,
+              "quote": "through the use of a replicated log"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "full",
+        "event": "c05-d01",
+        "rationale": "The finding identifies the exact through-the-use-of wrapper named by the frozen wordiness event.",
+        "proposed_edit": "Use through a replicated log or using a replicated log.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_verb",
+      "rule": "repetition.redundant-support",
+      "page": "c04",
+      "span": {
+        "start": 3302,
+        "end": 3451
+      },
+      "snippet": "Tell us the name and\n version of all relevant sub-components like for example the SSL library\n you're using and what name resolving your libcurl uses",
+      "context": "ve written your own application with libcurl to perform transfers,\n it is even more important to be specific and detailed when reporting bugs.\n\n Tell us the libcurl version and your operating system. Tell us the name and\n version of all relevant sub-components like for example the SSL library\n you're using and what name resolving your libcurl uses. If you use SFTP or\n SCP, the libssh2 version is relevant etc.\n\n Showing us a real source code example repeating your problem is the best way\n to get our attention and it will gre",
+      "events": [
+        {
+          "id": "c04-d05",
+          "kind": "defects",
+          "category": "wordiness",
+          "rationale": "Like and for example duplicate the example introduction.",
+          "proposed_edit": "Use either like or for example.",
+          "targets": [
+            {
+              "start": 3363,
+              "end": 3379,
+              "quote": "like for example"
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "full",
+        "event": "c04-d05",
+        "rationale": "Like and for example duplicate the exact example-introduction relationship in the frozen event.",
+        "proposed_edit": "Keep either like or for example; retain the requested component details.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    },
+    {
+      "dataset": "exposed_verb",
+      "rule": "syntax.subject-cleft",
+      "page": "c01",
+      "span": {
+        "start": 2990,
+        "end": 3069
+      },
+      "snippet": "which is what stops a\nhalf-built corpus from becoming the one your users search",
+      "context": "at that point. Everything\nthat happened after is `catchup`'s work.\n\nRun `catchup` until it reports nothing left. A cutover is refused while the\nbackfill is unfinished or the change log has a backlog, which is what stops a\nhalf-built corpus from becoming the one your users search.\n\nHow changes are captured, and what each mode can promise, is\n[Consistency](../consistency/).\n\n## The phase is a high-water mark\n\nA run's phase records the furthest point it reac",
+      "events": [
+        {
+          "id": "c01-d02",
+          "kind": "defects",
+          "category": "empty_framing",
+          "rationale": "The closing rationale repeats that cutover rejects unfinished backfill and backlog.",
+          "proposed_edit": "Retain the refusal conditions without the rhetorical consequence.",
+          "targets": [
+            {
+              "start": 2990,
+              "end": 3070,
+              "quote": "which is what stops a\nhalf-built corpus from becoming the one your users search."
+            }
+          ]
+        }
+      ],
+      "review": {
+        "status": "additional",
+        "event": null,
+        "rationale": "The cleft can become a direct relative action, but the frozen event asks to remove a repeated closing rationale. No recall credit for that different operation.",
+        "proposed_edit": "Use a direct relative verb if retaining the consequence; assess its repetition separately.",
+        "reviewer": "Codex assistant; same implementation/review author",
+        "phase": "exposed_development_diagnostic_review"
+      }
+    }
+  ],
+  "decision": "Reject the isolated subject-cleft rule before confirmation. Preserve the other independently reviewed construction hypotheses.",
+  "v2_archive_sha256": "a7d5048d1f641cae91029231af41d3430d395e7ac923d598e581dc391a8310d5",
+  "v2_removed_review_rows": [
+    7,
+    20,
+    22,
+    23,
+    46
+  ],
+  "v2_review": "Extending the guard to the whole sentence removes three disputed technical contrasts, but also one fully labeled wordiness event and one additional repair. The remaining clefts are still dominated by defensible focus. Do not repair this by accumulating exclusion words.",
+  "support_scope_follow_up": "A finite predicate plus a nonfinite to-infinitive can give also and as well distinct scopes. Add structural exclusion and public-API tests before confirmation."
+}
