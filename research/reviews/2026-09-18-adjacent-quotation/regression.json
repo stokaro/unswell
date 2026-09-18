@@ -1,0 +1,622 @@
+{
+  "kind": "exposed-regression",
+  "baseline_commit": "49ed798d6ce4b00e387de93c8a6c4b490d2655e2",
+  "baseline_runtime_unchanged_at": "06dff0802c800686c9c77ce8a58a8a40aee75b2c",
+  "binary_sha256": "ebb6534c980303d9e0edf8e3ba3ab5b06d333770887ceff03e9315a3836e53d2",
+  "rows": [
+    {
+      "dataset": "confirmation",
+      "profile": "technical",
+      "documents": 12,
+      "before": 62,
+      "after": 63,
+      "before_report_sha256": "5913a8275f2fbac1d73aa7edf1b535d1a90243495488e06943c5a279088143dc",
+      "after_report_sha256": "5af99500f5992b40505819ed7310fd08695ef15a43037790800e7b4cf71ba9fa",
+      "added": [
+        {
+          "id": "e545c0e1adf91b6e",
+          "rule_id": "repetition.adjacent-word",
+          "rule_version": "2",
+          "severity": "warning",
+          "gate": "none",
+          "group": "repetition",
+          "scope": "sentence",
+          "message": "This word occurs twice in succession; check for an accidental duplicate.",
+          "primary": {
+            "path": "sources/c07.md",
+            "span": {
+              "start": 5361,
+              "end": 5365
+            },
+            "start": {
+              "line": 68,
+              "column": 115
+            },
+            "end": {
+              "line": 68,
+              "column": 119
+            },
+            "segments": [
+              {
+                "start": 5361,
+                "end": 5365
+              }
+            ],
+            "snippet": "when"
+          },
+          "related": [
+            {
+              "path": "sources/c07.md",
+              "span": {
+                "start": 5366,
+                "end": 5370
+              },
+              "start": {
+                "line": 68,
+                "column": 120
+              },
+              "end": {
+                "line": 68,
+                "column": 124
+              },
+              "segments": [
+                {
+                  "start": 5366,
+                  "end": 5370
+                }
+              ],
+              "snippet": "when"
+            }
+          ],
+          "evidence": {
+            "kind": "exact",
+            "message": "",
+            "suggestion": "",
+            "occurrences": [
+              {
+                "block_id": 48,
+                "sentence_id": 58,
+                "spans": [
+                  {
+                    "start": 5361,
+                    "end": 5365
+                  }
+                ]
+              },
+              {
+                "block_id": 48,
+                "sentence_id": 58,
+                "spans": [
+                  {
+                    "start": 5366,
+                    "end": 5370
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "name": "adjacent-occurrences",
+                "value": 2,
+                "unit": "occurrences",
+                "onset": 1,
+                "saturation": 2
+              }
+            ],
+            "activation": 1000
+          },
+          "fingerprint": "14684694a47e572ff0c2a1dea930634222a9651167ca6f068ad7d6fc12adf567",
+          "suppressed": false,
+          "baseline_state": "untracked",
+          "derived": false
+        }
+      ],
+      "removed": []
+    },
+    {
+      "dataset": "confirmation",
+      "profile": "strict",
+      "documents": 12,
+      "before": 70,
+      "after": 71,
+      "before_report_sha256": "5bc4648dd2d3ab280ddb09b9b758a6a32225d71e0dc143a79e31cbc675875955",
+      "after_report_sha256": "709de31982189424c58711262e49fabb268acd7066cdf1fbc26a46e13b7ed481",
+      "added": [
+        {
+          "id": "e545c0e1adf91b6e",
+          "rule_id": "repetition.adjacent-word",
+          "rule_version": "2",
+          "severity": "warning",
+          "gate": "none",
+          "group": "repetition",
+          "scope": "sentence",
+          "message": "This word occurs twice in succession; check for an accidental duplicate.",
+          "primary": {
+            "path": "sources/c07.md",
+            "span": {
+              "start": 5361,
+              "end": 5365
+            },
+            "start": {
+              "line": 68,
+              "column": 115
+            },
+            "end": {
+              "line": 68,
+              "column": 119
+            },
+            "segments": [
+              {
+                "start": 5361,
+                "end": 5365
+              }
+            ],
+            "snippet": "when"
+          },
+          "related": [
+            {
+              "path": "sources/c07.md",
+              "span": {
+                "start": 5366,
+                "end": 5370
+              },
+              "start": {
+                "line": 68,
+                "column": 120
+              },
+              "end": {
+                "line": 68,
+                "column": 124
+              },
+              "segments": [
+                {
+                  "start": 5366,
+                  "end": 5370
+                }
+              ],
+              "snippet": "when"
+            }
+          ],
+          "evidence": {
+            "kind": "exact",
+            "message": "",
+            "suggestion": "",
+            "occurrences": [
+              {
+                "block_id": 48,
+                "sentence_id": 58,
+                "spans": [
+                  {
+                    "start": 5361,
+                    "end": 5365
+                  }
+                ]
+              },
+              {
+                "block_id": 48,
+                "sentence_id": 58,
+                "spans": [
+                  {
+                    "start": 5366,
+                    "end": 5370
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "name": "adjacent-occurrences",
+                "value": 2,
+                "unit": "occurrences",
+                "onset": 1,
+                "saturation": 2
+              }
+            ],
+            "activation": 1000
+          },
+          "fingerprint": "14684694a47e572ff0c2a1dea930634222a9651167ca6f068ad7d6fc12adf567",
+          "suppressed": false,
+          "baseline_state": "untracked",
+          "derived": false
+        }
+      ],
+      "removed": []
+    },
+    {
+      "dataset": "development",
+      "profile": "technical",
+      "documents": 26,
+      "before": 133,
+      "after": 133,
+      "before_report_sha256": "acc1dae15fc0c255d151af51c2d917332e5897c6e709626b682fb3c989548dea",
+      "after_report_sha256": "5d03dd7fe93b4860a9659ba1d4757b0fcc5395428974fe3945c2229739a06148",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "development",
+      "profile": "strict",
+      "documents": 26,
+      "before": 152,
+      "after": 152,
+      "before_report_sha256": "6c36d6aa6de30832cb00c9ce284794cbc344b11bb40a9022c7f32e1112fa8f86",
+      "after_report_sha256": "785d8b2d160f5eb82c9bf5e611a87dabe3ce2a0dcb2e04c38f872c1b64d1c0a8",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_action",
+      "profile": "technical",
+      "documents": 6,
+      "before": 36,
+      "after": 36,
+      "before_report_sha256": "93d2bad287b5398d9fb9aa3365d372171860ac5d14b01c31a98ca9db8252df8f",
+      "after_report_sha256": "2467ceec9f47feda4477e8a59ab98927315846455fa67db9ea39a1b3ce6cd327",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_action",
+      "profile": "strict",
+      "documents": 6,
+      "before": 38,
+      "after": 38,
+      "before_report_sha256": "72e58e2c927a15af091569278577d6488959ae4c84f613c62804c4e359f5ac1d",
+      "after_report_sha256": "cba4ae66b80d82f65aff359fea827e8b87df099caee6f7acfc2d70d092e10a86",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_boundaries",
+      "profile": "technical",
+      "documents": 6,
+      "before": 42,
+      "after": 42,
+      "before_report_sha256": "02ee9e53b5c81a17c702b2bb4d468a53d1aba74812ab2a3fcbffa48e7c42d0d0",
+      "after_report_sha256": "449c66ef3c6ab10a411e170b879df37849fd5b99b75474059076dca4f1d6adb2",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_boundaries",
+      "profile": "strict",
+      "documents": 6,
+      "before": 45,
+      "after": 45,
+      "before_report_sha256": "9e605025e18f90b44361076d9e4221d6d53f78fa87d74f9db91623d5f26f88f5",
+      "after_report_sha256": "69fba7ae8e5d0fbc90e296eadb87ea8019cdc4d36129ec7996dc7f769175ecad",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_clauses",
+      "profile": "technical",
+      "documents": 6,
+      "before": 36,
+      "after": 36,
+      "before_report_sha256": "89111a402927e32ace190781682dc755c27c7937960f6778eae67dfee5254b50",
+      "after_report_sha256": "1904331500a2fdf69ea1d9b80d0a629730269778bd116e91d0a244bd069a4107",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_clauses",
+      "profile": "strict",
+      "documents": 6,
+      "before": 39,
+      "after": 39,
+      "before_report_sha256": "fae24c20744f8b073332002bd51c9f85b41d39d3f11b4302bceaec3b619a92e6",
+      "after_report_sha256": "412cb64f8a4104fc3130a1c8ea29c802822a45d235bb462ae60c77bf9f03af88",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_construction",
+      "profile": "technical",
+      "documents": 6,
+      "before": 63,
+      "after": 63,
+      "before_report_sha256": "79f1bf236af7cc7646fcb480aa49deee3ba8e44ad08e0763473df29a317736a9",
+      "after_report_sha256": "b11cab9efd95269105dbe70176988af4b6e8d28e221599f1324a2b84cf36699c",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_construction",
+      "profile": "strict",
+      "documents": 6,
+      "before": 67,
+      "after": 67,
+      "before_report_sha256": "25d40e5c50060fdd1118f3aeef65091da1236b7cb41b00b25b5afe446c053eaf",
+      "after_report_sha256": "ad9ee6a38257fd286af342356e7f171c40bbe7554eac5dca5f89514f77ec23ea",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_context",
+      "profile": "technical",
+      "documents": 11,
+      "before": 42,
+      "after": 42,
+      "before_report_sha256": "c04622af02c80208a8df161b68bf398d4a539ac82f369680e83aaaa247448bcb",
+      "after_report_sha256": "02c0b7865f18bc43841971cbc677c4ab988b3bfcf7f331d5b55f2daf70b05c65",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_context",
+      "profile": "strict",
+      "documents": 11,
+      "before": 51,
+      "after": 51,
+      "before_report_sha256": "9a0db98dd45c9bf87eeb324855ed0697fa052da7a88ab2278ce26c6e9ce66f71",
+      "after_report_sha256": "558a9d6e82d6b4f731d37f7e573ed3abe1d4bdaa8c9774b2a46072bbb40a5001",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_framing",
+      "profile": "technical",
+      "documents": 9,
+      "before": 93,
+      "after": 93,
+      "before_report_sha256": "014df7e4373ba4a31ee8b5f19ab12a7556f54f845e73aaeb7924cc085210bd07",
+      "after_report_sha256": "0831b8f4bf82888086e759e40ea14975486c095155802484bfce14a10b8d3e96",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_framing",
+      "profile": "strict",
+      "documents": 9,
+      "before": 119,
+      "after": 119,
+      "before_report_sha256": "0fde73983297636f01cbf912256c61ac6ed01e608be20904e0beb8aa93e20068",
+      "after_report_sha256": "256a07f4877c4641f96ba810778fbbd74956326b94230cbe457affad41f19596",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_grammar",
+      "profile": "technical",
+      "documents": 6,
+      "before": 39,
+      "after": 39,
+      "before_report_sha256": "9f0b40c262b9d08b55824cba3c63940c6038cd5ff11c0ef83bfb7766f8ce41ea",
+      "after_report_sha256": "e5b3a1376ae640bf73e44433def3a77bc57b6c298c6d925f6ccf734a7001dbe3",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_grammar",
+      "profile": "strict",
+      "documents": 6,
+      "before": 47,
+      "after": 47,
+      "before_report_sha256": "6e4fd708f007a8813efde430bd401ff8b2650f8e4938b0ccbe9eeb493d6272b7",
+      "after_report_sha256": "f3e43a374c9951bafcab8a9d04cdb6a774a0b5a5b3d673e8440e5664c09727bb",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_instruction",
+      "profile": "technical",
+      "documents": 12,
+      "before": 157,
+      "after": 157,
+      "before_report_sha256": "90c51dbf2c10b132646071a0b01f7914e10eb260460db6fb6d66cf1405dec854",
+      "after_report_sha256": "2f168b1e6b81ddc9825d629a9f730f609c2427adc67f2b29f7d021ff48d89e48",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_instruction",
+      "profile": "strict",
+      "documents": 12,
+      "before": 172,
+      "after": 172,
+      "before_report_sha256": "29e1485da7dbfb2ba7a3ca09fc77812b543f349c53a09fb925703e066e3d2344",
+      "after_report_sha256": "1f1b077d9b42c719fa464fc4b22b85385209741486780c3cd767d3ff32fd1ad5",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_local",
+      "profile": "technical",
+      "documents": 12,
+      "before": 77,
+      "after": 77,
+      "before_report_sha256": "0e95eeb258d7e41ef2de15cafae7f9271a683367fe98a434ba751b5a4ecacad2",
+      "after_report_sha256": "cc7a470bdd1717df880dc6c6ace89c812794e1a7d02888dd5b4ae727da3d3807",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_local",
+      "profile": "strict",
+      "documents": 12,
+      "before": 83,
+      "after": 83,
+      "before_report_sha256": "9d3471186c18ad8e5d6964e86a01bd69ea92564085915a6b9100683b750c66aa",
+      "after_report_sha256": "3897a315b146c592eef5567ac1ee4840be4251bf60618cfcd2820b3cfe090904",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_projection",
+      "profile": "technical",
+      "documents": 6,
+      "before": 19,
+      "after": 19,
+      "before_report_sha256": "ee684f3278ddb44555bdc3630a4be3358f86658d471a852eead33bf96fabe2eb",
+      "after_report_sha256": "901333f508e60377f9092bcca70cb01ac691b222ef26bd7f3cdc19633f1417e3",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_projection",
+      "profile": "strict",
+      "documents": 6,
+      "before": 20,
+      "after": 20,
+      "before_report_sha256": "6bb28e54a4db1931a38dc2fbc32b08ac60ec41ab40e1dec92660907420b56cfb",
+      "after_report_sha256": "f574515484a6cdfea373f3373671fd7f6fb1da0fc9ebbb5e42e4e35434c89b19",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_proposition",
+      "profile": "technical",
+      "documents": 6,
+      "before": 20,
+      "after": 20,
+      "before_report_sha256": "0d72630e7934ac55328e5f5c142fa7bcf153495c915782784b857a36236a4f53",
+      "after_report_sha256": "309f0824d5b4a65fcf7d00b6f53f1d9ccbf55a95e1fa52d2e0c8ba7bd1f8de3b",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_proposition",
+      "profile": "strict",
+      "documents": 6,
+      "before": 21,
+      "after": 21,
+      "before_report_sha256": "7cff51d12b9661ee2a637741450ac8a79a61c71c4fe171b56dd627fbdf148618",
+      "after_report_sha256": "2f6c21a3e38518f0e374c6adbcf50dbcf8aff61f28aa21a7c65468a0460d078e",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_purpose",
+      "profile": "technical",
+      "documents": 6,
+      "before": 15,
+      "after": 15,
+      "before_report_sha256": "414422e9c73e635992102cb730312bd937cda4d3dacce135c01557c7b92889b3",
+      "after_report_sha256": "0c2f1aae2463221883b547ed2f18d35152b6922f552b32337f6b7505bb34f872",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_purpose",
+      "profile": "strict",
+      "documents": 6,
+      "before": 18,
+      "after": 18,
+      "before_report_sha256": "650a79d3974df4d91f2a76b00b4954b92dea48543cbcc59224e750b2c0c5fa05",
+      "after_report_sha256": "0cdc0b8450a1d67aeab7afe2b387be6c57e6a8aa332926c1e87c82945e445a9c",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_relations",
+      "profile": "technical",
+      "documents": 6,
+      "before": 41,
+      "after": 41,
+      "before_report_sha256": "42acd7a8a6bd45a41053f13b5f72f37da8ba70d1cb654fbae2192876dd1e0c03",
+      "after_report_sha256": "b1b4989064473a812e94e61ede0a15587f0166e2b874d4e8863edd647659480b",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_relations",
+      "profile": "strict",
+      "documents": 6,
+      "before": 43,
+      "after": 43,
+      "before_report_sha256": "09d4036d9a061c74e5627afcab37a0be044edbb41c3f7c6829f733c4d3233b41",
+      "after_report_sha256": "bc0fc00b0c152b7c4e5c2f925df70eca80ebbb24425736d3a83e91839205b3d3",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_repetition",
+      "profile": "technical",
+      "documents": 6,
+      "before": 43,
+      "after": 43,
+      "before_report_sha256": "712927e9cbd62d2208c151160f29eaa6191fc3a5d655a80a28516e245561d723",
+      "after_report_sha256": "c191d6ab15f9346d7959c13771e5a01815e5be0a90648670ca1cbbf1c6349dd5",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_repetition",
+      "profile": "strict",
+      "documents": 6,
+      "before": 49,
+      "after": 49,
+      "before_report_sha256": "5960fcb1250b79e514cca8873ff6afceaaced0c613857eb2fdee90f227bfc34d",
+      "after_report_sha256": "a118a7c304e88728af296d3ca3fe189a8f15827ae929ae42af35aaf1341f91b0",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_roles",
+      "profile": "technical",
+      "documents": 6,
+      "before": 28,
+      "after": 28,
+      "before_report_sha256": "f6d2b5ec14ece86b7219be6678f0c21f85e157653b43e7e0165433c247d094dc",
+      "after_report_sha256": "6e3af0b8ff0141a560907aa67fd11765003aa11eba53ec9f1c7424dfe37f0d08",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_roles",
+      "profile": "strict",
+      "documents": 6,
+      "before": 30,
+      "after": 30,
+      "before_report_sha256": "8541c7f241cede31a7af87d72ace5cd5ae9beaa6e41b0a8ca0a5d497a8a03927",
+      "after_report_sha256": "277d9afff2a08cd9d33553f124425d2f1e8c26958d1f06d7f936853ca80fbb75",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_scope",
+      "profile": "technical",
+      "documents": 6,
+      "before": 70,
+      "after": 70,
+      "before_report_sha256": "97b9f665a2187af1c036b4ea8a5aa49869f67130f999dc616ac0ad17f25b62c6",
+      "after_report_sha256": "020f8c7eddab14f7bd15380a07cce9c8c28f1862fa2b79c32c695fd44785f5c7",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_scope",
+      "profile": "strict",
+      "documents": 6,
+      "before": 77,
+      "after": 77,
+      "before_report_sha256": "620a7b46536147b34eb313c0d3f9f779457c772f8cca4e3c007a5da38285793e",
+      "after_report_sha256": "18c587919b3751863b55b598f86269f42340064048fd4a255ad6344b85c74123",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_verb",
+      "profile": "technical",
+      "documents": 6,
+      "before": 44,
+      "after": 44,
+      "before_report_sha256": "5cb49e43433168b104d914ac7e2cfdb32fcf4dbf66f648b050f30fa97460e9bc",
+      "after_report_sha256": "38d06f2c73b9fc5c7023d146b960dac524ac0696d15276e90d2cf5b072989631",
+      "added": [],
+      "removed": []
+    },
+    {
+      "dataset": "exposed_verb",
+      "profile": "strict",
+      "documents": 6,
+      "before": 51,
+      "after": 51,
+      "before_report_sha256": "d911387b50ebf07835e33d757dd9b4a6954e72cf69c64a401ddd639c6a8c273d",
+      "after_report_sha256": "b60e977be4419c0ad4d42fe6a1fa8d3baf3966adc6bcb2d2b8181418858edabe",
+      "added": [],
+      "removed": []
+    }
+  ]
+}
