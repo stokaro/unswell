@@ -1,0 +1,47 @@
+{
+  "recorded_at": "2026-09-18T03:23:35.514238+00:00",
+  "runtime_commit": "d15cc2055753c58d534072ec4e71e81e5de0b899",
+  "scope": "Local validation. All make check targets completed across runs; initial runs stopped on stale rule-version, identity-golden, and research-catalog expectations, which were corrected. This is not a claim that one uninterrupted make check invocation passed. Remote PR and merged-main acceptance remain separate.",
+  "tests": {
+    "root_and_e2e": "passed, go test -count=1",
+    "consumer": "passed",
+    "goanalysis": "passed",
+    "mcp": "passed",
+    "annotation": "all packages passed; corrected catalog fixtures were rerun in corpus and cmd/corpus",
+    "dependencies": "passed, go test -count=1",
+    "evidence": "14 tests passed"
+  },
+  "checks": {
+    "policy": "passed",
+    "tidy": "passed",
+    "lint": "all modules, zero issues",
+    "shell": "35 scripts and negative self-test passed",
+    "mirror_policy": "five negative probes passed",
+    "sbom_policy": "self-test passed",
+    "schema": "passed",
+    "performance": "2049 words, 3 documents; resource-limit negative probe passed; not production benchmark qualification",
+    "research_cost": "self-test passed",
+    "reproducible_builds": "six platform/architecture pairs, repeated hashes identical; same host/toolchain only"
+  },
+  "dogfood": {
+    "documents": 1117,
+    "findings": 946,
+    "gate": "pass",
+    "mcp_batches": 62,
+    "mcp_negative_and_rewrite_probes": 8,
+    "cli_mcp_parity": "passed"
+  },
+  "deferred": [
+    "race",
+    "active fuzzing",
+    "coverage (#123)"
+  ],
+  "log_hashes": {
+    "make-check-v4.log": "9d6c2df64ac72b2b80139367c52444bd15648dae8683c3c5a6ad4dc153b9ac2d",
+    "focused-v3.log": "03b9f5c7699df0b8440651a1fa96b5d395fdb2320fdbbee11b50709f3d005c7b",
+    "remaining-checks.log": "97f27bcaa7d9bb55a68a54cc0c0ff8bce0051ca5e2ee96484fb219599a549878",
+    "dogfood-resource-checks.log": "e27af41901f73702435188911d95a08bd4e3eb6e736e26104f51165829e7c204",
+    "classes-r9-tests.log": "a382a7d9e825f96837567a46342ba3e7955184a4cbec6142d442b5084ff0c96c",
+    "analyze-r9-final.log": "e89aeaf57541e6436cd1e4d682d932ec6b3944a1419ac1bdfbbcf020043363cf"
+  }
+}

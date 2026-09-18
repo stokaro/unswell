@@ -114,7 +114,12 @@ Revision 7, [`rule-classes-v1-r7.json`](rule-classes-v1-r7.json), covers the
 restarts are general style signals. Command tests at that revision used it;
 previous manifests and their results stay frozen.
 
-Revision 8, [`rule-classes-v1-r8.json`](rule-classes-v1-r8.json), covers the current
+Revision 8, [`rule-classes-v1-r8.json`](rule-classes-v1-r8.json), covers the
 53-rule catalog. Instruction scaffolding and redundant predicates are general
-style signals. Current command tests use revision 8. Earlier classes and
+style signals. Command tests at that revision used it. Earlier classes and
 measurements stay frozen; these additions make no claim about authorship.
+
+Revision 9, [`rule-classes-v1-r9.json`](rule-classes-v1-r9.json), covers the current
+55-rule catalog. Nominal support and repeated grammatical support are general
+style signals. Current command tests use revision 9. Its entries preserve all
+previous classifications; the editorial study does not qualify an origin signal.
