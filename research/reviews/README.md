@@ -79,3 +79,8 @@ Independent human review is not a prerequisite for this work.
   three exposed detections. All 18 sets are remeasured from merged main. Six
   new sources remain at 2/34 full detections; one is a CMake file selected as
   text, so ordinary historical long prose is missing from this sample.
+
+- [2026-09-18-discourse-patterns](2026-09-18-discourse-patterns/README.md): a rejected
+  runtime candidate. It adds seven detections on exposed pages but none on twelve
+  new pages (2/106 overall, Ptah 0/31). The single new confirmation warning stays
+  uncertain; frozen labels, candidate sources and all 19 replayed sets are retained.

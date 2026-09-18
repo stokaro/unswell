@@ -1,0 +1,18 @@
+{
+  "candidate": {
+    "focused_public_api_tests": "passed",
+    "strict_lint": "passed",
+    "root_tests": "failed: existing assertions expected instruction-scaffolding version 10 instead of 11; no behavior assertion failed"
+  },
+  "runtime_decision": "rejected; baseline restored",
+  "final_make_check": "All targets passed. The sandboxed make check passed through CLI/MCP self-check, then stopped because /usr/bin/time resource reporting was unavailable. The remaining check-performance, check-research-cost and check-reproducible targets passed outside the sandbox without repeating ordinary tests.",
+  "dogfood": {
+    "documents": 1099,
+    "findings": 920,
+    "mcp_batches": 60,
+    "normalized_cli_mcp_parity": true,
+    "gate": "pass",
+    "negative_probes": "all eight expected outcomes"
+  },
+  "runtime_and_catalog_diff_from_baseline": "empty"
+}

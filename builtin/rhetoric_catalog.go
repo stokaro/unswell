@@ -17,7 +17,6 @@ func localRhetoricRules() []rule.Rule {
 				"and passive infinitive, and nominal actions performed through a gerund method, also qualify. "+
 				"Actor-to-action projection recognizes ability nouns, modal used-to/used-for actions, named method predicates, "+
 				"and nested intended-to-enable actions. Narrated prerequisites and repeated same-actor obligations can introduce an action. "+
-				"Tutorial invitations to inspect an object and now/next future instructions also qualify. "+
 				"Standalone generic reader enablement requires an adjacent method; concrete capability explanations remain controls. "+
 				"Infinitive reader goals admit coordinated actions. Relative operation or actor antecedents can carry nested support; "+
 				"capable-of gerunds, imperative assurance and purpose-to-steps announcements also qualify. "+
@@ -61,9 +60,7 @@ func localRhetoricRules() []rule.Rule {
 				"Gerund action subjects can close with abstract functional clefts. Bare noun/counts compounds remain excluded. "+
 				"Attribution is scoped through the candidate clause; later operational reporting does not erase a preceding judgment. "+
 				"Concrete component purposes and measured evaluations stay excluded; "+
-				"notice and cognitive-worth frames retain their attached conditions. Detached evaluative adverbs and generic-reader "+
-				"inference cues require a comma-delimited attachment to a finite proposition. Literal manner, quotations, "+
-				"and reader access conditions remain excluded.",
+				"notice and cognitive-worth frames retain their attached conditions.",
 			[]rule.Example{{Text: "The approval stops applying, which is what binding it to a digest is for.", Match: true},
 				{Text: "The command starts a new batch, which is what the wrapper is for."}}),
 		localRhetoricRule("filler.unscoped-assurance", unscopedAssurance,
@@ -126,15 +123,15 @@ func localRhetoricVersion(id string) string {
 	case "filler.document-justification":
 		return "5"
 	case "filler.instruction-scaffolding":
-		return "11"
-	case "filler.evaluative-closure":
 		return "10"
+	case "filler.evaluative-closure":
+		return "9"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":
 		return "2"
 	case "repetition.definition-echo":
 		return "3"
 	case "filler.unscoped-assurance":
-		return "8"
+		return "7"
 	default:
 		return "1"
 	}

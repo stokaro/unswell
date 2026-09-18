@@ -13,6 +13,8 @@ previous = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(previous)
 audit, prior = previous.audit, previous.prior
 metrics = previous.metrics
+# The candidate diagnoses detached evaluative emphasis, with explicit row review.
+metrics.SEMANTICS['filler.evaluative-closure'] |= {'unjustified_intensifiers'}
 
 def frozen_inputs():
     for filename, field in [('input-freeze.json', 'files'), ('annotation-freeze.json', 'files')]:
