@@ -91,15 +91,14 @@ func qualityMechanism(tokens []document.Token) bool {
 // A quality predicate needs its own subject. Conjunctions and a relative
 // restriction inside an imperative cannot stand in for that subject.
 func qualitySubject(tokens []document.Token) bool {
-	if len(tokens) == 0 || !positiveRhetoricSubject(tokens) {
+	if len(tokens) == 0 || !positiveRhetoricSubject(tokens) && !qualityWaySubject(tokens) {
 		return false
 	}
 	if !qualitySubjectStart(tokens[0]) {
 		return false
 	}
-	for i, token := range tokens[1:] {
-		if frameWord(token, "that", "which", "who", "whom", "whose") ||
-			brokenNominalSequence(tokens[i], token) {
+	for _, token := range tokens[1:] {
+		if frameWord(token, "that", "which", "who", "whom", "whose") {
 			return false
 		}
 	}
@@ -120,7 +119,8 @@ func qualityClauseStart(tokens []document.Token, at int) bool {
 	if frameWord(prefix[len(prefix)-1], ",") {
 		prefix = prefix[:len(prefix)-1]
 	}
-	return grammaticalAction(prefix) && nominalSubject(prefix[1:])
+	return len(prefix) > 1 && goalObjectEnd(prefix[len(prefix)-1]) &&
+		grammaticalAction(prefix) && nominalSubject(prefix[1:])
 }
 
 func qualitySubjectStart(token document.Token) bool {
@@ -128,6 +128,22 @@ func qualitySubjectStart(token document.Token) bool {
 		frameWord(token, "a", "an", "the", "this", "that", "these", "those", "it", "they", "our", "your", "its")
 }
 
-func brokenNominalSequence(previous, current document.Token) bool {
-	return !current.Protected && current.Tag == "DT" && previous.Tag != "IN" && previous.Tag != "VBG" && previous.Tag != "POS"
+// A goal must end in an object before a new main subject begins. A determiner,
+// particle or unfinished gerund cannot supply that boundary.
+func goalObjectEnd(token document.Token) bool {
+	return token.Protected || strings.HasPrefix(token.Tag, "NN") || token.Tag == "PRP"
+}
+
+func qualityWaySubject(tokens []document.Token) bool {
+	if len(tokens) < 4 || !frameWord(tokens[0], "the", "this", "that") || !frameWord(tokens[1], "way") {
+		return false
+	}
+	for verb := 3; verb < len(tokens); verb++ {
+		token := tokens[verb]
+		if token.Protected || token.Tag != "VBP" && token.Tag != "VBZ" && token.Tag != "VBD" {
+			continue
+		}
+		return positiveRhetoricSubject(tokens[2:verb]) && nominalSubject(tokens[verb+1:])
+	}
+	return false
 }

@@ -66,8 +66,15 @@ func wholeAbstractValue(tokens []document.Token) bool {
 	if len(tokens) == 3 {
 		return true
 	}
-	return len(tokens) == 6 && frameWord(tokens[3], "of") && frameWord(tokens[4], "the", "this", "that") &&
-		frameWord(tokens[5], "verb", "approach", "choice", "feature", "option", "design", "decision", "distinction", "difference")
+	return abstractValueObject(tokens[3:])
+}
+
+func abstractValueObject(tokens []document.Token) bool {
+	if !frameWord(tokens[0], "of") {
+		return false
+	}
+	return cognitiveReading(tokens[1:]) || len(tokens) == 3 && frameWord(tokens[1], "the", "this", "that") &&
+		frameWord(tokens[2], "verb", "approach", "choice", "feature", "option", "design", "decision", "distinction", "difference")
 }
 
 func contextualDocumentFrame(clauses []frameClause, index int) (rhetoricalFrame, bool) {

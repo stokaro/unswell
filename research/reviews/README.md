@@ -73,3 +73,9 @@ Independent human review is not a prerequisite for this work.
   a combined identity/source-map pass removes the long-reference budget
   abstention. All 82 pages retain their findings and assessments; a separate
   generous-budget replay preserves every block activation and its ownership.
+
+- [2026-09-18-clause-grammar](2026-09-18-clause-grammar/README.md): subject,
+  capability and reader-attention repairs restore two lost diagnoses and add
+  three exposed detections. All 18 sets are remeasured from merged main. Six
+  new sources remain at 2/34 full detections; one is a CMake file selected as
+  text, so ordinary historical long prose is missing from this sample.
