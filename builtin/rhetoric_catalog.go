@@ -21,6 +21,8 @@ func localRhetoricRules() []rule.Rule {
 				"Infinitive reader goals admit coordinated actions. Relative operation or actor antecedents can carry nested support; "+
 				"capable-of gerunds, imperative assurance and purpose-to-steps announcements also qualify. "+
 				"A second method may be anchored by a repeated two-noun object and explicit reader action. "+
+				"An adjacent anaphoric method may name a nominal syntax or configuration instrument; "+
+				"that instrument cannot establish a standalone warning or replace a passive actor. "+
 				"Preserve modal meaning, named actors and conditions. "+
 				"Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. "+
 				"Failure, permission, negation and quoted constructions do not match.",
@@ -123,7 +125,7 @@ func localRhetoricVersion(id string) string {
 	case "filler.document-justification":
 		return "5"
 	case "filler.instruction-scaffolding":
-		return "10"
+		return "11"
 	case "filler.evaluative-closure":
 		return "9"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":

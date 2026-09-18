@@ -1,0 +1,3 @@
+package main
+import("context";"encoding/json";"fmt";"os";"strings";"github.com/stokaro/unswell/document";"github.com/stokaro/unswell/extract")
+func main(){for _,name:=range os.Args[1:]{b,e:=os.ReadFile(name);if e!=nil{panic(e)};d,e:=extract.Parse(context.Background(),document.Source{Name:name,Format:document.Markdown,Bytes:b},extract.Options{});if e!=nil{panic(e)};words,paragraphs:=0,0;for _,p:=range d.Blocks{if p.Excluded{continue};words+=len(strings.Fields(strings.ReplaceAll(p.Text,"\x00"," ")));if p.Kind=="paragraph"{paragraphs++}};v:=map[string]any{"path":name,"words":words,"paragraphs":paragraphs};line,_:=json.Marshal(v);fmt.Println(string(line))}}
