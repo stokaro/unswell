@@ -1,0 +1,27 @@
+{
+  "phase": "post_confirmation_diagnostic_followup_not_frozen_evidence",
+  "commit": "49ed798d6ce4b00e387de93c8a6c4b490d2655e2",
+  "rows": [
+    {
+      "case": "unquoted",
+      "source": "The library was named ImGui when when the maintainer released it.",
+      "exit_code": 1,
+      "findings": 1,
+      "status": "complete"
+    },
+    {
+      "case": "quoted_name",
+      "source": "The library was named \"ImGui\" when when the maintainer released it.",
+      "exit_code": 0,
+      "findings": 0,
+      "status": "complete"
+    },
+    {
+      "case": "inside_quote",
+      "source": "The manual quotes \"when when\" as the invalid input.",
+      "exit_code": 0,
+      "findings": 0,
+      "status": "complete"
+    }
+  ]
+}
