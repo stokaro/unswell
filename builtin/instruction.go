@@ -10,6 +10,9 @@ import (
 // suggested edit preserves optionality instead of changing a capability to a duty.
 func instructionScaffolding(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	c := clauses[index]
+	if tutorialNarration(c) {
+		return localFrame(c, 0)
+	}
 	if frame, ok := narratedInstruction(c); ok {
 		return frame, true
 	}

@@ -54,6 +54,9 @@ func evaluativeClosure(clauses []frameClause, index int) (rhetoricalFrame, bool)
 	if len(c.sentence.Tokens) > 96 || question(c.sentence) {
 		return rhetoricalFrame{}, false
 	}
+	if discourseEvaluation(c) {
+		return localFrame(c, 0)
+	}
 	for i := range c.tokens() {
 		candidate, ok := localRhetoricCandidate(c, i)
 		if !ok || !embeddedClauseStart(c.tokens(), i) {

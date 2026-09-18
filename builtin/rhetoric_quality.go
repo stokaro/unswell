@@ -48,13 +48,18 @@ func qualityCopula(tokens []document.Token) int {
 
 func qualityComplement(tokens []document.Token) bool {
 	i := 0
-	for i < min(len(tokens), 3) && frameWord(tokens[i], "also", "now", "very", "much", "fairly", "quite", "rather", "particularly") {
+	for i < min(len(tokens), 3) && qualityModifier(tokens[i]) {
 		i++
 	}
 	if i >= len(tokens) || !qualitativeAdjective(tokens[i]) {
 		return false
 	}
 	return qualityContinuation(tokens[i+1:])
+}
+
+func qualityModifier(token document.Token) bool {
+	return frameWord(token, "also", "now", "very", "much", "fairly", "quite", "rather", "particularly",
+		"extremely", "incredibly", "exceptionally", "remarkably", "surprisingly", "amazingly", "ridiculously")
 }
 
 func qualityContinuation(tokens []document.Token) bool {
@@ -76,7 +81,7 @@ func qualityContinuation(tokens []document.Token) bool {
 func qualitativeAdjective(token document.Token) bool {
 	return frameWord(token, "easy", "easier", "simple", "simpler", "straightforward", "difficult", "harder",
 		"complex", "complicated", "powerful", "flexible", "fast", "faster", "slow", "slower", "smart", "smarter",
-		"efficient", "inefficient", "expensive", "cheap", "intuitive", "effortless")
+		"efficient", "inefficient", "expensive", "cheap", "intuitive", "effortless", "useful", "helpful", "valuable")
 }
 
 func qualityMechanism(tokens []document.Token) bool {
