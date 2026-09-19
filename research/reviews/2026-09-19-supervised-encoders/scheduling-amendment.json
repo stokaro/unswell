@@ -1,0 +1,10 @@
+{
+  "recorded_at": "2026-09-19T19:28:46.860803+00:00",
+  "kind": "execution correction after backend deadlock",
+  "previous_failure": "../corrected-v2/execution-failure.json",
+  "backend": "go:ops_sequential",
+  "gomaxprocs": 2,
+  "data_labels_splits_hyperparameters_selection_unchanged": true,
+  "change": "Schedule graph operations sequentially using the supported backend option; individual kernels retain their normal worker scheduling.",
+  "validation": "Repeated short synthetic snapshots and heads are byte-identical; mixed 32/256-token backward batches complete and reload exactly."
+}

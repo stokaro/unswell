@@ -1,0 +1,22 @@
+{
+  "recorded_at": "2026-09-19T19:20:40.975717+00:00",
+  "kind": "implementation correction before corrected real-data fits",
+  "protocol_unchanged": true,
+  "data_labels_splits_hyperparameters_selection_unchanged": true,
+  "invalid_attempt": "../invalid-v1/invalidation.json",
+  "invalid_results_interpreted": false,
+  "changes": [
+    "Disable importer fusion before building scoring/training graphs.",
+    "Train only the 32 original neural transformer parameters; freeze embeddings and all graph constants.",
+    "Serialize updates into the original graph and initializer order with deterministic protobuf.",
+    "Require full development-score reload parity and unchanged development decisions before held-out scoring."
+  ],
+  "root_cause_snapshot_bytes": "Equal original invalid-run tensors and graph; differing initializer order caused byte mismatch.",
+  "validation": {
+    "numerical_repeat": true,
+    "snapshot_bytes_repeat": true,
+    "head_bytes_repeat": true,
+    "reload_max_error": 0,
+    "independent_reference_max_error": 4.0745362639427185e-10
+  }
+}

@@ -16,6 +16,11 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-09-19-supervised-encoders](2026-09-19-supervised-encoders/README.md):
+  Go training of the small encoder raises retrieval from 88 to 108/872 positive
+  pieces, below the lexical model's 119/872. Numerical checks pass; no model
+  enters the product and broad recall remains unmet.
+
 - [2026-09-19-context-encoders](2026-09-19-context-encoders/README.md): frozen
   small BERT features retrieve 88/872 positive units, below the wider lexical
   model's 119/872. Pure-Go numerical parity passes; broad recall remains unmet.
