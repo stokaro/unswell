@@ -16,6 +16,10 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-09-19-context-encoders](2026-09-19-context-encoders/README.md): frozen
+  small BERT features retrieve 88/872 positive units, below the wider lexical
+  model's 119/872. Pure-Go numerical parity passes; broad recall remains unmet.
+
 - [2026-09-19-learned-proposals](2026-09-19-learned-proposals/README.md): four
   compact Go models on the same exposed pages. The strongest retrieves only
   74/872 positive units and does not explain their defects; good diagnostic

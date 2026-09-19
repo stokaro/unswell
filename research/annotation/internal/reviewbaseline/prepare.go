@@ -92,7 +92,8 @@ func measureRow(ctx context.Context, page page, ordinal int, unit nlp.PreparedUn
 		return row{}, err
 	}
 	value := row{page: page.ID, group: page.Group, cohort: page.Cohort, textHash: unit.Binding().TextSHA256,
-		unit: ordinal, fold: page.Fold, words: measurements.Counts().Words, label: label, terms: make(map[string]bool)}
+		text: unit.Block().Text, unit: ordinal, fold: page.Fold, words: measurements.Counts().Words,
+		label: label, terms: make(map[string]bool)}
 	value.numeric = numericValues(measurements)
 	for _, term := range terms {
 		value.terms[term.Key] = true
