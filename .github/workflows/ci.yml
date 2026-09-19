@@ -29,9 +29,12 @@ jobs:
         shell: bash
         env:
           GOTOOLCHAIN: local
+          # Windows exhausts Go's default package deadline across the full suite.
+          # Keep all cases and a finite deadline; setup-cost work is tracked in #338.
+          TEST_TIMEOUT: ${{ matrix.os == 'windows-latest' && '20m' || '10m' }}
         run: |
           go version
-          bash scripts/modules.sh test
+          bash scripts/modules.sh test -timeout="$TEST_TIMEOUT"
   quality:
     name: Quality
     runs-on: ubuntu-latest
