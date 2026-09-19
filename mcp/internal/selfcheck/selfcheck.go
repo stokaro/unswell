@@ -51,10 +51,11 @@ func Run(ctx context.Context, expectedPath, outputPath string, argv []string, st
 }
 
 func verifySession(ctx context.Context, session *mcp.ClientSession, expected unswell.RunResult) (evidence, error) {
-	if err := verifyDiscovery(ctx, session, expected); err != nil {
+	description, err := verifyDiscovery(ctx, session, expected)
+	if err != nil {
 		return evidence{}, err
 	}
-	batches, err := verifyBatches(ctx, session, expected)
+	batches, err := verifyBatches(ctx, session, expected, description.Policy.Gate.FailOnEmpty)
 	if err != nil {
 		return evidence{}, err
 	}
@@ -81,29 +82,29 @@ func readExpected(path string) (unswell.RunResult, error) {
 	return result, nil
 }
 
-func verifyDiscovery(ctx context.Context, session *mcp.ClientSession, expected unswell.RunResult) error {
+func verifyDiscovery(ctx context.Context, session *mcp.ClientSession, expected unswell.RunResult) (server.Description, error) {
 	tools, err := session.ListTools(ctx, nil)
 	if err != nil {
-		return err
+		return server.Description{}, err
 	}
 	if len(tools.Tools) != 2 {
-		return fmt.Errorf("expected both Unswell MCP tools")
+		return server.Description{}, fmt.Errorf("expected both Unswell MCP tools")
 	}
 	result, err := session.CallTool(ctx, &mcp.CallToolParams{Name: "unswell_describe", Arguments: server.DescribeInput{}})
 	if err != nil {
-		return err
+		return server.Description{}, err
 	}
 	if result.IsError {
-		return fmt.Errorf("MCP policy discovery failed")
+		return server.Description{}, fmt.Errorf("MCP policy discovery failed")
 	}
 	var description server.Description
 	if err := decodeResult(result, &description); err != nil {
-		return err
+		return server.Description{}, err
 	}
 	if description.Policy.Hash != expected.Manifest.ConfigHash || description.Commit != expected.Manifest.ToolCommit {
-		return fmt.Errorf("MCP policy or build revision differs from the checked CLI")
+		return server.Description{}, fmt.Errorf("MCP policy or build revision differs from the checked CLI")
 	}
-	return nil
+	return description, nil
 }
 
 func check(ctx context.Context, session *mcp.ClientSession, input server.CheckInput, outcome string) (server.CheckOutput, error) {

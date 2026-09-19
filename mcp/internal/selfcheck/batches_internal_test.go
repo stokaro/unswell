@@ -60,7 +60,7 @@ func TestRepositoryBatchesPreserveEveryDocumentAndSuppression(t *testing.T) {
 	instance, err := server.New(server.Options{Features: expected.Features.Requested,
 		PreparedFeatures: expected.PreparedFeatures.Requested, PreparedKinds: expected.PreparedFeatures.Kinds})
 	c.Assert(err, qt.IsNil)
-	batches, err := verifyBatches(t.Context(), batchSession(t, instance), expected)
+	batches, err := verifyBatches(t.Context(), batchSession(t, instance), expected, true)
 	c.Assert(err, qt.IsNil)
 	c.Assert(len(batches) > 1, qt.IsTrue)
 	var names, want []string
@@ -109,7 +109,7 @@ func TestRepositoryBatchesRejectLaterMismatch(t *testing.T) {
 					}
 					return nil, server.CheckOutput{Outcome: "pass", Result: normalize(result)}, err
 				})
-			batches, err := verifyBatches(t.Context(), batchSession(t, instance), expected)
+			batches, err := verifyBatches(t.Context(), batchSession(t, instance), expected, true)
 			c.Assert(err, qt.ErrorMatches, "MCP repository batch 2 differs from normalized CLI evidence")
 			c.Assert(batches, qt.HasLen, 0)
 		})
@@ -131,4 +131,72 @@ func corruptBatch(result *unswell.RunResult, defect string) {
 	case "changed feature value":
 		*result.Features.Sources[0].Units[0].Values[0].Number += 1
 	}
+}
+
+func TestRepositoryBatchesRejectCorruptCodeOnlyReply(t *testing.T) {
+	for _, defect := range []string{"false pass", "wrong error", "extra error", "missing document",
+		"complete manifest", "passed gate", "missing features"} {
+		t.Run(defect, func(t *testing.T) {
+			c := qt.New(t)
+			engine, expected := batchFixture(t)
+			sources := make([]document.Source, len(expected.Documents))
+			for i, doc := range expected.Documents {
+				sources[i] = document.Source{Name: doc.Name, Format: doc.Format, Bytes: []byte("```go\npackage sample\n```\n")}
+			}
+			sources[len(sources)-1].Bytes = []byte("The client opens connections.")
+			expected, err := engine.AnalyzeAll(t.Context(), sources)
+			c.Assert(err, qt.IsNil)
+			instance := corruptCodeOnlyServer(t, engine, defect)
+			batches, err := verifyBatches(t.Context(), batchSession(t, instance), expected, true)
+			if defect == "false pass" {
+				c.Assert(err, qt.ErrorMatches, `MCP repository batch 1: MCP probe returned "pass" .* expected "error"`)
+			} else {
+				c.Assert(err, qt.ErrorMatches, "MCP repository batch 1 differs from normalized CLI evidence")
+			}
+			c.Assert(batches, qt.HasLen, 0)
+		})
+	}
+}
+
+func corruptCodeOnlyReply(result *unswell.RunResult, outcome *string, defect string) {
+	switch defect {
+	case "false pass":
+		*outcome = "pass"
+	case "wrong error":
+		result.Errors[0].Message = "analysis timed out"
+	case "extra error":
+		result.Errors = append(result.Errors, unswell.RunError{Message: "analysis timed out"})
+	case "complete manifest":
+		result.Manifest.Complete = true
+	case "passed gate":
+		result.Gate.Passed = true
+	default:
+		corruptBatch(result, defect)
+	}
+}
+
+func corruptCodeOnlyServer(t *testing.T, engine *unswell.Engine, defect string) *mcp.Server {
+	t.Helper()
+	c := qt.New(t)
+	instance := mcp.NewServer(&mcp.Implementation{Name: "false-empty-fixture", Version: "1"}, nil)
+	calls := 0
+	mcp.AddTool(instance, &mcp.Tool{Name: "unswell_check"},
+		func(ctx context.Context, _ *mcp.CallToolRequest, input server.CheckInput) (*mcp.CallToolResult, server.CheckOutput, error) {
+			var batch []document.Source
+			for _, source := range input.Sources {
+				batch = append(batch, document.Source{Name: source.Name, Format: source.Format, Bytes: []byte(source.Text)})
+			}
+			result, analyzeErr := engine.AnalyzeAll(ctx, batch)
+			outcome := "pass"
+			if analyzeErr != nil {
+				outcome = "error"
+			}
+			calls++
+			if calls == 1 {
+				c.Assert(analyzeErr, qt.ErrorMatches, "scan contains no applicable English prose")
+				corruptCodeOnlyReply(&result, &outcome, defect)
+			}
+			return &mcp.CallToolResult{IsError: outcome == "error"}, server.CheckOutput{Outcome: outcome, Result: normalize(result)}, nil
+		})
+	return instance
 }
