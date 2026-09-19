@@ -13,7 +13,7 @@ from summarize import summarize
 from rule_reference import reference
 
 
-def validate_model(model, dataset):
+def validate_model(model, dataset, feature_limit=128):
     fold = model['evaluation_fold']
     pages = {p['id']:p for p in dataset['pages']}
     expected = {(p['id'],i) for p in pages.values() if p['fold'] == fold for i in range(len(p['units']))}
@@ -23,7 +23,7 @@ def validate_model(model, dataset):
     if model['training_rows'] != sum(u['label'] is not None for p in train for u in p['units']):
         raise ValueError('Training label count changed')
     features = model['features']
-    if not 1 <= len(features) <= 128 or len(set(features)) != len(features):
+    if not 1 <= len(features) <= feature_limit or len(set(features)) != len(features):
         raise ValueError('Invalid feature contract')
     parameters = model['parameters']
     for name in ('Means','Scales','Weights'):

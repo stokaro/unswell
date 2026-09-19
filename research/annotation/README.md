@@ -183,3 +183,13 @@ agreement summary and rejection exits. Module tests cover the schema, provenance
 missingness, source references, cancellation, writer/read failures, and published
 numeric examples. Ordinary CI tests, lint, race, fuzz, and coverage include this
 module through `.gomodules`; no separate runtime exemption is added.
+
+## Exposed review experiments
+
+The research-only `representationaudit`, `reviewbaseline` and `sparsereview`
+commands inspect source-bound assistant review data. They do not emit product
+model packs or qualified probabilities. The retained
+[representation audit](../reviews/2026-09-19-representation-audit/README.md),
+[compact comparison](../reviews/2026-09-19-learned-proposals/README.md) and
+[sparse comparison](../reviews/2026-09-19-sparse-proposals/README.md) document
+their fixed protocols, results, limitations and reproduction commands.
