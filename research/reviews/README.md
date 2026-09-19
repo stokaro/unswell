@@ -16,6 +16,17 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-09-19-learned-proposals](2026-09-19-learned-proposals/README.md): four
+  compact Go models on the same exposed pages. The strongest retrieves only
+  74/872 positive units and does not explain their defects; good diagnostic
+  recall remains unmet. No model is promoted into the product.
+
+- [2026-09-19-representation-audit](2026-09-19-representation-audit/README.md):
+  a shared-engine audit on 157 exposed complete pages. One prepared unit retains
+  the target prose for 920/994 reviewed defects; 54 span protected gaps and 20
+  span blocks. These are representation limits, not diagnostic recall. The
+  result informs the next learned-feature experiment without changing rules.
+
 - [2026-09-11-ptah](2026-09-11-ptah/README.md): every rule on the Ptah
   repository, one reader, ten findings per rule.
 - [2026-09-11-responses](2026-09-11-responses/README.md): every rule on
