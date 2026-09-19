@@ -1,0 +1,41 @@
+{
+  "scope": "Local validation; remote PR/main CI is separate",
+  "runtime_commit": "dbb92b8da6d7b8c97e0b6fd1aa470847731a6db0",
+  "make_check": "All targets completed. The first invocation passed through MCP self-checking, then the filesystem sandbox prevented resource reporting with /usr/bin/time. Only check-performance, check-research-cost, and check-reproducible were rerun with the required host access; all passed.",
+  "ordinary_tests": "All six runtime/consumer modules, including public API and root CLI E2E, passed with -count=1",
+  "lint": "All modules: zero issues; Bash, repository-policy negative checks, mirror/SBOM self-tests, and schema passed",
+  "research_evidence_tests": 6,
+  "metadata_selection": "Reproduced against the pinned parent revision",
+  "old_goldens": "19 existing files changed only in 64-digit identity hashes; prior want annotations unchanged",
+  "dogfood": {
+    "documents": 1122,
+    "findings": 953,
+    "batches": 62,
+    "probes": [
+      "policy_failure",
+      "pass",
+      "policy_failure",
+      "error",
+      "policy_failure",
+      "policy_failure",
+      "policy_failure",
+      "error"
+    ]
+  },
+  "reproducibility": "All six release platform/architecture pairs reproduced byte for byte on one host with the same compiler. Native remote-platform CI remains separate.",
+  "deferred": [
+    "race",
+    "active fuzzing",
+    "coverage (#123)"
+  ],
+  "log_hashes": {
+    "make-check.log": "85e407ec1b8b17bea5bebe1b555170c5df52d0bae9412ba695fc63ec2e14b472",
+    "resource-checks.log": "2d8f7ca2eeb7158ca1da6874733eb248284a9731c675d2293593e8691953c8f7",
+    "focused2.log": "5386218e692bf1638bf13b9ccd213be875e4018b51d6c402d8996e60b6973ff7",
+    "focused3.log": "3a75504159e7c4feb87db25ad269d42cd1aabe94d11b1d817a751a863bd3e61a",
+    "activation.log": "cca17c31cfa75f4ce7c884cdf7ee46eaed3057e0d8971a0436d8fd73998144ce",
+    "e2e-update2.log": "e9937993f32bbe2d2868a46fcead89585c8637cfca508d1231c54a6cdd32d6ac",
+    "lint3.log": "b6a58cbfedf917abd3d3537197485f3f884d050951e379f5d0ab4ffa85758040",
+    "local-parity.json": "5f0e5a2d1c7dffa004b16b44ea05172559f089d8c0b96a6f85b648f69d1371a8"
+  }
+}
