@@ -79,7 +79,10 @@ func numberedOpening(block document.Block, limit, ordinal int) (frameClause, boo
 		return frameClause{}, false
 	}
 	parts := frameClauses(block.Sentences[0], ordinal)
-	if len(parts) == 0 || rhetoricQuoted(parts[0]) || rhetoricAttributed(parts[0]) {
+	if len(parts) == 0 || (block.Kind == "heading" && len(parts) != 1) {
+		return frameClause{}, false
+	}
+	if rhetoricQuoted(parts[0]) || rhetoricAttributed(parts[0]) {
 		return frameClause{}, false
 	}
 	return parts[0], true
