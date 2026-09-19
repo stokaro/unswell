@@ -1,0 +1,8 @@
+{
+  "basis": "research-only source patch; no product dependency",
+  "upstream": "knights-analytics/hugot v0.7.8",
+  "file": "backends/backend.go",
+  "original_sha256": "11df40425bdf0d3e9f3e01078afbe5d9ada616bbf329669f2ba5aff41e1e9fd0",
+  "patched_sha256": "f8b2bdd2810382c5d08148f16ea3cc1780ee05852856c58e8e4893326bc7572a",
+  "reason": "BackendGo honored explicit buckets for cache sizing but padded sequences only for XLA; enable sequence padding for Go when buckets are explicit. First run failed before any scores."
+}

@@ -1,0 +1,27 @@
+encoderprobe: go1.27.1
+	path	unswell-encoder-probe
+	mod	unswell-encoder-probe	(devel)
+	dep	github.com/go-logr/logr	v1.4.4	h1:tG4xh9yMsRCAiodLVTxyrkzSZ9+o0L1Kg/+cPVcbP/8=
+	dep	github.com/gofrs/flock	v0.13.1	h1:jjREztyBeSKBZYAC+mgc1laB+xsgy4kYMf3FbKF2UBo=
+	dep	github.com/gomlx/compute	v0.1.6	h1:FSIIesmoOolv5NNPkCrOb3jmtxpnzEzUid9CNTcusuo=
+	dep	github.com/gomlx/compute-onnx	v0.1.5	h1:TUXOFexEBMM/d9E8XJ7q9WKbh+fIOFKu6iuQsmX2JY0=
+	dep	github.com/gomlx/exceptions	v0.0.3	h1:HKnTgEjj4jlmhr8zVFkTP9qmV1ey7ypYYosQ8GzXWuM=
+	dep	github.com/gomlx/go-huggingface	v0.4.3	h1:1ZU11l+rJF+hSWWg/FsPlHuvKv36+yTone65gZ3SlVU=
+	dep	github.com/gomlx/gomlx	v0.28.8	h1:bCyErQujYdr8iaqBSmlK0HMc61e5cEcwQXxoqvHawms=
+	dep	github.com/gomlx/onnx-gomlx	v0.5.5	h1:Nvz8RlgiAYV/iIzI3qoT/dsYeWAoxKkKGurlHRoRdcg=
+	dep	github.com/google/uuid	v1.6.0	h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
+	dep	github.com/knights-analytics/hugot	v0.7.8	h1:rZAOUaFP4be0yz6WepP8Ji/DAjpTlYKmUPwEkSggSZo=
+	dep	github.com/pkg/errors	v0.9.1	h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+	dep	golang.org/x/exp	v0.0.0-20260824195058-e88cd73687aa	h1:QSyA8ishJCyT21kER9KwNt0b7BM3iRK4x9QXhjN5Fdk=
+	dep	golang.org/x/image	v0.45.0	h1:FMb1nTbH5H9vF55SriQHgFw5GnNL9Jg6L25BwXKzhB0=
+	dep	golang.org/x/sync	v0.22.0	h1:SZjpbeLmrCk4xhRSZFNZW5gFUeCeFgjekvI/+gfScek=
+	dep	golang.org/x/sys	v0.47.0	h1:o7XGOvZQCADBQQ4Y7VNq2dRWQR7JmOUW8Kxx4ZsNgWs=
+	dep	golang.org/x/text	v0.41.0	h1:vz/seA0lnX87Othu2f/0L24RcgrXD9/YFTSuGjj3rH8=
+	dep	google.golang.org/protobuf	v1.36.12	h1:pJOKDDOyeXErUroCihFAd5LQuwXBSpVnKGrj5o/fwxc=
+	dep	k8s.io/klog/v2	v2.140.0	h1:Tf+J3AH7xnUzZyVVXhTgGhEKnFqye14aadWv7bzXdzc=
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	CGO_ENABLED=0
+	build	GOARCH=arm64
+	build	GOOS=darwin
+	build	GOARM64=v8.0

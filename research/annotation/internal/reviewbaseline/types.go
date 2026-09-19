@@ -35,6 +35,7 @@ type expectedUnit struct {
 
 type row struct {
 	page, group, cohort, textHash string
+	text                          string
 	unit, fold, words             int
 	label                         *int
 	numeric                       []float64

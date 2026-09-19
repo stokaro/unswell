@@ -186,10 +186,12 @@ module through `.gomodules`; no separate runtime exemption is added.
 
 ## Exposed review experiments
 
-The research-only `representationaudit`, `reviewbaseline` and `sparsereview`
+The research-only `representationaudit`, `reviewbaseline`, `sparsereview`, `reviewtext` and
+`encodedreview`
 commands inspect source-bound assistant review data. They do not emit product
 model packs or qualified probabilities. The retained
 [representation audit](../reviews/2026-09-19-representation-audit/README.md),
 [compact comparison](../reviews/2026-09-19-learned-proposals/README.md) and
-[sparse comparison](../reviews/2026-09-19-sparse-proposals/README.md) document
+[sparse comparison](../reviews/2026-09-19-sparse-proposals/README.md), together with
+the [encoder comparison](../reviews/2026-09-19-context-encoders/README.md), document
 their fixed protocols, results, limitations and reproduction commands.
