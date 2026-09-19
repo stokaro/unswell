@@ -61,6 +61,21 @@ neighboring sentence, unreviewed new warnings, changed old diagnostics, and
 incomplete scans. Public API and annotated CLI tests cover the production rule.
 Research classification revision 10 records it as general style and preserves
 all prior classifications. Race, active fuzzing, and coverage remain deferred
-to #123. Runtime source files remain unchanged after confirmation.
+to #123.
 [validation.json](validation.json) records completed repository checks, CLI/MCP
 parity on 1122 documents, and the host-access retry for resource reporting.
+
+Before merge, code review found that a heading such as “Four lines:
+configuration” was incorrectly truncated at the colon. The implementation now
+requires the entire heading to be a single clause, preserving the original
+named-task-heading exclusion. Public API, CLI, and WASM regression cases cover
+the colon and dash forms; public API tests also cover a semicolon and a protected
+identifier after the colon.
+
+[boundary-fix.json](boundary-fix.json) records this subsequent implementation
+repair and its runtime identity. The original freeze, labels, and outputs remain
+unchanged. `reports/repaired` repeats all five pages and preserves the same
+findings, paired locations, and broader miss. These repeated pages are exposed
+regression evidence, not a new independent confirmation sample. The verifier
+checks both historical outputs and the repaired runtime. No broader recall or
+precision claim follows from this repair.

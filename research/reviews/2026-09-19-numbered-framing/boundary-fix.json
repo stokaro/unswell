@@ -1,0 +1,15 @@
+{
+  "phase": "Implementation-contract repair after the original confirmation outputs; repeated pages are regression evidence only",
+  "recorded_at": "2026-09-19T15:15:07.257044+00:00",
+  "candidate_commit": "f2498fd45549ce32c8d86f2df88f1c380da64d63",
+  "runtime_changes": {
+    "builtin/catalog.go": "54c87c3efdae0cbd1fddf27d11a452f9903624b7ec76e6a078048da20bd2d57e",
+    "builtin/numbered_catalog.go": "350177aad370f36c9b5e159aee7e604ca8c70c88a91c1e91241f77745e2610c2",
+    "builtin/numbered_framing.go": "817c652ef41d4db7f25a97f904fc1d4d8849834e0b988ebbc916a7df67eea3de"
+  },
+  "binary_sha256": "c27f15a0c7a05799b43bbbeee7ab4a75ce79ae333bc8b5d543a5238010a90429",
+  "original_freeze_sha256": "336960306a106162d429896f3e9bffaf6d42e259d57c287662dee4c4c055d008",
+  "reason": "Code review reproduced a false positive on Four lines: configuration. Clause splitting discarded the named subject. Require the heading to contain a single complete clause.",
+  "scope": "Adds exclusions required by the original named-task-heading contract; no vocabulary, weights, thresholds, or positive scope expansion. Original inputs, labels, freeze, and outputs remain unchanged.",
+  "confirmation": "No new independent confirmation is claimed for this repair. The original four pages are now exposed regression inputs."
+}

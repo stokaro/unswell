@@ -55,8 +55,13 @@ def evaluate():
             if data[target['path']][target['start']:target['end']].decode() != target['quote']:
                 raise ValueError('Annotation drift')
     freeze = json.loads((ROOT/'code-freeze.json').read_text())
+    repair_path = ROOT/'boundary-fix.json'
+    repair = json.loads(repair_path.read_text()) if repair_path.exists() else None
+    current = repair or freeze
+    if repair and sha((ROOT/'code-freeze.json').read_bytes()) != repair['original_freeze_sha256']:
+        raise ValueError('Original freeze changed')
     repository = ROOT.parents[2]
-    for name, digest in freeze['runtime_changes'].items():
+    for name, digest in current['runtime_changes'].items():
         if sha((repository/name).read_bytes()) != digest:
             raise ValueError('Frozen candidate changed')
     result = {}
@@ -78,6 +83,19 @@ def evaluate():
                 raise ValueError('Missing page')
             reports.append(report)
         result[profile] = check_pair(*reports, review)
+        if repair:
+            path = ROOT/'reports/repaired'
+            record = json.loads((path/'runs.json').read_text())[profile]
+            packed = (path/(profile+'.json.gz')).read_bytes()
+            report = json.loads(gzip.decompress(packed))
+            if sha(packed) != record['report_sha256'] or record['binary_sha256'] != repair['binary_sha256']:
+                raise ValueError('Wrong repaired artifact')
+            if report['manifest']['tool_commit'] != repair['candidate_commit']:
+                raise ValueError('Wrong repair runtime identity')
+            if {d['name'] for d in report['documents']} != {d['name'] for d in reports[0]['documents']}:
+                raise ValueError('Missing repaired page')
+            if check_pair(reports[0], report, review) != result[profile]:
+                raise ValueError('Repair changed the reported regression result')
     return result
 
 
