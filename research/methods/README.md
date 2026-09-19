@@ -119,7 +119,12 @@ Revision 8, [`rule-classes-v1-r8.json`](rule-classes-v1-r8.json), covers the
 style signals. Command tests at that revision used it. Earlier classes and
 measurements stay frozen; these additions make no claim about authorship.
 
-Revision 9, [`rule-classes-v1-r9.json`](rule-classes-v1-r9.json), covers the current
+Revision 9, [`rule-classes-v1-r9.json`](rule-classes-v1-r9.json), covers the
 55-rule catalog. Nominal support and repeated grammatical support are general
-style signals. Current command tests use revision 9. Its entries preserve all
+style signals. Command tests at that revision used it. Its entries preserve all
 previous classifications; the editorial study does not qualify an origin signal.
+
+Revision 10, [`rule-classes-v1-r10.json`](rule-classes-v1-r10.json), covers the current
+56-rule catalog. Count-centered introductions paired with generic count headings
+are general style signals. Current command tests use revision 10; earlier classes
+and measured results stay unchanged. No authorship association is asserted.

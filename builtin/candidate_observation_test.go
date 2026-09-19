@@ -15,7 +15,8 @@ import (
 )
 
 func TestCandidateObservationsRetainEmptyBlocksAndFailures(t *testing.T) {
-	ids := []string{"format.list-fragmentation", "repetition.heading-echo", "repetition.near-sentence", "repetition.ngram-density",
+	ids := []string{"filler.numbered-section-framing", "format.list-fragmentation", "repetition.heading-echo",
+		"repetition.near-sentence", "repetition.ngram-density",
 		"repetition.paragraph-overlap", "repetition.summary-echo", "repetition.syntax-template"}
 	for _, implementation := range builtin.Rules() {
 		d := implementation.Descriptor()
@@ -33,7 +34,7 @@ func TestCandidateObservationsRetainEmptyBlocksAndFailures(t *testing.T) {
 			switch d.ID {
 			case "repetition.near-sentence":
 				reasons = []string{"no_sentences", "no_sentences", "no_sentences"}
-			case "repetition.heading-echo":
+			case "repetition.heading-echo", "filler.numbered-section-framing":
 				reasons[1] = "no_sentences"
 			case "format.list-fragmentation":
 				reasons = []string{"unsupported_unit", "unsupported_unit", "no_sentences"}

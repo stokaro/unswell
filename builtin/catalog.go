@@ -30,6 +30,7 @@ func Rules() []rule.Rule {
 	result = append(result, frameRules()...)
 	result = append(result, localRhetoricRules()...)
 	result = append(result, structuralWordingRules()...)
+	result = append(result, numberedFramingRule())
 	result = append(result, extendedRepetitionRules()...)
 	result = append(result, localRepetitionRules()...)
 	result = append(result, surfaceRules()...)
