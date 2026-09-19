@@ -1,0 +1,1558 @@
+{
+  "version": 1,
+  "basis": "exposed assistant development; unit retrieval is not diagnostic recall",
+  "models": {
+    "L": {
+      "positive": 872,
+      "negative": 1234,
+      "true_positive": 23,
+      "false_positive": 7,
+      "precision": 0.7666666666666667,
+      "recall": 0.026376146788990827,
+      "explicit_control_fpr": 0.005672609400324149,
+      "unlabeled": 27644,
+      "unlabeled_selected": 44,
+      "total_selected": 74,
+      "available_folds": 5,
+      "cohorts": {
+        "historical": {
+          "positive": 525,
+          "negative": 533,
+          "true_positive": 17,
+          "false_positive": 5,
+          "precision": 0.7727272727272727,
+          "recall": 0.03238095238095238,
+          "explicit_control_fpr": 0.009380863039399626,
+          "unlabeled": 12832,
+          "unlabeled_selected": 22,
+          "total_selected": 44
+        },
+        "ptah": {
+          "positive": 347,
+          "negative": 701,
+          "true_positive": 6,
+          "false_positive": 2,
+          "precision": 0.75,
+          "recall": 0.01729106628242075,
+          "explicit_control_fpr": 0.0028530670470756064,
+          "unlabeled": 14812,
+          "unlabeled_selected": 22,
+          "total_selected": 30
+        }
+      },
+      "word_bands": {
+        "1-9": {
+          "positive": 72,
+          "negative": 559,
+          "true_positive": 0,
+          "false_positive": 0,
+          "precision": null,
+          "recall": 0.0,
+          "explicit_control_fpr": 0.0,
+          "unlabeled": 19663,
+          "unlabeled_selected": 0,
+          "total_selected": 0
+        },
+        "10-39": {
+          "positive": 529,
+          "negative": 545,
+          "true_positive": 0,
+          "false_positive": 0,
+          "precision": null,
+          "recall": 0.0,
+          "explicit_control_fpr": 0.0,
+          "unlabeled": 7205,
+          "unlabeled_selected": 0,
+          "total_selected": 0
+        },
+        "40+": {
+          "positive": 271,
+          "negative": 130,
+          "true_positive": 23,
+          "false_positive": 7,
+          "precision": 0.7666666666666667,
+          "recall": 0.08487084870848709,
+          "explicit_control_fpr": 0.05384615384615385,
+          "unlabeled": 776,
+          "unlabeled_selected": 44,
+          "total_selected": 74
+        }
+      },
+      "folds": {
+        "0": {
+          "positive": 214,
+          "negative": 258,
+          "true_positive": 4,
+          "false_positive": 1,
+          "precision": 0.8,
+          "recall": 0.018691588785046728,
+          "explicit_control_fpr": 0.003875968992248062,
+          "unlabeled": 5889,
+          "unlabeled_selected": 3,
+          "total_selected": 8
+        },
+        "1": {
+          "positive": 134,
+          "negative": 190,
+          "true_positive": 1,
+          "false_positive": 1,
+          "precision": 0.5,
+          "recall": 0.007462686567164179,
+          "explicit_control_fpr": 0.005263157894736842,
+          "unlabeled": 4758,
+          "unlabeled_selected": 8,
+          "total_selected": 10
+        },
+        "2": {
+          "positive": 196,
+          "negative": 264,
+          "true_positive": 6,
+          "false_positive": 1,
+          "precision": 0.8571428571428571,
+          "recall": 0.030612244897959183,
+          "explicit_control_fpr": 0.003787878787878788,
+          "unlabeled": 5676,
+          "unlabeled_selected": 6,
+          "total_selected": 13
+        },
+        "3": {
+          "positive": 200,
+          "negative": 356,
+          "true_positive": 8,
+          "false_positive": 3,
+          "precision": 0.7272727272727273,
+          "recall": 0.04,
+          "explicit_control_fpr": 0.008426966292134831,
+          "unlabeled": 7340,
+          "unlabeled_selected": 16,
+          "total_selected": 27
+        },
+        "4": {
+          "positive": 128,
+          "negative": 166,
+          "true_positive": 4,
+          "false_positive": 1,
+          "precision": 0.8,
+          "recall": 0.03125,
+          "explicit_control_fpr": 0.006024096385542169,
+          "unlabeled": 3981,
+          "unlabeled_selected": 11,
+          "total_selected": 16
+        }
+      },
+      "event_retrieval": {
+        "defects": 994,
+        "retrieved": 27,
+        "coverage": 0.02716297786720322
+      },
+      "event_cohorts": {
+        "historical": {
+          "defects": 605,
+          "retrieved": 20,
+          "coverage": 0.03305785123966942
+        },
+        "ptah": {
+          "defects": 389,
+          "retrieved": 7,
+          "coverage": 0.017994858611825194
+        }
+      },
+      "event_categories": {
+        "empty_framing": {
+          "defects": 308,
+          "retrieved": 7,
+          "coverage": 0.022727272727272728
+        },
+        "formulaic_transitions": {
+          "defects": 6,
+          "retrieved": 0,
+          "coverage": 0.0
+        },
+        "needless_complexity": {
+          "defects": 13,
+          "retrieved": 0,
+          "coverage": 0.0
+        },
+        "needless_repetition": {
+          "defects": 76,
+          "retrieved": 2,
+          "coverage": 0.02631578947368421
+        },
+        "unjustified_intensifiers": {
+          "defects": 67,
+          "retrieved": 3,
+          "coverage": 0.04477611940298507
+        },
+        "vague_claims": {
+          "defects": 157,
+          "retrieved": 6,
+          "coverage": 0.03821656050955414
+        },
+        "wordiness": {
+          "defects": 367,
+          "retrieved": 9,
+          "coverage": 0.02452316076294278
+        }
+      },
+      "retrieved_events": [
+        {
+          "page": "2026-09-17-full-page-recall/p001",
+          "id": "p001-d03"
+        },
+        {
+          "page": "2026-09-17-full-page-recall/p001",
+          "id": "p001-d04"
+        },
+        {
+          "page": "2026-09-17-action-grammar/c03",
+          "id": "c03-d02"
+        },
+        {
+          "page": "2026-09-17-action-grammar/c04",
+          "id": "c04-d05"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c03",
+          "id": "c03-d03"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c05",
+          "id": "c05-d01"
+        },
+        {
+          "page": "2026-09-17-construction-recall/c03",
+          "id": "c03-d04"
+        },
+        {
+          "page": "2026-09-17-construction-recall/c04",
+          "id": "c04-d01"
+        },
+        {
+          "page": "2026-09-17-construction-recall/c04",
+          "id": "c04-d02"
+        },
+        {
+          "page": "2026-09-17-local-repetition/c09",
+          "id": "c09-d02"
+        },
+        {
+          "page": "2026-09-17-local-repetition/c11",
+          "id": "c11-d10"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c04",
+          "id": "c04-d02"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c04",
+          "id": "c04-d03"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c04",
+          "id": "c04-d09"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c04",
+          "id": "c04-d11"
+        },
+        {
+          "page": "2026-09-17-purpose-recall/c06",
+          "id": "c06-d03"
+        },
+        {
+          "page": "2026-09-17-rhetoric-relations/c03",
+          "id": "c03-d02"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c05",
+          "id": "c05-d01"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d02"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d03"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d07"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d08"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d14"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d24"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d29"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c08",
+          "id": "c08-d11"
+        },
+        {
+          "page": "2026-09-18-structural-wordiness/c10",
+          "id": "c10-d05"
+        }
+      ]
+    },
+    "S": {
+      "positive": 872,
+      "negative": 1234,
+      "true_positive": 7,
+      "false_positive": 5,
+      "precision": 0.5833333333333334,
+      "recall": 0.008027522935779817,
+      "explicit_control_fpr": 0.004051863857374392,
+      "unlabeled": 27644,
+      "unlabeled_selected": 17,
+      "total_selected": 29,
+      "available_folds": 2,
+      "cohorts": {
+        "historical": {
+          "positive": 525,
+          "negative": 533,
+          "true_positive": 3,
+          "false_positive": 3,
+          "precision": 0.5,
+          "recall": 0.005714285714285714,
+          "explicit_control_fpr": 0.005628517823639775,
+          "unlabeled": 12832,
+          "unlabeled_selected": 9,
+          "total_selected": 15
+        },
+        "ptah": {
+          "positive": 347,
+          "negative": 701,
+          "true_positive": 4,
+          "false_positive": 2,
+          "precision": 0.6666666666666666,
+          "recall": 0.011527377521613832,
+          "explicit_control_fpr": 0.0028530670470756064,
+          "unlabeled": 14812,
+          "unlabeled_selected": 8,
+          "total_selected": 14
+        }
+      },
+      "word_bands": {
+        "1-9": {
+          "positive": 72,
+          "negative": 559,
+          "true_positive": 0,
+          "false_positive": 0,
+          "precision": null,
+          "recall": 0.0,
+          "explicit_control_fpr": 0.0,
+          "unlabeled": 19663,
+          "unlabeled_selected": 0,
+          "total_selected": 0
+        },
+        "10-39": {
+          "positive": 529,
+          "negative": 545,
+          "true_positive": 0,
+          "false_positive": 0,
+          "precision": null,
+          "recall": 0.0,
+          "explicit_control_fpr": 0.0,
+          "unlabeled": 7205,
+          "unlabeled_selected": 0,
+          "total_selected": 0
+        },
+        "40+": {
+          "positive": 271,
+          "negative": 130,
+          "true_positive": 7,
+          "false_positive": 5,
+          "precision": 0.5833333333333334,
+          "recall": 0.025830258302583026,
+          "explicit_control_fpr": 0.038461538461538464,
+          "unlabeled": 776,
+          "unlabeled_selected": 17,
+          "total_selected": 29
+        }
+      },
+      "folds": {
+        "0": {
+          "positive": 214,
+          "negative": 258,
+          "true_positive": 0,
+          "false_positive": 0,
+          "precision": null,
+          "recall": 0.0,
+          "explicit_control_fpr": 0.0,
+          "unlabeled": 5889,
+          "unlabeled_selected": 0,
+          "total_selected": 0
+        },
+        "1": {
+          "positive": 134,
+          "negative": 190,
+          "true_positive": 3,
+          "false_positive": 3,
+          "precision": 0.5,
+          "recall": 0.022388059701492536,
+          "explicit_control_fpr": 0.015789473684210527,
+          "unlabeled": 4758,
+          "unlabeled_selected": 9,
+          "total_selected": 15
+        },
+        "2": {
+          "positive": 196,
+          "negative": 264,
+          "true_positive": 0,
+          "false_positive": 0,
+          "precision": null,
+          "recall": 0.0,
+          "explicit_control_fpr": 0.0,
+          "unlabeled": 5676,
+          "unlabeled_selected": 0,
+          "total_selected": 0
+        },
+        "3": {
+          "positive": 200,
+          "negative": 356,
+          "true_positive": 0,
+          "false_positive": 0,
+          "precision": null,
+          "recall": 0.0,
+          "explicit_control_fpr": 0.0,
+          "unlabeled": 7340,
+          "unlabeled_selected": 0,
+          "total_selected": 0
+        },
+        "4": {
+          "positive": 128,
+          "negative": 166,
+          "true_positive": 4,
+          "false_positive": 2,
+          "precision": 0.6666666666666666,
+          "recall": 0.03125,
+          "explicit_control_fpr": 0.012048192771084338,
+          "unlabeled": 3981,
+          "unlabeled_selected": 8,
+          "total_selected": 14
+        }
+      },
+      "event_retrieval": {
+        "defects": 994,
+        "retrieved": 8,
+        "coverage": 0.008048289738430584
+      },
+      "event_cohorts": {
+        "historical": {
+          "defects": 605,
+          "retrieved": 3,
+          "coverage": 0.0049586776859504135
+        },
+        "ptah": {
+          "defects": 389,
+          "retrieved": 5,
+          "coverage": 0.012853470437017995
+        }
+      },
+      "event_categories": {
+        "empty_framing": {
+          "defects": 308,
+          "retrieved": 3,
+          "coverage": 0.00974025974025974
+        },
+        "formulaic_transitions": {
+          "defects": 6,
+          "retrieved": 0,
+          "coverage": 0.0
+        },
+        "needless_complexity": {
+          "defects": 13,
+          "retrieved": 0,
+          "coverage": 0.0
+        },
+        "needless_repetition": {
+          "defects": 76,
+          "retrieved": 0,
+          "coverage": 0.0
+        },
+        "unjustified_intensifiers": {
+          "defects": 67,
+          "retrieved": 2,
+          "coverage": 0.029850746268656716
+        },
+        "vague_claims": {
+          "defects": 157,
+          "retrieved": 0,
+          "coverage": 0.0
+        },
+        "wordiness": {
+          "defects": 367,
+          "retrieved": 3,
+          "coverage": 0.008174386920980926
+        }
+      },
+      "retrieved_events": [
+        {
+          "page": "2026-09-17-action-grammar/c03",
+          "id": "c03-d02"
+        },
+        {
+          "page": "2026-09-17-construction-recall/c04",
+          "id": "c04-d01"
+        },
+        {
+          "page": "2026-09-17-instruction-clauses/c06",
+          "id": "c06-d05"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c02",
+          "id": "c02-d07"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c02",
+          "id": "c02-d08"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c03",
+          "id": "c03-d02"
+        },
+        {
+          "page": "2026-09-17-local-repetition/c02",
+          "id": "c02-d02"
+        },
+        {
+          "page": "2026-09-18-structural-wordiness/c12",
+          "id": "c12-d02"
+        }
+      ]
+    },
+    "W": {
+      "positive": 872,
+      "negative": 1234,
+      "true_positive": 65,
+      "false_positive": 11,
+      "precision": 0.8552631578947368,
+      "recall": 0.07454128440366972,
+      "explicit_control_fpr": 0.008914100486223663,
+      "unlabeled": 27644,
+      "unlabeled_selected": 99,
+      "total_selected": 175,
+      "available_folds": 5,
+      "cohorts": {
+        "historical": {
+          "positive": 525,
+          "negative": 533,
+          "true_positive": 33,
+          "false_positive": 8,
+          "precision": 0.8048780487804879,
+          "recall": 0.06285714285714286,
+          "explicit_control_fpr": 0.0150093808630394,
+          "unlabeled": 12832,
+          "unlabeled_selected": 49,
+          "total_selected": 90
+        },
+        "ptah": {
+          "positive": 347,
+          "negative": 701,
+          "true_positive": 32,
+          "false_positive": 3,
+          "precision": 0.9142857142857143,
+          "recall": 0.09221902017291066,
+          "explicit_control_fpr": 0.0042796005706134095,
+          "unlabeled": 14812,
+          "unlabeled_selected": 50,
+          "total_selected": 85
+        }
+      },
+      "word_bands": {
+        "1-9": {
+          "positive": 72,
+          "negative": 559,
+          "true_positive": 1,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 0.013888888888888888,
+          "explicit_control_fpr": 0.0,
+          "unlabeled": 19663,
+          "unlabeled_selected": 2,
+          "total_selected": 3
+        },
+        "10-39": {
+          "positive": 529,
+          "negative": 545,
+          "true_positive": 18,
+          "false_positive": 1,
+          "precision": 0.9473684210526315,
+          "recall": 0.034026465028355386,
+          "explicit_control_fpr": 0.001834862385321101,
+          "unlabeled": 7205,
+          "unlabeled_selected": 48,
+          "total_selected": 67
+        },
+        "40+": {
+          "positive": 271,
+          "negative": 130,
+          "true_positive": 46,
+          "false_positive": 10,
+          "precision": 0.8214285714285714,
+          "recall": 0.16974169741697417,
+          "explicit_control_fpr": 0.07692307692307693,
+          "unlabeled": 776,
+          "unlabeled_selected": 49,
+          "total_selected": 105
+        }
+      },
+      "folds": {
+        "0": {
+          "positive": 214,
+          "negative": 258,
+          "true_positive": 6,
+          "false_positive": 1,
+          "precision": 0.8571428571428571,
+          "recall": 0.028037383177570093,
+          "explicit_control_fpr": 0.003875968992248062,
+          "unlabeled": 5889,
+          "unlabeled_selected": 5,
+          "total_selected": 12
+        },
+        "1": {
+          "positive": 134,
+          "negative": 190,
+          "true_positive": 21,
+          "false_positive": 4,
+          "precision": 0.84,
+          "recall": 0.15671641791044777,
+          "explicit_control_fpr": 0.021052631578947368,
+          "unlabeled": 4758,
+          "unlabeled_selected": 16,
+          "total_selected": 41
+        },
+        "2": {
+          "positive": 196,
+          "negative": 264,
+          "true_positive": 2,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 0.01020408163265306,
+          "explicit_control_fpr": 0.0,
+          "unlabeled": 5676,
+          "unlabeled_selected": 2,
+          "total_selected": 4
+        },
+        "3": {
+          "positive": 200,
+          "negative": 356,
+          "true_positive": 20,
+          "false_positive": 3,
+          "precision": 0.8695652173913043,
+          "recall": 0.1,
+          "explicit_control_fpr": 0.008426966292134831,
+          "unlabeled": 7340,
+          "unlabeled_selected": 48,
+          "total_selected": 71
+        },
+        "4": {
+          "positive": 128,
+          "negative": 166,
+          "true_positive": 16,
+          "false_positive": 3,
+          "precision": 0.8421052631578947,
+          "recall": 0.125,
+          "explicit_control_fpr": 0.018072289156626505,
+          "unlabeled": 3981,
+          "unlabeled_selected": 28,
+          "total_selected": 47
+        }
+      },
+      "event_retrieval": {
+        "defects": 994,
+        "retrieved": 77,
+        "coverage": 0.07746478873239436
+      },
+      "event_cohorts": {
+        "historical": {
+          "defects": 605,
+          "retrieved": 38,
+          "coverage": 0.0628099173553719
+        },
+        "ptah": {
+          "defects": 389,
+          "retrieved": 39,
+          "coverage": 0.10025706940874037
+        }
+      },
+      "event_categories": {
+        "empty_framing": {
+          "defects": 308,
+          "retrieved": 27,
+          "coverage": 0.08766233766233766
+        },
+        "formulaic_transitions": {
+          "defects": 6,
+          "retrieved": 0,
+          "coverage": 0.0
+        },
+        "needless_complexity": {
+          "defects": 13,
+          "retrieved": 0,
+          "coverage": 0.0
+        },
+        "needless_repetition": {
+          "defects": 76,
+          "retrieved": 5,
+          "coverage": 0.06578947368421052
+        },
+        "unjustified_intensifiers": {
+          "defects": 67,
+          "retrieved": 8,
+          "coverage": 0.11940298507462686
+        },
+        "vague_claims": {
+          "defects": 157,
+          "retrieved": 11,
+          "coverage": 0.07006369426751592
+        },
+        "wordiness": {
+          "defects": 367,
+          "retrieved": 26,
+          "coverage": 0.07084468664850137
+        }
+      },
+      "retrieved_events": [
+        {
+          "page": "2026-09-17-full-page-recall/p002",
+          "id": "p002-d04"
+        },
+        {
+          "page": "2026-09-17-full-page-recall/p007",
+          "id": "p007-d02"
+        },
+        {
+          "page": "2026-09-17-full-page-recall/p022",
+          "id": "p022-d01"
+        },
+        {
+          "page": "2026-09-17-full-page-recall/p025",
+          "id": "p025-d01"
+        },
+        {
+          "page": "2026-09-17-full-page-recall/p025",
+          "id": "p025-d03"
+        },
+        {
+          "page": "2026-09-17-full-page-recall/p025",
+          "id": "p025-d06"
+        },
+        {
+          "page": "2026-09-17-full-page-recall/p026",
+          "id": "p026-d01"
+        },
+        {
+          "page": "2026-09-17-action-grammar/c02",
+          "id": "c02-d01"
+        },
+        {
+          "page": "2026-09-17-action-grammar/c02",
+          "id": "c02-d02"
+        },
+        {
+          "page": "2026-09-17-action-grammar/c02",
+          "id": "c02-d04"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c03",
+          "id": "c03-d07"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c04",
+          "id": "c04-d03"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c04",
+          "id": "c04-d05"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c04",
+          "id": "c04-d06"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c04",
+          "id": "c04-d17"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c04",
+          "id": "c04-d20"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c04",
+          "id": "c04-d22"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c05",
+          "id": "c05-d03"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c05",
+          "id": "c05-d07"
+        },
+        {
+          "page": "2026-09-17-construction-recall/c02",
+          "id": "c02-d03"
+        },
+        {
+          "page": "2026-09-17-construction-recall/c04",
+          "id": "c04-d01"
+        },
+        {
+          "page": "2026-09-17-discourse-roles/c03",
+          "id": "c03-d01"
+        },
+        {
+          "page": "2026-09-17-discourse-roles/c05",
+          "id": "c05-d06"
+        },
+        {
+          "page": "2026-09-17-instruction-clauses/c02",
+          "id": "c02-d10"
+        },
+        {
+          "page": "2026-09-17-instruction-clauses/c03",
+          "id": "c03-d07"
+        },
+        {
+          "page": "2026-09-17-instruction-clauses/c06",
+          "id": "c06-d05"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c02",
+          "id": "c02-d02"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c02",
+          "id": "c02-d03"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c02",
+          "id": "c02-d05"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c02",
+          "id": "c02-d07"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c02",
+          "id": "c02-d08"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c02",
+          "id": "c02-d09"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c05",
+          "id": "c05-d02"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c05",
+          "id": "c05-d08"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c05",
+          "id": "c05-d09"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c03",
+          "id": "c03-d01"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c03",
+          "id": "c03-d03"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c03",
+          "id": "c03-d05"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c08",
+          "id": "c08-d03"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c08",
+          "id": "c08-d13"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c08",
+          "id": "c08-d14"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c08",
+          "id": "c08-d15"
+        },
+        {
+          "page": "2026-09-17-local-repetition/c02",
+          "id": "c02-d01"
+        },
+        {
+          "page": "2026-09-17-local-repetition/c05",
+          "id": "c05-d10"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c02",
+          "id": "c02-d02"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c02",
+          "id": "c02-d03"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c02",
+          "id": "c02-d07"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c04",
+          "id": "c04-d09"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c05",
+          "id": "c05-d11"
+        },
+        {
+          "page": "2026-09-17-purpose-recall/c02",
+          "id": "c02-d02"
+        },
+        {
+          "page": "2026-09-17-purpose-recall/c05",
+          "id": "c05-d02"
+        },
+        {
+          "page": "2026-09-17-purpose-recall/c05",
+          "id": "c05-d03"
+        },
+        {
+          "page": "2026-09-17-rhetoric-relations/c03",
+          "id": "c03-d02"
+        },
+        {
+          "page": "2026-09-17-rhetoric-scope/c03",
+          "id": "c03-d09"
+        },
+        {
+          "page": "2026-09-17-rhetoric-scope/c03",
+          "id": "c03-d10"
+        },
+        {
+          "page": "2026-09-17-rhetoric-scope/c03",
+          "id": "c03-d11"
+        },
+        {
+          "page": "2026-09-17-verb-scaffolding/c03",
+          "id": "c03-d10"
+        },
+        {
+          "page": "2026-09-17-verb-scaffolding/c04",
+          "id": "c04-d12"
+        },
+        {
+          "page": "2026-09-18-clause-grammar/c05",
+          "id": "c05-d06"
+        },
+        {
+          "page": "2026-09-18-clause-grammar/c06",
+          "id": "c06-d01"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c01",
+          "id": "c01-d01"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c01",
+          "id": "c01-d02"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c01",
+          "id": "c01-d03"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c03",
+          "id": "c03-d01"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c06",
+          "id": "c06-d04"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d10"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d14"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d15"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d16"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d18"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d29"
+        },
+        {
+          "page": "2026-09-18-structural-wordiness/c09",
+          "id": "c09-d01"
+        },
+        {
+          "page": "2026-09-18-structural-wordiness/c09",
+          "id": "c09-d02"
+        },
+        {
+          "page": "2026-09-18-structural-wordiness/c09",
+          "id": "c09-d07"
+        },
+        {
+          "page": "2026-09-18-structural-wordiness/c09",
+          "id": "c09-d08"
+        },
+        {
+          "page": "2026-09-18-structural-wordiness/c10",
+          "id": "c10-d05"
+        },
+        {
+          "page": "2026-09-18-structural-wordiness/c12",
+          "id": "c12-d03"
+        }
+      ]
+    },
+    "SW": {
+      "positive": 872,
+      "negative": 1234,
+      "true_positive": 74,
+      "false_positive": 12,
+      "precision": 0.8604651162790697,
+      "recall": 0.08486238532110092,
+      "explicit_control_fpr": 0.009724473257698542,
+      "unlabeled": 27644,
+      "unlabeled_selected": 100,
+      "total_selected": 186,
+      "available_folds": 5,
+      "cohorts": {
+        "historical": {
+          "positive": 525,
+          "negative": 533,
+          "true_positive": 35,
+          "false_positive": 11,
+          "precision": 0.7608695652173914,
+          "recall": 0.06666666666666667,
+          "explicit_control_fpr": 0.020637898686679174,
+          "unlabeled": 12832,
+          "unlabeled_selected": 50,
+          "total_selected": 96
+        },
+        "ptah": {
+          "positive": 347,
+          "negative": 701,
+          "true_positive": 39,
+          "false_positive": 1,
+          "precision": 0.975,
+          "recall": 0.11239193083573487,
+          "explicit_control_fpr": 0.0014265335235378032,
+          "unlabeled": 14812,
+          "unlabeled_selected": 50,
+          "total_selected": 90
+        }
+      },
+      "word_bands": {
+        "1-9": {
+          "positive": 72,
+          "negative": 559,
+          "true_positive": 1,
+          "false_positive": 0,
+          "precision": 1.0,
+          "recall": 0.013888888888888888,
+          "explicit_control_fpr": 0.0,
+          "unlabeled": 19663,
+          "unlabeled_selected": 6,
+          "total_selected": 7
+        },
+        "10-39": {
+          "positive": 529,
+          "negative": 545,
+          "true_positive": 37,
+          "false_positive": 1,
+          "precision": 0.9736842105263158,
+          "recall": 0.06994328922495274,
+          "explicit_control_fpr": 0.001834862385321101,
+          "unlabeled": 7205,
+          "unlabeled_selected": 49,
+          "total_selected": 87
+        },
+        "40+": {
+          "positive": 271,
+          "negative": 130,
+          "true_positive": 36,
+          "false_positive": 11,
+          "precision": 0.7659574468085106,
+          "recall": 0.13284132841328414,
+          "explicit_control_fpr": 0.08461538461538462,
+          "unlabeled": 776,
+          "unlabeled_selected": 45,
+          "total_selected": 92
+        }
+      },
+      "folds": {
+        "0": {
+          "positive": 214,
+          "negative": 258,
+          "true_positive": 11,
+          "false_positive": 2,
+          "precision": 0.8461538461538461,
+          "recall": 0.0514018691588785,
+          "explicit_control_fpr": 0.007751937984496124,
+          "unlabeled": 5889,
+          "unlabeled_selected": 8,
+          "total_selected": 21
+        },
+        "1": {
+          "positive": 134,
+          "negative": 190,
+          "true_positive": 19,
+          "false_positive": 3,
+          "precision": 0.8636363636363636,
+          "recall": 0.1417910447761194,
+          "explicit_control_fpr": 0.015789473684210527,
+          "unlabeled": 4758,
+          "unlabeled_selected": 15,
+          "total_selected": 37
+        },
+        "2": {
+          "positive": 196,
+          "negative": 264,
+          "true_positive": 11,
+          "false_positive": 2,
+          "precision": 0.8461538461538461,
+          "recall": 0.05612244897959184,
+          "explicit_control_fpr": 0.007575757575757576,
+          "unlabeled": 5676,
+          "unlabeled_selected": 13,
+          "total_selected": 26
+        },
+        "3": {
+          "positive": 200,
+          "negative": 356,
+          "true_positive": 20,
+          "false_positive": 3,
+          "precision": 0.8695652173913043,
+          "recall": 0.1,
+          "explicit_control_fpr": 0.008426966292134831,
+          "unlabeled": 7340,
+          "unlabeled_selected": 37,
+          "total_selected": 60
+        },
+        "4": {
+          "positive": 128,
+          "negative": 166,
+          "true_positive": 13,
+          "false_positive": 2,
+          "precision": 0.8666666666666667,
+          "recall": 0.1015625,
+          "explicit_control_fpr": 0.012048192771084338,
+          "unlabeled": 3981,
+          "unlabeled_selected": 27,
+          "total_selected": 42
+        }
+      },
+      "event_retrieval": {
+        "defects": 994,
+        "retrieved": 81,
+        "coverage": 0.08148893360160966
+      },
+      "event_cohorts": {
+        "historical": {
+          "defects": 605,
+          "retrieved": 37,
+          "coverage": 0.06115702479338843
+        },
+        "ptah": {
+          "defects": 389,
+          "retrieved": 44,
+          "coverage": 0.11311053984575835
+        }
+      },
+      "event_categories": {
+        "empty_framing": {
+          "defects": 308,
+          "retrieved": 30,
+          "coverage": 0.09740259740259741
+        },
+        "formulaic_transitions": {
+          "defects": 6,
+          "retrieved": 0,
+          "coverage": 0.0
+        },
+        "needless_complexity": {
+          "defects": 13,
+          "retrieved": 0,
+          "coverage": 0.0
+        },
+        "needless_repetition": {
+          "defects": 76,
+          "retrieved": 6,
+          "coverage": 0.07894736842105263
+        },
+        "unjustified_intensifiers": {
+          "defects": 67,
+          "retrieved": 6,
+          "coverage": 0.08955223880597014
+        },
+        "vague_claims": {
+          "defects": 157,
+          "retrieved": 11,
+          "coverage": 0.07006369426751592
+        },
+        "wordiness": {
+          "defects": 367,
+          "retrieved": 28,
+          "coverage": 0.07629427792915532
+        }
+      },
+      "retrieved_events": [
+        {
+          "page": "2026-09-17-full-page-recall/p002",
+          "id": "p002-d04"
+        },
+        {
+          "page": "2026-09-17-full-page-recall/p004",
+          "id": "p004-d02"
+        },
+        {
+          "page": "2026-09-17-full-page-recall/p007",
+          "id": "p007-d02"
+        },
+        {
+          "page": "2026-09-17-full-page-recall/p007",
+          "id": "p007-d03"
+        },
+        {
+          "page": "2026-09-17-full-page-recall/p025",
+          "id": "p025-d03"
+        },
+        {
+          "page": "2026-09-17-full-page-recall/p026",
+          "id": "p026-d01"
+        },
+        {
+          "page": "2026-09-17-action-grammar/c02",
+          "id": "c02-d04"
+        },
+        {
+          "page": "2026-09-17-action-grammar/c02",
+          "id": "c02-d08"
+        },
+        {
+          "page": "2026-09-17-action-grammar/c02",
+          "id": "c02-d09"
+        },
+        {
+          "page": "2026-09-17-action-grammar/c02",
+          "id": "c02-d10"
+        },
+        {
+          "page": "2026-09-17-action-grammar/c04",
+          "id": "c04-d04"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c02",
+          "id": "c02-d07"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c02",
+          "id": "c02-d08"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c03",
+          "id": "c03-d07"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c04",
+          "id": "c04-d03"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c04",
+          "id": "c04-d17"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c04",
+          "id": "c04-d20"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c04",
+          "id": "c04-d22"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c05",
+          "id": "c05-d02"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c05",
+          "id": "c05-d03"
+        },
+        {
+          "page": "2026-09-17-clause-boundaries/c05",
+          "id": "c05-d07"
+        },
+        {
+          "page": "2026-09-17-construction-recall/c02",
+          "id": "c02-d03"
+        },
+        {
+          "page": "2026-09-17-context-recall/c02",
+          "id": "c02-d01"
+        },
+        {
+          "page": "2026-09-17-context-recall/c10",
+          "id": "c10-d02"
+        },
+        {
+          "page": "2026-09-17-discourse-roles/c03",
+          "id": "c03-d01"
+        },
+        {
+          "page": "2026-09-17-discourse-roles/c04",
+          "id": "c04-d06"
+        },
+        {
+          "page": "2026-09-17-discourse-roles/c04",
+          "id": "c04-d13"
+        },
+        {
+          "page": "2026-09-17-discourse-roles/c05",
+          "id": "c05-d06"
+        },
+        {
+          "page": "2026-09-17-instruction-clauses/c02",
+          "id": "c02-d06"
+        },
+        {
+          "page": "2026-09-17-instruction-clauses/c02",
+          "id": "c02-d10"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c02",
+          "id": "c02-d02"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c02",
+          "id": "c02-d03"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c02",
+          "id": "c02-d09"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c05",
+          "id": "c05-d08"
+        },
+        {
+          "page": "2026-09-17-instruction-projection/c05",
+          "id": "c05-d09"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c03",
+          "id": "c03-d01"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c03",
+          "id": "c03-d03"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c07",
+          "id": "c07-d02"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c07",
+          "id": "c07-d03"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c07",
+          "id": "c07-d07"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c08",
+          "id": "c08-d03"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c08",
+          "id": "c08-d14"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c08",
+          "id": "c08-d15"
+        },
+        {
+          "page": "2026-09-17-instruction-recall/c08",
+          "id": "c08-d20"
+        },
+        {
+          "page": "2026-09-17-local-repetition/c02",
+          "id": "c02-d01"
+        },
+        {
+          "page": "2026-09-17-local-repetition/c05",
+          "id": "c05-d10"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c01",
+          "id": "c01-d01"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c02",
+          "id": "c02-d02"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c02",
+          "id": "c02-d03"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c02",
+          "id": "c02-d07"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c05",
+          "id": "c05-d01"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c05",
+          "id": "c05-d11"
+        },
+        {
+          "page": "2026-09-17-proposition-repetition/c05",
+          "id": "c05-d14"
+        },
+        {
+          "page": "2026-09-17-purpose-recall/c02",
+          "id": "c02-d02"
+        },
+        {
+          "page": "2026-09-17-purpose-recall/c05",
+          "id": "c05-d02"
+        },
+        {
+          "page": "2026-09-17-rhetoric-relations/c02",
+          "id": "c02-d03"
+        },
+        {
+          "page": "2026-09-17-rhetoric-relations/c03",
+          "id": "c03-d02"
+        },
+        {
+          "page": "2026-09-17-rhetoric-scope/c03",
+          "id": "c03-d09"
+        },
+        {
+          "page": "2026-09-17-rhetoric-scope/c03",
+          "id": "c03-d10"
+        },
+        {
+          "page": "2026-09-17-rhetoric-scope/c03",
+          "id": "c03-d11"
+        },
+        {
+          "page": "2026-09-17-rhetoric-scope/c03",
+          "id": "c03-d19"
+        },
+        {
+          "page": "2026-09-17-rhetoric-scope/c04",
+          "id": "c04-d07"
+        },
+        {
+          "page": "2026-09-17-rhetoric-scope/c04",
+          "id": "c04-d24"
+        },
+        {
+          "page": "2026-09-17-verb-scaffolding/c03",
+          "id": "c03-d08"
+        },
+        {
+          "page": "2026-09-17-verb-scaffolding/c03",
+          "id": "c03-d10"
+        },
+        {
+          "page": "2026-09-17-verb-scaffolding/c04",
+          "id": "c04-d12"
+        },
+        {
+          "page": "2026-09-18-clause-grammar/c03",
+          "id": "c03-d10"
+        },
+        {
+          "page": "2026-09-18-clause-grammar/c03",
+          "id": "c03-d11"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c01",
+          "id": "c01-d03"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c03",
+          "id": "c03-d01"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d13"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d14"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d15"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d16"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d18"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c07",
+          "id": "c07-d29"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c09",
+          "id": "c09-d01"
+        },
+        {
+          "page": "2026-09-18-discourse-patterns/c11",
+          "id": "c11-d05"
+        },
+        {
+          "page": "2026-09-18-structural-wordiness/c01",
+          "id": "c01-d05"
+        },
+        {
+          "page": "2026-09-18-structural-wordiness/c04",
+          "id": "c04-d01"
+        },
+        {
+          "page": "2026-09-18-structural-wordiness/c09",
+          "id": "c09-d11"
+        }
+      ]
+    }
+  }
+}

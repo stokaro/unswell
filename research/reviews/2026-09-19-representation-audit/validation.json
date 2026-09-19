@@ -1,0 +1,33 @@
+{
+  "status": "local-research-validation",
+  "runtime_changed": false,
+  "checks": [
+    {
+      "command": "CGO_ENABLED=0 go test -count=1 ./internal/representation ./cmd/representationaudit",
+      "directory": "research/annotation",
+      "result": "passed"
+    },
+    {
+      "command": "golangci-lint run --config ../../.golangci.yml ./internal/representation/... ./cmd/representationaudit/...",
+      "directory": "research/annotation",
+      "result": "passed with zero issues"
+    },
+    {
+      "command": "python3 tools/test_evidence.py",
+      "result": "9 tests passed"
+    },
+    {
+      "command": "python3 tools/verify.py",
+      "result": "input reconstruction, source snapshot, report identity, measurements and derived supervision passed"
+    },
+    {
+      "command": "go run ./cmd/repocheck",
+      "directory": "repository root",
+      "result": "passed"
+    }
+  ],
+  "full_make_check": "All required targets passed; see ../2026-09-19-learned-proposals/validation.json for resumed checks and sandbox resource-reporting exception.",
+  "ci": "not run; work remains local",
+  "race_fuzz_coverage": "deferred under issue 123",
+  "limits": "No trained model, new runtime diagnostic, fresh confirmation result or product qualification is claimed."
+}
