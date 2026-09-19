@@ -128,6 +128,11 @@ with the corresponding CLI documents, findings, assessments, suppressions and
 requested measurements.
 Its developer evidence file stores the actual responses in `repository_batches`;
 the public MCP response schema is unchanged. Any mismatched batch fails the check.
+If a batch contains no applicable prose, the self-check uses the discovered
+`fail_on_empty` policy to verify its outcome. An expected empty-scan error stays
+an error in the saved response; its documents and measurements must still match
+the CLI subset. Other errors, missing documents, and unexpected passes fail the
+self-check. The complete CLI scan must pass before batching begins.
 
 The separate [CLI and MCP containers](containers.md) include native architecture
 self-checks and release publication. [MCP Registry publication](mcp-registry.md) and installation

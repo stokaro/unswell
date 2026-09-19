@@ -51,8 +51,8 @@ func documentSizes(expected unswell.RunResult, index int) (requestSize, replySiz
 	}
 	// Count shared metadata once per document as a conservative upper bound.
 	// Serialize individual results to avoid allocating an oversized batch first.
-	reply, err := json.Marshal(server.CheckOutput{Outcome: "pass", Result: normalize(expectedBatch(expected,
-		expected.Documents[index:index+1]))})
+	// Budget the empty-scan error even when policy permits empty scans.
+	reply, err := json.Marshal(batchOutput(expected, expected.Documents[index:index+1], true))
 	if err != nil {
 		return 0, 0, err
 	}

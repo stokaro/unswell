@@ -1,0 +1,390 @@
+FT fold0 initial parity 7.79736749e-06, training 1308, transformer variables 32
+SIGQUIT: quit
+PC=0x18e78d50c m=0 sigcode=0
+
+goroutine 0 gp=0x105705dc0 m=0 mp=0x1057081e0 [idle]:
+runtime.pthread_cond_wait(0x105708748, 0x105708708)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/sys_darwin.go:470 +0x20 fp=0x16b212300 sp=0x16b2122d0 pc=0x104c51d50
+runtime.semasleep(0xffffffffffffffff)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/os_darwin.go:72 +0x9c fp=0x16b212360 sp=0x16b212300 pc=0x104c2eb1c
+runtime.notesleep(0x105708338)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/lock_sema.go:62 +0xac fp=0x16b212390 sp=0x16b212360 pc=0x104c03b8c
+runtime.mPark(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:1985
+runtime.stoplockedm()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:3278 +0x64 fp=0x16b2123f0 sp=0x16b212390 pc=0x104c39224
+runtime.schedule()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:4158 +0x34 fp=0x16b212430 sp=0x16b2123f0 pc=0x104c3bad4
+runtime.park_m(0x386730c7ab40)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:4319 +0x23c fp=0x16b212490 sp=0x16b212430 pc=0x104c3bfac
+runtime.mcall()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:319 +0x54 fp=0x16b2124a0 sp=0x16b212490 pc=0x104c6e144
+
+goroutine 1 gp=0x386730b821e0 m=nil [sync.Cond.Wait, 3 minutes]:
+runtime.gopark(0x38673511e138?, 0x104bfe914?, 0x50?, 0x27?, 0x386738227668?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x38673511e0b0 sp=0x38673511e090 pc=0x104c694f8
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:480
+sync.runtime_notifyListWait(0x386736d90bc0, 0x37b0f)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/sema.go:617 +0x194 fp=0x38673511e100 sp=0x38673511e0b0 pc=0x104c6ad24
+sync.(*Cond).Wait(0x386736d90bb0)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/sync/cond.go:71 +0xa4 fp=0x38673511e130 sp=0x38673511e100 pc=0x104c76ca4
+github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).WaitToStart(0x386736d90ba0, 0x38673822c230)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:102 +0xec fp=0x38673511e170 sp=0x38673511e130 pc=0x104ee316c
+github.com/gomlx/compute/internal/gobackend.(*FunctionExecutable).executeParallel(0x386730c0a630, 0x386736d90b40, 0x38673137b360, 0x0)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/executable.go:421 +0x294 fp=0x38673511e230 sp=0x38673511e170 pc=0x104eeba54
+github.com/gomlx/compute/internal/gobackend.(*FunctionExecutable).Execute(0x386730c0a630, 0x386736d90b40, {0x386736c1f688, 0x88, 0x0?}, {0x386730cc9830?, 0x0?, 0x0?}, {0x0, 0x0, ...}, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/executable.go:238 +0x43c fp=0x38673511e370 sp=0x38673511e230 pc=0x104eeb1ac
+github.com/gomlx/compute/internal/gobackend.(*Executable).Execute(0x386731460780, {0x38673794fb08, 0x88, 0x3867314e1950?}, {0x386730cc9830?, 0x104dc6860?, 0x3867314e1aa0?}, 0x0?)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/exec.go:250 +0x710 fp=0x38673511e650 sp=0x38673511e370 pc=0x104eea120
+github.com/gomlx/gomlx/core/graph.(*Graph).RunWithBuffers(0x386731148d00, {0x38673794fb08, 0x88, 0x8f}, {0x386730cc9830, 0x88, 0x90}, 0x0)
+	/Users/buster/go/pkg/mod/github.com/gomlx/gomlx@v0.28.8/core/graph/graph.go:673 +0x1d4 fp=0x38673511e7d0 sp=0x38673511e650 pc=0x104d91dd4
+github.com/gomlx/gomlx/core/graph.(*Exec).compileAndExecute.func1()
+	/Users/buster/go/pkg/mod/github.com/gomlx/gomlx@v0.28.8/core/graph/exec.go:704 +0x34 fp=0x38673511e830 sp=0x38673511e7d0 pc=0x104dbc764
+github.com/gomlx/gomlx/support/exceptions.TryCatch[...](0x38673794fb08?)
+	/Users/buster/go/pkg/mod/github.com/gomlx/gomlx@v0.28.8/support/exceptions/exceptions.go:91 +0x54 fp=0x38673511e880 sp=0x38673511e830 pc=0x104dbe2d4
+github.com/gomlx/gomlx/core/graph.(*Exec).compileAndExecute(0x386736eb1440, 0x1, 0x0, {0x386737e5f2c0?, 0x0?, 0x0?})
+	/Users/buster/go/pkg/mod/github.com/gomlx/gomlx@v0.28.8/core/graph/exec.go:703 +0x520 fp=0x38673511eb10 sp=0x38673511e880 pc=0x104d6e860
+github.com/gomlx/gomlx/core/graph.(*Exec).CallWithGraphOnDevice(0x386737f938a0?, 0x386730bdb008?, {0x386737e5f2c0?, 0x104dfff1c?, 0x38673511ebb8?})
+	/Users/buster/go/pkg/mod/github.com/gomlx/gomlx@v0.28.8/core/graph/exec.go:432 +0x34 fp=0x38673511eb50 sp=0x38673511eb10 pc=0x104d6d494
+github.com/gomlx/gomlx/core/graph.(*Exec).ExecWithGraphOnDevice(...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/gomlx@v0.28.8/core/graph/exec.go:444
+github.com/gomlx/gomlx/core/graph.(*Exec).CallWithGraph(0x0?, {0x386737e5f2c0?, 0x386730dc5868?, 0x386730dc5860?})
+	/Users/buster/go/pkg/mod/github.com/gomlx/gomlx@v0.28.8/core/graph/execaliases.go:122 +0x30 fp=0x38673511eb90 sp=0x38673511eb50 pc=0x104d70e70
+github.com/gomlx/gomlx/ml/model.(*Exec).CallWithGraph(0x386735b5eb40, {0x386737e5f2c0?, 0x38673511eda0?, 0x3?})
+	/Users/buster/go/pkg/mod/github.com/gomlx/gomlx@v0.28.8/ml/model/exec.go:462 +0x2c fp=0x38673511ec30 sp=0x38673511eb90 pc=0x104dc0a2c
+github.com/gomlx/gomlx/ml/model.(*Exec).Call(...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/gomlx@v0.28.8/ml/model/execaliases.go:85
+github.com/gomlx/gomlx/ml/train.(*Trainer).callGraphFn(0x386736eb0b40, 0x386738122e00, 0x0, 0x386736e6b7d0, {{0x386738142f78, 0x3, 0x3}, {0x386737e75660, 0x1, 0x1}, ...})
+	/Users/buster/go/pkg/mod/github.com/gomlx/gomlx@v0.28.8/ml/train/trainer.go:625 +0x428 fp=0x38673511edd0 sp=0x38673511ec30 pc=0x104e00088
+github.com/gomlx/gomlx/ml/train.(*Trainer).TrainStep(0x386736eb0b40, {{0x386738142f78, 0x3, 0x3}, {0x386737e75660, 0x1, 0x1}, {0x0, 0x0}})
+	/Users/buster/go/pkg/mod/github.com/gomlx/gomlx@v0.28.8/ml/train/trainer.go:799 +0x9c fp=0x38673511ee40 sp=0x38673511edd0 pc=0x104e0046c
+main.trainEpoch({0x10567afd8, 0x386737c6a000}, 0x386736d900c0, {0x386732672000, 0x7436, 0x7dcc}, {0x386732c0a000, 0x51c, 0x550})
+	/private/tmp/unswell-context-encoder/supervised/fit.go:187 +0x29c fp=0x38673511ef60 sp=0x38673511ee40 pc=0x1050c835c
+main.fit({_, _}, {_, {_, _}, {_, _, _}}, {0x0, {{0x386730cb6800, ...}, ...}, ...}, ...)
+	/private/tmp/unswell-context-encoder/supervised/fit.go:81 +0x1190 fp=0x38673511f800 sp=0x38673511ef60 pc=0x1050c72b0
+main.run()
+	/private/tmp/unswell-context-encoder/supervised/main.go:178 +0x6e4 fp=0x38673511fe50 sp=0x38673511f800 pc=0x1050c96c4
+main.main()
+	/private/tmp/unswell-context-encoder/supervised/main.go:107 +0x1c fp=0x38673511fea0 sp=0x38673511fe50 pc=0x1050c8e4c
+runtime.main()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:302 +0x380 fp=0x38673511ffd0 sp=0x38673511fea0 pc=0x104c34030
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x38673511ffd0 sp=0x38673511ffd0 pc=0x104c70114
+
+goroutine 2 gp=0x386730b82780 m=nil [force gc (idle), 3 minutes]:
+runtime.gopark(0x648df40ff8601?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x386730bd6f90 sp=0x386730bd6f70 pc=0x104c694f8
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:480
+runtime.forcegchelper()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:387 +0xb4 fp=0x386730bd6fd0 sp=0x386730bd6f90 pc=0x104c34314
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386730bd6fd0 sp=0x386730bd6fd0 pc=0x104c70114
+created by runtime.init.7 in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:375 +0x24
+
+goroutine 3 gp=0x386730b82d20 m=nil [GC sweep wait]:
+runtime.gopark(0x1?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x386730bd7770 sp=0x386730bd7750 pc=0x104c694f8
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:480
+runtime.bgsweep(0x386730ba6080)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgcsweep.go:324 +0x178 fp=0x386730bd77b0 sp=0x386730bd7770 pc=0x104c1fed8
+runtime.gcenable.gowrap1()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgc.go:214 +0x20 fp=0x386730bd77d0 sp=0x386730bd77b0 pc=0x104c60590
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386730bd77d0 sp=0x386730bd77d0 pc=0x104c70114
+created by runtime.gcenable in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgc.go:214 +0x6c
+
+goroutine 4 gp=0x386730b82f00 m=nil [GC scavenge wait]:
+runtime.gopark(0x10000?, 0x19dedc?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x386730bd7f60 sp=0x386730bd7f40 pc=0x104c694f8
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:480
+runtime.(*scavengerState).park(0x105705740)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgcscavenge.go:425 +0x5c fp=0x386730bd7f90 sp=0x386730bd7f60 pc=0x104c1da5c
+runtime.bgscavenge(0x386730ba6080)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgcscavenge.go:658 +0xac fp=0x386730bd7fb0 sp=0x386730bd7f90 pc=0x104c1dfec
+runtime.gcenable.gowrap2()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgc.go:215 +0x20 fp=0x386730bd7fd0 sp=0x386730bd7fb0 pc=0x104c60550
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386730bd7fd0 sp=0x386730bd7fd0 pc=0x104c70114
+created by runtime.gcenable in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgc.go:215 +0xac
+
+goroutine 5 gp=0x386730b834a0 m=nil [GOMAXPROCS updater (idle), 4 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x386730bd6770 sp=0x386730bd6750 pc=0x104c694f8
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:480
+runtime.updateMaxProcsGoroutine()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:7146 +0xf4 fp=0x386730bd67d0 sp=0x386730bd6770 pc=0x104c41ac4
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386730bd67d0 sp=0x386730bd67d0 pc=0x104c70114
+created by runtime.defaultGOMAXPROCSUpdateEnable in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:7134 +0x48
+
+goroutine 6 gp=0x386730b83680 m=nil [finalizer wait, 4 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x386730bd8580 sp=0x386730bd8560 pc=0x104c694f8
+runtime.runFinalizers()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mfinal.go:210 +0x100 fp=0x386730bd87d0 sp=0x386730bd8580 pc=0x104c10ff0
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386730bd87d0 sp=0x386730bd87d0 pc=0x104c70114
+created by runtime.createfing in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mfinal.go:172 +0x78
+
+goroutine 7 gp=0x386730c7a1e0 m=nil [cleanup wait, 4 minutes]:
+runtime.gopark(0x0?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x386730bd8f50 sp=0x386730bd8f30 pc=0x104c694f8
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:480
+runtime.(*cleanupQueue).dequeue(0x105705c00)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mcleanup.go:522 +0x160 fp=0x386730bd8f90 sp=0x386730bd8f50 pc=0x104c0dfd0
+runtime.runCleanups()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mcleanup.go:718 +0x40 fp=0x386730bd8fd0 sp=0x386730bd8f90 pc=0x104c0e720
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386730bd8fd0 sp=0x386730bd8fd0 pc=0x104c70114
+created by runtime.(*cleanupQueue).createGs in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mcleanup.go:672 +0x108
+
+goroutine 8 gp=0x386730c7a3c0 m=nil [GC worker (idle)]:
+runtime.gopark(0x648df4185fe52?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x386736f44f20 sp=0x386736f44f00 pc=0x104c694f8
+runtime.gcBgMarkWorker(0x386730bb2150)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgc.go:1807 +0xe0 fp=0x386736f44fb0 sp=0x386736f44f20 pc=0x104c142d0
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgc.go:1711 +0x20 fp=0x386736f44fd0 sp=0x386736f44fb0 pc=0x104c60ac0
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386736f44fd0 sp=0x386736f44fd0 pc=0x104c70114
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgc.go:1711 +0x130
+
+goroutine 9 gp=0x386730c7a5a0 m=nil [GC worker (idle)]:
+runtime.gopark(0x648df418635fc?, 0x0?, 0x0?, 0x0?, 0x0?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x386736f48f20 sp=0x386736f48f00 pc=0x104c694f8
+runtime.gcBgMarkWorker(0x386730bb2150)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgc.go:1807 +0xe0 fp=0x386736f48fb0 sp=0x386736f48f20 pc=0x104c142d0
+runtime.gcBgMarkStartWorkers.gowrap1()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgc.go:1711 +0x20 fp=0x386736f48fd0 sp=0x386736f48fb0 pc=0x104c60ac0
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386736f48fd0 sp=0x386736f48fd0 pc=0x104c70114
+created by runtime.gcBgMarkStartWorkers in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/mgc.go:1711 +0x130
+
+goroutine 10 gp=0x386730c7ab40 m=nil [select, 4 minutes, locked to thread]:
+runtime.gopark(0x386730bd27a0?, 0x2?, 0xa8?, 0x26?, 0x386730bd2790?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x386730bd2610 sp=0x386730bd25f0 pc=0x104c694f8
+runtime.selectgo(0x386730bd27a0, 0x386730bd278c, 0x0?, 0x0, 0x0?, 0x1)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/select.go:351 +0x838 fp=0x386730bd2750 sp=0x386730bd2610 pc=0x104c466e8
+runtime.ensureSigM.func1()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/signal_unix.go:1093 +0x144 fp=0x386730bd27d0 sp=0x386730bd2750 pc=0x104c640f4
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386730bd27d0 sp=0x386730bd27d0 pc=0x104c70114
+created by runtime.ensureSigM in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/signal_unix.go:1076 +0xcc
+
+goroutine 17 gp=0x386737c5e000 m=4 mp=0x386730bdb808 [syscall, 4 minutes]:
+runtime.sigNoteSleep(0x0?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/os_darwin.go:133 +0x20 fp=0x386737c64790 sp=0x386737c64750 pc=0x104c2ed90
+os/signal.signal_recv()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/sigqueue.go:149 +0x104 fp=0x386737c647b0 sp=0x386737c64790 pc=0x104c6b554
+os/signal.loop()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/os/signal/signal_unix.go:23 +0x1c fp=0x386737c647d0 sp=0x386737c647b0 pc=0x104e0245c
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386737c647d0 sp=0x386737c647d0 pc=0x104c70114
+created by os/signal.Notify.func2.1 in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/os/signal/signal.go:164 +0x28
+
+goroutine 18 gp=0x386737c5e1e0 m=nil [select, 4 minutes]:
+runtime.gopark(0x386737c64f90?, 0x2?, 0x0?, 0x0?, 0x386737c64f84?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x386737c64e00 sp=0x386737c64de0 pc=0x104c694f8
+runtime.selectgo(0x386737c64f90, 0x386737c64f80, 0x0?, 0x0, 0x0?, 0x1)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/select.go:351 +0x838 fp=0x386737c64f40 sp=0x386737c64e00 pc=0x104c466e8
+os/signal.NotifyContext.func1()
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/os/signal/signal.go:304 +0x74 fp=0x386737c64fd0 sp=0x386737c64f40 pc=0x104e02854
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386737c64fd0 sp=0x386737c64fd0 pc=0x104c70114
+created by os/signal.NotifyContext in goroutine 1
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/os/signal/signal.go:303 +0x144
+
+goroutine 506232 gp=0x386737c5ed20 m=nil [sync.Cond.Wait, 3 minutes]:
+runtime.gopark(0x386732c6c538?, 0x386730bdb008?, 0x50?, 0x27?, 0x386738227608?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x386732c6c520 sp=0x386732c6c500 pc=0x104c694f8
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:480
+sync.runtime_notifyListWait(0x386736d90bc0, 0x37b0e)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/sema.go:617 +0x194 fp=0x386732c6c570 sp=0x386732c6c520 pc=0x104c6ad24
+sync.(*Cond).Wait(0x386736d90bb0)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/sync/cond.go:71 +0xa4 fp=0x386732c6c5a0 sp=0x386732c6c570 pc=0x104c76ca4
+github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).Saturate(0x386736d90ba0, 0x38673813b4a0)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:167 +0x1f8 fp=0x386732c6c610 sp=0x386732c6c5a0 pc=0x104ee3498
+github.com/gomlx/compute/internal/gobackend/dot/matmul.largeNoSIMDGeneric[...](0x386736d90b40, 0x1, {0x38673ddee000, 0x20000, 0x20000}, {0x386740a9e000, 0x10000, 0x10000}, 0x8, 0x80, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/matmul/nosimd_large.go:79 +0x404 fp=0x386732c6c810 sp=0x386732c6c610 pc=0x105023204
+github.com/gomlx/compute/internal/gobackend/dot/matmul.noSIMDRouter[...](0x386736d90b40, 0x1, {0x38673ddee000, 0x20000, 0x20000}, {0x386740a9e000, 0x10000, 0x10000}, 0x8, 0x80, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/matmul/nosimd_router.go:89 +0x528 fp=0x386732c6c8c0 sp=0x386732c6c810 pc=0x105022d98
+github.com/gomlx/compute/internal/gobackend/dot/matmul.noSIMDRouter[...](0x104ee4730?, {0x38673ddee000?, 0x104d32c2c?, 0x386732c6c9c8?}, {0x386740a9e000?, 0x38673a606000?, 0x10000?}, 0x10000?, 0x104c77184?, 0x386732c6c9f8?, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/matmul/nosimd_router.go:20 +0x70 fp=0x386732c6c950 sp=0x386732c6c8c0 pc=0x105024a20
+github.com/gomlx/compute/internal/gobackend/dot.callImplementationGeneric[...](0x386737dcb950?, {0x105619898?, 0x105681cc0?}, 0x386737dcb950?, {0x1055a2510?, 0x386738213308?}, {0x1055a2510?, 0x386738302d50?}, {0x1055a2510?, 0x38673831d5d8?}, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/registration.go:167 +0xbc fp=0x386732c6c9e0 sp=0x386732c6c950 pc=0x104f1551c
+github.com/gomlx/compute/internal/gobackend/dot.callImplementationGeneric[...]({0x105619898?, 0x105681cc0?}, 0x0?, {0x1055a2510?, 0x386738213308?}, {0x1055a2510?, 0x386738302d50?}, {0x1055a2510?, 0x38673831d5d8?}, 0x0?, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/registration.go:155 +0x80 fp=0x386732c6ca70 sp=0x386732c6c9e0 pc=0x104f15650
+github.com/gomlx/compute/internal/gobackend/dot.CallRegisteredImplementation(0x386736d90b40, 0x10000000b?, 0x386731c1c0a8?, 0x3?, 0x3?, 0x3867322132c0)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/registration.go:140 +0xd8 fp=0x386732c6cb50 sp=0x386732c6ca70 pc=0x104f146f8
+github.com/gomlx/compute/internal/gobackend/dot.execDotGeneral(0x386736d90b40, 0x386735b3c480?, {0x386738123c00?, 0x0?, 0x386732c6cca8?}, {0x38673821ee3e?, 0x386736d90b40?, 0x105571090?})
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/dot.go:424 +0x9c fp=0x386732c6cc10 sp=0x386732c6cb50 pc=0x104f11d9c
+github.com/gomlx/compute/internal/gobackend.(*FunctionExecutable).executeNode(0x386730c0a630, 0x386736d90b40, 0x38673205d770, 0x38673137b360, 0x1?)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/executable.go:593 +0x498 fp=0x386732c6cec0 sp=0x386732c6cc10 pc=0x104eec0b8
+github.com/gomlx/compute/internal/gobackend.(*FunctionExecutable).executeParallel.func3()
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/executable.go:414 +0xf4 fp=0x386732c6cf90 sp=0x386732c6cec0 pc=0x104ef6604
+github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).lockedRunTaskInGoroutine.func1()
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:113 +0x28 fp=0x386732c6cfd0 sp=0x386732c6cf90 pc=0x104ee35c8
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386732c6cfd0 sp=0x386732c6cfd0 pc=0x104c70114
+created by github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).lockedRunTaskInGoroutine in goroutine 1
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:112 +0x7c
+
+goroutine 506253 gp=0x3867354ed0e0 m=nil [sync.Cond.Wait, 3 minutes]:
+runtime.gopark(0x386732c6d538?, 0x386730bdb008?, 0x50?, 0x27?, 0x3867382275a8?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x386732c6d520 sp=0x386732c6d500 pc=0x104c694f8
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:480
+sync.runtime_notifyListWait(0x386736d90bc0, 0x37b0d)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/sema.go:617 +0x194 fp=0x386732c6d570 sp=0x386732c6d520 pc=0x104c6ad24
+sync.(*Cond).Wait(0x386736d90bb0)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/sync/cond.go:71 +0xa4 fp=0x386732c6d5a0 sp=0x386732c6d570 pc=0x104c76ca4
+github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).Saturate(0x386736d90ba0, 0x38673813b3f0)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:167 +0x1f8 fp=0x386732c6d610 sp=0x386732c6d5a0 pc=0x104ee3498
+github.com/gomlx/compute/internal/gobackend/dot/matmul.largeNoSIMDGeneric[...](0x386736d90b40, 0x1, {0x386740ade000, 0x10000, 0x10000}, {0x38673ca04000, 0x4000, 0x4000}, 0x1, 0x200, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/matmul/nosimd_large.go:79 +0x404 fp=0x386732c6d810 sp=0x386732c6d610 pc=0x105023204
+github.com/gomlx/compute/internal/gobackend/dot/matmul.noSIMDRouter[...](0x386736d90b40, 0x1, {0x386740ade000, 0x10000, 0x10000}, {0x38673ca04000, 0x4000, 0x4000}, 0x1, 0x200, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/matmul/nosimd_router.go:89 +0x528 fp=0x386732c6d8c0 sp=0x386732c6d810 pc=0x105022d98
+github.com/gomlx/compute/internal/gobackend/dot/matmul.noSIMDRouter[...](0x104ee4730?, {0x386740ade000?, 0x104d32c2c?, 0x386732c6d9c8?}, {0x38673ca04000?, 0x38673e96e000?, 0x10000?}, 0x10000?, 0x104c77184?, 0x386732c6d9f8?, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/matmul/nosimd_router.go:20 +0x70 fp=0x386732c6d950 sp=0x386732c6d8c0 pc=0x105024a20
+github.com/gomlx/compute/internal/gobackend/dot.callImplementationGeneric[...](0x386737dcecf0?, {0x105619898?, 0x105681cc0?}, 0x386737dcecf0?, {0x1055a2510?, 0x38673831d4b8?}, {0x1055a2510?, 0x38673812cd38?}, {0x1055a2510?, 0x38673831d5a8?}, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/registration.go:167 +0xbc fp=0x386732c6d9e0 sp=0x386732c6d950 pc=0x104f1551c
+github.com/gomlx/compute/internal/gobackend/dot.callImplementationGeneric[...]({0x105619898?, 0x105681cc0?}, 0x104f50d6c?, {0x1055a2510?, 0x38673831d4b8?}, {0x1055a2510?, 0x38673812cd38?}, {0x1055a2510?, 0x38673831d5a8?}, 0x0?, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/registration.go:155 +0x80 fp=0x386732c6da70 sp=0x386732c6d9e0 pc=0x104f15650
+github.com/gomlx/compute/internal/gobackend/dot.CallRegisteredImplementation(0x386736d90b40, 0x10000000b?, 0x386731f29e60?, 0x3?, 0x3?, 0x386732213180)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/registration.go:140 +0xd8 fp=0x386732c6db50 sp=0x386732c6da70 pc=0x104f146f8
+github.com/gomlx/compute/internal/gobackend/dot.execDotGeneral(0x386736d90b40, 0x386738165cb0?, {0x386738123bf0?, 0x0?, 0x386732c6dca8?}, {0x104bfe36c?, 0x386736d90b40?, 0x105571090?})
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/dot.go:424 +0x9c fp=0x386732c6dc10 sp=0x386732c6db50 pc=0x104f11d9c
+github.com/gomlx/compute/internal/gobackend.(*FunctionExecutable).executeNode(0x386730c0a630, 0x386736d90b40, 0x386731c7dc20, 0x38673137b360, 0x386732c6def8?)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/executable.go:593 +0x498 fp=0x386732c6dec0 sp=0x386732c6dc10 pc=0x104eec0b8
+github.com/gomlx/compute/internal/gobackend.(*FunctionExecutable).executeParallel.func3()
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/executable.go:414 +0xf4 fp=0x386732c6df90 sp=0x386732c6dec0 pc=0x104ef6604
+github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).lockedRunTaskInGoroutine.func1()
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:113 +0x28 fp=0x386732c6dfd0 sp=0x386732c6df90 pc=0x104ee35c8
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x386732c6dfd0 sp=0x386732c6dfd0 pc=0x104c70114
+created by github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).lockedRunTaskInGoroutine in goroutine 1
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:112 +0x7c
+
+goroutine 506256 gp=0x3867354ed680 m=nil [sync.Cond.Wait, 3 minutes]:
+runtime.gopark(0x3867383c2538?, 0x386730bdb008?, 0x50?, 0x27?, 0x386738227548?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x3867383c2520 sp=0x3867383c2500 pc=0x104c694f8
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:480
+sync.runtime_notifyListWait(0x386736d90bc0, 0x37b0c)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/sema.go:617 +0x194 fp=0x3867383c2570 sp=0x3867383c2520 pc=0x104c6ad24
+sync.(*Cond).Wait(0x386736d90bb0)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/sync/cond.go:71 +0xa4 fp=0x3867383c25a0 sp=0x3867383c2570 pc=0x104c76ca4
+github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).Saturate(0x386736d90ba0, 0x38673813b340)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:167 +0x1f8 fp=0x3867383c2610 sp=0x3867383c25a0 pc=0x104ee3498
+github.com/gomlx/compute/internal/gobackend/dot/matmul.largeNoSIMDGeneric[...](0x386736d90b40, 0x1, {0x386742e36000, 0x20000, 0x20000}, {0x3867349fe000, 0x10000, 0x10000}, 0x8, 0x80, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/matmul/nosimd_large.go:79 +0x404 fp=0x3867383c2810 sp=0x3867383c2610 pc=0x105023204
+github.com/gomlx/compute/internal/gobackend/dot/matmul.noSIMDRouter[...](0x386736d90b40, 0x1, {0x386742e36000, 0x20000, 0x20000}, {0x3867349fe000, 0x10000, 0x10000}, 0x8, 0x80, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/matmul/nosimd_router.go:89 +0x528 fp=0x3867383c28c0 sp=0x3867383c2810 pc=0x105022d98
+github.com/gomlx/compute/internal/gobackend/dot/matmul.noSIMDRouter[...](0x104ee4730?, {0x386742e36000?, 0x104d32c2c?, 0x3867383c29c8?}, {0x3867349fe000?, 0x38673deae000?, 0x10000?}, 0x10000?, 0x104c77184?, 0x3867383c29f8?, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/matmul/nosimd_router.go:20 +0x70 fp=0x3867383c2950 sp=0x3867383c28c0 pc=0x105024a20
+github.com/gomlx/compute/internal/gobackend/dot.callImplementationGeneric[...](0x386738027b90?, {0x105619898?, 0x105681cc0?}, 0x386738027b90?, {0x1055a2510?, 0x3867382274e8?}, {0x1055a2510?, 0x3867382131d0?}, {0x1055a2510?, 0x38673831d578?}, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/registration.go:167 +0xbc fp=0x3867383c29e0 sp=0x3867383c2950 pc=0x104f1551c
+github.com/gomlx/compute/internal/gobackend/dot.callImplementationGeneric[...]({0x105619898?, 0x105681cc0?}, 0x104f4a308?, {0x1055a2510?, 0x3867382274e8?}, {0x1055a2510?, 0x3867382131d0?}, {0x1055a2510?, 0x38673831d578?}, 0x0?, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/registration.go:155 +0x80 fp=0x3867383c2a70 sp=0x3867383c29e0 pc=0x104f15650
+github.com/gomlx/compute/internal/gobackend/dot.CallRegisteredImplementation(0x386736d90b40, 0x10000000b?, 0x386731c1c1b0?, 0x3?, 0x3?, 0x386732213360)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/registration.go:140 +0xd8 fp=0x3867383c2b50 sp=0x3867383c2a70 pc=0x104f146f8
+github.com/gomlx/compute/internal/gobackend/dot.execDotGeneral(0x386736d90b40, 0x386731c7d950?, {0x386738123be0?, 0x0?, 0x3867383c2ca8?}, {0x38673837c169?, 0x386736d90b40?, 0x105571090?})
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/dot.go:424 +0x9c fp=0x3867383c2c10 sp=0x3867383c2b50 pc=0x104f11d9c
+github.com/gomlx/compute/internal/gobackend.(*FunctionExecutable).executeNode(0x386730c0a630, 0x386736d90b40, 0x38673205dc20, 0x38673137b360, 0x3867383c2ef8?)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/executable.go:593 +0x498 fp=0x3867383c2ec0 sp=0x3867383c2c10 pc=0x104eec0b8
+github.com/gomlx/compute/internal/gobackend.(*FunctionExecutable).executeParallel.func3()
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/executable.go:414 +0xf4 fp=0x3867383c2f90 sp=0x3867383c2ec0 pc=0x104ef6604
+github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).lockedRunTaskInGoroutine.func1()
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:113 +0x28 fp=0x3867383c2fd0 sp=0x3867383c2f90 pc=0x104ee35c8
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x3867383c2fd0 sp=0x3867383c2fd0 pc=0x104c70114
+created by github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).lockedRunTaskInGoroutine in goroutine 1
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:112 +0x7c
+
+goroutine 506240 gp=0x386730f0eb40 m=nil [sync.Cond.Wait, 3 minutes]:
+runtime.gopark(0x3867383c3548?, 0x104c05d08?, 0x68?, 0x35?, 0x104c0671c?)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:474 +0xb8 fp=0x3867383c3520 sp=0x3867383c3500 pc=0x104c694f8
+runtime.goparkunlock(...)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/proc.go:480
+sync.runtime_notifyListWait(0x386736d90bc0, 0x37b10)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/sema.go:617 +0x194 fp=0x3867383c3570 sp=0x3867383c3520 pc=0x104c6ad24
+sync.(*Cond).Wait(0x386736d90bb0)
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/sync/cond.go:71 +0xa4 fp=0x3867383c35a0 sp=0x3867383c3570 pc=0x104c76ca4
+github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).Saturate(0x386736d90ba0, 0x3867380738c0)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:167 +0x1f8 fp=0x3867383c3610 sp=0x3867383c35a0 pc=0x104ee3498
+github.com/gomlx/compute/internal/gobackend/dot/matmul.largeNoSIMDGeneric[...](0x386736d90b40, 0x1, {0x38673ca64000, 0x10000, 0x10000}, {0x386740a5e000, 0x10000, 0x10000}, 0x1, 0x80, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/matmul/nosimd_large.go:79 +0x404 fp=0x3867383c3810 sp=0x3867383c3610 pc=0x105023204
+github.com/gomlx/compute/internal/gobackend/dot/matmul.noSIMDRouter[...](0x386736d90b40, 0x1, {0x38673ca64000, 0x10000, 0x10000}, {0x386740a5e000, 0x10000, 0x10000}, 0x1, 0x80, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/matmul/nosimd_router.go:89 +0x528 fp=0x3867383c38c0 sp=0x3867383c3810 pc=0x105022d98
+github.com/gomlx/compute/internal/gobackend/dot/matmul.noSIMDRouter[...](0x104ee4730?, {0x38673ca64000?, 0x104d32c2c?, 0x3867383c39c8?}, {0x386740a5e000?, 0x3867358da000?, 0x4000?}, 0x4000?, 0x104c77150?, 0x3867383c39f8?, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/matmul/nosimd_router.go:20 +0x70 fp=0x3867383c3950 sp=0x3867383c38c0 pc=0x105024a20
+github.com/gomlx/compute/internal/gobackend/dot.callImplementationGeneric[...](0x3867380b3320?, {0x105619898?, 0x105681cc0?}, 0x3867380b3320?, {0x1055a2510?, 0x386738227518?}, {0x1055a2510?, 0x386738212fa8?}, {0x1055a2510?, 0x386738227680?}, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/registration.go:167 +0xbc fp=0x3867383c39e0 sp=0x3867383c3950 pc=0x104f1551c
+github.com/gomlx/compute/internal/gobackend/dot.callImplementationGeneric[...]({0x105619898?, 0x105681cc0?}, 0x105018f40?, {0x1055a2510?, 0x386738227518?}, {0x1055a2510?, 0x386738212fa8?}, {0x1055a2510?, 0x386738227680?}, 0x0?, ...)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/registration.go:155 +0x80 fp=0x3867383c3a70 sp=0x3867383c39e0 pc=0x104f15650
+github.com/gomlx/compute/internal/gobackend/dot.CallRegisteredImplementation(0x386736d90b40, 0x10000000b?, 0x386731f29ef0?, 0x3?, 0x3?, 0x386732213220)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/registration.go:140 +0xd8 fp=0x3867383c3b50 sp=0x3867383c3a70 pc=0x104f146f8
+github.com/gomlx/compute/internal/gobackend/dot.execDotGeneral(0x386736d90b40, 0x105571090?, {0x3867381ed350?, 0x0?, 0x3867383c3c88?}, {0x10500d0e4?, 0x386736d90b40?, 0x105571090?})
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/dot/dot.go:424 +0x9c fp=0x3867383c3c10 sp=0x3867383c3b50 pc=0x104f11d9c
+github.com/gomlx/compute/internal/gobackend.(*FunctionExecutable).executeNode(0x386730c0a630, 0x386736d90b40, 0x38673209ee10, 0x38673137b360, 0x3867383c3ef8?)
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/executable.go:593 +0x498 fp=0x3867383c3ec0 sp=0x3867383c3c10 pc=0x104eec0b8
+github.com/gomlx/compute/internal/gobackend.(*FunctionExecutable).executeParallel.func3()
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/executable.go:414 +0xf4 fp=0x3867383c3f90 sp=0x3867383c3ec0 pc=0x104ef6604
+github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).lockedRunTaskInGoroutine.func1()
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:113 +0x28 fp=0x3867383c3fd0 sp=0x3867383c3f90 pc=0x104ee35c8
+runtime.goexit({})
+	/opt/homebrew/Cellar/go/1.27.1/libexec/src/runtime/asm_arm64.s:1039 +0x4 fp=0x3867383c3fd0 sp=0x3867383c3fd0 pc=0x104c70114
+created by github.com/gomlx/compute/internal/gobackend/workerspool.(*Pool).lockedRunTaskInGoroutine in goroutine 1
+	/Users/buster/go/pkg/mod/github.com/gomlx/compute@v0.1.6/internal/gobackend/workerspool/workerspool.go:112 +0x7c
+
+r0      0x104
+r1      0x0
+r2      0xb00
+r3      0x0
+r4      0x0
+r5      0xa0
+r6      0x0
+r7      0x0
+r8      0x16b2121e8
+r9      0x0
+r10     0x0
+r11     0x2
+r12     0x2
+r13     0x0
+r14     0x0
+r15     0x0
+r16     0x131
+r17     0x1fbf8afb8
+r18     0x0
+r19     0x105708708
+r20     0x105708748
+r21     0x1fa94df60
+r22     0x0
+r23     0x0
+r24     0xb00
+r25     0xb01
+r26     0xc00
+r27     0x1056db000
+r28     0x105705dc0
+r29     0x16b212260
+lr      0x18e7ce128
+sp      0x16b2121d0
+pc      0x18e78d50c
+fault   0x18e78d50c

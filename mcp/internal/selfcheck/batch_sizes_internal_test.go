@@ -68,7 +68,7 @@ func assertFramesFit(t *testing.T, expected unswell.RunResult, documents []unswe
 		"params": mcp.CallToolParams{Name: "unswell_check", Arguments: input}})
 	c.Assert(err, qt.IsNil)
 	c.Assert(len(request)+1 <= limit, qt.IsTrue)
-	output, err := json.Marshal(server.CheckOutput{Outcome: "pass", Result: normalize(expectedBatch(expected, documents))})
+	output, err := json.Marshal(batchOutput(expected, documents, true))
 	c.Assert(err, qt.IsNil)
 	result := mcp.CallToolResult{StructuredContent: json.RawMessage(output), Content: []mcp.Content{&mcp.TextContent{Text: string(output)}}}
 	reply, err := json.Marshal(map[string]any{"jsonrpc": "2.0", "id": 1, "result": result})
