@@ -72,6 +72,7 @@ type fitted struct {
 	Options        model.FitOptions `json:"options"`
 	Iterations     int              `json:"iterations"`
 	Operations     int64            `json:"operations"`
+	Gradient       float64          `json:"gradient_norm,omitempty"`
 	OperatingPoint operatingPoint   `json:"operating_point"`
 	Predictions    []prediction     `json:"predictions"`
 }

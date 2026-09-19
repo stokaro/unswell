@@ -50,10 +50,10 @@ def retrieval_counts(events):
                 coverage=fraction(sum(e['retrieved'] for e in events),len(events)))
 
 
-def summarize(report, audit, plan):
+def summarize(report, audit, plan, kinds=('L','S','W','SW')):
     folds = {page['id']:page['fold'] for page in plan['pages']}
     models = {}
-    for kind in ('L','S','W','SW'):
+    for kind in kinds:
         fitted = [m for m in report['models'] if m['kind'] == kind]
         predictions = [p for m in fitted for p in m['predictions']]
         selected = {(p['page'],p['unit']) for p in predictions if p['selected']}

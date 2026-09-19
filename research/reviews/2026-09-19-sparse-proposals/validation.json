@@ -1,0 +1,58 @@
+{
+  "status": "all-required-local-targets-passed",
+  "artifact_verification": {
+    "status": "verified",
+    "pages": 157,
+    "groups": 146,
+    "models": 15,
+    "input_json_sha256": "6ba0f1335d704ae58d4caa39861083a02e629aec22ecea169475c73d1ad675fd",
+    "predictions_sha256": "2fcbce4bc04b094a26f5f0aa1c15005e32f2f456bedd79e8d43ba7bc192d6004",
+    "rerun_binary_sha256": "d7c129ab86fc9c20f1ac58d536191f594ad6276193c2138853388a29e6d1a31c",
+    "repeated_fit": "byte-identical"
+  },
+  "checks": [
+    {
+      "command": "make check",
+      "result": "policy, tidy, all module tests, lint, shell policies, schema, CLI dogfood and MCP parity passed; macOS sandbox blocked time resource reporting"
+    },
+    {
+      "command": "make check-performance check-research-cost check-reproducible",
+      "result": "passed outside sandbox; six target binaries reproduced byte for byte"
+    },
+    {
+      "command": "python3 -m unittest discover -s research/reviews/2026-09-19-sparse-proposals/tools",
+      "result": "four evidence tests passed"
+    },
+    {
+      "command": "python3 -m unittest discover -s research/reviews/2026-09-19-learned-proposals/tools",
+      "result": "five shared-verifier regression tests passed; original dense artifacts reverified unchanged"
+    }
+  ],
+  "race_fuzz_coverage": "deferred under issue 123",
+  "ci": "not yet published",
+  "source_note": "Archived trainer includes the tests as executed before measurement; the current numerical assertion additionally checks the exact 1e-8 convergence contract. Production training sources are unchanged.",
+  "artifact_checks": {
+    "status": "verified",
+    "pages": 157,
+    "groups": 146,
+    "models": 15,
+    "input_json_sha256": "6ba0f1335d704ae58d4caa39861083a02e629aec22ecea169475c73d1ad675fd",
+    "predictions_sha256": "2fcbce4bc04b094a26f5f0aa1c15005e32f2f456bedd79e8d43ba7bc192d6004",
+    "rerun_binary_sha256": null,
+    "repeated_fit": "not-run"
+  },
+  "dogfood": {
+    "documents": 1148,
+    "findings": 988,
+    "gate": {
+      "passed": true,
+      "reasons": []
+    },
+    "mcp_batches": 63,
+    "mcp_probes": 8
+  },
+  "logs": {
+    "sparse-make-check.log": "877a115b11cc2016268141d7db26ec958445c78b2d10468b7645ade422dc4949",
+    "sparse-resource-check.log": "ce47558e0824f5b01572fb342a59b810149453f900c67441bdc1d25836cbdcab"
+  }
+}
