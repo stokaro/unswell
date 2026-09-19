@@ -1,6 +1,6 @@
 {
   "schema": "unswell-docs-rules-catalog-v1",
-  "rule_count": 55,
+  "rule_count": 56,
   "families": [
     {
       "name": "density",
@@ -203,6 +203,25 @@
           "summary": "Consider expressing the action or frequency without this support noun.",
           "description": "An inflected make followed by use of an operand, an instrumental by/through/with the use of construction, or a frequency or execution-mode modifier carried by basis or manner. Modified use nouns, legal use restrictions, quantities and unrelated nominal subjects do not match. Reports complete matched clauses, once per clause.",
           "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
+        },
+        {
+          "id": "filler.numbered-section-framing",
+          "version": "1",
+          "status": "experimental",
+          "group": "rhetorical-patterns",
+          "scope": "document",
+          "contexts": [
+            "heading",
+            "paragraph"
+          ],
+          "enabled": true,
+          "severity": "warning",
+          "gate": "none",
+          "weight": 12,
+          "cap": 24,
+          "summary": "The introduction and heading emphasize a count instead of naming the section's subject.",
+          "description": "A paragraph opens with a count and a generic content noun; the next heading repeats only that count and noun. Reports the opening clause and the related heading. Code, lists, intervening paragraphs, and excluded content break the pair.",
+          "limitations": "An experimental editorial warning, not an authorship detector or a count consistency check. Recognizes two through twenty in words and 2 through 99 in digits. Limited to lines, steps, rules, points, things, ways, and tips. Explicit requirement and negation cues are excluded. The rule cannot establish whether an unstated count is technically necessary. Opening sentences are limited to 96 tokens, matched clauses to 48, and headings to four. A named task in the heading, a standalone numerical hook, and nonadjacent headings are outside its scope."
         },
         {
           "id": "filler.section-announcement",

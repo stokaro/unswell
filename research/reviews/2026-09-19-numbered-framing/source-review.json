@@ -1,0 +1,96 @@
+{
+  "reviewer": "Codex assistant; maintainer-accepted review under ADR0041, not independent human annotation",
+  "scope": "Count-centered prose introductions and headings only. All four complete stored pages were read before implementation. This is not an all-defect quality audit.",
+  "frozen_at": "2026-09-19T13:46:15.132893+00:00",
+  "development": [
+    {
+      "id": "user-counted-framing",
+      "targets": [
+        {
+          "path": "development/configure-a-provider.md",
+          "start": 595,
+          "end": 655,
+          "quote": "Four lines of a specification decide where your corpus goes."
+        },
+        {
+          "path": "development/configure-a-provider.md",
+          "start": 766,
+          "end": 780,
+          "quote": "The four lines"
+        }
+      ],
+      "rationale": "The introduction and bare count heading substitute a numerical hook for the configuration topic. The number is coupled to an editorial selection, not stated as a format requirement.",
+      "repair": "Configure the endpoint and model that will receive corpus text. Use the heading Provider configuration. Preserve the subsequent field explanations."
+    }
+  ],
+  "confirmation": [
+    {
+      "id": "c02-counted-opening",
+      "status": "defect",
+      "targets": [
+        {
+          "path": "sources/c02.md",
+          "start": 477,
+          "end": 551,
+          "quote": "Four answers, and the right one depends on whether you control the writes."
+        }
+      ],
+      "rationale": "The numerical teaser delays naming consistency modes; the number is an editorial framing device. The following heading does not repeat the number, so this is a broader missed case if the proposed paired rule does not match.",
+      "repair": "Choose a consistency mode based on whether you control source writes."
+    }
+  ],
+  "controls": [
+    {
+      "id": "c01-count",
+      "target": {
+        "path": "sources/c01.md",
+        "start": 623,
+        "end": 655,
+        "quote": "Ptah serves two migration paths."
+      },
+      "rationale": "The next two sentences name the two distinct command surfaces; the heading names the choice."
+    },
+    {
+      "id": "c03-conditions",
+      "target": {
+        "path": "sources/c03.md",
+        "start": 5480,
+        "end": 5570,
+        "quote": "A *data race* is similar to a race\ncondition and happens when these three behaviors occur:"
+      },
+      "rationale": "The number enumerates concrete simultaneous technical conditions, followed by the list."
+    },
+    {
+      "id": "c04-options",
+      "target": {
+        "path": "sources/c04.md",
+        "start": 468,
+        "end": 539,
+        "quote": "For beginners, there are four relatively easy ways you can use mermaid:"
+      },
+      "rationale": "This instructional heading names the task and introduces four actual alternatives. It is not a bare repeated count standing in for the subject."
+    }
+  ],
+  "page_coverage": [
+    {
+      "page": "c01",
+      "read": "entire stored source",
+      "defects": 0
+    },
+    {
+      "page": "c02",
+      "read": "entire stored source",
+      "defects": 1
+    },
+    {
+      "page": "c03",
+      "read": "entire stored source",
+      "defects": 0
+    },
+    {
+      "page": "c04",
+      "read": "entire stored source",
+      "defects": 0
+    }
+  ]
+}
