@@ -12,7 +12,9 @@ import (
 	"github.com/stokaro/unswell/mcp/internal/server"
 )
 
-func verifyBatches(ctx context.Context, session *mcp.ClientSession, expected unswell.RunResult) ([]server.CheckOutput, error) {
+func verifyBatches(
+	ctx context.Context, session *mcp.ClientSession, expected unswell.RunResult, failOnEmpty bool,
+) ([]server.CheckOutput, error) {
 	if !batchableEvidence(expected) {
 		return nil, fmt.Errorf("MCP self-check batches require a full scan without baseline, changed-unit, or bypass policies")
 	}
@@ -26,16 +28,32 @@ func verifyBatches(ctx context.Context, session *mcp.ClientSession, expected uns
 		for _, doc := range documents {
 			input.Sources = append(input.Sources, server.Source{Name: doc.Name, Format: doc.Format, Text: doc.Source})
 		}
-		checked, err := check(ctx, session, input, "pass")
+		want := batchOutput(expected, documents, failOnEmpty)
+		checked, err := check(ctx, session, input, want.Outcome)
 		if err != nil {
 			return nil, fmt.Errorf("MCP repository batch %d: %w", len(results)+1, err)
 		}
-		if !reflect.DeepEqual(normalize(expectedBatch(expected, documents)), checked.Result) {
+		if !reflect.DeepEqual(want.Result, checked.Result) {
 			return nil, fmt.Errorf("MCP repository batch %d differs from normalized CLI evidence", len(results)+1)
 		}
 		results = append(results, checked)
 	}
 	return results, nil
+}
+
+func batchOutput(expected unswell.RunResult, documents []unswell.DocumentResult, failOnEmpty bool) server.CheckOutput {
+	result := normalize(expectedBatch(expected, documents))
+	output := server.CheckOutput{Outcome: "pass", Result: result}
+	// A complete repository can end with a batch of code-only files. Preserve
+	// the engine's empty-scan error for that request while comparing its data.
+	if failOnEmpty && !slices.ContainsFunc(documents, func(doc unswell.DocumentResult) bool { return doc.ProseWords > 0 }) {
+		output.Outcome = "error"
+		output.Result.Status = "incomplete"
+		output.Result.Manifest.Complete = false
+		output.Result.Gate.Passed = false
+		output.Result.Errors = []unswell.RunError{{Message: "scan contains no applicable English prose"}}
+	}
+	return output
 }
 
 func batchableEvidence(result unswell.RunResult) bool {
