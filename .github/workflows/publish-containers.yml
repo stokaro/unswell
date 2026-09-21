@@ -25,7 +25,7 @@ jobs:
           printf 'value=%s\n' "$version" >>"$GITHUB_OUTPUT"
       - name: Select the hosted runner's Docker daemon
         run: docker context create unswell-release --docker host=unix:///var/run/docker.sock
-      - uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
         with:
           endpoint: unswell-release
       - uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
