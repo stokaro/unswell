@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "hypothesis": "A separate GPT-6-Astra whole-page review can identify substantially more contextual editorial defects than the current rules without relying on a phrase inventory or receiving reference labels.",
+  "model": "gpt-6-astra",
+  "effort": "medium",
+  "pages": 36,
+  "max_calls": 36,
+  "per_call_timeout_seconds": 600,
+  "total_timeout_seconds": 7200,
+  "attempts_per_page": 1,
+  "concurrency": 1,
+  "authentication": "Existing Codex ChatGPT login; no API-key extraction or separate paid Claude call. Subscription quota is consumed; no dollar estimate or hard monetary cap is claimed.",
+  "labels_in_requests": false,
+  "tools_allowed": false,
+  "external_lookup_allowed": false,
+  "automatic_retries": false,
+  "screen": {
+    "complete_valid_pages": 36,
+    "minimum_full_event_recall": 0.8,
+    "minimum_accepted_findings_fraction": 0.85,
+    "required_cohorts": ["whole", "context", "confirmation"],
+    "uncertain_findings": "Remain in the precision denominator.",
+    "unavailable_pages": "Remain in all event denominators and fail completeness.",
+    "partial_overlap": "Never full-event credit.",
+    "safe_edits": "Separate from diagnostic correctness; no automated edits are applied."
+  },
+  "decision": "Passing this exposed development screen permits a separately frozen complete-page confirmation experiment, not product qualification. Failing it rejects the candidate without retuning on these outputs.",
+  "authorization": "Preparation is offline. Live calls require an explicit operator flag after user approval of this named model and 36-request experiment. No delegation has been started by preparing this packet."
+}

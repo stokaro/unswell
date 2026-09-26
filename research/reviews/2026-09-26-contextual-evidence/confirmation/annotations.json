@@ -1,0 +1,818 @@
+{
+  "version": 1,
+  "reviewer": "Codex assistant, September 26, 2026; maintainer-accepted review under ADR 0041; not independent human annotation",
+  "source_freeze_sha256": "23e42221c36f73ddd38aebe52cc890dc753e4697fa2a47381618400d88f64670",
+  "model_outputs_seen": false,
+  "detector_outputs_seen": false,
+  "rubric": "Concrete avoidable wording defect with a source-specific reason and a meaning-preserving repair. Do not classify authorship, penalize necessary technical contrast, or treat every possible copy edit as a defect. Uncertain alternatives remain explicit.",
+  "pages": [
+    {
+      "id": "prospective-01",
+      "page": 1,
+      "source_file": "sources/p01.md",
+      "source_sha256": "dd6094d6f12c88087f8ded72f6a32cedd121865681e5cae795625f148f688db6",
+      "scope": "Complete body, including tables, headings, and prose around code. Front matter is not a diagnostic target; code is technical context, not prose to edit.",
+      "sections": [
+        {
+          "title": "lead",
+          "span": {
+            "start": 692,
+            "end": 1234
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## Write the requirements",
+          "span": {
+            "start": 1234,
+            "end": 1937
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## Run them",
+          "span": {
+            "start": 1937,
+            "end": 2689
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## What the four outcomes mean",
+          "span": {
+            "start": 2689,
+            "end": 3571
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## What this verb does not do",
+          "span": {
+            "start": 3571,
+            "end": 5675
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## Verify the checks that were approved",
+          "span": {
+            "start": 5675,
+            "end": 6581
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "### What it reads",
+          "span": {
+            "start": 6581,
+            "end": 7222
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "### What a read-only session cannot reach",
+          "span": {
+            "start": 7222,
+            "end": 8015
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## Where this sits beside the other checks",
+          "span": {
+            "start": 8015,
+            "end": 8423
+          },
+          "status": "reviewed"
+        }
+      ]
+    },
+    {
+      "id": "prospective-02",
+      "page": 2,
+      "source_file": "sources/p02.md",
+      "source_sha256": "c94c76bf31390a33737185a64ff5f3c834ddb8f653ff8cb5bfec39900c283d7d",
+      "scope": "Complete body, including tables, headings, and prose around code. Front matter is not a diagnostic target; code is technical context, not prose to edit.",
+      "sections": [
+        {
+          "title": "lead",
+          "span": {
+            "start": 516,
+            "end": 1341
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## What a row means",
+          "span": {
+            "start": 1341,
+            "end": 2659
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## The actor, and what the name is worth",
+          "span": {
+            "start": 2659,
+            "end": 3236
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## What this is not",
+          "span": {
+            "start": 3236,
+            "end": 4067
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## Turning it off",
+          "span": {
+            "start": 4067,
+            "end": 4791
+          },
+          "status": "reviewed"
+        }
+      ]
+    },
+    {
+      "id": "prospective-03",
+      "page": 3,
+      "source_file": "sources/p03.md",
+      "source_sha256": "020cb0e6e50e0b4e8fda2506c7bd90c2e5c12c7658ca42c5a15dde0af6fcb05a",
+      "scope": "Complete body, including tables, headings, and prose around code. Front matter is not a diagnostic target; code is technical context, not prose to edit.",
+      "sections": [
+        {
+          "title": "lead",
+          "span": {
+            "start": 515,
+            "end": 1283
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## What it proves",
+          "span": {
+            "start": 1283,
+            "end": 2761
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## What it does not prove",
+          "span": {
+            "start": 2761,
+            "end": 3321
+          },
+          "status": "reviewed"
+        },
+        {
+          "title": "## The lock timeout the mode requires",
+          "span": {
+            "start": 3321,
+            "end": 4795
+          },
+          "status": "reviewed"
+        }
+      ]
+    }
+  ],
+  "judgments": [
+    {
+      "id": "p01-defect-01",
+      "page": 1,
+      "status": "defect",
+      "category": "overstated_guarantee",
+      "targets": [
+        {
+          "span": {
+            "start": 1112,
+            "end": 1232
+          },
+          "quote": "`ptah db verify` evaluates requirements like that against a database that is\nalready running, and changes nothing in it."
+        },
+        {
+          "span": {
+            "start": 6671,
+            "end": 6826
+          },
+          "quote": "The\npromise is that it changes nothing, not that it reads only the connected\ndatabase: an assertion may name a view, and a view may already span databases."
+        }
+      ],
+      "rationale": "Two unqualified promises that verification changes nothing conflict with the later explicit autonomous-transaction exception. Readers should not have to discover later that the opening safety guarantee has exceptions.",
+      "proposed_repair": "Qualify both claims: verification sends checked SELECT assertions and requests the strictest session mode supported by the engine, but called routines can have side effects. Point to the routine limitation when first introducing the guarantee.",
+      "meaning_to_preserve": "The tool checks statements and requests read-only sessions; it cannot guarantee that Oracle autonomous routines leave the database unchanged. Reading may cross database boundaries.",
+      "context": "The later section What a read-only session cannot reach explicitly says an Oracle autonomous routine may insert and commit during SELECT. This judgment follows the page itself; no implementation audit was performed."
+    },
+    {
+      "id": "p01-defect-02",
+      "page": 1,
+      "status": "defect",
+      "category": "wordiness",
+      "targets": [
+        {
+          "span": {
+            "start": 1750,
+            "end": 1935
+          },
+          "quote": "That\nis the same grammar a pre-migration check uses, so versioned migrations and\ndirect schema changes express a requirement the same way rather than growing\ntwo spellings for one idea."
+        }
+      ],
+      "rationale": "The metaphor about growing two spellings restates the shared grammar and lengthens a concrete compatibility explanation.",
+      "proposed_repair": "Versioned migrations and direct schema changes use the same assertion grammar.",
+      "meaning_to_preserve": "The same check grammar serves both workflows; keep the preceding single read-only SELECT and scalar result requirements.",
+      "context": ""
+    },
+    {
+      "id": "p01-defect-03",
+      "page": 1,
+      "status": "defect",
+      "category": "needless_repetition",
+      "targets": [
+        {
+          "span": {
+            "start": 2877,
+            "end": 2986
+          },
+          "quote": "The assertion ran and did not hold. The database answered, and the answer is not the one the author required."
+        }
+      ],
+      "rationale": "The second sentence repeats the first within the same table cell without adding a distinct outcome or handling instruction.",
+      "proposed_repair": "The assertion ran and did not hold.",
+      "meaning_to_preserve": "This is an evaluated false assertion, distinct from an execution error and from an empty check set.",
+      "context": ""
+    },
+    {
+      "id": "p01-defect-04",
+      "page": 1,
+      "status": "defect",
+      "category": "needless_complexity",
+      "targets": [
+        {
+          "span": {
+            "start": 3942,
+            "end": 4042
+          },
+          "quote": "What holds it to reading is decided before any query is sent, and then\nenforced again while it runs:"
+        }
+      ],
+      "rationale": "The pronouns and passive phrasing hide the two concrete mechanisms the following list explains.",
+      "proposed_repair": "Ptah checks assertions before execution and uses read-only sessions where the engine supports them:",
+      "meaning_to_preserve": "Both static checks and engine-dependent runtime enforcement remain; do not imply every engine has a read-only mode.",
+      "context": ""
+    },
+    {
+      "id": "p01-defect-05",
+      "page": 1,
+      "status": "defect",
+      "category": "overstated_guarantee",
+      "targets": [
+        {
+          "span": {
+            "start": 4106,
+            "end": 4158
+          },
+          "quote": "It names nothing outside the database it is sent to:"
+        }
+      ],
+      "rationale": "This absolute boundary conflicts with the later explanation that cross-database views and SQL Server three-part names may be read. The following examples are forbidden external-access constructs, not a prohibition on every outside database name.",
+      "proposed_repair": "Ptah rejects external-access constructs such as:",
+      "meaning_to_preserve": "Keep the listed blocked constructs and the warning that their effects escape the transaction; also retain the later permission-scoped cross-database reading caveat.",
+      "context": "What it reads explicitly permits views spanning databases and three-part SQL Server names."
+    },
+    {
+      "id": "p01-defect-06",
+      "page": 1,
+      "status": "defect",
+      "category": "needless_complexity",
+      "targets": [
+        {
+          "span": {
+            "start": 5038,
+            "end": 5116
+          },
+          "quote": "The read-only session is what catches a shape no reading of the statement can:"
+        }
+      ],
+      "rationale": "The abstract shape/reading formulation obscures the concrete relation between static checking and runtime side effects.",
+      "proposed_repair": "A read-only session can reject effects that static statement checks miss:",
+      "meaning_to_preserve": "Keep the following PostgreSQL function example, Oracle transaction behavior, and limitations on engines without read-only sessions.",
+      "context": ""
+    },
+    {
+      "id": "p01-defect-07",
+      "page": 1,
+      "status": "defect",
+      "category": "unclear_responsibility",
+      "targets": [
+        {
+          "span": {
+            "start": 7926,
+            "end": 8013
+          },
+          "quote": "An assertion\nthat calls a routine to do the reading answers for what that routine does."
+        }
+      ],
+      "rationale": "An assertion cannot take responsibility or assess its called routine. The sentence obscures who must account for the autonomous-transaction exception just explained.",
+      "proposed_repair": "The check author must assess called routines for side effects.",
+      "meaning_to_preserve": "Called routines can exceed what the checked SELECT and session mode guarantee; do not promise that the tool verifies routine bodies.",
+      "context": ""
+    },
+    {
+      "id": "p01-defect-08",
+      "page": 1,
+      "status": "defect",
+      "category": "needless_repetition",
+      "targets": [
+        {
+          "span": {
+            "start": 8314,
+            "end": 8422
+          },
+          "quote": "The first two are about Ptah's own bookkeeping. This one is about your data,\nand only you can write it down."
+        }
+      ],
+      "rationale": "This closing contrast repeats the adjacent three-item comparison and adds an exclusive claim about who can specify requirements. Calling schema drift only bookkeeping also weakens the clearer description immediately above.",
+      "proposed_repair": "Remove this paragraph; keep the three command-specific descriptions.",
+      "meaning_to_preserve": "Drift compares actual structure with a declaration, status compares history with the directory, and verify checks release data requirements.",
+      "context": ""
+    },
+    {
+      "id": "p01-acceptable-01",
+      "page": 1,
+      "status": "acceptable",
+      "category": "supported_contrast",
+      "targets": [
+        {
+          "span": {
+            "start": 693,
+            "end": 893
+          },
+          "quote": "A migration that adds a column and backfills it can succeed statement by\nstatement, match the declaration, and report no drift, while the `UPDATE`\npredicate was wrong and a subset of rows kept a null."
+        }
+      ],
+      "rationale": "The concrete counterexample explains why a data assertion adds a check beyond schema drift. It is not an empty contrast.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "Keep the distinction between structural agreement and wrong backfill results.",
+      "context": ""
+    },
+    {
+      "id": "p01-acceptable-02",
+      "page": 1,
+      "status": "acceptable",
+      "category": "safety_rationale",
+      "targets": [
+        {
+          "span": {
+            "start": 3233,
+            "end": 3388
+          },
+          "quote": "`not verified` is deliberately not a pass. A gate that exited `0` over an empty\nchecks path would let through a release whose requirements someone deleted."
+        }
+      ],
+      "rationale": "The counterfactual explains a specific fail-closed policy and its failure mode.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "An empty set fails the gate; do not summarize it as every assertion passed.",
+      "context": ""
+    },
+    {
+      "id": "p01-acceptable-03",
+      "page": 1,
+      "status": "acceptable",
+      "category": "technical_qualification",
+      "targets": [
+        {
+          "span": {
+            "start": 4417,
+            "end": 4725
+          },
+          "quote": "Both static rules read the assertion under every string-escape interpretation\na server might apply, because the one it applies is session state: under\nMySQL's `NO_BACKSLASH_ESCAPES` a string ends at a quote the other reading\nswallows, so a clause that looks like data on one reading is live SQL on the\nother."
+        }
+      ],
+      "rationale": "The long sentence has a concrete technical reason and example; length or a because clause alone does not justify deleting its condition.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "Keep session-dependent parsing and the two different interpretations; splitting may be an optional edit.",
+      "context": ""
+    },
+    {
+      "id": "p01-acceptable-04",
+      "page": 1,
+      "status": "acceptable",
+      "category": "supported_safety_boundary",
+      "targets": [
+        {
+          "span": {
+            "start": 7265,
+            "end": 7407
+          },
+          "quote": "A routine that runs in a transaction of its own is not undone with the session\nthat called it, on any engine, because it was never part of it."
+        }
+      ],
+      "rationale": "This explanation is necessary to understand why a read-only caller does not constrain autonomous work.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "Retain the following Oracle example and distinction from ordinary Oracle functions.",
+      "context": ""
+    },
+    {
+      "id": "p01-uncertain-01",
+      "page": 1,
+      "status": "uncertain",
+      "category": "reference_specificity",
+      "targets": [
+        {
+          "span": {
+            "start": 4248,
+            "end": 4273
+          },
+          "quote": "and the rest of that set."
+        }
+      ],
+      "rationale": "The set is not enumerated here, but the next paragraph identifies the shared plan guard. A direct reference might help; absence of a full list on this how-to page is not by itself a definite wording defect.",
+      "proposed_repair": "Consider linking to the authoritative blocked-construct reference.",
+      "meaning_to_preserve": "Do not imply the examples exhaust the blocked set.",
+      "context": ""
+    },
+    {
+      "id": "p01-uncertain-02",
+      "page": 1,
+      "status": "uncertain",
+      "category": "technical_precision",
+      "targets": [
+        {
+          "span": {
+            "start": 5612,
+            "end": 5673
+          },
+          "quote": "one the server refuses\ncannot decide the outcome of the next."
+        }
+      ],
+      "rationale": "The meaning can be inferred as isolation of failed assertions. A more concrete description would be preferable, but the page does not state every transaction/session failure detail needed for a stronger replacement.",
+      "proposed_repair": "Consider describing which failure state independent sessions isolate.",
+      "meaning_to_preserve": "Keep each assertion in its own session; do not claim universal fault isolation.",
+      "context": ""
+    },
+    {
+      "id": "p02-defect-01",
+      "page": 2,
+      "status": "defect",
+      "category": "wordiness",
+      "targets": [
+        {
+          "span": {
+            "start": 1661,
+            "end": 1742
+          },
+          "quote": "and inferring\nsuccess from a missing failure would be a claim nobody can support."
+        }
+      ],
+      "rationale": "This rhetorical conclusion repeats the preceding statement that an interrupted attempt says nothing about its outcome. It adds no handling rule beyond undetermined.",
+      "proposed_repair": "Remove the final clause and end the sentence after whether its work landed.",
+      "meaning_to_preserve": "An attempt missing an end entry is undetermined, not failed or successful; retain process/connection interruption examples.",
+      "context": ""
+    },
+    {
+      "id": "p02-defect-02",
+      "page": 2,
+      "status": "defect",
+      "category": "unsupported_evaluation",
+      "targets": [
+        {
+          "span": {
+            "start": 3665,
+            "end": 3764
+          },
+          "quote": "A reader that had to reconcile two tables to learn that would\nbe worse off than with no log at all."
+        }
+      ],
+      "rationale": "The hypothetical comparison asserts a universal disadvantage without evidence. The preceding sentences already specify the authoritative status source.",
+      "proposed_repair": "Remove the sentence.",
+      "meaning_to_preserve": "The log is not consulted to determine the current version; ptah migrations status remains authoritative.",
+      "context": ""
+    },
+    {
+      "id": "p02-defect-03",
+      "page": 2,
+      "status": "uncertain",
+      "category": "unsupported_reader_attribution",
+      "targets": [
+        {
+          "span": {
+            "start": 4400,
+            "end": 4496
+          },
+          "quote": "and a second one Ptah added would appear in a database an Atlas user believes\nonly Atlas writes."
+        }
+      ],
+      "rationale": "The phrase attributes an expectation to an Atlas user, but it also explains a concrete compatibility concern: an extra Ptah table would be an unexpected write under the Atlas revision contract. The wording can be shortened, yet calling this a definite unsupported attribution overstates the evidence. The original refers to an Atlas user, not all users.",
+      "proposed_repair": "Remove this clause; retain that the Atlas-compatible format defines one revision table and does not create a log.",
+      "meaning_to_preserve": "The compatibility format suppresses logging regardless of migration.log; explicit disablement and compatibility are separate causes.",
+      "context": ""
+    },
+    {
+      "id": "p02-acceptable-01",
+      "page": 2,
+      "status": "acceptable",
+      "category": "supported_example",
+      "targets": [
+        {
+          "span": {
+            "start": 517,
+            "end": 742
+          },
+          "quote": "The revision table answers what is applied. It cannot answer what happened: a\ncompleted rollback deletes the row, so a database that was on version 43\nyesterday and is on 42 today reads exactly like one that never reached 43."
+        }
+      ],
+      "rationale": "The version example demonstrates why current state loses operation history; the contrast and numbers are functional.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "Keep the distinction between revision state and append-only operation history.",
+      "context": ""
+    },
+    {
+      "id": "p02-acceptable-02",
+      "page": 2,
+      "status": "acceptable",
+      "category": "supported_contrast",
+      "targets": [
+        {
+          "span": {
+            "start": 1744,
+            "end": 2027
+          },
+          "quote": "The entries are written on the pool connection rather than inside the\nmigration's transaction, which is the point: a migration that failed and rolled\nback still leaves the record that it was attempted. A log written inside the\ntransaction would describe only the runs that succeeded."
+        }
+      ],
+      "rationale": "The transaction contrast explains the persistence property. The small aside could be removed, but the paragraph is not empty because of rather than.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "A failed rolled-back migration must still leave an attempt record.",
+      "context": ""
+    },
+    {
+      "id": "p02-acceptable-03",
+      "page": 2,
+      "status": "acceptable",
+      "category": "security_limitation",
+      "targets": [
+        {
+          "span": {
+            "start": 3257,
+            "end": 3492
+          },
+          "quote": "**It is not an audit trail.** The table lives in the database it describes and\nis writable by the account that runs migrations: whoever can apply a migration\ncan edit the record of having done so. Tamper evidence is a different design."
+        }
+      ],
+      "rationale": "The negative heading is supported by a concrete permission boundary and prevents misuse of the history as tamper evidence.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "Do not turn append-only behavior into a claim of tamper resistance.",
+      "context": ""
+    },
+    {
+      "id": "p02-acceptable-04",
+      "page": 2,
+      "status": "acceptable",
+      "category": "permission_boundary",
+      "targets": [
+        {
+          "span": {
+            "start": 4573,
+            "end": 4790
+          },
+          "quote": "The table is created by the first entry written, not by the initialization that\ncreates the revision table. An account that may read and not create can run\n`ptah migrations log` against a database that has no log yet."
+        }
+      ],
+      "rationale": "The creation timing explains a useful read-only access scenario.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "Preserve lazy creation and the ability to inspect without CREATE privileges.",
+      "context": ""
+    },
+    {
+      "id": "p02-uncertain-01",
+      "page": 2,
+      "status": "uncertain",
+      "category": "rhetorical_warning",
+      "targets": [
+        {
+          "span": {
+            "start": 3112,
+            "end": 3234
+          },
+          "quote": "Storing an unverified name and an observed one the same way is how a log\nbecomes evidence for something it cannot support."
+        }
+      ],
+      "rationale": "The wording is abstract and could be more direct, but it also warns against conflating caller-supplied and observed identities. Retain as uncertain rather than counting a definite defect from rhetorical tone alone.",
+      "proposed_repair": "Consider explaining directly that the source distinguishes caller-supplied names from the observed process user.",
+      "meaning_to_preserve": "Neither the name nor the observed process account supplies tamper-proof attribution.",
+      "context": ""
+    },
+    {
+      "id": "p02-uncertain-02",
+      "page": 2,
+      "status": "uncertain",
+      "category": "rhetorical_explanation",
+      "targets": [
+        {
+          "span": {
+            "start": 2352,
+            "end": 2465
+          },
+          "quote": "Recording one of them applied when a later one rolls the batch\nback would describe a database that never existed."
+        }
+      ],
+      "rationale": "The counterfactual is emphatic but explains why all entries share the atomic transaction outcome. Shortening it is an editorial alternative, not an established defect.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "No entry should claim an applied state after its entire batch rolled back.",
+      "context": ""
+    },
+    {
+      "id": "p03-defect-01",
+      "page": 3,
+      "status": "defect",
+      "category": "unsupported_evaluation",
+      "targets": [
+        {
+          "span": {
+            "start": 1302,
+            "end": 1442
+          },
+          "quote": "`online: require` states one property about the SQL, and it is worth quoting\nexactly because a mode that implies more is worse than no mode:"
+        }
+      ],
+      "rationale": "The introduction announces the importance of the following definition and adds an unsupported worse-than-nothing comparison. Neither is needed to state the actual guarantee.",
+      "proposed_repair": "The guarantee of `online: require` is limited to this property:",
+      "meaning_to_preserve": "Retain the entire quoted engine/version-specific lock guarantee and the explicit no-zero-downtime warning.",
+      "context": ""
+    },
+    {
+      "id": "p03-defect-02",
+      "page": 3,
+      "status": "uncertain",
+      "category": "unsupported_evaluation",
+      "targets": [
+        {
+          "span": {
+            "start": 2226,
+            "end": 2320
+          },
+          "quote": "That is a stronger answer than a list, because the\n  server decides rather than a model of it."
+        }
+      ],
+      "rationale": "Stronger is an evaluation, but the next clause supplies a concrete basis: enforcing requested constraints at the server rather than predicting them from a list. A narrower wording may be preferable, but this is not clearly an unsupported comparison. Retain uncertainty rather than counting evaluative tone alone as a defect.",
+      "proposed_repair": "The server enforces the requested algorithm and lock constraints.",
+      "meaning_to_preserve": "Keep ON102 dialect scope and the exact ALGORITHM/LOCK forms; do not imply PostgreSQL uses the same mechanism.",
+      "context": ""
+    },
+    {
+      "id": "p03-defect-03",
+      "page": 3,
+      "status": "defect",
+      "category": "unsupported_generalization",
+      "targets": [
+        {
+          "span": {
+            "start": 2834,
+            "end": 2903
+          },
+          "quote": "A scan that is free on ten\n  thousand rows is an outage on a billion."
+        }
+      ],
+      "rationale": "The sentence makes a categorical performance and availability claim from row counts alone. The numbers are rhetorical examples, not documented thresholds.",
+      "proposed_repair": "A large scan can consume substantial resources even when it does not take a conflicting lock.",
+      "meaning_to_preserve": "Table size affects operational cost; the mode does not measure production data volume or guarantee zero downtime.",
+      "context": ""
+    },
+    {
+      "id": "p03-defect-04",
+      "page": 3,
+      "status": "defect",
+      "category": "unsupported_generalization",
+      "targets": [
+        {
+          "span": {
+            "start": 2927,
+            "end": 2995
+          },
+          "quote": "Whether blocked writes matter depends on traffic no tool\n  observes."
+        }
+      ],
+      "rationale": "The limitation of this SQL check is broadened to all tools. The page only supports that this check does not evaluate production traffic.",
+      "proposed_repair": "Whether blocked writes matter depends on production traffic, which this check does not measure.",
+      "meaning_to_preserve": "Concurrent load affects the operational impact of blocking; no claim about all monitoring tools is needed.",
+      "context": ""
+    },
+    {
+      "id": "p03-defect-05",
+      "page": 3,
+      "status": "defect",
+      "category": "unsupported_generalization",
+      "targets": [
+        {
+          "span": {
+            "start": 3101,
+            "end": 3236
+          },
+          "quote": "`DROP COLUMN` is cheap and breaks deployed code,\n  which is expand and contract across two deploys rather than a property of the\n  DDL."
+        }
+      ],
+      "rationale": "The sentence treats cost and application breakage as unconditional, then compresses the required rollout into an unclear which clause. Breakage depends on whether deployed code still uses the column.",
+      "proposed_repair": "Dropping a column can break deployed code that still uses it. Coordinate application and schema changes across separate deployments.",
+      "meaning_to_preserve": "The SQL-level mode cannot sequence application rollout; keep the following BC103/BC104 distinction and retired identifier handling.",
+      "context": ""
+    },
+    {
+      "id": "p03-acceptable-01",
+      "page": 3,
+      "status": "acceptable",
+      "category": "supported_contrast",
+      "targets": [
+        {
+          "span": {
+            "start": 653,
+            "end": 853
+          },
+          "quote": "It is the\ninversion of every other rule family here: those report hazards somebody wrote\na rule for, and this one reports everything it has not proven, including every\nstatement it does not recognize."
+        }
+      ],
+      "rationale": "The contrast explains the difference between a known-hazard rule set and a fail-closed proof requirement. It is not a content-free binary framing.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "Unknown statements are refused rather than silently accepted.",
+      "context": ""
+    },
+    {
+      "id": "p03-acceptable-02",
+      "page": 3,
+      "status": "acceptable",
+      "category": "scope_limitation",
+      "targets": [
+        {
+          "span": {
+            "start": 855,
+            "end": 925
+          },
+          "quote": "It does not guarantee zero downtime, and must not be read as doing so."
+        }
+      ],
+      "rationale": "The strong warning is supported by the later table-size, load, replication, and rollout limits.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "Never collapse the lock property into a zero-downtime promise.",
+      "context": ""
+    },
+    {
+      "id": "p03-acceptable-03",
+      "page": 3,
+      "status": "acceptable",
+      "category": "exact_count",
+      "targets": [
+        {
+          "span": {
+            "start": 1647,
+            "end": 1698
+          },
+          "quote": "Two rules carry it, each proving a different thing."
+        }
+      ],
+      "rationale": "The next list has two explicitly named rules with different dialects and mechanisms. This is accurate local navigation, not an unsupported number-based promotional hook.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "Keep ON101 and ON102 distinct.",
+      "context": ""
+    },
+    {
+      "id": "p03-acceptable-04",
+      "page": 3,
+      "status": "acceptable",
+      "category": "operational_consequence",
+      "targets": [
+        {
+          "span": {
+            "start": 4550,
+            "end": 4619
+          },
+          "quote": "When it runs out, the build stops and leaves an\ninvalid index behind;"
+        }
+      ],
+      "rationale": "This concrete timeout consequence and linked recovery are operationally necessary, even though they make the nominally online operation less reassuring.",
+      "proposed_repair": null,
+      "meaning_to_preserve": "Retain the invalid-index consequence and recovery link.",
+      "context": ""
+    },
+    {
+      "id": "p03-uncertain-01",
+      "page": 3,
+      "status": "uncertain",
+      "category": "metaphorical_setup",
+      "targets": [
+        {
+          "span": {
+            "start": 3411,
+            "end": 3471
+          },
+          "quote": "and this is the requirement\nno reading of the SQL can carry."
+        }
+      ],
+      "rationale": "The wording is figurative, but the following lock-queue example explains the static-analysis boundary. A direct wording may help without constituting a distinct definite defect.",
+      "proposed_repair": "Consider stating that the timeout is required even for statements accepted by static checks.",
+      "meaning_to_preserve": "Preserve the lock-timeout requirement in every transaction mode and the distinction between acquiring and holding locks.",
+      "context": ""
+    }
+  ],
+  "qualification": "Prospective additional Ptah confirmation only. Same-project, same-assistant evidence; no population or independent-rater claim. All definite events and all emitted findings must be reviewed after any future run; uncertain labels remain separately visible."
+}
