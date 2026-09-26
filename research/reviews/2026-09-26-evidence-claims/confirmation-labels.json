@@ -1,0 +1,81 @@
+{
+  "reviewer": "Codex assistant, same reviewer as implementation; no human or independent annotation",
+  "phase": "after candidate implementation, before tests or confirmation output; no later tuning on these pages",
+  "reviews": [
+    {
+      "id": "c01",
+      "sha256": "951e1c7857c899c204dee3c942b6f716169fc0e849c235f72fe9716203bea51b",
+      "reviewed_ranges": [
+        {
+          "start": 0,
+          "end": 4345,
+          "rationale": "Read support definitions, level assignment, emulator exception, version fallback, capability separation and end-of-life policy. Testing promises are explicitly scoped; the four-level heading accurately organizes four rows."
+        }
+      ],
+      "defects": [],
+      "uncertain": []
+    },
+    {
+      "id": "c02",
+      "sha256": "bd079960d9ecd4e5ee6b2952a014dee9d4413a7737b7b37c2a9d28170ee7ccca",
+      "reviewed_ranges": [
+        {
+          "start": 0,
+          "end": 3977,
+          "rationale": "Read all source kinds, merging rules, export loss limits and capability boundaries. Contrasts distinguish declared input from supported output; preserve them."
+        }
+      ],
+      "defects": [],
+      "uncertain": [
+        "Everything in Ptah starts from one declarative idea is expansive framing, but the paragraph immediately defines desired schema and enumerates its uses. Treat removal as optional."
+      ]
+    },
+    {
+      "id": "c03",
+      "sha256": "d38f7d405fa91b73591ad0464d8a8644bdf6ba7740b2d693925b5879f9cfd751",
+      "reviewed_ranges": [
+        {
+          "start": 0,
+          "end": 6257,
+          "rationale": "Read the complete import walkthrough, all command/output blocks, format-specific limits, repeatable migration conversion, remediation, failure paths and next steps. Keep checksum restrictions and distinct remedies."
+        }
+      ],
+      "defects": [
+        {
+          "id": "c03-d01",
+          "category": "empty_framing",
+          "start": 572,
+          "end": 865,
+          "quote": "Your project already has migration history in another tool, and you want Ptah\nto own it from here \u2014 without hand-rewriting years of files. This page shows\nhow `ptah migrations import` converts that history, what the converted\ndirectory looks like, and how to pick up the lifecycle afterward.",
+          "rationale": "The introduction narrates an imagined reader goal and announces what this how-to page will show; the command and prerequisites below provide the actionable entry point.",
+          "repair": "Replace the introduction with a direct statement that ptah migrations import converts an existing migration directory to the native format, preserving the supported formats and prerequisites."
+        },
+        {
+          "id": "c03-d02",
+          "category": "empty_framing",
+          "start": 4484,
+          "end": 4540,
+          "quote": "The two remedies the message names are the whole answer.",
+          "rationale": "The closure endorses the completeness of its own answer without adding a restriction; the following sentences specify when each remedy applies.",
+          "repair": "Remove this first sentence and retain the distinctions between adding a migration, re-importing, and repair."
+        }
+      ],
+      "uncertain": [
+        "Rejected loudly is figurative, but the adjacent sentence explains the message and corrective action; do not label it a definite defect."
+      ]
+    },
+    {
+      "id": "c04",
+      "sha256": "88d5300bb826deaf156bd0337cae4c9852ef3ed5f6bd96189f7747c3c3715c72",
+      "reviewed_ranges": [
+        {
+          "start": 0,
+          "end": 4499,
+          "rationale": "Read the complete provenance policy, repository diagram, permitted uses, jurisdiction references and documentation requirements. Repeated exclusions serve separate policy boundaries. No legal correctness assessment."
+        }
+      ],
+      "defects": [],
+      "uncertain": []
+    }
+  ]
+}

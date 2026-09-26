@@ -105,6 +105,10 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 	d.Version = localRhetoricVersion(id)
 	d.Requires = append(d.Requires, nlp.POS)
 	d.Description = description + " Reports complete matched clauses, once per clause."
+	if id == "filler.unscoped-assurance" {
+		d.Description += " Testing or review activities guaranteeing abstract quality, and bare assertions that nothing is taken on trust, " +
+			"also request explicit scope. Concrete invariants, proofs, qualifications, attribution and protected code are excluded."
+	}
 	d.Limitations = "Bounded token constructions, not a semantic or authorship classifier. " +
 		"Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. " +
 		"Protected text is never construction vocabulary. " +
@@ -133,7 +137,7 @@ func localRhetoricVersion(id string) string {
 	case "repetition.definition-echo":
 		return "3"
 	case "filler.unscoped-assurance":
-		return "7"
+		return "8"
 	default:
 		return "1"
 	}
