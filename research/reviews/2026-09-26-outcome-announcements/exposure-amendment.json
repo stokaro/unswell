@@ -1,0 +1,31 @@
+{
+  "recorded_at": "2026-09-26T18:46:27.199160+00:00",
+  "reason": "Post-output provenance audit found two pages named in a recovered README and detailed memory, outside the initial JSON-path exclusion scan. Preserve all frozen sources and labels; classify these as previously exposed rather than claiming fresh confirmation.",
+  "pages": [
+    {
+      "id": "c01",
+      "prior_review_known": false
+    },
+    {
+      "id": "c02",
+      "prior_review_known": true,
+      "prior_commit": "591c36797f5c72ff89022985708da47fc2c9b3f4",
+      "prior_sha256": "dbeaa5b79d5ce0ec1311613f746587a63edf05384444a600fec538b81536a865",
+      "identical_source": true,
+      "evidence": "Recovered 2026-09-21-editorial-confirmation/README.md explicitly names migration overview and Atlas migration; its JSON was unavailable during selection."
+    },
+    {
+      "id": "c03",
+      "prior_review_known": false
+    },
+    {
+      "id": "c04",
+      "prior_review_known": true,
+      "prior_commit": "591c36797f5c72ff89022985708da47fc2c9b3f4",
+      "prior_sha256": "4f70438dec88c257790615dadb90c713bce47a2337552ba238aeddfc6c9cfeb5",
+      "identical_source": true,
+      "evidence": "Recovered 2026-09-21-editorial-confirmation/README.md explicitly names migration overview and Atlas migration; its JSON was unavailable during selection."
+    }
+  ],
+  "limitation": "No known earlier review was found for c01/c03; this is not a claim of universal lack of model-training or conversational exposure. No runtime tuning follows this amendment."
+}

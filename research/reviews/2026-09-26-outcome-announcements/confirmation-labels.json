@@ -1,0 +1,434 @@
+{
+  "reviewer": "Codex assistant; same assistant doing implementation, not human or independent qualification",
+  "phase": "before_new_runtime_code_and_before_confirmation_outputs",
+  "pages": [
+    {
+      "id": "c01",
+      "source_sha256": "b0b2c0b5d297971a44d16ea25bb1c32c0d9018a07e90bc1fc509f00817b3011c",
+      "coverage": {
+        "start": 0,
+        "end": 13485,
+        "rationale": "Read the full source, including examples for context. Frontmatter, MDX imports/components and fenced code are excluded by the existing extraction policy; no research module may reintroduce them. Review covers empty framing, repetition, wordiness, intensifiers, vague claims and unnecessary complexity."
+      },
+      "judgments": [
+        {
+          "id": "c01-r01",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 1653,
+            "end": 1693
+          },
+          "quote": "which is a worse outcome than a refusal.",
+          "rationale": "The preceding clause states the actual loss of conditional behavior; the comparative endorsement adds no condition.",
+          "proposed_edit": "Remove this tail; retain the refusal and conditional-history reason."
+        },
+        {
+          "id": "c01-r02",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 1695,
+            "end": 1752
+          },
+          "quote": "This page converts what converts and reads both refusals.",
+          "rationale": "Self-announcement repeats the established scope without identifying an operation.",
+          "proposed_edit": "Remove the sentence; the following headings identify each case."
+        },
+        {
+          "id": "c01-r03",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 3390,
+            "end": 3419
+          },
+          "quote": "which is what it already was.",
+          "rationale": "The preceding text already identifies the rollback as the down file.",
+          "proposed_edit": "Remove the tail; retain the mapping."
+        },
+        {
+          "id": "c01-r04",
+          "label": "needs_revision",
+          "category": "wordiness",
+          "span": {
+            "start": 8005,
+            "end": 8133
+          },
+          "quote": "The changeset below carries SQL, so the rule above stops short of deciding it.\n`context=\"staging\"` is what makes the difference.",
+          "rationale": "The indirect explanation delays the actual additional restriction.",
+          "proposed_edit": "A SQL changeset with context=\"staging\" is also refused."
+        },
+        {
+          "id": "c01-r05",
+          "label": "uncertain",
+          "category": "needless_repetition",
+          "span": {
+            "start": 4706,
+            "end": 4765
+          },
+          "quote": "XML is read. Nothing about the format stops the conversion.",
+          "rationale": "Repeats the opening but also confirms a demonstrated distinction; tutorial recap may help.",
+          "proposed_edit": "No required edit."
+        },
+        {
+          "id": "c01-r06",
+          "label": "acceptable",
+          "category": "technical_scope",
+          "span": {
+            "start": 794,
+            "end": 896
+          },
+          "quote": "A changeset that carries SQL converts, whether you wrote it as formatted SQL or\nas `<sql>` inside XML.",
+          "rationale": "Preserve the actual format/content distinction.",
+          "proposed_edit": "No edit."
+        },
+        {
+          "id": "c01-r07",
+          "label": "acceptable",
+          "category": "technical_scope",
+          "span": {
+            "start": 9954,
+            "end": 10109
+          },
+          "quote": "`--dialect` cannot stand in for it: the name Liquibase gives some\ndatabases depends on how it connected, so Ptah cannot tell which changesets\nran on yours.",
+          "rationale": "States why the selectors are not interchangeable.",
+          "proposed_edit": "No edit."
+        },
+        {
+          "id": "c01-r08",
+          "label": "uncertain",
+          "category": "needless_repetition",
+          "span": {
+            "start": 12697,
+            "end": 12865
+          },
+          "quote": "Contexts, labels, dbms and preconditions have no destination in a migration\ndirectory, which is why a changeset carrying one is refused rather than\nimported without it.",
+          "rationale": "Repeated refusal at the tutorial conclusion can be a useful summary.",
+          "proposed_edit": "No required edit."
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "source_sha256": "dbeaa5b79d5ce0ec1311613f746587a63edf05384444a600fec538b81536a865",
+      "coverage": {
+        "start": 0,
+        "end": 11180,
+        "rationale": "Read the full source, including examples for context. Frontmatter, MDX imports/components and fenced code are excluded by the existing extraction policy; no research module may reintroduce them. Review covers empty framing, repetition, wordiness, intensifiers, vague claims and unnecessary complexity."
+      },
+      "judgments": [
+        {
+          "id": "c02-r01",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 1060,
+            "end": 1127
+          },
+          "quote": "which is a place to\nstop rather than a staging area to escape from.",
+          "rationale": "A metaphorical defense obscures the concrete supported end state.",
+          "proposed_edit": "Replace with: Staying on ptah-compat is supported."
+        },
+        {
+          "id": "c02-r02",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 1129,
+            "end": 1219
+          },
+          "quote": "The two halves of the move are not equally provable, and the page treats them\ndifferently.",
+          "rationale": "The following sentences directly distinguish tested compatibility and described replacements.",
+          "proposed_edit": "Remove this introductory announcement."
+        },
+        {
+          "id": "c02-r03",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 1285,
+            "end": 1333
+          },
+          "quote": "what it covers is measured rather than asserted:",
+          "rationale": "This endorses the evidence instead of naming it; the matrix and CI details already supply it.",
+          "proposed_edit": "Introduce the feature matrix and CI directly."
+        },
+        {
+          "id": "c02-r04",
+          "label": "needs_revision",
+          "category": "vague_claims",
+          "span": {
+            "start": 2066,
+            "end": 2172
+          },
+          "quote": "which is the smallest shape that can prove anything. Yours is\nlarger; nothing below cares how much larger.",
+          "rationale": "Unbounded claims about minimality and arbitrary project size are unsupported here.",
+          "proposed_edit": "Keep the fixture description; remove these claims."
+        },
+        {
+          "id": "c02-r05",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 5774,
+            "end": 5842
+          },
+          "quote": "which is the point of matching the wording rather than improving it.",
+          "rationale": "CI grep compatibility already explains why wording is retained.",
+          "proposed_edit": "Remove the evaluative purpose tail."
+        },
+        {
+          "id": "c02-r06",
+          "label": "needs_revision",
+          "category": "wordiness",
+          "span": {
+            "start": 6937,
+            "end": 7049
+          },
+          "quote": "is the reason this move needs thinking about rather than\nscheduling. The answer is usually better than expected:",
+          "rationale": "An aphorism and predicted reader reaction delay the actual compatibility distinction.",
+          "proposed_edit": "State that paid Atlas capabilities require corresponding Ptah integrations."
+        },
+        {
+          "id": "c02-r07",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 8521,
+            "end": 8575
+          },
+          "quote": "and it is a different shape rather than a smaller one.",
+          "rationale": "An evaluative defense adds no operational limitation to the preceding replacement description.",
+          "proposed_edit": "Remove the comparison; retain local-file/native-signature scope."
+        },
+        {
+          "id": "c02-r08",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 9590,
+            "end": 9629
+          },
+          "quote": "The non-zero status is the useful part.",
+          "rationale": "The next sentence states the actionable reason for non-zero status.",
+          "proposed_edit": "Remove this endorsement, retaining the reason."
+        },
+        {
+          "id": "c02-r09",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 11001,
+            "end": 11059
+          },
+          "quote": "and it is worth knowing about before you rely on the move.",
+          "rationale": "Attention cue adds no instruction beyond the strict-mode explanation and link.",
+          "proposed_edit": "Remove the cue; retain when strict mode applies."
+        },
+        {
+          "id": "c02-r10",
+          "label": "acceptable",
+          "category": "technical_scope",
+          "span": {
+            "start": 3498,
+            "end": 3674
+          },
+          "quote": "A sealed directory validates silently and exits zero. That is Atlas's contract\nfor this verb and it is kept here, so a pipeline step that asserts on empty\noutput keeps passing.",
+          "rationale": "Exact output compatibility is a concrete reason rather than empty editorial defense.",
+          "proposed_edit": "No edit."
+        },
+        {
+          "id": "c02-r11",
+          "label": "acceptable",
+          "category": "technical_scope",
+          "span": {
+            "start": 8281,
+            "end": 8448
+          },
+          "quote": "`ptah-compat schema plan` has no working `approve`, `push`, `pull`, `list` or\n`rm`: those sub-verbs address a remote registry and answer that they are not\nimplemented.",
+          "rationale": "Essential capability limits must remain.",
+          "proposed_edit": "No edit."
+        },
+        {
+          "id": "c02-r12",
+          "label": "uncertain",
+          "category": "needless_repetition",
+          "span": {
+            "start": 10289,
+            "end": 10409
+          },
+          "quote": "Your commands, your project file and your history are where they were, and the\nbinary in front of them is `ptah-compat`.",
+          "rationale": "Recaps the tutorial outcome; repetition may aid navigation.",
+          "proposed_edit": "No required edit."
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "source_sha256": "084d19e603a690e8d916b91a52b0a11c978b083a596c8f9bcfc4cdbb15fc5719",
+      "coverage": {
+        "start": 0,
+        "end": 7749,
+        "rationale": "Read the full source, including examples for context. Frontmatter, MDX imports/components and fenced code are excluded by the existing extraction policy; no research module may reintroduce them. Review covers empty framing, repetition, wordiness, intensifiers, vague claims and unnecessary complexity."
+      },
+      "judgments": [
+        {
+          "id": "c03-r01",
+          "label": "needs_revision",
+          "category": "vague_claims",
+          "span": {
+            "start": 819,
+            "end": 944
+          },
+          "quote": "including the case a\nreal directory always has and a clean example never does: a migration whose\ndown file was never written.",
+          "rationale": "Always/never statements about real directories and examples are unsupported.",
+          "proposed_edit": "Replace with: including a migration with no down file."
+        },
+        {
+          "id": "c03-r02",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 1436,
+            "end": 1475
+          },
+          "quote": "That is the wart this\npage is about, so",
+          "rationale": "The previous sentence gives the missing file; this frames the page instead of the action.",
+          "proposed_edit": "Remove the framing and retain the instruction to create the fixture as shown."
+        },
+        {
+          "id": "c03-r03",
+          "label": "needs_revision",
+          "category": "vague_claims",
+          "span": {
+            "start": 3725,
+            "end": 3776
+          },
+          "quote": "so this step is safe to repeat and safe to abandon.",
+          "rationale": "Leaving the source unchanged alone does not establish unrestricted safety for repeat execution or abandoning destination state.",
+          "proposed_edit": "State that the source is unchanged; specify destination behavior if a repeatability claim is needed."
+        },
+        {
+          "id": "c03-r04",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 4230,
+            "end": 4301
+          },
+          "quote": "That is the honest conversion of a migration that never had a rollback:",
+          "rationale": "An editorial honesty judgment needlessly introduces the empty-file behavior.",
+          "proposed_edit": "Start with: The generated file contains no statements."
+        },
+        {
+          "id": "c03-r05",
+          "label": "acceptable",
+          "category": "technical_scope",
+          "span": {
+            "start": 2953,
+            "end": 3086
+          },
+          "quote": "Four files from three. Ptah's format pairs every version, so the second\nmigration gets a down file whether or not the source had one.",
+          "rationale": "The exact count illustrates concrete generated-file behavior.",
+          "proposed_edit": "No edit."
+        },
+        {
+          "id": "c03-r06",
+          "label": "acceptable",
+          "category": "technical_scope",
+          "span": {
+            "start": 5858,
+            "end": 6043
+          },
+          "quote": "The rollback succeeded, and the index it was supposed to remove is still there,\nbecause the file Ptah generated has no statement in it. The revision table and\nthe database now disagree.",
+          "rationale": "Explains a real distinction between reported progress and state.",
+          "proposed_edit": "No edit."
+        },
+        {
+          "id": "c03-r07",
+          "label": "uncertain",
+          "category": "empty_framing",
+          "span": {
+            "start": 946,
+            "end": 1115
+          },
+          "quote": "You will build the source directory, preview the conversion, run it, read what\nPtah wrote for the missing rollback, and apply the result to a disposable\nSQLite database.",
+          "rationale": "A tutorial overview can orient the reader; necessity is uncertain.",
+          "proposed_edit": "No required edit."
+        }
+      ]
+    },
+    {
+      "id": "c04",
+      "source_sha256": "4f70438dec88c257790615dadb90c713bce47a2337552ba238aeddfc6c9cfeb5",
+      "coverage": {
+        "start": 0,
+        "end": 3332,
+        "rationale": "Read the full source, including examples for context. Frontmatter, MDX imports/components and fenced code are excluded by the existing extraction policy; no research module may reintroduce them. Review covers empty framing, repetition, wordiness, intensifiers, vague claims and unnecessary complexity."
+      },
+      "judgments": [
+        {
+          "id": "c04-r01",
+          "label": "needs_revision",
+          "category": "wordiness",
+          "span": {
+            "start": 2029,
+            "end": 2106
+          },
+          "quote": "More tools are being added here one at a time. Until a tool has its own page,",
+          "rationale": "Narrates page maintenance before the useful fallback link.",
+          "proposed_edit": "Replace with: For tools without a tutorial,"
+        },
+        {
+          "id": "c04-r02",
+          "label": "needs_revision",
+          "category": "empty_framing",
+          "span": {
+            "start": 2551,
+            "end": 2593
+          },
+          "quote": "This is what the pages above walk through.",
+          "rationale": "Restates the just-described purpose without a specific destination or constraint.",
+          "proposed_edit": "Remove the sentence."
+        },
+        {
+          "id": "c04-r03",
+          "label": "needs_revision",
+          "category": "vague_claims",
+          "span": {
+            "start": 3300,
+            "end": 3331
+          },
+          "quote": "and it is\nthe step people skip.",
+          "rationale": "Unsupported assertion about reader behavior adds no required instruction.",
+          "proposed_edit": "Remove the reader judgment; retain the adoption procedure and warning."
+        },
+        {
+          "id": "c04-r04",
+          "label": "acceptable",
+          "category": "technical_scope",
+          "span": {
+            "start": 2278,
+            "end": 2384
+          },
+          "quote": "Converting a directory and keeping your commands are separate decisions, and\nyou do not have to make both.",
+          "rationale": "The distinction explains two actual migration paths.",
+          "proposed_edit": "No edit."
+        },
+        {
+          "id": "c04-r05",
+          "label": "acceptable",
+          "category": "technical_scope",
+          "span": {
+            "start": 2980,
+            "end": 3172
+          },
+          "quote": "A converted directory is a set of files. It says nothing about the databases\nthat already ran the old tool, and applying it to one of them would replay\nmigrations those databases already have.",
+          "rationale": "Essential warning against replaying applied migrations.",
+          "proposed_edit": "No edit."
+        }
+      ]
+    }
+  ]
+}

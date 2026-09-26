@@ -11,6 +11,9 @@ func documentJustification(clauses []frameClause, index int) (rhetoricalFrame, b
 	if !c.eligible() {
 		return rhetoricalFrame{}, false
 	}
+	if frame, ok := outcomeAnnouncement(clauses, index); ok {
+		return frame, true
+	}
 	if frame, ok := contextualDocumentFrame(clauses, index); ok {
 		return frame, true
 	}
