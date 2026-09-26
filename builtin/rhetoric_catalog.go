@@ -37,13 +37,16 @@ func localRhetoricRules() []rule.Rule {
 			[]rule.Example{{Text: "The default path for the configuration file is located at `/etc/example.conf`.", Match: true},
 				{Text: "The configuration file is located at `/etc/example.conf`."}}),
 		localRhetoricRule("filler.document-justification", documentJustification,
-			"State the scope or destination directly instead of explaining why this page exists.",
-			"Keep the link, ownership, and scope; remove the explanation of the document's existence or deliberate non-repetition.",
+			"State the information directly; remove redundant document or outcome announcements.",
+			"Keep links, ownership, scope and conditional branches; remove explanations of the document's existence, "+
+				"deliberate non-repetition or a generic outcome introduction that adds no information to its branches.",
 			"A document subject followed by 'exists so/to/because', deliberate non-repetition of material, "+
 				"a statement that a document part earns its place, a page explaining what its fields mean, editorial "+
 				"ownership, document dedication or future-presentation clauses, or announcements "+
 				"that definitions or counts are repeated or omitted here. "+
 				"Ownership may use a pronoun only after an adjacent explicit document announcement in the same block. "+
+				"A generic possibility announcement may precede two complete conditional branches in the same block. "+
+				"Exact counts, concrete outcome kinds and scoped introductions remain excluded. "+
 				"Storage existence and ordinary scope exclusions do not match.",
 			[]rule.Example{{Text: "This page exists so the operator is reachable from here.", Match: true},
 				{Text: "This page does not describe authentication."}}),
@@ -127,7 +130,7 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 func localRhetoricVersion(id string) string {
 	switch id {
 	case "filler.document-justification":
-		return "5"
+		return "6"
 	case "filler.instruction-scaffolding":
 		return "11"
 	case "filler.evaluative-closure":
