@@ -51,7 +51,7 @@ func numericalHooks(ctx context.Context, view rule.View, emit rule.Emitter) erro
 
 func numericalChoice(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	c := clauses[index]
-	if c.start != 0 || !c.eligible() || rhetoricQuoted(c) || rhetoricAttributed(c) {
+	if len(clauses) != 1 || c.start != 0 || !c.eligible() || rhetoricQuoted(c) || rhetoricAttributed(c) {
 		return rhetoricalFrame{}, false
 	}
 	if !numericalChoiceLead(c.tokens()) || numericalRequirement(c.sentence.Tokens) {

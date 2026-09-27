@@ -46,6 +46,8 @@ func TestUnnamedNumericalChoiceControls(t *testing.T) {
 		"- Four answers, and the right one depends on whether you control writes.",
 		"The quiz asks how deployment works. Four answers, and the right one depends on whether you control writes.",
 		"Four answers. The right one depends on whether you control writes.",
+		"Four options, and the right one depends on the mode: local, hosted, gateway, or offline.",
+		"Four answers, and the right one depends on the mode; local or hosted.",
 		"One answer, and the right one depends on whether you control writes.",
 		"100 options, and the right one depends on whether you control writes.",
 		"Four answers, and the right one depends on.",
