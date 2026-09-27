@@ -126,8 +126,22 @@ the reply's structured JSON and text copy. It preserves whole documents; a singl
 document that exceeds this budget fails explicitly. It compares every batch
 with the corresponding CLI documents, findings, assessments, suppressions and
 requested measurements.
-Its developer evidence file stores the actual responses in `repository_batches`;
-the public MCP response schema is unchanged. Any mismatched batch fails the check.
+Its developer evidence file uses version `unswell-mcp-selfcheck-v1` and records
+`complete`, the build commit, the policy hash, matched `repository_batches`,
+and completed `probes`. A failure records the stage, batch or probe, request
+source names and hashes, and any structured response that arrived. Missing
+responses are absent; they are not empty successful scans. Source text and
+snippets are excluded from retained failure responses. The public MCP response
+schema is unchanged. Any mismatched batch fails the check, even when partial
+evidence was saved. Failure to write that evidence also fails the command.
+
+The developer command accepts `--timeout` for the entire subprocess verification,
+with a two-minute default and a positive maximum of 30 minutes. Repository and
+container CI explicitly allow five minutes: the growing repository exceeded the
+old two-minute total on both hosted and local runs. This deadline includes
+startup, all batches, and probes; it does not change the server's per-request
+analysis limits or permit missing documents. The [failure evidence record](mcp-selfcheck-evidence.md)
+contains the original batch replay and the observed deadline failures.
 If a batch contains no applicable prose, the self-check uses the discovered
 `fail_on_empty` policy to verify its outcome. An expected empty-scan error stays
 an error in the saved response; its documents and measurements must still match

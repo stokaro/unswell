@@ -95,7 +95,7 @@ build-mcp:
 	cd mcp && CGO_ENABLED=0 go build -trimpath -ldflags "-X github.com/stokaro/unswell.BuildCommit=$$commit" -o ../bin/unswell-mcp ./cmd/unswell-mcp
 
 dogfood-mcp: dogfood build-mcp
-	cd mcp && go run ./cmd/mcp-selfcheck --expected ../artifacts/dogfood/result.json \
+	cd mcp && go run ./cmd/mcp-selfcheck --timeout 5m --expected ../artifacts/dogfood/result.json \
 	  --output ../artifacts/dogfood/mcp-result.json -- ../bin/unswell-mcp --config ../.unswell.yaml \
 	  --prepared-feature prose-words --prepared-feature noun-token-ratio \
 	  --prepared-kind sentence --prepared-kind paragraph --prepared-kind fragment \

@@ -55,7 +55,7 @@ if [[ "$status" != 1 ]]; then
   exit 1
 fi
 
-(cd mcp && go run ./cmd/mcp-selfcheck --expected ../artifacts/containers/cli.json \
+(cd mcp && go run ./cmd/mcp-selfcheck --timeout 5m --expected ../artifacts/containers/cli.json \
   --output ../artifacts/containers/mcp.json -- \
   docker --context "$context" run --rm -i --name "$server" --read-only --network none \
   --mount "type=volume,source=$volume,target=/work,readonly" "$mcp_image" --config /work/.unswell.yaml)

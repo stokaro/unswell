@@ -111,7 +111,7 @@ func TestRepositoryBatchesRejectLaterMismatch(t *testing.T) {
 				})
 			batches, err := verifyBatches(t.Context(), batchSession(t, instance), expected, true)
 			c.Assert(err, qt.ErrorMatches, "MCP repository batch 2 differs from normalized CLI evidence")
-			c.Assert(batches, qt.HasLen, 0)
+			c.Assert(batches, qt.HasLen, 1)
 		})
 	}
 }
