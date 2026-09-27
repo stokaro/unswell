@@ -15,7 +15,16 @@ explicit step.
 A pack declares the run inputs that change measured column values: the feature
 and unit contracts, complete column descriptors with their digest, the NLP
 provider identity, the exact requested capabilities, the preparation hash, and
-the quote and structure switches. `Compatible` compares those inputs only. Gate
+the quote and structure switches. Each model channel prepares the structural
+representation declared by its pack, independently of enabled rules, feature
+collection, and baseline identity collection. When the structural switch differs,
+the engine re-extracts the original source with the existing extractor and the
+same limits. It preserves non-English exclusions and does not alter the document
+used by rules or reports. Quote inclusion and extraction context selection remain
+caller policy: a pack cannot enable excluded text, and a real mismatch still
+abstains or fails according to `on_incompatible`.
+
+`Compatible` compares those inputs only. Gate
 thresholds, severities, baselines, and report selection do not change prepared
 measurements, so they do not invalidate a pack. Columns must equal this build's
 `feature.UnitCatalog` definitions for the pack's kind, so a renamed, reversioned,
