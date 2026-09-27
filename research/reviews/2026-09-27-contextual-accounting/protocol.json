@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "hypothesis": "Bounded unit inventories with explicit contribution assessments detect more contextual editorial defects than a whole-page list of selected findings, while preserving precision and technical meaning.",
+  "model": "gpt-6-astra",
+  "effort": "medium",
+  "pages": 36,
+  "max_calls": 88,
+  "max_focus_units": 64,
+  "per_call_timeout_seconds": 600,
+  "total_timeout_seconds": 14400,
+  "concurrency": 1,
+  "attempts_per_request": 1,
+  "automatic_retries": false,
+  "tools_allowed": false,
+  "labels_in_requests": false,
+  "failure_policy": "Stop on the first invalid response, tool event, failed call, or exhausted time budget. Retain every raw response and incomplete page. Never repair or retry within this run.",
+  "authentication": "Existing Codex ChatGPT subscription. No API-key extraction, paid API fallback, or known monetary cost is claimed.",
+  "screen": {
+    "required_complete_pages": 36,
+    "reference_events": 123,
+    "minimum_full_event_recall": 0.8,
+    "minimum_accepted_findings_fraction": 0.85,
+    "required_cohorts": ["whole", "context", "confirmation"],
+    "unavailable_pages": "Remain in all planned recall denominators and fail completeness. They are not observed semantic misses.",
+    "partial_pages": "Review and report their emissions separately; they cannot earn complete-page event credit. Also publish the accepted fraction of all valid-request emissions.",
+    "uncertain_findings": "Remain in the accepted-findings denominator.",
+    "suggestion_safety": "Separate review dimension; never infer safety from a correct diagnosis. No automatic edits."
+  },
+  "decision": "Passing all complete exposed cohorts permits separate prospective confirmation, not product qualification. Failure rejects this candidate without lowering thresholds.",
+  "authorization": "Offline preparation only until the user explicitly approves this new 88-request, four-hour maximum execution. The terminal preceding run provides no transferable call budget."
+}
