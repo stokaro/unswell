@@ -1,7 +1,11 @@
 # Whole-page contextual review with a separate model
 
-Status: prepared offline; **no model requests have run**. This is a research
-candidate for the unresolved recall goal, not an integrated or qualified model.
+Status: **executed September 27, 2026; development screen failed**. The authorized
+GPT-6-Astra medium run made 19 requests: 18 valid responses, one invalid response,
+and 17 unattempted pages after the required stop. No request was retried. The
+candidate is not integrated or qualified. See [the results](RESULTS.md),
+[machine-readable summary](summary.json), and
+[execution amendment](EXECUTION-AMENDMENT.md).
 
 The current engine still diagnoses only 1/20 frozen defects on the four recent
 Ptah follow-up pages. Narrow construction extensions and earlier compact-model
@@ -43,8 +47,11 @@ instruction bytes, no host-skill discovery, disabled tools/plugins/connectors,
 and an empty temporary working directory with a read-only sandbox. The flags
 come from local `codex exec --help` and the
 [official configuration schema](https://developers.openai.com/codex/config-schema.json).
-These are requested settings, not a claim that a live startup has been verified.
-Unknown startup behavior, tool events, or an incomplete turn fails the trial.
+The retained traces contain no tool execution. The CLI emitted one exact startup
+notice that required the disclosed compatibility amendment; all other unexpected
+events still fail validation. The original frozen runner and its rejected first
+ledger remain available. Unknown startup behavior, tool events, or an incomplete
+turn fails the trial.
 
 The CLI consumes subscription quota. Dollar telemetry is unavailable and remains
 null; no zero-cost claim or hard monetary cap is made. A new model-agent execution
@@ -92,6 +99,24 @@ preparing them. This small same-project cohort needs separate reporting and
 cannot alone establish broad transfer.
 
 ## Reproduction
+
+Recompute the retained result without credentials, network access, or model calls:
+
+```sh
+python3 -B research/reviews/2026-09-26-contextual-evidence/verify_run.py research/reviews/2026-09-26-contextual-evidence/evidence.tar.gz
+python3 -B -m unittest discover -s research/reviews/2026-09-26-contextual-evidence -p 'test_*.py' -v
+```
+
+The archive contains the frozen packet, original traces, both execution ledgers,
+the invalid response, source-specific judgments, and upstream license notices.
+`artifact.json` records its hash. Offline relocation changes only the expected
+filesystem roots when checking recorded commands; all model, effort, isolation,
+and tool flags still match the original frozen command builder. Neither commands
+nor raw traces are rewritten. Negative tests reject a changed tool flag, a tool
+event, and a dropped frozen event even when outer archive checksums are refreshed.
+
+The commands below describe the original preparation interface. They do not
+authorize another execution; the approved run is terminal.
 
 ```sh
 python3 -B -m unittest discover -s research/reviews/2026-09-26-contextual-evidence -p 'test_*.py' -v
