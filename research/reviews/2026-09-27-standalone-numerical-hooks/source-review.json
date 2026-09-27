@@ -1,0 +1,104 @@
+{
+  "reviewer": "OpenAI assistant, maintainer-accepted ADR 0041; not independent human annotation.",
+  "scope": "Standalone count plus generic choice noun followed by an unnamed right/best choice depending on a stated condition. Complete-page review is limited to this editorial construction, not all defects.",
+  "confirmation": [
+    {
+      "path": "c01.md",
+      "reference": "https://github.com/grpc/grpc/blob/7e9e503bd96bcaeaeb5fc39bc04288db9c55d60e/doc/keepalive.md",
+      "sha256": "6ba463b4e622da70b94b66380ad51d6e35a5a0efb32b0f6b7a53ae0a09e6152c",
+      "reviewed": "Complete page read before candidate implementation or outputs.",
+      "events": [],
+      "controls": [
+        {
+          "start": 1141,
+          "end": 1205,
+          "quote": "Setting it to 0 allows sending pings without such a restriction.",
+          "reason": "No generic numerical choice teaser; retain concrete numeric behavior or unrelated construction. Other editorial defects are outside this family review."
+        },
+        {
+          "start": 2438,
+          "end": 2506,
+          "quote": "Setting it to 0 allows the server to accept any number of bad pings.",
+          "reason": "No generic numerical choice teaser; retain concrete numeric behavior or unrelated construction. Other editorial defects are outside this family review."
+        },
+        {
+          "start": 5235,
+          "end": 5355,
+          "quote": "When there isn't any data/header being sent on the transport, gRPC clients restrict the number of pings to 2 by default.",
+          "reason": "No generic numerical choice teaser; retain concrete numeric behavior or unrelated construction. Other editorial defects are outside this family review."
+        }
+      ]
+    },
+    {
+      "path": "c02.md",
+      "reference": "https://github.com/mermaid-js/mermaid/blob/d6b2bcf0d23af89f65de659d2d7edd32a41ccddc/docs/n00b-overview.md",
+      "sha256": "83922f1f9f1742b423ea6a269c0a98d5ab0da31598cbeeb3b1e2cf04d6d9e71e",
+      "reviewed": "Complete page read before candidate implementation or outputs.",
+      "events": [],
+      "controls": [
+        {
+          "start": 56,
+          "end": 128,
+          "quote": "A picture is worth a thousand words, a good diagram would be worth more.",
+          "reason": "No generic numerical choice teaser; retain concrete numeric behavior or unrelated construction. Other editorial defects are outside this family review."
+        },
+        {
+          "start": 668,
+          "end": 741,
+          "quote": "This catch-22 hobbles the information transfer and productivity in teams.",
+          "reason": "No generic numerical choice teaser; retain concrete numeric behavior or unrelated construction. Other editorial defects are outside this family review."
+        },
+        {
+          "start": 2409,
+          "end": 2455,
+          "quote": "The number of integrations and plugins it has.",
+          "reason": "No generic numerical choice teaser; retain concrete numeric behavior or unrelated construction. Other editorial defects are outside this family review."
+        }
+      ]
+    }
+  ],
+  "development": {
+    "cohort": "ptah",
+    "repository": "stokaro/ptah",
+    "original_path": "docs/site/src/content/docs/inference/strategies/choose-a-consistency-mode.md",
+    "input_path": "inference/strategies/choose-a-consistency-mode.md",
+    "sha256": "15f248e0dac75972bbfaad188136a5ee28a829824e04492fdedf55ea1df87124",
+    "bytes": 3951,
+    "format": "markdown",
+    "words": 500,
+    "commit": "654eae5591392278e6c8bce8e54737f780766f19",
+    "reference": "https://github.com/stokaro/ptah/blob/654eae5591392278e6c8bce8e54737f780766f19/docs/site/src/content/docs/inference/strategies/choose-a-consistency-mode.md",
+    "rights": {
+      "license": "MIT",
+      "evidence": "Maintainer-authorized research reuse; retained Ptah notice",
+      "allowed_uses": [
+        "annotation",
+        "evaluation",
+        "redistribute_source",
+        "redistribute_annotations"
+      ]
+    },
+    "origin": {
+      "label": "unknown",
+      "scope": "repository",
+      "evidence": "Maintainer reports nearly all Ptah prose is AI-generated; no unit-level record"
+    },
+    "rank": "e82fb9f58f71f6a7a8398f457bb37da496197cf1aeb991f805afd5b2773cf91f",
+    "length_stratum": "short",
+    "id": "c02",
+    "path": "sources/c02.md",
+    "source_revision": "654eae5591392278e6c8bce8e54737f780766f19",
+    "archive_path": "development/choose-a-consistency-mode.md",
+    "status": "exposed development",
+    "events": [
+      {
+        "start": 477,
+        "end": 551,
+        "quote": "Four answers, and the right one depends on whether you control the writes.",
+        "revision": "Choose a consistency mode based on whether you control source writes.",
+        "reason": "The generic count/answers introduction does not name the choice; preserve the source-write condition."
+      }
+    ]
+  },
+  "limitations": "No target-family positive events were found on the two new pages. These controls cannot establish sensitivity; the Ptah positive is exposed development data."
+}

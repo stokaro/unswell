@@ -76,6 +76,7 @@ func TestCandidateActivationsKeepExcludedProseOut(t *testing.T) {
 
 func TestCandidateActivationsRetainCancellationAndConcurrentOwnership(t *testing.T) {
 	for _, row := range []struct{ id, text string }{
+		{"filler.unnamed-numerical-choice", "Four answers, and the right one depends on whether you control writes."},
 		{"filler.numbered-section-framing", "Four lines of configuration control the endpoint.\n\n## The four lines"},
 		{"filler.instruction-scaffolding", "It is possible to display a label. This is done by using the label option."},
 		{"repetition.redundant-predicate", "The default path for the configuration file is located at `/etc/example.conf`."},
