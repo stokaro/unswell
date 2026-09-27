@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "reviewer": "OpenAI assistant; source-first review under ADR 0041, not independent human annotation.",
+  "candidate_executed": false,
+  "scope": "C examples introduced by a colon and indented more deeply than the introducing prose; bounded syntax validation. Other languages and mixed annotated API lists are out of scope.",
+  "confirmation": {
+    "path": "sources/whatsnew-2.2.txt",
+    "repository": "libevent/libevent",
+    "commit": "d82464a277d0f42703702c4dfd9af6af38595a83",
+    "sha256": "68b47c8331f5897f39610362b37835fe4bed216f468834297ccb2a6057a7d721",
+    "code": [
+      {
+        "start": 5333,
+        "end": 5824,
+        "quote": "    #define EVHTTP_REQ_CUSTOM      ((EVHTTP_REQ_MAX) << 1)\n    static int ext_method_cb(struct evhttp_ext_method *p)\n    {\n      if (p == NULL)\n        return -1;\n      if (p->method) {\n        if (strcmp(p->method, \"CUSTOM\") == 0) {\n          p->type = EVHTTP_REQ_CUSTOM;\n          p->flags = 0;   /*EVHTTP_METHOD_HAS_BODY*/\n          return 0;\n        }\n      } else {\n        if (p->type == EVHTTP_REQ_CUSTOM) {\n          p->method = \"CUSTOM\";\n          return 0;\n        }\n      }\n    }\n",
+        "kind": "c",
+        "rationale": "Typed function definition with a preprocessor definition; exclude executable example."
+      },
+      {
+        "start": 5887,
+        "end": 5939,
+        "quote": "    evhttp_set_ext_method_cmp(http, ext_method_cb);\n",
+        "kind": "c",
+        "rationale": "Standalone semicolon-terminated call after its introductory colon."
+      },
+      {
+        "start": 5988,
+        "end": 6052,
+        "quote": "    evhttp_connection_set_ext_method_cmp(evcon, ext_method_cb);\n",
+        "kind": "c",
+        "rationale": "Standalone semicolon-terminated call after its introductory colon."
+      },
+      {
+        "start": 2997,
+        "end": 3109,
+        "quote": "    function client() { becat \"$@\" | pv > /dev/null; }\n    function server() { cat /dev/zero | becat -l \"$@\"; }\n",
+        "kind": "shell",
+        "rationale": "Shell function examples are code but outside the proposed C recognizer."
+      },
+      {
+        "start": 12411,
+        "end": 12452,
+        "quote": "   AC_CONFIG_SUBDIRS([path/to/libevent])\n",
+        "kind": "autoconf",
+        "rationale": "One Autoconf macro is code but outside the proposed C recognizer."
+      },
+      {
+        "start": 13038,
+        "end": 14091,
+        "quote": "  configure.ac:\n  ...\n  EXTRA_CFLAGS=...\n  EXTRA_CPPFLAGS=...\n  EXTRA_LDFLAGS=...\n  ...\n  dnl ac_configure_args is undocumented but widely abused, as here,\n  dnl to modify the defaults of the libevent subpackage, by prefixing\n  dnl our changes to the child configure arguments already assembled.\n  dnl User-supplied contradictory choices should prevail thanks to\n  dnl \"last wins\".\n  ac_configure_args=\" --disable-openssl${ac_configure_args}\"\n  ac_configure_args=\" --disable-shared${ac_configure_args}\"\n  ac_configure_args=\" --disable-libevent-regress${ac_configure_args}\"\n  ac_configure_args=\" --disable-libevent-install${ac_configure_args}\"\n  ac_configure_args=\" --enable-silent-rules${ac_configure_args}\"\n  ac_configure_args=\" --enable-function-sections${ac_configure_args}\"\n  ac_configure_args=\" LIBEVENT_CFLAGS='${EXTRA_CFLAGS}'${ac_configure_args}\"\n  ac_configure_args=\" LIBEVENT_CPPFLAGS='${EXTRA_CPPFLAGS}'${ac_configure_args}\"\n  ac_configure_args=\" LIBEVENT_LDFLAGS='${EXTRA_LDFLAGS}'${ac_configure_args}\"\n  AC_CONFIG_SUBDIRS([libevent])\n  ...\n",
+        "kind": "autoconf",
+        "rationale": "Autoconf configuration example is outside the proposed C recognizer."
+      }
+    ],
+    "controls": [
+      {
+        "start": 6126,
+        "end": 6425,
+        "quote": "  - client:\n    evhttp_connection_set_connect_timeout_tv() -- for connect\n    evhttp_connection_set_read_timeout_tv()    -- for read\n    evhttp_connection_set_write_timeout_tv()   -- for write\n\n  - server:\n    evhttp_set_read_timeout_tv()  -- for read\n    evhttp_set_write_timeout_tv() -- for write\n",
+        "kind": "retain",
+        "rationale": "Annotated API list includes purpose text; neither indentation nor function identifiers justify removing it."
+      },
+      {
+        "start": 789,
+        "end": 1124,
+        "quote": "  Note, that the following communication channels had been deprecated:\n  - #libevent IRC channel at irc.oftc.net\n  - libevent-users@freehaven.net mailing list\n\n0.3. Compatibility\n\n  Our source-compatibility policy is that correct code (that is to say, code\n  that uses public interfaces of Libevent and relies only on their documented\n",
+        "kind": "retain",
+        "rationale": "Version and compatibility requirements remain prose."
+      },
+      {
+        "start": 1739,
+        "end": 2455,
+        "quote": "  \"check\" watchers.  A \"prepare\" watcher is a callback that fires immediately\n  before polling for I/O. A \"check\" watcher is a callback that fires immediately\n  after polling and before processing any active events. This may be useful for\n  embedding other libraries' event loops (e.g. UI toolkits) into libevent's. It's\n  also useful for monitoring server performance. For example, if you measure the\n  time between \"prepare\" and \"check,\" that is the polling duration; the difference\n  between the expected and actual polling duration provides an indication of\n  kernel scheduling delay. And if you measure the time between \"check\" and the\n  next \"prepare\" (in the next iteration of the event loop), that is a good\n",
+        "kind": "retain",
+        "rationale": "Timing conditions and explanatory distinctions remain prose."
+      },
+      {
+        "start": 10002,
+        "end": 10462,
+        "quote": "  new attempt is done via TCP connection.\n\n  2 new macros DNS_QUERY_USEVC and DNS_QUERY_IGNTC had been added to force all\n  requests to be done via TCP and to disable switch to TCP in case of truncated\n  responses.\n\n  Possibility for DNS server to listen and receive requests on TCP port also\n  had been added.\n\n  Fallback to TCP in case of truncated DNS requests is done automatically.\n  To imitate the old behaviour macros DNS_QUERY_IGNTC should be used. To\n",
+        "kind": "retain",
+        "rationale": "DNS fallback conditions and macro names remain prose."
+      },
+      {
+        "start": 14171,
+        "end": 14662,
+        "quote": "  Now Libevent uses github actions for CI, previously we had travis-ci for\n  linux/macos and appveyor for win32 (removed in #951), and also I used testing\n  vagrant for some time, but it had been moved into a separate repository\n  (8c1838be). But actually this is not required anymore since github actions\n  supports:\n  - linux\n  - freebsd\n  - windows\n  - osx\n  - openbsd\n  - and also tests under Thread/Address/Undefined sanitizers\n\n  So no need to test something locally before releases.\n\n",
+        "kind": "retain",
+        "rationale": "CI platform list and prose remain eligible; list indentation alone is not code."
+      }
+    ],
+    "limitations": "One new complete page from the same project; earlier studies contain whatsnew-2.0.txt, so that page is development, not fresh confirmation. Output excerpts and shell commands not separately labeled here remain out of C-recognition scope."
+  },
+  "development": [
+    {
+      "path": "sources/whatsnew-2.1.txt",
+      "commit": "5df3037d10556bfcb675bc73e516978b75fc7bc7",
+      "sha256": "c101c12f88100aa4af50ab131d0b0932505d7bfe56c4d4da074fedd6830cd427",
+      "basis": "Frozen issue #307 source; original confirmation c11 is now exposed development."
+    },
+    {
+      "path": "sources/whatsnew-2.0.txt",
+      "commit": "d82464a277d0f42703702c4dfd9af6af38595a83",
+      "sha256": "a15295b7790a1e625e2bb127de9ce2d20a625950f651cc6777bc16d680982f78",
+      "basis": "Previously used by other contextual studies; expanded development only."
+    }
+  ]
+}

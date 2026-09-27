@@ -36,6 +36,18 @@ Shebangs are inspected as text. No source, interpreter, substitution or generato
 is executed. Recursive discovery uses the extension and shell startup-file patterns
 in the effective configuration.
 
+Plain text excludes bounded C examples following a colon-ended introduction when
+the example is more deeply indented. A C declaration, preprocessor directive, or
+complete call list must also pass the C syntax parser. A single call needs a
+semicolon; a bare signature list needs at least two calls. The `plain-code`
+exclusion preserves the original byte range and separates surrounding prose.
+Recognized examples are limited to 128 lines and 16 KiB, with at most 100 parser
+candidates per document. Exceeding the candidate count is an operational error.
+Unknown, malformed, mixed prose/code, and oversized regions remain eligible prose.
+Indentation alone and annotated API lists do not cause exclusion. Other embedded
+languages remain outside this recognition. Conventional omitted C statements
+(`...` alone or `{ ... }`) are normalized only in a private parsing buffer.
+
 Markdown uses gotreesitter's block and inline grammars, including GFM tables and
 task lists. Inline code, fenced and indented code, HTML, image syntax, link
 destinations and front matter are protected. Link labels remain prose. Quoted
