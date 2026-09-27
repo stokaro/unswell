@@ -14,7 +14,7 @@ import (
 
 func committedClasses(c *qt.C) ([]byte, corpus.RuleClasses) {
 	c.Helper()
-	data, err := os.ReadFile("../../methods/rule-classes-v1-r10.json")
+	data, err := os.ReadFile("../../methods/rule-classes-v1-r11.json")
 	c.Assert(err, qt.IsNil)
 	classes, err := corpus.LoadRuleClasses(c.TB.(*testing.T).Context(), data)
 	c.Assert(err, qt.IsNil)

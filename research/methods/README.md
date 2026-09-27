@@ -124,7 +124,12 @@ Revision 9, [`rule-classes-v1-r9.json`](rule-classes-v1-r9.json), covers the
 style signals. Command tests at that revision used it. Its entries preserve all
 previous classifications; the editorial study does not qualify an origin signal.
 
-Revision 10, [`rule-classes-v1-r10.json`](rule-classes-v1-r10.json), covers the current
+Revision 10, [`rule-classes-v1-r10.json`](rule-classes-v1-r10.json), covers the
 56-rule catalog. Count-centered introductions paired with generic count headings
-are general style signals. Current command tests use revision 10; earlier classes
+are general style signals. Command tests at that revision used it; earlier classes
 and measured results stay unchanged. No authorship association is asserted.
+
+Revision 11, [`rule-classes-v1-r11.json`](rule-classes-v1-r11.json), covers the current
+57-rule catalog. Unnamed numerical choice openings are general style signals.
+Current command tests use revision 11. Previous classes and measured results
+remain frozen; the new rule establishes no authorship association or broad recall.

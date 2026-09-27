@@ -15,7 +15,7 @@ import (
 )
 
 func TestCandidateObservationsRetainEmptyBlocksAndFailures(t *testing.T) {
-	ids := []string{"filler.numbered-section-framing", "format.list-fragmentation", "repetition.heading-echo",
+	ids := []string{"filler.unnamed-numerical-choice", "filler.numbered-section-framing", "format.list-fragmentation", "repetition.heading-echo",
 		"repetition.near-sentence", "repetition.ngram-density",
 		"repetition.paragraph-overlap", "repetition.summary-echo", "repetition.syntax-template"}
 	for _, implementation := range builtin.Rules() {
