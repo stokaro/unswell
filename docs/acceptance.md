@@ -126,6 +126,17 @@ state.
 | Acceptance audit | Met | This page, kept current with the [roadmap](roadmap.md) |
 | Race detection, active fuzzing and coverage in CI | Deferred | [#123](https://github.com/stokaro/unswell/issues/123) is on hold and may start only on an explicit maintainer request, after every other implementation task has a recorded disposition. Prior measurements do not replace validation of the final tree |
 
+## Contextual model follow-up
+
+The [unit-accounting experiment](../research/reviews/2026-09-27-contextual-accounting-results/README.md)
+completed all 88 GPT-6-Astra medium requests across 36 exposed pages. It failed
+its frozen development screen: full-event recall was 44/57, 24/46, and 14/20
+across the three cohorts; accepted findings were 319/405, 54/59, and 26/30.
+No cohort met both requirements of 80% recall and 85% accepted findings.
+The complete packet, raw responses, judgments, and offline replay are retained.
+This candidate is rejected; #349 remains open, and the separately reserved
+prospective pages were not used to qualify it.
+
 ## What this alpha does not claim
 
 The rule catalog is experimental. Diagnostic review metrics describe agreement
