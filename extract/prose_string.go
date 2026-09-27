@@ -5,7 +5,7 @@ import (
 	"slices"
 	"strings"
 
-	ts "github.com/stokaro/gotreesitter"
+	ts "github.com/odvcencio/gotreesitter"
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/internal/pathglob"

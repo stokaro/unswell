@@ -26,7 +26,10 @@ The adapter also masks a leading BOM with blank lines, rather than three spaces.
 The old mask changed the first list marker's indentation. Both masks retain the
 original byte offsets; only the parser's owned input changes.
 
-## Dependency record
+The [upstream migration record](upstream-v0.53.md) covers the later return to
+v0.53.0. The original repair and measurements below remain historical evidence.
+
+## Original dependency record
 
 - Upstream base: v0.52.0, `2295871057f860598a006d6068588a6303fefb02`.
 - Parser patch: `c3dfaca` in [stokaro/gotreesitter](https://github.com/stokaro/gotreesitter/tree/unswell-v0.52.0).
@@ -40,9 +43,9 @@ original byte offsets; only the parser's owned input changes.
 
 The fork has its own module path because a dependency's `replace` directives do
 not apply to its consumers. This lets the CLI, MCP, and library use the same fix.
-Return to the original module after an upstream release includes the patch and
-passes the extraction and corpus checks. Do not change historical corpus files
-to claim that they were measured with the new dependency.
+Issue [#234](https://github.com/stokaro/unswell/issues/234) tracks return to the
+original module after a release includes this patch and passes extraction and
+corpus checks. Historical corpus files retain the dependency used to measure them.
 
 ## Regression checks
 

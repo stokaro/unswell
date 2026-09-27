@@ -5,7 +5,7 @@ import (
 	"context"
 	"slices"
 
-	ts "github.com/stokaro/gotreesitter"
+	ts "github.com/odvcencio/gotreesitter"
 )
 
 // cFamilySyntax parses C and C++ source. A function-like macro used as a

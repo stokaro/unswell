@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
-	ts "github.com/stokaro/gotreesitter"
-	"github.com/stokaro/gotreesitter/grammars"
+	ts "github.com/odvcencio/gotreesitter"
+	"github.com/odvcencio/gotreesitter/grammars"
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/extract"
@@ -96,7 +96,7 @@ func TestBashGrammarAdapterDoesNotChangeSharedGrammar(t *testing.T) {
 	before, err := ts.NewParser(lang).ParseStrict(source)
 	c.Assert(err, qt.IsNil)
 	defer before.Release()
-	c.Assert(before.RootNode().HasErrorOrMissing(), qt.IsTrue)
+	c.Assert(before.RootNode().HasErrorOrMissing(), qt.IsFalse)
 	doc, err := extract.Parse(t.Context(), document.Source{Name: "sample.bash", Format: document.Bash, Bytes: source}, extract.Options{})
 	c.Assert(err, qt.IsNil)
 	c.Assert(doc.Blocks, qt.HasLen, 1)
@@ -104,6 +104,6 @@ func TestBashGrammarAdapterDoesNotChangeSharedGrammar(t *testing.T) {
 	after, err := ts.NewParser(lang).ParseStrict(source)
 	c.Assert(err, qt.IsNil)
 	defer after.Release()
-	c.Assert(after.RootNode().HasErrorOrMissing(), qt.IsTrue)
+	c.Assert(after.RootNode().HasErrorOrMissing(), qt.IsFalse)
 	c.Assert(after.RootNode().SExpr(lang), qt.Equals, before.RootNode().SExpr(lang))
 }
