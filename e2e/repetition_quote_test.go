@@ -25,6 +25,10 @@ func TestAdjacentQuotationRepair(t *testing.T) {
 		{"draft", "\ufeff# Café\r\n\r\nThe library was named “ImGui” when\r\nwhen the maintainer released it.", 1},
 		{"revision", `The library was named "ImGui" when the maintainer released it.`, 0},
 		{"quotation", `The manual says "First sentence. The client must must retry. Last sentence."`, 0},
+		{"operands", "The AND and OR operators accept 1 1 and %s %s.", 0},
+		{"near operands", "\ufeff# Café\r\n\r\nThe AND and OR parser returns %s %s when\r\nwhen values are 1 1.", 1},
+		{"protected operands", "Use `when when` with AND and OR and %s %s.", 0},
+		{"quoted operands", "The manual says “AND and OR when when %s %s”.", 0},
 	} {
 		t.Run(row.name, func(t *testing.T) {
 			c := qt.New(t)
@@ -38,7 +42,7 @@ func TestAdjacentQuotationRepair(t *testing.T) {
 			c.Assert(result.Findings, qt.HasLen, row.code)
 			if row.code == 1 {
 				finding := result.Findings[0]
-				c.Assert(finding.RuleVersion, qt.Equals, "2")
+				c.Assert(finding.RuleVersion, qt.Equals, "3")
 				c.Assert(finding.Primary.Span.Start, qt.Equals, strings.Index(row.text, "when"))
 				c.Assert(finding.Related[0].Span.Start, qt.Equals, strings.LastIndex(row.text, "when"))
 			}

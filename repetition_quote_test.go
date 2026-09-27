@@ -31,7 +31,7 @@ func TestAdjacentWordsOutsideQuotations(t *testing.T) {
 			result := singleRuleResult(t, "repetition.adjacent-word", text, "", "")
 			c.Assert(result.Manifest.Complete, qt.IsTrue)
 			c.Assert(result.Findings, qt.HasLen, 1)
-			c.Assert(result.Findings[0].RuleVersion, qt.Equals, "2")
+			c.Assert(result.Findings[0].RuleVersion, qt.Equals, "3")
 			c.Assert(result.Findings[0].Related, qt.HasLen, 1)
 		})
 	}

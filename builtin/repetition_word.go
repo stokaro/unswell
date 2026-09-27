@@ -4,6 +4,7 @@ import (
 	"context"
 	"slices"
 	"strings"
+	"unicode"
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/rule"
@@ -43,7 +44,7 @@ func adjacentSentence(view rule.View, block document.Block, sentence document.Se
 			continue
 		}
 		*evaluated = true
-		if left.Normal != right.Normal || ambiguousDuplicate(left, right, sentence.Tokens) ||
+		if left.Normal != right.Normal || distinctOperatorUse(left, right) || ambiguousDuplicate(left, right, sentence.Tokens) ||
 			!adjacentWordGap(block, left, right) {
 			continue
 		}
@@ -88,7 +89,30 @@ func quotedClaim(tokens []document.Token) bool {
 }
 
 func adjacentProseWords(left, right document.Token) bool {
-	return left.Word && right.Word && !left.Protected && !right.Protected
+	return left.Word && right.Word && !left.Protected && !right.Protected &&
+		duplicateProseWord(left.Text) && duplicateProseWord(right.Text)
+}
+
+// duplicateProseWord excludes data and format conversions without excluding the
+// surrounding prose. The tokenizer's Word flag also includes numeric operands.
+func duplicateProseWord(text string) bool {
+	letters := false
+	for _, r := range text {
+		switch {
+		case unicode.IsLetter(r):
+			letters = true
+		case unicode.IsMark(r), r == '\'', r == '’', r == '-':
+		default:
+			return false
+		}
+	}
+	return letters
+}
+
+func distinctOperatorUse(left, right document.Token) bool {
+	return left.Text != right.Text &&
+		(slices.Contains([]string{"AND", "OR", "XOR", "NOT", "NOR", "NAND"}, left.Text) ||
+			slices.Contains([]string{"AND", "OR", "XOR", "NOT", "NOR", "NAND"}, right.Text))
 }
 
 func adjacentWordGap(block document.Block, left, right document.Token) bool {
