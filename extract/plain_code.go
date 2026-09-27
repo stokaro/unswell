@@ -36,19 +36,19 @@ func plainText(ctx context.Context, doc *document.Document) error {
 			i++
 			continue
 		}
-		if previous < 0 || !strings.HasSuffix(lines[previous].text, ":") || line.indent <= lines[previous].indent {
+		if !plainIntroduced(lines, previous, i) {
 			previous = i
 			i++
 			continue
 		}
 		end := plainRegionEnd(lines, i, lines[previous].indent)
 		span := document.Span{Start: line.start, End: lines[end-1].end}
-		eligible := end-i <= plainCodeLines && span.End-span.Start <= plainCodeBytes && plainCodeAnchor(line.text)
+		eligible := plainCandidateEligible(lines, i, end)
 		if eligible {
 			candidates++
-			if candidates > plainCodeCandidates {
-				return fmt.Errorf("plain-text code recognition exceeds %d candidates", plainCodeCandidates)
-			}
+		}
+		if candidates > plainCodeCandidates {
+			return fmt.Errorf("plain-text code recognition exceeds %d candidates", plainCodeCandidates)
 		}
 		if eligible && plainCExample(ctx, doc.Source[span.Start:span.End]) {
 			plain(doc, start, span.Start, "paragraph")
@@ -62,6 +62,14 @@ func plainText(ctx context.Context, doc *document.Document) error {
 	}
 	plain(doc, start, len(doc.Source), "paragraph")
 	return ctx.Err()
+}
+
+func plainCandidateEligible(lines []plainLine, start, end int) bool {
+	return end-start <= plainCodeLines && lines[end-1].end-lines[start].start <= plainCodeBytes && plainCodeAnchor(lines[start].text)
+}
+
+func plainIntroduced(lines []plainLine, previous, current int) bool {
+	return previous >= 0 && strings.HasSuffix(lines[previous].text, ":") && lines[current].indent > lines[previous].indent
 }
 
 func plainLines(source []byte) []plainLine {
