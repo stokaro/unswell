@@ -69,6 +69,7 @@ func TestUnnamedNumericalChoiceMappingAndPolicy(t *testing.T) {
 	c.Assert(f.Primary.Span.Start, qt.Equals, len("\ufeff"))
 	c.Assert(f.Primary.Span.End, qt.Equals, strings.Index(text, "."))
 	c.Assert(f.Primary.Snippet, qt.Equals, text[f.Primary.Span.Start:f.Primary.Span.End])
-	c.Assert(singleRuleResult(t, id, text, "", windowTerm(id, "Four answers, and the right one depends on whether café writes are enabled")).Findings, qt.HasLen, 0)
+	term := windowTerm(id, "Four answers, and the right one depends on whether café writes are enabled")
+	c.Assert(singleRuleResult(t, id, text, "", term).Findings, qt.HasLen, 0)
 	c.Assert(singleRuleResult(t, id, text, "{allowed_occurrences: 1, saturation_occurrences: 2}", "").Findings, qt.HasLen, 0)
 }

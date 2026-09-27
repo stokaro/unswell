@@ -17,7 +17,8 @@ func numericalHookRule() rule.Rule {
 	d.Parameters = []string{"allowed_occurrences", "saturation_occurrences"}
 	d.Description = "A prose block opens with a count and answers/options/choices, followed by ', and/but the right/best one depends on' " +
 		"and a stated selection condition. Reports that clause; the actual task is left unnamed by the opening."
-	d.Limitations = "Experimental editorial policy, not authorship attribution, enumeration validation, or established population precision. " +
+	d.Limitations = "Experimental editorial policy, not authorship attribution, enumeration validation, " +
+		"or established population precision. " +
 		"Recognizes two through twenty in words and 2 through 99 in digits, only in the first sentence of a prose block. " +
 		"Clauses are limited to 48 tokens. Named alternatives, task headings, lists, requirements, quotations and questions do not qualify. " +
 		"Other numerical hooks remain unsupported. Keep the selection condition when naming the actual choice."
