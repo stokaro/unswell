@@ -5,15 +5,18 @@ import (
 	"context"
 	"strings"
 
-	ts "github.com/stokaro/gotreesitter"
+	ts "github.com/odvcencio/gotreesitter"
 
 	"github.com/stokaro/unswell/document"
 )
 
 func inlineSyntax(ctx context.Context, source []byte) (syntaxTree, error) {
 	original, err := parseSyntaxTree(ctx, source, "markdown_inline")
-	if err != nil || !original.tree.RootNode().HasErrorOrMissing() {
+	if err != nil {
 		return original, err
+	}
+	if !original.tree.RootNode().HasErrorOrMissing() {
+		return inlineDirectiveSyntax(ctx, original, source)
 	}
 	defer original.tree.Release()
 	// The inline grammar rejects double hyphens in HTML comments, including code
@@ -51,11 +54,7 @@ func maskInlineBoundaries(ctx context.Context, syntax syntaxTree, source []byte)
 		if len(body) == 0 {
 			return true, nil
 		}
-		for i := 0; i+1 < len(body); i++ {
-			if body[i] == '-' && body[i+1] == '-' {
-				body[i], body[i+1] = ' ', ' '
-			}
-		}
+		maskDirectiveHyphens(body)
 		comments[span] = kind
 		return true, nil
 	})

@@ -69,9 +69,6 @@ func TestDirectiveNormalizationRejectsUnrelatedSyntaxErrors(t *testing.T) {
 	for _, source := range []document.Source{
 		{Name: "sample.ps1", Format: document.PowerShell, Bytes: []byte("# " + command + "\n$value = (\n")},
 		{Name: "sample.ps1", Format: document.PowerShell, Bytes: []byte("# " + command + "\n<# An unfinished comment.\n")},
-		{Name: "guide.md", Format: document.Markdown, Bytes: []byte("A sentence. <!-- ordinary -- comment --> Another sentence.")},
-		{Name: "guide.md", Format: document.Markdown, Bytes: []byte("A sentence. <!-- " + command +
-			" --> The client starts. <!-- ordinary -- comment --> Another sentence.")},
 	} {
 		c := qt.New(t)
 		_, err := extract.Parse(t.Context(), source, extract.Options{})

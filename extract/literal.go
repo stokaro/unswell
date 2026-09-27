@@ -6,7 +6,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	ts "github.com/stokaro/gotreesitter"
+	ts "github.com/odvcencio/gotreesitter"
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/internal/mapping"

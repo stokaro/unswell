@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	ts "github.com/stokaro/gotreesitter"
+	ts "github.com/odvcencio/gotreesitter"
 
 	"github.com/stokaro/unswell/document"
 )

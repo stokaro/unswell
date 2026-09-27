@@ -9,7 +9,7 @@ import (
 	"slices"
 	"unicode/utf8"
 
-	ts "github.com/stokaro/gotreesitter"
+	ts "github.com/odvcencio/gotreesitter"
 	"go.yaml.in/yaml/v3"
 
 	"github.com/stokaro/unswell/document"

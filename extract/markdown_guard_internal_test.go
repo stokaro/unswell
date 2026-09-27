@@ -8,8 +8,8 @@ import (
 	"testing"
 
 	qt "github.com/frankban/quicktest"
-	ts "github.com/stokaro/gotreesitter"
-	"github.com/stokaro/gotreesitter/grammars"
+	ts "github.com/odvcencio/gotreesitter"
+	"github.com/odvcencio/gotreesitter/grammars"
 
 	"github.com/stokaro/unswell/document"
 )
