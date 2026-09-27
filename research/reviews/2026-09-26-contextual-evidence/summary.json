@@ -1,0 +1,854 @@
+{
+  "cohorts": {
+    "whole": {
+      "pages": 26,
+      "valid_pages": 8,
+      "events": 57,
+      "full": 16,
+      "recall": 0.2807017543859649,
+      "findings": 51,
+      "accepted": 49,
+      "accepted_fraction": 0.9607843137254902,
+      "suggestion_safety": {
+        "safe": 51,
+        "unsafe": 0,
+        "uncertain": 0,
+        "not_applicable": 0
+      },
+      "accepted_diagnostics_with_unsafe_suggestions": 0,
+      "baseline_full": 15,
+      "baseline_union_full": 26,
+      "events_on_valid_pages": 24,
+      "events_on_unavailable_pages": 33,
+      "recall_on_valid_pages_only": 0.6666666666666666
+    },
+    "context": {
+      "pages": 6,
+      "valid_pages": 6,
+      "events": 46,
+      "full": 14,
+      "recall": 0.30434782608695654,
+      "findings": 38,
+      "accepted": 34,
+      "accepted_fraction": 0.8947368421052632,
+      "suggestion_safety": {
+        "safe": 38,
+        "unsafe": 0,
+        "uncertain": 0,
+        "not_applicable": 0
+      },
+      "accepted_diagnostics_with_unsafe_suggestions": 0,
+      "baseline_full": 5,
+      "baseline_union_full": 18,
+      "events_on_valid_pages": 46,
+      "events_on_unavailable_pages": 0,
+      "recall_on_valid_pages_only": 0.30434782608695654
+    },
+    "confirmation": {
+      "pages": 4,
+      "valid_pages": 4,
+      "events": 20,
+      "full": 9,
+      "recall": 0.45,
+      "findings": 19,
+      "accepted": 18,
+      "accepted_fraction": 0.9473684210526315,
+      "suggestion_safety": {
+        "safe": 19,
+        "unsafe": 0,
+        "uncertain": 0,
+        "not_applicable": 0
+      },
+      "accepted_diagnostics_with_unsafe_suggestions": 0,
+      "baseline_full": 1,
+      "baseline_union_full": 10,
+      "events_on_valid_pages": 20,
+      "events_on_unavailable_pages": 0,
+      "recall_on_valid_pages_only": 0.45
+    }
+  },
+  "development_screen_passed": false,
+  "product_qualified": false,
+  "scope": "Exposed same-assistant development; fresh whole-page confirmation still required.",
+  "execution": {
+    "requested_model": "gpt-6-astra",
+    "effort": "medium",
+    "cli_version": "codex-cli 0.157.1",
+    "calls": 19,
+    "complete": false,
+    "unattempted": [
+      "page-020",
+      "page-021",
+      "page-022",
+      "page-023",
+      "page-024",
+      "page-025",
+      "page-026",
+      "page-027",
+      "page-028",
+      "page-029",
+      "page-030",
+      "page-031",
+      "page-032",
+      "page-033",
+      "page-034",
+      "page-035",
+      "page-036"
+    ],
+    "stop_reason": "first_failed_request_no_retry",
+    "monetary_cost": null,
+    "compatibility_amendment_sha256": "83b9289468ddfec49ffe35e80b3dfe5be501e2362152c70146e0bb48cacd80c5",
+    "usage": {
+      "input_tokens": 612662,
+      "cached_input_tokens": 15360,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 52080,
+      "reasoning_output_tokens": 1873
+    },
+    "request_seconds": 1644.2237705420703
+  },
+  "invalid_responses": [
+    {
+      "page": "page-019",
+      "reason": "Quotation is not in the selected source unit",
+      "raw_findings_excluded": 3
+    }
+  ],
+  "pages": [
+    {
+      "page": "page-001",
+      "reference": "confirmation/c01.mdx",
+      "source_sha256": "b0b2c0b5d297971a44d16ea25bb1c32c0d9018a07e90bc1fc509f00817b3011c",
+      "bytes": 13485,
+      "units": 47,
+      "execution_status": "valid",
+      "events": 4,
+      "event_statuses": {
+        "missed": 1,
+        "full": 3
+      },
+      "findings": 5,
+      "finding_dispositions": {
+        "accepted": 5
+      },
+      "full_event_recall": 0.75,
+      "accepted_findings_fraction": 1.0
+    },
+    {
+      "page": "page-002",
+      "reference": "confirmation/c02.mdx",
+      "source_sha256": "dbeaa5b79d5ce0ec1311613f746587a63edf05384444a600fec538b81536a865",
+      "bytes": 11180,
+      "units": 51,
+      "execution_status": "valid",
+      "events": 9,
+      "event_statuses": {
+        "missed": 6,
+        "full": 3
+      },
+      "findings": 7,
+      "finding_dispositions": {
+        "uncertain": 1,
+        "accepted": 6
+      },
+      "full_event_recall": 0.3333333333333333,
+      "accepted_findings_fraction": 0.8571428571428571
+    },
+    {
+      "page": "page-003",
+      "reference": "confirmation/c03.mdx",
+      "source_sha256": "084d19e603a690e8d916b91a52b0a11c978b083a596c8f9bcfc4cdbb15fc5719",
+      "bytes": 7749,
+      "units": 45,
+      "execution_status": "valid",
+      "events": 4,
+      "event_statuses": {
+        "full": 2,
+        "missed": 2
+      },
+      "findings": 5,
+      "finding_dispositions": {
+        "accepted": 5
+      },
+      "full_event_recall": 0.5,
+      "accepted_findings_fraction": 1.0
+    },
+    {
+      "page": "page-004",
+      "reference": "confirmation/c04.mdx",
+      "source_sha256": "4f70438dec88c257790615dadb90c713bce47a2337552ba238aeddfc6c9cfeb5",
+      "bytes": 3332,
+      "units": 10,
+      "execution_status": "valid",
+      "events": 3,
+      "event_statuses": {
+        "missed": 2,
+        "full": 1
+      },
+      "findings": 2,
+      "finding_dispositions": {
+        "accepted": 2
+      },
+      "full_event_recall": 0.3333333333333333,
+      "accepted_findings_fraction": 1.0
+    },
+    {
+      "page": "page-005",
+      "reference": "context/c01.md",
+      "source_sha256": "1a28694d236cce80e434a5057259920c0c119866b6abaf62cc820ef43d5098af",
+      "bytes": 4124,
+      "units": 23,
+      "execution_status": "valid",
+      "events": 4,
+      "event_statuses": {
+        "missed": 3,
+        "full": 1
+      },
+      "findings": 3,
+      "finding_dispositions": {
+        "accepted": 2,
+        "uncertain": 1
+      },
+      "full_event_recall": 0.25,
+      "accepted_findings_fraction": 0.6666666666666666
+    },
+    {
+      "page": "page-006",
+      "reference": "context/c02.md",
+      "source_sha256": "a7377486e075db542cad7f83c5aab713dd35e3ca08bca734ba743289748785b0",
+      "bytes": 7960,
+      "units": 45,
+      "execution_status": "valid",
+      "events": 8,
+      "event_statuses": {
+        "missed": 6,
+        "full": 2
+      },
+      "findings": 5,
+      "finding_dispositions": {
+        "accepted": 4,
+        "uncertain": 1
+      },
+      "full_event_recall": 0.25,
+      "accepted_findings_fraction": 0.8
+    },
+    {
+      "page": "page-007",
+      "reference": "context/c03.md",
+      "source_sha256": "aecc39464b7ea0d23a52f76d935dc1dd817f347d218c523e1b700cd6b2109e0e",
+      "bytes": 25337,
+      "units": 116,
+      "execution_status": "valid",
+      "events": 2,
+      "event_statuses": {
+        "full": 1,
+        "missed": 1
+      },
+      "findings": 4,
+      "finding_dispositions": {
+        "accepted": 4
+      },
+      "full_event_recall": 0.5,
+      "accepted_findings_fraction": 1.0
+    },
+    {
+      "page": "page-008",
+      "reference": "context/c04.md",
+      "source_sha256": "203c635879b2b55b81200447551d66e0e1bb8229bc8c23a67e8da854c6972405",
+      "bytes": 16634,
+      "units": 50,
+      "execution_status": "valid",
+      "events": 14,
+      "event_statuses": {
+        "missed": 11,
+        "full": 3
+      },
+      "findings": 12,
+      "finding_dispositions": {
+        "accepted": 12
+      },
+      "full_event_recall": 0.21428571428571427,
+      "accepted_findings_fraction": 1.0
+    },
+    {
+      "page": "page-009",
+      "reference": "context/c05.md",
+      "source_sha256": "7606db0f83ca5dabd1b7ffa03bd2c403c43e0a3771519364e059f9a40473c9cc",
+      "bytes": 15148,
+      "units": 41,
+      "execution_status": "valid",
+      "events": 16,
+      "event_statuses": {
+        "missed": 10,
+        "full": 6
+      },
+      "findings": 10,
+      "finding_dispositions": {
+        "accepted": 9,
+        "uncertain": 1
+      },
+      "full_event_recall": 0.375,
+      "accepted_findings_fraction": 0.9
+    },
+    {
+      "page": "page-010",
+      "reference": "context/c06.md",
+      "source_sha256": "e888945ea6657e1b791fe8e8f2d897ab0c99e5f0ec0ced0e1ec6b96bdefd1b5e",
+      "bytes": 4519,
+      "units": 35,
+      "execution_status": "valid",
+      "events": 2,
+      "event_statuses": {
+        "missed": 1,
+        "full": 1
+      },
+      "findings": 4,
+      "finding_dispositions": {
+        "accepted": 3,
+        "uncertain": 1
+      },
+      "full_event_recall": 0.5,
+      "accepted_findings_fraction": 0.75
+    },
+    {
+      "page": "page-011",
+      "reference": "whole/p001.md",
+      "source_sha256": "d1b182415b5f020d6346927562af18f331e6de28c97383fbe83dc2f04dd368a3",
+      "bytes": 14862,
+      "units": 33,
+      "execution_status": "valid",
+      "events": 4,
+      "event_statuses": {
+        "missed": 3,
+        "full": 1
+      },
+      "findings": 6,
+      "finding_dispositions": {
+        "accepted": 6
+      },
+      "full_event_recall": 0.25,
+      "accepted_findings_fraction": 1.0
+    },
+    {
+      "page": "page-012",
+      "reference": "whole/p002.md",
+      "source_sha256": "064cbfe0da8f3bdb90903c3643a33f46504d099f977819f99d3ac489d9eea443",
+      "bytes": 49403,
+      "units": 245,
+      "execution_status": "valid",
+      "events": 5,
+      "event_statuses": {
+        "full": 4,
+        "missed": 1
+      },
+      "findings": 13,
+      "finding_dispositions": {
+        "accepted": 13
+      },
+      "full_event_recall": 0.8,
+      "accepted_findings_fraction": 1.0
+    },
+    {
+      "page": "page-013",
+      "reference": "whole/p003.md",
+      "source_sha256": "3f2425cd9e9ea8c7346d6801c016bbf48ee74a4fe656c0beecae44e0d4bf0921",
+      "bytes": 86618,
+      "units": 680,
+      "execution_status": "valid",
+      "events": 2,
+      "event_statuses": {
+        "full": 2
+      },
+      "findings": 4,
+      "finding_dispositions": {
+        "accepted": 4
+      },
+      "full_event_recall": 1.0,
+      "accepted_findings_fraction": 1.0
+    },
+    {
+      "page": "page-014",
+      "reference": "whole/p004.md",
+      "source_sha256": "9e8504e46ddbb1a39c570a79b260b174160eea73ef3d87204a624d6e572dca03",
+      "bytes": 16267,
+      "units": 83,
+      "execution_status": "valid",
+      "events": 4,
+      "event_statuses": {
+        "full": 3,
+        "missed": 1
+      },
+      "findings": 8,
+      "finding_dispositions": {
+        "accepted": 8
+      },
+      "full_event_recall": 0.75,
+      "accepted_findings_fraction": 1.0
+    },
+    {
+      "page": "page-015",
+      "reference": "whole/p005.md",
+      "source_sha256": "1b5d449458cac1e9b7af1261a40c268651eb3b86d84444da119a510f9979fc81",
+      "bytes": 4862,
+      "units": 32,
+      "execution_status": "valid",
+      "events": 0,
+      "event_statuses": {},
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": null,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-016",
+      "reference": "whole/p006.md",
+      "source_sha256": "58b20b3c736a45aa72d3d24306f07c472c850cf5dbf1a87756ffc32bcb7dd649",
+      "bytes": 4622,
+      "units": 32,
+      "execution_status": "valid",
+      "events": 1,
+      "event_statuses": {
+        "full": 1
+      },
+      "findings": 2,
+      "finding_dispositions": {
+        "accepted": 2
+      },
+      "full_event_recall": 1.0,
+      "accepted_findings_fraction": 1.0
+    },
+    {
+      "page": "page-017",
+      "reference": "whole/p007.mdx",
+      "source_sha256": "ff1104e738bd3238b4f1a40f989ba0d5386cb8c1daa0b48d9d7d498078a6b7eb",
+      "bytes": 35204,
+      "units": 218,
+      "execution_status": "valid",
+      "events": 4,
+      "event_statuses": {
+        "full": 3,
+        "missed": 1
+      },
+      "findings": 10,
+      "finding_dispositions": {
+        "accepted": 8,
+        "uncertain": 2
+      },
+      "full_event_recall": 0.75,
+      "accepted_findings_fraction": 0.8
+    },
+    {
+      "page": "page-018",
+      "reference": "whole/p008.mdx",
+      "source_sha256": "4cd866dbfa09228d3b18002efa72dfecf52aab171e589fd46c4cc9eb0e41333a",
+      "bytes": 21717,
+      "units": 93,
+      "execution_status": "valid",
+      "events": 4,
+      "event_statuses": {
+        "full": 2,
+        "missed": 2
+      },
+      "findings": 8,
+      "finding_dispositions": {
+        "accepted": 8
+      },
+      "full_event_recall": 0.5,
+      "accepted_findings_fraction": 1.0
+    },
+    {
+      "page": "page-019",
+      "reference": "whole/p009.mdx",
+      "source_sha256": "db2a6a566be5b01e08d52a62514d1cf13bd8320cb2ed6dcf8d8c964555e589a9",
+      "bytes": 11362,
+      "units": 42,
+      "execution_status": "invalid",
+      "events": 1,
+      "event_statuses": {
+        "missed": 1
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-020",
+      "reference": "whole/p010.mdx",
+      "source_sha256": "183ab3247cba1b44d98e30b952d9ab05fff88cd13ab08c16e35fc2ef7340cf10",
+      "bytes": 14894,
+      "units": 73,
+      "execution_status": "unattempted",
+      "events": 1,
+      "event_statuses": {
+        "missed": 1
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-021",
+      "reference": "whole/p011.mdx",
+      "source_sha256": "8f4fe7deb7c56eab5d197bd170a1dca5ba6356f2c8275c12716ab03f2cc9cf7a",
+      "bytes": 5030,
+      "units": 33,
+      "execution_status": "unattempted",
+      "events": 0,
+      "event_statuses": {},
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": null,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-022",
+      "reference": "whole/p012.mdx",
+      "source_sha256": "6fd268787ccbe5ca8273d62ddc0bd7f87aebfc8c823bdb55b1ea8b451cd5f162",
+      "bytes": 1470,
+      "units": 5,
+      "execution_status": "unattempted",
+      "events": 1,
+      "event_statuses": {
+        "missed": 1
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-023",
+      "reference": "whole/p013.md",
+      "source_sha256": "b415c74b0e6b69d4554b25f9c98fb182f3bba8eda04343e66fbd883bdc9046c8",
+      "bytes": 31991,
+      "units": 438,
+      "execution_status": "unattempted",
+      "events": 1,
+      "event_statuses": {
+        "missed": 1
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-024",
+      "reference": "whole/p014.md",
+      "source_sha256": "d239fd1ca0c11c374f1871d9c17549becbe759e2b14b8aa27e15f8fe23ffcc2b",
+      "bytes": 43956,
+      "units": 522,
+      "execution_status": "unattempted",
+      "events": 1,
+      "event_statuses": {
+        "missed": 1
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-025",
+      "reference": "whole/p015.md",
+      "source_sha256": "3711df0a44283a9e395129750b2d249d11a3a7ed0ad83f9e3be5feb9572db81c",
+      "bytes": 26907,
+      "units": 422,
+      "execution_status": "unattempted",
+      "events": 3,
+      "event_statuses": {
+        "missed": 3
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-026",
+      "reference": "whole/p016.md",
+      "source_sha256": "a314da6f5e9d2e91913e2953b0b3f83cb88edf0864cd856eb5e25d60441938ea",
+      "bytes": 15154,
+      "units": 162,
+      "execution_status": "unattempted",
+      "events": 3,
+      "event_statuses": {
+        "missed": 3
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-027",
+      "reference": "whole/p017.md",
+      "source_sha256": "aab9ce323fa8c30c9554c64300addb3cd7f3e60d3825922f3dcaee2d7a0eea0c",
+      "bytes": 17283,
+      "units": 142,
+      "execution_status": "unattempted",
+      "events": 3,
+      "event_statuses": {
+        "missed": 3
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-028",
+      "reference": "whole/p018.md",
+      "source_sha256": "819f31ab468be529755a299f700b3496c9a822f46d4adf8449300e2b1f12a542",
+      "bytes": 17641,
+      "units": 119,
+      "execution_status": "unattempted",
+      "events": 2,
+      "event_statuses": {
+        "missed": 2
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-029",
+      "reference": "whole/p019.md",
+      "source_sha256": "6a738bb8dcb18f588131ced56c2ac9b2a567dd64d8e769813a9abf037ee6c372",
+      "bytes": 21920,
+      "units": 226,
+      "execution_status": "unattempted",
+      "events": 2,
+      "event_statuses": {
+        "missed": 2
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-030",
+      "reference": "whole/p020.md",
+      "source_sha256": "8a1bfbe5e6c8c996985f2cb6d617fd25d8f2995d3083f352002b1383dcabd604",
+      "bytes": 5746,
+      "units": 40,
+      "execution_status": "unattempted",
+      "events": 1,
+      "event_statuses": {
+        "missed": 1
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-031",
+      "reference": "whole/p021.md",
+      "source_sha256": "7f2f68a5ae17a874aa8e1d0814563cf8529a8b85a50190b9bb6c82204b71fcbb",
+      "bytes": 8591,
+      "units": 82,
+      "execution_status": "unattempted",
+      "events": 1,
+      "event_statuses": {
+        "missed": 1
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-032",
+      "reference": "whole/p022.md",
+      "source_sha256": "f38d613636215ad2ecd88da44089a41dc1a9b35ee7add7aad0644ce8ec818ea1",
+      "bytes": 4250,
+      "units": 40,
+      "execution_status": "unattempted",
+      "events": 1,
+      "event_statuses": {
+        "missed": 1
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-033",
+      "reference": "whole/p023.md",
+      "source_sha256": "0af7ea1191eb8a9761a0204dc5a87370320653d26891255d7ee70758246859f0",
+      "bytes": 5883,
+      "units": 45,
+      "execution_status": "unattempted",
+      "events": 1,
+      "event_statuses": {
+        "missed": 1
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-034",
+      "reference": "whole/p024.md",
+      "source_sha256": "b0cf3e6c4de5bb7d6582f0a53d57c41d92439605336e6b44bac3b2f4016c0cf0",
+      "bytes": 8431,
+      "units": 69,
+      "execution_status": "unattempted",
+      "events": 2,
+      "event_statuses": {
+        "missed": 2
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-035",
+      "reference": "whole/p025.md",
+      "source_sha256": "0c75ecbfdba8c8b8d472dcfd0f0e9c7b5da82ca07382e496887815a3e7d66f90",
+      "bytes": 44816,
+      "units": 160,
+      "execution_status": "unattempted",
+      "events": 7,
+      "event_statuses": {
+        "missed": 7
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    },
+    {
+      "page": "page-036",
+      "reference": "whole/p026.md",
+      "source_sha256": "9fff3f89117111fbd829bf0c6f99befdf84d6f5b320f885cc12c1a0793ed2c64",
+      "bytes": 11279,
+      "units": 50,
+      "execution_status": "unattempted",
+      "events": 2,
+      "event_statuses": {
+        "missed": 2
+      },
+      "findings": 0,
+      "finding_dispositions": {},
+      "full_event_recall": 0.0,
+      "accepted_findings_fraction": null
+    }
+  ],
+  "categories": [
+    {
+      "cohort": "whole",
+      "category": "empty_framing",
+      "events": 28,
+      "full": 8,
+      "recall": 0.2857142857142857
+    },
+    {
+      "cohort": "whole",
+      "category": "needless_complexity",
+      "events": 1,
+      "full": 0,
+      "recall": 0.0
+    },
+    {
+      "cohort": "whole",
+      "category": "needless_repetition",
+      "events": 6,
+      "full": 1,
+      "recall": 0.16666666666666666
+    },
+    {
+      "cohort": "whole",
+      "category": "unjustified_intensifiers",
+      "events": 3,
+      "full": 1,
+      "recall": 0.3333333333333333
+    },
+    {
+      "cohort": "whole",
+      "category": "vague_claims",
+      "events": 15,
+      "full": 4,
+      "recall": 0.26666666666666666
+    },
+    {
+      "cohort": "whole",
+      "category": "wordiness",
+      "events": 4,
+      "full": 2,
+      "recall": 0.5
+    },
+    {
+      "cohort": "context",
+      "category": "empty_framing",
+      "events": 16,
+      "full": 8,
+      "recall": 0.5
+    },
+    {
+      "cohort": "context",
+      "category": "needless_repetition",
+      "events": 1,
+      "full": 0,
+      "recall": 0.0
+    },
+    {
+      "cohort": "context",
+      "category": "unjustified_intensifiers",
+      "events": 8,
+      "full": 1,
+      "recall": 0.125
+    },
+    {
+      "cohort": "context",
+      "category": "vague_claims",
+      "events": 2,
+      "full": 1,
+      "recall": 0.5
+    },
+    {
+      "cohort": "context",
+      "category": "wordiness",
+      "events": 19,
+      "full": 4,
+      "recall": 0.21052631578947367
+    },
+    {
+      "cohort": "confirmation",
+      "category": "empty_framing",
+      "events": 13,
+      "full": 3,
+      "recall": 0.23076923076923078
+    },
+    {
+      "cohort": "confirmation",
+      "category": "vague_claims",
+      "events": 4,
+      "full": 4,
+      "recall": 1.0
+    },
+    {
+      "cohort": "confirmation",
+      "category": "wordiness",
+      "events": 3,
+      "full": 2,
+      "recall": 0.6666666666666666
+    }
+  ],
+  "limitations": [
+    "Exposed development pages and judgments by the same Codex assistant; not independent human review or population accuracy.",
+    "Exact-source validation is not evidence of diagnostic correctness. Full credit is supplied by explicit reviewed event mappings.",
+    "A safe suggestion is not necessarily a complete repair. No generated edits were applied.",
+    "The one exact CLI startup notice was classified by a disclosed compatibility amendment; original trace and failed ledger remain.",
+    "Model, prompt, and request contract differ from earlier model trials; this is not a causal model-only ablation.",
+    "Unavailable events stay in planned recall denominators; they are not observed semantic misses. Valid-page recall is supplementary and cannot pass completeness."
+  ]
+}

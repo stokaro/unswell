@@ -1,0 +1,31 @@
+{
+  "recorded_at": "2026-09-26T20:45:43.316944+00:00",
+  "stage": "Second reading by the same assistant before any model or detector output; not an independent review.",
+  "initial_annotations_file": "annotations-initial.json",
+  "initial_annotations_sha256": "d4c332860f39d19b0458c274bbea24c87b8ed3ff4bc226f49d33f85dbe76d5a5",
+  "current_annotations_sha256": "784871469ebbaefcbc8f1426cbc96faa90dee21ecca60d554083d8cbdf43577d",
+  "changes": [
+    {
+      "id": "p02-defect-03",
+      "from": "defect",
+      "to": "uncertain",
+      "reason": "The phrase attributes an expectation to an Atlas user, but it also explains a concrete compatibility concern: an extra Ptah table would be an unexpected write under the Atlas revision contract. The wording can be shortened, yet calling this a definite unsupported attribution overstates the evidence. The original refers to an Atlas user, not all users."
+    },
+    {
+      "id": "p03-defect-02",
+      "from": "defect",
+      "to": "uncertain",
+      "reason": "Stronger is an evaluation, but the next clause supplies a concrete basis: enforcing requested constraints at the server rather than predicting them from a list. A narrower wording may be preferable, but this is not clearly an unsupported comparison. Retain uncertainty rather than counting evaluative tone alone as a defect."
+    }
+  ],
+  "effect": {
+    "definite_events_before": 16,
+    "definite_events_after": 14,
+    "uncertain_before": 5,
+    "uncertain_after": 7,
+    "acceptable_controls": 12
+  },
+  "source_or_page_changes": false,
+  "model_outputs_seen": false,
+  "detector_outputs_seen": false
+}
