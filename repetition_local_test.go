@@ -26,6 +26,20 @@ func TestAdjacentWordRepetition(t *testing.T) {
 		{"The example says \"See See the release notes\".", ""},
 		{"The example says 'See See the release notes'.", ""},
 		{"No, no retry is needed.", ""},
+		{"unit %s has unavailable %s %s", ""},
+		{"The values are 1 1 and 0 0.", ""},
+		{"The values are 1.5 1.5 and 10% 10%.", ""},
+		{"The values are %02d %02d and %[1]s %[2]s.", ""},
+		{"Confused AND and OR: the operators differ.", ""},
+		{"The AND and OR operators have different precedence.", ""},
+		{"Use OR or XOR to combine the predicates.", ""},
+		{"The AND and OR operators requires requires a parser.", "requires"},
+		{"The result %s %s requires requires a parser.", "requires"},
+		{"The values 1 1 require require a parser.", "require"},
+		{"The the client retries.", "the"},
+		{"The client retries retries.", "retries"},
+		{"The AND AND operators differ.", "AND"},
+		{"The library was named “ImGui” when when the maintainer released it.", "when"},
 	} {
 		t.Run(row.text, func(t *testing.T) {
 			c := qt.New(t)
