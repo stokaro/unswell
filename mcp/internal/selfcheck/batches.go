@@ -31,10 +31,11 @@ func verifyBatches(
 		want := batchOutput(expected, documents, failOnEmpty)
 		checked, err := check(ctx, session, input, want.Outcome)
 		if err != nil {
-			return nil, fmt.Errorf("MCP repository batch %d: %w", len(results)+1, err)
+			return results, batchFailure(len(results)+1, documents, checked, fmt.Errorf("MCP repository batch %d: %w", len(results)+1, err))
 		}
 		if !reflect.DeepEqual(want.Result, checked.Result) {
-			return nil, fmt.Errorf("MCP repository batch %d differs from normalized CLI evidence", len(results)+1)
+			return results, batchFailure(len(results)+1, documents, checked,
+				fmt.Errorf("MCP repository batch %d differs from normalized CLI evidence", len(results)+1))
 		}
 		results = append(results, checked)
 	}

@@ -28,6 +28,19 @@ func Run(ctx context.Context, expectedPath, outputPath string, argv []string, st
 	if err != nil {
 		return 0, err
 	}
+	record := evidence{Version: "unswell-mcp-selfcheck-v1", ToolCommit: expected.Manifest.ToolCommit,
+		ConfigHash: expected.Manifest.ConfigHash}
+	stage := "connect"
+	defer func() {
+		record.Complete = record.Complete && returnedErr == nil
+		if returnedErr != nil && record.Failure == nil {
+			record.Failure = failureRecord(stage, returnedErr)
+		}
+		returnedErr = errors.Join(returnedErr, writeEvidence(outputPath, record))
+		if returnedErr != nil {
+			count = 0
+		}
+	}()
 	// #nosec G204 -- The operator selects this CI command; checked source is sent only through MCP data.
 	command := exec.CommandContext(ctx, argv[0], argv[1:]...)
 	command.Stderr = stderr
@@ -37,33 +50,30 @@ func Run(ctx context.Context, expectedPath, outputPath string, argv []string, st
 		return 0, err
 	}
 	defer func() { returnedErr = errors.Join(returnedErr, session.Close()) }()
-	evidence, err := verifySession(ctx, session, expected)
-	if err != nil {
+	if err := verifySession(ctx, session, expected, &record); err != nil {
 		return 0, err
 	}
-	if err := session.Close(); err != nil {
-		return 0, err
-	}
-	if err := writeEvidence(outputPath, evidence); err != nil {
-		return 0, err
-	}
+	stage = "close"
+	record.Complete = true
 	return len(expected.Documents), nil
 }
 
-func verifySession(ctx context.Context, session *mcp.ClientSession, expected unswell.RunResult) (evidence, error) {
+func verifySession(ctx context.Context, session *mcp.ClientSession, expected unswell.RunResult, record *evidence) error {
 	description, err := verifyDiscovery(ctx, session, expected)
 	if err != nil {
-		return evidence{}, err
+		record.Failure = failureRecord("discovery", err)
+		return err
 	}
-	batches, err := verifyBatches(ctx, session, expected, description.Policy.Gate.FailOnEmpty)
+	record.RepositoryBatches, err = verifyBatches(ctx, session, expected, description.Policy.Gate.FailOnEmpty)
 	if err != nil {
-		return evidence{}, err
+		record.Failure = failureRecord("repository", err)
+		return err
 	}
-	probes, err := verifyProbes(ctx, session)
+	record.Probes, err = verifyProbes(ctx, session)
 	if err != nil {
-		return evidence{}, err
+		record.Failure = failureRecord("probes", err)
 	}
-	return evidence{RepositoryBatches: batches, Probes: probes}, nil
+	return err
 }
 
 func readExpected(path string) (unswell.RunResult, error) {
@@ -161,6 +171,11 @@ func normalize(result unswell.RunResult) unswell.RunResult {
 }
 
 type evidence struct {
+	Version           string               `json:"version"`
+	Complete          bool                 `json:"complete"`
+	ToolCommit        string               `json:"tool_commit"`
+	ConfigHash        string               `json:"config_hash"`
+	Failure           *failure             `json:"failure,omitempty"`
 	RepositoryBatches []server.CheckOutput `json:"repository_batches"`
 	Probes            []server.CheckOutput `json:"probes"`
 }

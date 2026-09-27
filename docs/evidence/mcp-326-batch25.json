@@ -1,0 +1,3880 @@
+{
+  "batch": 25,
+  "total_batches": 25,
+  "sources": [
+    {
+      "gate_mode": "all",
+      "name": "workflow_sources_test.go",
+      "format": "go",
+      "source_hash": "bf8d57c6da4072f374234f9279665e247cac448f9ee371b2d8569d6a27fe7f41",
+      "config_hash": "2ec4c15eac740349664d74a48cc27e0c91d8b49863481c64b7232b8eb0dc9ad4",
+      "bytes": 1434,
+      "prose_words": 0,
+      "blocks": 0,
+      "sentences": 0,
+      "excluded": [
+        {
+          "span": {
+            "start": 32,
+            "end": 41
+          },
+          "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+        },
+        {
+          "span": {
+            "start": 47,
+            "end": 78
+          },
+          "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+        },
+        {
+          "span": {
+            "start": 81,
+            "end": 109
+          },
+          "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+        },
+        {
+          "span": {
+            "start": 111,
+            "end": 148
+          },
+          "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+        },
+        {
+          "span": {
+            "start": 321,
+            "end": 384
+          },
+          "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+        },
+        {
+          "span": {
+            "start": 389,
+            "end": 478
+          },
+          "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+        },
+        {
+          "span": {
+            "start": 558,
+            "end": 678
+          },
+          "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+        },
+        {
+          "span": {
+            "start": 755,
+            "end": 784
+          },
+          "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+        },
+        {
+          "span": {
+            "start": 832,
+            "end": 863
+          },
+          "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+        },
+        {
+          "span": {
+            "start": 967,
+            "end": 977
+          },
+          "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+        }
+      ],
+      "paragraph_maximum": 0,
+      "paragraph_median": 0,
+      "paragraph_p90": 0,
+      "eligible_paragraph_flagged_fraction": 0
+    }
+  ],
+  "actual": {
+    "outcome": "error",
+    "result": {
+      "schema_version": "1.0.0-alpha.1",
+      "status": "incomplete",
+      "manifest": {
+        "gate_mode": "all",
+        "tool_version": "0.1.0-alpha.4",
+        "tool_commit": "b3f77e87cddb5132e037c780f1d512a36aeeb90b",
+        "config_hash": "2ec4c15eac740349664d74a48cc27e0c91d8b49863481c64b7232b8eb0dc9ad4",
+        "config_identity": "unswell-config-bundle-v1",
+        "config_sources": [
+          {
+            "path": ".unswell.yaml",
+            "kind": "config",
+            "sha256": "3c5ebc04079036d7d8be15c342c8deca951ceb774719b1ffc8e6d9900a23a2d6"
+          }
+        ],
+        "ruleset_hash": "c50f423598da1f1a818af0b4e4e9eac0a3ddaf3e1a395847a2f01615cd9ea482",
+        "scoring_profile": "strict-v1",
+        "feature_contract": "unswell-features-v1",
+        "nlp": {
+          "name": "builtin-en",
+          "version": "prose-v3.2.1/chunks-v1/boundaries-v1",
+          "model": "prose/aptagmodel/en.bin",
+          "model_sha256": "209282c71733883be5c08af24301cc8917079c9deb7721b89a8dd118d071a780",
+          "sentence_model_sha256": "2498632eaf8c3d0480c074e0331057ea9b20f1306523db06ff742689269a21a8",
+          "license": "MIT",
+          "capabilities": [
+            "tokens",
+            "sentences",
+            "pos",
+            "chunks"
+          ]
+        },
+        "rules": [
+          {
+            "block_observations": true,
+            "id": "density.connective-overuse",
+            "version": "1",
+            "summary": "Remove repeated transitions where the connection is already clear.",
+            "description": "Remove repeated transitions where the connection is already clear.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+            "scope": "paragraph",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 20,
+                "cap": 40
+              },
+              "parameters": {
+                "phrases": [
+                  "moreover",
+                  "furthermore",
+                  "additionally"
+                ],
+                "positions": null,
+                "min_words": 30,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 1,
+                "saturation": 4,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases",
+              "min_words",
+              "onset",
+              "saturation"
+            ],
+            "examples": [
+              {
+                "text": "Moreover, word word word word word word word word word word word word word word word word ends. Furthermore, word word word word word word word word word word word word word word word word ends.",
+                "match": true
+              },
+              {
+                "text": "Furthermore, the server may close the connection.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "filler.announced-importance",
+            "version": "1",
+            "summary": "State the fact without announcing its importance.",
+            "description": "State the fact without announcing its importance.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "scaffolding",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 15,
+                "cap": 30
+              },
+              "parameters": {
+                "phrases": [
+                  "It is important to note that",
+                  "It is worth noting that",
+                  "It is crucial to note that"
+                ],
+                "positions": [
+                  "sentence-start"
+                ],
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases",
+              "positions"
+            ],
+            "examples": [
+              {
+                "text": "It is important to note that the client opens connections.",
+                "match": true
+              },
+              {
+                "text": "The client opens connections.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "filler.document-justification",
+            "version": "5",
+            "summary": "State the scope or destination directly instead of explaining why this page exists.",
+            "description": "A document subject followed by 'exists so/to/because', deliberate non-repetition of material, a statement that a document part earns its place, a page explaining what its fields mean, editorial ownership, document dedication or future-presentation clauses, or announcements that definitions or counts are repeated or omitted here. Ownership may use a pronoun only after an adjacent explicit document announcement in the same block. Storage existence and ordinary scope exclusions do not match. Reports complete matched clauses, once per clause.",
+            "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples.",
+            "scope": "block",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "list-item"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 1,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "This page exists so the operator is reachable from here.",
+                "match": true
+              },
+              {
+                "text": "This page does not describe authentication.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "filler.document-metadiscourse",
+            "version": "1",
+            "summary": "Document self-description: check whether this announcement or navigation helps the reader.",
+            "description": "Recognizes document subjects followed by communicative verbs, and 'in this document, we' announcements. Groups their complete clauses within eight sentences of uninterrupted prose; one clause is sufficient.",
+            "limitations": "The document-metadiscourse frame is a bounded token/POS heuristic, not a dependency or semantic parse. Clauses are limited to 48 tokens and subjects to eight. Protected text is opaque, never a lexical cue. Recognition does not establish redundancy, authorship, or a need for revision. Technical definitions and useful navigation can match; defaults carry no score or gate. Precision is unqualified.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "note",
+              "gate": "none",
+              "score": {
+                "weight": 0,
+                "cap": 0
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "This page defines all four roles; other pages link here instead of redefining them.",
+                "match": true
+              },
+              {
+                "text": "See the configuration reference for the complete list of environment variables.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "filler.empty-transition",
+            "version": "2",
+            "summary": "Check whether these repeated opening transitions add information.",
+            "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "scaffolding",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": [
+                  "with that being said",
+                  "that being said",
+                  "it goes without saying"
+                ],
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences",
+              "phrases"
+            ],
+            "examples": [
+              {
+                "text": "With that being said, the server starts. It goes without saying that the client waits.",
+                "match": true,
+                "config": "version: 1\nrules:\n  filler.empty-transition: {enabled: true}\n"
+              },
+              {
+                "text": "With that being said, the client must still validate the response.",
+                "match": false,
+                "config": "version: 1\nrules:\n  filler.empty-transition: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. Its list holds openings such as \"with that being said\"."
+          },
+          {
+            "block_observations": true,
+            "id": "filler.evaluative-closure",
+            "version": "8",
+            "summary": "This clause announces information or endorses a result; state the information directly.",
+            "description": "An anaphoric purpose tail ('which is the point of doing it', 'which is what doing it is for'), a bare whole-point/design declaration, an anaphoric assertion of value or verification, an information subject announcing cognitive worth, abstract feature-purpose or intentionality closures, output claiming to prove understanding, or an impersonal modal notice followed by a that-clause. Also recognizes cognitive notices modifying information nouns, gerund-anaphor purpose clefts, relative feature-purpose predicates and discourse subjects declaring importance or editorial integrity. Information judgments may join adjacent evaluative predicates and retain a quoted noun-phrase subject. Discourse subjects admit selecting importance and attention predicates; author notices and document-outcome endorsements qualify. Gerund action subjects can close with abstract functional clefts. Bare noun/counts compounds remain excluded. Attribution is scoped through the candidate clause; later operational reporting does not erase a preceding judgment. Concrete component purposes and measured evaluations stay excluded; notice and cognitive-worth frames retain their attached conditions. Reports complete matched clauses, once per clause.",
+            "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples.",
+            "scope": "block",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "list-item"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 1,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "The approval stops applying, which is what binding it to a digest is for.",
+                "match": true
+              },
+              {
+                "text": "The command starts a new batch, which is what the wrapper is for.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "filler.instruction-scaffolding",
+            "version": "8",
+            "summary": "State the supported action directly; preserve its conditions and optionality.",
+            "description": "An affirmative impersonal capability with a transitive configuration or presentation action, or a reader-intention clause introducing an instruction. Anaphoric gerund methods, nominalized methods and reader-purpose clauses are also recognized. Nested enables/allows plus an action nominalization and passive infinitive, and nominal actions performed through a gerund method, also qualify. Actor-to-action projection recognizes ability nouns, modal used-to/used-for actions, named method predicates, and nested intended-to-enable actions. Narrated prerequisites and repeated same-actor obligations can introduce an action. Standalone generic reader enablement requires an adjacent method; concrete capability explanations remain controls. Infinitive reader goals admit coordinated actions. Relative operation or actor antecedents can carry nested support; capable-of gerunds, imperative assurance and purpose-to-steps announcements also qualify. A second method may be anchored by a repeated two-noun object and explicit reader action. Preserve modal meaning, named actors and conditions. Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. Failure, permission, negation and quoted constructions do not match. Reports complete matched clauses, once per clause. An immediate anaphoric method may be related across adjacent prose paragraphs, without crossing structural boundaries.",
+            "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples.",
+            "scope": "block",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "list-item"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 1,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "It is possible to display a label. This is done by using the label option.",
+                "match": true
+              },
+              {
+                "text": "It is possible to lose data after a failed write.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "filler.modern-world-opening",
+            "version": "1",
+            "summary": "Replace the generic opening with the document's subject.",
+            "description": "Replace the generic opening with the document's subject.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "scaffolding",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 15,
+                "cap": 30
+              },
+              "parameters": {
+                "phrases": [
+                  "In today's rapidly evolving digital landscape",
+                  "In today's fast-paced digital world"
+                ],
+                "positions": [
+                  "sentence-start"
+                ],
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases",
+              "positions"
+            ],
+            "examples": [
+              {
+                "text": "In today's rapidly evolving digital landscape the client opens connections.",
+                "match": true
+              },
+              {
+                "text": "The client opens connections.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "filler.section-announcement",
+            "version": "2",
+            "summary": "Replace repeated section announcements with their subject.",
+            "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "scaffolding",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": [
+                  "in this section, we will",
+                  "in this section we will",
+                  "this section will discuss"
+                ],
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences",
+              "phrases"
+            ],
+            "examples": [
+              {
+                "text": "In this section, we will describe setup. In this section, we will describe deployment.",
+                "match": true,
+                "config": "version: 1\nrules:\n  filler.section-announcement: {enabled: true}\n"
+              },
+              {
+                "text": "In this section, we will explain the retry protocol.",
+                "match": false,
+                "config": "version: 1\nrules:\n  filler.section-announcement: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. Its list holds openings such as \"in this section, we will\"."
+          },
+          {
+            "block_observations": true,
+            "id": "filler.stacked-hedging",
+            "version": "1",
+            "summary": "Check whether each hedge expresses a distinct uncertainty; retain needed qualifications.",
+            "description": "Counts distinct configured modal/adverb cues in one clause; commas, punctuation, conjunctions, and code end a clause.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. A token boundary is not a dependency parse. Multiple independent uncertainties can be justified.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "inflation",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": [
+                  "may",
+                  "might",
+                  "could",
+                  "perhaps",
+                  "possibly",
+                  "potentially",
+                  "apparently"
+                ],
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 2,
+                "saturation": 5,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases",
+              "onset",
+              "saturation"
+            ],
+            "examples": [
+              {
+                "text": "The result may possibly perhaps change.",
+                "match": true,
+                "config": "version: 1\nrules:\n  filler.stacked-hedging: {enabled: true}\n"
+              },
+              {
+                "text": "The request may fail, and the server might retry.",
+                "match": false,
+                "config": "version: 1\nrules:\n  filler.stacked-hedging: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It counts hedges stacked inside one sentence."
+          },
+          {
+            "block_observations": true,
+            "id": "filler.unscoped-assurance",
+            "version": "5",
+            "summary": "State the behavior, scope or evidence behind this quality claim.",
+            "description": "A positive copular clause announces intentional quality without a mechanism, calls a choice nearly always right, or promises the fastest/best/easiest way to understand everything. Also recognizes affirmative extreme quality predicates and unrestricted claims about what everybody or nobody knows, wants or can verify, unsupported majority claims about reader preferences or practice, and anaphoric result tails predicting generic readers' preferences or understanding. Ordinary copular quality or difficulty judgments require a complete predicate without a stated local mechanism. Technical adjective-noun phrases, conditional, quantified and protected constructions are excluded. Reports complete matched clauses, once per clause.",
+            "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples.",
+            "scope": "block",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "list-item"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 1,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "The configuration is intentionally explicit.",
+                "match": true
+              },
+              {
+                "text": "The configuration is explicit about unknown keys.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "filler.weak-intensifiers",
+            "version": "1",
+            "summary": "Check whether these intensifiers add a measurable distinction.",
+            "description": "Counts configured adverbs before adjectives/adverbs per 100 prose words, after the minimum word count.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. POS roles are heuristic. The rule does not require deleting distinctions with technical meaning.",
+            "scope": "paragraph",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "inflation",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": [
+                  "very",
+                  "really",
+                  "incredibly",
+                  "extremely",
+                  "highly"
+                ],
+                "positions": null,
+                "min_words": 20,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 4,
+                "saturation": 12,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases",
+              "min_words",
+              "onset",
+              "saturation"
+            ],
+            "examples": [
+              {
+                "text": "The very powerful client provides a really seamless workflow and an incredibly innovative interface for every person using the service.",
+                "match": true,
+                "config": "version: 1\nrules:\n  filler.weak-intensifiers: {enabled: true}\n"
+              },
+              {
+                "text": "The client really needs the exact identifier to retry safely.",
+                "match": false,
+                "config": "version: 1\nrules:\n  filler.weak-intensifiers: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "0.019 per thousand words in human prose against 0.007 in the controlled arm."
+          },
+          {
+            "block_observations": true,
+            "id": "filler.wordy-phrase",
+            "version": "1",
+            "summary": "Consider a shorter phrase that preserves the condition or meaning.",
+            "description": "Consider a shorter phrase that preserves the condition or meaning.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "scaffolding",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 15,
+                "cap": 30
+              },
+              "parameters": {
+                "phrases": [
+                  "due to the fact that",
+                  "in order to",
+                  "at this point in time"
+                ],
+                "positions": [
+                  "any"
+                ],
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases",
+              "positions"
+            ],
+            "examples": [
+              {
+                "text": "due to the fact that the client opens connections.",
+                "match": true
+              },
+              {
+                "text": "The client opens connections.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "format.em-dash-density",
+            "version": "1",
+            "summary": "Em dashes exceed the selected local density; punctuation can be intentional.",
+            "description": "Counts U+2014 in selected prose per 100 prose words, with mapped source ranges including encoded Markdown entities.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship.",
+            "scope": "paragraph",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "readability",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 0,
+                "cap": 0
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 40,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 0,
+                "onset": 2,
+                "saturation": 6,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "min_words",
+              "onset",
+              "saturation",
+              "allowed_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "The client opens the connection — then checks the reply from the server. The client opens the connection — then checks the reply from the server. The client opens the connection — then checks the reply from the server. The client opens the connection — then checks the reply from the server. ",
+                "match": true,
+                "config": "version: 1\nrules:\n  format.em-dash-density: {enabled: true}\n"
+              },
+              {
+                "text": "The client opens a connection — then waits. The server sends the response. The server sends the response. The server sends the response. The server sends the response. The server sends the response. The server sends the response. The server sends the response. The server sends the response. ",
+                "match": false,
+                "config": "version: 1\nrules:\n  format.em-dash-density: {enabled: true}\n"
+              }
+            ],
+            "opt_in_reason": "Surface measurement. It is the one measure elevated in generated prose, 0.070 per thousand words against 0.001 in human prose, so the strict profile turns it on. Elsewhere it stays opt-in: it reports density, not an error."
+          },
+          {
+            "block_observations": true,
+            "id": "format.list-fragmentation",
+            "version": "1",
+            "summary": "Several short lists fragment this section; check whether the grouping helps readers.",
+            "description": "Counts complete short flat unordered lists in a bounded section window using grammar-derived list ownership.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Ordered/task/nested lists, sentence items, procedure openings, identifiers, and selected reference headings are excluded.",
+            "scope": "section",
+            "contexts": [
+              "heading",
+              "paragraph",
+              "list-item"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "readability",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 0,
+                "cap": 0
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 2,
+                "saturation_occurrences": 5,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false,
+                "window_blocks": 32,
+                "max_item_words": 10,
+                "max_list_items": 3
+              }
+            },
+            "parameters": [
+              "window_blocks",
+              "max_item_words",
+              "max_list_items",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "The release offers these benefits.\n\n- Clear reports\n- Useful summaries\n\nIts output has these traits.\n\n- Simple navigation\n- Consistent terminology\n\nThe workflow has these qualities.\n\n- Quick checks\n- Direct feedback",
+                "match": true,
+                "config": "version: 1\nrules:\n  format.list-fragmentation: {enabled: true}\n",
+                "format": "markdown"
+              },
+              {
+                "text": "Follow these steps.\n\n1. Open the connection\n2. Send the request\n3. Check the response",
+                "match": false,
+                "config": "version: 1\nrules:\n  format.list-fragmentation: {enabled: true}\n",
+                "format": "markdown"
+              }
+            ],
+            "term_exemptions": true,
+            "requires_structure": true,
+            "opt_in_reason": "Surface measurement of list shape. No occurrence in 5.6 million measured prose words, human or generated. "
+          },
+          {
+            "block_observations": true,
+            "id": "hype.absolute-claim",
+            "version": "1",
+            "summary": "Check whether this guarantee has conditions or exceptions.",
+            "description": "Matches configured phrases in affirmative prose, excluding questions and explicit qualifications conservatively.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This lexical screen does not determine truth, semantic vagueness, or whether every condition is stated.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "inflation",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 0,
+                "cap": 0
+              },
+              "parameters": {
+                "phrases": [
+                  "guarantees complete safety",
+                  "eliminates all risk",
+                  "guarantees zero downtime",
+                  "works in every environment"
+                ],
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases"
+            ],
+            "examples": [
+              {
+                "text": "The service guarantees complete safety.",
+                "match": true,
+                "config": "version: 1\nrules:\n  hype.absolute-claim: {enabled: true}\n"
+              },
+              {
+                "text": "Under these conditions, the service guarantees complete safety.",
+                "match": false,
+                "config": "version: 1\nrules:\n  hype.absolute-claim: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It looks for a guarantee stated without conditions."
+          },
+          {
+            "block_observations": true,
+            "id": "hype.metaphor-cluster",
+            "version": "2",
+            "summary": "Replace clustered stock metaphors with specific properties.",
+            "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only configured phrases are recognized; literal meanings and local exceptions require editorial review.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "inflation",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": [
+                  "rich tapestry of possibilities",
+                  "journey of innovation",
+                  "ever-evolving digital landscape",
+                  "unlock a world of possibilities"
+                ],
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences",
+              "phrases"
+            ],
+            "examples": [
+              {
+                "text": "The service offers a rich tapestry of possibilities. Start a journey of innovation with the client.",
+                "match": true,
+                "config": "version: 1\nrules:\n  hype.metaphor-cluster: {enabled: true}\n"
+              },
+              {
+                "text": "The renderer loads a landscape texture. The travel API returns the journey duration.",
+                "match": false,
+                "config": "version: 1\nrules:\n  hype.metaphor-cluster: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. Its list holds stock metaphors such as \"rich tapestry of possibilities\"."
+          },
+          {
+            "block_observations": true,
+            "id": "hype.modifier-cluster",
+            "version": "1",
+            "summary": "Replace the cluster of evaluative modifiers with specific properties.",
+            "description": "Replace the cluster of evaluative modifiers with specific properties.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos",
+              "chunks"
+            ],
+            "group": "inflation",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 24,
+                "cap": 48
+              },
+              "parameters": {
+                "phrases": [
+                  "powerful",
+                  "seamless",
+                  "robust",
+                  "innovative",
+                  "transformative",
+                  "unparalleled"
+                ],
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 2,
+                "saturation": 5,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases",
+              "onset",
+              "saturation"
+            ],
+            "examples": [
+              {
+                "text": "The powerful, seamless, innovative platform offers a robust, transformative experience.",
+                "match": true
+              },
+              {
+                "text": "The robust estimator tolerates outliers.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "hype.vague-praise",
+            "version": "1",
+            "summary": "Replace general praise with a specific property or measured result.",
+            "description": "Matches configured phrases in affirmative prose, excluding questions and explicit qualifications conservatively.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This lexical screen does not determine truth, semantic vagueness, or whether every condition is stated.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "inflation",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": [
+                  "game-changing solution",
+                  "unparalleled experience",
+                  "unprecedented excellence"
+                ],
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases"
+            ],
+            "examples": [
+              {
+                "text": "This is a game-changing solution for the team.",
+                "match": true,
+                "config": "version: 1\nrules:\n  hype.vague-praise: {enabled: true}\n"
+              },
+              {
+                "text": "The robust estimator tolerates outliers.",
+                "match": false,
+                "config": "version: 1\nrules:\n  hype.vague-praise: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. Its list holds superlatives offered in place of a measured result."
+          },
+          {
+            "block_observations": true,
+            "id": "policy.banned-phrases",
+            "version": "1",
+            "summary": "Remove a phrase forbidden by this editorial policy.",
+            "description": "Remove a phrase forbidden by this editorial policy.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "scaffolding",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "error",
+              "gate": "forbid",
+              "score": {
+                "weight": 15,
+                "cap": 30
+              },
+              "parameters": {
+                "phrases": [],
+                "positions": [
+                  "any"
+                ],
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases",
+              "positions"
+            ],
+            "examples": [
+              {
+                "text": "This is a magic solution.",
+                "match": true,
+                "config": "version: 1\nrules:\n  policy.banned-phrases:\n    parameters:\n      phrases: [magic solution]\n"
+              },
+              {
+                "text": "This is a pragmatic solution.",
+                "match": false,
+                "config": "version: 1\nrules:\n  policy.banned-phrases:\n    parameters:\n      phrases: [magic solution]\n"
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "readability.grade-metric",
+            "version": "2",
+            "summary": "The ARI formula exceeds the selected level; consider the audience and keep necessary technical terms.",
+            "description": "Applies 4.71*characters/words + 0.5*words/sentences - 21.43 to local extracted prose words, excluding identifier-shaped tokens and counting each part of a hyphenated compound as a word.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Characters are Unicode letters and digits within prose tokens. A token with an inner uppercase letter, a digit, an underscore, a period, or a slash is an identifier and is not counted. No age, comprehension, quality, or authorship is predicted.",
+            "scope": "paragraph",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "readability",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 0,
+                "cap": 0
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 50,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 12,
+                "saturation": 20,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false,
+                "min_sentences": 2
+              }
+            },
+            "parameters": [
+              "min_words",
+              "min_sentences",
+              "onset",
+              "saturation"
+            ],
+            "examples": [
+              {
+                "text": "The implementation requires comprehensive configuration, systematic verification, and consistent documentation of operational prerequisites before production deployment. The implementation requires comprehensive configuration, systematic verification, and consistent documentation of operational prerequisites before production deployment. The implementation requires comprehensive configuration, systematic verification, and consistent documentation of operational prerequisites before production deployment. The implementation requires comprehensive configuration, systematic verification, and consistent documentation of operational prerequisites before production deployment. ",
+                "match": true,
+                "config": "version: 1\nrules:\n  readability.grade-metric: {enabled: true}\n"
+              },
+              {
+                "text": "The client opens a link. The server sends a reply. The client opens a link. The server sends a reply. The client opens a link. The server sends a reply. The client opens a link. The server sends a reply. The client opens a link. The server sends a reply. The client opens a link. The server sends a reply. ",
+                "match": false,
+                "config": "version: 1\nrules:\n  readability.grade-metric: {enabled: true}\n"
+              }
+            ],
+            "shared_features": true,
+            "opt_in_reason": "Surface measurement of sentence and word length. It runs at 2.964 per thousand words in the controlled arm against 0.711 in human prose, but it was frozen hypothesis H2 and returned +0.32 points on the confirmation partition at p 0.747. Length is not wording."
+          },
+          {
+            "block_observations": true,
+            "id": "readability.long-paragraph",
+            "version": "1",
+            "summary": "Consider paragraph boundaries while keeping each condition with the statement it qualifies.",
+            "description": "Requires both paragraph length and a configured count of long sentences; reports local descriptive measurements.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Length, lexical diversity, and POS ratios are descriptive; reference material can justify them.",
+            "scope": "paragraph",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "readability",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 8,
+                "cap": 16
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 120,
+                "saturation": 240,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false,
+                "sentence_words": 25,
+                "min_long_sentences": 2
+              }
+            },
+            "parameters": [
+              "onset",
+              "saturation",
+              "sentence_words",
+              "min_long_sentences"
+            ],
+            "examples": [
+              {
+                "text": "The client carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully waits. The client carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully waits. The client carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully waits. The client carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully carefully waits. ",
+                "match": true,
+                "config": "version: 1\nrules:\n  readability.long-paragraph: {enabled: true}\n"
+              },
+              {
+                "text": "The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. The client opens connections. ",
+                "match": false,
+                "config": "version: 1\nrules:\n  readability.long-paragraph: {enabled: true}\n"
+              }
+            ],
+            "shared_features": true,
+            "opt_in_reason": "0.177 per thousand words in human prose against 0.040 in the controlled arm."
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.adjacent-word",
+            "version": "1",
+            "summary": "This word occurs twice in succession; check for an accidental duplicate.",
+            "description": "Locates adjacent equal prose words separated only by whitespace. Quoted examples, protected text, repeated adjectives/adverbs, and ambiguous grammatical repetitions are excluded.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Deliberate repetition and technical compounds can still match; this is not an authorship signal.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "repetition",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [],
+            "examples": [
+              {
+                "text": "The scanner requires requires an external decoder.",
+                "match": true
+              },
+              {
+                "text": "The client had had enough time to close the connection.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.definition-echo",
+            "version": "3",
+            "summary": "The definition repeats its subject; state the distinguishing information directly.",
+            "description": "A positive copula repeats the same nominal phrase, ignoring articles, immediately before ', not' and a nominal alternative. Also recognizes a still-qualified repetition of the same nominal or gerund subject, including a bounded both-object ellipsis. Added modifiers, conditions and code identifiers are excluded; bare uncontrasted identities stay outside the rule. Reports complete matched clauses, once per clause.",
+            "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples.",
+            "scope": "block",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "list-item"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 1,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "The default is a default, not a fallback.",
+                "match": true
+              },
+              {
+                "text": "The default is a safe fallback, not a mandatory value.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.duplicate-list-item",
+            "version": "1",
+            "summary": "This complete list item is repeated in the same list; check whether both entries describe the same change.",
+            "description": "Compares complete simple unordered items within one grammar list and section, preserving case, punctuation and references.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only a single identifier may compare across plain text and inline-code formatting. Other protected content, ordered/task lists and complex items are inapplicable. Identity is not a semantic paraphrase test.",
+            "scope": "document",
+            "contexts": [
+              "list-item"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "repetition",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 15,
+                "cap": 30
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 4,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "min_words"
+            ],
+            "examples": [
+              {
+                "text": "- Add documentation for `Literal` type, #651.\n- Add documentation for Literal type, #651.\n",
+                "match": true,
+                "format": "markdown"
+              },
+              {
+                "text": "- Add documentation for `Literal` type, #651.\n- Add documentation for Literal type, #652.\n",
+                "match": false,
+                "format": "markdown"
+              }
+            ],
+            "requires_structure": true
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.exact-sentence",
+            "version": "2",
+            "summary": "This sentence is repeated; consider whether every occurrence is needed.",
+            "description": "Compares sentences within one structural section, with separate table-cell and leading-condition scopes.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "repetition",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 30,
+                "cap": 60
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 12,
+                "similarity": 0,
+                "window": "document",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "min_words",
+              "window"
+            ],
+            "examples": [
+              {
+                "text": "The client opens a connection to the server and sends the request with its credentials. The client opens a connection to the server and sends the request with its credentials.",
+                "match": true
+              },
+              {
+                "text": "The client opens a connection to the server and sends the request with its credentials.",
+                "match": false
+              }
+            ],
+            "requires_structure": true
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.explanatory-restart",
+            "version": "2",
+            "summary": "The explanation repeats a judgment; state it once and name the concrete cause.",
+            "description": "A nominal subject and a copular adjective are repeated as 'and it/they is/are ADJECTIVE because'. The repeated copula and adjective must agree; negation, quantities, conditions and ambiguous noun antecedents are excluded. A reason-subject setup also includes a final abstract optimization or design judgment repeating the same adjective. Reports complete matched clauses, once per clause.",
+            "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples.",
+            "scope": "block",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "list-item"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 1,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "The process is complex, and it is complex because several callbacks share state.",
+                "match": true
+              },
+              {
+                "text": "The process is complex because several callbacks share state.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.heading-echo",
+            "version": "1",
+            "summary": "The first paragraph closely echoes its heading; check whether it adds information.",
+            "description": "Compares a selected heading with its immediately following paragraph using exact set Jaccard.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Short definitions may be useful; code and intervening blocks break adjacency.",
+            "scope": "section",
+            "contexts": [
+              "heading",
+              "paragraph"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "repetition",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 6,
+                "cap": 12
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 6,
+                "similarity": 0.85,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": true,
+                "protect_numbers": true,
+                "protect_identifiers": true
+              }
+            },
+            "parameters": [
+              "min_words",
+              "similarity",
+              "protect_negation",
+              "protect_numbers",
+              "protect_identifiers"
+            ],
+            "examples": [
+              {
+                "text": "# A practical approach to the delivery process\n\nA practical approach to the delivery process.",
+                "match": true,
+                "config": "version: 1\nrules:\n  repetition.heading-echo: {enabled: true}\n",
+                "format": "markdown"
+              },
+              {
+                "text": "# Retry budget\n\nThe retry budget limits the total time spent reconnecting after a transport failure.",
+                "match": false,
+                "config": "version: 1\nrules:\n  repetition.heading-echo: {enabled: true}\n",
+                "format": "markdown"
+              }
+            ],
+            "term_exemptions": true,
+            "requires_structure": true,
+            "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It compares a heading against the paragraph below it."
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.near-sentence",
+            "version": "3",
+            "summary": "These sentences have high lexical overlap; check for repeated information.",
+            "description": "Compares indexed sentence candidates with set Jaccard and a shared technical-contrast signature.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Modal, condition, and state cues are retained in token order. Numeric-unit protection retains the token after a number, not a complete unit expression. Equal signatures do not establish semantic equivalence; comparisons stay within structural and task scopes.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "repetition",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 22,
+                "cap": 44
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 12,
+                "similarity": 0.85,
+                "window": "document",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": true,
+                "protect_numbers": true,
+                "protect_identifiers": true
+              }
+            },
+            "parameters": [
+              "min_words",
+              "similarity",
+              "window",
+              "protect_negation",
+              "protect_numbers",
+              "protect_identifiers"
+            ],
+            "examples": [
+              {
+                "text": "The client opens a connection to the server and sends the request with its credentials. The client creates a connection to the server and sends the request with its credentials.",
+                "match": true
+              },
+              {
+                "text": "The client opens a connection to the server and sends the request with its credentials. The client never opens a connection to the server and sends the request with its credentials.",
+                "match": false
+              },
+              {
+                "text": "The client may retry the failed request after the server closes the connection and releases all resources. The client must retry the failed request after the server closes the connection and releases all resources.",
+                "match": false
+              }
+            ],
+            "requires_structure": true
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.ngram-density",
+            "version": "1",
+            "summary": "This phrase recurs in a short prose window; check whether each use is needed.",
+            "description": "Groups repeated consecutive prose n-grams in sentence windows; longer covering phrases take precedence.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Activation counts occurrences; reported coverage uses the prose words between the first and last matching sentence.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "repetition",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 12,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 2,
+                "saturation_occurrences": 5,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": true,
+                "protect_numbers": true,
+                "protect_identifiers": true,
+                "min_ngram_words": 3,
+                "max_ngram_words": 8
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences",
+              "min_words",
+              "protect_negation",
+              "protect_numbers",
+              "protect_identifiers",
+              "min_ngram_words",
+              "max_ngram_words"
+            ],
+            "examples": [
+              {
+                "text": "We describe the delivery process and its approach to dependable service for the team. They review the delivery process and its approach to dependable service for the reader. You explain the delivery process and its approach to dependable service for the group.",
+                "match": true,
+                "config": "version: 1\nrules:\n  repetition.ngram-density: {enabled: true}\n"
+              },
+              {
+                "text": "The timeout is thirty seconds for a connection attempt, and the client waits for its response.",
+                "match": false,
+                "config": "version: 1\nrules:\n  repetition.ngram-density: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "Fires an order of magnitude more on human prose, 0.603 findings per thousand words against 0.056 in the controlled arm. Parallel technical wording is often deliberate."
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.paragraph-openers",
+            "version": "3",
+            "summary": "Several paragraphs repeat the same opening formula.",
+            "description": "Groups opening words from each paragraph's first sentence. The word minimum applies to the complete paragraph.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Repeated openings do not establish duplicate meaning. Structural sections and leading conditions bound comparisons.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "repetition",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 18,
+                "cap": 36
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 8,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 2,
+                "saturation_occurrences": 5,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 3,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "min_words",
+              "opener_words",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "The client opens a connection to the database.\n\nThe client opens a file from the disk.\n\nThe client opens a channel to the service.",
+                "match": true
+              },
+              {
+                "text": "The client opens connections.\n\nThe client opens files.",
+                "match": false
+              },
+              {
+                "text": "Measured on PostgreSQL 18.6. The client may wait up to 30 seconds.\n\nMeasured on PostgreSQL 18.7. The client must not wait more than 60 seconds.\n\nMeasured on PostgreSQL 18.8. The client retries only after the connection closes.",
+                "match": true
+              },
+              {
+                "text": "Measured on PostgreSQL 18.6.\n\nMeasured on PostgreSQL 18.7.\n\nMeasured on PostgreSQL 18.8.",
+                "match": false
+              }
+            ],
+            "requires_structure": true
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.paragraph-overlap",
+            "version": "1",
+            "summary": "These prose blocks have high lexical overlap; check for repeated information.",
+            "description": "Builds connected clusters of Jaccard-qualified block pairs through an expiring inverted index.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. The block window bounds each pair, not the complete cluster; not every pair in a connected cluster must qualify.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "repetition",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 18,
+                "cap": 36
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 12,
+                "similarity": 0.85,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": true,
+                "protect_numbers": true,
+                "protect_identifiers": true,
+                "window_blocks": 8
+              }
+            },
+            "parameters": [
+              "min_words",
+              "window_blocks",
+              "similarity",
+              "allowed_occurrences",
+              "saturation_occurrences",
+              "protect_negation",
+              "protect_numbers",
+              "protect_identifiers"
+            ],
+            "examples": [
+              {
+                "text": "The client opens a connection to the server and sends the request with its credentials.\n\nThe client creates a connection to the server and sends the request with its credentials.",
+                "match": true,
+                "config": "version: 1\nrules:\n  repetition.paragraph-overlap: {enabled: true}\n"
+              },
+              {
+                "text": "The client opens a connection to the server and sends the request with its credentials.\n\nThe client never opens a connection to the server and sends the request with its credentials.",
+                "match": false,
+                "config": "version: 1\nrules:\n  repetition.paragraph-overlap: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "0.283 per thousand words in human prose and none in the controlled arm."
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.redundant-predicate",
+            "version": "2",
+            "summary": "The predicate repeats the relation already named by its subject.",
+            "description": "A category/type label describing its own unqualified category/type, or a path/location subject followed by is located/situated at/in, or a reason subject followed by is because. The grammatical subject must name the repeated relation; files, identifiers and control-flow conditions do not qualify. Reports complete matched clauses, once per clause.",
+            "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples.",
+            "scope": "block",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "list-item"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 1,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "The default path for the configuration file is located at `/etc/example.conf`.",
+                "match": true
+              },
+              {
+                "text": "The configuration file is located at `/etc/example.conf`.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.repeated-claim",
+            "version": "2",
+            "summary": "These passages repeat an assertion; check whether the explanation can be shared.",
+            "description": "Compares short complete assertions, assertions containing opaque inline-code atoms, and prefixes before a nonrestrictive ', which' clause, within one section and sentence window. Case, operands, punctuation, negation and conditions remain part of the exact identity. Also compares adjacent explicit reformulations of an only restriction as rejection of its negated property. Actors, predicates, tense, properties and objects must agree. A bounded possessive dependency-role conversion compares an owner's license restriction with its refusal of code not licensed under that property.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Requires a surface finite-verb cue; it does not resolve pronouns or prove general semantic equivalence. Questions, quoted text, lists, cells, arbitrary code, and claims over 64 tokens are excluded. Full unprotected sentences of twelve or more words remain with repetition.exact-sentence. A relative-clause prefix must match a complete assertion, not another partial prefix. Restriction reformulations require That is or In other words, stay inside one block, and reject quantities, conditions, quotations, protected operands and unresolved scope or modality.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "repetition",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 15,
+                "cap": 30
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 5,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 16,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "min_words",
+              "window_sentences"
+            ],
+            "examples": [
+              {
+                "text": "The command exits `1` because drift was found, which confirms the check worked.\n\nThe command exits `1` because drift was found.",
+                "match": true,
+                "format": "markdown"
+              },
+              {
+                "text": "The command exits `1` because drift was found.\n\nThe command exits `0` because drift was found.",
+                "match": false,
+                "format": "markdown"
+              }
+            ],
+            "term_exemptions": true,
+            "requires_structure": true
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.sentence-openers",
+            "version": "2",
+            "summary": "Several sentences repeat the same opening; consider removing repeated setup.",
+            "description": "Several sentences repeat the same opening; consider removing repeated setup.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Groups stay within structural sections and explicit leading conditions. Repeated form need not mean redundant information.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "repetition",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 15,
+                "cap": 30
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 8,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 2,
+                "saturation_occurrences": 5,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 3,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "min_words",
+              "opener_words",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "The client opens a connection to the database. The client opens a file from the disk. The client opens a channel to the service.",
+                "match": true
+              },
+              {
+                "text": "Open the file. Open the connection. Open the channel.",
+                "match": false
+              }
+            ],
+            "requires_structure": true
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.summary-echo",
+            "version": "1",
+            "summary": "This summary has high lexical overlap with preceding prose; check what it adds.",
+            "description": "Compares paragraphs under explicitly configured selected summary headings with preceding nonsummary paragraphs.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. Summary scope follows grammar-derived heading ancestry. Other titles require configuration; lexical overlap can be intentional.",
+            "scope": "section",
+            "contexts": [
+              "heading",
+              "paragraph"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "repetition",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": [
+                  "summary",
+                  "conclusion",
+                  "conclusions"
+                ],
+                "positions": null,
+                "min_words": 12,
+                "similarity": 0.85,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": true,
+                "protect_numbers": true,
+                "protect_identifiers": true,
+                "window_blocks": 8
+              }
+            },
+            "parameters": [
+              "min_words",
+              "window_blocks",
+              "similarity",
+              "allowed_occurrences",
+              "saturation_occurrences",
+              "protect_negation",
+              "protect_numbers",
+              "protect_identifiers",
+              "phrases"
+            ],
+            "examples": [
+              {
+                "text": "The client opens a connection to the server and sends the request with its credentials.\n\n## Summary\n\nThe client creates a connection to the server and sends the request with its credentials.",
+                "match": true,
+                "config": "version: 1\nrules:\n  repetition.summary-echo: {enabled: true}\n",
+                "format": "markdown"
+              },
+              {
+                "text": "The client opens a connection to the server and sends the request with its credentials.\n\n## Details\n\nThe client creates a connection to the server and sends the request with its credentials.",
+                "match": false,
+                "config": "version: 1\nrules:\n  repetition.summary-echo: {enabled: true}\n",
+                "format": "markdown"
+              }
+            ],
+            "term_exemptions": true,
+            "requires_structure": true,
+            "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It compares a closing section against the body it summarizes."
+          },
+          {
+            "block_observations": true,
+            "id": "repetition.syntax-template",
+            "version": "1",
+            "summary": "Several sentences repeat a POS shape; check whether the structure serves the text.",
+            "description": "Groups complete normalized POS shapes with at least two lexical realizations; imperative openings and lists are excluded.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Lexical and POS signals do not establish repeated meaning; technical exceptions require a declared policy. POS grouping is a surface heuristic, not a dependency analysis or a claim that the facts are duplicated.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "repetition",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 6,
+                "cap": 12
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 12,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 2,
+                "saturation_occurrences": 5,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": true,
+                "protect_numbers": true,
+                "protect_identifiers": true
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences",
+              "min_words",
+              "protect_negation",
+              "protect_numbers",
+              "protect_identifiers"
+            ],
+            "examples": [
+              {
+                "text": "The careful writer describes the simple process for the entire local team. The curious reader reviews the clear procedure for the entire small group. The skilled editor explains the useful approach for the entire new audience.",
+                "match": true,
+                "config": "version: 1\nrules:\n  repetition.syntax-template: {enabled: true}\n"
+              },
+              {
+                "text": "Open the connection to the server and wait for the complete response. Close the connection to the server and wait for the complete response. Check the connection to the server and wait for the complete response.",
+                "match": false,
+                "config": "version: 1\nrules:\n  repetition.syntax-template: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "0.010 per thousand words in human prose and none in the controlled arm."
+          },
+          {
+            "block_observations": true,
+            "id": "scaffold.ai-self-reference",
+            "version": "1",
+            "summary": "Remove the assistant's self-reference.",
+            "description": "Remove the assistant's self-reference.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "scaffolding",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "error",
+              "gate": "forbid",
+              "score": {
+                "weight": 15,
+                "cap": 30
+              },
+              "parameters": {
+                "phrases": [
+                  "As an AI language model",
+                  "As an AI assistant"
+                ],
+                "positions": [
+                  "sentence-start"
+                ],
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases",
+              "positions"
+            ],
+            "examples": [
+              {
+                "text": "As an AI language model the client opens connections.",
+                "match": true
+              },
+              {
+                "text": "The client opens connections.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "scaffold.chat-preamble",
+            "version": "1",
+            "summary": "Start with the subject instead of a conversational acknowledgment.",
+            "description": "Start with the subject instead of a conversational acknowledgment.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "scaffolding",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "error",
+              "gate": "forbid",
+              "score": {
+                "weight": 15,
+                "cap": 30
+              },
+              "parameters": {
+                "phrases": [
+                  "Certainly!",
+                  "Great question!",
+                  "Absolutely!"
+                ],
+                "positions": [
+                  "document-start"
+                ],
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases",
+              "positions"
+            ],
+            "examples": [
+              {
+                "text": "Certainly! the client opens connections.",
+                "match": true
+              },
+              {
+                "text": "The client opens connections.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "scaffold.dive-in",
+            "version": "1",
+            "summary": "Start with the subject instead of announcing the explanation.",
+            "description": "Start with the subject instead of announcing the explanation.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "scaffolding",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 15,
+                "cap": 30
+              },
+              "parameters": {
+                "phrases": [
+                  "Let's dive in",
+                  "Let's dive into",
+                  "Let's delve into"
+                ],
+                "positions": [
+                  "sentence-start"
+                ],
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases",
+              "positions"
+            ],
+            "examples": [
+              {
+                "text": "Let's dive in the client opens connections.",
+                "match": true
+              },
+              {
+                "text": "The client opens connections.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "scaffold.follow-up-offer",
+            "version": "1",
+            "summary": "Remove the conversational follow-up offer from this document.",
+            "description": "Remove the conversational follow-up offer from this document.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "scaffolding",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 15,
+                "cap": 30
+              },
+              "parameters": {
+                "phrases": [
+                  "Let me know if you'd like",
+                  "Let me know if you need"
+                ],
+                "positions": [
+                  "document-end"
+                ],
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "phrases",
+              "positions"
+            ],
+            "examples": [
+              {
+                "text": "Let me know if you'd like the client opens connections.",
+                "match": true
+              },
+              {
+                "text": "The client opens connections.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "syntax.long-sentence",
+            "version": "1",
+            "summary": "Consider splitting this long sentence without losing its conditions.",
+            "description": "Consider splitting this long sentence without losing its conditions.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "syntax-load",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 20,
+                "cap": 40
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 35,
+                "saturation": 65,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "onset",
+              "saturation"
+            ],
+            "examples": [
+              {
+                "text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ends.",
+                "match": true
+              },
+              {
+                "text": "The client may retry if the connection closes.",
+                "match": false
+              }
+            ]
+          },
+          {
+            "block_observations": true,
+            "id": "syntax.nominalization-chain",
+            "version": "1",
+            "summary": "Consider a direct verb while preserving the subject, conditions, and technical meaning.",
+            "description": "Matches a configured weak verb, a configured common noun, and an of-complement with a common-noun head.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Inflected verb forms are explicit dictionary entries. Suffixes alone never activate this rule.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "syntax-load",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false,
+                "verbs": [
+                  "perform",
+                  "performs",
+                  "performed",
+                  "performing",
+                  "conduct",
+                  "conducts",
+                  "conducted",
+                  "conducting",
+                  "undertake",
+                  "undertakes",
+                  "undertook",
+                  "undertaken",
+                  "make",
+                  "makes",
+                  "made",
+                  "making"
+                ],
+                "nouns": [
+                  "analysis",
+                  "assessment",
+                  "evaluation",
+                  "examination",
+                  "inspection",
+                  "investigation",
+                  "measurement",
+                  "review",
+                  "verification",
+                  "validation",
+                  "consideration"
+                ]
+              }
+            },
+            "parameters": [
+              "verbs",
+              "nouns"
+            ],
+            "examples": [
+              {
+                "text": "We perform an evaluation of the implementation before the release.",
+                "match": true,
+                "config": "version: 1\nrules:\n  syntax.nominalization-chain: {enabled: true}\n"
+              },
+              {
+                "text": "The evaluation of the implementation found a defect. The client performs an operation.",
+                "match": false,
+                "config": "version: 1\nrules:\n  syntax.nominalization-chain: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "Effectively silent: 0.001 findings per thousand words in human prose and none in the controlled arm."
+          },
+          {
+            "block_observations": true,
+            "id": "syntax.not-only-density",
+            "version": "3",
+            "summary": "Repeated paired contrasts make this passage formulaic.",
+            "description": "Counts ordered not-only/not-just followed by but in bounded prose windows, allowing one matching sentence.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Version 3 retains prose around inline code; candidates cannot cross protected tokens or structural boundaries.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "heading",
+              "list-item",
+              "table-cell"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 18,
+                "cap": 36
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "It not only reads but also writes. It not only checks but also validates.",
+                "match": true
+              },
+              {
+                "text": "The service not only validates requests but also checks permissions.",
+                "match": false
+              }
+            ]
+          },
+          {
+            "block_observations": true,
+            "id": "syntax.noun-stack",
+            "version": "5",
+            "summary": "Review this common-noun sequence; keep established technical terms.",
+            "description": "Counts NN modifiers followed by an NN/NNS head within a shallow NP chunk, stopping at terms, identifiers, and configured verb forms in predicate position.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. A shallow NP is not a dependency tree, and a noun sequence can be an appropriate domain term. Interior NNS tags cause abstention: they can be plural modifiers or misclassified finite verbs. The negative modal \"cannot\" breaks a noun run even when tagged NN; other tagging ambiguity remains possible. Configured verb forms are literal words; a form that is also a noun modifier shortens a genuine stack. Forms also listed in nouns remain candidates after nominal modifiers or common nouns; leading forms can break a run. Coordinated predicates require a following verb or modal; noun coordination stays intact.",
+            "scope": "sentence",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos",
+              "chunks"
+            ],
+            "group": "syntax-load",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 8,
+                "cap": 16
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 0,
+                "onset": 3,
+                "saturation": 7,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false,
+                "verbs": [
+                  "apply",
+                  "applies",
+                  "applied",
+                  "remain",
+                  "remains",
+                  "remained",
+                  "require",
+                  "requires",
+                  "required",
+                  "specify",
+                  "specifies",
+                  "specified",
+                  "reconstruct",
+                  "reconstructs",
+                  "reconstructed",
+                  "stores",
+                  "vet",
+                  "vets",
+                  "exist",
+                  "exists",
+                  "existed",
+                  "resemble",
+                  "resembles",
+                  "resembled",
+                  "fix",
+                  "fixes",
+                  "fixed"
+                ],
+                "nouns": [
+                  "fix",
+                  "fixes"
+                ]
+              }
+            },
+            "parameters": [
+              "onset",
+              "saturation",
+              "verbs",
+              "nouns"
+            ],
+            "examples": [
+              {
+                "text": "The service request response status code changes.",
+                "match": true,
+                "config": "version: 1\nrules:\n  syntax.noun-stack: {enabled: true}\n"
+              },
+              {
+                "text": "The access control policy requirements apply.",
+                "match": true,
+                "config": "version: 1\nrules:\n  syntax.noun-stack: {enabled: true}\n"
+              },
+              {
+                "text": "Package document defines source coordinates and the neutral prose model.",
+                "match": false,
+                "config": "version: 1\nrules:\n  syntax.noun-stack: {enabled: true}\n"
+              },
+              {
+                "text": "Emit latches validation failures even when a custom rule ignores the error.",
+                "match": false,
+                "config": "version: 1\nrules:\n  syntax.noun-stack: {enabled: true}\n"
+              },
+              {
+                "text": "A binary origin probability cannot measure the fraction of words written by AI.",
+                "match": false,
+                "config": "version: 1\nrules:\n  syntax.noun-stack: {enabled: true}\n"
+              },
+              {
+                "text": "The request has a status code. The client uses TransportCacheEntry.",
+                "match": false,
+                "config": "version: 1\nrules:\n  syntax.noun-stack: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "Version 4 did not establish a cross-family association in the complete-document study. Version 5 repairs noun/verb boundaries but has no independent editorial qualification."
+          },
+          {
+            "block_observations": true,
+            "id": "syntax.paired-contrast-density",
+            "version": "2",
+            "summary": "Check whether repeated paired contrasts carry distinct information.",
+            "description": "Counts paired contrasts in bounded prose windows: 'rather than' and 'instead of' and comma-not alternatives within a sentence, and adjacent 'It is not about'/'It is about' sentence pairs including contractions.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Only the declared structures are recognized; no semantic equivalence is inferred. A single contrast is ordinary English and the window allows one; the rule measures repetition of the shape, not its use.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "note",
+              "gate": "none",
+              "score": {
+                "weight": 0,
+                "cap": 0
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "The plan is refused rather than applied. The row is dropped rather than rewritten. The name is reported instead of guessed.",
+                "match": true,
+                "config": "version: 1\nrules:\n  syntax.paired-contrast-density: {enabled: true}\n"
+              },
+              {
+                "text": "The request is refused rather than retried, because the checksum did not match.",
+                "match": false,
+                "config": "version: 1\nrules:\n  syntax.paired-contrast-density: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "syntax.parenthetical-load",
+            "version": "2",
+            "summary": "Review the load of balanced insertions; retain conditions, qualifications, and necessary definitions.",
+            "description": "Measures nonexempt words, pair count, and nesting of balanced parentheses and square brackets within a prose block.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. Unbalanced or protected-crossing frames are not matched. Depth is capped at 256 with an explicit error. An insertion below min_insertion_words, such as an issue reference or a license label, contributes to none of the three measurements, including nesting.",
+            "scope": "paragraph",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "syntax-load",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 8,
+                "cap": 16
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 20,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 0,
+                "allowed_occurrences": 2,
+                "saturation_occurrences": 5,
+                "onset": 12,
+                "saturation": 36,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false,
+                "allowed_depth": 1,
+                "saturation_depth": 4,
+                "min_insertion_words": 2
+              }
+            },
+            "parameters": [
+              "min_words",
+              "onset",
+              "saturation",
+              "allowed_occurrences",
+              "saturation_occurrences",
+              "allowed_depth",
+              "saturation_depth",
+              "min_insertion_words"
+            ],
+            "examples": [
+              {
+                "text": "The client (which may retry after a temporary failure when the configured budget still permits another attempt) opens a connection to the server.",
+                "match": true,
+                "config": "version: 1\nrules:\n  syntax.parenthetical-load: {enabled: true}\n"
+              },
+              {
+                "text": "The application programming interface (API) lets the client send requests to the server and receive responses.",
+                "match": false,
+                "config": "version: 1\nrules:\n  syntax.parenthetical-load: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "Fires more on human prose, 0.499 per thousand words against 0.300 in the controlled arm."
+          },
+          {
+            "block_observations": true,
+            "id": "syntax.passive-candidate-density",
+            "version": "2",
+            "summary": "Several sentences contain be-plus-participle candidates; review voice only where the meaning allows it.",
+            "description": "Counts sentences containing a be verb, up to four adverbs, and VBN in bounded contiguous prose windows.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. This surface measurement does not establish a grammatical error, a need for revision, or authorship. The same POS shape can describe a state. This rule is not syntax.passive-density and does not establish grammatical voice.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "syntax-load",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 6,
+                "cap": 12
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 8,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "min_words",
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "The request is carefully validated by the server before execution. The response is securely recorded by the client after completion.",
+                "match": true,
+                "config": "version: 1\nrules:\n  syntax.passive-candidate-density: {enabled: true}\n"
+              },
+              {
+                "text": "The request must be validated before execution. The client is ready for the next request.",
+                "match": false,
+                "config": "version: 1\nrules:\n  syntax.passive-candidate-density: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "Names candidates without a dependency parse, and says so in its own limitations. It runs at 1.953 per thousand words in the controlled arm against 1.112 in human prose."
+          },
+          {
+            "block_observations": true,
+            "id": "syntax.repeated-reframing",
+            "version": "1",
+            "summary": "Repeated denial and redefinition: review whether both clauses add information.",
+            "description": "Groups adjacent copular denial/redefinition clauses with a repeated subject or anaphoric pronoun. Each pair stays in one block; repetition is counted within eight sentences of uninterrupted prose.",
+            "limitations": "The denial-redefinition frame is a bounded token/POS heuristic, not a dependency or semantic parse. Clauses are limited to 48 tokens and subjects to eight. Protected text is opaque, never a lexical cue. Recognition does not establish redundancy, authorship, or a need for revision. Technical definitions and useful navigation can match; defaults carry no score or gate. Precision is unqualified.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "note",
+              "gate": "none",
+              "score": {
+                "weight": 0,
+                "cap": 0
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "Backups are not a checkbox. They are your last defense. Testing is not a phase. It is a commitment.",
+                "match": true
+              },
+              {
+                "text": "A dev database is not the target. It is a disposable replay target.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "syntax.rhetorical-question-density",
+            "version": "2",
+            "summary": "Check repeated question-and-short-answer transitions.",
+            "description": "Counts configured complete questions followed in the same block by a short nonquestion answer.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Arbitrary questions are not classified. Numeric/code answers are excluded; disable for FAQ paths.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": [
+                  "the result?",
+                  "the outcome?",
+                  "the benefit?",
+                  "why does this matter?"
+                ],
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false,
+                "max_answer_words": 12
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences",
+              "phrases",
+              "max_answer_words"
+            ],
+            "examples": [
+              {
+                "text": "The result? A better experience. The benefit? A brighter future.",
+                "match": true,
+                "config": "version: 1\nrules:\n  syntax.rhetorical-question-density: {enabled: true}\n"
+              },
+              {
+                "text": "Does the client retry? Yes. Does it cache errors? No.",
+                "match": false,
+                "config": "version: 1\nrules:\n  syntax.rhetorical-question-density: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It counts questions a paragraph asks and answers itself."
+          },
+          {
+            "block_observations": true,
+            "id": "syntax.slogan-contrast",
+            "version": "1",
+            "summary": "The contrast names abstract actions without their objects; name the check and its failure condition.",
+            "description": "A short nominal subject and a bare check/verify/prove verb opposed to a bare trust/assume/assert verb. Both verbs must lack objects and qualifiers; concrete alternatives and refusal/guessing contrasts are excluded. Reports complete matched clauses, once per clause.",
+            "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples.",
+            "scope": "block",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string",
+              "list-item"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": true,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 0,
+                "saturation_occurrences": 1,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "So Ptah checks, rather than trusts.",
+                "match": true
+              },
+              {
+                "text": "The store checks a fencing token rather than trusting a lease it read.",
+                "match": false
+              }
+            ],
+            "term_exemptions": true
+          },
+          {
+            "block_observations": true,
+            "id": "syntax.triad-density",
+            "version": "2",
+            "summary": "Check repeated triads of evaluative modifiers against specific properties.",
+            "description": "Counts three-item lists from the evaluative dictionary with at least two adjective tags; one triad is allowed.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. One noun tag is tolerated for an ambiguous modifier. This is a POS/dictionary heuristic, not a dependency parse.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences",
+              "pos"
+            ],
+            "group": "inflation",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": [
+                  "powerful",
+                  "seamless",
+                  "robust",
+                  "innovative",
+                  "transformative",
+                  "unparalleled"
+                ],
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences",
+              "phrases"
+            ],
+            "examples": [
+              {
+                "text": "A powerful, seamless, innovative platform starts. A robust, transformative, unparalleled experience follows.",
+                "match": true,
+                "config": "version: 1\nrules:\n  syntax.triad-density: {enabled: true}\n"
+              },
+              {
+                "text": "The request requires authentication, authorization, and a valid checksum.",
+                "match": false,
+                "config": "version: 1\nrules:\n  syntax.triad-density: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It counts three-item lists used as a rhythm device."
+          },
+          {
+            "block_observations": true,
+            "id": "syntax.whether-preface-density",
+            "version": "2",
+            "summary": "Reduce repeated whether-you prefaces while preserving alternatives.",
+            "description": "Counts whether-you-are prefaces containing 'or' before a comma within 32 tokens; one occurrence is allowed.",
+            "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Recognizes one opening template, not arbitrary conditional clauses.",
+            "scope": "document",
+            "contexts": [
+              "paragraph",
+              "comment",
+              "string"
+            ],
+            "requires": [
+              "tokens",
+              "sentences"
+            ],
+            "group": "rhetorical-patterns",
+            "status": "experimental",
+            "defaults": {
+              "enabled": false,
+              "severity": "warning",
+              "gate": "none",
+              "score": {
+                "weight": 12,
+                "cap": 24
+              },
+              "parameters": {
+                "phrases": null,
+                "positions": null,
+                "min_words": 0,
+                "similarity": 0,
+                "window": "",
+                "window_sentences": 8,
+                "allowed_occurrences": 1,
+                "saturation_occurrences": 4,
+                "onset": 0,
+                "saturation": 0,
+                "opener_words": 0,
+                "protect_negation": false,
+                "protect_numbers": false,
+                "protect_identifiers": false
+              }
+            },
+            "parameters": [
+              "window_sentences",
+              "allowed_occurrences",
+              "saturation_occurrences"
+            ],
+            "examples": [
+              {
+                "text": "Whether you are a beginner or an expert, the tool helps. Whether you're a writer or a reader, the tool fits.",
+                "match": true,
+                "config": "version: 1\nrules:\n  syntax.whether-preface-density: {enabled: true}\n"
+              },
+              {
+                "text": "Whether you are using HTTP or HTTPS, validate the certificate policy.",
+                "match": false,
+                "config": "version: 1\nrules:\n  syntax.whether-preface-density: {enabled: true}\n"
+              }
+            ],
+            "term_exemptions": true,
+            "opt_in_reason": "No occurrence in 5.6 million measured prose words, human or generated. It counts prefaces of the form \"whether or not X\"."
+          }
+        ],
+        "selection_mode": "explicit",
+        "complete": false,
+        "no_gate": false,
+        "include_source": false,
+        "skipped_rules": []
+      },
+      "documents": [
+        {
+          "gate_mode": "all",
+          "name": "workflow_sources_test.go",
+          "format": "go",
+          "source_hash": "bf8d57c6da4072f374234f9279665e247cac448f9ee371b2d8569d6a27fe7f41",
+          "config_hash": "2ec4c15eac740349664d74a48cc27e0c91d8b49863481c64b7232b8eb0dc9ad4",
+          "bytes": 1434,
+          "prose_words": 0,
+          "blocks": 0,
+          "sentences": 0,
+          "excluded": [
+            {
+              "span": {
+                "start": 32,
+                "end": 41
+              },
+              "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+            },
+            {
+              "span": {
+                "start": 47,
+                "end": 78
+              },
+              "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+            },
+            {
+              "span": {
+                "start": 81,
+                "end": 109
+              },
+              "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+            },
+            {
+              "span": {
+                "start": 111,
+                "end": 148
+              },
+              "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+            },
+            {
+              "span": {
+                "start": 321,
+                "end": 384
+              },
+              "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+            },
+            {
+              "span": {
+                "start": 389,
+                "end": 478
+              },
+              "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+            },
+            {
+              "span": {
+                "start": 558,
+                "end": 678
+              },
+              "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+            },
+            {
+              "span": {
+                "start": 755,
+                "end": 784
+              },
+              "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+            },
+            {
+              "span": {
+                "start": 832,
+                "end": 863
+              },
+              "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+            },
+            {
+              "span": {
+                "start": 967,
+                "end": 977
+              },
+              "reason": "config:regression-inputs: Test strings contain deliberate violations, malformed inputs, and expected diagnostics."
+            }
+          ],
+          "paragraph_maximum": 0,
+          "paragraph_median": 0,
+          "paragraph_p90": 0,
+          "eligible_paragraph_flagged_fraction": 0
+        }
+      ],
+      "findings": [],
+      "assessments": [],
+      "gate": {
+        "passed": false,
+        "reasons": []
+      },
+      "errors": [
+        {
+          "path": "",
+          "message": "scan contains no applicable English prose"
+        }
+      ]
+    }
+  }
+}

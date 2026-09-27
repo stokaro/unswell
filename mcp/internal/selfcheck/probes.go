@@ -25,10 +25,10 @@ func verifyProbes(ctx context.Context, session *mcp.ClientSession) ([]server.Che
 		input := server.CheckInput{Sources: []server.Source{{Name: probe.name, Text: probe.text}}}
 		checked, err := check(ctx, session, input, probe.outcome)
 		if err != nil {
-			return nil, fmt.Errorf("%s: %w", probe.name, err)
+			return results, probeFailure(probe.name, checked, fmt.Errorf("%s: %w", probe.name, err))
 		}
 		if checked.Result.Gate.Passed != (probe.outcome == "pass") {
-			return nil, fmt.Errorf("%s: MCP outcome disagrees with the engine gate", probe.name)
+			return results, probeFailure(probe.name, checked, fmt.Errorf("%s: MCP outcome disagrees with the engine gate", probe.name))
 		}
 		results = append(results, checked)
 	}
