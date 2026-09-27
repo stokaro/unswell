@@ -40,7 +40,7 @@ func Parse(ctx context.Context, src document.Source, options Options) (document.
 	var err error
 	switch src.Format {
 	case document.Plain:
-		plain(&doc, 0, len(src.Bytes), "paragraph")
+		err = plainText(ctx, &doc)
 	case document.Markdown, document.MDX:
 		err = markdown(ctx, &doc, options)
 	case document.Go, document.JavaScript, document.TypeScript, document.TSX, document.Python,

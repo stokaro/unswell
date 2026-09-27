@@ -1,0 +1,16 @@
+Résumé: the request must not retry before 30 seconds.
+
+  Use these calls:
+     event_del_noblock(ev)
+     event_del_block(ev)
+
+  It is important to note that the client waits for completion. # want "filler.announced-importance"
+
+  Example:
+    const char *message = "It is important to note that this literal must not be checked";
+    send_message(message);
+
+  Preserve these details:
+
+    It is important to note that the request must not retry. # want "filler.announced-importance"
+    The timeout is 30 seconds.
