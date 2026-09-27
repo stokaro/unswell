@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"slices"
@@ -157,6 +158,48 @@ func TestCheckReportsTheOriginChannelSeparately(t *testing.T) {
 	out.Reset()
 	stderr.Reset()
 	c.Assert(cli.Run(t.Context(), []string{"check", "draft.md", "--origin-model", pack}, environment), qt.Equals, 2)
+}
+
+func TestCheckKeepsUnstructuredOriginPackAvailableWithStructuredRules(t *testing.T) {
+	c := qt.New(t)
+	root := t.TempDir()
+	policy := "version: 1\norigin:\n  model: pack\n  accept_experimental: true\n  on_incompatible: fail\n"
+	c.Assert(os.WriteFile(filepath.Join(root, "origin.yaml"), []byte(policy), 0o600), qt.IsNil)
+	c.Assert(os.WriteFile(filepath.Join(root, "draft.md"),
+		[]byte("# Retry policy\r\n\r\nThe client retries after a transport failure.\r\n"), 0o600), qt.IsNil)
+	probePolicy := strings.ReplaceAll(policy, "  on_incompatible: fail\n", "")
+	name := commandPack(c, root, "origin-pack.json", probePolicy, probability.TaskOrigin)
+	data, err := fs.ReadFile(os.DirFS(root), "origin-pack.json")
+	c.Assert(err, qt.IsNil)
+	var file probability.File
+	c.Assert(json.Unmarshal(data, &file), qt.IsNil)
+	file.Contract.IncludeStructure = false
+	file.Contract.PreparationHash, err = nlp.PreparationHash(commandPreparation(c, probePolicy).ExtractionPolicyHash,
+		file.Contract.IncludeQuotes, false)
+	c.Assert(err, qt.IsNil)
+	file.SHA256, err = probability.Digest(file)
+	c.Assert(err, qt.IsNil)
+	data, err = json.Marshal(file)
+	c.Assert(err, qt.IsNil)
+	c.Assert(os.WriteFile(filepath.Join(root, name), data, 0o600), qt.IsNil)
+	var out, stderr bytes.Buffer
+	environment := cli.Environment{Dir: root, In: bytes.NewReader(nil), Out: &out, Err: &stderr}
+	code := cli.Run(t.Context(), []string{"check", "draft.md", "--config", "origin.yaml",
+		"--origin-model", name, "--report", "json:-"}, environment)
+	c.Assert(code, qt.Equals, 0, qt.Commentf("%s", stderr.String()))
+	var result unswell.RunResult
+	c.Assert(json.Unmarshal(out.Bytes(), &result), qt.IsNil)
+	c.Assert(result.Status, qt.Equals, "complete")
+	estimated := 0
+	for _, assessment := range result.Assessments {
+		c.Assert(assessment.OriginStatus, qt.Not(qt.Equals), probability.StatusIncompatible)
+		if assessment.OriginEstimate != nil {
+			c.Assert(assessment.Scope, qt.Equals, "sentence")
+			c.Assert(assessment.Span, qt.Equals, document.Span{Start: 18, End: 63})
+			estimated++
+		}
+	}
+	c.Assert(estimated, qt.Equals, 1)
 }
 
 func TestDoctorReportsTheConfiguredCalibration(t *testing.T) {

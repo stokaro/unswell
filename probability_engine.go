@@ -8,6 +8,7 @@ import (
 
 	"github.com/stokaro/unswell/config"
 	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/extract"
 	"github.com/stokaro/unswell/feature"
 	"github.com/stokaro/unswell/nlp"
 	"github.com/stokaro/unswell/probability"
@@ -158,7 +159,8 @@ func (e *Engine) requireModels() error {
 
 // estimateChannel decides one source's estimates for one channel. Preparation
 // runs separately from optional feature collection, with exactly the pack's
-// capabilities, so its measurements match the pack's declared contract.
+// capabilities and structural representation. Quote inclusion and extraction
+// policy remain caller-controlled and must agree with the pack's contract.
 func (e *Engine) estimateChannel(ctx context.Context, doc *document.Document, structure bool,
 	channel modelChannel,
 ) (probabilityRun, error) {
@@ -167,7 +169,8 @@ func (e *Engine) estimateChannel(ctx context.Context, doc *document.Document, st
 		// The origin channel stays silent, so a run without it is unchanged.
 		return probabilityRun{status: channel.absent}, nil
 	}
-	source, err := e.preparedSource(doc, structure)
+	packStructure := channel.pack.File().Contract.IncludeStructure
+	source, err := e.preparedSource(doc, packStructure)
 	if err != nil {
 		return probabilityRun{}, err
 	}
@@ -181,11 +184,36 @@ func (e *Engine) estimateChannel(ctx context.Context, doc *document.Document, st
 		}
 		return probabilityRun{status: probability.StatusIncompatible}, nil
 	}
+	if structure != packStructure {
+		prepared, err := e.channelDocument(ctx, doc, packStructure)
+		if err != nil {
+			return probabilityRun{}, fmt.Errorf("%s extraction: %w", channel.setting, err)
+		}
+		doc = &prepared
+	}
 	values, err := e.measureChannel(ctx, doc, source, channel)
 	if err != nil {
 		return probabilityRun{}, err
 	}
 	return probabilityRun{kind: channel.pack.Kind(), values: values}, nil
+}
+
+// channelDocument reconstructs the pack's structural view from original bytes.
+// It does not change the document used by rules, reports, or baseline identities.
+// PrepareUnits performs NLP enrichment using only this channel's capabilities.
+func (e *Engine) channelDocument(ctx context.Context, doc *document.Document, structure bool) (document.Document, error) {
+	prepared, err := extract.Parse(ctx, document.Source{Name: doc.Name, Format: doc.Format, Bytes: doc.Source},
+		extract.Options{IncludeStructure: structure, IncludeQuotes: e.policy.Analysis.IncludeQuotes,
+			MaxBytes: e.policy.Analysis.MaxFileBytes, MaxBlocks: e.policy.Analysis.MaxBlocks, Policy: e.policy.Extraction})
+	if err != nil {
+		return prepared, err
+	}
+	for i := range prepared.Blocks {
+		if nonLatinProse(prepared.Blocks[i].Text) {
+			prepared.Blocks[i].Excluded = true
+		}
+	}
+	return prepared, ctx.Err()
 }
 
 func (e *Engine) measureChannel(ctx context.Context, doc *document.Document, source PreparedFeatureSource,
