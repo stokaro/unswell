@@ -1,0 +1,453 @@
+{
+  "scope": "C examples introduced by a colon and indented more deeply than the introducing prose; bounded syntax validation. Other languages and mixed annotated API lists are out of scope.",
+  "reviewer": "OpenAI assistant; source-first review under ADR 0041, not independent human annotation.",
+  "input_freeze_sha256": "ac51efbae468642b0fadb7dca175a3940ae52a226652d81cac3f1c8c15e069dc",
+  "binary_sha256": {
+    "before": "72ecc146e412756bf0fcbbdea222f68d28fce2c48a8a44b910e3d5da22589ebd",
+    "after": "800e28878bb80a4f684e9de4972a94fec1704de17ae77e3ffd3b1aa0bcb81fbf"
+  },
+  "profiles": {
+    "technical": {
+      "before": 56,
+      "after": 54,
+      "removed": [
+        {
+          "id": "19740ae66ea537f2",
+          "rule_id": "syntax.long-sentence",
+          "rule_version": "1",
+          "severity": "warning",
+          "gate": "none",
+          "group": "syntax-load",
+          "scope": "sentence",
+          "message": "Consider splitting this long sentence without losing its conditions.",
+          "primary": {
+            "path": "whatsnew-2.1.txt",
+            "span": {
+              "start": 10229,
+              "end": 10529
+            },
+            "start": {
+              "line": 235,
+              "column": 3
+            },
+            "end": {
+              "line": 241,
+              "column": 8
+            },
+            "segments": [
+              {
+                "start": 10229,
+                "end": 10529
+              }
+            ],
+            "snippet": "There are also two new variants of event_del() that you can use for\n  more fine-grained control:\n     event_del_noblock(ev)\n     event_del_block(ev)\n  The event_del_noblock() function will never block, even if the event\n  callback is running in another thread and doesn't have the EV_FINALIZE\n  flag."
+          },
+          "related": [],
+          "evidence": {
+            "kind": "exact",
+            "message": "",
+            "suggestion": "",
+            "occurrences": [
+              {
+                "block_id": 55,
+                "sentence_id": 99,
+                "spans": [
+                  {
+                    "start": 10229,
+                    "end": 10529
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "name": "length",
+                "value": 41,
+                "unit": "prose-words",
+                "onset": 35,
+                "saturation": 65
+              }
+            ],
+            "activation": 200
+          },
+          "fingerprint": "1f191b988abdb699cd5c537643921d2c83f01271e65cb2c41ab7adbeae7a1d74",
+          "suppressed": false,
+          "baseline_state": "untracked",
+          "derived": false
+        },
+        {
+          "id": "44de02a6c8b683a0",
+          "rule_id": "syntax.long-sentence",
+          "rule_version": "1",
+          "severity": "warning",
+          "gate": "none",
+          "group": "syntax-load",
+          "scope": "sentence",
+          "message": "Consider splitting this long sentence without losing its conditions.",
+          "primary": {
+            "path": "whatsnew-2.1.txt",
+            "span": {
+              "start": 23760,
+              "end": 24313
+            },
+            "start": {
+              "line": 547,
+              "column": 3
+            },
+            "end": {
+              "line": 562,
+              "column": 46
+            },
+            "segments": [
+              {
+                "start": 23760,
+                "end": 24313
+              }
+            ],
+            "snippet": "Internal event list maintainance no longer use the antipattern where\n  we have one function with multiple totally independent behaviors\n  depending on an argument:\n      #define OP1 1\n      #define OP2 2\n      #define OP3 3\n      void func(int operation, struct event *ev) {\n        switch (op) {\n          ...\n        }\n      }\n  Instead, these functions are now split into separate functions for\n  each operation:\n      void func_op1(struct event *ev) { ... }\n      void func_op2(struct event *ev) { ... }\n      void func_op3(struct event *ev) { ... }"
+          },
+          "related": [],
+          "evidence": {
+            "kind": "exact",
+            "message": "",
+            "suggestion": "",
+            "occurrences": [
+              {
+                "block_id": 135,
+                "sentence_id": 229,
+                "spans": [
+                  {
+                    "start": 23760,
+                    "end": 24313
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "name": "length",
+                "value": 64,
+                "unit": "prose-words",
+                "onset": 35,
+                "saturation": 65
+              }
+            ],
+            "activation": 966
+          },
+          "fingerprint": "b8c6ee0e0f051aa7a8c80aaa8a512fc8444e4109cac6d442bb66c86ff499d245",
+          "suppressed": false,
+          "baseline_state": "untracked",
+          "derived": false
+        }
+      ],
+      "added": [],
+      "documents": [
+        {
+          "path": "whatsnew-2.0.txt",
+          "source_sha256": "a15295b7790a1e625e2bb127de9ce2d20a625950f651cc6777bc16d680982f78",
+          "words_before": 3893,
+          "words_after": 3822,
+          "code_exclusions": [
+            {
+              "start": 7369,
+              "end": 7956
+            },
+            {
+              "start": 8648,
+              "end": 8834
+            }
+          ]
+        },
+        {
+          "path": "whatsnew-2.1.txt",
+          "source_sha256": "c101c12f88100aa4af50ab131d0b0932505d7bfe56c4d4da074fedd6830cd427",
+          "words_before": 4707,
+          "words_after": 4652,
+          "code_exclusions": [
+            {
+              "start": 4946,
+              "end": 5058
+            },
+            {
+              "start": 7598,
+              "end": 7714
+            },
+            {
+              "start": 8368,
+              "end": 8604
+            },
+            {
+              "start": 10326,
+              "end": 10378
+            },
+            {
+              "start": 23924,
+              "end": 24089
+            },
+            {
+              "start": 24176,
+              "end": 24314
+            }
+          ]
+        },
+        {
+          "path": "whatsnew-2.2.txt",
+          "source_sha256": "68b47c8331f5897f39610362b37835fe4bed216f468834297ccb2a6057a7d721",
+          "words_before": 1910,
+          "words_after": 1871,
+          "code_exclusions": [
+            {
+              "start": 5333,
+              "end": 5824
+            },
+            {
+              "start": 5887,
+              "end": 5939
+            },
+            {
+              "start": 5988,
+              "end": 6052
+            }
+          ]
+        }
+      ],
+      "gate_before": {
+        "passed": true,
+        "reasons": []
+      },
+      "gate_after": {
+        "passed": true,
+        "reasons": []
+      },
+      "tool_commit_before": "888d513b1f750184d16bc4ccd0fc055373e0cd0c",
+      "tool_commit_after": "fab37cdfb2cf55b82acbdf1b2404e4ac7993d6a5",
+      "frozen_development_defects_preserved": 12,
+      "confirmation_c_regions": 3,
+      "confirmation_controls_preserved": 5
+    },
+    "strict": {
+      "before": 56,
+      "after": 54,
+      "removed": [
+        {
+          "id": "19740ae66ea537f2",
+          "rule_id": "syntax.long-sentence",
+          "rule_version": "1",
+          "severity": "warning",
+          "gate": "none",
+          "group": "syntax-load",
+          "scope": "sentence",
+          "message": "Consider splitting this long sentence without losing its conditions.",
+          "primary": {
+            "path": "whatsnew-2.1.txt",
+            "span": {
+              "start": 10229,
+              "end": 10529
+            },
+            "start": {
+              "line": 235,
+              "column": 3
+            },
+            "end": {
+              "line": 241,
+              "column": 8
+            },
+            "segments": [
+              {
+                "start": 10229,
+                "end": 10529
+              }
+            ],
+            "snippet": "There are also two new variants of event_del() that you can use for\n  more fine-grained control:\n     event_del_noblock(ev)\n     event_del_block(ev)\n  The event_del_noblock() function will never block, even if the event\n  callback is running in another thread and doesn't have the EV_FINALIZE\n  flag."
+          },
+          "related": [],
+          "evidence": {
+            "kind": "exact",
+            "message": "",
+            "suggestion": "",
+            "occurrences": [
+              {
+                "block_id": 55,
+                "sentence_id": 99,
+                "spans": [
+                  {
+                    "start": 10229,
+                    "end": 10529
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "name": "length",
+                "value": 41,
+                "unit": "prose-words",
+                "onset": 35,
+                "saturation": 65
+              }
+            ],
+            "activation": 200
+          },
+          "fingerprint": "1f191b988abdb699cd5c537643921d2c83f01271e65cb2c41ab7adbeae7a1d74",
+          "suppressed": false,
+          "baseline_state": "untracked",
+          "derived": false
+        },
+        {
+          "id": "44de02a6c8b683a0",
+          "rule_id": "syntax.long-sentence",
+          "rule_version": "1",
+          "severity": "warning",
+          "gate": "none",
+          "group": "syntax-load",
+          "scope": "sentence",
+          "message": "Consider splitting this long sentence without losing its conditions.",
+          "primary": {
+            "path": "whatsnew-2.1.txt",
+            "span": {
+              "start": 23760,
+              "end": 24313
+            },
+            "start": {
+              "line": 547,
+              "column": 3
+            },
+            "end": {
+              "line": 562,
+              "column": 46
+            },
+            "segments": [
+              {
+                "start": 23760,
+                "end": 24313
+              }
+            ],
+            "snippet": "Internal event list maintainance no longer use the antipattern where\n  we have one function with multiple totally independent behaviors\n  depending on an argument:\n      #define OP1 1\n      #define OP2 2\n      #define OP3 3\n      void func(int operation, struct event *ev) {\n        switch (op) {\n          ...\n        }\n      }\n  Instead, these functions are now split into separate functions for\n  each operation:\n      void func_op1(struct event *ev) { ... }\n      void func_op2(struct event *ev) { ... }\n      void func_op3(struct event *ev) { ... }"
+          },
+          "related": [],
+          "evidence": {
+            "kind": "exact",
+            "message": "",
+            "suggestion": "",
+            "occurrences": [
+              {
+                "block_id": 135,
+                "sentence_id": 229,
+                "spans": [
+                  {
+                    "start": 23760,
+                    "end": 24313
+                  }
+                ]
+              }
+            ],
+            "metrics": [
+              {
+                "name": "length",
+                "value": 64,
+                "unit": "prose-words",
+                "onset": 35,
+                "saturation": 65
+              }
+            ],
+            "activation": 966
+          },
+          "fingerprint": "b8c6ee0e0f051aa7a8c80aaa8a512fc8444e4109cac6d442bb66c86ff499d245",
+          "suppressed": false,
+          "baseline_state": "untracked",
+          "derived": false
+        }
+      ],
+      "added": [],
+      "documents": [
+        {
+          "path": "whatsnew-2.0.txt",
+          "source_sha256": "a15295b7790a1e625e2bb127de9ce2d20a625950f651cc6777bc16d680982f78",
+          "words_before": 3893,
+          "words_after": 3822,
+          "code_exclusions": [
+            {
+              "start": 7369,
+              "end": 7956
+            },
+            {
+              "start": 8648,
+              "end": 8834
+            }
+          ]
+        },
+        {
+          "path": "whatsnew-2.1.txt",
+          "source_sha256": "c101c12f88100aa4af50ab131d0b0932505d7bfe56c4d4da074fedd6830cd427",
+          "words_before": 4707,
+          "words_after": 4652,
+          "code_exclusions": [
+            {
+              "start": 4946,
+              "end": 5058
+            },
+            {
+              "start": 7598,
+              "end": 7714
+            },
+            {
+              "start": 8368,
+              "end": 8604
+            },
+            {
+              "start": 10326,
+              "end": 10378
+            },
+            {
+              "start": 23924,
+              "end": 24089
+            },
+            {
+              "start": 24176,
+              "end": 24314
+            }
+          ]
+        },
+        {
+          "path": "whatsnew-2.2.txt",
+          "source_sha256": "68b47c8331f5897f39610362b37835fe4bed216f468834297ccb2a6057a7d721",
+          "words_before": 1910,
+          "words_after": 1871,
+          "code_exclusions": [
+            {
+              "start": 5333,
+              "end": 5824
+            },
+            {
+              "start": 5887,
+              "end": 5939
+            },
+            {
+              "start": 5988,
+              "end": 6052
+            }
+          ]
+        }
+      ],
+      "gate_before": {
+        "passed": true,
+        "reasons": []
+      },
+      "gate_after": {
+        "passed": true,
+        "reasons": []
+      },
+      "tool_commit_before": "888d513b1f750184d16bc4ccd0fc055373e0cd0c",
+      "tool_commit_after": "fab37cdfb2cf55b82acbdf1b2404e4ac7993d6a5",
+      "frozen_development_defects_preserved": 12,
+      "confirmation_c_regions": 3,
+      "confirmation_controls_preserved": 5
+    }
+  },
+  "report_sha256": {
+    "after-strict.json.gz": "9cf846c2b45829973fafef4a55768121c62097aea6a0b88688236940cbfe9e5f",
+    "after-technical.json.gz": "2053b660efef99576d9541a64fb277b3e55e5f6c37a264d82ae2cf943e0235dc",
+    "before-strict.json.gz": "e255cb7ba08f48054190e9188e675c20a3502269f64eb9933a707d9018a45966",
+    "before-technical.json.gz": "7701a77beaacde7c78215f5642ed9283a137d5f4293609dd6b58000282ab47cb"
+  }
+}
