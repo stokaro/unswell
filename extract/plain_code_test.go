@@ -2,7 +2,6 @@ package extract_test
 
 import (
 	"context"
-	"errors"
 	"strings"
 	"testing"
 
@@ -31,9 +30,9 @@ func TestPlainCodePreservesSurroundingProseAndRanges(t *testing.T) {
 				Span: document.Span{Start: len(prefix), End: len(prefix) + len(code)}, Reason: "plain-code",
 			}})
 			c.Assert(doc.Blocks, qt.HasLen, 3)
-			c.Assert(strings.Contains(doc.Blocks[0].Text, "must not retry before 30 seconds"), qt.IsTrue)
-			c.Assert(strings.Contains(doc.Blocks[1].Text, "Use either call:"), qt.IsTrue)
-			c.Assert(strings.Contains(doc.Blocks[2].Text, "must not return before completion"), qt.IsTrue)
+			c.Assert(doc.Blocks[0].Text, qt.Contains, "must not retry before 30 seconds")
+			c.Assert(doc.Blocks[1].Text, qt.Contains, "Use either call:")
+			c.Assert(doc.Blocks[2].Text, qt.Contains, "must not return before completion")
 			for _, block := range doc.Blocks {
 				for _, span := range block.Map {
 					c.Assert(span.Valid(len(source)), qt.IsTrue)
@@ -65,7 +64,7 @@ func TestPlainCodeRecognizesBoundedCExamples(t *testing.T) {
 				Span: document.Span{Start: len(prefix), End: len(prefix) + len(code)}, Reason: "plain-code",
 			}})
 			c.Assert(doc.Blocks, qt.HasLen, 2)
-			c.Assert(strings.Contains(doc.Blocks[1].Text, "Do not retry"), qt.IsTrue)
+			c.Assert(doc.Blocks[1].Text, qt.Contains, "Do not retry")
 		})
 	}
 }
@@ -126,5 +125,5 @@ func TestPlainCodeCancellation(t *testing.T) {
 	cancel()
 	_, err := extract.Parse(ctx, document.Source{Name: "notes.txt", Format: document.Plain,
 		Bytes: []byte("Example:\n    event_add(ev);\n")}, extract.Options{})
-	c.Assert(errors.Is(err, context.Canceled), qt.IsTrue)
+	c.Assert(err, qt.ErrorIs, context.Canceled)
 }
