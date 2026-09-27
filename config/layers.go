@@ -179,8 +179,9 @@ func recordNodeOrigins(origins map[string]string, prefix string, node yaml.Node,
 		}
 		return
 	}
+	childPrefix := prefix + "/"
 	for key := range origins {
-		if strings.HasPrefix(key, prefix+"/") {
+		if strings.HasPrefix(key, childPrefix) {
 			delete(origins, key)
 		}
 	}

@@ -1,0 +1,108 @@
+{
+  "issue": 338,
+  "baseline_tree": "bbf11d576eb82bc05b67143d3a2ca8e943c14ee7",
+  "baseline_commit": "6fb6dc72d5461255b29cba7b3da96b233ea825d6",
+  "candidate_change": "Hoist the immutable descendant prefix outside the origins-map loop.",
+  "environment": {
+    "go": "go1.27.1",
+    "goos": "darwin",
+    "goarch": "arm64",
+    "cpu": "Apple M3 Pro",
+    "GOMAXPROCS": 2,
+    "note": "Shared, loaded host; wall-clock samples include contention."
+  },
+  "command": "go test -run '^$' -bench '^BenchmarkEngineConstruction$' -benchtime=5x -count=3",
+  "samples": {
+    "before": [
+      {
+        "profile": "default",
+        "iterations": 5,
+        "ns_per_op": 1131619967,
+        "bytes_per_op": 164116728,
+        "allocations_per_op": 2499298
+      },
+      {
+        "profile": "default",
+        "iterations": 5,
+        "ns_per_op": 231243817,
+        "bytes_per_op": 163376057,
+        "allocations_per_op": 2494873
+      },
+      {
+        "profile": "default",
+        "iterations": 5,
+        "ns_per_op": 122509867,
+        "bytes_per_op": 163481302,
+        "allocations_per_op": 2494904
+      },
+      {
+        "profile": "strict",
+        "iterations": 5,
+        "ns_per_op": 306497558,
+        "bytes_per_op": 455169952,
+        "allocations_per_op": 7091268
+      },
+      {
+        "profile": "strict",
+        "iterations": 5,
+        "ns_per_op": 337556758,
+        "bytes_per_op": 455172132,
+        "allocations_per_op": 7091289
+      },
+      {
+        "profile": "strict",
+        "iterations": 5,
+        "ns_per_op": 465789483,
+        "bytes_per_op": 455172372,
+        "allocations_per_op": 7091281
+      }
+    ],
+    "after": [
+      {
+        "profile": "default",
+        "iterations": 5,
+        "ns_per_op": 37372325,
+        "bytes_per_op": 10827147,
+        "allocations_per_op": 49926
+      },
+      {
+        "profile": "default",
+        "iterations": 5,
+        "ns_per_op": 38378417,
+        "bytes_per_op": 10060604,
+        "allocations_per_op": 45479
+      },
+      {
+        "profile": "default",
+        "iterations": 5,
+        "ns_per_op": 40144825,
+        "bytes_per_op": 9983360,
+        "allocations_per_op": 45488
+      },
+      {
+        "profile": "strict",
+        "iterations": 5,
+        "ns_per_op": 86882933,
+        "bytes_per_op": 16199856,
+        "allocations_per_op": 76308
+      },
+      {
+        "profile": "strict",
+        "iterations": 5,
+        "ns_per_op": 86529475,
+        "bytes_per_op": 16432476,
+        "allocations_per_op": 76339
+      },
+      {
+        "profile": "strict",
+        "iterations": 5,
+        "ns_per_op": 90064000,
+        "bytes_per_op": 16330606,
+        "allocations_per_op": 76340
+      }
+    ]
+  },
+  "baseline_equivalent_main_commit": "8584c2b80200a099feea75d1f8f17fb827e2c4c3",
+  "baseline_layers_sha256": "3de4d593caf37a2cccf1d2824f52e64a252b853deb36c531cc1214f313d88d20",
+  "candidate_layers_sha256": "27d43580fb03020d093887f95ec3ccd59c1489c4e8a75edbd17363458603ac84"
+}
