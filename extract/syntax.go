@@ -62,6 +62,12 @@ func acquireParser(name string) (*ts.Parser, error) {
 		return nil, err
 	}
 	parser := ts.NewParser(lang)
+	if name == "cpp" {
+		// Keep the compact route used by 0.53.0. The production route in
+		// 0.55.0 marks valid empty raw-string content as a missing token.
+		// Select per parser: do not change another library user's defaults.
+		parser.SetAdmissionCandidateRoute(true)
+	}
 	parser.SetLogger(nil)
 	return parser, nil
 }
