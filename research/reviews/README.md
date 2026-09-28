@@ -16,6 +16,11 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-09-28-reader-framing](2026-09-28-reader-framing/README.md): infinitive
+  document endorsements and generic demonstration invitations add two findings
+  on one exposed guide. Three separately pinned pages add none; broad contextual
+  recall remains unresolved.
+
 - [2026-09-19-supervised-encoders](2026-09-19-supervised-encoders/README.md):
   Go training of the small encoder raises retrieval from 88 to 108/872 positive
   pieces, below the lexical model's 119/872. Numerical checks pass; no model

@@ -113,6 +113,36 @@ func documentEndorsement(tokens []document.Token) bool {
 	if i < len(tokens) && frameWord(tokens[i], "has", "have") {
 		i++
 	}
-	return i+1 < len(tokens) && frameWord(tokens[i], "helped", "helps", "help", "clarifies", "clarified") &&
-		frameWord(tokens[i+1], "you", "readers", "users")
+	return endorsementPredicate(tokens[i:])
+}
+
+func endorsementPredicate(tokens []document.Token) bool {
+	if len(tokens) < 2 {
+		return false
+	}
+	if frameWord(tokens[0], "helped", "helps", "help", "clarifies", "clarified") &&
+		frameWord(tokens[1], "you", "readers", "users") {
+		return true
+	}
+	return frameWord(tokens[0], "helped", "helps", "help") && endorsementAction(tokens[1:])
+}
+
+// Help admits a bare or to-infinitive as well as a reader object. Keep negative,
+// conditional and safety-related claims outside this additional construction.
+func endorsementAction(tokens []document.Token) bool {
+	if len(tokens) < 2 || instructionGuard(tokens) || instructionCondition(tokens) {
+		return false
+	}
+	if frameWord(tokens[0], "to") {
+		tokens = tokens[1:]
+	}
+	if len(tokens) < 2 || !projectionVerb(tokens[0]) {
+		return false
+	}
+	return endorsementReader(tokens[1:]) || actionOperand(tokens)
+}
+
+func endorsementReader(tokens []document.Token) bool {
+	return len(tokens) >= 2 && frameWord(tokens[0], "you", "readers", "users") &&
+		tokens[1].Word && !tokens[1].Protected
 }

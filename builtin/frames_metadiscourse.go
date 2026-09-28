@@ -4,10 +4,33 @@ import "github.com/stokaro/unswell/document"
 
 func metadiscourseFrames(clauses []frameClause, i int) (rhetoricalFrame, bool) {
 	clause := clauses[i]
-	if !clause.eligible() || !documentAnnouncement(clause.tokens()) {
+	if !clause.eligible() || !documentAnnouncement(clause.tokens()) && !demonstrationAnnouncement(clause) {
 		return rhetoricalFrame{}, false
 	}
 	return rhetoricalFrame{parts: []frameClause{clause}}, true
+}
+
+// An unqualified invitation with only an anaphoric object announces a
+// demonstration. Named objects, conditions and observation questions do not.
+func demonstrationAnnouncement(c frameClause) bool {
+	if c.start != 0 || rhetoricQuoted(c) || rhetoricAttributed(c) {
+		return false
+	}
+	tokens := c.tokens()
+	i := readerInvitationEnd(tokens)
+	return i > 0 && len(tokens)-i == 4 && frameWord(tokens[i], "see") && frameWord(tokens[i+1], "it", "this", "that") &&
+		frameWord(tokens[i+2], "in") && frameWord(tokens[i+3], "action")
+}
+
+func readerInvitationEnd(tokens []document.Token) int {
+	switch {
+	case len(tokens) > 1 && frameWord(tokens[0], "let") && frameWord(tokens[1], "us", "'s", "’s"):
+		return 2
+	case len(tokens) > 0 && frameWord(tokens[0], "let's", "let’s"):
+		return 1
+	default:
+		return 0
+	}
 }
 
 func documentAnnouncement(tokens []document.Token) bool {

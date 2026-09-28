@@ -62,6 +62,7 @@ func localRhetoricRules() []rule.Rule {
 				"relative feature-purpose predicates and discourse subjects declaring importance or editorial integrity. "+
 				"Information judgments may join adjacent evaluative predicates and retain a quoted noun-phrase subject. "+
 				"Discourse subjects admit selecting importance and attention predicates; author notices and document-outcome endorsements qualify. "+
+				"Document endorsements admit helped/helps with a reader object or a bare/to-infinitive action. "+
 				"Gerund action subjects can close with abstract functional clefts. Bare noun/counts compounds remain excluded. "+
 				"Attribution is scoped through the candidate clause; later operational reporting does not erase a preceding judgment. "+
 				"Concrete component purposes and measured evaluations stay excluded; "+
@@ -134,7 +135,7 @@ func localRhetoricVersion(id string) string {
 	case "filler.instruction-scaffolding":
 		return "11"
 	case "filler.evaluative-closure":
-		return "9"
+		return "10"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":
 		return "2"
 	case "repetition.definition-echo":
