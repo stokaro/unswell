@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "frozen_at": "2026-09-28T06:19:17.326214+00:00",
+  "reviewer": "OpenAI assistant, maintainer-accepted review under ADR 0041; not independent human annotation",
+  "scope": "Full-page negative confirmation for the bounded definition-benefit construction, selected and annotated before detector output. Not a complete annotation of unrelated editorial defects. No recall denominator exists in this negative-only set.",
+  "limitations": [
+    "Same project and writing context as the exposed development example; not repository holdout.",
+    "Hashes differ from all 36 previously used contextual-screen pages; no model requests or prospective reserve used.",
+    "Does not qualify defaults, a general paraphrase detector, an authorship classifier, or broad contextual recall."
+  ],
+  "pages": [
+    {
+      "id": "c01",
+      "input": "inputs/c01.md",
+      "source_path": "docs/site/src/content/docs/inference/strategies/choose-a-consistency-mode.md",
+      "source_revision": "7b47e7cfb5d4ff32a38375345069f5533bff892f",
+      "source_url": "https://github.com/stokaro/ptah/blob/7b47e7cfb5d4ff32a38375345069f5533bff892f/docs/site/src/content/docs/inference/strategies/choose-a-consistency-mode.md",
+      "sha256": "15f248e0dac75972bbfaad188136a5ee28a829824e04492fdedf55ea1df87124",
+      "expected_definition_benefit_restatements": 0,
+      "rationale": "The decision tree, cost table, guarantee limits, and switching procedure serve distinct purposes. Outbox versus immutable and future dual-write behavior are different conditions. No repeated same-source term-meaning benefit is present; repeated mode identifiers and summaries are necessary navigation."
+    },
+    {
+      "id": "c02",
+      "input": "inputs/c02.md",
+      "source_path": "docs/site/src/content/docs/inference/strategies/choose-a-target-layout.md",
+      "source_revision": "7b47e7cfb5d4ff32a38375345069f5533bff892f",
+      "source_url": "https://github.com/stokaro/ptah/blob/7b47e7cfb5d4ff32a38375345069f5533bff892f/docs/site/src/content/docs/inference/strategies/choose-a-target-layout.md",
+      "sha256": "4d864640ed60ad19da68f3f7a9c6a9f4d6a425bf976072f32a7a0a222af15f69",
+      "expected_definition_benefit_restatements": 0,
+      "rationale": "The layouts have different ownership, row cardinality, cleanup, and verification rules. Similar deletion or coverage wording applies to distinct target configurations. Representation and distance metric are independent choices. No same-source definition benefit is repeated."
+    },
+    {
+      "id": "c03",
+      "input": "inputs/c03.md",
+      "source_path": "docs/site/src/content/docs/inference/concepts/consistency.md",
+      "source_revision": "7b47e7cfb5d4ff32a38375345069f5533bff892f",
+      "source_url": "https://github.com/stokaro/ptah/blob/7b47e7cfb5d4ff32a38375345069f5533bff892f/docs/site/src/content/docs/inference/concepts/consistency.md",
+      "sha256": "12c4b48f08905a9cef829a1d7965ccde107ad2a407b37e040f16740dfe030624",
+      "expected_definition_benefit_restatements": 0,
+      "rationale": "The overview table and per-mode sections have separate reference functions. Shared-capture cleanup, reader lifetime, union of watched fields, and retire versus abandon add distinct constraints. Repeated descriptions of declaration versus enforcement and report visibility remain scoped to different modes; no shared glossary meaning invariant is asserted."
+    }
+  ]
+}

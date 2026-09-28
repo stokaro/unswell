@@ -1,0 +1,281 @@
+{
+  "version": 1,
+  "issue": 305,
+  "reviewer": "OpenAI assistant; synthetic control design, not independent human annotation",
+  "scope": "Desired behavior for a bounded single-source definition-benefit construction, not all Unswell diagnostics. No implemented detector or qualification is claimed.",
+  "limitations": [
+    "Exposed development example and assistant-authored synthetic controls only.",
+    "These are not natural-corpus prevalence, precision or recall measurements.",
+    "Passing these controls cannot close #305; fresh complete-page confirmation and reviewed full before/after output remain required.",
+    "Negative cases prohibit a redundant-equivalence claim; some could justify a separately supported contradiction or other diagnostic."
+  ],
+  "cases": [
+    {
+      "id": "exposed-ptah-glossary",
+      "source_kind": "public exposed development source; maintainer-accepted assistant annotation",
+      "text": "---\ntitle: Glossary\ndescription: Ptah's product, workflow, database-support, and compatibility terms, with the file that pins each one.\ntype: reference\naudience:\n  - \"all-users\"\nreaderQuestion: \"What do Ptah's product and support terms mean?\"\ngoal: \"Look up Ptah's product and support terms.\"\nsourceOfTruth:\n  - \"cmd\"\n  - \"core\"\n  - \"migration\"\ngenerated: false\noverlaps: []\ndisposition: keep\n---\n\nimport GlossaryList from '../../../components/GlossaryList.astro';\n\nEvery term below carries its definition, the page that uses it, and where a\ndefinition is pinned, the file that decides it. Definitions come from one\nsource, `docs/site/src/glossary.ts`, so the same term cannot come to mean two\ndifferent things on two pages.\n\nA page that uses a term links here rather than repeating the definition, so a\nreader who meets a word for the first time has one place to go and the word has\none meaning.\n\n<GlossaryList />\n\n## Adding a term\n\nAdd it to `docs/site/src/glossary.ts` with its `group`, the `learnMore` page\nthat teaches it, and a `source` where a file in the repository pins the fact.\nThe list above renders from that map, so the term appears here without being\ntranscribed, and `check-glossary-coverage.mjs` refuses an entry that names a\npage which does not exist.\n\nThen link here from the pages that use it. The definition stays in the map and\nis rendered in one place, which is what keeps a word from meaning one thing on\none page and something else on the next.\n",
+      "source_sha256": "6fd268787ccbe5ca8273d62ddc0bd7f87aebfc8c823bdb55b1ea8b451cd5f162",
+      "expected_definition_benefit_restatement": true,
+      "propositions": [
+        {
+          "start": 590,
+          "end": 724,
+          "quote": "Definitions come from one\nsource, `docs/site/src/glossary.ts`, so the same term cannot come to mean two\ndifferent things on two pages."
+        },
+        {
+          "start": 1314,
+          "end": 1469,
+          "quote": "The definition stays in the map and\nis rendered in one place, which is what keeps a word from meaning one thing on\none page and something else on the next."
+        }
+      ],
+      "rationale": "Preserve the frozen missed event: repeated single-source meaning-consistency benefit around distinct contributor instructions. The implementation must establish the referent rather than erase headings or equate any shared benefit."
+    },
+    {
+      "id": "same-source-same-benefit",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "Definitions in `terms.json` give each term the same meaning on every page.\n\nKeeping the definitions in `terms.json` prevents a term from meaning one thing on one page and something different on another.",
+      "expected_definition_benefit_restatement": true,
+      "rationale": "Both explicit claims link the same source to the same cross-page meaning invariant; the second adds no condition or action.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 74,
+          "quote": "Definitions in `terms.json` give each term the same meaning on every page."
+        },
+        {
+          "start": 76,
+          "end": 202,
+          "quote": "Keeping the definitions in `terms.json` prevents a term from meaning one thing on one page and something different on another."
+        }
+      ]
+    },
+    {
+      "id": "explicit-source-through-procedure",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "Definitions in `terms.json` give each term the same meaning on every page.\n\n## Add a term\n\nAdd the definition and its reference link to `terms.json`.\n\nKeeping definitions in `terms.json` prevents different pages from assigning different meanings to the same term.",
+      "expected_definition_benefit_restatement": true,
+      "rationale": "The intervening contribution step is distinct and must remain; the subsequent repeated benefit is not that step.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 74,
+          "quote": "Definitions in `terms.json` give each term the same meaning on every page."
+        },
+        {
+          "start": 151,
+          "end": 263,
+          "quote": "Keeping definitions in `terms.json` prevents different pages from assigning different meanings to the same term."
+        }
+      ]
+    },
+    {
+      "id": "different-definition-sources",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "Definitions in `client-terms.json` give each term the same meaning on every client page.\n\nDefinitions in `server-terms.json` prevent different server pages from assigning different meanings to the same term.",
+      "expected_definition_benefit_restatement": false,
+      "rationale": "Separate source identities and reader domains describe distinct facts even though the general benefit matches.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 88,
+          "quote": "Definitions in `client-terms.json` give each term the same meaning on every client page."
+        },
+        {
+          "start": 90,
+          "end": 207,
+          "quote": "Definitions in `server-terms.json` prevent different server pages from assigning different meanings to the same term."
+        }
+      ]
+    },
+    {
+      "id": "same-source-different-benefit",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "Definitions in `terms.json` give each term the same meaning on every page.\n\nKeeping definitions in `terms.json` lets the build reject entries without reference links.",
+      "expected_definition_benefit_restatement": false,
+      "rationale": "Meaning consistency and link validation are different consequences of the same source.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 74,
+          "quote": "Definitions in `terms.json` give each term the same meaning on every page."
+        },
+        {
+          "start": 76,
+          "end": 166,
+          "quote": "Keeping definitions in `terms.json` lets the build reject entries without reference links."
+        }
+      ]
+    },
+    {
+      "id": "different-conditions",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "When the shared glossary is enabled, definitions in `terms.json` give each term the same meaning on every page.\n\nWhen local overrides are disabled, keeping definitions in `terms.json` prevents different pages from assigning different meanings to the same term.",
+      "expected_definition_benefit_restatement": false,
+      "rationale": "Different enabling conditions cannot be discarded to manufacture equivalent claims.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 111,
+          "quote": "When the shared glossary is enabled, definitions in `terms.json` give each term the same meaning on every page."
+        },
+        {
+          "start": 113,
+          "end": 260,
+          "quote": "When local overrides are disabled, keeping definitions in `terms.json` prevents different pages from assigning different meanings to the same term."
+        }
+      ]
+    },
+    {
+      "id": "different-modals",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "Definitions in `terms.json` may give each term the same meaning on every page.\n\nKeeping definitions in `terms.json` guarantees that different pages cannot assign different meanings to the same term.",
+      "expected_definition_benefit_restatement": false,
+      "rationale": "Possibility and a guarantee differ. A contradiction or unsupported guarantee may warrant another diagnostic, but this is not redundant equivalence.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 78,
+          "quote": "Definitions in `terms.json` may give each term the same meaning on every page."
+        },
+        {
+          "start": 80,
+          "end": 198,
+          "quote": "Keeping definitions in `terms.json` guarantees that different pages cannot assign different meanings to the same term."
+        }
+      ]
+    },
+    {
+      "id": "negated-benefit",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "Definitions in `terms.json` give each term the same meaning on every page.\n\nKeeping definitions in `terms.json` does not prevent different pages from assigning different meanings to the same term.",
+      "expected_definition_benefit_restatement": false,
+      "rationale": "The polarity changes. Do not label a contradiction as redundant agreement.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 74,
+          "quote": "Definitions in `terms.json` give each term the same meaning on every page."
+        },
+        {
+          "start": 76,
+          "end": 196,
+          "quote": "Keeping definitions in `terms.json` does not prevent different pages from assigning different meanings to the same term."
+        }
+      ]
+    },
+    {
+      "id": "bounded-subset",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "Definitions in `terms.json` give each term the same meaning on every page.\n\nDefinitions in `terms.json` keep the ten protocol terms consistent across API reference pages.",
+      "expected_definition_benefit_restatement": false,
+      "rationale": "The quantity and restricted term/page domain add a technical distinction; do not erase them during normalization.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 74,
+          "quote": "Definitions in `terms.json` give each term the same meaning on every page."
+        },
+        {
+          "start": 76,
+          "end": 170,
+          "quote": "Definitions in `terms.json` keep the ten protocol terms consistent across API reference pages."
+        }
+      ]
+    },
+    {
+      "id": "explicit-exception",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "Definitions in `terms.json` give each term the same meaning on every page.\n\nKeeping definitions in `terms.json` prevents different meanings across pages except those with a local override.",
+      "expected_definition_benefit_restatement": false,
+      "rationale": "The exception changes the claim and may correct an overbroad introduction rather than duplicate it.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 74,
+          "quote": "Definitions in `terms.json` give each term the same meaning on every page."
+        },
+        {
+          "start": 76,
+          "end": 188,
+          "quote": "Keeping definitions in `terms.json` prevents different meanings across pages except those with a local override."
+        }
+      ]
+    },
+    {
+      "id": "mechanism-versus-action",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "Definitions in `terms.json` give each term the same meaning on every page.\n\nTo keep a term consistent across pages, add its definition to `terms.json` and link each use to the glossary.",
+      "expected_definition_benefit_restatement": false,
+      "rationale": "The later sentence instructs a contributor to perform concrete actions; a shared rationale does not make the procedure redundant.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 74,
+          "quote": "Definitions in `terms.json` give each term the same meaning on every page."
+        },
+        {
+          "start": 76,
+          "end": 185,
+          "quote": "To keep a term consistent across pages, add its definition to `terms.json` and link each use to the glossary."
+        }
+      ]
+    },
+    {
+      "id": "unresolved-map-reference",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "Definitions in `terms.json` give each term the same meaning on every page.\n\nImported overrides are stored in a separate map loaded from `overrides.json`.\n\nKeeping definitions in that map prevents different pages from assigning different meanings to the same term.",
+      "expected_definition_benefit_restatement": false,
+      "rationale": "The intervening map has a different source. A bounded detector cannot assume that map refers to the first source.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 74,
+          "quote": "Definitions in `terms.json` give each term the same meaning on every page."
+        },
+        {
+          "start": 155,
+          "end": 263,
+          "quote": "Keeping definitions in that map prevents different pages from assigning different meanings to the same term."
+        }
+      ]
+    },
+    {
+      "id": "technical-meaning-versus-spelling",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "Definitions in `terms.json` give each term the same meaning on every page.\n\nKeeping names in `terms.json` prevents different pages from spelling the same term differently.",
+      "expected_definition_benefit_restatement": false,
+      "rationale": "Spelling identity and semantic consistency are distinct invariants despite nearly identical syntax.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 74,
+          "quote": "Definitions in `terms.json` give each term the same meaning on every page."
+        },
+        {
+          "start": 76,
+          "end": 171,
+          "quote": "Keeping names in `terms.json` prevents different pages from spelling the same term differently."
+        }
+      ]
+    },
+    {
+      "id": "summary-of-link-destination",
+      "source_kind": "assistant-authored synthetic control",
+      "text": "The linked glossary explains how definitions in `terms.json` keep terminology consistent across pages.\n\nDefinitions in `terms.json` prevent different pages from assigning different meanings to the same term.",
+      "expected_definition_benefit_restatement": false,
+      "rationale": "A navigation description and a local substantive explanation have distinct roles. Do not compare matching content while dropping the link-destination speech act.",
+      "propositions": [
+        {
+          "start": 0,
+          "end": 102,
+          "quote": "The linked glossary explains how definitions in `terms.json` keep terminology consistent across pages."
+        },
+        {
+          "start": 104,
+          "end": 207,
+          "quote": "Definitions in `terms.json` prevent different pages from assigning different meanings to the same term."
+        }
+      ]
+    }
+  ]
+}
