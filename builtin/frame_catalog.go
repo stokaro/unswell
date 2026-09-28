@@ -18,7 +18,9 @@ func frameRules() []rule.Rule {
 	}
 	meta := frameDescriptor("filler.document-metadiscourse", "document-metadiscourse",
 		"Document self-description: check whether this announcement or navigation helps the reader.")
+	meta.Version = "2"
 	meta.Description = "Recognizes document subjects followed by communicative verbs, and 'in this document, we' announcements. " +
+		"Also recognizes bare invitations to see an anaphoric referent in action; named objects and conditions stay excluded. " +
 		"Groups their complete clauses within eight sentences of uninterrupted prose; one clause is sufficient."
 	meta.Examples = []rule.Example{
 		{Text: "This page defines all four roles; other pages link here instead of redefining them.", Match: true},
