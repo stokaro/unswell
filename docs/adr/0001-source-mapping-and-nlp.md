@@ -27,6 +27,14 @@ content and exact range. Strict parsing, error-node checks and a Python orphaned
 string-delimiter check reject known partial-tree cases. The adapter bounds parse
 time and nesting and propagates context cancellation.
 
+Select the compact full-parse route explicitly for each C++ parser. The
+gotreesitter update from 0.53.0 to 0.55.0 changes the implicit route to production,
+which marks valid empty raw-string content as a missing token. The defect also
+reproduces on 0.55.1. The compact route preserves the previously selected behavior
+without relaxing missing-node checks or changing the process-wide default for
+other library users. Blackbox tests cover empty tagged and untagged literals,
+encoding prefixes, surrounding prose, source ranges, reuse, and malformed input.
+
 The pinned Markdown scanner accepts pipe-only lines as delimiter rows, which can
 interrupt a table before an empty data row. Prepare its block input with one
 synthetic marker per empty cell on those lines. A sorted insertion map translates
