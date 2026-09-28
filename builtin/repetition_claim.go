@@ -33,6 +33,7 @@ type claimCollector struct {
 	observations *candidateObservations
 	previous     map[int]claimCandidate
 	ordinal      int
+	definitions  *definitionCollector
 }
 
 func repeatedClaims(ctx context.Context, view rule.View, emit rule.Emitter) error {
@@ -45,11 +46,17 @@ func repeatedClaims(ctx context.Context, view rule.View, emit rule.Emitter) erro
 		observations: newCandidateObservations(view, func(block document.Block) bool {
 			return proseBlock(block) && block.List == nil
 		})}
+	c.definitions = &definitionCollector{view: view, budget: c.budget, observations: c.observations}
 	for _, block := range view.Document.Blocks {
 		if err := c.addBlock(block, emit); err != nil {
 			return err
 		}
 	}
+	return c.finish(ctx, emit)
+}
+
+func (c *claimCollector) finish(ctx context.Context, emit rule.Emitter) error {
+	view := c.view
 	keys := make([]string, 0, len(c.groups))
 	for key := range c.groups {
 		keys = append(keys, key)
@@ -66,11 +73,17 @@ func repeatedClaims(ctx context.Context, view rule.View, emit rule.Emitter) erro
 	if err := reformulatedClaims(view, c.budget, emit); err != nil {
 		return err
 	}
+	if err := c.definitions.finish(emit); err != nil {
+		return err
+	}
 	return c.observations.finish(ctx, view)
 }
 
 func (c *claimCollector) addBlock(block document.Block, emit rule.Emitter) error {
 	if err := c.budget.spend(1); err != nil {
+		return err
+	}
+	if err := c.definitions.addBlock(block, emit); err != nil {
 		return err
 	}
 	if claimBlockReason(block, c.view.Parameters.MinWords) != "" {

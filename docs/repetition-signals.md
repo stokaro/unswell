@@ -248,3 +248,28 @@ recovers one known short assertion and three accidental word duplicates. Its
 restart warning addresses only part of the circular explanation. No new
 confirmation defect is detected by these additions; the glossary and license
 paraphrases remain unsupported.
+
+### Definition-benefit restatements
+
+Version 3 of `repetition.repeated-claim` also compares a bounded construction:
+complete assertions that definitions in the same explicitly named source give
+terms the same meaning across pages. The alternative states that keeping those
+definitions in that source prevents different meanings. The code operand is
+opaque: its case, path, and delimiters must match. Conditions, changed modals,
+exceptions, added quantities, spelling consistency, and contributor instructions
+do not match this grammar.
+
+The rule may cross an `Add a term` or `Adding a term` heading. Other headings,
+containers, lists, and nonparagraph blocks interrupt the comparison. A narrowly
+supported bridge consists of an add instruction naming the source, immediately
+followed by a statement that the list renders from that map. The subsequent
+linking instruction may intervene before a definition-in-that-map benefit.
+Unresolved references and other intervening prose discard the map binding.
+Only the two assertions are highlighted; the contribution instructions remain.
+More than two matched assertions form one finding with all their locations.
+
+This is a closed surface grammar, not general coreference or paraphrase detection.
+The sentence window and shared candidate budget still apply. The original
+shortened glossary example without its explicit map binding remains unsupported.
+The complete exposed example and synthetic controls are development evidence;
+they do not establish natural-corpus precision or default qualification.

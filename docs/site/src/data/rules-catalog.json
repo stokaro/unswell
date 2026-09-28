@@ -826,7 +826,7 @@
         },
         {
           "id": "repetition.repeated-claim",
-          "version": "2",
+          "version": "3",
           "status": "experimental",
           "group": "repetition",
           "scope": "document",
@@ -841,8 +841,8 @@
           "weight": 15,
           "cap": 30,
           "summary": "These passages repeat an assertion; check whether the explanation can be shared.",
-          "description": "Compares short complete assertions, assertions containing opaque inline-code atoms, and prefixes before a nonrestrictive ', which' clause, within one section and sentence window. Case, operands, punctuation, negation and conditions remain part of the exact identity. Also compares adjacent explicit reformulations of an only restriction as rejection of its negated property. Actors, predicates, tense, properties and objects must agree. A bounded possessive dependency-role conversion compares an owner's license restriction with its refusal of code not licensed under that property.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Requires a surface finite-verb cue; it does not resolve pronouns or prove general semantic equivalence. Questions, quoted text, lists, cells, arbitrary code, and claims over 64 tokens are excluded. Full unprotected sentences of twelve or more words remain with repetition.exact-sentence. A relative-clause prefix must match a complete assertion, not another partial prefix. Restriction reformulations require That is or In other words, stay inside one block, and reject quantities, conditions, quotations, protected operands and unresolved scope or modality."
+          "description": "Compares short complete assertions, assertions containing opaque inline-code atoms, and prefixes before a nonrestrictive ', which' clause, within one section and sentence window. Case, operands, punctuation, negation and conditions remain part of the exact identity. Also compares adjacent explicit reformulations of an only restriction as rejection of its negated property. Actors, predicates, tense, properties and objects must agree. A bounded possessive dependency-role conversion compares an owner's license restriction with its refusal of code not licensed under that property. A closed definition-benefit grammar compares the same opaque source and the same cross-page meaning invariant. A contribution section can connect an explicit add instruction and map-rendering statement to that source.",
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Requires a surface finite-verb cue; it does not resolve pronouns or prove general semantic equivalence. Questions, quoted text, lists, cells, arbitrary code, and claims over 64 tokens are excluded. Full unprotected sentences of twelve or more words remain with repetition.exact-sentence. A relative-clause prefix must match a complete assertion, not another partial prefix. Restriction reformulations require That is or In other words, stay inside one block, and reject quantities, conditions, quotations, protected operands and unresolved scope or modality. Definition benefits accept only complete unqualified forms in prose paragraphs; they reject other headings, containers, unresolved map references and changed source operands. Other paraphrases remain unsupported."
         },
         {
           "id": "repetition.sentence-openers",

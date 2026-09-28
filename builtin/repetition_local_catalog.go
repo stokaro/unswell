@@ -23,7 +23,7 @@ func localRepetitionRules() []rule.Rule {
 		{Text: "The client had had enough time to close the connection."}}
 	claim := descriptor("repetition.repeated-claim", "These passages repeat an assertion; check whether the explanation can be shared.",
 		"repetition", "document", 15)
-	claim.Version = "2"
+	claim.Version = "3"
 	claim.Contexts = []string{"paragraph", "comment", "string"}
 	claim.Requires = append(claim.Requires, nlp.POS)
 	claim.RequiresStructure, claim.BlockObservations, claim.TermExemptions = true, true, true
@@ -34,13 +34,17 @@ func localRepetitionRules() []rule.Rule {
 		"Case, operands, punctuation, negation and conditions remain part of the exact identity. " +
 		"Also compares adjacent explicit reformulations of an only restriction as rejection of its negated property. " +
 		"Actors, predicates, tense, properties and objects must agree. A bounded possessive dependency-role conversion " +
-		"compares an owner's license restriction with its refusal of code not licensed under that property."
+		"compares an owner's license restriction with its refusal of code not licensed under that property. " +
+		"A closed definition-benefit grammar compares the same opaque source and the same cross-page meaning invariant. " +
+		"A contribution section can connect an explicit add instruction and map-rendering statement to that source."
 	claim.Limitations += " Requires a surface finite-verb cue; it does not resolve pronouns or prove general semantic equivalence. " +
 		"Questions, quoted text, lists, cells, arbitrary code, and claims over 64 tokens are excluded. " +
 		"Full unprotected sentences of twelve or more words remain with repetition.exact-sentence. " +
 		"A relative-clause prefix must match a complete assertion, not another partial prefix. " +
 		"Restriction reformulations require That is or In other words, stay inside one block, and reject " +
-		"quantities, conditions, quotations, protected operands and unresolved scope or modality."
+		"quantities, conditions, quotations, protected operands and unresolved scope or modality. " +
+		"Definition benefits accept only complete unqualified forms in prose paragraphs; they reject other headings, " +
+		"containers, unresolved map references and changed source operands. Other paraphrases remain unsupported."
 	claim.Examples = []rule.Example{
 		{Text: "The command exits `1` because drift was found, which confirms the check worked.\n\n" +
 			"The command exits `1` because drift was found.", Format: document.Markdown, Match: true},

@@ -36,7 +36,7 @@ func TestRestrictionReformulationRevision(t *testing.T) {
 				continue
 			}
 			count++
-			c.Assert(finding.RuleVersion, qt.Equals, "2")
+			c.Assert(finding.RuleVersion, qt.Equals, "3")
 			c.Assert(finding.Primary.Path, qt.Equals, "draft.md")
 			c.Assert(finding.Related, qt.HasLen, 1)
 			span := finding.Primary.Span

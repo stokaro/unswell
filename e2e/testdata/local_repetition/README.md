@@ -8,3 +8,6 @@ quoted examples and code. The restart case preserves a concrete cause.
 The CLI applies CRLF and BOM; the golden files bind primary and related source
 locations. Complete original pages and retained notices live in the corresponding
 research review archives. These small fixtures do not establish corpus accuracy.
+
+The definition fixture compares the same source and meaning invariant across a
+contribution step; the separate server glossary does not join that comparison.
