@@ -1,0 +1,118 @@
+{
+  "version": "unswell-lens-salsa-controls-v1",
+  "reviewer": "OpenAI assistant; constructed counterexamples, not independent human annotations",
+  "groups": [
+    {
+      "id": "negation",
+      "source": "It is important to note that the client does not retry failed requests when retries are disabled.",
+      "useful": "The client does not retry failed requests when retries are disabled.",
+      "unsafe": "The client retries failed requests when retries are disabled.",
+      "critical_difference": "The unsafe revision removes the prohibition on retrying."
+    },
+    {
+      "id": "conditional-wrapper",
+      "source": "In this section, we will walk through the fact that the validator rejects the migration if any statement refers to a different database.",
+      "useful": "The validator rejects the migration if any statement refers to a different database.",
+      "unsafe": "The validator rejects the migration if every statement refers to a different database.",
+      "critical_difference": "Any offending statement is sufficient; the unsafe revision requires all statements to offend."
+    },
+    {
+      "id": "redundant-required",
+      "source": "The checkpoint is required, and it must be present, before the job can resume from the last completed batch.",
+      "useful": "The checkpoint must be present before the job can resume from the last completed batch.",
+      "unsafe": "The checkpoint may be present before the job can resume from the last completed batch.",
+      "critical_difference": "The unsafe revision turns a required checkpoint into an optional one."
+    },
+    {
+      "id": "permission-obligation",
+      "source": "It is worth noting that the worker may retry the request after a temporary error, but retrying is optional.",
+      "useful": "The worker may retry the request after a temporary error; retrying is optional.",
+      "unsafe": "The worker must retry the request after a temporary error; retrying is required.",
+      "critical_difference": "The unsafe revision changes permission into an obligation."
+    },
+    {
+      "id": "unless",
+      "source": "To put it another way, the cache retains the previous value unless the update succeeds.",
+      "useful": "The cache retains the previous value unless the update succeeds.",
+      "unsafe": "The cache retains the previous value if the update succeeds.",
+      "critical_difference": "The unsafe revision reverses the update-success condition."
+    },
+    {
+      "id": "numeric-limit",
+      "source": "There is a maximum limit in place: the server accepts a batch containing at most 64 rows.",
+      "useful": "The server accepts batches containing at most 64 rows.",
+      "unsafe": "The server accepts batches containing at most 128 rows.",
+      "critical_difference": "The unsafe revision doubles the permitted row limit."
+    },
+    {
+      "id": "units",
+      "source": "The timeout value is expressed as a duration of 30 seconds, meaning that the request is canceled after 30 seconds.",
+      "useful": "The request is canceled after 30 seconds.",
+      "unsafe": "The request is canceled after 30 milliseconds.",
+      "critical_difference": "The unsafe revision changes the timeout unit by a factor of 1,000."
+    },
+    {
+      "id": "actor",
+      "source": "The division of responsibilities is as follows: the parser validates syntax, and the scheduler selects the next job.",
+      "useful": "The parser validates syntax; the scheduler selects the next job.",
+      "unsafe": "The scheduler validates syntax; the parser selects the next job.",
+      "critical_difference": "The unsafe revision exchanges the two components' responsibilities."
+    },
+    {
+      "id": "privacy-boundary",
+      "source": "This is what makes the local endpoint private: requests go to localhost, and source text never leaves this machine.",
+      "useful": "Requests go to localhost; source text never leaves this machine.",
+      "unsafe": "Requests go to the hosted endpoint; source text leaves this machine.",
+      "critical_difference": "The unsafe revision changes both the endpoint and the privacy boundary."
+    },
+    {
+      "id": "operation-order",
+      "source": "The order matters here: the migration is recorded only after the shadow replay succeeds, and not before.",
+      "useful": "The migration is recorded only after the shadow replay succeeds.",
+      "unsafe": "The migration is recorded before the shadow replay succeeds.",
+      "critical_difference": "The unsafe revision records the migration before successful verification."
+    },
+    {
+      "id": "version-boundary",
+      "source": "The minimum supported version is a requirement, not a suggestion: this cleanup operation requires ClickHouse 24.11 or newer.",
+      "useful": "This cleanup operation requires ClickHouse 24.11 or newer.",
+      "unsafe": "This cleanup operation requires ClickHouse 23.11 or newer.",
+      "critical_difference": "The unsafe revision falsely permits older server versions."
+    },
+    {
+      "id": "database-distinction",
+      "source": "There are two distinct roles to keep in mind: the target database stores application data, while the shadow database verifies migrations.",
+      "useful": "The target database stores application data; the shadow database verifies migrations.",
+      "unsafe": "The target database verifies migrations; the shadow database stores application data.",
+      "critical_difference": "The unsafe revision exchanges persistent and disposable database roles."
+    }
+  ],
+  "neutral": [
+    {
+      "id": "neutral-reader",
+      "source": "The reader rejects invalid headers.",
+      "revision": "Invalid headers are rejected by the reader."
+    },
+    {
+      "id": "neutral-cache",
+      "source": "The cache stores the latest value.",
+      "revision": "The latest value is stored in the cache."
+    },
+    {
+      "id": "neutral-token",
+      "source": "The token is read when the request starts.",
+      "revision": "When the request starts, the token is read."
+    },
+    {
+      "id": "neutral-limit",
+      "source": "Each batch contains at most 64 rows.",
+      "revision": "A batch has no more than 64 rows."
+    }
+  ],
+  "case_control": {
+    "source": "Call parseURL after the credential resolves. Call it only once.",
+    "useful": "Call parseURL once after the credential resolves.",
+    "unsafe": "Call parseUrl once after the credential resolves.",
+    "expected_limitation": "Published lowercasing maps the useful and unsafe revisions to exactly the same input; the model cannot distinguish these identifiers."
+  }
+}

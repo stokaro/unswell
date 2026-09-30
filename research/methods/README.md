@@ -47,6 +47,12 @@ An upstream publication's evaluation cannot populate Unswell's `reproduced` or
 evaluation and resource review still need evidence. A new revision can revoke
 compatibility without erasing the older evidence record.
 
+The separate [editorial-reference record](../reviews/2026-09-30-editorial-references/README.md)
+reproduces the published LENS-SALSA and MiniCheck inference examples and executes
+fixed technical controls. Both screens fail. Their pretrained weights assess
+edit quality or grounding; those outputs do not qualify a probability of needing
+revision and do not change the origin-method decisions below.
+
 Decisions are `adopt`, `experimental`, `defer`, or `reject`, always with an explicit
 scope. Adopting a feature hypothesis or benchmark design does not adopt a trained
 detector or authorize data redistribution. The current decisions are:
