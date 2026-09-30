@@ -82,6 +82,12 @@ cancellation. Uncertain replay still emits its incomplete record. Other invalid
 inventories produce no partial success result. Keep original research labels and
 full-event denominators separate from this representation check.
 
+The optional [downstream consumer](../../../reviews/2026-09-30-reviewed-claims/README.md)
+uses this command for the full original inventory across audit, rewrite, and
+selection. It binds separate caller approvals to the exact stage file, preserves
+mixed parent outcomes, and refuses to treat an uncertain earlier stage as complete
+because final selection succeeded. It adds no parser, model call, or product gate.
+
 ## Preserve the basis of existing rules
 
 Run `go run ./cmd/explainrules < result.json > observations.json` from

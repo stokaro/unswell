@@ -5,11 +5,12 @@ claim boundaries through the existing Go accounting command. It preserves every
 original parent, including parents whose old broad quotations contain protected
 identifiers or supporting context. It does not narrow targets automatically to
 make a candidate valid. [#367](https://github.com/stokaro/unswell/issues/367)
-remains open for the complete migration and downstream use.
+remains open for completed downstream review and selection.
 
-The full original pool remains 804 candidates on 36 exposed pages. A Codex
-assistant inspected 13 complete sources and every original candidate on those
-pages under [ADR 0041](../../../docs/adr/0041-assistant-review-acceptance.md).
+The full original pool remains 804 candidates on 36 exposed pages. The public
+snapshot committed in [#371](https://github.com/stokaro/unswell/pull/371) records
+inspection of 13 complete sources and every original candidate on those pages
+by a Codex assistant under [ADR 0041](../../../docs/adr/0041-assistant-review-acceptance.md).
 The [aggregate record](summary.json) reports 254 migrated parents, one explicitly
 declined parent, and 549 unreviewed parents. Existing Go binding and retention
 checks preserve all 358 declared child claims. The pool is incomplete and the
@@ -64,6 +65,79 @@ page or updating reviewer metadata cannot rename unchanged existing claims.
 The exact review file has its own hash in the replay record. Changing a claim's
 actual declaration produces a different claim ID; its unchanged parent survives.
 
+## Account for audit, rewrite, and selection
+
+[pipeline.py](pipeline.py) consumes explicit downstream decisions through the
+same Go command. It first repeats the frozen migration checks, then requires
+every page and every original child in three ordered stages: `audit`, `rewrite`,
+and `selection`. A completed migration is a prerequisite. The public migration
+snapshot above remains a partial historical record, not a completed downstream
+study.
+
+Preparation produces original claim IDs, an uncertain decision for each claim
+in each stage, and a separate file with empty approval arrays. It returns 0
+because preparation succeeded; `complete` remains false. Replaying these pending
+decisions returns 2 and preserves them in an incomplete result. The consumer
+does not create retained or resolved decisions from missing assessments.
+
+Stage input uses `unswell-reviewed-claim-pipeline-v1`; the separate trusted
+approval input uses `unswell-reviewed-claim-approvals-v1`. Both name the exact
+packet and review hashes. Every page names its original request hash and the
+digest of its complete bound claim inventory. The approval file also names
+`stages_sha256`, the SHA-256 of the exact stage file being reviewed. Changed
+stage bytes cannot reuse an approval file without explicit caller review.
+Neither a stage nor the stage input may embed its own trusted approvals.
+
+Each stage supplies the existing Go arrays `decisions`, `edits`, and `duplicates`.
+Every original claim needs a decision and explanation. Resolutions require
+concrete edits and separate approvals for the particular claim, stage, and edit
+digest. Correcting grammar cannot resolve a separate rhetorical criticism with
+the grammar approval. An earlier uncertain stage keeps the overall result
+incomplete even if final selection retains every claim.
+
+Detailed output retains each complete original parent, its migration decision,
+and its children's dispositions in every stage. A parent with resolved grammar
+and retained rhetoric has status `mixed`. A scope-declined parent keeps status
+`migration_rejected`, its complete original criticism, and its scope reason; this
+is not a negative editorial label. Explicit same-defect groups affect displayed
+representatives only. Their original members remain in the inventory.
+
+Go remains the source owner and validates edit boundaries, protected bytes,
+claim identities, approvals, and duplicate groups. The Python consumer verifies
+that returned originals and stage decisions are unchanged. It does not apply
+edits to produce a new source or infer decisions from rewritten prose. Each
+stage describes alternatives against the same immutable original source.
+Accounting does not establish that a supplied review is semantically correct.
+
+Prepare the separately maintained private packet and review:
+
+```sh
+python3 -B pipeline.py prepare \
+  --packet /path/to/frozen-packet --binary /tmp/reviewclaims \
+  --review /path/to/explicit-review.json --output /path/to/new-preparation
+```
+
+Supply actual decisions in a separate stage file. Collect edit and duplicate
+approvals as trusted caller input, using the Go digest contract in
+[ADR 0042](../../../docs/adr/0042-editorial-claim-accounting.md) and the
+[command documentation](../../annotation/internal/claimreview/README.md).
+Name the exact reviewed stage-file hash in that approval file, then replay:
+
+```sh
+python3 -B pipeline.py replay \
+  --packet /path/to/frozen-packet --binary /tmp/reviewclaims \
+  --review /path/to/explicit-review.json \
+  --stages /path/to/stages.json --approvals /path/to/approvals.json \
+  --output /path/to/new-downstream-evidence
+```
+
+Complete accounting returns 0; explicit uncertainty returns 2 with the incomplete
+artifact. Missing, invented, changed, or unsupported input fails without a
+downstream `summary.json`. A nested `migration/summary.json` records only the
+upstream migration and must not be treated as downstream success. Detailed
+outputs use private file permissions and exclusive creation. There are no model
+calls, label changes, event remapping, or product gate changes.
+
 ## Trust and publication boundary
 
 The supplied review is trusted application input, separate from model output.
@@ -90,7 +164,7 @@ CGO_ENABLED=0 go build -o /tmp/reviewclaims ./cmd/reviewclaims
 From this directory, run the optional standard-library Python checks against it:
 
 ```sh
-UNSWELL_REVIEWCLAIMS_BINARY=/tmp/reviewclaims python3 -B -m unittest -v test_migrate
+UNSWELL_REVIEWCLAIMS_BINARY=/tmp/reviewclaims python3 -B -m unittest -v test_migrate test_pipeline
 ```
 
 All 15 methods passed, including actual Go replay of a constructed compound
@@ -99,6 +173,15 @@ Negative cases reject changed parent criticisms, altered frozen sources, invente
 quotes, incorrect byte ranges, repeated IDs, unordered references, protected targets, context relabeled
 as a target, unknown fields, unsupported dispositions, and overwriting evidence.
 Unreviewed and uncertain parents cannot produce complete migration results.
+
+The 19 downstream methods exercise the actual Go consumer with constructed
+claims. They cover independent overlapping grammar/rhetoric, retained Unicode
+context, approved edits, mixed parent outcomes, explicit rejections, reviewed
+duplicates, and scope-declined originals. Negative cases cover missing claims,
+pages or stages, reordered stages, invented IDs, protected edits, context edits,
+stale approvals, embedded self-approvals, unsupported resolutions, overlap-only
+deduplication, duplicate JSON fields, and evidence overwrites. Pending template
+replay returns 2; completed final selection cannot hide an uncertain audit.
 
 An initial local declaration on the twelfth page placed two explicitly selected
 references after later source positions. Existing Go binding rejected it; that
