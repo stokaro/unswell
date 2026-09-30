@@ -1,0 +1,65 @@
+{
+  "version": "unswell-prometheus-necessity-run-v1",
+  "status": "complete",
+  "phase": "terminal",
+  "new_external_model_calls": 0,
+  "preflight": {
+    "groups": {
+      "useful": {
+        "total": 12,
+        "available": 12,
+        "retained": 9,
+        "correct": 9
+      },
+      "unsafe": {
+        "total": 12,
+        "available": 12,
+        "retained": 4,
+        "correct": 8
+      },
+      "optional": {
+        "total": 4,
+        "available": 4,
+        "retained": 1,
+        "correct": 3
+      },
+      "identifier": {
+        "total": 2,
+        "available": 2,
+        "retained": 2,
+        "correct": 1
+      },
+      "claim_loss": {
+        "total": 1,
+        "available": 1,
+        "retained": 0,
+        "correct": 1
+      },
+      "context": {
+        "total": 4,
+        "available": 4,
+        "retained": 3,
+        "correct": 3
+      }
+    },
+    "checks": {
+      "useful_at_least_10_of_12": false,
+      "unsafe_at_most_1_of_12": false,
+      "optional_at_most_1_of_4": true,
+      "both_identifier_cases_correct": false,
+      "grammar_does_not_erase_rhetoric": true,
+      "context_at_least_3_of_4": true
+    },
+    "passed": false,
+    "interpretation": "Constructed task-admission screen only, not real-document recall or product accuracy."
+  },
+  "development": {
+    "requests": 0,
+    "reason": "Fixed preflight failed; full development inference not started"
+  },
+  "seconds": 1065.9211376667954,
+  "mlx_peak_bytes": 14771825956,
+  "rss_peak_bytes": 4041523200,
+  "product_qualified": false,
+  "prospective_pages_used": false
+}

@@ -1,0 +1,51 @@
+{
+  "failed_setups": [
+    {
+      "record": {
+        "version": "unswell-prometheus-necessity-run-v1",
+        "status": "failed",
+        "phase": "acquisition",
+        "new_external_model_calls": 0,
+        "error": "OSError: [Errno 28] No space left on device",
+        "seconds": 111.38879412505776,
+        "product_qualified": false,
+        "prospective_pages_used": false
+      },
+      "record_sha256": "0b818707bda8704a1aa015d3a5f4bf84453edfb99973f72859bf132a17099999",
+      "responses": 0,
+      "role": "Setup-only failure before inference, preserved separately."
+    },
+    {
+      "record": {
+        "version": "unswell-prometheus-necessity-run-v1",
+        "status": "failed",
+        "phase": "acquisition",
+        "new_external_model_calls": 0,
+        "error": "KeyError: 'total_size'",
+        "seconds": 184.8140421663411,
+        "product_qualified": false,
+        "prospective_pages_used": false
+      },
+      "record_sha256": "5ea6fa480664f7039642bb25ecfb8c895bbcb9b70612eb1cebbfdc1117fd6e2b",
+      "responses": 0,
+      "role": "Setup-only failure before inference, preserved separately."
+    }
+  ],
+  "final_setup_amendment": {
+    "version": 2,
+    "time": 1790751672.852244,
+    "prior_setup": "unswell-prometheus-editorial-20260930-setup2",
+    "prior_setup_record_sha256": "5ea6fa480664f7039642bb25ecfb8c895bbcb9b70612eb1cebbfdc1117fd6e2b",
+    "previous_model_responses": 0,
+    "reason": "Published MergeKit safetensors index has mergekit_version metadata but no optional total_size. Verify all 291 tensor names and exact shapes against pinned Mistral configuration and derive BF16 bytes instead. No inference or controls were executed in either failed acquisition.",
+    "changed_only": "run.py inventory check and freeze runner hash; offline negative tests added",
+    "old_runner_sha256": "c6a4ef58bbfc16e2145f7f982caaf22b57b59015cadca29673d7c2525a394e98",
+    "new_runner_sha256": "8c834c8cbc8269601b7fda3abd63dddcaf7acc1d9ad9f98b31f7f4611e82b096",
+    "same_protocol_sha256": "3cc7fe60a8c9ab24d67120d36cd09e996afb971a3090d1533a96de6ac88c357f",
+    "same_control_inputs": true,
+    "same_decoding": true,
+    "same_thresholds": true,
+    "configuration_or_labels_tuned": false,
+    "private_local_path_omitted": true
+  }
+}

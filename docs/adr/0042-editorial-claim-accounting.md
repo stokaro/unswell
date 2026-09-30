@@ -58,3 +58,13 @@ Undeclared support roles or independent claim splits are not invented. Unsupport
 old ranges remain explicit invalid records and stay in the original denominator.
 The 123-event development objective and prospective confirmation role remain
 unchanged. This contract cannot close the contextual-recall qualification issue.
+
+The `cmd/explainrules` adapter preserves actual evidence from complete saved
+engine reports. It uses `report.Read`, retains original measurements and source
+locations, and provides observational text when the optional evidence message
+is empty. Missing suggestions retain the engine diagnostic as review guidance;
+they do not acquire invented replacement text. The projection is explicitly
+unreviewed and supplies no claim splits, target/support roles, or quality labels.
+Its child replay preserves the frozen candidate IDs and quotations, and records
+protected-range failures without changing those ranges. This repairs evidence
+loss in the old adapter without converting rule activation into editorial proof.
