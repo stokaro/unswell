@@ -1,0 +1,44 @@
+{
+  "format": "unswell-editorial-reference-screen-v1",
+  "lens": {
+    "hypothesis": "The published pretrained edit-quality model may distinguish materially useful technical revisions from unsafe or merely optional changes; no training or threshold fitting is performed.",
+    "preflight": {
+      "groups": 12,
+      "useful_revisions": 12,
+      "unsafe_revisions": 12,
+      "neutral_revisions": 4,
+      "minimum_useful_gain_count": 10,
+      "maximum_neutral_gain_count": 1,
+      "minimum_useful_above_unsafe_count": 10,
+      "maximum_unsafe_gain_count_for_standalone_safety": 1,
+      "case_control": "Report the known lowercasing collision separately; it cannot be passed by this model.",
+      "full_combined_screen": "Benefit and standalone safety screens must both pass; otherwise do not use this as a general technical editorial selector."
+    },
+    "fixed_gain_margin": 2.0,
+    "margin_basis": "An explicit exploratory practical margin on the published 100-point scale, fixed before these outcomes; not a published or calibrated product threshold.",
+    "benefit_definition": "score(source, revision) - score(source, unchanged source)",
+    "score_definition": "Published regression output times 100; neither authorship nor revision-necessity probability.",
+    "failure_policy": "Retain partial execution and errors. No tuning, retries, seed search, or exclusion of unfavorable controls. Negative result is reported, not converted to completion of the recall objective."
+  },
+  "minicheck": {
+    "hypothesis": "A published pretrained grounding model may reject technical meaning changes that an edit-quality metric rewards.",
+    "task": "Meaning preservation only; not editorial necessity or authorship detection.",
+    "published_label_cutoff": 0.5,
+    "pair_policy": "Both direction scores must exceed 0.5; this conjunction is an experimental Unswell policy, not an upstream guarantee.",
+    "required_safe_pairs": 12,
+    "required_unsafe_pairs": 12,
+    "required_neutral_pairs": 4,
+    "minimum_safe_pairs_retained": 10,
+    "maximum_unsafe_pairs_retained": 1,
+    "case_control": "Separate identifier-case stress test; a failing check prevents claiming identifier preservation.",
+    "failure_policy": "Keep all failures and original denominators. Do not fit thresholds, rerun requests, reinterpret unavailable scores as safe, or claim new full-event detection coverage."
+  },
+  "reviewer": "OpenAI assistant; constructed counterexamples, not independent human annotations",
+  "original_local_protocol_hashes": {
+    "lens": "addbd046459c8f4ddf781462a635138da6cd89095b91a08ce99d0dfcd7cd122d",
+    "minicheck": "7c3be8e68b785d75cad4759df77b4fac1e44631dd21ca2ac57ada1a457b23a4e"
+  },
+  "controls_sha256": "dd2d4b9fed6eea119e573089f22f6119d0a51c2fae4c66afeb3a58f6ccc17ebe",
+  "publication_scope": "Constructed technical controls and aggregates only. Private source pages, labels, rationale, token traces, and complete 142-pair predictions are excluded.",
+  "qualification": "Exposed constructed preflight; no generalization, calibrated probability, full-event detection, or product qualification is established."
+}

@@ -16,6 +16,11 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-09-30-editorial-references](2026-09-30-editorial-references/README.md):
+  published LENS-SALSA and MiniCheck numerical references reproduce locally.
+  Both fixed constructed-control screens fail; the record includes public
+  predictions, pinned resources, archived runners, and offline verification.
+
 - [2026-09-28-reader-framing](2026-09-28-reader-framing/README.md): infinitive
   document endorsements and generic demonstration invitations add two findings
   on one exposed guide. Three separately pinned pages add none; broad contextual

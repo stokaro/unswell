@@ -1,0 +1,1348 @@
+{
+  "format": "unswell-editorial-reference-records-v1",
+  "lens": {
+    "model_identity": {
+      "checkpoint_sha256": "e62001fd8a91231be738f37ac02c9ffcf2d5bedb7ece5511c9bb96b52305ae68",
+      "checkpoint_state_keys": 425,
+      "loaded_state_keys": 424,
+      "regenerated_verified_buffer": "encoder.model.embeddings.position_ids",
+      "strict_load": true,
+      "all_parameters_equal_checkpoint": true,
+      "parameter_count": 354706205,
+      "official_package": "lens-metric==0.2.0",
+      "published_score_scale": "raw model score multiplied by 100; not a probability",
+      "published_preprocessing": "lowercase both source and revision",
+      "effective_layer_transform": "softmax",
+      "declared_layer_transform": "sparsemax",
+      "forward_implementation": "unmodified published UnifiedMetric.predict_step",
+      "network": "disabled and socket connections rejected",
+      "device": "cpu",
+      "threads": 4
+    },
+    "smoke": {
+      "published_example": "https://github.com/davidheineman/salsa#lens-salsa",
+      "expected_score": 72.40909337997437,
+      "absolute_tolerance": 0.001,
+      "matches_published_score": true,
+      "model_identity": {
+        "checkpoint_sha256": "e62001fd8a91231be738f37ac02c9ffcf2d5bedb7ece5511c9bb96b52305ae68",
+        "checkpoint_state_keys": 425,
+        "loaded_state_keys": 424,
+        "regenerated_verified_buffer": "encoder.model.embeddings.position_ids",
+        "strict_load": true,
+        "all_parameters_equal_checkpoint": true,
+        "parameter_count": 354706205,
+        "official_package": "lens-metric==0.2.0",
+        "published_score_scale": "raw model score multiplied by 100; not a probability",
+        "published_preprocessing": "lowercase both source and revision",
+        "effective_layer_transform": "softmax",
+        "declared_layer_transform": "sparsemax",
+        "forward_implementation": "unmodified published UnifiedMetric.predict_step",
+        "network": "disabled and socket connections rejected",
+        "device": "cpu",
+        "threads": 4
+      },
+      "elapsed_seconds": 24.504578541964293,
+      "peak_rss_bytes": 2251177984
+    },
+    "smoke_observed": {
+      "available": true,
+      "source_tokens": 17,
+      "revision_tokens": 16,
+      "joint_tokens": 33,
+      "score": 72.40906357765198,
+      "all_input_tokens_retained": true
+    },
+    "control_predictions": [
+      {
+        "id": "control/negation/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 22,
+          "revision_tokens": 22,
+          "joint_tokens": 44,
+          "score": 72.10168838500977,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/negation/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 22,
+          "revision_tokens": 16,
+          "joint_tokens": 38,
+          "score": 74.51004981994629,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/negation/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 22,
+          "revision_tokens": 14,
+          "joint_tokens": 36,
+          "score": 72.68081903457642,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/conditional-wrapper/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 28,
+          "revision_tokens": 28,
+          "joint_tokens": 56,
+          "score": 65.04087448120117,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/conditional-wrapper/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 28,
+          "revision_tokens": 17,
+          "joint_tokens": 45,
+          "score": 71.74245715141296,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/conditional-wrapper/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 28,
+          "revision_tokens": 17,
+          "joint_tokens": 45,
+          "score": 74.93135929107666,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/redundant-required/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 24,
+          "revision_tokens": 24,
+          "joint_tokens": 48,
+          "score": 67.27988123893738,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/redundant-required/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 24,
+          "revision_tokens": 18,
+          "joint_tokens": 42,
+          "score": 72.66848683357239,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/redundant-required/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 24,
+          "revision_tokens": 18,
+          "joint_tokens": 42,
+          "score": 69.43966746330261,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/permission-obligation/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 25,
+          "revision_tokens": 25,
+          "joint_tokens": 50,
+          "score": 67.03065633773804,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/permission-obligation/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 25,
+          "revision_tokens": 19,
+          "joint_tokens": 44,
+          "score": 70.74779272079468,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/permission-obligation/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 25,
+          "revision_tokens": 19,
+          "joint_tokens": 44,
+          "score": 64.240962266922,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/unless/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 19,
+          "revision_tokens": 19,
+          "joint_tokens": 38,
+          "score": 67.85051822662354,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/unless/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 19,
+          "revision_tokens": 13,
+          "joint_tokens": 32,
+          "score": 70.72042226791382,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/unless/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 19,
+          "revision_tokens": 13,
+          "joint_tokens": 32,
+          "score": 69.1153347492218,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/numeric-limit/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 21,
+          "revision_tokens": 21,
+          "joint_tokens": 42,
+          "score": 66.06727242469788,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/numeric-limit/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 21,
+          "revision_tokens": 12,
+          "joint_tokens": 33,
+          "score": 66.13825559616089,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/numeric-limit/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 21,
+          "revision_tokens": 12,
+          "joint_tokens": 33,
+          "score": 66.18010401725769,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/units/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 24,
+          "revision_tokens": 24,
+          "joint_tokens": 48,
+          "score": 59.74419116973877,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/units/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 24,
+          "revision_tokens": 10,
+          "joint_tokens": 34,
+          "score": 68.37043762207031,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/units/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 24,
+          "revision_tokens": 10,
+          "joint_tokens": 34,
+          "score": 66.39774441719055,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/actor/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 25,
+          "revision_tokens": 25,
+          "joint_tokens": 50,
+          "score": 65.13876914978027,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/actor/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 25,
+          "revision_tokens": 16,
+          "joint_tokens": 41,
+          "score": 70.62195539474487,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/actor/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 25,
+          "revision_tokens": 16,
+          "joint_tokens": 41,
+          "score": 69.08180713653564,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/privacy-boundary/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 25,
+          "revision_tokens": 25,
+          "joint_tokens": 50,
+          "score": 76.85303688049316,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/privacy-boundary/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 25,
+          "revision_tokens": 16,
+          "joint_tokens": 41,
+          "score": 78.00676822662354,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/privacy-boundary/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 25,
+          "revision_tokens": 16,
+          "joint_tokens": 41,
+          "score": 71.43651843070984,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/operation-order/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 22,
+          "revision_tokens": 22,
+          "joint_tokens": 44,
+          "score": 70.57651281356812,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/operation-order/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 22,
+          "revision_tokens": 13,
+          "joint_tokens": 35,
+          "score": 75.55520534515381,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/operation-order/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 22,
+          "revision_tokens": 12,
+          "joint_tokens": 34,
+          "score": 72.46979475021362,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/version-boundary/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 26,
+          "revision_tokens": 26,
+          "joint_tokens": 52,
+          "score": 63.603079319000244,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/version-boundary/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 26,
+          "revision_tokens": 14,
+          "joint_tokens": 40,
+          "score": 62.28862404823303,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/version-boundary/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 26,
+          "revision_tokens": 14,
+          "joint_tokens": 40,
+          "score": 64.3948495388031,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/database-distinction/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 28,
+          "revision_tokens": 28,
+          "joint_tokens": 56,
+          "score": 73.85951280593872,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/database-distinction/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 28,
+          "revision_tokens": 17,
+          "joint_tokens": 45,
+          "score": 80.02729415893555,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/database-distinction/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 28,
+          "revision_tokens": 17,
+          "joint_tokens": 45,
+          "score": 78.15684080123901,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/neutral-reader/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 8,
+          "revision_tokens": 8,
+          "joint_tokens": 16,
+          "score": 70.31099796295166,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/neutral-reader/neutral",
+        "result": {
+          "available": true,
+          "source_tokens": 8,
+          "revision_tokens": 11,
+          "joint_tokens": 19,
+          "score": 74.68459010124207,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/neutral-cache/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 9,
+          "revision_tokens": 9,
+          "joint_tokens": 18,
+          "score": 64.86495733261108,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/neutral-cache/neutral",
+        "result": {
+          "available": true,
+          "source_tokens": 9,
+          "revision_tokens": 11,
+          "joint_tokens": 20,
+          "score": 71.1241364479065,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/neutral-token/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 11,
+          "revision_tokens": 11,
+          "joint_tokens": 22,
+          "score": 72.93383479118347,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/neutral-token/neutral",
+        "result": {
+          "available": true,
+          "source_tokens": 11,
+          "revision_tokens": 12,
+          "joint_tokens": 23,
+          "score": 70.88122963905334,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/neutral-limit/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 10,
+          "revision_tokens": 10,
+          "joint_tokens": 20,
+          "score": 62.70221471786499,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/neutral-limit/neutral",
+        "result": {
+          "available": true,
+          "source_tokens": 10,
+          "revision_tokens": 11,
+          "joint_tokens": 21,
+          "score": 70.67750096321106,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/case/identity",
+        "result": {
+          "available": true,
+          "source_tokens": 15,
+          "revision_tokens": 15,
+          "joint_tokens": 30,
+          "score": 68.8325047492981,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/case/useful",
+        "result": {
+          "available": true,
+          "source_tokens": 15,
+          "revision_tokens": 11,
+          "joint_tokens": 26,
+          "score": 71.18207216262817,
+          "all_input_tokens_retained": true
+        }
+      },
+      {
+        "id": "control/case/unsafe",
+        "result": {
+          "available": true,
+          "source_tokens": 15,
+          "revision_tokens": 11,
+          "joint_tokens": 26,
+          "score": 71.18207216262817,
+          "all_input_tokens_retained": true
+        }
+      }
+    ],
+    "execution": {
+      "complete": true,
+      "jobs_completed": 331,
+      "jobs_required": 331,
+      "elapsed_seconds": 74.78137933416292,
+      "peak_rss_bytes": 2098790400,
+      "outbound_requests": 0
+    },
+    "private_pair_transfer": {
+      "required": 142,
+      "available": 138,
+      "gain_statistics": {
+        "count": 138,
+        "min": -25.64983144402504,
+        "median": 2.5454193353652954,
+        "mean": 2.6718590975455614,
+        "max": 23.80220890045166
+      },
+      "positive_gain": 97,
+      "above_fixed_margin": 78,
+      "unavailable_reasons": {
+        "empty_input": 4
+      },
+      "per_page": {
+        "page-005": {
+          "required": 16,
+          "available": 16,
+          "positive_gain": 15,
+          "above_fixed_margin": 13
+        },
+        "page-006": {
+          "required": 18,
+          "available": 18,
+          "positive_gain": 15,
+          "above_fixed_margin": 13
+        },
+        "page-007": {
+          "required": 15,
+          "available": 15,
+          "positive_gain": 10,
+          "above_fixed_margin": 10
+        },
+        "page-008": {
+          "required": 41,
+          "available": 41,
+          "positive_gain": 27,
+          "above_fixed_margin": 20
+        },
+        "page-009": {
+          "required": 33,
+          "available": 30,
+          "positive_gain": 21,
+          "above_fixed_margin": 15
+        },
+        "page-010": {
+          "required": 19,
+          "available": 18,
+          "positive_gain": 9,
+          "above_fixed_margin": 7
+        }
+      },
+      "qualification": "This exposed pool cannot establish full-event recall or product qualification. No new event credit, model-selection thresholds, or final-test claims."
+    },
+    "private_transfer_reproducibility": "Aggregate-only publication. Original input hashes, sources, judgments, predictions, and frozen scripts remain local; this public verifier cannot reproduce task-level transfer or event recall."
+  },
+  "minicheck": {
+    "model_identity": {
+      "model": "lytang/MiniCheck-Flan-T5-Large",
+      "revision": "96eafd01cee2d16cf81aaa2fb226b14f422a37b3",
+      "code_revision": "b58b9fa69acbd1015ec970fa65dd752413a053d2",
+      "strict_parameter_load": true,
+      "parameter_count": 783150080,
+      "checkpoint_sha256": "41291881e13c6235ed47149cec903bee9493e45d9d7325587a9fa2e266c526c0",
+      "device": "cpu",
+      "input_lowercasing": false
+    },
+    "protocol_sha256": "7c3be8e68b785d75cad4759df77b4fac1e44631dd21ca2ac57ada1a457b23a4e",
+    "controls_sha256": "dd2d4b9fed6eea119e573089f22f6119d0a51c2fae4c66afeb3a58f6ccc17ebe",
+    "smoke": [
+      {
+        "available": true,
+        "support_score": 0.9805923700332642,
+        "published_label": 1,
+        "input_tokens": 31,
+        "all_input_tokens_retained": true,
+        "expected_score": 0.9805923700332642,
+        "matches_published_example": true
+      },
+      {
+        "available": true,
+        "support_score": 0.007121321279555559,
+        "published_label": 0,
+        "input_tokens": 28,
+        "all_input_tokens_retained": true,
+        "expected_score": 0.007121330592781305,
+        "matches_published_example": true
+      }
+    ],
+    "groups": [
+      {
+        "id": "negation",
+        "useful": {
+          "forward": {
+            "available": true,
+            "support_score": 0.9229999780654907,
+            "published_label": 1,
+            "input_tokens": 42,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.79888516664505,
+            "published_label": 1,
+            "input_tokens": 42,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        },
+        "unsafe": {
+          "forward": {
+            "available": true,
+            "support_score": 0.01338729914277792,
+            "published_label": 0,
+            "input_tokens": 40,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.013369834050536156,
+            "published_label": 0,
+            "input_tokens": 40,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": false
+        }
+      },
+      {
+        "id": "conditional-wrapper",
+        "useful": {
+          "forward": {
+            "available": true,
+            "support_score": 0.969215989112854,
+            "published_label": 1,
+            "input_tokens": 53,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.9559317827224731,
+            "published_label": 1,
+            "input_tokens": 53,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        },
+        "unsafe": {
+          "forward": {
+            "available": true,
+            "support_score": 0.5885657072067261,
+            "published_label": 1,
+            "input_tokens": 53,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.9408324360847473,
+            "published_label": 1,
+            "input_tokens": 53,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        }
+      },
+      {
+        "id": "redundant-required",
+        "useful": {
+          "forward": {
+            "available": true,
+            "support_score": 0.9731666445732117,
+            "published_label": 1,
+            "input_tokens": 44,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.9552332162857056,
+            "published_label": 1,
+            "input_tokens": 44,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        },
+        "unsafe": {
+          "forward": {
+            "available": true,
+            "support_score": 0.9322561621665955,
+            "published_label": 1,
+            "input_tokens": 44,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.8260706067085266,
+            "published_label": 1,
+            "input_tokens": 44,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        }
+      },
+      {
+        "id": "permission-obligation",
+        "useful": {
+          "forward": {
+            "available": true,
+            "support_score": 0.94319748878479,
+            "published_label": 1,
+            "input_tokens": 53,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.9258841872215271,
+            "published_label": 1,
+            "input_tokens": 53,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        },
+        "unsafe": {
+          "forward": {
+            "available": true,
+            "support_score": 0.03388482332229614,
+            "published_label": 0,
+            "input_tokens": 53,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.02169675938785076,
+            "published_label": 0,
+            "input_tokens": 53,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": false
+        }
+      },
+      {
+        "id": "unless",
+        "useful": {
+          "forward": {
+            "available": true,
+            "support_score": 0.9362563490867615,
+            "published_label": 1,
+            "input_tokens": 38,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.934389591217041,
+            "published_label": 1,
+            "input_tokens": 38,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        },
+        "unsafe": {
+          "forward": {
+            "available": true,
+            "support_score": 0.04503193497657776,
+            "published_label": 0,
+            "input_tokens": 38,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.03040754795074463,
+            "published_label": 0,
+            "input_tokens": 38,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": false
+        }
+      },
+      {
+        "id": "numeric-limit",
+        "useful": {
+          "forward": {
+            "available": true,
+            "support_score": 0.1888013631105423,
+            "published_label": 0,
+            "input_tokens": 39,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.29495614767074585,
+            "published_label": 0,
+            "input_tokens": 39,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": false
+        },
+        "unsafe": {
+          "forward": {
+            "available": true,
+            "support_score": 0.08481946587562561,
+            "published_label": 0,
+            "input_tokens": 40,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.3747861683368683,
+            "published_label": 0,
+            "input_tokens": 40,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": false
+        }
+      },
+      {
+        "id": "units",
+        "useful": {
+          "forward": {
+            "available": true,
+            "support_score": 0.9452905058860779,
+            "published_label": 1,
+            "input_tokens": 38,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.711967945098877,
+            "published_label": 1,
+            "input_tokens": 38,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        },
+        "unsafe": {
+          "forward": {
+            "available": true,
+            "support_score": 0.7939831018447876,
+            "published_label": 1,
+            "input_tokens": 41,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.6208050847053528,
+            "published_label": 1,
+            "input_tokens": 41,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        }
+      },
+      {
+        "id": "actor",
+        "useful": {
+          "forward": {
+            "available": true,
+            "support_score": 0.9609370827674866,
+            "published_label": 1,
+            "input_tokens": 48,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.5091182589530945,
+            "published_label": 1,
+            "input_tokens": 48,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        },
+        "unsafe": {
+          "forward": {
+            "available": true,
+            "support_score": 0.017430247738957405,
+            "published_label": 0,
+            "input_tokens": 48,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.025564517825841904,
+            "published_label": 0,
+            "input_tokens": 48,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": false
+        }
+      },
+      {
+        "id": "privacy-boundary",
+        "useful": {
+          "forward": {
+            "available": true,
+            "support_score": 0.08099772036075592,
+            "published_label": 0,
+            "input_tokens": 42,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.19479379057884216,
+            "published_label": 0,
+            "input_tokens": 42,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": false
+        },
+        "unsafe": {
+          "forward": {
+            "available": true,
+            "support_score": 0.034409452229738235,
+            "published_label": 0,
+            "input_tokens": 43,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.018895678222179413,
+            "published_label": 0,
+            "input_tokens": 43,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": false
+        }
+      },
+      {
+        "id": "operation-order",
+        "useful": {
+          "forward": {
+            "available": true,
+            "support_score": 0.9448646903038025,
+            "published_label": 1,
+            "input_tokens": 37,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.9005091190338135,
+            "published_label": 1,
+            "input_tokens": 37,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        },
+        "unsafe": {
+          "forward": {
+            "available": true,
+            "support_score": 0.030368246138095856,
+            "published_label": 0,
+            "input_tokens": 36,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.295065313577652,
+            "published_label": 0,
+            "input_tokens": 36,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": false
+        }
+      },
+      {
+        "id": "version-boundary",
+        "useful": {
+          "forward": {
+            "available": true,
+            "support_score": 0.929779052734375,
+            "published_label": 1,
+            "input_tokens": 46,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.8232058882713318,
+            "published_label": 1,
+            "input_tokens": 46,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        },
+        "unsafe": {
+          "forward": {
+            "available": true,
+            "support_score": 0.024451397359371185,
+            "published_label": 0,
+            "input_tokens": 46,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.035886816680431366,
+            "published_label": 0,
+            "input_tokens": 46,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": false
+        }
+      },
+      {
+        "id": "database-distinction",
+        "useful": {
+          "forward": {
+            "available": true,
+            "support_score": 0.960091769695282,
+            "published_label": 1,
+            "input_tokens": 45,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.812041163444519,
+            "published_label": 1,
+            "input_tokens": 45,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": true
+        },
+        "unsafe": {
+          "forward": {
+            "available": true,
+            "support_score": 0.04515348747372627,
+            "published_label": 0,
+            "input_tokens": 45,
+            "all_input_tokens_retained": true
+          },
+          "backward": {
+            "available": true,
+            "support_score": 0.044642373919487,
+            "published_label": 0,
+            "input_tokens": 45,
+            "all_input_tokens_retained": true
+          },
+          "pair_supported": false
+        }
+      }
+    ],
+    "neutral": [
+      {
+        "id": "neutral-reader",
+        "forward": {
+          "available": true,
+          "support_score": 0.9697130918502808,
+          "published_label": 1,
+          "input_tokens": 22,
+          "all_input_tokens_retained": true
+        },
+        "backward": {
+          "available": true,
+          "support_score": 0.9853513240814209,
+          "published_label": 1,
+          "input_tokens": 22,
+          "all_input_tokens_retained": true
+        },
+        "pair_supported": true
+      },
+      {
+        "id": "neutral-cache",
+        "forward": {
+          "available": true,
+          "support_score": 0.7303276658058167,
+          "published_label": 1,
+          "input_tokens": 20,
+          "all_input_tokens_retained": true
+        },
+        "backward": {
+          "available": true,
+          "support_score": 0.9069557785987854,
+          "published_label": 1,
+          "input_tokens": 20,
+          "all_input_tokens_retained": true
+        },
+        "pair_supported": true
+      },
+      {
+        "id": "neutral-token",
+        "forward": {
+          "available": true,
+          "support_score": 0.9332568645477295,
+          "published_label": 1,
+          "input_tokens": 23,
+          "all_input_tokens_retained": true
+        },
+        "backward": {
+          "available": true,
+          "support_score": 0.9328798651695251,
+          "published_label": 1,
+          "input_tokens": 23,
+          "all_input_tokens_retained": true
+        },
+        "pair_supported": true
+      },
+      {
+        "id": "neutral-limit",
+        "forward": {
+          "available": true,
+          "support_score": 0.9641526341438293,
+          "published_label": 1,
+          "input_tokens": 21,
+          "all_input_tokens_retained": true
+        },
+        "backward": {
+          "available": true,
+          "support_score": 0.799812376499176,
+          "published_label": 1,
+          "input_tokens": 21,
+          "all_input_tokens_retained": true
+        },
+        "pair_supported": true
+      }
+    ],
+    "case": {
+      "useful": {
+        "available": true,
+        "support_score": 0.9418575167655945,
+        "published_label": 1,
+        "input_tokens": 34,
+        "all_input_tokens_retained": true
+      },
+      "unsafe": {
+        "available": true,
+        "support_score": 0.9325329065322876,
+        "published_label": 1,
+        "input_tokens": 36,
+        "all_input_tokens_retained": true
+      }
+    },
+    "complete": true,
+    "elapsed_seconds": 39.60446299985051,
+    "peak_rss_bytes": 3807969280
+  },
+  "resource_manifests": {
+    "lens": {
+      "model": "davidheineman/lens-salsa",
+      "revision": "cc04094d084493e68bcd3eb196ff74e894cca00d",
+      "code_repository": "davidheineman/salsa",
+      "code_revision": "ce5ddba3d338704a20ceeaffbbb6382810c0c3e7",
+      "declared_code_license": "Apache-2.0",
+      "declared_model_license": "Apache-2.0",
+      "domain": "Model card: English Wikipedia simplification; technical documentation untested.",
+      "context7": "No matching library; unrelated Rust/Haskell Salsa/Lens results excluded.",
+      "internal_data_transferred": false,
+      "files": {
+        "README.md": {
+          "bytes": 2129,
+          "sha256": "95e9c58f908240ed91cd3127cddf767662d3bb3aeef61e25ebfc0086deeb7068",
+          "seconds": 0.4116181246936321
+        },
+        "hparams.yaml": {
+          "bytes": 774,
+          "sha256": "bc53503edc855e05167c0aaf9348e5d34afb8eb4dcb677ee3065ac3b316d4a37",
+          "seconds": 0.344670542050153
+        },
+        "checkpoints/model.ckpt": {
+          "bytes": 1418984537,
+          "sha256": "e62001fd8a91231be738f37ac02c9ffcf2d5bedb7ece5511c9bb96b52305ae68",
+          "seconds": 40.960485792253166
+        },
+        "lens_metric-0.2.0-py3-none-any.whl": {
+          "bytes": 48077,
+          "sha256": "e8bdc18a87a66875035187eb88e5f8f835aee975df8089e93f85102c45000f80",
+          "seconds": 0.15903920819982886
+        },
+        "tokenizer/config.json": {
+          "bytes": 482,
+          "sha256": "82ba49810e6441735e696033ac2512ee09da555507b2917ac3865b202d592cc3",
+          "seconds": 0.35149254091084003
+        },
+        "tokenizer/tokenizer.json": {
+          "bytes": 1355863,
+          "sha256": "847bbeab6174d66a88898f729d52fa8d355fafe1bea101cf960dd404581df70e",
+          "seconds": 0.3555884580127895
+        },
+        "tokenizer/tokenizer_config.json": {
+          "bytes": 25,
+          "sha256": "994f46754c5bf4014f1aa92d34b1374319c3a6b3f702105cd5b742beaecd18ce",
+          "seconds": 0.2542166658677161
+        },
+        "tokenizer/vocab.json": {
+          "bytes": 898823,
+          "sha256": "9e7f63c2d15d666b52e21d250d2e513b87c9b713cfa6987a82ed89e5e6e50655",
+          "seconds": 0.4336946662515402
+        },
+        "tokenizer/merges.txt": {
+          "bytes": 456318,
+          "sha256": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+          "seconds": 0.31713000033050776
+        }
+      },
+      "base_tokenizer": {
+        "model": "FacebookAI/roberta-large",
+        "revision": "722cf37b1afa9454edce342e7895e588b6ff1d59",
+        "declared_license": "mit"
+      }
+    },
+    "minicheck": {
+      "model": "lytang/MiniCheck-Flan-T5-Large",
+      "revision": "96eafd01cee2d16cf81aaa2fb226b14f422a37b3",
+      "code_revision": "b58b9fa69acbd1015ec970fa65dd752413a053d2",
+      "code_license": "Apache-2.0",
+      "declared_model_license": "mit",
+      "incoming_public_downloads_only": true,
+      "files": {
+        "README.md": {
+          "bytes": 4834,
+          "sha256": "2e5128482878408f4f2e3f21388ca313f9fc61ba3242539d0aabf6a85eede683",
+          "seconds": 0.3417062913067639
+        },
+        "config.json": {
+          "bytes": 826,
+          "sha256": "d8e91aa8739d845d2572fa8db9cb6523d06208c14fedb8f7623f49283a305653",
+          "seconds": 0.31506349984556437
+        },
+        "generation_config.json": {
+          "bytes": 112,
+          "sha256": "3c4ec6a75c47200afbecd413ee6719007f701821d07b6c11a6c30237d3f9c854",
+          "seconds": 0.3196507920511067
+        },
+        "tokenizer.json": {
+          "bytes": 2422290,
+          "sha256": "ece24e1e7d9b5a26f4e68a9519b6ea1451474811b52a9da419c9145f1f458fc0",
+          "seconds": 0.42853812500834465
+        },
+        "tokenizer_config.json": {
+          "bytes": 20917,
+          "sha256": "284a01dc7b81f159449b96cd0d8814f6da64bbdb59833fe3b8398ea36a860550",
+          "seconds": 0.29654425010085106
+        },
+        "special_tokens_map.json": {
+          "bytes": 2239,
+          "sha256": "47389dd56434a0d7d32f736ba34e895b331461980af760e955b62d5c39912626",
+          "seconds": 0.296980292070657
+        },
+        "added_tokens.json": {
+          "bytes": 2634,
+          "sha256": "4b1c1345a66fdd00264819c5adfc3142debfbd3b03767a04f95a39ac2277ca21",
+          "seconds": 0.3089742907322943
+        },
+        "spiece.model": {
+          "bytes": 791656,
+          "sha256": "d60acb128cf7b7f2536e8f38a5b18a05535c9e14c7a355904270e15b0945ea86",
+          "seconds": 0.878049791790545
+        },
+        "pytorch_model.bin": {
+          "bytes": 3132786242,
+          "sha256": "41291881e13c6235ed47149cec903bee9493e45d9d7325587a9fa2e266c526c0",
+          "seconds": 34.198297541122884
+        }
+      }
+    }
+  },
+  "setup": {
+    "lens": "Setuptools 80.9.0 restores pkg_resources required by the published Lightning dependency; no model formula was changed.",
+    "minicheck": {
+      "initial_attempt": "Blocked at import before model construction or inference because package __init__ auto-downloads punkt if missing. Socket guard prevented the request.",
+      "outbound_input_transfers": 0,
+      "dependency_correction": "Acquire genuine public NLTK punkt data separately and set NLTK_DATA before running the unchanged frozen script. No scoring code, examples, thresholds or protocol changed.",
+      "nltk_data_revision": "550b6625bcef1f2abff2ff770a5a0d272c9c6b2a",
+      "resource_url": "https://raw.githubusercontent.com/nltk/nltk_data/550b6625bcef1f2abff2ff770a5a0d272c9c6b2a/packages/tokenizers/punkt.zip",
+      "resource_sha256": "51c3078994aeaf650bfc8e028be4fb42b4a0d177d41c012b6a983979653660ec",
+      "resource_bytes": 13905355,
+      "resource_use": "Package resource-presence check; short single-chunk inference does not load or execute Punkt pickles.",
+      "inference_attempts": 1
+    }
+  },
+  "original_recall_objective_achieved": false
+}
