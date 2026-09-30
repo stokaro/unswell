@@ -16,6 +16,11 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-09-30-claim-accounting](2026-09-30-claim-accounting/README.md):
+  Go accounting keeps independent claims and support context explicit. The
+  unchanged 804-record migration retains 414 and reports 390 invalid originals;
+  it claims neither completed rollout nor improved semantic recall.
+
 - [2026-09-30-editorial-references](2026-09-30-editorial-references/README.md):
   published LENS-SALSA and MiniCheck numerical references reproduce locally.
   Both fixed constructed-control screens fail; the record includes public

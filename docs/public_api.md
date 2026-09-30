@@ -155,6 +155,12 @@ coverage, absent features, reference margins, and uncalibrated responses. See
 [component experiment](../research/llmdet/README.md).
 The root `e2e` directory contains only test code and fixtures. It exports no library API.
 
+`research/annotation/cmd/reviewclaims` is a developer command over the existing
+source-preserving extractor. Its private `internal/claimreview` package binds
+declared editorial claims and replays complete stage dispositions with separate
+resolution and same-defect approvals. It supplies no model, new editorial labels,
+core API, or probability gate. See [ADR 0042](adr/0042-editorial-claim-accounting.md).
+
 Alpha APIs may change without backward compatibility. The package ledger and
 consumer tests describe the current contract; CI does not compare API snapshots
 against earlier releases. See [the development policy](../CONTRIBUTING.md).
