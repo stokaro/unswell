@@ -108,3 +108,10 @@ review through the existing accounting contract. The
 [original-baseline replay](../../../reviews/2026-09-30-rule-evidence/README.md)
 keeps the frozen packet intact and rejects protected target ranges rather than
 changing their quotations to obtain a valid result.
+
+The [explicit migration consumer](../../../reviews/2026-09-30-reviewed-claims/README.md)
+accepts separately supplied reviews of original parent criticisms and source
+roles. It keeps original parent records unchanged, binds declared children through
+this command, and leaves unreviewed parents in the original denominator. Adding
+reviewed pages cannot rename unchanged claims. Retention is not semantic acceptance;
+the complete migration and later review/selection stages remain separate work.
