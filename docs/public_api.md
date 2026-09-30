@@ -161,6 +161,13 @@ declared editorial claims and replays complete stage dispositions with separate
 resolution and same-defect approvals. It supplies no model, new editorial labels,
 core API, or probability gate. See [ADR 0042](adr/0042-editorial-claim-accounting.md).
 
+`research/annotation/cmd/importtetra` is a developer command over explicit TETRA
+source bytes. Its private `internal/tetra` package verifies source hashes,
+reconstructs complete original/revised sections, and records paper-group
+quarantine. The separate `unswell-tetra-import-v1` artifact assigns no task labels
+or product qualification. It extends neither the core API nor product reports;
+see [the import contract](../research/annotation/internal/tetra/README.md).
+
 Alpha APIs may change without backward compatibility. The package ledger and
 consumer tests describe the current contract; CI does not compare API snapshots
 against earlier releases. See [the development policy](../CONTRIBUTING.md).

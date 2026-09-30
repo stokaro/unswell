@@ -1,0 +1,118 @@
+{
+  "version": "unswell-tetra-import-v1",
+  "repository": "https://github.com/chemicaltree/tetra",
+  "revision": "0000000000000000000000000000000000000000",
+  "license": "CC-BY-4.0",
+  "rendering": "Join decoded XML text/edit leaves with one ASCII space; spans refer only to reconstructed UTF-8 sections.",
+  "target": "Upstream editor preference; neither revision necessity nor technical safety is inferred.",
+  "files": [
+    {
+      "path": "original/P01-1001-A.xml",
+      "sha256": "d970f7e5676a0b37c45bd2f5e190cd28cb6f9d017852aca3828f58cb98ce5c80",
+      "git_blob": "e4a1b137509ca365f4f1626ce22d30f14fc01be9",
+      "xml_base64": "PGRvYyBpZD0iUDAxLTEwMDEiIGVkaXRvcj0iQSI+CiAgPHRpdGxlPjx0ZXh0PlJldHJ5IGJlaGF2aW9yPC90ZXh0PjwvdGl0bGU+CiAgPGFic3RyYWN0PgogICAgPHRleHQ+Q2Fmw6kgY2xpZW50czwvdGV4dD4KICAgIDxlZGl0IHR5cGU9ImdyYW1tYXIiIGNycj0icmV0cnkiIGNvbW1lbnRzPSIiPnJldHJpZXM8L2VkaXQ+CiAgICA8ZWRpdCB0eXBlPSJyZWR1bmRhbmN5IiBjcnI9IiI+dmVyeTwvZWRpdD4KICAgIDx0ZXh0PmNhcmVmdWxseS48L3RleHQ+CiAgPC9hYnN0cmFjdD4KICA8aW50cm9kdWN0aW9uPjx0ZXh0PlJldHJ5IGF0IG1vc3QgdHdpY2UuPC90ZXh0PjwvaW50cm9kdWN0aW9uPgo8L2RvYz4K",
+      "paper": "P01-1001",
+      "editor": "A",
+      "bytes": 345,
+      "declared_metadata": {
+        "id": "P01-1001",
+        "editor": "A"
+      },
+      "sections": [
+        {
+          "name": "title",
+          "original": "Retry behavior",
+          "revised": "Retry behavior",
+          "original_sha256": "537eacb02047719718c4d864d7afe2c86ea50a9ee56146b1634026d0abdbff75",
+          "revised_sha256": "537eacb02047719718c4d864d7afe2c86ea50a9ee56146b1634026d0abdbff75",
+          "edits": []
+        },
+        {
+          "name": "abstract",
+          "original": "Café clients retries very carefully.",
+          "revised": "Café clients retry  carefully.",
+          "original_sha256": "bb48346c5cc00bac7e9c21b00222b87d54408bf774524aff0b4248b524ae1fe8",
+          "revised_sha256": "0e13404df5aecdd9dbc2458374d8230eac2cf3142331edaf8c74e3f826233acb",
+          "edits": [
+            {
+              "id": "P01-1001-A/abstract/0001",
+              "element_index": 1,
+              "types": [
+                "grammar"
+              ],
+              "type_available": true,
+              "original_type": "grammar",
+              "comment": "",
+              "before": "retries",
+              "after": "retry",
+              "original_span": {
+                "start": 14,
+                "end": 21
+              },
+              "revised_span": {
+                "start": 14,
+                "end": 19
+              },
+              "unchanged": false
+            },
+            {
+              "id": "P01-1001-A/abstract/0002",
+              "element_index": 2,
+              "types": [
+                "redundancy"
+              ],
+              "type_available": true,
+              "original_type": "redundancy",
+              "comment": null,
+              "before": "very",
+              "after": "",
+              "original_span": {
+                "start": 22,
+                "end": 26
+              },
+              "revised_span": {
+                "start": 20,
+                "end": 20
+              },
+              "unchanged": false
+            }
+          ]
+        },
+        {
+          "name": "introduction",
+          "original": "Retry at most twice.",
+          "revised": "Retry at most twice.",
+          "original_sha256": "8be1a4202d1dcc26cfb9efb56cfdec8e52ad1b4296822130f5a99d6c2c2ade69",
+          "revised_sha256": "8be1a4202d1dcc26cfb9efb56cfdec8e52ad1b4296822130f5a99d6c2c2ade69",
+          "edits": []
+        }
+      ],
+      "status": "valid",
+      "source_eligible": true,
+      "issues": []
+    }
+  ],
+  "groups": [
+    {
+      "paper": "P01-1001",
+      "files": [
+        "original/P01-1001-A.xml"
+      ],
+      "source_eligible": true
+    }
+  ],
+  "counts": {
+    "files": 1,
+    "parsed_files": 1,
+    "invalid_files": 0,
+    "identity_conflicts": 0,
+    "quarantined_files": 0,
+    "groups": 1,
+    "eligible_groups": 1,
+    "edits": 2,
+    "eligible_edits": 2
+  },
+  "complete": true,
+  "task_labels_assigned": false,
+  "product_qualified": false
+}
