@@ -53,6 +53,14 @@ fixed technical controls. Both screens fail. Their pretrained weights assess
 edit quality or grounding; those outputs do not qualify a probability of needing
 revision and do not change the origin-method decisions below.
 
+The [Prometheus 2 necessity screen](../reviews/2026-09-30-prometheus-necessity/README.md)
+tests a separate rubric-specific judge on 35 constructed technical controls.
+The pinned BF16 model runs locally on MLX and fails the fixed admission criteria.
+No full-page development inference follows. This records a tested local
+configuration, not numerical parity with the authors' backend or reproduction
+of their publication's evaluation. Newer M-Prometheus models were reviewed
+separately and were not executed in this screen.
+
 Decisions are `adopt`, `experimental`, `defer`, or `reject`, always with an explicit
 scope. Adopting a feature hypothesis or benchmark design does not adopt a trained
 detector or authorize data redistribution. The current decisions are:

@@ -18,6 +18,10 @@ resources, invoke another program, or evaluate prose through a second engine.
 It retains independent claims through supplied review stages and keeps support
 context separate from revision targets. It performs no model execution or new
 editorial annotation and does not extend the product result or gate contract.
+`cmd/explainrules` projects the measured evidence and existing review guidance
+from a complete saved engine report for an explicit child research record.
+Missing evidence text does not discard the original metrics. Observations remain
+unreviewed; source binding and semantic claim review are separate steps.
 
 ## Run the commands
 

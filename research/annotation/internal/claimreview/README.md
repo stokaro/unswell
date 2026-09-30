@@ -81,3 +81,30 @@ invalid input, uncertain required stages, or operational errors, and 130 for
 cancellation. Uncertain replay still emits its incomplete record. Other invalid
 inventories produce no partial success result. Keep original research labels and
 full-event denominators separate from this representation check.
+
+## Preserve the basis of existing rules
+
+Run `go run ./cmd/explainrules < result.json > observations.json` from
+`research/annotation`. The input is one complete canonical engine report,
+validated by the existing report reader. Output uses
+`unswell-rule-evidence-v1` and retains every original finding's ID, rule version,
+source hash, primary/related locations, suppression state, and full evidence.
+Incomplete reports, duplicate identities, derived threshold diagnostics, missing
+measurements, invalid numbers, cancellation, and writer failures produce errors.
+
+`reason` names the actual evidence kind, activation, source-occurrence count,
+metric values, units, onset, and saturation, plus any original evidence message.
+It records the observed rule condition; it does not assert that a revision is
+necessary. `action` retains the explicit evidence suggestion when present.
+Otherwise it copies the engine's existing diagnostic and identifies that basis
+as `engine_diagnostic`. This is review guidance, not invented replacement prose.
+Every `editorial_verdict` is `unreviewed` and `editorial_qualified` stays false.
+
+The projection omits source bodies and location snippets. Existing diagnostic,
+guidance, or evidence text can still contain excerpts, so the artifact inherits
+the input report's data permissions. It is not published automatically.
+Target/support roles and independently actionable claims still need explicit
+review through the existing accounting contract. The
+[original-baseline replay](../../../reviews/2026-09-30-rule-evidence/README.md)
+keeps the frozen packet intact and rejects protected target ranges rather than
+changing their quotations to obtain a valid result.
