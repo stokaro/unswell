@@ -13,6 +13,12 @@ The shipped CLI and MCP server do not import this module. It uses Go and local
 JSON only. Loading a round does not read references, execute source files, download
 resources, invoke another program, or evaluate prose through a second engine.
 
+`cmd/reviewclaims` adds a separate experimental developer tool for
+[source-bound editorial claim accounting](internal/claimreview/README.md).
+It retains independent claims through supplied review stages and keeps support
+context separate from revision targets. It performs no model execution or new
+editorial annotation and does not extend the product result or gate contract.
+
 ## Run the commands
 
 From this directory, using the repository's supported Go compiler:

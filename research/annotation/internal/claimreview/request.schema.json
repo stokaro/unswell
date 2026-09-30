@@ -1,0 +1,380 @@
+{
+  "type": "object",
+  "properties": {
+    "version": {
+      "const": "unswell-editorial-claims-v1"
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claim"
+      },
+      "maxItems": 10000
+    },
+    "stages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/stage"
+      },
+      "maxItems": 32
+    },
+    "approvals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/approval"
+      },
+      "maxItems": 10000
+    },
+    "include_raw": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "version",
+    "source",
+    "claims",
+    "stages",
+    "approvals"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:unswell:editorial-claims:v1",
+  "$defs": {
+    "span": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "additionalProperties": false
+    },
+    "reference": {
+      "type": "object",
+      "properties": {
+        "block": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "span": {
+          "$ref": "#/$defs/span"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2097152
+        }
+      },
+      "required": [
+        "block",
+        "span",
+        "quote"
+      ],
+      "additionalProperties": false
+    },
+    "origin": {
+      "type": "object",
+      "properties": {
+        "run": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "candidate": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "key": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        }
+      },
+      "required": [
+        "run",
+        "candidate",
+        "key"
+      ],
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "properties": {
+        "origin": {
+          "$ref": "#/$defs/origin"
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "diagnostic": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "suggestion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reference"
+          },
+          "maxItems": 64,
+          "minItems": 1
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reference"
+          },
+          "maxItems": 64
+        }
+      },
+      "required": [
+        "origin",
+        "category",
+        "diagnostic",
+        "reason",
+        "suggestion",
+        "targets",
+        "support"
+      ],
+      "additionalProperties": false
+    },
+    "edit": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "target": {
+          "$ref": "#/$defs/reference"
+        },
+        "replacement": {
+          "type": "string",
+          "maxLength": 16000
+        }
+      },
+      "required": [
+        "id",
+        "target",
+        "replacement"
+      ],
+      "additionalProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "retained",
+            "resolved",
+            "rejected",
+            "uncertain"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "edit_id": {
+          "type": "string",
+          "maxLength": 2400
+        }
+      },
+      "required": [
+        "claim_id",
+        "status",
+        "reason",
+        "edit_id"
+      ],
+      "additionalProperties": false
+    },
+    "duplicate": {
+      "type": "object",
+      "properties": {
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2400
+          },
+          "minItems": 2,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "representative": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        }
+      },
+      "required": [
+        "claims",
+        "representative",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "stage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/decision"
+          },
+          "maxItems": 10000
+        },
+        "edits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/edit"
+          },
+          "maxItems": 10000
+        },
+        "duplicates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/duplicate"
+          },
+          "maxItems": 10000
+        }
+      },
+      "required": [
+        "id",
+        "decisions",
+        "edits",
+        "duplicates"
+      ],
+      "additionalProperties": false
+    },
+    "approval": {
+      "type": "object",
+      "properties": {
+        "stage_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "resolution",
+            "same_defect"
+          ]
+        },
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2400
+          },
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "edit_digest": {
+          "type": "string",
+          "pattern": "^([0-9a-f]{64})?$"
+        },
+        "reviewer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "meaning_preserved": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "stage_id",
+        "kind",
+        "claims",
+        "edit_digest",
+        "reviewer",
+        "reason",
+        "meaning_preserved"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2400
+        },
+        "format": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 2097152
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "path",
+        "format",
+        "text",
+        "sha256"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
