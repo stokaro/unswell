@@ -16,6 +16,11 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-09-30-tetra-import](2026-09-30-tetra-import/README.md): Go import and
+  independent replay of the pinned public editor-revision corpus preserve all
+  192 source records. Eight paper groups are quarantined for source problems;
+  the artifact assigns no editorial labels or product qualification.
+
 - [2026-09-30-reviewed-claims](2026-09-30-reviewed-claims/README.md):
   the public source-role snapshot on 13 complete sources preserves 358 declared claims from
   254 migrated parents. One parent is declined and 549 stay unreviewed; the

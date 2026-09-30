@@ -23,6 +23,13 @@ from a complete saved engine report for an explicit child research record.
 Missing evidence text does not discard the original metrics. Observations remain
 unreviewed; source binding and semantic claim review are separate steps.
 
+`cmd/importtetra` adds a research-only
+[TETRA source importer](internal/tetra/README.md). It verifies explicitly supplied
+XML bytes, retains complete editor revisions and both UTF-8 range sets, and
+quarantines conflicting paper groups. Imported preferences are not Unswell
+quality labels. The [pinned replay](../reviews/2026-09-30-tetra-import/README.md)
+checks all public source records with an optional independent verifier.
+
 ## Run the commands
 
 From this directory, using the repository's supported Go compiler:
