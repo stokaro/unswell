@@ -79,6 +79,9 @@ func localRhetoricRules() []rule.Rule {
 				"what everybody or nobody knows, wants or can verify, unsupported majority claims about reader preferences or practice, "+
 				"and anaphoric result tails predicting generic readers' preferences or understanding. "+
 				"Ordinary copular quality or difficulty judgments require a main subject and a complete predicate without a stated local mechanism. "+
+				"Testing-to-guarantee and unrestricted-trust constructions receive explanations of their specific assurance. "+
+				"Grouped occurrences use a specific explanation only when all occurrences support the same explanation; "+
+				"mixed groups retain the general diagnostic. "+
 				"Technical adjective-noun phrases, conditional, quantified and protected constructions are excluded.",
 			[]rule.Example{{Text: "The configuration is intentionally explicit.", Match: true},
 				{Text: "The configuration is explicit about unknown keys."}}),
@@ -141,7 +144,7 @@ func localRhetoricVersion(id string) string {
 	case "repetition.definition-echo":
 		return "3"
 	case "filler.unscoped-assurance":
-		return "8"
+		return "9"
 	default:
 		return "1"
 	}

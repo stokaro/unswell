@@ -35,9 +35,12 @@ type rhetoricAdvice struct {
 	suggestion string
 }
 
-// Emit attaches the rule's editing guidance without changing its evidence.
+// Emit supplies general editing guidance when the recognized construction did
+// not provide specific advice.
 func (r rhetoricAdvice) Emit(evidence rule.Evidence) error {
-	evidence.Suggestion = r.suggestion
+	if evidence.Suggestion == "" {
+		evidence.Suggestion = r.suggestion
+	}
 	return r.emit.Emit(evidence)
 }
 

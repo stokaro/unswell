@@ -51,7 +51,7 @@ func notOnlyEvents(m *editorialMatcher, sentences []document.Sentence, index int
 			continue
 		}
 		if token.Normal == "but" && start >= 0 {
-			return []editorialEvent{{index, index, []rule.Occurrence{tokenOccurrence(sentence, start, i+1)}}}, nil
+			return []editorialEvent{{first: index, last: index, occurrences: []rule.Occurrence{tokenOccurrence(sentence, start, i+1)}}}, nil
 		}
 		if notOnlyStart(sentence.Tokens, i) {
 			if err := m.spend(); err != nil {
@@ -103,7 +103,7 @@ func (m *editorialMatcher) contrastPair(sentences []document.Sentence, i int) []
 		m.view.Exempts(first, 0, a.length) || m.view.Exempts(second, 0, b.length) {
 		return nil
 	}
-	return []editorialEvent{{i, i + 1, []rule.Occurrence{
+	return []editorialEvent{{first: i, last: i + 1, occurrences: []rule.Occurrence{
 		tokenOccurrence(first, 0, a.length), tokenOccurrence(second, 0, b.length),
 	}}}
 }
@@ -125,8 +125,8 @@ func (m *editorialMatcher) contrastMarker(sentence document.Sentence, index int)
 			if m.view.Exempts(sentence, i, end) {
 				continue
 			}
-			events = append(events, editorialEvent{index, index,
-				[]rule.Occurrence{tokenOccurrence(sentence, i, end)}})
+			events = append(events, editorialEvent{first: index, last: index,
+				occurrences: []rule.Occurrence{tokenOccurrence(sentence, i, end)}})
 		}
 	}
 	return events, nil
@@ -188,7 +188,7 @@ func whetherEvents(m *editorialMatcher, sentences []document.Sentence, i int) ([
 		or = or || token.Normal == "or"
 		if token.Normal == "," {
 			if or && !m.view.Exempts(sentence, 0, end+1) {
-				return []editorialEvent{{i, i, []rule.Occurrence{tokenOccurrence(sentence, 0, end+1)}}}, nil
+				return []editorialEvent{{first: i, last: i, occurrences: []rule.Occurrence{tokenOccurrence(sentence, 0, end+1)}}}, nil
 			}
 			break
 		}
@@ -214,7 +214,7 @@ func questionEvents(m *editorialMatcher, sentences []document.Sentence, i int) (
 	if match.end != len(first.Tokens) || m.view.Exempts(answer, 0, len(answer.Tokens)) {
 		return nil, nil
 	}
-	return []editorialEvent{{i, i + 1, []rule.Occurrence{
+	return []editorialEvent{{first: i, last: i + 1, occurrences: []rule.Occurrence{
 		tokenOccurrence(first, match.start, match.end), sentenceOccurrence(answer),
 	}}}, nil
 }
@@ -245,7 +245,7 @@ func triadEvents(m *editorialMatcher, sentences []document.Sentence, index int) 
 			for _, at := range indices {
 				occurrence.Spans = append(occurrence.Spans, sentence.Tokens[at].Spans...)
 			}
-			events = append(events, editorialEvent{index, index, []rule.Occurrence{occurrence}})
+			events = append(events, editorialEvent{first: index, last: index, occurrences: []rule.Occurrence{occurrence}})
 		}
 		i = end - 1
 	}

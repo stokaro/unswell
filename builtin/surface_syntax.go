@@ -228,7 +228,7 @@ func passiveEvents(m *editorialMatcher, sentences []document.Sentence, index int
 	if len(occurrences) == 0 {
 		return nil, nil
 	}
-	return []editorialEvent{{index, index, occurrences}}, nil
+	return []editorialEvent{{first: index, last: index, occurrences: occurrences}}, nil
 }
 
 func passiveEnd(sentence document.Sentence, start int) int {
