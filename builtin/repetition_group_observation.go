@@ -30,7 +30,8 @@ func (o repetitionGroupObservation) reason(block document.Block) string {
 	}
 }
 
-func addExactBlock(ctx context.Context, view rule.View, block document.Block, groups map[string][]rule.Occurrence, scope int) error {
+func addExactBlock(ctx context.Context, view rule.View, block document.Block,
+	groups map[string][]rule.Occurrence, scope int, budget *repetitionBudget) error {
 	observation := repetitionGroupObservation{}
 	for _, sentence := range block.Sentences {
 		if err := ctx.Err(); err != nil {
@@ -40,7 +41,10 @@ func addExactBlock(ctx context.Context, view rule.View, block document.Block, gr
 			continue
 		}
 		observation.minimumReached = true
-		key := sentenceKey(sentence)
+		key, err := exactSentenceKey(view, sentence, budget)
+		if err != nil {
+			return err
+		}
 		if key != "" {
 			key = fmt.Sprintf("%d/%s", scope, key)
 			groups[key] = append(groups[key], sentenceOccurrence(sentence))

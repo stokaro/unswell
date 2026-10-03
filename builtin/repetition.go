@@ -14,21 +14,7 @@ import (
 )
 
 func repetitionRules() []rule.Rule {
-	exact := descriptor(
-		"repetition.exact-sentence",
-		"This sentence is repeated; consider whether every occurrence is needed.",
-		"repetition",
-		"document",
-		30,
-	)
-	exact.Defaults.Parameters = rule.Parameters{MinWords: 12, Window: "document"}
-	exact.Version = "2"
-	exact.RequiresStructure = true
-	exact.Description = "Compares sentences within one structural section, with separate table-cell and leading-condition scopes."
-	exact.BlockObservations = true
-	exact.Parameters = []string{"min_words", "window"}
 	sample := "The client opens a connection to the server and sends the request with its credentials."
-	exact.Examples = []rule.Example{{Text: sample + " " + sample, Match: true}, {Text: sample, Match: false}}
 	near := descriptor(
 		"repetition.near-sentence",
 		"These sentences have high lexical overlap; check for repeated information.",
@@ -105,7 +91,7 @@ func repetitionRules() []rule.Rule {
 		{Text: "Measured on PostgreSQL 18.6.\n\nMeasured on PostgreSQL 18.7.\n\nMeasured on PostgreSQL 18.8.", Match: false},
 	}
 	return []rule.Rule{
-		check{exact, exactRepetition},
+		exactRepetitionRule(sample),
 		duplicateListRule(),
 		check{near, nearRepetition},
 		check{sentence, sentenceOpeners},
@@ -119,11 +105,12 @@ func exactRepetition(ctx context.Context, view rule.View, emit rule.Emitter) err
 		return err
 	}
 	groups := make(map[string][]rule.Occurrence)
+	budget := repetitionBudget{ctx, view.MaxCandidates}
 	for _, block := range view.Document.Blocks {
 		if err := ctx.Err(); err != nil {
 			return err
 		}
-		if err := addExactBlock(ctx, view, block, groups, scopes[block.ID]); err != nil {
+		if err := addExactBlock(ctx, view, block, groups, scopes[block.ID], &budget); err != nil {
 			return err
 		}
 	}

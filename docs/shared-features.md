@@ -333,7 +333,7 @@ Three repetition rules report the eligibility of their existing grouping keys:
 
 | Rule | Eligible input |
 | --- | --- |
-| `repetition.exact-sentence` | A sentence meeting `min_words` with a nonempty exact key. Any protected token invalidates that sentence's key. Structural section, table-cell and leading-condition scopes bound grouping. |
+| `repetition.exact-sentence` | A sentence meeting `min_words` with a nonempty exact key. As of version `3`, protected operands retain literal source identities without contributing prose words. Code-only input remains ineligible. Structural section, table-cell and leading-condition scopes bound grouping. |
 | `repetition.sentence-openers` | A sentence in a paragraph meeting `min_words` with at least `opener_words` normalized words. |
 | `repetition.paragraph-openers` | As of rule version `3`, the paragraph meets `min_words` and its first sentence has at least `opener_words` normalized words. Later sentences count toward the paragraph minimum but never supply its opening key. |
 
