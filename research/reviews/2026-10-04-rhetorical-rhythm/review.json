@@ -1,0 +1,124 @@
+{
+  "reviewer": "Codex assistant under maintainer acceptance in ADR 0041",
+  "denominator_note": "Four new findings in two exposed sources. This is a small, correlated descriptive sample, not an 85% population-precision qualification. All original uncertain/rejected judgments remain frozen.",
+  "added": [
+    {
+      "rule": "filler.document-metadiscourse",
+      "path": "inputs/whole/p025.md",
+      "span": {
+        "start": 669,
+        "end": 742
+      },
+      "quote": "this page is the map of\nwhat Ptah manages on it beyond portable table DDL",
+      "disposition": "accepted",
+      "review_role": "Codex assistant under ADR 0041; wording review, not authorship classification",
+      "full_section_reviewed": {
+        "title": "Introduction",
+        "start": 0,
+        "end": 1062
+      },
+      "rationale": "The page calls itself a metaphorical map while naming its scope. Directly naming that scope is an optional wording revision; the navigation is not false or necessarily useless.",
+      "suggestion_safety": {
+        "status": "safe with stated preservation requirements",
+        "rationale": "Use a direct introduction to PostgreSQL capabilities beyond portable table DDL; retain the lifecycle, annotation link, and live-URL requirement."
+      }
+    },
+    {
+      "rule": "filler.evaluative-closure",
+      "path": "inputs/confirmation/c02.mdx",
+      "span": {
+        "start": 1285,
+        "end": 1332
+      },
+      "quote": "what it covers is measured rather than asserted",
+      "disposition": "accepted",
+      "review_role": "Codex assistant under ADR 0041; wording review, not authorship classification",
+      "full_section_reviewed": {
+        "title": "Document introduction",
+        "start": 0,
+        "end": 1705
+      },
+      "rationale": "The verification/assertion contrast evaluates the coverage immediately before the feature-matrix link. State that the matrix records checks while preserving that executed open-source commands and merely described paid features have different evidence.",
+      "suggestion_safety": {
+        "status": "safe with stated preservation requirements",
+        "rationale": "Keep the matrix link, command and platform scope, and measured-versus-described distinction; shorten the evaluation of the presentation."
+      }
+    },
+    {
+      "rule": "filler.evaluative-closure",
+      "path": "inputs/whole/p025.md",
+      "span": {
+        "start": 4709,
+        "end": 4757
+      },
+      "quote": "That is a boundary rather than a missing feature",
+      "disposition": "accepted",
+      "review_role": "Codex assistant under ADR 0041; wording review, not authorship classification",
+      "full_section_reviewed": {
+        "title": "Materialized view refresh",
+        "start": 4491,
+        "end": 6003
+      },
+      "rationale": "The anaphoric boundary-versus-missing-feature judgment recasts the preceding refresh limitation. The section already explains the distinction between schema state and an operator-run data operation.",
+      "suggestion_safety": {
+        "status": "safe with stated preservation requirements",
+        "rationale": "Keep the refusal, schema/data-operation distinction, population behavior, PostgreSQL version, unique-index requirement, and ClickHouse exception. Replace the judgment with the actual scope or omit only its rhetorical aside."
+      }
+    },
+    {
+      "rule": "filler.evaluative-closure",
+      "path": "inputs/whole/p025.md",
+      "span": {
+        "start": 43693,
+        "end": 43733
+      },
+      "quote": "Offline, the declaration is the evidence",
+      "disposition": "accepted",
+      "review_role": "Codex assistant under ADR 0041; wording review, not authorship classification",
+      "full_section_reviewed": {
+        "title": "TimescaleDB, including hypertables and connection capability",
+        "start": 34862,
+        "end": 44489
+      },
+      "rationale": "The bare identity makes the declaration into evidence without specifying what it establishes. The adjacent paragraph supplies the offline rendering rule and its limits.",
+      "suggestion_safety": {
+        "status": "safe with stated preservation requirements",
+        "rationale": "Explain that offline rendering derives TimescaleDB support from the declared extension. Preserve declaration versus live observation, install ordering, no-extension skip, same-plan connection timing, and frontend limits."
+      }
+    }
+  ],
+  "changed": [
+    {
+      "path": "inputs/whole/p002.md",
+      "span": {
+        "start": 42770,
+        "end": 42806
+      },
+      "quote": "that is measured\nrather than assumed",
+      "frozen_label_id": "rule/45681c756152a2a7",
+      "original_status": "accepted",
+      "original_label_unchanged": true,
+      "full_section_reviewed": {
+        "title": "Structural validation and ignored names",
+        "start": 40172,
+        "end": 49403
+      },
+      "rationale": "The same existing criticism now requests the check and result explicitly; retain decoder conditions, examples, measurements, warnings, and exit behavior."
+    }
+  ],
+  "newly_addressed_original_events": [
+    {
+      "id": "whole/p025-d01",
+      "path": "whole/p025.md",
+      "category": "empty_framing",
+      "semantic_rationale": "The diagnosis addresses the entire abstract boundary/missing-feature judgment and preserves the concrete refresh limitation. The omitted final period changes no meaning."
+    },
+    {
+      "id": "confirmation/c02-r03",
+      "path": "confirmation/c02.mdx",
+      "category": "empty_framing",
+      "semantic_rationale": "The diagnosis addresses the entire coverage-verification judgment, with preservation of actual checks and the measured/described distinction. The trailing colon belongs to the matrix introduction."
+    }
+  ],
+  "scope_note": "These two source-bound matches are individually adjudicated. They do not recompute or qualify full-event recall on all 123 events."
+}

@@ -57,6 +57,9 @@ func evaluativeClosure(clauses []frameClause, index int) (rhetoricalFrame, bool)
 	if len(c.sentence.Tokens) > 96 || question(c.sentence) {
 		return rhetoricalFrame{}, false
 	}
+	if frame, ok := abstractInformationFrame(c); ok {
+		return frame, true
+	}
 	for i := range c.tokens() {
 		candidate, ok := localRhetoricCandidate(c, i)
 		if !ok || !embeddedClauseStart(c.tokens(), i) {
@@ -70,6 +73,9 @@ func evaluativeClosure(clauses []frameClause, index int) (rhetoricalFrame, bool)
 }
 
 func evaluationCandidateFrame(c, candidate frameClause, start int) (rhetoricalFrame, bool) {
+	if frame, found := specificEvaluationFrame(candidate); found {
+		return frame, true
+	}
 	if rhetoricAttributed(candidate) || rhetoricQuoteOpen(candidate) {
 		return rhetoricalFrame{}, false
 	}
@@ -82,6 +88,17 @@ func evaluationCandidateFrame(c, candidate frameClause, start int) (rhetoricalFr
 	if scopedInformationNotice(c, start) {
 		return localFrame(candidate, 0)
 	}
+	return evaluationTailFrame(candidate)
+}
+
+func specificEvaluationFrame(candidate frameClause) (rhetoricalFrame, bool) {
+	if frame, found := evidencePosture(candidate); found {
+		return frame, true
+	}
+	return abstractRecastFrame(candidate)
+}
+
+func evaluationTailFrame(candidate frameClause) (rhetoricalFrame, bool) {
 	if end := evaluationEnd(candidate.tokens()); end > 0 {
 		candidate.end = candidate.start + end
 		return localFrame(candidate, 0)

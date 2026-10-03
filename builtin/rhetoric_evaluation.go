@@ -42,7 +42,7 @@ func evaluationComplementEnd(tokens []document.Token, anaphoric bool) int {
 }
 
 func anaphoricEvaluationEnd(tokens []document.Token) int {
-	if bareVerification(tokens) || bareWorth(tokens) || bareQuestion(tokens) || bareWorthSeeing(tokens) {
+	if bareWorth(tokens) || bareQuestion(tokens) || bareWorthSeeing(tokens) {
 		return len(tokens)
 	}
 	if len(tokens) > 4 && bareWorth(tokens[:4]) && frameWord(tokens[4], "because") {
@@ -59,11 +59,6 @@ func bareQuestion(tokens []document.Token) bool {
 func bareWorthSeeing(tokens []document.Token) bool {
 	return len(tokens) == 3 && frameWord(tokens[0], "worth") && frameWord(tokens[1], "seeing", "noting", "asking") &&
 		frameWord(tokens[2], "which", "why", "how")
-}
-
-func bareVerification(tokens []document.Token) bool {
-	return len(tokens) == 4 && frameWord(tokens[0], "measured", "verified", "tested", "proved", "proven") &&
-		frameWord(tokens[1], "rather") && frameWord(tokens[2], "than") && frameWord(tokens[3], "assumed", "asserted")
 }
 
 func bareWorth(tokens []document.Token) bool {

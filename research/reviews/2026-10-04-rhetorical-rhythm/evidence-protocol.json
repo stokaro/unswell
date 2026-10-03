@@ -1,0 +1,28 @@
+{
+  "registered_at": "2026-10-03T22:15:12.444728+00:00",
+  "hypothesis": "Bind an affirmative passive verification-versus-assumption contrast to an explicit discourse/anaphoric subject. Report the complete commentary clause, without treating measured as automatic evidence that the surrounding writing is necessary. Preserve actual measurements, concrete objects, methods, attribution, quotations, conditions, technical operands, and all original spans. This operator relation is distinct from counting contrast markers.",
+  "base_commit": "ee1f88695fa4679b4727a180380cd2ba589e5c8e",
+  "rule": "filler.evaluative-closure",
+  "original_scope": {
+    "pages": 36,
+    "units": 4549,
+    "criticism_judgments": 804,
+    "reference_events": 123
+  },
+  "baseline": "development/repetition-measurement-validated",
+  "measurements": [
+    "technical",
+    "strict"
+  ],
+  "selection": "Review every actual added or changed criticism against its full source section under ADR 0041. Retain uncertain and rejected criticisms. If added criticism quality fails 85 percent or preservation is unsafe, do not promote this operator. Check retained baseline results and assessments. Do not claim broad acceptance from the added-only fraction.",
+  "goal_targets": {
+    "full_event_recall_per_original_cohort": 0.8,
+    "accepted_delivered_criticisms_per_original_cohort": 0.85,
+    "prospective_confirmation_required": true
+  },
+  "frozen_labels_unchanged": true,
+  "prospective_sources_read": false,
+  "external_model_calls": 0,
+  "gate_threshold_changes": false,
+  "native_rule_runtime": "Existing pure Go engine, extraction, NLP, and source coordinates; no model/API/process dependencies."
+}
