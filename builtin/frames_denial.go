@@ -24,7 +24,7 @@ func denialFrames(clauses []frameClause, i int) (rhetoricalFrame, bool) {
 	left, lok := parseCopularClause(a.tokens())
 	right, rok := parseCopularClause(b.tokens())
 	if !lok || !rok || !denialRedefines(left, right) {
-		return rhetoricalFrame{}, false
+		return actionReframing(a, b)
 	}
 	return rhetoricalFrame{parts: []frameClause{a, b}}, true
 }

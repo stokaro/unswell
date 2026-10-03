@@ -30,6 +30,16 @@ func rhetoricQuoted(c frameClause) bool {
 	return rhetoricQuoteOpen(c) || quotedClaim(c.tokens())
 }
 
+// A preceding condition can qualify an embedded candidate in the same sentence.
+func rhetoricCondition(c frameClause) bool {
+	for _, token := range c.sentence.Tokens[:c.end] {
+		if frameWord(token, "if", "when", "unless", "whenever", "except", "without", "because") {
+			return true
+		}
+	}
+	return false
+}
+
 func evaluationScoped(c frameClause) bool {
 	if rhetoricAttributed(c) {
 		return true

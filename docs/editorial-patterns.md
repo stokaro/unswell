@@ -50,8 +50,8 @@ Existing [terminology exemptions](configuration.md) and reasoned
 | `filler.weak-intensifiers` | Dictionary adverbs directly before an adjective/adverb | Matches per 100 prose words; minimum 20 words, onset 4, saturation 12 |
 | `filler.stacked-hedging` | Distinct dictionary modal/adverb cues within one clause | Cue count; onset 2, saturation 5 |
 | `syntax.paired-contrast-density` | `rather than`, `instead of`, `X, not Y`, and adjacent negative/positive about-sentence pairs | Pattern count in 8 sentences; allow 1, saturate at 4; zero score |
-| `syntax.repeated-reframing` | Adjacent nominal denial/redefinition clauses with linked subjects; both clauses are evidence | Pair count in 8 sentences; allow 1, saturate at 4; zero score |
-| `filler.document-metadiscourse` | Document subject plus communicative verb, or an in-document first-person announcement | Clause count in 8 sentences; allow 0, saturate at 4; zero score |
+| `syntax.repeated-reframing` | Adjacent nominal denial/redefinition or negative/positive action clauses with linked subjects; both clauses are evidence | Pair count in 8 sentences; allow 1, saturate at 4; zero score |
+| `filler.document-metadiscourse` | Document subject plus communicative verb, an in-document first-person announcement, or a map-of-a-topic self-description | Clause count in 8 sentences; allow 0, saturate at 4; zero score |
 | `syntax.triad-density` | Three comma/conjunction-linked evaluative dictionary words, at least two tagged adjectives | Triad count in 8 sentences; allow 1, saturate at 4 |
 | `syntax.whether-preface-density` | A whether-you-are opening with `or` before a comma in the first 32 tokens | Preface count in 8 sentences; allow 1, saturate at 4 |
 | `syntax.rhetorical-question-density` | A complete configured question followed by a short prose answer in the same block | Pair count in 8 sentences; allow 1, saturate at 4; at most 12 answer words |
@@ -68,6 +68,43 @@ Matches are case-folded with the existing English tokenizer and typographic
 apostrophe normalization. Configured phrase lists replace the defaults. Fixed
 rhetorical templates and lexical/POS roles are documented in `rules show ID`;
 these rules have no dependency-parser requirement or hidden model lookup.
+
+`filler.evaluative-closure` version 11 also recognizes evidence commentary:
+an explicit discourse or anaphoric subject contrasting verification with
+assertion, such as "what it covers is measured rather than asserted." Its
+diagnostic asks for the check and result directly. It does not dispute the
+measurement or advise removing its method, conditions, links, or results.
+Concrete quantities, actors performing a check, explicit methods, conditional
+claims, quotations, and protected construction words remain excluded. This is
+a bounded wording rule, not a test of whether the cited evidence is adequate.
+A bare `it` needs an explicit information antecedent in the same sentence;
+a numeric quantity or concrete entity does not establish that relation.
+
+Version 11 also distinguishes two abstract constructions: an information subject
+equated with a bare value ("Offline, the declaration is the evidence") and an
+anaphoric recasting judgment ("That is a boundary rather than a missing feature").
+Each has its own explanation. The offline/online prefix remains in the evidence;
+the suggestion preserves conditions and concrete behavior. A qualified relation
+such as "the declaration is evidence for the selected model" does not match.
+Conditions before or after an anaphoric contrast keep it outside that construction.
+Neither construction establishes that a factual claim is wrong.
+
+`syntax.repeated-reframing` version 2 also connects a do-supported negative action
+to a finite positive action with a repeated subject or an adjacent anaphoric
+pronoun. "PostgreSQL does not keep the declaration. It stores the parsed form"
+is one pair and remains below the default allowance. Two nearby pairs expose
+the repeated movement for review. Periods and semicolons can separate the clauses;
+a semicolon itself supplies no evidence. Action pairs exclude quotations and
+attribution. The pinned tagger can mislabel an s-ending predicate as a plural noun;
+a singular pronoun followed by that predicate and a determiner-led object supplies
+a bounded surface alternative. This is not dependency parsing or a redundancy test.
+
+`filler.document-metadiscourse` version 3 recognizes an embedded "this page is the
+map of what ..." introduction and keeps the complete topic clause. Literal maps
+of a place or address space remain controls. These two observational rules retain
+zero score and no gate: the writing pattern can be present in a useful explanation.
+The [rhetorical rhythm CLI fixture](../e2e/testdata/rhetorical_rhythm) checks the
+constructions, technical counterexamples, and source coordinates in JSON and SARIF.
 
 ## Context and limits
 

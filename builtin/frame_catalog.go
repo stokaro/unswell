@@ -9,8 +9,12 @@ func frameRules() []rule.Rule {
 	reframe := frameDescriptor("syntax.repeated-reframing", "denial-redefinition",
 		"Repeated denial and redefinition: review whether both clauses add information.")
 	reframe.Requires = append(reframe.Requires, nlp.POS)
+	reframe.Version = "2"
 	reframe.Defaults.Parameters.AllowedOccurrences = 1
-	reframe.Description = "Groups adjacent copular denial/redefinition clauses with a repeated subject or anaphoric pronoun. " +
+	reframe.Description = "Groups adjacent copular denial/redefinition clauses, " +
+		"or a do-supported negative action followed by a finite positive action, " +
+		"with a repeated subject or anaphoric pronoun. Action pairs exclude attributed and quoted claims. " +
+		"A singular pronoun and determiner-led object can resolve a plural-noun tag on an s-ending finite predicate. " +
 		"Each pair stays in one block; repetition is counted within eight sentences of uninterrupted prose."
 	reframe.Examples = []rule.Example{
 		{Text: "Backups are not a checkbox. They are your last defense. Testing is not a phase. It is a commitment.", Match: true},
@@ -18,9 +22,11 @@ func frameRules() []rule.Rule {
 	}
 	meta := frameDescriptor("filler.document-metadiscourse", "document-metadiscourse",
 		"Document self-description: check whether this announcement or navigation helps the reader.")
-	meta.Version = "2"
+	meta.Version = "3"
 	meta.Description = "Recognizes document subjects followed by communicative verbs, and 'in this document, we' announcements. " +
 		"Also recognizes bare invitations to see an anaphoric referent in action; named objects and conditions stay excluded. " +
+		"Embedded document subjects identifying themselves as a map of a relative topic receive a self-description explanation; " +
+		"literal maps remain excluded. " +
 		"Groups their complete clauses within eight sentences of uninterrupted prose; one clause is sufficient."
 	meta.Examples = []rule.Example{
 		{Text: "This page defines all four roles; other pages link here instead of redefining them.", Match: true},

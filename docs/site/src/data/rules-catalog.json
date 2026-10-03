@@ -79,7 +79,7 @@
         },
         {
           "id": "filler.document-metadiscourse",
-          "version": "2",
+          "version": "3",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "document",
@@ -94,7 +94,7 @@
           "weight": 0,
           "cap": 0,
           "summary": "Document self-description: check whether this announcement or navigation helps the reader.",
-          "description": "Recognizes document subjects followed by communicative verbs, and 'in this document, we' announcements. Also recognizes bare invitations to see an anaphoric referent in action; named objects and conditions stay excluded. Groups their complete clauses within eight sentences of uninterrupted prose; one clause is sufficient.",
+          "description": "Recognizes document subjects followed by communicative verbs, and 'in this document, we' announcements. Also recognizes bare invitations to see an anaphoric referent in action; named objects and conditions stay excluded. Embedded document subjects identifying themselves as a map of a relative topic receive a self-description explanation; literal maps remain excluded. Groups their complete clauses within eight sentences of uninterrupted prose; one clause is sufficient.",
           "limitations": "The document-metadiscourse frame is a bounded token/POS heuristic, not a dependency or semantic parse. Clauses are limited to 48 tokens and subjects to eight. Protected text is opaque, never a lexical cue. Recognition does not establish redundancy, authorship, or a need for revision. Technical definitions and useful navigation can match; defaults carry no score or gate. Precision is unqualified."
         },
         {
@@ -120,7 +120,7 @@
         },
         {
           "id": "filler.evaluative-closure",
-          "version": "10",
+          "version": "11",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -136,7 +136,7 @@
           "weight": 12,
           "cap": 24,
           "summary": "This clause announces information or endorses a result; state the information directly.",
-          "description": "An anaphoric purpose tail ('which is the point of doing it', 'which is what doing it is for'), a bare whole-point/design declaration, an anaphoric assertion of value or verification, an information subject announcing cognitive worth, abstract feature-purpose or intentionality closures, output claiming to prove understanding, or an impersonal modal notice followed by a that-clause. Also recognizes cognitive notices modifying information nouns, gerund-anaphor purpose clefts, relative feature-purpose predicates and discourse subjects declaring importance or editorial integrity. Information judgments may join adjacent evaluative predicates and retain a quoted noun-phrase subject. Discourse subjects admit selecting importance and attention predicates; author notices and document-outcome endorsements qualify. Document endorsements admit helped/helps with a reader object or a bare/to-infinitive action. Gerund action subjects can close with abstract functional clefts. Bare noun/counts compounds remain excluded. Attribution is scoped through the candidate clause; later operational reporting does not erase a preceding judgment. Concrete component purposes and measured evaluations stay excluded; notice and cognitive-worth frames retain their attached conditions. Reports complete matched clauses, once per clause.",
+          "description": "An anaphoric purpose tail ('which is the point of doing it', 'which is what doing it is for'), a bare whole-point/design declaration, an anaphoric assertion of value or verification, an information subject announcing cognitive worth, abstract feature-purpose or intentionality closures, output claiming to prove understanding, or an impersonal modal notice followed by a that-clause. Also recognizes cognitive notices modifying information nouns, gerund-anaphor purpose clefts, relative feature-purpose predicates and discourse subjects declaring importance or editorial integrity. Information judgments may join adjacent evaluative predicates and retain a quoted noun-phrase subject. Discourse subjects admit selecting importance and attention predicates; author notices and document-outcome endorsements qualify. Document endorsements admit helped/helps with a reader object or a bare/to-infinitive action. Gerund action subjects can close with abstract functional clefts. Bare noun/counts compounds remain excluded. Discourse subjects contrasting verification with assertion receive a local evidence-commentary explanation; a bare it requires an information antecedent in its sentence. Concrete quantities, checking actors and explicit methods remain excluded from that construction. Bare information-subject/abstract-value identities retain their written offline/online prefix. Anaphoric abstract recasting contrasts receive a constraint-focused explanation; concrete alternatives and conditions before or after the candidate remain excluded. Attribution is scoped through the candidate clause; later operational reporting does not erase a preceding judgment. Concrete component purposes and measured evaluations stay excluded; notice and cognitive-worth frames retain their attached conditions. Reports complete matched clauses, once per clause.",
           "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
         },
         {
@@ -1162,7 +1162,7 @@
         },
         {
           "id": "syntax.repeated-reframing",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "document",
@@ -1177,7 +1177,7 @@
           "weight": 0,
           "cap": 0,
           "summary": "Repeated denial and redefinition: review whether both clauses add information.",
-          "description": "Groups adjacent copular denial/redefinition clauses with a repeated subject or anaphoric pronoun. Each pair stays in one block; repetition is counted within eight sentences of uninterrupted prose.",
+          "description": "Groups adjacent copular denial/redefinition clauses, or a do-supported negative action followed by a finite positive action, with a repeated subject or anaphoric pronoun. Action pairs exclude attributed and quoted claims. A singular pronoun and determiner-led object can resolve a plural-noun tag on an s-ending finite predicate. Each pair stays in one block; repetition is counted within eight sentences of uninterrupted prose.",
           "limitations": "The denial-redefinition frame is a bounded token/POS heuristic, not a dependency or semantic parse. Clauses are limited to 48 tokens and subjects to eight. Protected text is opaque, never a lexical cue. Recognition does not establish redundancy, authorship, or a need for revision. Technical definitions and useful navigation can match; defaults carry no score or gate. Precision is unqualified."
         },
         {
