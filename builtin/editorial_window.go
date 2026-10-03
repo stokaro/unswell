@@ -11,6 +11,11 @@ import (
 type editorialEvent struct {
 	first, last int
 	occurrences []rule.Occurrence
+	explanation editorialExplanation
+}
+
+type editorialExplanation struct {
+	message, suggestion string
 }
 
 type eventFinder func(*editorialMatcher, []document.Sentence, int) ([]editorialEvent, error)
@@ -132,12 +137,26 @@ func emitWindows(ctx context.Context, p rule.Parameters, metric string, events [
 			occurrences = append(occurrences, event.occurrences...)
 		}
 		evidence := measured("heuristic", metric, "patterns", end-start, p.AllowedOccurrences, p.SaturationOccurrences, occurrences)
+		explanation := commonExplanation(events[start:end])
+		evidence.Message, evidence.Suggestion = explanation.message, explanation.suggestion
 		if err := emit.Emit(evidence); err != nil {
 			return err
 		}
 		start = end
 	}
 	return nil
+}
+
+// A grouped finding uses a specific explanation only when every contributing
+// event supports it. Mixed constructions retain the rule's general diagnostic.
+func commonExplanation(events []editorialEvent) editorialExplanation {
+	explanation := events[0].explanation
+	for _, event := range events[1:] {
+		if event.explanation != explanation {
+			return editorialExplanation{}
+		}
+	}
+	return explanation
 }
 
 func phraseEvents(opening bool) eventFinder {
@@ -148,8 +167,8 @@ func phraseEvents(opening bool) eventFinder {
 		}
 		var events []editorialEvent
 		for _, match := range matches {
-			events = append(events, editorialEvent{index, index,
-				[]rule.Occurrence{tokenOccurrence(sentences[index], match.start, match.end)}})
+			events = append(events, editorialEvent{first: index, last: index,
+				occurrences: []rule.Occurrence{tokenOccurrence(sentences[index], match.start, match.end)}})
 		}
 		return events, nil
 	}

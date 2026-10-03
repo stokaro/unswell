@@ -12,10 +12,28 @@ func verificationAssurance(c frameClause) (rhetoricalFrame, bool) {
 	}
 	for i := range c.tokens() {
 		if verificationStart(c.tokens(), i) && verificationClaim(c.tokens()[i:]) {
-			return localFrame(c, i)
+			frame, ok := localFrame(c, i)
+			frame.explanation = verificationExplanation(c.tokens()[i:])
+			return frame, ok
 		}
 	}
 	return rhetoricalFrame{}, false
+}
+
+func verificationExplanation(tokens []document.Token) editorialExplanation {
+	if unrestrictedTrust(tokens) {
+		return editorialExplanation{
+			message: "This wording makes an unrestricted trust assurance; state the assumptions and limits of verification.",
+			suggestion: "Name the assumptions and the checks that support the assurance. " +
+				"Preserve their conditions, limitations and measured results; do not turn a local check into a universal claim.",
+		}
+	}
+	return editorialExplanation{
+		message: "Test or review evidence is presented as a quality guarantee; distinguish what it establishes from the broader claim.",
+		suggestion: "Keep the checks, links and measured results. State the tested behaviors and limits. " +
+			"Qualify the guarantee and descriptions such as rigorous, extensive or comprehensive with concrete criteria; " +
+			"passing checks alone does not establish unrestricted reliability, security, safety, correctness or quality.",
+	}
 }
 
 func verificationStart(tokens []document.Token, i int) bool {

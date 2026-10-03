@@ -16,7 +16,8 @@ type frameClause struct {
 }
 
 type rhetoricalFrame struct {
-	parts []frameClause
+	parts       []frameClause
+	explanation editorialExplanation
 }
 
 type frameFinder func([]frameClause, int) (rhetoricalFrame, bool)
@@ -62,7 +63,8 @@ func evaluateFrames(m *editorialMatcher, run []document.Sentence, find frameFind
 		if !ok || frameExempt(m.view, frame) {
 			continue
 		}
-		event := editorialEvent{first: frame.parts[0].ordinal, last: frame.parts[len(frame.parts)-1].ordinal}
+		event := editorialEvent{first: frame.parts[0].ordinal, last: frame.parts[len(frame.parts)-1].ordinal,
+			explanation: frame.explanation}
 		for _, part := range frame.parts {
 			event.occurrences = append(event.occurrences, frameOccurrence(part))
 		}

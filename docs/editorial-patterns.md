@@ -182,6 +182,22 @@ and a gate are separate from construction recognition. Defaults deliberately
 expose the constructions without assigning editorial risk points or forbidding
 technical explanations. Projects can configure a stricter local policy.
 
+## Verification assurances
+
+`filler.unscoped-assurance` distinguishes claims that tests or reviews guarantee
+quality from assertions that nothing relies on trust. The diagnostic and editing
+advice describe the recognized construction. A link to tests can support a claim
+without establishing an unrestricted guarantee; keep the link, tested behaviors,
+conditions and measured results when revising the wording. A concrete statement
+such as "These tests verify that the parser rejects missing fields" does not
+match this construction.
+
+Several occurrences in one window receive specific advice only when they all
+support the same explanation. A group containing different assurances retains
+the general diagnostic. This changes the explanation, not the matching conditions,
+occurrence counts, source ranges, allowances or scoring weights. It does not
+establish broader editorial recall or attribute authorship.
+
 ## Layered instruction wording
 
 `filler.instruction-scaffolding` version 4 follows bounded support predicates to
