@@ -36,7 +36,7 @@ func TestRepetitionGroupActivationsDistinguishMissingFromZero(t *testing.T) {
 		{"repetition.exact-sentence", "The client starts.", "", "insufficient_words"},
 		{"repetition.exact-sentence", "The client waits. The server starts. The client reads. The server stops.", "", "insufficient_words"},
 		{"repetition.exact-sentence", "The client opens a connection to the server and sends the request with `credentials`.",
-			"", "no_eligible_tokens"},
+			"", ""},
 		{"repetition.exact-sentence", "`code`.", "{min_words: 0}", "no_eligible_tokens"},
 		{"repetition.exact-sentence", ".", "{min_words: 0}", ""},
 		{"repetition.exact-sentence", "# " + prose, "", ""},

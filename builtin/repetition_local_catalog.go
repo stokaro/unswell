@@ -39,7 +39,7 @@ func localRepetitionRules() []rule.Rule {
 		"A contribution section can connect an explicit add instruction and map-rendering statement to that source."
 	claim.Limitations += " Requires a surface finite-verb cue; it does not resolve pronouns or prove general semantic equivalence. " +
 		"Questions, quoted text, lists, cells, arbitrary code, and claims over 64 tokens are excluded. " +
-		"Full unprotected sentences of twelve or more words remain with repetition.exact-sentence. " +
+		"Full sentences meeting the default twelve-prose-word minimum remain with repetition.exact-sentence. " +
 		"A relative-clause prefix must match a complete assertion, not another partial prefix. " +
 		"Restriction reformulations require That is or In other words, stay inside one block, and reject " +
 		"quantities, conditions, quotations, protected operands and unresolved scope or modality. " +

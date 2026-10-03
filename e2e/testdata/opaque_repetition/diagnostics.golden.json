@@ -1,0 +1,60 @@
+{
+  "status": "complete",
+  "complete": true,
+  "passed": true,
+  "no_gate": false,
+  "findings": [
+    {
+      "rule_id": "repetition.exact-sentence",
+      "severity": "warning",
+      "gate": "none",
+      "scope": "document",
+      "message": "This sentence is repeated; consider whether every occurrence is needed.",
+      "primary": {
+        "path": "guide.md",
+        "span": {
+          "start": 67,
+          "end": 244
+        },
+        "start": {
+          "line": 3,
+          "column": 43
+        },
+        "end": {
+          "line": 5,
+          "column": 45
+        },
+        "segments": [
+          {
+            "start": 67,
+            "end": 244
+          }
+        ]
+      },
+      "related": [
+        {
+          "path": "guide.md",
+          "span": {
+            "start": 321,
+            "end": 456
+          },
+          "start": {
+            "line": 7,
+            "column": 74
+          },
+          "end": {
+            "line": 9,
+            "column": 63
+          },
+          "segments": [
+            {
+              "start": 321,
+              "end": 456
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

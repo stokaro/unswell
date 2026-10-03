@@ -172,7 +172,7 @@ findings; its size and absence of quality labels prevent an accuracy conclusion.
 
 ## Comparison scope and short complete items
 
-The default exact-sentence (v2), near-sentence (v3), sentence-openers (v2), and
+The default exact-sentence (v3), near-sentence (v3), sentence-openers (v2), and
 paragraph-openers (v3) rules compare within one grammar-derived heading/container section. Repeated headings start new sections even when their titles match. Each
 table cell is independent: equal capability values in distinct provider rows are
 not redundant by themselves. Repeated sentences inside a cell remain eligible.
@@ -181,6 +181,16 @@ Source declarations without heading structure keep their existing document scope
 two differently named string constants remain eligible for comparison.
 Scope construction charges block visits and serialized context bytes against
 `analysis.max_candidates`; exhaustion produces an explicit rule abstention.
+
+Exact-sentence version `3` retains protected operands as opaque source identities.
+An inline identifier or URL no longer excludes the entire sentence from exact
+comparison. Those bytes are compared literally, including case, numbers, and
+significant whitespace. Their contents are never interpreted or counted as prose
+words. Different operands cannot form one exact group. Code-only input remains
+ineligible; protected fences and other excluded blocks remain outside analysis.
+The identity work shares a bounded budget across the document and can abstain
+without emitting a partial group.
+
 These enabled rules now require structural extraction. A model pack declaring
 preparation without structure is incompatible and must be rebuilt for that policy.
 
