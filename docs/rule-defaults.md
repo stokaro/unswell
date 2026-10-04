@@ -1,7 +1,7 @@
 # Which rules ship enabled
 
-The catalog holds 51 rules. Twenty-eight are on in the shipped profiles and 23 are
-opt-in. This page says how that split was chosen and what each opt-in rule was
+The catalog holds 57 rules. Thirty-three are enabled by their descriptors and 24
+are opt-in; strict additionally enables em-dash density. This page says how that split was chosen and what each opt-in rule was
 measured at. Every rule also carries its own reason: `unswell rules show ID`
 prints it, the rules page shows it, and a test fails if an opt-in rule has
 none.
@@ -112,17 +112,25 @@ default, for a project that does hit them.
 | `syntax.noun-stack` | 0.095 | 0.213 | Frozen H1: +2.96 points on development, +0.41 on confirmation, p 0.727 |
 | `syntax.passive-candidate-density` | 1.112 | 1.953 | Names candidates without a dependency parse |
 
-### Repeated contrasts: advisory by default
+### Repeated contrasts: opt-in surface measurement
 
 Version 1 of `syntax.paired-contrast-density` fired at 0.007 in human prose, not at all in
 the controlled arm, and at 0.161 on the documentation tree. One generator
 under one set of prompts produced that; the measurement says nothing about
 generated text in general. That matcher also discarded entire sentences containing
 inline code. Version 2 preserves their surrounding prose and adds `X, not Y` to its
-declared contrast frames. It ships in technical and strict as a note with zero
-weight, zero cap, and `gate: none`. One contrast remains below the allowance.
-The note exposes repetition without claiming redundant facts or established
-association with a generator. Minimal and custom leave it disabled.
+declared contrast frames. Version 3 retains that matcher and its allowance, but
+leaves it disabled in every builtin profile. Explicit configuration still enables
+it as a note with zero weight, zero cap, and `gate: none`.
+
+On the [36 complete exposed development pages](../research/reviews/2026-10-04-contrast-defaults/README.md),
+the unchanged frozen assistant judgments accept one of its 30 findings, reject
+27, and leave two uncertain. Ordinary technical alternatives dominate the review
+load. Frequency alone does not identify the wording to revise. Disabling the
+measurement also removes the one accepted finding; this is a precision decision,
+not a recall gain or product qualification. All original events and judgments
+remain in the research scope. Projects can request the measurement explicitly;
+the matcher, allowance, and gate thresholds are unchanged.
 
 ### Denial/redefinition and document self-description
 

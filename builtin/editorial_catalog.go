@@ -116,12 +116,11 @@ func editorialRhetoricRules() []rule.Rule {
 	question.Parameters = append(question.Parameters, "phrases", "max_answer_words")
 	question.Description = "Counts configured complete questions followed in the same block by a short nonquestion answer."
 	question.Limitations += " Arbitrary questions are not classified. Numeric/code answers are excluded; disable for FAQ paths."
-	// Repeated contrast markers are useful to inspect even when they express
-	// necessary technical distinctions. Expose the pattern without scoring it.
-	contrast.Defaults.Enabled = true
+	// Contrast frequency does not establish redundant information. Keep the
+	// surface measurement available to projects that explicitly request it.
 	contrast.Defaults.Severity = "note"
 	contrast.Defaults.Score = rule.Score{}
-	contrast.Version, triad.Version, whether.Version, question.Version = "2", "2", "2", "2"
+	contrast.Version, triad.Version, whether.Version, question.Version = "3", "2", "2", "2"
 	contrast.BlockObservations, triad.BlockObservations = true, true
 	whether.BlockObservations, question.BlockObservations = true, true
 	return []rule.Rule{

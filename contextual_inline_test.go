@@ -110,16 +110,18 @@ func TestContextualActivationsKeepCodeMentionInsideWindow(t *testing.T) {
 	assertPhraseMeasurements(t, result, []string{"", "inapplicable/no_eligible_window", ""}, []float64{0.333, 0.333})
 }
 
-func TestDefaultContrastsAreAdvisoryAndConfigurable(t *testing.T) {
-	// The two contrasts carry different facts. Their repeated form may be
-	// worth editing, but detecting it must not claim either fact is redundant.
+func TestContrastsRequireOptInAndRemainAdvisory(t *testing.T) {
+	// These contrasts carry distinct technical facts. Their frequency alone
+	// must not request revision unless the project asks for that measurement.
 	text := "TLS encrypts transport rather than stored files. Backups preserve snapshots rather than live transaction history."
 	for _, row := range []struct {
 		profile, extra string
 		want           int
 	}{
-		{"technical", "", 1}, {"strict", "", 1}, {"minimal", "", 0}, {"custom", "", 0},
-		{"technical", "rules:\n  syntax.paired-contrast-density: {enabled: false}\n", 0},
+		{"technical", "", 0}, {"strict", "", 0}, {"minimal", "", 0}, {"custom", "", 0},
+		{"business", "", 0}, {"reference", "", 0},
+		{"technical", "rules:\n  syntax.paired-contrast-density: {enabled: true}\n", 1},
+		{"strict", "rules:\n  syntax.paired-contrast-density: {enabled: true}\n", 1},
 	} {
 		t.Run(row.profile+row.extra, func(t *testing.T) {
 			c := qt.New(t)
