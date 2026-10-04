@@ -1,0 +1,14 @@
+{
+  "first_seal_accepted": false,
+  "reason": "The shared verifier excludes every nested freeze.json from its inventory; the generic seal helper included nested registrations.",
+  "failed_inventory_sha256": "ac10d3bbce0922ea3746920933624c90bf4634209bda8e83bc714bcef990d861",
+  "semantic_outcome_changed": false,
+  "model_calls_added": 0,
+  "registered_inputs_changed": false,
+  "nested_registration_freezes": {
+    "pre-call-revision-001-registration/freeze.json": "ebe45d496aa793999efe7bc576eb8dc9d5fd7c40757680839f978a0a725a8beb",
+    "registration/freeze.json": "dc5190070bdd69ea08a26cf04ff4a1c17db823c01892c9524c29fe0339c82592",
+    "transport-compatibility/freeze.json": "c9d7d2a7fe72220c951f97c9db5e26106af7e3ad274a2c6c992b20778db19d09"
+  },
+  "corrected_inventory_rule": "All regular files except those named freeze.json; nested registration identities remain bound by this record and the outcome hashes."
+}
