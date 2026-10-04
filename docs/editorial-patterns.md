@@ -2,12 +2,14 @@
 
 These rules target formulaic wording that can leak from AI drafts into code and
 documents. They examine the wording and its context, without attributing authorship.
-All these rules are experimental; ten are disabled in builtin profiles.
-`syntax.paired-contrast-density`, `syntax.repeated-reframing`, and
+All these rules are experimental; eleven are disabled in builtin profiles.
+`syntax.repeated-reframing` and
 `filler.document-metadiscourse` ship enabled in technical and strict as zero-score
-notes. It identifies repeated contrast frames for review; it does not
-assert that either alternative is unnecessary. The project enables the remaining
-rules for its own self-checks. Editorial precision and recall remain unmeasured.
+notes. `syntax.paired-contrast-density` stays opt-in because contrast frequency
+does not establish redundant information; its [default-policy review](rule-defaults.md#repeated-contrasts-opt-in-surface-measurement)
+records the rejected, uncertain, and accepted findings removed from the standard
+stream. The project enables the remaining rules for its own self-checks.
+Broad editorial precision and recall remain unqualified.
 
 Enable individual rules through the existing configuration:
 
@@ -33,7 +35,7 @@ overrides:
 `gate: none` remains the default for these rules. Their configured weights can
 contribute to local score gates. An explicit `gate: forbid` makes a rule a project
 policy prohibition; it does not establish universal editorial correctness.
-`hype.absolute-claim` and the three enabled construction rules have zero weight and cap
+`hype.absolute-claim`, the contrast measurement, and the two enabled construction rules have zero weight and cap
 by default and only request review.
 Existing [terminology exemptions](configuration.md) and reasoned
 [source suppressions](suppressions.md) apply before the corresponding counts or gate.
@@ -148,11 +150,13 @@ source order and uses the same structural/candidate boundaries, retaining its
 existing thresholds. Its evidence marks the actual contrast span and the unit is
 `patterns`, with at most one candidate per sentence. Baseline compatibility includes
 the rule version; changed behavior is not hidden behind an unchanged identity.
-The other windowed editorial rules and passive-candidate rule are version 2.
+The contrast measurement is version 3 after its default-policy change;
+its matcher is unchanged from version 2. The other windowed editorial rules
+and passive-candidate rule are version 2.
 Comma-not recognition excludes incomplete alternatives and selected additive or
 parenthetical idioms such as `not only`, `not surprisingly`, and `not to mention`.
-Two necessary technical contrasts can still produce a note. Retain their meaning
-when editing, or disable this advisory rule for the relevant path.
+When explicitly enabled, two necessary technical contrasts can still produce a
+note. Retain their meaning when reviewing that surface measurement.
 
 ## Evidence and qualification
 

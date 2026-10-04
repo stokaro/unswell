@@ -29,6 +29,10 @@ var optInReasons = map[string]string{
 		"words in the controlled arm against 0.711 in human prose, but it was frozen hypothesis H2 and returned " +
 		"+0.32 points on the confirmation partition at p 0.747. Length is not wording.",
 	"format.list-fragmentation": "Surface measurement of list shape. " + silentRule,
+	"syntax.paired-contrast-density": "Surface measurement of contrast frequency, not redundant information. " +
+		"On 36 complete exposed development pages, assistant review accepted one of 30 findings; " +
+		"27 were rejected and two uncertain. Necessary technical distinctions dominate its review load. " +
+		"The unchanged matcher remains available through explicit configuration.",
 
 	// Rules that produced nothing on any measured corpus. Each names a phrase
 	// family the measured generators do not write. They stay in the catalog
