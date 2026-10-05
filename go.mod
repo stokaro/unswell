@@ -5,7 +5,7 @@ go 1.26.0
 require (
 	github.com/frankban/quicktest v1.14.6
 	github.com/jdkato/prose/v3 v3.2.1
-	github.com/odvcencio/gotreesitter v0.55.0
+	github.com/odvcencio/gotreesitter v0.55.1
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.3
 	github.com/spf13/cobra v1.10.2
 	go.yaml.in/yaml/v3 v3.0.5
