@@ -2,8 +2,12 @@ SHELL := /bin/bash
 
 .PHONY: check test race fuzz lint lint-shell tidy policy build build-mcp release fmt schema dogfood dogfood-mcp
 .PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost
+.PHONY: check-contextual-admission
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible
+check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission
+
+check-contextual-admission:
+	cd research/reviews/2026-10-07-separated-admission && python3 -B verify.py && python3 -B -m unittest test_verify.py
 
 check-sbom-policy:
 	bash scripts/prepare-sbom.sh --self-test

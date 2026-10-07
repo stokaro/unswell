@@ -137,6 +137,17 @@ The complete packet, raw responses, judgments, and offline replay are retained.
 This candidate is rejected; #349 remains open, and the separately reserved
 prospective pages were not used to qualify it.
 
+The [separated-judgment admission study](../research/reviews/2026-10-07-separated-admission/README.md)
+recognizes 104/123 original events, versus 96/123 in the earlier unqualified
+admission configuration. All 36 pages are available. The three cohorts reach
+48/57, 39/46, and 17/20 full events; useful actual criticisms are 1,627/2,101,
+515/548, and 190/198. The whole-page cohort still fails the unchanged 85%
+usefulness requirement and has five unresolved supplied suggestions.
+[ADR 0045](adr/0045-separated-admission-rejected.md) rejects this configuration.
+The two smaller exposed cohorts pass their development screen, but admission
+of six cached proposal streams does not qualify standalone generation,
+prospective confirmation, or current-main integration. #349 remains open.
+
 ## What this alpha does not claim
 
 The rule catalog is experimental. Diagnostic review metrics describe agreement
