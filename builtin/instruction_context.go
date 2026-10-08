@@ -63,7 +63,13 @@ func evaluateInstructionRun(m *editorialMatcher, run []document.Sentence, find f
 
 func instructionBlockLink(a, b document.Sentence) bool {
 	left, right := frameClauses(a, 0), frameClauses(b, 1)
-	if len(left) != 1 || len(right) != 1 || !adjacentInstruction(left[0], right[0]) {
+	if len(left) != 1 || len(right) != 1 {
+		return false
+	}
+	if conditionedMethodLink(left[0], right[0]) {
+		return true
+	}
+	if !adjacentInstruction(left[0], right[0]) {
 		return false
 	}
 	for _, token := range left[0].tokens() {

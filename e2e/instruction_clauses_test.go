@@ -20,6 +20,18 @@ func TestInstructionClausesRevision(t *testing.T) {
 	checkInstructionRevision(t, files, 2)
 }
 
+func TestConditionedInstructionRevision(t *testing.T) {
+	files := map[string]string{
+		"draft.md": "After the café records have been loaded, it is safe to query the index.\n\n" +
+			"To do this, the `Query` method is called on the client.",
+		"revision.md": "After the café records have been loaded, it is safe to query the index " +
+			"by calling `Query` on the client.",
+		"control.md": "After the client is ready, it is safe to query the index. " +
+			"To do this, the `Query` method is called automatically.",
+	}
+	checkInstructionRevision(t, files, 1)
+}
+
 func checkInstructionRevision(t *testing.T, files map[string]string, want int) {
 	t.Helper()
 	c := qt.New(t)
@@ -39,9 +51,13 @@ func checkInstructionRevision(t *testing.T, files map[string]string, want int) {
 		for _, f := range result.Findings {
 			if f.RuleID == "filler.instruction-scaffolding" {
 				count++
-				c.Assert(f.RuleVersion, qt.Equals, "13")
+				c.Assert(f.RuleVersion, qt.Equals, "14")
 				c.Assert(f.Primary.Path, qt.Equals, "draft.md")
 				c.Assert(files["draft.md"][f.Primary.Span.Start:f.Primary.Span.End], qt.Equals, f.Primary.Snippet)
+				for _, location := range f.Related {
+					c.Assert(location.Path, qt.Equals, "draft.md")
+					c.Assert(files["draft.md"][location.Span.Start:location.Span.End], qt.Equals, location.Snippet)
+				}
 			}
 		}
 		c.Assert(count, qt.Equals, want)
