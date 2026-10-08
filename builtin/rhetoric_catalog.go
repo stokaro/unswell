@@ -27,6 +27,9 @@ func localRhetoricRules() []rule.Rule {
 				"Named components, numbered architectural parts and unmarked part descriptions remain excluded. "+
 				"Reader prerequisites with will need to have the following and an installed-state operand request direct wording; "+
 				"separate deadlines, qualified states and optional requirements remain excluded. "+
+				"A complete temporal state prerequisite and impersonal safe/possible action may introduce an immediate "+
+				"To do this/that passive invocation of a named method or function. The pair requests direct instruction wording "+
+				"while retaining the safety qualifier and prerequisite; automatic execution and unnamed operations remain excluded. "+
 				"Preserve modal meaning, named actors and conditions. "+
 				"Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. "+
 				"Failure, permission, negation and quoted constructions do not match.",
@@ -122,7 +125,7 @@ func localRhetoricVersion(id string) string {
 	case "filler.document-justification":
 		return "6"
 	case "filler.instruction-scaffolding":
-		return "13"
+		return "14"
 	case "filler.evaluative-closure":
 		return "11"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":
