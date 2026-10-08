@@ -63,6 +63,13 @@ There are still 83 misses and three partial events. Previous author-notice
 warnings receive no additional credit. No strict-profile usefulness qualification
 or completion of the contextual quality goal is claimed.
 
+The historical `e2e/rhetoricdata/ptah.json` casebook remains byte-identical.
+A [dated expectation supplement](../../e2e/rhetoricdata/ptah-expectations-2026-10-08.json)
+records the new local appraisal inside its large MySQL control. The original
+engine-selection contrast remains acceptable. This is the same exposed
+construction already counted above, so it earns no additional event or
+confirmation credit.
+
 ## Evidence and limits
 
 The hypothesis and six control sources were frozen before implementation or
