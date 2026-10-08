@@ -1,0 +1,1091 @@
+{
+  "version": "unswell-discourse-stance-context-v1",
+  "status": "complete local paired replay; publication is a separate check",
+  "base_commit": "c7bd003d12f78ee23187f4c8b650a43dfe744f4b",
+  "rule": "filler.evaluative-closure",
+  "rule_version": "12",
+  "reviewer": "root Codex assistant under ADR 0041; no independent human annotation",
+  "registration": {
+    "version": "unswell-discourse-stance-context-v1",
+    "registered_at_utc": "2026-10-08T18:22:05.763106+00:00",
+    "status": "frozen before candidate implementation and control outputs",
+    "base_commit": "c7bd003d12f78ee23187f4c8b650a43dfe744f4b",
+    "rule": "filler.evaluative-closure",
+    "proposed_version": "12",
+    "model_calls": 0,
+    "hypothesis": "Anaphoric evaluative predicates retain their discourse role when followed by a coordinated or causal operational explanation. A local span must diagnose that evaluation while preserving the following explanation. Deictic appraisals of a conversion, gerund-action completion metaphors, and bare abstract-value labels are further surface constructions of the same role; factual operands and obligations must not be weakened. Existing first-person notices already match and receive no automatic additional credit.",
+    "construction_families": [
+      "Anaphoric bare question or worth predicate before coordinated, comma-separated or causal continuation",
+      "Deictic epistemic appraisal of an output conversion, preserving its factual limitations",
+      "Gerund action with a demonstrative plan or step and an abstract completion-cleft predicate",
+      "Nominal subject equated with an unqualified abstract value label, without a concrete criterion or named operational consequence"
+    ],
+    "exclusions": [
+      "Quoted or attributed evaluations; protected construction operators",
+      "Negation or a condition qualifying the evaluation",
+      "Actual feedback, circuit, iteration, graph or control-loop descriptions",
+      "Measured appraisals, explicit criteria, comparisons or mechanisms",
+      "Concrete technical predicates and a value label naming its operational criterion",
+      "Known unsupported prior author notices remain uncertain, with no changed old grade"
+    ],
+    "original_scope": {
+      "pages": 36,
+      "units": 4549,
+      "judgments": 804,
+      "events": 123
+    },
+    "originals_sha256": "4f0051badc4b16dfe088d88cae69bd0dda89af2e9f62b4bed317309c4db65082",
+    "previous_published_progress_sha256": "d95842e553934cdce590a4f825353993769bdee72a610272b25cd46667292294",
+    "baseline_probe_freeze_sha256": "1a71eac0cecad971698b9c86e8d8057c7a02107156536510642bdb2ea8be59dc",
+    "development_examples": [
+      "whole/p001-d03",
+      "whole/p004-d03",
+      "whole/p007-d03",
+      "confirmation/c03-r04",
+      "confirmation/c02-r08"
+    ],
+    "criteria": [
+      "Public-engine blackbox tests for complete predicates, numeric and protected operands, literal technical controls, original UTF-8 spans, both profiles and mixed advice",
+      "Complete baseline/candidate replay of all 36 original sources and all six separately frozen controls in both profiles",
+      "Review every changed actual diagnostic and its real editing advice with the full source and unchanged original event components; no overlap-only FULL credit",
+      "At least 85 percent useful changed actual criticisms, zero unsafe or unresolved advice, no new literal technical control false positives",
+      "Complete make check and exact-current PR/main evidence before merge; actual public WASM and browser proof before publication credit"
+    ],
+    "controls": {
+      "pages": 6,
+      "bytes": 32692,
+      "selection": "Predeclared ordered inference lifecycle guides; skip exact hashes in prior local registered controls only",
+      "skipped": [],
+      "project_wide_exposure_history": "unestablished; separate control pages, not an untouched product holdout"
+    },
+    "product_qualified": false,
+    "objective_achieved": false
+  },
+  "comparison": {
+    "all_original_scope": {
+      "pages": 36,
+      "units": 4549,
+      "judgments": 804,
+      "events": 123
+    },
+    "paired_replays": {
+      "original-technical": {
+        "pages": 36,
+        "before": 149,
+        "after": 154,
+        "added": 5,
+        "removed": 0,
+        "changed_existing": 0,
+        "derived_score_changes": [
+          {
+            "path": "inputs/confirmation/c02.mdx",
+            "metric": "paragraph_p90",
+            "before": 0,
+            "after": 1.32
+          },
+          {
+            "path": "inputs/confirmation/c03.mdx",
+            "metric": "paragraph_maximum",
+            "before": 0,
+            "after": 12
+          },
+          {
+            "path": "inputs/whole/p001.md",
+            "metric": "paragraph_maximum",
+            "before": 16.66,
+            "after": 19.32
+          },
+          {
+            "path": "inputs/whole/p001.md",
+            "metric": "paragraph_p90",
+            "before": 12.66,
+            "after": 14.64
+          },
+          {
+            "path": "inputs/whole/p007.mdx",
+            "metric": "paragraph_maximum",
+            "before": 12,
+            "after": 13.32
+          }
+        ],
+        "before_report_sha256": "246bfe30c804b2208eb547baebdb9319aa88601b224cb0c642195ac913e00550",
+        "after_report_sha256": "9cd468833fd0be7b3e059aa100de304d8d6c14ec7e3abd91cae75cb5b677182d",
+        "ruleset_hash": "21a06b74a5792123c45845e3356ec78f0dc991946914c2aa49665fa037327318",
+        "config_hash": "5f2b244bb186af12453969011c2111ced0003bcb390297f0b4da9c7b2a7b6e62"
+      },
+      "original-strict": {
+        "pages": 36,
+        "before": 170,
+        "after": 175,
+        "added": 5,
+        "removed": 0,
+        "changed_existing": 0,
+        "derived_score_changes": [
+          {
+            "path": "inputs/confirmation/c02.mdx",
+            "metric": "paragraph_p90",
+            "before": 0,
+            "after": 1.32
+          },
+          {
+            "path": "inputs/confirmation/c03.mdx",
+            "metric": "paragraph_maximum",
+            "before": 0,
+            "after": 12
+          },
+          {
+            "path": "inputs/whole/p001.md",
+            "metric": "paragraph_maximum",
+            "before": 16.66,
+            "after": 19.32
+          },
+          {
+            "path": "inputs/whole/p001.md",
+            "metric": "paragraph_p90",
+            "before": 12.66,
+            "after": 14.64
+          },
+          {
+            "path": "inputs/whole/p007.mdx",
+            "metric": "paragraph_maximum",
+            "before": 12,
+            "after": 13.32
+          }
+        ],
+        "before_report_sha256": "cf55e91577cd13eee43d2a2c30e4808c13fb82c1bebfd269803e1311df1a0c2f",
+        "after_report_sha256": "a3509169a439d98a828d9152463971abc882b1c04d233becb226cf5396e15403",
+        "ruleset_hash": "21a06b74a5792123c45845e3356ec78f0dc991946914c2aa49665fa037327318",
+        "config_hash": "a62398f434cc211dc664327b69876ef3c5afcc27d7330a050cd65fdab641dd5b"
+      },
+      "controls-technical": {
+        "pages": 6,
+        "before": 9,
+        "after": 9,
+        "added": 0,
+        "removed": 0,
+        "changed_existing": 0,
+        "derived_score_changes": [],
+        "before_report_sha256": "5c30a26faaacaa01b4dd8574194127da7a2df473eb514e82d5dd8c241de1406b",
+        "after_report_sha256": "1aa9450f709bf2c647538c5876b390f8f19040d83e2018a18bb395b9e75430a3",
+        "ruleset_hash": "21a06b74a5792123c45845e3356ec78f0dc991946914c2aa49665fa037327318",
+        "config_hash": "5f2b244bb186af12453969011c2111ced0003bcb390297f0b4da9c7b2a7b6e62"
+      },
+      "controls-strict": {
+        "pages": 6,
+        "before": 11,
+        "after": 11,
+        "added": 0,
+        "removed": 0,
+        "changed_existing": 0,
+        "derived_score_changes": [],
+        "before_report_sha256": "2f876928233f2f896b56a9904b78c1d27148125ec22ba150ec66fa49115baa2c",
+        "after_report_sha256": "4e4cc770365f17e6cca87c094563aefd228eea59f4171b72be8302ddc0eae96d",
+        "ruleset_hash": "21a06b74a5792123c45845e3356ec78f0dc991946914c2aa49665fa037327318",
+        "config_hash": "a62398f434cc211dc664327b69876ef3c5afcc27d7330a050cd65fdab641dd5b"
+      }
+    },
+    "technical_census": {
+      "before": {
+        "pages": 36,
+        "events": 123,
+        "missed": 88,
+        "full": 32,
+        "partial": 3,
+        "full_event_recall": 0.2601626016260163,
+        "delivered": 149,
+        "accepted": 89,
+        "uncertain": 55,
+        "rejected": 5,
+        "useful_actual_deliveries": 0.5973154362416108,
+        "unsafe_or_unresolved_advice": 0,
+        "cohorts": {
+          "context": {
+            "events": 46,
+            "full": 11,
+            "full_event_recall": 0.2391304347826087
+          },
+          "whole": {
+            "events": 57,
+            "full": 19,
+            "full_event_recall": 0.3333333333333333
+          },
+          "confirmation": {
+            "events": 20,
+            "full": 2,
+            "full_event_recall": 0.1
+          }
+        }
+      },
+      "after": {
+        "pages": 36,
+        "events": 123,
+        "missed": 83,
+        "full": 37,
+        "partial": 3,
+        "full_event_recall": 0.3008130081300813,
+        "delivered": 154,
+        "accepted": 94,
+        "uncertain": 55,
+        "rejected": 5,
+        "useful_actual_deliveries": 0.6103896103896104,
+        "unsafe_or_unresolved_advice": 0,
+        "cohorts": {
+          "context": {
+            "events": 46,
+            "full": 11,
+            "full_event_recall": 0.2391304347826087
+          },
+          "whole": {
+            "events": 57,
+            "full": 22,
+            "full_event_recall": 0.38596491228070173
+          },
+          "confirmation": {
+            "events": 20,
+            "full": 4,
+            "full_event_recall": 0.2
+          }
+        }
+      }
+    },
+    "per_cohort_actual_accounting": {
+      "before": {
+        "context": {
+          "events": 46,
+          "full": 11,
+          "full_event_recall": 0.2391304347826087,
+          "deliveries": 24,
+          "grades": {
+            "accepted": 19,
+            "uncertain": 5
+          },
+          "useful_fraction": 0.7916666666666666,
+          "unsafe_or_unresolved_advice": 0
+        },
+        "whole": {
+          "events": 57,
+          "full": 19,
+          "full_event_recall": 0.3333333333333333,
+          "deliveries": 118,
+          "grades": {
+            "accepted": 66,
+            "uncertain": 48,
+            "rejected": 4
+          },
+          "useful_fraction": 0.559322033898305,
+          "unsafe_or_unresolved_advice": 0
+        },
+        "confirmation": {
+          "events": 20,
+          "full": 2,
+          "full_event_recall": 0.1,
+          "deliveries": 7,
+          "grades": {
+            "accepted": 4,
+            "uncertain": 2,
+            "rejected": 1
+          },
+          "useful_fraction": 0.5714285714285714,
+          "unsafe_or_unresolved_advice": 0
+        }
+      },
+      "after": {
+        "context": {
+          "events": 46,
+          "full": 11,
+          "full_event_recall": 0.2391304347826087,
+          "deliveries": 24,
+          "grades": {
+            "accepted": 19,
+            "uncertain": 5
+          },
+          "useful_fraction": 0.7916666666666666,
+          "unsafe_or_unresolved_advice": 0
+        },
+        "whole": {
+          "events": 57,
+          "full": 22,
+          "full_event_recall": 0.38596491228070173,
+          "deliveries": 121,
+          "grades": {
+            "accepted": 69,
+            "uncertain": 48,
+            "rejected": 4
+          },
+          "useful_fraction": 0.5702479338842975,
+          "unsafe_or_unresolved_advice": 0
+        },
+        "confirmation": {
+          "events": 20,
+          "full": 4,
+          "full_event_recall": 0.2,
+          "deliveries": 9,
+          "grades": {
+            "accepted": 6,
+            "uncertain": 2,
+            "rejected": 1
+          },
+          "useful_fraction": 0.6666666666666666,
+          "unsafe_or_unresolved_advice": 0
+        }
+      }
+    },
+    "original_judgments_unchanged": 804,
+    "prior_actual_grades_unchanged": 149,
+    "changed_actual_criticisms": 5,
+    "accepted_changed_criticisms": 5,
+    "unsafe_or_unresolved_changed_advice": 0,
+    "literal_technical_controls_failed": 0,
+    "separate_control_bytes": 32692,
+    "new_positive_confirmation": 0,
+    "assistant_semantic_review_only": true,
+    "model_calls": 0,
+    "bounded_construction_screen_passed": true,
+    "strict_usefulness_qualified": false,
+    "full_quality_targets_passed": false,
+    "product_qualified": false,
+    "objective_achieved": false,
+    "candidate_is_not_yet_merged_or_published": true
+  },
+  "new_diagnoses": [
+    {
+      "event": "whole/p001-d03",
+      "finding": {
+        "id": "c6a4b008e892ca56",
+        "rule_id": "filler.evaluative-closure",
+        "rule_version": "12",
+        "severity": "warning",
+        "gate": "none",
+        "group": "rhetorical-patterns",
+        "scope": "block",
+        "message": "This clause appraises the explanation or outcome; state the information directly.",
+        "primary": {
+          "path": "inputs/whole/p001.md",
+          "span": {
+            "start": 8695,
+            "end": 8724
+          },
+          "start": {
+            "line": 133,
+            "column": 48
+          },
+          "end": {
+            "line": 133,
+            "column": 77
+          },
+          "segments": [
+            {
+              "start": 8695,
+              "end": 8700
+            },
+            {
+              "start": 8701,
+              "end": 8703
+            },
+            {
+              "start": 8704,
+              "end": 8711
+            },
+            {
+              "start": 8712,
+              "end": 8715
+            },
+            {
+              "start": 8716,
+              "end": 8724
+            }
+          ],
+          "snippet": "which is exactly the question"
+        },
+        "related": [],
+        "evidence": {
+          "kind": "heuristic",
+          "message": "This clause appraises the explanation or outcome; state the information directly.",
+          "suggestion": "Keep the actions, numeric operands, absent operations, qualifications and established commitments. State the information or operational consequence directly. Verify the basis before removing or weakening any claim.",
+          "occurrences": [
+            {
+              "block_id": 16,
+              "sentence_id": 49,
+              "spans": [
+                {
+                  "start": 8695,
+                  "end": 8700
+                },
+                {
+                  "start": 8701,
+                  "end": 8703
+                },
+                {
+                  "start": 8704,
+                  "end": 8711
+                },
+                {
+                  "start": 8712,
+                  "end": 8715
+                },
+                {
+                  "start": 8716,
+                  "end": 8724
+                }
+              ]
+            }
+          ],
+          "metrics": [
+            {
+              "name": "filler.evaluative-closure",
+              "value": 1,
+              "unit": "patterns",
+              "onset": 0,
+              "saturation": 1
+            }
+          ],
+          "activation": 1000
+        },
+        "fingerprint": "1ebac747f6ea027a57522ce014d2244f1c95530c69f1c029eaa4847c366a106f",
+        "suppressed": false,
+        "baseline_state": "untracked",
+        "derived": false
+      },
+      "status": "accepted",
+      "suggestion_safety": "safe guidance; no automatic rewrite",
+      "reviewer": "root Codex assistant under ADR 0041; no independent human annotation",
+      "whole_source_sha256": "d1b182415b5f020d6346927562af18f331e6de28c97383fbe83dc2f04dd368a3",
+      "rationale": "The full page explains the actual duplicate-name check and the session-local namespace. The anaphoric exactly-the-question evaluation restates that explanation without defining another check. The actual span excludes ERROR 1061 and the following coordinated explanation; the advice retains those facts and asks for direct information rather than deleting the method.",
+      "illustrative_preserving_revision": "A temporary table carrying the names as keys either creates or answers ERROR 1061. It belongs to this session alone and uses the per-table namespace in which an index name lives.",
+      "whole_source_read_receipts": [
+        "87ad5f"
+      ],
+      "before_credit": "missed",
+      "after_credit": "full",
+      "old_labels_changed": false,
+      "credit_basis": "Complete unchanged semantic target addressed by the actual diagnosis and preservation guidance; final sentence punctuation is not a missing defect component."
+    },
+    {
+      "event": "whole/p004-d03",
+      "finding": {
+        "id": "d1b702e265a4fb1c",
+        "rule_id": "filler.evaluative-closure",
+        "rule_version": "12",
+        "severity": "warning",
+        "gate": "none",
+        "group": "rhetorical-patterns",
+        "scope": "block",
+        "message": "This clause appraises the explanation or outcome; state the information directly.",
+        "primary": {
+          "path": "inputs/whole/p004.md",
+          "span": {
+            "start": 10860,
+            "end": 10902
+          },
+          "start": {
+            "line": 317,
+            "column": 1
+          },
+          "end": {
+            "line": 317,
+            "column": 43
+          },
+          "segments": [
+            {
+              "start": 10860,
+              "end": 10868
+            },
+            {
+              "start": 10869,
+              "end": 10873
+            },
+            {
+              "start": 10874,
+              "end": 10878
+            },
+            {
+              "start": 10879,
+              "end": 10881
+            },
+            {
+              "start": 10882,
+              "end": 10886
+            },
+            {
+              "start": 10887,
+              "end": 10893
+            },
+            {
+              "start": 10894,
+              "end": 10897
+            },
+            {
+              "start": 10898,
+              "end": 10902
+            }
+          ],
+          "snippet": "Applying that plan is what closes the loop"
+        },
+        "related": [],
+        "evidence": {
+          "kind": "heuristic",
+          "message": "This clause appraises the explanation or outcome; state the information directly.",
+          "suggestion": "Keep the actions, numeric operands, absent operations, qualifications and established commitments. State the information or operational consequence directly. Verify the basis before removing or weakening any claim.",
+          "occurrences": [
+            {
+              "block_id": 55,
+              "sentence_id": 84,
+              "spans": [
+                {
+                  "start": 10860,
+                  "end": 10868
+                },
+                {
+                  "start": 10869,
+                  "end": 10873
+                },
+                {
+                  "start": 10874,
+                  "end": 10878
+                },
+                {
+                  "start": 10879,
+                  "end": 10881
+                },
+                {
+                  "start": 10882,
+                  "end": 10886
+                },
+                {
+                  "start": 10887,
+                  "end": 10893
+                },
+                {
+                  "start": 10894,
+                  "end": 10897
+                },
+                {
+                  "start": 10898,
+                  "end": 10902
+                }
+              ]
+            }
+          ],
+          "metrics": [
+            {
+              "name": "filler.evaluative-closure",
+              "value": 1,
+              "unit": "patterns",
+              "onset": 0,
+              "saturation": 1
+            }
+          ],
+          "activation": 1000
+        },
+        "fingerprint": "63a2ea60321f03fd88cc235d201836793830d1b18a978ccec853552cf10132ed",
+        "suppressed": false,
+        "baseline_state": "untracked",
+        "derived": false
+      },
+      "status": "accepted",
+      "suggestion_safety": "safe guidance; no automatic rewrite",
+      "reviewer": "root Codex assistant under ADR 0041; no independent human annotation",
+      "whole_source_sha256": "9e8504e46ddbb1a39c570a79b260b174160eea73ef3d87204a624d6e572dca03",
+      "rationale": "The complete guide already presents the plan, then immediately gives the apply command and the successful drift recheck. Closes the loop is an abstract completion metaphor here, not a control loop. The diagnosis covers the complete action/evaluation relation; keeping the apply instruction and recheck states the operational sequence directly without inventing successful execution.",
+      "illustrative_preserving_revision": "Apply the plan with ptah schema apply, then run the drift check again.",
+      "whole_source_read_receipts": [
+        "56c7fd"
+      ],
+      "before_credit": "missed",
+      "after_credit": "full",
+      "old_labels_changed": false,
+      "credit_basis": "Complete unchanged semantic target addressed by the actual diagnosis and preservation guidance; final sentence punctuation is not a missing defect component."
+    },
+    {
+      "event": "whole/p007-d03",
+      "finding": {
+        "id": "57cbc1f9c9f76c05",
+        "rule_id": "filler.evaluative-closure",
+        "rule_version": "12",
+        "severity": "warning",
+        "gate": "none",
+        "group": "rhetorical-patterns",
+        "scope": "block",
+        "message": "This clause appraises the explanation or outcome; state the information directly.",
+        "primary": {
+          "path": "inputs/whole/p007.mdx",
+          "span": {
+            "start": 23704,
+            "end": 23734
+          },
+          "start": {
+            "line": 637,
+            "column": 36
+          },
+          "end": {
+            "line": 637,
+            "column": 66
+          },
+          "segments": [
+            {
+              "start": 23704,
+              "end": 23709
+            },
+            {
+              "start": 23710,
+              "end": 23712
+            },
+            {
+              "start": 23713,
+              "end": 23716
+            },
+            {
+              "start": 23717,
+              "end": 23721
+            },
+            {
+              "start": 23722,
+              "end": 23727
+            },
+            {
+              "start": 23728,
+              "end": 23734
+            }
+          ],
+          "snippet": "which is the case worth having"
+        },
+        "related": [],
+        "evidence": {
+          "kind": "heuristic",
+          "message": "This clause appraises the explanation or outcome; state the information directly.",
+          "suggestion": "Keep the actions, numeric operands, absent operations, qualifications and established commitments. State the information or operational consequence directly. Verify the basis before removing or weakening any claim.",
+          "occurrences": [
+            {
+              "block_id": 136,
+              "sentence_id": 203,
+              "spans": [
+                {
+                  "start": 23704,
+                  "end": 23709
+                },
+                {
+                  "start": 23710,
+                  "end": 23712
+                },
+                {
+                  "start": 23713,
+                  "end": 23716
+                },
+                {
+                  "start": 23717,
+                  "end": 23721
+                },
+                {
+                  "start": 23722,
+                  "end": 23727
+                },
+                {
+                  "start": 23728,
+                  "end": 23734
+                }
+              ]
+            }
+          ],
+          "metrics": [
+            {
+              "name": "filler.evaluative-closure",
+              "value": 1,
+              "unit": "patterns",
+              "onset": 0,
+              "saturation": 1
+            }
+          ],
+          "activation": 1000
+        },
+        "fingerprint": "9b18668dc3ac216879e119fe8ddc974276845a24b03caa66ce985a4e3cde16cd",
+        "suppressed": false,
+        "baseline_state": "untracked",
+        "derived": false
+      },
+      "status": "accepted",
+      "suggestion_safety": "safe guidance; no automatic rewrite",
+      "reviewer": "root Codex assistant under ADR 0041; no independent human annotation",
+      "whole_source_sha256": "ff1104e738bd3238b4f1a40f989ba0d5386cb8c1daa0b48d9d7d498078a6b7eb",
+      "rationale": "The full export guide explains both enum override directions and the absence of native enum support on some dialects. Case worth having adds an endorsement to the second example. The actual complaint stops before the causal explanation, so the dialect condition and text/enum distinction remain outside the criticized span; advice explicitly preserves conditions and established capabilities.",
+      "illustrative_preserving_revision": "The second publishes a text column as the declared enum. This supports a dialect with no native enum type: the stored column is text, while the contract uses the enum.",
+      "whole_source_read_receipts": [
+        "87ad5f",
+        "2ff41a"
+      ],
+      "before_credit": "missed",
+      "after_credit": "full",
+      "old_labels_changed": false,
+      "credit_basis": "Complete unchanged semantic target addressed by the actual diagnosis and preservation guidance; final sentence punctuation is not a missing defect component."
+    },
+    {
+      "event": "confirmation/c02-r08",
+      "finding": {
+        "id": "8a48b90f6f482626",
+        "rule_id": "filler.evaluative-closure",
+        "rule_version": "12",
+        "severity": "warning",
+        "gate": "none",
+        "group": "rhetorical-patterns",
+        "scope": "block",
+        "message": "This clause appraises the explanation or outcome; state the information directly.",
+        "primary": {
+          "path": "inputs/confirmation/c02.mdx",
+          "span": {
+            "start": 9590,
+            "end": 9628
+          },
+          "start": {
+            "line": 323,
+            "column": 1
+          },
+          "end": {
+            "line": 323,
+            "column": 39
+          },
+          "segments": [
+            {
+              "start": 9590,
+              "end": 9593
+            },
+            {
+              "start": 9594,
+              "end": 9602
+            },
+            {
+              "start": 9603,
+              "end": 9609
+            },
+            {
+              "start": 9610,
+              "end": 9612
+            },
+            {
+              "start": 9613,
+              "end": 9616
+            },
+            {
+              "start": 9617,
+              "end": 9623
+            },
+            {
+              "start": 9624,
+              "end": 9628
+            }
+          ],
+          "snippet": "The non-zero status is the useful part"
+        },
+        "related": [],
+        "evidence": {
+          "kind": "heuristic",
+          "message": "This clause appraises the explanation or outcome; state the information directly.",
+          "suggestion": "Keep the actions, numeric operands, absent operations, qualifications and established commitments. State the information or operational consequence directly. Verify the basis before removing or weakening any claim.",
+          "occurrences": [
+            {
+              "block_id": 46,
+              "sentence_id": 66,
+              "spans": [
+                {
+                  "start": 9590,
+                  "end": 9593
+                },
+                {
+                  "start": 9594,
+                  "end": 9602
+                },
+                {
+                  "start": 9603,
+                  "end": 9609
+                },
+                {
+                  "start": 9610,
+                  "end": 9612
+                },
+                {
+                  "start": 9613,
+                  "end": 9616
+                },
+                {
+                  "start": 9617,
+                  "end": 9623
+                },
+                {
+                  "start": 9624,
+                  "end": 9628
+                }
+              ]
+            }
+          ],
+          "metrics": [
+            {
+              "name": "filler.evaluative-closure",
+              "value": 1,
+              "unit": "patterns",
+              "onset": 0,
+              "saturation": 1
+            }
+          ],
+          "activation": 1000
+        },
+        "fingerprint": "1df3aab10a6df5604fc9e86ff57c306de15888cefd54f79f6480903cf93f06ce",
+        "suppressed": false,
+        "baseline_state": "untracked",
+        "derived": false
+      },
+      "status": "accepted",
+      "suggestion_safety": "safe guidance; no automatic rewrite",
+      "reviewer": "root Codex assistant under ADR 0041; no independent human annotation",
+      "whole_source_sha256": "dbeaa5b79d5ce0ec1311613f746587a63edf05384444a600fec538b81536a865",
+      "rationale": "The complete tutorial has already shown exit 2 and then explains the native-ready file and still-Atlas-shaped database history. Useful part adds an appraisal rather than naming what the status means. The advice expressly retains numeric operands and operational consequences; direct wording must retain exit 2 and the remaining adoption decision, without presenting this as a successful native conversion.",
+      "illustrative_preserving_revision": "The command exits 2 because the file is native-ready but the database history still uses the Atlas-compatible layout. A decision remains before a native writer can take over; staying on ptah-compat is supported.",
+      "whole_source_read_receipts": [
+        "56c7fd"
+      ],
+      "before_credit": "missed",
+      "after_credit": "full",
+      "old_labels_changed": false,
+      "credit_basis": "Complete unchanged semantic target addressed by the actual diagnosis and preservation guidance; final sentence punctuation is not a missing defect component."
+    },
+    {
+      "event": "confirmation/c03-r04",
+      "finding": {
+        "id": "df15611e6d70b085",
+        "rule_id": "filler.evaluative-closure",
+        "rule_version": "12",
+        "severity": "warning",
+        "gate": "none",
+        "group": "rhetorical-patterns",
+        "scope": "block",
+        "message": "This clause appraises the explanation or outcome; state the information directly.",
+        "primary": {
+          "path": "inputs/confirmation/c03.mdx",
+          "span": {
+            "start": 4230,
+            "end": 4300
+          },
+          "start": {
+            "line": 153,
+            "column": 1
+          },
+          "end": {
+            "line": 153,
+            "column": 71
+          },
+          "segments": [
+            {
+              "start": 4230,
+              "end": 4234
+            },
+            {
+              "start": 4235,
+              "end": 4237
+            },
+            {
+              "start": 4238,
+              "end": 4241
+            },
+            {
+              "start": 4242,
+              "end": 4248
+            },
+            {
+              "start": 4249,
+              "end": 4259
+            },
+            {
+              "start": 4260,
+              "end": 4262
+            },
+            {
+              "start": 4263,
+              "end": 4264
+            },
+            {
+              "start": 4265,
+              "end": 4274
+            },
+            {
+              "start": 4275,
+              "end": 4279
+            },
+            {
+              "start": 4280,
+              "end": 4285
+            },
+            {
+              "start": 4286,
+              "end": 4289
+            },
+            {
+              "start": 4290,
+              "end": 4291
+            },
+            {
+              "start": 4292,
+              "end": 4300
+            }
+          ],
+          "snippet": "That is the honest conversion of a migration that never had a rollback"
+        },
+        "related": [],
+        "evidence": {
+          "kind": "heuristic",
+          "message": "This clause appraises the explanation or outcome; state the information directly.",
+          "suggestion": "Keep the actions, numeric operands, absent operations, qualifications and established commitments. State the information or operational consequence directly. Verify the basis before removing or weakening any claim.",
+          "occurrences": [
+            {
+              "block_id": 21,
+              "sentence_id": 29,
+              "spans": [
+                {
+                  "start": 4230,
+                  "end": 4234
+                },
+                {
+                  "start": 4235,
+                  "end": 4237
+                },
+                {
+                  "start": 4238,
+                  "end": 4241
+                },
+                {
+                  "start": 4242,
+                  "end": 4248
+                },
+                {
+                  "start": 4249,
+                  "end": 4259
+                },
+                {
+                  "start": 4260,
+                  "end": 4262
+                },
+                {
+                  "start": 4263,
+                  "end": 4264
+                },
+                {
+                  "start": 4265,
+                  "end": 4274
+                },
+                {
+                  "start": 4275,
+                  "end": 4279
+                },
+                {
+                  "start": 4280,
+                  "end": 4285
+                },
+                {
+                  "start": 4286,
+                  "end": 4289
+                },
+                {
+                  "start": 4290,
+                  "end": 4291
+                },
+                {
+                  "start": 4292,
+                  "end": 4300
+                }
+              ]
+            }
+          ],
+          "metrics": [
+            {
+              "name": "filler.evaluative-closure",
+              "value": 1,
+              "unit": "patterns",
+              "onset": 0,
+              "saturation": 1
+            }
+          ],
+          "activation": 1000
+        },
+        "fingerprint": "053f4c233ded186dcbc074b5a810ef13a73b82e416db76071c66769449ae82d3",
+        "suppressed": false,
+        "baseline_state": "untracked",
+        "derived": false
+      },
+      "status": "accepted",
+      "suggestion_safety": "safe guidance; no automatic rewrite",
+      "reviewer": "root Codex assistant under ADR 0041; no independent human annotation",
+      "whole_source_sha256": "084d19e603a690e8d916b91a52b0a11c978b083a596c8f9bcfc4cdbb15fc5719",
+      "rationale": "The complete tutorial shows the generated no-op rollback file, then demonstrates the retained index and failed later apply. Honest conversion is an editorial integrity appraisal. The complaint includes the important never-had-a-rollback limitation as context; its actual advice explicitly preserves absent operations and established commitments. A direct statement retains both the empty file and lack of a working rollback, so it does not suggest creating an unearned reversibility guarantee.",
+      "illustrative_preserving_revision": "The migration had no rollback, so the generated down file contains no SQL statements. Edit this file to implement a working rollback.",
+      "whole_source_read_receipts": [
+        "56c7fd"
+      ],
+      "before_credit": "missed",
+      "after_credit": "full",
+      "old_labels_changed": false,
+      "credit_basis": "Complete unchanged semantic target addressed by the actual diagnosis and preservation guidance; final sentence punctuation is not a missing defect component."
+    }
+  ],
+  "controls": {
+    "control-001": {
+      "repository": "stokaro/ptah",
+      "commit": "a641f2dd20a9c8596629f43fae0cc2f811d7f5e0",
+      "original_path": "docs/site/src/content/docs/inference/guides/create-first-generation.md",
+      "source_sha256": "a8dffee747c64a7debcfa473d5689ae3029b1ca1db6058abc0b98c1a5a400ed6",
+      "bytes": 5293,
+      "format": "markdown",
+      "file": "control-001.md"
+    },
+    "control-002": {
+      "repository": "stokaro/ptah",
+      "commit": "a641f2dd20a9c8596629f43fae0cc2f811d7f5e0",
+      "original_path": "docs/site/src/content/docs/inference/guides/migrate-a-live-table.md",
+      "source_sha256": "5e7087b257ca6dce2ed32981324450232bb80bd65a710abce24270b67a5d5d02",
+      "bytes": 6138,
+      "format": "markdown",
+      "file": "control-002.md"
+    },
+    "control-003": {
+      "repository": "stokaro/ptah",
+      "commit": "a641f2dd20a9c8596629f43fae0cc2f811d7f5e0",
+      "original_path": "docs/site/src/content/docs/inference/guides/migrate-a-paused-source.md",
+      "source_sha256": "04c2df67ae1f27397a088f61e7a0c17a3acfc203d71ddf711214a42b220ad396",
+      "bytes": 3363,
+      "format": "markdown",
+      "file": "control-003.md"
+    },
+    "control-004": {
+      "repository": "stokaro/ptah",
+      "commit": "a641f2dd20a9c8596629f43fae0cc2f811d7f5e0",
+      "original_path": "docs/site/src/content/docs/inference/guides/migrate-to-another-model.md",
+      "source_sha256": "8d6644afebfa20bb0587c644412c1c114314304dcd44575f61f0ac0b87efa78d",
+      "bytes": 5582,
+      "format": "markdown",
+      "file": "control-004.md"
+    },
+    "control-005": {
+      "repository": "stokaro/ptah",
+      "commit": "a641f2dd20a9c8596629f43fae0cc2f811d7f5e0",
+      "original_path": "docs/site/src/content/docs/inference/guides/resume-and-recover.md",
+      "source_sha256": "f171ca7b384683055935d62177367273f28d8044364f7b22ad2df20254b79088",
+      "bytes": 5615,
+      "format": "markdown",
+      "file": "control-005.md"
+    },
+    "control-006": {
+      "repository": "stokaro/ptah",
+      "commit": "a641f2dd20a9c8596629f43fae0cc2f811d7f5e0",
+      "original_path": "docs/site/src/content/docs/inference/guides/rollback-and-retire.md",
+      "source_sha256": "790df151759ed82cad9416258f82605d23ecf2f2216be6196674309c56574293",
+      "bytes": 6701,
+      "format": "markdown",
+      "file": "control-006.md"
+    }
+  },
+  "private_evidence_sha256": {
+    "registration-freeze.json": "84cf27a0b96d65743dcbf9970b876d5cd1e74d238ce98c47211c3b805ce881a5",
+    "candidate-v1-source-freeze.json": "e9033870a1cd44e79ac6bef796954886f9a8288fd5ebe500ffbb00feea710bac",
+    "baseline-replay/freeze.json": "e97abc6247c318bc2c82b759ea3224c7a32838717cad3d6da449794fa91b11d6",
+    "candidate-v1-replay/freeze.json": "7f75030f599c54873931f4404501d58f8f2bb18fa9640009a7f5e153015f7ca2",
+    "review-v1/evaluation-freeze.json": "7547f500de05981f9c36b544997f55dc49e4d0232e4e91b912f6f8c4a140c15d",
+    "review-v1/event-review.json": "fe83794aca0d6e208af4014f8eeb11dcc2cf434351404f49594b6573246f3ebe"
+  },
+  "product_qualified": false,
+  "objective_achieved": false
+}
