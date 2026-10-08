@@ -23,6 +23,8 @@ func localRhetoricRules() []rule.Rule {
 				"A second method may be anchored by a repeated two-noun object and explicit reader action. "+
 				"An adjacent anaphoric method may name a nominal syntax or configuration instrument; "+
 				"that instrument cannot establish a standalone warning or replace a passive actor. "+
+				"A discourse-marked unnamed piece, bit or part of logic or code may carry a transitive gerund through allows, enables or supports. "+
+				"Named components, numbered architectural parts and unmarked part descriptions remain excluded. "+
 				"Preserve modal meaning, named actors and conditions. "+
 				"Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. "+
 				"Failure, permission, negation and quoted constructions do not match.",
@@ -118,7 +120,7 @@ func localRhetoricVersion(id string) string {
 	case "filler.document-justification":
 		return "6"
 	case "filler.instruction-scaffolding":
-		return "11"
+		return "12"
 	case "filler.evaluative-closure":
 		return "11"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":
