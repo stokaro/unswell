@@ -12,13 +12,25 @@ import (
 
 func TestDiscourseStanceSeparatesOperationalContinuation(t *testing.T) {
 	for _, row := range []struct{ text, matched string }{
-		{"It creates a temporary table, which is exactly the question, and the temporary table is removed after the check.", "which is exactly the question"},
-		{"A temporary table errors with `ERROR 1061`, which is precisely the point, but the live table remains unchanged.", "which is precisely the point"},
-		{"It publishes the text as the enum — which is the case worth having, because the dialect supports the declaration.", "which is the case worth having"},
+		{
+			"It creates a temporary table, which is exactly the question, and the temporary table is removed after the check.",
+			"which is exactly the question",
+		},
+		{
+			"A temporary table errors with `ERROR 1061`, which is precisely the point, but the live table remains unchanged.",
+			"which is precisely the point",
+		},
+		{
+			"It publishes the text as the enum — which is the case worth having, because the dialect supports the declaration.",
+			"which is the case worth having",
+		},
 		{"The migration is retained; that is the part worth keeping, and its rollback stays empty.", "that is the part worth keeping"},
 		{"Applying that plan is what closes the loop.", "Applying that plan is what closes the loop"},
 		{"Following these steps is what completes the cycle.", "Following these steps is what completes the cycle"},
-		{"That is the honest conversion of a migration that never had a rollback:", "That is the honest conversion of a migration that never had a rollback"},
+		{
+			"That is the honest conversion of a migration that never had a rollback:",
+			"That is the honest conversion of a migration that never had a rollback",
+		},
 		{"This was an honest interpretation of the omitted rollback.", "This was an honest interpretation of the omitted rollback"},
 		{"The non-zero status is the useful part.", "The non-zero status is the useful part"},
 		{"The error is the important detail.", "The error is the important detail"},
@@ -74,8 +86,15 @@ func TestDiscourseStanceLiteralAndQualifiedControls(t *testing.T) {
 func TestDiscourseStanceMappingsAndPolicy(t *testing.T) {
 	id := "filler.evaluative-closure"
 	for _, source := range []document.Source{
-		{Name: "guide.md", Format: document.Markdown, Bytes: []byte("\ufeffCafé 🙂.\r\n\r\nIt creates `row_2`, **which** is exactly the question, and the row is removed.\r\n")},
-		{Name: "guide.mdx", Format: document.MDX, Bytes: []byte("export const demo = 'Applying that plan is what closes the loop';\n\nApplying that plan is what closes the loop.\n")},
+		{
+			Name: "guide.md", Format: document.Markdown,
+			Bytes: []byte("\ufeffCafé 🙂.\r\n\r\nIt creates `row_2`, **which** is exactly the question, and the row is removed.\r\n"),
+		},
+		{
+			Name: "guide.mdx", Format: document.MDX,
+			Bytes: []byte("export const demo = 'Applying that plan is what closes the loop';\n\n" +
+				"Applying that plan is what closes the loop.\n"),
+		},
 		{Name: "client.go", Format: document.Go, Bytes: []byte("package p\n// Applying that plan is what closes the loop.\nfunc Run() {}\n")},
 		{Name: "client.py", Format: document.Python, Bytes: []byte("'''Applying that plan is what closes the loop.'''\n")},
 	} {
