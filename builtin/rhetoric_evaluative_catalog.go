@@ -24,6 +24,10 @@ func evaluativeClosureRule() rule.Rule {
 			"Anaphoric abstract recasting contrasts receive a constraint-focused explanation; "+
 			"concrete alternatives and conditions before or after the candidate remain excluded. "+
 			"Attribution is scoped through the candidate clause; later operational reporting does not erase a preceding judgment. "+
+			"Bare anaphoric question and worth predicates retain local spans before coordinated or causal explanations. "+
+			"Deictic conversion appraisals, demonstrative-plan completion metaphors and unqualified abstract value labels "+
+			"receive guidance that preserves operational facts and requires verification before weakening claims. "+
+			"Literal control loops, explicit criteria and operational consequences remain excluded from these constructions. "+
 			"Concrete component purposes and measured evaluations stay excluded; "+
 			"notice and cognitive-worth frames retain their attached conditions.",
 		[]rule.Example{{Text: "The approval stops applying, which is what binding it to a digest is for.", Match: true},

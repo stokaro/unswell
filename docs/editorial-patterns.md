@@ -91,6 +91,17 @@ such as "the declaration is evidence for the selected model" does not match.
 Conditions before or after an anaphoric contrast keep it outside that construction.
 Neither construction establishes that a factual claim is wrong.
 
+Version 12 keeps a bare anaphoric appraisal local when an operational explanation
+follows: "which is exactly the question, and ..." or "which is the case worth
+having, because ...". It also recognizes deictic conversion appraisals,
+demonstrative-plan completion metaphors and bare abstract value labels. Literal
+control loops, measurements, criteria, conditions, quotations and protected
+construction words remain controls. Guidance retains actions, numeric operands,
+absent operations and commitments, including in mixed findings, and requires
+verification before weakening a claim. The
+[complete paired replay](research/discourse-stance-context.md) records the five
+new diagnoses and the unchanged uncertainty on prior deliveries.
+
 `syntax.repeated-reframing` version 2 also connects a do-supported negative action
 to a finite positive action with a repeated subject or an adjacent anaphoric
 pronoun. "PostgreSQL does not keep the declaration. It stores the parsed form"

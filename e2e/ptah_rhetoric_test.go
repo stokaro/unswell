@@ -52,11 +52,47 @@ func TestPtahRhetoric(t *testing.T) {
 	c.Assert(book.Cases, qt.HasLen, 21)
 	c.Assert(book.Version, qt.Equals, 1)
 	c.Assert(book.Commit, qt.Equals, "654eae5591392278e6c8bce8e54737f780766f19")
+	applyRhetoricExpectations(t, book.Cases)
 	binary := buildCLI(t)
 	for _, profile := range []string{"technical", "strict"} {
 		t.Run(profile, func(t *testing.T) {
 			runRhetoricCases(t, binary, profile, book.Cases)
 		})
+	}
+}
+
+// The original casebook remains frozen. A dated supplement records an added
+// diagnostic elsewhere in a historical control without relabeling its contrast.
+func applyRhetoricExpectations(t *testing.T, cases []rhetoricCase) {
+	t.Helper()
+	c := qt.New(t)
+	var supplement struct {
+		Version          int    `json:"version"`
+		SourceBookSHA256 string `json:"source_book_sha256"`
+		Reviewer         string `json:"reviewer"`
+		Status           string `json:"status"`
+		Additions        []struct {
+			ID         string             `json:"id"`
+			TextSHA256 string             `json:"text_sha256"`
+			Rationale  string             `json:"rationale"`
+			Expected   []rhetoricExpected `json:"expected"`
+		} `json:"additions"`
+	}
+	decodeFile(t, "rhetoricdata/ptah-expectations-2026-10-08.json", &supplement)
+	c.Assert(supplement.Version, qt.Equals, 1)
+	c.Assert(supplement.Reviewer, qt.Not(qt.Equals), "")
+	c.Assert(supplement.Status, qt.Not(qt.Equals), "")
+	c.Assert(supplement.Additions, qt.HasLen, 1)
+	data, err := os.ReadFile("rhetoricdata/ptah.json")
+	c.Assert(err, qt.IsNil)
+	digest := sha256.Sum256(data)
+	c.Assert(hex.EncodeToString(digest[:]), qt.Equals, supplement.SourceBookSHA256)
+	for _, addition := range supplement.Additions {
+		index := slices.IndexFunc(cases, func(row rhetoricCase) bool { return row.ID == addition.ID })
+		c.Assert(index >= 0, qt.IsTrue)
+		c.Assert(cases[index].SHA256, qt.Equals, addition.TextSHA256)
+		c.Assert(addition.Rationale, qt.Not(qt.Equals), "")
+		cases[index].Expected = append(cases[index].Expected, addition.Expected...)
 	}
 }
 

@@ -88,7 +88,10 @@ func evaluationCandidateFrame(c, candidate frameClause, start int) (rhetoricalFr
 	if scopedInformationNotice(c, start) {
 		return localFrame(candidate, 0)
 	}
-	return evaluationTailFrame(candidate)
+	if frame, found := evaluationTailFrame(candidate); found {
+		return frame, true
+	}
+	return discourseStance(candidate)
 }
 
 func specificEvaluationFrame(candidate frameClause) (rhetoricalFrame, bool) {
