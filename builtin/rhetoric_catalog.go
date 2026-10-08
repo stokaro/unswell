@@ -25,6 +25,8 @@ func localRhetoricRules() []rule.Rule {
 				"that instrument cannot establish a standalone warning or replace a passive actor. "+
 				"A discourse-marked unnamed piece, bit or part of logic or code may carry a transitive gerund through allows, enables or supports. "+
 				"Named components, numbered architectural parts and unmarked part descriptions remain excluded. "+
+				"Reader prerequisites with will need to have the following and an installed-state operand request direct wording; "+
+				"separate deadlines, qualified states and optional requirements remain excluded. "+
 				"Preserve modal meaning, named actors and conditions. "+
 				"Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. "+
 				"Failure, permission, negation and quoted constructions do not match.",
@@ -120,7 +122,7 @@ func localRhetoricVersion(id string) string {
 	case "filler.document-justification":
 		return "6"
 	case "filler.instruction-scaffolding":
-		return "12"
+		return "13"
 	case "filler.evaluative-closure":
 		return "11"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":
