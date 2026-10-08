@@ -38,7 +38,7 @@ func TestVerificationExplanationReports(t *testing.T) {
 		c.Assert(result.Findings, qt.HasLen, 2)
 		for _, finding := range result.Findings {
 			c.Assert(finding.RuleID, qt.Equals, "filler.unscoped-assurance")
-			c.Assert(finding.RuleVersion, qt.Equals, "9")
+			c.Assert(finding.RuleVersion, qt.Equals, "10")
 			c.Assert(finding.Primary.Path, qt.Equals, "draft.md")
 			c.Assert(sources["draft.md"][finding.Primary.Span.Start:finding.Primary.Span.End], qt.Equals, finding.Primary.Snippet)
 			c.Assert(finding.Evidence.Message, qt.Equals, finding.Message)

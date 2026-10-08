@@ -106,7 +106,7 @@ func TestAssuranceSourceMappingAndPolicy(t *testing.T) {
 	c.Assert(singleRuleResult(t, id, "The parser rejects unknown keys.\n\n```text\n"+phrase+".\n```", "", "").Findings, qt.HasLen, 0)
 	c.Assert(singleRuleResult(t, id, phrase+".", "{allowed_occurrences: 1, saturation_occurrences: 2}", "").Findings, qt.HasLen, 0)
 	checkWindowAbsence(t, id, []windowAbsenceCase{{"The client closes.", "", "", ""},
-		{"# The parser is intentionally explicit", "", "", "unsupported_unit"}})
+		{"# The parser is intentionally explicit", "", "", ""}})
 }
 
 func TestAssuranceInSourceContexts(t *testing.T) {

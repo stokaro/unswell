@@ -15,10 +15,10 @@ func localRhetoric(find frameFinder, metric, suggestion string) func(context.Con
 			if err := ctx.Err(); err != nil {
 				return err
 			}
-			reason := rhetoricBlockReason(block)
+			blockFind, reason := rhetoricBlockFinder(block, metric, find)
 			if reason == "" {
 				advice := rhetoricAdvice{emit, suggestion}
-				if err := evaluateFrames(matcher, block.Sentences, find, metric, advice); err != nil {
+				if err := evaluateFrames(matcher, block.Sentences, blockFind, metric, advice); err != nil {
 					return err
 				}
 			}
@@ -28,6 +28,13 @@ func localRhetoric(find frameFinder, metric, suggestion string) func(context.Con
 		}
 		return ctx.Err()
 	}
+}
+
+func rhetoricBlockFinder(block document.Block, metric string, find frameFinder) (frameFinder, string) {
+	if metric == "filler.unscoped-assurance" && !block.Excluded && block.Kind == "heading" && block.Words > 0 {
+		return promotionalDegree, ""
+	}
+	return find, rhetoricBlockReason(block)
 }
 
 type rhetoricAdvice struct {

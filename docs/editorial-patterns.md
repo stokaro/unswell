@@ -223,6 +223,34 @@ and a gate are separate from construction recognition. Defaults deliberately
 expose the constructions without assigning editorial risk points or forbidding
 technical explanations. Projects can configure a stricter local policy.
 
+## Qualitative degree and benefit rankings
+
+`filler.unscoped-assurance` version 10 recognizes bounded emphatic capability
+modifiers, optimization degree, ease-to-use descriptions of software artifacts,
+and deictic superlative benefits. For example, `blazingly fast` leaves the
+speed and comparison criterion unstated. The diagnostic asks for that basis;
+it does not conclude that the underlying performance claim is false.
+
+Short quality fragments can occur in lists or headings. Ordinary copular
+quality sentences retain their existing treatment in prose; they do not become
+new heading diagnostics. `Highly available`, `strongly typed`, and
+`perfectly square` remain technical controls. Measurements, comparisons,
+criteria, local mechanisms, conditions, attribution, quotation, and protected
+construction words conservatively exclude the new forms. An adjacent quantity
+also suppresses them, so this recognizer can miss unrelated promotional wording
+in a block that contains numbers.
+
+The advice requires verification before weakening or removing a claim. Keep
+its operands, conditions, uncertainty, and established commitments. A capability
+modifier does not supply its own measurement, and a possible future benefit is
+not a guaranteed result. A mixed group containing one of these degree or ranking
+claims retains the general diagnostic and the verification requirement in its
+advice. This bounded recognition does not establish general
+editorial completeness or authorship. The
+[complete paired replay](research/promotional-degree-context.md) records three
+new accepted diagnoses on the unchanged reference scope and unchanged results
+on separate controls.
+
 ## Verification assurances
 
 `filler.unscoped-assurance` distinguishes claims that tests or reviews guarantee

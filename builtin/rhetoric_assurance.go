@@ -10,7 +10,10 @@ func unscopedAssurance(clauses []frameClause, index int) (rhetoricalFrame, bool)
 	if frame, ok := readerAssurance(c); ok {
 		return frame, true
 	}
-	return clauseAssurance(c)
+	if frame, ok := clauseAssurance(c); ok {
+		return frame, true
+	}
+	return promotionalDegree(clauses, index)
 }
 
 func clauseAssurance(c frameClause) (rhetoricalFrame, bool) {
