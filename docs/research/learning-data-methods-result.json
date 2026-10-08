@@ -1,0 +1,122 @@
+{
+  "state": "terminal_complete",
+  "observed_at_utc": "2026-10-08T20:38:03.418517+00:00",
+  "registration_sha256": "2ee9f059f6cb48f22defe47d72a0c91dcb716b4e81dbb66dae644e52ae0936d5",
+  "cleanlab_version": "2.9.0",
+  "outer_projects_verified": 13,
+  "cached_input_identities": 8291,
+  "actual_criticism_aliases": 3566,
+  "scored_unique_criticisms": 3520,
+  "scored_labels": {
+    "uncertain": 888,
+    "accepted": 2566,
+    "rejected": 66
+  },
+  "unavailable_aliases": 0,
+  "model_disagreements": 1029,
+  "flagged_for_review": 840,
+  "flagged_labels": {
+    "rejected": 40,
+    "uncertain": 379,
+    "accepted": 421
+  },
+  "probabilities_calibrated": false,
+  "verified_label_errors": 0,
+  "automatic_label_changes": 0,
+  "training_rows_removed": 0,
+  "new_fits": 0,
+  "new_provider_calls": 0,
+  "diagnostic_gain_claimed": false,
+  "original_scope": {
+    "pages": 36,
+    "units": 4549,
+    "judgments": 804,
+    "events": 123
+  },
+  "runtime_baseline": {
+    "core_commit": "8a56d13f2ac0432dc1704e12453c4973290ff3a9",
+    "full": 37,
+    "events": 123,
+    "accepted": 94,
+    "delivered": 154
+  },
+  "product_qualified": false,
+  "objective_achieved": false,
+  "elapsed_seconds": 35.11833004234359,
+  "peak_rss_bytes": 284295168,
+  "limitations": [
+    "A weak or biased model can disagree with correct judgments.",
+    "Softmax scores are uncalibrated and class-weighted.",
+    "Uncertain is a review disposition, not a clean-text label.",
+    "Cached candidate criticism judgments do not label all prose units.",
+    "These exposed projects are not prospective confirmation."
+  ],
+  "review": {
+    "criticisms": 12,
+    "unique_source_targets": 7,
+    "confirmed_label_errors": 0,
+    "frozen_judgment_changes": 0,
+    "reviewer": "Root Codex assistant accepted by the maintainer; not an independent human reviewer.",
+    "selection": "First 12 ranked disagreements; no population error estimate."
+  },
+  "evidence": {
+    "registration.json": "2ee9f059f6cb48f22defe47d72a0c91dcb716b4e81dbb66dae644e52ae0936d5",
+    "summary.json": "0051b8fde2728b473919d39ba1aebb2805f0235660411f8628159f96047a2804",
+    "evidence-freeze.json": "27bf1ea4d36f26c35d5659167874edb6070f757cd24cb591b5f7c807192a22ca",
+    "completion.json": "529a5cbae5433b51a3f41e4d07c8c0d238b2a040dda51c21dac8f182988677be",
+    "audit_cached_labels.py": "18bc61861eb00c3d31756715ed0d6643c909f0f1b5de06249658be7e32ebc4c7",
+    "requirements.lock": "dbda5dc9fd2a83b93b513303cc438f9f8c96011af77f432f7fddce4e60fb9569",
+    "top12-review.json": "61f15c2f8777f0be3b9e88cf3737baf909b2f60744f66cf0af6d51896312baaa",
+    "annotation-seed-summary.json": "fae8705cce122819cc13489909f94ec2510dfc59ab5d3aed762cd8a88f4a6af9"
+  },
+  "dependency_versions": {
+    "cleanlab": "2.9.0",
+    "cloudpickle": "3.1.2",
+    "joblib": "1.6.0",
+    "narwhals": "2.26.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "python-dateutil": "2.9.0.post0",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "six": "1.17.0",
+    "termcolor": "3.3.0",
+    "threadpoolctl": "3.7.0",
+    "tqdm": "4.70.1"
+  },
+  "annotation_seed": {
+    "original_pages": 36,
+    "original_units": 4549,
+    "positive_events": 123,
+    "positive_target_spans": 129,
+    "explicit_retention_anchors": 7,
+    "retention_criticisms": 12,
+    "overlapping_units": 128,
+    "units_without_any_seed_annotation": 4421,
+    "positive_events_by_project": {
+      "ptah": 70,
+      "tokio": 1,
+      "pydantic": 1,
+      "bat": 3,
+      "containerd": 19,
+      "ripgrep": 3,
+      "imgui": 2,
+      "fzf": 2,
+      "curl": 1,
+      "marked": 2,
+      "prometheus": 3,
+      "etcd": 2,
+      "buildkit": 14
+    },
+    "retention_anchors_by_project": {
+      "tokio": 1,
+      "buildkit": 3,
+      "ptah": 1,
+      "bat": 2
+    },
+    "seed_complete_or_balanced": false,
+    "training_ready": false,
+    "annotation_seed_sha256": "8a8e42a11f161646c546620f32fde0a16e7cf456a5171475dca591c6bcbc53fe",
+    "all_source_spans_validated": true
+  }
+}
