@@ -123,7 +123,15 @@ reasons and review judgments are annotation metadata, not prediction inputs.
 The measurement record preserves the seed hash and project counts without
 publishing the private annotation packet.
 
-## Next learning experiment
+## Subsequent executed comparison
+
+The [October 9 source-unit comparison](source-student-learning.md) trains 39
+heads on an expanded source-annotation packet while keeping every original
+event. Auxiliary outputs predict explanation embeddings. The fixed diagnostic
+streams fail the unchanged recall screen; a decision-precision proxy and the
+next annotation queue are not recorded as detection gains.
+
+## Learning design
 
 The next packet should teach editorial necessity from source text, then compare
 supervision choices. This is a design, not a claim that a new model has been

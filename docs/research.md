@@ -34,6 +34,10 @@ source-span and intent learning, LLM annotation, explanation supervision,
 weak supervision, and Python libraries against completed local experiments.
 Its executed cleanlab audit preserves all frozen judgments and supplies a
 review queue, not a qualified detector or a measured gain in recall.
+The later [source-unit learning comparison](research/source-student-learning.md)
+completes 39 matched head fits with all 123 events preserved. The fixed
+source-only and auxiliary-output diagnostic streams fail the recall screen;
+selected-unit decision precision is not editorial usefulness.
 
 The E3 runs of [#176](https://github.com/stokaro/unswell/issues/176),
 [#177](https://github.com/stokaro/unswell/issues/177), and
