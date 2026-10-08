@@ -104,6 +104,12 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 	d.Requires = append(d.Requires, nlp.POS)
 	d.Description = description + " Reports complete matched clauses, once per clause."
 	if id == "filler.unscoped-assurance" {
+		d.Contexts = append(d.Contexts, "heading")
+		d.Description += " Local emphatic capability modifiers, optimization degree, attributive ease-to-use software descriptions, " +
+			"and deictic superlative benefits request criteria for their extent or ranking. " +
+			"Bare quality fragments may occur in headings or lists. " +
+			"Local measurements, criteria, comparisons, mechanisms, negation, attribution and quoted operators remain excluded. " +
+			"Formal technical properties are not inferred from degree words alone."
 		d.Description += " Testing or review activities guaranteeing abstract quality, and bare assertions that nothing is taken on trust, " +
 			"also request explicit scope. Concrete invariants, proofs, qualifications, attribution and protected code are excluded."
 	}
@@ -135,7 +141,7 @@ func localRhetoricVersion(id string) string {
 	case "repetition.definition-echo":
 		return "3"
 	case "filler.unscoped-assurance":
-		return "9"
+		return "10"
 	default:
 		return "1"
 	}

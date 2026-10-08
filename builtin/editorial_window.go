@@ -16,6 +16,7 @@ type editorialEvent struct {
 
 type editorialExplanation struct {
 	message, suggestion string
+	fallback            string
 }
 
 type eventFinder func(*editorialMatcher, []document.Sentence, int) ([]editorialEvent, error)
@@ -153,10 +154,27 @@ func commonExplanation(events []editorialEvent) editorialExplanation {
 	explanation := events[0].explanation
 	for _, event := range events[1:] {
 		if event.explanation != explanation {
-			return editorialExplanation{}
+			return mixedExplanation(events)
 		}
 	}
 	return explanation
+}
+
+// A construction may require a verification condition even when its specific
+// explanation cannot describe a mixed group. Conflicting fallback guidance is
+// never selected arbitrarily.
+func mixedExplanation(events []editorialEvent) editorialExplanation {
+	var fallback string
+	for _, event := range events {
+		if event.explanation.fallback == "" {
+			continue
+		}
+		if fallback != "" && fallback != event.explanation.fallback {
+			return editorialExplanation{}
+		}
+		fallback = event.explanation.fallback
+	}
+	return editorialExplanation{suggestion: fallback}
 }
 
 func phraseEvents(opening bool) eventFinder {
