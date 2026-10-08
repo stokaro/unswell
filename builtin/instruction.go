@@ -10,6 +10,9 @@ import (
 // suggested edit preserves optionality instead of changing a capability to a duty.
 func instructionScaffolding(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	c := clauses[index]
+	if frame, ok := installedPrerequisite(c); ok {
+		return frame, true
+	}
 	if frame, ok := abstractActionCarrier(c); ok {
 		return frame, true
 	}

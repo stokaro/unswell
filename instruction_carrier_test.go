@@ -40,12 +40,8 @@ func TestAbstractActionCarrierSourceAndPolicy(t *testing.T) {
 		{Name: "guide.py", Format: document.Python, Bytes: []byte("message = '" + text + "'\n")},
 	} {
 		t.Run(source.Name, func(t *testing.T) {
-			result, err := singleRuleEngine(t, id, "", "").Analyze(t.Context(), source)
+			finding := instructionSourceFinding(t, source)
 			c := qt.New(t)
-			c.Assert(err, qt.IsNil)
-			c.Assert(result.Findings, qt.HasLen, 1)
-			finding := result.Findings[0]
-			c.Assert(string(source.Bytes[finding.Primary.Span.Start:finding.Primary.Span.End]), qt.Equals, finding.Primary.Snippet)
 			c.Assert(finding.Primary.Snippet, qt.Contains, "two café records when")
 			c.Assert(finding.Primary.Snippet, qt.Contains, "`key` values match")
 		})
