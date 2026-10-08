@@ -16,6 +16,12 @@ func instructionScaffolding(clauses []frameClause, index int) (rhetoricalFrame, 
 	if frame, ok := installedPrerequisite(c); ok {
 		return frame, true
 	}
+	if frame, ok := supportedActionUsefulness(c); ok {
+		if instructionContinuation(clauses, index) {
+			frame.parts = append(frame.parts, clauses[index+1])
+		}
+		return frame, true
+	}
 	if frame, ok := abstractActionCarrier(c); ok {
 		return frame, true
 	}
