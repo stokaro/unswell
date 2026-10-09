@@ -18,7 +18,7 @@ workflow selects, and not the minimum compiler in `go.mod` that the native test
 jobs use. Match the release by naming that toolchain:
 
 ```sh
-GOTOOLCHAIN=go1.27.1 bash scripts/verify-reproducible-build.sh --output check.json
+GOTOOLCHAIN=go1.27.2 bash scripts/verify-reproducible-build.sh --output check.json
 ```
 
 `make check` and `make reproducible` run the script for all six targets. Each
