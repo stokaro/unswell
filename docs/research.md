@@ -54,6 +54,13 @@ replacement Python contract and 100 completed source reviews preserve unknown
 dimensions. Feature diversity does not enrich required-edit cases on the
 observed packet, and five calibration partitions still fail a count-only bound.
 
+The [matched partial-label training study](research/partial-label-learning.md)
+completes 26 heads on the same 256 source cases. Masking unknown purposes improves
+target-byte union coverage from 1/123 to 11/123 events, with semantic quality still
+unmeasured. Its 1,262 proposals and sparse explicit retention labels do not
+qualify a detector. The report adds a reusable supervision-support audit and
+primary work on LLM annotation acquisition and partially labeled token training.
+
 The E3 runs of [#176](https://github.com/stokaro/unswell/issues/176),
 [#177](https://github.com/stokaro/unswell/issues/177), and
 [#178](https://github.com/stokaro/unswell/issues/178) fit classifiers of

@@ -190,7 +190,14 @@ The [partial-label contract and acquisition study](partial-source-labels.md)
 then identified implicit negative intent labels in the historical helper. The
 replacement Python adapter and a completed 100-case source review preserve
 unknown dimensions. Feature-coverage sampling supplied fewer mandatory edits
-than its random control on that packet; no corrected model is claimed.
+than its random control on that packet.
+
+The subsequent [matched partial-label comparison](partial-label-learning.md)
+completes 26 head fits, with 256 original cases and no repaired training variants.
+Masking unknown purposes improves byte coverage but leaves semantic FULL and
+usefulness unmeasured. It also exposes missing negative supervision for intent
+and token outputs. The new support report preserves these gaps; further primary
+sources cover active LLM annotation and partially labeled token classification.
 
 The separately registered [reviewed source-span study](reviewed-source-spans.md)
 now completes the original/repair reviews and 26 matched unit/span head fits.

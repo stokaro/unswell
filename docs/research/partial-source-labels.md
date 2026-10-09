@@ -10,7 +10,8 @@ The replacement [Python contract](../../research/annotation/source_review/README
 preserves unknown labels, supports several purposes per edit, and binds quoted
 targets to original UTF-8 bytes. A separately registered acquisition completed
 100 additional source reviews under that contract. These are data and contract
-results; no corrected model has been fit or qualified.
+results. The subsequent [matched training study](partial-label-learning.md)
+fits the corrected masks separately; it does not qualify a detector.
 
 ## Distinguishing the annotation tasks
 
@@ -119,13 +120,14 @@ Primary sources and implementation details were checked on October 9, 2026.
 | [Distilabel custom tasks](https://distilabel.argilla.io/latest/sections/how_to_guides/basic/task/), [structured generation](https://distilabel.argilla.io/latest/sections/how_to_guides/advanced/structured_generation/) | A Python annotation pipeline can retain raw prompts, responses, model identities, and available token statistics while parsing structured labels. Context7 and the official documentation were inspected. | JSON-schema conformance supplies no semantic quality guarantee. Distilabel was not installed or run, and this work made no provider requests. |
 | [Identifying Reliable Evaluation Metrics for Scientific Text Revision, ACL 2025](https://aclanthology.org/2025.acl-long.335/) | Its abstract reports complementary evidence from task-specific metrics and LLM judging, with instruction-following easier to judge than correctness. | Only the abstract was inspected. No paper result is used as technical-preservation evidence or an Unswell accuracy estimate. |
 
-The next registered comparison should preserve partial labels and separate
-binary necessity from nonexclusive intent and span losses. It needs source
-review targeted at contextual relations, explicit hard retention controls, and
-calibration support across projects. Source/revision pairs can teach where and
-why wording changes, but a plausible rewrite alone does not make the original
-incorrect. The [earlier methods review](learning-data-methods.md) records other
-implemented and untested Python candidates.
+The subsequent [registered comparison](partial-label-learning.md) preserves
+partial labels and separates binary necessity from nonexclusive intent and span
+losses. It still fails the recall screen. Further data needs contextual-relation
+review, explicit hard retention controls, and calibration support across
+projects. Source/revision pairs can teach where and why wording changes, but a
+plausible rewrite alone does not make the original incorrect. The
+[earlier methods review](learning-data-methods.md) records other implemented and
+untested Python candidates.
 
 Published detection remains 37/123 FULL events and 94/154 useful actual
 criticisms on all 36 original pages and 4,549 units. All 804 original judgments
