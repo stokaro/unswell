@@ -48,6 +48,12 @@ known positives even for a perfect classifier. Its record distinguishes that
 data limitation from learned operating-point failures and reviews further
 primary work on revision necessity and discourse-connective edits.
 
+The [partial-label contract and acquisition study](research/partial-source-labels.md)
+finds default-generated negative intent labels in that historical helper. Its
+replacement Python contract and 100 completed source reviews preserve unknown
+dimensions. Feature diversity does not enrich required-edit cases on the
+observed packet, and five calibration partitions still fail a count-only bound.
+
 The E3 runs of [#176](https://github.com/stokaro/unswell/issues/176),
 [#177](https://github.com/stokaro/unswell/issues/177), and
 [#178](https://github.com/stokaro/unswell/issues/178) fit classifiers of

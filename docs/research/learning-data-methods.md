@@ -186,6 +186,12 @@ are complete. The record includes the negative results, all-event failure-stage
 accounting, and primary work on learning token edits from reviewed text pairs.
 None changes the published runtime or achieves product acceptance.
 
+The [partial-label contract and acquisition study](partial-source-labels.md)
+then identified implicit negative intent labels in the historical helper. The
+replacement Python adapter and a completed 100-case source review preserve
+unknown dimensions. Feature-coverage sampling supplied fewer mandatory edits
+than its random control on that packet; no corrected model is claimed.
+
 The separately registered [reviewed source-span study](reviewed-source-spans.md)
 now completes the original/repair reviews and 26 matched unit/span head fits.
 It records historical supervision conflicts, unavailable calibration groups,
