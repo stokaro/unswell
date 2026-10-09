@@ -1,0 +1,5681 @@
+{
+  "version": "unswell-source-complete-acquisition-learning-public-record-v1",
+  "recorded_at_utc": "2026-10-09T04:49:09.970076+00:00",
+  "scope": "Exposed-development acquisition and annotation-effect experiments; no independent human annotation or public runtime qualification.",
+  "acquisition": {
+    "status": "completed_acquisition_not_model_qualification",
+    "completed_at_utc": "2026-10-09T04:36:03.168519+00:00",
+    "reviewer": "Root Codex assistant under ADR 0041; not independent human labels",
+    "reviewed_cases": 49,
+    "explicit_purpose_decisions": 392,
+    "localized_edits": 14,
+    "global_decisions": {
+      "necessity_uncertainty": {
+        "necessary": 9,
+        "retain": 12,
+        "optional": 3,
+        "unknown": 0
+      },
+      "random_control": {
+        "necessary": 3,
+        "retain": 18,
+        "optional": 4,
+        "unknown": 0
+      }
+    },
+    "global_decisions_by_group": {
+      "bat": {
+        "necessity_uncertainty": {
+          "retain": 1,
+          "optional": 1
+        },
+        "random_control": {
+          "retain": 2
+        }
+      },
+      "buildkit": {
+        "random_control": {
+          "necessary": 2
+        },
+        "necessity_uncertainty": {
+          "retain": 1,
+          "necessary": 1
+        }
+      },
+      "containerd": {
+        "necessity_uncertainty": {
+          "necessary": 1,
+          "retain": 1
+        },
+        "random_control": {
+          "retain": 2
+        }
+      },
+      "curl": {
+        "necessity_uncertainty": {
+          "retain": 2
+        },
+        "random_control": {
+          "retain": 2
+        }
+      },
+      "etcd": {
+        "random_control": {
+          "retain": 1
+        }
+      },
+      "fzf": {
+        "necessity_uncertainty": {
+          "retain": 1,
+          "necessary": 1
+        },
+        "random_control": {
+          "optional": 2
+        }
+      },
+      "imgui": {
+        "random_control": {
+          "retain": 1,
+          "optional": 1
+        },
+        "necessity_uncertainty": {
+          "necessary": 2
+        }
+      },
+      "marked": {
+        "random_control": {
+          "necessary": 1,
+          "retain": 1
+        },
+        "necessity_uncertainty": {
+          "necessary": 2
+        }
+      },
+      "prometheus": {
+        "necessity_uncertainty": {
+          "retain": 2
+        },
+        "random_control": {
+          "retain": 2
+        }
+      },
+      "ptah": {
+        "random_control": {
+          "retain": 2
+        },
+        "necessity_uncertainty": {
+          "retain": 1,
+          "necessary": 1
+        }
+      },
+      "pydantic": {
+        "necessity_uncertainty": {
+          "retain": 2
+        },
+        "random_control": {
+          "retain": 2
+        }
+      },
+      "ripgrep": {
+        "random_control": {
+          "optional": 1,
+          "retain": 1
+        },
+        "necessity_uncertainty": {
+          "optional": 2
+        }
+      },
+      "tokio": {
+        "random_control": {
+          "retain": 2
+        },
+        "necessity_uncertainty": {
+          "retain": 1,
+          "necessary": 1
+        }
+      }
+    },
+    "new_purpose_support": {
+      "necessity": {
+        "positive": 12,
+        "negative": 30,
+        "unobserved": 7,
+        "both_classes_observed": true
+      },
+      "clarity": {
+        "positive": 4,
+        "negative": 42,
+        "unobserved": 3,
+        "both_classes_observed": true
+      },
+      "empty_framing": {
+        "positive": 0,
+        "negative": 47,
+        "unobserved": 2,
+        "both_classes_observed": false
+      },
+      "fluency": {
+        "positive": 9,
+        "negative": 36,
+        "unobserved": 4,
+        "both_classes_observed": true
+      },
+      "needless_complexity": {
+        "positive": 1,
+        "negative": 46,
+        "unobserved": 2,
+        "both_classes_observed": true
+      },
+      "needless_repetition": {
+        "positive": 0,
+        "negative": 48,
+        "unobserved": 1,
+        "both_classes_observed": false
+      },
+      "unjustified_intensifiers": {
+        "positive": 0,
+        "negative": 42,
+        "unobserved": 7,
+        "both_classes_observed": false
+      },
+      "vague_claims": {
+        "positive": 0,
+        "negative": 43,
+        "unobserved": 6,
+        "both_classes_observed": false
+      },
+      "wordiness": {
+        "positive": 0,
+        "negative": 34,
+        "unobserved": 15,
+        "both_classes_observed": false
+      }
+    },
+    "purpose_support_by_arm": {
+      "necessity_uncertainty": {
+        "necessity": {
+          "positive": 9,
+          "negative": 12,
+          "unobserved": 3,
+          "both_classes_observed": true
+        },
+        "clarity": {
+          "positive": 3,
+          "negative": 20,
+          "unobserved": 1,
+          "both_classes_observed": true
+        },
+        "empty_framing": {
+          "positive": 0,
+          "negative": 23,
+          "unobserved": 1,
+          "both_classes_observed": false
+        },
+        "fluency": {
+          "positive": 7,
+          "negative": 16,
+          "unobserved": 1,
+          "both_classes_observed": true
+        },
+        "needless_complexity": {
+          "positive": 1,
+          "negative": 22,
+          "unobserved": 1,
+          "both_classes_observed": true
+        },
+        "needless_repetition": {
+          "positive": 0,
+          "negative": 23,
+          "unobserved": 1,
+          "both_classes_observed": false
+        },
+        "unjustified_intensifiers": {
+          "positive": 0,
+          "negative": 22,
+          "unobserved": 2,
+          "both_classes_observed": false
+        },
+        "vague_claims": {
+          "positive": 0,
+          "negative": 22,
+          "unobserved": 2,
+          "both_classes_observed": false
+        },
+        "wordiness": {
+          "positive": 0,
+          "negative": 14,
+          "unobserved": 10,
+          "both_classes_observed": false
+        }
+      },
+      "random_control": {
+        "necessity": {
+          "positive": 3,
+          "negative": 18,
+          "unobserved": 4,
+          "both_classes_observed": true
+        },
+        "clarity": {
+          "positive": 1,
+          "negative": 22,
+          "unobserved": 2,
+          "both_classes_observed": true
+        },
+        "empty_framing": {
+          "positive": 0,
+          "negative": 24,
+          "unobserved": 1,
+          "both_classes_observed": false
+        },
+        "fluency": {
+          "positive": 2,
+          "negative": 20,
+          "unobserved": 3,
+          "both_classes_observed": true
+        },
+        "needless_complexity": {
+          "positive": 0,
+          "negative": 24,
+          "unobserved": 1,
+          "both_classes_observed": false
+        },
+        "needless_repetition": {
+          "positive": 0,
+          "negative": 25,
+          "unobserved": 0,
+          "both_classes_observed": false
+        },
+        "unjustified_intensifiers": {
+          "positive": 0,
+          "negative": 20,
+          "unobserved": 5,
+          "both_classes_observed": false
+        },
+        "vague_claims": {
+          "positive": 0,
+          "negative": 21,
+          "unobserved": 4,
+          "both_classes_observed": false
+        },
+        "wordiness": {
+          "positive": 0,
+          "negative": 20,
+          "unobserved": 5,
+          "both_classes_observed": false
+        }
+      }
+    },
+    "before_source_cases": 256,
+    "after_source_cases": 305,
+    "before_class_support": {
+      "necessity": {
+        "positive": 79,
+        "negative": 153,
+        "unobserved": 24,
+        "both_classes_observed": true
+      },
+      "clarity": {
+        "positive": 4,
+        "negative": 0,
+        "unobserved": 252,
+        "both_classes_observed": false
+      },
+      "empty_framing": {
+        "positive": 36,
+        "negative": 3,
+        "unobserved": 217,
+        "both_classes_observed": true
+      },
+      "fluency": {
+        "positive": 26,
+        "negative": 0,
+        "unobserved": 230,
+        "both_classes_observed": false
+      },
+      "needless_complexity": {
+        "positive": 1,
+        "negative": 1,
+        "unobserved": 254,
+        "both_classes_observed": true
+      },
+      "needless_repetition": {
+        "positive": 1,
+        "negative": 2,
+        "unobserved": 253,
+        "both_classes_observed": true
+      },
+      "unjustified_intensifiers": {
+        "positive": 4,
+        "negative": 2,
+        "unobserved": 250,
+        "both_classes_observed": true
+      },
+      "vague_claims": {
+        "positive": 5,
+        "negative": 1,
+        "unobserved": 250,
+        "both_classes_observed": true
+      },
+      "wordiness": {
+        "positive": 11,
+        "negative": 2,
+        "unobserved": 243,
+        "both_classes_observed": true
+      }
+    },
+    "after_class_support": {
+      "necessity": {
+        "positive": 91,
+        "negative": 183,
+        "unobserved": 31,
+        "both_classes_observed": true
+      },
+      "clarity": {
+        "positive": 8,
+        "negative": 42,
+        "unobserved": 255,
+        "both_classes_observed": true
+      },
+      "empty_framing": {
+        "positive": 36,
+        "negative": 50,
+        "unobserved": 219,
+        "both_classes_observed": true
+      },
+      "fluency": {
+        "positive": 35,
+        "negative": 36,
+        "unobserved": 234,
+        "both_classes_observed": true
+      },
+      "needless_complexity": {
+        "positive": 2,
+        "negative": 47,
+        "unobserved": 256,
+        "both_classes_observed": true
+      },
+      "needless_repetition": {
+        "positive": 1,
+        "negative": 50,
+        "unobserved": 254,
+        "both_classes_observed": true
+      },
+      "unjustified_intensifiers": {
+        "positive": 4,
+        "negative": 44,
+        "unobserved": 257,
+        "both_classes_observed": true
+      },
+      "vague_claims": {
+        "positive": 5,
+        "negative": 44,
+        "unobserved": 256,
+        "both_classes_observed": true
+      },
+      "wordiness": {
+        "positive": 11,
+        "negative": 36,
+        "unobserved": 258,
+        "both_classes_observed": true
+      }
+    },
+    "audited_selection_models": 13,
+    "audited_original_source_slices": 49,
+    "prior_source_exclusions": 333,
+    "preserved_shortfall_cases": 3,
+    "selection_and_review_order_reconstructed_exactly": true,
+    "source_slice_and_mask_audit_passed": true,
+    "new_model_fits": 0,
+    "new_encoder_passes": 0,
+    "provider_calls": 0,
+    "population_prevalence_measured": false,
+    "semantic_full_recall": null,
+    "delivered_usefulness": null,
+    "qualified": false,
+    "product_improvement_credit": 0,
+    "untouched_prospective_sources_used": 0,
+    "original_gold_changes": 0,
+    "automatic_unmarked_token_negatives": 0,
+    "automatic_after_labels": 0,
+    "elapsed_seconds": 2.261440583039075
+  },
+  "class_support_preview": {
+    "necessity": {
+      "before": {
+        "train": 13,
+        "calibration": 13
+      },
+      "after": {
+        "train": 13,
+        "calibration": 13
+      }
+    },
+    "clarity": {
+      "before": {
+        "train": 0,
+        "calibration": 0
+      },
+      "after": {
+        "train": 13,
+        "calibration": 8
+      }
+    },
+    "empty_framing": {
+      "before": {
+        "train": 13,
+        "calibration": 5
+      },
+      "after": {
+        "train": 13,
+        "calibration": 8
+      }
+    },
+    "fluency": {
+      "before": {
+        "train": 0,
+        "calibration": 0
+      },
+      "after": {
+        "train": 13,
+        "calibration": 13
+      }
+    },
+    "needless_complexity": {
+      "before": {
+        "train": 6,
+        "calibration": 0
+      },
+      "after": {
+        "train": 11,
+        "calibration": 1
+      }
+    },
+    "needless_repetition": {
+      "before": {
+        "train": 9,
+        "calibration": 3
+      },
+      "after": {
+        "train": 9,
+        "calibration": 3
+      }
+    },
+    "unjustified_intensifiers": {
+      "before": {
+        "train": 11,
+        "calibration": 3
+      },
+      "after": {
+        "train": 13,
+        "calibration": 9
+      }
+    },
+    "vague_claims": {
+      "before": {
+        "train": 8,
+        "calibration": 1
+      },
+      "after": {
+        "train": 13,
+        "calibration": 7
+      }
+    },
+    "wordiness": {
+      "before": {
+        "train": 12,
+        "calibration": 2
+      },
+      "after": {
+        "train": 13,
+        "calibration": 3
+      }
+    }
+  },
+  "acquisition_registration": {
+    "version": "unswell-source-intent-complete-acquisition-registration-v1",
+    "registered_at_utc": "2026-10-09T04:11:44.042194+00:00",
+    "hypothesis": "Test acquisition by out-of-project student necessity uncertainty against random control while explicitly reviewing all eight nonexclusive purposes. Earlier feature-distance acquisition did not enrich mandatory edits.",
+    "seed": 61095,
+    "source_groups": "All 13 exposed original development projects; each tested project excluded from its scoring head training and calibration.",
+    "minimum_eligible_target_tokens": 24,
+    "selection": "Sorted source groups. Draw up to two random controls without replacement per group with seed plus group index; from the remainder draw up to two units with smallest absolute pooled eligible-token global-necessity logit, breaking ties by original unit identity.",
+    "maximum_cases": 52,
+    "preselection_capacity_preview": 49,
+    "known_shortfall_group": "etcd has only one eligible previously unreviewed source unit; record its three-case shortfall rather than copying rows or dropping a group.",
+    "exclude_previous_reviewed_source_units": 333,
+    "scoring": "Use frozen partial_masks heads, including heads with unavailable delivery cutoffs, only as acquisition rankings. No probabilities, new head fit, encoder pass, threshold change, or reference-event input.",
+    "review_input": "Complete original target, neighboring original units, and access to the full frozen original document. Exclude scores, selection arm, model explanation, original judgments, and reference-event metadata from the packet.",
+    "reviewer": "Root Codex assistant under ADR 0041; no independent human claim.",
+    "annotation": "Explicit own-reason decisions for global necessity and all eight purposes; necessary edits localized in original UTF-8 bytes with nonexclusive purposes. Optional or unknown answers stay masked. Missing purposes fail the completed-review check. No automatic unmarked-token negatives or clean-after labels.",
+    "primary_readout": [
+      "counts of necessary/retain/optional/unknown by arm and group",
+      "explicit purpose positive/negative/unknown counts",
+      "class-support preview under the unchanged project folds"
+    ],
+    "not_measured": [
+      "population prevalence",
+      "classifier accuracy",
+      "delivered criticism usefulness",
+      "semantic FULL recall"
+    ],
+    "model_fitting_in_this_acquisition": false,
+    "new_provider_requests": 0,
+    "prospective_sources_used": 0,
+    "original_gold_changes": 0,
+    "runtime_changes": false,
+    "maximum_preparation_seconds": 120,
+    "failure_policy": "One bounded preparation; preserve any failure. No selection rerun or post-result reallocation. Finish all selected source reviews before comparing arms.",
+    "script_sha256": "b756360b8d6c21008082e0973fbf01a153154874b8574b8540e52f8ede207308",
+    "inputs": {
+      "joint-component-sol-high-evaluation/originals.json": "4f0051badc4b16dfe088d88cae69bd0dda89af2e9f62b4bed317309c4db65082",
+      "source-span-learning-20261009-v2/features/features.safetensors": "b279ebe44a2ee16ba4572f4d0800167714b46bf631e0b9289249addd708fd234",
+      "source-span-learning-20261009-v2/features/keys.json": "b146ada7e2c8772f5327d266e7cfef14edf9177bb88622f4dfe6dbef9545ac90",
+      "source-span-learning-20261009-v2/features/tokenization.json": "3812decd655650f125feaf3102cf1e4561f9aa04b5999321638a767acfa013a1",
+      "source-partial-label-learning-20261009-v2/packet/variants.json": "655dd63bca4203989cf1018f9c8d4fd9154e01eb188749fd5b50081ba907f4e3",
+      "source-partial-label-learning-20261009-v2/packet/folds.json": "1ba257db611338732dab46f527dfd4b8d41270efbd16bd8c4018a147a4cce26c",
+      "source-partial-label-learning-20261009-v2/training/fits.json": "9c5089cb518e9b6bfaf21dd823c689d6fbc5f412d261f49a4ab57a91edb682ab",
+      "source-partial-label-learning-20261009-v2/training/freeze.json": "7e41dce07b374c08abb46e781b5571763dae3c0512e552471163fc730770bac2",
+      "source-edit-pair-pilot-20261009-v2/packet.json": "0368df1aefea1bea9828b19581fd984903ca66135736ae611013e248a390c04e",
+      "source-edit-expansion-20261009-v1/packet.json": "3fb184ed134f00630df9473c7c47f724fef8e390846c197fbd2511806d0c497e",
+      "source-coverage-acquisition-20261009-v3/review-packet.json": "fe7cb1387fda69aba6373275e851445479a6afe59b85c7aed802e0784ea9fdf4",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-fzf.safetensors": "9ce3cc2b88ddeaa2145450a30382bdad72dcf81429b1cfcbef7d2f822a139b57",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-buildkit.safetensors": "062fe2d464d5cdc191ea28ab9b903609a4b11f3c3511778fa93bbf2cf59e13dd",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-imgui.safetensors": "4645bfe3385e41e5e4764890e27e2d7e83289d3e2e364d863a6ffdb232d4b386",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-containerd.safetensors": "1c82ca0d7f605996c9e41e0a80e4ea88394892d039f680437d11bce922e4df3c",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-bat.safetensors": "41301e4a2eac2aa78225973f1ed1326580cd239fa1d7ca4e6aa55ae7ec1dfbfc",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-tokio.safetensors": "96dedbfd997f6f0f77f4ef725d8e00b814bbc8b75db66a5a66de959e1fee4ddb",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-etcd.safetensors": "1cd4d4b0040947f5f1a5594ba7ae5f08ec4b8d17cc949187bc836c0a24f99173",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-ptah.safetensors": "35f3a3a0d17300cf5c35fecdb1a82ca7c710d3f16951ee06b5fd8312105e5132",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-pydantic.safetensors": "19ad0265c9b063d466c4b4389d19178310d66306f8fc7edb12d11a6b2e01934f",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-curl.safetensors": "56d7b154c2e02ec3a061481d3ab02727395806a521fa4d0d987f5bb8046435f7",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-ripgrep.safetensors": "ea3e6df6f855b9089c822e2fd466af6d6fe964ce5da5d15ba71f5b3159900afe",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-marked.safetensors": "62daff42f9f6f350d363f4874f985b3719977f9fad9ff4e6adfb88445055e7f9",
+      "source-partial-label-learning-20261009-v2/training/partial_masks-prometheus.safetensors": "eb75f75dfd7b7391fa8287347980271c2387f9c4368b8f605314205f80832157"
+    },
+    "primary_sources": [
+      "https://aclanthology.org/2023.findings-emnlp.872/",
+      "https://aclanthology.org/2024.lrec-main.30/",
+      "https://small-text.readthedocs.io/en/latest/components/query_strategies.html"
+    ]
+  },
+  "acquisition_native_terminal": {
+    "command": [
+      "/Users/buster/Work/denis/unswell.research-scratch/unswell-current-core-full-scope-20261003/development/window-admission-runtime-v1/bin/python",
+      "-B",
+      "/Users/buster/Work/denis/unswell.research-scratch/unswell-current-core-full-scope-20261003/development/source-intent-complete-acquisition-code-20261009-v1/prepare.py"
+    ],
+    "started_at_utc": "2026-10-09T04:11:44.401871+00:00",
+    "registration_sha256": "1609ce7ff0c411b89d42c56bb750f1c4a63e248bdc75d065d574a43f767dbcb6",
+    "native_pid": 95100,
+    "exit_code": 0,
+    "terminal_at_utc": "2026-10-09T04:11:47.458798+00:00",
+    "elapsed_seconds": 3.0569734582677484,
+    "peak_child_rss_bytes": 930938880,
+    "log_sha256": "5ddffa945cb64a63e70e45bfd2cc88de1d98604d64ca987b602ae76413afa918"
+  },
+  "acquisition_audit_terminal": {
+    "observed_exit_code": 0,
+    "exec_session_id": 12084,
+    "script_reported_elapsed_seconds": 2.261440583039075,
+    "maximum_registered_seconds": 120,
+    "completed_at_utc": "2026-10-09T04:36:03.168519+00:00",
+    "elapsed_within_registered_limit": true,
+    "result_sha256": "42bdf8340548a38ba4f8806147b7b020977fb55cc5d4d4fe474230c54d0cde74",
+    "no_native_peak_rss_measurement": true
+  },
+  "learning_registration": {
+    "version": "unswell-source-complete-label-learning-registration-v1",
+    "registered_at_utc": "2026-10-09T04:38:39.630685+00:00",
+    "hypothesis": "With unchanged features, architecture, optimizer, initialization, folds, calibration rule, and delivery, test the effect of adding 49 audited source-only complete-purpose reviews to the 256-case masked baseline.",
+    "arms": [
+      "historical_masks",
+      "complete_source_reviews"
+    ],
+    "seed": 61094,
+    "epochs": 120,
+    "learning_rate": 0.002,
+    "weight_decay": 0.01,
+    "cutoffs": [
+      -4.0,
+      -3.5,
+      -3.0,
+      -2.5,
+      -2.0,
+      -1.5,
+      -1.0,
+      -0.5,
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0,
+      2.5,
+      3.0,
+      3.5,
+      4.0
+    ],
+    "maximum_training_seconds": 600,
+    "maximum_head_bytes": 67108864,
+    "model": "Frozen ModernBERT cached complete target/context features; token MLP 1536 to 64 GELU to 9 logits",
+    "global_necessity_loss_weight": 1.0,
+    "intent_loss_weight": 1.0,
+    "positive_span_loss_weight": 0.5,
+    "intent_loss_reduction": "Mean across explicitly observed dimensions only; empty mask skips the intent loss; no default negative dimensions",
+    "unit_pooling": "Eligible-token max per logit",
+    "delivery_score": "Minimum of pooled unit-global necessity logit and selected token intent logit; same cutoff for both scores; calibration uses the identical unit-envelope score",
+    "calibration": "Exclude the test source group; both known global necessity classes, at least ten selected known cases and 85 percent proxy precision; maximize true positives, then minimize false positives, then higher cutoff",
+    "delivery": "At most two available purposes per unit, at most eight contiguous original-byte runs per purpose, protected ranges excluded; the pooled unit-global necessity score gates every token intent span; no rewrite or probability",
+    "features_reencoded": false,
+    "after_variants_used": false,
+    "old_conflict_quarantines_retained": 77,
+    "raw_optional_and_unknown_necessity_masked": true,
+    "inference_input": "Complete raw source target and adjacent original units already bound to cached features; no reason, annotation identity, label, or evaluation judgment",
+    "provider_calls": 0,
+    "prospective_pages_used": 0,
+    "original_scope": {
+      "pages": 36,
+      "units": 4549,
+      "judgments": 804,
+      "events": 123
+    },
+    "published_product_full": "37/123",
+    "published_product_useful": "94/154",
+    "product_qualification": false,
+    "semantic_review_required": true,
+    "failure_policy": "One bounded offline run, no automatic retry; retain errors and every original event. New predictions do not modify the old experiment or evaluation labels.",
+    "limitations": [
+      "The acquisition pool and every evaluated document are exposed development, not untouched confirmation.",
+      "Acquisition is not nested validation: query heads for other projects may have seen old labels from this tested project. Direct training and calibration still exclude the tested project.",
+      "The new reviews change both training and calibration labels and class support. Their individual effects are not separated.",
+      "Acquisition selection arms are combined; this run does not estimate separate random-versus-uncertainty training effects.",
+      "Global necessity calibration is a unit-level proxy, not a per-purpose correctness or usefulness guarantee.",
+      "Structural witnesses, class support, and available cutoffs are not semantic FULL or editorial usefulness.",
+      "Root assistant reviews under ADR 0041 are not independent human labels."
+    ],
+    "source_cases": {
+      "historical_masks": 256,
+      "complete_source_reviews": 305
+    },
+    "new_intent_dimensions": {
+      "positive": 14,
+      "negative": 338,
+      "optional_or_unknown": 40
+    },
+    "control_expectation": "All 13 historical_masks saved heads must reproduce the prior partial_masks weight hashes exactly; mismatch fails the bounded run without retries.",
+    "primary_readout": [
+      "Frozen-data control weight reproduction",
+      "All original unit availability and every original event target-byte union by arm and cohort",
+      "Per-project calibration grids and proposed-stream counts"
+    ]
+  },
+  "learning_native_terminal": {
+    "argv": [
+      "/Users/buster/Work/denis/unswell.research-scratch/unswell-current-core-full-scope-20261003/development/window-admission-runtime-v1/bin/python",
+      "-B",
+      "/Users/buster/Work/denis/unswell.research-scratch/unswell-current-core-full-scope-20261003/development/source-complete-label-learning-code-20261009-v1/train.py"
+    ],
+    "native_pid": 1247,
+    "exit_code": 0,
+    "timed_out": false,
+    "started_at_utc": "2026-10-09T04:39:11.535591+00:00",
+    "completed_at_utc": "2026-10-09T04:42:13.780045+00:00",
+    "wall_seconds": 182.24483937537298,
+    "peak_child_rss_bytes": 629702656,
+    "raw_log_sha256": "b88e98bf76130cbad60a3aab9cc0a38fabf797253603f1e8044428aaedf16786",
+    "raw_log_bytes": 5272,
+    "compressed_log_sha256": "dd09e26a19f73924fd7f9a18d6adde6afe450320b3d573645229783e4ab85099",
+    "max_wall_seconds": 900
+  },
+  "learning_result": {
+    "complete": true,
+    "head_fits": 26,
+    "encoder_fits": 0,
+    "provider_calls": 0,
+    "new_encoder_passes": 0,
+    "elapsed_seconds": 179.7126158750616,
+    "arms": {
+      "historical_masks": {
+        "available_folds": 3,
+        "accounted_original_units": 4549,
+        "available_original_units": 2411,
+        "delivered_criticisms": 1262,
+        "any_intent_envelope_witnesses": 11,
+        "matching_intent_envelope_witnesses": 5,
+        "events": 123,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "any_intent_envelope_witnesses": 4,
+            "matching_intent_envelope_witnesses": 4
+          },
+          "context": {
+            "events": 46,
+            "any_intent_envelope_witnesses": 5,
+            "matching_intent_envelope_witnesses": 0
+          },
+          "confirmation": {
+            "events": 20,
+            "any_intent_envelope_witnesses": 2,
+            "matching_intent_envelope_witnesses": 1
+          }
+        },
+        "actual_reviewed_criticisms": 0,
+        "actual_usefulness": null,
+        "semantic_full_recall": null
+      },
+      "complete_source_reviews": {
+        "available_folds": 3,
+        "accounted_original_units": 4549,
+        "available_original_units": 788,
+        "delivered_criticisms": 144,
+        "any_intent_envelope_witnesses": 0,
+        "matching_intent_envelope_witnesses": 0,
+        "events": 123,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "any_intent_envelope_witnesses": 0,
+            "matching_intent_envelope_witnesses": 0
+          },
+          "context": {
+            "events": 46,
+            "any_intent_envelope_witnesses": 0,
+            "matching_intent_envelope_witnesses": 0
+          },
+          "confirmation": {
+            "events": 20,
+            "any_intent_envelope_witnesses": 0,
+            "matching_intent_envelope_witnesses": 0
+          }
+        },
+        "actual_reviewed_criticisms": 0,
+        "actual_usefulness": null,
+        "semantic_full_recall": null
+      }
+    },
+    "prospective_pages_used": 0,
+    "original_reference_changes": 0,
+    "product_acceptance_credit": 0,
+    "product_qualified": false,
+    "published_product_full": "37/123",
+    "published_product_useful": "94/154",
+    "limits": "This is an exposed-development annotation-effect experiment. Acquisition is not nested validation: ranking heads for other projects may have seen old labels from this tested project. Structural byte coverage and intent agreement are not semantic FULL or actual criticism usefulness. No runtime or gate change."
+  },
+  "learning_fits": [
+    {
+      "id": "historical_masks-bat",
+      "arm": "historical_masks",
+      "fold": "bat",
+      "train_variants": 180,
+      "train_source_groups": [
+        "buildkit",
+        "containerd",
+        "curl",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "etcd",
+        "fzf",
+        "pydantic"
+      ],
+      "calibration_originals": 55,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 31,
+          "tp": 7,
+          "fp": 24,
+          "precision": 0.22580645161290322,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 28,
+          "tp": 7,
+          "fp": 21,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 21,
+          "tp": 6,
+          "fp": 15,
+          "precision": 0.2857142857142857,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 19,
+          "tp": 5,
+          "fp": 14,
+          "precision": 0.2631578947368421,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 15,
+          "tp": 3,
+          "fp": 12,
+          "precision": 0.2,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 13,
+          "tp": 3,
+          "fp": 10,
+          "precision": 0.23076923076923078,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 9,
+          "tp": 2,
+          "fp": 7,
+          "precision": 0.2222222222222222,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 6,
+          "tp": 2,
+          "fp": 4,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 6,
+          "tp": 2,
+          "fp": 4,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 3,
+          "tp": 2,
+          "fp": 1,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 422,
+      "delivered_criticisms": 0,
+      "final_loss": 0.11293124407529831,
+      "state_sha256": "41301e4a2eac2aa78225973f1ed1326580cd239fa1d7ca4e6aa55ae7ec1dfbfc"
+    },
+    {
+      "id": "complete_source_reviews-bat",
+      "arm": "complete_source_reviews",
+      "fold": "bat",
+      "train_variants": 216,
+      "train_source_groups": [
+        "buildkit",
+        "containerd",
+        "curl",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "etcd",
+        "fzf",
+        "pydantic"
+      ],
+      "calibration_originals": 62,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 33,
+          "tp": 6,
+          "fp": 27,
+          "precision": 0.18181818181818182,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 30,
+          "tp": 6,
+          "fp": 24,
+          "precision": 0.2,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 24,
+          "tp": 5,
+          "fp": 19,
+          "precision": 0.20833333333333334,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 21,
+          "tp": 4,
+          "fp": 17,
+          "precision": 0.19047619047619047,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 16,
+          "tp": 4,
+          "fp": 12,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 13,
+          "tp": 3,
+          "fp": 10,
+          "precision": 0.23076923076923078,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 8,
+          "tp": 2,
+          "fp": 6,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 8,
+          "tp": 2,
+          "fp": 6,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 6,
+          "tp": 2,
+          "fp": 4,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 4,
+          "tp": 1,
+          "fp": 3,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 422,
+      "delivered_criticisms": 0,
+      "final_loss": 0.3039092421531677,
+      "state_sha256": "01c7d87554772fa7f2962de52d330e2f5e97292ec5141d1c3eef6c1e39a1a9d9"
+    },
+    {
+      "id": "historical_masks-buildkit",
+      "arm": "historical_masks",
+      "fold": "buildkit",
+      "train_variants": 162,
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "curl",
+        "fzf",
+        "marked",
+        "prometheus",
+        "ptah",
+        "pydantic",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "etcd",
+        "imgui",
+        "ripgrep"
+      ],
+      "calibration_originals": 68,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": false,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 35,
+          "tp": 8,
+          "fp": 27,
+          "precision": 0.22857142857142856,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 34,
+          "tp": 8,
+          "fp": 26,
+          "precision": 0.23529411764705882,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 27,
+          "tp": 7,
+          "fp": 20,
+          "precision": 0.25925925925925924,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 20,
+          "tp": 7,
+          "fp": 13,
+          "precision": 0.35,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 18,
+          "tp": 7,
+          "fp": 11,
+          "precision": 0.3888888888888889,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 16,
+          "tp": 6,
+          "fp": 10,
+          "precision": 0.375,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 11,
+          "tp": 4,
+          "fp": 7,
+          "precision": 0.36363636363636365,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 9,
+          "tp": 3,
+          "fp": 6,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 4,
+          "tp": 1,
+          "fp": 3,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 4,
+          "tp": 1,
+          "fp": 3,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 3,
+          "tp": 1,
+          "fp": 2,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 3,
+          "tp": 1,
+          "fp": 2,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 50,
+      "delivered_criticisms": 0,
+      "final_loss": 0.07339638471603394,
+      "state_sha256": "062fe2d464d5cdc191ea28ab9b903609a4b11f3c3511778fa93bbf2cf59e13dd"
+    },
+    {
+      "id": "complete_source_reviews-buildkit",
+      "arm": "complete_source_reviews",
+      "fold": "buildkit",
+      "train_variants": 198,
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "curl",
+        "fzf",
+        "marked",
+        "prometheus",
+        "ptah",
+        "pydantic",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "etcd",
+        "imgui",
+        "ripgrep"
+      ],
+      "calibration_originals": 73,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": false,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 44,
+          "tp": 11,
+          "fp": 33,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 42,
+          "tp": 11,
+          "fp": 31,
+          "precision": 0.2619047619047619,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 38,
+          "tp": 11,
+          "fp": 27,
+          "precision": 0.2894736842105263,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 34,
+          "tp": 11,
+          "fp": 23,
+          "precision": 0.3235294117647059,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 28,
+          "tp": 11,
+          "fp": 17,
+          "precision": 0.39285714285714285,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 23,
+          "tp": 10,
+          "fp": 13,
+          "precision": 0.43478260869565216,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 18,
+          "tp": 8,
+          "fp": 10,
+          "precision": 0.4444444444444444,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 14,
+          "tp": 7,
+          "fp": 7,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 9,
+          "tp": 5,
+          "fp": 4,
+          "precision": 0.5555555555555556,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 9,
+          "tp": 5,
+          "fp": 4,
+          "precision": 0.5555555555555556,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 7,
+          "tp": 3,
+          "fp": 4,
+          "precision": 0.42857142857142855,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 3,
+          "tp": 1,
+          "fp": 2,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 50,
+      "delivered_criticisms": 0,
+      "final_loss": 0.2731311619281769,
+      "state_sha256": "67c503b744b9b1b19ed6bf44a37481318982254f5f936af82510544a81691cf7"
+    },
+    {
+      "id": "historical_masks-containerd",
+      "arm": "historical_masks",
+      "fold": "containerd",
+      "train_variants": 194,
+      "train_source_groups": [
+        "buildkit",
+        "etcd",
+        "fzf",
+        "marked",
+        "prometheus",
+        "ptah",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "curl",
+        "imgui"
+      ],
+      "calibration_originals": 40,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 33,
+          "tp": 11,
+          "fp": 22,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 31,
+          "tp": 11,
+          "fp": 20,
+          "precision": 0.3548387096774194,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 28,
+          "tp": 10,
+          "fp": 18,
+          "precision": 0.35714285714285715,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 24,
+          "tp": 10,
+          "fp": 14,
+          "precision": 0.4166666666666667,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 20,
+          "tp": 9,
+          "fp": 11,
+          "precision": 0.45,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 14,
+          "tp": 7,
+          "fp": 7,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 11,
+          "tp": 6,
+          "fp": 5,
+          "precision": 0.5454545454545454,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 6,
+          "tp": 3,
+          "fp": 3,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 5,
+          "tp": 3,
+          "fp": 2,
+          "precision": 0.6,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 4,
+          "tp": 3,
+          "fp": 1,
+          "precision": 0.75,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 203,
+      "delivered_criticisms": 0,
+      "final_loss": 0.18996469676494598,
+      "state_sha256": "1c82ca0d7f605996c9e41e0a80e4ea88394892d039f680437d11bce922e4df3c"
+    },
+    {
+      "id": "complete_source_reviews-containerd",
+      "arm": "complete_source_reviews",
+      "fold": "containerd",
+      "train_variants": 227,
+      "train_source_groups": [
+        "buildkit",
+        "etcd",
+        "fzf",
+        "marked",
+        "prometheus",
+        "ptah",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "curl",
+        "imgui"
+      ],
+      "calibration_originals": 50,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 39,
+          "tp": 13,
+          "fp": 26,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 36,
+          "tp": 12,
+          "fp": 24,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 34,
+          "tp": 12,
+          "fp": 22,
+          "precision": 0.35294117647058826,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 31,
+          "tp": 12,
+          "fp": 19,
+          "precision": 0.3870967741935484,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 26,
+          "tp": 11,
+          "fp": 15,
+          "precision": 0.4230769230769231,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 24,
+          "tp": 11,
+          "fp": 13,
+          "precision": 0.4583333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 21,
+          "tp": 11,
+          "fp": 10,
+          "precision": 0.5238095238095238,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 14,
+          "tp": 8,
+          "fp": 6,
+          "precision": 0.5714285714285714,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 10,
+          "tp": 5,
+          "fp": 5,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 8,
+          "tp": 5,
+          "fp": 3,
+          "precision": 0.625,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 6,
+          "tp": 5,
+          "fp": 1,
+          "precision": 0.8333333333333334,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 203,
+      "delivered_criticisms": 0,
+      "final_loss": 0.30539625883102417,
+      "state_sha256": "86c13ecebcd5b28424991e3440ee3584e72d076a4def86016d818724dba437d0"
+    },
+    {
+      "id": "historical_masks-curl",
+      "arm": "historical_masks",
+      "fold": "curl",
+      "train_variants": 200,
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "etcd",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "buildkit",
+        "fzf",
+        "pydantic"
+      ],
+      "calibration_originals": 46,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 27,
+          "tp": 12,
+          "fp": 15,
+          "precision": 0.4444444444444444,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 23,
+          "tp": 11,
+          "fp": 12,
+          "precision": 0.4782608695652174,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 19,
+          "tp": 11,
+          "fp": 8,
+          "precision": 0.5789473684210527,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 17,
+          "tp": 10,
+          "fp": 7,
+          "precision": 0.5882352941176471,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 16,
+          "tp": 10,
+          "fp": 6,
+          "precision": 0.625,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 16,
+          "tp": 10,
+          "fp": 6,
+          "precision": 0.625,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 14,
+          "tp": 10,
+          "fp": 4,
+          "precision": 0.7142857142857143,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 13,
+          "tp": 10,
+          "fp": 3,
+          "precision": 0.7692307692307693,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 9,
+          "tp": 7,
+          "fp": 2,
+          "precision": 0.7777777777777778,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 7,
+          "tp": 7,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 6,
+          "tp": 6,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 5,
+          "tp": 5,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 5,
+          "tp": 5,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 3,
+          "tp": 3,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 3,
+          "tp": 3,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 2,
+          "tp": 2,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 40,
+      "delivered_criticisms": 0,
+      "final_loss": 0.09626152366399765,
+      "state_sha256": "56d7b154c2e02ec3a061481d3ab02727395806a521fa4d0d987f5bb8046435f7"
+    },
+    {
+      "id": "complete_source_reviews-curl",
+      "arm": "complete_source_reviews",
+      "fold": "curl",
+      "train_variants": 233,
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "etcd",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "buildkit",
+        "fzf",
+        "pydantic"
+      ],
+      "calibration_originals": 56,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": true,
+      "cutoff": -0.5,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 38,
+          "tp": 16,
+          "fp": 22,
+          "precision": 0.42105263157894735,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 32,
+          "tp": 16,
+          "fp": 16,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 29,
+          "tp": 16,
+          "fp": 13,
+          "precision": 0.5517241379310345,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 23,
+          "tp": 14,
+          "fp": 9,
+          "precision": 0.6086956521739131,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 22,
+          "tp": 14,
+          "fp": 8,
+          "precision": 0.6363636363636364,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 21,
+          "tp": 14,
+          "fp": 7,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 17,
+          "tp": 13,
+          "fp": 4,
+          "precision": 0.7647058823529411,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 14,
+          "tp": 13,
+          "fp": 1,
+          "precision": 0.9285714285714286,
+          "feasible": true
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 10,
+          "tp": 9,
+          "fp": 1,
+          "precision": 0.9,
+          "feasible": true
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 6,
+          "tp": 6,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 6,
+          "tp": 6,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 5,
+          "tp": 5,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 3,
+          "tp": 3,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 2,
+          "tp": 2,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 2,
+          "tp": 2,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": null,
+      "test_units": 40,
+      "delivered_criticisms": 133,
+      "final_loss": 0.30500292778015137,
+      "state_sha256": "e9fd63aac1ff1d298668d2b90716976dfa862aea6c8f4562d1bec769bdb068d9"
+    },
+    {
+      "id": "historical_masks-etcd",
+      "arm": "historical_masks",
+      "fold": "etcd",
+      "train_variants": 201,
+      "train_source_groups": [
+        "containerd",
+        "curl",
+        "fzf",
+        "imgui",
+        "marked",
+        "ptah",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "buildkit",
+        "prometheus"
+      ],
+      "calibration_originals": 29,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": true,
+      "cutoff": 0.0,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 23,
+          "tp": 11,
+          "fp": 12,
+          "precision": 0.4782608695652174,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 22,
+          "tp": 11,
+          "fp": 11,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 21,
+          "tp": 11,
+          "fp": 10,
+          "precision": 0.5238095238095238,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 19,
+          "tp": 11,
+          "fp": 8,
+          "precision": 0.5789473684210527,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 18,
+          "tp": 11,
+          "fp": 7,
+          "precision": 0.6111111111111112,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 18,
+          "tp": 11,
+          "fp": 7,
+          "precision": 0.6111111111111112,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 17,
+          "tp": 11,
+          "fp": 6,
+          "precision": 0.6470588235294118,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 14,
+          "tp": 11,
+          "fp": 3,
+          "precision": 0.7857142857142857,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 11,
+          "tp": 10,
+          "fp": 1,
+          "precision": 0.9090909090909091,
+          "feasible": true
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 10,
+          "tp": 9,
+          "fp": 1,
+          "precision": 0.9,
+          "feasible": true
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 8,
+          "tp": 8,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 5,
+          "tp": 5,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 3,
+          "tp": 3,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": null,
+      "test_units": 69,
+      "delivered_criticisms": 8,
+      "final_loss": 0.2429066002368927,
+      "state_sha256": "1cd4d4b0040947f5f1a5594ba7ae5f08ec4b8d17cc949187bc836c0a24f99173"
+    },
+    {
+      "id": "complete_source_reviews-etcd",
+      "arm": "complete_source_reviews",
+      "fold": "etcd",
+      "train_variants": 237,
+      "train_source_groups": [
+        "containerd",
+        "curl",
+        "fzf",
+        "imgui",
+        "marked",
+        "ptah",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "buildkit",
+        "prometheus"
+      ],
+      "calibration_originals": 40,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 30,
+          "tp": 14,
+          "fp": 16,
+          "precision": 0.4666666666666667,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 29,
+          "tp": 14,
+          "fp": 15,
+          "precision": 0.4827586206896552,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 27,
+          "tp": 14,
+          "fp": 13,
+          "precision": 0.5185185185185185,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 27,
+          "tp": 14,
+          "fp": 13,
+          "precision": 0.5185185185185185,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 25,
+          "tp": 14,
+          "fp": 11,
+          "precision": 0.56,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 25,
+          "tp": 14,
+          "fp": 11,
+          "precision": 0.56,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 22,
+          "tp": 14,
+          "fp": 8,
+          "precision": 0.6363636363636364,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 17,
+          "tp": 12,
+          "fp": 5,
+          "precision": 0.7058823529411765,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 12,
+          "tp": 9,
+          "fp": 3,
+          "precision": 0.75,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 10,
+          "tp": 8,
+          "fp": 2,
+          "precision": 0.8,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 4,
+          "tp": 3,
+          "fp": 1,
+          "precision": 0.75,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 3,
+          "tp": 2,
+          "fp": 1,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 69,
+      "delivered_criticisms": 0,
+      "final_loss": 0.28859952092170715,
+      "state_sha256": "b34f0055dba5ab7bf8cf043fd6ffe6ed78bc7291747cc99f55a06a947c54f15b"
+    },
+    {
+      "id": "historical_masks-fzf",
+      "arm": "historical_masks",
+      "fold": "fzf",
+      "train_variants": 144,
+      "train_source_groups": [
+        "bat",
+        "buildkit",
+        "containerd",
+        "curl",
+        "etcd",
+        "marked",
+        "prometheus",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "imgui",
+        "ptah",
+        "pydantic"
+      ],
+      "calibration_originals": 76,
+      "available_intents": {
+        "clarity": false,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": false,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": true,
+      "cutoff": -0.5,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 65,
+          "tp": 44,
+          "fp": 21,
+          "precision": 0.676923076923077,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 61,
+          "tp": 44,
+          "fp": 17,
+          "precision": 0.7213114754098361,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 56,
+          "tp": 43,
+          "fp": 13,
+          "precision": 0.7678571428571429,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 53,
+          "tp": 40,
+          "fp": 13,
+          "precision": 0.7547169811320755,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 46,
+          "tp": 36,
+          "fp": 10,
+          "precision": 0.782608695652174,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 41,
+          "tp": 34,
+          "fp": 7,
+          "precision": 0.8292682926829268,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 36,
+          "tp": 30,
+          "fp": 6,
+          "precision": 0.8333333333333334,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 34,
+          "tp": 29,
+          "fp": 5,
+          "precision": 0.8529411764705882,
+          "feasible": true
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 25,
+          "tp": 22,
+          "fp": 3,
+          "precision": 0.88,
+          "feasible": true
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 20,
+          "tp": 17,
+          "fp": 3,
+          "precision": 0.85,
+          "feasible": true
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 10,
+          "tp": 10,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": true
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 5,
+          "tp": 5,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 2,
+          "tp": 2,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": null,
+      "test_units": 226,
+      "delivered_criticisms": 22,
+      "final_loss": 0.15301041305065155,
+      "state_sha256": "9ce3cc2b88ddeaa2145450a30382bdad72dcf81429b1cfcbef7d2f822a139b57"
+    },
+    {
+      "id": "complete_source_reviews-fzf",
+      "arm": "complete_source_reviews",
+      "fold": "fzf",
+      "train_variants": 177,
+      "train_source_groups": [
+        "bat",
+        "buildkit",
+        "containerd",
+        "curl",
+        "etcd",
+        "marked",
+        "prometheus",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "imgui",
+        "ptah",
+        "pydantic"
+      ],
+      "calibration_originals": 87,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": false,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": true,
+      "cutoff": 0.0,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 72,
+          "tp": 47,
+          "fp": 25,
+          "precision": 0.6527777777777778,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 68,
+          "tp": 47,
+          "fp": 21,
+          "precision": 0.6911764705882353,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 67,
+          "tp": 47,
+          "fp": 20,
+          "precision": 0.7014925373134329,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 64,
+          "tp": 47,
+          "fp": 17,
+          "precision": 0.734375,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 55,
+          "tp": 42,
+          "fp": 13,
+          "precision": 0.7636363636363637,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 48,
+          "tp": 38,
+          "fp": 10,
+          "precision": 0.7916666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 44,
+          "tp": 36,
+          "fp": 8,
+          "precision": 0.8181818181818182,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 31,
+          "tp": 25,
+          "fp": 6,
+          "precision": 0.8064516129032258,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 23,
+          "tp": 20,
+          "fp": 3,
+          "precision": 0.8695652173913043,
+          "feasible": true
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 18,
+          "tp": 17,
+          "fp": 1,
+          "precision": 0.9444444444444444,
+          "feasible": true
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 8,
+          "tp": 7,
+          "fp": 1,
+          "precision": 0.875,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 3,
+          "tp": 2,
+          "fp": 1,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": null,
+      "test_units": 226,
+      "delivered_criticisms": 11,
+      "final_loss": 0.30609750747680664,
+      "state_sha256": "e0eabc0bdd16d40407f8911675657d3f752ce665206329a1638a4711dd783781"
+    },
+    {
+      "id": "historical_masks-imgui",
+      "arm": "historical_masks",
+      "fold": "imgui",
+      "train_variants": 177,
+      "train_source_groups": [
+        "buildkit",
+        "containerd",
+        "curl",
+        "etcd",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "fzf",
+        "pydantic"
+      ],
+      "calibration_originals": 46,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 34,
+          "tp": 7,
+          "fp": 27,
+          "precision": 0.20588235294117646,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 27,
+          "tp": 6,
+          "fp": 21,
+          "precision": 0.2222222222222222,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 22,
+          "tp": 5,
+          "fp": 17,
+          "precision": 0.22727272727272727,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 16,
+          "tp": 4,
+          "fp": 12,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 9,
+          "tp": 3,
+          "fp": 6,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 8,
+          "tp": 3,
+          "fp": 5,
+          "precision": 0.375,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 5,
+          "tp": 2,
+          "fp": 3,
+          "precision": 0.4,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 119,
+      "delivered_criticisms": 0,
+      "final_loss": 0.17884565889835358,
+      "state_sha256": "4645bfe3385e41e5e4764890e27e2d7e83289d3e2e364d863a6ffdb232d4b386"
+    },
+    {
+      "id": "complete_source_reviews-imgui",
+      "arm": "complete_source_reviews",
+      "fold": "imgui",
+      "train_variants": 210,
+      "train_source_groups": [
+        "buildkit",
+        "containerd",
+        "curl",
+        "etcd",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "fzf",
+        "pydantic"
+      ],
+      "calibration_originals": 55,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 31,
+          "tp": 8,
+          "fp": 23,
+          "precision": 0.25806451612903225,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 27,
+          "tp": 6,
+          "fp": 21,
+          "precision": 0.2222222222222222,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 22,
+          "tp": 6,
+          "fp": 16,
+          "precision": 0.2727272727272727,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 19,
+          "tp": 6,
+          "fp": 13,
+          "precision": 0.3157894736842105,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 14,
+          "tp": 4,
+          "fp": 10,
+          "precision": 0.2857142857142857,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 9,
+          "tp": 3,
+          "fp": 6,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 5,
+          "tp": 2,
+          "fp": 3,
+          "precision": 0.4,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 4,
+          "tp": 2,
+          "fp": 2,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 3,
+          "tp": 2,
+          "fp": 1,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 119,
+      "delivered_criticisms": 0,
+      "final_loss": 0.37326133251190186,
+      "state_sha256": "2ced433454f6a9110a232e12e63a13454279f773710aa3625fa63005c0036988"
+    },
+    {
+      "id": "historical_masks-marked",
+      "arm": "historical_masks",
+      "fold": "marked",
+      "train_variants": 221,
+      "train_source_groups": [
+        "containerd",
+        "etcd",
+        "fzf",
+        "imgui",
+        "prometheus",
+        "ptah",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "buildkit",
+        "curl"
+      ],
+      "calibration_originals": 26,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 21,
+          "tp": 10,
+          "fp": 11,
+          "precision": 0.47619047619047616,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 20,
+          "tp": 10,
+          "fp": 10,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 20,
+          "tp": 10,
+          "fp": 10,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 18,
+          "tp": 10,
+          "fp": 8,
+          "precision": 0.5555555555555556,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 17,
+          "tp": 10,
+          "fp": 7,
+          "precision": 0.5882352941176471,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 16,
+          "tp": 10,
+          "fp": 6,
+          "precision": 0.625,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 14,
+          "tp": 10,
+          "fp": 4,
+          "precision": 0.7142857142857143,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 13,
+          "tp": 10,
+          "fp": 3,
+          "precision": 0.7692307692307693,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 10,
+          "tp": 8,
+          "fp": 2,
+          "precision": 0.8,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 8,
+          "tp": 7,
+          "fp": 1,
+          "precision": 0.875,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 8,
+          "tp": 7,
+          "fp": 1,
+          "precision": 0.875,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 6,
+          "tp": 5,
+          "fp": 1,
+          "precision": 0.8333333333333334,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 4,
+          "tp": 3,
+          "fp": 1,
+          "precision": 0.75,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 3,
+          "tp": 2,
+          "fp": 1,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 122,
+      "delivered_criticisms": 0,
+      "final_loss": 0.13143855333328247,
+      "state_sha256": "62daff42f9f6f350d363f4874f985b3719977f9fad9ff4e6adfb88445055e7f9"
+    },
+    {
+      "id": "complete_source_reviews-marked",
+      "arm": "complete_source_reviews",
+      "fold": "marked",
+      "train_variants": 254,
+      "train_source_groups": [
+        "containerd",
+        "etcd",
+        "fzf",
+        "imgui",
+        "prometheus",
+        "ptah",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "buildkit",
+        "curl"
+      ],
+      "calibration_originals": 37,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 30,
+          "tp": 13,
+          "fp": 17,
+          "precision": 0.43333333333333335,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 29,
+          "tp": 13,
+          "fp": 16,
+          "precision": 0.4482758620689655,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 28,
+          "tp": 13,
+          "fp": 15,
+          "precision": 0.4642857142857143,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 26,
+          "tp": 13,
+          "fp": 13,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 25,
+          "tp": 13,
+          "fp": 12,
+          "precision": 0.52,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 23,
+          "tp": 12,
+          "fp": 11,
+          "precision": 0.5217391304347826,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 20,
+          "tp": 11,
+          "fp": 9,
+          "precision": 0.55,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 16,
+          "tp": 10,
+          "fp": 6,
+          "precision": 0.625,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 13,
+          "tp": 9,
+          "fp": 4,
+          "precision": 0.6923076923076923,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 10,
+          "tp": 6,
+          "fp": 4,
+          "precision": 0.6,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 7,
+          "tp": 5,
+          "fp": 2,
+          "precision": 0.7142857142857143,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 5,
+          "tp": 3,
+          "fp": 2,
+          "precision": 0.6,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 5,
+          "tp": 3,
+          "fp": 2,
+          "precision": 0.6,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 3,
+          "tp": 2,
+          "fp": 1,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 122,
+      "delivered_criticisms": 0,
+      "final_loss": 0.2690921127796173,
+      "state_sha256": "4d992b1fdc5cfde9b08d653e82dea7964448081f06a3a551c2a1c51198a79e7e"
+    },
+    {
+      "id": "historical_masks-prometheus",
+      "arm": "historical_masks",
+      "fold": "prometheus",
+      "train_variants": 164,
+      "train_source_groups": [
+        "bat",
+        "buildkit",
+        "containerd",
+        "curl",
+        "fzf",
+        "imgui",
+        "marked",
+        "ptah",
+        "pydantic"
+      ],
+      "calibration_source_groups": [
+        "etcd",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_originals": 68,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": false,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 39,
+          "tp": 4,
+          "fp": 35,
+          "precision": 0.10256410256410256,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 37,
+          "tp": 4,
+          "fp": 33,
+          "precision": 0.10810810810810811,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 27,
+          "tp": 4,
+          "fp": 23,
+          "precision": 0.14814814814814814,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 21,
+          "tp": 4,
+          "fp": 17,
+          "precision": 0.19047619047619047,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 17,
+          "tp": 4,
+          "fp": 13,
+          "precision": 0.23529411764705882,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 12,
+          "tp": 4,
+          "fp": 8,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 11,
+          "tp": 4,
+          "fp": 7,
+          "precision": 0.36363636363636365,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 10,
+          "tp": 4,
+          "fp": 6,
+          "precision": 0.4,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 7,
+          "tp": 2,
+          "fp": 5,
+          "precision": 0.2857142857142857,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 4,
+          "tp": 1,
+          "fp": 3,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 3,
+          "tp": 1,
+          "fp": 2,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 2,
+          "tp": 0,
+          "fp": 2,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 2,
+          "tp": 0,
+          "fp": 2,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 80,
+      "delivered_criticisms": 0,
+      "final_loss": 0.1033208817243576,
+      "state_sha256": "eb75f75dfd7b7391fa8287347980271c2387f9c4368b8f605314205f80832157"
+    },
+    {
+      "id": "complete_source_reviews-prometheus",
+      "arm": "complete_source_reviews",
+      "fold": "prometheus",
+      "train_variants": 200,
+      "train_source_groups": [
+        "bat",
+        "buildkit",
+        "containerd",
+        "curl",
+        "fzf",
+        "imgui",
+        "marked",
+        "ptah",
+        "pydantic"
+      ],
+      "calibration_source_groups": [
+        "etcd",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_originals": 74,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": false,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 28,
+          "tp": 5,
+          "fp": 23,
+          "precision": 0.17857142857142858,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 23,
+          "tp": 5,
+          "fp": 18,
+          "precision": 0.21739130434782608,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 20,
+          "tp": 5,
+          "fp": 15,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 17,
+          "tp": 5,
+          "fp": 12,
+          "precision": 0.29411764705882354,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 14,
+          "tp": 5,
+          "fp": 9,
+          "precision": 0.35714285714285715,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 14,
+          "tp": 5,
+          "fp": 9,
+          "precision": 0.35714285714285715,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 11,
+          "tp": 4,
+          "fp": 7,
+          "precision": 0.36363636363636365,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 10,
+          "tp": 3,
+          "fp": 7,
+          "precision": 0.3,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 8,
+          "tp": 2,
+          "fp": 6,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 7,
+          "tp": 2,
+          "fp": 5,
+          "precision": 0.2857142857142857,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 3,
+          "tp": 0,
+          "fp": 3,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 2,
+          "tp": 0,
+          "fp": 2,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 80,
+      "delivered_criticisms": 0,
+      "final_loss": 0.2598721385002136,
+      "state_sha256": "202e70bc45c8312145140ad3c3e95af86b2aa53102a2d35f3e0504b236af4cec"
+    },
+    {
+      "id": "historical_masks-ptah",
+      "arm": "historical_masks",
+      "fold": "ptah",
+      "train_variants": 165,
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "curl",
+        "etcd",
+        "fzf",
+        "marked",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "buildkit",
+        "imgui",
+        "prometheus"
+      ],
+      "calibration_originals": 43,
+      "available_intents": {
+        "clarity": false,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": false,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": true,
+      "cutoff": -0.5,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 40,
+          "tp": 18,
+          "fp": 22,
+          "precision": 0.45,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 34,
+          "tp": 17,
+          "fp": 17,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 33,
+          "tp": 17,
+          "fp": 16,
+          "precision": 0.5151515151515151,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 30,
+          "tp": 16,
+          "fp": 14,
+          "precision": 0.5333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 27,
+          "tp": 15,
+          "fp": 12,
+          "precision": 0.5555555555555556,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 23,
+          "tp": 14,
+          "fp": 9,
+          "precision": 0.6086956521739131,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 19,
+          "tp": 12,
+          "fp": 7,
+          "precision": 0.631578947368421,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 12,
+          "tp": 11,
+          "fp": 1,
+          "precision": 0.9166666666666666,
+          "feasible": true
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 7,
+          "tp": 7,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 3,
+          "tp": 3,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": null,
+      "test_units": 2116,
+      "delivered_criticisms": 1232,
+      "final_loss": 0.17336009442806244,
+      "state_sha256": "35f3a3a0d17300cf5c35fecdb1a82ca7c710d3f16951ee06b5fd8312105e5132"
+    },
+    {
+      "id": "complete_source_reviews-ptah",
+      "arm": "complete_source_reviews",
+      "fold": "ptah",
+      "train_variants": 198,
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "curl",
+        "etcd",
+        "fzf",
+        "marked",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "buildkit",
+        "imgui",
+        "prometheus"
+      ],
+      "calibration_originals": 54,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": false,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 47,
+          "tp": 23,
+          "fp": 24,
+          "precision": 0.48936170212765956,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 43,
+          "tp": 22,
+          "fp": 21,
+          "precision": 0.5116279069767442,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 41,
+          "tp": 22,
+          "fp": 19,
+          "precision": 0.5365853658536586,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 40,
+          "tp": 22,
+          "fp": 18,
+          "precision": 0.55,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 35,
+          "tp": 21,
+          "fp": 14,
+          "precision": 0.6,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 29,
+          "tp": 17,
+          "fp": 12,
+          "precision": 0.5862068965517241,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 21,
+          "tp": 12,
+          "fp": 9,
+          "precision": 0.5714285714285714,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 15,
+          "tp": 10,
+          "fp": 5,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 9,
+          "tp": 6,
+          "fp": 3,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 4,
+          "tp": 3,
+          "fp": 1,
+          "precision": 0.75,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 2116,
+      "delivered_criticisms": 0,
+      "final_loss": 0.26037120819091797,
+      "state_sha256": "fdc3237ef0b435c7376473cf4a9d77cbd743cfc2a29c6c3e5a975a203272bc33"
+    },
+    {
+      "id": "historical_masks-pydantic",
+      "arm": "historical_masks",
+      "fold": "pydantic",
+      "train_variants": 180,
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "curl",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "buildkit",
+        "etcd",
+        "fzf"
+      ],
+      "calibration_originals": 56,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 33,
+          "tp": 13,
+          "fp": 20,
+          "precision": 0.3939393939393939,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 31,
+          "tp": 13,
+          "fp": 18,
+          "precision": 0.41935483870967744,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 25,
+          "tp": 12,
+          "fp": 13,
+          "precision": 0.48,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 22,
+          "tp": 12,
+          "fp": 10,
+          "precision": 0.5454545454545454,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 22,
+          "tp": 12,
+          "fp": 10,
+          "precision": 0.5454545454545454,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 18,
+          "tp": 9,
+          "fp": 9,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 18,
+          "tp": 9,
+          "fp": 9,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 16,
+          "tp": 8,
+          "fp": 8,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 16,
+          "tp": 8,
+          "fp": 8,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 11,
+          "tp": 6,
+          "fp": 5,
+          "precision": 0.5454545454545454,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 7,
+          "tp": 6,
+          "fp": 1,
+          "precision": 0.8571428571428571,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 7,
+          "tp": 6,
+          "fp": 1,
+          "precision": 0.8571428571428571,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 5,
+          "tp": 5,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 5,
+          "tp": 5,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 5,
+          "tp": 5,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 5,
+          "tp": 5,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 2,
+          "tp": 2,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 522,
+      "delivered_criticisms": 0,
+      "final_loss": 0.10723594576120377,
+      "state_sha256": "19ad0265c9b063d466c4b4389d19178310d66306f8fc7edb12d11a6b2e01934f"
+    },
+    {
+      "id": "complete_source_reviews-pydantic",
+      "arm": "complete_source_reviews",
+      "fold": "pydantic",
+      "train_variants": 216,
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "curl",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "buildkit",
+        "etcd",
+        "fzf"
+      ],
+      "calibration_originals": 63,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": true,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": true,
+      "cutoff": 1.0,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 39,
+          "tp": 17,
+          "fp": 22,
+          "precision": 0.4358974358974359,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 36,
+          "tp": 15,
+          "fp": 21,
+          "precision": 0.4166666666666667,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 32,
+          "tp": 15,
+          "fp": 17,
+          "precision": 0.46875,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 29,
+          "tp": 15,
+          "fp": 14,
+          "precision": 0.5172413793103449,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 23,
+          "tp": 13,
+          "fp": 10,
+          "precision": 0.5652173913043478,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 20,
+          "tp": 12,
+          "fp": 8,
+          "precision": 0.6,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 19,
+          "tp": 11,
+          "fp": 8,
+          "precision": 0.5789473684210527,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 15,
+          "tp": 11,
+          "fp": 4,
+          "precision": 0.7333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 13,
+          "tp": 10,
+          "fp": 3,
+          "precision": 0.7692307692307693,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 12,
+          "tp": 10,
+          "fp": 2,
+          "precision": 0.8333333333333334,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 10,
+          "tp": 9,
+          "fp": 1,
+          "precision": 0.9,
+          "feasible": true
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 6,
+          "tp": 6,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 5,
+          "tp": 5,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 4,
+          "tp": 4,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 2,
+          "tp": 2,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": null,
+      "test_units": 522,
+      "delivered_criticisms": 0,
+      "final_loss": 0.2675902545452118,
+      "state_sha256": "370e48589e7751083509e2c64c802e239e65fe552baa351fe6f47697b02a3f0b"
+    },
+    {
+      "id": "historical_masks-ripgrep",
+      "arm": "historical_masks",
+      "fold": "ripgrep",
+      "train_variants": 159,
+      "train_source_groups": [
+        "bat",
+        "buildkit",
+        "containerd",
+        "curl",
+        "etcd",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah"
+      ],
+      "calibration_source_groups": [
+        "fzf",
+        "pydantic",
+        "tokio"
+      ],
+      "calibration_originals": 60,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": false,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 29,
+          "tp": 5,
+          "fp": 24,
+          "precision": 0.1724137931034483,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 19,
+          "tp": 5,
+          "fp": 14,
+          "precision": 0.2631578947368421,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 17,
+          "tp": 5,
+          "fp": 12,
+          "precision": 0.29411764705882354,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 15,
+          "tp": 5,
+          "fp": 10,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 12,
+          "tp": 4,
+          "fp": 8,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 9,
+          "tp": 3,
+          "fp": 6,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 8,
+          "tp": 2,
+          "fp": 6,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 4,
+          "tp": 1,
+          "fp": 3,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 3,
+          "tp": 0,
+          "fp": 3,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 1,
+          "tp": 0,
+          "fp": 1,
+          "precision": 0.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 142,
+      "delivered_criticisms": 0,
+      "final_loss": 0.14171859622001648,
+      "state_sha256": "ea3e6df6f855b9089c822e2fd466af6d6fe964ce5da5d15ba71f5b3159900afe"
+    },
+    {
+      "id": "complete_source_reviews-ripgrep",
+      "arm": "complete_source_reviews",
+      "fold": "ripgrep",
+      "train_variants": 192,
+      "train_source_groups": [
+        "bat",
+        "buildkit",
+        "containerd",
+        "curl",
+        "etcd",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah"
+      ],
+      "calibration_source_groups": [
+        "fzf",
+        "pydantic",
+        "tokio"
+      ],
+      "calibration_originals": 70,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": false,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 36,
+          "tp": 9,
+          "fp": 27,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 30,
+          "tp": 9,
+          "fp": 21,
+          "precision": 0.3,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 24,
+          "tp": 7,
+          "fp": 17,
+          "precision": 0.2916666666666667,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 16,
+          "tp": 6,
+          "fp": 10,
+          "precision": 0.375,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 13,
+          "tp": 4,
+          "fp": 9,
+          "precision": 0.3076923076923077,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 11,
+          "tp": 4,
+          "fp": 7,
+          "precision": 0.36363636363636365,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 7,
+          "tp": 2,
+          "fp": 5,
+          "precision": 0.2857142857142857,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 7,
+          "tp": 2,
+          "fp": 5,
+          "precision": 0.2857142857142857,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 6,
+          "tp": 2,
+          "fp": 4,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 3,
+          "tp": 1,
+          "fp": 2,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 142,
+      "delivered_criticisms": 0,
+      "final_loss": 0.3078036606311798,
+      "state_sha256": "4d202142477d7ed6e430b2a3dd380e770d4bf54568799adebd37bca83d04497c"
+    },
+    {
+      "id": "historical_masks-tokio",
+      "arm": "historical_masks",
+      "fold": "tokio",
+      "train_variants": 163,
+      "train_source_groups": [
+        "buildkit",
+        "containerd",
+        "curl",
+        "fzf",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "pydantic"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "etcd",
+        "ripgrep"
+      ],
+      "calibration_originals": 54,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": false,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": true,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 37,
+          "tp": 5,
+          "fp": 32,
+          "precision": 0.13513513513513514,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 30,
+          "tp": 4,
+          "fp": 26,
+          "precision": 0.13333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 29,
+          "tp": 4,
+          "fp": 25,
+          "precision": 0.13793103448275862,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 26,
+          "tp": 4,
+          "fp": 22,
+          "precision": 0.15384615384615385,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 20,
+          "tp": 4,
+          "fp": 16,
+          "precision": 0.2,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 16,
+          "tp": 4,
+          "fp": 12,
+          "precision": 0.25,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 12,
+          "tp": 4,
+          "fp": 8,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 8,
+          "tp": 3,
+          "fp": 5,
+          "precision": 0.375,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 7,
+          "tp": 2,
+          "fp": 5,
+          "precision": 0.2857142857142857,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 4,
+          "tp": 2,
+          "fp": 2,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 3,
+          "tp": 1,
+          "fp": 2,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 438,
+      "delivered_criticisms": 0,
+      "final_loss": 0.14152474701404572,
+      "state_sha256": "96dedbfd997f6f0f77f4ef725d8e00b814bbc8b75db66a5a66de959e1fee4ddb"
+    },
+    {
+      "id": "complete_source_reviews-tokio",
+      "arm": "complete_source_reviews",
+      "fold": "tokio",
+      "train_variants": 199,
+      "train_source_groups": [
+        "buildkit",
+        "containerd",
+        "curl",
+        "fzf",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "pydantic"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "etcd",
+        "ripgrep"
+      ],
+      "calibration_originals": 59,
+      "available_intents": {
+        "clarity": true,
+        "empty_framing": true,
+        "fluency": true,
+        "needless_complexity": true,
+        "needless_repetition": false,
+        "unjustified_intensifiers": true,
+        "vague_claims": true,
+        "wordiness": true
+      },
+      "epochs": 120,
+      "control_weights_reproduced": false,
+      "available": false,
+      "cutoff": null,
+      "calibration_grid": [
+        {
+          "cutoff": -4.0,
+          "known_selected": 27,
+          "tp": 4,
+          "fp": 23,
+          "precision": 0.14814814814814814,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.5,
+          "known_selected": 23,
+          "tp": 4,
+          "fp": 19,
+          "precision": 0.17391304347826086,
+          "feasible": false
+        },
+        {
+          "cutoff": -3.0,
+          "known_selected": 20,
+          "tp": 4,
+          "fp": 16,
+          "precision": 0.2,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.5,
+          "known_selected": 17,
+          "tp": 4,
+          "fp": 13,
+          "precision": 0.23529411764705882,
+          "feasible": false
+        },
+        {
+          "cutoff": -2.0,
+          "known_selected": 13,
+          "tp": 4,
+          "fp": 9,
+          "precision": 0.3076923076923077,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.5,
+          "known_selected": 9,
+          "tp": 3,
+          "fp": 6,
+          "precision": 0.3333333333333333,
+          "feasible": false
+        },
+        {
+          "cutoff": -1.0,
+          "known_selected": 8,
+          "tp": 3,
+          "fp": 5,
+          "precision": 0.375,
+          "feasible": false
+        },
+        {
+          "cutoff": -0.5,
+          "known_selected": 8,
+          "tp": 3,
+          "fp": 5,
+          "precision": 0.375,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.0,
+          "known_selected": 3,
+          "tp": 2,
+          "fp": 1,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": 0.5,
+          "known_selected": 3,
+          "tp": 2,
+          "fp": 1,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.0,
+          "known_selected": 3,
+          "tp": 2,
+          "fp": 1,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": 1.5,
+          "known_selected": 3,
+          "tp": 2,
+          "fp": 1,
+          "precision": 0.6666666666666666,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.0,
+          "known_selected": 2,
+          "tp": 1,
+          "fp": 1,
+          "precision": 0.5,
+          "feasible": false
+        },
+        {
+          "cutoff": 2.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.0,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 3.5,
+          "known_selected": 1,
+          "tp": 1,
+          "fp": 0,
+          "precision": 1.0,
+          "feasible": false
+        },
+        {
+          "cutoff": 4.0,
+          "known_selected": 0,
+          "tp": 0,
+          "fp": 0,
+          "precision": null,
+          "feasible": false
+        }
+      ],
+      "unavailable_reason": "No point reaches the frozen selected-count and precision requirements",
+      "test_units": 438,
+      "delivered_criticisms": 0,
+      "final_loss": 0.25597986578941345,
+      "state_sha256": "dd4afdcd71c04f43fe04e15123e0153c242c7f0c264ecaa06aa7955406985f60"
+    }
+  ],
+  "saved_weight_audit": {
+    "version": "unswell-source-complete-label-independent-audit-v1",
+    "status": "complete",
+    "registration_sha256": "83204722eb6fedd84ab5c3421efd1d451afdf54e8049bcf48b656ba5b18f5e64",
+    "script_sha256": "ba61bd77c3e2ace6c06df414c302398ed08d1145facd7d0238263aea2d35ff46",
+    "heads_checked": 26,
+    "calibration_grids_checked": 26,
+    "deliveries_recomputed_exactly": true,
+    "original_units_accounted_per_arm": 4549,
+    "source_cases_by_arm": {
+      "historical_masks": 256,
+      "complete_source_reviews": 305
+    },
+    "original_events_per_arm": 123,
+    "component_union_bounds": {
+      "historical_masks": {
+        "events": 123,
+        "any_intent_complete_component_union": 11,
+        "matching_intent_complete_component_union": 5,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "any_intent_complete_component_union": 4,
+            "matching_intent_complete_component_union": 4
+          },
+          "context": {
+            "events": 46,
+            "any_intent_complete_component_union": 5,
+            "matching_intent_complete_component_union": 0
+          },
+          "confirmation": {
+            "events": 20,
+            "any_intent_complete_component_union": 2,
+            "matching_intent_complete_component_union": 1
+          }
+        },
+        "proposals": 1262,
+        "available_folds": 3,
+        "actual_usefulness": null,
+        "semantic_full": null,
+        "product_acceptance_credit": 0
+      },
+      "complete_source_reviews": {
+        "events": 123,
+        "any_intent_complete_component_union": 0,
+        "matching_intent_complete_component_union": 0,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "any_intent_complete_component_union": 0,
+            "matching_intent_complete_component_union": 0
+          },
+          "context": {
+            "events": 46,
+            "any_intent_complete_component_union": 0,
+            "matching_intent_complete_component_union": 0
+          },
+          "confirmation": {
+            "events": 20,
+            "any_intent_complete_component_union": 0,
+            "matching_intent_complete_component_union": 0
+          }
+        },
+        "proposals": 144,
+        "available_folds": 3,
+        "actual_usefulness": null,
+        "semantic_full": null,
+        "product_acceptance_credit": 0
+      }
+    },
+    "new_model_fits": 0,
+    "provider_calls": 0,
+    "prospective_pages_used": 0,
+    "training_or_original_label_changes": 0,
+    "product_qualified": false,
+    "limitation": "Complete byte-component union is only an optimistic localization bound; purpose and semantic review remain required.",
+    "native_pid": 1691,
+    "elapsed_seconds": 2.006513624917716,
+    "terminal_at_utc": "2026-10-09T04:42:59.061632+00:00"
+  },
+  "saved_weight_audit_terminal": {
+    "argv": [
+      "/Users/buster/Work/denis/unswell.research-scratch/unswell-current-core-full-scope-20261003/development/window-admission-runtime-v1/bin/python",
+      "-B",
+      "/Users/buster/Work/denis/unswell.research-scratch/unswell-current-core-full-scope-20261003/development/source-complete-label-learning-code-20261009-v1/audit.py"
+    ],
+    "native_pid": 1691,
+    "exit_code": 0,
+    "timed_out": false,
+    "started_at_utc": "2026-10-09T04:42:56.840897+00:00",
+    "completed_at_utc": "2026-10-09T04:42:59.871891+00:00",
+    "wall_seconds": 3.0330975423566997,
+    "peak_child_rss_bytes": 638713856,
+    "raw_log_sha256": "fa2f235353ef279aae18b88f803efdb5092618b5604a171c4b74ead649612b6d",
+    "raw_log_bytes": 2161,
+    "compressed_log_sha256": "5feda528c46020b98f4e4fe552bff2cbb41fb1221231b0833d49aaff4064e3d2",
+    "max_wall_seconds": 120
+  },
+  "identities": {
+    "source-intent-complete-acquisition-20261009-v1/registration.json": "1609ce7ff0c411b89d42c56bb750f1c4a63e248bdc75d065d574a43f767dbcb6",
+    "source-intent-complete-acquisition-20261009-v1/preparation-seal.json": "179daf1deca009d16c8564219cd29eeaa805ead5a1161fc4c0e0e441d014f80d",
+    "source-intent-complete-acquisition-20261009-v1/review-packet.json": "8e6ebe8e7d2b414f1e315ed1f75ad9289418e3d07e47b01531e7731fb340b583",
+    "source-intent-complete-acquisition-20261009-v1/selection-ledger.json": "d15aa00e8f22227f7deba5d56da69028a4beee23630203c6f4dd5740b47d7752",
+    "source-intent-complete-acquisition-20261009-v1/pool-support.json": "827a57d9df4d519454f036b8da40887362e4baab80a80b062b7be4558231bb69",
+    "source-intent-complete-acquisition-20261009-v1/native-terminal.json": "53c01504d4aeda2a4bd3f536d342ffc9d32524f072362919e6cca46d1bdf2eaf",
+    "source-intent-complete-acquisition-20261009-v1/review-binding-registration.json": "49425a4e5baf9b3fec43e9be0afefe06efc0ed9216e6c4d48498578b111e2c4c",
+    "source-intent-complete-acquisition-20261009-v1/review-completion-seal.json": "00f4be8586638350339e92d5abd7f5f18a5bdb32a676f716ff58ea454606eec9",
+    "source-intent-complete-acquisition-20261009-v1/audit-registration.json": "29319450f8c039a8b7898e02cc0482a2dbbd4f4a689806f1dadc485dbf1ba775",
+    "source-intent-complete-acquisition-20261009-v1/acquisition-result.json": "42bdf8340548a38ba4f8806147b7b020977fb55cc5d4d4fe474230c54d0cde74",
+    "source-intent-complete-acquisition-20261009-v1/audit-completion-seal.json": "2878089968420fe0c7e2f29e78b9311cf80ce7a050e9d89fe57271b5b8788060",
+    "source-intent-complete-acquisition-20261009-v1/audit-terminal.json": "956e7fce533d5d3726827ab634f72d86ad4d63f8d7b45793ccd14913aed55263",
+    "source-complete-label-learning-20261009-v1/packet/freeze.json": "ac740ca75bc3785d72b7ec82409dd307435edd900d152647572df819be4e400c",
+    "source-complete-label-learning-20261009-v1/packet/protocol.json": "f6c1952be6f1f3e3dc4f60ee2b21ff3bfcc9ef3271280eed04f874d68567bcec",
+    "source-complete-label-learning-20261009-v1/packet/supervision.json": "62ccfe1601b8f4b2464a35b52b937e076fe3bd3535c00eb5ed79d87ddc0a48b5",
+    "source-complete-label-learning-20261009-v1/packet/source-sets.json": "7dbf2a2b0c57bb744cd6e98d711694e1baa5600d556cc4438329488bd1268641",
+    "source-complete-label-learning-20261009-v1/native-terminal.json": "44533c6205d210e9db0e6efe9e3837018007454210c73b997740e9fca754f83d",
+    "source-complete-label-learning-20261009-v1/training/freeze.json": "40823146ec4fea766ffaed90695255cb2d296d0b526ad3007a1dab4aecf07a96",
+    "source-complete-label-learning-20261009-v1/training/fits.json": "8f7f4f2bae694b654a819802362690e3fce921dcaef6bbb438b4fc8a1b460baa",
+    "source-complete-label-learning-20261009-v1/training/unit-accounting.json": "01f1493433f54a3dedd79f2ada1c7ee2a539914ed45a1a9805f8f9c285b5efaa",
+    "source-complete-label-learning-20261009-v1/training/deliveries.json": "46f3d7130671282967b36f952e9dd0cf2f144b6aee955c97be186608ad5c9e7f",
+    "source-complete-label-learning-20261009-v1/training/event-witnesses.json": "a65488ce038ee5579fe21ea0f5fa1cd1f6e1ddbfda63596dcc3729df9777c969",
+    "source-complete-label-learning-20261009-v1/training/result.json": "debae2a0934e266dc4c978040bc633b6dcfa0f57c9db07a255de39f235b63663",
+    "source-complete-label-learning-20261009-v1/audit/registration.json": "83204722eb6fedd84ab5c3421efd1d451afdf54e8049bcf48b656ba5b18f5e64",
+    "source-complete-label-learning-20261009-v1/audit/result.json": "d90616786191ae9ca84d0ebce653413562e4d97428ff7105d59e44485643c790",
+    "source-complete-label-learning-20261009-v1/audit/component-union-accounting.json": "ef9c9b2c83068906fd82aa72aefa3b1b459cc307ca7b5f79d67e6897248d3cea",
+    "source-complete-label-learning-20261009-v1/audit/completion-seal.json": "66f2da39285c343800f63ce58886a5a955a821feab69d497b028791e4a9d410e",
+    "source-complete-label-learning-20261009-v1/audit/native-terminal.json": "f5512ba69f8d5e9e5a9a1bc6445c925aadb44df67399a3700c5c20ac7df99579",
+    "source-intent-complete-acquisition-20261009-v1/reviews/bound-batch-001.json": "78cc1d8585ec1e3399f8683fff87cc343834d8e88f2b34a7e7a796d84236bab9",
+    "source-intent-complete-acquisition-20261009-v1/reviews/bound-batch-002.json": "38696dfa8e13a29d3b7b9bd959c04e8d31c3fa41a72b2459f3bd97e874e02a31",
+    "source-intent-complete-acquisition-20261009-v1/reviews/bound-batch-003.json": "a22a9b6fca9b8860a56f710210c3db3b9038b78d782a70846f8a9b0032c1724d",
+    "source-intent-complete-acquisition-20261009-v1/reviews/bound-batch-004.json": "ccd7edd0e9d37db28faa49fc466d55ddf10743a6a8c753869cc3b10dd8f5b92d",
+    "source-intent-complete-acquisition-20261009-v1/reviews/bound-batch-005.json": "125b352b54867a784dc85a549f278e6b19d6f84c575bab7a614cb33268b3d7b7",
+    "source-intent-complete-acquisition-20261009-v1/reviews/bound-batch-006.json": "0bf57d25940138527e8c6a520a9a9200092565a2a4e81a75cd3e505be5ee9140",
+    "source-intent-complete-acquisition-20261009-v1/reviews/raw-batch-001.json": "dfde27d7037020f424b080a6f0c3419c5f562e8a33afbd2758093ce6a8a83ecd",
+    "source-intent-complete-acquisition-20261009-v1/reviews/raw-batch-002.json": "55e0816d86502e80005ac80e4098291dbf5c39296d0efa065fd6e1b8ede50ffb",
+    "source-intent-complete-acquisition-20261009-v1/reviews/raw-batch-003.json": "46973595d6882ae1c91044ab7fc5d4ecaf9b7f26d5ef57aa7615b6e296af00e2",
+    "source-intent-complete-acquisition-20261009-v1/reviews/raw-batch-004.json": "13f9193145b11317882010917eb5f384799acdc2545c4a6fd0699520fe3e4802",
+    "source-intent-complete-acquisition-20261009-v1/reviews/raw-batch-005.json": "9381d41d1aa84cffeb83e52d1152a20f5550d6a019ab53b4e2f8567369d2d7b9",
+    "source-intent-complete-acquisition-20261009-v1/reviews/raw-batch-006.json": "070ac69f62f23a518640a6738e9cf0a01c272a015e3003933a31d0fc894a1b2a",
+    "source-complete-label-learning-code-20261009-v1/audit.py": "ba61bd77c3e2ace6c06df414c302398ed08d1145facd7d0238263aea2d35ff46",
+    "source-complete-label-learning-code-20261009-v1/common.py": "c000179ac45e1a44bcd75264b584a16cdb5a209577c73516b3e7f75ed8e3cecc",
+    "source-complete-label-learning-code-20261009-v1/objectives.py": "201f03fd5b8ec136d218ece7d2632de78c679b3cf536217852b18915c9abe9b8",
+    "source-complete-label-learning-code-20261009-v1/run_audit_native.py": "ca6f71605a2e3ad75a02d3b1d130d587609f492cd511034695a3303db24a98fd",
+    "source-complete-label-learning-code-20261009-v1/run_native.py": "ddeabe1e5ff8307bec34d731f989ea35071dd5a62ddb50bed8b7b709d9fdd3b8",
+    "source-complete-label-learning-code-20261009-v1/train.py": "7618d969f4f39a7e7cce6ceb519c31c3e6492b21c1e57f041197504a52dceeac",
+    "source-intent-complete-acquisition-code-20261009-v1/audit_readout.py": "7ce7dddb5d53f7169c7b457856adfda215b95143cdfc88b1667d59463f49f096",
+    "source-intent-complete-acquisition-code-20261009-v1/bind_reviews.py": "96477dcfae9d6cbfb51408187a85e37702fdd941d0f06b22732b1935a699fb99",
+    "source-intent-complete-acquisition-code-20261009-v1/prepare.py": "b756360b8d6c21008082e0973fbf01a153154874b8574b8540e52f8ede207308"
+  },
+  "discourse_library_source_preflight": {
+    "status": "source_inspected_no_package_or_model_execution",
+    "source_receipt": {
+      "repository": "https://github.com/larc-iu/iudex",
+      "commit": "2bb85a7a0190d64d7d7152c920d9f13f3a331512",
+      "files": {
+        "pyproject.toml": {
+          "sha256": "b98c082e9cc7be9680252f48e8f7aee2a1b88b2fdaf0280fa43319be299d2cdb",
+          "bytes": 2250,
+          "blob_sha": "ea9c8e928af09458c3a4fb024d8d20be3a8b5727"
+        },
+        "LICENSE": {
+          "sha256": "a4cd79c379ae7fea791f76e767d0e1e3fe0658de897c577829612141fdcccf0a",
+          "bytes": 1069,
+          "blob_sha": "eaaaba475a1e52c40fe141d4f399e2f60d4d83e8"
+        },
+        "iudex/rst/parsers/dmrst/modeling_dmrst.py": {
+          "sha256": "cd42ddadd90cc0b59861a6a171c73ff6d90bd8c7acd55daa84117daa2ad720c7",
+          "bytes": 34557,
+          "blob_sha": "9d073577960a08407ceb31ff3d5cd84e24f70e72"
+        }
+      }
+    },
+    "context7_matching_library_found": false
+  },
+  "decision": "Reject the complete_source_reviews candidate on the complete-target-byte recall screen; keep the public runtime unchanged and investigate relation-level representations and purpose-specific annotation.",
+  "product": {
+    "commit": "8a56d13f2ac0432dc1704e12453c4973290ff3a9",
+    "pages": 36,
+    "units": 4549,
+    "judgments": 804,
+    "reference_events": 123,
+    "full": {
+      "numerator": 37,
+      "denominator": 123
+    },
+    "useful": {
+      "numerator": 94,
+      "denominator": 154
+    },
+    "minimum_full_per_cohort": 0.8,
+    "minimum_useful_per_cohort": 0.85,
+    "unsafe_or_unresolved_advice_allowed": 0,
+    "prospective_confirmation_required": true,
+    "research_improvement_credit": 0
+  }
+}

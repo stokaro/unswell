@@ -244,3 +244,9 @@ General readability, formality, or repeated API names alone do not establish an
 AI-style defect. New features must earn their place through contextual evidence and
 measured false positives. An optional Vale style package can distribute compatible
 rules later, with one policy catalog as the source.
+
+The [complete-purpose acquisition and learning comparison](research/complete-source-acquisition.md)
+records 49 reviews with explicit decisions for every purpose. Uncertainty sampling
+found more mandatory edits in its packet, but adding the reviews reduced the
+student's complete target-byte coverage to 0/123. That candidate is rejected;
+relation-level representations remain a research hypothesis.
