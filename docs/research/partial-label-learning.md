@@ -109,6 +109,11 @@ relations. Another feature-distance sample alone is unsupported by the preceding
 acquisition result. A registered uncertainty-versus-random comparison can test
 a different selection mechanism before more fitting.
 
+The subsequent [complete-purpose acquisition and learning experiment](complete-source-acquisition.md)
+finished that comparison and an additional 26-head annotation-effect study. It
+adds explicit retention evidence but fails the complete-target-byte recall screen.
+The historical counts above describe the unchanged 256-case comparison.
+
 ## Research and Python implementations
 
 Primary sources were inspected on October 9, 2026.

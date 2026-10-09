@@ -205,3 +205,9 @@ It records historical supervision conflicts, unavailable calibration groups,
 and zero byte-covering witnesses among all 123 original events. Further primary
 papers and Python implementations cover revision-necessity prediction,
 automatically labeled edit intents, and contextual connective preferences.
+
+The [complete-purpose follow-up](complete-source-acquisition.md) tests uncertainty
+acquisition and adds 49 explicit eight-purpose source reviews. Better class
+support did not improve the local student's target-byte coverage. The record
+rejects that candidate and examines discourse-parser features as a separate
+research direction.
