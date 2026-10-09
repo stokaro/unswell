@@ -14,6 +14,13 @@ FULL events and 94/154 useful actual criticisms. The requirements remain at
 least 80% FULL recall and 85% useful actual criticisms in **each** cohort, zero
 unsafe or unresolved supplied advice, and separate prospective confirmation.
 
+A subsequent [raw-response audit](partial-source-labels.md) found that the
+historical annotation helper defaulted unmentioned intent dimensions to
+negative. Those fields must not be described as individually explicit negative
+reviews. This completed failed experiment remains frozen; the replacement
+contract and new acquisition are separate, with no retroactive label or fit
+changes.
+
 ## Source review and aligned edits
 
 The root Codex assistant separately reviewed the original and revised text for

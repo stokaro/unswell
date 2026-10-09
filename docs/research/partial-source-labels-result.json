@@ -1,0 +1,504 @@
+{
+  "version": "unswell-partial-source-labels-result-v1",
+  "status": "complete",
+  "recorded_at_utc": "2026-10-09T03:19:48.748583+00:00",
+  "product": {
+    "core_commit": "8a56d13f2ac0432dc1704e12453c4973290ff3a9",
+    "full_events": 37,
+    "all_original_events": 123,
+    "useful_actual_criticisms": 94,
+    "all_actual_criticisms": 154,
+    "original_pages": 36,
+    "original_units": 4549,
+    "original_judgments": 804,
+    "target_full_each_cohort": 0.8,
+    "target_useful_each_cohort": 0.85,
+    "qualified": false,
+    "acceptance_credit": 0
+  },
+  "historical_audit": {
+    "source_reviews": 233,
+    "defaulted_negative_intent_dimensions": 1629,
+    "historical_necessity_conflicts": 43,
+    "historical_intent_only_conflicts": 32,
+    "original_event_adjudication_candidates": 43,
+    "all_component_intent_negative_candidates": 42,
+    "reference_label_errors_confirmed": 0,
+    "normalization_limitation": "Unmentioned purposes were defaulted to negative; normalized intent fields were not individually explicit negative reviews.",
+    "whole_unit_reviews_are_event_judgments": false,
+    "raw_responses_checked": true,
+    "result_sha256": "8b9215d447c2473973ae4c854368bf03ee82697d283d5b018eced0cbffe50ad1"
+  },
+  "acquisition": {
+    "cases": 100,
+    "necessity_decisions": {
+      "retain": 67,
+      "necessary": 9,
+      "optional": 23,
+      "unknown": 1
+    },
+    "selection": {
+      "arm": {
+        "feature_coverage": {
+          "cases": 50,
+          "decisions": {
+            "retain": 38,
+            "necessary": 1,
+            "optional": 11
+          }
+        },
+        "random_control": {
+          "cases": 50,
+          "decisions": {
+            "necessary": 8,
+            "retain": 29,
+            "optional": 12,
+            "unknown": 1
+          }
+        }
+      },
+      "group": {
+        "etcd": {
+          "cases": 20,
+          "decisions": {
+            "retain": 12,
+            "necessary": 1,
+            "optional": 7
+          }
+        },
+        "fzf": {
+          "cases": 20,
+          "decisions": {
+            "necessary": 2,
+            "retain": 14,
+            "optional": 4
+          }
+        },
+        "imgui": {
+          "cases": 20,
+          "decisions": {
+            "necessary": 5,
+            "retain": 10,
+            "optional": 5
+          }
+        },
+        "ripgrep": {
+          "cases": 20,
+          "decisions": {
+            "optional": 4,
+            "retain": 16
+          }
+        },
+        "tokio": {
+          "cases": 20,
+          "decisions": {
+            "retain": 15,
+            "optional": 3,
+            "necessary": 1,
+            "unknown": 1
+          }
+        }
+      }
+    },
+    "intent_decisions": {
+      "clarity": {
+        "unknown": 98,
+        "necessary": 2
+      },
+      "empty_framing": {
+        "unknown": 97,
+        "not_necessary": 3
+      },
+      "fluency": {
+        "unknown": 76,
+        "necessary": 8,
+        "optional": 16
+      },
+      "needless_complexity": {
+        "unknown": 99,
+        "not_necessary": 1
+      },
+      "needless_repetition": {
+        "unknown": 98,
+        "not_necessary": 2
+      },
+      "unjustified_intensifiers": {
+        "unknown": 98,
+        "not_necessary": 2
+      },
+      "vague_claims": {
+        "unknown": 99,
+        "not_necessary": 1
+      },
+      "wordiness": {
+        "not_necessary": 2,
+        "unknown": 91,
+        "optional": 7
+      }
+    },
+    "necessary_edits": 12,
+    "unknown_or_optional_intent_dimensions": 779,
+    "selection_replayed": true,
+    "original_source_bytes_verified": 100,
+    "calibration_count_preview": [
+      {
+        "test_group": "bat",
+        "calibration_groups": [
+          "etcd",
+          "fzf",
+          "pydantic"
+        ],
+        "before": {
+          "necessary": 4,
+          "retain": 22
+        },
+        "new": {
+          "necessary": 3,
+          "retain": 26
+        },
+        "combined_count_preview": {
+          "necessary": 7,
+          "retain": 48
+        },
+        "before_count_feasible": false,
+        "after_count_feasible": false
+      },
+      {
+        "test_group": "buildkit",
+        "calibration_groups": [
+          "etcd",
+          "imgui",
+          "ripgrep"
+        ],
+        "before": {
+          "necessary": 6,
+          "retain": 18
+        },
+        "new": {
+          "necessary": 6,
+          "retain": 38
+        },
+        "combined_count_preview": {
+          "necessary": 12,
+          "retain": 56
+        },
+        "before_count_feasible": false,
+        "after_count_feasible": true
+      },
+      {
+        "test_group": "containerd",
+        "calibration_groups": [
+          "bat",
+          "curl",
+          "imgui"
+        ],
+        "before": {
+          "necessary": 6,
+          "retain": 19
+        },
+        "new": {
+          "necessary": 5,
+          "retain": 10
+        },
+        "combined_count_preview": {
+          "necessary": 11,
+          "retain": 29
+        },
+        "before_count_feasible": false,
+        "after_count_feasible": true
+      },
+      {
+        "test_group": "curl",
+        "calibration_groups": [
+          "buildkit",
+          "fzf",
+          "pydantic"
+        ],
+        "before": {
+          "necessary": 11,
+          "retain": 19
+        },
+        "new": {
+          "necessary": 2,
+          "retain": 14
+        },
+        "combined_count_preview": {
+          "necessary": 13,
+          "retain": 33
+        },
+        "before_count_feasible": true,
+        "after_count_feasible": true
+      },
+      {
+        "test_group": "etcd",
+        "calibration_groups": [
+          "bat",
+          "buildkit",
+          "prometheus"
+        ],
+        "before": {
+          "necessary": 11,
+          "retain": 18
+        },
+        "new": {
+          "necessary": 0,
+          "retain": 0
+        },
+        "combined_count_preview": {
+          "necessary": 11,
+          "retain": 18
+        },
+        "before_count_feasible": true,
+        "after_count_feasible": true
+      },
+      {
+        "test_group": "fzf",
+        "calibration_groups": [
+          "imgui",
+          "ptah",
+          "pydantic"
+        ],
+        "before": {
+          "necessary": 40,
+          "retain": 21
+        },
+        "new": {
+          "necessary": 5,
+          "retain": 10
+        },
+        "combined_count_preview": {
+          "necessary": 45,
+          "retain": 31
+        },
+        "before_count_feasible": true,
+        "after_count_feasible": true
+      },
+      {
+        "test_group": "imgui",
+        "calibration_groups": [
+          "bat",
+          "fzf",
+          "pydantic"
+        ],
+        "before": {
+          "necessary": 5,
+          "retain": 25
+        },
+        "new": {
+          "necessary": 2,
+          "retain": 14
+        },
+        "combined_count_preview": {
+          "necessary": 7,
+          "retain": 39
+        },
+        "before_count_feasible": false,
+        "after_count_feasible": false
+      },
+      {
+        "test_group": "marked",
+        "calibration_groups": [
+          "bat",
+          "buildkit",
+          "curl"
+        ],
+        "before": {
+          "necessary": 10,
+          "retain": 16
+        },
+        "new": {
+          "necessary": 0,
+          "retain": 0
+        },
+        "combined_count_preview": {
+          "necessary": 10,
+          "retain": 16
+        },
+        "before_count_feasible": true,
+        "after_count_feasible": true
+      },
+      {
+        "test_group": "prometheus",
+        "calibration_groups": [
+          "etcd",
+          "ripgrep",
+          "tokio"
+        ],
+        "before": {
+          "necessary": 3,
+          "retain": 20
+        },
+        "new": {
+          "necessary": 2,
+          "retain": 43
+        },
+        "combined_count_preview": {
+          "necessary": 5,
+          "retain": 63
+        },
+        "before_count_feasible": false,
+        "after_count_feasible": false
+      },
+      {
+        "test_group": "ptah",
+        "calibration_groups": [
+          "buildkit",
+          "imgui",
+          "prometheus"
+        ],
+        "before": {
+          "necessary": 13,
+          "retain": 15
+        },
+        "new": {
+          "necessary": 5,
+          "retain": 10
+        },
+        "combined_count_preview": {
+          "necessary": 18,
+          "retain": 25
+        },
+        "before_count_feasible": true,
+        "after_count_feasible": true
+      },
+      {
+        "test_group": "pydantic",
+        "calibration_groups": [
+          "buildkit",
+          "etcd",
+          "fzf"
+        ],
+        "before": {
+          "necessary": 12,
+          "retain": 15
+        },
+        "new": {
+          "necessary": 3,
+          "retain": 26
+        },
+        "combined_count_preview": {
+          "necessary": 15,
+          "retain": 41
+        },
+        "before_count_feasible": true,
+        "after_count_feasible": true
+      },
+      {
+        "test_group": "ripgrep",
+        "calibration_groups": [
+          "fzf",
+          "pydantic",
+          "tokio"
+        ],
+        "before": {
+          "necessary": 4,
+          "retain": 24
+        },
+        "new": {
+          "necessary": 3,
+          "retain": 29
+        },
+        "combined_count_preview": {
+          "necessary": 7,
+          "retain": 53
+        },
+        "before_count_feasible": false,
+        "after_count_feasible": false
+      },
+      {
+        "test_group": "tokio",
+        "calibration_groups": [
+          "bat",
+          "etcd",
+          "ripgrep"
+        ],
+        "before": {
+          "necessary": 4,
+          "retain": 21
+        },
+        "new": {
+          "necessary": 1,
+          "retain": 28
+        },
+        "combined_count_preview": {
+          "necessary": 5,
+          "retain": 49
+        },
+        "before_count_feasible": false,
+        "after_count_feasible": false
+      }
+    ],
+    "count_infeasible_before": 7,
+    "count_infeasible_after": 5,
+    "reviewer": "Root Codex assistant under ADR 0041; exposed development review",
+    "review_context": "Target and adjacent units; no whole-document quality claim",
+    "new_model_fits": 0,
+    "provider_calls": 0,
+    "prospective_pages_used": 0,
+    "original_event_changes": 0,
+    "old_frozen_supervision_changes": 0,
+    "product_acceptance_credit": 0,
+    "limitations": [
+      "The acquisition rates are selected-pool observations, not prevalence or accuracy.",
+      "Sixteen eligible tokenizer tokens do not guarantee a complete prose paragraph.",
+      "Count feasibility supplies neither a fitted score threshold nor measured usefulness.",
+      "Old frozen supervision is not silently merged or relabeled; a later fit needs a new packet.",
+      "Known global necessity does not supply negatives for every unobserved intent."
+    ],
+    "registration_sha256": "866244bb9049e944ebd2cc688c15785e72b3a9e9a7c83c2185c8d672323364c7",
+    "script_sha256": "b98e34073e896c9c82673bce4243774e7d7e4114c9b0e43e49a27c33a16f0d19"
+  },
+  "execution": {
+    "acquisition_audit": {
+      "native_pid": 87254,
+      "exit_code": 0,
+      "started_at_utc": "2026-10-09T03:13:26.991419+00:00",
+      "terminal_at_utc": "2026-10-09T03:13:29.892316+00:00",
+      "elapsed_seconds": 2.900898083113134,
+      "log_sha256": "be87f68420431b0fb1718d2a81a2e221bb987b4eb80cb19e3da2be5832bcde10"
+    },
+    "public_contract_tests": {
+      "native_pid": 98458,
+      "exit_code": 0,
+      "started_at_utc": "2026-10-09T03:19:48.696737+00:00",
+      "terminal_at_utc": "2026-10-09T03:19:48.748092+00:00",
+      "elapsed_seconds": 0.05131179094314575,
+      "log_sha256": "50f0f5c476b9cc9d182e8b7bfb84adc74b09dbf2f0fd2f0932c931aa24fa578a",
+      "contract_sha256": "d1e993df783b865a3855c2d5c59544fa6ba73dfe7d1a7318cc3c4c0fa298d7b1",
+      "test_sha256": "d2e97e643a725c274f0f4f276574c29a75e3df24dd03abdb1d19b03bf9695c46",
+      "tests": 14,
+      "original_normalized_reviews_verified_identical": 100
+    }
+  },
+  "lineage": {
+    "source_packet_sha256": "fe7cb1387fda69aba6373275e851445479a6afe59b85c7aed802e0784ea9fdf4",
+    "selection_ledger_sha256": "d07901ed745b97187a4a03112a6849909291045d9e0f0c3d18d30e79a48a4152",
+    "acquisition_registration_sha256": "9849cbd2dc704fcaf3e3506417b1e9b191740614e9ac0d64e63b7dfdcd972d48",
+    "completed_review_result_sha256": "d45c555dc9bde6cf742bdab58a98dfae40d20c4f04cda57864bc2dff446e3495",
+    "completed_review_seal_sha256": "b9ba4ef3079818694e420b05d0ec0d20437abe077b0248a6701a8e24bab47434",
+    "historical_source_span_protocol_sha256": "0ed152c7de0147bf2226f607347aba6c3e567933e134de69caa09314d34a6282",
+    "public_contract_sha256": "d1e993df783b865a3855c2d5c59544fa6ba73dfe7d1a7318cc3c4c0fa298d7b1",
+    "review_batches": {
+      "batch-001.json": "595fd6f97a9964f6f8df49b049bfc2d75b22bf090b51325f316fbd54994f0977",
+      "batch-002.json": "2302903dde43d845d28a915b190b8b916c05ebe14075377fad984d9c1fbeab02",
+      "batch-003.json": "0cc388c93064811f27b7a989b0537a415b747e4a4e34fccf1bc62eaf2c038e62",
+      "batch-004.json": "3de8060443290671016352cd4be522c78b023db63ffb0a815c31db60faf585f3",
+      "batch-005.json": "04ad007ce75d40090b1d71aaf671218167bd78c45cd6d054b01f3f7a3891fc8b"
+    }
+  },
+  "libraries": {
+    "distilabel": {
+      "status": "official docs and Context7 inspected; not installed or executed",
+      "provider_calls": 0
+    },
+    "single_positive_multi_label": {
+      "status": "primary paper and author loss implementation inspected; no replication or fit",
+      "author_commit": "89152d52ba59a65d75b19cbe32254a037b557a57",
+      "task": "image multilabel classification; editorial transfer unqualified"
+    }
+  },
+  "private_packet_published": false,
+  "public_full_reproduction_claim": false,
+  "runtime_or_gate_changes": false,
+  "new_provider_requests": 0
+}
