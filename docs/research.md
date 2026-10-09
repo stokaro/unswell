@@ -41,6 +41,12 @@ selected-unit decision precision is not editorial usefulness.
 The [expanded annotations, encoder adaptation, and edit-span comparison](research/encoder-adaptation.md)
 also completed without an admissible diagnostic configuration. Its failure-stage
 audit keeps all 123 events and distinguishes structural bounds from semantic acceptance.
+The [reviewed source-edit and span-learning comparison](research/reviewed-source-spans.md)
+adds exact before/after annotations and 26 matched head fits. Neither delivery
+configuration passes the recall screen; seven calibration groups lack enough
+known positives even for a perfect classifier. Its record distinguishes that
+data limitation from learned operating-point failures and reviews further
+primary work on revision necessity and discourse-connective edits.
 
 The E3 runs of [#176](https://github.com/stokaro/unswell/issues/176),
 [#177](https://github.com/stokaro/unswell/issues/177), and

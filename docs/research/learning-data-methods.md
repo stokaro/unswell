@@ -185,3 +185,10 @@ The [expanded-label, attention-adaptation, and pretrained edit-span comparisons]
 are complete. The record includes the negative results, all-event failure-stage
 accounting, and primary work on learning token edits from reviewed text pairs.
 None changes the published runtime or achieves product acceptance.
+
+The separately registered [reviewed source-span study](reviewed-source-spans.md)
+now completes the original/repair reviews and 26 matched unit/span head fits.
+It records historical supervision conflicts, unavailable calibration groups,
+and zero byte-covering witnesses among all 123 original events. Further primary
+papers and Python implementations cover revision-necessity prediction,
+automatically labeled edit intents, and contextual connective preferences.
