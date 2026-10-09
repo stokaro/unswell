@@ -180,3 +180,8 @@ Experimental LLM review remains separate. This investigation sent no source
 documents to providers, started no new model requests, and changed no gate.
 The full detection objective remains open in
 [#349](https://github.com/stokaro/unswell/issues/349).
+
+The [expanded-label, attention-adaptation, and pretrained edit-span comparisons](encoder-adaptation.md)
+are complete. The record includes the negative results, all-event failure-stage
+accounting, and primary work on learning token edits from reviewed text pairs.
+None changes the published runtime or achieves product acceptance.
