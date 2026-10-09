@@ -139,3 +139,9 @@ learned operating point. A new fit requires its own frozen protocol.
 The reviews keep source groups, original bytes, reasons, retained information,
 and intent abstentions. All 36 pages, 4,549 units, 804 judgments, and 123 events
 remain in subsequent evaluation. Annotation acquisition is not product acceptance.
+
+The later [reviewed source-edit and span comparison](reviewed-source-spans.md)
+uses independently sealed original/repair intent reviews rather than silently
+replacing this study's supervision. It completes 26 further head fits and
+retains all original events. Neither registered stream supplies any
+byte-covering reference witness; the published product result remains unchanged.
