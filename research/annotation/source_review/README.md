@@ -75,3 +75,12 @@ The [completed acquisition study](../../../docs/research/partial-source-labels.m
 records the historical default-negative problem and the separately reviewed
 100-case packet. Earlier frozen experiments retain their original annotations
 and outcomes.
+
+## Supervision support
+
+`label_support.summarize_label_support(reviews)` accepts normalized responses
+keyed by reviewed source identity. It counts positive, negative, and unobserved
+decisions for global necessity and each nonexclusive intent. Inconsistent masks
+and missing dimensions fail instead of creating negative labels. Both observed
+classes provide only data support; they do not qualify a model or a threshold.
+Untouched source tokens remain unlabeled.

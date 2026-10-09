@@ -1,0 +1,2920 @@
+{
+  "version": "unswell-partial-label-learning-result-v1",
+  "status": "complete",
+  "recorded_at_utc": "2026-10-09T04:04:17.666529+00:00",
+  "research_base_commit": "29add63761796506a796ea3d9b2352a91b10617c",
+  "product": {
+    "core_commit": "8a56d13f2ac0432dc1704e12453c4973290ff3a9",
+    "full_events": 37,
+    "all_original_events": 123,
+    "useful_actual_criticisms": 94,
+    "all_actual_criticisms": 154,
+    "original_pages": 36,
+    "original_units": 4549,
+    "original_judgments": 804,
+    "target_full_each_cohort": 0.8,
+    "target_useful_each_cohort": 0.85,
+    "qualified": false,
+    "acceptance_credit": 0
+  },
+  "protocol": {
+    "version": "unswell-source-partial-label-learning-registration-v1",
+    "registered_at_utc": "2026-10-09T03:38:57.891279+00:00",
+    "hypothesis": "With identical source cases, encoder features, global-necessity loss, positive span loss, architecture, initialization, and project exclusions, compare defaulted negative intents against observed-only intent masks.",
+    "arms": [
+      "default_negatives",
+      "partial_masks"
+    ],
+    "seed": 61094,
+    "epochs": 120,
+    "learning_rate": 0.002,
+    "weight_decay": 0.01,
+    "cutoffs": [
+      -4.0,
+      -3.5,
+      -3.0,
+      -2.5,
+      -2.0,
+      -1.5,
+      -1.0,
+      -0.5,
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0,
+      2.5,
+      3.0,
+      3.5,
+      4.0
+    ],
+    "maximum_training_seconds": 900,
+    "maximum_head_bytes": 67108864,
+    "model": "Frozen ModernBERT cached complete target/context features; token MLP 1536 to 64 GELU to 9 logits",
+    "global_necessity_loss_weight": 1.0,
+    "intent_loss_weight": 1.0,
+    "positive_span_loss_weight": 0.5,
+    "intent_loss_reduction": "Mean across observed dimensions; empty mask skips this loss",
+    "unit_pooling": "Eligible-token max per logit",
+    "delivery_score": "Minimum of pooled unit-global necessity logit and selected token intent logit; same cutoff for both scores; calibration uses the identical unit-envelope score",
+    "calibration": "Exclude the test source group; both known global necessity classes, at least ten selected known cases and 85 percent proxy precision; maximize true positives, then minimize false positives, then higher cutoff",
+    "delivery": "At most two available purposes per unit, at most eight contiguous original-byte runs per purpose, protected ranges excluded; the pooled unit-global necessity score gates every token intent span; no rewrite or probability",
+    "features_reencoded": false,
+    "after_variants_used": false,
+    "old_conflict_quarantines_retained": 77,
+    "raw_optional_and_unknown_necessity_masked": true,
+    "inference_input": "Complete raw source target and adjacent original units already bound to cached features; no reason, annotation identity, label, or evaluation judgment",
+    "provider_calls": 0,
+    "prospective_pages_used": 0,
+    "original_scope": {
+      "pages": 36,
+      "units": 4549,
+      "judgments": 804,
+      "events": 123
+    },
+    "published_product_full": "37/123",
+    "published_product_useful": "94/154",
+    "product_qualification": false,
+    "semantic_review_required": true,
+    "failure_policy": "One bounded offline run, no automatic retry; retain errors and every original event. New predictions do not modify the old experiment or evaluation labels.",
+    "limitations": [
+      "Both arms use a new global-necessity head; this does not isolate its effect against the older eight-output study.",
+      "Only intent supervision differs within this matched comparison.",
+      "Count-infeasible calibration partitions remain unavailable.",
+      "The source pool is exposed development, not prospective confirmation.",
+      "Structural span witnesses are not semantic FULL or usefulness."
+    ],
+    "separate_preexecution_amendment_of": "a2f6b12bcf57db4c48a9fb9f83bbc41eed2a57c403e0a3b2a7d2756748d494bc"
+  },
+  "source_supervision": {
+    "source_cases": 256,
+    "historical_admitted": 156,
+    "new_cases": 100,
+    "old_quarantines_preserved": 77,
+    "known_global_necessity": {
+      "positive": 79,
+      "negative": 153,
+      "unobserved": 24
+    },
+    "default_negative_intent_dimensions": {
+      "negative": 1887,
+      "positive": 88,
+      "unobserved": 73
+    },
+    "partial_intent_dimensions": {
+      "unobserved": 1949,
+      "positive": 88,
+      "negative": 11
+    },
+    "changed_default_negative_dimensions": 1876,
+    "purpose_expanded_positive_edit_targets": 100,
+    "explicit_negative_token_spans": 0,
+    "source_intent_support": {
+      "source_cases": 256,
+      "labels": {
+        "necessity": {
+          "positive": 79,
+          "negative": 153,
+          "unobserved": 24,
+          "both_classes_observed": true
+        },
+        "clarity": {
+          "positive": 4,
+          "negative": 0,
+          "unobserved": 252,
+          "both_classes_observed": false
+        },
+        "empty_framing": {
+          "positive": 36,
+          "negative": 3,
+          "unobserved": 217,
+          "both_classes_observed": true
+        },
+        "fluency": {
+          "positive": 26,
+          "negative": 0,
+          "unobserved": 230,
+          "both_classes_observed": false
+        },
+        "needless_complexity": {
+          "positive": 1,
+          "negative": 1,
+          "unobserved": 254,
+          "both_classes_observed": true
+        },
+        "needless_repetition": {
+          "positive": 1,
+          "negative": 2,
+          "unobserved": 253,
+          "both_classes_observed": true
+        },
+        "unjustified_intensifiers": {
+          "positive": 4,
+          "negative": 2,
+          "unobserved": 250,
+          "both_classes_observed": true
+        },
+        "vague_claims": {
+          "positive": 5,
+          "negative": 1,
+          "unobserved": 250,
+          "both_classes_observed": true
+        },
+        "wordiness": {
+          "positive": 11,
+          "negative": 2,
+          "unobserved": 243,
+          "both_classes_observed": true
+        }
+      },
+      "class_support_is_model_qualification": false,
+      "unmarked_tokens_are_background": false
+    },
+    "fold_support": [
+      {
+        "fold": "bat",
+        "split": "train",
+        "source_groups": [
+          "buildkit",
+          "containerd",
+          "curl",
+          "imgui",
+          "marked",
+          "prometheus",
+          "ptah",
+          "ripgrep",
+          "tokio"
+        ],
+        "support": {
+          "source_cases": 180,
+          "labels": {
+            "necessity": {
+              "positive": 70,
+              "negative": 97,
+              "unobserved": 13,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 176,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 35,
+              "negative": 2,
+              "unobserved": 143,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 20,
+              "negative": 0,
+              "unobserved": 160,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 179,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 178,
+              "both_classes_observed": true
+            },
+            "unjustified_intensifiers": {
+              "positive": 3,
+              "negative": 1,
+              "unobserved": 176,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 4,
+              "negative": 1,
+              "unobserved": 175,
+              "both_classes_observed": true
+            },
+            "wordiness": {
+              "positive": 11,
+              "negative": 1,
+              "unobserved": 168,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "bat",
+        "split": "calibration",
+        "source_groups": [
+          "etcd",
+          "fzf",
+          "pydantic"
+        ],
+        "support": {
+          "source_cases": 66,
+          "labels": {
+            "necessity": {
+              "positive": 7,
+              "negative": 48,
+              "unobserved": 11,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 66,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 65,
+              "both_classes_observed": false
+            },
+            "fluency": {
+              "positive": 5,
+              "negative": 0,
+              "unobserved": 61,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 65,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 65,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 64,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 65,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 65,
+              "both_classes_observed": false
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "buildkit",
+        "split": "train",
+        "source_groups": [
+          "bat",
+          "containerd",
+          "curl",
+          "fzf",
+          "marked",
+          "prometheus",
+          "ptah",
+          "pydantic",
+          "tokio"
+        ],
+        "support": {
+          "source_cases": 162,
+          "labels": {
+            "necessity": {
+              "positive": 59,
+              "negative": 95,
+              "unobserved": 8,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 2,
+              "negative": 0,
+              "unobserved": 160,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 35,
+              "negative": 2,
+              "unobserved": 125,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 8,
+              "negative": 0,
+              "unobserved": 154,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 160,
+              "both_classes_observed": true
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 162,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 3,
+              "negative": 1,
+              "unobserved": 158,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 5,
+              "negative": 0,
+              "unobserved": 157,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 11,
+              "negative": 0,
+              "unobserved": 151,
+              "both_classes_observed": false
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "buildkit",
+        "split": "calibration",
+        "source_groups": [
+          "etcd",
+          "imgui",
+          "ripgrep"
+        ],
+        "support": {
+          "source_cases": 84,
+          "labels": {
+            "necessity": {
+              "positive": 12,
+              "negative": 56,
+              "unobserved": 16,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 2,
+              "negative": 0,
+              "unobserved": 82,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 82,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 10,
+              "negative": 0,
+              "unobserved": 74,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 84,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 1,
+              "negative": 2,
+              "unobserved": 81,
+              "both_classes_observed": true
+            },
+            "unjustified_intensifiers": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 83,
+              "both_classes_observed": false
+            },
+            "vague_claims": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 83,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 0,
+              "negative": 2,
+              "unobserved": 82,
+              "both_classes_observed": false
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "containerd",
+        "split": "train",
+        "source_groups": [
+          "buildkit",
+          "etcd",
+          "fzf",
+          "marked",
+          "prometheus",
+          "ptah",
+          "pydantic",
+          "ripgrep",
+          "tokio"
+        ],
+        "support": {
+          "source_cases": 194,
+          "labels": {
+            "necessity": {
+              "positive": 55,
+              "negative": 120,
+              "unobserved": 19,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 2,
+              "negative": 0,
+              "unobserved": 192,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 26,
+              "negative": 2,
+              "unobserved": 166,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 14,
+              "negative": 0,
+              "unobserved": 180,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 192,
+              "both_classes_observed": true
+            },
+            "needless_repetition": {
+              "positive": 1,
+              "negative": 2,
+              "unobserved": 191,
+              "both_classes_observed": true
+            },
+            "unjustified_intensifiers": {
+              "positive": 3,
+              "negative": 2,
+              "unobserved": 189,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 5,
+              "negative": 0,
+              "unobserved": 189,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 6,
+              "negative": 1,
+              "unobserved": 187,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "containerd",
+        "split": "calibration",
+        "source_groups": [
+          "bat",
+          "curl",
+          "imgui"
+        ],
+        "support": {
+          "source_cases": 45,
+          "labels": {
+            "necessity": {
+              "positive": 11,
+              "negative": 29,
+              "unobserved": 5,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 2,
+              "negative": 0,
+              "unobserved": 43,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 2,
+              "negative": 1,
+              "unobserved": 42,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 9,
+              "negative": 0,
+              "unobserved": 36,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 45,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 45,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 45,
+              "both_classes_observed": false
+            },
+            "vague_claims": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 44,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 44,
+              "both_classes_observed": false
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "curl",
+        "split": "train",
+        "source_groups": [
+          "bat",
+          "containerd",
+          "etcd",
+          "imgui",
+          "marked",
+          "prometheus",
+          "ptah",
+          "ripgrep",
+          "tokio"
+        ],
+        "support": {
+          "source_cases": 200,
+          "labels": {
+            "necessity": {
+              "positive": 66,
+              "negative": 114,
+              "unobserved": 20,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 196,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 36,
+              "negative": 2,
+              "unobserved": 162,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 15,
+              "negative": 0,
+              "unobserved": 185,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 199,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 1,
+              "negative": 2,
+              "unobserved": 197,
+              "both_classes_observed": true
+            },
+            "unjustified_intensifiers": {
+              "positive": 2,
+              "negative": 2,
+              "unobserved": 196,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 4,
+              "negative": 1,
+              "unobserved": 195,
+              "both_classes_observed": true
+            },
+            "wordiness": {
+              "positive": 11,
+              "negative": 2,
+              "unobserved": 187,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "curl",
+        "split": "calibration",
+        "source_groups": [
+          "buildkit",
+          "fzf",
+          "pydantic"
+        ],
+        "support": {
+          "source_cases": 50,
+          "labels": {
+            "necessity": {
+              "positive": 13,
+              "negative": 33,
+              "unobserved": 4,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 50,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 49,
+              "both_classes_observed": false
+            },
+            "fluency": {
+              "positive": 11,
+              "negative": 0,
+              "unobserved": 39,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 49,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 50,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 2,
+              "negative": 0,
+              "unobserved": 48,
+              "both_classes_observed": false
+            },
+            "vague_claims": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 49,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 50,
+              "both_classes_observed": false
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "etcd",
+        "split": "train",
+        "source_groups": [
+          "containerd",
+          "curl",
+          "fzf",
+          "imgui",
+          "marked",
+          "ptah",
+          "pydantic",
+          "ripgrep",
+          "tokio"
+        ],
+        "support": {
+          "source_cases": 201,
+          "labels": {
+            "necessity": {
+              "positive": 66,
+              "negative": 118,
+              "unobserved": 17,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 197,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 35,
+              "negative": 3,
+              "unobserved": 163,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 15,
+              "negative": 0,
+              "unobserved": 186,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 199,
+              "both_classes_observed": true
+            },
+            "needless_repetition": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 199,
+              "both_classes_observed": true
+            },
+            "unjustified_intensifiers": {
+              "positive": 3,
+              "negative": 1,
+              "unobserved": 197,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 5,
+              "negative": 1,
+              "unobserved": 195,
+              "both_classes_observed": true
+            },
+            "wordiness": {
+              "positive": 10,
+              "negative": 1,
+              "unobserved": 190,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "etcd",
+        "split": "calibration",
+        "source_groups": [
+          "bat",
+          "buildkit",
+          "prometheus"
+        ],
+        "support": {
+          "source_cases": 29,
+          "labels": {
+            "necessity": {
+              "positive": 11,
+              "negative": 18,
+              "unobserved": 0,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 29,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 28,
+              "both_classes_observed": false
+            },
+            "fluency": {
+              "positive": 9,
+              "negative": 0,
+              "unobserved": 20,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 29,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 29,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 28,
+              "both_classes_observed": false
+            },
+            "vague_claims": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 29,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 28,
+              "both_classes_observed": false
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "fzf",
+        "split": "train",
+        "source_groups": [
+          "bat",
+          "buildkit",
+          "containerd",
+          "curl",
+          "etcd",
+          "marked",
+          "prometheus",
+          "ripgrep",
+          "tokio"
+        ],
+        "support": {
+          "source_cases": 144,
+          "labels": {
+            "necessity": {
+              "positive": 29,
+              "negative": 100,
+              "unobserved": 15,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 144,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 9,
+              "negative": 1,
+              "unobserved": 134,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 15,
+              "negative": 0,
+              "unobserved": 129,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 144,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 1,
+              "negative": 2,
+              "unobserved": 141,
+              "both_classes_observed": true
+            },
+            "unjustified_intensifiers": {
+              "positive": 2,
+              "negative": 2,
+              "unobserved": 140,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 143,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 6,
+              "negative": 1,
+              "unobserved": 137,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "fzf",
+        "split": "calibration",
+        "source_groups": [
+          "imgui",
+          "ptah",
+          "pydantic"
+        ],
+        "support": {
+          "source_cases": 81,
+          "labels": {
+            "necessity": {
+              "positive": 45,
+              "negative": 31,
+              "unobserved": 5,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 77,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 27,
+              "negative": 1,
+              "unobserved": 53,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 8,
+              "negative": 0,
+              "unobserved": 73,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 80,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 81,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 80,
+              "both_classes_observed": false
+            },
+            "vague_claims": {
+              "positive": 3,
+              "negative": 1,
+              "unobserved": 77,
+              "both_classes_observed": true
+            },
+            "wordiness": {
+              "positive": 5,
+              "negative": 1,
+              "unobserved": 75,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "imgui",
+        "split": "train",
+        "source_groups": [
+          "buildkit",
+          "containerd",
+          "curl",
+          "etcd",
+          "marked",
+          "prometheus",
+          "ptah",
+          "ripgrep",
+          "tokio"
+        ],
+        "support": {
+          "source_cases": 177,
+          "labels": {
+            "necessity": {
+              "positive": 63,
+              "negative": 99,
+              "unobserved": 15,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 2,
+              "negative": 0,
+              "unobserved": 175,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 34,
+              "negative": 1,
+              "unobserved": 142,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 14,
+              "negative": 0,
+              "unobserved": 163,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 176,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 1,
+              "negative": 2,
+              "unobserved": 174,
+              "both_classes_observed": true
+            },
+            "unjustified_intensifiers": {
+              "positive": 3,
+              "negative": 2,
+              "unobserved": 172,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 173,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 11,
+              "negative": 1,
+              "unobserved": 165,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "imgui",
+        "split": "calibration",
+        "source_groups": [
+          "bat",
+          "fzf",
+          "pydantic"
+        ],
+        "support": {
+          "source_cases": 50,
+          "labels": {
+            "necessity": {
+              "positive": 7,
+              "negative": 39,
+              "unobserved": 4,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 50,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 48,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 46,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 49,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 50,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 49,
+              "both_classes_observed": false
+            },
+            "vague_claims": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 49,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 50,
+              "both_classes_observed": false
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "marked",
+        "split": "train",
+        "source_groups": [
+          "containerd",
+          "etcd",
+          "fzf",
+          "imgui",
+          "prometheus",
+          "ptah",
+          "pydantic",
+          "ripgrep",
+          "tokio"
+        ],
+        "support": {
+          "source_cases": 221,
+          "labels": {
+            "necessity": {
+              "positive": 69,
+              "negative": 128,
+              "unobserved": 24,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 217,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 35,
+              "negative": 3,
+              "unobserved": 183,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 17,
+              "negative": 0,
+              "unobserved": 204,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 219,
+              "both_classes_observed": true
+            },
+            "needless_repetition": {
+              "positive": 1,
+              "negative": 2,
+              "unobserved": 218,
+              "both_classes_observed": true
+            },
+            "unjustified_intensifiers": {
+              "positive": 3,
+              "negative": 2,
+              "unobserved": 216,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 5,
+              "negative": 1,
+              "unobserved": 215,
+              "both_classes_observed": true
+            },
+            "wordiness": {
+              "positive": 11,
+              "negative": 2,
+              "unobserved": 208,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "marked",
+        "split": "calibration",
+        "source_groups": [
+          "bat",
+          "buildkit",
+          "curl"
+        ],
+        "support": {
+          "source_cases": 26,
+          "labels": {
+            "necessity": {
+              "positive": 10,
+              "negative": 16,
+              "unobserved": 0,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 26,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 25,
+              "both_classes_observed": false
+            },
+            "fluency": {
+              "positive": 9,
+              "negative": 0,
+              "unobserved": 17,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 26,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 26,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 25,
+              "both_classes_observed": false
+            },
+            "vague_claims": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 26,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 26,
+              "both_classes_observed": false
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "prometheus",
+        "split": "train",
+        "source_groups": [
+          "bat",
+          "buildkit",
+          "containerd",
+          "curl",
+          "fzf",
+          "imgui",
+          "marked",
+          "ptah",
+          "pydantic"
+        ],
+        "support": {
+          "source_cases": 164,
+          "labels": {
+            "necessity": {
+              "positive": 73,
+              "negative": 82,
+              "unobserved": 9,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 160,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 36,
+              "negative": 2,
+              "unobserved": 126,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 23,
+              "negative": 0,
+              "unobserved": 141,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 162,
+              "both_classes_observed": true
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 164,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 160,
+              "both_classes_observed": false
+            },
+            "vague_claims": {
+              "positive": 4,
+              "negative": 1,
+              "unobserved": 159,
+              "both_classes_observed": true
+            },
+            "wordiness": {
+              "positive": 10,
+              "negative": 1,
+              "unobserved": 153,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "prometheus",
+        "split": "calibration",
+        "source_groups": [
+          "etcd",
+          "ripgrep",
+          "tokio"
+        ],
+        "support": {
+          "source_cases": 83,
+          "labels": {
+            "necessity": {
+              "positive": 5,
+              "negative": 63,
+              "unobserved": 15,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 83,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 82,
+              "both_classes_observed": false
+            },
+            "fluency": {
+              "positive": 3,
+              "negative": 0,
+              "unobserved": 80,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 83,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 1,
+              "negative": 2,
+              "unobserved": 80,
+              "both_classes_observed": true
+            },
+            "unjustified_intensifiers": {
+              "positive": 0,
+              "negative": 2,
+              "unobserved": 81,
+              "both_classes_observed": false
+            },
+            "vague_claims": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 82,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 82,
+              "both_classes_observed": false
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "ptah",
+        "split": "train",
+        "source_groups": [
+          "bat",
+          "containerd",
+          "curl",
+          "etcd",
+          "fzf",
+          "marked",
+          "pydantic",
+          "ripgrep",
+          "tokio"
+        ],
+        "support": {
+          "source_cases": 165,
+          "labels": {
+            "necessity": {
+              "positive": 25,
+              "negative": 121,
+              "unobserved": 19,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 165,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 9,
+              "negative": 2,
+              "unobserved": 154,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 10,
+              "negative": 0,
+              "unobserved": 155,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 164,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 1,
+              "negative": 2,
+              "unobserved": 162,
+              "both_classes_observed": true
+            },
+            "unjustified_intensifiers": {
+              "positive": 2,
+              "negative": 2,
+              "unobserved": 161,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 2,
+              "negative": 0,
+              "unobserved": 163,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 5,
+              "negative": 1,
+              "unobserved": 159,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "ptah",
+        "split": "calibration",
+        "source_groups": [
+          "buildkit",
+          "imgui",
+          "prometheus"
+        ],
+        "support": {
+          "source_cases": 48,
+          "labels": {
+            "necessity": {
+              "positive": 18,
+              "negative": 25,
+              "unobserved": 5,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 2,
+              "negative": 0,
+              "unobserved": 46,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 46,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 16,
+              "negative": 0,
+              "unobserved": 32,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 48,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 48,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 47,
+              "both_classes_observed": false
+            },
+            "vague_claims": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 47,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 46,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "pydantic",
+        "split": "train",
+        "source_groups": [
+          "bat",
+          "containerd",
+          "curl",
+          "imgui",
+          "marked",
+          "prometheus",
+          "ptah",
+          "ripgrep",
+          "tokio"
+        ],
+        "support": {
+          "source_cases": 180,
+          "labels": {
+            "necessity": {
+              "positive": 64,
+              "negative": 103,
+              "unobserved": 13,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 176,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 36,
+              "negative": 2,
+              "unobserved": 142,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 13,
+              "negative": 0,
+              "unobserved": 167,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 179,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 178,
+              "both_classes_observed": true
+            },
+            "unjustified_intensifiers": {
+              "positive": 2,
+              "negative": 1,
+              "unobserved": 177,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 4,
+              "negative": 1,
+              "unobserved": 175,
+              "both_classes_observed": true
+            },
+            "wordiness": {
+              "positive": 11,
+              "negative": 1,
+              "unobserved": 168,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "pydantic",
+        "split": "calibration",
+        "source_groups": [
+          "buildkit",
+          "etcd",
+          "fzf"
+        ],
+        "support": {
+          "source_cases": 67,
+          "labels": {
+            "necessity": {
+              "positive": 15,
+              "negative": 41,
+              "unobserved": 11,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 67,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 66,
+              "both_classes_observed": false
+            },
+            "fluency": {
+              "positive": 13,
+              "negative": 0,
+              "unobserved": 54,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 66,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 66,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 2,
+              "negative": 1,
+              "unobserved": 64,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 66,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 66,
+              "both_classes_observed": false
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "ripgrep",
+        "split": "train",
+        "source_groups": [
+          "bat",
+          "buildkit",
+          "containerd",
+          "curl",
+          "etcd",
+          "imgui",
+          "marked",
+          "prometheus",
+          "ptah"
+        ],
+        "support": {
+          "source_cases": 159,
+          "labels": {
+            "necessity": {
+              "positive": 71,
+              "negative": 76,
+              "unobserved": 12,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 155,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 36,
+              "negative": 1,
+              "unobserved": 122,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 22,
+              "negative": 0,
+              "unobserved": 137,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 158,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 158,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 3,
+              "negative": 1,
+              "unobserved": 155,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 3,
+              "negative": 1,
+              "unobserved": 155,
+              "both_classes_observed": true
+            },
+            "wordiness": {
+              "positive": 11,
+              "negative": 2,
+              "unobserved": 146,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "ripgrep",
+        "split": "calibration",
+        "source_groups": [
+          "fzf",
+          "pydantic",
+          "tokio"
+        ],
+        "support": {
+          "source_cases": 68,
+          "labels": {
+            "necessity": {
+              "positive": 7,
+              "negative": 53,
+              "unobserved": 8,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 68,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 0,
+              "negative": 2,
+              "unobserved": 66,
+              "both_classes_observed": false
+            },
+            "fluency": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 64,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 67,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 68,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 66,
+              "both_classes_observed": true
+            },
+            "vague_claims": {
+              "positive": 2,
+              "negative": 0,
+              "unobserved": 66,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 68,
+              "both_classes_observed": false
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "tokio",
+        "split": "train",
+        "source_groups": [
+          "buildkit",
+          "containerd",
+          "curl",
+          "fzf",
+          "imgui",
+          "marked",
+          "prometheus",
+          "ptah",
+          "pydantic"
+        ],
+        "support": {
+          "source_cases": 163,
+          "labels": {
+            "necessity": {
+              "positive": 72,
+              "negative": 82,
+              "unobserved": 9,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 159,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 35,
+              "negative": 2,
+              "unobserved": 126,
+              "both_classes_observed": true
+            },
+            "fluency": {
+              "positive": 22,
+              "negative": 0,
+              "unobserved": 141,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 1,
+              "negative": 1,
+              "unobserved": 161,
+              "both_classes_observed": true
+            },
+            "needless_repetition": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 163,
+              "both_classes_observed": false
+            },
+            "unjustified_intensifiers": {
+              "positive": 4,
+              "negative": 0,
+              "unobserved": 159,
+              "both_classes_observed": false
+            },
+            "vague_claims": {
+              "positive": 4,
+              "negative": 1,
+              "unobserved": 158,
+              "both_classes_observed": true
+            },
+            "wordiness": {
+              "positive": 11,
+              "negative": 1,
+              "unobserved": 151,
+              "both_classes_observed": true
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      },
+      {
+        "fold": "tokio",
+        "split": "calibration",
+        "source_groups": [
+          "bat",
+          "etcd",
+          "ripgrep"
+        ],
+        "support": {
+          "source_cases": 65,
+          "labels": {
+            "necessity": {
+              "positive": 5,
+              "negative": 49,
+              "unobserved": 11,
+              "both_classes_observed": true
+            },
+            "clarity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 65,
+              "both_classes_observed": false
+            },
+            "empty_framing": {
+              "positive": 1,
+              "negative": 0,
+              "unobserved": 64,
+              "both_classes_observed": false
+            },
+            "fluency": {
+              "positive": 3,
+              "negative": 0,
+              "unobserved": 62,
+              "both_classes_observed": false
+            },
+            "needless_complexity": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 65,
+              "both_classes_observed": false
+            },
+            "needless_repetition": {
+              "positive": 1,
+              "negative": 2,
+              "unobserved": 62,
+              "both_classes_observed": true
+            },
+            "unjustified_intensifiers": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 64,
+              "both_classes_observed": false
+            },
+            "vague_claims": {
+              "positive": 0,
+              "negative": 0,
+              "unobserved": 65,
+              "both_classes_observed": false
+            },
+            "wordiness": {
+              "positive": 0,
+              "negative": 1,
+              "unobserved": 64,
+              "both_classes_observed": false
+            }
+          },
+          "class_support_is_model_qualification": false,
+          "unmarked_tokens_are_background": false
+        }
+      }
+    ]
+  },
+  "completed_training": {
+    "complete": true,
+    "head_fits": 26,
+    "encoder_fits": 0,
+    "provider_calls": 0,
+    "new_encoder_passes": 0,
+    "elapsed_seconds": 179.01681499974802,
+    "arms": {
+      "default_negatives": {
+        "available_folds": 2,
+        "accounted_original_units": 4549,
+        "available_original_units": 295,
+        "delivered_criticisms": 57,
+        "any_intent_envelope_witnesses": 1,
+        "matching_intent_envelope_witnesses": 0,
+        "events": 123,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "any_intent_envelope_witnesses": 1,
+            "matching_intent_envelope_witnesses": 0
+          },
+          "context": {
+            "events": 46,
+            "any_intent_envelope_witnesses": 0,
+            "matching_intent_envelope_witnesses": 0
+          },
+          "confirmation": {
+            "events": 20,
+            "any_intent_envelope_witnesses": 0,
+            "matching_intent_envelope_witnesses": 0
+          }
+        },
+        "actual_reviewed_criticisms": 0,
+        "actual_usefulness": null,
+        "semantic_full_recall": null
+      },
+      "partial_masks": {
+        "available_folds": 3,
+        "accounted_original_units": 4549,
+        "available_original_units": 2411,
+        "delivered_criticisms": 1262,
+        "any_intent_envelope_witnesses": 11,
+        "matching_intent_envelope_witnesses": 5,
+        "events": 123,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "any_intent_envelope_witnesses": 4,
+            "matching_intent_envelope_witnesses": 4
+          },
+          "context": {
+            "events": 46,
+            "any_intent_envelope_witnesses": 5,
+            "matching_intent_envelope_witnesses": 0
+          },
+          "confirmation": {
+            "events": 20,
+            "any_intent_envelope_witnesses": 2,
+            "matching_intent_envelope_witnesses": 1
+          }
+        },
+        "actual_reviewed_criticisms": 0,
+        "actual_usefulness": null,
+        "semantic_full_recall": null
+      }
+    },
+    "prospective_pages_used": 0,
+    "original_reference_changes": 0,
+    "product_acceptance_credit": 0,
+    "product_qualified": false,
+    "published_product_full": "37/123",
+    "published_product_useful": "94/154",
+    "limits": "Structural byte coverage and intent agreement are not semantic FULL or actual criticism usefulness. No runtime or gate change."
+  },
+  "native_completion": {
+    "registered_packet_sha256": "7b3168fc1733366b6a65c0e00f1728220302a0ee006c8479a6056be7cd23437b",
+    "command": [
+      "/Users/buster/Work/denis/unswell.research-scratch/unswell-current-core-full-scope-20261003/development/window-admission-runtime-v1/bin/python",
+      "-B",
+      "/Users/buster/Work/denis/unswell.research-scratch/unswell-current-core-full-scope-20261003/development/source-partial-label-learning-code-20261009-v2/train.py"
+    ],
+    "started_at_utc": "2026-10-09T03:39:46.001752+00:00",
+    "wrapper_sha256": "46d218d26fed67380489af5ae15b068446e2313635f8711c794f33570d14689e",
+    "provider_calls": 0,
+    "native_pid": 42078,
+    "exit_code": 0,
+    "terminal_at_utc": "2026-10-09T03:42:47.445296+00:00",
+    "elapsed_seconds": 181.4440952502191,
+    "peak_child_rss_bytes": 538574848,
+    "log_sha256": "84e7c690181c53ffebb27e2b6bce9416f58541fbe1ee7f0a8c1d39ce54afde58"
+  },
+  "independent_audit": {
+    "version": "unswell-source-partial-mask-independent-audit-v1",
+    "status": "complete",
+    "registration_sha256": "6bd2c986270b0c601d9b53a1edb9727ccba49e19a6275a0a9c7f2205403c4d94",
+    "script_sha256": "b332b8db765b231ecf159d2c9c9cf24130fdb8eae6bdd4b25a5efb55d8257400",
+    "heads_checked": 26,
+    "calibration_grids_checked": 26,
+    "deliveries_recomputed_exactly": true,
+    "original_units_accounted_per_arm": 4549,
+    "source_cases": 256,
+    "original_events_per_arm": 123,
+    "component_union_bounds": {
+      "default_negatives": {
+        "events": 123,
+        "any_intent_complete_component_union": 1,
+        "matching_intent_complete_component_union": 0,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "any_intent_complete_component_union": 1,
+            "matching_intent_complete_component_union": 0
+          },
+          "context": {
+            "events": 46,
+            "any_intent_complete_component_union": 0,
+            "matching_intent_complete_component_union": 0
+          },
+          "confirmation": {
+            "events": 20,
+            "any_intent_complete_component_union": 0,
+            "matching_intent_complete_component_union": 0
+          }
+        },
+        "proposals": 57,
+        "available_folds": 2,
+        "actual_usefulness": null,
+        "semantic_full": null,
+        "product_acceptance_credit": 0
+      },
+      "partial_masks": {
+        "events": 123,
+        "any_intent_complete_component_union": 11,
+        "matching_intent_complete_component_union": 5,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "any_intent_complete_component_union": 4,
+            "matching_intent_complete_component_union": 4
+          },
+          "context": {
+            "events": 46,
+            "any_intent_complete_component_union": 5,
+            "matching_intent_complete_component_union": 0
+          },
+          "confirmation": {
+            "events": 20,
+            "any_intent_complete_component_union": 2,
+            "matching_intent_complete_component_union": 1
+          }
+        },
+        "proposals": 1262,
+        "available_folds": 3,
+        "actual_usefulness": null,
+        "semantic_full": null,
+        "product_acceptance_credit": 0
+      }
+    },
+    "new_model_fits": 0,
+    "provider_calls": 0,
+    "prospective_pages_used": 0,
+    "training_or_original_label_changes": 0,
+    "product_qualified": false,
+    "limitation": "Complete byte-component union is only an optimistic localization bound; purpose and semantic review remain required.",
+    "native_pid": 63790,
+    "elapsed_seconds": 2.1178706251084805,
+    "terminal_at_utc": "2026-10-09T03:51:13.607548+00:00"
+  },
+  "numerical_audit": {
+    "initial_status": "failed",
+    "initial_native_exit": 1,
+    "discrepancies": 1132,
+    "changed_fields": [
+      "logit"
+    ],
+    "maximum_absolute_logit_difference": 2.8312206268310547e-07,
+    "spans_quotes_purposes_and_cutoffs_unchanged": true,
+    "registered_followup": "clone loaded tensors into Parameter storage",
+    "followup_native_exit_observed": 0,
+    "followup_exec_session": 10648,
+    "followup_deliveries_equal_exactly": true,
+    "new_fits_or_prediction_changes": 0,
+    "tolerance_changed": false
+  },
+  "fit_records": [
+    {
+      "id": "default_negatives-bat",
+      "train_source_groups": [
+        "buildkit",
+        "containerd",
+        "curl",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "etcd",
+        "fzf",
+        "pydantic"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 422,
+      "proposed_criticisms": 0,
+      "state_sha256": "8226e9fbd824561fd31385e2049bf9afc00153ab2130910290fb4aa887600ad8"
+    },
+    {
+      "id": "partial_masks-bat",
+      "train_source_groups": [
+        "buildkit",
+        "containerd",
+        "curl",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "etcd",
+        "fzf",
+        "pydantic"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 422,
+      "proposed_criticisms": 0,
+      "state_sha256": "41301e4a2eac2aa78225973f1ed1326580cd239fa1d7ca4e6aa55ae7ec1dfbfc"
+    },
+    {
+      "id": "default_negatives-buildkit",
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "curl",
+        "fzf",
+        "marked",
+        "prometheus",
+        "ptah",
+        "pydantic",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "etcd",
+        "imgui",
+        "ripgrep"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 50,
+      "proposed_criticisms": 0,
+      "state_sha256": "45abe4991c366180102cc35c1ad4d5e3f95f6099fb9ed85dc6d668bdb6fb8aac"
+    },
+    {
+      "id": "partial_masks-buildkit",
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "curl",
+        "fzf",
+        "marked",
+        "prometheus",
+        "ptah",
+        "pydantic",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "etcd",
+        "imgui",
+        "ripgrep"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 50,
+      "proposed_criticisms": 0,
+      "state_sha256": "062fe2d464d5cdc191ea28ab9b903609a4b11f3c3511778fa93bbf2cf59e13dd"
+    },
+    {
+      "id": "default_negatives-containerd",
+      "train_source_groups": [
+        "buildkit",
+        "etcd",
+        "fzf",
+        "marked",
+        "prometheus",
+        "ptah",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "curl",
+        "imgui"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 203,
+      "proposed_criticisms": 0,
+      "state_sha256": "e57bead965024c0d1a27b8a135592365ee58722dafab342f6540c9c88b6a9d90"
+    },
+    {
+      "id": "partial_masks-containerd",
+      "train_source_groups": [
+        "buildkit",
+        "etcd",
+        "fzf",
+        "marked",
+        "prometheus",
+        "ptah",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "curl",
+        "imgui"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 203,
+      "proposed_criticisms": 0,
+      "state_sha256": "1c82ca0d7f605996c9e41e0a80e4ea88394892d039f680437d11bce922e4df3c"
+    },
+    {
+      "id": "default_negatives-curl",
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "etcd",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "buildkit",
+        "fzf",
+        "pydantic"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 40,
+      "proposed_criticisms": 0,
+      "state_sha256": "290e20a645e67c4d35b2345dfcca9cef1e4e1b3e13ec77cfe33c64a0d15cf02d"
+    },
+    {
+      "id": "partial_masks-curl",
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "etcd",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "buildkit",
+        "fzf",
+        "pydantic"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 40,
+      "proposed_criticisms": 0,
+      "state_sha256": "56d7b154c2e02ec3a061481d3ab02727395806a521fa4d0d987f5bb8046435f7"
+    },
+    {
+      "id": "default_negatives-etcd",
+      "train_source_groups": [
+        "containerd",
+        "curl",
+        "fzf",
+        "imgui",
+        "marked",
+        "ptah",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "buildkit",
+        "prometheus"
+      ],
+      "proxy_cutoff": 0.0,
+      "available_under_global_proxy": true,
+      "tested_original_units": 69,
+      "proposed_criticisms": 14,
+      "state_sha256": "ae14a326f7668d1596e78de4e7e2c9b049cfeca15e008f113c9ef95fea924d88"
+    },
+    {
+      "id": "partial_masks-etcd",
+      "train_source_groups": [
+        "containerd",
+        "curl",
+        "fzf",
+        "imgui",
+        "marked",
+        "ptah",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "buildkit",
+        "prometheus"
+      ],
+      "proxy_cutoff": 0.0,
+      "available_under_global_proxy": true,
+      "tested_original_units": 69,
+      "proposed_criticisms": 8,
+      "state_sha256": "1cd4d4b0040947f5f1a5594ba7ae5f08ec4b8d17cc949187bc836c0a24f99173"
+    },
+    {
+      "id": "default_negatives-fzf",
+      "train_source_groups": [
+        "bat",
+        "buildkit",
+        "containerd",
+        "curl",
+        "etcd",
+        "marked",
+        "prometheus",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "imgui",
+        "ptah",
+        "pydantic"
+      ],
+      "proxy_cutoff": -1.5,
+      "available_under_global_proxy": true,
+      "tested_original_units": 226,
+      "proposed_criticisms": 43,
+      "state_sha256": "73eb71054db2d818d7dce2bafe77380237093196e7367f7f0bc7c1bdedd69903"
+    },
+    {
+      "id": "partial_masks-fzf",
+      "train_source_groups": [
+        "bat",
+        "buildkit",
+        "containerd",
+        "curl",
+        "etcd",
+        "marked",
+        "prometheus",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "imgui",
+        "ptah",
+        "pydantic"
+      ],
+      "proxy_cutoff": -0.5,
+      "available_under_global_proxy": true,
+      "tested_original_units": 226,
+      "proposed_criticisms": 22,
+      "state_sha256": "9ce3cc2b88ddeaa2145450a30382bdad72dcf81429b1cfcbef7d2f822a139b57"
+    },
+    {
+      "id": "default_negatives-imgui",
+      "train_source_groups": [
+        "buildkit",
+        "containerd",
+        "curl",
+        "etcd",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "fzf",
+        "pydantic"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 119,
+      "proposed_criticisms": 0,
+      "state_sha256": "2b0f39d37ea014952f2cb5e7c1253f3d42cf4251c35603e1d30ac244be939522"
+    },
+    {
+      "id": "partial_masks-imgui",
+      "train_source_groups": [
+        "buildkit",
+        "containerd",
+        "curl",
+        "etcd",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "fzf",
+        "pydantic"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 119,
+      "proposed_criticisms": 0,
+      "state_sha256": "4645bfe3385e41e5e4764890e27e2d7e83289d3e2e364d863a6ffdb232d4b386"
+    },
+    {
+      "id": "default_negatives-marked",
+      "train_source_groups": [
+        "containerd",
+        "etcd",
+        "fzf",
+        "imgui",
+        "prometheus",
+        "ptah",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "buildkit",
+        "curl"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 122,
+      "proposed_criticisms": 0,
+      "state_sha256": "830c5e39630af9d13f04a1cb13a572b9181b00d452876ff37536ec5aa1483993"
+    },
+    {
+      "id": "partial_masks-marked",
+      "train_source_groups": [
+        "containerd",
+        "etcd",
+        "fzf",
+        "imgui",
+        "prometheus",
+        "ptah",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "buildkit",
+        "curl"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 122,
+      "proposed_criticisms": 0,
+      "state_sha256": "62daff42f9f6f350d363f4874f985b3719977f9fad9ff4e6adfb88445055e7f9"
+    },
+    {
+      "id": "default_negatives-prometheus",
+      "train_source_groups": [
+        "bat",
+        "buildkit",
+        "containerd",
+        "curl",
+        "fzf",
+        "imgui",
+        "marked",
+        "ptah",
+        "pydantic"
+      ],
+      "calibration_source_groups": [
+        "etcd",
+        "ripgrep",
+        "tokio"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 80,
+      "proposed_criticisms": 0,
+      "state_sha256": "87bf4987dbce4a994623bc33f9d51eb3cab80b81fa2bb2b00e0aa78913b963ec"
+    },
+    {
+      "id": "partial_masks-prometheus",
+      "train_source_groups": [
+        "bat",
+        "buildkit",
+        "containerd",
+        "curl",
+        "fzf",
+        "imgui",
+        "marked",
+        "ptah",
+        "pydantic"
+      ],
+      "calibration_source_groups": [
+        "etcd",
+        "ripgrep",
+        "tokio"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 80,
+      "proposed_criticisms": 0,
+      "state_sha256": "eb75f75dfd7b7391fa8287347980271c2387f9c4368b8f605314205f80832157"
+    },
+    {
+      "id": "default_negatives-ptah",
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "curl",
+        "etcd",
+        "fzf",
+        "marked",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "buildkit",
+        "imgui",
+        "prometheus"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 2116,
+      "proposed_criticisms": 0,
+      "state_sha256": "33e2cc6c86ee0ce7966f6a9423d1dc4510b78f7b065b8c6767e091a2081311f2"
+    },
+    {
+      "id": "partial_masks-ptah",
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "curl",
+        "etcd",
+        "fzf",
+        "marked",
+        "pydantic",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "buildkit",
+        "imgui",
+        "prometheus"
+      ],
+      "proxy_cutoff": -0.5,
+      "available_under_global_proxy": true,
+      "tested_original_units": 2116,
+      "proposed_criticisms": 1232,
+      "state_sha256": "35f3a3a0d17300cf5c35fecdb1a82ca7c710d3f16951ee06b5fd8312105e5132"
+    },
+    {
+      "id": "default_negatives-pydantic",
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "curl",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "buildkit",
+        "etcd",
+        "fzf"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 522,
+      "proposed_criticisms": 0,
+      "state_sha256": "2dfe37197b150d5e108cf431a86e7772e91ca05b56e89e102505dda92933a8ec"
+    },
+    {
+      "id": "partial_masks-pydantic",
+      "train_source_groups": [
+        "bat",
+        "containerd",
+        "curl",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "ripgrep",
+        "tokio"
+      ],
+      "calibration_source_groups": [
+        "buildkit",
+        "etcd",
+        "fzf"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 522,
+      "proposed_criticisms": 0,
+      "state_sha256": "19ad0265c9b063d466c4b4389d19178310d66306f8fc7edb12d11a6b2e01934f"
+    },
+    {
+      "id": "default_negatives-ripgrep",
+      "train_source_groups": [
+        "bat",
+        "buildkit",
+        "containerd",
+        "curl",
+        "etcd",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah"
+      ],
+      "calibration_source_groups": [
+        "fzf",
+        "pydantic",
+        "tokio"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 142,
+      "proposed_criticisms": 0,
+      "state_sha256": "3fae15c4efc88acad661e4df42a0c0341a20647e1e04d1508cd68d55181064ae"
+    },
+    {
+      "id": "partial_masks-ripgrep",
+      "train_source_groups": [
+        "bat",
+        "buildkit",
+        "containerd",
+        "curl",
+        "etcd",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah"
+      ],
+      "calibration_source_groups": [
+        "fzf",
+        "pydantic",
+        "tokio"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 142,
+      "proposed_criticisms": 0,
+      "state_sha256": "ea3e6df6f855b9089c822e2fd466af6d6fe964ce5da5d15ba71f5b3159900afe"
+    },
+    {
+      "id": "default_negatives-tokio",
+      "train_source_groups": [
+        "buildkit",
+        "containerd",
+        "curl",
+        "fzf",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "pydantic"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "etcd",
+        "ripgrep"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 438,
+      "proposed_criticisms": 0,
+      "state_sha256": "000af1e607bd52873c28af8ed763c443cf88c55e9b2bbc77c927cde04cae40b2"
+    },
+    {
+      "id": "partial_masks-tokio",
+      "train_source_groups": [
+        "buildkit",
+        "containerd",
+        "curl",
+        "fzf",
+        "imgui",
+        "marked",
+        "prometheus",
+        "ptah",
+        "pydantic"
+      ],
+      "calibration_source_groups": [
+        "bat",
+        "etcd",
+        "ripgrep"
+      ],
+      "proxy_cutoff": null,
+      "available_under_global_proxy": false,
+      "tested_original_units": 438,
+      "proposed_criticisms": 0,
+      "state_sha256": "96dedbfd997f6f0f77f4ef725d8e00b814bbc8b75db66a5a66de959e1fee4ddb"
+    }
+  ],
+  "private_evidence_sha256": {
+    "source-partial-label-learning-20261009-v2/packet/freeze.json": "7b3168fc1733366b6a65c0e00f1728220302a0ee006c8479a6056be7cd23437b",
+    "source-partial-label-learning-20261009-v2/packet/protocol.json": "28b3619057377d176f954c8c97571925a498120a634641b0006375ad41c2c1fb",
+    "source-partial-label-learning-20261009-v2/packet/supervision.json": "1091cf4cb0d5b374e62d3f5d737f062e3b68b280fb9f06da930e1b6c5ce46d24",
+    "source-partial-label-learning-20261009-v2/native-terminal.json": "c1f9118093bd5420f6325a6ab6904f37f562f1a18136587fba0532a557739944",
+    "source-partial-label-learning-20261009-v2/training/freeze.json": "7e41dce07b374c08abb46e781b5571763dae3c0512e552471163fc730770bac2",
+    "source-partial-label-learning-20261009-v2/training/result.json": "4023482f4fa7df42d681ff1d796186d954046716b4894c65c59e9d5d17528ee6",
+    "source-partial-label-learning-20261009-v2/training/fits.json": "9c5089cb518e9b6bfaf21dd823c689d6fbc5f412d261f49a4ab57a91edb682ab",
+    "source-partial-label-learning-20261009-v2/training/deliveries.json": "62d20b61b2b874a02333eb8416df1c2193c61b82430e87b6d101ae9e7d7223f5",
+    "source-partial-label-learning-20261009-v2/training/unit-accounting.json": "760e778da1e6263b1337c9921be9e0cf653bb1fbea3a3e9a3f51e6bf7e61a585",
+    "source-partial-label-learning-20261009-v2/training/event-witnesses.json": "7b5a6bf1452ac7b4e70eef4e3219f8bc740bd20c8664b0017d9e4c390164cbd5",
+    "source-partial-label-learning-20261009-v2/audit/registration.json": "8466f2b873a334dafe22ed1e0765ddd4b7f136741678f535b1b77ebb44d71ab5",
+    "source-partial-label-learning-20261009-v2/audit/native-terminal.json": "eb3eb277edb5f62de62fc850bd2db76cd4bc50cbaf199c9a96239ec2fe0c91d7",
+    "source-partial-label-learning-20261009-v2/audit-debug-1/registration.json": "bddf104e78527438bb591715f578ca6053400717cd16f0186b7ca9812875d5b9",
+    "source-partial-label-learning-20261009-v2/audit-debug-1/differences.json": "d1583e5c8453aaa1af4e2365113a9e3d026bc19cbe9648b5952f0fdaeb007b3e",
+    "source-partial-label-learning-20261009-v2/audit-layout-1/registration.json": "6bd2c986270b0c601d9b53a1edb9727ccba49e19a6275a0a9c7f2205403c4d94",
+    "source-partial-label-learning-20261009-v2/audit-layout-1/result.json": "e710cd4f0e034eb0d809b11245b3c5521df65d07465766b564b422ae5ad7cda6",
+    "source-partial-label-learning-20261009-v2/audit-layout-1/component-union-accounting.json": "64c18d6f4db590e455b1356a40064322c4fb0353c60a196c782f40560d37f775",
+    "source-partial-label-learning-20261009-v2/audit-layout-1/completion-seal.json": "7825bfe460c5954a32b9dc05c867fd0ab3dd0a6fd7996e14c64184cc3a5b2a4e",
+    "source-partial-label-learning-code-20261009-v2/objectives.py": "201f03fd5b8ec136d218ece7d2632de78c679b3cf536217852b18915c9abe9b8",
+    "source-partial-label-learning-code-20261009-v2/test_objectives.py": "6afb87c375619269eeb6f14f0c052be83128452842b5b1d7b5106f74b457969f",
+    "source-partial-label-learning-code-20261009-v2/train.py": "c6a3a4006a3e9f5edfc1d4425c32e7780c8a67baf0755d779bf340b3ee5f2ff3",
+    "source-partial-label-learning-code-20261009-v2/audit_layout_1.py": "b332b8db765b231ecf159d2c9c9cf24130fdb8eae6bdd4b25a5efb55d8257400"
+  },
+  "source_review_support_adapter_sha256": "c9f5562944d9fc623b41a7a285fa99be772373ed25ca41d1f13fa060a4b23155",
+  "source_review_support_tests_sha256": "fe96b6bd7ca822dac914ece73404903dd4d3f24d85776fdccdafc0c75e8a1c8a",
+  "public_reproduction_of_private_labels_claimed": false,
+  "semantic_full_recall": null,
+  "actual_usefulness": null,
+  "additional_provider_calls": 0,
+  "prospective_pages_used": 0,
+  "original_reference_changes": 0,
+  "shipping_changes": false,
+  "product_qualified": false,
+  "issue_349_closed": false
+}
