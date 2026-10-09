@@ -119,7 +119,9 @@ The root assistant completed all 78 source-only reviews: 18 necessary edits,
 edits comprise 12 fluency cases, three wordiness cases, two clarity cases, and
 one formatting case, with 22 exact source targets. This is predominantly
 additional grammar supervision, not an established gain in rhetorical-pattern
-detection. The original frozen study was not refit on these reviews.
+detection. The original frozen study was not refit on these reviews. The separately
+registered [expanded-label and encoder-adaptation studies](encoder-adaptation.md)
+are now complete; neither produced an admissible configuration.
 
 The random control found ten necessary units among 39; the uncertainty and
 disagreement queue found eight among 39. This small exposed pilot does not

@@ -1,0 +1,654 @@
+{
+  "version": "unswell-source-learning-followup-v1",
+  "recorded_on": "2026-10-09",
+  "status": "Complete negative development experiments; no runtime promotion",
+  "scope": {
+    "pages": 36,
+    "units": 4549,
+    "judgments": 804,
+    "events": 123
+  },
+  "frozen_original_event_changes": 0,
+  "provider_requests": 0,
+  "published_baseline": {
+    "progress_path": null,
+    "progress_sha256": "9b212fab5caaa0d43cc11f33d6f735ab8079234611c2a91a53fbea987d0dce7a",
+    "actual_full_events": 37,
+    "actual_events": 123,
+    "actual_full_event_recall": 0.3008130081300813,
+    "useful_actual_criticisms": 94,
+    "actual_criticisms": 154,
+    "actual_usefulness": 0.6103896103896104,
+    "runtime_changed_by_study": false
+  },
+  "acceptance": {
+    "full_event_recall_per_cohort": 0.8,
+    "useful_actual_criticisms_per_cohort": 0.85,
+    "unsafe_or_unresolved_advice": 0,
+    "separate_prospective_confirmation_required": true
+  },
+  "annotation_inventory": {
+    "known_necessary": 140,
+    "known_no_mandatory_edit": 93,
+    "unknown": 4316,
+    "additional_source_reviews": 78,
+    "reviewer": "Root Codex assistant under ADR 0041; exposed development"
+  },
+  "expanded_annotation_study": {
+    "registered_head_fits": 39,
+    "arms": {
+      "hashed_lexical": {
+        "tested_pages": 36,
+        "tested_units": 4549,
+        "original_events_accounted": 123,
+        "available_outer_groups": 1,
+        "unavailable_outer_groups": 12,
+        "selected_source_units": 23,
+        "delivered_criticisms": 0,
+        "delivered_source_units": 0,
+        "delivered_unreviewed_source_units": 0,
+        "observed_decision_proxy": {
+          "known_units": 233,
+          "known_necessary": 140,
+          "known_no_mandatory_edit": 93,
+          "selected_known": 1,
+          "true_positive_known": 0,
+          "false_positive_known": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "not_actual_criticism_usefulness": true
+        },
+        "observed_delivery_proxy": {
+          "delivered_known_units": 0,
+          "necessary_known_units_delivered": 0,
+          "no_mandatory_edit_known_units_delivered": 0
+        },
+        "matching_intent_single_witnesses": 0,
+        "matching_intent_recall_upper_bound": 0.0,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "structural_single_witness": 0,
+            "structural_with_matching_intent": 0,
+            "structural_recall_upper_bound": 0.0,
+            "matching_intent_recall_upper_bound": 0.0,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          },
+          "context": {
+            "events": 46,
+            "structural_single_witness": 0,
+            "structural_with_matching_intent": 0,
+            "structural_recall_upper_bound": 0.0,
+            "matching_intent_recall_upper_bound": 0.0,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          },
+          "confirmation": {
+            "events": 20,
+            "structural_single_witness": 0,
+            "structural_with_matching_intent": 0,
+            "structural_recall_upper_bound": 0.0,
+            "matching_intent_recall_upper_bound": 0.0,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          }
+        },
+        "actual_reviewed_criticisms": 0,
+        "actual_useful_criticisms": null,
+        "actual_full_events": null,
+        "product_qualified": false,
+        "active_goal_achieved": false,
+        "reason": "Source-unit decisions and geometric/intent coverage are screens; every actual diagnosis still needs a complete-source semantic review. Missing events and unavailable groups remain in all original denominators."
+      },
+      "source_only": {
+        "tested_pages": 36,
+        "tested_units": 4549,
+        "original_events_accounted": 123,
+        "available_outer_groups": 5,
+        "unavailable_outer_groups": 8,
+        "selected_source_units": 755,
+        "delivered_criticisms": 951,
+        "delivered_source_units": 496,
+        "delivered_unreviewed_source_units": 480,
+        "observed_decision_proxy": {
+          "known_units": 233,
+          "known_necessary": 140,
+          "known_no_mandatory_edit": 93,
+          "selected_known": 50,
+          "true_positive_known": 44,
+          "false_positive_known": 6,
+          "precision": 0.88,
+          "recall": 0.3142857142857143,
+          "not_actual_criticism_usefulness": true
+        },
+        "observed_delivery_proxy": {
+          "delivered_known_units": 16,
+          "necessary_known_units_delivered": 14,
+          "no_mandatory_edit_known_units_delivered": 2
+        },
+        "matching_intent_single_witnesses": 2,
+        "matching_intent_recall_upper_bound": 0.016260162601626018,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "structural_single_witness": 6,
+            "structural_with_matching_intent": 1,
+            "structural_recall_upper_bound": 0.10526315789473684,
+            "matching_intent_recall_upper_bound": 0.017543859649122806,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          },
+          "context": {
+            "events": 46,
+            "structural_single_witness": 2,
+            "structural_with_matching_intent": 0,
+            "structural_recall_upper_bound": 0.043478260869565216,
+            "matching_intent_recall_upper_bound": 0.0,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          },
+          "confirmation": {
+            "events": 20,
+            "structural_single_witness": 5,
+            "structural_with_matching_intent": 1,
+            "structural_recall_upper_bound": 0.25,
+            "matching_intent_recall_upper_bound": 0.05,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          }
+        },
+        "actual_reviewed_criticisms": 0,
+        "actual_useful_criticisms": null,
+        "actual_full_events": null,
+        "product_qualified": false,
+        "active_goal_achieved": false,
+        "reason": "Source-unit decisions and geometric/intent coverage are screens; every actual diagnosis still needs a complete-source semantic review. Missing events and unavailable groups remain in all original denominators."
+      },
+      "auxiliary_reason": {
+        "tested_pages": 36,
+        "tested_units": 4549,
+        "original_events_accounted": 123,
+        "available_outer_groups": 5,
+        "unavailable_outer_groups": 8,
+        "selected_source_units": 759,
+        "delivered_criticisms": 950,
+        "delivered_source_units": 499,
+        "delivered_unreviewed_source_units": 482,
+        "observed_decision_proxy": {
+          "known_units": 233,
+          "known_necessary": 140,
+          "known_no_mandatory_edit": 93,
+          "selected_known": 50,
+          "true_positive_known": 43,
+          "false_positive_known": 7,
+          "precision": 0.86,
+          "recall": 0.30714285714285716,
+          "not_actual_criticism_usefulness": true
+        },
+        "observed_delivery_proxy": {
+          "delivered_known_units": 17,
+          "necessary_known_units_delivered": 15,
+          "no_mandatory_edit_known_units_delivered": 2
+        },
+        "matching_intent_single_witnesses": 2,
+        "matching_intent_recall_upper_bound": 0.016260162601626018,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "structural_single_witness": 6,
+            "structural_with_matching_intent": 1,
+            "structural_recall_upper_bound": 0.10526315789473684,
+            "matching_intent_recall_upper_bound": 0.017543859649122806,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          },
+          "context": {
+            "events": 46,
+            "structural_single_witness": 2,
+            "structural_with_matching_intent": 0,
+            "structural_recall_upper_bound": 0.043478260869565216,
+            "matching_intent_recall_upper_bound": 0.0,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          },
+          "confirmation": {
+            "events": 20,
+            "structural_single_witness": 6,
+            "structural_with_matching_intent": 1,
+            "structural_recall_upper_bound": 0.3,
+            "matching_intent_recall_upper_bound": 0.05,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          }
+        },
+        "actual_reviewed_criticisms": 0,
+        "actual_useful_criticisms": null,
+        "actual_full_events": null,
+        "product_qualified": false,
+        "active_goal_achieved": false,
+        "reason": "Source-unit decisions and geometric/intent coverage are screens; every actual diagnosis still needs a complete-source semantic review. Missing events and unavailable groups remain in all original denominators."
+      }
+    },
+    "comparability": "The v1-to-v2 annotation bundle includes explicit intent negatives and new reasons; it is not an isolated annotation-count intervention."
+  },
+  "encoder_adaptation_study": {
+    "registered_head_fits": 26,
+    "updated_adapters": 13,
+    "full_base_weight_fits": 0,
+    "arms": {
+      "frozen_control": {
+        "tested_pages": 36,
+        "tested_units": 4549,
+        "original_events_accounted": 123,
+        "available_outer_groups": 5,
+        "unavailable_outer_groups": 8,
+        "selected_source_units": 750,
+        "delivered_criticisms": 954,
+        "delivered_source_units": 493,
+        "delivered_unreviewed_source_units": 478,
+        "observed_decision_proxy": {
+          "known_units": 233,
+          "known_necessary": 140,
+          "known_no_mandatory_edit": 93,
+          "selected_known": 49,
+          "true_positive_known": 43,
+          "false_positive_known": 6,
+          "precision": 0.8775510204081632,
+          "recall": 0.30714285714285716,
+          "not_actual_criticism_usefulness": true
+        },
+        "observed_delivery_proxy": {
+          "delivered_known_units": 15,
+          "necessary_known_units_delivered": 13,
+          "no_mandatory_edit_known_units_delivered": 2
+        },
+        "matching_intent_single_witnesses": 2,
+        "matching_intent_recall_upper_bound": 0.016260162601626018,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "structural_single_witness": 5,
+            "structural_with_matching_intent": 1,
+            "structural_recall_upper_bound": 0.08771929824561403,
+            "matching_intent_recall_upper_bound": 0.017543859649122806,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          },
+          "context": {
+            "events": 46,
+            "structural_single_witness": 2,
+            "structural_with_matching_intent": 0,
+            "structural_recall_upper_bound": 0.043478260869565216,
+            "matching_intent_recall_upper_bound": 0.0,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          },
+          "confirmation": {
+            "events": 20,
+            "structural_single_witness": 5,
+            "structural_with_matching_intent": 1,
+            "structural_recall_upper_bound": 0.25,
+            "matching_intent_recall_upper_bound": 0.05,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          }
+        },
+        "actual_reviewed_criticisms": 0,
+        "actual_useful_criticisms": null,
+        "actual_full_events": null,
+        "product_qualified": false,
+        "active_goal_achieved": false,
+        "reason": "Source-unit decisions and geometric/intent coverage are screens; every actual diagnosis still needs a complete-source semantic review. Missing events and unavailable groups remain in all original denominators."
+      },
+      "attention_lora": {
+        "tested_pages": 36,
+        "tested_units": 4549,
+        "original_events_accounted": 123,
+        "available_outer_groups": 5,
+        "unavailable_outer_groups": 8,
+        "selected_source_units": 773,
+        "delivered_criticisms": 973,
+        "delivered_source_units": 505,
+        "delivered_unreviewed_source_units": 487,
+        "observed_decision_proxy": {
+          "known_units": 233,
+          "known_necessary": 140,
+          "known_no_mandatory_edit": 93,
+          "selected_known": 53,
+          "true_positive_known": 46,
+          "false_positive_known": 7,
+          "precision": 0.8679245283018868,
+          "recall": 0.32857142857142857,
+          "not_actual_criticism_usefulness": true
+        },
+        "observed_delivery_proxy": {
+          "delivered_known_units": 18,
+          "necessary_known_units_delivered": 16,
+          "no_mandatory_edit_known_units_delivered": 2
+        },
+        "matching_intent_single_witnesses": 2,
+        "matching_intent_recall_upper_bound": 0.016260162601626018,
+        "cohorts": {
+          "whole": {
+            "events": 57,
+            "structural_single_witness": 6,
+            "structural_with_matching_intent": 1,
+            "structural_recall_upper_bound": 0.10526315789473684,
+            "matching_intent_recall_upper_bound": 0.017543859649122806,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          },
+          "context": {
+            "events": 46,
+            "structural_single_witness": 3,
+            "structural_with_matching_intent": 0,
+            "structural_recall_upper_bound": 0.06521739130434782,
+            "matching_intent_recall_upper_bound": 0.0,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          },
+          "confirmation": {
+            "events": 20,
+            "structural_single_witness": 6,
+            "structural_with_matching_intent": 1,
+            "structural_recall_upper_bound": 0.3,
+            "matching_intent_recall_upper_bound": 0.05,
+            "actual_full_event_recall": null,
+            "actual_usefulness": null,
+            "can_meet_recall_target_at_this_delivery": false
+          }
+        },
+        "actual_reviewed_criticisms": 0,
+        "actual_useful_criticisms": null,
+        "actual_full_events": null,
+        "product_qualified": false,
+        "active_goal_achieved": false,
+        "reason": "Source-unit decisions and geometric/intent coverage are screens; every actual diagnosis still needs a complete-source semantic review. Missing events and unavailable groups remain in all original denominators."
+      }
+    },
+    "model": {
+      "name": "answerdotai/ModernBERT-base",
+      "revision": "8949b909ec900327062f0ebf497f51aef5e6f0c8",
+      "weights_sha256": "340ac08b74eef0d7bdec2d7981a6a3d4249bf0e6aab60634b72ad02c2b8023a9"
+    },
+    "adapter": {
+      "library": "peft",
+      "version": "0.21.2",
+      "rank": 8,
+      "alpha": 16,
+      "dropout": 0,
+      "trainable_parameters": 540672
+    },
+    "attention_modules": 22,
+    "head_updates": 40,
+    "effective_batch_size": 8,
+    "microbatch_size": 2,
+    "head_learning_rate": 0.0002,
+    "adapter_learning_rate": 0.0001,
+    "weight_decay": 0.01,
+    "maximum_gradient_norm": 1.0,
+    "seed": 61091,
+    "versions": {
+      "torch": "2.10.0",
+      "transformers": "5.18.0",
+      "numpy": "2.4.6",
+      "tokenizers": "0.23.2",
+      "safetensors": "0.8.0",
+      "huggingface-hub": "1.33.0",
+      "peft": "0.21.2",
+      "accelerate": "1.15.0",
+      "psutil": "7.2.2"
+    },
+    "matched": [
+      "warm starts",
+      "source-group folds",
+      "labels",
+      "batch order",
+      "head update count",
+      "calibration",
+      "delivery"
+    ],
+    "actual_devices": {
+      "frozen_control": "CPU",
+      "attention_lora": "MPS"
+    },
+    "device_interpretation": "Device arithmetic differs. This comparison does not attribute small score differences solely to the adapter; both fixed configurations fail the acceptance screen.",
+    "native_training_seconds": 851.3382412907667,
+    "peak_gpu_bytes": 5054414848,
+    "post_hoc_first_failure_accounting": {
+      "frozen_control": {
+        "first_failures": {
+          "unit_not_selected_by_necessity": 31,
+          "matching_intent_logit_below_zero": 37,
+          "no_single_unit_covers_all_components": 6,
+          "no_available_calibration_point": 45,
+          "matching_intent_and_byte_witness_delivered": 2,
+          "matching_intent_outside_top_two": 2
+        },
+        "cohorts": {
+          "whole": {
+            "unit_not_selected_by_necessity": 18,
+            "matching_intent_logit_below_zero": 18,
+            "no_single_unit_covers_all_components": 6,
+            "no_available_calibration_point": 13,
+            "matching_intent_and_byte_witness_delivered": 1,
+            "matching_intent_outside_top_two": 1
+          },
+          "context": {
+            "unit_not_selected_by_necessity": 4,
+            "matching_intent_logit_below_zero": 10,
+            "no_available_calibration_point": 32
+          },
+          "confirmation": {
+            "unit_not_selected_by_necessity": 9,
+            "matching_intent_logit_below_zero": 9,
+            "matching_intent_outside_top_two": 1,
+            "matching_intent_and_byte_witness_delivered": 1
+          }
+        }
+      },
+      "attention_lora": {
+        "first_failures": {
+          "unit_not_selected_by_necessity": 28,
+          "matching_intent_logit_below_zero": 40,
+          "no_single_unit_covers_all_components": 6,
+          "no_available_calibration_point": 45,
+          "matching_intent_and_byte_witness_delivered": 2,
+          "matching_intent_outside_top_two": 2
+        },
+        "cohorts": {
+          "whole": {
+            "unit_not_selected_by_necessity": 17,
+            "matching_intent_logit_below_zero": 19,
+            "no_single_unit_covers_all_components": 6,
+            "no_available_calibration_point": 13,
+            "matching_intent_and_byte_witness_delivered": 1,
+            "matching_intent_outside_top_two": 1
+          },
+          "context": {
+            "unit_not_selected_by_necessity": 4,
+            "matching_intent_logit_below_zero": 10,
+            "no_available_calibration_point": 32
+          },
+          "confirmation": {
+            "unit_not_selected_by_necessity": 7,
+            "matching_intent_logit_below_zero": 11,
+            "matching_intent_outside_top_two": 1,
+            "matching_intent_and_byte_witness_delivered": 1
+          }
+        }
+      }
+    },
+    "postmortem_changes_to_models_or_cutoffs": 0
+  },
+  "pretrained_edit_span_reference": {
+    "version": "unswell-deliterater-reference-result-v1",
+    "scope": {
+      "pages": 36,
+      "units": 4549,
+      "judgments": 804,
+      "events": 123
+    },
+    "reference": "zaemyung/DElIteraTeR-RoBERTa-Intent-Span-Detector",
+    "delivery": {
+      "minimal_span": {
+        "context": {
+          "events": 46,
+          "byte_envelope_witness": 0,
+          "byte_envelope_fraction": 0.0,
+          "meets_80_percent_structural_screen": false
+        },
+        "whole": {
+          "events": 57,
+          "byte_envelope_witness": 0,
+          "byte_envelope_fraction": 0.0,
+          "meets_80_percent_structural_screen": false
+        },
+        "confirmation": {
+          "events": 20,
+          "byte_envelope_witness": 0,
+          "byte_envelope_fraction": 0.0,
+          "meets_80_percent_structural_screen": false
+        }
+      },
+      "unit_scoped": {
+        "context": {
+          "events": 46,
+          "byte_envelope_witness": 1,
+          "byte_envelope_fraction": 0.021739130434782608,
+          "meets_80_percent_structural_screen": false
+        },
+        "whole": {
+          "events": 57,
+          "byte_envelope_witness": 5,
+          "byte_envelope_fraction": 0.08771929824561403,
+          "meets_80_percent_structural_screen": false
+        },
+        "confirmation": {
+          "events": 20,
+          "byte_envelope_witness": 1,
+          "byte_envelope_fraction": 0.05,
+          "meets_80_percent_structural_screen": false
+        }
+      }
+    },
+    "counts": {
+      "tokens": 200794,
+      "windows": 534,
+      "minimal_spans": 100,
+      "unit_scoped_diagnostics": 86
+    },
+    "actual_full_events": null,
+    "actual_useful_criticisms": null,
+    "semantically_reviewed_criticisms": 0,
+    "intent_agreement_not_measured": true,
+    "native_complete": true,
+    "no_training": true,
+    "no_provider_requests": true,
+    "product_qualified": false,
+    "active_goal_achieved": false,
+    "result_interpretation": "Byte-envelope coverage is an optimistic representation screen, not semantic FULL recall or actual usefulness. Author intent classes are not rhetorical categories.",
+    "revision": "a1e43d5c8b414ba74e0074684437260ee68b8024",
+    "weights_sha256": "d8a4aca0ca15568a892b286c93b2d1d5a75fa038906be383599f440690e4f050",
+    "license": "CC-BY-NC-4.0; private research reference, not a runtime asset",
+    "window_tokens": 512,
+    "payload_tokens": 508,
+    "overlap_tokens": 128,
+    "decoding": "Mean overlapping FP32 logits followed by fixed author six-class argmax",
+    "native_seconds": 68.47270470811054,
+    "peak_gpu_bytes": 2217459712,
+    "setup_failure": "Model smoke probe succeeded, then packet preparation used the wrong group-map key. The native failure is retained; source registration was corrected without another model forward pass. One original-source inference completed."
+  },
+  "gliner_default_span_representation": {
+    "model_config_sha256": "8e1eb4b733638be3935981feeb7c6a2e7e22e2600c58df66f74da4677f06c009",
+    "max_width": 12,
+    "max_len": 768,
+    "tokenizer": "Exact published whitespace splitter regex; no model inference",
+    "cohorts": {
+      "whole": {
+        "exceeds_width_cap": 34,
+        "within_width_cap": 23
+      },
+      "context": {
+        "within_width_cap": 26,
+        "exceeds_width_cap": 20
+      },
+      "confirmation": {
+        "within_width_cap": 10,
+        "exceeds_width_cap": 10
+      }
+    },
+    "all_original_events": 123,
+    "model_fits": 0,
+    "inference_requests": 0,
+    "editorial_acceptance_credit": 0,
+    "bound": "A default single GLiNER NER span cannot contain all event components when their minimal contiguous envelope exceeds max_width. Within-cap spans are only representable, not correct or necessary diagnoses; separately emitted spans do not create one semantic witness."
+  },
+  "next_learning_contract": "Review original source with exact editable spans, intent-specific necessity, retained technical facts, contextual associations, and explicit unknown masks. Train source-span proposals and their contextual diagnosis separately; no AI-origin quality labels or automatic promotion of pretrained-model proposals.",
+  "actual_full_event_credit_from_new_studies": 0,
+  "actual_usefulness_from_new_studies": null,
+  "private_source_annotation_packets_published": false,
+  "runtime_changed": false,
+  "product_qualified": false,
+  "active_goal_achieved": false,
+  "evidence_sha256": {
+    "expanded/packet/freeze.json": "489ecd224d3cb3a8c13dbc97699c20c77d4884b03a0ca6c3f9c524869e51b23a",
+    "expanded/packet/protocol.json": "d8535adcd2f9659867d370142ba5486c9185e20fdac95dfb49976c1c2ae54a77",
+    "expanded/train-native-terminal.json": "40c8c37fd7704192de9f299c96671e2ae5074eb8a005b7567131f1d0ebb42a0e",
+    "expanded/evaluate-native-terminal.json": "dbcfd62fe7fe9d8dc7e83fcfd8f0fe5934f9d51d336d04d04dbb5596ccc7c3c4",
+    "expanded/evaluation/result.json": "6293fcc5b16ec2119f4cb13a1b8e044fd85fd2d1d74ac7d202a221820ce47238",
+    "expanded/audit/verification.json": "86efd4004d147bd0b7bf1567b31782a26760204ac7f3911afeedf651815c1b38",
+    "adaptation/packet/freeze.json": "a38d7350df90d7d6bafc1700bfaf54c18dba6ce79c77b7b6696c4a06351addc1",
+    "adaptation/packet/protocol.json": "213d9421da7104f22268f4a80e986a1095ca14f659f3ae84a9f7d82c81413136",
+    "adaptation/train-native-terminal.json": "42243470301a01c2a58f9bde5d59f3fae29140d4685352233f1fe853a7a91989",
+    "adaptation/evaluate-native-terminal.json": "c95f86d73205b62323af523459b7c339c3d57d17dad434224da369efe219f5a8",
+    "adaptation/evaluation/result.json": "ccf6ce976240620c3dee8a53eb6d545d83b078847b654380de919dbb24772476",
+    "adaptation/audit/verification.json": "b29bd50b63525e61aa7c048fc21094bde35bf2498e170907ef291a5e28217c57",
+    "edit-span-reference/freeze.json": "38c1303af9ef876824b4b99148ab255e5b1bea8418101ad064aecf9666b90f84",
+    "edit-span-reference/model-manifest.json": "9be4ba3362c044bfe23b21c4d057688038256944a38e76efbd102bf51ba59c9a",
+    "edit-span-reference/preflight-result.json": "b2b853ccd7d721daa1bc1f21f4e9033c398c8be1c8fede446b1ae64b1e88a805",
+    "edit-span-reference/preparation-events.json": "1fbe1d4c5abc5cd98b62f07bfb5bd1d9ac959a2ce1d115fd6e0cd08ed8475258",
+    "edit-span-reference/infer-native-terminal.json": "a986e7acd2fad4f8caa9c8aa04bc1f8f05535d0cfe0242340d4bc40a1f8ff771",
+    "edit-span-reference/prediction-completion.json": "6b9d612ec5b8d64e981dd9a3441a086cdc13d76b7f9437080c113e50ea4e223f",
+    "edit-span-reference/audit/result.json": "9f338ade57290bcc849a7b81db8849f6b82dedd8c802903e59545df9421c9071",
+    "edit-span-reference/audit/verification.json": "22fef1562d492607ac2ed1f30adb9d4087832e95e4892c7ff2eeb9e46a7a2d02",
+    "adaptation/postmortem/summary.json": "264684b4b060026ed7c993fd68e98d1ba8a94edd5bc3cd2086d16ae72550b6f0",
+    "adaptation/postmortem/event-accounting.json": "9b3fb8701d2c011c72ebf5d2a3c00eb1b696ee98ba27ffeb2a17b7abe2bbcc1e",
+    "adaptation/postmortem/freeze.json": "baaba59911d71ec427bd4d99066015df207e61bda5a81e912070c03744764b32",
+    "adaptation/audit-attempts.json": "7299e5e1bc0601e80c1a8dbd3e1efe05fc487fbf512edad619f1345cd8986b6d",
+    "span-library/stock-width-screen.json": "6c6b4c18ae110b9eb93019ae8cc620d7c04905f58be6afb5c7c8727d3b3ef599",
+    "span-library/source-receipt.json": "817147511958b3f93ddc9ad10e4d8d3d405ebf61bc98d57ba569ce1d6db64475",
+    "code/source-student-learning-code-20261009-v2/common.py": "52695c0f6249c3918350d77478626e332e4e0721335653aea3df777027b1bbf5",
+    "code/source-student-learning-code-20261009-v2/evaluate.py": "25bfbe9b31bc02c80e474a7f8b5f9e3fd31806f83e45aa3c7cdb0fc9e8dc710e",
+    "code/source-student-learning-code-20261009-v2/features.py": "5b0bf268c947027ed975ebdd6d0ed391a0bff70925a1233276618a652f657f65",
+    "code/source-student-learning-code-20261009-v2/prepare.py": "76b4d71a80a2d396174e272a62a7724050ada7a16ea711c3f8fe89226cefcb6d",
+    "code/source-student-learning-code-20261009-v2/test_contract.py": "8de2b5f5887dc0914a82c0de0f0f54ac1b500ea86468dec1a2ce1c516ef6ad07",
+    "code/source-student-learning-code-20261009-v2/train.py": "b7c3c373f5fb39ec49eebe27a25ee6a6f3cca920e22c8d723a7c2aa864da760b",
+    "code/source-encoder-adaptation-code-20261009-v1/common.py": "9ed3e64dadcab3db08c313af6d0388290ce4826ca7e120a3a5bb299733d886b8",
+    "code/source-encoder-adaptation-code-20261009-v1/evaluate.py": "2f1c2ca56ce25a04202d9fd67a8e15c2cd73a1e95547a208b8f91254705dc0ce",
+    "code/source-encoder-adaptation-code-20261009-v1/prepare.py": "b670a501263550412fef50d57a8ffa78d7b4d7acf1fbc0000c792d06376dc53b",
+    "code/source-encoder-adaptation-code-20261009-v1/test_contract.py": "8c43b881ee36a00813b0124788377eaf1befb33f1cc151e55579c8a197930bd3",
+    "code/source-encoder-adaptation-code-20261009-v1/train.py": "7d7418c7286b27883c6aee77e2138242d89f84d11146da77030374fbf8ee47d0",
+    "code/source-encoder-adaptation-code-20261009-v1/train_core.py": "b7c3c373f5fb39ec49eebe27a25ee6a6f3cca920e22c8d723a7c2aa864da760b",
+    "code/deliterater-reference-code-20261009-v1/common.py": "f3c3c4cbc4fb4bbd19bf59d5241e6d96c4b44030fe4cb93282963ea44117f0fe",
+    "code/deliterater-reference-code-20261009-v1/infer.py": "17d03f94ee36e046d45d905758db324440518de758604c85a6c39641909e1da8",
+    "code/deliterater-reference-code-20261009-v1/probe_and_register.py": "c035c6c07ef46023de0193cdf39a8d064da55f64e9d712eb49632ffb51cde27e",
+    "code/deliterater-reference-code-20261009-v1/register.py": "fa49ba62c0766c4c472908f28844ee935e642f9ba71c7ef87fc545bf3b6a1f21",
+    "code/deliterater-reference-code-20261009-v1/test_contract.py": "dd4a5d14c58ad678b49e231b85c14cca23c0c5f05d5cd6e3c07a14a9e88c0c46"
+  }
+}

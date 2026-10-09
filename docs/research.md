@@ -38,6 +38,9 @@ The later [source-unit learning comparison](research/source-student-learning.md)
 completes 39 matched head fits with all 123 events preserved. The fixed
 source-only and auxiliary-output diagnostic streams fail the recall screen;
 selected-unit decision precision is not editorial usefulness.
+The [expanded annotations, encoder adaptation, and edit-span comparison](research/encoder-adaptation.md)
+also completed without an admissible diagnostic configuration. Its failure-stage
+audit keeps all 123 events and distinguishes structural bounds from semantic acceptance.
 
 The E3 runs of [#176](https://github.com/stokaro/unswell/issues/176),
 [#177](https://github.com/stokaro/unswell/issues/177), and
