@@ -38,7 +38,7 @@ jobs:
           DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
           DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
         run: printf '%s' "$DOCKER_HUB_TOKEN" | bash scripts/mirror-containers.sh unswell-hub "$RELEASE_VERSION" "$DOCKER_HUB_USER"
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: docker-hub-mirror-evidence
