@@ -143,7 +143,13 @@ Revision 10, [`rule-classes-v1-r10.json`](rule-classes-v1-r10.json), covers the
 are general style signals. Command tests at that revision used it; earlier classes
 and measured results stay unchanged. No authorship association is asserted.
 
-Revision 11, [`rule-classes-v1-r11.json`](rule-classes-v1-r11.json), covers the current
+Revision 11, [`rule-classes-v1-r11.json`](rule-classes-v1-r11.json), covers the
 57-rule catalog. Unnamed numerical choice openings are general style signals.
-Current command tests use revision 11. Previous classes and measured results
-remain frozen; the new rule establishes no authorship association or broad recall.
+Previous classes and measured results remain frozen; the rule establishes no
+authorship association or broad recall.
+
+Revision 12, [`rule-classes-v1-r12.json`](rule-classes-v1-r12.json), covers the
+current 58-rule catalog. Standalone unspecified update announcements are general
+style signals. Current command tests use revision 12. Earlier classifications
+and measurements remain frozen; this rule establishes no authorship association
+or broad recall.

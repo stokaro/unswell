@@ -1,6 +1,6 @@
 # Which rules ship enabled
 
-The catalog holds 57 rules. Thirty-three are enabled by their descriptors and 24
+The catalog holds 58 rules. Thirty-four are enabled by their descriptors and 24
 are opt-in; strict additionally enables em-dash density. This page says how that split was chosen and what each opt-in rule was
 measured at. Every rule also carries its own reason: `unswell rules show ID`
 prints it, the rules page shows it, and a test fails if an opt-in rule has

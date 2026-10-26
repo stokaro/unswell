@@ -59,6 +59,14 @@ func localRhetoricRules() []rule.Rule {
 				"Storage existence and ordinary scope exclusions do not match.",
 			[]rule.Example{{Text: "This page exists so the operator is reachable from here.", Match: true},
 				{Text: "This page does not describe authentication."}}),
+		localRhetoricRule("filler.unspecified-update", unspecifiedUpdate,
+			"Identify the assets and version behind this update announcement.",
+			"Name the affected assets and destination version, or link the exact update record. Preserve known scope.",
+			"Matches a standalone affirmative update or upgrade of an indefinite asset set to an unnamed latest version. "+
+				"A second clause, another sentence in the same block, a stated version, attribution, quotation or condition excludes it. "+
+				"The rule does not determine whether an update happened or infer its destination version.",
+			[]rule.Example{{Text: "Some syntaxes and themes have been updated to the latest version.", Match: true},
+				{Text: "The Rust syntax was updated to version 2.4."}}),
 		evaluativeClosureRule(),
 		localRhetoricRule("filler.unscoped-assurance", unscopedAssurance,
 			"State the behavior, scope or evidence behind this quality claim.",
