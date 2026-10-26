@@ -1,9 +1,11 @@
 # Diagnosis-first contextual pilot
 
-This is an offline candidate for [#349](https://github.com/stokaro/unswell/issues/349).
-It has no measured detection result and is not authorized for model execution.
-See [DESIGN.md](DESIGN.md) for the hypothesis and limitations and
-[protocol.json](protocol.json) for the frozen proposed execution and screen.
+This folder records a completed, negative exposed-development pilot for
+[#349](https://github.com/stokaro/unswell/issues/349). See [RESULTS.md](RESULTS.md)
+for the measured result, [DESIGN.md](DESIGN.md) for the original hypothesis and
+limitations, and [protocol.json](protocol.json) for the execution contract
+frozen before model calls. The prior authorization covered only that terminal
+run; no further model execution is authorized by this archive.
 
 The preparer copies exact source bytes and engine unit spans from the earlier
 frozen packet. It selects the six exposed context pages without sending cohort
@@ -38,6 +40,6 @@ be reused. The packet and evaluator freeze bind the unchanged source packet,
 old source binder, original 123 reference events, new code, prompt, and protocol.
 
 The previous accounting run and all earlier judgments remain unchanged.
-Passing this pilot would require a separately authorized full 36-page screen
-and then separate prospective confirmation. No runtime, gate, or API changes
-follow from packet preparation.
+A passing pilot would have required a separately authorized full 36-page screen
+and then separate prospective confirmation. This pilot failed, so it does not
+justify either step. No runtime, gate, or API changes follow from this archive.
