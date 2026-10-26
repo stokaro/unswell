@@ -2,6 +2,7 @@ package extract
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -54,6 +55,12 @@ func (m *mdxMasker) candidate(source []byte, kind string) (bool, error) {
 	}
 	syntax, err := parseSyntaxTree(m.ctx, []byte(input), "javascript")
 	if err != nil {
+		var stopped *ts.ParseStoppedEarlyError
+		if errors.As(err, &stopped) && stopped.Reason == ts.ParseStopAcceptedPrefix {
+			// This candidate closes an inner JavaScript construct, not the MDX
+			// region. Try the next delimiter without admitting a partial tree.
+			return false, nil
+		}
 		return false, err
 	}
 	defer syntax.tree.Release()
