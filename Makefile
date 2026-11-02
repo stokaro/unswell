@@ -36,6 +36,7 @@ performance: build
 	bash scripts/measure-performance.sh --words 100000 --label local
 
 check-reproducible:
+	bash scripts/test-reproducible-build.sh
 	bash scripts/verify-reproducible-build.sh
 
 audit-release:

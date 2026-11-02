@@ -44,20 +44,36 @@ build() {
   local platform=$1 architecture=$2 destination=$3 binary=unswell
   if [[ "$platform" == windows ]]; then binary=unswell.exe; fi
   mkdir -p "$destination"
-  CGO_ENABLED=0 GOOS="$platform" GOARCH="$architecture" go build -trimpath -buildvcs=false \
+  if ! CGO_ENABLED=0 GOOS="$platform" GOARCH="$architecture" go build -trimpath -buildvcs=false \
     -ldflags "-s -w -X github.com/stokaro/unswell.BuildCommit=$commit" \
-    -o "$destination/$binary" ./cmd/unswell
+    -o "$destination/$binary" ./cmd/unswell; then
+    printf 'Build failed for %s/%s.\n' "$platform" "$architecture" >&2
+    return 1
+  fi
+  if [[ ! -s "$destination/$binary" ]]; then
+    printf 'Build produced no binary for %s/%s.\n' "$platform" "$architecture" >&2
+    return 1
+  fi
   printf '%s' "$destination/$binary"
 }
 
 digest() {
   local file=$1 value
-  if command -v sha256sum >/dev/null 2>&1; then
-    value=$(sha256sum "$file")
-  else
-    value=$(shasum -a 256 "$file")
+  if [[ ! -s "$file" ]]; then
+    printf 'Missing or empty binary: %s\n' "$file" >&2
+    return 1
   fi
-  printf '%s' "${value%% *}"
+  if command -v sha256sum >/dev/null 2>&1; then
+    if ! value=$(sha256sum "$file"); then return 1; fi
+  else
+    if ! value=$(shasum -a 256 "$file"); then return 1; fi
+  fi
+  value=${value%% *}
+  if [[ ! "$value" =~ ^[0-9a-f]{64}$ ]]; then
+    printf 'Invalid SHA-256 digest for %s.\n' "$file" >&2
+    return 1
+  fi
+  printf '%s' "$value"
 }
 
 entries=()
