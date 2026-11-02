@@ -10,7 +10,7 @@ while read -r directory role; do
   if [[ "$role" == tools ]]; then continue; fi
   (
     cd "$directory"
-    "$golangci" run --config "$root/.golangci.yml"
+    "$golangci" run --allow-serial-runners --config "$root/.golangci.yml"
     "$qtlint" -require-qt-c-receiver -require-data-rows -require-testing-run ./...
     "$nolintguard" -require-justification -forbidden-linters staticcheck,unused ./...
   )
