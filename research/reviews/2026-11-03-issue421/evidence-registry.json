@@ -1,0 +1,50 @@
+{
+  "issue": 421,
+  "original_scope": {
+    "pages": 36,
+    "engine_units": 4549,
+    "reference_events": 123,
+    "frozen_evaluation_groups": 13,
+    "distinct_repository_labels": 14
+  },
+  "selected_evidence": [
+    {
+      "name": "published-v30-runtime",
+      "status": "replayed",
+      "scope": "36 original pages, 154 delivered technical-profile findings, 123 original event outcomes, 97 long-sentence review judgments",
+      "proof": "ablation.json",
+      "limit": "Replays previously accepted assistant judgments; does not create independent editorial agreement or qualify current main."
+    },
+    {
+      "name": "expanded-original-candidate-pool",
+      "status": "replayed",
+      "scope": "1,154 candidates and complete-support groups for all 123 events",
+      "proof": "loss-ledger.json",
+      "limit": "Accepted-only and assessed-safe counts are retrospective ceilings, not inference selections."
+    },
+    {
+      "name": "separated-judgment-delivered-stream",
+      "status": "artifact-verified-and-witness-replayed",
+      "scope": "2,847 selected aliases, 104 complete events, all three complete cohorts",
+      "proof": "loss-ledger.json; research/reviews/2026-10-07-separated-admission/verify.py",
+      "limit": "The sealed evaluation was hash-matched to the public result and its selected witness groups were replayed. Raw model responses were not independently re-reviewed here."
+    },
+    {
+      "name": "source-anchor-raw-pool",
+      "status": "reported",
+      "scope": "Earlier 101/123 supported-event report",
+      "proof": "Issue #349 comment 5969687474",
+      "limit": "No deep replay because it does not change the decision after complete expanded and separated inventories."
+    },
+    {
+      "name": "diagnosis-first-context-pilot",
+      "status": "artifact-verified",
+      "scope": "Public archive, review, and summary hashes checked; six context pages, 19/46 complete events, 36/38 accepted findings",
+      "proof": "research/reviews/2026-10-26-diagnosis-first/artifact.json",
+      "limit": "Original-path-sensitive raw replay was not repeated; 30 pages and 77 events were unavailable, not semantic misses."
+    }
+  ],
+  "new_model_calls": 0,
+  "prospective_pages_opened": false,
+  "product_qualified": false
+}

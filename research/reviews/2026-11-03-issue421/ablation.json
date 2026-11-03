@@ -1,0 +1,130 @@
+{
+  "after": {
+    "confirmation": {
+      "deliveries": 5,
+      "event_denominator": 20,
+      "full_events": 4,
+      "grades": {
+        "accepted": 4,
+        "rejected": 1
+      }
+    },
+    "context": {
+      "deliveries": 15,
+      "event_denominator": 46,
+      "full_events": 11,
+      "grades": {
+        "accepted": 13,
+        "uncertain": 2
+      }
+    },
+    "whole": {
+      "deliveries": 37,
+      "event_denominator": 57,
+      "full_events": 21,
+      "grades": {
+        "accepted": 25,
+        "rejected": 4,
+        "uncertain": 8
+      }
+    }
+  },
+  "before": {
+    "confirmation": {
+      "deliveries": 9,
+      "event_denominator": 20,
+      "full_events": 4,
+      "grades": {
+        "accepted": 6,
+        "rejected": 1,
+        "uncertain": 2
+      }
+    },
+    "context": {
+      "deliveries": 24,
+      "event_denominator": 46,
+      "full_events": 11,
+      "grades": {
+        "accepted": 19,
+        "uncertain": 5
+      }
+    },
+    "whole": {
+      "deliveries": 121,
+      "event_denominator": 57,
+      "full_events": 22,
+      "grades": {
+        "accepted": 69,
+        "rejected": 4,
+        "uncertain": 48
+      }
+    }
+  },
+  "distinct_repository_labels": 14,
+  "inference_features_used": [],
+  "inputs_sha256": {
+    "events": "fe83794aca0d6e208af4014f8eeb11dcc2cf434351404f49594b6573246f3ebe",
+    "observations": "86c5e08917e9af3de0e09442d0e972f0d8bb2e0b917784459fe4c7f882ee6d70",
+    "progress": "9b212fab5caaa0d43cc11f33d6f735ab8079234611c2a91a53fbea987d0dce7a",
+    "published": "cef1cc1cf574517de83cc6f252172e0104111aa0f96b63984e43a8046d8df658",
+    "report": "9cd468833fd0be7b3e059aa100de304d8d6c14ec7e3abd91cae75cb5b677182d",
+    "source_manifest": "a6938cda72094d6b76258bc4053aa26814142c929a35f70a843da8b9b72d16f0"
+  },
+  "issue": 421,
+  "long_sentence_by_cohort": {
+    "confirmation": {
+      "accepted": 2,
+      "uncertain": 2
+    },
+    "context": {
+      "accepted": 6,
+      "uncertain": 3
+    },
+    "whole": {
+      "accepted": 44,
+      "uncertain": 40
+    }
+  },
+  "long_sentence_by_repository": {
+    "BurntSushi/ripgrep": {
+      "uncertain": 2
+    },
+    "containerd/containerd": {
+      "uncertain": 1
+    },
+    "curl/curl": {
+      "accepted": 2
+    },
+    "moby/buildkit": {
+      "accepted": 5
+    },
+    "stokaro/ptah": {
+      "accepted": 45,
+      "uncertain": 42
+    }
+  },
+  "long_sentence_grade_counts": {
+    "accepted": 52,
+    "uncertain": 45
+  },
+  "lost_full_event_witnesses": [
+    {
+      "cohort": "whole",
+      "event_id": "whole/p026-d02",
+      "finding_ids": [
+        "2fbb91f6487cfa04"
+      ]
+    }
+  ],
+  "model_calls": 0,
+  "product_qualified": false,
+  "prospective_pages_used": false,
+  "scope": {
+    "events": 123,
+    "judgments": 804,
+    "pages": 36,
+    "units": 4549
+  },
+  "screen": "whole-family long-sentence ablation",
+  "semantic_status": "replay of frozen assistant judgments; no new editorial agreement"
+}
