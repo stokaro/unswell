@@ -27,6 +27,15 @@ Identical text at different positions remains distinguishable. Complete segments
 include eligible spaces and punctuation; counted token spans serve another purpose.
 `Context()` exposes surrounding prose only through an explicit library call.
 
+For a completed engine result, `PreparedFeatureSource.OriginalUnit` accepts the
+original `document.Source` and a unit index. It verifies the source name and
+SHA-256, the unit contract, and UTF-8 span boundaries, then returns owned
+`OriginalPreparedUnit.Target` and `Context` segments. Each segment contains its
+original byte span and exact source text. Keep segments separate: a gap can
+contain protected code or markup. The text is original source, not the normalized
+NLP input, and the method does not repeat extraction. A mismatched or modified
+source fails instead of returning misleading snippets.
+
 `feature.MeasureUnit` uses the existing descriptive formulas with the target's
 explicit scope. Its input identity must match the provider and capabilities
 actually used. Supply source, policy, vocabulary and preprocessing identities too.
