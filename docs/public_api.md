@@ -259,6 +259,10 @@ collection, rule activations, and saved reports keep their contracts. See
 actual capabilities, and separate policy/extraction identities accompany the
 numeric values. This optional additive field leaves default saved output and
 block collection semantics unchanged. See [ADR 0023](adr/0023-prepared-feature-collection.md).
+`PreparedFeatureSource.OriginalUnit` maps one target back to owned, exact source
+segments after verifying the original `document.Source`. `OriginalPreparedUnit`
+and `PreparedSourceSegment` preserve byte spans and protected gaps without
+re-extracting prose. See [prepared units](prepared-units.md).
 
 The additive `rule.Parameters.MaxAnswerWords` field configures the experimental
 question/answer pattern. Its zero value is omitted from saved parameter objects;
