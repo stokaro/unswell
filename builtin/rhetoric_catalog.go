@@ -116,7 +116,8 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 		d.Description += " Local emphatic capability modifiers, optimization degree, attributive ease-to-use software descriptions, " +
 			"and deictic superlative benefits request criteria for their extent or ranking. " +
 			"Bare quality fragments may occur in headings or lists. " +
-			"Local measurements, criteria, comparisons, mechanisms, negation, attribution and quoted operators remain excluded. " +
+			"Local measurements, criteria, comparisons, mechanisms, negation, attribution and quoted operators remain excluded; " +
+			"a bare count in an adjacent sentence and a reader-intent condition do not establish a quality criterion. " +
 			"Formal technical properties are not inferred from degree words alone."
 		d.Description += " Testing or review activities guaranteeing abstract quality, and bare assertions that nothing is taken on trust, " +
 			"also request explicit scope. Concrete invariants, proofs, qualifications, attribution and protected code are excluded."
@@ -149,7 +150,7 @@ func localRhetoricVersion(id string) string {
 	case "repetition.definition-echo":
 		return "3"
 	case "filler.unscoped-assurance":
-		return "10"
+		return "11"
 	default:
 		return "1"
 	}

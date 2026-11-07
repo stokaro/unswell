@@ -10,13 +10,12 @@ import (
 // operands and uncertainty remain source context, never replacement facts.
 func promotionalDegree(clauses []frameClause, index int) (rhetoricalFrame, bool) {
 	c := clauses[index]
-	if c.end-c.start < 2 || c.end-c.start > 48 || len(c.sentence.Tokens) > 96 ||
-		question(c.sentence) || contextualRhetoricScoped(c) || degreeGrounded(clauses, index) {
+	if promotionalDegreeExcluded(clauses, index) {
 		return rhetoricalFrame{}, false
 	}
 	for i := range c.tokens() {
 		end, explanation := degreeAt(c.tokens(), i)
-		if end > i && !degreeNegated(c.tokens()[:end]) {
+		if promotionalDegreeAllowed(c, i, end) {
 			c.end, c.start = c.start+end, c.start+i
 			frame, ok := localFrame(c, 0)
 			frame.explanation = explanation
@@ -24,6 +23,17 @@ func promotionalDegree(clauses []frameClause, index int) (rhetoricalFrame, bool)
 		}
 	}
 	return rhetoricalFrame{}, false
+}
+
+func promotionalDegreeExcluded(clauses []frameClause, index int) bool {
+	c := clauses[index]
+	return c.end-c.start < 2 || c.end-c.start > 48 || len(c.sentence.Tokens) > 96 ||
+		question(c.sentence) || degreeGrounded(clauses, index)
+}
+
+func promotionalDegreeAllowed(c frameClause, start, end int) bool {
+	return end > start && !degreeNegated(c.tokens()[:end]) &&
+		(!contextualRhetoricScoped(c) || readerIntentOnly(c.sentence.Tokens, c.start+start))
 }
 
 func degreeAt(tokens []document.Token, at int) (int, editorialExplanation) {
@@ -53,6 +63,49 @@ func degreeExplanation() editorialExplanation {
 func degreeFallback() string {
 	return "Keep the concrete behavior, checks, links, measured results, conditions, uncertainty and established commitments. " +
 		"State the criteria behind quality or benefit claims. Verify their basis before removing or weakening any claim."
+}
+
+// A reader's intent to perform an operation does not substantiate an ease or
+// quality claim about the tool used for that operation. Other conditions and
+// attribution retain the conservative scope boundary.
+func readerIntentOnly(tokens []document.Token, candidate int) bool {
+	if quotedClaim(tokens) {
+		return false
+	}
+	found := false
+	for i, token := range tokens {
+		if token.Tag == "CD" && !indefiniteOne(tokens, i) {
+			return false
+		}
+		if readerIntentAt(tokens, i) {
+			if !readerIntentMainClause(tokens, i, candidate) {
+				return false
+			}
+			found = true
+			continue
+		}
+		if contextualScopeWord(token) {
+			return false
+		}
+	}
+	return found
+}
+
+func readerIntentMainClause(tokens []document.Token, condition, candidate int) bool {
+	for i := condition + 4; i < candidate; i++ {
+		if frameWord(tokens[i], ",") ||
+			i+1 < candidate && frameWord(tokens[i], "we") &&
+				frameWord(tokens[i+1], "have", "provide", "offer") {
+			return true
+		}
+	}
+	return false
+}
+
+func readerIntentAt(tokens []document.Token, index int) bool {
+	return index+3 < len(tokens) && frameWord(tokens[index], "if") &&
+		frameWord(tokens[index+1], "you") && frameWord(tokens[index+2], "want", "wish") &&
+		frameWord(tokens[index+3], "to")
 }
 
 func degreeModifierEnd(tokens []document.Token, at int) int {
@@ -134,8 +187,9 @@ func degreeGrounded(clauses []frameClause, index int) bool {
 		if neighbor.sentence.BlockID != c.sentence.BlockID {
 			continue
 		}
+		sameSentence := neighbor.sentence.ID == c.sentence.ID
 		for _, token := range neighbor.sentence.Tokens {
-			if degreeMeasurement(token) || neighbor.sentence.ID == c.sentence.ID && frameWord(token, "because", "by", "through") {
+			if degreeMeasurement(token, sameSentence) || sameSentence && frameWord(token, "because", "by", "through") {
 				return true
 			}
 		}
@@ -143,7 +197,9 @@ func degreeGrounded(clauses []frameClause, index int) bool {
 	return false
 }
 
-func degreeMeasurement(token document.Token) bool {
-	return token.Tag == "CD" || frameWord(token, "benchmark", "benchmarks", "measured", "measurement",
+func degreeMeasurement(token document.Token, sameSentence bool) bool {
+	// A bare count in another sentence need not support this sentence's degree.
+	// Named measurements can establish a nearby criterion.
+	return sameSentence && token.Tag == "CD" || frameWord(token, "benchmark", "benchmarks", "measured", "measurement",
 		"median", "percentile", "compared", "comparison", "criterion", "criteria")
 }
