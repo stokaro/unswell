@@ -121,6 +121,9 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 			"Formal technical properties are not inferred from degree words alone."
 		d.Description += " Testing or review activities guaranteeing abstract quality, and bare assertions that nothing is taken on trust, " +
 			"also request explicit scope. Concrete invariants, proofs, qualifications, attribution and protected code are excluded."
+		d.Description += " Source-local quality claims about future-proofed APIs, unbounded feature-set rankings, paired subjective " +
+			"software qualities, reasonable defaults and important effects on quality request a criterion or concrete behavior. " +
+			"Named comparison sets, local mechanisms and quotations are excluded."
 	}
 	d.Limitations = "Bounded token constructions, not a semantic or authorship classifier. " +
 		"Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. " +
@@ -150,7 +153,7 @@ func localRhetoricVersion(id string) string {
 	case "repetition.definition-echo":
 		return "3"
 	case "filler.unscoped-assurance":
-		return "11"
+		return "12"
 	default:
 		return "1"
 	}

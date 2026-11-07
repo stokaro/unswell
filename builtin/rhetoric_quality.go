@@ -76,7 +76,7 @@ func qualityContinuation(tokens []document.Token) bool {
 func qualitativeAdjective(token document.Token) bool {
 	return frameWord(token, "easy", "easier", "simple", "simpler", "straightforward", "difficult", "harder",
 		"complex", "complicated", "powerful", "flexible", "fast", "faster", "slow", "slower", "smart", "smarter",
-		"efficient", "inefficient", "expensive", "cheap", "intuitive", "effortless")
+		"efficient", "inefficient", "expensive", "cheap", "intuitive", "effortless", "polished", "future-proofed")
 }
 
 func qualityMechanism(tokens []document.Token) bool {

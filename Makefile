@@ -4,9 +4,13 @@ SHELL := /bin/bash
 .PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost
 .PHONY: check-contextual-admission check-external-controls check-current-baseline check-current-editorial-review
 .PHONY: check-source-review-contract
-.PHONY: check-ape-screen check-dual-gate-triage check-scoped-degree
+.PHONY: check-ape-screen check-dual-gate-triage check-scoped-degree check-quality-claim-screen
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-ape-screen check-dual-gate-triage check-scoped-degree
+check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-ape-screen check-dual-gate-triage check-scoped-degree check-quality-claim-screen
+
+check-quality-claim-screen:
+	python3 -B research/reviews/2026-11-07-quality-claim-screen/analyze.py --check
+	python3 -B -m unittest discover -s research/reviews/2026-11-07-quality-claim-screen -p 'test_*.py'
 
 check-scoped-degree:
 	python3 -B research/reviews/2026-11-07-scoped-degree/analyze.py --check
