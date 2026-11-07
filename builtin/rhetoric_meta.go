@@ -79,6 +79,9 @@ func evaluationCandidateFrame(c, candidate frameClause, start int) (rhetoricalFr
 	if rhetoricAttributed(candidate) || rhetoricQuoteOpen(candidate) {
 		return rhetoricalFrame{}, false
 	}
+	if frame, found := hopeFraming(candidate); found {
+		return frame, true
+	}
 	if frame, found := informationEvaluation(candidate); found {
 		return frame, true
 	}

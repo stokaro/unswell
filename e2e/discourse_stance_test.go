@@ -40,7 +40,7 @@ func TestDiscourseStanceReportsPreserveOperationalInformation(t *testing.T) {
 		c.Assert(result.Findings, qt.HasLen, 5)
 		for _, finding := range result.Findings {
 			c.Assert(finding.RuleID, qt.Equals, "filler.evaluative-closure")
-			c.Assert(finding.RuleVersion, qt.Equals, "12")
+			c.Assert(finding.RuleVersion, qt.Equals, "13")
 			c.Assert(finding.Primary.Path, qt.Not(qt.Equals), "control.md")
 			c.Assert(files[finding.Primary.Path][finding.Primary.Span.Start:finding.Primary.Span.End], qt.Equals, finding.Primary.Snippet)
 			c.Assert(finding.Primary.Snippet, qt.Not(qt.Contains), "because the dialect")
