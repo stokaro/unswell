@@ -5,6 +5,9 @@ This directory implements the design record for
 [#59](https://github.com/stokaro/unswell/issues/59). It contains source review and
 a fixed [comparison protocol](protocol-v1.md), with links to subsequent evidence.
 The [ADR](../../docs/adr/0015-research-methodology.md) defines the product boundary.
+The [November 2026 non-LLM methods review](non-llm-text-methods-2026.md)
+compares current origin and editorial methodologies and proposes an offline
+#349 screen. It is a source review, not a reproduced or qualified result.
 
 The pattern branch of the research has its own protocol in
 [`llm-patterns-v2.md`](llm-patterns-v2.md) and its evidence release beside it:
