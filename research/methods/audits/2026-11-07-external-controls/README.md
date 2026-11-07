@@ -75,6 +75,10 @@ context and an event-level gap map before proposing a frozen operator. Repeated
 threshold tuning of the retired #349 selector or a document-level origin score
 would not supply that evidence.
 
+The subsequent [exact-main 36-page replay](../../../reviews/2026-11-07-current-main-baseline/README.md)
+provides that event-level span-coverage map. It still does not turn the two
+short controls into admitted operators or accepted editorial findings.
+
 Watermark verification is **deferred as a separate known-profile origin
 capability**. The methods in #434 need a compatible generator scheme, key,
 tokenizer, and detection parameters. They cannot verify arbitrary unsourced

@@ -2,10 +2,14 @@ SHELL := /bin/bash
 
 .PHONY: check test race fuzz lint lint-shell tidy policy build build-mcp release fmt schema dogfood dogfood-mcp
 .PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost
-.PHONY: check-contextual-admission check-external-controls
+.PHONY: check-contextual-admission check-external-controls check-current-baseline
 .PHONY: check-source-review-contract
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls
+check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline
+
+check-current-baseline:
+	python3 -B research/reviews/2026-11-07-current-main-baseline/analyze.py --run research/reviews/2026-11-07-current-main-baseline --output research/reviews/2026-11-07-current-main-baseline/result.json --check
+	python3 -B -m unittest research/reviews/2026-11-07-current-main-baseline/test_analyze.py
 
 check-external-controls:
 	python3 -B research/methods/audits/2026-11-07-external-controls/verify.py
