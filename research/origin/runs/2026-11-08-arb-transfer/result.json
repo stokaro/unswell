@@ -1,0 +1,468 @@
+{
+  "input": {
+    "calibration_sources": 900,
+    "dataset_commit": "e03387f3d53efcaec9ca068c8e902e5f55611fe9",
+    "dataset_sha256": "66e48240618b92ce876e2097d8df52f06661a70e31791b91a95b15688a099ab0",
+    "feature_sha256": "ed17bd5b238823357a09146e18ea871abad8a1eb3ced1a6dc2b6352e1a338ad7",
+    "rows": 23400,
+    "source_groups": 1800,
+    "split_sha256": "2dd13f606cc19ab4ec137d4ff836df7cac2fbbdcf4743d18c5ed28a2604c3048",
+    "test_sources": 900
+  },
+  "interpretation": "Matched benchmark regimes, not proof of authorship or editorial quality",
+  "measures": {
+    "full": {
+      "entropy": {
+        "calibration": {
+          "eligible": 900,
+          "fpr": 0.008888888888888889,
+          "rank": 9,
+          "threshold": 0.9564857844032442,
+          "total": 900
+        },
+        "llm2l_vs_free_llm": {
+          "auroc": 0.569137947627285,
+          "eligible_pairs": 3559,
+          "paired_win_fraction": 0.6955605507164934,
+          "sources": 900,
+          "tpr": 0.052261871312166336
+        },
+        "regimes": {
+          "free_llm": {
+            "control_abstained_for_machine_rows": 0,
+            "machine_abstained": 23,
+            "overall": {
+              "auroc": 0.4104086079727367,
+              "eligible_pairs": 3577,
+              "paired_win_fraction": 0.3961420184512161,
+              "sources": 900,
+              "tpr": 0.034665921162985745
+            },
+            "total_machine": 3600
+          },
+          "h2l": {
+            "by_domain": {
+              "owt": {
+                "auroc": 0.6273333143201765,
+                "eligible_pairs": 1199,
+                "paired_win_fraction": 0.6701417848206839,
+                "sources": 300,
+                "tpr": 0.06505421184320268
+              },
+              "wp": {
+                "auroc": 0.6191844132749027,
+                "eligible_pairs": 1197,
+                "paired_win_fraction": 0.6979949874686717,
+                "sources": 300,
+                "tpr": 0.02172096908939014
+              },
+              "xsum": {
+                "auroc": 0.6075097222222222,
+                "eligible_pairs": 1200,
+                "paired_win_fraction": 0.6729166666666667,
+                "sources": 300,
+                "tpr": 0.049166666666666664
+              }
+            },
+            "by_generator": {
+              "gemma2_9b": {
+                "auroc": 0.6034593082375583,
+                "eligible_pairs": 898,
+                "paired_win_fraction": 0.6614699331848553,
+                "sources": 898,
+                "tpr": 0.045657015590200446
+              },
+              "llama32_3b": {
+                "auroc": 0.5689655172413793,
+                "eligible_pairs": 899,
+                "paired_win_fraction": 0.5956618464961068,
+                "sources": 899,
+                "tpr": 0.02224694104560623
+              },
+              "mistral7b": {
+                "auroc": 0.5809827160493827,
+                "eligible_pairs": 900,
+                "paired_win_fraction": 0.645,
+                "sources": 900,
+                "tpr": 0.01888888888888889
+              },
+              "qwen25_7b": {
+                "auroc": 0.7077230787885687,
+                "eligible_pairs": 899,
+                "paired_win_fraction": 0.8192436040044494,
+                "sources": 899,
+                "tpr": 0.09454949944382647
+              }
+            },
+            "control_abstained_for_machine_rows": 0,
+            "machine_abstained": 4,
+            "overall": {
+              "auroc": 0.6152821977453629,
+              "eligible_pairs": 3596,
+              "paired_win_fraction": 0.6803392658509455,
+              "sources": 900,
+              "tpr": 0.045328142380422695
+            },
+            "total_machine": 3600
+          },
+          "llm2l": {
+            "control_abstained_for_machine_rows": 0,
+            "machine_abstained": 41,
+            "overall": {
+              "auroc": 0.48474225003771765,
+              "eligible_pairs": 3559,
+              "paired_win_fraction": 0.47836470918797414,
+              "sources": 900,
+              "tpr": 0.052261871312166336
+            },
+            "total_machine": 3600
+          }
+        },
+        "test_human": {
+          "eligible": 900,
+          "fpr": 0.015555555555555555,
+          "total": 900
+        }
+      },
+      "richness": {
+        "calibration": {
+          "eligible": 900,
+          "fpr": 0.008888888888888889,
+          "rank": 9,
+          "threshold": 0.888,
+          "total": 900
+        },
+        "llm2l_vs_free_llm": {
+          "auroc": 0.5645276300497352,
+          "eligible_pairs": 3559,
+          "paired_win_fraction": 0.6853048609159876,
+          "sources": 900,
+          "tpr": 0.05675751615622366
+        },
+        "regimes": {
+          "free_llm": {
+            "control_abstained_for_machine_rows": 0,
+            "machine_abstained": 23,
+            "overall": {
+              "auroc": 0.4592396722170166,
+              "eligible_pairs": 3577,
+              "paired_win_fraction": 0.4463237349734414,
+              "sources": 900,
+              "tpr": 0.03913894324853229
+            },
+            "total_machine": 3600
+          },
+          "h2l": {
+            "by_domain": {
+              "owt": {
+                "auroc": 0.6358443685000219,
+                "eligible_pairs": 1199,
+                "paired_win_fraction": 0.6851542952460383,
+                "sources": 300,
+                "tpr": 0.058381984987489574
+              },
+              "wp": {
+                "auroc": 0.6478253556475427,
+                "eligible_pairs": 1197,
+                "paired_win_fraction": 0.7389306599832915,
+                "sources": 300,
+                "tpr": 0.023391812865497075
+              },
+              "xsum": {
+                "auroc": 0.6220444444444444,
+                "eligible_pairs": 1200,
+                "paired_win_fraction": 0.6845833333333333,
+                "sources": 300,
+                "tpr": 0.0525
+              }
+            },
+            "by_generator": {
+              "gemma2_9b": {
+                "auroc": 0.6139590081398406,
+                "eligible_pairs": 898,
+                "paired_win_fraction": 0.6826280623608018,
+                "sources": 898,
+                "tpr": 0.044543429844097995
+              },
+              "llama32_3b": {
+                "auroc": 0.5853327328226517,
+                "eligible_pairs": 899,
+                "paired_win_fraction": 0.617908787541713,
+                "sources": 899,
+                "tpr": 0.02224694104560623
+              },
+              "mistral7b": {
+                "auroc": 0.6029512345679012,
+                "eligible_pairs": 900,
+                "paired_win_fraction": 0.6722222222222223,
+                "sources": 900,
+                "tpr": 0.01888888888888889
+              },
+              "qwen25_7b": {
+                "auroc": 0.7239028410011866,
+                "eligible_pairs": 899,
+                "paired_win_fraction": 0.8387096774193549,
+                "sources": 899,
+                "tpr": 0.09343715239154617
+              }
+            },
+            "control_abstained_for_machine_rows": 0,
+            "machine_abstained": 4,
+            "overall": {
+              "auroc": 0.6315423854956873,
+              "eligible_pairs": 3596,
+              "paired_win_fraction": 0.7028642936596218,
+              "sources": 900,
+              "tpr": 0.044771968854282536
+            },
+            "total_machine": 3600
+          },
+          "llm2l": {
+            "control_abstained_for_machine_rows": 0,
+            "machine_abstained": 41,
+            "overall": {
+              "auroc": 0.5266978255444429,
+              "eligible_pairs": 3559,
+              "paired_win_fraction": 0.5288002247822422,
+              "sources": 900,
+              "tpr": 0.05675751615622366
+            },
+            "total_machine": 3600
+          }
+        },
+        "test_human": {
+          "eligible": 900,
+          "fpr": 0.017777777777777778,
+          "total": 900
+        }
+      }
+    },
+    "prefix100": {
+      "entropy": {
+        "calibration": {
+          "eligible": 900,
+          "fpr": 0.008888888888888889,
+          "rank": 9,
+          "threshold": 0.9675047531577579,
+          "total": 900
+        },
+        "llm2l_vs_free_llm": {
+          "auroc": 0.5697830381836139,
+          "eligible_pairs": 3068,
+          "paired_win_fraction": 0.6328226857887875,
+          "sources": 900,
+          "tpr": 0.010430247718383311
+        },
+        "regimes": {
+          "free_llm": {
+            "control_abstained_for_machine_rows": 4,
+            "machine_abstained": 341,
+            "overall": {
+              "auroc": 0.4397977802461832,
+              "eligible_pairs": 3256,
+              "paired_win_fraction": 0.4362714987714988,
+              "sources": 899,
+              "tpr": 0.0042997542997543
+            },
+            "total_machine": 3600
+          },
+          "h2l": {
+            "by_domain": {
+              "owt": {
+                "auroc": 0.5820428067243247,
+                "eligible_pairs": 1169,
+                "paired_win_fraction": 0.6082121471343028,
+                "sources": 300,
+                "tpr": 0.02480752780153978
+              },
+              "wp": {
+                "auroc": 0.6175716196759968,
+                "eligible_pairs": 1188,
+                "paired_win_fraction": 0.6725589225589226,
+                "sources": 299,
+                "tpr": 0.010101010101010102
+              },
+              "xsum": {
+                "auroc": 0.570026630360562,
+                "eligible_pairs": 1198,
+                "paired_win_fraction": 0.6176961602671118,
+                "sources": 300,
+                "tpr": 0.025041736227045076
+              }
+            },
+            "by_generator": {
+              "gemma2_9b": {
+                "auroc": 0.5685006467018208,
+                "eligible_pairs": 874,
+                "paired_win_fraction": 0.6018306636155606,
+                "sources": 874,
+                "tpr": 0.013729977116704805
+              },
+              "llama32_3b": {
+                "auroc": 0.5538317621970663,
+                "eligible_pairs": 896,
+                "paired_win_fraction": 0.5837053571428571,
+                "sources": 896,
+                "tpr": 0.008928571428571428
+              },
+              "mistral7b": {
+                "auroc": 0.573460686141195,
+                "eligible_pairs": 899,
+                "paired_win_fraction": 0.6101223581757509,
+                "sources": 899,
+                "tpr": 0.017797552836484983
+              },
+              "qwen25_7b": {
+                "auroc": 0.6562530254931235,
+                "eligible_pairs": 886,
+                "paired_win_fraction": 0.7364559819413092,
+                "sources": 886,
+                "tpr": 0.039503386004514675
+              }
+            },
+            "control_abstained_for_machine_rows": 4,
+            "machine_abstained": 41,
+            "overall": {
+              "auroc": 0.5879375139707351,
+              "eligible_pairs": 3555,
+              "paired_win_fraction": 0.6329113924050633,
+              "sources": 899,
+              "tpr": 0.019971870604781998
+            },
+            "total_machine": 3600
+          },
+          "llm2l": {
+            "control_abstained_for_machine_rows": 4,
+            "machine_abstained": 527,
+            "overall": {
+              "auroc": 0.5018469691986122,
+              "eligible_pairs": 3070,
+              "paired_win_fraction": 0.4990228013029316,
+              "sources": 899,
+              "tpr": 0.010423452768729642
+            },
+            "total_machine": 3600
+          }
+        },
+        "test_human": {
+          "eligible": 899,
+          "fpr": 0.011123470522803115,
+          "total": 900
+        }
+      },
+      "richness": {
+        "calibration": {
+          "eligible": 900,
+          "fpr": 0.006666666666666667,
+          "rank": 9,
+          "threshold": 0.9133333333333333,
+          "total": 900
+        },
+        "llm2l_vs_free_llm": {
+          "auroc": 0.5646301180202248,
+          "eligible_pairs": 3068,
+          "paired_win_fraction": 0.6246740547588006,
+          "sources": 900,
+          "tpr": 0.009778357235984355
+        },
+        "regimes": {
+          "free_llm": {
+            "control_abstained_for_machine_rows": 4,
+            "machine_abstained": 341,
+            "overall": {
+              "auroc": 0.4861221524880923,
+              "eligible_pairs": 3256,
+              "paired_win_fraction": 0.4797297297297297,
+              "sources": 899,
+              "tpr": 0.005221130221130221
+            },
+            "total_machine": 3600
+          },
+          "h2l": {
+            "by_domain": {
+              "owt": {
+                "auroc": 0.5887911333632381,
+                "eligible_pairs": 1169,
+                "paired_win_fraction": 0.6189050470487596,
+                "sources": 300,
+                "tpr": 0.0213857998289136
+              },
+              "wp": {
+                "auroc": 0.6436471193415638,
+                "eligible_pairs": 1188,
+                "paired_win_fraction": 0.70496632996633,
+                "sources": 299,
+                "tpr": 0.008417508417508417
+              },
+              "xsum": {
+                "auroc": 0.5794458488131304,
+                "eligible_pairs": 1198,
+                "paired_win_fraction": 0.6331385642737897,
+                "sources": 300,
+                "tpr": 0.02337228714524207
+              }
+            },
+            "by_generator": {
+              "gemma2_9b": {
+                "auroc": 0.5761465211631207,
+                "eligible_pairs": 874,
+                "paired_win_fraction": 0.6149885583524027,
+                "sources": 874,
+                "tpr": 0.012585812356979404
+              },
+              "llama32_3b": {
+                "auroc": 0.5668851891342475,
+                "eligible_pairs": 896,
+                "paired_win_fraction": 0.6060267857142857,
+                "sources": 896,
+                "tpr": 0.008928571428571428
+              },
+              "mistral7b": {
+                "auroc": 0.5927535353210401,
+                "eligible_pairs": 899,
+                "paired_win_fraction": 0.6323692992213571,
+                "sources": 899,
+                "tpr": 0.017797552836484983
+              },
+              "qwen25_7b": {
+                "auroc": 0.6722524700762806,
+                "eligible_pairs": 886,
+                "paired_win_fraction": 0.7567720090293454,
+                "sources": 886,
+                "tpr": 0.03160270880361174
+              }
+            },
+            "control_abstained_for_machine_rows": 4,
+            "machine_abstained": 41,
+            "overall": {
+              "auroc": 0.6019694928598416,
+              "eligible_pairs": 3555,
+              "paired_win_fraction": 0.6524613220815753,
+              "sources": 899,
+              "tpr": 0.017721518987341773
+            },
+            "total_machine": 3600
+          },
+          "llm2l": {
+            "control_abstained_for_machine_rows": 4,
+            "machine_abstained": 527,
+            "overall": {
+              "auroc": 0.5405698734204076,
+              "eligible_pairs": 3070,
+              "paired_win_fraction": 0.5350162866449512,
+              "sources": 899,
+              "tpr": 0.009771986970684038
+            },
+            "total_machine": 3600
+          }
+        },
+        "test_human": {
+          "eligible": 899,
+          "fpr": 0.00778642936596218,
+          "total": 900
+        }
+      }
+    }
+  },
+  "richness_h2l_feasibility_pass": false
+}
