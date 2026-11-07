@@ -115,3 +115,14 @@ The later [#434 source audit and external-control pass](audits/2026-11-07-extern
 checked the unchanged current engine on 18 constructed cases. It found two
 potential editorial gaps but admitted neither as a new operator from the small
 controls alone. The original 123-event #349 accounting remains untouched.
+
+The subsequent [dual-gate triage](../reviews/2026-11-07-dual-gate-triage/README.md)
+shows that a recall-only candidate cannot plausibly qualify the whole-page
+stream: the technical profile has 78 accepted of 122 delivered findings, while
+22 more FULL events are needed. With one accepted new finding per newly FULL
+event and no losses, at least 27 existing nonaccepted findings must also be
+removed to reach the 85% acceptance gate. A metadiscourse-only operator cannot
+fill any cohort's recall gap. The next screen must test selective suppression or
+repair of noisy existing findings alongside multiple source-local editorial
+mechanisms; it must still review the complete changed stream and preserve the
+frozen labels.
