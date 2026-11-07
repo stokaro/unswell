@@ -4,8 +4,12 @@ SHELL := /bin/bash
 .PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost
 .PHONY: check-contextual-admission check-external-controls check-current-baseline check-current-editorial-review
 .PHONY: check-source-review-contract
+.PHONY: check-ape-screen
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review
+check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-ape-screen
+
+check-ape-screen:
+	python3 -B -m unittest discover -s research/reviews/2026-11-07-ape-proposition-screen -p 'test_*.py'
 
 check-current-editorial-review:
 	python3 -B research/reviews/2026-11-07-current-main-editorial-review/verify.py

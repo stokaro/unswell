@@ -1,8 +1,8 @@
 # Non-LLM text detection and revision methods: November 2026 review
 
 Status: source review and linked exposed-data feature screens, dated November 7,
-2026. No upstream detector was reproduced, no source-local editorial
-candidate was run, and no #349 qualification is claimed.
+2026. The later APE follow-up reproduced one pinned source-local candidate
+screen with a negative result; no #349 qualification is claimed.
 This review extracts methodological ideas; it does not select code or data to
 import. "Non-LLM" below means that detection can run without calling a
 generative language model or a remote service. A local parser or a compact
@@ -32,6 +32,7 @@ safety on frozen editorial references.
 | Benchmark artifact checks | [Voznyuk and Grabovoy, DocInsights 2026](https://aclanthology.org/2026.docinsights-1.13/) find that PDF extraction and line-wrapping artifacts explain some near-perfect detector results; rewrapping alone changes decisions. [Gao et al., ACL 2026](https://aclanthology.org/2026.acl-long.1998/) find feature-effect inversions under style imitation. | Normalize transport artifacts only in a separately declared counterfactual; audit source format, genre, author style, and model shifts before accepting a feature. |
 | Matched web rewrites | [PAWN++ in the Wild, WAC 2026](https://aclanthology.org/2026.wac-1.25/) compares original human webpages with AI rewrites of those pages. In its evaluated setting, no detector exceeded 12% true-positive rate on frontier-model rewrites at 1% false-positive rate. PAWN++ itself uses two frozen language models for likelihood signals, so it is not a non-LLM runtime candidate. | Adopt the matched-rewrite test and low-false-positive reporting, not the detector or its resource requirements. |
 | Edit-history labels | [AITDNA, 2026](https://arxiv.org/abs/2606.04906) defines alternative notions of AI text from human/AI edit histories. Its [project](https://github.com/UKPLab/arxiv2026-aitdna) exposes document, sentence, span, and other labels. | Use its labeling discipline to keep generated, AI-edited, mixed, and human-authored cases distinct. The project is evaluation infrastructure, not an editorial rule set. |
+| Proposition overlap | [Ortame and Navigli, EMNLP 2026](https://aclanthology.org/2026.emnlp-main.2302/) provide [APE](https://github.com/SapienzaNLP/APE), a local discriminative proposition encoder. Its embeddings can compare claims across nearby sentences but do not decide whether either sentence needs editing. | A [pinned 36-page screen](../reviews/2026-11-07-ape-proposition-screen/README.md) tested adjacent-sentence overlap as an editorial candidate generator. The fixed top-three-per-page selection can overlap at most five newly missed FULL events, below its admission gate of eight. No editorial review or prospective claim followed. |
 
 ## GitHub project audit
 

@@ -1,0 +1,128 @@
+// Command export prepares eligible source sentences for the APE research screen.
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"os"
+	"path/filepath"
+	"slices"
+	"strings"
+
+	"github.com/stokaro/unswell"
+	"github.com/stokaro/unswell/document"
+	"github.com/stokaro/unswell/extract"
+	"github.com/stokaro/unswell/nlp"
+	"github.com/stokaro/unswell/nlp/english"
+)
+
+type row struct {
+	Page    string          `json:"page"`
+	Block   int             `json:"block"`
+	Piece   int             `json:"piece"`
+	Context []string        `json:"context"`
+	Text    string          `json:"text"`
+	Words   int             `json:"words"`
+	Spans   []document.Span `json:"spans"`
+}
+
+func main() {
+	if len(os.Args) != 3 {
+		fail(fmt.Errorf("usage: export INPUT_DIR OUTPUT_JSON"))
+	}
+	if err := run(context.Background(), os.Args[1], os.Args[2]); err != nil {
+		fail(err)
+	}
+}
+
+func fail(err error) {
+	fmt.Fprintln(os.Stderr, err)
+	os.Exit(1)
+}
+
+func run(ctx context.Context, root, output string) error {
+	provider, err := english.New()
+	if err != nil {
+		return err
+	}
+	engine, err := unswell.New(unswell.Options{Config: []byte("version: 1\nextends: [builtin:technical-v1]\n"), NLP: provider})
+	if err != nil {
+		return err
+	}
+	var paths []string
+	for _, cohort := range []string{"whole", "context", "confirmation"} {
+		if err := filepath.WalkDir(filepath.Join(root, cohort), func(path string, entry os.DirEntry, walkErr error) error {
+			if walkErr != nil {
+				return walkErr
+			}
+			if !entry.IsDir() {
+				paths = append(paths, path)
+			}
+			return nil
+		}); err != nil {
+			return err
+		}
+	}
+	slices.Sort(paths)
+	if len(paths) != 36 {
+		return fmt.Errorf("expected 36 source pages, got %d", len(paths))
+	}
+	rows := []row{}
+	for _, path := range paths {
+		name, err := filepath.Rel(root, path)
+		if err != nil {
+			return err
+		}
+		data, err := os.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		format := document.Markdown
+		if strings.HasSuffix(name, ".mdx") {
+			format = document.MDX
+		} else if !strings.HasSuffix(name, ".md") {
+			return fmt.Errorf("unsupported source format: %s", name)
+		}
+		policy, err := engine.ResolvedPolicy(name)
+		if err != nil {
+			return err
+		}
+		doc, err := extract.Parse(ctx, document.Source{Name: name, Format: format, Bytes: data}, extract.Options{
+			IncludeStructure: true, IncludeQuotes: policy.Analysis.IncludeQuotes,
+			MaxBytes: policy.Analysis.MaxFileBytes, MaxBlocks: policy.Analysis.MaxBlocks, Policy: policy.Extraction,
+		})
+		if err != nil {
+			return fmt.Errorf("%s: %w", name, err)
+		}
+		options := nlp.UnitOptions{Kinds: []string{"paragraph", "fragment"},
+			Capabilities: []nlp.Capability{nlp.Tokens, nlp.Sentences, nlp.POS},
+			Limits: nlp.UnitLimits{MaxBytes: policy.Analysis.MaxFileBytes, MaxContextBytes: 65536,
+				MaxUnits: 10000, MaxTokens: min(policy.Analysis.MaxTokens, 1000000), MaxSegments: 4096}}
+		for _, block := range doc.Blocks {
+			units, err := nlp.PrepareUnits(ctx, block, provider, options)
+			if err != nil {
+				return fmt.Errorf("%s block %d: %w", name, block.ID, err)
+			}
+			for piece, unit := range units {
+				prepared := unit.Block()
+				for _, sentence := range prepared.Sentences {
+					if sentence.Words < 5 || len(sentence.Spans) == 0 {
+						continue
+					}
+					rows = append(rows, row{Page: name, Block: block.ID, Piece: piece,
+						Context: slices.Clone(block.Context),
+						Text:    sentence.Text, Words: sentence.Words, Spans: slices.Clone(sentence.Spans)})
+				}
+			}
+		}
+	}
+	f, err := os.Create(output)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	encoder := json.NewEncoder(f)
+	encoder.SetIndent("", "  ")
+	return encoder.Encode(rows)
+}

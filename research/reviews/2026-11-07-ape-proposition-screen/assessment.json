@@ -1,0 +1,88 @@
+{
+  "status": "negative_early_stop",
+  "source_tree": "6e724618005623eddbd325653c0e04e7c38b317d",
+  "baseline_events_sha256": "c65f47f7b0a4566f5e42f94d80fe033624c9e54fd67c7bce58e58dc7d8c4b53e",
+  "source_hash_manifest_sha256": "4d289082cda8d1113d55beead461aaebfb9649ddd1fe1ec0a2c308de38665415",
+  "documents": 36,
+  "frozen_events": 123,
+  "sentences": 4139,
+  "scored_pairs": 2192,
+  "selected_candidates": 108,
+  "candidates_overlapping_any_event": 7,
+  "cohorts": {
+    "whole": {
+      "events": 57,
+      "baseline_full": 24,
+      "span_ceiling": 2,
+      "new_span_ceiling": 2
+    },
+    "context": {
+      "events": 46,
+      "baseline_full": 13,
+      "span_ceiling": 3,
+      "new_span_ceiling": 2
+    },
+    "confirmation": {
+      "events": 20,
+      "baseline_full": 4,
+      "span_ceiling": 1,
+      "new_span_ceiling": 1
+    }
+  },
+  "new_full_event_span_ceiling": 5,
+  "admission_min_new_full_events": 8,
+  "admission_possible_by_span": false,
+  "possible_events": [
+    {
+      "event": "confirmation/c04-r01",
+      "category": "wordiness",
+      "baseline_status": "missed",
+      "selected_indices": [
+        189
+      ]
+    },
+    {
+      "event": "context/c02-d03",
+      "category": "unjustified_intensifiers",
+      "baseline_status": "missed",
+      "selected_indices": [
+        246
+      ]
+    },
+    {
+      "event": "context/c05-d06",
+      "category": "unjustified_intensifiers",
+      "baseline_status": "missed",
+      "selected_indices": [
+        693
+      ]
+    },
+    {
+      "event": "context/c05-d16",
+      "category": "empty_framing",
+      "baseline_status": "full",
+      "selected_indices": [
+        726
+      ]
+    },
+    {
+      "event": "whole/p013-d01",
+      "category": "vague_claims",
+      "baseline_status": "missed",
+      "selected_indices": [
+        2169
+      ]
+    },
+    {
+      "event": "whole/p020-d01",
+      "category": "wordiness",
+      "baseline_status": "missed",
+      "selected_indices": [
+        3515
+      ]
+    }
+  ],
+  "editorial_review_completed": false,
+  "credit_note": "Span overlap is only an upper bound, never diagnosis credit.",
+  "stop_note": "The necessary eight-new-FULL gate failed before manual review."
+}
