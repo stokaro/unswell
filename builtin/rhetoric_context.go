@@ -14,13 +14,17 @@ func contextualRhetoricScoped(c frameClause) bool {
 	}
 	for i, token := range c.sentence.Tokens {
 		if (token.Tag == "CD" && !indefiniteOne(c.sentence.Tokens, i)) ||
-			frameWord(token, "if", "when", "unless", "because", "whenever", "except",
-				"without", "according", "measured", "benchmark", "benchmarks", "median", "percentile",
-				"claims", "claimed", "says", "said", "argues", "argued", "rejects", "refutes", "disputes") {
+			contextualScopeWord(token) {
 			return true
 		}
 	}
 	return false
+}
+
+func contextualScopeWord(token document.Token) bool {
+	return frameWord(token, "if", "when", "unless", "because", "whenever", "except",
+		"without", "according", "measured", "benchmark", "benchmarks", "median", "percentile",
+		"claims", "claimed", "says", "said", "argues", "argued", "rejects", "refutes", "disputes")
 }
 
 // The tagger labels the pronoun in "is one that ..." as a number. This

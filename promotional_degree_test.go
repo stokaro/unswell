@@ -19,7 +19,13 @@ func TestPromotionalDegreeRequiresCriteria(t *testing.T) {
 		{"The engine is heavily optimized for deduplication and caching.", "heavily optimized"},
 		{"The solver is highly optimized for concurrent requests.", "highly optimized"},
 		{"A project file can be perfectly adoptable in front of a database that is not.", "perfectly adoptable"},
+		{"A project file can be perfectly adoptable in front of a database that is not, and the reverse.", "perfectly adoptable"},
+		{"A project file can be perfectly adoptable in front of a database that is not, and the reverse. " +
+			"Nothing on this page converts one on the strength of the other.", "perfectly adoptable"},
 		{"We provide an easy to use client package.", "easy to use client"},
+		{"However, if you want to integrate containerd into your project we have an easy to use client package " +
+			"that allows you to work with containerd.", "easy to use client"},
+		{"If you wish to integrate the service, the client is blazingly fast.", "blazingly fast"},
 		{"An effortless-to-use library is available.", "effortless-to-use library"},
 		{"This will be the biggest win!", "This will be the biggest win"},
 		{"Use the builder for this purpose, this will be the biggest win!", "this will be the biggest win"},
@@ -31,7 +37,7 @@ func TestPromotionalDegreeRequiresCriteria(t *testing.T) {
 			r := singleRuleResult(t, "filler.unscoped-assurance", row.text, "", "")
 			c.Assert(r.Findings, qt.HasLen, 1)
 			f := r.Findings[0]
-			c.Assert(f.RuleVersion, qt.Equals, "10")
+			c.Assert(f.RuleVersion, qt.Equals, "11")
 			c.Assert(f.Primary.Snippet, qt.Equals, row.matched)
 			c.Assert(f.Primary.Span.Start, qt.Equals, strings.Index(row.text, row.matched))
 			c.Assert(f.Evidence.Suggestion, qt.Contains, "Verify")
@@ -61,6 +67,9 @@ func TestPromotionalDegreePreservesTechnicalMeanings(t *testing.T) {
 		"The solver is heavily optimized by reusing the work graph.",
 		"The solver is heavily optimized through allocation elimination.",
 		"The client is blazingly fast compared with the previous implementation.",
+		"If you want to inspect the client, it is blazingly fast when its cache is warm.",
+		"If you want to inspect the client, the benchmark says it is blazingly fast.",
+		"If you want to build a blazingly fast client, measure its cache behavior.",
 		"A file is perfectly adoptable if all declared fields are supported.",
 		"This will be the biggest win in the measured workload.",
 		"This is not the biggest win.", "Will this be the biggest win?",
