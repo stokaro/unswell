@@ -1,9 +1,9 @@
 {
   "format": "unswell-method-registry-v1",
-  "revision": 4,
-  "reviewed_on": "2026-09-09",
+  "revision": 5,
+  "reviewed_on": "2026-11-07",
   "protocol": "unswell-research-v1",
-  "scope": "Source review, scoped decisions, and linked numerical component evidence; no qualified product model.",
+  "scope": "Source review, scoped decisions, linked numerical component evidence, and #434 editorial-control screening; no qualified product model.",
   "resources": "reviewed-resources-v1.json",
   "methods": [
     {
@@ -773,6 +773,79 @@
         56,
         57
       ]
+    },
+    {
+      "id": "harper-context-guards",
+      "name": "Harper context guards",
+      "publication": {
+        "url": "https://github.com/Automattic/harper",
+        "status": "Pinned source audit supplied in issue #434 on November 7, 2026; no published benchmark reproduced."
+      },
+      "unit": "Local prose tokens and Markdown source spans; no authorship inference.",
+      "code": {
+        "repository": "https://github.com/Automattic/harper",
+        "revision": "3dacd9bfec6a87e26bb4dc1a629e9734b588b64f",
+        "scope": "Repeated-word, additive-adverb, and Markdown parser methods cited in issue #434; no code imported."
+      },
+      "evidence": {
+        "reviewed": {
+          "status": "complete",
+          "reason": "The maintainer-provided #434 audit inspected pinned source. This registry update uses its method summary and does not claim a second independent source review.",
+          "resources": [
+            "https://github.com/Automattic/harper/blob/3dacd9bfec6a87e26bb4dc1a629e9734b588b64f/harper-core/src/linting/repeated_words.rs",
+            "https://github.com/Automattic/harper/blob/3dacd9bfec6a87e26bb4dc1a629e9734b588b64f/harper-core/src/linting/redundant_additive_adverbs.rs",
+            "https://github.com/Automattic/harper/blob/3dacd9bfec6a87e26bb4dc1a629e9734b588b64f/harper-core/src/parsers/markdown.rs"
+          ]
+        },
+        "reproduced": {
+          "status": "not_run",
+          "reason": "No Harper test suite or upstream benchmark was run. The #434 control pass tested current Unswell, not Harper."
+        },
+        "ported": {
+          "status": "not_run",
+          "reason": "No upstream code or rule was ported."
+        },
+        "qualified": {
+          "status": "not_run",
+          "reason": "The 18 constructed current-engine controls are not #349 cohort qualification or population precision."
+        }
+      },
+      "decision": {
+        "value": "defer",
+        "scope": "Use pinned counterexamples and guard design only; no new default or code dependency.",
+        "reason": "Current Unswell correctly handled all six legitimate repetition controls and caught the accidental duplicate. No missing Harper-derived guard was observed in this bounded pass."
+      },
+      "compute": {
+        "requirements": "Source-local token and Markdown context; no remote service is needed for the method idea.",
+        "measured_runtime_seconds": null,
+        "measured_peak_memory_bytes": null,
+        "reason": "No Harper runtime was measured; the Unswell CLI control-run cost is recorded separately."
+      },
+      "components": [
+        {
+          "kind": "code",
+          "license": "Apache-2.0",
+          "reference": "https://github.com/Automattic/harper/tree/3dacd9bfec6a87e26bb4dc1a629e9734b588b64f",
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "Methodology only; no upstream files were acquired or copied into Unswell."
+        },
+        {
+          "kind": "models_tokenizers_or_datasets",
+          "license": null,
+          "reference": null,
+          "sha256": null,
+          "bytes": null,
+          "status": "not_acquired",
+          "reason": "No external asset is selected for this control pass."
+        }
+      ],
+      "limitations": [
+        "The current-engine control pass is small and constructed, so absence of false alarms is not a precision estimate.",
+        "The audit did not execute Harper; its rule behavior and resource cost are not reproduced."
+      ],
+      "follow_up_issues": [434, 349]
     }
   ]
 }

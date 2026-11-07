@@ -2,10 +2,14 @@ SHELL := /bin/bash
 
 .PHONY: check test race fuzz lint lint-shell tidy policy build build-mcp release fmt schema dogfood dogfood-mcp
 .PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost
-.PHONY: check-contextual-admission
+.PHONY: check-contextual-admission check-external-controls
 .PHONY: check-source-review-contract
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract
+check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls
+
+check-external-controls:
+	python3 -B research/methods/audits/2026-11-07-external-controls/verify.py
+	python3 -B -m unittest research/methods/audits/2026-11-07-external-controls/test_verify.py
 
 check-source-review-contract:
 	cd research/annotation/source_review && python3 -B -m unittest test_annotation_contract.py

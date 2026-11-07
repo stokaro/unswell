@@ -1,0 +1,11 @@
+{
+  "format": "unswell-external-control-freeze-v2",
+  "date": "2026-11-07",
+  "base_commit": "bae57aa96afd22e5f64735800f85a3be81d8ad46",
+  "controls_sha256": "5e5c618e443dd1f449a24e3625f351445e290c9693b522e9e2e713323be1431e",
+  "script_sha256": "d92eb1ec86e4c8b380eed6f454dea9613ef61d374501d2e83a537870bf4ed581",
+  "amendment": "The v1 script stopped on its first delivered finding because it read finding.span instead of finding.primary.span. The same controls and current-main CLI are retained; this only corrects report extraction.",
+  "comparison": "Current-main CLI with the repository's existing configuration; no new or modified rule.",
+  "failure_policy": "Stop on a nonzero CLI exit, malformed/incomplete report, or changed frozen input/script.",
+  "interpretation": "Source-informed constructed controls test observed behavior only; they do not estimate population precision or #349 recall."
+}

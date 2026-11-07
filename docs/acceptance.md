@@ -84,8 +84,8 @@ start restriction and remains required for final validation.
 
 Quality and origin stay independent. The [origin channel](adr/0035-origin-channel.md)
 is opt-in, ungated and experimental. [ADR 0036](adr/0036-llm-pattern-evidence.md)
-defines the active research branch in
-[#154](https://github.com/stokaro/unswell/issues/154) to measure pattern
+defines the completed research branch in
+[#154](https://github.com/stokaro/unswell/issues/154), which measured pattern
 prevalence by cohort. Its measurements are association evidence that
 satisfies no row in this table; the stages below record their state.
 

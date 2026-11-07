@@ -6,8 +6,10 @@ This directory implements the design record for
 a fixed [comparison protocol](protocol-v1.md), with links to subsequent evidence.
 The [ADR](../../docs/adr/0015-research-methodology.md) defines the product boundary.
 The [November 2026 non-LLM methods review](non-llm-text-methods-2026.md)
-compares current origin and editorial methodologies and proposes an offline
-#349 screen. It is a source review, not a reproduced or qualified result.
+compares origin and editorial methodologies. Its separately frozen richness
+screen measured exposed origin features, without qualifying an origin detector
+or an editorial rule. The [#434 external-control pass](audits/2026-11-07-external-controls/README.md)
+records current-engine behavior before selecting any new source-local operator.
 
 The pattern branch of the research has its own protocol in
 [`llm-patterns-v2.md`](llm-patterns-v2.md) and its evidence release beside it:
@@ -19,6 +21,8 @@ The [version 3 protocol](llm-patterns-v3.md) and
 offline replay. The prior studies retain their original data and conclusions.
 
 [`registry-v1.json`](registry-v1.json) uses format `unswell-method-registry-v1`.
+Revision 5 records the pinned Harper guard methodology and the bounded #434
+current-engine control pass. It does not record an upstream Harper execution.
 Its `revision` increases when an observation or decision changes; a shape or
 meaning change needs a new format version. Each entry identifies its publication,
 unit, computation, code revision, components, limits, decision, and follow-up.
@@ -78,6 +82,7 @@ detector or authorize data redistribution. The current decisions are:
 | ZipPy / compression | Experimental shared Go measurements; no upstream reproduction | #52; build independent reference groups and measure added value |
 | RAID | Adopt robustness dimensions; defer dataset execution | #57; review source-data permissions and pin a permitted subset |
 | DetectRL-X | Adopt editing scenarios; defer dataset/code use | #57; resolve conflicting stated usage terms and pin resources |
+| Harper context guards | Defer new rule; use pinned counterexamples | #434; current Unswell passed the initial repetition controls, so map any future gap to #349 before implementation |
 
 The [DetectRL-X README](https://github.com/ATH-MaaS/Marco-LLM/blob/f291775fc1f78d00e52ebbf390d5a1445e05f0af/DetectRL-X/README.md#-license)
 names Apache 2.0 and also restricts use to noncommercial academic research.
