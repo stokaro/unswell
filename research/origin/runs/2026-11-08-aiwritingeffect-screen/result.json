@@ -1,0 +1,264 @@
+{
+  "features": {
+    "entropy": {
+      "by_generator": {
+        "claude-4-8-opus-genai": {
+          "eligible_pairs": 299,
+          "paired_win_fraction": 0.7909698996655519,
+          "papers": 21,
+          "pooled_auroc": 0.6282312278386147,
+          "tpr_at_calibrated_threshold": 0.04013377926421405
+        },
+        "claude-5-1-fable-genai": {
+          "eligible_pairs": 368,
+          "paired_win_fraction": 0.7703804347826086,
+          "papers": 23,
+          "pooled_auroc": 0.6292754607750473,
+          "tpr_at_calibrated_threshold": 0.029891304347826088
+        },
+        "claude-5-5-opus-genai": {
+          "eligible_pairs": 331,
+          "paired_win_fraction": 0.7885196374622356,
+          "papers": 21,
+          "pooled_auroc": 0.6220324750595558,
+          "tpr_at_calibrated_threshold": 0.02416918429003021
+        },
+        "gemini-3-6-flash-genai": {
+          "eligible_pairs": 248,
+          "paired_win_fraction": 0.905241935483871,
+          "papers": 18,
+          "pooled_auroc": 0.7391063995837669,
+          "tpr_at_calibrated_threshold": 0.07258064516129033
+        },
+        "gemini-3-8-flash-genai": {
+          "eligible_pairs": 282,
+          "paired_win_fraction": 0.9468085106382979,
+          "papers": 19,
+          "pooled_auroc": 0.7539862179970827,
+          "tpr_at_calibrated_threshold": 0.20567375886524822
+        },
+        "gpt-5-6-sol-genai-responses": {
+          "eligible_pairs": 294,
+          "paired_win_fraction": 0.8639455782312925,
+          "papers": 19,
+          "pooled_auroc": 0.6736949881993614,
+          "tpr_at_calibrated_threshold": 0.047619047619047616
+        },
+        "gpt-6-astra-genai": {
+          "eligible_pairs": 309,
+          "paired_win_fraction": 0.8203883495145631,
+          "papers": 22,
+          "pooled_auroc": 0.6544443397115657,
+          "tpr_at_calibrated_threshold": 0.045307443365695796
+        }
+      },
+      "by_prompt": {
+        "arb": {
+          "eligible_pairs": 396,
+          "paired_win_fraction": 0.8005050505050505,
+          "papers": 26,
+          "pooled_auroc": 0.6303534078155291,
+          "tpr_at_calibrated_threshold": 0.047979797979797977
+        },
+        "imbd": {
+          "eligible_pairs": 426,
+          "paired_win_fraction": 0.8368544600938967,
+          "papers": 27,
+          "pooled_auroc": 0.6506673058696467,
+          "tpr_at_calibrated_threshold": 0.06338028169014084
+        },
+        "shield": {
+          "eligible_pairs": 400,
+          "paired_win_fraction": 0.83,
+          "papers": 27,
+          "pooled_auroc": 0.6641375,
+          "tpr_at_calibrated_threshold": 0.05
+        },
+        "v2": {
+          "eligible_pairs": 909,
+          "paired_win_fraction": 0.852035203520352,
+          "papers": 9,
+          "pooled_auroc": 0.6936943969424445,
+          "tpr_at_calibrated_threshold": 0.07590759075907591
+        }
+      },
+      "calibration": {
+        "calibration_fpr": 0.00941492938802959,
+        "eligible": 1487,
+        "rank": 15,
+        "threshold": 0.9627798512874762
+      },
+      "chunk_ok_true": {
+        "eligible_pairs": 2114,
+        "paired_win_fraction": 0.8349101229895932,
+        "papers": 89,
+        "pooled_auroc": 0.6667743716933289,
+        "tpr_at_calibrated_threshold": 0.06338694418164617
+      },
+      "human_only": {
+        "abstained": 14395,
+        "eligible": 6618,
+        "fpr": 0.006497431248111212,
+        "total": 21013
+      },
+      "overall": {
+        "eligible_pairs": 2131,
+        "paired_win_fraction": 0.8352885969028625,
+        "papers": 89,
+        "pooled_auroc": 0.6675274230532676,
+        "tpr_at_calibrated_threshold": 0.06335053965274519
+      },
+      "test_paired_human": {
+        "abstained": 2830,
+        "eligible": 1470,
+        "fpr": 0.007482993197278911,
+        "total": 4300
+      }
+    },
+    "richness": {
+      "by_generator": {
+        "claude-4-8-opus-genai": {
+          "eligible_pairs": 299,
+          "paired_win_fraction": 0.8193979933110368,
+          "papers": 21,
+          "pooled_auroc": 0.6511336562230847,
+          "tpr_at_calibrated_threshold": 0.026755852842809364
+        },
+        "claude-5-1-fable-genai": {
+          "eligible_pairs": 368,
+          "paired_win_fraction": 0.8070652173913043,
+          "papers": 23,
+          "pooled_auroc": 0.6478615311909263,
+          "tpr_at_calibrated_threshold": 0.03260869565217391
+        },
+        "claude-5-5-opus-genai": {
+          "eligible_pairs": 331,
+          "paired_win_fraction": 0.8096676737160121,
+          "papers": 21,
+          "pooled_auroc": 0.642217577422623,
+          "tpr_at_calibrated_threshold": 0.01812688821752266
+        },
+        "gemini-3-6-flash-genai": {
+          "eligible_pairs": 248,
+          "paired_win_fraction": 0.9193548387096774,
+          "papers": 18,
+          "pooled_auroc": 0.7563004032258065,
+          "tpr_at_calibrated_threshold": 0.08064516129032258
+        },
+        "gemini-3-8-flash-genai": {
+          "eligible_pairs": 282,
+          "paired_win_fraction": 0.9627659574468085,
+          "papers": 19,
+          "pooled_auroc": 0.77817388461345,
+          "tpr_at_calibrated_threshold": 0.19858156028368795
+        },
+        "gpt-5-6-sol-genai-responses": {
+          "eligible_pairs": 294,
+          "paired_win_fraction": 0.8792517006802721,
+          "papers": 19,
+          "pooled_auroc": 0.6909910222592438,
+          "tpr_at_calibrated_threshold": 0.04081632653061224
+        },
+        "gpt-6-astra-genai": {
+          "eligible_pairs": 309,
+          "paired_win_fraction": 0.843042071197411,
+          "papers": 22,
+          "pooled_auroc": 0.6637812758559295,
+          "tpr_at_calibrated_threshold": 0.042071197411003236
+        }
+      },
+      "by_prompt": {
+        "arb": {
+          "eligible_pairs": 396,
+          "paired_win_fraction": 0.8207070707070707,
+          "papers": 26,
+          "pooled_auroc": 0.6447046219773492,
+          "tpr_at_calibrated_threshold": 0.047979797979797977
+        },
+        "imbd": {
+          "eligible_pairs": 426,
+          "paired_win_fraction": 0.8474178403755869,
+          "papers": 27,
+          "pooled_auroc": 0.6635560625096432,
+          "tpr_at_calibrated_threshold": 0.0539906103286385
+        },
+        "shield": {
+          "eligible_pairs": 400,
+          "paired_win_fraction": 0.85,
+          "papers": 27,
+          "pooled_auroc": 0.679096875,
+          "tpr_at_calibrated_threshold": 0.04
+        },
+        "v2": {
+          "eligible_pairs": 909,
+          "paired_win_fraction": 0.8828382838283828,
+          "papers": 9,
+          "pooled_auroc": 0.7190895107112472,
+          "tpr_at_calibrated_threshold": 0.07590759075907591
+        }
+      },
+      "calibration": {
+        "calibration_fpr": 0.00941492938802959,
+        "eligible": 1487,
+        "rank": 15,
+        "threshold": 0.9
+      },
+      "chunk_ok_true": {
+        "eligible_pairs": 2114,
+        "paired_win_fraction": 0.8580889309366131,
+        "papers": 89,
+        "pooled_auroc": 0.6849446721366499,
+        "tpr_at_calibrated_threshold": 0.059602649006622516
+      },
+      "human_only": {
+        "abstained": 14395,
+        "eligible": 6618,
+        "fpr": 0.005137503777576307,
+        "total": 21013
+      },
+      "overall": {
+        "eligible_pairs": 2131,
+        "paired_win_fraction": 0.8580478648521821,
+        "papers": 89,
+        "pooled_auroc": 0.6857692339029601,
+        "tpr_at_calibrated_threshold": 0.059596433599249175
+      },
+      "test_paired_human": {
+        "abstained": 2830,
+        "eligible": 1470,
+        "fpr": 0.006122448979591836,
+        "total": 4300
+      }
+    }
+  },
+  "input": {
+    "counts": {
+      "human_only/human": 21013,
+      "test/ai": 7015,
+      "test/human": 4300,
+      "train/ai": 56203,
+      "train/human": 31020,
+      "val/ai": 6603,
+      "val/human": 4139
+    },
+    "dataset_commit": "6a45eddc021257b7c49de398c2fffa370c1d1bfa",
+    "dataset_sha256": "6e0eb8058578afce4aaf81c822b70762afd9f18534eb5f1e89aa976cd051b793",
+    "feature_sha256": "ed17bd5b238823357a09146e18ea871abad8a1eb3ced1a6dc2b6352e1a338ad7",
+    "paper_counts": {
+      "human_only": 400,
+      "test": 89,
+      "train": 627,
+      "val": 83
+    },
+    "rows": 130293
+  },
+  "interpretation": "AI rewriting of paired academic prose; not editorial quality or authorship proof",
+  "richness_feasibility_pass": false,
+  "test_coverage": {
+    "ai_abstained": 4830,
+    "ai_total": 7015,
+    "eligible_fraction": 0.3037776193870278,
+    "eligible_pairs": 2131,
+    "source_abstained_for_ai_rows": 4672
+  }
+}
