@@ -54,6 +54,12 @@ uses saved complete-document generation and editing responses. Its two
 directional feature checks pass on exposed data; it does not qualify an origin
 detector or an editorial finding.
 
+The [AITDNA user-study screen](runs/2026-11-07-aitdna-screen/README.md)
+checks the same features against 362 documents labeled by human-only versus
+AI-assisted writing setting. Its registered direction screen passes, but the
+post-result split is weak for AI-assisted documents labeled `User` under the
+dataset's document notion. It remains origin research, not a detector claim.
+
 | Run | What it covers | Record |
 | --- | --- | --- |
 | 2026-09-11 pilot | First fit on the pilot generation run of #154: 145 controlled paragraphs against the comment paragraphs of the nineteen task repositories, structural features, threshold frozen at 0.5 | [runs/2026-09-11-pilot](runs/2026-09-11-pilot/README.md) |
