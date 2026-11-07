@@ -147,7 +147,7 @@ func localRhetoricVersion(id string) string {
 	case "filler.instruction-scaffolding":
 		return "15"
 	case "filler.evaluative-closure":
-		return "13"
+		return "12"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":
 		return "2"
 	case "repetition.definition-echo":

@@ -29,10 +29,7 @@ func evaluativeClosureRule() rule.Rule {
 			"receive guidance that preserves operational facts and requires verification before weakening claims. "+
 			"Literal control loops, explicit criteria and operational consequences remain excluded from these constructions. "+
 			"Concrete component purposes and measured evaluations stay excluded; "+
-			"notice and cognitive-worth frames retain their attached conditions. "+
-			"Uncommitted document-help hopes with an anaphoric goal, impersonal hoped-if-would "+
-			"design requirements, and undated someday hopes that a feature becomes unnecessary "+
-			"request direct wording while retaining goals, conditions and current feature status.",
+			"notice and cognitive-worth frames retain their attached conditions.",
 		[]rule.Example{{Text: "The approval stops applying, which is what binding it to a digest is for.", Match: true},
 			{Text: "The command starts a new batch, which is what the wrapper is for."}})
 }

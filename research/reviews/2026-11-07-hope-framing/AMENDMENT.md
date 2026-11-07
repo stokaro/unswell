@@ -24,3 +24,23 @@ The archived `runs.json` binds the final refactored binary. The original
 failed `make check` output remains local at
 `/private/tmp/unswell-hope-make-check.log`; it is not part of the frozen source
 evidence.
+
+# November 7 prospective disposition
+
+The original exposed-development protocol, candidate code at `35e3350`, raw
+reports, and assistant decisions remain unchanged. A second protocol was
+committed at `53b8578` before external source search, and the nine selected
+source identities plus 13 passage judgments were committed at `c5c67c1`
+before candidate replay. The first search query was repeated solely to archive
+the full metadata page after its first response was inspected without a saved
+copy; its first three hit identities and order matched. The second and third
+queries ran once.
+
+Both exact binaries completed on every selected page in technical and strict
+profiles. The candidate added one warning to an acceptable unchanged council
+request and supplied inapplicable advice; no prior finding changed. The
+prospective set had no definite actionable hope event, so it offers no recall
+estimate. This is a negative default-promotion result. The final PR removes
+the candidate runtime change while retaining the historical, source-bound
+research record. It does not revise the 123 frozen #349 event labels or any
+original exposed-development result.

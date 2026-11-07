@@ -40,7 +40,7 @@ func TestDiscourseStanceSeparatesOperationalContinuation(t *testing.T) {
 			r := singleRuleResult(t, "filler.evaluative-closure", row.text, "", "")
 			c.Assert(r.Findings, qt.HasLen, 1)
 			f := r.Findings[0]
-			c.Assert(f.RuleVersion, qt.Equals, "13")
+			c.Assert(f.RuleVersion, qt.Equals, "12")
 			c.Assert(f.Primary.Snippet, qt.Equals, row.matched)
 			c.Assert(f.Primary.Span.Start, qt.Equals, strings.Index(row.text, row.matched))
 			c.Assert(f.Message, qt.Contains, "appraises")
