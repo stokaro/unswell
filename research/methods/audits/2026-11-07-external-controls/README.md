@@ -78,6 +78,8 @@ would not supply that evidence.
 The subsequent [exact-main 36-page replay](../../../reviews/2026-11-07-current-main-baseline/README.md)
 provides that event-level span-coverage map. It still does not turn the two
 short controls into admitted operators or accepted editorial findings.
+The [complete editorial review](../../../reviews/2026-11-07-current-main-editorial-review/README.md)
+records the resulting stop decision against the unchanged #349 gates.
 
 Watermark verification is **deferred as a separate known-profile origin
 capability**. The methods in #434 need a compatible generator scheme, key,

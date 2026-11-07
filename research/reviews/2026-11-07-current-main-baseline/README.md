@@ -76,3 +76,7 @@ short potential misses in the earlier
 [external-control pass](../../methods/audits/2026-11-07-external-controls/README.md)
 do not by themselves explain the much larger complete-page gap. Issue #349
 remains open with its original labels and gates.
+
+The subsequent [complete finding and event review](../2026-11-07-current-main-editorial-review/README.md)
+adjudicates the delivered stream without treating span overlap as editorial
+credit.
