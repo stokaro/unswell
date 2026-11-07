@@ -1,0 +1,173 @@
+{
+  "base_commit": "bae57aa96afd22e5f64735800f85a3be81d8ad46",
+  "binary_sha256": "3de87af84bab750e0c0768f3df833910b12a4123e2869ba43f8034398bc2d2ac",
+  "cases": [
+    {
+      "family": "repeated-word",
+      "findings": [],
+      "id": "homograph-record",
+      "role": "legitimate",
+      "source_sha256": "56c5c7904eb899bab4077bcddd787d0cb60712ebb2ba6d79f715409af357608c"
+    },
+    {
+      "family": "repeated-word",
+      "findings": [],
+      "id": "homograph-her",
+      "role": "legitimate",
+      "source_sha256": "68b46944ae70ef9323d1ff36aa9ee24e4dfdac6d67e234174366a4512fe6be39"
+    },
+    {
+      "family": "repeated-word",
+      "findings": [],
+      "id": "homograph-that",
+      "role": "legitimate",
+      "source_sha256": "7deb094b16e035a0b3d5811be53c63e30a41fa42cf6e5728a4df71bc961b25b1"
+    },
+    {
+      "family": "repeated-word",
+      "findings": [
+        {
+          "message": "This word occurs twice in succession; check for an accidental duplicate.",
+          "quote": "requires",
+          "related": [
+            {
+              "end": 29,
+              "start": 21
+            }
+          ],
+          "rule_id": "repetition.adjacent-word",
+          "span": {
+            "end": 20,
+            "start": 12
+          },
+          "suggestion": "",
+          "suppressed": false
+        }
+      ],
+      "id": "duplicate-requires",
+      "role": "defect",
+      "source_sha256": "0a69b8f7b37b501705325a00a2e1f24409a60e167d6753af7281c3cae9d7a70f"
+    },
+    {
+      "family": "repeated-word",
+      "findings": [],
+      "id": "hyphen-in",
+      "role": "legitimate",
+      "source_sha256": "8769491955589b03d816ef695b0a503acab372bae51c9ef168a183ee8f8d9157"
+    },
+    {
+      "family": "repeated-word",
+      "findings": [],
+      "id": "quoted-duplicate",
+      "role": "legitimate",
+      "source_sha256": "4b16cf279244bc2e9f43b1e1a52a420856190760658492a2891fca02e41ed43a"
+    },
+    {
+      "family": "repeated-word",
+      "findings": [],
+      "id": "protected-code",
+      "role": "legitimate",
+      "source_sha256": "3438042d8e7904592c0fb83a35bfc273444d2ebc7ac1757f5f787213aec4f5a2"
+    },
+    {
+      "family": "additive-adverb",
+      "findings": [],
+      "id": "additive-also-too",
+      "role": "legitimate",
+      "source_sha256": "c63be0bffca4a4a285e5b9b5285aaa98972504901cd377f1f816f55c1d53d72b"
+    },
+    {
+      "family": "additive-adverb",
+      "findings": [],
+      "id": "additive-as-well-as",
+      "role": "legitimate",
+      "source_sha256": "40d7ed67bdabb56957f3f62db5603e07d379e09e02e24abad38970bdf5a54feb"
+    },
+    {
+      "family": "technical-vocabulary",
+      "findings": [],
+      "id": "technical-parameters",
+      "role": "legitimate",
+      "source_sha256": "135ae93c2583525c17792656fa39268e29ba5a02b563cfe40939108e4dbb493b"
+    },
+    {
+      "family": "technical-vocabulary",
+      "findings": [],
+      "id": "technical-interface",
+      "role": "legitimate",
+      "source_sha256": "3ea3e0e6a2ba7098f014378a772b70fb1be3848c59fad36a6337dc857d28831f"
+    },
+    {
+      "family": "technical-vocabulary",
+      "findings": [],
+      "id": "technical-allocate",
+      "role": "legitimate",
+      "source_sha256": "e8f2d51d6cbeed5d7096c7cedea108666ab0e6aec1d985ccb751e04de4885aa3"
+    },
+    {
+      "family": "technical-vocabulary",
+      "findings": [],
+      "id": "technical-equivalent",
+      "role": "legitimate",
+      "source_sha256": "a536b87c22af58df30fea998e4a37a3caadc73b2506677f0fa2e1e61872aec67"
+    },
+    {
+      "family": "revision-safety",
+      "findings": [],
+      "id": "condition-may",
+      "role": "legitimate",
+      "source_sha256": "cdc8b99e903924f36e55f20e37418737b5570d5ad0d1d00c698561b0a703e4e3"
+    },
+    {
+      "family": "revision-safety",
+      "findings": [],
+      "id": "negation-version",
+      "role": "legitimate",
+      "source_sha256": "90672a994c12ba3e7a625109b96da4cdabcef8b857036729d3be711a3c8f1108"
+    },
+    {
+      "family": "editorial-context",
+      "findings": [],
+      "id": "table-scaffold",
+      "role": "potential-defect",
+      "source_sha256": "f10729411d74d654da387f72274bd1a70780613a7aaa5cedd3505d5504e71339"
+    },
+    {
+      "family": "editorial-context",
+      "findings": [],
+      "id": "repeated-assertion",
+      "role": "potential-defect",
+      "source_sha256": "4d014dd94981f0e59eb3ac0ff9fd6c3f3a72050bf90307fd75f227d0e6804582"
+    },
+    {
+      "family": "editorial-context",
+      "findings": [
+        {
+          "message": "State the supported action directly; preserve its conditions and optionality.",
+          "quote": "It is possible to display a label",
+          "related": [
+            {
+              "end": 73,
+              "start": 35
+            }
+          ],
+          "rule_id": "filler.instruction-scaffolding",
+          "span": {
+            "end": 33,
+            "start": 0
+          },
+          "suggestion": "Remove narrated setup or nested support layers around the action and its method. Keep prerequisites, actors, operands, alternatives and limits; a capability is not an obligation.",
+          "suppressed": false
+        }
+      ],
+      "id": "instruction-scaffold",
+      "role": "defect",
+      "source_sha256": "5fb3e328283f4226773a048268b651f578a7aa2bce35232c81bb41e58802d667"
+    }
+  ],
+  "controls_sha256": "5e5c618e443dd1f449a24e3625f351445e290c9693b522e9e2e713323be1431e",
+  "format": "unswell-external-control-baseline-v1",
+  "raw_gzip_sha256": "0bd97158adfe50f6951df92f9354294d4253e3ca523ae318f2b6f3da17f97e7c",
+  "raw_sha256": "a74e8b8983dd48f86f840e97105e8c736c02edeb4f0f6bc5fd4cfa4a6da54ea7",
+  "script_sha256": "d92eb1ec86e4c8b380eed6f454dea9613ef61d374501d2e83a537870bf4ed581"
+}

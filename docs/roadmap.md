@@ -19,15 +19,12 @@ The table preserves the original issue sequence. An issue is complete only after
 evidence passes on the merged commit. Diagnostic quality requires actual source
 examples and recorded judgments; implementation alone cannot supply those judgments.
 
-Research work runs on two branches since September 10, 2026. The active branch,
-[#154](https://github.com/stokaro/unswell/issues/154), collects
-LLM-associated pattern evidence without human labels under
-[ADR 0036](adr/0036-llm-pattern-evidence.md). Stage A fixed its scope. Stage
-B measured five dated cohorts. Stage C now has ten committed
-[generation records](../research/generation/README.md) across Claude, OpenAI, and
-Qwen, with three development screenings. The
-[version 2 protocol](../research/methods/llm-patterns-v2.md) freezes two hypotheses
-for one confirmatory measurement; it does not report their confirmation. The mirrored experiments
+Research followed two branches from September 10, 2026.
+[#154](https://github.com/stokaro/unswell/issues/154) is complete: its
+[acceptance record](acceptance.md#research-stages-of-154) reports all five stages,
+including the later version 3 complete-document experiment and its negative
+findings. It measured LLM-associated patterns without human labels under
+[ADR 0036](adr/0036-llm-pattern-evidence.md). The mirrored experiments
 [#176](https://github.com/stokaro/unswell/issues/176),
 [#177](https://github.com/stokaro/unswell/issues/177), and
 [#178](https://github.com/stokaro/unswell/issues/178) asked classification
@@ -46,7 +43,7 @@ assistant judgments accepted by the maintainer can support diagnostic rule
 qualification. Model-research engineering is recorded separately from the missing
 data and calibration. Without a qualified pack the product reports revision
 probability as unavailable with a reason and
-enables no probability gate. Cohort measurements from the active branch
+enables no probability gate. Cohort measurements from the completed pattern branch
 never count toward those criteria.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
@@ -102,7 +99,7 @@ consumer tests, and the public package ledger remain maintained.
 | [#28](https://github.com/stokaro/unswell/issues/28) | Stage 4: establish reproducible performance and resource limits |
 | [#29](https://github.com/stokaro/unswell/issues/29) | Stage 4: verify SARIF consumers and reproducible release artifacts |
 | [#30](https://github.com/stokaro/unswell/issues/30) | Stage 4: close the product documentation and acceptance audit |
-| [#154](https://github.com/stokaro/unswell/issues/154) | Research: collect empirical evidence for LLM-associated patterns in technical English (active branch, stages A–E) |
+| [#154](https://github.com/stokaro/unswell/issues/154) | Research: collect empirical evidence for LLM-associated patterns in technical English (complete, stages A–E) |
 | [#123](https://github.com/stokaro/unswell/issues/123) | Final task: restore race detection, active fuzzing, and coverage; fix findings and record acceptance evidence |
 
 ## Next stage: diagnostics on real texts
@@ -199,7 +196,7 @@ The [corpus preparation tool](../research/annotation/corpus/README.md) supplies
 source manifests, grouped partition plans, original ranges, and re-extraction
 verification for #22. Its 378 Ptah candidates remain unlabeled and entirely in
 development. The human-labeled corpus and final-test acceptance remain open.
-#22 is on hold until annotation resources exist. The active
+#22 is on hold until annotation resources exist. The completed
 [pattern branch](research.md) reuses the same planner and candidates to count
 patterns by cohort. Those counts are not labels and satisfy none of the
 requirements below.

@@ -1,7 +1,8 @@
 # Non-LLM text detection and revision methods: November 2026 review
 
-Status: source review only, dated November 7, 2026. No upstream experiment was
-reproduced, no Unswell candidate was run, and no #349 qualification is claimed.
+Status: source review and linked exposed-data feature screen, dated November 7,
+2026. No upstream experiment was reproduced, no source-local editorial
+candidate was run, and no #349 qualification is claimed.
 This review extracts methodological ideas; it does not select code or data to
 import. "Non-LLM" below means that detection can run without calling a
 generative language model or a remote service. A local parser or a compact
@@ -100,3 +101,8 @@ must not be retuned as a substitute for finding new editorial operators.
 This plan is a hypothesis for an offline development screen, not evidence that
 the #349 targets are met. A new frozen protocol must define implementation,
 source identities, thresholds, and failure handling before an experiment.
+
+The later [#434 source audit and external-control pass](audits/2026-11-07-external-controls/README.md)
+checked the unchanged current engine on 18 constructed cases. It found two
+potential editorial gaps but admitted neither as a new operator from the small
+controls alone. The original 123-event #349 accounting remains untouched.
