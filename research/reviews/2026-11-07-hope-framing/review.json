@@ -1,0 +1,36 @@
+{
+  "reviewer": "Codex assistant under ADR 0041",
+  "evidence_role": "exposed development; no independent human review",
+  "decisions": [
+    {
+      "event": "whole/p016-d01",
+      "path": "whole/p016.md",
+      "span": {"start": 141, "end": 222},
+      "status": "accepted",
+      "event_status": "full",
+      "advice_status": "conditional_guidance; no applied edit",
+      "rationale": "The hope about the document and its processes adds no release-policy fact. The neighboring sentences already name the policy scope and current support information.",
+      "meaning_preservation": "Remove the hope clause while retaining the stated stability goal, the release-policy scope, and all subsequent support details. The diagnostic does not request deletion of a technical promise."
+    },
+    {
+      "event": "whole/p017-d03",
+      "path": "whole/p017.md",
+      "span": {"start": 15250, "end": 15329},
+      "status": "accepted",
+      "event_status": "full",
+      "advice_status": "conditional_guidance; no applied edit",
+      "rationale": "The undated wish that a named feature will become unnecessary is neither a current instruction nor a commitment. It interrupts the distinction between search SIMD and dependency transcoding SIMD.",
+      "meaning_preservation": "Omit only the future wish. Retain the current feature behavior, its identifier, the automatic search optimization, and the compilation-time warning."
+    },
+    {
+      "event": "context/c04-d03",
+      "path": "context/c04.md",
+      "span": {"start": 959, "end": 1126},
+      "status": "accepted",
+      "event_status": "full",
+      "advice_status": "conditional_guidance; no applied edit",
+      "rationale": "The passive hope plus if/would construction hides a design goal. The preceding paragraph describes solver caching constraints; this sentence adds the conditional extensibility goal, which should remain explicit.",
+      "meaning_preservation": "State the intended ability to use better cache implementations without significant modification. Keep the condition that such implementations become available; do not imply this ability has already been verified."
+    }
+  ]
+}
