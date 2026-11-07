@@ -1,7 +1,7 @@
 # Non-LLM text detection and revision methods: November 2026 review
 
-Status: source review and linked exposed-data feature screen, dated November 7,
-2026. No upstream experiment was reproduced, no source-local editorial
+Status: source review and linked exposed-data feature screens, dated November 7,
+2026. No upstream detector was reproduced, no source-local editorial
 candidate was run, and no #349 qualification is claimed.
 This review extracts methodological ideas; it does not select code or data to
 import. "Non-LLM" below means that detection can run without calling a
@@ -74,6 +74,14 @@ selector](https://github.com/stokaro/unswell/issues/349#issuecomment-6651505353)
 and [source-only category retrieval](https://github.com/stokaro/unswell/issues/349#issuecomment-6652866782)
 have already failed their registered screens. Their fixed representations
 must not be retuned as a substitute for finding new editorial operators.
+
+The [AITDNA user-study screen](../origin/runs/2026-11-07-aitdna-screen/README.md)
+then tested the same two features on 362 documents with human-only versus
+AI-assisted *study-setting* labels. Its registered feasibility screen passed:
+overall directional AUROC was 0.686 for richness and 0.665 for entropy.
+Post-result splits show a much weaker signal in AI-assisted documents whose
+document notion is `User`. This is useful origin-feature evidence with a clear
+boundary, not a qualified detector or editorial event.
 
 1. Keep the existing 123 exposed events, candidate denominators, and reserved
    confirmation pages unchanged. Record new hypotheses and rule versions before
