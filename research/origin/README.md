@@ -49,6 +49,11 @@ written by a tool.
 
 ## Runs
 
+The [November 2026 lexical richness and entropy screen](runs/2026-11-07-richness-screen/README.md)
+uses saved complete-document generation and editing responses. Its two
+directional feature checks pass on exposed data; it does not qualify an origin
+detector or an editorial finding.
+
 | Run | What it covers | Record |
 | --- | --- | --- |
 | 2026-09-11 pilot | First fit on the pilot generation run of #154: 145 controlled paragraphs against the comment paragraphs of the nineteen task repositories, structural features, threshold frozen at 0.5 | [runs/2026-09-11-pilot](runs/2026-09-11-pilot/README.md) |
