@@ -236,7 +236,7 @@ technical explanations. Projects can configure a stricter local policy.
 
 ## Qualitative degree and benefit rankings
 
-`filler.unscoped-assurance` version 10 recognizes bounded emphatic capability
+`filler.unscoped-assurance` version 12 recognizes bounded emphatic capability
 modifiers, optimization degree, ease-to-use descriptions of software artifacts,
 and deictic superlative benefits. For example, `blazingly fast` leaves the
 speed and comparison criterion unstated. The diagnostic asks for that basis;
@@ -247,9 +247,21 @@ quality sentences retain their existing treatment in prose; they do not become
 new heading diagnostics. `Highly available`, `strongly typed`, and
 `perfectly square` remain technical controls. Measurements, comparisons,
 criteria, local mechanisms, conditions, attribution, quotation, and protected
-construction words conservatively exclude the new forms. An adjacent quantity
-also suppresses them, so this recognizer can miss unrelated promotional wording
-in a block that contains numbers.
+construction words conservatively exclude the new forms. Degree evidence is
+scoped to the claim's sentence; a count in an adjacent sentence does not
+justify a qualitative modifier. A reader's stated intent does not establish
+that the software used for that task is easy to use.
+
+Version 12 also recognizes a small set of source-local quality claims: an
+unscoped future-proofing promise, an unbounded feature-set ranking, paired
+subjective qualities attached to a software capability, reasonable defaults
+without their values or criterion, and an important effect on quality without
+an identified magnitude or behavior. These constructions ask for a concrete
+capability or criterion; they do not establish that a technical claim is false.
+Named comparison sets, local mechanisms, quotations and protected text remain
+controls. The exposed development screen in
+`research/reviews/2026-11-07-quality-claim-screen/` does not measure accuracy
+on independent documents.
 
 The advice requires verification before weakening or removing a claim. Keep
 its operands, conditions, uncertainty, and established commitments. A capability
