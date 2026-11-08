@@ -16,6 +16,12 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-11-08-operator-triage](2026-11-08-operator-triage/README.md):
+  an offline, repository-held-out category/operator filter improves exposed
+  whole-page usefulness from 77.4% to 84.9% but reduces FULL-event recall to
+  45/57 and retains five unresolved supplied edits. The unchanged gates fail;
+  no detector, label, or prospective material changes.
+
 - [2026-11-08-rubric-transfer](2026-11-08-rubric-transfer/README.md):
   a paired 24-call Ptah screen found that examples from 11 other repositories
   improved agreement with prior assistant grades from 6/12 to 8/12 but lost
