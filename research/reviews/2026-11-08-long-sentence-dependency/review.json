@@ -1,0 +1,92 @@
+{
+  "format": "unswell-long-sentence-dependency-source-review-v1",
+  "packet_sha256": "49575965ce44b0254eeac56fc2aaa04e2169a34f7895a7ef45951432ed7138a4",
+  "reviewer": "Codex assistant, exposed source-only review",
+  "independent_human": false,
+  "decisions": [
+    {
+      "pair": "pair-01",
+      "member": "A",
+      "decision": "retain",
+      "independent_parts_requiring_separation": false,
+      "source_evidence_and_rationale": "Both test commands use a throwaway database under the same rule. SQLite by default and --db-url for a real dialect are alternatives within that single setup, not separate actions that require separate presentation."
+    },
+    {
+      "pair": "pair-01",
+      "member": "B",
+      "decision": "split_needed",
+      "independent_parts_requiring_separation": true,
+      "source_evidence_and_rationale": "The dev database is used by migrations validate/lint to clean and replay SQL, by schema apply to rehearse its plan, and by Atlas-compatible verbs for planning, linting, and rollback verification. These distinct command roles need separate retrieval and scope."
+    },
+    {
+      "pair": "pair-02",
+      "member": "A",
+      "decision": "retain",
+      "independent_parts_requiring_separation": false,
+      "source_evidence_and_rationale": "The MUSL plus PCRE2 build has one added prerequisite, musl-gcc; its packaging varies by distribution. The qualification belongs with the prerequisite."
+    },
+    {
+      "pair": "pair-02",
+      "member": "B",
+      "decision": "retain",
+      "independent_parts_requiring_separation": false,
+      "source_evidence_and_rationale": "The parenthetical makes one installation recommendation about Ubuntu snaps. Malfunctions, resulting bug reports, and maintainer capacity are supporting reasons, not separate user actions or cases that need distinct lookup."
+    },
+    {
+      "pair": "pair-03",
+      "member": "A",
+      "decision": "split_needed",
+      "independent_parts_requiring_separation": true,
+      "source_evidence_and_rationale": "The source expressly calls these two different refusals: MariaDB rejects functional key parts with ERROR 1064, while MySQL permits an index part but rejects a PRIMARY KEY part with ERROR 3756. Engine and key kind must be looked up separately."
+    },
+    {
+      "pair": "pair-03",
+      "member": "B",
+      "decision": "split_needed",
+      "independent_parts_requiring_separation": true,
+      "source_evidence_and_rationale": "The comparison names different folding pairs on MySQL and MariaDB, then adds a distinct MariaDB foreign-key resolution result for the Kelvin pair. Column-name collision and foreign-key binding have different scopes and need separate lookup."
+    },
+    {
+      "pair": "pair-04",
+      "member": "A",
+      "decision": "retain",
+      "independent_parts_requiring_separation": false,
+      "source_evidence_and_rationale": "The rule is one early validation of a present invalid environment value. Missing file, unparsable file, and selected environment spelling are examples showing the validation does not depend on document contents."
+    },
+    {
+      "pair": "pair-04",
+      "member": "B",
+      "decision": "retain",
+      "independent_parts_requiring_separation": false,
+      "source_evidence_and_rationale": "Both clauses explain the same named-exporter design: existing template rendering removes a need for another evaluator, and declarative structure would introduce another language. They are supporting reasons, with no separate operation or case to retrieve."
+    },
+    {
+      "pair": "pair-05",
+      "member": "A",
+      "decision": "retain",
+      "independent_parts_requiring_separation": false,
+      "source_evidence_and_rationale": "The one cache-loading optimization delays remote cache loading until the final matching graph node. The earlier all-vertices condition and final-node behavior are one mechanism."
+    },
+    {
+      "pair": "pair-05",
+      "member": "B",
+      "decision": "retain",
+      "independent_parts_requiring_separation": false,
+      "source_evidence_and_rationale": "Definition-based image matching and slower content-based local-source matching are contrasted to explain one solver decision: skip an unnecessary content check and pull. The contrast is necessary to understand the decision as a unit."
+    },
+    {
+      "pair": "pair-06",
+      "member": "A",
+      "decision": "retain",
+      "independent_parts_requiring_separation": false,
+      "source_evidence_and_rationale": "The --liquibase-dbms option selects one source database history; keeping matching changesets and reporting excluded ones on standard error are the two outcomes of that single import selection."
+    },
+    {
+      "pair": "pair-06",
+      "member": "B",
+      "decision": "split_needed",
+      "independent_parts_requiring_separation": true,
+      "source_evidence_and_rationale": "The text distinguishes a context selecting an environment from dbms selecting a database, then instructs splitting the changelog along the relevant selector. The two selector scopes need separate presentation for the reader to choose the right split."
+    }
+  ]
+}
