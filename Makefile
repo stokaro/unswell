@@ -4,9 +4,9 @@ SHELL := /bin/bash
 .PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost
 .PHONY: check-contextual-admission check-external-controls check-current-baseline check-current-editorial-review
 .PHONY: check-source-review-contract
-.PHONY: check-ape-screen check-dual-gate-triage check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer
+.PHONY: check-ape-screen check-dual-gate-triage check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-ape-screen check-dual-gate-triage check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer
+check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-ape-screen check-dual-gate-triage check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer
 
 check-aiwritingeffect-screen:
 	python3 -B research/origin/runs/2026-11-08-aiwritingeffect-screen/verify.py
@@ -42,6 +42,10 @@ check-scoped-degree:
 check-dual-gate-triage:
 	python3 -B research/reviews/2026-11-07-dual-gate-triage/analyze.py --check
 	python3 -B -m unittest discover -s research/reviews/2026-11-07-dual-gate-triage -p 'test_*.py'
+
+check-length-triage-audit:
+	python3 -B research/reviews/2026-11-08-length-triage-audit/analyze.py --check
+	python3 -B -m unittest discover -s research/reviews/2026-11-08-length-triage-audit -p 'test_*.py'
 
 check-ape-screen:
 	python3 -B -m unittest discover -s research/reviews/2026-11-07-ape-proposition-screen -p 'test_*.py'
