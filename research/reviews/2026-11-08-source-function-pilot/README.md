@@ -62,10 +62,11 @@ retired. The next hypothesis must prevent the model from selecting easy
 grammar findings while missing source-specific semantic claims, and must be
 tested on a new frozen page set before the required full-cohort screen.
 
-The independent verifier reconstructs the packet, source hashes and Git blobs,
+The independent verifier pins the artifact hashes and reconstructs the packet, source hashes and Git blobs,
 tool-free traces, response bindings, complete-stream review inventory, result
-arithmetic, and CLI source identities. Four negative controls reject tampered
-requests, a missing review row, a fabricated pass, and tool use in a trace.
+arithmetic, and CLI source identities. Five negative controls reject tampered
+requests, a rehashed tampered packet, a missing review row, a fabricated pass,
+and tool use in a trace.
 Run it and its tests with:
 
 ```sh

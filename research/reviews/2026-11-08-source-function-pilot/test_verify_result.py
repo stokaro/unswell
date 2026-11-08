@@ -1,6 +1,7 @@
 """Negative controls for the #349 source-function result verifier."""
 
 import json
+import hashlib
 from pathlib import Path
 import shutil
 import tempfile
@@ -22,6 +23,19 @@ class ResultVerifierTest(unittest.TestCase):
             request = target / "packet" / "requests" / "caddy.txt"
             request.write_bytes(request.read_bytes() + b"tamper")
             with self.assertRaises(ValueError):
+                verify_result.verify(target)
+
+    def test_rehashed_packet_tampering(self):
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder) / "pilot"
+            shutil.copytree(ROOT, target, ignore=shutil.ignore_patterns("__pycache__", "baseline", "empty_root"))
+            request = target / "packet" / "requests" / "caddy.txt"
+            request.write_bytes(request.read_bytes() + b"tamper")
+            freeze = target / "packet" / "freeze.json"
+            manifest = json.loads(freeze.read_text())
+            manifest["packet/requests/caddy.txt"] = hashlib.sha256(request.read_bytes()).hexdigest()
+            freeze.write_text(json.dumps(manifest))
+            with self.assertRaisesRegex(ValueError, "pinned artifact changed"):
                 verify_result.verify(target)
 
     def test_review_omission(self):

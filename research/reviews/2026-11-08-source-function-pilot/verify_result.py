@@ -9,6 +9,17 @@ import run
 import score
 
 PAGES = ("caddy", "restic", "gitea", "otelcol")
+EXPECTED_SHA256 = {
+    "sources.json": "2c1391ab588c6bb9df60ea9d216aea822e2ee3bc9bec0c0bc7293b685b0228e3",
+    "packet/freeze.json": "0cec9103172cf084dc277fb4110a92ae2764c5931823599eb21026fd97174a8f",
+    "run/run.json": "fa23ee46d207c9ac949797eebe71615626b86c56cf3f0cb4ff8ec02206a3da6b",
+    "review.json": "cdc62695abfa0d3f38693e04709be6c6fb3a7d1ffdf598834057eb503a9e471f",
+    "result.json": "474e54259847b6abbd73c6740085c8766011175e90270b0d01ea43d55f6b3417",
+    "baseline_clean/caddy.json": "31c3220521f4f75b72715c208355e66e4a9ce141ca618086b45235abe4da904d",
+    "baseline_clean/restic.json": "e8303cebd8c86205c60c82a84330c49fbaa73713345d3fec43afbeb471267061",
+    "baseline_clean/gitea.json": "543f8e5d788dad34dcd13a720674eafb95d87540ee39d17d475766567ecb1111",
+    "baseline_clean/otelcol.json": "5cfff2656bda600c49072c181087c358264356cdefd5151fb9a84479b1ad75ed",
+}
 
 
 def sha(data):
@@ -26,6 +37,9 @@ def require(condition, reason):
 
 def verify(root=Path(__file__).resolve().parent):
     root = Path(root)
+    for name, expected in EXPECTED_SHA256.items():
+        require(sha((root / name).read_bytes()) == expected,
+                "pinned artifact changed: " + name)
     run.ROOT = root
     run.PACKET = root / "packet"
     score.ROOT = root
