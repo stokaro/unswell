@@ -1,0 +1,52 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "findings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "deletion_test": {
+            "type": "string"
+          },
+          "diagnosis": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "line": {
+            "type": "integer"
+          },
+          "quote": {
+            "type": "string"
+          },
+          "source_function": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "line",
+          "quote",
+          "diagnosis",
+          "evidence",
+          "source_function",
+          "deletion_test"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "page_id": {
+      "type": "string"
+    },
+    "source_sha256": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "page_id",
+    "source_sha256",
+    "findings"
+  ],
+  "type": "object"
+}
