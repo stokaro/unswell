@@ -60,6 +60,14 @@ AI-assisted writing setting. Its registered direction screen passes, but the
 post-result split is weak for AI-assisted documents labeled `User` under the
 dataset's document notion. It remains origin research, not a detector claim.
 
+The [AIWritingEffect paired academic-prose screen](runs/2026-11-08-aiwritingeffect-screen/README.md)
+tested those unchanged features on a pinned external rewrite corpus. Its
+paragraph-level feasibility rule failed because most passages were shorter
+than the fixed 100-token input and low-FPR recall was 6.0%. A post-result
+document-level sensitivity showed a strong direction on the same papers, but
+has no stable low-FPR operating point or independent confirmation. Neither
+result changes the editorial #349 gate.
+
 | Run | What it covers | Record |
 | --- | --- | --- |
 | 2026-09-11 pilot | First fit on the pilot generation run of #154: 145 controlled paragraphs against the comment paragraphs of the nineteen task repositories, structural features, threshold frozen at 0.5 | [runs/2026-09-11-pilot](runs/2026-09-11-pilot/README.md) |

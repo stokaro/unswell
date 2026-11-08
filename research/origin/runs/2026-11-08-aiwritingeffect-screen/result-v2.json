@@ -1,0 +1,356 @@
+{
+  "input": {
+    "counts": {
+      "human_only/human": 400,
+      "test/ai": 143,
+      "test/human": 89,
+      "train/ai": 1125,
+      "train/human": 627,
+      "val/ai": 131,
+      "val/human": 83
+    },
+    "dataset_commit": "6a45eddc021257b7c49de398c2fffa370c1d1bfa",
+    "dataset_sha256": "428de968a71d64ddaf9f0d5afe7e4e295b2adeace77f57fd29c6252ae082d29c",
+    "primary_result_sha256": "61da1fc4b8cc74ef025782bc9d9c281c052eed179a85dd067e817e69da857730",
+    "rows": 2598
+  },
+  "interpretation": "Post-result sensitivity on the same academic-paper sources",
+  "measures": {
+    "full": {
+      "by_generator": {
+        "claude-4-8-opus-genai": {
+          "eligible_pairs": 21,
+          "entropy": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.8571428571428571
+          },
+          "median_ai_to_human_prose_tokens": 1.0063350539652745,
+          "papers": 21,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.8866213151927438
+          }
+        },
+        "claude-5-1-fable-genai": {
+          "eligible_pairs": 23,
+          "entropy": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.8582230623818525
+          },
+          "median_ai_to_human_prose_tokens": 1.0206032285471538,
+          "papers": 23,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.8865784499054821
+          }
+        },
+        "claude-5-5-opus-genai": {
+          "eligible_pairs": 21,
+          "entropy": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.800453514739229
+          },
+          "median_ai_to_human_prose_tokens": 0.9997413347128815,
+          "papers": 21,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.854875283446712
+          }
+        },
+        "gemini-3-6-flash-genai": {
+          "eligible_pairs": 18,
+          "entropy": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": null
+          },
+          "median_ai_to_human_prose_tokens": 0.9300090094768858,
+          "papers": 18,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": null
+          }
+        },
+        "gemini-3-8-flash-genai": {
+          "eligible_pairs": 19,
+          "entropy": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": null
+          },
+          "median_ai_to_human_prose_tokens": 0.9603276170975172,
+          "papers": 19,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": null
+          }
+        },
+        "gpt-5-6-sol-genai-responses": {
+          "eligible_pairs": 19,
+          "entropy": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": null
+          },
+          "median_ai_to_human_prose_tokens": 0.9359344894026975,
+          "papers": 19,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": null
+          }
+        },
+        "gpt-6-astra-genai": {
+          "eligible_pairs": 22,
+          "entropy": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.8429752066115702
+          },
+          "median_ai_to_human_prose_tokens": 0.9110380707894183,
+          "papers": 22,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.8657024793388429
+          }
+        }
+      },
+      "by_prompt": {
+        "arb": {
+          "eligible_pairs": 26,
+          "entropy": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.7825443786982249
+          },
+          "median_ai_to_human_prose_tokens": 0.9422481859074942,
+          "papers": 26,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.8047337278106509
+          }
+        },
+        "imbd": {
+          "eligible_pairs": 27,
+          "entropy": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.7901234567901234
+          },
+          "median_ai_to_human_prose_tokens": 1.0012269938650307,
+          "papers": 27,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.8203017832647462
+          }
+        },
+        "shield": {
+          "eligible_pairs": 27,
+          "entropy": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.8916323731138546
+          },
+          "median_ai_to_human_prose_tokens": 0.9893229166666667,
+          "papers": 27,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.9245541838134431
+          }
+        },
+        "v2": {
+          "eligible_pairs": 63,
+          "entropy": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.9647266313932981
+          },
+          "median_ai_to_human_prose_tokens": 0.9518304431599229,
+          "papers": 9,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.9717813051146384
+          }
+        }
+      },
+      "coverage": {
+        "ai_abstained": 0,
+        "ai_total": 143,
+        "eligible_pairs": 143,
+        "source_abstained_for_ai_rows": 0
+      },
+      "overall": {
+        "eligible_pairs": 143,
+        "entropy": {
+          "paired_win_fraction": 1.0,
+          "pooled_auroc": 0.874908308474742
+        },
+        "median_ai_to_human_prose_tokens": 0.9657437822618489,
+        "papers": 89,
+        "richness": {
+          "paired_win_fraction": 1.0,
+          "pooled_auroc": 0.9017066849234682
+        }
+      }
+    },
+    "prefix100": {
+      "by_generator": {
+        "claude-4-8-opus-genai": {
+          "eligible_pairs": 21,
+          "entropy": {
+            "paired_win_fraction": 0.8571428571428571,
+            "pooled_auroc": 0.7743764172335601
+          },
+          "median_ai_to_human_prose_tokens": 1.0063350539652745,
+          "papers": 21,
+          "richness": {
+            "paired_win_fraction": 0.9047619047619048,
+            "pooled_auroc": 0.764172335600907
+          }
+        },
+        "claude-5-1-fable-genai": {
+          "eligible_pairs": 23,
+          "entropy": {
+            "paired_win_fraction": 0.9130434782608695,
+            "pooled_auroc": 0.7996219281663516
+          },
+          "median_ai_to_human_prose_tokens": 1.0206032285471538,
+          "papers": 23,
+          "richness": {
+            "paired_win_fraction": 0.9565217391304348,
+            "pooled_auroc": 0.7901701323251418
+          }
+        },
+        "claude-5-5-opus-genai": {
+          "eligible_pairs": 21,
+          "entropy": {
+            "paired_win_fraction": 0.7857142857142857,
+            "pooled_auroc": 0.6802721088435374
+          },
+          "median_ai_to_human_prose_tokens": 0.9997413347128815,
+          "papers": 21,
+          "richness": {
+            "paired_win_fraction": 0.8095238095238095,
+            "pooled_auroc": 0.7097505668934241
+          }
+        },
+        "gemini-3-6-flash-genai": {
+          "eligible_pairs": 18,
+          "entropy": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": null
+          },
+          "median_ai_to_human_prose_tokens": 0.9300090094768858,
+          "papers": 18,
+          "richness": {
+            "paired_win_fraction": 0.9444444444444444,
+            "pooled_auroc": null
+          }
+        },
+        "gemini-3-8-flash-genai": {
+          "eligible_pairs": 19,
+          "entropy": {
+            "paired_win_fraction": 0.9473684210526315,
+            "pooled_auroc": null
+          },
+          "median_ai_to_human_prose_tokens": 0.9603276170975172,
+          "papers": 19,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": null
+          }
+        },
+        "gpt-5-6-sol-genai-responses": {
+          "eligible_pairs": 19,
+          "entropy": {
+            "paired_win_fraction": 0.9473684210526315,
+            "pooled_auroc": null
+          },
+          "median_ai_to_human_prose_tokens": 0.9359344894026975,
+          "papers": 19,
+          "richness": {
+            "paired_win_fraction": 0.9473684210526315,
+            "pooled_auroc": null
+          }
+        },
+        "gpt-6-astra-genai": {
+          "eligible_pairs": 22,
+          "entropy": {
+            "paired_win_fraction": 0.9545454545454546,
+            "pooled_auroc": 0.7851239669421488
+          },
+          "median_ai_to_human_prose_tokens": 0.9110380707894183,
+          "papers": 22,
+          "richness": {
+            "paired_win_fraction": 1.0,
+            "pooled_auroc": 0.8212809917355371
+          }
+        }
+      },
+      "by_prompt": {
+        "arb": {
+          "eligible_pairs": 26,
+          "entropy": {
+            "paired_win_fraction": 0.9230769230769231,
+            "pooled_auroc": 0.790680473372781
+          },
+          "median_ai_to_human_prose_tokens": 0.9422481859074942,
+          "papers": 26,
+          "richness": {
+            "paired_win_fraction": 0.9423076923076923,
+            "pooled_auroc": 0.8106508875739645
+          }
+        },
+        "imbd": {
+          "eligible_pairs": 27,
+          "entropy": {
+            "paired_win_fraction": 0.8148148148148148,
+            "pooled_auroc": 0.6920438957475995
+          },
+          "median_ai_to_human_prose_tokens": 1.0012269938650307,
+          "papers": 27,
+          "richness": {
+            "paired_win_fraction": 0.8888888888888888,
+            "pooled_auroc": 0.696159122085048
+          }
+        },
+        "shield": {
+          "eligible_pairs": 27,
+          "entropy": {
+            "paired_win_fraction": 0.9074074074074074,
+            "pooled_auroc": 0.7050754458161865
+          },
+          "median_ai_to_human_prose_tokens": 0.9893229166666667,
+          "papers": 27,
+          "richness": {
+            "paired_win_fraction": 0.9444444444444444,
+            "pooled_auroc": 0.7153635116598079
+          }
+        },
+        "v2": {
+          "eligible_pairs": 63,
+          "entropy": {
+            "paired_win_fraction": 0.9523809523809523,
+            "pooled_auroc": 0.8597883597883598
+          },
+          "median_ai_to_human_prose_tokens": 0.9518304431599229,
+          "papers": 9,
+          "richness": {
+            "paired_win_fraction": 0.9523809523809523,
+            "pooled_auroc": 0.8712522045855379
+          }
+        }
+      },
+      "coverage": {
+        "ai_abstained": 0,
+        "ai_total": 143,
+        "eligible_pairs": 143,
+        "source_abstained_for_ai_rows": 0
+      },
+      "overall": {
+        "eligible_pairs": 143,
+        "entropy": {
+          "paired_win_fraction": 0.9125874125874126,
+          "pooled_auroc": 0.7889138833194778
+        },
+        "median_ai_to_human_prose_tokens": 0.9657437822618489,
+        "papers": 89,
+        "richness": {
+          "paired_win_fraction": 0.9370629370629371,
+          "pooled_auroc": 0.7982297422856863
+        }
+      }
+    }
+  }
+}
