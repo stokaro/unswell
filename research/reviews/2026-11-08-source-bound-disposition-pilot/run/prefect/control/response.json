@@ -1,0 +1,16 @@
+{
+  "page_id": "prefecthq/prefect/README.md",
+  "source_sha256": "ea65184760f7e6d32def7fc740e6b1bebe31edae113323a891d80243d704795e",
+  "inventory_sha256": "2f3445b01f089a13e81b38538e6eb264b95a3e69ea0600c1a270f67ed217517c",
+  "findings": [
+    {
+      "unit_ordinal": 4,
+      "line": 58,
+      "quote": "With just a few lines of code, data teams can confidently automate any data process with features such as scheduling, caching, retries, and event-based automations.",
+      "diagnosis": "“Any data process” extends the few-lines automation claim to every data process without technical conditions or evidence supporting that scope.",
+      "evidence": "Lines 79–102 demonstrate fetching GitHub star counts, and lines 110–118 demonstrate scheduling that workflow. These examples support a short automation example, but not universal applicability to data processes of arbitrary complexity.",
+      "source_function": "promotion",
+      "deletion_test": "Deleting “any data process ” removes the universal scope while preserving the short-code claim, feature list, and author's tone."
+    }
+  ]
+}

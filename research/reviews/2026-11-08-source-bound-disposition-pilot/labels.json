@@ -1,0 +1,93 @@
+{
+  "format": "unswell-349-disposition-source-only-labels-v1",
+  "source_manifest_sha256": "5bbf13cb09a50a39796e344300b5934e544a1de172ff02197849ad16160e1abc",
+  "inventory_sha256": "af0a11f4fd2e348b71cce5c7f371977aa9fc8fdae547d8a91810093eb395d3d6",
+  "input_sha256": "10c00a5fd478839b1a8e815dd65abc42af808758b85df08740ca9f5e6c6746ad",
+  "reviewer": "Codex assistant, source-only review on November 8, 2026; not a human annotator",
+  "reviewed_before_model_output": true,
+  "review_scope": "Complete pinned README pages and their eligible source inventory; no external truth judgment",
+  "events": [
+    {
+      "id": "dagger-universal-delivery",
+      "page": "dagger/dagger/README.md",
+      "quote": "It can build, test and ship any codebase, reliably and at scale.",
+      "span": {"start": 88, "end": 152},
+      "overlapping_unit_ordinals": [2],
+      "source_function": "capability claim",
+      "diagnosis": "The sentence combines an unrestricted any-codebase scope with reliability and scale guarantees. The page later describes a Linux container runtime requirement but gives no boundary or measurement for universal delivery and scale.",
+      "minimal_repair": "Scope the capability to supported containerized workflows and remove the universal reliability or scale guarantee unless it is measured and bounded."
+    },
+    {
+      "id": "dagger-identical-environments",
+      "page": "dagger/dagger/README.md",
+      "quote": "Local and CI behavior are identical.",
+      "span": {"start": 2462, "end": 2498},
+      "overlapping_unit_ordinals": [39],
+      "source_function": "cross-environment guarantee",
+      "diagnosis": "Identical behavior across local and CI environments is unconditional. The page says host dependencies are explicit and describes container runtimes, but does not establish identical inputs, host services, or outputs in every environment.",
+      "minimal_repair": "State that the same Dagger workflow can run locally and in CI under its stated runtime requirements without promising identical behavior in every context."
+    },
+    {
+      "id": "prefect-arbitrary-recovery",
+      "page": "prefecthq/prefect/README.md",
+      "quote": "With Prefect, you can build resilient, dynamic data pipelines that react to the world around them and recover from unexpected changes.",
+      "span": {"start": 2518, "end": 2652},
+      "overlapping_unit_ordinals": [3],
+      "source_function": "resilience claim",
+      "diagnosis": "The wording promises recovery from unspecified unexpected changes. Later text names retries and event-based automations, which address particular situations but do not explain recovery from arbitrary changes.",
+      "minimal_repair": "Tie resilience to the documented retry and event mechanisms, or specify which changes are handled."
+    },
+    {
+      "id": "prefect-any-data-process",
+      "page": "prefecthq/prefect/README.md",
+      "quote": "With just a few lines of code, data teams can confidently automate any data process with features such as scheduling, caching, retries, and event-based automations.",
+      "span": {"start": 2654, "end": 2818},
+      "overlapping_unit_ordinals": [4],
+      "source_function": "automation scope claim",
+      "diagnosis": "Any data process is an unbounded capability claim. The page illustrates one workflow and lists features, but does not establish support for every process or its conditions.",
+      "minimal_repair": "Describe automation of data workflows using the named features without promising that every process can be automated."
+    }
+  ],
+  "protected_counterexamples": [
+    {
+      "id": "dagger-supported-system-condition",
+      "page": "dagger/dagger/README.md",
+      "quote": "Once you automate a task with Dagger, it will reliably run on any supported system: your laptop, AI sandbox, CI server, or dedicated cloud infrastructure.",
+      "span": {"start": 662, "end": 816},
+      "overlapping_unit_ordinals": [10],
+      "reason": "Supported system explicitly limits the scope, and the next sentence names the container runtime dependency."
+    },
+    {
+      "id": "dagger-linux-runtime-condition",
+      "page": "dagger/dagger/README.md",
+      "quote": "The only requirement is a Linux container runtime.",
+      "span": {"start": 2322, "end": 2372},
+      "overlapping_unit_ordinals": [37],
+      "reason": "The requirement is an explicit technical condition, not an unsupported universal."
+    },
+    {
+      "id": "prefect-python-version",
+      "page": "prefecthq/prefect/README.md",
+      "quote": "Prefect requires Python 3.11+.",
+      "span": {"start": 3543, "end": 3573},
+      "overlapping_unit_ordinals": [7],
+      "reason": "The version is an explicit prerequisite and must be preserved."
+    },
+    {
+      "id": "airbyte-stated-vision",
+      "page": "airbytehq/airbyte/README.md",
+      "quote": "Our ultimate vision is to help you move data from any source to any destination",
+      "span": {"start": 2014, "end": 2093},
+      "overlapping_unit_ordinals": [1],
+      "reason": "This is explicitly a vision, not a present-tense product guarantee."
+    },
+    {
+      "id": "airbyte-cloud-scope",
+      "page": "airbytehq/airbyte/README.md",
+      "quote": "This is available only in Airbyte Cloud; direct reads are read-only.",
+      "span": {"start": 4041, "end": 4109},
+      "overlapping_unit_ordinals": [8],
+      "reason": "Cloud-only and read-only conditions are explicit and technically important."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "format": "unswell-349-source-bound-disposition-paired-pilot-v1",
+  "status": "offline; no model calls",
+  "route": "existing Codex subscription; no paid API route",
+  "model": "gpt-6-astra",
+  "effort": "medium",
+  "pages": ["dagger/dagger/README.md", "prefecthq/prefect/README.md", "airbytehq/airbyte/README.md"],
+  "passes_per_page": ["inventory", "control", "treatment"],
+  "arm_order": {
+    "dagger": ["control", "treatment"],
+    "prefect": ["treatment", "control"],
+    "airbyte": ["control", "treatment"]
+  },
+  "calls_max": 9,
+  "concurrency": 1,
+  "attempts_per_request": 1,
+  "automatic_retries": false,
+  "tools_allowed": false,
+  "per_call_timeout_seconds": 600,
+  "total_timeout_seconds": 10800,
+  "max_findings_per_page": 20,
+  "failure_policy": "Stop at the first CLI, schema, trace, ID coverage, source-binding, timeout, or resource error; never retry or repair a response.",
+  "input_policy": "Each request receives one complete pinned public README and its source-bound eligible units. Both review arms receive the same validated inventory response. The treatment must disposition every unit. Frozen labels, reviewer rationales, prior page responses, and grades never enter requests.",
+  "review_policy": "After all nine valid calls, separately review the complete combined stream from both arms in source context under ADR 0041. Identify the Codex assistant reviewer; do not record a human annotator. Keep frozen event and protected-control denominators unchanged.",
+  "scoring": "Report FULL recall out of four frozen events and accepted delivered findings / all delivered findings for each arm, invalid and abstained pages or units, protected counterexamples, and suggestion safety separately. No edits are requested, so suggestion safety is not applicable. Directional advance requires treatment FULL >=3/4 and at least two more FULL events than control, treatment accepted fraction >=85%, complete source binding, no invalid page, and no protected counterexample flagged. This is a three-page pilot, not the 36-page/123-event development gate or separate prospective confirmation for #349."
+}

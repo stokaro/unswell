@@ -3,10 +3,14 @@ SHELL := /bin/bash
 .PHONY: check test race fuzz lint lint-shell tidy policy build build-mcp release fmt schema dogfood dogfood-mcp
 .PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost
 .PHONY: check-contextual-admission check-external-controls check-current-baseline check-current-editorial-review
-.PHONY: check-source-review-contract
+.PHONY: check-source-review-contract check-source-bound-disposition-pilot
 .PHONY: check-ape-screen check-dual-gate-triage check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-ape-screen check-dual-gate-triage check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-gen-technical-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot
+check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-ape-screen check-dual-gate-triage check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-gen-technical-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot check-source-bound-disposition-pilot
+
+check-source-bound-disposition-pilot:
+	python3 -B research/reviews/2026-11-08-source-bound-disposition-pilot/verify_result.py
+	python3 -B -m unittest discover -s research/reviews/2026-11-08-source-bound-disposition-pilot -p 'test_*.py'
 
 check-exhaustive-inventory-pilot:
 	python3 -B research/reviews/2026-11-08-exhaustive-inventory-pilot/verify_result.py

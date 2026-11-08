@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "page_id": {"type": "string"},
+    "source_sha256": {"type": "string"},
+    "units": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ordinal": {"type": "integer"},
+          "function": {"type": "string"},
+          "proposition": {"type": "string"},
+          "support": {"type": "string"}
+        },
+        "required": ["ordinal", "function", "proposition", "support"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["page_id", "source_sha256", "units"],
+  "additionalProperties": false
+}

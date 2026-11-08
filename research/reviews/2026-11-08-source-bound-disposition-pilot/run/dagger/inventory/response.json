@@ -1,0 +1,312 @@
+{
+  "page_id": "dagger/dagger/README.md",
+  "source_sha256": "88958ec1c1e8ad619b6bddad97c3ac090b7218e4a0bdf0700fa8ed1e0f8deddc",
+  "units": [
+    {
+      "ordinal": 0,
+      "function": "promotion",
+      "proposition": "Dagger is a better way to ship software.",
+      "support": "Lines 13–35 describe delivery features; comparative evidence is absent."
+    },
+    {
+      "ordinal": 1,
+      "function": "definition",
+      "proposition": "Dagger is a software delivery automation platform.",
+      "support": "Lines 15–35 describe its execution engine, API, SDKs, containers, caching, and tracing."
+    },
+    {
+      "ordinal": 2,
+      "function": "capability",
+      "proposition": "Dagger can build, test, and ship any codebase reliably and at scale.",
+      "support": "Line 19 describes repeatability mechanisms and names tests, builds, and deployments; evidence for any codebase and scale is absent."
+    },
+    {
+      "ordinal": 3,
+      "function": "capability",
+      "proposition": "Dagger runs locally, on a CI server, or directly in the cloud.",
+      "support": "Line 17 lists supported environments; line 33 requires a Linux container runtime."
+    },
+    {
+      "ordinal": 4,
+      "function": "transition",
+      "proposition": "",
+      "support": "Introduces the reasons described in lines 13–21."
+    },
+    {
+      "ordinal": 5,
+      "function": "capability",
+      "proposition": "Dagger makes software delivery programmable, local-first, repeatable, and observable.",
+      "support": "Lines 15–21 explain each property through APIs, supported environments, execution isolation, caching, and tracing."
+    },
+    {
+      "ordinal": 6,
+      "function": "capability",
+      "proposition": "Dagger makes software delivery programmable.",
+      "support": "Line 15 lists an execution engine, system API, SDKs for 8 languages, an interactive REPL, and reusable modules."
+    },
+    {
+      "ordinal": 7,
+      "function": "promotion",
+      "proposition": "Shell scripts and proprietary YAML are no longer acceptable for software delivery automation.",
+      "support": "absent"
+    },
+    {
+      "ordinal": 8,
+      "function": "capability",
+      "proposition": "Dagger provides a complete execution engine, system API, SDKs for 8 languages, an interactive REPL, a rich reusable-module ecosystem, and more.",
+      "support": "Lines 25–27 describe the API and name 8 SDK languages; evidence for engine completeness, the REPL, ecosystem richness, and unspecified additions is absent."
+    },
+    {
+      "ordinal": 9,
+      "function": "capability",
+      "proposition": "Dagger makes software delivery local-first.",
+      "support": "Line 17 says automated tasks run on supported laptops and other environments with a container runtime."
+    },
+    {
+      "ordinal": 10,
+      "function": "capability",
+      "proposition": "Once automated with Dagger, a task reliably runs on any supported laptop, AI sandbox, CI server, or dedicated cloud infrastructure.",
+      "support": "Line 17 limits the claim to supported systems and requires a container runtime; line 33 specifies a Linux container runtime and supported operating environments."
+    },
+    {
+      "ordinal": 11,
+      "function": "qualification",
+      "proposition": "A container runtime such as Docker is the only dependency.",
+      "support": "Line 33 specifies that the runtime must support Linux containers and describes Linux, macOS, and Windows execution."
+    },
+    {
+      "ordinal": 12,
+      "function": "capability",
+      "proposition": "Dagger makes software delivery repeatable.",
+      "support": "Line 19 describes containers, sandboxed functions, explicit typed host dependencies, just-in-time artifacts, and incremental operations."
+    },
+    {
+      "ordinal": 13,
+      "function": "capability",
+      "proposition": "Tools execute in containers orchestrated by sandboxed functions.",
+      "support": "Line 25 identifies container orchestration as a System API function; additional evidence for sandboxing is absent."
+    },
+    {
+      "ordinal": 14,
+      "function": "capability",
+      "proposition": "Host dependencies are explicit and strictly typed.",
+      "support": "Line 25 says every API operation is typed; specific evidence about host dependencies is absent."
+    },
+    {
+      "ordinal": 15,
+      "function": "capability",
+      "proposition": "Intermediate artifacts are built just-in-time.",
+      "support": "absent"
+    },
+    {
+      "ordinal": 16,
+      "function": "capability",
+      "proposition": "Every operation is incremental by default and has advanced cache control.",
+      "support": "Line 31 describes input keys, selective re-execution, and automatic content-addressed caching; advanced cache controls are not specified."
+    },
+    {
+      "ordinal": 17,
+      "function": "promotion",
+      "proposition": "Dagger produces trustworthy test reports, builds, and deployments.",
+      "support": "Line 19 supplies containers, sandboxing, typed dependencies, just-in-time artifacts, and incremental execution as context; trustworthiness is not demonstrated."
+    },
+    {
+      "ordinal": 18,
+      "function": "capability",
+      "proposition": "Dagger makes software delivery observable.",
+      "support": "Lines 21 and 35 describe OpenTelemetry traces and spans, logs, metrics, trace visualization, and export."
+    },
+    {
+      "ordinal": 19,
+      "function": "capability",
+      "proposition": "Every operation emits a full OpenTelemetry trace enriched with granular logs and metrics.",
+      "support": "Line 35 reiterates per-operation OpenTelemetry spans; additional evidence for full traces and granular logs and metrics is absent."
+    },
+    {
+      "ordinal": 20,
+      "function": "instruction",
+      "proposition": "Visualize traces in the terminal or a web view.",
+      "support": "Line 35 identifies a live CLI TUI and trace export to Jaeger, Honeycomb, or any OTel-compatible backend; no specific web view is identified."
+    },
+    {
+      "ordinal": 21,
+      "function": "promotion",
+      "proposition": "Dagger enables immediate debugging of complex workflows instead of guessing from text logs.",
+      "support": "Lines 21 and 35 describe tracing and visualization; evidence for immediate debugging is absent."
+    },
+    {
+      "ordinal": 22,
+      "function": "transition",
+      "proposition": "",
+      "support": "Introduces the feature descriptions in lines 25–35."
+    },
+    {
+      "ordinal": 23,
+      "function": "transition",
+      "proposition": "",
+      "support": "Labels the System API description on line 25."
+    },
+    {
+      "ordinal": 24,
+      "function": "definition",
+      "proposition": "The System API is cross-language and orchestrates containers, filesystems, secrets, git repositories, network tunnels, and more.",
+      "support": "Line 27 names SDKs for 8 languages; line 13's container execution description supports container orchestration only indirectly, and the remaining resources have no examples."
+    },
+    {
+      "ordinal": 25,
+      "function": "capability",
+      "proposition": "Every System API operation is typed and composable.",
+      "support": "Lines 27–29 describe schema-generated SDKs, type safety, and custom types passed across language and module boundaries."
+    },
+    {
+      "ordinal": 26,
+      "function": "capability",
+      "proposition": "Dagger has SDKs in 8 languages.",
+      "support": "Line 27 lists Go, Python, TypeScript, PHP, Java, .NET, Elixir, and Rust."
+    },
+    {
+      "ordinal": 27,
+      "function": "capability",
+      "proposition": "Dagger provides native SDKs for Go, Python, TypeScript, PHP, Java, .NET, Elixir, and Rust.",
+      "support": "Line 15 asserts SDKs for 8 languages; line 27 says each SDK is generated from the API schema."
+    },
+    {
+      "ordinal": 28,
+      "function": "capability",
+      "proposition": "Each SDK is generated from the API schema, yielding idiomatic code, full type safety, and editor support.",
+      "support": "Line 25 describes typed API operations; SDK generation and its stated benefits have no examples or verification."
+    },
+    {
+      "ordinal": 29,
+      "function": "transition",
+      "proposition": "",
+      "support": "Labels the custom object type and cross-boundary transfer descriptions on line 29."
+    },
+    {
+      "ordinal": 30,
+      "function": "instruction",
+      "proposition": "Define custom object types containing encapsulated state and functions.",
+      "support": "Line 29 further describes content-addressed types transferable across SDK languages and modules; no definition syntax is supplied."
+    },
+    {
+      "ordinal": 31,
+      "function": "capability",
+      "proposition": "Types are content-addressed and pass across SDK language and module boundaries without serialization.",
+      "support": "absent"
+    },
+    {
+      "ordinal": 32,
+      "function": "capability",
+      "proposition": "Dagger supports incremental execution.",
+      "support": "Line 31 describes input-keyed operations, selective re-execution, and automatic content-addressed caching."
+    },
+    {
+      "ordinal": 33,
+      "function": "capability",
+      "proposition": "Every operation is keyed by its inputs.",
+      "support": "Line 31 connects input keys with rerunning only affected operations and content-addressed caching."
+    },
+    {
+      "ordinal": 34,
+      "function": "capability",
+      "proposition": "Changing one file reruns only the affected operations.",
+      "support": "Line 31 says every operation is keyed by its inputs and caching is content-addressed."
+    },
+    {
+      "ordinal": 35,
+      "function": "capability",
+      "proposition": "Content-addressed caching works automatically across local runs and CI.",
+      "support": "Line 19 states operations are incremental by default; line 31 describes input keys and selective re-execution, without demonstrating cross-environment caching."
+    },
+    {
+      "ordinal": 36,
+      "function": "capability",
+      "proposition": "Dagger runs anywhere.",
+      "support": "Line 33 qualifies this with a Linux container runtime requirement and Linux, macOS, and Windows execution paths; line 17 limits execution to supported systems."
+    },
+    {
+      "ordinal": 37,
+      "function": "qualification",
+      "proposition": "A Linux container runtime is the only requirement.",
+      "support": "Line 17 names a container runtime such as Docker as the only dependency; line 33 describes native Linux execution and Docker Desktop or similar products on macOS and Windows."
+    },
+    {
+      "ordinal": 38,
+      "function": "capability",
+      "proposition": "Dagger runs natively on Linux and through Docker Desktop or similar products on macOS and Windows.",
+      "support": "Line 33 requires a Linux container runtime; no operating-system execution examples are supplied."
+    },
+    {
+      "ordinal": 39,
+      "function": "capability",
+      "proposition": "Dagger behaves identically locally and in CI.",
+      "support": "Lines 17–19 describe supported environments and containerized, sandboxed execution with explicit dependencies; behavioral equivalence is not demonstrated."
+    },
+    {
+      "ordinal": 40,
+      "function": "capability",
+      "proposition": "Dagger includes built-in tracing.",
+      "support": "Line 35 describes per-operation OpenTelemetry spans, a live CLI TUI, and trace export."
+    },
+    {
+      "ordinal": 41,
+      "function": "capability",
+      "proposition": "Every operation emits OpenTelemetry spans.",
+      "support": "Line 21 also asserts per-operation OpenTelemetry traces enriched with logs and metrics."
+    },
+    {
+      "ordinal": 42,
+      "function": "capability",
+      "proposition": "The CLI has a live TUI, and traces can be exported to Jaeger, Honeycomb, or any OTel-compatible backend.",
+      "support": "Line 21 describes terminal and web trace visualization; export compatibility is not demonstrated."
+    },
+    {
+      "ordinal": 43,
+      "function": "transition",
+      "proposition": "",
+      "support": "Introduces Documentation and Quickstart links on lines 39–40."
+    },
+    {
+      "ordinal": 44,
+      "function": "other",
+      "proposition": "",
+      "support": "Documentation link: https://docs.dagger.io"
+    },
+    {
+      "ordinal": 45,
+      "function": "other",
+      "proposition": "",
+      "support": "Quickstart link: https://docs.dagger.io/quickstart"
+    },
+    {
+      "ordinal": 46,
+      "function": "transition",
+      "proposition": "",
+      "support": "Introduces Discord and GitHub Discussions links on lines 44–45."
+    },
+    {
+      "ordinal": 47,
+      "function": "other",
+      "proposition": "",
+      "support": "Discord link: https://discord.gg/dagger-io"
+    },
+    {
+      "ordinal": 48,
+      "function": "other",
+      "proposition": "",
+      "support": "GitHub Discussions link: https://github.com/dagger/dagger/discussions"
+    },
+    {
+      "ordinal": 49,
+      "function": "transition",
+      "proposition": "",
+      "support": "Introduces the CONTRIBUTING.md reference on line 49."
+    },
+    {
+      "ordinal": 50,
+      "function": "instruction",
+      "proposition": "Consult CONTRIBUTING.md.",
+      "support": "Linked source: https://github.com/dagger/dagger/blob/main/CONTRIBUTING.md"
+    }
+  ]
+}
