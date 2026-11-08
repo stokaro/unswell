@@ -16,6 +16,12 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-11-08-real-source-admission-transfer-v2](2026-11-08-real-source-admission-transfer-v2/README.md):
+  the same source-conditioned judge failed on 24 real-text cases: 14/24
+  archived-grade agreements, 11/12 accepted retained, only 3/12 uncertain
+  withheld, and one unsafe plus three unresolved edits. The v1 host-permission
+  stop is preserved separately. No #349 qualification or product change.
+
 - [2026-11-08-evidence-flip-pilot](2026-11-08-evidence-flip-pilot/README.md):
   a 16-call source-conditioned pilot passed its exposed synthetic preflight
   at 15/16 decisions, four of four evidence-flip pairs, and nine safe

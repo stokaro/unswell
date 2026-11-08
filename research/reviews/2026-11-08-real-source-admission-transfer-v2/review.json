@@ -1,0 +1,147 @@
+{
+  "edits": [
+    {
+      "item_id": "001427d845573af5",
+      "rationale": "Removing the redundant qualifier keeps the Schema class change and the validation purpose.",
+      "replacement_sha256": "f49cd5aa2d94a7426ed3848f6741495653187513888fc11e11d7361adcfdff11",
+      "safety": "safe",
+      "source_sha256": "d239fd1ca0c11c374f1871d9c17549becbe759e2b14b8aa27e15f8fe23ffcc2b"
+    },
+    {
+      "item_id": "0082162a7f382ceb",
+      "rationale": "The existing-spec condition and WithSpec API remain unchanged.",
+      "replacement_sha256": "9157cea90f4a85c32263b3909b4b541a0f539b0a7947ee5910d5a5fcd41e418b",
+      "safety": "safe",
+      "source_sha256": "7606db0f83ca5dabd1b7ffa03bd2c403c43e0a3771519364e059f9a40473c9cc"
+    },
+    {
+      "item_id": "00ebfce395051cbc",
+      "rationale": "The replacement names settings priority and preserves its changeability; it removes only an unsubstantiated ease claim.",
+      "replacement_sha256": "65f86132342f4226a18851ab7052bee886ad7fca4bb57403bcc5d4b421c38cfd",
+      "safety": "safe",
+      "source_sha256": "d239fd1ca0c11c374f1871d9c17549becbe759e2b14b8aa27e15f8fe23ffcc2b"
+    },
+    {
+      "item_id": "0175a2896b4b4994",
+      "rationale": "The old and new field shapes, release boundary, policy-name availability, and consumer access path remain explicit.",
+      "replacement_sha256": "4b82e41807774e25026892903c47c68c2bde81f396af32d4de15a4b4cc6e5d22",
+      "safety": "safe",
+      "source_sha256": "9e8504e46ddbb1a39c570a79b260b174160eea73ef3d87204a624d6e572dca03"
+    },
+    {
+      "item_id": "0390906cf3b62304",
+      "rationale": "The deletion removes the explicit distinction between PgBouncer rejecting a startup parameter and the schema itself being invalid; that distinction motivates the recovery path.",
+      "replacement_sha256": "25f57aa810a708d4ca443975154af8091dd9e8d62da226c400227125285665da",
+      "safety": "unsafe",
+      "source_sha256": "0c75ecbfdba8c8b8d472dcfd0f0e9c7b5da82ca07382e496887815a3e7d66f90"
+    },
+    {
+      "item_id": "039efb6e73811380",
+      "rationale": "The security-page update and new-vulnerability requirement remain, with the surrounding release order unchanged.",
+      "replacement_sha256": "d6281b7bc5b76457082ae04220a11ef22399bf18fe29bf2fc96ced66aa3cd78e",
+      "safety": "safe",
+      "source_sha256": "8a1bfbe5e6c8c996985f2cb6d617fd25d8f2995d3083f352002b1383dcabd604"
+    },
+    {
+      "item_id": "07b415c20311ea18",
+      "rationale": "Direct lexer and parser access and both examples remain; optional use is not restricted.",
+      "replacement_sha256": "c2cd3a92e52555a6088a51e9165af0babbd4c4ade8108a8db9bcfae3d20c7fd2",
+      "safety": "safe",
+      "source_sha256": "7f2f68a5ae17a874aa8e1d0814563cf8529a8b85a50190b9bb6c82204b71fcbb"
+    },
+    {
+      "item_id": "093f55b5ddc40cc3",
+      "rationale": "The modular plugin relationship and all in-tree, out-of-tree, and non-stable support conditions remain.",
+      "replacement_sha256": "d070ba7a9673986cea1cac2420c362941f2b334d90cfba1cc9b2466aef5ba9a4",
+      "safety": "safe",
+      "source_sha256": "a314da6f5e9d2e91913e2953b0b3f83cb88edf0864cd856eb5e25d60441938ea"
+    },
+    {
+      "item_id": "099fd2ca9d5ccd63",
+      "rationale": "The default Grunt task still lints and tests, and the pre-PR recommendation remains.",
+      "replacement_sha256": "b0a0845a11278454fecf336519ceac7bb3b171aa4d5a81d179c5319dc9a94bce",
+      "safety": "safe",
+      "source_sha256": "f38d613636215ad2ecd88da44089a41dc1a9b35ee7add7aad0644ce8ec818ea1"
+    },
+    {
+      "item_id": "09becad4fa281efa",
+      "rationale": "The edit replaces a broad font-coverage claim with a user-specific verification step; the page does not establish whether that change preserves the intended repertoire guarantee.",
+      "replacement_sha256": "58418f5e0e5eb8955544444df82f3f298dc5509761577b686826a8de56be0f4c",
+      "safety": "unresolved",
+      "source_sha256": "819f31ab468be529755a299f700b3496c9a822f46d4adf8449300e2b1f12a542"
+    },
+    {
+      "item_id": "0e09ed840c79dd15",
+      "rationale": "The compared tools, single-file scope, cache state, data size, link, and following table remain.",
+      "replacement_sha256": "b16f27c2d2615ea76fe8dd685874bb4f4d1f2ee14227133724f3c43c891cbfd6",
+      "safety": "safe",
+      "source_sha256": "aab9ce323fa8c30c9554c64300addb3cd7f3e60d3825922f3dcaee2d7a0eea0c"
+    },
+    {
+      "item_id": "1145dbde042a02c6",
+      "rationale": "The edit removes a practical performance assurance; the linked benchmark and option notes do not establish whether that assurance is dispensable for the intended audience.",
+      "replacement_sha256": "484fe5130b7066d8ab461ccfd548a27f0ed01b0ddcb431108da0ebb9a4ca26f6",
+      "safety": "unresolved",
+      "source_sha256": "6a738bb8dcb18f588131ced56c2ac9b2a567dd64d8e769813a9abf037ee6c372"
+    },
+    {
+      "item_id": "1b53b5fa1df97083",
+      "rationale": "The binary move to a directory on PATH and subsequent etcd invocation remain the same as the displayed commands.",
+      "replacement_sha256": "cf9ddf6c30b4c3bb3d698f57cc7e8cf0384ec2cdba72dc2e92f8a7c27574faef",
+      "safety": "safe",
+      "source_sha256": "b0cf3e6c4de5bb7d6582f0a53d57c41d92439605336e6b44bac3b2f4016c0cf0"
+    },
+    {
+      "item_id": "1c92a443f1dd31b6",
+      "rationale": "The beta-release status and removed-API stabilization boundary remain; specific API changes continue immediately below.",
+      "replacement_sha256": "60543517403655c43bf8560d5b0df7c343aec4c401a5b44ea771e7c4d6475cb5",
+      "safety": "safe",
+      "source_sha256": "b415c74b0e6b69d4554b25f9c98fb182f3bba8eda04343e66fbd883bdc9046c8"
+    },
+    {
+      "item_id": "21e0c34eb4c5032b",
+      "rationale": "The release-binary download destination and recommendation to use the latest production binary remain.",
+      "replacement_sha256": "aff145fd9b5ef24b7b10f743f3edc7a77afa8d279fd95afdbfd1e3521e5b8cf7",
+      "safety": "safe",
+      "source_sha256": "0af7ea1191eb8a9761a0204dc5a87370320653d26891255d7ee70758246859f0"
+    },
+    {
+      "item_id": "2c71483063889c08",
+      "rationale": "The edge-case contrast between ripgrep and another tool remains before the bug-report request.",
+      "replacement_sha256": "480562b41fe827ca4e9f6ff91083c1b0e3f873ea27a56f16f3b2785be0f6445a",
+      "safety": "safe",
+      "source_sha256": "aab9ce323fa8c30c9554c64300addb3cd7f3e60d3825922f3dcaee2d7a0eea0c"
+    },
+    {
+      "item_id": "2e28bcae49d097a8",
+      "rationale": "The React production build remains compiled into the Prometheus binary and the root make build instruction remains.",
+      "replacement_sha256": "f4cd57681ed12a05eddd72306cfe33e630c26c85133757472362d1a50d44e39f",
+      "safety": "safe",
+      "source_sha256": "e888945ea6657e1b791fe8e8f2d897ab0c99e5f0ec0ced0e1ec6b96bdefd1b5e"
+    },
+    {
+      "item_id": "2edcefe924ece86e",
+      "rationale": "The Simple, Secure, Fast, and Reliable bullets remain design aims for etcd.",
+      "replacement_sha256": "aaa6e43c5dff7883f3097c9195c74009edf68b9412f65929ca9414639311e96d",
+      "safety": "safe",
+      "source_sha256": "b0cf3e6c4de5bb7d6582f0a53d57c41d92439605336e6b44bac3b2f4016c0cf0"
+    },
+    {
+      "item_id": "4b39d3d7827f74d2",
+      "rationale": "External font loading, suggested fonts, folder location, and the font-loading FAQ remain.",
+      "replacement_sha256": "e4550738c5e0b98cf63ede6082f7444e9e97735ee7c8b84c402b256f9293284b",
+      "safety": "safe",
+      "source_sha256": "819f31ab468be529755a299f700b3496c9a822f46d4adf8449300e2b1f12a542"
+    },
+    {
+      "item_id": "cec802256127e4e1",
+      "rationale": "Changing observed membership variation to mere possibility may weaken the stated reason for keeping the participant list private.",
+      "replacement_sha256": "11bcbb434da19d32334df8d0b3b30c0b42fb73c45d85a43f84e9bf000a527626",
+      "safety": "unresolved",
+      "source_sha256": "8a1bfbe5e6c8c996985f2cb6d617fd25d8f2995d3083f352002b1383dcabd604"
+    }
+  ],
+  "format": "unswell-349-real-source-transfer-edit-review-v2",
+  "reviewer": "Codex assistant under ADR 0041",
+  "reviewer_role": "assistant, not a human annotator"
+}
