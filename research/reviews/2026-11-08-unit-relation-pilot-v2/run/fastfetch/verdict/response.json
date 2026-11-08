@@ -1,0 +1,151 @@
+{
+  "page_id": "fastfetch-cli/fastfetch/README.md",
+  "source_sha256": "4738b9274d674af7624a94a57687fd1dacd08cbe43e5c487a805ab9d760196ce",
+  "inventory_sha256": "fd9c3d2e00ee8c8a5327693ac830470281676e379cce6e96841828686a28bcb9",
+  "verdicts": [
+    {
+      "ordinal": 55,
+      "decision": "diagnosis",
+      "start": 6205,
+      "end": 6242,
+      "quote": "View all data that fastfetch detects:",
+      "diagnosis": "The instruction promises all detected data while the command selects particular modules.",
+      "evidence": "Line 100 requires module selections through -s; line 181 demonstrates JSON output for only os. Line 99 separately provides the all-supported-modules command.",
+      "source_function": "Data inspection instruction.",
+      "deletion_test": "Narrow the scope of 'all data' to the selected modules while preserving the command.",
+      "reason": ""
+    },
+    {
+      "ordinal": 58,
+      "decision": "abstain",
+      "start": 0,
+      "end": 0,
+      "quote": "",
+      "diagnosis": "",
+      "evidence": "",
+      "source_function": "",
+      "deletion_test": "",
+      "reason": "This describes the linked generator's functionality. The source identifies no omitted options or conflicting limitation; requiring a coverage account would demand implementation proof."
+    },
+    {
+      "ordinal": 70,
+      "decision": "abstain",
+      "start": 0,
+      "end": 0,
+      "quote": "",
+      "diagnosis": "",
+      "evidence": "",
+      "source_function": "",
+      "deletion_test": "",
+      "reason": "The page links a benchmark and states a performance focus. It supplies no conflicting result or narrower benchmark conditions; the absence of reproduced measurements alone does not establish a useful correction."
+    },
+    {
+      "ordinal": 71,
+      "decision": "abstain",
+      "start": 0,
+      "end": 0,
+      "quote": "",
+      "diagnosis": "",
+      "evidence": "",
+      "source_function": "",
+      "deletion_test": "",
+      "reason": "The default-module limitation is explicit and does not contradict the feature-total claim. Missing comparative counts alone do not establish an overstatement."
+    },
+    {
+      "ordinal": 73,
+      "decision": "abstain",
+      "start": 0,
+      "end": 0,
+      "quote": "",
+      "diagnosis": "",
+      "evidence": "",
+      "source_function": "",
+      "deletion_test": "",
+      "reason": "The README describes several configuration mechanisms and links further documentation. It establishes no conflicting limitation; requiring a Neofetch configuration inventory would add a proof requirement."
+    },
+    {
+      "ordinal": 74,
+      "decision": "diagnosis",
+      "start": 7904,
+      "end": 7931,
+      "quote": "Fastfetch is more polished.",
+      "diagnosis": "The general superiority claim exceeds the specific output-formatting distinction offered as its basis.",
+      "evidence": "Line 123 compares only Memory and Disk output, including decimal precision and unit labels. Those examples support a formatting distinction rather than overall polish.",
+      "source_function": "Comparative polish claim.",
+      "deletion_test": "Narrow the comparison to the illustrated formatting choices while retaining the examples and values.",
+      "reason": ""
+    },
+    {
+      "ordinal": 79,
+      "decision": "diagnosis",
+      "start": 8094,
+      "end": 8121,
+      "quote": "Fastfetch is more accurate.",
+      "diagnosis": "The unrestricted accuracy comparison generalizes beyond the particular detection and counting cases described.",
+      "evidence": "Line 124 cites Wayland support; lines 203–204 identify specific package-count errors. These establish particular comparison points, not a general accuracy ranking.",
+      "source_function": "Comparative accuracy claim.",
+      "deletion_test": "Limit the accuracy comparison to the documented cases, preserving the Wayland link and package-count explanations.",
+      "reason": ""
+    },
+    {
+      "ordinal": 81,
+      "decision": "diagnosis",
+      "start": 8313,
+      "end": 8398,
+      "quote": "A local IP address (10.x.x.x, 172.x.x.x, 192.168.x.x) has nothing to do with privacy.",
+      "diagnosis": "The categorical privacy dismissal exceeds the networking explanation supplied.",
+      "evidence": "Lines 128–130 explain same-network use and SSH convenience. Line 311 separately addresses network transmission under an explicit condition; neither establishes that displaying an address has no privacy implications.",
+      "source_function": "Privacy reassurance about displayed local addresses.",
+      "deletion_test": "Remove the categorical absence-of-privacy claim or narrow it to the networking scope actually explained, preserving the address examples.",
+      "reason": ""
+    },
+    {
+      "ordinal": 82,
+      "decision": "diagnosis",
+      "start": 8399,
+      "end": 8505,
+      "quote": "It only has meaning if you are on the same network, for example, if you connect to the same Wi-Fi network.",
+      "diagnosis": "The sentence treats a described networking use as an exclusive condition for the address having any meaning.",
+      "evidence": "Line 130 illustrates using addresses to SSH into test VMs. That practical use supports the network explanation but not the broader exclusion of informational meaning outside that setting.",
+      "source_function": "Network-scope explanation supporting privacy reassurance.",
+      "deletion_test": "Narrow the exclusivity to the described networking use while preserving the same-network condition and Wi-Fi example.",
+      "reason": ""
+    },
+    {
+      "ordinal": 117,
+      "decision": "abstain",
+      "start": 0,
+      "end": 0,
+      "quote": "",
+      "diagnosis": "",
+      "evidence": "",
+      "source_function": "",
+      "deletion_test": "",
+      "reason": "'Usually' already qualifies the troubleshooting observation. The following text identifies a concrete incompatibility and initialization remedy; missing frequency statistics alone do not justify correction."
+    },
+    {
+      "ordinal": 122,
+      "decision": "abstain",
+      "start": 0,
+      "end": 0,
+      "quote": "",
+      "diagnosis": "",
+      "evidence": "",
+      "source_function": "",
+      "deletion_test": "",
+      "reason": "In context, this describes an explicit override for Fastfetch's output mode. It does not promise to fix every terminal problem, and the source supplies no exception to the override's stated behavior."
+    },
+    {
+      "ordinal": 173,
+      "decision": "abstain",
+      "start": 0,
+      "end": 0,
+      "quote": "",
+      "diagnosis": "",
+      "evidence": "",
+      "source_function": "",
+      "deletion_test": "",
+      "reason": "The assurance explicitly excepts user- or operator-requested activity. The warning about executing untrusted configurations does not establish a transfer outside that condition; missing network-control implementation details are insufficient."
+    }
+  ]
+}
