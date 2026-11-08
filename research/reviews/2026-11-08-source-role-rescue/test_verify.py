@@ -6,10 +6,12 @@ import unittest
 from pathlib import Path
 
 from verify import verify
+from verify_baseline import check_baseline
 
 
 ROOT = Path(__file__).resolve().parent
 REVIEW = json.loads((ROOT / "review.json").read_text(encoding="utf-8"))
+BASELINE = json.loads((ROOT / "baseline.json").read_text(encoding="utf-8"))
 
 
 class VerifyPacketTest(unittest.TestCase):
@@ -42,6 +44,21 @@ class VerifyPacketTest(unittest.TestCase):
         changed["sources"]["caddy"]["path"] = "sources/caddy/../README.md"
         with self.assertRaisesRegex(ValueError, "unsafe source path"):
             verify(ROOT, changed)
+
+    def test_exact_baseline(self):
+        check_baseline(ROOT, REVIEW, BASELINE)
+
+    def test_rejects_changed_report_digest(self):
+        changed = copy.deepcopy(BASELINE)
+        changed["reports"]["animal-ai"]["sha256"] = "0" * 64
+        with self.assertRaisesRegex(ValueError, "report digest: animal-ai"):
+            check_baseline(ROOT, REVIEW, changed)
+
+    def test_rejects_missing_reviewed_finding(self):
+        changed = copy.deepcopy(BASELINE)
+        changed["reviewed_findings"]["animal-empty-conclusion"]["finding_id"] = "missing"
+        with self.assertRaisesRegex(ValueError, "missing reviewed finding"):
+            check_baseline(ROOT, REVIEW, changed)
 
 
 if __name__ == "__main__":
