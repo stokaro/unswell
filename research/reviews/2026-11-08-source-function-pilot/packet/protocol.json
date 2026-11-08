@@ -1,0 +1,22 @@
+{
+  "attempts_per_request": 1,
+  "automatic_retries": false,
+  "calls_max": 4,
+  "concurrency": 1,
+  "effort": "medium",
+  "failure_policy": "Stop at first CLI, schema, trace, source-binding, or resource error; never retry or repair a response.",
+  "format": "unswell-349-source-function-pilot-v1",
+  "input_policy": "One complete numbered public source per request; no labels, source-only rationale, prior answer, or grade enters the request.",
+  "model": "gpt-6-astra",
+  "pages": [
+    "caddy",
+    "restic",
+    "gitea",
+    "otelcol"
+  ],
+  "per_call_timeout_seconds": 600,
+  "route": "existing Codex subscription; no paid API route",
+  "screen": "At least 7/8 source-only events, at least 85% accepted findings, no invalid page, no protected counterexample flagged; directional only.",
+  "tools_allowed": false,
+  "total_timeout_seconds": 7200
+}
