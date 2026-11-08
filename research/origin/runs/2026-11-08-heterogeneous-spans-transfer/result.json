@@ -1,0 +1,427 @@
+{
+  "dataset_revision": "c8a59b129c34cfd9c67f739ae049abfff26fc2d3",
+  "document": {
+    "entropy": {
+      "by_requested_model": {
+        "claude-haiku-4-5-20251001": {
+          "auroc": 0.6969956308274402,
+          "eligible_pairs": 149,
+          "human_fpr": 0.006711409395973154,
+          "paired_win_fraction": 0.8791946308724832,
+          "source_groups": 41,
+          "tpr": 0.08053691275167785
+        },
+        "claude-opus-5-5": {
+          "auroc": 0.5310650887573964,
+          "eligible_pairs": 104,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.6153846153846154,
+          "source_groups": 16,
+          "tpr": 0.009615384615384616
+        },
+        "claude-sonnet-5-5": {
+          "auroc": 0.5140938271604938,
+          "eligible_pairs": 225,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.5111111111111111,
+          "source_groups": 46,
+          "tpr": 0.0044444444444444444
+        },
+        "gpt-6-luna": {
+          "auroc": 0.6336774652901388,
+          "eligible_pairs": 53,
+          "human_fpr": 0.018867924528301886,
+          "paired_win_fraction": 0.8490566037735849,
+          "source_groups": 35,
+          "tpr": 0.03773584905660377
+        },
+        "gpt-6.1-sol": {
+          "auroc": 0.5787752675386445,
+          "eligible_pairs": 58,
+          "human_fpr": 0.017241379310344827,
+          "paired_win_fraction": 0.8103448275862069,
+          "source_groups": 36,
+          "tpr": 0.034482758620689655
+        },
+        "opus-3": {
+          "auroc": null,
+          "eligible_pairs": 5,
+          "human_fpr": 0.4,
+          "paired_win_fraction": 0.8,
+          "source_groups": 4,
+          "tpr": 0.2
+        }
+      },
+      "by_source_dataset": {
+        "beigebook": {
+          "auroc": 0.6784673052894628,
+          "eligible_pairs": 49,
+          "human_fpr": 0.10204081632653061,
+          "paired_win_fraction": 0.8571428571428571,
+          "source_groups": 6,
+          "tpr": 0.24489795918367346
+        },
+        "gutenberg_selected": {
+          "auroc": 0.5305050505050505,
+          "eligible_pairs": 330,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.5606060606060606,
+          "source_groups": 2,
+          "tpr": 0.0
+        },
+        "jmlr_pre2015": {
+          "auroc": 0.6906568217777598,
+          "eligible_pairs": 157,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.8598726114649682,
+          "source_groups": 82,
+          "tpr": 0.044585987261146494
+        },
+        "standardebooks": {
+          "auroc": 0.6364447086801427,
+          "eligible_pairs": 58,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.7586206896551724,
+          "source_groups": 1,
+          "tpr": 0.0
+        }
+      },
+      "calibration": {
+        "eligible": 3509,
+        "fpr": 0.009974351667141636,
+        "rank": 36,
+        "source_groups": 857,
+        "threshold": 0.9471691385351368
+      },
+      "overall": {
+        "auroc": 0.5812218707841603,
+        "eligible_pairs": 594,
+        "human_fpr": 0.008417508417508417,
+        "paired_win_fraction": 0.6835016835016835,
+        "source_groups": 91,
+        "tpr": 0.03198653198653199
+      },
+      "total_pairs": 594
+    },
+    "richness": {
+      "by_requested_model": {
+        "claude-haiku-4-5-20251001": {
+          "auroc": 0.7288635647042926,
+          "eligible_pairs": 149,
+          "human_fpr": 0.013422818791946308,
+          "paired_win_fraction": 0.912751677852349,
+          "source_groups": 41,
+          "tpr": 0.08053691275167785
+        },
+        "claude-opus-5-5": {
+          "auroc": 0.5568139792899408,
+          "eligible_pairs": 104,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.6442307692307693,
+          "source_groups": 16,
+          "tpr": 0.009615384615384616
+        },
+        "claude-sonnet-5-5": {
+          "auroc": 0.5324740740740741,
+          "eligible_pairs": 225,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.5444444444444444,
+          "source_groups": 46,
+          "tpr": 0.0044444444444444444
+        },
+        "gpt-6-luna": {
+          "auroc": 0.6553933784264863,
+          "eligible_pairs": 53,
+          "human_fpr": 0.018867924528301886,
+          "paired_win_fraction": 0.9433962264150944,
+          "source_groups": 35,
+          "tpr": 0.03773584905660377
+        },
+        "gpt-6.1-sol": {
+          "auroc": 0.6120689655172413,
+          "eligible_pairs": 58,
+          "human_fpr": 0.017241379310344827,
+          "paired_win_fraction": 0.8448275862068966,
+          "source_groups": 36,
+          "tpr": 0.034482758620689655
+        },
+        "opus-3": {
+          "auroc": null,
+          "eligible_pairs": 5,
+          "human_fpr": 0.4,
+          "paired_win_fraction": 0.8,
+          "source_groups": 4,
+          "tpr": 0.2
+        }
+      },
+      "by_source_dataset": {
+        "beigebook": {
+          "auroc": 0.6892961266139108,
+          "eligible_pairs": 49,
+          "human_fpr": 0.12244897959183673,
+          "paired_win_fraction": 0.8775510204081632,
+          "source_groups": 6,
+          "tpr": 0.24489795918367346
+        },
+        "gutenberg_selected": {
+          "auroc": 0.5520615243342516,
+          "eligible_pairs": 330,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.5984848484848485,
+          "source_groups": 2,
+          "tpr": 0.0
+        },
+        "jmlr_pre2015": {
+          "auroc": 0.7320580956631101,
+          "eligible_pairs": 157,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.8980891719745223,
+          "source_groups": 82,
+          "tpr": 0.044585987261146494
+        },
+        "standardebooks": {
+          "auroc": 0.6551724137931034,
+          "eligible_pairs": 58,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.8103448275862069,
+          "source_groups": 1,
+          "tpr": 0.0
+        }
+      },
+      "calibration": {
+        "eligible": 3509,
+        "fpr": 0.009974351667141636,
+        "rank": 36,
+        "source_groups": 857,
+        "threshold": 0.8654545454545455
+      },
+      "overall": {
+        "auroc": 0.6077767007901688,
+        "eligible_pairs": 594,
+        "human_fpr": 0.010101010101010102,
+        "paired_win_fraction": 0.7213804713804713,
+        "source_groups": 91,
+        "tpr": 0.03198653198653199
+      },
+      "total_pairs": 594
+    }
+  },
+  "input_sha256": {
+    "test": "7609b3a6a008ffac940211398ba5121dbb076d2bde82fd95f1b49229f3d2a499",
+    "train": "8efff46288399bbcf260c5c83af22002355f37bce0982fafc2bece7c6140e8cb",
+    "validation": "0b73e2364f6572ed9b5c4a541b1dcef54dc027cc7f1e6f06a4f68205557ed317"
+  },
+  "richness_document_feasibility_pass": false,
+  "richness_span_feasibility_pass": false,
+  "span": {
+    "entropy": {
+      "by_requested_model": {
+        "claude-haiku-4-5-20251001": {
+          "auroc": 0.7287960001801721,
+          "eligible_pairs": 149,
+          "human_fpr": 0.006711409395973154,
+          "paired_win_fraction": 0.7348993288590604,
+          "source_groups": 41,
+          "tpr": 0.10067114093959731
+        },
+        "claude-opus-5-5": {
+          "auroc": 0.5988623618009934,
+          "eligible_pairs": 79,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.6455696202531646,
+          "source_groups": 16,
+          "tpr": 0.0379746835443038
+        },
+        "claude-sonnet-5-5": {
+          "auroc": 0.5062628447809627,
+          "eligible_pairs": 215,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.5511627906976744,
+          "source_groups": 45,
+          "tpr": 0.009302325581395349
+        },
+        "gpt-6-luna": {
+          "auroc": 0.7717609882217753,
+          "eligible_pairs": 59,
+          "human_fpr": 0.01694915254237288,
+          "paired_win_fraction": 0.7966101694915254,
+          "source_groups": 35,
+          "tpr": 0.03389830508474576
+        },
+        "gpt-6.1-sol": {
+          "auroc": 0.6899524375743162,
+          "eligible_pairs": 58,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.7241379310344828,
+          "source_groups": 36,
+          "tpr": 0.06896551724137931
+        },
+        "opus-3": {
+          "auroc": null,
+          "eligible_pairs": 6,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.5,
+          "source_groups": 3,
+          "tpr": 0.0
+        }
+      },
+      "by_source_dataset": {
+        "beigebook": {
+          "auroc": 0.8338969823100937,
+          "eligible_pairs": 62,
+          "human_fpr": 0.016129032258064516,
+          "paired_win_fraction": 0.8709677419354839,
+          "source_groups": 6,
+          "tpr": 0.3064516129032258
+        },
+        "gutenberg_selected": {
+          "auroc": 0.5143026365171702,
+          "eligible_pairs": 292,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.535958904109589,
+          "source_groups": 2,
+          "tpr": 0.003424657534246575
+        },
+        "jmlr_pre2015": {
+          "auroc": 0.759697567389875,
+          "eligible_pairs": 156,
+          "human_fpr": 0.00641025641025641,
+          "paired_win_fraction": 0.8108974358974359,
+          "source_groups": 82,
+          "tpr": 0.038461538461538464
+        },
+        "standardebooks": {
+          "auroc": 0.6375956632653061,
+          "eligible_pairs": 56,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.6071428571428571,
+          "source_groups": 1,
+          "tpr": 0.0
+        }
+      },
+      "calibration": {
+        "eligible": 2992,
+        "fpr": 0.009358288770053475,
+        "rank": 30,
+        "source_groups": 848,
+        "threshold": 0.9636715436301823
+      },
+      "overall": {
+        "auroc": 0.6204722246500768,
+        "eligible_pairs": 566,
+        "human_fpr": 0.0035335689045936395,
+        "paired_win_fraction": 0.6554770318021201,
+        "source_groups": 91,
+        "tpr": 0.045936395759717315
+      },
+      "total_pairs": 713
+    },
+    "richness": {
+      "by_requested_model": {
+        "claude-haiku-4-5-20251001": {
+          "auroc": 0.7624656547002387,
+          "eligible_pairs": 149,
+          "human_fpr": 0.013422818791946308,
+          "paired_win_fraction": 0.8120805369127517,
+          "source_groups": 41,
+          "tpr": 0.11409395973154363
+        },
+        "claude-opus-5-5": {
+          "auroc": 0.634593815093735,
+          "eligible_pairs": 79,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.6582278481012658,
+          "source_groups": 16,
+          "tpr": 0.05063291139240506
+        },
+        "claude-sonnet-5-5": {
+          "auroc": 0.5341698215251487,
+          "eligible_pairs": 215,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.5813953488372093,
+          "source_groups": 45,
+          "tpr": 0.013953488372093023
+        },
+        "gpt-6-luna": {
+          "auroc": 0.8092502154553289,
+          "eligible_pairs": 59,
+          "human_fpr": 0.01694915254237288,
+          "paired_win_fraction": 0.8305084745762712,
+          "source_groups": 35,
+          "tpr": 0.06779661016949153
+        },
+        "gpt-6.1-sol": {
+          "auroc": 0.7272592152199763,
+          "eligible_pairs": 58,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.7931034482758621,
+          "source_groups": 36,
+          "tpr": 0.06896551724137931
+        },
+        "opus-3": {
+          "auroc": null,
+          "eligible_pairs": 6,
+          "human_fpr": 0.16666666666666666,
+          "paired_win_fraction": 0.5,
+          "source_groups": 3,
+          "tpr": 0.0
+        }
+      },
+      "by_source_dataset": {
+        "beigebook": {
+          "auroc": 0.8519771071800208,
+          "eligible_pairs": 62,
+          "human_fpr": 0.03225806451612903,
+          "paired_win_fraction": 0.8870967741935484,
+          "source_groups": 6,
+          "tpr": 0.3709677419354839
+        },
+        "gutenberg_selected": {
+          "auroc": 0.5432656220679302,
+          "eligible_pairs": 292,
+          "human_fpr": 0.003424657534246575,
+          "paired_win_fraction": 0.5873287671232876,
+          "source_groups": 2,
+          "tpr": 0.003424657534246575
+        },
+        "jmlr_pre2015": {
+          "auroc": 0.7972756410256411,
+          "eligible_pairs": 156,
+          "human_fpr": 0.00641025641025641,
+          "paired_win_fraction": 0.8557692307692307,
+          "source_groups": 82,
+          "tpr": 0.05128205128205128
+        },
+        "standardebooks": {
+          "auroc": 0.6721938775510204,
+          "eligible_pairs": 56,
+          "human_fpr": 0.0,
+          "paired_win_fraction": 0.6428571428571429,
+          "source_groups": 1,
+          "tpr": 0.0
+        }
+      },
+      "calibration": {
+        "eligible": 2992,
+        "fpr": 0.009358288770053475,
+        "rank": 30,
+        "source_groups": 848,
+        "threshold": 0.9
+      },
+      "overall": {
+        "auroc": 0.6522384472274595,
+        "eligible_pairs": 566,
+        "human_fpr": 0.007067137809187279,
+        "paired_win_fraction": 0.6996466431095406,
+        "source_groups": 91,
+        "tpr": 0.05653710247349823
+      },
+      "total_pairs": 713
+    }
+  },
+  "split_pairs": {
+    "test": 594,
+    "train": 3509,
+    "validation": 297
+  }
+}
