@@ -76,6 +76,13 @@ calibrated for 1% human false positives. Direct generation reversed the
 expected richness direction. This limits the earlier positive academic-paper
 contrast and does not qualify an origin detector or editorial #349 finding.
 
+The [Heterogeneous AI Spans transfer screen](runs/2026-11-08-heterogeneous-spans-transfer/README.md)
+tests unchanged lexical features on 4,400 source-matched mixed documents and
+human controls. Oracle-located replacement spans show richness AUROC 0.652,
+but only 5.65% TPR at a train-human 1% FPR threshold; complete mixed documents
+show AUROC 0.608. Both registered feasibility rules fail. Neither experiment
+locates an unknown AI span or supplies an editorial finding.
+
 | Run | What it covers | Record |
 | --- | --- | --- |
 | 2026-09-11 pilot | First fit on the pilot generation run of #154: 145 controlled paragraphs against the comment paragraphs of the nineteen task repositories, structural features, threshold frozen at 0.5 | [runs/2026-09-11-pilot](runs/2026-09-11-pilot/README.md) |
