@@ -10,6 +10,9 @@ compares origin and editorial methodologies. Its separately frozen richness
 screen measured exposed origin features, without qualifying an origin detector
 or an editorial rule. The [#434 external-control pass](audits/2026-11-07-external-controls/README.md)
 records current-engine behavior before selecting any new source-local operator.
+The [five-feature origin transfer screen](../origin/runs/2026-11-08-interpretable-ensemble/README.md)
+improved a source-disjoint ARB contrast but failed its fixed low-false-positive
+transfer to academic human controls; it changes no product rule.
 
 The pattern branch of the research has its own protocol in
 [`llm-patterns-v2.md`](llm-patterns-v2.md) and its evidence release beside it:
