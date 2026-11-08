@@ -1,0 +1,1201 @@
+{
+  "academic": {
+    "counts": {
+      "human_only/human": 400,
+      "test/ai": 143,
+      "test/human": 89,
+      "train/ai": 1125,
+      "train/human": 627,
+      "val/ai": 131,
+      "val/human": 83
+    },
+    "human": {
+      "human_only": {
+        "abstained": 0,
+        "eligible": 400,
+        "entropy": {
+          "flagged": 8,
+          "fraction": 0.02
+        },
+        "richness": {
+          "flagged": 5,
+          "fraction": 0.0125
+        },
+        "total": 400
+      },
+      "test": {
+        "abstained": 0,
+        "eligible": 89,
+        "entropy": {
+          "flagged": 2,
+          "fraction": 0.02247191011235955
+        },
+        "richness": {
+          "flagged": 1,
+          "fraction": 0.011235955056179775
+        },
+        "total": 89
+      },
+      "val": {
+        "abstained": 0,
+        "eligible": 83,
+        "entropy": {
+          "flagged": 1,
+          "fraction": 0.012048192771084338
+        },
+        "richness": {
+          "flagged": 0,
+          "fraction": 0.0
+        },
+        "total": 83
+      }
+    },
+    "rows": 2598,
+    "test_rewrites": {
+      "by_generator": {
+        "claude-4-8-opus-genai": {
+          "abstained": 0,
+          "eligible": 21,
+          "eligible_pairs": 21,
+          "entropy": {
+            "flagged": 1,
+            "fraction": 0.047619047619047616,
+            "paired_wins": 0.8571428571428571
+          },
+          "richness": {
+            "flagged": 1,
+            "fraction": 0.047619047619047616,
+            "paired_wins": 0.9047619047619048
+          },
+          "source_abstentions": 0,
+          "total": 21
+        },
+        "claude-5-1-fable-genai": {
+          "abstained": 0,
+          "eligible": 23,
+          "eligible_pairs": 23,
+          "entropy": {
+            "flagged": 3,
+            "fraction": 0.13043478260869565,
+            "paired_wins": 0.9130434782608695
+          },
+          "richness": {
+            "flagged": 3,
+            "fraction": 0.13043478260869565,
+            "paired_wins": 0.9565217391304348
+          },
+          "source_abstentions": 0,
+          "total": 23
+        },
+        "claude-5-5-opus-genai": {
+          "abstained": 0,
+          "eligible": 21,
+          "eligible_pairs": 21,
+          "entropy": {
+            "flagged": 3,
+            "fraction": 0.14285714285714285,
+            "paired_wins": 0.7857142857142857
+          },
+          "richness": {
+            "flagged": 2,
+            "fraction": 0.09523809523809523,
+            "paired_wins": 0.8095238095238095
+          },
+          "source_abstentions": 0,
+          "total": 21
+        },
+        "gemini-3-6-flash-genai": {
+          "abstained": 0,
+          "eligible": 18,
+          "eligible_pairs": 18,
+          "entropy": {
+            "flagged": 1,
+            "fraction": 0.05555555555555555,
+            "paired_wins": 1.0
+          },
+          "richness": {
+            "flagged": 1,
+            "fraction": 0.05555555555555555,
+            "paired_wins": 0.9444444444444444
+          },
+          "source_abstentions": 0,
+          "total": 18
+        },
+        "gemini-3-8-flash-genai": {
+          "abstained": 0,
+          "eligible": 19,
+          "eligible_pairs": 19,
+          "entropy": {
+            "flagged": 13,
+            "fraction": 0.6842105263157895,
+            "paired_wins": 0.9473684210526315
+          },
+          "richness": {
+            "flagged": 11,
+            "fraction": 0.5789473684210527,
+            "paired_wins": 1.0
+          },
+          "source_abstentions": 0,
+          "total": 19
+        },
+        "gpt-5-6-sol-genai-responses": {
+          "abstained": 0,
+          "eligible": 19,
+          "eligible_pairs": 19,
+          "entropy": {
+            "flagged": 2,
+            "fraction": 0.10526315789473684,
+            "paired_wins": 0.9473684210526315
+          },
+          "richness": {
+            "flagged": 1,
+            "fraction": 0.05263157894736842,
+            "paired_wins": 0.9473684210526315
+          },
+          "source_abstentions": 0,
+          "total": 19
+        },
+        "gpt-6-astra-genai": {
+          "abstained": 0,
+          "eligible": 22,
+          "eligible_pairs": 22,
+          "entropy": {
+            "flagged": 3,
+            "fraction": 0.13636363636363635,
+            "paired_wins": 0.9545454545454546
+          },
+          "richness": {
+            "flagged": 2,
+            "fraction": 0.09090909090909091,
+            "paired_wins": 1.0
+          },
+          "source_abstentions": 0,
+          "total": 22
+        }
+      },
+      "by_prompt": {
+        "arb": {
+          "abstained": 0,
+          "eligible": 26,
+          "eligible_pairs": 26,
+          "entropy": {
+            "flagged": 3,
+            "fraction": 0.11538461538461539,
+            "paired_wins": 0.9230769230769231
+          },
+          "richness": {
+            "flagged": 3,
+            "fraction": 0.11538461538461539,
+            "paired_wins": 0.9423076923076923
+          },
+          "source_abstentions": 0,
+          "total": 26
+        },
+        "imbd": {
+          "abstained": 0,
+          "eligible": 27,
+          "eligible_pairs": 27,
+          "entropy": {
+            "flagged": 5,
+            "fraction": 0.18518518518518517,
+            "paired_wins": 0.8148148148148148
+          },
+          "richness": {
+            "flagged": 4,
+            "fraction": 0.14814814814814814,
+            "paired_wins": 0.8888888888888888
+          },
+          "source_abstentions": 0,
+          "total": 27
+        },
+        "shield": {
+          "abstained": 0,
+          "eligible": 27,
+          "eligible_pairs": 27,
+          "entropy": {
+            "flagged": 5,
+            "fraction": 0.18518518518518517,
+            "paired_wins": 0.9074074074074074
+          },
+          "richness": {
+            "flagged": 3,
+            "fraction": 0.1111111111111111,
+            "paired_wins": 0.9444444444444444
+          },
+          "source_abstentions": 0,
+          "total": 27
+        },
+        "v2": {
+          "abstained": 0,
+          "eligible": 63,
+          "eligible_pairs": 63,
+          "entropy": {
+            "flagged": 13,
+            "fraction": 0.20634920634920634,
+            "paired_wins": 0.9523809523809523
+          },
+          "richness": {
+            "flagged": 11,
+            "fraction": 0.1746031746031746,
+            "paired_wins": 0.9523809523809523
+          },
+          "source_abstentions": 0,
+          "total": 63
+        }
+      },
+      "overall": {
+        "abstained": 0,
+        "eligible": 143,
+        "eligible_pairs": 143,
+        "entropy": {
+          "flagged": 26,
+          "fraction": 0.18181818181818182,
+          "paired_wins": 0.9125874125874126
+        },
+        "richness": {
+          "flagged": 21,
+          "fraction": 0.14685314685314685,
+          "paired_wins": 0.9370629370629371
+        },
+        "source_abstentions": 0,
+        "total": 143
+      }
+    }
+  },
+  "decision": {
+    "advance_screen": false,
+    "gates": {
+      "academic_human_only_flag_at_most_2_percent": true,
+      "each_family_flag_at_least_5_percent": false,
+      "positive_repository_means_at_least_15": true,
+      "technical_generate_flag_at_least_10_percent": false,
+      "technical_original_flags_at_most_one": true,
+      "technical_pair_coverage_at_least_80_percent": true
+    }
+  },
+  "format": "unswell-gen-technical-transfer-v1",
+  "freeze_sha256": "2746c17377458e9fa5f1376fc5cf3517a150165a2e04818e0bc25e799d556a4e",
+  "technical": {
+    "generate_eligible_repositories": 20,
+    "generate_positive_repository_means": 17,
+    "operations": {
+      "generate": {
+        "by_family": {
+          "haiku": {
+            "abstained": 0,
+            "eligible": 76,
+            "eligible_pairs": 76,
+            "entropy": {
+              "flagged": 5,
+              "fraction": 0.06578947368421052,
+              "paired_wins": 0.7368421052631579
+            },
+            "richness": {
+              "flagged": 2,
+              "fraction": 0.02631578947368421,
+              "paired_wins": 0.7236842105263158
+            },
+            "source_abstentions": 0,
+            "total": 76
+          },
+          "luna": {
+            "abstained": 0,
+            "eligible": 76,
+            "eligible_pairs": 76,
+            "entropy": {
+              "flagged": 1,
+              "fraction": 0.013157894736842105,
+              "paired_wins": 0.4868421052631579
+            },
+            "richness": {
+              "flagged": 1,
+              "fraction": 0.013157894736842105,
+              "paired_wins": 0.5526315789473685
+            },
+            "source_abstentions": 0,
+            "total": 76
+          },
+          "qwen": {
+            "abstained": 0,
+            "eligible": 76,
+            "eligible_pairs": 76,
+            "entropy": {
+              "flagged": 5,
+              "fraction": 0.06578947368421052,
+              "paired_wins": 0.8289473684210527
+            },
+            "richness": {
+              "flagged": 3,
+              "fraction": 0.039473684210526314,
+              "paired_wins": 0.8486842105263158
+            },
+            "source_abstentions": 0,
+            "total": 76
+          }
+        },
+        "by_prompt": {
+          "neutral": {
+            "abstained": 0,
+            "eligible": 114,
+            "eligible_pairs": 114,
+            "entropy": {
+              "flagged": 5,
+              "fraction": 0.043859649122807015,
+              "paired_wins": 0.6842105263157895
+            },
+            "richness": {
+              "flagged": 4,
+              "fraction": 0.03508771929824561,
+              "paired_wins": 0.6929824561403509
+            },
+            "source_abstentions": 0,
+            "total": 114
+          },
+          "plain": {
+            "abstained": 0,
+            "eligible": 114,
+            "eligible_pairs": 114,
+            "entropy": {
+              "flagged": 6,
+              "fraction": 0.05263157894736842,
+              "paired_wins": 0.6842105263157895
+            },
+            "richness": {
+              "flagged": 2,
+              "fraction": 0.017543859649122806,
+              "paired_wins": 0.7236842105263158
+            },
+            "source_abstentions": 0,
+            "total": 114
+          }
+        },
+        "by_repository": {
+          "BurntSushi/ripgrep": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5833333333333334
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5833333333333334
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "caddyserver/caddy": {
+            "abstained": 0,
+            "eligible": 6,
+            "eligible_pairs": 6,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 1.0
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 1.0
+            },
+            "source_abstentions": 0,
+            "total": 6
+          },
+          "containerd/containerd": {
+            "abstained": 0,
+            "eligible": 18,
+            "eligible_pairs": 18,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.4444444444444444
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.4444444444444444
+            },
+            "source_abstentions": 0,
+            "total": 18
+          },
+          "curl/curl": {
+            "abstained": 0,
+            "eligible": 18,
+            "eligible_pairs": 18,
+            "entropy": {
+              "flagged": 2,
+              "fraction": 0.1111111111111111,
+              "paired_wins": 0.7222222222222222
+            },
+            "richness": {
+              "flagged": 2,
+              "fraction": 0.1111111111111111,
+              "paired_wins": 0.7777777777777778
+            },
+            "source_abstentions": 0,
+            "total": 18
+          },
+          "diesel-rs/diesel": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.4166666666666667
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.4166666666666667
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "etcd-io/etcd": {
+            "abstained": 0,
+            "eligible": 6,
+            "eligible_pairs": 6,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.6666666666666666
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.6666666666666666
+            },
+            "source_abstentions": 0,
+            "total": 6
+          },
+          "highlightjs/highlight.js": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 1,
+              "fraction": 0.08333333333333333,
+              "paired_wins": 0.5833333333333334
+            },
+            "richness": {
+              "flagged": 1,
+              "fraction": 0.08333333333333333,
+              "paired_wins": 0.5833333333333334
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "junegunn/fzf": {
+            "abstained": 0,
+            "eligible": 18,
+            "eligible_pairs": 18,
+            "entropy": {
+              "flagged": 1,
+              "fraction": 0.05555555555555555,
+              "paired_wins": 0.8333333333333334
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.8333333333333334
+            },
+            "source_abstentions": 0,
+            "total": 18
+          },
+          "libevent/libevent": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.6666666666666666
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.75
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "markedjs/marked": {
+            "abstained": 0,
+            "eligible": 6,
+            "eligible_pairs": 6,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 1.0
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 1.0
+            },
+            "source_abstentions": 0,
+            "total": 6
+          },
+          "mermaid-js/mermaid": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 2,
+              "fraction": 0.16666666666666666,
+              "paired_wins": 0.8333333333333334
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.7916666666666666
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "moby/buildkit": {
+            "abstained": 0,
+            "eligible": 6,
+            "eligible_pairs": 6,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.8333333333333334
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 1.0
+            },
+            "source_abstentions": 0,
+            "total": 6
+          },
+          "moment/moment": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.6666666666666666
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.75
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "nats-io/nats-server": {
+            "abstained": 0,
+            "eligible": 6,
+            "eligible_pairs": 6,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5
+            },
+            "source_abstentions": 0,
+            "total": 6
+          },
+          "ocornut/imgui": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 2,
+              "fraction": 0.16666666666666666,
+              "paired_wins": 0.5833333333333334
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5833333333333334
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "prometheus/prometheus": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 2,
+              "fraction": 0.16666666666666666,
+              "paired_wins": 0.8333333333333334
+            },
+            "richness": {
+              "flagged": 2,
+              "fraction": 0.16666666666666666,
+              "paired_wins": 0.875
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "pydantic/pydantic": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5833333333333334
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.625
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "sharkdp/bat": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.8333333333333334
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.8333333333333334
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "sveltejs/svelte": {
+            "abstained": 0,
+            "eligible": 6,
+            "eligible_pairs": 6,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 1.0
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 1.0
+            },
+            "source_abstentions": 0,
+            "total": 6
+          },
+          "tokio-rs/tokio": {
+            "abstained": 0,
+            "eligible": 18,
+            "eligible_pairs": 18,
+            "entropy": {
+              "flagged": 1,
+              "fraction": 0.05555555555555555,
+              "paired_wins": 0.6111111111111112
+            },
+            "richness": {
+              "flagged": 1,
+              "fraction": 0.05555555555555555,
+              "paired_wins": 0.6666666666666666
+            },
+            "source_abstentions": 0,
+            "total": 18
+          }
+        },
+        "overall": {
+          "abstained": 0,
+          "eligible": 228,
+          "eligible_pairs": 228,
+          "entropy": {
+            "flagged": 11,
+            "fraction": 0.04824561403508772,
+            "paired_wins": 0.6842105263157895
+          },
+          "richness": {
+            "flagged": 6,
+            "fraction": 0.02631578947368421,
+            "paired_wins": 0.7083333333333334
+          },
+          "source_abstentions": 0,
+          "total": 228
+        }
+      },
+      "polish": {
+        "by_family": {
+          "haiku": {
+            "abstained": 0,
+            "eligible": 76,
+            "eligible_pairs": 76,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.506578947368421
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5
+            },
+            "source_abstentions": 0,
+            "total": 76
+          },
+          "luna": {
+            "abstained": 0,
+            "eligible": 76,
+            "eligible_pairs": 76,
+            "entropy": {
+              "flagged": 1,
+              "fraction": 0.013157894736842105,
+              "paired_wins": 0.4342105263157895
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.45394736842105265
+            },
+            "source_abstentions": 0,
+            "total": 76
+          },
+          "qwen": {
+            "abstained": 0,
+            "eligible": 76,
+            "eligible_pairs": 76,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5460526315789473
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5657894736842105
+            },
+            "source_abstentions": 0,
+            "total": 76
+          }
+        },
+        "by_prompt": {
+          "neutral": {
+            "abstained": 0,
+            "eligible": 114,
+            "eligible_pairs": 114,
+            "entropy": {
+              "flagged": 1,
+              "fraction": 0.008771929824561403,
+              "paired_wins": 0.49122807017543857
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.4868421052631579
+            },
+            "source_abstentions": 0,
+            "total": 114
+          },
+          "plain": {
+            "abstained": 0,
+            "eligible": 114,
+            "eligible_pairs": 114,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5263157894736842
+            },
+            "source_abstentions": 0,
+            "total": 114
+          }
+        },
+        "by_repository": {
+          "BurntSushi/ripgrep": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.4583333333333333
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "caddyserver/caddy": {
+            "abstained": 0,
+            "eligible": 6,
+            "eligible_pairs": 6,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5833333333333334
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.6666666666666666
+            },
+            "source_abstentions": 0,
+            "total": 6
+          },
+          "containerd/containerd": {
+            "abstained": 0,
+            "eligible": 18,
+            "eligible_pairs": 18,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.75
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.75
+            },
+            "source_abstentions": 0,
+            "total": 18
+          },
+          "curl/curl": {
+            "abstained": 0,
+            "eligible": 18,
+            "eligible_pairs": 18,
+            "entropy": {
+              "flagged": 1,
+              "fraction": 0.05555555555555555,
+              "paired_wins": 0.7777777777777778
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.7777777777777778
+            },
+            "source_abstentions": 0,
+            "total": 18
+          },
+          "diesel-rs/diesel": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.375
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.375
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "etcd-io/etcd": {
+            "abstained": 0,
+            "eligible": 6,
+            "eligible_pairs": 6,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.8333333333333334
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 1.0
+            },
+            "source_abstentions": 0,
+            "total": 6
+          },
+          "highlightjs/highlight.js": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.2916666666666667
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.25
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "junegunn/fzf": {
+            "abstained": 0,
+            "eligible": 18,
+            "eligible_pairs": 18,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.4722222222222222
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.4444444444444444
+            },
+            "source_abstentions": 0,
+            "total": 18
+          },
+          "libevent/libevent": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.625
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5416666666666666
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "markedjs/marked": {
+            "abstained": 0,
+            "eligible": 6,
+            "eligible_pairs": 6,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.9166666666666666
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.8333333333333334
+            },
+            "source_abstentions": 0,
+            "total": 6
+          },
+          "mermaid-js/mermaid": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "moby/buildkit": {
+            "abstained": 0,
+            "eligible": 6,
+            "eligible_pairs": 6,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.16666666666666666
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.16666666666666666
+            },
+            "source_abstentions": 0,
+            "total": 6
+          },
+          "moment/moment": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5416666666666666
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5416666666666666
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "nats-io/nats-server": {
+            "abstained": 0,
+            "eligible": 6,
+            "eligible_pairs": 6,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.8333333333333334
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.8333333333333334
+            },
+            "source_abstentions": 0,
+            "total": 6
+          },
+          "ocornut/imgui": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.25
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.25
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "prometheus/prometheus": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.375
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.4583333333333333
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "pydantic/pydantic": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.3333333333333333
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "sharkdp/bat": {
+            "abstained": 0,
+            "eligible": 12,
+            "eligible_pairs": 12,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.16666666666666666
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.16666666666666666
+            },
+            "source_abstentions": 0,
+            "total": 12
+          },
+          "sveltejs/svelte": {
+            "abstained": 0,
+            "eligible": 6,
+            "eligible_pairs": 6,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.5
+            },
+            "source_abstentions": 0,
+            "total": 6
+          },
+          "tokio-rs/tokio": {
+            "abstained": 0,
+            "eligible": 18,
+            "eligible_pairs": 18,
+            "entropy": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.3888888888888889
+            },
+            "richness": {
+              "flagged": 0,
+              "fraction": 0.0,
+              "paired_wins": 0.3888888888888889
+            },
+            "source_abstentions": 0,
+            "total": 18
+          }
+        },
+        "overall": {
+          "abstained": 0,
+          "eligible": 228,
+          "eligible_pairs": 228,
+          "entropy": {
+            "flagged": 1,
+            "fraction": 0.0043859649122807015,
+            "paired_wins": 0.4956140350877193
+          },
+          "richness": {
+            "flagged": 0,
+            "fraction": 0.0,
+            "paired_wins": 0.506578947368421
+          },
+          "source_abstentions": 0,
+          "total": 228
+        }
+      }
+    },
+    "sources": {
+      "abstained": 0,
+      "eligible": 38,
+      "entropy": {
+        "flagged": 0,
+        "fraction": 0.0
+      },
+      "richness": {
+        "flagged": 0,
+        "fraction": 0.0
+      },
+      "total": 38
+    }
+  },
+  "thresholds": {
+    "entropy": 0.9613090926950416,
+    "richness": 0.9000000000000001
+  }
+}
