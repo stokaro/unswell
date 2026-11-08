@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "page_id": {"type": "string"},
+    "source_sha256": {"type": "string"},
+    "inventory_sha256": {"type": "string"},
+    "verdicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ordinal": {"type": "integer"},
+          "decision": {"type": "string"},
+          "start": {"type": "integer"},
+          "end": {"type": "integer"},
+          "quote": {"type": "string"},
+          "diagnosis": {"type": "string"},
+          "evidence": {"type": "string"},
+          "source_function": {"type": "string"},
+          "deletion_test": {"type": "string"},
+          "reason": {"type": "string"}
+        },
+        "required": ["ordinal", "decision", "start", "end", "quote", "diagnosis", "evidence", "source_function", "deletion_test", "reason"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["page_id", "source_sha256", "inventory_sha256", "verdicts"],
+  "additionalProperties": false
+}

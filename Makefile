@@ -4,9 +4,16 @@ SHELL := /bin/bash
 .PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost
 .PHONY: check-contextual-admission check-external-controls check-current-baseline check-current-editorial-review
 .PHONY: check-source-review-contract check-source-bound-disposition-pilot check-paired-source-necessity check-complementary-semantic-pilot
+.PHONY: check-unit-relation-pilot
 .PHONY: check-ape-screen check-dual-gate-triage check-dual-gate-feasibility check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-ape-screen check-dual-gate-triage check-dual-gate-feasibility check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-gen-technical-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot check-source-bound-disposition-pilot check-paired-source-necessity check-complementary-semantic-pilot
+check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-ape-screen check-dual-gate-triage check-dual-gate-feasibility check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-gen-technical-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot check-source-bound-disposition-pilot check-paired-source-necessity check-complementary-semantic-pilot check-unit-relation-pilot
+
+check-unit-relation-pilot:
+	python3 -B research/reviews/2026-11-08-unit-relation-pilot/verify_terminal.py --check
+	python3 -B -m unittest discover -s research/reviews/2026-11-08-unit-relation-pilot -p 'test_*.py'
+	python3 -B research/reviews/2026-11-08-unit-relation-pilot-v2/verify_terminal.py --check
+	python3 -B -m unittest discover -s research/reviews/2026-11-08-unit-relation-pilot-v2 -p 'test_*.py'
 
 check-complementary-semantic-pilot:
 	python3 -B research/reviews/2026-11-08-complementary-semantic-pilot/verify_result.py

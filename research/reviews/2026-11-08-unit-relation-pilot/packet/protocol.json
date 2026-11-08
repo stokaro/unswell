@@ -1,0 +1,40 @@
+{
+  "format": "unswell-349-unit-relation-pilot-v1",
+  "purpose": "Test whether per-unit proposition/support relations and mandatory candidate verdicts recover semantic omissions without page-level top-N loss",
+  "role": "selected, exposed development screen; not prospective confirmation or product qualification",
+  "model": "gpt-6-astra",
+  "effort": "medium",
+  "route": "Codex subscription CLI",
+  "pages": [
+    "fastfetch-cli/fastfetch/README.md",
+    "jdx/mise/README.md",
+    "FiloSottile/mkcert/README.md",
+    "zellij-org/zellij/README.md"
+  ],
+  "frozen_events": 5,
+  "inventory_chunks": {
+    "fastfetch": [[0, 88], [88, 176]],
+    "mise": [[0, 100]],
+    "mkcert": [[0, 67]],
+    "zellij": [[0, 45]]
+  },
+  "candidate_relations": ["narrower", "contradicted", "unestablished"],
+  "max_candidates_per_page": 64,
+  "calls_max": 9,
+  "attempts_per_request": 1,
+  "automatic_retries": false,
+  "per_call_timeout_seconds": 600,
+  "total_timeout_seconds": 10800,
+  "stop_on_first_error": true,
+  "tools_allowed": false,
+  "response_policy": "Reject missing, extra, reordered, unbound, protected, or malformed records; do not repair or retry a failed request",
+  "advance": {
+    "minimum_full_events": 4,
+    "minimum_accepted_delivery_fraction": 0.85,
+    "required_valid_pages": 4,
+    "maximum_protected_counterexamples_flagged": 0,
+    "supplied_edits": 0
+  },
+  "report": ["full_event_recall", "accepted_findings_fraction", "abstention_and_invalid_page_coverage", "suggestion_safety"],
+  "next_if_advance": "A separate repository-disjoint pilot, then complete unchanged 123-event development accounting and untouched prospective confirmation"
+}

@@ -1,0 +1,1238 @@
+{
+  "page_id": "fastfetch-cli/fastfetch/README.md",
+  "source_sha256": "4738b9274d674af7624a94a57687fd1dacd08cbe43e5c487a805ab9d760196ce",
+  "units": [
+    {
+      "function": "Title",
+      "ordinal": 0,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 1 names the project."
+    },
+    {
+      "function": "Product description",
+      "ordinal": 1,
+      "proposition": "Fastfetch fetches and visually presents system information in a neofetch-like manner.",
+      "relation": "aligned",
+      "support": "Lines 98–100 describe system-information output; lines 156–169 demonstrate GPU output customization. Lines 21–27 reference example screenshots. Visual appeal is a subjective description."
+    },
+    {
+      "function": "Implementation and design description",
+      "ordinal": 2,
+      "proposition": "Fastfetch is written mainly in C and prioritizes performance and customizability.",
+      "relation": "aligned",
+      "support": "Line 7 links the language badge to CMakeLists.txt#L5; line 3 links a benchmark. Lines 107–109 and 156–175 describe configuration and formatting. A design focus does not guarantee comparative performance."
+    },
+    {
+      "function": "Platform support statement",
+      "ordinal": 3,
+      "proposition": "Fastfetch supports Linux, macOS, Windows 8.1+, Android, FreeBSD, OpenBSD, NetBSD, DragonFly, Haiku, and SunOS (illumos, Solaris).",
+      "relation": "aligned",
+      "support": "Lines 43–86 provide installation routes for many listed systems. Line 19 explicitly limits active testing to x86-64 and aarch64 and gives no guarantee for other architectures. This qualifies, rather than contradicts, OS support."
+    },
+    {
+      "function": "Example resource direction",
+      "ordinal": 4,
+      "proposition": "Configuration files corresponding to the examples are available at the linked location.",
+      "relation": "aligned",
+      "support": "Line 29 links https://github.com/fastfetch-cli/fastfetch/tree/dev/presets/examples; line 107 also identifies presets used for the screenshots."
+    },
+    {
+      "function": "Screenshot resource description",
+      "ordinal": 5,
+      "proposition": "The linked wiki contains screenshots from different platforms.",
+      "relation": "aligned",
+      "support": "Line 31 directs readers to https://github.com/fastfetch-cli/fastfetch/wiki. The page also references several screenshots at lines 21–27; their platform contents are not visible in the supplied text."
+    },
+    {
+      "function": "Section heading",
+      "ordinal": 6,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 33 introduces installation instructions."
+    },
+    {
+      "function": "Platform heading",
+      "ordinal": 7,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 35 introduces Linux installation routes."
+    },
+    {
+      "function": "Packaging caveat",
+      "ordinal": 8,
+      "proposition": "Some distributions package outdated Fastfetch versions.",
+      "relation": "aligned",
+      "support": "Lines 39–41 link packaging status at Repology; line 61 explicitly offers an alternative when distribution packages are outdated. No specific outdated distribution is identified."
+    },
+    {
+      "function": "Support policy and recommendation",
+      "ordinal": 9,
+      "proposition": "Older versions receive no support; users should try to use the latest version.",
+      "relation": "aligned",
+      "support": "Line 37 states the support policy. Lines 43, 45, and 61 offer a latest-version PPA, latest-release downloads, and an alternative package source."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 10,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 43 labels the Ubuntu PPA entry."
+    },
+    {
+      "function": "Installation qualification",
+      "ordinal": 11,
+      "proposition": "The listed Ubuntu PPA supplies the latest version for Ubuntu 22.04 or newer.",
+      "relation": "aligned",
+      "support": "Line 43 attaches these conditions specifically to `ppa:zhangsongcui3371/fastfetch` and links its Launchpad archive. The different minimums in lines 44–45 apply to other installation routes."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 12,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 44 labels the Debian / Ubuntu package-command entry."
+    },
+    {
+      "function": "Installation qualification",
+      "ordinal": 13,
+      "proposition": "The listed `apt install fastfetch` route applies to Debian 13 or newer and Ubuntu 25.04 or newer.",
+      "relation": "aligned",
+      "support": "Line 44 explicitly scopes that command. Line 45 gives lower minimums for downloaded .deb files, a separate installation route."
+    },
+    {
+      "function": "Installation instruction fragment",
+      "ordinal": 14,
+      "proposition": "Debian / Ubuntu users can download the architecture-appropriate Fastfetch .deb package.",
+      "relation": "aligned",
+      "support": "Line 45 completes the instruction with `fastfetch-linux-<proper architecture>.deb`, the latest-release link, and Ubuntu 20.04+ / Debian 11+ conditions."
+    },
+    {
+      "function": "Installation instruction and qualification",
+      "ordinal": 15,
+      "proposition": "Download the .deb from the GitHub release page and double-click it on Ubuntu 20.04 or newer or Debian 11 or newer.",
+      "relation": "aligned",
+      "support": "Line 45 specifies `fastfetch-linux-<proper architecture>.deb` and https://github.com/fastfetch-cli/fastfetch/releases/latest. These minimums apply to the download route, not the repository command in line 44."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 16,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 46 labels the Arch Linux command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 17,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 47 labels the Fedora command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 18,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 48 labels the Gentoo command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 19,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 49 labels the Alpine command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 20,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 50 labels the NixOS command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 21,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 51 labels the openSUSE command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 22,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 52 labels the ALT Linux command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 23,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 53 labels the Exherbo command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 24,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 54 labels the Solus command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 25,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 55 labels the Slackware command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 26,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 56 labels the Void Linux command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 27,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 57 labels the Venom Linux command."
+    },
+    {
+      "function": "Permission caveat fragment",
+      "ordinal": 28,
+      "proposition": "Running the listed installation commands may require `sudo`, `doas`, or `sup`.",
+      "relation": "aligned",
+      "support": "Line 59 supplies the command names and limits the statement with 'may'; it follows the Linux package-command list."
+    },
+    {
+      "function": "Conjunction",
+      "ordinal": 29,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 59 connects protected command names; this fragment supplies no independent proposition."
+    },
+    {
+      "function": "Purpose clause",
+      "ordinal": 30,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 59 completes the preceding permission caveat by identifying the commands as its purpose."
+    },
+    {
+      "function": "Conditional installation recommendation",
+      "ordinal": 31,
+      "proposition": "Linuxbrew is a suitable alternative when a distribution lacks Fastfetch or packages an outdated version.",
+      "relation": "aligned",
+      "support": "Line 61 links https://brew.sh/ and supplies `brew install fastfetch`. This is a conditional recommendation, not a guarantee about every distribution or package version."
+    },
+    {
+      "function": "Platform heading",
+      "ordinal": 32,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 63 introduces macOS installation options."
+    },
+    {
+      "function": "Package-source label",
+      "ordinal": 33,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 65 labels and links the Homebrew option."
+    },
+    {
+      "function": "Package-source label",
+      "ordinal": 34,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 66 labels and links the MacPorts option."
+    },
+    {
+      "function": "Platform heading",
+      "ordinal": 35,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 68 introduces Windows installation options."
+    },
+    {
+      "function": "Package-source label",
+      "ordinal": 36,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 70 labels and links the scoop option."
+    },
+    {
+      "function": "Package-source label",
+      "ordinal": 37,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 71 labels and links the Chocolatey option."
+    },
+    {
+      "function": "Package-source label",
+      "ordinal": 38,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 72 labels and links the winget option."
+    },
+    {
+      "function": "Package-source label",
+      "ordinal": 39,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 73 labels and links the MSYS2 MinGW option."
+    },
+    {
+      "function": "Alternative installation instruction",
+      "ordinal": 40,
+      "proposition": "Windows users can download the program as an archive from the GitHub releases page.",
+      "relation": "aligned",
+      "support": "Line 75 supplies https://github.com/fastfetch-cli/fastfetch/releases/latest as an alternative to the Windows package managers in lines 70–73."
+    },
+    {
+      "function": "Platform heading",
+      "ordinal": 41,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 77 introduces BSD installation commands."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 42,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 79 labels the FreeBSD command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 43,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 80 labels the NetBSD command."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 44,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 81 labels the OpenBSD command."
+    },
+    {
+      "function": "Installation qualification",
+      "ordinal": 45,
+      "proposition": "The listed OpenBSD package installation is available for snapshots only.",
+      "relation": "aligned",
+      "support": "Line 81 attaches '(Snapshots only)' to `pkg_add fastfetch`; it does not restrict every possible OpenBSD build route."
+    },
+    {
+      "function": "Platform label",
+      "ordinal": 46,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 82 labels the DragonFly BSD command."
+    },
+    {
+      "function": "Installation qualification",
+      "ordinal": 47,
+      "proposition": "The listed DragonFly BSD package installation is available for snapshots only.",
+      "relation": "aligned",
+      "support": "Line 82 attaches '(Snapshots only)' to `pkg install fastfetch`; the separate build-from-source section appears at lines 92–94."
+    },
+    {
+      "function": "Platform heading",
+      "ordinal": 48,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 84 introduces Android installation specifically through Termux."
+    },
+    {
+      "function": "Download heading",
+      "ordinal": 49,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 88 introduces the nightly download link."
+    },
+    {
+      "function": "Section heading",
+      "ordinal": 50,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 92 introduces build-from-source guidance."
+    },
+    {
+      "function": "Documentation direction",
+      "ordinal": 51,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 94 directs readers to https://github.com/fastfetch-cli/fastfetch/wiki/Building."
+    },
+    {
+      "function": "Section heading",
+      "ordinal": 52,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 96 introduces usage commands."
+    },
+    {
+      "function": "Usage instruction",
+      "ordinal": 53,
+      "proposition": "Running `fastfetch` uses the default configuration.",
+      "relation": "aligned",
+      "support": "Line 98 gives the bare command; line 136 clarifies that Fastfetch does not automatically generate a configuration file."
+    },
+    {
+      "function": "Module discovery instruction",
+      "ordinal": 54,
+      "proposition": "`fastfetch -c all.jsonc` runs all supported modules for discovery.",
+      "relation": "aligned",
+      "support": "Line 99 links the available-modules documentation and supplies that preset command. Line 121 repeats module discovery using `fastfetch -c all`. This is a named operational mode, not a comparison with another tool."
+    },
+    {
+      "function": "Data inspection instruction",
+      "ordinal": 55,
+      "proposition": "The supplied JSON command lets users view all data Fastfetch detects.",
+      "relation": "narrower",
+      "support": "Line 100 uses `fastfetch -s <module1>[:<module2>][:<module3>] --format json`, explicitly selecting modules. Line 181 illustrates JSON output for `-s os`. These support data from selected modules, not an unrestricted dump of every module."
+    },
+    {
+      "function": "Help instruction",
+      "ordinal": 56,
+      "proposition": "`fastfetch --help` displays help messages.",
+      "relation": "aligned",
+      "support": "Line 101 supplies the command; line 171 also describes basic and module-specific help commands."
+    },
+    {
+      "function": "Configuration generation instruction",
+      "ordinal": 57,
+      "proposition": "The supplied `--gen-config` command generates a minimal configuration file.",
+      "relation": "aligned",
+      "support": "Line 102 supplies `fastfetch [-s <module1>[:<module2>]] --gen-config [</path/to/config.jsonc>]`. Line 136 confirms explicit generation and the default destination `~/.config/fastfetch/config.jsonc`."
+    },
+    {
+      "function": "Configuration generator recommendation",
+      "ordinal": 58,
+      "proposition": "The online generator produces a full configuration file with all optional options.",
+      "relation": "unestablished",
+      "support": "Line 103 links https://fastfetch-cli.github.io/fastfetch-config/. Lines 107 and 152 describe configuration and its schema, but the page gives no coverage account establishing that the generator includes every optional option."
+    },
+    {
+      "function": "Section heading",
+      "ordinal": 59,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 105 introduces customization."
+    },
+    {
+      "function": "Configuration format and resource description",
+      "ordinal": 60,
+      "proposition": "Fastfetch uses JSONC, and premade configuration files are available in `presets`.",
+      "relation": "aligned",
+      "support": "Line 140 repeats JSON with comments; lines 158–167 show a commented configuration. Line 142 links the presets directory, and line 29 links example presets."
+    },
+    {
+      "function": "Preset description and loading instruction",
+      "ordinal": 61,
+      "proposition": "The presets include the screenshot configurations and can be loaded using `-c <filename>`.",
+      "relation": "aligned",
+      "support": "Line 29 links the example configurations; line 107 names the presets directory and loading syntax. Line 99 demonstrates `fastfetch -c all.jsonc`."
+    },
+    {
+      "function": "Learning-resource recommendation",
+      "ordinal": 62,
+      "proposition": "The premade configuration files can serve as configuration syntax examples.",
+      "relation": "aligned",
+      "support": "Lines 107 and 142 identify the presets as configuration resources; lines 158–167 and 224–233 also provide concrete configuration examples."
+    },
+    {
+      "function": "Customization capability description",
+      "ordinal": 63,
+      "proposition": "Logos allow substantial customization.",
+      "relation": "aligned",
+      "support": "Lines 175–181 describe custom art and FIGlet output; lines 218–233 show color customization; lines 251–274 show image protocols, sources, width, and height. Line 109 links logo documentation."
+    },
+    {
+      "function": "Warning heading",
+      "ordinal": 64,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 111 introduces the configuration security warning."
+    },
+    {
+      "function": "Capability introduction fragment",
+      "ordinal": 65,
+      "proposition": "Fastfetch supports a `Command` module.",
+      "relation": "aligned",
+      "support": "Line 113 completes the module name and capability; lines 279–291 describe it and show a `\"type\": \"command\"` configuration."
+    },
+    {
+      "function": "Capability warning and precaution",
+      "ordinal": 66,
+      "proposition": "The `Command` module runs arbitrary shell commands; untrusted configurations may contain harmful or privacy-compromising commands and should be reviewed.",
+      "relation": "aligned",
+      "support": "Lines 279–291 explicitly describe custom shell-script output and show `$EDITOR --version | head -1`. The warning is conditional ('may'), not a claim that every copied configuration is harmful."
+    },
+    {
+      "function": "Section heading",
+      "ordinal": 67,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 115 introduces frequently asked questions."
+    },
+    {
+      "function": "FAQ question",
+      "ordinal": 68,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 117 frames the following comparison as a reader's question, rather than asserting that Neofetch is sufficient for everyone."
+    },
+    {
+      "function": "Maintenance status statement",
+      "ordinal": 69,
+      "proposition": "Fastfetch is actively maintained.",
+      "relation": "aligned",
+      "support": "Lines 4 and 8 link workflows and commit activity; line 305 identifies the current maintainer. Line 37's lack of support for older versions does not conflict with current project maintenance."
+    },
+    {
+      "function": "Comparative performance claim",
+      "ordinal": 70,
+      "proposition": "Fastfetch is faster than Neofetch.",
+      "relation": "unestablished",
+      "support": "Line 3 links a benchmark, but no results, workloads, versions, or conditions appear in the supplied page. Line 17 states a performance focus; neither that focus nor the product name establishes the unrestricted comparison."
+    },
+    {
+      "function": "Comparative feature claim and default caveat",
+      "ordinal": 71,
+      "proposition": "Fastfetch has more features than Neofetch, although only a few modules are enabled by default.",
+      "relation": "unestablished",
+      "support": "Lines 99 and 121 provide module discovery commands, and later sections describe formatting, logos, and commands. The page supplies no comparative feature inventory or counts establishing a greater total than Neofetch."
+    },
+    {
+      "function": "Purpose clause",
+      "ordinal": 72,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 121 states the purpose of `fastfetch -c all`: discovering desired modules. This fragment makes no independent comparison."
+    },
+    {
+      "function": "Comparative configurability claim",
+      "ordinal": 73,
+      "proposition": "Fastfetch is more configurable than Neofetch.",
+      "relation": "unestablished",
+      "support": "Lines 107–109 and 156–175 describe Fastfetch configuration, formatting, and logos, and line 122 links its configuration wiki. The page does not describe Neofetch's configuration scope or compare the two."
+    },
+    {
+      "function": "Comparative polish claim",
+      "ordinal": 74,
+      "proposition": "Fastfetch is more polished than Neofetch.",
+      "relation": "narrower",
+      "support": "Line 123 illustrates only Memory and Disk formatting: Neofetch's `555 MiB` and `23 G` versus Fastfetch's `555.00 MiB` and `22.97 GiB`. This supports a specific formatting distinction, not general superiority in polish."
+    },
+    {
+      "function": "Output example attribution",
+      "ordinal": 75,
+      "proposition": "The cited Neofetch output `555 MiB` belongs to the Memory module.",
+      "relation": "aligned",
+      "support": "Line 123 explicitly associates `555 MiB` with Memory and `23 G` with Disk. This is a concrete example, not an independent broad comparison."
+    },
+    {
+      "function": "Output comparison example",
+      "ordinal": 76,
+      "proposition": "Neofetch's cited Disk output is `23 G`, contrasted with Fastfetch's corresponding output values.",
+      "relation": "aligned",
+      "support": "Line 123 supplies Fastfetch's `555.00 MiB` and `22.97 GiB` for Memory and Disk respectively. The example is limited to those output representations."
+    },
+    {
+      "function": "Conjunction",
+      "ordinal": 77,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 123 joins the two protected Fastfetch output values."
+    },
+    {
+      "function": "Referential mapping",
+      "ordinal": 78,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 123 maps the preceding Fastfetch values to Memory and Disk in order; 'respectively' adds no independent proposition."
+    },
+    {
+      "function": "Comparative accuracy claim",
+      "ordinal": 79,
+      "proposition": "Fastfetch is more accurate than Neofetch; Neofetch never actually supports the Wayland protocol.",
+      "relation": "narrower",
+      "support": "Line 124 links https://github.com/dylanaraps/neofetch/pull/2395 for the Wayland example. Lines 203–204 add specific package-count criticisms. These concern particular cases, with no general accuracy assessment or explicit Fastfetch Wayland result on the page."
+    },
+    {
+      "function": "FAQ question",
+      "ordinal": 80,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 126 introduces a reader's privacy concern about local-IP display; it does not assert an answer."
+    },
+    {
+      "function": "Privacy assurance",
+      "ordinal": 81,
+      "proposition": "A local IP address (10.x.x.x, 172.x.x.x, 192.168.x.x) has nothing to do with privacy.",
+      "relation": "unestablished",
+      "support": "Line 128 offers a same-network explanation; line 130 gives a personal SSH use case. Neither establishes the categorical absence of privacy implications. Line 311's conditional network-transfer statement addresses transmission, not all consequences of displaying information."
+    },
+    {
+      "function": "Network-scope explanation",
+      "ordinal": 82,
+      "proposition": "A local IP address has meaning only to someone on the same network, such as the same Wi-Fi network.",
+      "relation": "unestablished",
+      "support": "Line 130 describes using displayed addresses to SSH into test VMs. That illustrates a networking use but does not establish that an address has no meaning outside the same network. The page supplies no further scope evidence."
+    },
+    {
+      "function": "Transition fragment",
+      "ordinal": 83,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 130 shifts from general privacy discussion to a personal account."
+    },
+    {
+      "function": "Personal use-case account",
+      "ordinal": 84,
+      "proposition": "For @CarterLi, `Local IP` is the most useful module: shell-startup output helps SSH into test VMs without manually typing `ip addr`.",
+      "relation": "aligned",
+      "support": "Line 130 explicitly limits usefulness and 'never need' to the author's own VM workflow. Lines 128 and 132 discuss local addressing and the option to disable the module; no universal usefulness claim is made."
+    },
+    {
+      "function": "Manner modifier",
+      "ordinal": 85,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 130 completes the personal account's phrase about typing `ip addr` manually; the modifier has no independent proposition."
+    },
+    {
+      "function": "Optional configuration instruction",
+      "ordinal": 86,
+      "proposition": "Users who dislike local-IP display can disable the `Local IP` module in `config.jsonc`.",
+      "relation": "aligned",
+      "support": "Line 132 completes the instruction with the module and file names. Lines 102, 107, and 136 describe configuration generation, editing, and location; line 121 notes that module enablement varies."
+    },
+    {
+      "function": "Instruction continuation",
+      "ordinal": 87,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 132 connects the protected `Local IP` name to `config.jsonc`; 'module in' adds no independently assessable proposition."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 88,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 134 introduces the configuration-file location question."
+    },
+    {
+      "function": "Behavior description",
+      "ordinal": 89,
+      "proposition": "Fastfetch does not generate a config file automatically; users can generate one explicitly.",
+      "relation": "aligned",
+      "support": "Line 136 specifies `fastfetch --gen-config`; line 102 also describes explicit config generation."
+    },
+    {
+      "function": "Generation and location guidance",
+      "ordinal": 90,
+      "proposition": "`fastfetch --gen-config` generates a file saved in `~/.config/fastfetch/config.jsonc` by default.",
+      "relation": "aligned",
+      "support": "Line 136 supplies the command, path, and default qualification. Line 102 allows an explicit output path."
+    },
+    {
+      "function": "Qualification and reference",
+      "ordinal": 91,
+      "proposition": "The stated configuration path is the default, not a mandatory location.",
+      "relation": "aligned",
+      "support": "Line 136 qualifies the path with 'by default'; line 102 permits `[</path/to/config.jsonc>]`. The Configuration Wiki is linked."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 92,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 138 frames a reader's documentation question rather than asserting a measured complexity claim."
+    },
+    {
+      "function": "Configuration format description",
+      "ordinal": 93,
+      "proposition": "Fastfetch uses JSON with comments for configuration.",
+      "relation": "aligned",
+      "support": "Line 107 explicitly calls the format JSONC (JSON with comments); lines 158–167 provide a commented JSONC example."
+    },
+    {
+      "function": "Editing recommendation",
+      "ordinal": 94,
+      "proposition": "An IDE with JSON schema support, such as VSCode, is recommended for editing configuration.",
+      "relation": "aligned",
+      "support": "Line 152 identifies and links the configuration JSON schema. This is a recommendation, not a guarantee about every editor."
+    },
+    {
+      "function": "Example guidance",
+      "ordinal": 95,
+      "proposition": "The presets can serve as configuration references.",
+      "relation": "aligned",
+      "support": "Line 107 says the `presets` directory contains premade configuration files that can serve as syntax examples."
+    },
+    {
+      "function": "Reference continuation",
+      "ordinal": 96,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 142 completes the link to the `presets` directory; this fragment adds no independent proposition."
+    },
+    {
+      "function": "Example introduction",
+      "ordinal": 97,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 144 introduces the following editing demonstration. 'Correct' supplies emphasis but no separately specified technical criterion."
+    },
+    {
+      "function": "Example description",
+      "ordinal": 98,
+      "proposition": "The linked example changes size prefixes from MiB / GiB to MB / GB.",
+      "relation": "aligned",
+      "support": "Line 146 links discussion 1014 for this specific change; line 148 supplies an associated asciicast. The linked contents are not reproduced."
+    },
+    {
+      "function": "Attribution",
+      "ordinal": 99,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 146 credits helix as the editor used in the example."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 100,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 150 introduces a documentation request."
+    },
+    {
+      "function": "Documentation navigation",
+      "ordinal": 101,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 152 directs readers to https://github.com/fastfetch-cli/fastfetch/wiki/Json-Schema."
+    },
+    {
+      "function": "Documentation provenance and caveat",
+      "ordinal": 102,
+      "proposition": "The documentation is generated from the JSON schema and may not be very user-friendly.",
+      "relation": "aligned",
+      "support": "Line 152 links both the generated documentation and `doc/json_schema.json`; the usability judgment is explicitly tentative."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 103,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 154 introduces module-output customization."
+    },
+    {
+      "function": "Output mechanism description",
+      "ordinal": 104,
+      "proposition": "Fastfetch uses `format` to generate output.",
+      "relation": "aligned",
+      "support": "Lines 158–167 demonstrate a GPU module with `\"format\": \"{name}\"`; line 171 points to formatting help."
+    },
+    {
+      "function": "Mechanism continuation and example setup",
+      "ordinal": 105,
+      "proposition": "The `format` setting controls generated output.",
+      "relation": "aligned",
+      "support": "The following JSONC example sets `\"format\": \"{name}\"` for `\"type\": \"gpu\"` in lines 158–167."
+    },
+    {
+      "function": "Specific configuration instruction",
+      "ordinal": 106,
+      "proposition": "The shown GPU configuration displays only the GPU name, leaving other information undisplayed.",
+      "relation": "aligned",
+      "support": "Lines 158–167 set the GPU module's format to `{name}`; line 169 supplies the corresponding CLI command."
+    },
+    {
+      "function": "Configuration equivalence",
+      "ordinal": 107,
+      "proposition": "The GPU JSONC example is equivalent to `fastfetch -s gpu --gpu-format '{name}'`.",
+      "relation": "aligned",
+      "support": "Lines 158–167 select the GPU module and `{name}` format, matching both selections in the command at line 169."
+    },
+    {
+      "function": "Help navigation",
+      "ordinal": 108,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 171 directs readers to `fastfetch -h format`."
+    },
+    {
+      "function": "Help navigation",
+      "ordinal": 109,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 171 distinguishes basic formatting help from `fastfetch -h <module>-format` for module-specific formatting."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 110,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 173 introduces using a personal ASCII art or image file."
+    },
+    {
+      "function": "Tentative instruction introduction",
+      "ordinal": 111,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 175 introduces `fastfetch -l /path/to/logo` with 'Try'; the eligible word supplies no independent proposition."
+    },
+    {
+      "function": "Documentation navigation",
+      "ordinal": 112,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 175 links https://github.com/fastfetch-cli/fastfetch/wiki/Logo-options for details."
+    },
+    {
+      "function": "Conditional example guidance",
+      "ordinal": 113,
+      "proposition": "The following recipe displays the distro name in FIGlet text.",
+      "relation": "aligned",
+      "support": "Lines 179–182 require pyfiglet and jq, extract the OS name using `fastfetch -s os --format json`, pass it to pyfiglet, and run `fastfetch -l none`."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 114,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 186 introduces image-logo troubleshooting."
+    },
+    {
+      "function": "Troubleshooting navigation",
+      "ordinal": 115,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 188 points to https://github.com/fastfetch-cli/fastfetch/wiki/Logo-options#troubleshooting."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 116,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 190 frames a black-and-white startup symptom as a troubleshooting question."
+    },
+    {
+      "function": "Cause-frequency explanation",
+      "ordinal": 117,
+      "proposition": "Black-and-white startup output usually occurs when using Fastfetch with `p10k`.",
+      "relation": "unestablished",
+      "support": "Lines 192–193 identify p10k instant-prompt incompatibilities and initialization order. They establish a relevant case but give no basis for how frequently it accounts for this symptom."
+    },
+    {
+      "function": "Compatibility explanation",
+      "ordinal": 118,
+      "proposition": "Fastfetch has known p10k instant-prompt incompatibilities; p10k documentation says not to print to stdout after `p10k-instant-prompt` initializes.",
+      "relation": "aligned",
+      "support": "Lines 192–193 describe the incompatibility and recommend running Fastfetch before initialization. The documentation wording is reported rather than reproduced or linked; no conflicting guidance appears."
+    },
+    {
+      "function": "Startup-order guidance",
+      "ordinal": 119,
+      "proposition": "Run `fastfetch` before `p10k-instant-prompt` initializes.",
+      "relation": "aligned",
+      "support": "Line 193 gives this order in response to the stdout restriction and incompatibility described in lines 192–193."
+    },
+    {
+      "function": "Startup-order guidance continuation",
+      "ordinal": 120,
+      "proposition": "Fastfetch should precede initialization of `p10k-instant-prompt`.",
+      "relation": "aligned",
+      "support": "Lines 192–193 identify instant-prompt incompatibility and explicitly recommend this ordering."
+    },
+    {
+      "function": "Recommendation qualifier",
+      "ordinal": 121,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 193 labels the preceding initialization order as recommended; it adds no independent proposition."
+    },
+    {
+      "function": "Unbounded workaround assurance",
+      "ordinal": 122,
+      "proposition": "`fastfetch --pipe false` can always be used to force colorful mode.",
+      "relation": "unestablished",
+      "support": "Line 195 names the override, while lines 192–193 discuss a p10k startup case. No further evidence establishes 'always' across operating conditions."
+    },
+    {
+      "function": "Option behavior description",
+      "ordinal": 123,
+      "proposition": "`fastfetch --pipe false` forces Fastfetch into colorful mode.",
+      "relation": "aligned",
+      "support": "Line 195 describes the option's behavior in the startup-color FAQ. This specific mode-setting description needs no implementation proof; the separate 'always' assurance is broader."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 124,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 197 introduces a question about differing memory-usage results."
+    },
+    {
+      "function": "Issue navigation",
+      "ordinal": 125,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 199 directs readers to https://github.com/fastfetch-cli/fastfetch/issues/1096 without stating its explanation."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 126,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 201 introduces a reported dpkg package-count difference as a question."
+    },
+    {
+      "function": "Specific bug explanation",
+      "ordinal": 127,
+      "proposition": "Neofetch incorrectly includes `rc` packages in its apt package count.",
+      "relation": "aligned",
+      "support": "Line 203 defines these as removed packages with remaining configuration files and links https://github.com/dylanaraps/neofetch/issues/2278."
+    },
+    {
+      "function": "Bug explanation and definition",
+      "ordinal": 128,
+      "proposition": "The incorrectly counted apt `rc` packages have been removed but retain configuration files.",
+      "relation": "aligned",
+      "support": "Line 203 explicitly supplies this definition and a specific Neofetch bug link, scoping the criticism to this package state."
+    },
+    {
+      "function": "Specific bug explanation",
+      "ordinal": 129,
+      "proposition": "Neofetch incorrectly counts `gpg-pubkey` as rpm packages.",
+      "relation": "aligned",
+      "support": "Line 204 identifies the exact counted item and proposes comparing `dnf list --installed | wc -l` with `rpm -qa | wc -l`. Actual results are not shown."
+    },
+    {
+      "function": "Bug explanation and diagnostic instruction",
+      "ordinal": 130,
+      "proposition": "`gpg-pubkey` is incorrectly counted as rpm packages; the listed commands can be compared.",
+      "relation": "aligned",
+      "support": "Line 204 names `gpg-pubkey` and supplies `dnf list --installed | wc -l` and `rpm -qa | wc -l` as a concrete check."
+    },
+    {
+      "function": "Conjunction",
+      "ordinal": 131,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 204 joins the two protected diagnostic commands."
+    },
+    {
+      "function": "Diagnostic purpose",
+      "ordinal": 132,
+      "proposition": "Comparing the listed dnf and rpm counts can reveal the described difference.",
+      "relation": "aligned",
+      "support": "Line 204 supplies both commands and identifies `gpg-pubkey` counting as the issue. It shows no sample output or promise of a difference on every system."
+    },
+    {
+      "function": "FAQ heading fragment",
+      "ordinal": 133,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 206 frames the Debian / Ubuntu / Debian-derived GPU naming symptom as a reader question."
+    },
+    {
+      "function": "FAQ question continuation",
+      "ordinal": 134,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 206 asks whether the `XXXX Device XXXX (VGA compatible)` result is a bug."
+    },
+    {
+      "function": "Tentative troubleshooting instruction",
+      "ordinal": 135,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 208 introduces trying an upgrade of `pci.ids`, without guaranteeing that it resolves the symptom."
+    },
+    {
+      "function": "Download instruction fragment",
+      "ordinal": 136,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 208 introduces the protected download URL https://pci-ids.ucw.cz/v2.2/pci.ids."
+    },
+    {
+      "function": "File replacement instruction",
+      "ordinal": 137,
+      "proposition": "The suggested `pci.ids` upgrade replaces `/usr/share/hwdata/pci.ids`.",
+      "relation": "aligned",
+      "support": "Line 208 pairs the pci.ids download with this exact destination as part of a tentative troubleshooting recipe."
+    },
+    {
+      "function": "Conditional troubleshooting instruction",
+      "ordinal": 138,
+      "proposition": "For AMD GPUs, also upgrade `amdgpu.ids`.",
+      "relation": "aligned",
+      "support": "Line 208 limits this additional step to AMD GPUs and supplies a download and `/usr/share/libdrm/amdgpu.ids` destination."
+    },
+    {
+      "function": "Download instruction fragment",
+      "ordinal": 139,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 208 introduces https://gitlab.freedesktop.org/mesa/drm/-/raw/main/data/amdgpu.ids."
+    },
+    {
+      "function": "File replacement instruction",
+      "ordinal": 140,
+      "proposition": "The suggested AMD-specific upgrade replaces `/usr/share/libdrm/amdgpu.ids`.",
+      "relation": "aligned",
+      "support": "Line 208 gives the amdgpu.ids download and this exact destination, conditional on using an AMD GPU."
+    },
+    {
+      "function": "Tentative alternative introduction",
+      "ordinal": 141,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 210 introduces trying `fastfetch --gpu-driver-specific` as an alternative; the behavior and condition follow."
+    },
+    {
+      "function": "Conditional option behavior",
+      "ordinal": 142,
+      "proposition": "`fastfetch --gpu-driver-specific` attempts to ask the driver for the GPU name if supported.",
+      "relation": "aligned",
+      "support": "Line 210 expressly qualifies the action as an attempt and limits it to supported drivers; it does not promise successful naming."
+    },
+    {
+      "function": "FAQ heading fragment",
+      "ordinal": 143,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 212 introduces the error `Authorization required, but no authorization protocol specified`."
+    },
+    {
+      "function": "FAQ condition continuation",
+      "ordinal": 144,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 212 scopes the reported authorization error to running Fastfetch as root."
+    },
+    {
+      "function": "Tentative instruction introduction",
+      "ordinal": 145,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 214 suggests `export XAUTHORITY=$HOME/.Xauthority`; 'Try' adds no guaranteed outcome."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 146,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 216 introduces ASCII-logo color customization."
+    },
+    {
+      "function": "Tentative instruction introduction",
+      "ordinal": 147,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 218 introduces `fastfetch --logo-color-[1-9] <color>`."
+    },
+    {
+      "function": "Definition connector",
+      "ordinal": 148,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 218 connects the protected `[1-9]` token to its explanation."
+    },
+    {
+      "function": "Parameter definition",
+      "ordinal": 149,
+      "proposition": "`[1-9]` identifies the index of a logo color placeholder.",
+      "relation": "aligned",
+      "support": "Line 220 demonstrates indices 1 and 2; lines 224–233 use matching `\"1\"` and `\"2\"` JSONC color keys. These examples illustrate the stated parameter definition."
+    },
+    {
+      "function": "Example introduction",
+      "ordinal": 150,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 220 introduces `fastfetch --logo-color-1 red --logo-color-2 green`."
+    },
+    {
+      "function": "Configuration alternative",
+      "ordinal": 151,
+      "proposition": "The shown JSONC can configure logo colors.",
+      "relation": "aligned",
+      "support": "Lines 224–233 set `logo.color` entries `\"1\": \"red\"` and `\"2\": \"green\"`, corresponding to the CLI example in line 220."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 152,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 235 introduces hiding a key."
+    },
+    {
+      "function": "Configuration instruction",
+      "ordinal": 153,
+      "proposition": "Setting a key to a white space hides it.",
+      "relation": "aligned",
+      "support": "Lines 239–243 show the exact setting `\"key\": \" \"` in the answer to the hide-key question."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 154,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 245 introduces displaying images on Windows."
+    },
+    {
+      "function": "Subsection heading",
+      "ordinal": 155,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 247 labels the Windows Terminal instructions."
+    },
+    {
+      "function": "Protocol compatibility description",
+      "ordinal": 156,
+      "proposition": "Windows Terminal supports only the sixel image protocol.",
+      "relation": "aligned",
+      "support": "Lines 251–260 prescribe `\"type\": \"sixel\"` and explicitly warn not to use `\"auto\"`. Lines 262–275 separately assign iTerm instructions to other terminals. This is a specific compatibility statement, not a cross-product superiority claim."
+    },
+    {
+      "function": "Subsection heading",
+      "ordinal": 157,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 262 labels the mintty and Wezterm instructions."
+    },
+    {
+      "function": "Qualified protocol compatibility description",
+      "ordinal": 158,
+      "proposition": "mintty, used by Bash on Windows and MSYS2, and Wezterm nightly builds support the iTerm image protocol on Windows.",
+      "relation": "aligned",
+      "support": "Line 264 explicitly limits Wezterm support to nightly builds; lines 267–275 demonstrate `\"type\": \"iterm\"` with a Windows image path."
+    },
+    {
+      "function": "Configuration example introduction",
+      "ordinal": 159,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 266 introduces the following example as content for `config.jsonc`."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 160,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 277 introduces feature-request scope."
+    },
+    {
+      "function": "Product scope, policy, and recommendation",
+      "ordinal": 161,
+      "proposition": "Fastfetch is a system information tool accepting only hardware or system-level software feature requests; the author recommends `Command` for most personal uses.",
+      "relation": "aligned",
+      "support": "Line 17 describes system-information retrieval. Line 279 states the request policy; line 113 describes arbitrary shell commands, and lines 281–292 demonstrate customization. The personal-use statement is a recommendation, not a coverage guarantee."
+    },
+    {
+      "function": "Extension capability description",
+      "ordinal": 162,
+      "proposition": "The `Command` module can implement custom functionality by capturing output from a custom shell script.",
+      "relation": "aligned",
+      "support": "Line 113 says `Command` runs arbitrary shell commands. Lines 281–292 show a command module using `$EDITOR --version | head -1` to display editor information."
+    },
+    {
+      "function": "Feature-request routing",
+      "ordinal": 163,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 294 directs readers to GitHub Issues; line 279 supplies the preceding hardware/system-level acceptance policy."
+    },
+    {
+      "function": "FAQ heading",
+      "ordinal": 164,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 296 introduces help channels."
+    },
+    {
+      "function": "Support navigation",
+      "ordinal": 165,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 298 directs usage questions to https://github.com/fastfetch-cli/fastfetch/discussions."
+    },
+    {
+      "function": "Bug-report routing and instruction",
+      "ordinal": 166,
+      "proposition": "Carefully completing the bug report template helps developers investigate possible bugs.",
+      "relation": "aligned",
+      "support": "Line 299 directs possible bugs to GitHub Issues and asks for a completed template. This is ordinary reporting guidance, with no guaranteed investigation or resolution."
+    },
+    {
+      "function": "Section heading",
+      "ordinal": 167,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 301 labels the donation section."
+    },
+    {
+      "function": "Donation appeal",
+      "ordinal": 168,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 303 conditionally asks readers who find Fastfetch useful to consider donating."
+    },
+    {
+      "function": "Maintainer attribution",
+      "ordinal": 169,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 305 credits @CarterLi and links a donation destination."
+    },
+    {
+      "function": "Author attribution",
+      "ordinal": 170,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 306 credits @LinusDierheimer and links a sponsorship destination."
+    },
+    {
+      "function": "Section heading",
+      "ordinal": 171,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 308 labels the code-signing section."
+    },
+    {
+      "function": "Service and certificate attribution",
+      "ordinal": 172,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 310 credits SignPath.io for free code signing and SignPath Foundation for the certificate."
+    },
+    {
+      "function": "Conditional privacy guarantee",
+      "ordinal": 173,
+      "proposition": "The program transfers no information to other networked systems unless specifically requested by the user or the person installing or operating it.",
+      "relation": "unestablished",
+      "support": "Line 311 states the guarantee without describing network controls. Line 113 warns that copied configurations may contain arbitrary malicious commands compromising privacy. This does not expressly prove an unrequested transfer, but the page does not establish the guarantee across that execution surface."
+    },
+    {
+      "function": "Section heading",
+      "ordinal": 174,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 313 introduces the star-history chart."
+    },
+    {
+      "function": "Support appeal",
+      "ordinal": 175,
+      "proposition": "",
+      "relation": "not_claim",
+      "support": "Line 315 asks readers to star the project; it asserts no independently assessable technical proposition."
+    }
+  ]
+}
