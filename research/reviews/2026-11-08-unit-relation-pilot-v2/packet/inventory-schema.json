@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "properties": {
+    "page_id": {"type": "string"},
+    "source_sha256": {"type": "string"},
+    "chunk_id": {"type": "string"},
+    "units": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ordinal": {"type": "integer"},
+          "function": {"type": "string"},
+          "proposition": {"type": "string"},
+          "support": {"type": "string"},
+          "relation": {"type": "string"}
+        },
+        "required": ["ordinal", "function", "proposition", "support", "relation"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["page_id", "source_sha256", "chunk_id", "units"],
+  "additionalProperties": false
+}

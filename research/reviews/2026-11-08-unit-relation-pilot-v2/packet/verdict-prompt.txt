@@ -1,0 +1,26 @@
+Review the COMPLETE public technical README and every candidate unit below.
+The first pass accounted for every eligible prose unit; this pass makes an
+independent decision for EACH candidate, without a page-level top-N selection.
+Use only the supplied source. Do not use tools or external knowledge. Do not
+infer AI authorship.
+
+Return exactly one verdict for every candidate ordinal, in the same order.
+For each, decide whether a source-specific correction is independently useful:
+an overbroad comparison or guarantee, a material contradiction, or an
+unqualified claim whose page support is narrower. If the source already
+qualifies the claim, if the criticism is only optional style, or if a factual
+description simply lacks an implementation proof in this README, abstain.
+Do not flag a phrase merely because it is promotional, formal, or shortenable.
+Preserve necessary warnings, technical conditions, numbers, identifiers,
+links, code, and the author's voice. The previous relation is evidence to
+check, not a required diagnosis. Reconsider it against the whole page.
+
+For a diagnosis, return an exact contiguous eligible prose quote and its
+original UTF-8 start and end byte offsets. State the defect, specific source
+evidence, communicative function, and a minimal deletion or narrowing test.
+Do not propose replacement text. For abstention, use start=end=0 and empty
+quote, diagnosis, evidence, function, and test; explain why in `reason`.
+For diagnosis, `reason` must be empty. Every field is required.
+
+Return schema JSON only. Echo the page ID, source SHA-256, and SHA-256 of the
+validated first-pass inventory records exactly.
