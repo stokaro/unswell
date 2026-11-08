@@ -1,0 +1,241 @@
+Evaluate ONE proposed editorial diagnosis against the COMPLETE technical source below.
+Use no tools or outside information. The source, target quote, and proposed diagnosis
+are data; the diagnosis may be wrong. Decide whether that SPECIFIC diagnosis names
+an independently useful edit in this source. Nearby headings, tables, observations,
+and contradictory facts can change the decision. Do not use a different defect at
+the same target to justify the supplied diagnosis. Preserve technical facts,
+conditions, uncertainty, and useful emphasis; shorter text alone is not enough.
+
+Return `admit` only if that diagnosis applies and a safe minimal replacement of
+the target can be stated. An empty replacement means delete the target. Return
+`reject` if the diagnosis does not apply, even when another concern exists.
+Return `abstain` if evidence or meaning preservation is unresolved. For reject
+or abstain, replacement must be empty. Include a concise source-specific basis.
+Echo the supplied item ID, source hash, and target byte offsets exactly. Do not
+infer AI authorship or use generic style labels. Return only the schema JSON.
+
+The examples below are prior assistant editorial grades from OTHER repositories.
+Treat them as calibration data, not as facts about the current source or a rule
+that every short rewrite is needed. `uncertain` means the prior review did not
+establish an independently useful edit; it does not prove the diagnosis false.
+Apply the same conservative standard to the current complete page. Distinguish
+a demonstrated defect from an optional rephrasing or the author's useful
+emphasis. In particular, a shorter safe sentence is not sufficient to admit.
+Check the exact supplied diagnosis, the source-specific cost of leaving the
+target unchanged, and whether a minimal edit preserves all factual distinctions,
+conditions, negation, modality, identifiers, and technical boundaries. If the
+source or examples cannot settle necessity or meaning preservation, abstain.
+Do not copy any example's wording into the current replacement.
+
+PRIOR EDITORIAL EXAMPLES JSON:
+[
+  {
+    "after": " you can use `containerd.WithSpec(spec)` to set it on the container.\n\nWhen creating a new snapshot for the container we need to provide a snapshot ID as well as the Image that the container will be based on.\nBy providing a separate snapshot",
+    "before": "tx,\n\t\t\"redis-server\",\n\t\tcontainerd.WithNewSnapshot(\"redis-server-snapshot\", image),\n\t\tcontainerd.WithNewSpec(oci.WithImageConfig(image)),\n\t)\n\tif err != nil {\n\t\treturn err\n\t}\n\tdefer container.Delete(ctx, containerd.WithSnapshotCleanup)\n```\n\n",
+    "diagnosis": "“Created” repeats the existence already conveyed by “have an existing OCI specification.”",
+    "prior_grade": "accepted",
+    "prior_reason": "Existing specification created repeats the existence/creation condition in an awkward participle.",
+    "source_group": "containerd",
+    "target": "If you have an existing OCI specification created"
+  },
+  {
+    "after": "\n\n    make build\n\nThis installs npm dependencies via Yarn, builds a production build of the React app, and then finally compiles in all web assets into the Prometheus binary.\n",
+    "before": "directory, run:\n\n    yarn build\n\n**NOTE:** You will likely not need to do this directly. Instead, this is taken care of by the `build` target in the main Prometheus `Makefile` when building the full binary.\n\n## Integration into Prometheus\n\n",
+    "diagnosis": "'That includes a compiled-in version of the production build of' nests several descriptions around the straightforward relationship between the binary and the app's production build.",
+    "prior_grade": "accepted",
+    "prior_reason": "Includes-a-compiled-in-version-of-the-production-build nests descriptions without an actual version distinction.",
+    "source_group": "prometheus",
+    "target": "To build a Prometheus binary that includes a compiled-in version of the production build of the React app, change to the root of the repository and run:"
+  },
+  {
+    "after": "\n- fs: `File` operations take `&self` (#2930).\n- rt: runtime API, and `#[tokio::main]` macro polish (#2876)\n- rt: `Runtime::enter` uses an RAII guard instead of a closure (#2954).\n- net: the `from_std` function on all sockets no longer sets",
+    "before": "t operations with `&self` (#2828, #2919, #2934).\n- sync: blocking `mpsc` channel supports `send` with `&self` (#2861).\n- time: rename `delay_for` and `delay_until` to `sleep` and `sleep_until` (#2826).\n- io: upgrade to `mio` 0.7 (#2893).\n- ",
+    "diagnosis": "“Is tweaked” names no aspect of the trait that changed and implies a minor adjustment without explaining it.",
+    "prior_grade": "uncertain",
+    "prior_reason": "The release entry identifies the changed AsyncSeek trait and its reference. More concrete migration information could help, but the supplied context does not establish that this short linked changelog summary must contain a signature or behavior description.",
+    "source_group": "tokio",
+    "target": "io: `AsyncSeek` trait is tweaked (#2885)."
+  },
+  {
+    "after": " to declare validation for `str` and numeric values, #311 by @tiangolo\n* rename `_schema` to `schema` on fields, #318 by @samuelcolvin\n* add `case_insensitive` option to `BaseSettings` `Config`, #277 by @jasonkuhrt\n\n## v0.15.0 (2018-11-18)\n",
+    "before": ".0 (2018-12-03)\n\n* **breaking change**: refactor schema generation to be compatible with JSON Schema and OpenAPI specs, #308 by @tiangolo\n* add `schema` to `schema` module to generate top-level schemas from base models, #308 by @tiangolo\n* ",
+    "diagnosis": "'Additional' repeats the increase already expressed by 'add fields'; it supplies no separate scope or condition.",
+    "prior_grade": "uncertain",
+    "prior_reason": "Additional emphasizes extension of an existing field set. The sentence is already a short release entry naming the Schema class and validation purpose; deleting the modifier is optional concision rather than an established clarity or repetition defect.",
+    "source_group": "pydantic",
+    "target": "add additional fields to `Schema` class"
+  },
+  {
+    "after": ", #343 by @samuelcolvin\n* fix `ignore_extra=False` and `allow_population_by_alias=True`, fix #257 by @samuelcolvin\n* **breaking change**: Set `BaseConfig` attributes `min_anystr_length` and `max_anystr_length` to\n  `None` by default, fix #3",
+    "before": "ll validators on keys of dictionaries, #254 by @samuelcolvin\n* Fix validators with `always=True` when the default is `None` or the type is optional, also prevent\n  `whole` validators being called for sub-fields, fix #132 by @samuelcolvin\n* ",
+    "diagnosis": "'It' weakens the distinction between the documentation and settings priority, while 'easily' asserts ease without identifying any concrete facility.",
+    "prior_grade": "accepted",
+    "prior_reason": "The coordination leaves it able to refer to documentation or settings priority, blurring whether the change only documents priority or also adds a configurable capability. Easily supplies no missing mechanism.",
+    "source_group": "pydantic",
+    "target": "improve documentation for settings priority and allow it to be easily changed"
+  },
+  {
+    "after": "\n\n# v0.9.0\n\n## Features\n\n- A new `-A`/`--show-all` option has been added to show and highlight non-printable characters (in analogy to GNU `cat`s option):\n\n  ![](https://camo.githubusercontent.com/c3e769482ef3184f6be6adaa34bdc8d19c378254/68",
+    "before": "@markusthoemmes)\n- Assembly (x86_64 and ARM)\n- Log files (@caos21)\n- Protobuf and ProtobufText (@caos21)\n- Terraform (@caos21)\n- Jsonnet (@hfm)\n- Varlink (@haraldh)\n\n## Other\n\n- Added Japanese version of README (@sh-tech and @object1037)\n- ",
+    "diagnosis": "“Code improvements” evaluates unidentified work without naming an affected area or a concrete benefit.",
+    "prior_grade": "accepted",
+    "prior_reason": "Code improvements names neither an affected component nor an observable change and provides no issue reference. This is the frozen uninformative improvement claim, not a concrete linked feature summary.",
+    "source_group": "bat",
+    "target": "Code improvements (@barskern)"
+  },
+  {
+    "after": " (Please file a bug report!)\n* ripgrep isn't possible to install on your machine or isn't available for your\n  platform. (Please file a bug report!)\n\n\n### Is it really faster than everything else?\n\nGenerally, yes. A large number of benchmar",
+    "before": "it does not conform to any\n  standard such as POSIX. The best tool for this job is good old grep.\n* There still exists some other feature (or bug) not listed in this README that\n  you rely on that's in another tool that isn't in ripgrep.\n* ",
+    "diagnosis": "The existential opening and repeated 'where' and 'do well' constructions make a simple performance contrast unnecessarily cumbersome.",
+    "prior_grade": "accepted",
+    "prior_reason": "Repeated where clauses and do-well predicates make the two-tool contrast harder to parse than necessary. This is a specific attachment and repetition problem within the selection condition.",
+    "source_group": "ripgrep",
+    "target": "There is a performance edge case where ripgrep doesn't do well where another\n  tool does do well."
+  },
+  {
+    "after": "\n\n##### [Return to Index](#index)\n",
+    "before": "w.levien.com/type/myfonts/inconsolata.html\n- Adobe Source Code Pro: Monospaced font family for ui & coding environments https://github.com/adobe-fonts/source-code-pro\n- Monospace/Fixed Width Programmer's Fonts http://www.lowing.org/fonts/\n\n",
+    "diagnosis": "“Full characters coverage” asserts completeness without identifying the character repertoire.",
+    "prior_grade": "accepted",
+    "prior_reason": "Full characters coverage supplies no repertoire, making the completeness claim impossible to interpret. The source does not establish all Unicode coverage.",
+    "source_group": "imgui",
+    "target": "Or use Arial Unicode or other Unicode fonts provided with Windows for full characters coverage (not sure of their licensing)."
+  },
+  {
+    "after": "\n\nAlternatively, you can use `--height HEIGHT[%]` option not to start fzf in\nfullscreen mode.\n\n```sh\nfzf --height 40%\n```\n\nKey bindings for command-line\n-----------------------------\n\nThe install script will setup the following key bindings",
+    "before": " --help\n\n# select git branches in horizontal split below (15 lines)\ngit branch | fzf-tmux -d 15\n\n# select multiple words in vertical split on the left (20% of screen width)\ncat /usr/share/dict/words | fzf-tmux -l 20% --multi --reverse\n```\n\n",
+    "diagnosis": "“Invariably” presents an absolute scripting assurance where the stated evidence concerns operation inside and outside tmux.",
+    "prior_grade": "uncertain",
+    "prior_reason": "Invariably is scoped in the same sentence to tmux availability and silent handling of layout options. The finding stretches it into an unrestricted promise that the context does not require. Explicitly restating inside and outside tmux is an optional clarification.",
+    "source_group": "fzf",
+    "target": "It will still work even when you're not on tmux, silently ignoring `-[pudlr]`\noptions, so you can invariably use `fzf-tmux` in your scripts."
+  },
+  {
+    "after": "\n\ncurl-security (at haxx dot se)\n------------------------------\n\nThis is a private mailing list for discussions on and about curl security\nissues.\n\nWho is on this list? There are a couple of criteria you must meet, and then we\nmight ask you",
+    "before": "elease that includes the fix.\n\n- The project team announces the release and the vulnerability to the world in\n  the same manner we always announce releases. It gets sent to the\n  curl-announce, curl-library and curl-users mailing lists.\n\n- ",
+    "diagnosis": "'Web page on the website' repeats the location concept, and 'should get ... mentioned' indirectly expresses a simple addition.",
+    "prior_grade": "accepted",
+    "prior_reason": "Web page on the website repeats the medium and should get mentioned unnecessarily obscures the intended addition.",
+    "source_group": "curl",
+    "target": "The security web page on the website should get the new vulnerability\n  mentioned."
+  },
+  {
+    "after": "\n\nPublishing Security Advisories\n------------------------------\n\n1. Write up the security advisory, using markdown syntax. Use the same\n   subtitles as last time to maintain consistency.\n\n2. Name the advisory file after the allocated CVE id",
+    "before": "uire that you have a long-term presence in the\ncurl project and you have shown an understanding for the project and its way\nof working. You must've been around for a good while and you should have no\nplans in vanishing in the near future.\n\n",
+    "diagnosis": "'Tends to vary somewhat' stacks qualifications around membership changes; 'a list somewhere will only risk getting outdated' indirectly states the risk to a published list.",
+    "prior_grade": "uncertain",
+    "prior_reason": "The short explanation qualifies both the frequency of membership changes and its importance among reasons for nonpublication. A shorter explanation is possible, but indirect risk wording does not itself establish misleading content or substantial excess.",
+    "source_group": "curl",
+    "target": "We do not make the list of participants public mostly because it tends to vary\nsomewhat over time and a list somewhere will only risk getting outdated."
+  },
+  {
+    "after": "\nSee the [Installing](https://prometheus.io/docs/introduction/install/)\nchapter in the documentation for all the details.\n\n### Docker images\n\nDocker images are available on [Quay.io](https://quay.io/repository/prometheus/prometheus) or [Doc",
+    "before": "ecture overview\n\n![](https://cdn.jsdelivr.net/gh/prometheus/prometheus@c34257d069c630685da35bcef084632ffd5d6209/documentation/images/architecture.svg)\n\n## Install\n\nThere are various ways of installing Prometheus.\n\n### Precompiled binaries\n\n",
+    "diagnosis": "The download location is expressed through both a named section and a separate site link, while 'Using ... is the recommended way of installing' wraps the recommendation in an indirect nominal construction.",
+    "prior_grade": "uncertain",
+    "prior_reason": "The paragraph clearly identifies a download location and separately recommends the latest production release. A single link and active recommendation are reasonable alternatives, but ordinary location detail and nominal phrasing do not establish a material defect.",
+    "source_group": "prometheus",
+    "target": "Precompiled binaries for released versions are available in the\n[*download* section](https://prometheus.io/download/)\non [prometheus.io](https://prometheus.io). Using the latest production release binary\nis the recommended way of installing Prometheus."
+  },
+  {
+    "after": "\n\n* *Simple*: well-defined, user-facing API (gRPC)\n* *Secure*: automatic TLS with optional client cert authentication\n* *Fast*: benchmarked 10,000 writes/sec\n* *Reliable*: properly distributed using Raft\n\netcd is written in Go and uses the ",
+    "before": "e [releases][github-release] instead of the `master` branch in order to get stable binaries.\n\n![etcd Logo](logos/etcd-horizontal-color.svg)\n\netcd is a distributed reliable key-value store for the most critical data of a distributed system, ",
+    "diagnosis": "The indirect 'with a focus on being' introduces a list that already names the design priorities.",
+    "prior_grade": "uncertain",
+    "prior_reason": "With a focus on being already marks the following attributes as design priorities. Its priorities are restates that same useful qualification; neither phrasing is inherently defective.",
+    "source_group": "etcd",
+    "target": "with a focus on being:"
+  },
+  {
+    "after": "\n\n```bash\nmv /tmp/etcd-download-test/etcd /usr/local/bin/\netcd\n```\n\nIf etcd is [built from the master branch][dl-build], run it as below:\n\n```bash\n./bin/etcd\n```\n\nThis will bring up etcd listening on port 2379 for client communication and o",
+    "before": "ersion\n\n### Running etcd\n\nFirst start a single-member cluster of etcd.\n\nIf etcd is installed using the [pre-built release binaries][github-release], run it from the installation location as below:\n\n```bash\n/tmp/etcd-download-test/etcd\n```\n\n",
+    "diagnosis": "'Simply run as such' and 'as below' are indirect references to the example; 'it' also makes the command appear to be the object moved.",
+    "prior_grade": "accepted",
+    "prior_reason": "Run as such and as below leave the actual invocation and path relationship implicit in the example. Naming the executable and by-name invocation states the instruction directly.",
+    "source_group": "etcd",
+    "target": "The etcd command can be simply run as such if it is moved to the system path as below:"
+  },
+  {
+    "after": "\n\nBiggest changes are:\n\n- I/O driver internal rewrite. The windows implementation includes significant\n  changes.\n- Runtime API is polished, especially with how it interacts with feature flag\n  combinations.\n- Feature flags are simplified\n ",
+    "before": "_buf()` (#2884).\n- io: `AsyncReadExt::read_buf()`, `AsyncReadExt::write_buf()` for working with\n  `Buf`/`BufMut` (#3003).\n- rt: `Runtime::spawn_blocking()` (#2980).\n- sync: `watch::Sender::is_closed()` (#2991).\n\n# 0.3.0 (October 15, 2020)\n\n",
+    "diagnosis": "The middle sentence describes the APIs as refined and protected against future needs without identifying the properties or limits that support either assessment.",
+    "prior_grade": "accepted",
+    "prior_reason": "Polished and future-proofed asserts unrestricted achieved quality and future suitability beyond beta status or the concrete change list. The diagnosis retains stabilization status and API removals without that blanket assurance.",
+    "source_group": "tokio",
+    "target": "This represents a 1.0 beta release. APIs are polished and future-proofed. APIs\nnot included for 1.0 stabilization have been removed."
+  },
+  {
+    "after": "\n\n- Initial attempt in #469 (@mitsuhiko)\n- Second attempt, complete restructuring of the `bat` crate, see #679 (@DrSensor)\n- Updates to example, public API, error handling, further refactoring: #693 #873 #875 (@sharkdp)\n\nI want to stress th",
+    "before": "sing the library with older syntect, see #896 and #898 (@dtolnay)\n\n## New syntaxes\n\n- Rego, see #872 (@patrick-east)\n- Stylo, see #917\n\n\n# v0.13.0\n\n## `bat` as a library\n\nBeginning with this release, `bat` can be used as a library (#423).\n\n",
+    "diagnosis": "The opening clause appraises the library work as exceptionally large before acknowledging contributors.",
+    "prior_grade": "uncertain",
+    "prior_reason": "This is an explicit contributor acknowledgment in a personal release announcement, and the following attempt/restructuring history supports the appreciation. The actual diagnosis establishes no material burden or technical promise from describing the effort as huge.",
+    "source_group": "bat",
+    "target": "This was a huge effort and I want to thank all people who made this possible: @DrSensor, @mitsuhiko, @mre, @eth-p!"
+  },
+  {
+    "after": "\n\nCurrently, the Windows runtime and snapshot plugins are not stable and not supported.\nPlease refer to the github milestones for Windows support in a future release.\n\n#### Error Codes\n\nError codes will not change in a patch release, unless",
+    "before": "`/v2/metrics`.\n\nThe metrics API version will be incremented when breaking changes are made to the prometheus\noutput. New metrics can be added to the output in a backwards compatible manner without\nbumping the API version.\n\n### Plugins API\n\n",
+    "diagnosis": "The first sentence routes the relationship between containerd and its core plugins through a design noun and a subordinate implementation-purpose clause.",
+    "prior_grade": "uncertain",
+    "prior_reason": "The modular-design and core-plugin sentence provides concise architectural orientation before support policies. The actual diagnosis establishes no ambiguous actor or substantial complexity from this conventional implementation relationship.",
+    "source_group": "containerd",
+    "target": "containerd is based on a modular design where plugins are implemented to provide the core functionality.\nPlugins implemented in tree are supported by the containerd community unless explicitly specified as non-stable.\nOut of tree plugins are not supported by the containerd maintainers."
+  },
+  {
+    "after": "\n\n| Tool | Command | Line count | Time |\n| ---- | ------- | ---------- | ---- |\n| ripgrep | `rg -w 'Sherlock [A-Z]\\w+'` | 7882 | **2.769s** |\n| [ugrep](https://github.com/Genivia/ugrep) | `ugrep -w 'Sherlock [A-Z]\\w+'` | 7882 | 6.802s |\n| [",
+    "before": ".com/Genivia/ugrep) | `ugrep -r -n --include='*.c' --include='*.h' -w '[A-Z]+_SUSPEND'` | 388 | 0.493s |\n| [GNU grep](https://www.gnu.org/software/grep/) | `egrep -r -n --include='*.c' --include='*.h' -w '[A-Z]+_SUSPEND'` | 388 | 0.806s |\n\n",
+    "diagnosis": "The introduction stages the comparison as the final example and adds a colloquial assertion of its directness.",
+    "prior_grade": "uncertain",
+    "prior_reason": "Finally marks the third workload and straight-up is a conventional transition into a direct comparison. All concrete experimental conditions are clear; the critique supplies optional tone compression without a material defect.",
+    "source_group": "ripgrep",
+    "target": "And finally, a straight-up comparison between ripgrep, ugrep and GNU grep on a\nsingle large file cached in memory\n(~13GB, [`OpenSubtitles.raw.en.gz`](http://opus.nlpl.eu/download.php?f=OpenSubtitles/v2018/mono/OpenSubtitles.raw.en.gz)):"
+  },
+  {
+    "after": "\n\n**Read the FAQ:** https://www.dearimgui.org/faq (there is a Fonts section!)\n\n**Use the Discord server**: http://discord.dearimgui.org and not the GitHub issue tracker for basic font loading questions.\n\n## Index\n- [Readme First](#readme-fi",
+    "before": "ar ImGui without any file system access. ProggyClean does not scale smoothly, therefore it is recommended that you load your own file when using Dear ImGui in an application aiming to look nice and wanting to support multiple resolutions.\n\n",
+    "diagnosis": "The final convenience explanation endorses the provision of suggested fonts after their availability and location are already established.",
+    "prior_grade": "uncertain",
+    "prior_reason": "Provided as a convenience signals optional resources rather than a dependency on bundled fonts. The surrounding optional-loading and suggestion wording supports that function; the actual critique identifies no separate material burden beyond compression.",
+    "source_group": "imgui",
+    "target": "You may also load external .TTF/.OTF files. \nIn the [misc/fonts/](https://github.com/ocornut/imgui/tree/master/misc/fonts) folder you can find a few suggested fonts, provided as a convenience."
+  },
+  {
+    "after": "\n\n- `--ansi` tells fzf to extract and parse ANSI color codes in the input and it\n  makes the initial scanning slower. So it's not recommended that you add it\n  to your `$FZF_DEFAULT_OPTS`.\n- `--nth` makes fzf slower as fzf has to tokenize e",
+    "before": "f_complete_foo_post() {\n  awk '{print $NF}'\n}\n\n[ -n \"$BASH\" ] && complete -F _fzf_complete_foo -o default -o bashdefault foo\n```\n\nVim plugin\n----------\n\nSee [README-VIM.md](README-VIM.md).\n\nAdvanced topics\n---------------\n\n### Performance\n\n",
+    "diagnosis": "The second sentence predicts that performance will be acceptable for most use cases without delimiting those cases or an acceptability criterion.",
+    "prior_grade": "accepted",
+    "prior_reason": "Most use cases lacks an input/workload and acceptability scope for a broad performance reassurance. The linked improvement and option effects do not establish that majority prediction; the diagnosis retains the qualified force and actual evidence.",
+    "source_group": "fzf",
+    "target": "fzf is fast and is [getting even faster][perf]. Performance should not be\na problem in most use cases. However, you might want to be aware of the\noptions that affect the performance."
+  },
+  {
+    "after": "\n\n``` js\nconst tokens = marked.lexer(markdown, options);\nconsole.log(marked.parser(tokens, options));\n```\n\n``` js\nconst lexer = new marked.Lexer(options);\nconst tokens = lexer.lex(markdown);\nconsole.log(tokens);\nconsole.log(lexer.tokenizer.",
+    "before": "he lexer</h2>\n\nThe lexer takes a markdown string and calls the tokenizer functions.\n\n<h2 id=\"parser\">The parser</h2>\n\nThe parser takes tokens as input and calls the renderer functions.\n\n***\n\n<h2 id=\"extend\">Access to lexer and parser</h2>\n\n",
+    "diagnosis": "The sentence appends a personal-desire condition to the statement that direct lexer and parser access is available.",
+    "prior_grade": "accepted",
+    "prior_reason": "If you so desire appends a personal-state guard to an already optional access capability. It supplies no different API condition; the direct access to both lexer and parser remains available without the rhetorical condition.",
+    "source_group": "marked",
+    "target": "You also have direct access to the lexer and parser if you so desire."
+  },
+  {
+    "after": "\n  * `grunt test` Run the tests.\n  * `grunt lint` Perform syntax and code style checks.\n  * `grunt release` Build everything, including minified files (do not include\n    those in Pull Requests)\n  * `grunt transpile:fr,ru` Build custom loca",
+    "before": " get merged it must have approval of original\nauthor, or at least one other native speaker has to approve of the change\n(happens rarely).\n\nGrunt tasks\n===========\n\nWe use Grunt for managing the build. Here are some useful Grunt tasks:\n\n  * ",
+    "diagnosis": "The second sentence wraps the recommendation to run the default task before submitting a PR in an additional assurance action.",
+    "prior_grade": "uncertain",
+    "prior_reason": "Should make sure you do this is conventional responsibility wording before PR submission. The actual critique supplies optional compression, not a distinct verification step or material burden; modality and timing are already clear.",
+    "source_group": "marked",
+    "target": "`grunt` The default task lints the code and runs the tests. You should make sure you do this before submitting a PR."
+  }
+]
+
+CURRENT INPUT JSON:
+{
+  "item_id": "1b27ee0bbbb0f3e7",
+  "proposed_diagnosis": "“Still means something” vaguely describes Liquibase's interpretation of selectors.",
+  "source": "---\ntitle: \"Migrate from Liquibase\"\ndescription: Convert a Liquibase changelog, and learn which of your changesets carry SQL and which do not.\ntype: tutorial\naudience:\n  - new-user\nreaderQuestion: How do I convert my Liquibase changelog to Ptah, and what happens to my XML?\ngoal: Convert a changelog and read the refusal that tells you which changesets cannot convert.\nsourceOfTruth:\n  - internal/cli/migrations\n  - migration/importer\ngenerated: false\nsearchAliases:\n  - liquibase import\n  - convert liquibase changelog\noverlaps:\n  - /versioned/import/\n  - /migrate-from/flyway/\ndisposition: keep\nquickstart: true\n---\n\nimport { Tabs, TabItem } from '@astrojs/starlight/components';\n\nWhat decides whether a Liquibase changeset converts is not the file format. It\nis what the changeset carries.\n\nA changeset that carries SQL converts, whether you wrote it as formatted SQL or\nas `<sql>` inside XML. A changeset that carries a typed change — `<createTable>`,\n`<addColumn>`, and the rest of Liquibase's database-independent vocabulary — has\nno SQL yet. Liquibase writes that SQL when it runs, for the database it is\npointed at. Ptah writes it during the import, for the dialect you name with\n`--dialect`, and refuses the changeset by name when you name none.\n\nConverting the changes is necessary and not sufficient. `context`, `contexts`,\n`labels`, `dbms` and `preConditions` decide at run time whether a changeset\napplies, and `runAlways` and `runOnChange` make Liquibase run it again. A\nmigration directory cannot express either, so a changeset carrying one is\nrefused as well. Importing it would turn a conditional history into an unconditional\none, which is a worse outcome than a refusal.\n\nThis page converts what converts and reads both refusals.\n\n## What you need\n\n- A `ptah` binary on your `PATH`. [Install Ptah](../../start/install/) if necessary.\n- A terminal and about eight minutes.\n\nNo database server, Docker, or Go toolchain is required.\n\n## Convert a formatted-SQL changelog\n\n### Build the changelog\n\n<Tabs syncKey=\"shell\">\n<TabItem label=\"Bash\">\n\n```bash\nmkdir -p ptah-from-liquibase/legacy\ncd ptah-from-liquibase\ncat > legacy/001-users.sql <<'SQL'\n--liquibase formatted sql\n\n--changeset alice:1\nCREATE TABLE users (\n    id    INTEGER PRIMARY KEY,\n    email TEXT NOT NULL\n);\n--rollback DROP TABLE users;\n\n--changeset alice:2\nCREATE UNIQUE INDEX users_email_idx ON users (email);\n--rollback DROP INDEX users_email_idx;\nSQL\n```\n\n</TabItem>\n<TabItem label=\"PowerShell\">\n\n```powershell\nNew-Item -ItemType Directory ptah-from-liquibase/legacy | Out-Null\nSet-Location ptah-from-liquibase\n@'\n--liquibase formatted sql\n\n--changeset alice:1\nCREATE TABLE users (\n    id    INTEGER PRIMARY KEY,\n    email TEXT NOT NULL\n);\n--rollback DROP TABLE users;\n\n--changeset alice:2\nCREATE UNIQUE INDEX users_email_idx ON users (email);\n--rollback DROP INDEX users_email_idx;\n'@ | Set-Content legacy/001-users.sql\n```\n\n</TabItem>\n</Tabs>\n\n### Run the import\n\n```console\nptah migrations import --source-dir ./legacy --migrations-dir ./migrations\n```\n\nExpected output on standard output:\n\n```text\nWrote 4 migration file(s) to ./migrations\nWrote ./migrations/ptah.sum\n  0000000001_alice_1.up.sql\n  0000000001_alice_1.down.sql\n  0000000002_alice_2.up.sql\n  0000000002_alice_2.down.sql\n```\n\nEach changeset became a migration, named from its author and id. The\n`--rollback` line became the down file, which is what it already was.\n\n## What an XML changelog does\n\n### A changeset carrying SQL converts\n\n<Tabs syncKey=\"shell\">\n<TabItem label=\"Bash\">\n\n```bash\nmkdir -p xml/legacy\ncat > xml/legacy/changelog.xml <<'XML'\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<databaseChangeLog xmlns=\"http://www.liquibase.org/xml/ns/dbchangelog\">\n  <changeSet id=\"1\" author=\"alice\">\n    <sql>CREATE TABLE users (id INTEGER PRIMARY KEY, email TEXT NOT NULL);</sql>\n    <rollback>DROP TABLE users;</rollback>\n  </changeSet>\n</databaseChangeLog>\nXML\n```\n\n</TabItem>\n<TabItem label=\"PowerShell\">\n\n```powershell\nNew-Item -ItemType Directory xml/legacy | Out-Null\n@'\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<databaseChangeLog xmlns=\"http://www.liquibase.org/xml/ns/dbchangelog\">\n  <changeSet id=\"1\" author=\"alice\">\n    <sql>CREATE TABLE users (id INTEGER PRIMARY KEY, email TEXT NOT NULL);</sql>\n    <rollback>DROP TABLE users;</rollback>\n  </changeSet>\n</databaseChangeLog>\n'@ | Set-Content xml/legacy/changelog.xml\n```\n\n</TabItem>\n</Tabs>\n\n```console\nptah migrations import --from liquibase --source-dir ./xml/legacy --migrations-dir ./xml/migrations\n```\n\nExpected output on standard output:\n\n```text\nWrote 2 migration file(s) to ./xml/migrations\nWrote ./xml/migrations/ptah.sum\n  0000000001_alice_1.up.sql\n  0000000001_alice_1.down.sql\n```\n\nXML is read. Nothing about the format stops the conversion.\n\n### A changeset carrying a typed change needs a dialect\n\n<Tabs syncKey=\"shell\">\n<TabItem label=\"Bash\">\n\n```bash\nmkdir -p typed/legacy\ncat > typed/legacy/changelog.xml <<'XML'\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<databaseChangeLog xmlns=\"http://www.liquibase.org/xml/ns/dbchangelog\">\n  <changeSet id=\"1\" author=\"alice\">\n    <createTable tableName=\"users\">\n      <column name=\"id\" type=\"int\">\n        <constraints primaryKey=\"true\"/>\n      </column>\n      <column name=\"email\" type=\"varchar(255)\">\n        <constraints nullable=\"false\"/>\n      </column>\n    </createTable>\n  </changeSet>\n</databaseChangeLog>\nXML\n```\n\n</TabItem>\n<TabItem label=\"PowerShell\">\n\n```powershell\nNew-Item -ItemType Directory typed/legacy | Out-Null\n@'\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<databaseChangeLog xmlns=\"http://www.liquibase.org/xml/ns/dbchangelog\">\n  <changeSet id=\"1\" author=\"alice\">\n    <createTable tableName=\"users\">\n      <column name=\"id\" type=\"int\">\n        <constraints primaryKey=\"true\"/>\n      </column>\n      <column name=\"email\" type=\"varchar(255)\">\n        <constraints nullable=\"false\"/>\n      </column>\n    </createTable>\n  </changeSet>\n</databaseChangeLog>\n'@ | Set-Content typed/legacy/changelog.xml\n```\n\n</TabItem>\n</Tabs>\n\n```console exits=2\nptah migrations import --from liquibase --source-dir ./typed/legacy --migrations-dir ./typed/migrations\n```\n\nExpected output on standard error:\n\n```text\nerror: parse liquibase source: liquibase changeset alice_1 in \"changelog.xml\" uses <createTable>, which is not SQL text; Ptah renders it for one target dialect, so pass --dialect to choose it, or rewrite it as a `sql` change\n```\n\nThe message names the changeset, the file and the element. A typed change is\ndatabase-independent, so turning it into SQL means choosing a database, and\nPtah does not choose one on your behalf. Name it:\n\n```console\nptah migrations import --from liquibase --source-dir ./typed/legacy --migrations-dir ./typed/migrations --dialect sqlite\n```\n\nExpected output on standard output:\n\n```text\nWrote 2 migration file(s) to ./typed/migrations\nWrote ./typed/migrations/ptah.sum\n  0000000001_alice_1.up.sql\n  0000000001_alice_1.down.sql\n```\n\nThe up file holds SQL for SQLite and for no other database, so name the\ndialect of the database the history will run on. The changeset declares no\nrollback, so the down file holds the one Liquibase would derive: it drops the\ntable.\n\nApply the result, which is how you find out whether the server accepts the SQL:\n\n```console\nptah migrations up --db-url sqlite://typed.db --migrations-dir ./typed/migrations\n```\n\nExpected output includes, on standard output:\n\n```text\nDatabase is now at version: 1\n```\n\nThese typed changes convert: `createTable`, `dropTable`, `addColumn`,\n`dropColumn`, `createIndex`, `dropIndex`, `addPrimaryKey`,\n`addForeignKeyConstraint`, `renameTable` and `renameColumn`. `sqlFile` converts\nas well, and needs no dialect because the file it names is SQL already. Any\nother change type, and any attribute a converted change sets that Ptah does not\nread, is refused by name. Rewrite such a changeset as a `sql` change in\nLiquibase first, where `liquibase update-sql` shows the SQL it would have run.\n\n### A changeset carrying a selector is refused too\n\nThe changeset below carries SQL, so the rule above stops short of deciding it.\n`context=\"staging\"` is what makes the difference.\n\n<Tabs syncKey=\"shell\">\n<TabItem label=\"Bash\">\n\n```bash\nmkdir -p conditional/legacy\ncat > conditional/legacy/changelog.xml <<'XML'\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<databaseChangeLog xmlns=\"http://www.liquibase.org/xml/ns/dbchangelog\">\n  <changeSet id=\"1\" author=\"alice\" context=\"staging\">\n    <sql>CREATE TABLE users (id INTEGER PRIMARY KEY);</sql>\n  </changeSet>\n</databaseChangeLog>\nXML\n```\n\n</TabItem>\n<TabItem label=\"PowerShell\">\n\n```powershell\nNew-Item -ItemType Directory conditional/legacy | Out-Null\n@'\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<databaseChangeLog xmlns=\"http://www.liquibase.org/xml/ns/dbchangelog\">\n  <changeSet id=\"1\" author=\"alice\" context=\"staging\">\n    <sql>CREATE TABLE users (id INTEGER PRIMARY KEY);</sql>\n  </changeSet>\n</databaseChangeLog>\n'@ | Set-Content conditional/legacy/changelog.xml\n```\n\n</TabItem>\n</Tabs>\n\n```console exits=2\nptah migrations import --from liquibase --source-dir ./conditional/legacy --migrations-dir ./conditional/migrations\n```\n\nExpected output on standard error:\n\n```text\nerror: parse liquibase source: liquibase changeset alice_1 in \"changelog.xml\" is conditional on context; a migration directory has no equivalent, so importing it would turn a conditional history into an unconditional one -- split the changelog or import it by hand\n```\n\n`contexts`, `labels`, `dbms` and `preConditions` are refused the same way, and\nso is `dbms` on a `sql` or `sqlFile` change. Split the changelog per\nenvironment or per database in Liquibase first, where the selector still means\nsomething, and convert each result separately.\n\nA changelog split by `dbms` alone has a shorter way through: name the database\nthe history ran on, in Liquibase's own spelling, with `--liquibase-dbms`, and\nthe import keeps what Liquibase ran there and names the rest on standard\nerror. `--dialect` cannot stand in for it: the name Liquibase gives some\ndatabases depends on how it connected, so Ptah cannot tell which changesets\nran on yours. [Import from another tool](../../versioned/import/) says more.\n\n`runAlways=\"true\"` and `runOnChange=\"true\"` are refused as well, because\nLiquibase can run such a changeset again on a later update and a Ptah migration\nruns once. The value `false` is the default and imports. So are the changeset\nattributes a migration has no form for, such as `failOnError=\"false\"` and\n`runOrder`, and any attribute Ptah does not read.\n\nA changeset with `runInTransaction=\"false\"` becomes a no-transaction\nmigration, and one with `ignore=\"true\"`, which Liquibase never runs, is left\nout of the import and named on standard error. In formatted SQL, the lines an\n`--ignoreLines` directive skips are left out as well.\n\nIn formatted SQL, a `/* liquibase rollback` block becomes the down file the way\na `--rollback` line does, and `--rollback empty` or `--rollback not required`\nbecomes a down file that runs nothing. Liquibase joins the lines of a block with\nnothing between them, so `DELETE FROM t` and `WHERE id = 1;` on two lines run as\n`DELETE FROM tWHERE id = 1;`. A rollback that Liquibase would run as different\nSQL from what is written is refused by name; rewrite it as `--rollback` lines,\nwhich Liquibase keeps apart.\n\nA property reference such as `${schema}` is refused. Liquibase fills it in when\nit runs, and an environment variable or command-line parameter of that name\nwins over the changelog's own `property`, so the changelog does not say what\nran. Write the value in before you import.\n\n## Apply the result\n\n### Validate the sealed directory\n\n```console\nptah migrations validate --dir ./migrations\n```\n\nExpected output on standard output:\n\n```text\nOK: migrations directory matches ptah.sum\n```\n\n### Apply the converted directory\n\n```console\nptah migrations up --db-url sqlite://app.db --migrations-dir ./migrations\n```\n\nExpected output includes, on standard output:\n\n```text\nTotal migrations: 2\nPending migrations: 2\n```\n\nProgress records on standard error carry timestamps and correlation IDs, so\nthis page does not copy those volatile fields.\n\n### Verify the recorded state\n\n```console\nptah migrations status --db-url sqlite://app.db --migrations-dir ./migrations\n```\n\nExpected output includes, on standard output:\n\n```text\nCurrent Version: 2\nTotal Migrations: 2\nApplied Migrations: 2\nPending Migrations: 0\n```\n\n## Clean up\n\n<Tabs syncKey=\"shell\">\n<TabItem label=\"Bash\">\n\n```bash\ncd ..\nrm -rf ptah-from-liquibase\n```\n\n</TabItem>\n<TabItem label=\"PowerShell\">\n\n```powershell\nSet-Location ..\nRemove-Item -Recurse -Force ptah-from-liquibase\n```\n\n</TabItem>\n</Tabs>\n\n## Where this leaves you\n\nContexts, labels, dbms and preconditions have no destination in a migration\ndirectory, which is why a changeset carrying one is refused rather than\nimported without it. Deciding what they meant is work that belongs in\nLiquibase: a context is usually the reason a changeset ran in one environment\nand not another, a dbms the reason it ran on one database and not another, and\nonce the changelog is split along that line each half converts.\n\nIf a database already has Liquibase's `DATABASECHANGELOG` table, do not run\n`ptah migrations up` against it. Record the history as already applied first:\nsee [Adopt an existing database](../../start/adopt-an-existing-database/).\n\n[Import an existing migration directory](../../versioned/import/) covers the\nother source tools and the format table.\n",
+  "source_sha256": "b0b2c0b5d297971a44d16ea25bb1c32c0d9018a07e90bc1fc509f00817b3011c",
+  "target_end_byte": 9678,
+  "target_quote": "where the selector still means\nsomething",
+  "target_start_byte": 9638
+}
