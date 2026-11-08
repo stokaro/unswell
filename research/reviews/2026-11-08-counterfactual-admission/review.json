@@ -1,0 +1,44 @@
+{
+  "format": "unswell-counterfactual-admission-baseline-review-v1",
+  "reviewer": "Codex assistant under ADR 0041",
+  "independent_human": false,
+  "evidence_role": "synthetic exposed development controls; semantic claim review",
+  "applied_edit_safety": "not_assessed",
+  "findings": [
+    {
+      "case": "table-announcement",
+      "variant": "table-contradicted",
+      "finding_id": "f0790879be82aa5b",
+      "matches_fixed_diagnosis": false,
+      "rationale": "The passive-candidate-density warning concerns voice in 'are shown'; it does not diagnose a redundant announcement. Here the table is missing, a different source problem."
+    },
+    {
+      "case": "repeated-release-status",
+      "variant": "matching-heading",
+      "finding_id": "30adbd0707e89d40",
+      "matches_fixed_diagnosis": false,
+      "rationale": "The warning addresses the 'I want to stress' carrier, not repetition of the first-release fact from the heading."
+    },
+    {
+      "case": "repeated-release-status",
+      "variant": "unrelated-distractor",
+      "finding_id": "9d2f9e34dfc7f510",
+      "matches_fixed_diagnosis": false,
+      "rationale": "The warning addresses the carrier even though the source does not already state the first-release fact."
+    },
+    {
+      "case": "repeated-release-status",
+      "variant": "prior-fact-added",
+      "finding_id": "852b06ac6952296e",
+      "matches_fixed_diagnosis": false,
+      "rationale": "The warning addresses the carrier, not the actual repeated first-release status from the preceding sentence."
+    },
+    {
+      "case": "repeated-release-status",
+      "variant": "prior-fact-contradicts",
+      "finding_id": "0fc2def98df1b4d4",
+      "matches_fixed_diagnosis": false,
+      "rationale": "The warning addresses the carrier while the source contradicts the first-release claim; repetition is not diagnosed."
+    }
+  ]
+}

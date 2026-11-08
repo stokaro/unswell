@@ -10,6 +10,7 @@ check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy sc
 
 check-counterfactual-admission:
 	python3 -B research/reviews/2026-11-08-counterfactual-admission/verify.py
+	python3 -B research/reviews/2026-11-08-counterfactual-admission/verify_result.py
 	python3 -B -m unittest discover -s research/reviews/2026-11-08-counterfactual-admission -p 'test_*.py'
 
 check-interpretable-ensemble:
