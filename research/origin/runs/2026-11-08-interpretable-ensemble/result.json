@@ -1,0 +1,467 @@
+{
+  "advance_pass": false,
+  "feature_names": [
+    "richness",
+    "entropy",
+    "closed_fraction",
+    "mean_length_tenths",
+    "repeated_bigram_coverage"
+  ],
+  "fit": {
+    "bias": 0.19964069338051876,
+    "deviations": [
+      0.042878520033317664,
+      0.02067000422392244,
+      0.06607028865015094,
+      0.050629377634083705,
+      0.051954098086446215
+    ],
+    "means": [
+      0.8347876672484003,
+      0.9316572228991798,
+      0.40913089005235603,
+      0.4889368237347295,
+      0.05343487228303982
+    ],
+    "weights": [
+      0.1627824191158729,
+      -0.18653813346157444,
+      0.10105914226765382,
+      0.8018442977474722,
+      -0.32018880871527056
+    ]
+  },
+  "format": "unswell-interpretable-ensemble-v1",
+  "inputs": {
+    "academic_counts": {
+      "human_only/human": 400,
+      "test/ai": 143,
+      "test/human": 89,
+      "train/ai": 1125,
+      "train/human": 627,
+      "val/ai": 131,
+      "val/human": 83
+    },
+    "arb_roles": {
+      "calibration": 300,
+      "test": 900,
+      "train": 600
+    },
+    "sha256": {
+      "academic": "428de968a71d64ddaf9f0d5afe7e4e295b2adeace77f57fd29c6252ae082d29c",
+      "arb": "66e48240618b92ce876e2097d8df52f06661a70e31791b91a95b15688a099ab0",
+      "arb_loader": "fbf5f4598b0de3a054cdeca077c381d9028c085dcab11ae7776f7bad088bd913",
+      "lexicon": "37ab010f5b2410df5c419d0291a55e86ab829ee1b26df2be361bd49b445f9be0",
+      "protocol": "79da5087b9b13f7abb71d8be9f135a9d9c21a5c27a99f9c5c140a617f59d1743",
+      "richness": "ed17bd5b238823357a09146e18ea871abad8a1eb3ced1a6dc2b6352e1a338ad7",
+      "script": "55b552ee93690beaaa800548aef6d9e94b7cdb6b90270d00d630d7f24cbc5737"
+    },
+    "split_sha256": "63dc835b4586260da00a4df7a14df8af60c273df2f8bb7e6596a9f09ddc1683e"
+  },
+  "scores": {
+    "ensemble": {
+      "academic": {
+        "ai_rewrites": {
+          "abstained_pairs": 0,
+          "auroc": 0.7017458066409116,
+          "eligible_pairs": 143,
+          "flagged": 102,
+          "paired_win_fraction": 0.7832167832167832,
+          "raw_pairs": 143,
+          "tpr": 0.7132867132867133
+        },
+        "by_generator": {
+          "claude-4-8-opus-genai": {
+            "abstained_pairs": 0,
+            "auroc": 0.6507936507936508,
+            "eligible_pairs": 21,
+            "flagged": 14,
+            "paired_win_fraction": 0.6666666666666666,
+            "raw_pairs": 21,
+            "tpr": 0.6666666666666666
+          },
+          "claude-5-1-fable-genai": {
+            "abstained_pairs": 0,
+            "auroc": 0.555765595463138,
+            "eligible_pairs": 23,
+            "flagged": 11,
+            "paired_win_fraction": 0.6521739130434783,
+            "raw_pairs": 23,
+            "tpr": 0.4782608695652174
+          },
+          "claude-5-5-opus-genai": {
+            "abstained_pairs": 0,
+            "auroc": 0.5306122448979592,
+            "eligible_pairs": 21,
+            "flagged": 10,
+            "paired_win_fraction": 0.5238095238095238,
+            "raw_pairs": 21,
+            "tpr": 0.47619047619047616
+          },
+          "gemini-3-6-flash-genai": {
+            "abstained_pairs": 0,
+            "auroc": null,
+            "eligible_pairs": 18,
+            "flagged": 16,
+            "paired_win_fraction": 0.8888888888888888,
+            "raw_pairs": 18,
+            "tpr": 0.8888888888888888
+          },
+          "gemini-3-8-flash-genai": {
+            "abstained_pairs": 0,
+            "auroc": null,
+            "eligible_pairs": 19,
+            "flagged": 19,
+            "paired_win_fraction": 1.0,
+            "raw_pairs": 19,
+            "tpr": 1.0
+          },
+          "gpt-5-6-sol-genai-responses": {
+            "abstained_pairs": 0,
+            "auroc": null,
+            "eligible_pairs": 19,
+            "flagged": 14,
+            "paired_win_fraction": 0.8947368421052632,
+            "raw_pairs": 19,
+            "tpr": 0.7368421052631579
+          },
+          "gpt-6-astra-genai": {
+            "abstained_pairs": 0,
+            "auroc": 0.7603305785123967,
+            "eligible_pairs": 22,
+            "flagged": 18,
+            "paired_win_fraction": 0.9090909090909091,
+            "raw_pairs": 22,
+            "tpr": 0.8181818181818182
+          }
+        },
+        "human_only": {
+          "eligible": 400,
+          "flagged": 120,
+          "fpr": 0.3,
+          "total": 400
+        },
+        "test_human": {
+          "eligible": 89,
+          "flagged": 34,
+          "fpr": 0.38202247191011235,
+          "total": 89
+        }
+      },
+      "arb": {
+        "h2l_by_domain": {
+          "owt": {
+            "abstained_pairs": 34,
+            "auroc": 0.7760423255827638,
+            "eligible_pairs": 1166,
+            "flagged": 127,
+            "paired_win_fraction": 0.8876500857632933,
+            "raw_pairs": 1200,
+            "tpr": 0.10891938250428816
+          },
+          "wp": {
+            "abstained_pairs": 4,
+            "auroc": 0.7732079339157281,
+            "eligible_pairs": 1196,
+            "flagged": 17,
+            "paired_win_fraction": 0.8921404682274248,
+            "raw_pairs": 1200,
+            "tpr": 0.014214046822742474
+          },
+          "xsum": {
+            "abstained_pairs": 3,
+            "auroc": 0.7653553264950178,
+            "eligible_pairs": 1197,
+            "flagged": 135,
+            "paired_win_fraction": 0.9114452798663325,
+            "raw_pairs": 1200,
+            "tpr": 0.11278195488721804
+          }
+        },
+        "h2l_by_generator": {
+          "gemma2_9b": {
+            "abstained_pairs": 23,
+            "auroc": 0.7215967672523075,
+            "eligible_pairs": 877,
+            "flagged": 91,
+            "paired_win_fraction": 0.879133409350057,
+            "raw_pairs": 900,
+            "tpr": 0.10376282782212087
+          },
+          "llama32_3b": {
+            "abstained_pairs": 1,
+            "auroc": 0.6825913355712254,
+            "eligible_pairs": 899,
+            "flagged": 32,
+            "paired_win_fraction": 0.8476084538375973,
+            "raw_pairs": 900,
+            "tpr": 0.035595105672969966
+          },
+          "mistral7b": {
+            "abstained_pairs": 1,
+            "auroc": 0.7978176221014327,
+            "eligible_pairs": 899,
+            "flagged": 81,
+            "paired_win_fraction": 0.9454949944382648,
+            "raw_pairs": 900,
+            "tpr": 0.09010011123470522
+          },
+          "qwen25_7b": {
+            "abstained_pairs": 16,
+            "auroc": 0.7433393562785364,
+            "eligible_pairs": 884,
+            "flagged": 75,
+            "paired_win_fraction": 0.916289592760181,
+            "raw_pairs": 900,
+            "tpr": 0.08484162895927602
+          }
+        },
+        "human": {
+          "eligible": 900,
+          "flagged": 5,
+          "fpr": 0.005555555555555556,
+          "total": 900
+        },
+        "regimes": {
+          "free_llm": {
+            "abstained_pairs": 367,
+            "auroc": 0.8640627904567124,
+            "eligible_pairs": 3233,
+            "flagged": 780,
+            "paired_win_fraction": 0.9239096814104547,
+            "raw_pairs": 3600,
+            "tpr": 0.24126198577172905
+          },
+          "h2l": {
+            "abstained_pairs": 41,
+            "auroc": 0.7364025572690631,
+            "eligible_pairs": 3559,
+            "flagged": 279,
+            "paired_win_fraction": 0.8971621241921888,
+            "raw_pairs": 3600,
+            "tpr": 0.0783928069682495
+          },
+          "llm2l": {
+            "abstained_pairs": 574,
+            "auroc": 0.8869277453958183,
+            "eligible_pairs": 3026,
+            "flagged": 857,
+            "paired_win_fraction": 0.94216787838731,
+            "raw_pairs": 3600,
+            "tpr": 0.283212161269002
+          }
+        }
+      }
+    },
+    "richness": {
+      "academic": {
+        "ai_rewrites": {
+          "abstained_pairs": 0,
+          "auroc": 0.7982297422856863,
+          "eligible_pairs": 143,
+          "flagged": 11,
+          "paired_win_fraction": 0.9370629370629371,
+          "raw_pairs": 143,
+          "tpr": 0.07692307692307693
+        },
+        "by_generator": {
+          "claude-4-8-opus-genai": {
+            "abstained_pairs": 0,
+            "auroc": 0.764172335600907,
+            "eligible_pairs": 21,
+            "flagged": 0,
+            "paired_win_fraction": 0.9047619047619048,
+            "raw_pairs": 21,
+            "tpr": 0.0
+          },
+          "claude-5-1-fable-genai": {
+            "abstained_pairs": 0,
+            "auroc": 0.7901701323251418,
+            "eligible_pairs": 23,
+            "flagged": 1,
+            "paired_win_fraction": 0.9565217391304348,
+            "raw_pairs": 23,
+            "tpr": 0.043478260869565216
+          },
+          "claude-5-5-opus-genai": {
+            "abstained_pairs": 0,
+            "auroc": 0.7097505668934241,
+            "eligible_pairs": 21,
+            "flagged": 1,
+            "paired_win_fraction": 0.8095238095238095,
+            "raw_pairs": 21,
+            "tpr": 0.047619047619047616
+          },
+          "gemini-3-6-flash-genai": {
+            "abstained_pairs": 0,
+            "auroc": null,
+            "eligible_pairs": 18,
+            "flagged": 0,
+            "paired_win_fraction": 0.9444444444444444,
+            "raw_pairs": 18,
+            "tpr": 0.0
+          },
+          "gemini-3-8-flash-genai": {
+            "abstained_pairs": 0,
+            "auroc": null,
+            "eligible_pairs": 19,
+            "flagged": 7,
+            "paired_win_fraction": 1.0,
+            "raw_pairs": 19,
+            "tpr": 0.3684210526315789
+          },
+          "gpt-5-6-sol-genai-responses": {
+            "abstained_pairs": 0,
+            "auroc": null,
+            "eligible_pairs": 19,
+            "flagged": 1,
+            "paired_win_fraction": 0.9473684210526315,
+            "raw_pairs": 19,
+            "tpr": 0.05263157894736842
+          },
+          "gpt-6-astra-genai": {
+            "abstained_pairs": 0,
+            "auroc": 0.8212809917355371,
+            "eligible_pairs": 22,
+            "flagged": 1,
+            "paired_win_fraction": 1.0,
+            "raw_pairs": 22,
+            "tpr": 0.045454545454545456
+          }
+        },
+        "human_only": {
+          "eligible": 400,
+          "flagged": 1,
+          "fpr": 0.0025,
+          "total": 400
+        },
+        "test_human": {
+          "eligible": 89,
+          "flagged": 0,
+          "fpr": 0.0,
+          "total": 89
+        }
+      },
+      "arb": {
+        "h2l_by_domain": {
+          "owt": {
+            "abstained_pairs": 34,
+            "auroc": 0.5984369161696907,
+            "eligible_pairs": 1166,
+            "flagged": 13,
+            "paired_win_fraction": 0.6149228130360206,
+            "raw_pairs": 1200,
+            "tpr": 0.011149228130360206
+          },
+          "wp": {
+            "abstained_pairs": 4,
+            "auroc": 0.664407417142985,
+            "eligible_pairs": 1196,
+            "flagged": 8,
+            "paired_win_fraction": 0.7140468227424749,
+            "raw_pairs": 1200,
+            "tpr": 0.006688963210702341
+          },
+          "xsum": {
+            "abstained_pairs": 3,
+            "auroc": 0.593067184809699,
+            "eligible_pairs": 1197,
+            "flagged": 23,
+            "paired_win_fraction": 0.6428571428571429,
+            "raw_pairs": 1200,
+            "tpr": 0.01921470342522974
+          }
+        },
+        "h2l_by_generator": {
+          "gemma2_9b": {
+            "abstained_pairs": 23,
+            "auroc": 0.5826207307226746,
+            "eligible_pairs": 877,
+            "flagged": 4,
+            "paired_win_fraction": 0.6168757126567845,
+            "raw_pairs": 900,
+            "tpr": 0.004561003420752566
+          },
+          "llama32_3b": {
+            "abstained_pairs": 1,
+            "auroc": 0.5889908574723367,
+            "eligible_pairs": 899,
+            "flagged": 6,
+            "paired_win_fraction": 0.6056729699666296,
+            "raw_pairs": 900,
+            "tpr": 0.006674082313681869
+          },
+          "mistral7b": {
+            "abstained_pairs": 1,
+            "auroc": 0.6016591169770886,
+            "eligible_pairs": 899,
+            "flagged": 9,
+            "paired_win_fraction": 0.6457174638487208,
+            "raw_pairs": 900,
+            "tpr": 0.010011123470522803
+          },
+          "qwen25_7b": {
+            "abstained_pairs": 16,
+            "auroc": 0.691820780696546,
+            "eligible_pairs": 884,
+            "flagged": 25,
+            "paired_win_fraction": 0.7630090497737556,
+            "raw_pairs": 900,
+            "tpr": 0.02828054298642534
+          }
+        },
+        "human": {
+          "eligible": 900,
+          "flagged": 4,
+          "fpr": 0.0044444444444444444,
+          "total": 900
+        },
+        "regimes": {
+          "free_llm": {
+            "abstained_pairs": 367,
+            "auroc": 0.5022715120104314,
+            "eligible_pairs": 3233,
+            "flagged": 14,
+            "paired_win_fraction": 0.5015465511908445,
+            "raw_pairs": 3600,
+            "tpr": 0.004330343334364367
+          },
+          "h2l": {
+            "abstained_pairs": 41,
+            "auroc": 0.6161718080972923,
+            "eligible_pairs": 3559,
+            "flagged": 44,
+            "paired_win_fraction": 0.6576285473447597,
+            "raw_pairs": 3600,
+            "tpr": 0.012363023321157629
+          },
+          "llm2l": {
+            "abstained_pairs": 574,
+            "auroc": 0.5630838636203793,
+            "eligible_pairs": 3026,
+            "flagged": 23,
+            "paired_win_fraction": 0.5614672835426305,
+            "raw_pairs": 3600,
+            "tpr": 0.00760079312623926
+          }
+        }
+      }
+    }
+  },
+  "thresholds": {
+    "ensemble": {
+      "eligible": 300,
+      "flagged": 2,
+      "score": 1.3251545797561963
+    },
+    "richness": {
+      "eligible": 300,
+      "flagged": 2,
+      "score": 0.9199999999999999
+    }
+  },
+  "training": {
+    "excluded_source_groups": 27,
+    "source_groups": 573
+  }
+}

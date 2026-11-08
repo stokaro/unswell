@@ -130,3 +130,11 @@ fill any cohort's recall gap. The next screen must test selective suppression or
 repair of noisy existing findings alongside multiple source-local editorial
 mechanisms; it must still review the complete changed stream and preserve the
 frozen labels.
+
+The separately frozen [five-feature origin ensemble](../origin/runs/2026-11-08-interpretable-ensemble/README.md)
+tested an interpretable, non-LLM proxy for the El Attar et al. feature
+approach. It improved ARB human-to-LLM rewrite AUROC from 0.616 to 0.736 and
+low-FPR recall from 1.24% to 7.84% on the same source-disjoint test, but missed
+its registered 10% recall floor. Its unchanged threshold falsely flagged
+120/400 academic human-only papers, so it failed transfer. This is a measured
+genre shift, not a qualified origin classifier or an editorial gain for #349.
