@@ -1,0 +1,2053 @@
+{
+  "acquisition": {
+    "duplicate_selected_condition_keys": 0,
+    "input_rows": 273418,
+    "selected_groups": 976,
+    "selected_rows": 90768,
+    "source_groups": 979,
+    "source_mismatches_by_domain": {
+      "story_generation": 1116
+    }
+  },
+  "format": "unswell-gen-edit-transfer-v1",
+  "generation_identity": {
+    "duplicate_source_model": 38,
+    "missing_source_model": 647,
+    "rows": 39391,
+    "unique_source_model": 39353
+  },
+  "source_split_sha256": "189fa3522da7f0744f2d708203cd6f942b2a4ab83ec20b1bc1d601afdb4eb7c5",
+  "status": "development_only",
+  "tasks": {
+    "edited": {
+      "full/closed_fraction": {
+        "auc": 0.3241066120389306,
+        "by_category": {
+          "adding_detail": {
+            "auc": 0.3873148439586732,
+            "coverage": 0.9942106435092407,
+            "eligible": 8930,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 53.87,
+              "p10": 30.29,
+              "p90": 72.77
+            },
+            "paired_wins": 0.31153415453527433,
+            "rows": 8982,
+            "tpr": 0.0015677491601343784
+          },
+          "clarity_and_precision": {
+            "auc": 0.2951248766714219,
+            "coverage": 0.9964929859719439,
+            "eligible": 5967,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 59.91,
+              "p10": 38.9,
+              "p90": 72.49
+            },
+            "paired_wins": 0.14789676554382436,
+            "rows": 5988,
+            "tpr": 0.0003351768057650411
+          },
+          "concision": {
+            "auc": 0.23146608979065447,
+            "coverage": 0.9965263861055444,
+            "eligible": 7459,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 64.92,
+              "p10": 44.89,
+              "p90": 75.57
+            },
+            "paired_wins": 0.10812441346024937,
+            "rows": 7485,
+            "tpr": 0.0016087947446038343
+          },
+          "fluency_and_flow": {
+            "auc": 0.31770130686274806,
+            "coverage": 0.998997995991984,
+            "eligible": 5982,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 53.91,
+              "p10": 32.38,
+              "p90": 71.74
+            },
+            "paired_wins": 0.15220661985957873,
+            "rows": 5988,
+            "tpr": 0.00016716817118020728
+          },
+          "grammar_and_mechanics": {
+            "auc": 0.4316368553195379,
+            "coverage": 0.9979959919839679,
+            "eligible": 1494,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 16.62,
+              "p10": 4.26,
+              "p90": 61.23
+            },
+            "paired_wins": 0.30622489959839355,
+            "rows": 1497,
+            "tpr": 0.002677376171352075
+          },
+          "paraphrasing": {
+            "auc": 0.30990583315127496,
+            "coverage": 0.9964373190826097,
+            "eligible": 4475,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 55.38,
+              "p10": 37.67,
+              "p90": 69.32
+            },
+            "paired_wins": 0.1488268156424581,
+            "rows": 4491,
+            "tpr": 0.000446927374301676
+          },
+          "structure_and_organization": {
+            "auc": 0.32315960877848954,
+            "coverage": 0.9993319973279893,
+            "eligible": 2992,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 57.79,
+              "p10": 30.07,
+              "p90": 72.42
+            },
+            "paired_wins": 0.20020053475935828,
+            "rows": 2994,
+            "tpr": 0.001336898395721925
+          },
+          "tone_and_style": {
+            "auc": 0.35143694324082186,
+            "coverage": 0.994767312402583,
+            "eligible": 8935,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 54.94,
+              "p10": 30.96,
+              "p90": 70.03
+            },
+            "paired_wins": 0.2272523782876329,
+            "rows": 8982,
+            "tpr": 0.0012311135982092892
+          }
+        },
+        "by_domain": {
+          "arxiv": {
+            "auc": 0.2596581571696779,
+            "coverage": 1.0,
+            "eligible": 9765,
+            "groups": 105,
+            "measured_edit_ratio": {
+              "median": 47.69,
+              "p10": 29.61,
+              "p90": 66.11
+            },
+            "paired_wins": 0.1867383512544803,
+            "rows": 9765,
+            "tpr": 0.0
+          },
+          "reddit": {
+            "auc": 0.14907383092484838,
+            "coverage": 0.999660441426146,
+            "eligible": 8832,
+            "groups": 95,
+            "measured_edit_ratio": {
+              "median": 61.9,
+              "p10": 39.06,
+              "p90": 73.22
+            },
+            "paired_wins": 0.08463541666666667,
+            "rows": 8835,
+            "tpr": 0.0
+          },
+          "story_generation": {
+            "auc": 0.26820580684085527,
+            "coverage": 0.9826302729528535,
+            "eligible": 9504,
+            "groups": 104,
+            "measured_edit_ratio": {
+              "median": 53.65,
+              "p10": 22.71,
+              "p90": 70.2
+            },
+            "paired_wins": 0.15498737373737373,
+            "rows": 9672,
+            "tpr": 0.005260942760942761
+          },
+          "wikihow": {
+            "auc": 0.18718964680406214,
+            "coverage": 1.0,
+            "eligible": 8928,
+            "groups": 96,
+            "measured_edit_ratio": {
+              "median": 61.26,
+              "p10": 37.28,
+              "p90": 73.2
+            },
+            "paired_wins": 0.09940636200716846,
+            "rows": 8928,
+            "tpr": 0.0
+          },
+          "wikipedia": {
+            "auc": 0.4718050583589853,
+            "coverage": 0.9997827739763223,
+            "eligible": 9205,
+            "groups": 99,
+            "measured_edit_ratio": {
+              "median": 60.26,
+              "p10": 39.19,
+              "p90": 74.81
+            },
+            "paired_wins": 0.4565996740901684,
+            "rows": 9207,
+            "tpr": 0.0
+          }
+        },
+        "by_model": {
+          "gpt-oss-120B": {
+            "auc": 0.20625386787538488,
+            "coverage": 1.0,
+            "eligible": 15469,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 64.69,
+              "p10": 47.55,
+              "p90": 74.0
+            },
+            "paired_wins": 0.04777296528540953,
+            "rows": 15469,
+            "tpr": 0.0
+          },
+          "llama3.3-70B": {
+            "auc": 0.3964165254336496,
+            "coverage": 0.9915314499967677,
+            "eligible": 15338,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 55.94,
+              "p10": 31.98,
+              "p90": 70.2
+            },
+            "paired_wins": 0.3111227017864128,
+            "rows": 15469,
+            "tpr": 0.0016951362628765158
+          },
+          "qwen2.5-72B": {
+            "auc": 0.37057465831178116,
+            "coverage": 0.9972848923653759,
+            "eligible": 15427,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 47.94,
+              "p10": 24.33,
+              "p90": 69.38
+            },
+            "paired_wins": 0.23488040448564207,
+            "rows": 15469,
+            "tpr": 0.0015557140079082129
+          }
+        },
+        "calibration_humans": 2500,
+        "coverage": 0.9962721141207146,
+        "eligible": 46234,
+        "groups": 499,
+        "measured_edit_ratio": {
+          "median": 56.96,
+          "p10": 32.07,
+          "p90": 72.4
+        },
+        "paired_wins": 0.19757105160704244,
+        "rows": 46407,
+        "test_human_fpr": 0.009203681472589036,
+        "test_humans": 2499,
+        "threshold": 0.5587529976019185,
+        "tpr": 0.0010814552061253623
+      },
+      "full/reverse_entropy": {
+        "auc": 0.3294743794237457,
+        "by_category": {
+          "adding_detail": {
+            "auc": 0.39732804229486773,
+            "coverage": 0.9942106435092407,
+            "eligible": 8930,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 53.87,
+              "p10": 30.29,
+              "p90": 72.77
+            },
+            "paired_wins": 0.32541993281075027,
+            "rows": 8982,
+            "tpr": 0.0008958566629339306
+          },
+          "clarity_and_precision": {
+            "auc": 0.3055713187516537,
+            "coverage": 0.9964929859719439,
+            "eligible": 5967,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 59.91,
+              "p10": 38.9,
+              "p90": 72.49
+            },
+            "paired_wins": 0.1942349589408413,
+            "rows": 5988,
+            "tpr": 0.002178649237472767
+          },
+          "concision": {
+            "auc": 0.29405256938313773,
+            "coverage": 0.9965263861055444,
+            "eligible": 7459,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 64.92,
+              "p10": 44.89,
+              "p90": 75.57
+            },
+            "paired_wins": 0.2000268132457434,
+            "rows": 7485,
+            "tpr": 0.0037538544040756133
+          },
+          "fluency_and_flow": {
+            "auc": 0.3054535276396447,
+            "coverage": 0.998997995991984,
+            "eligible": 5982,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 53.91,
+              "p10": 32.38,
+              "p90": 71.74
+            },
+            "paired_wins": 0.1697592778335005,
+            "rows": 5988,
+            "tpr": 0.0031761952524239387
+          },
+          "grammar_and_mechanics": {
+            "auc": 0.463952866351618,
+            "coverage": 0.9979959919839679,
+            "eligible": 1494,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 16.62,
+              "p10": 4.26,
+              "p90": 61.23
+            },
+            "paired_wins": 0.3768406961178046,
+            "rows": 1497,
+            "tpr": 0.008701472556894244
+          },
+          "paraphrasing": {
+            "auc": 0.32608323086046004,
+            "coverage": 0.9964373190826097,
+            "eligible": 4475,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 55.38,
+              "p10": 37.67,
+              "p90": 69.32
+            },
+            "paired_wins": 0.19798882681564245,
+            "rows": 4491,
+            "tpr": 0.0022346368715083797
+          },
+          "structure_and_organization": {
+            "auc": 0.32378588893019533,
+            "coverage": 0.9993319973279893,
+            "eligible": 2992,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 57.79,
+              "p10": 30.07,
+              "p90": 72.42
+            },
+            "paired_wins": 0.20304144385026737,
+            "rows": 2994,
+            "tpr": 0.002005347593582888
+          },
+          "tone_and_style": {
+            "auc": 0.30429785596340414,
+            "coverage": 0.994767312402583,
+            "eligible": 8935,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 54.94,
+              "p10": 30.96,
+              "p90": 70.03
+            },
+            "paired_wins": 0.1821488528259653,
+            "rows": 8982,
+            "tpr": 0.002238388360380526
+          }
+        },
+        "by_domain": {
+          "arxiv": {
+            "auc": 0.27571745544095777,
+            "coverage": 1.0,
+            "eligible": 9765,
+            "groups": 105,
+            "measured_edit_ratio": {
+              "median": 47.69,
+              "p10": 29.61,
+              "p90": 66.11
+            },
+            "paired_wins": 0.16912442396313365,
+            "rows": 9765,
+            "tpr": 0.000409626216077829
+          },
+          "reddit": {
+            "auc": 0.34476348357750475,
+            "coverage": 0.999660441426146,
+            "eligible": 8832,
+            "groups": 95,
+            "measured_edit_ratio": {
+              "median": 61.9,
+              "p10": 39.06,
+              "p90": 73.22
+            },
+            "paired_wins": 0.2623414855072464,
+            "rows": 8835,
+            "tpr": 0.0006793478260869565
+          },
+          "story_generation": {
+            "auc": 0.39197118469168396,
+            "coverage": 0.9826302729528535,
+            "eligible": 9504,
+            "groups": 104,
+            "measured_edit_ratio": {
+              "median": 53.65,
+              "p10": 22.71,
+              "p90": 70.2
+            },
+            "paired_wins": 0.32649410774410775,
+            "rows": 9672,
+            "tpr": 0.00021043771043771043
+          },
+          "wikihow": {
+            "auc": 0.3255301672640382,
+            "coverage": 1.0,
+            "eligible": 8928,
+            "groups": 96,
+            "measured_edit_ratio": {
+              "median": 61.26,
+              "p10": 37.28,
+              "p90": 73.2
+            },
+            "paired_wins": 0.17713933691756273,
+            "rows": 8928,
+            "tpr": 0.006384408602150538
+          },
+          "wikipedia": {
+            "auc": 0.28680714287189524,
+            "coverage": 0.9997827739763223,
+            "eligible": 9205,
+            "groups": 99,
+            "measured_edit_ratio": {
+              "median": 60.26,
+              "p10": 39.19,
+              "p90": 74.81
+            },
+            "paired_wins": 0.17419880499728407,
+            "rows": 9207,
+            "tpr": 0.005214557305812059
+          }
+        },
+        "by_model": {
+          "gpt-oss-120B": {
+            "auc": 0.2391727018585623,
+            "coverage": 1.0,
+            "eligible": 15469,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 64.69,
+              "p10": 47.55,
+              "p90": 74.0
+            },
+            "paired_wins": 0.11109315405003556,
+            "rows": 15469,
+            "tpr": 0.0007110996185920227
+          },
+          "llama3.3-70B": {
+            "auc": 0.3738426181165939,
+            "coverage": 0.9915314499967677,
+            "eligible": 15338,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 55.94,
+              "p10": 31.98,
+              "p90": 70.2
+            },
+            "paired_wins": 0.28217499022036774,
+            "rows": 15469,
+            "tpr": 0.0023471117485982526
+          },
+          "qwen2.5-72B": {
+            "auc": 0.37573518598576344,
+            "coverage": 0.9972848923653759,
+            "eligible": 15427,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 47.94,
+              "p10": 24.33,
+              "p90": 69.38
+            },
+            "paired_wins": 0.272898165553899,
+            "rows": 15469,
+            "tpr": 0.0045374991897322876
+          }
+        },
+        "calibration_humans": 2500,
+        "coverage": 0.9962721141207146,
+        "eligible": 46234,
+        "groups": 499,
+        "measured_edit_ratio": {
+          "median": 56.96,
+          "p10": 32.07,
+          "p90": 72.4
+        },
+        "paired_wins": 0.22183890643249557,
+        "rows": 46407,
+        "test_human_fpr": 0.008403361344537815,
+        "test_humans": 2499,
+        "threshold": -0.8342155809301565,
+        "tpr": 0.0025306051823333476
+      },
+      "full/richness": {
+        "auc": 0.6930972203725992,
+        "by_category": {
+          "adding_detail": {
+            "auc": 0.6435136729746981,
+            "coverage": 0.9942106435092407,
+            "eligible": 8930,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 53.87,
+              "p10": 30.29,
+              "p90": 72.77
+            },
+            "paired_wins": 0.7348824188129899,
+            "rows": 8982,
+            "tpr": 0.022396416573348264
+          },
+          "clarity_and_precision": {
+            "auc": 0.7158508296384262,
+            "coverage": 0.9964929859719439,
+            "eligible": 5967,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 59.91,
+              "p10": 38.9,
+              "p90": 72.49
+            },
+            "paired_wins": 0.830316742081448,
+            "rows": 5988,
+            "tpr": 0.08513490866432043
+          },
+          "concision": {
+            "auc": 0.7151086438819023,
+            "coverage": 0.9965263861055444,
+            "eligible": 7459,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 64.92,
+              "p10": 44.89,
+              "p90": 75.57
+            },
+            "paired_wins": 0.8134468427403138,
+            "rows": 7485,
+            "tpr": 0.13245743397238235
+          },
+          "fluency_and_flow": {
+            "auc": 0.7167527183131921,
+            "coverage": 0.998997995991984,
+            "eligible": 5982,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 53.91,
+              "p10": 32.38,
+              "p90": 71.74
+            },
+            "paired_wins": 0.8531427616181879,
+            "rows": 5988,
+            "tpr": 0.07288532263457038
+          },
+          "grammar_and_mechanics": {
+            "auc": 0.5350747030961867,
+            "coverage": 0.9979959919839679,
+            "eligible": 1494,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 16.62,
+              "p10": 4.26,
+              "p90": 61.23
+            },
+            "paired_wins": 0.6107764390896921,
+            "rows": 1497,
+            "tpr": 0.008032128514056224
+          },
+          "paraphrasing": {
+            "auc": 0.6923457320308355,
+            "coverage": 0.9964373190826097,
+            "eligible": 4475,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 55.38,
+              "p10": 37.67,
+              "p90": 69.32
+            },
+            "paired_wins": 0.8201117318435754,
+            "rows": 4491,
+            "tpr": 0.0659217877094972
+          },
+          "structure_and_organization": {
+            "auc": 0.6986874200184449,
+            "coverage": 0.9993319973279893,
+            "eligible": 2992,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 57.79,
+              "p10": 30.07,
+              "p90": 72.42
+            },
+            "paired_wins": 0.8163435828877005,
+            "rows": 2994,
+            "tpr": 0.06751336898395723
+          },
+          "tone_and_style": {
+            "auc": 0.7182479256233777,
+            "coverage": 0.994767312402583,
+            "eligible": 8935,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 54.94,
+              "p10": 30.96,
+              "p90": 70.03
+            },
+            "paired_wins": 0.8405707890318971,
+            "rows": 8982,
+            "tpr": 0.06323447118074986
+          }
+        },
+        "by_domain": {
+          "arxiv": {
+            "auc": 0.7346573037817278,
+            "coverage": 1.0,
+            "eligible": 9765,
+            "groups": 105,
+            "measured_edit_ratio": {
+              "median": 47.69,
+              "p10": 29.61,
+              "p90": 66.11
+            },
+            "paired_wins": 0.8435227854582693,
+            "rows": 9765,
+            "tpr": 0.06758832565284179
+          },
+          "reddit": {
+            "auc": 0.6838441210568289,
+            "coverage": 0.999660441426146,
+            "eligible": 8832,
+            "groups": 95,
+            "measured_edit_ratio": {
+              "median": 61.9,
+              "p10": 39.06,
+              "p90": 73.22
+            },
+            "paired_wins": 0.7730978260869565,
+            "rows": 8835,
+            "tpr": 0.12126358695652174
+          },
+          "story_generation": {
+            "auc": 0.6378062384595818,
+            "coverage": 0.9826302729528535,
+            "eligible": 9504,
+            "groups": 104,
+            "measured_edit_ratio": {
+              "median": 53.65,
+              "p10": 22.71,
+              "p90": 70.2
+            },
+            "paired_wins": 0.7106481481481481,
+            "rows": 9672,
+            "tpr": 0.038825757575757576
+          },
+          "wikihow": {
+            "auc": 0.7056445779196535,
+            "coverage": 1.0,
+            "eligible": 8928,
+            "groups": 96,
+            "measured_edit_ratio": {
+              "median": 61.26,
+              "p10": 37.28,
+              "p90": 73.2
+            },
+            "paired_wins": 0.8562387992831542,
+            "rows": 8928,
+            "tpr": 0.07851702508960573
+          },
+          "wikipedia": {
+            "auc": 0.7277811311602668,
+            "coverage": 0.9997827739763223,
+            "eligible": 9205,
+            "groups": 99,
+            "measured_edit_ratio": {
+              "median": 60.26,
+              "p10": 39.19,
+              "p90": 74.81
+            },
+            "paired_wins": 0.8430200977729495,
+            "rows": 9207,
+            "tpr": 0.043997827267789245
+          }
+        },
+        "by_model": {
+          "gpt-oss-120B": {
+            "auc": 0.7832851040499773,
+            "coverage": 1.0,
+            "eligible": 15469,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 64.69,
+              "p10": 47.55,
+              "p90": 74.0
+            },
+            "paired_wins": 0.9052298144676449,
+            "rows": 15469,
+            "tpr": 0.12192126187859591
+          },
+          "llama3.3-70B": {
+            "auc": 0.6485639085856406,
+            "coverage": 0.9915314499967677,
+            "eligible": 15338,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 55.94,
+              "p10": 31.98,
+              "p90": 70.2
+            },
+            "paired_wins": 0.7494458208371365,
+            "rows": 15469,
+            "tpr": 0.04133524579475812
+          },
+          "qwen2.5-72B": {
+            "auc": 0.6471301077103203,
+            "coverage": 0.9972848923653759,
+            "eligible": 15427,
+            "groups": 499,
+            "measured_edit_ratio": {
+              "median": 47.94,
+              "p10": 24.33,
+              "p90": 69.38
+            },
+            "paired_wins": 0.7600635249886563,
+            "rows": 15469,
+            "tpr": 0.04446749205937642
+          }
+        },
+        "calibration_humans": 2500,
+        "coverage": 0.9962721141207146,
+        "eligible": 46234,
+        "groups": 499,
+        "measured_edit_ratio": {
+          "median": 56.96,
+          "p10": 32.07,
+          "p90": 72.4
+        },
+        "paired_wins": 0.8051109573041485,
+        "rows": 46407,
+        "test_human_fpr": 0.008403361344537815,
+        "test_humans": 2499,
+        "threshold": 0.8690909090909092,
+        "tpr": 0.06934290781675823
+      },
+      "prefix100/closed_fraction": {
+        "auc": 0.29506540765599226,
+        "by_category": {
+          "adding_detail": {
+            "auc": 0.34097915905770637,
+            "coverage": 0.9886439545758183,
+            "eligible": 8880,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 53.94,
+              "p10": 30.29,
+              "p90": 72.79
+            },
+            "paired_wins": 0.30771396396396394,
+            "rows": 8982,
+            "tpr": 0.002364864864864865
+          },
+          "clarity_and_precision": {
+            "auc": 0.2760789585515263,
+            "coverage": 0.991816967267869,
+            "eligible": 5939,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 59.92,
+              "p10": 38.92,
+              "p90": 72.47
+            },
+            "paired_wins": 0.18100690351911097,
+            "rows": 5988,
+            "tpr": 0.0005051355447044957
+          },
+          "concision": {
+            "auc": 0.217947104525523,
+            "coverage": 0.943620574482298,
+            "eligible": 7063,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 64.99,
+              "p10": 44.53,
+              "p90": 75.55
+            },
+            "paired_wins": 0.12438057482656095,
+            "rows": 7485,
+            "tpr": 0.0004247486903582047
+          },
+          "fluency_and_flow": {
+            "auc": 0.2966666406429098,
+            "coverage": 0.9911489645958583,
+            "eligible": 5935,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 53.77,
+              "p10": 32.28,
+              "p90": 71.49
+            },
+            "paired_wins": 0.18744734625105308,
+            "rows": 5988,
+            "tpr": 0.0005054759898904802
+          },
+          "grammar_and_mechanics": {
+            "auc": 0.36998179553511545,
+            "coverage": 0.9959919839679359,
+            "eligible": 1491,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 16.62,
+              "p10": 4.26,
+              "p90": 61.21
+            },
+            "paired_wins": 0.30985915492957744,
+            "rows": 1497,
+            "tpr": 0.007377598926894702
+          },
+          "paraphrasing": {
+            "auc": 0.29673503889801417,
+            "coverage": 0.9937653083945669,
+            "eligible": 4463,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 55.4,
+              "p10": 37.67,
+              "p90": 69.31
+            },
+            "paired_wins": 0.19347972215998208,
+            "rows": 4491,
+            "tpr": 0.0006721935917544253
+          },
+          "structure_and_organization": {
+            "auc": 0.2909531127586628,
+            "coverage": 0.9966599866399466,
+            "eligible": 2984,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 57.87,
+              "p10": 30.07,
+              "p90": 72.42
+            },
+            "paired_wins": 0.21849865951742628,
+            "rows": 2994,
+            "tpr": 0.0023458445040214475
+          },
+          "tone_and_style": {
+            "auc": 0.3103213492995213,
+            "coverage": 0.9890892896904921,
+            "eligible": 8884,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 55.01,
+              "p10": 31.19,
+              "p90": 70.04
+            },
+            "paired_wins": 0.24138901395767673,
+            "rows": 8982,
+            "tpr": 0.002026114362899595
+          }
+        },
+        "by_domain": {
+          "arxiv": {
+            "auc": 0.29793564328820554,
+            "coverage": 0.9817716333845367,
+            "eligible": 9587,
+            "groups": 104,
+            "measured_edit_ratio": {
+              "median": 47.56,
+              "p10": 29.53,
+              "p90": 66.11
+            },
+            "paired_wins": 0.23297173255450088,
+            "rows": 9765,
+            "tpr": 0.0
+          },
+          "reddit": {
+            "auc": 0.2005592882302668,
+            "coverage": 0.9897000565930957,
+            "eligible": 8744,
+            "groups": 95,
+            "measured_edit_ratio": {
+              "median": 61.72,
+              "p10": 38.88,
+              "p90": 73.2
+            },
+            "paired_wins": 0.1614821591948765,
+            "rows": 8835,
+            "tpr": 0.00034309240622140897
+          },
+          "story_generation": {
+            "auc": 0.27128115526152385,
+            "coverage": 0.967741935483871,
+            "eligible": 9360,
+            "groups": 104,
+            "measured_edit_ratio": {
+              "median": 53.76,
+              "p10": 22.87,
+              "p90": 70.2
+            },
+            "paired_wins": 0.2143162393162393,
+            "rows": 9672,
+            "tpr": 0.004487179487179487
+          },
+          "wikihow": {
+            "auc": 0.21365883995763407,
+            "coverage": 0.9927195340501792,
+            "eligible": 8863,
+            "groups": 96,
+            "measured_edit_ratio": {
+              "median": 61.2,
+              "p10": 37.23,
+              "p90": 73.15
+            },
+            "paired_wins": 0.1479183120839445,
+            "rows": 8928,
+            "tpr": 0.0027078867200722103
+          },
+          "wikipedia": {
+            "auc": 0.3647627843073232,
+            "coverage": 0.9867492125556642,
+            "eligible": 9085,
+            "groups": 99,
+            "measured_edit_ratio": {
+              "median": 60.05,
+              "p10": 39.02,
+              "p90": 74.73
+            },
+            "paired_wins": 0.3255916345624656,
+            "rows": 9207,
+            "tpr": 0.0
+          }
+        },
+        "by_model": {
+          "gpt-oss-120B": {
+            "auc": 0.11666158746956347,
+            "coverage": 0.9973495377852479,
+            "eligible": 15428,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 64.69,
+              "p10": 47.55,
+              "p90": 73.99
+            },
+            "paired_wins": 0.06873865698729582,
+            "rows": 15469,
+            "tpr": 0.0
+          },
+          "llama3.3-70B": {
+            "auc": 0.39733691992680215,
+            "coverage": 0.9749822225095351,
+            "eligible": 15082,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 55.9,
+              "p10": 31.92,
+              "p90": 70.21
+            },
+            "paired_wins": 0.32290147195332186,
+            "rows": 15469,
+            "tpr": 0.0023206471290279805
+          },
+          "qwen2.5-72B": {
+            "auc": 0.37557480910386554,
+            "coverage": 0.9780205572435193,
+            "eligible": 15129,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 47.64,
+              "p10": 24.1,
+              "p90": 68.9
+            },
+            "paired_wins": 0.26373190561173904,
+            "rows": 15469,
+            "tpr": 0.0022473395465661974
+          }
+        },
+        "calibration_humans": 2495,
+        "coverage": 0.9834507725127675,
+        "eligible": 45639,
+        "feasibility_pass": false,
+        "groups": 498,
+        "measured_edit_ratio": {
+          "median": 56.89,
+          "p10": 31.99,
+          "p90": 72.36
+        },
+        "paired_wins": 0.21736891693507746,
+        "rows": 46407,
+        "test_human_fpr": 0.012014417300760914,
+        "test_humans": 2497,
+        "threshold": 0.5800000000000001,
+        "tpr": 0.0015118648524288438
+      },
+      "prefix100/reverse_entropy": {
+        "auc": 0.3502684717131546,
+        "by_category": {
+          "adding_detail": {
+            "auc": 0.4473290139801964,
+            "coverage": 0.9886439545758183,
+            "eligible": 8880,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 53.94,
+              "p10": 30.29,
+              "p90": 72.79
+            },
+            "paired_wins": 0.4206081081081081,
+            "rows": 8982,
+            "tpr": 0.0022522522522522522
+          },
+          "clarity_and_precision": {
+            "auc": 0.3195747380741643,
+            "coverage": 0.991816967267869,
+            "eligible": 5939,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 59.92,
+              "p10": 38.92,
+              "p90": 72.47
+            },
+            "paired_wins": 0.25357804344165685,
+            "rows": 5988,
+            "tpr": 0.0018521636639164843
+          },
+          "concision": {
+            "auc": 0.30818412086973795,
+            "coverage": 0.943620574482298,
+            "eligible": 7063,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 64.99,
+              "p10": 44.53,
+              "p90": 75.55
+            },
+            "paired_wins": 0.2504601444145547,
+            "rows": 7485,
+            "tpr": 0.002123743451791024
+          },
+          "fluency_and_flow": {
+            "auc": 0.33629416970848897,
+            "coverage": 0.9911489645958583,
+            "eligible": 5935,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 53.77,
+              "p10": 32.28,
+              "p90": 71.49
+            },
+            "paired_wins": 0.2627632687447346,
+            "rows": 5988,
+            "tpr": 0.0010109519797809603
+          },
+          "grammar_and_mechanics": {
+            "auc": 0.43430873638882256,
+            "coverage": 0.9959919839679359,
+            "eligible": 1491,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 16.62,
+              "p10": 4.26,
+              "p90": 61.21
+            },
+            "paired_wins": 0.37692823608316567,
+            "rows": 1497,
+            "tpr": 0.008048289738430584
+          },
+          "paraphrasing": {
+            "auc": 0.35474754484164844,
+            "coverage": 0.9937653083945669,
+            "eligible": 4463,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 55.4,
+              "p10": 37.67,
+              "p90": 69.31
+            },
+            "paired_wins": 0.2817611472103966,
+            "rows": 4491,
+            "tpr": 0.0029128388976025093
+          },
+          "structure_and_organization": {
+            "auc": 0.33723598018745193,
+            "coverage": 0.9966599866399466,
+            "eligible": 2984,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 57.87,
+              "p10": 30.07,
+              "p90": 72.42
+            },
+            "paired_wins": 0.27714477211796246,
+            "rows": 2994,
+            "tpr": 0.001675603217158177
+          },
+          "tone_and_style": {
+            "auc": 0.30429534673831976,
+            "coverage": 0.9890892896904921,
+            "eligible": 8884,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 55.01,
+              "p10": 31.19,
+              "p90": 70.04
+            },
+            "paired_wins": 0.2325529040972535,
+            "rows": 8982,
+            "tpr": 0.002026114362899595
+          }
+        },
+        "by_domain": {
+          "arxiv": {
+            "auc": 0.3020358518289665,
+            "coverage": 0.9817716333845367,
+            "eligible": 9587,
+            "groups": 104,
+            "measured_edit_ratio": {
+              "median": 47.56,
+              "p10": 29.53,
+              "p90": 66.11
+            },
+            "paired_wins": 0.23578804631271513,
+            "rows": 9765,
+            "tpr": 0.0003129237509126943
+          },
+          "reddit": {
+            "auc": 0.3850310452065837,
+            "coverage": 0.9897000565930957,
+            "eligible": 8744,
+            "groups": 95,
+            "measured_edit_ratio": {
+              "median": 61.72,
+              "p10": 38.88,
+              "p90": 73.2
+            },
+            "paired_wins": 0.33234217749313816,
+            "rows": 8835,
+            "tpr": 0.00034309240622140897
+          },
+          "story_generation": {
+            "auc": 0.3951693022225875,
+            "coverage": 0.967741935483871,
+            "eligible": 9360,
+            "groups": 104,
+            "measured_edit_ratio": {
+              "median": 53.76,
+              "p10": 22.87,
+              "p90": 70.2
+            },
+            "paired_wins": 0.3641025641025641,
+            "rows": 9672,
+            "tpr": 0.00042735042735042735
+          },
+          "wikihow": {
+            "auc": 0.36763737125549323,
+            "coverage": 0.9927195340501792,
+            "eligible": 8863,
+            "groups": 96,
+            "measured_edit_ratio": {
+              "median": 61.2,
+              "p10": 37.23,
+              "p90": 73.15
+            },
+            "paired_wins": 0.30074466884801987,
+            "rows": 8928,
+            "tpr": 0.006092745120162473
+          },
+          "wikipedia": {
+            "auc": 0.29570862722850205,
+            "coverage": 0.9867492125556642,
+            "eligible": 9085,
+            "groups": 99,
+            "measured_edit_ratio": {
+              "median": 60.05,
+              "p10": 39.02,
+              "p90": 74.73
+            },
+            "paired_wins": 0.2247660979636764,
+            "rows": 9207,
+            "tpr": 0.003962575674188222
+          }
+        },
+        "by_model": {
+          "gpt-oss-120B": {
+            "auc": 0.2643340364693214,
+            "coverage": 0.9973495377852479,
+            "eligible": 15428,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 64.69,
+              "p10": 47.55,
+              "p90": 73.99
+            },
+            "paired_wins": 0.2317539538501426,
+            "rows": 15469,
+            "tpr": 0.0008426238008815141
+          },
+          "llama3.3-70B": {
+            "auc": 0.39055685789012373,
+            "coverage": 0.9749822225095351,
+            "eligible": 15082,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 55.9,
+              "p10": 31.92,
+              "p90": 70.21
+            },
+            "paired_wins": 0.3231003845643814,
+            "rows": 15469,
+            "tpr": 0.002386951332714494
+          },
+          "qwen2.5-72B": {
+            "auc": 0.39760363952389866,
+            "coverage": 0.9780205572435193,
+            "eligible": 15129,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 47.64,
+              "p10": 24.1,
+              "p90": 68.9
+            },
+            "paired_wins": 0.3194857558331681,
+            "rows": 15469,
+            "tpr": 0.0033710093198492963
+          }
+        },
+        "calibration_humans": 2495,
+        "coverage": 0.9834507725127675,
+        "eligible": 45639,
+        "feasibility_pass": false,
+        "groups": 498,
+        "measured_edit_ratio": {
+          "median": 56.89,
+          "p10": 31.99,
+          "p90": 72.36
+        },
+        "paired_wins": 0.2910230285501435,
+        "rows": 46407,
+        "test_human_fpr": 0.008009611533840609,
+        "test_humans": 2497,
+        "threshold": -0.8248009044790799,
+        "tpr": 0.002191108481780933
+      },
+      "prefix100/richness": {
+        "auc": 0.6582686551730609,
+        "by_category": {
+          "adding_detail": {
+            "auc": 0.5703820141932473,
+            "coverage": 0.9886439545758183,
+            "eligible": 8880,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 53.94,
+              "p10": 30.29,
+              "p90": 72.79
+            },
+            "paired_wins": 0.6100788288288288,
+            "rows": 8982,
+            "tpr": 0.010698198198198198
+          },
+          "clarity_and_precision": {
+            "auc": 0.6891379215661181,
+            "coverage": 0.991816967267869,
+            "eligible": 5939,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 59.92,
+              "p10": 38.92,
+              "p90": 72.47
+            },
+            "paired_wins": 0.7619969691867318,
+            "rows": 5988,
+            "tpr": 0.0353594881293147
+          },
+          "concision": {
+            "auc": 0.6944511692255592,
+            "coverage": 0.943620574482298,
+            "eligible": 7063,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 64.99,
+              "p10": 44.53,
+              "p90": 75.55
+            },
+            "paired_wins": 0.7523715135211666,
+            "rows": 7485,
+            "tpr": 0.044598612487611496
+          },
+          "fluency_and_flow": {
+            "auc": 0.6726466373639165,
+            "coverage": 0.9911489645958583,
+            "eligible": 5935,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 53.77,
+              "p10": 32.28,
+              "p90": 71.49
+            },
+            "paired_wins": 0.7533277169334457,
+            "rows": 5988,
+            "tpr": 0.02712721145745577
+          },
+          "grammar_and_mechanics": {
+            "auc": 0.5599141461782094,
+            "coverage": 0.9959919839679359,
+            "eligible": 1491,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 16.62,
+              "p10": 4.26,
+              "p90": 61.21
+            },
+            "paired_wins": 0.6247484909456741,
+            "rows": 1497,
+            "tpr": 0.012072434607645875
+          },
+          "paraphrasing": {
+            "auc": 0.6526838869186529,
+            "coverage": 0.9937653083945669,
+            "eligible": 4463,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 55.4,
+              "p10": 37.67,
+              "p90": 69.31
+            },
+            "paired_wins": 0.7287698857270895,
+            "rows": 4491,
+            "tpr": 0.030472776159533945
+          },
+          "structure_and_organization": {
+            "auc": 0.6678502392563735,
+            "coverage": 0.9966599866399466,
+            "eligible": 2984,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 57.87,
+              "p10": 30.07,
+              "p90": 72.42
+            },
+            "paired_wins": 0.7319034852546917,
+            "rows": 2994,
+            "tpr": 0.027479892761394103
+          },
+          "tone_and_style": {
+            "auc": 0.7034445071815613,
+            "coverage": 0.9890892896904921,
+            "eligible": 8884,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 55.01,
+              "p10": 31.19,
+              "p90": 70.04
+            },
+            "paired_wins": 0.7789846915803692,
+            "rows": 8982,
+            "tpr": 0.03388113462404323
+          }
+        },
+        "by_domain": {
+          "arxiv": {
+            "auc": 0.7000637217249738,
+            "coverage": 0.9817716333845367,
+            "eligible": 9587,
+            "groups": 104,
+            "measured_edit_ratio": {
+              "median": 47.56,
+              "p10": 29.53,
+              "p90": 66.11
+            },
+            "paired_wins": 0.7742255137164911,
+            "rows": 9765,
+            "tpr": 0.03390007301554188
+          },
+          "reddit": {
+            "auc": 0.6230075737727149,
+            "coverage": 0.9897000565930957,
+            "eligible": 8744,
+            "groups": 95,
+            "measured_edit_ratio": {
+              "median": 61.72,
+              "p10": 38.88,
+              "p90": 73.2
+            },
+            "paired_wins": 0.6773787740164684,
+            "rows": 8835,
+            "tpr": 0.040599268069533394
+          },
+          "story_generation": {
+            "auc": 0.611864008053912,
+            "coverage": 0.967741935483871,
+            "eligible": 9360,
+            "groups": 104,
+            "measured_edit_ratio": {
+              "median": 53.76,
+              "p10": 22.87,
+              "p90": 70.2
+            },
+            "paired_wins": 0.6484508547008547,
+            "rows": 9672,
+            "tpr": 0.02532051282051282
+          },
+          "wikihow": {
+            "auc": 0.6498594339812515,
+            "coverage": 0.9927195340501792,
+            "eligible": 8863,
+            "groups": 96,
+            "measured_edit_ratio": {
+              "median": 61.2,
+              "p10": 37.23,
+              "p90": 73.15
+            },
+            "paired_wins": 0.723287825792621,
+            "rows": 8928,
+            "tpr": 0.02425815186731355
+          },
+          "wikipedia": {
+            "auc": 0.7146106680955169,
+            "coverage": 0.9867492125556642,
+            "eligible": 9085,
+            "groups": 99,
+            "measured_edit_ratio": {
+              "median": 60.05,
+              "p10": 39.02,
+              "p90": 74.73
+            },
+            "paired_wins": 0.7915244909190974,
+            "rows": 9207,
+            "tpr": 0.02047330764997248
+          }
+        },
+        "by_model": {
+          "gpt-oss-120B": {
+            "auc": 0.71927262556071,
+            "coverage": 0.9973495377852479,
+            "eligible": 15428,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 64.69,
+              "p10": 47.55,
+              "p90": 73.99
+            },
+            "paired_wins": 0.7520093336790251,
+            "rows": 15469,
+            "tpr": 0.053927923256416904
+          },
+          "llama3.3-70B": {
+            "auc": 0.6313563011528667,
+            "coverage": 0.9749822225095351,
+            "eligible": 15082,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 55.9,
+              "p10": 31.92,
+              "p90": 70.21
+            },
+            "paired_wins": 0.7071674844185122,
+            "rows": 15469,
+            "tpr": 0.016111921495822835
+          },
+          "qwen2.5-72B": {
+            "auc": 0.6229855328253955,
+            "coverage": 0.9780205572435193,
+            "eligible": 15129,
+            "groups": 498,
+            "measured_edit_ratio": {
+              "median": 47.64,
+              "p10": 24.1,
+              "p90": 68.9
+            },
+            "paired_wins": 0.7104897878247075,
+            "rows": 15469,
+            "tpr": 0.016061867935752528
+          }
+        },
+        "calibration_humans": 2495,
+        "coverage": 0.9834507725127675,
+        "eligible": 45639,
+        "groups": 498,
+        "measured_edit_ratio": {
+          "median": 56.89,
+          "p10": 31.99,
+          "p90": 72.36
+        },
+        "paired_wins": 0.7234273318872018,
+        "rows": 46407,
+        "test_human_fpr": 0.0032038446135362435,
+        "test_humans": 2497,
+        "threshold": 0.9000000000000001,
+        "tpr": 0.028878809789872697
+      }
+    },
+    "generated": {
+      "full/entropy": {
+        "auc": 0.9217754352643819,
+        "by_domain": {
+          "arxiv": {
+            "auc": 0.9389955715806846,
+            "coverage": 0.9688378033205619,
+            "eligible": 3793,
+            "groups": 499,
+            "paired_wins": 0.9746902188241497,
+            "rows": 3915,
+            "tpr": 0.6390719746902188
+          },
+          "reddit": {
+            "auc": 0.9342950222394598,
+            "coverage": 0.9753682072117826,
+            "eligible": 3841,
+            "groups": 500,
+            "paired_wins": 0.9395990627440771,
+            "rows": 3938,
+            "tpr": 0.8203592814371258
+          },
+          "story_generation": {
+            "auc": 0.8937803806346607,
+            "coverage": 0.9929453262786596,
+            "eligible": 3941,
+            "groups": 500,
+            "paired_wins": 0.890636894189292,
+            "rows": 3969,
+            "tpr": 0.7817812737883786
+          },
+          "wikihow": {
+            "auc": 0.9111789114003935,
+            "coverage": 0.9422780913288866,
+            "eligible": 3673,
+            "groups": 500,
+            "paired_wins": 0.9591614484072964,
+            "rows": 3898,
+            "tpr": 0.616934386060441
+          },
+          "wikipedia": {
+            "auc": 0.9531685993483161,
+            "coverage": 0.9750252270433906,
+            "eligible": 3865,
+            "groups": 500,
+            "paired_wins": 0.9720569210866753,
+            "rows": 3964,
+            "tpr": 0.6183699870633894
+          }
+        },
+        "by_model": {
+          "gemma3-12B": {
+            "auc": 0.9751762289010889,
+            "coverage": 0.9926977687626775,
+            "eligible": 2447,
+            "groups": 2447,
+            "paired_wins": 0.9946873722926032,
+            "rows": 2465,
+            "tpr": 0.8226399673069064
+          },
+          "gemma3-27B": {
+            "auc": 0.9655181612660867,
+            "coverage": 0.9959951942330797,
+            "eligible": 2487,
+            "groups": 2487,
+            "paired_wins": 0.9935665460394049,
+            "rows": 2497,
+            "tpr": 0.7868918375552875
+          },
+          "gpt-oss-120B": {
+            "auc": 0.6354362612426708,
+            "coverage": 0.9991983967935871,
+            "eligible": 2493,
+            "groups": 2493,
+            "paired_wins": 0.685519454472523,
+            "rows": 2495,
+            "tpr": 0.06618531889290012
+          },
+          "gpt-oss-20B": {
+            "auc": 0.9858235386497388,
+            "coverage": 0.7627573858549687,
+            "eligible": 1704,
+            "groups": 1704,
+            "paired_wins": 0.9911971830985915,
+            "rows": 2234,
+            "tpr": 0.8879107981220657
+          },
+          "llama3.1-8B": {
+            "auc": 0.9830438987689397,
+            "coverage": 0.9979983987189752,
+            "eligible": 2493,
+            "groups": 2493,
+            "paired_wins": 0.9891696750902527,
+            "rows": 2498,
+            "tpr": 0.9069394304051344
+          },
+          "llama3.3-70B": {
+            "auc": 0.9609749560906808,
+            "coverage": 0.9991996798719488,
+            "eligible": 2497,
+            "groups": 2497,
+            "paired_wins": 0.9759711653984782,
+            "rows": 2499,
+            "tpr": 0.6828193832599119
+          },
+          "qwen2.5-72B": {
+            "auc": 0.9008728870038215,
+            "coverage": 0.9991993594875901,
+            "eligible": 2496,
+            "groups": 2496,
+            "paired_wins": 0.9615384615384616,
+            "rows": 2498,
+            "tpr": 0.532051282051282
+          },
+          "qwen2.5-7B": {
+            "auc": 0.9908278726732002,
+            "coverage": 0.9991993594875901,
+            "eligible": 2496,
+            "groups": 2496,
+            "paired_wins": 0.9975961538461539,
+            "rows": 2498,
+            "tpr": 0.9495192307692307
+          }
+        },
+        "calibration_humans": 2500,
+        "coverage": 0.9709916683600894,
+        "eligible": 19113,
+        "groups": 2499,
+        "paired_wins": 0.9467901428347199,
+        "rows": 19684,
+        "test_human_fpr": 0.008403361344537815,
+        "test_humans": 2499,
+        "threshold": 0.9494562686754899,
+        "tpr": 0.6964893004761157
+      },
+      "full/richness": {
+        "auc": 0.9348235113048233,
+        "by_domain": {
+          "arxiv": {
+            "auc": 0.947989514590721,
+            "coverage": 0.9688378033205619,
+            "eligible": 3793,
+            "groups": 499,
+            "paired_wins": 0.9819404165568152,
+            "rows": 3915,
+            "tpr": 0.6757184286844187
+          },
+          "reddit": {
+            "auc": 0.9430583610520263,
+            "coverage": 0.9753682072117826,
+            "eligible": 3841,
+            "groups": 500,
+            "paired_wins": 0.9489716219734444,
+            "rows": 3938,
+            "tpr": 0.8404061442332725
+          },
+          "story_generation": {
+            "auc": 0.9135512254111504,
+            "coverage": 0.9929453262786596,
+            "eligible": 3941,
+            "groups": 500,
+            "paired_wins": 0.9124587668104542,
+            "rows": 3969,
+            "tpr": 0.8140065973103273
+          },
+          "wikihow": {
+            "auc": 0.9287196975093412,
+            "coverage": 0.9422780913288866,
+            "eligible": 3673,
+            "groups": 500,
+            "paired_wins": 0.9681459297576913,
+            "rows": 3898,
+            "tpr": 0.6414375170160632
+          },
+          "wikipedia": {
+            "auc": 0.9607973504214858,
+            "coverage": 0.9750252270433906,
+            "eligible": 3865,
+            "groups": 500,
+            "paired_wins": 0.9768434670116429,
+            "rows": 3964,
+            "tpr": 0.6579560155239327
+          }
+        },
+        "by_model": {
+          "gemma3-12B": {
+            "auc": 0.9802092885728318,
+            "coverage": 0.9926977687626775,
+            "eligible": 2447,
+            "groups": 2447,
+            "paired_wins": 0.9963220269718022,
+            "rows": 2465,
+            "tpr": 0.8487944421740907
+          },
+          "gemma3-27B": {
+            "auc": 0.9705418720167549,
+            "coverage": 0.9959951942330797,
+            "eligible": 2487,
+            "groups": 2487,
+            "paired_wins": 0.994973864093285,
+            "rows": 2497,
+            "tpr": 0.8182549256131886
+          },
+          "gpt-oss-120B": {
+            "auc": 0.6949321718943808,
+            "coverage": 0.9991983967935871,
+            "eligible": 2493,
+            "groups": 2493,
+            "paired_wins": 0.7448856799037304,
+            "rows": 2495,
+            "tpr": 0.0842358604091456
+          },
+          "gpt-oss-20B": {
+            "auc": 0.9878575541669422,
+            "coverage": 0.7627573858549687,
+            "eligible": 1704,
+            "groups": 1704,
+            "paired_wins": 0.9923708920187794,
+            "rows": 2234,
+            "tpr": 0.9107981220657277
+          },
+          "llama3.1-8B": {
+            "auc": 0.9871656683639984,
+            "coverage": 0.9979983987189752,
+            "eligible": 2493,
+            "groups": 2493,
+            "paired_wins": 0.9915764139590855,
+            "rows": 2498,
+            "tpr": 0.9237866024869635
+          },
+          "llama3.3-70B": {
+            "auc": 0.9704960329648281,
+            "coverage": 0.9991996798719488,
+            "eligible": 2497,
+            "groups": 2497,
+            "paired_wins": 0.9817781337605126,
+            "rows": 2499,
+            "tpr": 0.7468962755306368
+          },
+          "qwen2.5-72B": {
+            "auc": 0.9133917954624836,
+            "coverage": 0.9991993594875901,
+            "eligible": 2496,
+            "groups": 2496,
+            "paired_wins": 0.9691506410256411,
+            "rows": 2498,
+            "tpr": 0.5813301282051282
+          },
+          "qwen2.5-7B": {
+            "auc": 0.99389536078238,
+            "coverage": 0.9991993594875901,
+            "eligible": 2496,
+            "groups": 2496,
+            "paired_wins": 0.999198717948718,
+            "rows": 2498,
+            "tpr": 0.9635416666666666
+          }
+        },
+        "calibration_humans": 2500,
+        "coverage": 0.9709916683600894,
+        "eligible": 19113,
+        "groups": 2499,
+        "paired_wins": 0.957306545283315,
+        "rows": 19684,
+        "test_human_fpr": 0.008403361344537815,
+        "test_humans": 2499,
+        "threshold": 0.8690909090909092,
+        "tpr": 0.7271490608486371
+      },
+      "prefix100/entropy": {
+        "auc": 0.8652422679951999,
+        "by_domain": {
+          "arxiv": {
+            "auc": 0.9010039924114328,
+            "coverage": 0.7752234993614304,
+            "eligible": 3035,
+            "groups": 497,
+            "paired_wins": 0.9535420098846787,
+            "rows": 3915,
+            "tpr": 0.3723228995057661
+          },
+          "reddit": {
+            "auc": 0.9023730529707287,
+            "coverage": 0.9291518537328594,
+            "eligible": 3659,
+            "groups": 500,
+            "paired_wins": 0.9055752937961191,
+            "rows": 3938,
+            "tpr": 0.5815796665755671
+          },
+          "story_generation": {
+            "auc": 0.848806122243496,
+            "coverage": 0.9773242630385488,
+            "eligible": 3879,
+            "groups": 500,
+            "paired_wins": 0.8522815158546017,
+            "rows": 3969,
+            "tpr": 0.4650683165764372
+          },
+          "wikihow": {
+            "auc": 0.8571388571255981,
+            "coverage": 0.9063622370446383,
+            "eligible": 3533,
+            "groups": 500,
+            "paired_wins": 0.8923011604868384,
+            "rows": 3898,
+            "tpr": 0.27427115765638266
+          },
+          "wikipedia": {
+            "auc": 0.8690993252255387,
+            "coverage": 0.9281029263370333,
+            "eligible": 3679,
+            "groups": 500,
+            "paired_wins": 0.8967110627888013,
+            "rows": 3964,
+            "tpr": 0.20848056537102475
+          }
+        },
+        "by_model": {
+          "gemma3-12B": {
+            "auc": 0.9315086753756193,
+            "coverage": 0.8892494929006085,
+            "eligible": 2192,
+            "groups": 2192,
+            "paired_wins": 0.9609945255474452,
+            "rows": 2465,
+            "tpr": 0.45483576642335766
+          },
+          "gemma3-27B": {
+            "auc": 0.9219158285866856,
+            "coverage": 0.8490188225871045,
+            "eligible": 2120,
+            "groups": 2120,
+            "paired_wins": 0.9561320754716981,
+            "rows": 2497,
+            "tpr": 0.37924528301886795
+          },
+          "gpt-oss-120B": {
+            "auc": 0.5901969695573395,
+            "coverage": 0.9967935871743487,
+            "eligible": 2487,
+            "groups": 2487,
+            "paired_wins": 0.6204262163248895,
+            "rows": 2495,
+            "tpr": 0.022114997989545637
+          },
+          "gpt-oss-20B": {
+            "auc": 0.9643579217662229,
+            "coverage": 0.4637421665174575,
+            "eligible": 1036,
+            "groups": 1036,
+            "paired_wins": 0.972972972972973,
+            "rows": 2234,
+            "tpr": 0.7123552123552124
+          },
+          "llama3.1-8B": {
+            "auc": 0.9131160958417123,
+            "coverage": 0.9935948759007206,
+            "eligible": 2482,
+            "groups": 2482,
+            "paired_wins": 0.9429895245769541,
+            "rows": 2498,
+            "tpr": 0.44157937147461723
+          },
+          "llama3.3-70B": {
+            "auc": 0.8706454455489762,
+            "coverage": 0.994797919167667,
+            "eligible": 2486,
+            "groups": 2486,
+            "paired_wins": 0.8927996781979083,
+            "rows": 2499,
+            "tpr": 0.335880933226066
+          },
+          "qwen2.5-72B": {
+            "auc": 0.8574106869244045,
+            "coverage": 0.9967974379503602,
+            "eligible": 2490,
+            "groups": 2490,
+            "paired_wins": 0.9172690763052209,
+            "rows": 2498,
+            "tpr": 0.3140562248995984
+          },
+          "qwen2.5-7B": {
+            "auc": 0.950423618822608,
+            "coverage": 0.9975980784627703,
+            "eligible": 2492,
+            "groups": 2492,
+            "paired_wins": 0.9777287319422151,
+            "rows": 2498,
+            "tpr": 0.598314606741573
+          }
+        },
+        "calibration_humans": 2495,
+        "coverage": 0.9035257061572851,
+        "eligible": 17785,
+        "groups": 2497,
+        "paired_wins": 0.8976665729547372,
+        "rows": 19684,
+        "test_human_fpr": 0.004805766920304365,
+        "test_humans": 2497,
+        "threshold": 0.9613090926950416,
+        "tpr": 0.38223221816137193
+      },
+      "prefix100/richness": {
+        "auc": 0.8797689865256366,
+        "by_domain": {
+          "arxiv": {
+            "auc": 0.9117072919182845,
+            "coverage": 0.7752234993614304,
+            "eligible": 3035,
+            "groups": 497,
+            "paired_wins": 0.9604612850082372,
+            "rows": 3915,
+            "tpr": 0.3588138385502471
+          },
+          "reddit": {
+            "auc": 0.9130702066979324,
+            "coverage": 0.9291518537328594,
+            "eligible": 3659,
+            "groups": 500,
+            "paired_wins": 0.9147308007652364,
+            "rows": 3938,
+            "tpr": 0.5526100027329871
+          },
+          "story_generation": {
+            "auc": 0.8759281224294512,
+            "coverage": 0.9773242630385488,
+            "eligible": 3879,
+            "groups": 500,
+            "paired_wins": 0.8762567672080434,
+            "rows": 3969,
+            "tpr": 0.4547563805104408
+          },
+          "wikihow": {
+            "auc": 0.8716069882212825,
+            "coverage": 0.9063622370446383,
+            "eligible": 3533,
+            "groups": 500,
+            "paired_wins": 0.9037645060854798,
+            "rows": 3898,
+            "tpr": 0.24851401075573168
+          },
+          "wikipedia": {
+            "auc": 0.8804586923674631,
+            "coverage": 0.9281029263370333,
+            "eligible": 3679,
+            "groups": 500,
+            "paired_wins": 0.9052731720576244,
+            "rows": 3964,
+            "tpr": 0.18646371296547976
+          }
+        },
+        "by_model": {
+          "gemma3-12B": {
+            "auc": 0.9388309429777825,
+            "coverage": 0.8892494929006085,
+            "eligible": 2192,
+            "groups": 2192,
+            "paired_wins": 0.9630474452554745,
+            "rows": 2465,
+            "tpr": 0.42883211678832117
+          },
+          "gemma3-27B": {
+            "auc": 0.9291720808116768,
+            "coverage": 0.8490188225871045,
+            "eligible": 2120,
+            "groups": 2120,
+            "paired_wins": 0.9627358490566038,
+            "rows": 2497,
+            "tpr": 0.3438679245283019
+          },
+          "gpt-oss-120B": {
+            "auc": 0.6369796039526163,
+            "coverage": 0.9967935871743487,
+            "eligible": 2487,
+            "groups": 2487,
+            "paired_wins": 0.6666666666666666,
+            "rows": 2495,
+            "tpr": 0.01889827100924809
+          },
+          "gpt-oss-20B": {
+            "auc": 0.9698629269092589,
+            "coverage": 0.4637421665174575,
+            "eligible": 1036,
+            "groups": 1036,
+            "paired_wins": 0.9802123552123552,
+            "rows": 2234,
+            "tpr": 0.6805019305019305
+          },
+          "llama3.1-8B": {
+            "auc": 0.921253411346546,
+            "coverage": 0.9935948759007206,
+            "eligible": 2482,
+            "groups": 2482,
+            "paired_wins": 0.9498388396454472,
+            "rows": 2498,
+            "tpr": 0.41901692183722805
+          },
+          "llama3.3-70B": {
+            "auc": 0.8866536757086668,
+            "coverage": 0.994797919167667,
+            "eligible": 2486,
+            "groups": 2486,
+            "paired_wins": 0.910699919549477,
+            "rows": 2499,
+            "tpr": 0.32099758648431215
+          },
+          "qwen2.5-72B": {
+            "auc": 0.870119675489105,
+            "coverage": 0.9967974379503602,
+            "eligible": 2490,
+            "groups": 2490,
+            "paired_wins": 0.9220883534136546,
+            "rows": 2498,
+            "tpr": 0.2927710843373494
+          },
+          "qwen2.5-7B": {
+            "auc": 0.95569788008626,
+            "coverage": 0.9975980784627703,
+            "eligible": 2492,
+            "groups": 2492,
+            "paired_wins": 0.9797351524879615,
+            "rows": 2498,
+            "tpr": 0.5822632423756019
+          }
+        },
+        "calibration_humans": 2495,
+        "coverage": 0.9035257061572851,
+        "eligible": 17785,
+        "groups": 2497,
+        "paired_wins": 0.9100084340736576,
+        "rows": 19684,
+        "test_human_fpr": 0.0032038446135362435,
+        "test_humans": 2497,
+        "threshold": 0.9000000000000001,
+        "tpr": 0.3620466685409053
+      }
+    }
+  }
+}
