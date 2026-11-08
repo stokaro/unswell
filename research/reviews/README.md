@@ -16,6 +16,12 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-11-08-evidence-flip-pilot](2026-11-08-evidence-flip-pilot/README.md):
+  a 16-call source-conditioned pilot passed its exposed synthetic preflight
+  at 15/16 decisions, four of four evidence-flip pairs, and nine safe
+  edits. A contradiction-versus-absence error remains; no original
+  #349 event or product qualification is credited.
+
 - [2026-11-08-counterfactual-admission](2026-11-08-counterfactual-admission/README.md):
   16 frozen synthetic source variants test whether a diagnosis follows its
   actual contextual evidence. The unchanged CLI delivered five overlapping

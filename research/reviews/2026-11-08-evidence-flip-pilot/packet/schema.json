@@ -1,0 +1,41 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "basis": {
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "admit",
+        "reject",
+        "abstain"
+      ],
+      "type": "string"
+    },
+    "item_id": {
+      "type": "string"
+    },
+    "replacement": {
+      "type": "string"
+    },
+    "source_sha256": {
+      "type": "string"
+    },
+    "target_end_byte": {
+      "type": "integer"
+    },
+    "target_start_byte": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "item_id",
+    "source_sha256",
+    "target_start_byte",
+    "target_end_byte",
+    "decision",
+    "replacement",
+    "basis"
+  ],
+  "type": "object"
+}
