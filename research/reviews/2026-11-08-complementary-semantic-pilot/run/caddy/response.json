@@ -1,0 +1,86 @@
+{
+  "findings": [
+    {
+      "deletion_test": "Retain the TLS, OCSP, and certificate-related reliability focus; narrow the categorical uptime comparison.",
+      "diagnosis": "The claim promises continued availability whenever competing servers fail from these broad issue classes, without identifying the failures or conditions it covers.",
+      "evidence": "Lines 85–86 identify cluster coordination and multi-issuer fallback, but those capabilities do not establish immunity to all TLS, OCSP, or certificate-related outages.",
+      "line": 88,
+      "quote": "**Stays up when other servers go down** due to TLS/OCSP/certificate-related issues",
+      "source_function": "Describe certificate-related resilience."
+    },
+    {
+      "deletion_test": "Retain extensibility, the architecture link, and the modular design; remove or bound the unlimited capability and unconditional efficiency claims.",
+      "diagnosis": "“Anything without bloat” turns a concrete architectural property into an unlimited capability claim with an undefined resource-cost guarantee.",
+      "evidence": "Line 177 describes applications implemented as Caddy modules, and line 179 names specific benefits. Neither establishes unlimited functionality or an absence of overhead.",
+      "line": 92,
+      "quote": "**Highly extensible** [modular architecture](https://caddyserver.com/docs/architecture) lets Caddy do anything without bloat",
+      "source_function": "Explain the benefit of modular extensibility."
+    },
+    {
+      "deletion_test": "Preserve the concrete claim about external dependencies, including libc; bound the deployment scope.",
+      "diagnosis": "“Runs anywhere” equates dependency independence with universal platform compatibility, although those are different properties.",
+      "evidence": "The adjoining qualification concerns external dependencies only. Line 120 acknowledges operating-system-specific execution requirements, and the page provides no universal platform scope.",
+      "line": 93,
+      "quote": "**Runs anywhere** with **no external dependencies** (not even libc)",
+      "source_function": "Describe portability and deployment requirements."
+    },
+    {
+      "deletion_test": "Retain that Caddy is written in Go and the intended memory-safety benefit; correct or delimit the comparison class.",
+      "diagnosis": "The comparison mixes a language's guarantees with those of unspecified server implementations and implies superiority over other servers generally.",
+      "evidence": "The page identifies Caddy's implementation language but does not identify competing implementation languages or distinguish servers with equivalent memory-safety guarantees.",
+      "line": 94,
+      "quote": "Written in Go, a language with higher **memory safety guarantees** than other servers",
+      "source_function": "Explain an implementation-related safety benefit."
+    },
+    {
+      "deletion_test": "The promotional lead can be removed without losing a feature or destination; preserve access to the features page through its existing heading link.",
+      "diagnosis": "This feature-list item supplies no feature or qualification and repeats navigation already provided by the section heading.",
+      "evidence": "Line 76 links “Features” to the same https://caddyserver.com/features destination.",
+      "line": 96,
+      "quote": "- So much more to [discover](https://caddyserver.com/features)",
+      "source_function": "Direct readers to additional features."
+    },
+    {
+      "deletion_test": "Preserve the following explanation about configuring initialized types and its HTTP, TLS, and storage examples; remove or delimit the universal ranking.",
+      "diagnosis": "The sentence claims superiority over every existing web server without defining a comparative measure of control.",
+      "evidence": "The next sentence explains a specific configuration mechanism, qualified by “usually.” That mechanism does not establish the preceding universal ranking.",
+      "line": 185,
+      "quote": "Caddy exposes an unprecedented level of control compared to any web server in existence.",
+      "source_function": "Introduce the configuration model's degree of control."
+    },
+    {
+      "deletion_test": "Retain plugin-based extensibility; remove or specify the comparative improvement claim.",
+      "diagnosis": "“Vast improvements over other web servers” asserts a large comparative advantage without identifying which properties improve or which servers are compared.",
+      "evidence": "The paragraph explains direct configuration of initialized types but names no plugin-system comparison or measurable improvement. Line 92 already identifies modular extensibility.",
+      "line": 185,
+      "quote": "Caddy is also ridiculously extensible, with a powerful plugin system that makes vast improvements over other web servers.",
+      "source_function": "Describe the plugin system's advantages."
+    },
+    {
+      "deletion_test": "Remove the repeated introduction while retaining the documentation URL and the separate contribution information.",
+      "diagnosis": "This sentence repeats the immediately preceding heading and merely announces the immediately following link.",
+      "evidence": "Line 192 says “Full documentation,” line 196 provides the documentation URL, and line 198 supplies the independently useful contribution information.",
+      "line": 194,
+      "quote": "Our website has complete documentation:",
+      "source_function": "Introduce the documentation destination."
+    },
+    {
+      "deletion_test": "Preserve the sponsorship request, project-funding rationale, and concrete support benefits; remove or qualify the predicted audience reaction.",
+      "diagnosis": "The clause presents a favorable reaction from customers and prospective customers as an assured sponsorship benefit.",
+      "evidence": "The paragraph identifies funding, private help, resources, support, and discounts, but provides no condition connecting sponsorship to customer awareness or approval.",
+      "line": 206,
+      "quote": "along with being a great look for your company to your customers and potential customers!",
+      "source_function": "Persuade companies to sponsor the project."
+    },
+    {
+      "deletion_test": "Retain Cloudsmith's hosting credit, URL, and concrete package-management functions; remove or bound the exclusivity, format, destination, and confidence guarantees.",
+      "diagnosis": "The sponsor description combines an exclusive market claim with unrestricted format and destination coverage and an unconditional assurance. These exceed the concrete service role established on the page.",
+      "evidence": "The preceding sentence establishes that Cloudsmith provides Debian package repository hosting. It supplies no comparison class for “only” or scope for “any format” and “any place”; the claims are also not attributed as Cloudsmith's own.",
+      "line": 225,
+      "quote": "Cloudsmith is the only fully hosted, cloud-native, universal package management solution, that enables your organization to create, store and share packages in any format, to any place, with total confidence.",
+      "source_function": "Describe the repository-hosting sponsor."
+    }
+  ],
+  "page_id": "caddy",
+  "source_sha256": "0bc5939a26994a481e65b84b4e1b9ee44dd06796df4a196c75e9bdcdd4868b18"
+}

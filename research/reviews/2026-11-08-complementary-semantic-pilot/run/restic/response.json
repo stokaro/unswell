@@ -1,0 +1,22 @@
+{
+  "findings": [
+    {
+      "deletion_test": "Removing the claim about doing backups right preserves the introduction to the design principles and every concrete principle that follows.",
+      "diagnosis": "This blanket endorsement asserts overall correctness without specifying a criterion. The following principles describe design goals, which do not establish that restic categorically does backups right.",
+      "evidence": "Lines 61–84 supply specific principles, several explicitly framed as aspirations using \"should.\" These provide useful substance without supporting the broader endorsement.",
+      "line": 58,
+      "quote": "Restic is a program that does backups right",
+      "source_function": "Introduces the design principles with an overall quality claim."
+    },
+    {
+      "deletion_test": "A minimal repair must retain the motivation that lengthy backups can discourage regular use, while removing the universal claim about user behavior. Preserve the surrounding bandwidth goal and selective-transfer requirement.",
+      "diagnosis": "“Nobody” turns a plausible usability concern into an absolute claim about all users. The page provides no basis for that universal scope.",
+      "evidence": "Lines 66–70 explain the speed goal through daily backups and transferring only needed data. Lines 61–62 express the analogous usability concern conditionally: \"you might be tempted to skip it.\"",
+      "line": 68,
+      "quote": "Nobody does backups if it takes too much time.",
+      "source_function": "Motivates the speed principle through an assertion about backup habits."
+    }
+  ],
+  "page_id": "restic",
+  "source_sha256": "4684f85db668903f6b0e66c3c677efa62fb291e9fe56f2e909b57e84d5740587"
+}
