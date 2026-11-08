@@ -1,0 +1,2519 @@
+Review the COMPLETE public technical README and its supplied eligible prose units.
+Use only the supplied source. Do not use tools or external knowledge. This is
+editorial diagnosis, not AI-authorship detection.
+
+Return exactly one record for EACH supplied unit ordinal, in the same order.
+Do not omit or merge units. Identify the unit's communicative function and its
+concrete proposition, if any. Compare the proposition with its actual support
+and qualifications elsewhere on the supplied page. Record specific evidence,
+including a contradiction or a narrower condition, rather than a generic
+impression. An ordinary factual description does not require an implementation
+proof in this README. A link can direct a reader to evidence, but the name of a
+product, a link label, or an example of only one case does not itself establish
+an unbounded comparison or guarantee.
+
+Classify the relation as:
+- aligned: the page supports or appropriately scopes the proposition;
+- narrower: the page supports only a narrower case than the prose claims;
+- contradicted: the page expressly gives conflicting information;
+- unestablished: a material comparison, guarantee, or breadth claim lacks
+  source evidence sufficient for its scope;
+- not_claim: heading, navigation, transition, attribution, or other text
+  without an independently assessable proposition.
+
+The relation is a source-accounting judgment, not yet a recommendation. Preserve
+negation, numbers, versions, identifiers, conditions, links, and protected code.
+Only binding segments are eligible prose. State uncertainty in evidence, but
+choose the most accurate relation rather than silently dropping a unit.
+Keep each proposition and support field under 500 characters.
+
+Return schema JSON only. Echo the page ID, source SHA-256, and unit chunk ID.
+
+INPUT JSON:
+{
+  "chunk_id": "mise-0-100",
+  "excluded": [
+    {
+      "reason": "html",
+      "span": {
+        "end": 22,
+        "start": 0
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 318,
+        "start": 22
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 1012,
+        "start": 318
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 1847,
+        "start": 1012
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 1904,
+        "start": 1847
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 2299,
+        "start": 1904
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 3005,
+        "start": 2299
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 3013,
+        "start": 3005
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 3021,
+        "start": 3013
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3175,
+        "start": 3164
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 3623,
+        "start": 3223
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4036,
+        "start": 4030
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4052,
+        "start": 4046
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4242,
+        "start": 4231
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4275,
+        "start": 4262
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4434,
+        "start": 4418
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4496,
+        "start": 4480
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4735,
+        "start": 4719
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4779,
+        "start": 4771
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4798,
+        "start": 4781
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4975,
+        "start": 4922
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 5237,
+        "start": 5166
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5279,
+        "start": 5254
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5461,
+        "start": 5442
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5480,
+        "start": 5466
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5502,
+        "start": 5496
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5531,
+        "start": 5512
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5550,
+        "start": 5544
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 5690,
+        "start": 5634
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5703,
+        "start": 5692
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5803,
+        "start": 5799
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5831,
+        "start": 5825
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 6175,
+        "start": 5999
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6231,
+        "start": 6220
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 6382,
+        "start": 6234
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6412,
+        "start": 6402
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 6571,
+        "start": 6451
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6590,
+        "start": 6579
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6658,
+        "start": 6644
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6672,
+        "start": 6662
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6680,
+        "start": 6674
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6750,
+        "start": 6739
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6884,
+        "start": 6857
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6942,
+        "start": 6914
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 7023,
+        "start": 7017
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 7115,
+        "start": 7109
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 7144,
+        "start": 7133
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 7178,
+        "start": 7168
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 7518,
+        "start": 7244
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 7566,
+        "start": 7560
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 7598,
+        "start": 7579
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8072,
+        "start": 8054
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8149,
+        "start": 8138
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8181,
+        "start": 8154
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8268,
+        "start": 8254
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8378,
+        "start": 8354
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8471,
+        "start": 8454
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8574,
+        "start": 8554
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8626,
+        "start": 8615
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8664,
+        "start": 8654
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8735,
+        "start": 8729
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8773,
+        "start": 8754
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8869,
+        "start": 8854
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8968,
+        "start": 8954
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 9065,
+        "start": 9054
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 9138,
+        "start": 9127
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 9170,
+        "start": 9154
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 9267,
+        "start": 9254
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 9450,
+        "start": 9422
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 9698,
+        "start": 9491
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 9882,
+        "start": 9796
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 13031,
+        "start": 13020
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 13091,
+        "start": 13078
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 13662,
+        "start": 13425
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 13738,
+        "start": 13680
+      }
+    }
+  ],
+  "numbered_source": "0001| <div align=\"center\">\n0002| \n0003| <h1 align=\"center\">\n0004|   <a href=\"https://mise.jdx.dev\">\n0005|     <picture>\n0006|       <source media=\"(prefers-color-scheme: dark)\" srcset=\"docs/public/logo-dark.svg\" />\n0007|       <img src=\"docs/public/logo-light.svg\" alt=\"mise\" width=\"256\" height=\"256\" />\n0008|     </picture>\n0009|     <br>\n0010|     mise-en-place\n0011|   </a>\n0012| </h1>\n0013| \n0014| <p>\n0015|   <a href=\"https://crates.io/crates/mise\"><img alt=\"Crates.io\" src=\"https://img.shields.io/crates/v/mise?style=for-the-badge&color=8B2252\"></a>\n0016|   <a href=\"https://github.com/jdx/mise/blob/main/LICENSE\"><img alt=\"GitHub\" src=\"https://img.shields.io/github/license/jdx/mise?style=for-the-badge&color=6B7F4E\"></a>\n0017|   <a href=\"https://github.com/jdx/mise/actions/workflows/test.yml\"><img alt=\"GitHub Workflow Status\" src=\"https://img.shields.io/github/actions/workflow/status/jdx/mise/test.yml?style=for-the-badge&color=C5975B\"></a>\n0018|   <a href=\"https://discord.gg/mABnUDvP57\"><img alt=\"Discord\" src=\"https://img.shields.io/discord/1066429325269794907?style=for-the-badge&color=8B2252\"></a>\n0019| </p>\n0020| \n0021| <p align=\"center\">\n0022|   <a href=\"https://www.star-history.com/jdx/mise\">\n0023|     <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://api.star-history.com/badge?repo=jdx/mise&type=rank&theme=dark\" /><source media=\"(prefers-color-scheme: light)\" srcset=\"https://api.star-history.com/badge?repo=jdx/mise&type=rank\" /><img alt=\"Star History Rank\" src=\"https://api.star-history.com/badge?repo=jdx/mise&type=rank\" /></picture> <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://api.star-history.com/badge?repo=jdx/mise&type=trending&theme=dark\" /><source media=\"(prefers-color-scheme: light)\" srcset=\"https://api.star-history.com/badge?repo=jdx/mise&type=trending\" /><img alt=\"GitHub Trending Repository of the Day\" src=\"https://api.star-history.com/badge?repo=jdx/mise&type=trending\" /></picture>\n0024|   </a>\n0025| </p>\n0026| \n0027| <p><b>Dev tools, env vars, and tasks in one CLI</b></p>\n0028| \n0029| <p align=\"center\">\n0030|   <a href=\"https://mise.jdx.dev/getting-started.html\">Getting started</a> •\n0031|   <a href=\"https://mise.jdx.dev\">Docs</a> •\n0032|   <a href=\"https://mise.jdx.dev/dev-tools/\">Dev tools</a> •\n0033|   <a href=\"https://mise.jdx.dev/environments/\">Environments</a> •\n0034|   <a href=\"https://mise.jdx.dev/tasks/\">Tasks</a> •\n0035|   <a href=\"https://mise.jdx.dev/bootstrap.html\">Bootstrap</a>\n0036| </p>\n0037| \n0038| <p align=\"center\">\n0039|   Sponsored by<br><br>\n0040|   <a href=\"https://entire.io\">\n0041|     <picture>\n0042|       <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://jdx.dev/sponsors/entire-lockup.svg\">\n0043|       <img src=\"https://jdx.dev/sponsors/entire-lockup-on-light.svg\" alt=\"Entire\" height=\"36\">\n0044|     </picture>\n0045|   </a>\n0046|   &nbsp;&nbsp;&nbsp;\n0047|   <a href=\"https://omarchy.org/patrons/\">\n0048|     <picture>\n0049|       <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://jdx.dev/sponsors/omacom-foundation.svg\">\n0050|       <img src=\"https://jdx.dev/sponsors/omacom-foundation-on-light.svg\" alt=\"Omacom Foundation\" height=\"36\">\n0051|     </picture>\n0052|   </a>\n0053|   <br><br>\n0054|   <a href=\"https://jdx.dev/sponsors.html\">View all sponsors</a>\n0055| </p>\n0056| \n0057| <hr />\n0058| \n0059| </div>\n0060| \n0061| ## What is mise?\n0062| \n0063| mise (pronounced \"meez\", short for _mise-en-place_) manages a project's dev\n0064| tools, environment variables, and tasks from one `mise.toml` that works across\n0065| your shell, editor, and CI:\n0066| \n0067| ```toml\n0068| [tools]\n0069| node = \"24\"\n0070| python = \"3.14\"\n0071| rust = \"stable\"\n0072| \"cargo:cargo-nextest\" = \"0.9\"\n0073| \"github:BurntSushi/ripgrep\" = \"15\"\n0074| \"npm:prettier\" = \"3\"\n0075| \n0076| [env]\n0077| NODE_ENV = \"development\"\n0078| _.file = \".env\"\n0079| _.path = \"./node_modules/.bin\"\n0080| \n0081| [tasks.build]\n0082| description = \"Build the application\"\n0083| run = \"npm run build\"\n0084| \n0085| [tasks.test]\n0086| description = \"Run the test suite\"\n0087| depends = [\"build\"]\n0088| run = \"pytest && npm test\"\n0089| ```\n0090| \n0091| - Install [dev tools](https://mise.jdx.dev/dev-tools/) such as Node.js, Python,\n0092|   Go, Rust, and Terraform from a\n0093|   [registry of 1,000+ tools](https://mise.jdx.dev/registry.html) or directly\n0094|   from [backends](https://mise.jdx.dev/dev-tools/backends/) like GitHub\n0095|   releases, Aqua, Cargo, npm, and PyPI, with separate versions per project.\n0096| - Load [environment variables](https://mise.jdx.dev/environments/), `.env`\n0097|   files, `PATH` entries, virtualenvs, and\n0098|   [secrets](https://mise.jdx.dev/environments/secrets/) automatically as you\n0099|   enter a directory.\n0100| - Run [tasks](https://mise.jdx.dev/tasks/) defined in `mise.toml` or as scripts\n0101|   in `mise-tasks/`, with dependencies, parallel execution, file watching, and\n0102|   the project's tools and environment already configured.\n0103| - Set up a machine with [`mise bootstrap`](https://mise.jdx.dev/bootstrap.html)\n0104|   and [`mise dot apply`](https://mise.jdx.dev/dotfiles.html) to apply system\n0105|   packages, dotfiles, Git repositories, macOS defaults, and background services.\n0106| \n0107| Adopt only the parts you need. Start with a single tool or task, and keep any\n0108| existing `.tool-versions` files as they are; mise also reads `.nvmrc`,\n0109| `.python-version`, and other\n0110| [idiomatic version files](https://mise.jdx.dev/dev-tools/versions.html#idiomatic-version-files)\n0111| once enabled.\n0112| \n0113| [![Demo of mise managing tools](./docs/tapes/demo.gif)](https://mise.jdx.dev/demo.html)\n0114| \n0115| See the [demo transcript](https://mise.jdx.dev/demo.html#transcript) for the\n0116| commands shown above.\n0117| \n0118| ## Quickstart\n0119| \n0120| ### 1. Install mise\n0121| \n0122| On macOS or Linux:\n0123| \n0124| ```sh\n0125| curl -fsSL https://mise.run | sh\n0126| ~/.local/bin/mise --version\n0127| ```\n0128| \n0129| On Windows, run `winget install jdx.mise`. For Homebrew, apt, dnf, Scoop, and\n0130| other package managers, see\n0131| [Installing mise](https://mise.jdx.dev/installing-mise.html).\n0132| \n0133| The installer places the binary at `~/.local/bin/mise`. If `~/.local/bin` is not\n0134| on your `PATH` yet, run `~/.local/bin/mise` in place of `mise` until you\n0135| activate mise in step 4.\n0136| \n0137| ### 2. Run a tool without changing your shell\n0138| \n0139| ```sh\n0140| mise exec node@24 -- node --version\n0141| # v24.x.x\n0142| ```\n0143| \n0144| [`mise exec`](https://mise.jdx.dev/cli/exec.html) downloads Node.js 24 if\n0145| needed and runs the command after `--` with that version on `PATH`. Your shell\n0146| and config files stay untouched.\n0147| \n0148| ### 3. Configure a project\n0149| \n0150| Create a project directory, select Node.js 24, set an environment variable, and\n0151| add a task:\n0152| \n0153| ```sh\n0154| mkdir my-project && cd my-project\n0155| mise use node@24\n0156| mise set NODE_ENV=development\n0157| mise tasks add hello -- node -e \"console.log(process.version, process.env.NODE_ENV)\"\n0158| ```\n0159| \n0160| These commands install Node.js 24 and write `mise.toml`:\n0161| \n0162| ```toml\n0163| [tools]\n0164| node = \"24\"\n0165| \n0166| [env]\n0167| NODE_ENV = \"development\"\n0168| \n0169| [tasks.hello]\n0170| run = 'node -e \"console.log(process.version, process.env.NODE_ENV)\"'\n0171| ```\n0172| \n0173| Run the task with [`mise run`](https://mise.jdx.dev/cli/run.html):\n0174| \n0175| ```sh\n0176| mise run hello\n0177| # [hello] $ node -e \"console.log(process.version, process.env.NODE_ENV)\"\n0178| # v24.x.x development\n0179| ```\n0180| \n0181| Commit `mise.toml` so teammates and CI get the same setup when they run\n0182| `mise install` or `mise run`. `\"24\"` requests the latest release in the Node.js\n0183| 24 series; run `mise lock` to record exact versions and checksums in a\n0184| [lockfile](https://mise.jdx.dev/dev-tools/mise-lock.html), or\n0185| `mise use --global node@24` to set a personal default in\n0186| `~/.config/mise/config.toml`.\n0187| \n0188| ### 4. Activate mise in your shell (optional)\n0189| \n0190| Shell activation updates `PATH` and project environment variables whenever you\n0191| change directories, so you can invoke `node` directly without `mise exec`. If\n0192| you installed with `mise.run`, run the command for your shell once, then open a\n0193| new terminal:\n0194| \n0195| ```sh\n0196| # bash\n0197| echo 'eval \"$(~/.local/bin/mise activate bash)\"' >> ~/.bashrc\n0198| \n0199| # zsh\n0200| echo 'eval \"$(~/.local/bin/mise activate zsh)\"' >> \"${ZDOTDIR:-$HOME}/.zshrc\"\n0201| \n0202| # fish\n0203| mkdir -p ~/.config/fish\n0204| echo '~/.local/bin/mise activate fish | source' >> ~/.config/fish/config.fish\n0205| ```\n0206| \n0207| If a package manager installed mise, use `mise` in place of `~/.local/bin/mise`.\n0208| With Homebrew, fish activates mise without this step.\n0209| \n0210| For PowerShell, Nushell, Elvish, Xonsh, and IDE or CI shims, see\n0211| [Shell setup](https://mise.jdx.dev/shell-setup.html) and\n0212| [Shims](https://mise.jdx.dev/dev-tools/shims.html).\n0213| \n0214| ## Everyday commands\n0215| \n0216| | Command                     | Action                                                            |\n0217| | --------------------------- | ----------------------------------------------------------------- |\n0218| | `mise use node@24`          | Install a tool and record it in the current project's `mise.toml` |\n0219| | `mise use --global node@24` | Install a tool and set it as your global default                  |\n0220| | `mise install`              | Install all tools declared in the active config files             |\n0221| | `mise exec -- <command>`    | Run a command with the project's tools and environment            |\n0222| | `mise run <task>`           | Run a project task with its dependencies, tools, and environment  |\n0223| | `mise set KEY=value`        | Set an environment variable in `mise.toml`                        |\n0224| | `mise env`                  | Print the resolved environment variables and `PATH` changes       |\n0225| | `mise ls --current`         | List the tool versions active in the current directory            |\n0226| | `mise outdated`             | List tools with newer releases than the installed version         |\n0227| | `mise upgrade`              | Install those newer releases                                      |\n0228| | `mise lock`                 | Write exact tool versions and checksums to `mise.lock`            |\n0229| | `mise config ls`            | Show the config files loaded for the current directory            |\n0230| | `mise doctor`               | Check your mise installation, shell activation, and configuration |\n0231| \n0232| ## Set up a machine with mise bootstrap\n0233| \n0234| Beyond project directories, `~/.config/mise/config.toml` can declare the state\n0235| of your machine:\n0236| \n0237| ```toml\n0238| [bootstrap.packages]\n0239| \"apt:build-essential\" = \"latest\"\n0240| \"brew:jq\" = \"latest\"\n0241| \n0242| [bootstrap.repos]\n0243| \"~/src/app\" = { url = \"https://github.com/you/app.git\" }\n0244| \n0245| [dotfiles]\n0246| \"~/.zshrc\" = { mode = \"track\" }\n0247| ```\n0248| \n0249| Preview and apply the configuration, or bootstrap a new machine directly from a\n0250| Git repository:\n0251| \n0252| ```sh\n0253| mise bootstrap --dry-run\n0254| mise bootstrap\n0255| mise bootstrap --adopt you/dotfiles\n0256| ```\n0257| \n0258| See [Bootstrap](https://mise.jdx.dev/bootstrap.html) and\n0259| [Dotfiles](https://mise.jdx.dev/dotfiles.html) for supported package managers,\n0260| dotfile tracking and templating, services, and remote SSH targets.\n0261| \n0262| ## Documentation\n0263| \n0264| | Topic                         | Guides                                                                                                                                                                                                                                                                 |\n0265| | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n0266| | Onboarding                    | [Getting started](https://mise.jdx.dev/getting-started.html) · [Existing projects](https://mise.jdx.dev/walkthrough.html) · [Migrating from asdf](https://mise.jdx.dev/dev-tools/comparison-to-asdf.html)                                                              |\n0267| | Dev tools                     | [Dev tools](https://mise.jdx.dev/dev-tools/) · [Registry](https://mise.jdx.dev/registry.html) · [Backends](https://mise.jdx.dev/dev-tools/backends/) · [Lockfile](https://mise.jdx.dev/dev-tools/mise-lock.html)                                                       |\n0268| | Environments and tasks        | [Environments](https://mise.jdx.dev/environments/) · [Secrets](https://mise.jdx.dev/environments/secrets/) · [Tasks](https://mise.jdx.dev/tasks/) · [Task configuration](https://mise.jdx.dev/tasks/task-configuration.html)                                           |\n0269| | Machine setup                 | [Bootstrap](https://mise.jdx.dev/bootstrap.html) · [Packages](https://mise.jdx.dev/bootstrap/packages/) · [Dotfiles](https://mise.jdx.dev/dotfiles.html) · [Services](https://mise.jdx.dev/bootstrap/services.html)                                                    |\n0270| | Shells, editors, and CI       | [Shell setup](https://mise.jdx.dev/shell-setup.html) · [Shims](https://mise.jdx.dev/dev-tools/shims.html) · [Editors and IDEs](https://mise.jdx.dev/ide-integration.html) · [Continuous integration](https://mise.jdx.dev/continuous-integration.html)                 |\n0271| | Reference and troubleshooting | [mise.toml](https://mise.jdx.dev/configuration.html) · [Settings](https://mise.jdx.dev/configuration/settings.html) · [CLI reference](https://mise.jdx.dev/cli/) · [Troubleshooting](https://mise.jdx.dev/troubleshooting.html) · [FAQ](https://mise.jdx.dev/faq.html) |\n0272| | Contributing                  | [Contributing](CONTRIBUTING.md) · [Writing docs](docs/README.md)                                                                                                                                                                                                       |\n0273| \n0274| ## Get help\n0275| \n0276| - Report bugs in [GitHub Issues](https://github.com/jdx/mise/issues). Check\n0277|   [Troubleshooting](https://mise.jdx.dev/troubleshooting.html) first, and\n0278|   include the command you ran, a minimal `mise.toml`, the expected and actual\n0279|   behavior, and your `mise doctor` output after reviewing it for private\n0280|   details.\n0281| - Ask questions and share ideas in\n0282|   [GitHub Discussions](https://github.com/jdx/mise/discussions).\n0283| - Chat with the community on [Discord](https://discord.gg/mABnUDvP57).\n0284| \n0285| For security reports and other inquiries, see\n0286| [Contact](https://mise.jdx.dev/contact.html).\n0287| \n0288| ## Special thanks\n0289| \n0290| <p>\n0291|   <a href=\"https://namespace.so\">\n0292|     <img src=\"docs/public/namespace-logo.svg\" alt=\"Namespace\" width=\"64\" height=\"64\">\n0293|   </a>\n0294|   <br>\n0295|   Thanks to <a href=\"https://namespace.so\">Namespace</a> for providing CI services for mise.\n0296| </p>\n0297| \n0298| ## Contributors\n0299| \n0300| [![Contributors](https://contrib.rocks/image?repo=jdx/mise)](https://github.com/jdx/mise/graphs/contributors)",
+  "page_id": "jdx/mise/README.md",
+  "source_sha256": "3db1580f8541396116e3a33210def2996379b895bc814cba22df9bf9b437f7f9",
+  "units": [
+    {
+      "kind": "fragment",
+      "ordinal": 0,
+      "raw_slice": "What is mise?",
+      "raw_span": {
+        "end": 3037,
+        "start": 3024
+      },
+      "segments": [
+        {
+          "end": 3037,
+          "start": 3024
+        }
+      ],
+      "text": "What is mise?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 1,
+      "raw_slice": "mise (pronounced \"meez\", short for _mise-en-place_) manages a project's dev\ntools, environment variables, and tasks from one",
+      "raw_span": {
+        "end": 3163,
+        "start": 3039
+      },
+      "segments": [
+        {
+          "end": 3074,
+          "start": 3039
+        },
+        {
+          "end": 3088,
+          "start": 3075
+        },
+        {
+          "end": 3163,
+          "start": 3089
+        }
+      ],
+      "text": "mise (pronounced \"meez\", short for mise-en-place) manages a project's dev tools, environment variables, and tasks from one"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 2,
+      "raw_slice": "that works across\nyour shell, editor, and CI:",
+      "raw_span": {
+        "end": 3221,
+        "start": 3176
+      },
+      "segments": [
+        {
+          "end": 3221,
+          "start": 3176
+        }
+      ],
+      "text": "that works across your shell, editor, and CI:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 3,
+      "raw_slice": "Install [dev tools](https://mise.jdx.dev/dev-tools/) such as Node.js, Python,\n  Go, Rust, and Terraform from a\n  [registry of 1,000+ tools](https://mise.jdx.dev/registry.html) or directly\n  from [backends](https://mise.jdx.dev/dev-tools/backends/) like GitHub\n  releases, Aqua, Cargo, npm, and PyPI, with separate versions per project.",
+      "raw_span": {
+        "end": 3961,
+        "start": 3626
+      },
+      "segments": [
+        {
+          "end": 3634,
+          "start": 3626
+        },
+        {
+          "end": 3644,
+          "start": 3635
+        },
+        {
+          "end": 3704,
+          "start": 3678
+        },
+        {
+          "end": 3737,
+          "start": 3706
+        },
+        {
+          "end": 3764,
+          "start": 3740
+        },
+        {
+          "end": 3814,
+          "start": 3801
+        },
+        {
+          "end": 3821,
+          "start": 3816
+        },
+        {
+          "end": 3830,
+          "start": 3822
+        },
+        {
+          "end": 3886,
+          "start": 3873
+        },
+        {
+          "end": 3961,
+          "start": 3888
+        }
+      ],
+      "text": "Install dev tools such as Node.js, Python, Go, Rust, and Terraform from a registry of 1,000+ tools or directly from backends like GitHub releases, Aqua, Cargo, npm, and PyPI, with separate versions per project."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 4,
+      "raw_slice": "Load [environment variables](https://mise.jdx.dev/environments/),",
+      "raw_span": {
+        "end": 4029,
+        "start": 3964
+      },
+      "segments": [
+        {
+          "end": 3969,
+          "start": 3964
+        },
+        {
+          "end": 3991,
+          "start": 3970
+        },
+        {
+          "end": 4029,
+          "start": 4028
+        }
+      ],
+      "text": "Load environment variables,"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 5,
+      "raw_slice": "files,",
+      "raw_span": {
+        "end": 4045,
+        "start": 4039
+      },
+      "segments": [
+        {
+          "end": 4045,
+          "start": 4039
+        }
+      ],
+      "text": "files,"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 6,
+      "raw_slice": "entries, virtualenvs, and\n  [secrets](https://mise.jdx.dev/environments/secrets/) automatically as you\n  enter a directory.",
+      "raw_span": {
+        "end": 4176,
+        "start": 4053
+      },
+      "segments": [
+        {
+          "end": 4079,
+          "start": 4053
+        },
+        {
+          "end": 4089,
+          "start": 4082
+        },
+        {
+          "end": 4156,
+          "start": 4134
+        },
+        {
+          "end": 4176,
+          "start": 4158
+        }
+      ],
+      "text": "entries, virtualenvs, and secrets automatically as you enter a directory."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 7,
+      "raw_slice": "Run [tasks](https://mise.jdx.dev/tasks/) defined in",
+      "raw_span": {
+        "end": 4230,
+        "start": 4179
+      },
+      "segments": [
+        {
+          "end": 4183,
+          "start": 4179
+        },
+        {
+          "end": 4189,
+          "start": 4184
+        },
+        {
+          "end": 4230,
+          "start": 4219
+        }
+      ],
+      "text": "Run tasks defined in"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 8,
+      "raw_slice": "or as scripts\n  in",
+      "raw_span": {
+        "end": 4261,
+        "start": 4243
+      },
+      "segments": [
+        {
+          "end": 4257,
+          "start": 4243
+        },
+        {
+          "end": 4261,
+          "start": 4259
+        }
+      ],
+      "text": "or as scripts in"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 9,
+      "raw_slice": ", with dependencies, parallel execution, file watching, and\n  the project's tools and environment already configured.",
+      "raw_span": {
+        "end": 4392,
+        "start": 4275
+      },
+      "segments": [
+        {
+          "end": 4335,
+          "start": 4275
+        },
+        {
+          "end": 4392,
+          "start": 4337
+        }
+      ],
+      "text": ", with dependencies, parallel execution, file watching, and the project's tools and environment already configured."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 10,
+      "raw_slice": "Set up a machine with",
+      "raw_span": {
+        "end": 4416,
+        "start": 4395
+      },
+      "segments": [
+        {
+          "end": 4416,
+          "start": 4395
+        }
+      ],
+      "text": "Set up a machine with"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 11,
+      "raw_slice": "and",
+      "raw_span": {
+        "end": 4478,
+        "start": 4475
+      },
+      "segments": [
+        {
+          "end": 4478,
+          "start": 4475
+        }
+      ],
+      "text": "and"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 12,
+      "raw_slice": "to apply system\n  packages, dotfiles, Git repositories, macOS defaults, and background services.",
+      "raw_span": {
+        "end": 4630,
+        "start": 4534
+      },
+      "segments": [
+        {
+          "end": 4550,
+          "start": 4534
+        },
+        {
+          "end": 4630,
+          "start": 4552
+        }
+      ],
+      "text": "to apply system packages, dotfiles, Git repositories, macOS defaults, and background services."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 13,
+      "raw_slice": "Adopt only the parts you need. Start with a single tool or task, and keep any\nexisting",
+      "raw_span": {
+        "end": 4718,
+        "start": 4632
+      },
+      "segments": [
+        {
+          "end": 4718,
+          "start": 4632
+        }
+      ],
+      "text": "Adopt only the parts you need. Start with a single tool or task, and keep any existing"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 14,
+      "raw_slice": "files as they are; mise also reads",
+      "raw_span": {
+        "end": 4770,
+        "start": 4736
+      },
+      "segments": [
+        {
+          "end": 4770,
+          "start": 4736
+        }
+      ],
+      "text": "files as they are; mise also reads"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 15,
+      "raw_slice": ", and other\n[idiomatic version files](https://mise.jdx.dev/dev-tools/versions.html#idiomatic-version-files)\nonce enabled.",
+      "raw_span": {
+        "end": 4919,
+        "start": 4798
+      },
+      "segments": [
+        {
+          "end": 4810,
+          "start": 4798
+        },
+        {
+          "end": 4834,
+          "start": 4811
+        },
+        {
+          "end": 4919,
+          "start": 4905
+        }
+      ],
+      "text": ", and other idiomatic version files once enabled."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 16,
+      "raw_slice": "See the [demo transcript](https://mise.jdx.dev/demo.html#transcript) for the\ncommands shown above.",
+      "raw_span": {
+        "end": 5108,
+        "start": 5010
+      },
+      "segments": [
+        {
+          "end": 5018,
+          "start": 5010
+        },
+        {
+          "end": 5034,
+          "start": 5019
+        },
+        {
+          "end": 5108,
+          "start": 5078
+        }
+      ],
+      "text": "See the demo transcript for the commands shown above."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 17,
+      "raw_slice": "Quickstart",
+      "raw_span": {
+        "end": 5123,
+        "start": 5113
+      },
+      "segments": [
+        {
+          "end": 5123,
+          "start": 5113
+        }
+      ],
+      "text": "Quickstart"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 18,
+      "raw_slice": "1. Install mise",
+      "raw_span": {
+        "end": 5144,
+        "start": 5129
+      },
+      "segments": [
+        {
+          "end": 5144,
+          "start": 5129
+        }
+      ],
+      "text": "1. Install mise"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 19,
+      "raw_slice": "On macOS or Linux:",
+      "raw_span": {
+        "end": 5164,
+        "start": 5146
+      },
+      "segments": [
+        {
+          "end": 5164,
+          "start": 5146
+        }
+      ],
+      "text": "On macOS or Linux:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 20,
+      "raw_slice": "On Windows, run",
+      "raw_span": {
+        "end": 5253,
+        "start": 5238
+      },
+      "segments": [
+        {
+          "end": 5253,
+          "start": 5238
+        }
+      ],
+      "text": "On Windows, run"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 21,
+      "raw_slice": ". For Homebrew, apt, dnf, Scoop, and\nother package managers, see\n[Installing mise](https://mise.jdx.dev/installing-mise.html).",
+      "raw_span": {
+        "end": 5405,
+        "start": 5279
+      },
+      "segments": [
+        {
+          "end": 5344,
+          "start": 5279
+        },
+        {
+          "end": 5360,
+          "start": 5345
+        },
+        {
+          "end": 5405,
+          "start": 5404
+        }
+      ],
+      "text": ". For Homebrew, apt, dnf, Scoop, and other package managers, see Installing mise."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 22,
+      "raw_slice": "The installer places the binary at",
+      "raw_span": {
+        "end": 5441,
+        "start": 5407
+      },
+      "segments": [
+        {
+          "end": 5441,
+          "start": 5407
+        }
+      ],
+      "text": "The installer places the binary at"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 23,
+      "raw_slice": ". If",
+      "raw_span": {
+        "end": 5465,
+        "start": 5461
+      },
+      "segments": [
+        {
+          "end": 5465,
+          "start": 5461
+        }
+      ],
+      "text": ". If"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 24,
+      "raw_slice": "is not\non your",
+      "raw_span": {
+        "end": 5495,
+        "start": 5481
+      },
+      "segments": [
+        {
+          "end": 5495,
+          "start": 5481
+        }
+      ],
+      "text": "is not on your"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 25,
+      "raw_slice": "yet, run",
+      "raw_span": {
+        "end": 5511,
+        "start": 5503
+      },
+      "segments": [
+        {
+          "end": 5511,
+          "start": 5503
+        }
+      ],
+      "text": "yet, run"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 26,
+      "raw_slice": "in place of",
+      "raw_span": {
+        "end": 5543,
+        "start": 5532
+      },
+      "segments": [
+        {
+          "end": 5543,
+          "start": 5532
+        }
+      ],
+      "text": "in place of"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 27,
+      "raw_slice": "until you\nactivate mise in step 4.",
+      "raw_span": {
+        "end": 5585,
+        "start": 5551
+      },
+      "segments": [
+        {
+          "end": 5585,
+          "start": 5551
+        }
+      ],
+      "text": "until you activate mise in step 4."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 28,
+      "raw_slice": "2. Run a tool without changing your shell",
+      "raw_span": {
+        "end": 5632,
+        "start": 5591
+      },
+      "segments": [
+        {
+          "end": 5632,
+          "start": 5591
+        }
+      ],
+      "text": "2. Run a tool without changing your shell"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 29,
+      "raw_slice": "downloads Node.js 24 if\nneeded and runs the command after",
+      "raw_span": {
+        "end": 5798,
+        "start": 5741
+      },
+      "segments": [
+        {
+          "end": 5798,
+          "start": 5741
+        }
+      ],
+      "text": "downloads Node.js 24 if needed and runs the command after"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 30,
+      "raw_slice": "with that version on",
+      "raw_span": {
+        "end": 5824,
+        "start": 5804
+      },
+      "segments": [
+        {
+          "end": 5824,
+          "start": 5804
+        }
+      ],
+      "text": "with that version on"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 31,
+      "raw_slice": ". Your shell\nand config files stay untouched.",
+      "raw_span": {
+        "end": 5876,
+        "start": 5831
+      },
+      "segments": [
+        {
+          "end": 5876,
+          "start": 5831
+        }
+      ],
+      "text": ". Your shell and config files stay untouched."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 32,
+      "raw_slice": "3. Configure a project",
+      "raw_span": {
+        "end": 5904,
+        "start": 5882
+      },
+      "segments": [
+        {
+          "end": 5904,
+          "start": 5882
+        }
+      ],
+      "text": "3. Configure a project"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 33,
+      "raw_slice": "Create a project directory, select Node.js 24, set an environment variable, and\nadd a task:",
+      "raw_span": {
+        "end": 5997,
+        "start": 5906
+      },
+      "segments": [
+        {
+          "end": 5997,
+          "start": 5906
+        }
+      ],
+      "text": "Create a project directory, select Node.js 24, set an environment variable, and add a task:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 34,
+      "raw_slice": "These commands install Node.js 24 and write",
+      "raw_span": {
+        "end": 6219,
+        "start": 6176
+      },
+      "segments": [
+        {
+          "end": 6219,
+          "start": 6176
+        }
+      ],
+      "text": "These commands install Node.js 24 and write"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 35,
+      "raw_slice": "Run the task with",
+      "raw_span": {
+        "end": 6400,
+        "start": 6383
+      },
+      "segments": [
+        {
+          "end": 6400,
+          "start": 6383
+        }
+      ],
+      "text": "Run the task with"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 36,
+      "raw_slice": "Commit",
+      "raw_span": {
+        "end": 6578,
+        "start": 6572
+      },
+      "segments": [
+        {
+          "end": 6578,
+          "start": 6572
+        }
+      ],
+      "text": "Commit"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 37,
+      "raw_slice": "so teammates and CI get the same setup when they run",
+      "raw_span": {
+        "end": 6643,
+        "start": 6591
+      },
+      "segments": [
+        {
+          "end": 6643,
+          "start": 6591
+        }
+      ],
+      "text": "so teammates and CI get the same setup when they run"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 38,
+      "raw_slice": "or",
+      "raw_span": {
+        "end": 6661,
+        "start": 6659
+      },
+      "segments": [
+        {
+          "end": 6661,
+          "start": 6659
+        }
+      ],
+      "text": "or"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 39,
+      "raw_slice": "requests the latest release in the Node.js\n24 series; run",
+      "raw_span": {
+        "end": 6738,
+        "start": 6681
+      },
+      "segments": [
+        {
+          "end": 6738,
+          "start": 6681
+        }
+      ],
+      "text": "requests the latest release in the Node.js 24 series; run"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 40,
+      "raw_slice": "to record exact versions and checksums in a\n[lockfile](https://mise.jdx.dev/dev-tools/mise-lock.html), or",
+      "raw_span": {
+        "end": 6856,
+        "start": 6751
+      },
+      "segments": [
+        {
+          "end": 6795,
+          "start": 6751
+        },
+        {
+          "end": 6804,
+          "start": 6796
+        },
+        {
+          "end": 6856,
+          "start": 6852
+        }
+      ],
+      "text": "to record exact versions and checksums in a lockfile, or"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 41,
+      "raw_slice": "to set a personal default in",
+      "raw_span": {
+        "end": 6913,
+        "start": 6885
+      },
+      "segments": [
+        {
+          "end": 6913,
+          "start": 6885
+        }
+      ],
+      "text": "to set a personal default in"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 42,
+      "raw_slice": "4. Activate mise in your shell (optional)",
+      "raw_span": {
+        "end": 6990,
+        "start": 6949
+      },
+      "segments": [
+        {
+          "end": 6990,
+          "start": 6949
+        }
+      ],
+      "text": "4. Activate mise in your shell (optional)"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 43,
+      "raw_slice": "Shell activation updates",
+      "raw_span": {
+        "end": 7016,
+        "start": 6992
+      },
+      "segments": [
+        {
+          "end": 7016,
+          "start": 6992
+        }
+      ],
+      "text": "Shell activation updates"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 44,
+      "raw_slice": "and project environment variables whenever you\nchange directories, so you can invoke",
+      "raw_span": {
+        "end": 7108,
+        "start": 7024
+      },
+      "segments": [
+        {
+          "end": 7108,
+          "start": 7024
+        }
+      ],
+      "text": "and project environment variables whenever you change directories, so you can invoke"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 45,
+      "raw_slice": "directly without",
+      "raw_span": {
+        "end": 7132,
+        "start": 7116
+      },
+      "segments": [
+        {
+          "end": 7132,
+          "start": 7116
+        }
+      ],
+      "text": "directly without"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 46,
+      "raw_slice": ". If\nyou installed with",
+      "raw_span": {
+        "end": 7167,
+        "start": 7144
+      },
+      "segments": [
+        {
+          "end": 7167,
+          "start": 7144
+        }
+      ],
+      "text": ". If you installed with"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 47,
+      "raw_slice": ", run the command for your shell once, then open a\nnew terminal:",
+      "raw_span": {
+        "end": 7242,
+        "start": 7178
+      },
+      "segments": [
+        {
+          "end": 7242,
+          "start": 7178
+        }
+      ],
+      "text": ", run the command for your shell once, then open a new terminal:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 48,
+      "raw_slice": "If a package manager installed mise, use",
+      "raw_span": {
+        "end": 7559,
+        "start": 7519
+      },
+      "segments": [
+        {
+          "end": 7559,
+          "start": 7519
+        }
+      ],
+      "text": "If a package manager installed mise, use"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 49,
+      "raw_slice": "in place of",
+      "raw_span": {
+        "end": 7578,
+        "start": 7567
+      },
+      "segments": [
+        {
+          "end": 7578,
+          "start": 7567
+        }
+      ],
+      "text": "in place of"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 50,
+      "raw_slice": ".\nWith Homebrew, fish activates mise without this step.",
+      "raw_span": {
+        "end": 7653,
+        "start": 7598
+      },
+      "segments": [
+        {
+          "end": 7653,
+          "start": 7598
+        }
+      ],
+      "text": ". With Homebrew, fish activates mise without this step."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 51,
+      "raw_slice": "For PowerShell, Nushell, Elvish, Xonsh, and IDE or CI shims, see\n[Shell setup](https://mise.jdx.dev/shell-setup.html) and\n[Shims](https://mise.jdx.dev/dev-tools/shims.html).",
+      "raw_span": {
+        "end": 7828,
+        "start": 7655
+      },
+      "segments": [
+        {
+          "end": 7720,
+          "start": 7655
+        },
+        {
+          "end": 7732,
+          "start": 7721
+        },
+        {
+          "end": 7777,
+          "start": 7772
+        },
+        {
+          "end": 7783,
+          "start": 7778
+        },
+        {
+          "end": 7828,
+          "start": 7827
+        }
+      ],
+      "text": "For PowerShell, Nushell, Elvish, Xonsh, and IDE or CI shims, see Shell setup and Shims."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 52,
+      "raw_slice": "Everyday commands",
+      "raw_span": {
+        "end": 7850,
+        "start": 7833
+      },
+      "segments": [
+        {
+          "end": 7850,
+          "start": 7833
+        }
+      ],
+      "text": "Everyday commands"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 53,
+      "raw_slice": "Command",
+      "raw_span": {
+        "end": 7861,
+        "start": 7854
+      },
+      "segments": [
+        {
+          "end": 7861,
+          "start": 7854
+        }
+      ],
+      "text": "Command"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 54,
+      "raw_slice": "Action",
+      "raw_span": {
+        "end": 7890,
+        "start": 7884
+      },
+      "segments": [
+        {
+          "end": 7890,
+          "start": 7884
+        }
+      ],
+      "text": "Action"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 55,
+      "raw_slice": "Install a tool and record it in the current project's",
+      "raw_span": {
+        "end": 8137,
+        "start": 8084
+      },
+      "segments": [
+        {
+          "end": 8137,
+          "start": 8084
+        }
+      ],
+      "text": "Install a tool and record it in the current project's"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 56,
+      "raw_slice": "Install a tool and set it as your global default",
+      "raw_span": {
+        "end": 8232,
+        "start": 8184
+      },
+      "segments": [
+        {
+          "end": 8232,
+          "start": 8184
+        }
+      ],
+      "text": "Install a tool and set it as your global default"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 57,
+      "raw_slice": "Install all tools declared in the active config files",
+      "raw_span": {
+        "end": 8337,
+        "start": 8284
+      },
+      "segments": [
+        {
+          "end": 8337,
+          "start": 8284
+        }
+      ],
+      "text": "Install all tools declared in the active config files"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 58,
+      "raw_slice": "Run a command with the project's tools and environment",
+      "raw_span": {
+        "end": 8438,
+        "start": 8384
+      },
+      "segments": [
+        {
+          "end": 8438,
+          "start": 8384
+        }
+      ],
+      "text": "Run a command with the project's tools and environment"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 59,
+      "raw_slice": "Run a project task with its dependencies, tools, and environment",
+      "raw_span": {
+        "end": 8548,
+        "start": 8484
+      },
+      "segments": [
+        {
+          "end": 8548,
+          "start": 8484
+        }
+      ],
+      "text": "Run a project task with its dependencies, tools, and environment"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 60,
+      "raw_slice": "Set an environment variable in",
+      "raw_span": {
+        "end": 8614,
+        "start": 8584
+      },
+      "segments": [
+        {
+          "end": 8614,
+          "start": 8584
+        }
+      ],
+      "text": "Set an environment variable in"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 61,
+      "raw_slice": "Print the resolved environment variables and",
+      "raw_span": {
+        "end": 8728,
+        "start": 8684
+      },
+      "segments": [
+        {
+          "end": 8728,
+          "start": 8684
+        }
+      ],
+      "text": "Print the resolved environment variables and"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 62,
+      "raw_slice": "changes",
+      "raw_span": {
+        "end": 8743,
+        "start": 8736
+      },
+      "segments": [
+        {
+          "end": 8743,
+          "start": 8736
+        }
+      ],
+      "text": "changes"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 63,
+      "raw_slice": "List the tool versions active in the current directory",
+      "raw_span": {
+        "end": 8838,
+        "start": 8784
+      },
+      "segments": [
+        {
+          "end": 8838,
+          "start": 8784
+        }
+      ],
+      "text": "List the tool versions active in the current directory"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 64,
+      "raw_slice": "List tools with newer releases than the installed version",
+      "raw_span": {
+        "end": 8941,
+        "start": 8884
+      },
+      "segments": [
+        {
+          "end": 8941,
+          "start": 8884
+        }
+      ],
+      "text": "List tools with newer releases than the installed version"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 65,
+      "raw_slice": "Install those newer releases",
+      "raw_span": {
+        "end": 9012,
+        "start": 8984
+      },
+      "segments": [
+        {
+          "end": 9012,
+          "start": 8984
+        }
+      ],
+      "text": "Install those newer releases"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 66,
+      "raw_slice": "Write exact tool versions and checksums to",
+      "raw_span": {
+        "end": 9126,
+        "start": 9084
+      },
+      "segments": [
+        {
+          "end": 9126,
+          "start": 9084
+        }
+      ],
+      "text": "Write exact tool versions and checksums to"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 67,
+      "raw_slice": "Show the config files loaded for the current directory",
+      "raw_span": {
+        "end": 9238,
+        "start": 9184
+      },
+      "segments": [
+        {
+          "end": 9238,
+          "start": 9184
+        }
+      ],
+      "text": "Show the config files loaded for the current directory"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 68,
+      "raw_slice": "Check your mise installation, shell activation, and configuration",
+      "raw_span": {
+        "end": 9349,
+        "start": 9284
+      },
+      "segments": [
+        {
+          "end": 9349,
+          "start": 9284
+        }
+      ],
+      "text": "Check your mise installation, shell activation, and configuration"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 69,
+      "raw_slice": "Set up a machine with mise bootstrap",
+      "raw_span": {
+        "end": 9392,
+        "start": 9356
+      },
+      "segments": [
+        {
+          "end": 9392,
+          "start": 9356
+        }
+      ],
+      "text": "Set up a machine with mise bootstrap"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 70,
+      "raw_slice": "Beyond project directories,",
+      "raw_span": {
+        "end": 9421,
+        "start": 9394
+      },
+      "segments": [
+        {
+          "end": 9421,
+          "start": 9394
+        }
+      ],
+      "text": "Beyond project directories,"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 71,
+      "raw_slice": "can declare the state\nof your machine:",
+      "raw_span": {
+        "end": 9489,
+        "start": 9451
+      },
+      "segments": [
+        {
+          "end": 9489,
+          "start": 9451
+        }
+      ],
+      "text": "can declare the state of your machine:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 72,
+      "raw_slice": "Preview and apply the configuration, or bootstrap a new machine directly from a\nGit repository:",
+      "raw_span": {
+        "end": 9794,
+        "start": 9699
+      },
+      "segments": [
+        {
+          "end": 9794,
+          "start": 9699
+        }
+      ],
+      "text": "Preview and apply the configuration, or bootstrap a new machine directly from a Git repository:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 73,
+      "raw_slice": "See [Bootstrap](https://mise.jdx.dev/bootstrap.html) and\n[Dotfiles](https://mise.jdx.dev/dotfiles.html) for supported package managers,\ndotfile tracking and templating, services, and remote SSH targets.",
+      "raw_span": {
+        "end": 10085,
+        "start": 9883
+      },
+      "segments": [
+        {
+          "end": 9887,
+          "start": 9883
+        },
+        {
+          "end": 9897,
+          "start": 9888
+        },
+        {
+          "end": 9940,
+          "start": 9935
+        },
+        {
+          "end": 9949,
+          "start": 9941
+        },
+        {
+          "end": 10085,
+          "start": 9986
+        }
+      ],
+      "text": "See Bootstrap and Dotfiles for supported package managers, dotfile tracking and templating, services, and remote SSH targets."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 74,
+      "raw_slice": "Documentation",
+      "raw_span": {
+        "end": 10103,
+        "start": 10090
+      },
+      "segments": [
+        {
+          "end": 10103,
+          "start": 10090
+        }
+      ],
+      "text": "Documentation"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 75,
+      "raw_slice": "Topic",
+      "raw_span": {
+        "end": 10112,
+        "start": 10107
+      },
+      "segments": [
+        {
+          "end": 10112,
+          "start": 10107
+        }
+      ],
+      "text": "Topic"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 76,
+      "raw_slice": "Guides",
+      "raw_span": {
+        "end": 10145,
+        "start": 10139
+      },
+      "segments": [
+        {
+          "end": 10145,
+          "start": 10139
+        }
+      ],
+      "text": "Guides"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 77,
+      "raw_slice": "Onboarding",
+      "raw_span": {
+        "end": 10715,
+        "start": 10705
+      },
+      "segments": [
+        {
+          "end": 10715,
+          "start": 10705
+        }
+      ],
+      "text": "Onboarding"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 78,
+      "raw_slice": "Getting started](https://mise.jdx.dev/getting-started.html) · [Existing projects](https://mise.jdx.dev/walkthrough.html) · [Migrating from asdf",
+      "raw_span": {
+        "end": 10883,
+        "start": 10738
+      },
+      "segments": [
+        {
+          "end": 10753,
+          "start": 10738
+        },
+        {
+          "end": 10801,
+          "start": 10797
+        },
+        {
+          "end": 10819,
+          "start": 10802
+        },
+        {
+          "end": 10863,
+          "start": 10859
+        },
+        {
+          "end": 10883,
+          "start": 10864
+        }
+      ],
+      "text": "Getting started · Existing projects · Migrating from asdf"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 79,
+      "raw_slice": "Dev tools",
+      "raw_span": {
+        "end": 11015,
+        "start": 11006
+      },
+      "segments": [
+        {
+          "end": 11015,
+          "start": 11006
+        }
+      ],
+      "text": "Dev tools"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 80,
+      "raw_slice": "Dev tools](https://mise.jdx.dev/dev-tools/) · [Registry](https://mise.jdx.dev/registry.html) · [Backends](https://mise.jdx.dev/dev-tools/backends/) · [Lockfile",
+      "raw_span": {
+        "end": 11201,
+        "start": 11039
+      },
+      "segments": [
+        {
+          "end": 11048,
+          "start": 11039
+        },
+        {
+          "end": 11086,
+          "start": 11082
+        },
+        {
+          "end": 11095,
+          "start": 11087
+        },
+        {
+          "end": 11136,
+          "start": 11132
+        },
+        {
+          "end": 11145,
+          "start": 11137
+        },
+        {
+          "end": 11192,
+          "start": 11188
+        },
+        {
+          "end": 11201,
+          "start": 11193
+        }
+      ],
+      "text": "Dev tools · Registry · Backends · Lockfile"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 81,
+      "raw_slice": "Environments and tasks",
+      "raw_span": {
+        "end": 11330,
+        "start": 11308
+      },
+      "segments": [
+        {
+          "end": 11330,
+          "start": 11308
+        }
+      ],
+      "text": "Environments and tasks"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 82,
+      "raw_slice": "Environments](https://mise.jdx.dev/environments/) · [Secrets](https://mise.jdx.dev/environments/secrets/) · [Tasks](https://mise.jdx.dev/tasks/) · [Task configuration",
+      "raw_span": {
+        "end": 11510,
+        "start": 11341
+      },
+      "segments": [
+        {
+          "end": 11353,
+          "start": 11341
+        },
+        {
+          "end": 11394,
+          "start": 11390
+        },
+        {
+          "end": 11402,
+          "start": 11395
+        },
+        {
+          "end": 11451,
+          "start": 11447
+        },
+        {
+          "end": 11457,
+          "start": 11452
+        },
+        {
+          "end": 11491,
+          "start": 11487
+        },
+        {
+          "end": 11510,
+          "start": 11492
+        }
+      ],
+      "text": "Environments · Secrets · Tasks · Task configuration"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 83,
+      "raw_slice": "Machine setup",
+      "raw_span": {
+        "end": 11623,
+        "start": 11610
+      },
+      "segments": [
+        {
+          "end": 11623,
+          "start": 11610
+        }
+      ],
+      "text": "Machine setup"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 84,
+      "raw_slice": "Bootstrap](https://mise.jdx.dev/bootstrap.html) · [Packages](https://mise.jdx.dev/bootstrap/packages/) · [Dotfiles](https://mise.jdx.dev/dotfiles.html) · [Services",
+      "raw_span": {
+        "end": 11809,
+        "start": 11643
+      },
+      "segments": [
+        {
+          "end": 11652,
+          "start": 11643
+        },
+        {
+          "end": 11694,
+          "start": 11690
+        },
+        {
+          "end": 11703,
+          "start": 11695
+        },
+        {
+          "end": 11750,
+          "start": 11746
+        },
+        {
+          "end": 11759,
+          "start": 11751
+        },
+        {
+          "end": 11800,
+          "start": 11796
+        },
+        {
+          "end": 11809,
+          "start": 11801
+        }
+      ],
+      "text": "Bootstrap · Packages · Dotfiles · Services"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 85,
+      "raw_slice": "Shells, editors, and CI",
+      "raw_span": {
+        "end": 11935,
+        "start": 11912
+      },
+      "segments": [
+        {
+          "end": 11935,
+          "start": 11912
+        }
+      ],
+      "text": "Shells, editors, and CI"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 86,
+      "raw_slice": "Shell setup](https://mise.jdx.dev/shell-setup.html) · [Shims](https://mise.jdx.dev/dev-tools/shims.html) · [Editors and IDEs](https://mise.jdx.dev/ide-integration.html) · [Continuous integration",
+      "raw_span": {
+        "end": 12142,
+        "start": 11945
+      },
+      "segments": [
+        {
+          "end": 11956,
+          "start": 11945
+        },
+        {
+          "end": 12000,
+          "start": 11996
+        },
+        {
+          "end": 12006,
+          "start": 12001
+        },
+        {
+          "end": 12054,
+          "start": 12050
+        },
+        {
+          "end": 12071,
+          "start": 12055
+        },
+        {
+          "end": 12119,
+          "start": 12115
+        },
+        {
+          "end": 12142,
+          "start": 12120
+        }
+      ],
+      "text": "Shell setup · Shims · Editors and IDEs · Continuous integration"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 87,
+      "raw_slice": "Reference and troubleshooting",
+      "raw_span": {
+        "end": 12243,
+        "start": 12214
+      },
+      "segments": [
+        {
+          "end": 12243,
+          "start": 12214
+        }
+      ],
+      "text": "Reference and troubleshooting"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 88,
+      "raw_slice": "mise.toml](https://mise.jdx.dev/configuration.html) · [Settings](https://mise.jdx.dev/configuration/settings.html) · [CLI reference](https://mise.jdx.dev/cli/) · [Troubleshooting](https://mise.jdx.dev/troubleshooting.html) · [FAQ",
+      "raw_span": {
+        "end": 12480,
+        "start": 12247
+      },
+      "segments": [
+        {
+          "end": 12256,
+          "start": 12247
+        },
+        {
+          "end": 12302,
+          "start": 12298
+        },
+        {
+          "end": 12311,
+          "start": 12303
+        },
+        {
+          "end": 12366,
+          "start": 12362
+        },
+        {
+          "end": 12380,
+          "start": 12367
+        },
+        {
+          "end": 12412,
+          "start": 12408
+        },
+        {
+          "end": 12428,
+          "start": 12413
+        },
+        {
+          "end": 12476,
+          "start": 12472
+        },
+        {
+          "end": 12480,
+          "start": 12477
+        }
+      ],
+      "text": "mise.toml · Settings · CLI reference · Troubleshooting · FAQ"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 89,
+      "raw_slice": "Contributing",
+      "raw_span": {
+        "end": 12529,
+        "start": 12517
+      },
+      "segments": [
+        {
+          "end": 12529,
+          "start": 12517
+        }
+      ],
+      "text": "Contributing"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 90,
+      "raw_slice": "Contributing](CONTRIBUTING.md) · [Writing docs",
+      "raw_span": {
+        "end": 12597,
+        "start": 12550
+      },
+      "segments": [
+        {
+          "end": 12562,
+          "start": 12550
+        },
+        {
+          "end": 12584,
+          "start": 12580
+        },
+        {
+          "end": 12597,
+          "start": 12585
+        }
+      ],
+      "text": "Contributing · Writing docs"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 91,
+      "raw_slice": "Get help",
+      "raw_span": {
+        "end": 12827,
+        "start": 12819
+      },
+      "segments": [
+        {
+          "end": 12827,
+          "start": 12819
+        }
+      ],
+      "text": "Get help"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 92,
+      "raw_slice": "Report bugs in [GitHub Issues](https://github.com/jdx/mise/issues). Check\n  [Troubleshooting](https://mise.jdx.dev/troubleshooting.html) first, and\n  include the command you ran, a minimal",
+      "raw_span": {
+        "end": 13019,
+        "start": 12831
+      },
+      "segments": [
+        {
+          "end": 12846,
+          "start": 12831
+        },
+        {
+          "end": 12860,
+          "start": 12847
+        },
+        {
+          "end": 12905,
+          "start": 12897
+        },
+        {
+          "end": 12923,
+          "start": 12908
+        },
+        {
+          "end": 12979,
+          "start": 12967
+        },
+        {
+          "end": 13019,
+          "start": 12981
+        }
+      ],
+      "text": "Report bugs in GitHub Issues. Check Troubleshooting first, and include the command you ran, a minimal"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 93,
+      "raw_slice": ", the expected and actual\n  behavior, and your",
+      "raw_span": {
+        "end": 13077,
+        "start": 13031
+      },
+      "segments": [
+        {
+          "end": 13057,
+          "start": 13031
+        },
+        {
+          "end": 13077,
+          "start": 13059
+        }
+      ],
+      "text": ", the expected and actual behavior, and your"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 94,
+      "raw_slice": "output after reviewing it for private\n  details.",
+      "raw_span": {
+        "end": 13140,
+        "start": 13092
+      },
+      "segments": [
+        {
+          "end": 13130,
+          "start": 13092
+        },
+        {
+          "end": 13140,
+          "start": 13132
+        }
+      ],
+      "text": "output after reviewing it for private details."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 95,
+      "raw_slice": "Ask questions and share ideas in\n  [GitHub Discussions](https://github.com/jdx/mise/discussions).",
+      "raw_span": {
+        "end": 13240,
+        "start": 13143
+      },
+      "segments": [
+        {
+          "end": 13176,
+          "start": 13143
+        },
+        {
+          "end": 13197,
+          "start": 13179
+        },
+        {
+          "end": 13240,
+          "start": 13239
+        }
+      ],
+      "text": "Ask questions and share ideas in GitHub Discussions."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 96,
+      "raw_slice": "Chat with the community on [Discord](https://discord.gg/mABnUDvP57).",
+      "raw_span": {
+        "end": 13311,
+        "start": 13243
+      },
+      "segments": [
+        {
+          "end": 13270,
+          "start": 13243
+        },
+        {
+          "end": 13278,
+          "start": 13271
+        },
+        {
+          "end": 13311,
+          "start": 13310
+        }
+      ],
+      "text": "Chat with the community on Discord."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 97,
+      "raw_slice": "For security reports and other inquiries, see\n[Contact](https://mise.jdx.dev/contact.html).",
+      "raw_span": {
+        "end": 13404,
+        "start": 13313
+      },
+      "segments": [
+        {
+          "end": 13359,
+          "start": 13313
+        },
+        {
+          "end": 13367,
+          "start": 13360
+        },
+        {
+          "end": 13404,
+          "start": 13403
+        }
+      ],
+      "text": "For security reports and other inquiries, see Contact."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 98,
+      "raw_slice": "Special thanks",
+      "raw_span": {
+        "end": 13423,
+        "start": 13409
+      },
+      "segments": [
+        {
+          "end": 13423,
+          "start": 13409
+        }
+      ],
+      "text": "Special thanks"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 99,
+      "raw_slice": "Contributors",
+      "raw_span": {
+        "end": 13677,
+        "start": 13665
+      },
+      "segments": [
+        {
+          "end": 13677,
+          "start": 13665
+        }
+      ],
+      "text": "Contributors"
+    }
+  ]
+}

@@ -1,0 +1,1448 @@
+Review the COMPLETE public technical README and its supplied eligible prose units.
+Use only the supplied source. Do not use tools or external knowledge. This is
+editorial diagnosis, not AI-authorship detection.
+
+Return exactly one record for EACH supplied unit ordinal, in the same order.
+Do not omit or merge units. Identify the unit's communicative function and its
+concrete proposition, if any. Compare the proposition with its actual support
+and qualifications elsewhere on the supplied page. Record specific evidence,
+including a contradiction or a narrower condition, rather than a generic
+impression. An ordinary factual description does not require an implementation
+proof in this README. A link can direct a reader to evidence, but the name of a
+product, a link label, or an example of only one case does not itself establish
+an unbounded comparison or guarantee.
+
+Classify the relation as:
+- aligned: the page supports or appropriately scopes the proposition;
+- narrower: the page supports only a narrower case than the prose claims;
+- contradicted: the page expressly gives conflicting information;
+- unestablished: a material comparison, guarantee, or breadth claim lacks
+  source evidence sufficient for its scope;
+- not_claim: heading, navigation, transition, attribution, or other text
+  without an independently assessable proposition.
+
+The relation is a source-accounting judgment, not yet a recommendation. Preserve
+negation, numbers, versions, identifiers, conditions, links, and protected code.
+Only binding segments are eligible prose. State uncertainty in evidence, but
+choose the most accurate relation rather than silently dropping a unit.
+Keep each proposition and support field under 500 characters.
+
+Return schema JSON only. Echo the page ID, source SHA-256, and unit chunk ID.
+
+INPUT JSON:
+{
+  "chunk_id": "mkcert-0-67",
+  "excluded": [
+    {
+      "reason": "code",
+      "span": {
+        "end": 646,
+        "start": 118
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 830,
+        "start": 647
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 966,
+        "start": 952
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 979,
+        "start": 968
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 994,
+        "start": 983
+      }
+    },
+    {
+      "reason": "quote",
+      "span": {
+        "end": 1571,
+        "start": 1408
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 1693,
+        "start": 1627
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 1834,
+        "start": 1737
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1880,
+        "start": 1870
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 2033,
+        "start": 1883
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 2150,
+        "start": 2122
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 2321,
+        "start": 2193
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 2559,
+        "start": 2404
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 2591,
+        "start": 2583
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 2731,
+        "start": 2699
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 2828,
+        "start": 2799
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 2896,
+        "start": 2843
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3084,
+        "start": 3076
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3281,
+        "start": 3264
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3338,
+        "start": 3314
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3388,
+        "start": 3381
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3475,
+        "start": 3464
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3572,
+        "start": 3558
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 4220,
+        "start": 3724
+      }
+    },
+    {
+      "reason": "quote",
+      "span": {
+        "end": 4294,
+        "start": 4221
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 4388,
+        "start": 4309
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 4540,
+        "start": 4505
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4674,
+        "start": 4662
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4721,
+        "start": 4705
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5429,
+        "start": 5408
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 5582,
+        "start": 5516
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5835,
+        "start": 5819
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5920,
+        "start": 5911
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6209,
+        "start": 6197
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6234,
+        "start": 6218
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6283,
+        "start": 6274
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6324,
+        "start": 6307
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6505,
+        "start": 6489
+      }
+    }
+  ],
+  "numbered_source": "0001| # mkcert\n0002| \n0003| mkcert is a simple tool for making locally-trusted development certificates. It requires no configuration.\n0004| \n0005| ```\n0006| $ mkcert -install\n0007| Created a new local CA 💥\n0008| The local CA is now installed in the system trust store! ⚡️\n0009| The local CA is now installed in the Firefox trust store (requires browser restart)! 🦊\n0010| \n0011| $ mkcert example.com \"*.example.com\" example.test localhost 127.0.0.1 ::1\n0012| \n0013| Created a new certificate valid for the following names 📜\n0014|  - \"example.com\"\n0015|  - \"*.example.com\"\n0016|  - \"example.test\"\n0017|  - \"localhost\"\n0018|  - \"127.0.0.1\"\n0019|  - \"::1\"\n0020| \n0021| The certificate is at \"./example.com+5.pem\" and the key at \"./example.com+5-key.pem\" ✅\n0022| ```\n0023| \n0024| <p align=\"center\"><img width=\"498\" alt=\"Chrome and Firefox screenshot\" src=\"https://user-images.githubusercontent.com/1225294/51066373-96d4aa80-15be-11e9-91e2-f4e44a3a4458.png\"></p>\n0025| \n0026| Using certificates from real certificate authorities (CAs) for development can be dangerous or impossible (for hosts like `example.test`, `localhost` or `127.0.0.1`), but self-signed certificates cause trust errors. Managing your own CA is the best solution, but usually involves arcane commands, specialized knowledge and manual steps.\n0027| \n0028| mkcert automatically creates and installs a local CA in the system root store, and generates locally-trusted certificates. mkcert does not automatically configure servers to use the certificates, though, that's up to you.\n0029| \n0030| ## Installation\n0031| \n0032| > **Warning**: the `rootCA-key.pem` file that mkcert automatically generates gives complete power to intercept secure requests from your machine. Do not share it.\n0033| \n0034| ### macOS\n0035| \n0036| On macOS, use [Homebrew](https://brew.sh/)\n0037| \n0038| ```\n0039| brew install mkcert\n0040| brew install nss # if you use Firefox\n0041| ```\n0042| \n0043| or [MacPorts](https://www.macports.org/).\n0044| \n0045| ```\n0046| sudo port selfupdate\n0047| sudo port install mkcert\n0048| sudo port install nss # if you use Firefox\n0049| ```\n0050| \n0051| ### Linux\n0052| \n0053| On Linux, first install `certutil`.\n0054| \n0055| ```\n0056| sudo apt install libnss3-tools\n0057|     -or-\n0058| sudo yum install nss-tools\n0059|     -or-\n0060| sudo pacman -S nss\n0061|     -or-\n0062| sudo zypper install mozilla-nss-tools\n0063| ```\n0064| \n0065| Then you can install using [Homebrew on Linux](https://docs.brew.sh/Homebrew-on-Linux)\n0066| \n0067| ```\n0068| brew install mkcert\n0069| ```\n0070| \n0071| or build from source (requires Go 1.13+)\n0072| \n0073| ```\n0074| git clone https://github.com/FiloSottile/mkcert && cd mkcert\n0075| go build -ldflags \"-X main.Version=$(git describe --tags)\"\n0076| ```\n0077| \n0078| or use [the pre-built binaries](https://github.com/FiloSottile/mkcert/releases).\n0079| \n0080| ```\n0081| curl -JLO \"https://dl.filippo.io/mkcert/latest?for=linux/amd64\"\n0082| chmod +x mkcert-v*-linux-amd64\n0083| sudo cp mkcert-v*-linux-amd64 /usr/local/bin/mkcert\n0084| ```\n0085| \n0086| For Arch Linux users, [`mkcert`](https://archlinux.org/packages/extra/x86_64/mkcert/) is available on the official Arch Linux repository.\n0087| \n0088| ```\n0089| sudo pacman -Syu mkcert\n0090| ```\n0091| \n0092| ### Windows\n0093| \n0094| On Windows, use [Chocolatey](https://chocolatey.org)\n0095| \n0096| ```\n0097| choco install mkcert\n0098| ```\n0099| \n0100| or use Scoop\n0101| \n0102| ```\n0103| scoop bucket add extras\n0104| scoop install mkcert\n0105| ```\n0106| \n0107| or build from source (requires Go 1.10+), or use [the pre-built binaries](https://github.com/FiloSottile/mkcert/releases).\n0108| \n0109| If you're running into permission problems try running `mkcert` as an Administrator.\n0110| \n0111| ## Supported root stores\n0112| \n0113| mkcert supports the following root stores:\n0114| \n0115| * macOS system store\n0116| * Windows system store\n0117| * Linux variants that provide either\n0118|     * `update-ca-trust` (Fedora, RHEL, CentOS) or\n0119|     * `update-ca-certificates` (Ubuntu, Debian, OpenSUSE, SLES) or\n0120|     * `trust` (Arch)\n0121| * Firefox (macOS and Linux only)\n0122| * Chrome and Chromium\n0123| * Java (when `JAVA_HOME` is set)\n0124| \n0125| To only install the local root CA into a subset of them, you can set the `TRUST_STORES` environment variable to a comma-separated list. Options are: \"system\", \"java\" and \"nss\" (includes Firefox).\n0126| \n0127| ## Advanced topics\n0128| \n0129| ### Advanced options\n0130| \n0131| ```\n0132| \t-cert-file FILE, -key-file FILE, -p12-file FILE\n0133| \t    Customize the output paths.\n0134| \n0135| \t-client\n0136| \t    Generate a certificate for client authentication.\n0137| \n0138| \t-ecdsa\n0139| \t    Generate a certificate with an ECDSA key.\n0140| \n0141| \t-pkcs12\n0142| \t    Generate a \".p12\" PKCS #12 file, also know as a \".pfx\" file,\n0143| \t    containing certificate and key for legacy applications.\n0144| \n0145| \t-csr CSR\n0146| \t    Generate a certificate based on the supplied CSR. Conflicts with\n0147| \t    all other flags and arguments except -install and -cert-file.\n0148| ```\n0149| \n0150| > **Note:** You _must_ place these options before the domain names list.\n0151| \n0152| #### Example\n0153| \n0154| ```\n0155| mkcert -key-file key.pem -cert-file cert.pem example.com *.example.com\n0156| ```\n0157| \n0158| ### S/MIME\n0159| \n0160| mkcert automatically generates an S/MIME certificate if one of the supplied names is an email address.\n0161| \n0162| ```\n0163| mkcert filippo@example.com\n0164| ```\n0165| \n0166| ### Mobile devices\n0167| \n0168| For the certificates to be trusted on mobile devices, you will have to install the root CA. It's the `rootCA.pem` file in the folder printed by `mkcert -CAROOT`.\n0169| \n0170| On iOS, you can either use AirDrop, email the CA to yourself, or serve it from an HTTP server. After opening it, you need to [install the profile in Settings > Profile Downloaded](https://github.com/FiloSottile/mkcert/issues/233#issuecomment-690110809) and then [enable full trust in it](https://support.apple.com/en-nz/HT204477).\n0171| \n0172| For Android, you will have to install the CA and then enable user roots in the development build of your app. See [this StackOverflow answer](https://stackoverflow.com/a/22040887/749014).\n0173| \n0174| ### Using the root with Node.js\n0175| \n0176| Node does not use the system root store, so it won't accept mkcert certificates automatically. Instead, you will have to set the [`NODE_EXTRA_CA_CERTS`](https://nodejs.org/api/cli.html#cli_node_extra_ca_certs_file) environment variable.\n0177| \n0178| ```\n0179| export NODE_EXTRA_CA_CERTS=\"$(mkcert -CAROOT)/rootCA.pem\"\n0180| ```\n0181| \n0182| ### Changing the location of the CA files\n0183| \n0184| The CA certificate and its key are stored in an application data folder in the user home. You usually don't have to worry about it, as installation is automated, but the location is printed by `mkcert -CAROOT`.\n0185| \n0186| If you want to manage separate CAs, you can use the environment variable `$CAROOT` to set the folder where mkcert will place and look for the local CA files.\n0187| \n0188| ### Installing the CA on other systems\n0189| \n0190| Installing in the trust store does not require the CA key, so you can export the CA certificate and use mkcert to install it in other machines.\n0191| \n0192| * Look for the `rootCA.pem` file in `mkcert -CAROOT`\n0193| * copy it to a different machine\n0194| * set `$CAROOT` to its directory\n0195| * run `mkcert -install`\n0196| \n0197| Remember that mkcert is meant for development purposes, not production, so it should not be used on end users' machines, and that you should *not* export or share `rootCA-key.pem`.",
+  "page_id": "FiloSottile/mkcert/README.md",
+  "source_sha256": "29562e3e4a3312548876605940cce423cc48e583fb20ab333cd1291d94fb284a",
+  "units": [
+    {
+      "kind": "fragment",
+      "ordinal": 0,
+      "raw_slice": "mkcert",
+      "raw_span": {
+        "end": 8,
+        "start": 2
+      },
+      "segments": [
+        {
+          "end": 8,
+          "start": 2
+        }
+      ],
+      "text": "mkcert"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 1,
+      "raw_slice": "mkcert is a simple tool for making locally-trusted development certificates.",
+      "raw_span": {
+        "end": 86,
+        "start": 10
+      },
+      "segments": [
+        {
+          "end": 86,
+          "start": 10
+        }
+      ],
+      "text": "mkcert is a simple tool for making locally-trusted development certificates."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 2,
+      "raw_slice": "It requires no configuration.",
+      "raw_span": {
+        "end": 116,
+        "start": 87
+      },
+      "segments": [
+        {
+          "end": 116,
+          "start": 87
+        }
+      ],
+      "text": "It requires no configuration."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 3,
+      "raw_slice": "Using certificates from real certificate authorities (CAs) for development can be dangerous or impossible (for hosts like",
+      "raw_span": {
+        "end": 951,
+        "start": 830
+      },
+      "segments": [
+        {
+          "end": 951,
+          "start": 830
+        }
+      ],
+      "text": "Using certificates from real certificate authorities (CAs) for development can be dangerous or impossible (for hosts like"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 4,
+      "raw_slice": "or",
+      "raw_span": {
+        "end": 982,
+        "start": 980
+      },
+      "segments": [
+        {
+          "end": 982,
+          "start": 980
+        }
+      ],
+      "text": "or"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 5,
+      "raw_slice": "), but self-signed certificates cause trust errors. Managing your own CA is the best solution, but usually involves arcane commands, specialized knowledge and manual steps.",
+      "raw_span": {
+        "end": 1166,
+        "start": 994
+      },
+      "segments": [
+        {
+          "end": 1166,
+          "start": 994
+        }
+      ],
+      "text": "), but self-signed certificates cause trust errors. Managing your own CA is the best solution, but usually involves arcane commands, specialized knowledge and manual steps."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 6,
+      "raw_slice": "mkcert automatically creates and installs a local CA in the system root store, and generates locally-trusted certificates.",
+      "raw_span": {
+        "end": 1290,
+        "start": 1168
+      },
+      "segments": [
+        {
+          "end": 1290,
+          "start": 1168
+        }
+      ],
+      "text": "mkcert automatically creates and installs a local CA in the system root store, and generates locally-trusted certificates."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 7,
+      "raw_slice": "mkcert does not automatically configure servers to use the certificates, though, that's up to you.",
+      "raw_span": {
+        "end": 1389,
+        "start": 1291
+      },
+      "segments": [
+        {
+          "end": 1389,
+          "start": 1291
+        }
+      ],
+      "text": "mkcert does not automatically configure servers to use the certificates, though, that's up to you."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 8,
+      "raw_slice": "Installation",
+      "raw_span": {
+        "end": 1406,
+        "start": 1394
+      },
+      "segments": [
+        {
+          "end": 1406,
+          "start": 1394
+        }
+      ],
+      "text": "Installation"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 9,
+      "raw_slice": "macOS",
+      "raw_span": {
+        "end": 1581,
+        "start": 1576
+      },
+      "segments": [
+        {
+          "end": 1581,
+          "start": 1576
+        }
+      ],
+      "text": "macOS"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 10,
+      "raw_slice": "On macOS, use [Homebrew",
+      "raw_span": {
+        "end": 1606,
+        "start": 1583
+      },
+      "segments": [
+        {
+          "end": 1597,
+          "start": 1583
+        },
+        {
+          "end": 1606,
+          "start": 1598
+        }
+      ],
+      "text": "On macOS, use Homebrew"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 11,
+      "raw_slice": "or [MacPorts](https://www.macports.org/).",
+      "raw_span": {
+        "end": 1735,
+        "start": 1694
+      },
+      "segments": [
+        {
+          "end": 1697,
+          "start": 1694
+        },
+        {
+          "end": 1706,
+          "start": 1698
+        },
+        {
+          "end": 1735,
+          "start": 1734
+        }
+      ],
+      "text": "or MacPorts."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 12,
+      "raw_slice": "Linux",
+      "raw_span": {
+        "end": 1844,
+        "start": 1839
+      },
+      "segments": [
+        {
+          "end": 1844,
+          "start": 1839
+        }
+      ],
+      "text": "Linux"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 13,
+      "raw_slice": "On Linux, first install",
+      "raw_span": {
+        "end": 1869,
+        "start": 1846
+      },
+      "segments": [
+        {
+          "end": 1869,
+          "start": 1846
+        }
+      ],
+      "text": "On Linux, first install"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 14,
+      "raw_slice": "Then you can install using [Homebrew on Linux",
+      "raw_span": {
+        "end": 2079,
+        "start": 2034
+      },
+      "segments": [
+        {
+          "end": 2061,
+          "start": 2034
+        },
+        {
+          "end": 2079,
+          "start": 2062
+        }
+      ],
+      "text": "Then you can install using Homebrew on Linux"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 15,
+      "raw_slice": "or build from source (requires Go 1.13+)",
+      "raw_span": {
+        "end": 2191,
+        "start": 2151
+      },
+      "segments": [
+        {
+          "end": 2191,
+          "start": 2151
+        }
+      ],
+      "text": "or build from source (requires Go 1.13+)"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 16,
+      "raw_slice": "or use [the pre-built binaries](https://github.com/FiloSottile/mkcert/releases).",
+      "raw_span": {
+        "end": 2402,
+        "start": 2322
+      },
+      "segments": [
+        {
+          "end": 2329,
+          "start": 2322
+        },
+        {
+          "end": 2352,
+          "start": 2330
+        },
+        {
+          "end": 2402,
+          "start": 2401
+        }
+      ],
+      "text": "or use the pre-built binaries."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 17,
+      "raw_slice": "For Arch Linux users,",
+      "raw_span": {
+        "end": 2581,
+        "start": 2560
+      },
+      "segments": [
+        {
+          "end": 2581,
+          "start": 2560
+        }
+      ],
+      "text": "For Arch Linux users,"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 18,
+      "raw_slice": "is available on the official Arch Linux repository.",
+      "raw_span": {
+        "end": 2697,
+        "start": 2646
+      },
+      "segments": [
+        {
+          "end": 2697,
+          "start": 2646
+        }
+      ],
+      "text": "is available on the official Arch Linux repository."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 19,
+      "raw_slice": "Windows",
+      "raw_span": {
+        "end": 2743,
+        "start": 2736
+      },
+      "segments": [
+        {
+          "end": 2743,
+          "start": 2736
+        }
+      ],
+      "text": "Windows"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 20,
+      "raw_slice": "On Windows, use [Chocolatey",
+      "raw_span": {
+        "end": 2772,
+        "start": 2745
+      },
+      "segments": [
+        {
+          "end": 2761,
+          "start": 2745
+        },
+        {
+          "end": 2772,
+          "start": 2762
+        }
+      ],
+      "text": "On Windows, use Chocolatey"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 21,
+      "raw_slice": "or use Scoop",
+      "raw_span": {
+        "end": 2841,
+        "start": 2829
+      },
+      "segments": [
+        {
+          "end": 2841,
+          "start": 2829
+        }
+      ],
+      "text": "or use Scoop"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 22,
+      "raw_slice": "or build from source (requires Go 1.10+), or use [the pre-built binaries](https://github.com/FiloSottile/mkcert/releases).",
+      "raw_span": {
+        "end": 3019,
+        "start": 2897
+      },
+      "segments": [
+        {
+          "end": 2946,
+          "start": 2897
+        },
+        {
+          "end": 2969,
+          "start": 2947
+        },
+        {
+          "end": 3019,
+          "start": 3018
+        }
+      ],
+      "text": "or build from source (requires Go 1.10+), or use the pre-built binaries."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 23,
+      "raw_slice": "If you're running into permission problems try running",
+      "raw_span": {
+        "end": 3075,
+        "start": 3021
+      },
+      "segments": [
+        {
+          "end": 3075,
+          "start": 3021
+        }
+      ],
+      "text": "If you're running into permission problems try running"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 24,
+      "raw_slice": "as an Administrator.",
+      "raw_span": {
+        "end": 3105,
+        "start": 3085
+      },
+      "segments": [
+        {
+          "end": 3105,
+          "start": 3085
+        }
+      ],
+      "text": "as an Administrator."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 25,
+      "raw_slice": "Supported root stores",
+      "raw_span": {
+        "end": 3131,
+        "start": 3110
+      },
+      "segments": [
+        {
+          "end": 3131,
+          "start": 3110
+        }
+      ],
+      "text": "Supported root stores"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 26,
+      "raw_slice": "mkcert supports the following root stores:",
+      "raw_span": {
+        "end": 3175,
+        "start": 3133
+      },
+      "segments": [
+        {
+          "end": 3175,
+          "start": 3133
+        }
+      ],
+      "text": "mkcert supports the following root stores:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 27,
+      "raw_slice": "macOS system store",
+      "raw_span": {
+        "end": 3197,
+        "start": 3179
+      },
+      "segments": [
+        {
+          "end": 3197,
+          "start": 3179
+        }
+      ],
+      "text": "macOS system store"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 28,
+      "raw_slice": "Windows system store",
+      "raw_span": {
+        "end": 3220,
+        "start": 3200
+      },
+      "segments": [
+        {
+          "end": 3220,
+          "start": 3200
+        }
+      ],
+      "text": "Windows system store"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 29,
+      "raw_slice": "Linux variants that provide either",
+      "raw_span": {
+        "end": 3257,
+        "start": 3223
+      },
+      "segments": [
+        {
+          "end": 3257,
+          "start": 3223
+        }
+      ],
+      "text": "Linux variants that provide either"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 30,
+      "raw_slice": "(Fedora, RHEL, CentOS) or",
+      "raw_span": {
+        "end": 3307,
+        "start": 3282
+      },
+      "segments": [
+        {
+          "end": 3307,
+          "start": 3282
+        }
+      ],
+      "text": "(Fedora, RHEL, CentOS) or"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 31,
+      "raw_slice": "(Ubuntu, Debian, OpenSUSE, SLES) or",
+      "raw_span": {
+        "end": 3374,
+        "start": 3339
+      },
+      "segments": [
+        {
+          "end": 3374,
+          "start": 3339
+        }
+      ],
+      "text": "(Ubuntu, Debian, OpenSUSE, SLES) or"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 32,
+      "raw_slice": "(Arch)",
+      "raw_span": {
+        "end": 3395,
+        "start": 3389
+      },
+      "segments": [
+        {
+          "end": 3395,
+          "start": 3389
+        }
+      ],
+      "text": "(Arch)"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 33,
+      "raw_slice": "Firefox (macOS and Linux only)",
+      "raw_span": {
+        "end": 3428,
+        "start": 3398
+      },
+      "segments": [
+        {
+          "end": 3428,
+          "start": 3398
+        }
+      ],
+      "text": "Firefox (macOS and Linux only)"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 34,
+      "raw_slice": "Chrome and Chromium",
+      "raw_span": {
+        "end": 3450,
+        "start": 3431
+      },
+      "segments": [
+        {
+          "end": 3450,
+          "start": 3431
+        }
+      ],
+      "text": "Chrome and Chromium"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 35,
+      "raw_slice": "Java (when",
+      "raw_span": {
+        "end": 3463,
+        "start": 3453
+      },
+      "segments": [
+        {
+          "end": 3463,
+          "start": 3453
+        }
+      ],
+      "text": "Java (when"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 36,
+      "raw_slice": "is set)",
+      "raw_span": {
+        "end": 3483,
+        "start": 3476
+      },
+      "segments": [
+        {
+          "end": 3483,
+          "start": 3476
+        }
+      ],
+      "text": "is set)"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 37,
+      "raw_slice": "To only install the local root CA into a subset of them, you can set the",
+      "raw_span": {
+        "end": 3557,
+        "start": 3485
+      },
+      "segments": [
+        {
+          "end": 3557,
+          "start": 3485
+        }
+      ],
+      "text": "To only install the local root CA into a subset of them, you can set the"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 38,
+      "raw_slice": "environment variable to a comma-separated list. Options are: \"system\", \"java\" and \"nss\" (includes Firefox).",
+      "raw_span": {
+        "end": 3680,
+        "start": 3573
+      },
+      "segments": [
+        {
+          "end": 3680,
+          "start": 3573
+        }
+      ],
+      "text": "environment variable to a comma-separated list. Options are: \"system\", \"java\" and \"nss\" (includes Firefox)."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 39,
+      "raw_slice": "Advanced topics",
+      "raw_span": {
+        "end": 3700,
+        "start": 3685
+      },
+      "segments": [
+        {
+          "end": 3700,
+          "start": 3685
+        }
+      ],
+      "text": "Advanced topics"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 40,
+      "raw_slice": "Advanced options",
+      "raw_span": {
+        "end": 3722,
+        "start": 3706
+      },
+      "segments": [
+        {
+          "end": 3722,
+          "start": 3706
+        }
+      ],
+      "text": "Advanced options"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 41,
+      "raw_slice": "Example",
+      "raw_span": {
+        "end": 4307,
+        "start": 4300
+      },
+      "segments": [
+        {
+          "end": 4307,
+          "start": 4300
+        }
+      ],
+      "text": "Example"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 42,
+      "raw_slice": "S/MIME",
+      "raw_span": {
+        "end": 4399,
+        "start": 4393
+      },
+      "segments": [
+        {
+          "end": 4399,
+          "start": 4393
+        }
+      ],
+      "text": "S/MIME"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 43,
+      "raw_slice": "mkcert automatically generates an S/MIME certificate if one of the supplied names is an email address.",
+      "raw_span": {
+        "end": 4503,
+        "start": 4401
+      },
+      "segments": [
+        {
+          "end": 4503,
+          "start": 4401
+        }
+      ],
+      "text": "mkcert automatically generates an S/MIME certificate if one of the supplied names is an email address."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 44,
+      "raw_slice": "Mobile devices",
+      "raw_span": {
+        "end": 4559,
+        "start": 4545
+      },
+      "segments": [
+        {
+          "end": 4559,
+          "start": 4545
+        }
+      ],
+      "text": "Mobile devices"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 45,
+      "raw_slice": "For the certificates to be trusted on mobile devices, you will have to install the root CA. It's the",
+      "raw_span": {
+        "end": 4661,
+        "start": 4561
+      },
+      "segments": [
+        {
+          "end": 4661,
+          "start": 4561
+        }
+      ],
+      "text": "For the certificates to be trusted on mobile devices, you will have to install the root CA. It's the"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 46,
+      "raw_slice": "file in the folder printed by",
+      "raw_span": {
+        "end": 4704,
+        "start": 4675
+      },
+      "segments": [
+        {
+          "end": 4704,
+          "start": 4675
+        }
+      ],
+      "text": "file in the folder printed by"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 47,
+      "raw_slice": "On iOS, you can either use AirDrop, email the CA to yourself, or serve it from an HTTP server.",
+      "raw_span": {
+        "end": 4818,
+        "start": 4724
+      },
+      "segments": [
+        {
+          "end": 4818,
+          "start": 4724
+        }
+      ],
+      "text": "On iOS, you can either use AirDrop, email the CA to yourself, or serve it from an HTTP server."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 48,
+      "raw_slice": "After opening it, you need to [install the profile in Settings > Profile Downloaded](https://github.com/FiloSottile/mkcert/issues/233#issuecomment-690110809) and then [enable full trust in it](https://support.apple.com/en-nz/HT204477).",
+      "raw_span": {
+        "end": 5054,
+        "start": 4819
+      },
+      "segments": [
+        {
+          "end": 4849,
+          "start": 4819
+        },
+        {
+          "end": 4902,
+          "start": 4850
+        },
+        {
+          "end": 4986,
+          "start": 4976
+        },
+        {
+          "end": 5010,
+          "start": 4987
+        },
+        {
+          "end": 5054,
+          "start": 5053
+        }
+      ],
+      "text": "After opening it, you need to install the profile in Settings > Profile Downloaded and then enable full trust in it."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 49,
+      "raw_slice": "For Android, you will have to install the CA and then enable user roots in the development build of your app.",
+      "raw_span": {
+        "end": 5165,
+        "start": 5056
+      },
+      "segments": [
+        {
+          "end": 5165,
+          "start": 5056
+        }
+      ],
+      "text": "For Android, you will have to install the CA and then enable user roots in the development build of your app."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 50,
+      "raw_slice": "See [this StackOverflow answer](https://stackoverflow.com/a/22040887/749014).",
+      "raw_span": {
+        "end": 5243,
+        "start": 5166
+      },
+      "segments": [
+        {
+          "end": 5170,
+          "start": 5166
+        },
+        {
+          "end": 5196,
+          "start": 5171
+        },
+        {
+          "end": 5243,
+          "start": 5242
+        }
+      ],
+      "text": "See this StackOverflow answer."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 51,
+      "raw_slice": "Using the root with Node.js",
+      "raw_span": {
+        "end": 5276,
+        "start": 5249
+      },
+      "segments": [
+        {
+          "end": 5276,
+          "start": 5249
+        }
+      ],
+      "text": "Using the root with Node.js"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 52,
+      "raw_slice": "Node does not use the system root store, so it won't accept mkcert certificates automatically. Instead, you will have to set the",
+      "raw_span": {
+        "end": 5406,
+        "start": 5278
+      },
+      "segments": [
+        {
+          "end": 5406,
+          "start": 5278
+        }
+      ],
+      "text": "Node does not use the system root store, so it won't accept mkcert certificates automatically. Instead, you will have to set the"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 53,
+      "raw_slice": "environment variable.",
+      "raw_span": {
+        "end": 5514,
+        "start": 5493
+      },
+      "segments": [
+        {
+          "end": 5514,
+          "start": 5493
+        }
+      ],
+      "text": "environment variable."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 54,
+      "raw_slice": "Changing the location of the CA files",
+      "raw_span": {
+        "end": 5624,
+        "start": 5587
+      },
+      "segments": [
+        {
+          "end": 5624,
+          "start": 5587
+        }
+      ],
+      "text": "Changing the location of the CA files"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 55,
+      "raw_slice": "The CA certificate and its key are stored in an application data folder in the user home. You usually don't have to worry about it, as installation is automated, but the location is printed by",
+      "raw_span": {
+        "end": 5818,
+        "start": 5626
+      },
+      "segments": [
+        {
+          "end": 5818,
+          "start": 5626
+        }
+      ],
+      "text": "The CA certificate and its key are stored in an application data folder in the user home. You usually don't have to worry about it, as installation is automated, but the location is printed by"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 56,
+      "raw_slice": "If you want to manage separate CAs, you can use the environment variable",
+      "raw_span": {
+        "end": 5910,
+        "start": 5838
+      },
+      "segments": [
+        {
+          "end": 5910,
+          "start": 5838
+        }
+      ],
+      "text": "If you want to manage separate CAs, you can use the environment variable"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 57,
+      "raw_slice": "to set the folder where mkcert will place and look for the local CA files.",
+      "raw_span": {
+        "end": 5995,
+        "start": 5921
+      },
+      "segments": [
+        {
+          "end": 5995,
+          "start": 5921
+        }
+      ],
+      "text": "to set the folder where mkcert will place and look for the local CA files."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 58,
+      "raw_slice": "Installing the CA on other systems",
+      "raw_span": {
+        "end": 6035,
+        "start": 6001
+      },
+      "segments": [
+        {
+          "end": 6035,
+          "start": 6001
+        }
+      ],
+      "text": "Installing the CA on other systems"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 59,
+      "raw_slice": "Installing in the trust store does not require the CA key, so you can export the CA certificate and use mkcert to install it in other machines.",
+      "raw_span": {
+        "end": 6180,
+        "start": 6037
+      },
+      "segments": [
+        {
+          "end": 6180,
+          "start": 6037
+        }
+      ],
+      "text": "Installing in the trust store does not require the CA key, so you can export the CA certificate and use mkcert to install it in other machines."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 60,
+      "raw_slice": "Look for the",
+      "raw_span": {
+        "end": 6196,
+        "start": 6184
+      },
+      "segments": [
+        {
+          "end": 6196,
+          "start": 6184
+        }
+      ],
+      "text": "Look for the"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 61,
+      "raw_slice": "file in",
+      "raw_span": {
+        "end": 6217,
+        "start": 6210
+      },
+      "segments": [
+        {
+          "end": 6217,
+          "start": 6210
+        }
+      ],
+      "text": "file in"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 62,
+      "raw_slice": "copy it to a different machine",
+      "raw_span": {
+        "end": 6267,
+        "start": 6237
+      },
+      "segments": [
+        {
+          "end": 6267,
+          "start": 6237
+        }
+      ],
+      "text": "copy it to a different machine"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 63,
+      "raw_slice": "set",
+      "raw_span": {
+        "end": 6273,
+        "start": 6270
+      },
+      "segments": [
+        {
+          "end": 6273,
+          "start": 6270
+        }
+      ],
+      "text": "set"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 64,
+      "raw_slice": "to its directory",
+      "raw_span": {
+        "end": 6300,
+        "start": 6284
+      },
+      "segments": [
+        {
+          "end": 6300,
+          "start": 6284
+        }
+      ],
+      "text": "to its directory"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 65,
+      "raw_slice": "run",
+      "raw_span": {
+        "end": 6306,
+        "start": 6303
+      },
+      "segments": [
+        {
+          "end": 6306,
+          "start": 6303
+        }
+      ],
+      "text": "run"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 66,
+      "raw_slice": "Remember that mkcert is meant for development purposes, not production, so it should not be used on end users' machines, and that you should *not* export or share",
+      "raw_span": {
+        "end": 6488,
+        "start": 6326
+      },
+      "segments": [
+        {
+          "end": 6467,
+          "start": 6326
+        },
+        {
+          "end": 6471,
+          "start": 6468
+        },
+        {
+          "end": 6488,
+          "start": 6472
+        }
+      ],
+      "text": "Remember that mkcert is meant for development purposes, not production, so it should not be used on end users' machines, and that you should not export or share"
+    }
+  ]
+}

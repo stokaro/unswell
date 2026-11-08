@@ -1,0 +1,30 @@
+Review the COMPLETE public technical README and its supplied eligible prose units.
+Use only the supplied source. Do not use tools or external knowledge. This is
+editorial diagnosis, not AI-authorship detection.
+
+Return exactly one record for EACH supplied unit ordinal, in the same order.
+Do not omit or merge units. Identify the unit's communicative function and its
+concrete proposition, if any. Compare the proposition with its actual support
+and qualifications elsewhere on the supplied page. Record specific evidence,
+including a contradiction or a narrower condition, rather than a generic
+impression. An ordinary factual description does not require an implementation
+proof in this README. A link can direct a reader to evidence, but the name of a
+product, a link label, or an example of only one case does not itself establish
+an unbounded comparison or guarantee.
+
+Classify the relation as:
+- aligned: the page supports or appropriately scopes the proposition;
+- narrower: the page supports only a narrower case than the prose claims;
+- contradicted: the page expressly gives conflicting information;
+- unestablished: a material comparison, guarantee, or breadth claim lacks
+  source evidence sufficient for its scope;
+- not_claim: heading, navigation, transition, attribution, or other text
+  without an independently assessable proposition.
+
+The relation is a source-accounting judgment, not yet a recommendation. Preserve
+negation, numbers, versions, identifiers, conditions, links, and protected code.
+Only binding segments are eligible prose. State uncertainty in evidence, but
+choose the most accurate relation rather than silently dropping a unit.
+Keep each proposition and support field under 500 characters.
+
+Return schema JSON only. Echo the page ID, source SHA-256, and unit chunk ID.

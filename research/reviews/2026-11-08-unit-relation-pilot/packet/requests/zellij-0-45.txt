@@ -1,0 +1,987 @@
+Review the COMPLETE public technical README and its supplied eligible prose units.
+Use only the supplied source. Do not use tools or external knowledge. This is
+editorial diagnosis, not AI-authorship detection.
+
+Return exactly one record for EACH supplied unit ordinal, in the same order.
+Do not omit or merge units. Identify the unit's communicative function and its
+concrete proposition, if any. Compare the proposition with its actual support
+and qualifications elsewhere on the supplied page. Record specific evidence,
+including a contradiction or a narrower condition, rather than a generic
+impression. An ordinary factual description does not require an implementation
+proof in this README. A link can direct a reader to evidence, but the name of a
+product, a link label, or an example of only one case does not itself establish
+an unbounded comparison or guarantee.
+
+Classify the relation as:
+- aligned: the page supports or appropriately scopes the proposition;
+- narrower: the page supports only a narrower case than the prose claims;
+- contradicted: the page expressly gives conflicting information;
+- unestablished: a material comparison, guarantee, or breadth claim lacks
+  source evidence sufficient for its scope;
+- not_claim: heading, navigation, transition, attribution, or other text
+  without an independently assessable proposition.
+
+The relation is a source-accounting judgment, not yet a recommendation. Preserve
+negation, numbers, versions, identifiers, conditions, links, and protected code.
+Only binding segments are eligible prose. State uncertainty in evidence, but
+choose the most accurate relation rather than silently dropping a unit.
+Keep each proposition and support field under 500 characters.
+
+Return schema JSON only. Echo the page ID, source SHA-256, and unit chunk ID.
+
+INPUT JSON:
+{
+  "chunk_id": "zellij-0-45",
+  "excluded": [
+    {
+      "reason": "html",
+      "span": {
+        "end": 174,
+        "start": 0
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 1248,
+        "start": 174
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 2201,
+        "start": 1248
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3721,
+        "start": 3714
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3859,
+        "start": 3852
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 3900,
+        "start": 3862
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 4001,
+        "start": 3947
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 4077,
+        "start": 4013
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4105,
+        "start": 4099
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4139,
+        "start": 4133
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4771,
+        "start": 4754
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4810,
+        "start": 4792
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5879,
+        "start": 5788
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6760,
+        "start": 6723
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6844,
+        "start": 6760
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6848,
+        "start": 6844
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6889,
+        "start": 6849
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6972,
+        "start": 6889
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6976,
+        "start": 6972
+      }
+    }
+  ],
+  "numbered_source": "0001| <h1 align=\"center\">\n0002|   <br>\n0003|   <img src=\"https://raw.githubusercontent.com/zellij-org/zellij/main/assets/logo.png\" alt=\"logo\" width=\"200\">\n0004|   <br>\n0005|   Zellij\n0006|   <br>\n0007|   <br>\n0008| </h1>\n0009| \n0010| <p align=\"center\">\n0011|   <img src=\"https://raw.githubusercontent.com/zellij-org/zellij/main/assets/demo.gif\" alt=\"demo\">\n0012| </p>\n0013| <h4 align=\"center\">\n0014|   [<a href=\"https://zellij.dev/documentation/installation\">Installation</a>]\n0015|   [<a href=\"https://zellij.dev/screencasts/\">Screencasts & Tutorials</a>]\n0016|   [<a href=\"https://zellij.dev/documentation/configuration\">Configuration</a>]\n0017|   [<a href=\"https://zellij.dev/documentation/layouts\">Layouts</a>]\n0018|   [<a href=\"https://zellij.dev/documentation/faq\">FAQ</a>]\n0019| </h4>\n0020| <p align=\"center\">\n0021|   <a href=\"https://discord.gg/CrUAFH3\"><img alt=\"Discord Chat\" src=\"https://img.shields.io/discord/771367133715628073?color=5865F2&label=discord&style=flat-square\"></a>\n0022|   <a href=\"https://matrix.to/#/#zellij_general:matrix.org\"><img alt=\"Matrix Chat\" src=\"https://img.shields.io/matrix/zellij_general:matrix.org?color=1d7e64&label=matrix%20chat&style=flat-square&logo=matrix\"></a>\n0023|   <a href=\"https://zellij.dev/documentation/\"><img alt=\"Zellij documentation\" src=\"https://img.shields.io/badge/zellij-documentation-fc0060?style=flat-square\"></a>\n0024| </p>\n0025| \n0026| <br>\n0027| <p align=\"center\">\n0028|   <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.com/user-attachments/assets/bc5daac4-140a-4b83-8729-71c944ee1100\"><img src=\"https://github.com/user-attachments/assets/55156624-a71a-46b5-939e-f562e3b2dd7f\" alt=\"Sponsored by\"></picture>\n0029|   &nbsp;&nbsp;\n0030|   <a href=\"https://www.gresearch.com/\"><picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.com/user-attachments/assets/d609936a-abf8-4406-8cfc-889f76a09d74\"><img src=\"https://github.com/user-attachments/assets/742ae902-fe9d-41c6-baf2-4bc143061da3\" alt=\"G-Research logo\"></picture></a>\n0031|   &nbsp;&nbsp;\n0032|   <a href=\"https://www.codo.tech/\"><picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.com/user-attachments/assets/7887429c-f299-4a1f-9b61-2ea5e8cd512f\"><img height=\"30\" src=\"https://github.com/user-attachments/assets/d92b43d1-e009-4c73-a238-e96ffee3a9e0\" alt=\"codo.tech logo\"></picture></a>\n0033| </p>\n0034| \n0035| # What is this?\n0036| \n0037| [Zellij](#origin-of-the-name) is a workspace aimed at developers, ops-oriented people and anyone who loves the terminal. Similar programs are sometimes called \"Terminal Multiplexers\".\n0038| \n0039| Zellij is designed around the philosophy that one must not sacrifice simplicity for power, taking pride in its great experience out of the box as well as the advanced features it places at its users' fingertips.\n0040| \n0041| Zellij is geared toward beginner and power users alike - allowing deep customizability, personal automation through [layouts](https://zellij.dev/documentation/layouts.html), true multiplayer collaboration, unique UX features such as floating and stacked panes, and a [plugin system](https://zellij.dev/documentation/plugins.html) allowing one to create plugins in any language that compiles to WebAssembly.\n0042| \n0043| Zellij includes a built-in [web-client](https://zellij.dev/tutorials/web-client/), making a terminal optional.\n0044| \n0045| You can get started by [installing](https://zellij.dev/documentation/installation.html) Zellij and checking out the [Screencasts & Tutorials](https://zellij.dev/screencasts/).\n0046| \n0047| For more details about our future plans, read about upcoming features in our [roadmap](#roadmap).\n0048| \n0049| ## How do I install it?\n0050| \n0051| The easiest way to install Zellij is through a [package for your OS](./docs/THIRD_PARTY_INSTALL.md).\n0052| \n0053| If one is not available for your OS, you could download a prebuilt binary from the [latest release](https://github.com/zellij-org/zellij/releases/latest) and place it in your `$PATH`. If you'd like, we could [automatically choose one for you](#try-zellij-without-installing).\n0054| \n0055| You can also install (compile) with `cargo`:\n0056| \n0057| ```\n0058| cargo install --locked zellij\n0059| ```\n0060| \n0061| #### Try Zellij without installing\n0062| \n0063| bash/zsh:\n0064| ```bash\n0065| bash <(curl -L https://zellij.dev/launch)\n0066| ```\n0067| fish/xonsh:\n0068| ```bash\n0069| bash -c 'bash <(curl -L https://zellij.dev/launch)'\n0070| ```\n0071| \n0072| #### Installing from `main`\n0073| Installing Zellij from the `main` branch is not recommended. This branch represents pre-release code, is constantly being worked on and may contain broken or unusable features. In addition, using it may corrupt the cache for future versions, forcing users to clear it before they can use the officially released version.\n0074| \n0075| That being said - no-one will stop you from using it (and bug reports involving new features are greatly appreciated), but please consider using the latest release instead as detailed at the top of this section.\n0076| \n0077| ## How do I start a development environment?\n0078| \n0079| * Clone the project\n0080| * In the project folder, for debug builds run: `cargo xtask run`\n0081| * To run all tests: `cargo xtask test`\n0082| \n0083| For more build commands, see [CONTRIBUTING.md](CONTRIBUTING.md).\n0084| \n0085| ## Configuration\n0086| For configuring Zellij, please see the [Configuration Documentation](https://zellij.dev/documentation/configuration.html).\n0087| \n0088| ## About issues in this repository\n0089| Issues in this repository, whether open or closed, do not necessarily indicate a problem or a bug in the software. They only indicate that the reporter wanted to communicate their experiences or thoughts to the maintainers. The Zellij maintainers do their best to go over and reply to all issue reports, but unfortunately cannot promise these will always be dealt with or even read. Your understanding is appreciated.\n0090| \n0091| ## Roadmap\n0092| Presented here is the project roadmap, divided into three main sections.\n0093| \n0094| These are issues that are either being actively worked on or are planned for the near future.\n0095| \n0096| ***If you'll click on the image, you'll be led to an SVG version of it on the website where you can directly click on every issue***\n0097| \n0098| [![roadmap](https://github.com/user-attachments/assets/bb55d213-4a68-4c84-ae72-7db5c9bf94fb)](https://zellij.dev/roadmap)\n0099| \n0100| ## Origin of the Name\n0101| [From Wikipedia, the free encyclopedia](https://en.wikipedia.org/wiki/Zellij)\n0102| \n0103| Zellij (Arabic: الزليج, romanized: zillīj; also spelled zillij or zellige) is a style of mosaic tilework made from individually hand-chiseled tile pieces. The pieces were typically of different colours and fitted together to form various patterns on the basis of tessellations, most notably elaborate Islamic geometric motifs such as radiating star patterns composed of various polygons. This form of Islamic art is one of the main characteristics of architecture in the western Islamic world. It is found in the architecture of Morocco, the architecture of Algeria, early Islamic sites in Tunisia, and in the historic monuments of al-Andalus (in the Iberian Peninsula).\n0104| \n0105| ## License\n0106| \n0107| MIT\n0108| \n0109| ## Sponsored by\n0110| <a href=\"https://terminaltrove.com/\"><img src=\"https://avatars.githubusercontent.com/u/121595180?s=200&v=4\" width=\"80px\"></a>\n0111| <a href=\"https://github.com/redcathode\"><img src=\"https://avatars.githubusercontent.com/u/75963592?s=200&v=4\" width=\"80px\"></a>",
+  "page_id": "zellij-org/zellij/README.md",
+  "source_sha256": "765503b5e903461ac333a44b07e243a345c6ea02d5df6f202c505784d665d04e",
+  "units": [
+    {
+      "kind": "fragment",
+      "ordinal": 0,
+      "raw_slice": "What is this?",
+      "raw_span": {
+        "end": 2216,
+        "start": 2203
+      },
+      "segments": [
+        {
+          "end": 2216,
+          "start": 2203
+        }
+      ],
+      "text": "What is this?"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 1,
+      "raw_slice": "Zellij](#origin-of-the-name) is a workspace aimed at developers, ops-oriented people and anyone who loves the terminal.",
+      "raw_span": {
+        "end": 2338,
+        "start": 2219
+      },
+      "segments": [
+        {
+          "end": 2225,
+          "start": 2219
+        },
+        {
+          "end": 2338,
+          "start": 2247
+        }
+      ],
+      "text": "Zellij is a workspace aimed at developers, ops-oriented people and anyone who loves the terminal."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 2,
+      "raw_slice": "Similar programs are sometimes called \"Terminal Multiplexers\".",
+      "raw_span": {
+        "end": 2401,
+        "start": 2339
+      },
+      "segments": [
+        {
+          "end": 2401,
+          "start": 2339
+        }
+      ],
+      "text": "Similar programs are sometimes called \"Terminal Multiplexers\"."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 3,
+      "raw_slice": "Zellij is designed around the philosophy that one must not sacrifice simplicity for power, taking pride in its great experience out of the box as well as the advanced features it places at its users' fingertips.",
+      "raw_span": {
+        "end": 2614,
+        "start": 2403
+      },
+      "segments": [
+        {
+          "end": 2614,
+          "start": 2403
+        }
+      ],
+      "text": "Zellij is designed around the philosophy that one must not sacrifice simplicity for power, taking pride in its great experience out of the box as well as the advanced features it places at its users' fingertips."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 4,
+      "raw_slice": "Zellij is geared toward beginner and power users alike - allowing deep customizability, personal automation through [layouts](https://zellij.dev/documentation/layouts.html), true multiplayer collaboration, unique UX features such as floating and stacked panes, and a [plugin system](https://zellij.dev/documentation/plugins.html) allowing one to create plugins in any language that compiles to WebAssembly.",
+      "raw_span": {
+        "end": 3022,
+        "start": 2616
+      },
+      "segments": [
+        {
+          "end": 2732,
+          "start": 2616
+        },
+        {
+          "end": 2740,
+          "start": 2733
+        },
+        {
+          "end": 2883,
+          "start": 2788
+        },
+        {
+          "end": 2897,
+          "start": 2884
+        },
+        {
+          "end": 3022,
+          "start": 2945
+        }
+      ],
+      "text": "Zellij is geared toward beginner and power users alike - allowing deep customizability, personal automation through layouts, true multiplayer collaboration, unique UX features such as floating and stacked panes, and a plugin system allowing one to create plugins in any language that compiles to WebAssembly."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 5,
+      "raw_slice": "Zellij includes a built-in [web-client](https://zellij.dev/tutorials/web-client/), making a terminal optional.",
+      "raw_span": {
+        "end": 3134,
+        "start": 3024
+      },
+      "segments": [
+        {
+          "end": 3051,
+          "start": 3024
+        },
+        {
+          "end": 3062,
+          "start": 3052
+        },
+        {
+          "end": 3134,
+          "start": 3105
+        }
+      ],
+      "text": "Zellij includes a built-in web-client, making a terminal optional."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 6,
+      "raw_slice": "You can get started by [installing](https://zellij.dev/documentation/installation.html) Zellij and checking out the [Screencasts & Tutorials](https://zellij.dev/screencasts/).",
+      "raw_span": {
+        "end": 3311,
+        "start": 3136
+      },
+      "segments": [
+        {
+          "end": 3159,
+          "start": 3136
+        },
+        {
+          "end": 3170,
+          "start": 3160
+        },
+        {
+          "end": 3252,
+          "start": 3223
+        },
+        {
+          "end": 3276,
+          "start": 3253
+        },
+        {
+          "end": 3311,
+          "start": 3310
+        }
+      ],
+      "text": "You can get started by installing Zellij and checking out the Screencasts & Tutorials."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 7,
+      "raw_slice": "For more details about our future plans, read about upcoming features in our [roadmap](#roadmap).",
+      "raw_span": {
+        "end": 3410,
+        "start": 3313
+      },
+      "segments": [
+        {
+          "end": 3390,
+          "start": 3313
+        },
+        {
+          "end": 3398,
+          "start": 3391
+        },
+        {
+          "end": 3410,
+          "start": 3409
+        }
+      ],
+      "text": "For more details about our future plans, read about upcoming features in our roadmap."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 8,
+      "raw_slice": "How do I install it?",
+      "raw_span": {
+        "end": 3435,
+        "start": 3415
+      },
+      "segments": [
+        {
+          "end": 3435,
+          "start": 3415
+        }
+      ],
+      "text": "How do I install it?"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 9,
+      "raw_slice": "The easiest way to install Zellij is through a [package for your OS](./docs/THIRD_PARTY_INSTALL.md).",
+      "raw_span": {
+        "end": 3537,
+        "start": 3437
+      },
+      "segments": [
+        {
+          "end": 3484,
+          "start": 3437
+        },
+        {
+          "end": 3504,
+          "start": 3485
+        },
+        {
+          "end": 3537,
+          "start": 3536
+        }
+      ],
+      "text": "The easiest way to install Zellij is through a package for your OS."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 10,
+      "raw_slice": "If one is not available for your OS, you could download a prebuilt binary from the [latest release](https://github.com/zellij-org/zellij/releases/latest) and place it in your",
+      "raw_span": {
+        "end": 3713,
+        "start": 3539
+      },
+      "segments": [
+        {
+          "end": 3622,
+          "start": 3539
+        },
+        {
+          "end": 3637,
+          "start": 3623
+        },
+        {
+          "end": 3713,
+          "start": 3692
+        }
+      ],
+      "text": "If one is not available for your OS, you could download a prebuilt binary from the latest release and place it in your"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 11,
+      "raw_slice": ". If you'd like, we could [automatically choose one for you](#try-zellij-without-installing).",
+      "raw_span": {
+        "end": 3814,
+        "start": 3721
+      },
+      "segments": [
+        {
+          "end": 3747,
+          "start": 3721
+        },
+        {
+          "end": 3780,
+          "start": 3748
+        },
+        {
+          "end": 3814,
+          "start": 3813
+        }
+      ],
+      "text": ". If you'd like, we could automatically choose one for you."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 12,
+      "raw_slice": "You can also install (compile) with",
+      "raw_span": {
+        "end": 3851,
+        "start": 3816
+      },
+      "segments": [
+        {
+          "end": 3851,
+          "start": 3816
+        }
+      ],
+      "text": "You can also install (compile) with"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 13,
+      "raw_slice": "Try Zellij without installing",
+      "raw_span": {
+        "end": 3935,
+        "start": 3906
+      },
+      "segments": [
+        {
+          "end": 3935,
+          "start": 3906
+        }
+      ],
+      "text": "Try Zellij without installing"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 14,
+      "raw_slice": "bash/zsh:",
+      "raw_span": {
+        "end": 3946,
+        "start": 3937
+      },
+      "segments": [
+        {
+          "end": 3946,
+          "start": 3937
+        }
+      ],
+      "text": "bash/zsh:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 15,
+      "raw_slice": "fish/xonsh:",
+      "raw_span": {
+        "end": 4012,
+        "start": 4001
+      },
+      "segments": [
+        {
+          "end": 4012,
+          "start": 4001
+        }
+      ],
+      "text": "fish/xonsh:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 16,
+      "raw_slice": "Installing from",
+      "raw_span": {
+        "end": 4098,
+        "start": 4083
+      },
+      "segments": [
+        {
+          "end": 4098,
+          "start": 4083
+        }
+      ],
+      "text": "Installing from"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 17,
+      "raw_slice": "Installing Zellij from the",
+      "raw_span": {
+        "end": 4132,
+        "start": 4106
+      },
+      "segments": [
+        {
+          "end": 4132,
+          "start": 4106
+        }
+      ],
+      "text": "Installing Zellij from the"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 18,
+      "raw_slice": "branch is not recommended. This branch represents pre-release code, is constantly being worked on and may contain broken or unusable features. In addition, using it may corrupt the cache for future versions, forcing users to clear it before they can use the officially released version.",
+      "raw_span": {
+        "end": 4426,
+        "start": 4140
+      },
+      "segments": [
+        {
+          "end": 4426,
+          "start": 4140
+        }
+      ],
+      "text": "branch is not recommended. This branch represents pre-release code, is constantly being worked on and may contain broken or unusable features. In addition, using it may corrupt the cache for future versions, forcing users to clear it before they can use the officially released version."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 19,
+      "raw_slice": "That being said - no-one will stop you from using it (and bug reports involving new features are greatly appreciated), but please consider using the latest release instead as detailed at the top of this section.",
+      "raw_span": {
+        "end": 4639,
+        "start": 4428
+      },
+      "segments": [
+        {
+          "end": 4639,
+          "start": 4428
+        }
+      ],
+      "text": "That being said - no-one will stop you from using it (and bug reports involving new features are greatly appreciated), but please consider using the latest release instead as detailed at the top of this section."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 20,
+      "raw_slice": "How do I start a development environment?",
+      "raw_span": {
+        "end": 4685,
+        "start": 4644
+      },
+      "segments": [
+        {
+          "end": 4685,
+          "start": 4644
+        }
+      ],
+      "text": "How do I start a development environment?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 21,
+      "raw_slice": "Clone the project",
+      "raw_span": {
+        "end": 4706,
+        "start": 4689
+      },
+      "segments": [
+        {
+          "end": 4706,
+          "start": 4689
+        }
+      ],
+      "text": "Clone the project"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 22,
+      "raw_slice": "In the project folder, for debug builds run:",
+      "raw_span": {
+        "end": 4753,
+        "start": 4709
+      },
+      "segments": [
+        {
+          "end": 4753,
+          "start": 4709
+        }
+      ],
+      "text": "In the project folder, for debug builds run:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 23,
+      "raw_slice": "To run all tests:",
+      "raw_span": {
+        "end": 4791,
+        "start": 4774
+      },
+      "segments": [
+        {
+          "end": 4791,
+          "start": 4774
+        }
+      ],
+      "text": "To run all tests:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 24,
+      "raw_slice": "For more build commands, see [CONTRIBUTING.md](CONTRIBUTING.md).",
+      "raw_span": {
+        "end": 4876,
+        "start": 4812
+      },
+      "segments": [
+        {
+          "end": 4841,
+          "start": 4812
+        },
+        {
+          "end": 4857,
+          "start": 4842
+        },
+        {
+          "end": 4876,
+          "start": 4875
+        }
+      ],
+      "text": "For more build commands, see CONTRIBUTING.md."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 25,
+      "raw_slice": "Configuration",
+      "raw_span": {
+        "end": 4894,
+        "start": 4881
+      },
+      "segments": [
+        {
+          "end": 4894,
+          "start": 4881
+        }
+      ],
+      "text": "Configuration"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 26,
+      "raw_slice": "For configuring Zellij, please see the [Configuration Documentation](https://zellij.dev/documentation/configuration.html).",
+      "raw_span": {
+        "end": 5017,
+        "start": 4895
+      },
+      "segments": [
+        {
+          "end": 4934,
+          "start": 4895
+        },
+        {
+          "end": 4962,
+          "start": 4935
+        },
+        {
+          "end": 5017,
+          "start": 5016
+        }
+      ],
+      "text": "For configuring Zellij, please see the Configuration Documentation."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 27,
+      "raw_slice": "About issues in this repository",
+      "raw_span": {
+        "end": 5053,
+        "start": 5022
+      },
+      "segments": [
+        {
+          "end": 5053,
+          "start": 5022
+        }
+      ],
+      "text": "About issues in this repository"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 28,
+      "raw_slice": "Issues in this repository, whether open or closed, do not necessarily indicate a problem or a bug in the software.",
+      "raw_span": {
+        "end": 5168,
+        "start": 5054
+      },
+      "segments": [
+        {
+          "end": 5168,
+          "start": 5054
+        }
+      ],
+      "text": "Issues in this repository, whether open or closed, do not necessarily indicate a problem or a bug in the software."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 29,
+      "raw_slice": "They only indicate that the reporter wanted to communicate their experiences or thoughts to the maintainers.",
+      "raw_span": {
+        "end": 5277,
+        "start": 5169
+      },
+      "segments": [
+        {
+          "end": 5277,
+          "start": 5169
+        }
+      ],
+      "text": "They only indicate that the reporter wanted to communicate their experiences or thoughts to the maintainers."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 30,
+      "raw_slice": "The Zellij maintainers do their best to go over and reply to all issue reports, but unfortunately cannot promise these will always be dealt with or even read.",
+      "raw_span": {
+        "end": 5436,
+        "start": 5278
+      },
+      "segments": [
+        {
+          "end": 5436,
+          "start": 5278
+        }
+      ],
+      "text": "The Zellij maintainers do their best to go over and reply to all issue reports, but unfortunately cannot promise these will always be dealt with or even read."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 31,
+      "raw_slice": "Your understanding is appreciated.",
+      "raw_span": {
+        "end": 5471,
+        "start": 5437
+      },
+      "segments": [
+        {
+          "end": 5471,
+          "start": 5437
+        }
+      ],
+      "text": "Your understanding is appreciated."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 32,
+      "raw_slice": "Roadmap",
+      "raw_span": {
+        "end": 5483,
+        "start": 5476
+      },
+      "segments": [
+        {
+          "end": 5483,
+          "start": 5476
+        }
+      ],
+      "text": "Roadmap"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 33,
+      "raw_slice": "Presented here is the project roadmap, divided into three main sections.",
+      "raw_span": {
+        "end": 5556,
+        "start": 5484
+      },
+      "segments": [
+        {
+          "end": 5556,
+          "start": 5484
+        }
+      ],
+      "text": "Presented here is the project roadmap, divided into three main sections."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 34,
+      "raw_slice": "These are issues that are either being actively worked on or are planned for the near future.",
+      "raw_span": {
+        "end": 5651,
+        "start": 5558
+      },
+      "segments": [
+        {
+          "end": 5651,
+          "start": 5558
+        }
+      ],
+      "text": "These are issues that are either being actively worked on or are planned for the near future."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 35,
+      "raw_slice": "If you'll click on the image, you'll be led to an SVG version of it on the website where you can directly click on every issue",
+      "raw_span": {
+        "end": 5782,
+        "start": 5656
+      },
+      "segments": [
+        {
+          "end": 5782,
+          "start": 5656
+        }
+      ],
+      "text": "If you'll click on the image, you'll be led to an SVG version of it on the website where you can directly click on every issue"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 36,
+      "raw_slice": "Origin of the Name",
+      "raw_span": {
+        "end": 5931,
+        "start": 5913
+      },
+      "segments": [
+        {
+          "end": 5931,
+          "start": 5913
+        }
+      ],
+      "text": "Origin of the Name"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 37,
+      "raw_slice": "From Wikipedia, the free encyclopedia",
+      "raw_span": {
+        "end": 5970,
+        "start": 5933
+      },
+      "segments": [
+        {
+          "end": 5970,
+          "start": 5933
+        }
+      ],
+      "text": "From Wikipedia, the free encyclopedia"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 38,
+      "raw_slice": "Zellij (Arabic: الزليج, romanized: zillīj; also spelled zillij or zellige) is a style of mosaic tilework made from individually hand-chiseled tile pieces.",
+      "raw_span": {
+        "end": 6172,
+        "start": 6011
+      },
+      "segments": [
+        {
+          "end": 6172,
+          "start": 6011
+        }
+      ],
+      "text": "Zellij (Arabic: الزليج, romanized: zillīj; also spelled zillij or zellige) is a style of mosaic tilework made from individually hand-chiseled tile pieces."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 39,
+      "raw_slice": "The pieces were typically of different colours and fitted together to form various patterns on the basis of tessellations, most notably elaborate Islamic geometric motifs such as radiating star patterns composed of various polygons.",
+      "raw_span": {
+        "end": 6405,
+        "start": 6173
+      },
+      "segments": [
+        {
+          "end": 6405,
+          "start": 6173
+        }
+      ],
+      "text": "The pieces were typically of different colours and fitted together to form various patterns on the basis of tessellations, most notably elaborate Islamic geometric motifs such as radiating star patterns composed of various polygons."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 40,
+      "raw_slice": "This form of Islamic art is one of the main characteristics of architecture in the western Islamic world.",
+      "raw_span": {
+        "end": 6511,
+        "start": 6406
+      },
+      "segments": [
+        {
+          "end": 6511,
+          "start": 6406
+        }
+      ],
+      "text": "This form of Islamic art is one of the main characteristics of architecture in the western Islamic world."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 41,
+      "raw_slice": "It is found in the architecture of Morocco, the architecture of Algeria, early Islamic sites in Tunisia, and in the historic monuments of al-Andalus (in the Iberian Peninsula).",
+      "raw_span": {
+        "end": 6688,
+        "start": 6512
+      },
+      "segments": [
+        {
+          "end": 6688,
+          "start": 6512
+        }
+      ],
+      "text": "It is found in the architecture of Morocco, the architecture of Algeria, early Islamic sites in Tunisia, and in the historic monuments of al-Andalus (in the Iberian Peninsula)."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 42,
+      "raw_slice": "License",
+      "raw_span": {
+        "end": 6700,
+        "start": 6693
+      },
+      "segments": [
+        {
+          "end": 6700,
+          "start": 6693
+        }
+      ],
+      "text": "License"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 43,
+      "raw_slice": "MIT",
+      "raw_span": {
+        "end": 6705,
+        "start": 6702
+      },
+      "segments": [
+        {
+          "end": 6705,
+          "start": 6702
+        }
+      ],
+      "text": "MIT"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 44,
+      "raw_slice": "Sponsored by",
+      "raw_span": {
+        "end": 6722,
+        "start": 6710
+      },
+      "segments": [
+        {
+          "end": 6722,
+          "start": 6710
+        }
+      ],
+      "text": "Sponsored by"
+    }
+  ]
+}

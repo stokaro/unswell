@@ -1,0 +1,167 @@
+{
+  "format": "unswell-349-unit-relation-source-only-review-v1",
+  "status": "frozen before any model output",
+  "reviewer": "Codex assistant, November 8, 2026; not a human annotator",
+  "basis": "Four complete public README pages at pinned commits; independently useful semantic corrections only; source text and links as signposts, without fetching linked evidence",
+  "source_manifest_sha256": "06c75c4765d7464748050f656a05188e8eaa43228eb5e364a391cec36b9d4c4a",
+  "inventory_sha256": "26cf67902bf48ebd54e66396a82b62743b79278ece945a2940a1289f148592f2",
+  "events": [
+    {
+      "id": "fastfetch-name-as-evidence",
+      "page": "fastfetch-cli/fastfetch/README.md",
+      "category": "empty_justification",
+      "quote": "as the name suggests",
+      "span": {
+        "start": 7586,
+        "end": 7606
+      },
+      "line": 120,
+      "overlapping_units": [
+        {
+          "ordinal": 70,
+          "eligible_bytes": 20
+        }
+      ],
+      "diagnosis": "The product name is used as support for the faster-than-neofetch claim. The page links a benchmark but gives no measured comparison or conditions at this point.",
+      "minimal_repair": "Replace the name-as-evidence rationale with a measured, scoped comparison or point readers to the benchmark; preserve any supported speed claim."
+    },
+    {
+      "id": "fastfetch-feature-comparison",
+      "page": "fastfetch-cli/fastfetch/README.md",
+      "category": "unsupported_comparison",
+      "quote": "Fastfetch has a greater number of features",
+      "span": {
+        "start": 7611,
+        "end": 7653
+      },
+      "line": 121,
+      "overlapping_units": [
+        {
+          "ordinal": 71,
+          "eligible_bytes": 42
+        }
+      ],
+      "diagnosis": "The page lists Fastfetch modules but provides no matched feature inventory or count for Neofetch. The comparative breadth is not established by the command that follows.",
+      "minimal_repair": "Name the comparison set and counts, or state the specific modules available in Fastfetch without an unbounded comparison."
+    },
+    {
+      "id": "fastfetch-privacy-absolutism",
+      "page": "fastfetch-cli/fastfetch/README.md",
+      "category": "unqualified_guarantee",
+      "quote": "has nothing to do with privacy",
+      "span": {
+        "start": 8367,
+        "end": 8397
+      },
+      "line": 128,
+      "overlapping_units": [
+        {
+          "ordinal": 81,
+          "eligible_bytes": 30
+        }
+      ],
+      "diagnosis": "The same answer says local addresses matter on the same network and offers a disable option. The absolute dismissal erases that condition and the user concern.",
+      "minimal_repair": "Scope the statement to nonpublic address routing and keep the same-network qualification and disable instructions; avoid a blanket privacy guarantee."
+    },
+    {
+      "id": "zellij-unique-features",
+      "page": "zellij-org/zellij/README.md",
+      "category": "unsupported_comparison",
+      "quote": "unique UX features",
+      "span": {
+        "start": 2822,
+        "end": 2840
+      },
+      "line": 41,
+      "overlapping_units": [
+        {
+          "ordinal": 4,
+          "eligible_bytes": 18
+        }
+      ],
+      "diagnosis": "Floating and stacked panes are named, but the page gives no comparison showing those features are unique among terminal workspaces.",
+      "minimal_repair": "List the named pane features without a uniqueness claim, or identify a supported comparison."
+    },
+    {
+      "id": "mkcert-best-solution",
+      "page": "FiloSottile/mkcert/README.md",
+      "category": "unsupported_superlative",
+      "quote": "the best solution",
+      "span": {
+        "start": 1070,
+        "end": 1087
+      },
+      "line": 26,
+      "overlapping_units": [
+        {
+          "ordinal": 5,
+          "eligible_bytes": 17
+        }
+      ],
+      "diagnosis": "The introduction explains why local CA management can help development and why manual management is awkward, but does not establish an overall best option for every environment.",
+      "minimal_repair": "State the concrete development tradeoff and mkcert automation without an unqualified ranking."
+    }
+  ],
+  "page_review": [
+    {
+      "page": "fastfetch-cli/fastfetch/README.md",
+      "events": 3,
+      "reviewed_complete_source": true
+    },
+    {
+      "page": "jdx/mise/README.md",
+      "events": 0,
+      "reviewed_complete_source": true
+    },
+    {
+      "page": "FiloSottile/mkcert/README.md",
+      "events": 1,
+      "reviewed_complete_source": true
+    },
+    {
+      "page": "zellij-org/zellij/README.md",
+      "events": 1,
+      "reviewed_complete_source": true
+    }
+  ],
+  "counterexamples": [
+    {
+      "page": "fastfetch-cli/fastfetch/README.md",
+      "quote": "only actively tested on x86-64 and aarch64 platforms",
+      "reason": "Explicit test coverage limit is useful."
+    },
+    {
+      "page": "fastfetch-cli/fastfetch/README.md",
+      "quote": "Fastfetch supports a `Command` module that can run arbitrary shell commands.",
+      "reason": "Concrete security warning is useful and must be kept."
+    },
+    {
+      "page": "zellij-org/zellij/README.md",
+      "quote": "This branch represents pre-release code",
+      "reason": "Explicit risk condition protects users."
+    },
+    {
+      "page": "FiloSottile/mkcert/README.md",
+      "quote": "Do not share it.",
+      "reason": "The CA key warning is necessary."
+    },
+    {
+      "page": "jdx/mise/README.md",
+      "quote": "Adopt only the parts you need.",
+      "reason": "Scoped adoption advice is useful; no editorial defect was established on this complete page."
+    }
+  ],
+  "unresolved": [
+    {
+      "page": "zellij-org/zellij/README.md",
+      "quote": "great experience out of the box",
+      "reason": "Promotional voice may be optional; excluded from frozen recall and treated as a reviewable possible false positive."
+    },
+    {
+      "page": "fastfetch-cli/fastfetch/README.md",
+      "quote": "Fastfetch is more polished.",
+      "reason": "The next sentence gives an output-format example; whether the evaluative summary needs correction is uncertain."
+    }
+  ],
+  "limitations": "Same assistant supplied source-only labels. This is selected development material, not independent population evidence, an authorship judgment, or prospective confirmation."
+}

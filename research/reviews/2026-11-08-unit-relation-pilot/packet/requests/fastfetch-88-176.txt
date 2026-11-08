@@ -1,0 +1,2339 @@
+Review the COMPLETE public technical README and its supplied eligible prose units.
+Use only the supplied source. Do not use tools or external knowledge. This is
+editorial diagnosis, not AI-authorship detection.
+
+Return exactly one record for EACH supplied unit ordinal, in the same order.
+Do not omit or merge units. Identify the unit's communicative function and its
+concrete proposition, if any. Compare the proposition with its actual support
+and qualifications elsewhere on the supplied page. Record specific evidence,
+including a contradiction or a narrower condition, rather than a generic
+impression. An ordinary factual description does not require an implementation
+proof in this README. A link can direct a reader to evidence, but the name of a
+product, a link label, or an example of only one case does not itself establish
+an unbounded comparison or guarantee.
+
+Classify the relation as:
+- aligned: the page supports or appropriately scopes the proposition;
+- narrower: the page supports only a narrower case than the prose claims;
+- contradicted: the page expressly gives conflicting information;
+- unestablished: a material comparison, guarantee, or breadth claim lacks
+  source evidence sufficient for its scope;
+- not_claim: heading, navigation, transition, attribution, or other text
+  without an independently assessable proposition.
+
+The relation is a source-accounting judgment, not yet a recommendation. Preserve
+negation, numbers, versions, identifiers, conditions, links, and protected code.
+Only binding segments are eligible prose. State uncertainty in evidence, but
+choose the most accurate relation rather than silently dropping a unit.
+Keep each proposition and support field under 500 characters.
+
+Return schema JSON only. Echo the page ID, source SHA-256, and unit chunk ID.
+
+INPUT JSON:
+{
+  "chunk_id": "fastfetch-88-176",
+  "excluded": [
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 93,
+        "start": 14
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 273,
+        "start": 149
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 408,
+        "start": 328
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 562,
+        "start": 472
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 734,
+        "start": 629
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 915,
+        "start": 808
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1062,
+        "start": 972
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1222,
+        "start": 1117
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1388,
+        "start": 1280
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1531,
+        "start": 1444
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1655,
+        "start": 1583
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1754,
+        "start": 1707
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1878,
+        "start": 1803
+      }
+    },
+    {
+      "reason": "quote",
+      "span": {
+        "end": 2398,
+        "start": 2260
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 3002,
+        "start": 2399
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 3592,
+        "start": 3405
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3635,
+        "start": 3603
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3786,
+        "start": 3763
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3902,
+        "start": 3859
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4097,
+        "start": 4076
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4131,
+        "start": 4108
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4175,
+        "start": 4142
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4215,
+        "start": 4186
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4249,
+        "start": 4225
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4288,
+        "start": 4262
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4329,
+        "start": 4302
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4384,
+        "start": 4341
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4419,
+        "start": 4394
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4454,
+        "start": 4433
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4493,
+        "start": 4469
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4536,
+        "start": 4509
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4557,
+        "start": 4551
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4565,
+        "start": 4559
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4575,
+        "start": 4570
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4764,
+        "start": 4740
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4867,
+        "start": 4843
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4955,
+        "start": 4926
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5043,
+        "start": 5018
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5138,
+        "start": 5113
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5267,
+        "start": 5241
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5388,
+        "start": 5338
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5609,
+        "start": 5586
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5640,
+        "start": 5620
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5671,
+        "start": 5652
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5729,
+        "start": 5706
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5795,
+        "start": 5772
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5881,
+        "start": 5810
+      }
+    },
+    {
+      "reason": "url",
+      "span": {
+        "end": 5975,
+        "start": 5919
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6032,
+        "start": 6021
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6202,
+        "start": 6178
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6305,
+        "start": 6243
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6349,
+        "start": 6331
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6461,
+        "start": 6384
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6841,
+        "start": 6832
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6950,
+        "start": 6935
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 7211,
+        "start": 7202
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 7730,
+        "start": 7712
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 7899,
+        "start": 7836
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 7970,
+        "start": 7961
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8002,
+        "start": 7996
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8060,
+        "start": 8048
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8076,
+        "start": 8065
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8531,
+        "start": 8521
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8747,
+        "start": 8738
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8818,
+        "start": 8808
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8843,
+        "start": 8829
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 8990,
+        "start": 8966
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 9075,
+        "start": 9041
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 9440,
+        "start": 9431
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 9826,
+        "start": 9759
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 10235,
+        "start": 10227
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 10286,
+        "start": 10281
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 10535,
+        "start": 10372
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 10602,
+        "start": 10562
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 10629,
+        "start": 10608
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 10728,
+        "start": 10698
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 10842,
+        "start": 10814
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 11201,
+        "start": 11049
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 11306,
+        "start": 11202
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 11478,
+        "start": 11400
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 11603,
+        "start": 11597
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 11792,
+        "start": 11771
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 11835,
+        "start": 11824
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 11886,
+        "start": 11865
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 11946,
+        "start": 11922
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 12244,
+        "start": 12240
+      }
+    },
+    {
+      "reason": "url",
+      "span": {
+        "end": 12401,
+        "start": 12351
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 12445,
+        "start": 12433
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 12526,
+        "start": 12496
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 12548,
+        "start": 12531
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 12684,
+        "start": 12649
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 12725,
+        "start": 12716
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 12773,
+        "start": 12736
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 12824,
+        "start": 12797
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 12876,
+        "start": 12864
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 12955,
+        "start": 12887
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 13009,
+        "start": 12979
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 13077,
+        "start": 13044
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 13251,
+        "start": 13186
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 13325,
+        "start": 13288
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 13423,
+        "start": 13385
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 13438,
+        "start": 13431
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 13540,
+        "start": 13489
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 13682,
+        "start": 13567
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 13775,
+        "start": 13743
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 14175,
+        "start": 13902
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 14340,
+        "start": 14326
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 14471,
+        "start": 14344
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 14695,
+        "start": 14686
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 15010,
+        "start": 14800
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 16591,
+        "start": 16087
+      }
+    }
+  ],
+  "numbered_source": "0001| # Fastfetch\n0002| \n0003| [![Benchmark](https://img.shields.io/badge/GitHub%20Pages-live-blue?logo=github)](https://fastfetch-cli.github.io/fastfetch/dev/bench)\n0004| [![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/fastfetch-cli/fastfetch/ci.yml)](https://github.com/fastfetch-cli/fastfetch/actions)\n0005| [![GitHub license](https://img.shields.io/github/license/fastfetch-cli/fastfetch)](https://github.com/fastfetch-cli/fastfetch/blob/dev/LICENSE)\n0006| [![GitHub contributors](https://img.shields.io/github/contributors/fastfetch-cli/fastfetch)](https://github.com/fastfetch-cli/fastfetch/graphs/contributors)\n0007| [![GitHub top language](https://img.shields.io/github/languages/top/fastfetch-cli/fastfetch?logo=c&label=)](https://github.com/fastfetch-cli/fastfetch/blob/dev/CMakeLists.txt#L5)\n0008| [![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/fastfetch-cli/fastfetch)](https://github.com/fastfetch-cli/fastfetch/commits)  \n0009| [![homebrew downloads](https://img.shields.io/homebrew/installs/dm/fastfetch?logo=homebrew)](https://formulae.brew.sh/formula/fastfetch#default)\n0010| [![GitHub all releases](https://img.shields.io/github/downloads/fastfetch-cli/fastfetch/total?logo=github)](https://github.com/fastfetch-cli/fastfetch/releases)  \n0011| [![GitHub release (with filter)](https://img.shields.io/github/v/release/fastfetch-cli/fastfetch?logo=github)](https://github.com/fastfetch-cli/fastfetch/releases)\n0012| [![latest packaged version(s)](https://repology.org/badge/latest-versions/fastfetch.svg)](https://repology.org/project/fastfetch/versions)\n0013| [![Packaging status](https://repology.org/badge/tiny-repos/fastfetch.svg)](https://repology.org/project/fastfetch/versions)\n0014| [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/fastfetch-cli/fastfetch)\n0015| [![中文README](https://img.shields.io/badge/%E4%B8%AD%E6%96%87-README-red)](README-cn.md)\n0016| \n0017| Fastfetch is a [neofetch](https://github.com/dylanaraps/neofetch)-like tool for fetching system information and displaying it in a visually appealing way. It is written mainly in C, with a focus on performance and customizability. Currently, it supports Linux, macOS, Windows 8.1+, Android, FreeBSD, OpenBSD, NetBSD, DragonFly, Haiku and SunOS (illumos, Solaris).\n0018| \n0019| > Note: Fastfetch is only actively tested on x86-64 and aarch64 platforms. It may work on other platforms but is not guaranteed to do so.\n0020| \n0021| <img src=\"screenshots/example1.png\" width=\"49%\" align=\"left\" />\n0022| <img src=\"https://upload.wikimedia.org/wikipedia/commons/2/24/Transparent_Square_Tiles_Texture.png\" width=\"49%\" height=\"16px\" align=\"left\" />\n0023| <img src=\"screenshots/example4.png\" width=\"49%\" align=\"left\" />\n0024| <img src=\"https://upload.wikimedia.org/wikipedia/commons/2/24/Transparent_Square_Tiles_Texture.png\" width=\"49%\" height=\"16px\" align=\"left\" />\n0025| <img src=\"screenshots/example2.png\" width=\"48%\" align=\"top\" />\n0026| <img src=\"screenshots/example3.png\" width=\"48%\" align=\"top\" />\n0027| <img src=\"screenshots/example5.png\" height=\"15%\" align=\"top\" />\n0028| \n0029| According configuration files for examples are located [here](https://github.com/fastfetch-cli/fastfetch/tree/dev/presets/examples).\n0030| \n0031| There are [screenshots on different platforms](https://github.com/fastfetch-cli/fastfetch/wiki).\n0032| \n0033| ## Installation\n0034| \n0035| ### Linux\n0036| \n0037| Some distributions package outdated versions of fastfetch. Older versions receive no support, so please always try to use the latest version.\n0038| \n0039| <a href=\"https://repology.org/project/fastfetch/versions\">\n0040|     <img src=\"https://repology.org/badge/vertical-allrepos/fastfetch.svg?columns=2\" alt=\"Packaging status\" align=\"right\">\n0041| </a>\n0042| \n0043| * Ubuntu: [`ppa:zhangsongcui3371/fastfetch`](https://launchpad.net/~zhangsongcui3371/+archive/ubuntu/fastfetch) (Ubuntu 22.04 or newer; latest version)\n0044| * Debian / Ubuntu: `apt install fastfetch` (Debian 13 or newer; Ubuntu 25.04 or newer)\n0045| * Debian / Ubuntu: Download `fastfetch-linux-<proper architecture>.deb` from [Github release page](https://github.com/fastfetch-cli/fastfetch/releases/latest) and double-click it (for Ubuntu 20.04 or newer and Debian 11 or newer).\n0046| * Arch Linux: `pacman -S fastfetch`\n0047| * Fedora: `dnf install fastfetch`\n0048| * Gentoo: `emerge --ask app-misc/fastfetch`\n0049| * Alpine: `apk add --upgrade fastfetch`\n0050| * NixOS: `nix-shell -p fastfetch`\n0051| * openSUSE: `zypper install fastfetch`\n0052| * ALT Linux: `apt-get install fastfetch`\n0053| * Exherbo: `cave resolve --execute app-misc/fastfetch`\n0054| * Solus: `eopkg install fastfetch`\n0055| * Slackware: `sbopkg -i fastfetch`\n0056| * Void Linux: `xbps-install fastfetch`\n0057| * Venom Linux: `scratch install fastfetch`\n0058| \n0059| You may need `sudo`, `doas`, or `sup` to run these commands.\n0060| \n0061| If fastfetch is not packaged for your distribution or an outdated version is packaged, [linuxbrew](https://brew.sh/) is a good alternative: `brew install fastfetch`\n0062| \n0063| ### macOS\n0064| \n0065| * [Homebrew](https://formulae.brew.sh/formula/fastfetch#default): `brew install fastfetch`\n0066| * [MacPorts](https://ports.macports.org/port/fastfetch/): `sudo port install fastfetch`\n0067| \n0068| ### Windows\n0069| \n0070| * [scoop](https://scoop.sh/#/apps?q=fastfetch): `scoop install fastfetch`\n0071| * [Chocolatey](https://community.chocolatey.org/packages/fastfetch): `choco install fastfetch`\n0072| * [winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/f/Fastfetch-cli/Fastfetch): `winget install fastfetch`\n0073| * [MSYS2 MinGW](https://packages.msys2.org/base/mingw-w64-fastfetch): `pacman -S mingw-w64-<subsystem>-<arch>-fastfetch`\n0074| \n0075| You may also download the program directly from [the GitHub releases page](https://github.com/fastfetch-cli/fastfetch/releases/latest) in the form of an archive file.\n0076| \n0077| ### BSD systems\n0078| \n0079| * FreeBSD: `pkg install fastfetch`\n0080| * NetBSD: `pkgin in fastfetch`\n0081| * OpenBSD: `pkg_add fastfetch` (Snapshots only)\n0082| * DragonFly BSD: `pkg install fastfetch` (Snapshots only)\n0083| \n0084| ### Android (Termux)\n0085| \n0086| * `pkg install fastfetch`\n0087| \n0088| ### Nightly\n0089| \n0090| <https://nightly.link/fastfetch-cli/fastfetch/workflows/ci/dev?preview>\n0091| \n0092| ## Build from source\n0093| \n0094| See the Wiki: https://github.com/fastfetch-cli/fastfetch/wiki/Building\n0095| \n0096| ## Usage\n0097| \n0098| * Run with default configuration: `fastfetch`\n0099| * Run with [all supported modules](https://github.com/fastfetch-cli/fastfetch/wiki/Support+Status#available-modules) to find what interests you: `fastfetch -c all.jsonc`\n0100| * View all data that fastfetch detects: `fastfetch -s <module1>[:<module2>][:<module3>] --format json`\n0101| * Display help messages: `fastfetch --help`\n0102| * Generate a minimal config file: `fastfetch [-s <module1>[:<module2>]] --gen-config [</path/to/config.jsonc>]`\n0103|     * Use [The online configuration generator](https://fastfetch-cli.github.io/fastfetch-config/) to generate a full config file with all optional options\n0104| \n0105| ## Customization\n0106| \n0107| Fastfetch uses JSONC (JSON with comments) for configuration. [See the Wiki for details](https://github.com/fastfetch-cli/fastfetch/wiki/Configuration). There are some premade config files in the [`presets`](presets) directory, including those used for the screenshots above. You can load them using `-c <filename>`. These files can serve as examples of the configuration syntax.\n0108| \n0109| Logos can also be heavily customized; see the [logo documentation](https://github.com/fastfetch-cli/fastfetch/wiki/Logo-options) for more information.\n0110| \n0111| ### WARNING\n0112| \n0113| Fastfetch supports a `Command` module that can run arbitrary shell commands. If you copy-paste a config file from an untrusted source, it may contain malicious commands that can harm your system or compromise your privacy. Please always review the config file before using it.\n0114| \n0115| ## FAQ\n0116| \n0117| ### Q: Neofetch is good enough. Why do I need fastfetch?\n0118| \n0119| 1. Fastfetch is actively maintained.\n0120| 2. Fastfetch is faster, as the name suggests.\n0121| 3. Fastfetch has a greater number of features, though by default it only has a few modules enabled; use `fastfetch -c all` to discover what you want.\n0122| 4. Fastfetch is more configurable. You can find more information in the Wiki: <https://github.com/fastfetch-cli/fastfetch/wiki/Configuration>.\n0123| 5. Fastfetch is more polished. For example, neofetch prints `555 MiB` in the Memory module and `23 G` in the Disk module, whereas fastfetch prints `555.00 MiB` and `22.97 GiB` respectively.\n0124| 6. Fastfetch is more accurate. For example, [neofetch never actually supports the Wayland protocol](https://github.com/dylanaraps/neofetch/pull/2395).\n0125| \n0126| ### Q: Fastfetch shows my local IP address. Does it leak my privacy?\n0127| \n0128| A local IP address (10.x.x.x, 172.x.x.x, 192.168.x.x) has nothing to do with privacy. It only has meaning if you are on the same network, for example, if you connect to the same Wi-Fi network.\n0129| \n0130| Actually, the `Local IP` module is the most useful module for me personally. I (@CarterLi) have several VMs installed to test fastfetch and often need to SSH into them. With fastfetch running on shell startup, I never need to type `ip addr` manually.\n0131| \n0132| If you really don't like it, you can disable the `Local IP` module in `config.jsonc`.\n0133| \n0134| ### Q: Where is the config file? I can't find it.\n0135| \n0136| Fastfetch does not generate a config file automatically. You can use `fastfetch --gen-config` to generate one. The config file will be saved in `~/.config/fastfetch/config.jsonc` by default. See the [Wiki for details](https://github.com/fastfetch-cli/fastfetch/wiki/Configuration).\n0137| \n0138| ### Q: The configuration is so complex. Where is the documentation?\n0139| \n0140| Fastfetch uses JSON (with comments) for configuration. I suggest using an IDE with JSON schema support (like VSCode) to edit it.\n0141| \n0142| Alternatively, you can refer to the presets in the [`presets` directory](https://github.com/fastfetch-cli/fastfetch/tree/dev/presets).\n0143| \n0144| The **correct** way to edit the configuration:\n0145| \n0146| This is an example that [changes size prefix from MiB / GiB to MB / GB](https://github.com/fastfetch-cli/fastfetch/discussions/1014). Editor used: [helix](https://github.com/helix-editor/helix)\n0147| \n0148| [![asciicast](https://asciinema.org/a/1uF6sTPGKrHKI1MVaFcikINSQ.svg)](https://asciinema.org/a/1uF6sTPGKrHKI1MVaFcikINSQ)\n0149| \n0150| ### Q: I WANT THE DOCUMENTATION!\n0151| \n0152| [Here is the documentation](https://github.com/fastfetch-cli/fastfetch/wiki/Json-Schema). It is generated from the [JSON schema](https://github.com/fastfetch-cli/fastfetch/blob/dev/doc/json_schema.json), but you might not find it very user-friendly.\n0153| \n0154| ### Q: How can I customize the module output?\n0155| \n0156| Fastfetch uses `format` to generate output. For example, to make the `GPU` module show only the GPU name (leaving other information undisplayed), you can use:\n0157| \n0158| ```jsonc\n0159| {\n0160|     \"modules\": [\n0161|         {\n0162|             \"type\": \"gpu\",\n0163|             \"format\": \"{name}\" // See `fastfetch -h gpu-format` for details\n0164|         }\n0165|     ]\n0166| }\n0167| ```\n0168| \n0169| ...which is equivalent to `fastfetch -s gpu --gpu-format '{name}'`\n0170| \n0171| See `fastfetch -h format` for information on basic usage. For module-specific formatting, see `fastfetch -h <module>-format`\n0172| \n0173| ### Q: I have my own ASCII art / image file. How can I show it with fastfetch?\n0174| \n0175| Try `fastfetch -l /path/to/logo`. See the [logo documentation](https://github.com/fastfetch-cli/fastfetch/wiki/Logo-options) for details.\n0176| \n0177| If you just want to display the distro name in [FIGlet text](https://github.com/pwaller/pyfiglet):\n0178| \n0179| ```bash\n0180| # install pyfiglet and jq first\n0181| pyfiglet -s -f small_slant $(fastfetch -s os --format json | jq -r '.[0].result.name') && fastfetch -l none\n0182| ```\n0183| \n0184| ![image](https://github.com/fastfetch-cli/fastfetch/assets/6134068/6466524e-ab8c-484f-848d-eec7ddeb7df2)\n0185| \n0186| ### Q: My image logo behaves strangely. How can I fix it?\n0187| \n0188| See the troubleshooting section: <https://github.com/fastfetch-cli/fastfetch/wiki/Logo-options#troubleshooting>\n0189| \n0190| ### Q: Fastfetch runs in black and white on shell startup. Why?\n0191| \n0192| This issue usually occurs when using fastfetch with `p10k`. There are known incompatibilities between fastfetch and p10k instant prompt.\n0193| The p10k documentation clearly states that you should NOT print anything to stdout after `p10k-instant-prompt` is initialized. You should put `fastfetch` before the initialization of `p10k-instant-prompt` (recommended).\n0194| \n0195| You can always use `fastfetch --pipe false` to force fastfetch to run in colorful mode.\n0196| \n0197| ### Q: Why do fastfetch and neofetch show different memory usage results?\n0198| \n0199| See [#1096](https://github.com/fastfetch-cli/fastfetch/issues/1096).\n0200| \n0201| ### Q: Fastfetch shows fewer dpkg packages than neofetch. Is it a bug?\n0202| \n0203| 1. Neofetch incorrectly counts `rc` packages for apt (packages that have been removed but still have configuration files remaining). See bug: https://github.com/dylanaraps/neofetch/issues/2278\n0204| 2. Neofetch incorrectly counts `gpg-pubkey` as packages for rpm. You may check the results of `dnf list --installed | wc -l` and `rpm -qa | wc -l` to see the difference.\n0205| \n0206| ### Q: I use Debian / Ubuntu / Debian-derived distro. My GPU is detected as `XXXX Device XXXX (VGA compatible)`. Is this a bug?\n0207| \n0208| Try upgrading `pci.ids`: Download <https://pci-ids.ucw.cz/v2.2/pci.ids> and overwrite the file `/usr/share/hwdata/pci.ids`. For AMD GPUs, you should also upgrade `amdgpu.ids`: Download <https://gitlab.freedesktop.org/mesa/drm/-/raw/main/data/amdgpu.ids> and overwrite the file `/usr/share/libdrm/amdgpu.ids`\n0209| \n0210| Alternatively, you may try using `fastfetch --gpu-driver-specific`, which will make fastfetch attempt to ask the driver for the GPU name if supported.\n0211| \n0212| ### Q: I get the error `Authorization required, but no authorization protocol specified` when running fastfetch as root\n0213| \n0214| Try `export XAUTHORITY=$HOME/.Xauthority`\n0215| \n0216| ### Q: How can I change the colors of my ASCII logo?\n0217| \n0218| Try `fastfetch --logo-color-[1-9] <color>`, where `[1-9]` is the index of color placeholders.\n0219| \n0220| For example: `fastfetch --logo-color-1 red --logo-color-2 green`.\n0221| \n0222| In JSONC, you can use:\n0223| \n0224| ```jsonc\n0225| {\n0226|     \"logo\": {\n0227|         \"color\": {\n0228|             \"1\": \"red\",\n0229|             \"2\": \"green\"\n0230|         }\n0231|     }\n0232| }\n0233| ```\n0234| \n0235| ### Q: How do I hide a key?\n0236| \n0237| Set the key to a white space.\n0238| \n0239| ```jsonc\n0240| {\n0241|     \"key\": \" \"\n0242| }\n0243| ```\n0244| \n0245| ### Q: How can I display images on Windows?\n0246| \n0247| #### Windows Terminal\n0248| \n0249| Windows Terminal supports the sixel image protocol only.\n0250| \n0251| ```jsonc\n0252| {\n0253|   \"logo\": {\n0254|     \"type\": \"sixel\", // DO NOT USE \"auto\"\n0255|     \"source\": \"C:/path/to/image.png\", // ~ can be used to refer to the Windows user home directory\n0256|     \"width\": <image-width-in-chars>, // Optional\n0257|     \"height\": <image-height-in-chars> // Optional\n0258|   }\n0259| }\n0260| ```\n0261| \n0262| #### mintty and Wezterm\n0263| \n0264| mintty (used by Bash on Windows and MSYS2) and Wezterm (nightly build only) support the iTerm image protocol on Windows.\n0265| \n0266| In `config.jsonc`:  \n0267| ```json\n0268| {\n0269|   \"logo\": {\n0270|     \"type\": \"iterm\",\n0271|     \"source\": \"C:/path/to/image.png\",\n0272|     \"width\": <image-width-in-chars>\n0273|   }\n0274| }\n0275| ```\n0276| \n0277| ### Q: I want feature A / B / C. Will fastfetch support it?\n0278| \n0279| Fastfetch is a system information tool. We only accept hardware or system-level software feature requests. For most personal uses, I recommend using the `Command` module to implement custom functionality, which can be used to grab output from a custom shell script:\n0280| \n0281| ```jsonc\n0282| // This module shows the default editor\n0283| {\n0284|     \"modules\": [\n0285|         {\n0286|             \"type\": \"command\",\n0287|             \"text\": \"$EDITOR --version | head -1\",\n0288|             \"key\": \"Editor\"\n0289|         }\n0290|     ]\n0291| }\n0292| ```\n0293| \n0294| Otherwise, please open a feature request in [GitHub Issues](https://github.com/fastfetch-cli/fastfetch/issues).\n0295| \n0296| ### Q: I have questions. Where can I get help?\n0297| \n0298| * For usage questions, please start a discussion in [GitHub Discussions](https://github.com/fastfetch-cli/fastfetch/discussions).\n0299| * For possible bugs, please open an issue in [GitHub Issues](https://github.com/fastfetch-cli/fastfetch/issues). Be sure to fill out the bug report template carefully to help developers investigate.\n0300| \n0301| ## Donate\n0302| \n0303| If you find Fastfetch useful, please consider donating.\n0304| \n0305| * Current maintainer: [@CarterLi](https://paypal.me/zhangsongcui)\n0306| * Original author: [@LinusDierheimer](https://github.com/sponsors/LinusDierheimer)\n0307| \n0308| ## Code signing\n0309| \n0310| * Free code signing provided by [SignPath.io](https://about.signpath.io/), certificate by [SignPath Foundation](https://signpath.org/)\n0311| * This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it\n0312| \n0313| ## Star History\n0314| \n0315| Give us a star to show your support!\n0316| \n0317| <a href=\"https://star-history.dera.page/#fastfetch-cli/fastfetch&Date\">\n0318|   <picture>\n0319|     <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://star-history.dera.page/svg?repos=fastfetch-cli/fastfetch&type=Date&theme=dark\" />\n0320|     <source media=\"(prefers-color-scheme: light)\" srcset=\"https://star-history.dera.page/svg?repos=fastfetch-cli/fastfetch&type=Date\" />\n0321|     <img alt=\"Star History Chart\" src=\"https://star-history.dera.page/svg?repos=fastfetch-cli/fastfetch&type=Date\" />\n0322|   </picture>\n0323| </a>",
+  "page_id": "fastfetch-cli/fastfetch/README.md",
+  "source_sha256": "4738b9274d674af7624a94a57687fd1dacd08cbe43e5c487a805ab9d760196ce",
+  "units": [
+    {
+      "kind": "fragment",
+      "ordinal": 88,
+      "raw_slice": "Q: Where is the config file? I can't find it.",
+      "raw_span": {
+        "end": 8895,
+        "start": 8850
+      },
+      "segments": [
+        {
+          "end": 8895,
+          "start": 8850
+        }
+      ],
+      "text": "Q: Where is the config file? I can't find it."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 89,
+      "raw_slice": "Fastfetch does not generate a config file automatically. You can use",
+      "raw_span": {
+        "end": 8965,
+        "start": 8897
+      },
+      "segments": [
+        {
+          "end": 8965,
+          "start": 8897
+        }
+      ],
+      "text": "Fastfetch does not generate a config file automatically. You can use"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 90,
+      "raw_slice": "to generate one. The config file will be saved in",
+      "raw_span": {
+        "end": 9040,
+        "start": 8991
+      },
+      "segments": [
+        {
+          "end": 9040,
+          "start": 8991
+        }
+      ],
+      "text": "to generate one. The config file will be saved in"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 91,
+      "raw_slice": "by default. See the [Wiki for details](https://github.com/fastfetch-cli/fastfetch/wiki/Configuration).",
+      "raw_span": {
+        "end": 9178,
+        "start": 9076
+      },
+      "segments": [
+        {
+          "end": 9096,
+          "start": 9076
+        },
+        {
+          "end": 9113,
+          "start": 9097
+        },
+        {
+          "end": 9178,
+          "start": 9177
+        }
+      ],
+      "text": "by default. See the Wiki for details."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 92,
+      "raw_slice": "Q: The configuration is so complex. Where is the documentation?",
+      "raw_span": {
+        "end": 9247,
+        "start": 9184
+      },
+      "segments": [
+        {
+          "end": 9247,
+          "start": 9184
+        }
+      ],
+      "text": "Q: The configuration is so complex. Where is the documentation?"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 93,
+      "raw_slice": "Fastfetch uses JSON (with comments) for configuration.",
+      "raw_span": {
+        "end": 9303,
+        "start": 9249
+      },
+      "segments": [
+        {
+          "end": 9303,
+          "start": 9249
+        }
+      ],
+      "text": "Fastfetch uses JSON (with comments) for configuration."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 94,
+      "raw_slice": "I suggest using an IDE with JSON schema support (like VSCode) to edit it.",
+      "raw_span": {
+        "end": 9377,
+        "start": 9304
+      },
+      "segments": [
+        {
+          "end": 9377,
+          "start": 9304
+        }
+      ],
+      "text": "I suggest using an IDE with JSON schema support (like VSCode) to edit it."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 95,
+      "raw_slice": "Alternatively, you can refer to the presets in the",
+      "raw_span": {
+        "end": 9429,
+        "start": 9379
+      },
+      "segments": [
+        {
+          "end": 9429,
+          "start": 9379
+        }
+      ],
+      "text": "Alternatively, you can refer to the presets in the"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 96,
+      "raw_slice": "directory](https://github.com/fastfetch-cli/fastfetch/tree/dev/presets).",
+      "raw_span": {
+        "end": 9513,
+        "start": 9441
+      },
+      "segments": [
+        {
+          "end": 9450,
+          "start": 9441
+        },
+        {
+          "end": 9513,
+          "start": 9512
+        }
+      ],
+      "text": "directory."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 97,
+      "raw_slice": "The **correct** way to edit the configuration:",
+      "raw_span": {
+        "end": 9561,
+        "start": 9515
+      },
+      "segments": [
+        {
+          "end": 9519,
+          "start": 9515
+        },
+        {
+          "end": 9528,
+          "start": 9521
+        },
+        {
+          "end": 9561,
+          "start": 9530
+        }
+      ],
+      "text": "The correct way to edit the configuration:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 98,
+      "raw_slice": "This is an example that [changes size prefix from MiB / GiB to MB / GB](https://github.com/fastfetch-cli/fastfetch/discussions/1014).",
+      "raw_span": {
+        "end": 9696,
+        "start": 9563
+      },
+      "segments": [
+        {
+          "end": 9587,
+          "start": 9563
+        },
+        {
+          "end": 9633,
+          "start": 9588
+        },
+        {
+          "end": 9696,
+          "start": 9695
+        }
+      ],
+      "text": "This is an example that changes size prefix from MiB / GiB to MB / GB."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 99,
+      "raw_slice": "Editor used: [helix",
+      "raw_span": {
+        "end": 9716,
+        "start": 9697
+      },
+      "segments": [
+        {
+          "end": 9710,
+          "start": 9697
+        },
+        {
+          "end": 9716,
+          "start": 9711
+        }
+      ],
+      "text": "Editor used: helix"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 100,
+      "raw_slice": "Q: I WANT THE DOCUMENTATION!",
+      "raw_span": {
+        "end": 9912,
+        "start": 9884
+      },
+      "segments": [
+        {
+          "end": 9912,
+          "start": 9884
+        }
+      ],
+      "text": "Q: I WANT THE DOCUMENTATION!"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 101,
+      "raw_slice": "Here is the documentation](https://github.com/fastfetch-cli/fastfetch/wiki/Json-Schema).",
+      "raw_span": {
+        "end": 10003,
+        "start": 9915
+      },
+      "segments": [
+        {
+          "end": 9940,
+          "start": 9915
+        },
+        {
+          "end": 10003,
+          "start": 10002
+        }
+      ],
+      "text": "Here is the documentation."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 102,
+      "raw_slice": "It is generated from the [JSON schema](https://github.com/fastfetch-cli/fastfetch/blob/dev/doc/json_schema.json), but you might not find it very user-friendly.",
+      "raw_span": {
+        "end": 10163,
+        "start": 10004
+      },
+      "segments": [
+        {
+          "end": 10029,
+          "start": 10004
+        },
+        {
+          "end": 10041,
+          "start": 10030
+        },
+        {
+          "end": 10163,
+          "start": 10116
+        }
+      ],
+      "text": "It is generated from the JSON schema, but you might not find it very user-friendly."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 103,
+      "raw_slice": "Q: How can I customize the module output?",
+      "raw_span": {
+        "end": 10210,
+        "start": 10169
+      },
+      "segments": [
+        {
+          "end": 10210,
+          "start": 10169
+        }
+      ],
+      "text": "Q: How can I customize the module output?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 104,
+      "raw_slice": "Fastfetch uses",
+      "raw_span": {
+        "end": 10226,
+        "start": 10212
+      },
+      "segments": [
+        {
+          "end": 10226,
+          "start": 10212
+        }
+      ],
+      "text": "Fastfetch uses"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 105,
+      "raw_slice": "to generate output. For example, to make the",
+      "raw_span": {
+        "end": 10280,
+        "start": 10236
+      },
+      "segments": [
+        {
+          "end": 10280,
+          "start": 10236
+        }
+      ],
+      "text": "to generate output. For example, to make the"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 106,
+      "raw_slice": "module show only the GPU name (leaving other information undisplayed), you can use:",
+      "raw_span": {
+        "end": 10370,
+        "start": 10287
+      },
+      "segments": [
+        {
+          "end": 10370,
+          "start": 10287
+        }
+      ],
+      "text": "module show only the GPU name (leaving other information undisplayed), you can use:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 107,
+      "raw_slice": "...which is equivalent to",
+      "raw_span": {
+        "end": 10561,
+        "start": 10536
+      },
+      "segments": [
+        {
+          "end": 10561,
+          "start": 10536
+        }
+      ],
+      "text": "...which is equivalent to"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 108,
+      "raw_slice": "See",
+      "raw_span": {
+        "end": 10607,
+        "start": 10604
+      },
+      "segments": [
+        {
+          "end": 10607,
+          "start": 10604
+        }
+      ],
+      "text": "See"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 109,
+      "raw_slice": "for information on basic usage. For module-specific formatting, see",
+      "raw_span": {
+        "end": 10697,
+        "start": 10630
+      },
+      "segments": [
+        {
+          "end": 10697,
+          "start": 10630
+        }
+      ],
+      "text": "for information on basic usage. For module-specific formatting, see"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 110,
+      "raw_slice": "Q: I have my own ASCII art / image file. How can I show it with fastfetch?",
+      "raw_span": {
+        "end": 10808,
+        "start": 10734
+      },
+      "segments": [
+        {
+          "end": 10808,
+          "start": 10734
+        }
+      ],
+      "text": "Q: I have my own ASCII art / image file. How can I show it with fastfetch?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 111,
+      "raw_slice": "Try",
+      "raw_span": {
+        "end": 10813,
+        "start": 10810
+      },
+      "segments": [
+        {
+          "end": 10813,
+          "start": 10810
+        }
+      ],
+      "text": "Try"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 112,
+      "raw_slice": ". See the [logo documentation](https://github.com/fastfetch-cli/fastfetch/wiki/Logo-options) for details.",
+      "raw_span": {
+        "end": 10947,
+        "start": 10842
+      },
+      "segments": [
+        {
+          "end": 10852,
+          "start": 10842
+        },
+        {
+          "end": 10871,
+          "start": 10853
+        },
+        {
+          "end": 10947,
+          "start": 10934
+        }
+      ],
+      "text": ". See the logo documentation for details."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 113,
+      "raw_slice": "If you just want to display the distro name in [FIGlet text](https://github.com/pwaller/pyfiglet):",
+      "raw_span": {
+        "end": 11047,
+        "start": 10949
+      },
+      "segments": [
+        {
+          "end": 10996,
+          "start": 10949
+        },
+        {
+          "end": 11008,
+          "start": 10997
+        },
+        {
+          "end": 11047,
+          "start": 11046
+        }
+      ],
+      "text": "If you just want to display the distro name in FIGlet text:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 114,
+      "raw_slice": "Q: My image logo behaves strangely. How can I fix it?",
+      "raw_span": {
+        "end": 11365,
+        "start": 11312
+      },
+      "segments": [
+        {
+          "end": 11365,
+          "start": 11312
+        }
+      ],
+      "text": "Q: My image logo behaves strangely. How can I fix it?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 115,
+      "raw_slice": "See the troubleshooting section:",
+      "raw_span": {
+        "end": 11399,
+        "start": 11367
+      },
+      "segments": [
+        {
+          "end": 11399,
+          "start": 11367
+        }
+      ],
+      "text": "See the troubleshooting section:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 116,
+      "raw_slice": "Q: Fastfetch runs in black and white on shell startup. Why?",
+      "raw_span": {
+        "end": 11543,
+        "start": 11484
+      },
+      "segments": [
+        {
+          "end": 11543,
+          "start": 11484
+        }
+      ],
+      "text": "Q: Fastfetch runs in black and white on shell startup. Why?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 117,
+      "raw_slice": "This issue usually occurs when using fastfetch with",
+      "raw_span": {
+        "end": 11596,
+        "start": 11545
+      },
+      "segments": [
+        {
+          "end": 11596,
+          "start": 11545
+        }
+      ],
+      "text": "This issue usually occurs when using fastfetch with"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 118,
+      "raw_slice": ". There are known incompatibilities between fastfetch and p10k instant prompt.\nThe p10k documentation clearly states that you should NOT print anything to stdout after",
+      "raw_span": {
+        "end": 11770,
+        "start": 11603
+      },
+      "segments": [
+        {
+          "end": 11770,
+          "start": 11603
+        }
+      ],
+      "text": ". There are known incompatibilities between fastfetch and p10k instant prompt. The p10k documentation clearly states that you should NOT print anything to stdout after"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 119,
+      "raw_slice": "is initialized. You should put",
+      "raw_span": {
+        "end": 11823,
+        "start": 11793
+      },
+      "segments": [
+        {
+          "end": 11823,
+          "start": 11793
+        }
+      ],
+      "text": "is initialized. You should put"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 120,
+      "raw_slice": "before the initialization of",
+      "raw_span": {
+        "end": 11864,
+        "start": 11836
+      },
+      "segments": [
+        {
+          "end": 11864,
+          "start": 11836
+        }
+      ],
+      "text": "before the initialization of"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 121,
+      "raw_slice": "(recommended).",
+      "raw_span": {
+        "end": 11901,
+        "start": 11887
+      },
+      "segments": [
+        {
+          "end": 11901,
+          "start": 11887
+        }
+      ],
+      "text": "(recommended)."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 122,
+      "raw_slice": "You can always use",
+      "raw_span": {
+        "end": 11921,
+        "start": 11903
+      },
+      "segments": [
+        {
+          "end": 11921,
+          "start": 11903
+        }
+      ],
+      "text": "You can always use"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 123,
+      "raw_slice": "to force fastfetch to run in colorful mode.",
+      "raw_span": {
+        "end": 11990,
+        "start": 11947
+      },
+      "segments": [
+        {
+          "end": 11990,
+          "start": 11947
+        }
+      ],
+      "text": "to force fastfetch to run in colorful mode."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 124,
+      "raw_slice": "Q: Why do fastfetch and neofetch show different memory usage results?",
+      "raw_span": {
+        "end": 12065,
+        "start": 11996
+      },
+      "segments": [
+        {
+          "end": 12065,
+          "start": 11996
+        }
+      ],
+      "text": "Q: Why do fastfetch and neofetch show different memory usage results?"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 125,
+      "raw_slice": "See [#1096](https://github.com/fastfetch-cli/fastfetch/issues/1096).",
+      "raw_span": {
+        "end": 12135,
+        "start": 12067
+      },
+      "segments": [
+        {
+          "end": 12071,
+          "start": 12067
+        },
+        {
+          "end": 12077,
+          "start": 12072
+        },
+        {
+          "end": 12135,
+          "start": 12134
+        }
+      ],
+      "text": "See #1096."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 126,
+      "raw_slice": "Q: Fastfetch shows fewer dpkg packages than neofetch. Is it a bug?",
+      "raw_span": {
+        "end": 12207,
+        "start": 12141
+      },
+      "segments": [
+        {
+          "end": 12207,
+          "start": 12141
+        }
+      ],
+      "text": "Q: Fastfetch shows fewer dpkg packages than neofetch. Is it a bug?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 127,
+      "raw_slice": "Neofetch incorrectly counts",
+      "raw_span": {
+        "end": 12239,
+        "start": 12212
+      },
+      "segments": [
+        {
+          "end": 12239,
+          "start": 12212
+        }
+      ],
+      "text": "Neofetch incorrectly counts"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 128,
+      "raw_slice": "packages for apt (packages that have been removed but still have configuration files remaining). See bug:",
+      "raw_span": {
+        "end": 12350,
+        "start": 12245
+      },
+      "segments": [
+        {
+          "end": 12350,
+          "start": 12245
+        }
+      ],
+      "text": "packages for apt (packages that have been removed but still have configuration files remaining). See bug:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 129,
+      "raw_slice": "Neofetch incorrectly counts",
+      "raw_span": {
+        "end": 12432,
+        "start": 12405
+      },
+      "segments": [
+        {
+          "end": 12432,
+          "start": 12405
+        }
+      ],
+      "text": "Neofetch incorrectly counts"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 130,
+      "raw_slice": "as packages for rpm. You may check the results of",
+      "raw_span": {
+        "end": 12495,
+        "start": 12446
+      },
+      "segments": [
+        {
+          "end": 12495,
+          "start": 12446
+        }
+      ],
+      "text": "as packages for rpm. You may check the results of"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 131,
+      "raw_slice": "and",
+      "raw_span": {
+        "end": 12530,
+        "start": 12527
+      },
+      "segments": [
+        {
+          "end": 12530,
+          "start": 12527
+        }
+      ],
+      "text": "and"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 132,
+      "raw_slice": "to see the difference.",
+      "raw_span": {
+        "end": 12571,
+        "start": 12549
+      },
+      "segments": [
+        {
+          "end": 12571,
+          "start": 12549
+        }
+      ],
+      "text": "to see the difference."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 133,
+      "raw_slice": "Q: I use Debian / Ubuntu / Debian-derived distro. My GPU is detected as",
+      "raw_span": {
+        "end": 12648,
+        "start": 12577
+      },
+      "segments": [
+        {
+          "end": 12648,
+          "start": 12577
+        }
+      ],
+      "text": "Q: I use Debian / Ubuntu / Debian-derived distro. My GPU is detected as"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 134,
+      "raw_slice": ". Is this a bug?",
+      "raw_span": {
+        "end": 12700,
+        "start": 12684
+      },
+      "segments": [
+        {
+          "end": 12700,
+          "start": 12684
+        }
+      ],
+      "text": ". Is this a bug?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 135,
+      "raw_slice": "Try upgrading",
+      "raw_span": {
+        "end": 12715,
+        "start": 12702
+      },
+      "segments": [
+        {
+          "end": 12715,
+          "start": 12702
+        }
+      ],
+      "text": "Try upgrading"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 136,
+      "raw_slice": ": Download",
+      "raw_span": {
+        "end": 12735,
+        "start": 12725
+      },
+      "segments": [
+        {
+          "end": 12735,
+          "start": 12725
+        }
+      ],
+      "text": ": Download"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 137,
+      "raw_slice": "and overwrite the file",
+      "raw_span": {
+        "end": 12796,
+        "start": 12774
+      },
+      "segments": [
+        {
+          "end": 12796,
+          "start": 12774
+        }
+      ],
+      "text": "and overwrite the file"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 138,
+      "raw_slice": ". For AMD GPUs, you should also upgrade",
+      "raw_span": {
+        "end": 12863,
+        "start": 12824
+      },
+      "segments": [
+        {
+          "end": 12863,
+          "start": 12824
+        }
+      ],
+      "text": ". For AMD GPUs, you should also upgrade"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 139,
+      "raw_slice": ": Download",
+      "raw_span": {
+        "end": 12886,
+        "start": 12876
+      },
+      "segments": [
+        {
+          "end": 12886,
+          "start": 12876
+        }
+      ],
+      "text": ": Download"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 140,
+      "raw_slice": "and overwrite the file",
+      "raw_span": {
+        "end": 12978,
+        "start": 12956
+      },
+      "segments": [
+        {
+          "end": 12978,
+          "start": 12956
+        }
+      ],
+      "text": "and overwrite the file"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 141,
+      "raw_slice": "Alternatively, you may try using",
+      "raw_span": {
+        "end": 13043,
+        "start": 13011
+      },
+      "segments": [
+        {
+          "end": 13043,
+          "start": 13011
+        }
+      ],
+      "text": "Alternatively, you may try using"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 142,
+      "raw_slice": ", which will make fastfetch attempt to ask the driver for the GPU name if supported.",
+      "raw_span": {
+        "end": 13161,
+        "start": 13077
+      },
+      "segments": [
+        {
+          "end": 13161,
+          "start": 13077
+        }
+      ],
+      "text": ", which will make fastfetch attempt to ask the driver for the GPU name if supported."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 143,
+      "raw_slice": "Q: I get the error",
+      "raw_span": {
+        "end": 13185,
+        "start": 13167
+      },
+      "segments": [
+        {
+          "end": 13185,
+          "start": 13167
+        }
+      ],
+      "text": "Q: I get the error"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 144,
+      "raw_slice": "when running fastfetch as root",
+      "raw_span": {
+        "end": 13282,
+        "start": 13252
+      },
+      "segments": [
+        {
+          "end": 13282,
+          "start": 13252
+        }
+      ],
+      "text": "when running fastfetch as root"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 145,
+      "raw_slice": "Try",
+      "raw_span": {
+        "end": 13287,
+        "start": 13284
+      },
+      "segments": [
+        {
+          "end": 13287,
+          "start": 13284
+        }
+      ],
+      "text": "Try"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 146,
+      "raw_slice": "Q: How can I change the colors of my ASCII logo?",
+      "raw_span": {
+        "end": 13379,
+        "start": 13331
+      },
+      "segments": [
+        {
+          "end": 13379,
+          "start": 13331
+        }
+      ],
+      "text": "Q: How can I change the colors of my ASCII logo?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 147,
+      "raw_slice": "Try",
+      "raw_span": {
+        "end": 13384,
+        "start": 13381
+      },
+      "segments": [
+        {
+          "end": 13384,
+          "start": 13381
+        }
+      ],
+      "text": "Try"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 148,
+      "raw_slice": ", where",
+      "raw_span": {
+        "end": 13430,
+        "start": 13423
+      },
+      "segments": [
+        {
+          "end": 13430,
+          "start": 13423
+        }
+      ],
+      "text": ", where"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 149,
+      "raw_slice": "is the index of color placeholders.",
+      "raw_span": {
+        "end": 13474,
+        "start": 13439
+      },
+      "segments": [
+        {
+          "end": 13474,
+          "start": 13439
+        }
+      ],
+      "text": "is the index of color placeholders."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 150,
+      "raw_slice": "For example:",
+      "raw_span": {
+        "end": 13488,
+        "start": 13476
+      },
+      "segments": [
+        {
+          "end": 13488,
+          "start": 13476
+        }
+      ],
+      "text": "For example:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 151,
+      "raw_slice": "In JSONC, you can use:",
+      "raw_span": {
+        "end": 13565,
+        "start": 13543
+      },
+      "segments": [
+        {
+          "end": 13565,
+          "start": 13543
+        }
+      ],
+      "text": "In JSONC, you can use:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 152,
+      "raw_slice": "Q: How do I hide a key?",
+      "raw_span": {
+        "end": 13710,
+        "start": 13687
+      },
+      "segments": [
+        {
+          "end": 13710,
+          "start": 13687
+        }
+      ],
+      "text": "Q: How do I hide a key?"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 153,
+      "raw_slice": "Set the key to a white space.",
+      "raw_span": {
+        "end": 13741,
+        "start": 13712
+      },
+      "segments": [
+        {
+          "end": 13741,
+          "start": 13712
+        }
+      ],
+      "text": "Set the key to a white space."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 154,
+      "raw_slice": "Q: How can I display images on Windows?",
+      "raw_span": {
+        "end": 13819,
+        "start": 13780
+      },
+      "segments": [
+        {
+          "end": 13819,
+          "start": 13780
+        }
+      ],
+      "text": "Q: How can I display images on Windows?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 155,
+      "raw_slice": "Windows Terminal",
+      "raw_span": {
+        "end": 13842,
+        "start": 13826
+      },
+      "segments": [
+        {
+          "end": 13842,
+          "start": 13826
+        }
+      ],
+      "text": "Windows Terminal"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 156,
+      "raw_slice": "Windows Terminal supports the sixel image protocol only.",
+      "raw_span": {
+        "end": 13900,
+        "start": 13844
+      },
+      "segments": [
+        {
+          "end": 13900,
+          "start": 13844
+        }
+      ],
+      "text": "Windows Terminal supports the sixel image protocol only."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 157,
+      "raw_slice": "mintty and Wezterm",
+      "raw_span": {
+        "end": 14199,
+        "start": 14181
+      },
+      "segments": [
+        {
+          "end": 14199,
+          "start": 14181
+        }
+      ],
+      "text": "mintty and Wezterm"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 158,
+      "raw_slice": "mintty (used by Bash on Windows and MSYS2) and Wezterm (nightly build only) support the iTerm image protocol on Windows.",
+      "raw_span": {
+        "end": 14321,
+        "start": 14201
+      },
+      "segments": [
+        {
+          "end": 14321,
+          "start": 14201
+        }
+      ],
+      "text": "mintty (used by Bash on Windows and MSYS2) and Wezterm (nightly build only) support the iTerm image protocol on Windows."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 159,
+      "raw_slice": "In",
+      "raw_span": {
+        "end": 14325,
+        "start": 14323
+      },
+      "segments": [
+        {
+          "end": 14325,
+          "start": 14323
+        }
+      ],
+      "text": "In"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 160,
+      "raw_slice": "Q: I want feature A / B / C. Will fastfetch support it?",
+      "raw_span": {
+        "end": 14531,
+        "start": 14476
+      },
+      "segments": [
+        {
+          "end": 14531,
+          "start": 14476
+        }
+      ],
+      "text": "Q: I want feature A / B / C. Will fastfetch support it?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 161,
+      "raw_slice": "Fastfetch is a system information tool. We only accept hardware or system-level software feature requests. For most personal uses, I recommend using the",
+      "raw_span": {
+        "end": 14685,
+        "start": 14533
+      },
+      "segments": [
+        {
+          "end": 14685,
+          "start": 14533
+        }
+      ],
+      "text": "Fastfetch is a system information tool. We only accept hardware or system-level software feature requests. For most personal uses, I recommend using the"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 162,
+      "raw_slice": "module to implement custom functionality, which can be used to grab output from a custom shell script:",
+      "raw_span": {
+        "end": 14798,
+        "start": 14696
+      },
+      "segments": [
+        {
+          "end": 14798,
+          "start": 14696
+        }
+      ],
+      "text": "module to implement custom functionality, which can be used to grab output from a custom shell script:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 163,
+      "raw_slice": "Otherwise, please open a feature request in [GitHub Issues](https://github.com/fastfetch-cli/fastfetch/issues).",
+      "raw_span": {
+        "end": 15122,
+        "start": 15011
+      },
+      "segments": [
+        {
+          "end": 15055,
+          "start": 15011
+        },
+        {
+          "end": 15069,
+          "start": 15056
+        },
+        {
+          "end": 15122,
+          "start": 15121
+        }
+      ],
+      "text": "Otherwise, please open a feature request in GitHub Issues."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 164,
+      "raw_slice": "Q: I have questions. Where can I get help?",
+      "raw_span": {
+        "end": 15170,
+        "start": 15128
+      },
+      "segments": [
+        {
+          "end": 15170,
+          "start": 15128
+        }
+      ],
+      "text": "Q: I have questions. Where can I get help?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 165,
+      "raw_slice": "For usage questions, please start a discussion in [GitHub Discussions](https://github.com/fastfetch-cli/fastfetch/discussions).",
+      "raw_span": {
+        "end": 15301,
+        "start": 15174
+      },
+      "segments": [
+        {
+          "end": 15224,
+          "start": 15174
+        },
+        {
+          "end": 15243,
+          "start": 15225
+        },
+        {
+          "end": 15301,
+          "start": 15300
+        }
+      ],
+      "text": "For usage questions, please start a discussion in GitHub Discussions."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 166,
+      "raw_slice": "For possible bugs, please open an issue in [GitHub Issues](https://github.com/fastfetch-cli/fastfetch/issues). Be sure to fill out the bug report template carefully to help developers investigate.",
+      "raw_span": {
+        "end": 15500,
+        "start": 15304
+      },
+      "segments": [
+        {
+          "end": 15347,
+          "start": 15304
+        },
+        {
+          "end": 15361,
+          "start": 15348
+        },
+        {
+          "end": 15500,
+          "start": 15413
+        }
+      ],
+      "text": "For possible bugs, please open an issue in GitHub Issues. Be sure to fill out the bug report template carefully to help developers investigate."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 167,
+      "raw_slice": "Donate",
+      "raw_span": {
+        "end": 15511,
+        "start": 15505
+      },
+      "segments": [
+        {
+          "end": 15511,
+          "start": 15505
+        }
+      ],
+      "text": "Donate"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 168,
+      "raw_slice": "If you find Fastfetch useful, please consider donating.",
+      "raw_span": {
+        "end": 15568,
+        "start": 15513
+      },
+      "segments": [
+        {
+          "end": 15568,
+          "start": 15513
+        }
+      ],
+      "text": "If you find Fastfetch useful, please consider donating."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 169,
+      "raw_slice": "Current maintainer: [@CarterLi",
+      "raw_span": {
+        "end": 15602,
+        "start": 15572
+      },
+      "segments": [
+        {
+          "end": 15592,
+          "start": 15572
+        },
+        {
+          "end": 15602,
+          "start": 15593
+        }
+      ],
+      "text": "Current maintainer: @CarterLi"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 170,
+      "raw_slice": "Original author: [@LinusDierheimer",
+      "raw_span": {
+        "end": 15672,
+        "start": 15638
+      },
+      "segments": [
+        {
+          "end": 15655,
+          "start": 15638
+        },
+        {
+          "end": 15672,
+          "start": 15656
+        }
+      ],
+      "text": "Original author: @LinusDierheimer"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 171,
+      "raw_slice": "Code signing",
+      "raw_span": {
+        "end": 15735,
+        "start": 15723
+      },
+      "segments": [
+        {
+          "end": 15735,
+          "start": 15723
+        }
+      ],
+      "text": "Code signing"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 172,
+      "raw_slice": "Free code signing provided by [SignPath.io](https://about.signpath.io/), certificate by [SignPath Foundation",
+      "raw_span": {
+        "end": 15847,
+        "start": 15739
+      },
+      "segments": [
+        {
+          "end": 15769,
+          "start": 15739
+        },
+        {
+          "end": 15781,
+          "start": 15770
+        },
+        {
+          "end": 15827,
+          "start": 15810
+        },
+        {
+          "end": 15847,
+          "start": 15828
+        }
+      ],
+      "text": "Free code signing provided by SignPath.io, certificate by SignPath Foundation"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 173,
+      "raw_slice": "This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it",
+      "raw_span": {
+        "end": 16030,
+        "start": 15874
+      },
+      "segments": [
+        {
+          "end": 16030,
+          "start": 15874
+        }
+      ],
+      "text": "This program will not transfer any information to other networked systems unless specifically requested by the user or the person installing or operating it"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 174,
+      "raw_slice": "Star History",
+      "raw_span": {
+        "end": 16047,
+        "start": 16035
+      },
+      "segments": [
+        {
+          "end": 16047,
+          "start": 16035
+        }
+      ],
+      "text": "Star History"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 175,
+      "raw_slice": "Give us a star to show your support!",
+      "raw_span": {
+        "end": 16085,
+        "start": 16049
+      },
+      "segments": [
+        {
+          "end": 16085,
+          "start": 16049
+        }
+      ],
+      "text": "Give us a star to show your support!"
+    }
+  ]
+}
