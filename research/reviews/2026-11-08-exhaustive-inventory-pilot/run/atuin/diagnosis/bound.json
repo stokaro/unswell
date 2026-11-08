@@ -1,0 +1,17 @@
+{
+  "findings": [
+    {
+      "deletion_test": "Deleting the quoted clause removes the unsupported safety guarantee while preserving the encryption claim and all setup instructions.",
+      "diagnosis": "Infers an unqualified guarantee of secret safety from end-to-end encryption of synchronization.",
+      "end_byte": 3696,
+      "evidence": "Lines 25–27 and 44–46 describe encryption of history sync. Lines 51 and 56 describe local history storage and retention of the old history file; the page establishes no corresponding protection for those copies. Sync encryption alone does not establish the broader safety assurance.",
+      "line": 91,
+      "quote": ", so your secrets are safe",
+      "source_function": "promotion",
+      "start_byte": 3670,
+      "unit_ordinal": 39
+    }
+  ],
+  "page_id": "atuinsh/atuin/README.md",
+  "source_sha256": "5b9734c4b234756d3fbbc8ef202cb6c5f0f0e965c61ab6534a372ffde0a76f3a"
+}

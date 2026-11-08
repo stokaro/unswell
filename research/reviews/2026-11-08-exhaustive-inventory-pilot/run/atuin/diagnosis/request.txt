@@ -1,0 +1,1271 @@
+Review the COMPLETE public technical README, the exhaustive unit inventory,
+and the original source coordinates below. Use only this source; no tools.
+Do not infer AI authorship. This pass is for independently useful SEMANTIC
+corrections: unsupported scope, an unqualified guarantee, a contradiction,
+or a claim whose evidence does not support its breadth. Grammar-only repairs
+belong to the existing engine and do not count in this treatment.
+
+Read all inventory records before deciding. A complete inventory is not proof
+that a correction is needed. Preserve measurable statements with relevant
+evidence, technical conditions, attributed claims, necessary instructions,
+the author's voice, negation, numbers, versions, identifiers, links, and code.
+Do not flag a phrase merely because it is promotional, formal, or could be
+shorter. Abstain when a safe, source-specific diagnosis is not supported.
+
+For each finding return a supplied unit ordinal, an exact contiguous quote
+from the original source, its original 1-based line, the specific defect,
+page evidence, source function, and a minimal-deletion test. Do not propose
+replacement text. A finding may quote source syntax around eligible prose,
+but must target eligible prose and must not propose changing protected code.
+Return zero findings if no independently useful correction is established.
+Maximum 20 findings. Return schema JSON only. Echo the page ID, source SHA-256,
+and inventory response SHA-256 exactly.
+
+INPUT JSON:
+{
+  "excluded": [
+    {
+      "reason": "html",
+      "span": {
+        "end": 365,
+        "start": 0
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 421,
+        "start": 365
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 428,
+        "start": 421
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 1393,
+        "start": 428
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 1716,
+        "start": 1639
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 1794,
+        "start": 1716
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 1982,
+        "start": 1849
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 2216,
+        "start": 2208
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 2225,
+        "start": 2221
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 2630,
+        "start": 2625
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 2647,
+        "start": 2641
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3410,
+        "start": 3385
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 3935,
+        "start": 3791
+      }
+    },
+    {
+      "reason": "quote",
+      "span": {
+        "end": 4248,
+        "start": 3962
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 4662,
+        "start": 4521
+      }
+    }
+  ],
+  "inventory_records": [
+    {
+      "function": "capability",
+      "ordinal": 0,
+      "proposition": "Atuin replaces existing shell history with a SQLite database and records command context.",
+      "support": "Features list SQLite storage and logged context; the old history file is explicitly not replaced."
+    },
+    {
+      "function": "capability",
+      "ordinal": 1,
+      "proposition": "Atuin offers optional, fully encrypted history synchronization between machines through an Atuin server.",
+      "support": "Features list encrypted sync and shared history across machines; server choices and disabling sync are stated."
+    },
+    {
+      "function": "transition",
+      "ordinal": 2,
+      "proposition": "Atuin provides functionality beyond its search UI.",
+      "support": "The following example uses atuin search --exit 0 --after \"yesterday 3pm\" make."
+    },
+    {
+      "function": "capability",
+      "ordinal": 3,
+      "proposition": "Users can use the author's hosted server or host their own.",
+      "support": "Quickstart identifies Atuin Cloud; the docs link offers self-hosted server guidance."
+    },
+    {
+      "function": "qualification",
+      "ordinal": 4,
+      "proposition": "Users can omit synchronization entirely.",
+      "support": "The introduction calls synchronization optional; the docs link offers offline setup guidance."
+    },
+    {
+      "function": "capability",
+      "ordinal": 5,
+      "proposition": "Encryption of all history sync prevents the author from accessing users' data even if desired.",
+      "support": "Quickstart asserts end-to-end encryption; no implementation evidence is supplied."
+    },
+    {
+      "function": "other",
+      "ordinal": 6,
+      "proposition": "The author strongly does not want to access users' data.",
+      "support": "absent"
+    },
+    {
+      "function": "transition",
+      "ordinal": 7,
+      "proposition": "",
+      "support": "Introduces the feature list."
+    },
+    {
+      "function": "capability",
+      "ordinal": 8,
+      "proposition": "Atuin supports rebinding keys.",
+      "support": "The same bullet names protected ctrl-r and up and specifies a configurable full screen history search UI."
+    },
+    {
+      "function": "other",
+      "ordinal": 9,
+      "proposition": "",
+      "support": "Connects protected ctrl-r and up in the rebinding bullet."
+    },
+    {
+      "function": "capability",
+      "ordinal": 10,
+      "proposition": "The key bindings to a full screen history search UI are configurable.",
+      "support": "The same bullet supplies rebind and the protected ctrl-r and up keys."
+    },
+    {
+      "function": "capability",
+      "ordinal": 11,
+      "proposition": "Atuin stores shell history in a SQLite database.",
+      "support": "The introduction also states SQLite history storage."
+    },
+    {
+      "function": "capability",
+      "ordinal": 12,
+      "proposition": "Atuin backs up and synchronizes encrypted shell history.",
+      "support": "The introduction asserts encrypted synchronization; Quickstart includes atuin sync. Backup has no separate demonstration."
+    },
+    {
+      "function": "capability",
+      "ordinal": 13,
+      "proposition": "Atuin provides the same history across terminals, sessions, and machines.",
+      "support": "The introduction describes between-machine synchronization, qualified as optional."
+    },
+    {
+      "function": "capability",
+      "ordinal": 14,
+      "proposition": "Atuin logs exit code, cwd, hostname, session, command duration, and other context.",
+      "support": "The introduction states additional context is recorded; the demo caption names exit code and duration, and the search example filters by exit code."
+    },
+    {
+      "function": "capability",
+      "ordinal": 15,
+      "proposition": "Atuin calculates statistics such as the most used command.",
+      "support": "absent"
+    },
+    {
+      "function": "qualification",
+      "ordinal": 16,
+      "proposition": "The old history file is not replaced.",
+      "support": "Qualifies the introduction's statement that Atuin replaces existing shell history."
+    },
+    {
+      "function": "capability",
+      "ordinal": 17,
+      "proposition": "Atuin supports quick jumps to previous items.",
+      "support": "The same bullet supplies Alt-<num> as the shortcut."
+    },
+    {
+      "function": "other",
+      "ordinal": 18,
+      "proposition": "",
+      "support": "Alt-<num> specifies the shortcut for the preceding quick-jump fragment."
+    },
+    {
+      "function": "capability",
+      "ordinal": 19,
+      "proposition": "ctrl-r switches filter modes for current-session, directory, or global history search.",
+      "support": "absent"
+    },
+    {
+      "function": "instruction",
+      "ordinal": 20,
+      "proposition": "Press enter to execute a command and tab to edit it.",
+      "support": "Appears in the history search feature list; no demonstration is supplied."
+    },
+    {
+      "function": "transition",
+      "ordinal": 21,
+      "proposition": "",
+      "support": "Introduces documentation links."
+    },
+    {
+      "function": "other",
+      "ordinal": 22,
+      "proposition": "",
+      "support": "Navigation link to #quickstart."
+    },
+    {
+      "function": "other",
+      "ordinal": 23,
+      "proposition": "",
+      "support": "Documentation link to https://docs.atuin.sh/latest/guide/installation/."
+    },
+    {
+      "function": "other",
+      "ordinal": 24,
+      "proposition": "",
+      "support": "Documentation link to https://docs.atuin.sh/latest/guide/sync/."
+    },
+    {
+      "function": "other",
+      "ordinal": 25,
+      "proposition": "",
+      "support": "Documentation link to https://docs.atuin.sh/latest/guide/import/."
+    },
+    {
+      "function": "other",
+      "ordinal": 26,
+      "proposition": "",
+      "support": "Documentation link to https://docs.atuin.sh/latest/guide/basic-usage/."
+    },
+    {
+      "function": "transition",
+      "ordinal": 27,
+      "proposition": "",
+      "support": "Introduces shell support and the support matrix link."
+    },
+    {
+      "function": "capability",
+      "ordinal": 28,
+      "proposition": "Atuin supports zsh, bash, fish, nushell, xonsh, and PowerShell.",
+      "support": "Links to https://docs.atuin.sh/latest/support/ for the matrix and tiers; the Bash note qualifies bash-preexec with limitations."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 29,
+      "proposition": "Consult Supported platforms for the full support matrix and tier meanings.",
+      "support": "Links to https://docs.atuin.sh/latest/support/; the matrix itself is not reproduced."
+    },
+    {
+      "function": "transition",
+      "ordinal": 30,
+      "proposition": "",
+      "support": "Introduces Forum, IRC, and Discord sections."
+    },
+    {
+      "function": "transition",
+      "ordinal": 31,
+      "proposition": "",
+      "support": "Introduces the community forum information."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 32,
+      "proposition": "Use Atuin's community forum for help and support.",
+      "support": "The adjacent protected URL is https://forum.atuin.sh/."
+    },
+    {
+      "function": "transition",
+      "ordinal": 33,
+      "proposition": "",
+      "support": "Introduces IRC contact information."
+    },
+    {
+      "function": "capability",
+      "ordinal": 34,
+      "proposition": "The Atuin community is available through #atuin on libera.chat.",
+      "support": "absent"
+    },
+    {
+      "function": "transition",
+      "ordinal": 35,
+      "proposition": "",
+      "support": "Introduces community Discord information."
+    },
+    {
+      "function": "capability",
+      "ordinal": 36,
+      "proposition": "Atuin has a community Discord accessible through the supplied link.",
+      "support": "The here link targets https://discord.gg/jR3tfchVvW."
+    },
+    {
+      "function": "transition",
+      "ordinal": 37,
+      "proposition": "",
+      "support": "Introduces the cloud signup and setup sequence."
+    },
+    {
+      "function": "capability",
+      "ordinal": 38,
+      "proposition": "The Quickstart procedure signs users up for the Atuin Cloud sync server.",
+      "support": "The following code block includes atuin register -u <USERNAME> -e <EMAIL>."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 39,
+      "proposition": "Everything is end-to-end encrypted, making users' secrets safe.",
+      "support": "The introduction and server paragraph assert encrypted history sync; no evidence establishes the broader safety assurance."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 40,
+      "proposition": "Read the docs for offline setup, a self-hosted server, and more.",
+      "support": "Links to https://docs.atuin.sh; the server paragraph states that self-hosting and omitting sync are options."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 41,
+      "proposition": "Restart the shell after the Quickstart commands.",
+      "support": "Follows the installation, registration, import, and sync code block; the subsequent Bash note discusses hook setup and limitations."
+    },
+    {
+      "function": "transition",
+      "ordinal": 42,
+      "proposition": "",
+      "support": "Introduces three related-project links."
+    },
+    {
+      "function": "other",
+      "ordinal": 43,
+      "proposition": "",
+      "support": "Related-project link labeled Catpuccin for Atuin targets https://github.com/catppuccin/atuin."
+    },
+    {
+      "function": "other",
+      "ordinal": 44,
+      "proposition": "",
+      "support": "Related-project link to https://github.com/SqrtMinusOne/eshell-atuin."
+    },
+    {
+      "function": "definition",
+      "ordinal": 45,
+      "proposition": "mob is described as tiny creatures in your terminal.",
+      "support": "Links to https://github.com/bboynton97/mob; no further description is supplied."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 46,
+      "proposition": "Open a PR to add other related projects.",
+      "support": "Immediately follows the related-project list."
+    },
+    {
+      "function": "transition",
+      "ordinal": 47,
+      "proposition": "",
+      "support": "Introduces the contributors graphic and attribution."
+    },
+    {
+      "function": "other",
+      "ordinal": 48,
+      "proposition": "The contributors graphic was made with contrib.rocks.",
+      "support": "The preceding image uses https://contrib.rocks/image?repo=atuinsh/atuin&max=300; the attribution links to https://contrib.rocks."
+    }
+  ],
+  "inventory_sha256": "3387c7ec8b76400c4b45a1482c60a6b79d46386f8240353e18354bbf950d3d8e",
+  "numbered_source": "0001| <p align=\"center\">\n0002|  <picture>\n0003|   <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.com/atuinsh/atuin/assets/53315310/13216a1d-1ac0-4c99-b0eb-d88290fe0efd\">\n0004|   <img alt=\"Text changing depending on mode. Light: 'So light!' Dark: 'So dark!'\" src=\"https://github.com/atuinsh/atuin/assets/53315310/08bc86d4-a781-4aaa-8d7e-478ae6bcd129\">\n0005| </picture>\n0006| </p>\n0007| \n0008| <p align=\"center\">\n0009| <em>magical shell history</em>\n0010| </p>\n0011| \n0012| <hr/>\n0013| \n0014| <p align=\"center\">\n0015|   <a href=\"https://buildkite.com/atuin/atuin\"><img src=\"https://badge.buildkite.com/6213f2ad159947780451bdc7fca76c8a8a0be3d3bca66b8a6d.svg?branch=main\" /></a>\n0016|   <a href=\"https://crates.io/crates/atuin\"><img src=\"https://img.shields.io/crates/v/atuin.svg?style=flat-square\" /></a>\n0017|   <a href=\"https://crates.io/crates/atuin\"><img src=\"https://img.shields.io/crates/d/atuin.svg?style=flat-square\" /></a>\n0018|   <a href=\"https://github.com/atuinsh/atuin/blob/main/LICENSE\"><img src=\"https://img.shields.io/crates/l/atuin.svg?style=flat-square\" /></a>\n0019|   <a href=\"https://discord.gg/Fq8bJSKPHh\"><img src=\"https://img.shields.io/discord/954121165239115808\" /></a>\n0020|   <a rel=\"me\" href=\"https://hachyderm.io/@atuin\"><img src=\"https://img.shields.io/mastodon/follow/109944632283122560?domain=https%3A%2F%2Fhachyderm.io&style=social\"/></a>\n0021|   <a href=\"https://twitter.com/atuinsh\"><img src=\"https://img.shields.io/twitter/follow/atuinsh?style=social\" /></a>\n0022| </p>\n0023| \n0024| Atuin replaces your existing shell history with a SQLite database, and records\n0025| additional context for your commands. Additionally, it provides optional and\n0026| _fully encrypted_ synchronisation of your history between machines, via an Atuin\n0027| server.\n0028| \n0029| <p align=\"center\">\n0030|   <img src=\"demo.gif\" alt=\"animated\" width=\"80%\" />\n0031| </p>\n0032| \n0033| <p align=\"center\">\n0034| <em>exit code, duration, time and command shown</em>\n0035| </p>\n0036| \n0037| As well as the search UI, it can do things like this:\n0038| \n0039| ```\n0040| # search for all successful `make` commands, recorded after 3pm yesterday\n0041| atuin search --exit 0 --after \"yesterday 3pm\" make\n0042| ```\n0043| \n0044| You may use either the server I host, or host your own! Or just don't use sync\n0045| at all. As all history sync is encrypted, I couldn't access your data even if\n0046| I wanted to. And I **really** don't want to.\n0047| \n0048| ## Features\n0049| \n0050| - rebind `ctrl-r` and `up` (configurable) to a full screen history search UI\n0051| - store shell history in a sqlite database\n0052| - back up and sync **encrypted** shell history\n0053| - the same history across terminals, across sessions, and across machines\n0054| - log exit code, cwd, hostname, session, command duration, etc\n0055| - calculate statistics such as \"most used command\"\n0056| - old history file is not replaced\n0057| - quick-jump to previous items with <kbd>Alt-\\<num\\></kbd>\n0058| - switch filter modes via ctrl-r; search history just from the current session, directory, or globally\n0059| - enter to execute a command, tab to edit\n0060| \n0061| ## Documentation\n0062| \n0063| - [Quickstart](#quickstart)\n0064| - [Install](https://docs.atuin.sh/latest/guide/installation/)\n0065| - [Setting up sync](https://docs.atuin.sh/latest/guide/sync/)\n0066| - [Import history](https://docs.atuin.sh/latest/guide/import/)\n0067| - [Basic usage](https://docs.atuin.sh/latest/guide/basic-usage/)\n0068| \n0069| ## Supported platforms\n0070| \n0071| Atuin supports zsh, bash, fish, nushell, xonsh, and PowerShell. See\n0072| [Supported platforms](https://docs.atuin.sh/latest/support/) for the full matrix\n0073| and what each tier means.\n0074| \n0075| ## Community\n0076| \n0077| ### Forum\n0078| \n0079| Atuin has a community forum, please ask here for help and support: <https://forum.atuin.sh/>\n0080| \n0081| ### IRC\n0082| \n0083| We're also available via #atuin on libera.chat\n0084| \n0085| ### Discord\n0086| \n0087| Atuin also has a community Discord, available [here](https://discord.gg/jR3tfchVvW)\n0088| \n0089| # Quickstart\n0090| \n0091| This will sign you up for the Atuin Cloud sync server. Everything is end-to-end encrypted, so your secrets are safe!\n0092| \n0093| Read the [docs](https://docs.atuin.sh) for an offline setup, self-hosted server, and more.\n0094| \n0095| ```\n0096| curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh\n0097| \n0098| atuin register -u <USERNAME> -e <EMAIL>\n0099| atuin import auto\n0100| atuin sync\n0101| ```\n0102| \n0103| Then restart your shell!\n0104| \n0105| > [!NOTE]\n0106| >\n0107| > **For Bash users**: The above sets up `bash-preexec` for necessary hooks, but\n0108| > `bash-preexec` has limitations. For details, please see the\n0109| > [Bash](https://docs.atuin.sh/latest/guide/installation/#installing-the-shell-plugin)\n0110| > section of the shell plugin documentation.\n0111| \n0112| \n0113| # Related projects\n0114| - [Catpuccin for Atuin](https://github.com/catppuccin/atuin)\n0115| - [eshell-atuin](https://github.com/SqrtMinusOne/eshell-atuin)\n0116| - [mob (tiny creatures in your terminal)](https://github.com/bboynton97/mob)\n0117| \n0118| Please open a PR for any others!\n0119| \n0120| # Contributors\n0121| \n0122| <a href=\"https://github.com/atuinsh/atuin/graphs/contributors\">\n0123|   <img src=\"https://contrib.rocks/image?repo=atuinsh/atuin&max=300\" />\n0124| </a>\n0125| \n0126| Made with [contrib.rocks](https://contrib.rocks).",
+  "page_id": "atuinsh/atuin/README.md",
+  "source_sha256": "5b9734c4b234756d3fbbc8ef202cb6c5f0f0e965c61ab6534a372ffde0a76f3a",
+  "units": [
+    {
+      "kind": "sentence",
+      "ordinal": 0,
+      "raw_slice": "Atuin replaces your existing shell history with a SQLite database, and records\nadditional context for your commands.",
+      "raw_span": {
+        "end": 1509,
+        "start": 1393
+      },
+      "segments": [
+        {
+          "end": 1509,
+          "start": 1393
+        }
+      ],
+      "text": "Atuin replaces your existing shell history with a SQLite database, and records additional context for your commands."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 1,
+      "raw_slice": "Additionally, it provides optional and\n_fully encrypted_ synchronisation of your history between machines, via an Atuin\nserver.",
+      "raw_span": {
+        "end": 1637,
+        "start": 1510
+      },
+      "segments": [
+        {
+          "end": 1549,
+          "start": 1510
+        },
+        {
+          "end": 1565,
+          "start": 1550
+        },
+        {
+          "end": 1637,
+          "start": 1566
+        }
+      ],
+      "text": "Additionally, it provides optional and fully encrypted synchronisation of your history between machines, via an Atuin server."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 2,
+      "raw_slice": "As well as the search UI, it can do things like this:",
+      "raw_span": {
+        "end": 1847,
+        "start": 1794
+      },
+      "segments": [
+        {
+          "end": 1847,
+          "start": 1794
+        }
+      ],
+      "text": "As well as the search UI, it can do things like this:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 3,
+      "raw_slice": "You may use either the server I host, or host your own!",
+      "raw_span": {
+        "end": 2038,
+        "start": 1983
+      },
+      "segments": [
+        {
+          "end": 2038,
+          "start": 1983
+        }
+      ],
+      "text": "You may use either the server I host, or host your own!"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 4,
+      "raw_slice": "Or just don't use sync\nat all.",
+      "raw_span": {
+        "end": 2069,
+        "start": 2039
+      },
+      "segments": [
+        {
+          "end": 2069,
+          "start": 2039
+        }
+      ],
+      "text": "Or just don't use sync at all."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 5,
+      "raw_slice": "As all history sync is encrypted, I couldn't access your data even if\nI wanted to.",
+      "raw_span": {
+        "end": 2152,
+        "start": 2070
+      },
+      "segments": [
+        {
+          "end": 2152,
+          "start": 2070
+        }
+      ],
+      "text": "As all history sync is encrypted, I couldn't access your data even if I wanted to."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 6,
+      "raw_slice": "And I **really** don't want to.",
+      "raw_span": {
+        "end": 2184,
+        "start": 2153
+      },
+      "segments": [
+        {
+          "end": 2159,
+          "start": 2153
+        },
+        {
+          "end": 2167,
+          "start": 2161
+        },
+        {
+          "end": 2184,
+          "start": 2169
+        }
+      ],
+      "text": "And I really don't want to."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 7,
+      "raw_slice": "Features",
+      "raw_span": {
+        "end": 2197,
+        "start": 2189
+      },
+      "segments": [
+        {
+          "end": 2197,
+          "start": 2189
+        }
+      ],
+      "text": "Features"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 8,
+      "raw_slice": "rebind",
+      "raw_span": {
+        "end": 2207,
+        "start": 2201
+      },
+      "segments": [
+        {
+          "end": 2207,
+          "start": 2201
+        }
+      ],
+      "text": "rebind"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 9,
+      "raw_slice": "and",
+      "raw_span": {
+        "end": 2220,
+        "start": 2217
+      },
+      "segments": [
+        {
+          "end": 2220,
+          "start": 2217
+        }
+      ],
+      "text": "and"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 10,
+      "raw_slice": "(configurable) to a full screen history search UI",
+      "raw_span": {
+        "end": 2275,
+        "start": 2226
+      },
+      "segments": [
+        {
+          "end": 2275,
+          "start": 2226
+        }
+      ],
+      "text": "(configurable) to a full screen history search UI"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 11,
+      "raw_slice": "store shell history in a sqlite database",
+      "raw_span": {
+        "end": 2318,
+        "start": 2278
+      },
+      "segments": [
+        {
+          "end": 2318,
+          "start": 2278
+        }
+      ],
+      "text": "store shell history in a sqlite database"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 12,
+      "raw_slice": "back up and sync **encrypted** shell history",
+      "raw_span": {
+        "end": 2365,
+        "start": 2321
+      },
+      "segments": [
+        {
+          "end": 2338,
+          "start": 2321
+        },
+        {
+          "end": 2349,
+          "start": 2340
+        },
+        {
+          "end": 2365,
+          "start": 2351
+        }
+      ],
+      "text": "back up and sync encrypted shell history"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 13,
+      "raw_slice": "the same history across terminals, across sessions, and across machines",
+      "raw_span": {
+        "end": 2439,
+        "start": 2368
+      },
+      "segments": [
+        {
+          "end": 2439,
+          "start": 2368
+        }
+      ],
+      "text": "the same history across terminals, across sessions, and across machines"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 14,
+      "raw_slice": "log exit code, cwd, hostname, session, command duration, etc",
+      "raw_span": {
+        "end": 2502,
+        "start": 2442
+      },
+      "segments": [
+        {
+          "end": 2502,
+          "start": 2442
+        }
+      ],
+      "text": "log exit code, cwd, hostname, session, command duration, etc"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 15,
+      "raw_slice": "calculate statistics such as \"most used command\"",
+      "raw_span": {
+        "end": 2553,
+        "start": 2505
+      },
+      "segments": [
+        {
+          "end": 2553,
+          "start": 2505
+        }
+      ],
+      "text": "calculate statistics such as \"most used command\""
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 16,
+      "raw_slice": "old history file is not replaced",
+      "raw_span": {
+        "end": 2588,
+        "start": 2556
+      },
+      "segments": [
+        {
+          "end": 2588,
+          "start": 2556
+        }
+      ],
+      "text": "old history file is not replaced"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 17,
+      "raw_slice": "quick-jump to previous items with",
+      "raw_span": {
+        "end": 2624,
+        "start": 2591
+      },
+      "segments": [
+        {
+          "end": 2624,
+          "start": 2591
+        }
+      ],
+      "text": "quick-jump to previous items with"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 18,
+      "raw_slice": "Alt-\\<num\\>",
+      "raw_span": {
+        "end": 2641,
+        "start": 2630
+      },
+      "segments": [
+        {
+          "end": 2641,
+          "start": 2630
+        }
+      ],
+      "text": "Alt-<num>"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 19,
+      "raw_slice": "switch filter modes via ctrl-r; search history just from the current session, directory, or globally",
+      "raw_span": {
+        "end": 2750,
+        "start": 2650
+      },
+      "segments": [
+        {
+          "end": 2750,
+          "start": 2650
+        }
+      ],
+      "text": "switch filter modes via ctrl-r; search history just from the current session, directory, or globally"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 20,
+      "raw_slice": "enter to execute a command, tab to edit",
+      "raw_span": {
+        "end": 2792,
+        "start": 2753
+      },
+      "segments": [
+        {
+          "end": 2792,
+          "start": 2753
+        }
+      ],
+      "text": "enter to execute a command, tab to edit"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 21,
+      "raw_slice": "Documentation",
+      "raw_span": {
+        "end": 2810,
+        "start": 2797
+      },
+      "segments": [
+        {
+          "end": 2810,
+          "start": 2797
+        }
+      ],
+      "text": "Documentation"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 22,
+      "raw_slice": "Quickstart",
+      "raw_span": {
+        "end": 2825,
+        "start": 2815
+      },
+      "segments": [
+        {
+          "end": 2825,
+          "start": 2815
+        }
+      ],
+      "text": "Quickstart"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 23,
+      "raw_slice": "Install",
+      "raw_span": {
+        "end": 2850,
+        "start": 2843
+      },
+      "segments": [
+        {
+          "end": 2850,
+          "start": 2843
+        }
+      ],
+      "text": "Install"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 24,
+      "raw_slice": "Setting up sync",
+      "raw_span": {
+        "end": 2920,
+        "start": 2905
+      },
+      "segments": [
+        {
+          "end": 2920,
+          "start": 2905
+        }
+      ],
+      "text": "Setting up sync"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 25,
+      "raw_slice": "Import history",
+      "raw_span": {
+        "end": 2981,
+        "start": 2967
+      },
+      "segments": [
+        {
+          "end": 2981,
+          "start": 2967
+        }
+      ],
+      "text": "Import history"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 26,
+      "raw_slice": "Basic usage",
+      "raw_span": {
+        "end": 3041,
+        "start": 3030
+      },
+      "segments": [
+        {
+          "end": 3041,
+          "start": 3030
+        }
+      ],
+      "text": "Basic usage"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 27,
+      "raw_slice": "Supported platforms",
+      "raw_span": {
+        "end": 3115,
+        "start": 3096
+      },
+      "segments": [
+        {
+          "end": 3115,
+          "start": 3096
+        }
+      ],
+      "text": "Supported platforms"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 28,
+      "raw_slice": "Atuin supports zsh, bash, fish, nushell, xonsh, and PowerShell.",
+      "raw_span": {
+        "end": 3180,
+        "start": 3117
+      },
+      "segments": [
+        {
+          "end": 3180,
+          "start": 3117
+        }
+      ],
+      "text": "Atuin supports zsh, bash, fish, nushell, xonsh, and PowerShell."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 29,
+      "raw_slice": "See\n[Supported platforms](https://docs.atuin.sh/latest/support/) for the full matrix\nand what each tier means.",
+      "raw_span": {
+        "end": 3291,
+        "start": 3181
+      },
+      "segments": [
+        {
+          "end": 3185,
+          "start": 3181
+        },
+        {
+          "end": 3205,
+          "start": 3186
+        },
+        {
+          "end": 3291,
+          "start": 3245
+        }
+      ],
+      "text": "See Supported platforms for the full matrix and what each tier means."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 30,
+      "raw_slice": "Community",
+      "raw_span": {
+        "end": 3305,
+        "start": 3296
+      },
+      "segments": [
+        {
+          "end": 3305,
+          "start": 3296
+        }
+      ],
+      "text": "Community"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 31,
+      "raw_slice": "Forum",
+      "raw_span": {
+        "end": 3316,
+        "start": 3311
+      },
+      "segments": [
+        {
+          "end": 3316,
+          "start": 3311
+        }
+      ],
+      "text": "Forum"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 32,
+      "raw_slice": "Atuin has a community forum, please ask here for help and support:",
+      "raw_span": {
+        "end": 3384,
+        "start": 3318
+      },
+      "segments": [
+        {
+          "end": 3384,
+          "start": 3318
+        }
+      ],
+      "text": "Atuin has a community forum, please ask here for help and support:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 33,
+      "raw_slice": "IRC",
+      "raw_span": {
+        "end": 3419,
+        "start": 3416
+      },
+      "segments": [
+        {
+          "end": 3419,
+          "start": 3416
+        }
+      ],
+      "text": "IRC"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 34,
+      "raw_slice": "We're also available via #atuin on libera.chat",
+      "raw_span": {
+        "end": 3467,
+        "start": 3421
+      },
+      "segments": [
+        {
+          "end": 3467,
+          "start": 3421
+        }
+      ],
+      "text": "We're also available via #atuin on libera.chat"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 35,
+      "raw_slice": "Discord",
+      "raw_span": {
+        "end": 3480,
+        "start": 3473
+      },
+      "segments": [
+        {
+          "end": 3480,
+          "start": 3473
+        }
+      ],
+      "text": "Discord"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 36,
+      "raw_slice": "Atuin also has a community Discord, available [here",
+      "raw_span": {
+        "end": 3533,
+        "start": 3482
+      },
+      "segments": [
+        {
+          "end": 3528,
+          "start": 3482
+        },
+        {
+          "end": 3533,
+          "start": 3529
+        }
+      ],
+      "text": "Atuin also has a community Discord, available here"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 37,
+      "raw_slice": "Quickstart",
+      "raw_span": {
+        "end": 3579,
+        "start": 3569
+      },
+      "segments": [
+        {
+          "end": 3579,
+          "start": 3569
+        }
+      ],
+      "text": "Quickstart"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 38,
+      "raw_slice": "This will sign you up for the Atuin Cloud sync server.",
+      "raw_span": {
+        "end": 3635,
+        "start": 3581
+      },
+      "segments": [
+        {
+          "end": 3635,
+          "start": 3581
+        }
+      ],
+      "text": "This will sign you up for the Atuin Cloud sync server."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 39,
+      "raw_slice": "Everything is end-to-end encrypted, so your secrets are safe!",
+      "raw_span": {
+        "end": 3697,
+        "start": 3636
+      },
+      "segments": [
+        {
+          "end": 3697,
+          "start": 3636
+        }
+      ],
+      "text": "Everything is end-to-end encrypted, so your secrets are safe!"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 40,
+      "raw_slice": "Read the [docs](https://docs.atuin.sh) for an offline setup, self-hosted server, and more.",
+      "raw_span": {
+        "end": 3789,
+        "start": 3699
+      },
+      "segments": [
+        {
+          "end": 3708,
+          "start": 3699
+        },
+        {
+          "end": 3713,
+          "start": 3709
+        },
+        {
+          "end": 3789,
+          "start": 3737
+        }
+      ],
+      "text": "Read the docs for an offline setup, self-hosted server, and more."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 41,
+      "raw_slice": "Then restart your shell!",
+      "raw_span": {
+        "end": 3960,
+        "start": 3936
+      },
+      "segments": [
+        {
+          "end": 3960,
+          "start": 3936
+        }
+      ],
+      "text": "Then restart your shell!"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 42,
+      "raw_slice": "Related projects",
+      "raw_span": {
+        "end": 4268,
+        "start": 4252
+      },
+      "segments": [
+        {
+          "end": 4268,
+          "start": 4252
+        }
+      ],
+      "text": "Related projects"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 43,
+      "raw_slice": "Catpuccin for Atuin",
+      "raw_span": {
+        "end": 4291,
+        "start": 4272
+      },
+      "segments": [
+        {
+          "end": 4291,
+          "start": 4272
+        }
+      ],
+      "text": "Catpuccin for Atuin"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 44,
+      "raw_slice": "eshell-atuin",
+      "raw_span": {
+        "end": 4345,
+        "start": 4333
+      },
+      "segments": [
+        {
+          "end": 4345,
+          "start": 4333
+        }
+      ],
+      "text": "eshell-atuin"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 45,
+      "raw_slice": "mob (tiny creatures in your terminal)",
+      "raw_span": {
+        "end": 4433,
+        "start": 4396
+      },
+      "segments": [
+        {
+          "end": 4433,
+          "start": 4396
+        }
+      ],
+      "text": "mob (tiny creatures in your terminal)"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 46,
+      "raw_slice": "Please open a PR for any others!",
+      "raw_span": {
+        "end": 4503,
+        "start": 4471
+      },
+      "segments": [
+        {
+          "end": 4503,
+          "start": 4471
+        }
+      ],
+      "text": "Please open a PR for any others!"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 47,
+      "raw_slice": "Contributors",
+      "raw_span": {
+        "end": 4519,
+        "start": 4507
+      },
+      "segments": [
+        {
+          "end": 4519,
+          "start": 4507
+        }
+      ],
+      "text": "Contributors"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 48,
+      "raw_slice": "Made with [contrib.rocks](https://contrib.rocks).",
+      "raw_span": {
+        "end": 4711,
+        "start": 4662
+      },
+      "segments": [
+        {
+          "end": 4672,
+          "start": 4662
+        },
+        {
+          "end": 4686,
+          "start": 4673
+        },
+        {
+          "end": 4711,
+          "start": 4710
+        }
+      ],
+      "text": "Made with contrib.rocks."
+    }
+  ]
+}

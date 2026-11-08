@@ -1,0 +1,22 @@
+{
+  "format": "unswell-349-exhaustive-inventory-pilot-v2",
+  "status": "offline; no model calls",
+  "route": "existing Codex subscription; no paid API route",
+  "execution_environment": "Host process with permitted in-process app-server initialization; Codex CLI remains ephemeral, tool-free, and read-only.",
+  "preceding_run": "V1 freeze 750474ef632d504485e921d0f35f7432db961fc01ed732146d1a2a82345d6956 stopped on the first CLI attempt before a model response: in-process app-server initialization returned Operation not permitted. No V1 retry or other request was made.",
+  "model": "gpt-6-astra",
+  "effort": "medium",
+  "pages": ["astral-sh/uv/README.md", "zed-industries/zed/README.md", "atuinsh/atuin/README.md"],
+  "passes_per_page": ["inventory", "diagnosis"],
+  "calls_max": 6,
+  "concurrency": 1,
+  "attempts_per_request": 1,
+  "automatic_retries": false,
+  "tools_allowed": false,
+  "per_call_timeout_seconds": 600,
+  "total_timeout_seconds": 10800,
+  "max_findings_per_page": 20,
+  "failure_policy": "Stop at the first CLI, schema, trace, ID coverage, source-binding, timeout, or resource error; never retry or repair a response.",
+  "input_policy": "Each request receives one complete pinned public page and its eligible units. The diagnosis pass also receives the complete validated inventory response. Frozen labels, reviewer rationales, prior page responses, and grades never enter requests.",
+  "scoring": "Report the complete delivered diagnosis stream, FULL recall of all four frozen events, accepted findings / all delivered findings, invalid and abstained pages, protected counterexamples, and no edit safety claim. A directional advance requires 4/4 FULL events, at least 85% accepted findings, no invalid page, and no protected counterexample flagged. This does not replace the 36-page/123-event development gate or separate confirmation for #349."
+}

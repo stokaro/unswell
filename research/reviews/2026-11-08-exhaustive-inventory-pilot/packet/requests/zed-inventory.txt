@@ -1,0 +1,738 @@
+Review the COMPLETE public technical README and its eligible prose units below.
+This is an exhaustive claim inventory, not an AI-authorship or style judgment.
+Use only the supplied source; do not use tools or external knowledge.
+
+Return exactly one record for every supplied unit ordinal, in the same order.
+Do not omit a unit, add an ordinal, merge units, or invent a source claim.
+Classify its function as definition, capability, evidence, qualification,
+instruction, transition, promotion, or other. State its concrete proposition
+briefly, or use an empty string if it makes no proposition. In support, name
+the specific source evidence or qualification, or say "absent" or "unclear".
+The support field records page context; it is not yet a recommendation.
+
+The prepared unit text is mapped prose. The raw source envelope may contain
+Markdown syntax; only binding segments are eligible prose. Preserve negation,
+numbers, versions, identifiers, conditions, links, and protected code. Do not
+turn a code example or syntax marker into an editorial claim.
+
+Return schema JSON only. Echo the page ID and source SHA-256 exactly.
+
+INPUT JSON:
+{
+  "excluded": [
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 130,
+        "start": 8
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 236,
+        "start": 150
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1576,
+        "start": 1563
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1755,
+        "start": 1733
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1818,
+        "start": 1801
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1836,
+        "start": 1825
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1920,
+        "start": 1880
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 2208,
+        "start": 2198
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 2253,
+        "start": 2218
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 2273,
+        "start": 2260
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 2401,
+        "start": 2366
+      }
+    }
+  ],
+  "numbered_source": "0001| # Zed\n0002| \n0003| [![Zed](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/zed-industries/zed/main/assets/badge/v0.json)](https://zed.dev)\n0004| [![CI](https://github.com/zed-industries/zed/actions/workflows/run_tests.yml/badge.svg)](https://github.com/zed-industries/zed/actions/workflows/run_tests.yml)\n0005| \n0006| Welcome to Zed, a high-performance, multiplayer code editor from the creators of [Atom](https://github.com/atom/atom) and [Tree-sitter](https://github.com/tree-sitter/tree-sitter).\n0007| \n0008| ---\n0009| \n0010| ### Installation\n0011| \n0012| On macOS, Linux, and Windows you can [download Zed directly](https://zed.dev/download) or install Zed via your local package manager ([macOS](https://zed.dev/docs/installation#macos)/[Linux](https://zed.dev/docs/linux#installing-via-a-package-manager)/[Windows](https://zed.dev/docs/windows#package-managers)).\n0013| \n0014| Other platforms are not yet available:\n0015| \n0016| - Web ([tracking discussion](https://github.com/zed-industries/zed/discussions/26195))\n0017| \n0018| ### Developing Zed\n0019| \n0020| - [Building Zed for macOS](./docs/src/development/macos.md)\n0021| - [Building Zed for Linux](./docs/src/development/linux.md)\n0022| - [Building Zed for Windows](./docs/src/development/windows.md)\n0023| \n0024| ### Contributing\n0025| \n0026| See [CONTRIBUTING.md](./CONTRIBUTING.md) for ways you can contribute to Zed.\n0027| \n0028| Also... we're hiring! Check out our [jobs](https://zed.dev/jobs) page for open roles.\n0029| \n0030| ### Licensing\n0031| \n0032| Zed source code is licensed primarily under GPL-3.0-or-later, with Apache-2.0 components where marked.\n0033| \n0034| License information for third party dependencies must be correctly provided for CI to pass.\n0035| \n0036| We use [`cargo-about`](https://github.com/EmbarkStudios/cargo-about) to automatically comply with open source licenses. If CI is failing, check the following:\n0037| \n0038| - Is it showing a `no license specified` error for a crate you've created? If so, add `publish = false` under `[package]` in your crate's Cargo.toml.\n0039| - Is the error `failed to satisfy license requirements` for a dependency? If so, first determine what license the project has and whether this system is sufficient to comply with this license's requirements. If you're unsure, ask a lawyer. Once you've verified that this system is acceptable add the license's SPDX identifier to the `accepted` array in `script/licenses/zed-licenses.toml`.\n0040| - Is `cargo-about` unable to find the license for a dependency? If so, add a clarification field at the end of `script/licenses/zed-licenses.toml`, as specified in the [cargo-about book](https://embarkstudios.github.io/cargo-about/cli/generate/config.html#crate-configuration).\n0041| \n0042| ## Sponsorship\n0043| \n0044| Zed is developed by **Zed Industries, Inc.**, a for-profit company.\n0045| \n0046| If you’d like to financially support the project, you can do so via GitHub Sponsors.\n0047| Sponsorships go directly to Zed Industries and are used as general company revenue.\n0048| There are no perks or entitlements associated with sponsorship.",
+  "page_id": "zed-industries/zed/README.md",
+  "source_sha256": "0a1b8417d31d53dfd6b4f1c5cc1a1a6f7ae6d3ac044bdb1938bd49cbd09d8198",
+  "units": [
+    {
+      "kind": "fragment",
+      "ordinal": 0,
+      "raw_slice": "Zed",
+      "raw_span": {
+        "end": 5,
+        "start": 2
+      },
+      "segments": [
+        {
+          "end": 5,
+          "start": 2
+        }
+      ],
+      "text": "Zed"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 1,
+      "raw_slice": "Welcome to Zed, a high-performance, multiplayer code editor from the creators of [Atom](https://github.com/atom/atom) and [Tree-sitter](https://github.com/tree-sitter/tree-sitter).",
+      "raw_span": {
+        "end": 490,
+        "start": 310
+      },
+      "segments": [
+        {
+          "end": 391,
+          "start": 310
+        },
+        {
+          "end": 396,
+          "start": 392
+        },
+        {
+          "end": 432,
+          "start": 427
+        },
+        {
+          "end": 444,
+          "start": 433
+        },
+        {
+          "end": 490,
+          "start": 489
+        }
+      ],
+      "text": "Welcome to Zed, a high-performance, multiplayer code editor from the creators of Atom and Tree-sitter."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 2,
+      "raw_slice": "Installation",
+      "raw_span": {
+        "end": 513,
+        "start": 501
+      },
+      "segments": [
+        {
+          "end": 513,
+          "start": 501
+        }
+      ],
+      "text": "Installation"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 3,
+      "raw_slice": "On macOS, Linux, and Windows you can [download Zed directly](https://zed.dev/download) or install Zed via your local package manager ([macOS](https://zed.dev/docs/installation#macos)/[Linux](https://zed.dev/docs/linux#installing-via-a-package-manager)/[Windows](https://zed.dev/docs/windows#package-managers)).",
+      "raw_span": {
+        "end": 825,
+        "start": 515
+      },
+      "segments": [
+        {
+          "end": 552,
+          "start": 515
+        },
+        {
+          "end": 574,
+          "start": 553
+        },
+        {
+          "end": 649,
+          "start": 601
+        },
+        {
+          "end": 655,
+          "start": 650
+        },
+        {
+          "end": 698,
+          "start": 697
+        },
+        {
+          "end": 704,
+          "start": 699
+        },
+        {
+          "end": 767,
+          "start": 766
+        },
+        {
+          "end": 775,
+          "start": 768
+        },
+        {
+          "end": 825,
+          "start": 823
+        }
+      ],
+      "text": "On macOS, Linux, and Windows you can download Zed directly or install Zed via your local package manager (macOS/Linux/Windows)."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 4,
+      "raw_slice": "Other platforms are not yet available:",
+      "raw_span": {
+        "end": 865,
+        "start": 827
+      },
+      "segments": [
+        {
+          "end": 865,
+          "start": 827
+        }
+      ],
+      "text": "Other platforms are not yet available:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 5,
+      "raw_slice": "Web ([tracking discussion](https://github.com/zed-industries/zed/discussions/26195))",
+      "raw_span": {
+        "end": 953,
+        "start": 869
+      },
+      "segments": [
+        {
+          "end": 874,
+          "start": 869
+        },
+        {
+          "end": 894,
+          "start": 875
+        },
+        {
+          "end": 953,
+          "start": 952
+        }
+      ],
+      "text": "Web (tracking discussion)"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 6,
+      "raw_slice": "Developing Zed",
+      "raw_span": {
+        "end": 973,
+        "start": 959
+      },
+      "segments": [
+        {
+          "end": 973,
+          "start": 959
+        }
+      ],
+      "text": "Developing Zed"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 7,
+      "raw_slice": "Building Zed for macOS",
+      "raw_span": {
+        "end": 1000,
+        "start": 978
+      },
+      "segments": [
+        {
+          "end": 1000,
+          "start": 978
+        }
+      ],
+      "text": "Building Zed for macOS"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 8,
+      "raw_slice": "Building Zed for Linux",
+      "raw_span": {
+        "end": 1060,
+        "start": 1038
+      },
+      "segments": [
+        {
+          "end": 1060,
+          "start": 1038
+        }
+      ],
+      "text": "Building Zed for Linux"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 9,
+      "raw_slice": "Building Zed for Windows",
+      "raw_span": {
+        "end": 1122,
+        "start": 1098
+      },
+      "segments": [
+        {
+          "end": 1122,
+          "start": 1098
+        }
+      ],
+      "text": "Building Zed for Windows"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 10,
+      "raw_slice": "Contributing",
+      "raw_span": {
+        "end": 1176,
+        "start": 1164
+      },
+      "segments": [
+        {
+          "end": 1176,
+          "start": 1164
+        }
+      ],
+      "text": "Contributing"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 11,
+      "raw_slice": "See [CONTRIBUTING.md](./CONTRIBUTING.md) for ways you can contribute to Zed.",
+      "raw_span": {
+        "end": 1254,
+        "start": 1178
+      },
+      "segments": [
+        {
+          "end": 1182,
+          "start": 1178
+        },
+        {
+          "end": 1198,
+          "start": 1183
+        },
+        {
+          "end": 1254,
+          "start": 1218
+        }
+      ],
+      "text": "See CONTRIBUTING.md for ways you can contribute to Zed."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 12,
+      "raw_slice": "Also... we're hiring!",
+      "raw_span": {
+        "end": 1277,
+        "start": 1256
+      },
+      "segments": [
+        {
+          "end": 1277,
+          "start": 1256
+        }
+      ],
+      "text": "Also... we're hiring!"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 13,
+      "raw_slice": "Check out our [jobs](https://zed.dev/jobs) page for open roles.",
+      "raw_span": {
+        "end": 1341,
+        "start": 1278
+      },
+      "segments": [
+        {
+          "end": 1292,
+          "start": 1278
+        },
+        {
+          "end": 1297,
+          "start": 1293
+        },
+        {
+          "end": 1341,
+          "start": 1320
+        }
+      ],
+      "text": "Check out our jobs page for open roles."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 14,
+      "raw_slice": "Licensing",
+      "raw_span": {
+        "end": 1356,
+        "start": 1347
+      },
+      "segments": [
+        {
+          "end": 1356,
+          "start": 1347
+        }
+      ],
+      "text": "Licensing"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 15,
+      "raw_slice": "Zed source code is licensed primarily under GPL-3.0-or-later, with Apache-2.0 components where marked.",
+      "raw_span": {
+        "end": 1460,
+        "start": 1358
+      },
+      "segments": [
+        {
+          "end": 1460,
+          "start": 1358
+        }
+      ],
+      "text": "Zed source code is licensed primarily under GPL-3.0-or-later, with Apache-2.0 components where marked."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 16,
+      "raw_slice": "License information for third party dependencies must be correctly provided for CI to pass.",
+      "raw_span": {
+        "end": 1553,
+        "start": 1462
+      },
+      "segments": [
+        {
+          "end": 1553,
+          "start": 1462
+        }
+      ],
+      "text": "License information for third party dependencies must be correctly provided for CI to pass."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 17,
+      "raw_slice": "We use",
+      "raw_span": {
+        "end": 1561,
+        "start": 1555
+      },
+      "segments": [
+        {
+          "end": 1561,
+          "start": 1555
+        }
+      ],
+      "text": "We use"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 18,
+      "raw_slice": "to automatically comply with open source licenses. If CI is failing, check the following:",
+      "raw_span": {
+        "end": 1713,
+        "start": 1624
+      },
+      "segments": [
+        {
+          "end": 1713,
+          "start": 1624
+        }
+      ],
+      "text": "to automatically comply with open source licenses. If CI is failing, check the following:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 19,
+      "raw_slice": "Is it showing a",
+      "raw_span": {
+        "end": 1732,
+        "start": 1717
+      },
+      "segments": [
+        {
+          "end": 1732,
+          "start": 1717
+        }
+      ],
+      "text": "Is it showing a"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 20,
+      "raw_slice": "error for a crate you've created? If so, add",
+      "raw_span": {
+        "end": 1800,
+        "start": 1756
+      },
+      "segments": [
+        {
+          "end": 1800,
+          "start": 1756
+        }
+      ],
+      "text": "error for a crate you've created? If so, add"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 21,
+      "raw_slice": "under",
+      "raw_span": {
+        "end": 1824,
+        "start": 1819
+      },
+      "segments": [
+        {
+          "end": 1824,
+          "start": 1819
+        }
+      ],
+      "text": "under"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 22,
+      "raw_slice": "in your crate's Cargo.toml.",
+      "raw_span": {
+        "end": 1864,
+        "start": 1837
+      },
+      "segments": [
+        {
+          "end": 1864,
+          "start": 1837
+        }
+      ],
+      "text": "in your crate's Cargo.toml."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 23,
+      "raw_slice": "Is the error",
+      "raw_span": {
+        "end": 1879,
+        "start": 1867
+      },
+      "segments": [
+        {
+          "end": 1879,
+          "start": 1867
+        }
+      ],
+      "text": "Is the error"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 24,
+      "raw_slice": "for a dependency? If so, first determine what license the project has and whether this system is sufficient to comply with this license's requirements. If you're unsure, ask a lawyer. Once you've verified that this system is acceptable add the license's SPDX identifier to the",
+      "raw_span": {
+        "end": 2197,
+        "start": 1921
+      },
+      "segments": [
+        {
+          "end": 2197,
+          "start": 1921
+        }
+      ],
+      "text": "for a dependency? If so, first determine what license the project has and whether this system is sufficient to comply with this license's requirements. If you're unsure, ask a lawyer. Once you've verified that this system is acceptable add the license's SPDX identifier to the"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 25,
+      "raw_slice": "array in",
+      "raw_span": {
+        "end": 2217,
+        "start": 2209
+      },
+      "segments": [
+        {
+          "end": 2217,
+          "start": 2209
+        }
+      ],
+      "text": "array in"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 26,
+      "raw_slice": "Is",
+      "raw_span": {
+        "end": 2259,
+        "start": 2257
+      },
+      "segments": [
+        {
+          "end": 2259,
+          "start": 2257
+        }
+      ],
+      "text": "Is"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 27,
+      "raw_slice": "unable to find the license for a dependency? If so, add a clarification field at the end of",
+      "raw_span": {
+        "end": 2365,
+        "start": 2274
+      },
+      "segments": [
+        {
+          "end": 2365,
+          "start": 2274
+        }
+      ],
+      "text": "unable to find the license for a dependency? If so, add a clarification field at the end of"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 28,
+      "raw_slice": ", as specified in the [cargo-about book](https://embarkstudios.github.io/cargo-about/cli/generate/config.html#crate-configuration).",
+      "raw_span": {
+        "end": 2532,
+        "start": 2401
+      },
+      "segments": [
+        {
+          "end": 2423,
+          "start": 2401
+        },
+        {
+          "end": 2440,
+          "start": 2424
+        },
+        {
+          "end": 2532,
+          "start": 2531
+        }
+      ],
+      "text": ", as specified in the cargo-about book."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 29,
+      "raw_slice": "Sponsorship",
+      "raw_span": {
+        "end": 2548,
+        "start": 2537
+      },
+      "segments": [
+        {
+          "end": 2548,
+          "start": 2537
+        }
+      ],
+      "text": "Sponsorship"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 30,
+      "raw_slice": "Zed is developed by **Zed Industries, Inc.**, a for-profit company.",
+      "raw_span": {
+        "end": 2617,
+        "start": 2550
+      },
+      "segments": [
+        {
+          "end": 2570,
+          "start": 2550
+        },
+        {
+          "end": 2592,
+          "start": 2572
+        },
+        {
+          "end": 2617,
+          "start": 2594
+        }
+      ],
+      "text": "Zed is developed by Zed Industries, Inc., a for-profit company."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 31,
+      "raw_slice": "If you’d like to financially support the project, you can do so via GitHub Sponsors.",
+      "raw_span": {
+        "end": 2705,
+        "start": 2619
+      },
+      "segments": [
+        {
+          "end": 2705,
+          "start": 2619
+        }
+      ],
+      "text": "If you’d like to financially support the project, you can do so via GitHub Sponsors."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 32,
+      "raw_slice": "Sponsorships go directly to Zed Industries and are used as general company revenue.",
+      "raw_span": {
+        "end": 2789,
+        "start": 2706
+      },
+      "segments": [
+        {
+          "end": 2789,
+          "start": 2706
+        }
+      ],
+      "text": "Sponsorships go directly to Zed Industries and are used as general company revenue."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 33,
+      "raw_slice": "There are no perks or entitlements associated with sponsorship.",
+      "raw_span": {
+        "end": 2853,
+        "start": 2790
+      },
+      "segments": [
+        {
+          "end": 2853,
+          "start": 2790
+        }
+      ],
+      "text": "There are no perks or entitlements associated with sponsorship."
+    }
+  ]
+}

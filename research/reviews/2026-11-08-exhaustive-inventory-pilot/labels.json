@@ -1,0 +1,117 @@
+{
+  "format": "unswell-349-source-only-assistant-review-v1",
+  "status": "frozen before any model candidate output",
+  "reviewer": "Codex assistant in this session, November 8, 2026; no human annotation",
+  "basis": "Complete three pinned README pages; useful semantic corrections only; optional style excluded",
+  "source_manifest_sha256": "ab1fbcee628699cc8fbed5b474b4b3fac3b893adc630ce7e39c8ba607eeb45c6",
+  "inventory_sha256": "56a5b68053244a573a9a4aa079409363c77582c2acdfa048536a42948d0be82a",
+  "events": [
+    {
+      "id": "uv-unqualified-migration",
+      "page": "astral-sh/uv/README.md",
+      "quote": "Migrate to uv without changing your existing workflows — and experience a 10-100x speedup",
+      "span": {
+        "start": 6809,
+        "end": 6900
+      },
+      "overlapping_unit_ordinals": [
+        54
+      ],
+      "diagnosis": "The sentence promises unchanged workflows and a speedup to every reader. The page describes a pip-compatible interface and links a benchmark, but supplies no basis for universal compatibility or a 10-100x improvement in every migration.",
+      "minimal_repair": "Scope the compatibility and performance claim to supported commands and measured conditions; preserve the uv pip instruction."
+    },
+    {
+      "id": "uv-unsupported-adoption",
+      "page": "astral-sh/uv/README.md",
+      "quote": "Yes, uv is stable and widely used in production.",
+      "span": {
+        "start": 8260,
+        "end": 8308
+      },
+      "overlapping_unit_ordinals": [
+        72
+      ],
+      "diagnosis": "The linked versioning policy can support the stability claim, but this page gives no adoption evidence for widely used in production.",
+      "minimal_repair": "Keep the stability statement and cite adoption evidence or omit the unsubstantiated breadth claim."
+    },
+    {
+      "id": "atuin-unbounded-security",
+      "page": "atuinsh/atuin/README.md",
+      "quote": "Everything is end-to-end encrypted, so your secrets are safe!",
+      "span": {
+        "start": 3636,
+        "end": 3697
+      },
+      "overlapping_unit_ordinals": [
+        39
+      ],
+      "diagnosis": "The page describes encrypted history sync. Everything and secrets are safe extend that scope into an unconditional security assurance.",
+      "minimal_repair": "State that synced history is end-to-end encrypted without promising the safety of all secrets."
+    },
+    {
+      "id": "atuin-history-replacement-ambiguity",
+      "page": "atuinsh/atuin/README.md",
+      "quote": "Atuin replaces your existing shell history with a SQLite database",
+      "span": {
+        "start": 1393,
+        "end": 1458
+      },
+      "overlapping_unit_ordinals": [
+        0
+      ],
+      "diagnosis": "The opening can imply that the old history file is replaced, while the feature list later says the old file is not replaced. The difference between active shell history and the retained file is not explained.",
+      "minimal_repair": "Clarify that Atuin uses SQLite for active history while preserving the old history file."
+    }
+  ],
+  "page_review": [
+    {
+      "page": "astral-sh/uv/README.md",
+      "scope": "complete page",
+      "event_ids": [
+        "uv-unqualified-migration",
+        "uv-unsupported-adoption"
+      ]
+    },
+    {
+      "page": "zed-industries/zed/README.md",
+      "scope": "complete page",
+      "event_ids": [],
+      "note": "No independently useful semantic correction accepted. High-performance is a broad self-description, but the page alone does not establish a safe, specific edit."
+    },
+    {
+      "page": "atuinsh/atuin/README.md",
+      "scope": "complete page",
+      "event_ids": [
+        "atuin-unbounded-security",
+        "atuin-history-replacement-ambiguity"
+      ]
+    }
+  ],
+  "counterexamples": [
+    {
+      "page": "astral-sh/uv/README.md",
+      "quote": "10-100x faster",
+      "reason": "A linked benchmark accompanies this highlight. The issue is the later promise to every migrating reader, not a numeric range by itself."
+    },
+    {
+      "page": "zed-industries/zed/README.md",
+      "quote": "On macOS, Linux, and Windows you can",
+      "reason": "This platform installation instruction links specific methods and should not be shortened merely for style."
+    },
+    {
+      "page": "atuinsh/atuin/README.md",
+      "quote": "optional and\n_fully encrypted_ synchronisation of your history between machines",
+      "reason": "The optional condition and history-sync scope are meaningful and must be preserved."
+    },
+    {
+      "page": "atuinsh/atuin/README.md",
+      "quote": "old history file is not replaced",
+      "reason": "Preservation of the old history file is an explicit fact that a repair of the opening must retain."
+    }
+  ],
+  "limitations": [
+    "Assistant editorial review, not a human annotation or population accuracy estimate.",
+    "A three-page screen cannot qualify the #349 development or confirmation gates.",
+    "Some Markdown inline-code claims cross protected unit boundaries and must be scored with that coverage limitation."
+  ]
+}

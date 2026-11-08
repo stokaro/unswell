@@ -1,0 +1,2580 @@
+Review the COMPLETE public technical README, the exhaustive unit inventory,
+and the original source coordinates below. Use only this source; no tools.
+Do not infer AI authorship. This pass is for independently useful SEMANTIC
+corrections: unsupported scope, an unqualified guarantee, a contradiction,
+or a claim whose evidence does not support its breadth. Grammar-only repairs
+belong to the existing engine and do not count in this treatment.
+
+Read all inventory records before deciding. A complete inventory is not proof
+that a correction is needed. Preserve measurable statements with relevant
+evidence, technical conditions, attributed claims, necessary instructions,
+the author's voice, negation, numbers, versions, identifiers, links, and code.
+Do not flag a phrase merely because it is promotional, formal, or could be
+shorter. Abstain when a safe, source-specific diagnosis is not supported.
+
+For each finding return a supplied unit ordinal, an exact contiguous quote
+from the original source, its original 1-based line, the specific defect,
+page evidence, source function, and a minimal-deletion test. Do not propose
+replacement text. A finding may quote source syntax around eligible prose,
+but must target eligible prose and must not propose changing protected code.
+Return zero findings if no independently useful correction is established.
+Maximum 20 findings. Return schema JSON only. Echo the page ID, source SHA-256,
+and inventory response SHA-256 exactly.
+
+INPUT JSON:
+{
+  "excluded": [
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 48,
+        "start": 6
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 124,
+        "start": 48
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 128,
+        "start": 124
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 171,
+        "start": 129
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 262,
+        "start": 171
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 266,
+        "start": 262
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 306,
+        "start": 267
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 413,
+        "start": 306
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 417,
+        "start": 413
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 991,
+        "start": 491
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 1118,
+        "start": 991
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1165,
+        "start": 1160
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1178,
+        "start": 1167
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1186,
+        "start": 1180
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1196,
+        "start": 1188
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1205,
+        "start": 1198
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1214,
+        "start": 1207
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1228,
+        "start": 1216
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 1328,
+        "start": 1323
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 2150,
+        "start": 2144
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 2159,
+        "start": 2154
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 2490,
+        "start": 2408
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 2600,
+        "start": 2491
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 2688,
+        "start": 2649
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 2728,
+        "start": 2689
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 2844,
+        "start": 2817
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3175,
+        "start": 3166
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3321,
+        "start": 3316
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3333,
+        "start": 3325
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 3838,
+        "start": 3336
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 4411,
+        "start": 4256
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 4599,
+        "start": 4470
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4793,
+        "start": 4787
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4846,
+        "start": 4841
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 4874,
+        "start": 4861
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 5151,
+        "start": 4878
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 5189,
+        "start": 5172
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 5356,
+        "start": 5192
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 5800,
+        "start": 5568
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 6256,
+        "start": 5838
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 6385,
+        "start": 6314
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6570,
+        "start": 6565
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6583,
+        "start": 6572
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6601,
+        "start": 6589
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 6922,
+        "start": 6914
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 7134,
+        "start": 7004
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 7291,
+        "start": 7166
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 7492,
+        "start": 7326
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 7936,
+        "start": 7923
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 9312,
+        "start": 9267
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 9396,
+        "start": 9359
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 9859,
+        "start": 9642
+      }
+    }
+  ],
+  "inventory_records": [
+    {
+      "function": "other",
+      "ordinal": 0,
+      "proposition": "",
+      "support": "Page title."
+    },
+    {
+      "function": "definition",
+      "ordinal": 1,
+      "proposition": "uv is an extremely fast Python package and project manager written in Rust.",
+      "support": "Projects and pip interface examples; speed claim links to BENCHMARKS.md in Highlights. Rust implementation evidence is absent."
+    },
+    {
+      "function": "transition",
+      "ordinal": 2,
+      "proposition": "",
+      "support": "Highlights heading."
+    },
+    {
+      "function": "capability",
+      "ordinal": 3,
+      "proposition": "uv replaces multiple tools with a single tool.",
+      "support": "Protected list names pip, pip-tools, pipx, poetry, pyenv, twine, and virtualenv; subsequent feature sections describe corresponding operations."
+    },
+    {
+      "function": "capability",
+      "ordinal": 4,
+      "proposition": "uv replaces additional unspecified tools.",
+      "support": "absent"
+    },
+    {
+      "function": "capability",
+      "ordinal": 5,
+      "proposition": "uv is 10-100x faster than pip.",
+      "support": "https://github.com/astral-sh/uv/blob/main/BENCHMARKS.md; nearby chart caption specifies installing Trio dependencies with a warm cache."
+    },
+    {
+      "function": "capability",
+      "ordinal": 6,
+      "proposition": "uv provides comprehensive project management with a universal lockfile.",
+      "support": "#projects examples; https://docs.astral.sh/uv/concepts/projects/layout#the-lockfile."
+    },
+    {
+      "function": "capability",
+      "ordinal": 7,
+      "proposition": "uv runs scripts with inline dependency metadata.",
+      "support": "#scripts shows adding metadata and running example.py; https://docs.astral.sh/uv/guides/scripts#declaring-script-dependencies."
+    },
+    {
+      "function": "capability",
+      "ordinal": 8,
+      "proposition": "uv installs and manages Python versions.",
+      "support": "#python-versions demonstrates installation, version selection, and pinning."
+    },
+    {
+      "function": "capability",
+      "ordinal": 9,
+      "proposition": "uv runs and installs tools published as Python packages.",
+      "support": "#tools demonstrates running pycowsay and installing ruff."
+    },
+    {
+      "function": "capability",
+      "ordinal": 10,
+      "proposition": "uv offers a pip-compatible interface with a familiar CLI and improved performance.",
+      "support": "#the-pip-interface limits replacement to common commands and gives compile and sync examples; Highlights links BENCHMARKS.md."
+    },
+    {
+      "function": "capability",
+      "ordinal": 11,
+      "proposition": "uv supports Cargo-style workspaces for scalable projects.",
+      "support": "https://docs.astral.sh/uv/concepts/projects/workspaces; no scaling measurements supplied."
+    },
+    {
+      "function": "capability",
+      "ordinal": 12,
+      "proposition": "uv saves disk space through global-cache dependency deduplication.",
+      "support": "https://docs.astral.sh/uv/concepts/cache; no disk-space measurements supplied."
+    },
+    {
+      "function": "capability",
+      "ordinal": 13,
+      "proposition": "uv is installable without Rust or Python via curl or pip.",
+      "support": "Installation section provides standalone and pip commands; prerequisite-free use of both routes is unclear."
+    },
+    {
+      "function": "other",
+      "ordinal": 14,
+      "proposition": "",
+      "support": "Connects protected installation alternatives curl and pip."
+    },
+    {
+      "function": "capability",
+      "ordinal": 15,
+      "proposition": "uv supports macOS, Linux, and Windows.",
+      "support": "Installation examples label these platforms; FAQ links https://docs.astral.sh/uv/reference/platforms/."
+    },
+    {
+      "function": "other",
+      "ordinal": 16,
+      "proposition": "Astral backs uv and created Ruff and ty.",
+      "support": "Links to https://astral.sh, https://github.com/astral-sh/ruff, and https://github.com/astral-sh/ty; no further substantiation supplied."
+    },
+    {
+      "function": "transition",
+      "ordinal": 17,
+      "proposition": "",
+      "support": "Installation heading."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 18,
+      "proposition": "Install uv using its standalone installers.",
+      "support": "Following shell and PowerShell examples use https://astral.sh/uv/install.sh and https://astral.sh/uv/install.ps1."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 19,
+      "proposition": "Alternatively, install uv from PyPI.",
+      "support": "https://pypi.org/project/uv/ and following pip install uv and pipx install uv examples."
+    },
+    {
+      "function": "capability",
+      "ordinal": 20,
+      "proposition": "uv can update itself to the latest version if installed through the standalone installer.",
+      "support": "Following uv self update example; explicitly conditional on standalone installation."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 21,
+      "proposition": "Consult the installation documentation for details and alternative methods.",
+      "support": "https://docs.astral.sh/uv/getting-started/installation/."
+    },
+    {
+      "function": "transition",
+      "ordinal": 22,
+      "proposition": "",
+      "support": "Documentation heading."
+    },
+    {
+      "function": "other",
+      "ordinal": 23,
+      "proposition": "uv documentation is available at docs.astral.sh/uv.",
+      "support": "https://docs.astral.sh/uv."
+    },
+    {
+      "function": "capability",
+      "ordinal": 24,
+      "proposition": "Command-line reference documentation is accessible with uv help.",
+      "support": "Protected inline command uv help; no output example supplied."
+    },
+    {
+      "function": "transition",
+      "ordinal": 25,
+      "proposition": "",
+      "support": "Features heading."
+    },
+    {
+      "function": "transition",
+      "ordinal": 26,
+      "proposition": "",
+      "support": "Projects heading."
+    },
+    {
+      "function": "capability",
+      "ordinal": 27,
+      "proposition": "uv manages project dependencies and environments, supporting lockfiles, workspaces, and more, similarly to rye or poetry.",
+      "support": "Following uv init, uv add, uv run, uv lock, and uv sync examples; Highlights links workspace documentation."
+    },
+    {
+      "function": "other",
+      "ordinal": 28,
+      "proposition": "",
+      "support": "Connects protected comparison targets rye and poetry."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 29,
+      "proposition": "Consult the project documentation to get started.",
+      "support": "https://docs.astral.sh/uv/guides/projects/."
+    },
+    {
+      "function": "capability",
+      "ordinal": 30,
+      "proposition": "uv builds and publishes projects even when they are not managed with uv.",
+      "support": "Adjacent publish guide link: https://docs.astral.sh/uv/guides/publish/."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 31,
+      "proposition": "Consult the publish guide for more information.",
+      "support": "https://docs.astral.sh/uv/guides/publish/."
+    },
+    {
+      "function": "transition",
+      "ordinal": 32,
+      "proposition": "",
+      "support": "Scripts heading."
+    },
+    {
+      "function": "capability",
+      "ordinal": 33,
+      "proposition": "uv manages dependencies and environments for single-file scripts.",
+      "support": "Following examples add requests metadata to example.py and run it with uv run."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 34,
+      "proposition": "Create a script and add inline dependency metadata.",
+      "support": "Following example creates example.py and invokes uv add --script example.py requests."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 35,
+      "proposition": "Run the script in an isolated virtual environment.",
+      "support": "Following uv run example.py output reads inline metadata and installs five packages; isolation is stated in prose."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 36,
+      "proposition": "Consult the scripts documentation to get started.",
+      "support": "https://docs.astral.sh/uv/guides/scripts/."
+    },
+    {
+      "function": "transition",
+      "ordinal": 37,
+      "proposition": "",
+      "support": "Tools heading."
+    },
+    {
+      "function": "capability",
+      "ordinal": 38,
+      "proposition": "uv executes and installs command-line tools from Python packages, similarly to pipx.",
+      "support": "Following uvx pycowsay and uv tool install ruff examples."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 39,
+      "proposition": "Use uvx to run a tool in an ephemeral environment.",
+      "support": "Protected uvx command and following pycowsay example; environment lifetime is stated in prose."
+    },
+    {
+      "function": "definition",
+      "ordinal": 40,
+      "proposition": "uvx is an alias for uv tool run.",
+      "support": "Parenthetical connects the protected identifiers uvx and uv tool run."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 41,
+      "proposition": "Install a tool with uv tool install.",
+      "support": "Following uv tool install ruff example installs an executable and checks its version."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 42,
+      "proposition": "Consult the tools documentation to get started.",
+      "support": "https://docs.astral.sh/uv/guides/tools/."
+    },
+    {
+      "function": "transition",
+      "ordinal": 43,
+      "proposition": "",
+      "support": "Python versions heading."
+    },
+    {
+      "function": "capability",
+      "ordinal": 44,
+      "proposition": "uv installs Python and enables quick switching between versions.",
+      "support": "Following installation, --python selection, and uv python pin examples; switching speed is not measured."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 45,
+      "proposition": "Install multiple Python versions.",
+      "support": "uv python install 3.12 3.13 3.14 example reports three installed versions."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 46,
+      "proposition": "Download Python versions as needed.",
+      "support": "Following examples select Python 3.12.0 with uv venv and pypy@3.8 with uv run."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 47,
+      "proposition": "Select a specific Python version for the current directory.",
+      "support": "uv python pin 3.11 example reports pinning .python-version to 3.11."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 48,
+      "proposition": "Consult the Python installation documentation to get started.",
+      "support": "https://docs.astral.sh/uv/guides/install-python/."
+    },
+    {
+      "function": "transition",
+      "ordinal": 49,
+      "proposition": "",
+      "support": "The pip interface heading."
+    },
+    {
+      "function": "capability",
+      "ordinal": 50,
+      "proposition": "uv provides a drop-in replacement for common pip, pip-tools, and virtualenv commands.",
+      "support": "Explicitly limited to common commands; following compile, venv, and sync examples."
+    },
+    {
+      "function": "other",
+      "ordinal": 51,
+      "proposition": "",
+      "support": "Connects protected tool names in the replacement claim."
+    },
+    {
+      "function": "other",
+      "ordinal": 52,
+      "proposition": "",
+      "support": "Completes the replacement claim's noun phrase."
+    },
+    {
+      "function": "capability",
+      "ordinal": 53,
+      "proposition": "uv extends those interfaces with dependency version overrides, platform-independent and reproducible resolutions, alternative resolution strategies, and more.",
+      "support": "Following uv pip compile --universal example illustrates platform-independent resolution; other features lack examples here."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 54,
+      "proposition": "Migrating to the uv pip interface preserves existing workflows and yields a 10-100x speedup.",
+      "support": "Preceding replacement claim is limited to common commands; Highlights links BENCHMARKS.md and chart caption specifies Trio dependencies with a warm cache."
+    },
+    {
+      "function": "other",
+      "ordinal": 55,
+      "proposition": "",
+      "support": "Completes the preceding uv pip interface phrase."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 56,
+      "proposition": "Compile requirements into a platform-independent requirements file.",
+      "support": "Following uv pip compile requirements.in --universal --output-file requirements.txt example."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 57,
+      "proposition": "Create a virtual environment.",
+      "support": "Following uv venv example creates .venv using Python 3.12.3."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 58,
+      "proposition": "Install the locked requirements.",
+      "support": "Following uv pip sync requirements.txt example reports installing 43 packages."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 59,
+      "proposition": "Consult the pip interface documentation to get started.",
+      "support": "https://docs.astral.sh/uv/pip/index/."
+    },
+    {
+      "function": "transition",
+      "ordinal": 60,
+      "proposition": "",
+      "support": "Contributing heading."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 61,
+      "proposition": "The maintainers welcome participation and express commitment to supporting contributors at every experience level.",
+      "support": "Adjacent contributing guide link; concrete support practices are absent."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 62,
+      "proposition": "Consult the contributing guide to get started.",
+      "support": "https://github.com/astral-sh/uv?tab=contributing-ov-file#contributing."
+    },
+    {
+      "function": "transition",
+      "ordinal": 63,
+      "proposition": "",
+      "support": "FAQ heading."
+    },
+    {
+      "function": "transition",
+      "ordinal": 64,
+      "proposition": "",
+      "support": "Question introducing pronunciation guidance."
+    },
+    {
+      "function": "definition",
+      "ordinal": 65,
+      "proposition": "uv is pronounced \"you - vee\".",
+      "support": "Protected IPA /juː viː/ links to https://en.wikipedia.org/wiki/Help:IPA/English#Key."
+    },
+    {
+      "function": "transition",
+      "ordinal": 66,
+      "proposition": "",
+      "support": "Question introducing styling guidance."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 67,
+      "proposition": "Style the name as \"uv\".",
+      "support": "Adjacent style guide link: ./STYLE.md#styling-uv."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 68,
+      "proposition": "Consult the style guide for details.",
+      "support": "./STYLE.md#styling-uv."
+    },
+    {
+      "function": "transition",
+      "ordinal": 69,
+      "proposition": "",
+      "support": "Question introducing platform support guidance."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 70,
+      "proposition": "Consult uv's platform support document.",
+      "support": "https://docs.astral.sh/uv/reference/platforms/."
+    },
+    {
+      "function": "transition",
+      "ordinal": 71,
+      "proposition": "",
+      "support": "Question introducing production-readiness claims."
+    },
+    {
+      "function": "capability",
+      "ordinal": 72,
+      "proposition": "uv is production-ready, stable, and widely used in production.",
+      "support": "Adjacent versioning policy link: https://docs.astral.sh/uv/reference/versioning/; production adoption evidence is absent."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 73,
+      "proposition": "Consult uv's versioning policy for details.",
+      "support": "https://docs.astral.sh/uv/reference/versioning/."
+    },
+    {
+      "function": "transition",
+      "ordinal": 74,
+      "proposition": "",
+      "support": "Acknowledgments heading."
+    },
+    {
+      "function": "other",
+      "ordinal": 75,
+      "proposition": "uv's dependency resolver uses PubGrub.",
+      "support": "https://github.com/pubgrub-rs/pubgrub; implementation evidence is absent."
+    },
+    {
+      "function": "other",
+      "ordinal": 76,
+      "proposition": "The authors thank PubGrub maintainers, especially Jacob Finkelman, for their support.",
+      "support": "Jacob Finkelman is linked at https://github.com/Eh2406; specific support is not described."
+    },
+    {
+      "function": "other",
+      "ordinal": 77,
+      "proposition": "uv's Git implementation is based on Cargo.",
+      "support": "https://github.com/rust-lang/cargo; implementation comparison is absent."
+    },
+    {
+      "function": "other",
+      "ordinal": 78,
+      "proposition": "Some uv optimizations were inspired by pnpm, Orogene, and Bun.",
+      "support": "Links to https://pnpm.io/, https://github.com/orogene/orogene, and https://github.com/oven-sh/bun; specific optimizations are not identified."
+    },
+    {
+      "function": "other",
+      "ordinal": 79,
+      "proposition": "The authors learned from Nathaniel J. Smith's Posy and adapted its trampoline for Windows support.",
+      "support": "https://github.com/njsmith/posy and https://github.com/njsmith/posy/tree/main/src/trampolines/windows-trampolines/posy-trampoline."
+    },
+    {
+      "function": "transition",
+      "ordinal": 80,
+      "proposition": "",
+      "support": "License heading."
+    },
+    {
+      "function": "qualification",
+      "ordinal": 81,
+      "proposition": "uv is available under either of the listed licenses.",
+      "support": "Following list specifies Apache License, Version 2.0, and MIT; closing phrase grants the user's choice."
+    },
+    {
+      "function": "qualification",
+      "ordinal": 82,
+      "proposition": "Apache License, Version 2.0, is one licensing option.",
+      "support": "LICENSE-APACHE and https://www.apache.org/licenses/LICENSE-2.0; surrounding prose says either license is available at the user's option."
+    },
+    {
+      "function": "qualification",
+      "ordinal": 83,
+      "proposition": "The MIT license is one licensing option.",
+      "support": "LICENSE-MIT and https://opensource.org/licenses/MIT; surrounding prose says either license is available at the user's option."
+    },
+    {
+      "function": "qualification",
+      "ordinal": 84,
+      "proposition": "The user may choose between the listed licenses.",
+      "support": "Preceding licensing statement and Apache-2.0/MIT list."
+    },
+    {
+      "function": "qualification",
+      "ordinal": 85,
+      "proposition": "Unless explicitly stated otherwise, contributions intentionally submitted for inclusion in uv, as defined by Apache-2.0, are dual-licensed under the listed licenses without additional terms or conditions.",
+      "support": "Preceding Apache License, Version 2.0, and MIT license options; explicit exception for a contributor stating otherwise."
+    }
+  ],
+  "inventory_sha256": "d9d16cef5433ce3ed6f8572d10043de3f0a7bc8808d09d24dd91387515c28805",
+  "numbered_source": "0001| # uv\n0002| \n0003| <a href=\"https://pypi.python.org/pypi/uv\"><img src=\"https://img.shields.io/pypi/v/uv.svg\" alt=\"Latest PyPI version\" /></a>\n0004| <a href=\"https://pypi.python.org/pypi/uv\"><img src=\"https://img.shields.io/pypi/pyversions/uv.svg\" alt=\"Supported Python versions\" /></a>\n0005| <a href=\"https://discord.gg/astral-sh\"><img src=\"https://img.shields.io/badge/Discord-%235865F2.svg?logo=discord&logoColor=white\" alt=\"Discord\" /></a>\n0006| \n0007| An extremely fast Python package and project manager, written in Rust.\n0008| \n0009| <p align=\"center\">\n0010|   <picture align=\"center\">\n0011|     <source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.com/astral-sh/uv/assets/1309177/03aa9163-1c79-4a87-a31d-7a9311ed9310\">\n0012|     <source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.com/astral-sh/uv/assets/1309177/629e59c0-9c6e-4013-9ad4-adb2bcf5080d\">\n0013|     <img alt=\"Shows a bar chart with benchmark results.\" src=\"https://github.com/astral-sh/uv/assets/1309177/629e59c0-9c6e-4013-9ad4-adb2bcf5080d\">\n0014|   </picture>\n0015| </p>\n0016| \n0017| <p align=\"center\">\n0018|   <i>Installing <a href=\"https://trio.readthedocs.io/\">Trio</a>'s dependencies with a warm cache.</i>\n0019| </p>\n0020| \n0021| ## Highlights\n0022| \n0023| - A single tool to replace `pip`, `pip-tools`, `pipx`, `poetry`, `pyenv`, `twine`, `virtualenv`, and\n0024|   more.\n0025| - [10-100x faster](https://github.com/astral-sh/uv/blob/main/BENCHMARKS.md) than `pip`.\n0026| - Provides [comprehensive project management](#projects), with a\n0027|   [universal lockfile](https://docs.astral.sh/uv/concepts/projects/layout#the-lockfile).\n0028| - [Runs scripts](#scripts), with support for\n0029|   [inline dependency metadata](https://docs.astral.sh/uv/guides/scripts#declaring-script-dependencies).\n0030| - [Installs and manages](#python-versions) Python versions.\n0031| - [Runs and installs](#tools) tools published as Python packages.\n0032| - Includes a [pip-compatible interface](#the-pip-interface) for a performance boost with a familiar\n0033|   CLI.\n0034| - Supports Cargo-style [workspaces](https://docs.astral.sh/uv/concepts/projects/workspaces) for\n0035|   scalable projects.\n0036| - Disk-space efficient, with a [global cache](https://docs.astral.sh/uv/concepts/cache) for\n0037|   dependency deduplication.\n0038| - Installable without Rust or Python via `curl` or `pip`.\n0039| - Supports macOS, Linux, and Windows.\n0040| \n0041| uv is backed by [Astral](https://astral.sh), the creators of\n0042| [Ruff](https://github.com/astral-sh/ruff) and [ty](https://github.com/astral-sh/ty).\n0043| \n0044| ## Installation\n0045| \n0046| Install uv with our standalone installers:\n0047| \n0048| ```bash\n0049| # On macOS and Linux.\n0050| curl -LsSf https://astral.sh/uv/install.sh | sh\n0051| ```\n0052| \n0053| ```bash\n0054| # On Windows.\n0055| powershell -ExecutionPolicy ByPass -c \"irm https://astral.sh/uv/install.ps1 | iex\"\n0056| ```\n0057| \n0058| Or, from [PyPI](https://pypi.org/project/uv/):\n0059| \n0060| ```bash\n0061| # With pip.\n0062| pip install uv\n0063| ```\n0064| \n0065| ```bash\n0066| # Or pipx.\n0067| pipx install uv\n0068| ```\n0069| \n0070| If installed via the standalone installer, uv can update itself to the latest version:\n0071| \n0072| ```bash\n0073| uv self update\n0074| ```\n0075| \n0076| See the [installation documentation](https://docs.astral.sh/uv/getting-started/installation/) for\n0077| details and alternative installation methods.\n0078| \n0079| ## Documentation\n0080| \n0081| uv's documentation is available at [docs.astral.sh/uv](https://docs.astral.sh/uv).\n0082| \n0083| Additionally, the command line reference documentation can be viewed with `uv help`.\n0084| \n0085| ## Features\n0086| \n0087| ### Projects\n0088| \n0089| uv manages project dependencies and environments, with support for lockfiles, workspaces, and more,\n0090| similar to `rye` or `poetry`:\n0091| \n0092| ```console\n0093| $ uv init example\n0094| Initialized project `example` at `/home/user/example`\n0095| \n0096| $ cd example\n0097| \n0098| $ uv add ruff\n0099| Creating virtual environment at: .venv\n0100| Resolved 2 packages in 170ms\n0101|    Built example @ file:///home/user/example\n0102| Prepared 2 packages in 627ms\n0103| Installed 2 packages in 1ms\n0104|  + example==0.1.0 (from file:///home/user/example)\n0105|  + ruff==0.5.0\n0106| \n0107| $ uv run ruff check\n0108| All checks passed!\n0109| \n0110| $ uv lock\n0111| Resolved 2 packages in 0.33ms\n0112| \n0113| $ uv sync\n0114| Resolved 2 packages in 0.70ms\n0115| Checked 1 package in 0.02ms\n0116| ```\n0117| \n0118| See the [project documentation](https://docs.astral.sh/uv/guides/projects/) to get started.\n0119| \n0120| uv also supports building and publishing projects, even if they're not managed with uv. See the\n0121| [publish guide](https://docs.astral.sh/uv/guides/publish/) to learn more.\n0122| \n0123| ### Scripts\n0124| \n0125| uv manages dependencies and environments for single-file scripts.\n0126| \n0127| Create a new script and add inline metadata declaring its dependencies:\n0128| \n0129| ```console\n0130| $ echo 'import requests; print(requests.get(\"https://astral.sh\"))' > example.py\n0131| \n0132| $ uv add --script example.py requests\n0133| Updated `example.py`\n0134| ```\n0135| \n0136| Then, run the script in an isolated virtual environment:\n0137| \n0138| ```console\n0139| $ uv run example.py\n0140| Reading inline script metadata from: example.py\n0141| Installed 5 packages in 12ms\n0142| <Response [200]>\n0143| ```\n0144| \n0145| See the [scripts documentation](https://docs.astral.sh/uv/guides/scripts/) to get started.\n0146| \n0147| ### Tools\n0148| \n0149| uv executes and installs command-line tools provided by Python packages, similar to `pipx`.\n0150| \n0151| Run a tool in an ephemeral environment using `uvx` (an alias for `uv tool run`):\n0152| \n0153| ```console\n0154| $ uvx pycowsay 'hello world!'\n0155| Resolved 1 package in 167ms\n0156| Installed 1 package in 9ms\n0157|  + pycowsay==0.0.0.2\n0158|   \"\"\"\n0159| \n0160|   ------------\n0161| < hello world! >\n0162|   ------------\n0163|    \\   ^__^\n0164|     \\  (oo)\\_______\n0165|        (__)\\       )\\/\\\n0166|            ||----w |\n0167|            ||     ||\n0168| ```\n0169| \n0170| Install a tool with `uv tool install`:\n0171| \n0172| ```console\n0173| $ uv tool install ruff\n0174| Resolved 1 package in 6ms\n0175| Installed 1 package in 2ms\n0176|  + ruff==0.5.0\n0177| Installed 1 executable: ruff\n0178| \n0179| $ ruff --version\n0180| ruff 0.5.0\n0181| ```\n0182| \n0183| See the [tools documentation](https://docs.astral.sh/uv/guides/tools/) to get started.\n0184| \n0185| ### Python versions\n0186| \n0187| uv installs Python and allows quickly switching between versions.\n0188| \n0189| Install multiple Python versions:\n0190| \n0191| ```console\n0192| $ uv python install 3.12 3.13 3.14\n0193| Installed 3 versions in 972ms\n0194|  + cpython-3.12.12-macos-aarch64-none (python3.12)\n0195|  + cpython-3.13.9-macos-aarch64-none (python3.13)\n0196|  + cpython-3.14.0-macos-aarch64-none (python3.14)\n0197| \n0198| ```\n0199| \n0200| Download Python versions as needed:\n0201| \n0202| ```console\n0203| $ uv venv --python 3.12.0\n0204| Using Python 3.12.0\n0205| Creating virtual environment at: .venv\n0206| Activate with: source .venv/bin/activate\n0207| \n0208| $ uv run --python pypy@3.8 -- python --version\n0209| Python 3.8.16 (a9dbdca6fc3286b0addd2240f11d97d8e8de187a, Dec 29 2022, 11:45:30)\n0210| [PyPy 7.3.11 with GCC Apple LLVM 13.1.6 (clang-1316.0.21.2.5)] on darwin\n0211| Type \"help\", \"copyright\", \"credits\" or \"license\" for more information.\n0212| >>>>\n0213| ```\n0214| \n0215| Use a specific Python version in the current directory:\n0216| \n0217| ```console\n0218| $ uv python pin 3.11\n0219| Pinned `.python-version` to `3.11`\n0220| ```\n0221| \n0222| See the [Python installation documentation](https://docs.astral.sh/uv/guides/install-python/) to get\n0223| started.\n0224| \n0225| ### The pip interface\n0226| \n0227| uv provides a drop-in replacement for common `pip`, `pip-tools`, and `virtualenv` commands.\n0228| \n0229| uv extends their interfaces with advanced features, such as dependency version overrides,\n0230| platform-independent resolutions, reproducible resolutions, alternative resolution strategies, and\n0231| more.\n0232| \n0233| Migrate to uv without changing your existing workflows — and experience a 10-100x speedup — with the\n0234| `uv pip` interface.\n0235| \n0236| Compile requirements into a platform-independent requirements file:\n0237| \n0238| ```console\n0239| $ uv pip compile requirements.in \\\n0240|    --universal \\\n0241|    --output-file requirements.txt\n0242| Resolved 43 packages in 12ms\n0243| ```\n0244| \n0245| Create a virtual environment:\n0246| \n0247| ```console\n0248| $ uv venv\n0249| Using Python 3.12.3\n0250| Creating virtual environment at: .venv\n0251| Activate with: source .venv/bin/activate\n0252| ```\n0253| \n0254| Install the locked requirements:\n0255| \n0256| ```console\n0257| $ uv pip sync requirements.txt\n0258| Resolved 43 packages in 11ms\n0259| Installed 43 packages in 208ms\n0260|  + babel==2.15.0\n0261|  + black==24.4.2\n0262|  + certifi==2024.7.4\n0263|  ...\n0264| ```\n0265| \n0266| See the [pip interface documentation](https://docs.astral.sh/uv/pip/index/) to get started.\n0267| \n0268| ## Contributing\n0269| \n0270| We are passionate about supporting contributors of all levels of experience and would love to see\n0271| you get involved in the project. See the\n0272| [contributing guide](https://github.com/astral-sh/uv?tab=contributing-ov-file#contributing) to get\n0273| started.\n0274| \n0275| ## FAQ\n0276| \n0277| #### How do you pronounce uv?\n0278| \n0279| It's pronounced as \"you - vee\" ([`/juː viː/`](https://en.wikipedia.org/wiki/Help:IPA/English#Key))\n0280| \n0281| #### How should I stylize uv?\n0282| \n0283| Just \"uv\", please. See the [style guide](./STYLE.md#styling-uv) for details.\n0284| \n0285| #### What platforms does uv support?\n0286| \n0287| See uv's [platform support](https://docs.astral.sh/uv/reference/platforms/) document.\n0288| \n0289| #### Is uv ready for production?\n0290| \n0291| Yes, uv is stable and widely used in production. See uv's\n0292| [versioning policy](https://docs.astral.sh/uv/reference/versioning/) document for details.\n0293| \n0294| ## Acknowledgements\n0295| \n0296| uv's dependency resolver uses [PubGrub](https://github.com/pubgrub-rs/pubgrub) under the hood. We're\n0297| grateful to the PubGrub maintainers, especially [Jacob Finkelman](https://github.com/Eh2406), for\n0298| their support.\n0299| \n0300| uv's Git implementation is based on [Cargo](https://github.com/rust-lang/cargo).\n0301| \n0302| Some of uv's optimizations are inspired by the great work we've seen in [pnpm](https://pnpm.io/),\n0303| [Orogene](https://github.com/orogene/orogene), and [Bun](https://github.com/oven-sh/bun). We've also\n0304| learned a lot from Nathaniel J. Smith's [Posy](https://github.com/njsmith/posy) and adapted its\n0305| [trampoline](https://github.com/njsmith/posy/tree/main/src/trampolines/windows-trampolines/posy-trampoline)\n0306| for Windows support.\n0307| \n0308| ## License\n0309| \n0310| uv is licensed under either of\n0311| \n0312| - Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or\n0313|   <https://www.apache.org/licenses/LICENSE-2.0>)\n0314| - MIT license ([LICENSE-MIT](LICENSE-MIT) or <https://opensource.org/licenses/MIT>)\n0315| \n0316| at your option.\n0317| \n0318| Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in uv\n0319| by you, as defined in the Apache-2.0 license, shall be dually licensed as above, without any\n0320| additional terms or conditions.\n0321| \n0322| <div align=\"center\">\n0323|   <a target=\"_blank\" href=\"https://astral.sh\" style=\"background:none\">\n0324|     <img src=\"https://raw.githubusercontent.com/astral-sh/uv/main/assets/svg/Astral.svg\" alt=\"Made by Astral\">\n0325|   </a>\n0326| </div>",
+  "page_id": "astral-sh/uv/README.md",
+  "source_sha256": "57a84a5a635f30e3a26541ebc16ca690944a7750f05713b1af92d3170b58f704",
+  "units": [
+    {
+      "kind": "fragment",
+      "ordinal": 0,
+      "raw_slice": "uv",
+      "raw_span": {
+        "end": 4,
+        "start": 2
+      },
+      "segments": [
+        {
+          "end": 4,
+          "start": 2
+        }
+      ],
+      "text": "uv"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 1,
+      "raw_slice": "An extremely fast Python package and project manager, written in Rust.",
+      "raw_span": {
+        "end": 489,
+        "start": 419
+      },
+      "segments": [
+        {
+          "end": 489,
+          "start": 419
+        }
+      ],
+      "text": "An extremely fast Python package and project manager, written in Rust."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 2,
+      "raw_slice": "Highlights",
+      "raw_span": {
+        "end": 1131,
+        "start": 1121
+      },
+      "segments": [
+        {
+          "end": 1131,
+          "start": 1121
+        }
+      ],
+      "text": "Highlights"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 3,
+      "raw_slice": "A single tool to replace",
+      "raw_span": {
+        "end": 1159,
+        "start": 1135
+      },
+      "segments": [
+        {
+          "end": 1159,
+          "start": 1135
+        }
+      ],
+      "text": "A single tool to replace"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 4,
+      "raw_slice": ", and\n  more.",
+      "raw_span": {
+        "end": 1241,
+        "start": 1228
+      },
+      "segments": [
+        {
+          "end": 1234,
+          "start": 1228
+        },
+        {
+          "end": 1241,
+          "start": 1236
+        }
+      ],
+      "text": ", and more."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 5,
+      "raw_slice": "10-100x faster](https://github.com/astral-sh/uv/blob/main/BENCHMARKS.md) than",
+      "raw_span": {
+        "end": 1322,
+        "start": 1245
+      },
+      "segments": [
+        {
+          "end": 1259,
+          "start": 1245
+        },
+        {
+          "end": 1322,
+          "start": 1317
+        }
+      ],
+      "text": "10-100x faster than"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 6,
+      "raw_slice": "Provides [comprehensive project management](#projects), with a\n  [universal lockfile](https://docs.astral.sh/uv/concepts/projects/layout#the-lockfile).",
+      "raw_span": {
+        "end": 1483,
+        "start": 1332
+      },
+      "segments": [
+        {
+          "end": 1341,
+          "start": 1332
+        },
+        {
+          "end": 1374,
+          "start": 1342
+        },
+        {
+          "end": 1395,
+          "start": 1386
+        },
+        {
+          "end": 1416,
+          "start": 1398
+        },
+        {
+          "end": 1483,
+          "start": 1482
+        }
+      ],
+      "text": "Provides comprehensive project management, with a universal lockfile."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 7,
+      "raw_slice": "Runs scripts](#scripts), with support for\n  [inline dependency metadata](https://docs.astral.sh/uv/guides/scripts#declaring-script-dependencies).",
+      "raw_span": {
+        "end": 1632,
+        "start": 1487
+      },
+      "segments": [
+        {
+          "end": 1499,
+          "start": 1487
+        },
+        {
+          "end": 1529,
+          "start": 1510
+        },
+        {
+          "end": 1558,
+          "start": 1532
+        },
+        {
+          "end": 1632,
+          "start": 1631
+        }
+      ],
+      "text": "Runs scripts, with support for inline dependency metadata."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 8,
+      "raw_slice": "Installs and manages](#python-versions) Python versions.",
+      "raw_span": {
+        "end": 1692,
+        "start": 1636
+      },
+      "segments": [
+        {
+          "end": 1656,
+          "start": 1636
+        },
+        {
+          "end": 1692,
+          "start": 1675
+        }
+      ],
+      "text": "Installs and manages Python versions."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 9,
+      "raw_slice": "Runs and installs](#tools) tools published as Python packages.",
+      "raw_span": {
+        "end": 1758,
+        "start": 1696
+      },
+      "segments": [
+        {
+          "end": 1713,
+          "start": 1696
+        },
+        {
+          "end": 1758,
+          "start": 1722
+        }
+      ],
+      "text": "Runs and installs tools published as Python packages."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 10,
+      "raw_slice": "Includes a [pip-compatible interface](#the-pip-interface) for a performance boost with a familiar\n  CLI.",
+      "raw_span": {
+        "end": 1865,
+        "start": 1761
+      },
+      "segments": [
+        {
+          "end": 1772,
+          "start": 1761
+        },
+        {
+          "end": 1797,
+          "start": 1773
+        },
+        {
+          "end": 1859,
+          "start": 1818
+        },
+        {
+          "end": 1865,
+          "start": 1861
+        }
+      ],
+      "text": "Includes a pip-compatible interface for a performance boost with a familiar CLI."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 11,
+      "raw_slice": "Supports Cargo-style [workspaces](https://docs.astral.sh/uv/concepts/projects/workspaces) for\n  scalable projects.",
+      "raw_span": {
+        "end": 1982,
+        "start": 1868
+      },
+      "segments": [
+        {
+          "end": 1889,
+          "start": 1868
+        },
+        {
+          "end": 1900,
+          "start": 1890
+        },
+        {
+          "end": 1962,
+          "start": 1957
+        },
+        {
+          "end": 1982,
+          "start": 1964
+        }
+      ],
+      "text": "Supports Cargo-style workspaces for scalable projects."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 12,
+      "raw_slice": "Disk-space efficient, with a [global cache](https://docs.astral.sh/uv/concepts/cache) for\n  dependency deduplication.",
+      "raw_span": {
+        "end": 2102,
+        "start": 1985
+      },
+      "segments": [
+        {
+          "end": 2014,
+          "start": 1985
+        },
+        {
+          "end": 2027,
+          "start": 2015
+        },
+        {
+          "end": 2075,
+          "start": 2070
+        },
+        {
+          "end": 2102,
+          "start": 2077
+        }
+      ],
+      "text": "Disk-space efficient, with a global cache for dependency deduplication."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 13,
+      "raw_slice": "Installable without Rust or Python via",
+      "raw_span": {
+        "end": 2143,
+        "start": 2105
+      },
+      "segments": [
+        {
+          "end": 2143,
+          "start": 2105
+        }
+      ],
+      "text": "Installable without Rust or Python via"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 14,
+      "raw_slice": "or",
+      "raw_span": {
+        "end": 2153,
+        "start": 2151
+      },
+      "segments": [
+        {
+          "end": 2153,
+          "start": 2151
+        }
+      ],
+      "text": "or"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 15,
+      "raw_slice": "Supports macOS, Linux, and Windows.",
+      "raw_span": {
+        "end": 2198,
+        "start": 2163
+      },
+      "segments": [
+        {
+          "end": 2198,
+          "start": 2163
+        }
+      ],
+      "text": "Supports macOS, Linux, and Windows."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 16,
+      "raw_slice": "uv is backed by [Astral](https://astral.sh), the creators of\n[Ruff](https://github.com/astral-sh/ruff) and [ty](https://github.com/astral-sh/ty).",
+      "raw_span": {
+        "end": 2345,
+        "start": 2200
+      },
+      "segments": [
+        {
+          "end": 2216,
+          "start": 2200
+        },
+        {
+          "end": 2223,
+          "start": 2217
+        },
+        {
+          "end": 2261,
+          "start": 2243
+        },
+        {
+          "end": 2266,
+          "start": 2262
+        },
+        {
+          "end": 2307,
+          "start": 2302
+        },
+        {
+          "end": 2310,
+          "start": 2308
+        },
+        {
+          "end": 2345,
+          "start": 2344
+        }
+      ],
+      "text": "uv is backed by Astral, the creators of Ruff and ty."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 17,
+      "raw_slice": "Installation",
+      "raw_span": {
+        "end": 2362,
+        "start": 2350
+      },
+      "segments": [
+        {
+          "end": 2362,
+          "start": 2350
+        }
+      ],
+      "text": "Installation"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 18,
+      "raw_slice": "Install uv with our standalone installers:",
+      "raw_span": {
+        "end": 2406,
+        "start": 2364
+      },
+      "segments": [
+        {
+          "end": 2406,
+          "start": 2364
+        }
+      ],
+      "text": "Install uv with our standalone installers:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 19,
+      "raw_slice": "Or, from [PyPI](https://pypi.org/project/uv/):",
+      "raw_span": {
+        "end": 2647,
+        "start": 2601
+      },
+      "segments": [
+        {
+          "end": 2610,
+          "start": 2601
+        },
+        {
+          "end": 2615,
+          "start": 2611
+        },
+        {
+          "end": 2647,
+          "start": 2646
+        }
+      ],
+      "text": "Or, from PyPI:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 20,
+      "raw_slice": "If installed via the standalone installer, uv can update itself to the latest version:",
+      "raw_span": {
+        "end": 2815,
+        "start": 2729
+      },
+      "segments": [
+        {
+          "end": 2815,
+          "start": 2729
+        }
+      ],
+      "text": "If installed via the standalone installer, uv can update itself to the latest version:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 21,
+      "raw_slice": "See the [installation documentation](https://docs.astral.sh/uv/getting-started/installation/) for\ndetails and alternative installation methods.",
+      "raw_span": {
+        "end": 2988,
+        "start": 2845
+      },
+      "segments": [
+        {
+          "end": 2853,
+          "start": 2845
+        },
+        {
+          "end": 2880,
+          "start": 2854
+        },
+        {
+          "end": 2988,
+          "start": 2938
+        }
+      ],
+      "text": "See the installation documentation for details and alternative installation methods."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 22,
+      "raw_slice": "Documentation",
+      "raw_span": {
+        "end": 3006,
+        "start": 2993
+      },
+      "segments": [
+        {
+          "end": 3006,
+          "start": 2993
+        }
+      ],
+      "text": "Documentation"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 23,
+      "raw_slice": "uv's documentation is available at [docs.astral.sh/uv](https://docs.astral.sh/uv).",
+      "raw_span": {
+        "end": 3090,
+        "start": 3008
+      },
+      "segments": [
+        {
+          "end": 3043,
+          "start": 3008
+        },
+        {
+          "end": 3061,
+          "start": 3044
+        },
+        {
+          "end": 3090,
+          "start": 3089
+        }
+      ],
+      "text": "uv's documentation is available at docs.astral.sh/uv."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 24,
+      "raw_slice": "Additionally, the command line reference documentation can be viewed with",
+      "raw_span": {
+        "end": 3165,
+        "start": 3092
+      },
+      "segments": [
+        {
+          "end": 3165,
+          "start": 3092
+        }
+      ],
+      "text": "Additionally, the command line reference documentation can be viewed with"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 25,
+      "raw_slice": "Features",
+      "raw_span": {
+        "end": 3189,
+        "start": 3181
+      },
+      "segments": [
+        {
+          "end": 3189,
+          "start": 3181
+        }
+      ],
+      "text": "Features"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 26,
+      "raw_slice": "Projects",
+      "raw_span": {
+        "end": 3203,
+        "start": 3195
+      },
+      "segments": [
+        {
+          "end": 3203,
+          "start": 3195
+        }
+      ],
+      "text": "Projects"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 27,
+      "raw_slice": "uv manages project dependencies and environments, with support for lockfiles, workspaces, and more,\nsimilar to",
+      "raw_span": {
+        "end": 3315,
+        "start": 3205
+      },
+      "segments": [
+        {
+          "end": 3315,
+          "start": 3205
+        }
+      ],
+      "text": "uv manages project dependencies and environments, with support for lockfiles, workspaces, and more, similar to"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 28,
+      "raw_slice": "or",
+      "raw_span": {
+        "end": 3324,
+        "start": 3322
+      },
+      "segments": [
+        {
+          "end": 3324,
+          "start": 3322
+        }
+      ],
+      "text": "or"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 29,
+      "raw_slice": "See the [project documentation](https://docs.astral.sh/uv/guides/projects/) to get started.",
+      "raw_span": {
+        "end": 3930,
+        "start": 3839
+      },
+      "segments": [
+        {
+          "end": 3847,
+          "start": 3839
+        },
+        {
+          "end": 3869,
+          "start": 3848
+        },
+        {
+          "end": 3930,
+          "start": 3914
+        }
+      ],
+      "text": "See the project documentation to get started."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 30,
+      "raw_slice": "uv also supports building and publishing projects, even if they're not managed with uv.",
+      "raw_span": {
+        "end": 4019,
+        "start": 3932
+      },
+      "segments": [
+        {
+          "end": 4019,
+          "start": 3932
+        }
+      ],
+      "text": "uv also supports building and publishing projects, even if they're not managed with uv."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 31,
+      "raw_slice": "See the\n[publish guide](https://docs.astral.sh/uv/guides/publish/) to learn more.",
+      "raw_span": {
+        "end": 4101,
+        "start": 4020
+      },
+      "segments": [
+        {
+          "end": 4028,
+          "start": 4020
+        },
+        {
+          "end": 4042,
+          "start": 4029
+        },
+        {
+          "end": 4101,
+          "start": 4086
+        }
+      ],
+      "text": "See the publish guide to learn more."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 32,
+      "raw_slice": "Scripts",
+      "raw_span": {
+        "end": 4114,
+        "start": 4107
+      },
+      "segments": [
+        {
+          "end": 4114,
+          "start": 4107
+        }
+      ],
+      "text": "Scripts"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 33,
+      "raw_slice": "uv manages dependencies and environments for single-file scripts.",
+      "raw_span": {
+        "end": 4181,
+        "start": 4116
+      },
+      "segments": [
+        {
+          "end": 4181,
+          "start": 4116
+        }
+      ],
+      "text": "uv manages dependencies and environments for single-file scripts."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 34,
+      "raw_slice": "Create a new script and add inline metadata declaring its dependencies:",
+      "raw_span": {
+        "end": 4254,
+        "start": 4183
+      },
+      "segments": [
+        {
+          "end": 4254,
+          "start": 4183
+        }
+      ],
+      "text": "Create a new script and add inline metadata declaring its dependencies:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 35,
+      "raw_slice": "Then, run the script in an isolated virtual environment:",
+      "raw_span": {
+        "end": 4468,
+        "start": 4412
+      },
+      "segments": [
+        {
+          "end": 4468,
+          "start": 4412
+        }
+      ],
+      "text": "Then, run the script in an isolated virtual environment:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 36,
+      "raw_slice": "See the [scripts documentation](https://docs.astral.sh/uv/guides/scripts/) to get started.",
+      "raw_span": {
+        "end": 4690,
+        "start": 4600
+      },
+      "segments": [
+        {
+          "end": 4608,
+          "start": 4600
+        },
+        {
+          "end": 4630,
+          "start": 4609
+        },
+        {
+          "end": 4690,
+          "start": 4674
+        }
+      ],
+      "text": "See the scripts documentation to get started."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 37,
+      "raw_slice": "Tools",
+      "raw_span": {
+        "end": 4701,
+        "start": 4696
+      },
+      "segments": [
+        {
+          "end": 4701,
+          "start": 4696
+        }
+      ],
+      "text": "Tools"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 38,
+      "raw_slice": "uv executes and installs command-line tools provided by Python packages, similar to",
+      "raw_span": {
+        "end": 4786,
+        "start": 4703
+      },
+      "segments": [
+        {
+          "end": 4786,
+          "start": 4703
+        }
+      ],
+      "text": "uv executes and installs command-line tools provided by Python packages, similar to"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 39,
+      "raw_slice": "Run a tool in an ephemeral environment using",
+      "raw_span": {
+        "end": 4840,
+        "start": 4796
+      },
+      "segments": [
+        {
+          "end": 4840,
+          "start": 4796
+        }
+      ],
+      "text": "Run a tool in an ephemeral environment using"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 40,
+      "raw_slice": "(an alias for",
+      "raw_span": {
+        "end": 4860,
+        "start": 4847
+      },
+      "segments": [
+        {
+          "end": 4860,
+          "start": 4847
+        }
+      ],
+      "text": "(an alias for"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 41,
+      "raw_slice": "Install a tool with",
+      "raw_span": {
+        "end": 5171,
+        "start": 5152
+      },
+      "segments": [
+        {
+          "end": 5171,
+          "start": 5152
+        }
+      ],
+      "text": "Install a tool with"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 42,
+      "raw_slice": "See the [tools documentation](https://docs.astral.sh/uv/guides/tools/) to get started.",
+      "raw_span": {
+        "end": 5443,
+        "start": 5357
+      },
+      "segments": [
+        {
+          "end": 5365,
+          "start": 5357
+        },
+        {
+          "end": 5385,
+          "start": 5366
+        },
+        {
+          "end": 5443,
+          "start": 5427
+        }
+      ],
+      "text": "See the tools documentation to get started."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 43,
+      "raw_slice": "Python versions",
+      "raw_span": {
+        "end": 5464,
+        "start": 5449
+      },
+      "segments": [
+        {
+          "end": 5464,
+          "start": 5449
+        }
+      ],
+      "text": "Python versions"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 44,
+      "raw_slice": "uv installs Python and allows quickly switching between versions.",
+      "raw_span": {
+        "end": 5531,
+        "start": 5466
+      },
+      "segments": [
+        {
+          "end": 5531,
+          "start": 5466
+        }
+      ],
+      "text": "uv installs Python and allows quickly switching between versions."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 45,
+      "raw_slice": "Install multiple Python versions:",
+      "raw_span": {
+        "end": 5566,
+        "start": 5533
+      },
+      "segments": [
+        {
+          "end": 5566,
+          "start": 5533
+        }
+      ],
+      "text": "Install multiple Python versions:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 46,
+      "raw_slice": "Download Python versions as needed:",
+      "raw_span": {
+        "end": 5836,
+        "start": 5801
+      },
+      "segments": [
+        {
+          "end": 5836,
+          "start": 5801
+        }
+      ],
+      "text": "Download Python versions as needed:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 47,
+      "raw_slice": "Use a specific Python version in the current directory:",
+      "raw_span": {
+        "end": 6312,
+        "start": 6257
+      },
+      "segments": [
+        {
+          "end": 6312,
+          "start": 6257
+        }
+      ],
+      "text": "Use a specific Python version in the current directory:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 48,
+      "raw_slice": "See the [Python installation documentation](https://docs.astral.sh/uv/guides/install-python/) to get\nstarted.",
+      "raw_span": {
+        "end": 6495,
+        "start": 6386
+      },
+      "segments": [
+        {
+          "end": 6394,
+          "start": 6386
+        },
+        {
+          "end": 6428,
+          "start": 6395
+        },
+        {
+          "end": 6495,
+          "start": 6479
+        }
+      ],
+      "text": "See the Python installation documentation to get started."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 49,
+      "raw_slice": "The pip interface",
+      "raw_span": {
+        "end": 6518,
+        "start": 6501
+      },
+      "segments": [
+        {
+          "end": 6518,
+          "start": 6501
+        }
+      ],
+      "text": "The pip interface"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 50,
+      "raw_slice": "uv provides a drop-in replacement for common",
+      "raw_span": {
+        "end": 6564,
+        "start": 6520
+      },
+      "segments": [
+        {
+          "end": 6564,
+          "start": 6520
+        }
+      ],
+      "text": "uv provides a drop-in replacement for common"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 51,
+      "raw_slice": ", and",
+      "raw_span": {
+        "end": 6588,
+        "start": 6583
+      },
+      "segments": [
+        {
+          "end": 6588,
+          "start": 6583
+        }
+      ],
+      "text": ", and"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 52,
+      "raw_slice": "commands.",
+      "raw_span": {
+        "end": 6611,
+        "start": 6602
+      },
+      "segments": [
+        {
+          "end": 6611,
+          "start": 6602
+        }
+      ],
+      "text": "commands."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 53,
+      "raw_slice": "uv extends their interfaces with advanced features, such as dependency version overrides,\nplatform-independent resolutions, reproducible resolutions, alternative resolution strategies, and\nmore.",
+      "raw_span": {
+        "end": 6807,
+        "start": 6613
+      },
+      "segments": [
+        {
+          "end": 6807,
+          "start": 6613
+        }
+      ],
+      "text": "uv extends their interfaces with advanced features, such as dependency version overrides, platform-independent resolutions, reproducible resolutions, alternative resolution strategies, and more."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 54,
+      "raw_slice": "Migrate to uv without changing your existing workflows — and experience a 10-100x speedup — with the",
+      "raw_span": {
+        "end": 6913,
+        "start": 6809
+      },
+      "segments": [
+        {
+          "end": 6913,
+          "start": 6809
+        }
+      ],
+      "text": "Migrate to uv without changing your existing workflows — and experience a 10-100x speedup — with the"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 55,
+      "raw_slice": "interface.",
+      "raw_span": {
+        "end": 6933,
+        "start": 6923
+      },
+      "segments": [
+        {
+          "end": 6933,
+          "start": 6923
+        }
+      ],
+      "text": "interface."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 56,
+      "raw_slice": "Compile requirements into a platform-independent requirements file:",
+      "raw_span": {
+        "end": 7002,
+        "start": 6935
+      },
+      "segments": [
+        {
+          "end": 7002,
+          "start": 6935
+        }
+      ],
+      "text": "Compile requirements into a platform-independent requirements file:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 57,
+      "raw_slice": "Create a virtual environment:",
+      "raw_span": {
+        "end": 7164,
+        "start": 7135
+      },
+      "segments": [
+        {
+          "end": 7164,
+          "start": 7135
+        }
+      ],
+      "text": "Create a virtual environment:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 58,
+      "raw_slice": "Install the locked requirements:",
+      "raw_span": {
+        "end": 7324,
+        "start": 7292
+      },
+      "segments": [
+        {
+          "end": 7324,
+          "start": 7292
+        }
+      ],
+      "text": "Install the locked requirements:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 59,
+      "raw_slice": "See the [pip interface documentation](https://docs.astral.sh/uv/pip/index/) to get started.",
+      "raw_span": {
+        "end": 7584,
+        "start": 7493
+      },
+      "segments": [
+        {
+          "end": 7501,
+          "start": 7493
+        },
+        {
+          "end": 7529,
+          "start": 7502
+        },
+        {
+          "end": 7584,
+          "start": 7568
+        }
+      ],
+      "text": "See the pip interface documentation to get started."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 60,
+      "raw_slice": "Contributing",
+      "raw_span": {
+        "end": 7601,
+        "start": 7589
+      },
+      "segments": [
+        {
+          "end": 7601,
+          "start": 7589
+        }
+      ],
+      "text": "Contributing"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 61,
+      "raw_slice": "We are passionate about supporting contributors of all levels of experience and would love to see\nyou get involved in the project.",
+      "raw_span": {
+        "end": 7733,
+        "start": 7603
+      },
+      "segments": [
+        {
+          "end": 7733,
+          "start": 7603
+        }
+      ],
+      "text": "We are passionate about supporting contributors of all levels of experience and would love to see you get involved in the project."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 62,
+      "raw_slice": "See the\n[contributing guide](https://github.com/astral-sh/uv?tab=contributing-ov-file#contributing) to get\nstarted.",
+      "raw_span": {
+        "end": 7849,
+        "start": 7734
+      },
+      "segments": [
+        {
+          "end": 7742,
+          "start": 7734
+        },
+        {
+          "end": 7761,
+          "start": 7743
+        },
+        {
+          "end": 7849,
+          "start": 7833
+        }
+      ],
+      "text": "See the contributing guide to get started."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 63,
+      "raw_slice": "FAQ",
+      "raw_span": {
+        "end": 7857,
+        "start": 7854
+      },
+      "segments": [
+        {
+          "end": 7857,
+          "start": 7854
+        }
+      ],
+      "text": "FAQ"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 64,
+      "raw_slice": "How do you pronounce uv?",
+      "raw_span": {
+        "end": 7888,
+        "start": 7864
+      },
+      "segments": [
+        {
+          "end": 7888,
+          "start": 7864
+        }
+      ],
+      "text": "How do you pronounce uv?"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 65,
+      "raw_slice": "It's pronounced as \"you - vee\" (",
+      "raw_span": {
+        "end": 7922,
+        "start": 7890
+      },
+      "segments": [
+        {
+          "end": 7922,
+          "start": 7890
+        }
+      ],
+      "text": "It's pronounced as \"you - vee\" ("
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 66,
+      "raw_slice": "How should I stylize uv?",
+      "raw_span": {
+        "end": 8021,
+        "start": 7997
+      },
+      "segments": [
+        {
+          "end": 8021,
+          "start": 7997
+        }
+      ],
+      "text": "How should I stylize uv?"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 67,
+      "raw_slice": "Just \"uv\", please.",
+      "raw_span": {
+        "end": 8041,
+        "start": 8023
+      },
+      "segments": [
+        {
+          "end": 8041,
+          "start": 8023
+        }
+      ],
+      "text": "Just \"uv\", please."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 68,
+      "raw_slice": "See the [style guide](./STYLE.md#styling-uv) for details.",
+      "raw_span": {
+        "end": 8099,
+        "start": 8042
+      },
+      "segments": [
+        {
+          "end": 8050,
+          "start": 8042
+        },
+        {
+          "end": 8062,
+          "start": 8051
+        },
+        {
+          "end": 8099,
+          "start": 8086
+        }
+      ],
+      "text": "See the style guide for details."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 69,
+      "raw_slice": "What platforms does uv support?",
+      "raw_span": {
+        "end": 8137,
+        "start": 8106
+      },
+      "segments": [
+        {
+          "end": 8137,
+          "start": 8106
+        }
+      ],
+      "text": "What platforms does uv support?"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 70,
+      "raw_slice": "See uv's [platform support](https://docs.astral.sh/uv/reference/platforms/) document.",
+      "raw_span": {
+        "end": 8224,
+        "start": 8139
+      },
+      "segments": [
+        {
+          "end": 8148,
+          "start": 8139
+        },
+        {
+          "end": 8165,
+          "start": 8149
+        },
+        {
+          "end": 8224,
+          "start": 8214
+        }
+      ],
+      "text": "See uv's platform support document."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 71,
+      "raw_slice": "Is uv ready for production?",
+      "raw_span": {
+        "end": 8258,
+        "start": 8231
+      },
+      "segments": [
+        {
+          "end": 8258,
+          "start": 8231
+        }
+      ],
+      "text": "Is uv ready for production?"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 72,
+      "raw_slice": "Yes, uv is stable and widely used in production.",
+      "raw_span": {
+        "end": 8308,
+        "start": 8260
+      },
+      "segments": [
+        {
+          "end": 8308,
+          "start": 8260
+        }
+      ],
+      "text": "Yes, uv is stable and widely used in production."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 73,
+      "raw_slice": "See uv's\n[versioning policy](https://docs.astral.sh/uv/reference/versioning/) document for details.",
+      "raw_span": {
+        "end": 8408,
+        "start": 8309
+      },
+      "segments": [
+        {
+          "end": 8318,
+          "start": 8309
+        },
+        {
+          "end": 8336,
+          "start": 8319
+        },
+        {
+          "end": 8408,
+          "start": 8386
+        }
+      ],
+      "text": "See uv's versioning policy document for details."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 74,
+      "raw_slice": "Acknowledgements",
+      "raw_span": {
+        "end": 8429,
+        "start": 8413
+      },
+      "segments": [
+        {
+          "end": 8429,
+          "start": 8413
+        }
+      ],
+      "text": "Acknowledgements"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 75,
+      "raw_slice": "uv's dependency resolver uses [PubGrub](https://github.com/pubgrub-rs/pubgrub) under the hood.",
+      "raw_span": {
+        "end": 8525,
+        "start": 8431
+      },
+      "segments": [
+        {
+          "end": 8461,
+          "start": 8431
+        },
+        {
+          "end": 8469,
+          "start": 8462
+        },
+        {
+          "end": 8525,
+          "start": 8509
+        }
+      ],
+      "text": "uv's dependency resolver uses PubGrub under the hood."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 76,
+      "raw_slice": "We're\ngrateful to the PubGrub maintainers, especially [Jacob Finkelman](https://github.com/Eh2406), for\ntheir support.",
+      "raw_span": {
+        "end": 8644,
+        "start": 8526
+      },
+      "segments": [
+        {
+          "end": 8580,
+          "start": 8526
+        },
+        {
+          "end": 8596,
+          "start": 8581
+        },
+        {
+          "end": 8644,
+          "start": 8624
+        }
+      ],
+      "text": "We're grateful to the PubGrub maintainers, especially Jacob Finkelman, for their support."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 77,
+      "raw_slice": "uv's Git implementation is based on [Cargo](https://github.com/rust-lang/cargo).",
+      "raw_span": {
+        "end": 8726,
+        "start": 8646
+      },
+      "segments": [
+        {
+          "end": 8682,
+          "start": 8646
+        },
+        {
+          "end": 8688,
+          "start": 8683
+        },
+        {
+          "end": 8726,
+          "start": 8725
+        }
+      ],
+      "text": "uv's Git implementation is based on Cargo."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 78,
+      "raw_slice": "Some of uv's optimizations are inspired by the great work we've seen in [pnpm](https://pnpm.io/),\n[Orogene](https://github.com/orogene/orogene), and [Bun](https://github.com/oven-sh/bun).",
+      "raw_span": {
+        "end": 8915,
+        "start": 8728
+      },
+      "segments": [
+        {
+          "end": 8800,
+          "start": 8728
+        },
+        {
+          "end": 8805,
+          "start": 8801
+        },
+        {
+          "end": 8826,
+          "start": 8824
+        },
+        {
+          "end": 8834,
+          "start": 8827
+        },
+        {
+          "end": 8877,
+          "start": 8871
+        },
+        {
+          "end": 8881,
+          "start": 8878
+        },
+        {
+          "end": 8915,
+          "start": 8914
+        }
+      ],
+      "text": "Some of uv's optimizations are inspired by the great work we've seen in pnpm, Orogene, and Bun."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 79,
+      "raw_slice": "We've also\nlearned a lot from Nathaniel J. Smith's [Posy](https://github.com/njsmith/posy) and adapted its\n[trampoline](https://github.com/njsmith/posy/tree/main/src/trampolines/windows-trampolines/posy-trampoline)\nfor Windows support.",
+      "raw_span": {
+        "end": 9151,
+        "start": 8916
+      },
+      "segments": [
+        {
+          "end": 8967,
+          "start": 8916
+        },
+        {
+          "end": 8972,
+          "start": 8968
+        },
+        {
+          "end": 9023,
+          "start": 9006
+        },
+        {
+          "end": 9034,
+          "start": 9024
+        },
+        {
+          "end": 9151,
+          "start": 9130
+        }
+      ],
+      "text": "We've also learned a lot from Nathaniel J. Smith's Posy and adapted its trampoline for Windows support."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 80,
+      "raw_slice": "License",
+      "raw_span": {
+        "end": 9163,
+        "start": 9156
+      },
+      "segments": [
+        {
+          "end": 9163,
+          "start": 9156
+        }
+      ],
+      "text": "License"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 81,
+      "raw_slice": "uv is licensed under either of",
+      "raw_span": {
+        "end": 9195,
+        "start": 9165
+      },
+      "segments": [
+        {
+          "end": 9195,
+          "start": 9165
+        }
+      ],
+      "text": "uv is licensed under either of"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 82,
+      "raw_slice": "Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or",
+      "raw_span": {
+        "end": 9264,
+        "start": 9199
+      },
+      "segments": [
+        {
+          "end": 9229,
+          "start": 9199
+        },
+        {
+          "end": 9244,
+          "start": 9230
+        },
+        {
+          "end": 9264,
+          "start": 9261
+        }
+      ],
+      "text": "Apache License, Version 2.0, (LICENSE-APACHE or"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 83,
+      "raw_slice": "MIT license ([LICENSE-MIT](LICENSE-MIT) or",
+      "raw_span": {
+        "end": 9358,
+        "start": 9316
+      },
+      "segments": [
+        {
+          "end": 9329,
+          "start": 9316
+        },
+        {
+          "end": 9341,
+          "start": 9330
+        },
+        {
+          "end": 9358,
+          "start": 9355
+        }
+      ],
+      "text": "MIT license (LICENSE-MIT or"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 84,
+      "raw_slice": "at your option.",
+      "raw_span": {
+        "end": 9414,
+        "start": 9399
+      },
+      "segments": [
+        {
+          "end": 9414,
+          "start": 9399
+        }
+      ],
+      "text": "at your option."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 85,
+      "raw_slice": "Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in uv\nby you, as defined in the Apache-2.0 license, shall be dually licensed as above, without any\nadditional terms or conditions.",
+      "raw_span": {
+        "end": 9640,
+        "start": 9416
+      },
+      "segments": [
+        {
+          "end": 9640,
+          "start": 9416
+        }
+      ],
+      "text": "Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in uv by you, as defined in the Apache-2.0 license, shall be dually licensed as above, without any additional terms or conditions."
+    }
+  ]
+}
