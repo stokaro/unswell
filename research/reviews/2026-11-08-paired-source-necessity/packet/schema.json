@@ -1,0 +1,66 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "A_basis": {
+      "type": "string"
+    },
+    "A_decision": {
+      "enum": [
+        "revise",
+        "retain",
+        "uncertain"
+      ],
+      "type": "string"
+    },
+    "A_end": {
+      "type": "integer"
+    },
+    "A_id": {
+      "type": "string"
+    },
+    "A_start": {
+      "type": "integer"
+    },
+    "B_basis": {
+      "type": "string"
+    },
+    "B_decision": {
+      "enum": [
+        "revise",
+        "retain",
+        "uncertain"
+      ],
+      "type": "string"
+    },
+    "B_end": {
+      "type": "integer"
+    },
+    "B_id": {
+      "type": "string"
+    },
+    "B_start": {
+      "type": "integer"
+    },
+    "pair_id": {
+      "type": "string"
+    },
+    "source_sha256": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "pair_id",
+    "source_sha256",
+    "A_id",
+    "A_start",
+    "A_end",
+    "A_decision",
+    "A_basis",
+    "B_id",
+    "B_start",
+    "B_end",
+    "B_decision",
+    "B_basis"
+  ],
+  "type": "object"
+}
