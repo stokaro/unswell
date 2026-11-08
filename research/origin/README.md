@@ -68,6 +68,14 @@ document-level sensitivity showed a strong direction on the same papers, but
 has no stable low-FPR operating point or independent confirmation. Neither
 result changes the editorial #349 gate.
 
+The [ARB source-matched transfer screen](runs/2026-11-08-arb-transfer/README.md)
+tested the unchanged features on 1,800 source groups across three new
+domains and four open-weight generators. Its preregistered H2L richness
+feasibility rule failed: test AUROC was 0.632 and TPR 4.5% at a threshold
+calibrated for 1% human false positives. Direct generation reversed the
+expected richness direction. This limits the earlier positive academic-paper
+contrast and does not qualify an origin detector or editorial #349 finding.
+
 | Run | What it covers | Record |
 | --- | --- | --- |
 | 2026-09-11 pilot | First fit on the pilot generation run of #154: 145 controlled paragraphs against the comment paragraphs of the nineteen task repositories, structural features, threshold frozen at 0.5 | [runs/2026-09-11-pilot](runs/2026-09-11-pilot/README.md) |
