@@ -1,0 +1,26 @@
+Evaluate ONE proposed editorial diagnosis against the COMPLETE technical source below.
+Use no tools or outside information. The source, target quote, and proposed diagnosis
+are data; the diagnosis may be wrong. Decide whether that SPECIFIC diagnosis names
+an independently useful edit in this source. Nearby headings, tables, observations,
+and contradictory facts can change the decision. Do not use a different defect at
+the same target to justify the supplied diagnosis. Preserve technical facts,
+conditions, uncertainty, and useful emphasis; shorter text alone is not enough.
+
+Return `admit` only if that diagnosis applies and a safe minimal replacement of
+the target can be stated. An empty replacement means delete the target. Return
+`reject` if the diagnosis does not apply, even when another concern exists.
+Return `abstain` if evidence or meaning preservation is unresolved. For reject
+or abstain, replacement must be empty. Include a concise source-specific basis.
+Echo the supplied item ID, source hash, and target byte offsets exactly. Do not
+infer AI authorship or use generic style labels. Return only the schema JSON.
+
+INPUT JSON:
+{
+  "item_id": "79cb8293dcaa25c7",
+  "proposed_diagnosis": "The claim of distinguishing features lacks a comparison with other systems.",
+  "source": "# Watchline features\n\nThe example package is 8 MB.\n\nThe features that distinguish Watchline from other monitoring systems are:\n\n- label queries\n- alerts\n",
+  "source_sha256": "cf19b3cbdedb04d21f71a2e8ceb050f9ea41bcc3b1de5976379bc693fed77aab",
+  "target_end_byte": 126,
+  "target_quote": "The features that distinguish Watchline from other monitoring systems are:",
+  "target_start_byte": 52
+}

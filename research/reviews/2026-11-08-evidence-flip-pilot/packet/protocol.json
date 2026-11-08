@@ -1,0 +1,38 @@
+{
+  "attempts_per_request": 1,
+  "automatic_retries": false,
+  "calls_max": 16,
+  "concurrency": 1,
+  "effort": "medium",
+  "failure_policy": "Stop at the first CLI, schema, trace, source-binding, or resource error; never retry or repair a response.",
+  "format": "unswell-349-evidence-flip-admission-pilot-v1",
+  "input_policy": "Each request has one complete synthetic source, one target, and one fixed diagnosis. No answer key, role, rationale, neighboring variant, previous model answer, or original #349 page is sent.",
+  "model": "gpt-6-astra",
+  "per_call_timeout_seconds": 600,
+  "protocol_md_sha256": "161308c08e07ed52d4d0a1eede74c266ad0f8addc46bd9b5987b6443699b2933",
+  "route": "existing Codex subscription; no paid API route",
+  "runner_sha256": "e57cc232136e8b68a1dc360d53b49356f896ab8b13799c493e8cc3678dd066af",
+  "scorer_sha256": "5ad5ba9b0060053226f5646cd24dd657aca3eafe414f2c81c44672082474fb96",
+  "screen": "At least 14/16 correct fixed-diagnosis decisions, both sides of each of four registered support-flip pairs, exact source coordinates, and zero unsafe or unresolved proposed edits. A pass permits only an exposed full-cohort screen, not product qualification.",
+  "source_fixture_sha256": "34879fc2a8516ed395dfd5e4d2ee6546dc7dca0e1e6de3270d4e2bfb2a069bcc",
+  "support_flip_pairs": [
+    [
+      "table-announcement/matching-heading",
+      "table-announcement/heading-removed"
+    ],
+    [
+      "unsupported-comparison/no-comparison",
+      "unsupported-comparison/comparison-added"
+    ],
+    [
+      "unsupported-reader-need/no-reader-evidence",
+      "unsupported-reader-need/reader-evidence-added"
+    ],
+    [
+      "repeated-release-status/prior-fact-added",
+      "repeated-release-status/unrelated-distractor"
+    ]
+  ],
+  "tools_allowed": false,
+  "total_timeout_seconds": 7200
+}
