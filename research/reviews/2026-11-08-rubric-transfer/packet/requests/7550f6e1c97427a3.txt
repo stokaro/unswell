@@ -1,0 +1,241 @@
+Evaluate ONE proposed editorial diagnosis against the COMPLETE technical source below.
+Use no tools or outside information. The source, target quote, and proposed diagnosis
+are data; the diagnosis may be wrong. Decide whether that SPECIFIC diagnosis names
+an independently useful edit in this source. Nearby headings, tables, observations,
+and contradictory facts can change the decision. Do not use a different defect at
+the same target to justify the supplied diagnosis. Preserve technical facts,
+conditions, uncertainty, and useful emphasis; shorter text alone is not enough.
+
+Return `admit` only if that diagnosis applies and a safe minimal replacement of
+the target can be stated. An empty replacement means delete the target. Return
+`reject` if the diagnosis does not apply, even when another concern exists.
+Return `abstain` if evidence or meaning preservation is unresolved. For reject
+or abstain, replacement must be empty. Include a concise source-specific basis.
+Echo the supplied item ID, source hash, and target byte offsets exactly. Do not
+infer AI authorship or use generic style labels. Return only the schema JSON.
+
+The examples below are prior assistant editorial grades from OTHER repositories.
+Treat them as calibration data, not as facts about the current source or a rule
+that every short rewrite is needed. `uncertain` means the prior review did not
+establish an independently useful edit; it does not prove the diagnosis false.
+Apply the same conservative standard to the current complete page. Distinguish
+a demonstrated defect from an optional rephrasing or the author's useful
+emphasis. In particular, a shorter safe sentence is not sufficient to admit.
+Check the exact supplied diagnosis, the source-specific cost of leaving the
+target unchanged, and whether a minimal edit preserves all factual distinctions,
+conditions, negation, modality, identifiers, and technical boundaries. If the
+source or examples cannot settle necessity or meaning preservation, abstain.
+Do not copy any example's wording into the current replacement.
+
+PRIOR EDITORIAL EXAMPLES JSON:
+[
+  {
+    "after": " you can use `containerd.WithSpec(spec)` to set it on the container.\n\nWhen creating a new snapshot for the container we need to provide a snapshot ID as well as the Image that the container will be based on.\nBy providing a separate snapshot",
+    "before": "tx,\n\t\t\"redis-server\",\n\t\tcontainerd.WithNewSnapshot(\"redis-server-snapshot\", image),\n\t\tcontainerd.WithNewSpec(oci.WithImageConfig(image)),\n\t)\n\tif err != nil {\n\t\treturn err\n\t}\n\tdefer container.Delete(ctx, containerd.WithSnapshotCleanup)\n```\n\n",
+    "diagnosis": "“Created” repeats the existence already conveyed by “have an existing OCI specification.”",
+    "prior_grade": "accepted",
+    "prior_reason": "Existing specification created repeats the existence/creation condition in an awkward participle.",
+    "source_group": "containerd",
+    "target": "If you have an existing OCI specification created"
+  },
+  {
+    "after": "\n\n    make build\n\nThis installs npm dependencies via Yarn, builds a production build of the React app, and then finally compiles in all web assets into the Prometheus binary.\n",
+    "before": "directory, run:\n\n    yarn build\n\n**NOTE:** You will likely not need to do this directly. Instead, this is taken care of by the `build` target in the main Prometheus `Makefile` when building the full binary.\n\n## Integration into Prometheus\n\n",
+    "diagnosis": "'That includes a compiled-in version of the production build of' nests several descriptions around the straightforward relationship between the binary and the app's production build.",
+    "prior_grade": "accepted",
+    "prior_reason": "Includes-a-compiled-in-version-of-the-production-build nests descriptions without an actual version distinction.",
+    "source_group": "prometheus",
+    "target": "To build a Prometheus binary that includes a compiled-in version of the production build of the React app, change to the root of the repository and run:"
+  },
+  {
+    "after": "\n- fs: `File` operations take `&self` (#2930).\n- rt: runtime API, and `#[tokio::main]` macro polish (#2876)\n- rt: `Runtime::enter` uses an RAII guard instead of a closure (#2954).\n- net: the `from_std` function on all sockets no longer sets",
+    "before": "t operations with `&self` (#2828, #2919, #2934).\n- sync: blocking `mpsc` channel supports `send` with `&self` (#2861).\n- time: rename `delay_for` and `delay_until` to `sleep` and `sleep_until` (#2826).\n- io: upgrade to `mio` 0.7 (#2893).\n- ",
+    "diagnosis": "“Is tweaked” names no aspect of the trait that changed and implies a minor adjustment without explaining it.",
+    "prior_grade": "uncertain",
+    "prior_reason": "The release entry identifies the changed AsyncSeek trait and its reference. More concrete migration information could help, but the supplied context does not establish that this short linked changelog summary must contain a signature or behavior description.",
+    "source_group": "tokio",
+    "target": "io: `AsyncSeek` trait is tweaked (#2885)."
+  },
+  {
+    "after": " to declare validation for `str` and numeric values, #311 by @tiangolo\n* rename `_schema` to `schema` on fields, #318 by @samuelcolvin\n* add `case_insensitive` option to `BaseSettings` `Config`, #277 by @jasonkuhrt\n\n## v0.15.0 (2018-11-18)\n",
+    "before": ".0 (2018-12-03)\n\n* **breaking change**: refactor schema generation to be compatible with JSON Schema and OpenAPI specs, #308 by @tiangolo\n* add `schema` to `schema` module to generate top-level schemas from base models, #308 by @tiangolo\n* ",
+    "diagnosis": "'Additional' repeats the increase already expressed by 'add fields'; it supplies no separate scope or condition.",
+    "prior_grade": "uncertain",
+    "prior_reason": "Additional emphasizes extension of an existing field set. The sentence is already a short release entry naming the Schema class and validation purpose; deleting the modifier is optional concision rather than an established clarity or repetition defect.",
+    "source_group": "pydantic",
+    "target": "add additional fields to `Schema` class"
+  },
+  {
+    "after": ", #343 by @samuelcolvin\n* fix `ignore_extra=False` and `allow_population_by_alias=True`, fix #257 by @samuelcolvin\n* **breaking change**: Set `BaseConfig` attributes `min_anystr_length` and `max_anystr_length` to\n  `None` by default, fix #3",
+    "before": "ll validators on keys of dictionaries, #254 by @samuelcolvin\n* Fix validators with `always=True` when the default is `None` or the type is optional, also prevent\n  `whole` validators being called for sub-fields, fix #132 by @samuelcolvin\n* ",
+    "diagnosis": "'It' weakens the distinction between the documentation and settings priority, while 'easily' asserts ease without identifying any concrete facility.",
+    "prior_grade": "accepted",
+    "prior_reason": "The coordination leaves it able to refer to documentation or settings priority, blurring whether the change only documents priority or also adds a configurable capability. Easily supplies no missing mechanism.",
+    "source_group": "pydantic",
+    "target": "improve documentation for settings priority and allow it to be easily changed"
+  },
+  {
+    "after": "\n\n# v0.9.0\n\n## Features\n\n- A new `-A`/`--show-all` option has been added to show and highlight non-printable characters (in analogy to GNU `cat`s option):\n\n  ![](https://camo.githubusercontent.com/c3e769482ef3184f6be6adaa34bdc8d19c378254/68",
+    "before": "@markusthoemmes)\n- Assembly (x86_64 and ARM)\n- Log files (@caos21)\n- Protobuf and ProtobufText (@caos21)\n- Terraform (@caos21)\n- Jsonnet (@hfm)\n- Varlink (@haraldh)\n\n## Other\n\n- Added Japanese version of README (@sh-tech and @object1037)\n- ",
+    "diagnosis": "“Code improvements” evaluates unidentified work without naming an affected area or a concrete benefit.",
+    "prior_grade": "accepted",
+    "prior_reason": "Code improvements names neither an affected component nor an observable change and provides no issue reference. This is the frozen uninformative improvement claim, not a concrete linked feature summary.",
+    "source_group": "bat",
+    "target": "Code improvements (@barskern)"
+  },
+  {
+    "after": " (Please file a bug report!)\n* ripgrep isn't possible to install on your machine or isn't available for your\n  platform. (Please file a bug report!)\n\n\n### Is it really faster than everything else?\n\nGenerally, yes. A large number of benchmar",
+    "before": "it does not conform to any\n  standard such as POSIX. The best tool for this job is good old grep.\n* There still exists some other feature (or bug) not listed in this README that\n  you rely on that's in another tool that isn't in ripgrep.\n* ",
+    "diagnosis": "The existential opening and repeated 'where' and 'do well' constructions make a simple performance contrast unnecessarily cumbersome.",
+    "prior_grade": "accepted",
+    "prior_reason": "Repeated where clauses and do-well predicates make the two-tool contrast harder to parse than necessary. This is a specific attachment and repetition problem within the selection condition.",
+    "source_group": "ripgrep",
+    "target": "There is a performance edge case where ripgrep doesn't do well where another\n  tool does do well."
+  },
+  {
+    "after": "\n\n##### [Return to Index](#index)\n",
+    "before": "w.levien.com/type/myfonts/inconsolata.html\n- Adobe Source Code Pro: Monospaced font family for ui & coding environments https://github.com/adobe-fonts/source-code-pro\n- Monospace/Fixed Width Programmer's Fonts http://www.lowing.org/fonts/\n\n",
+    "diagnosis": "“Full characters coverage” asserts completeness without identifying the character repertoire.",
+    "prior_grade": "accepted",
+    "prior_reason": "Full characters coverage supplies no repertoire, making the completeness claim impossible to interpret. The source does not establish all Unicode coverage.",
+    "source_group": "imgui",
+    "target": "Or use Arial Unicode or other Unicode fonts provided with Windows for full characters coverage (not sure of their licensing)."
+  },
+  {
+    "after": "\n\nAlternatively, you can use `--height HEIGHT[%]` option not to start fzf in\nfullscreen mode.\n\n```sh\nfzf --height 40%\n```\n\nKey bindings for command-line\n-----------------------------\n\nThe install script will setup the following key bindings",
+    "before": " --help\n\n# select git branches in horizontal split below (15 lines)\ngit branch | fzf-tmux -d 15\n\n# select multiple words in vertical split on the left (20% of screen width)\ncat /usr/share/dict/words | fzf-tmux -l 20% --multi --reverse\n```\n\n",
+    "diagnosis": "“Invariably” presents an absolute scripting assurance where the stated evidence concerns operation inside and outside tmux.",
+    "prior_grade": "uncertain",
+    "prior_reason": "Invariably is scoped in the same sentence to tmux availability and silent handling of layout options. The finding stretches it into an unrestricted promise that the context does not require. Explicitly restating inside and outside tmux is an optional clarification.",
+    "source_group": "fzf",
+    "target": "It will still work even when you're not on tmux, silently ignoring `-[pudlr]`\noptions, so you can invariably use `fzf-tmux` in your scripts."
+  },
+  {
+    "after": "\n\ncurl-security (at haxx dot se)\n------------------------------\n\nThis is a private mailing list for discussions on and about curl security\nissues.\n\nWho is on this list? There are a couple of criteria you must meet, and then we\nmight ask you",
+    "before": "elease that includes the fix.\n\n- The project team announces the release and the vulnerability to the world in\n  the same manner we always announce releases. It gets sent to the\n  curl-announce, curl-library and curl-users mailing lists.\n\n- ",
+    "diagnosis": "'Web page on the website' repeats the location concept, and 'should get ... mentioned' indirectly expresses a simple addition.",
+    "prior_grade": "accepted",
+    "prior_reason": "Web page on the website repeats the medium and should get mentioned unnecessarily obscures the intended addition.",
+    "source_group": "curl",
+    "target": "The security web page on the website should get the new vulnerability\n  mentioned."
+  },
+  {
+    "after": "\n\nPublishing Security Advisories\n------------------------------\n\n1. Write up the security advisory, using markdown syntax. Use the same\n   subtitles as last time to maintain consistency.\n\n2. Name the advisory file after the allocated CVE id",
+    "before": "uire that you have a long-term presence in the\ncurl project and you have shown an understanding for the project and its way\nof working. You must've been around for a good while and you should have no\nplans in vanishing in the near future.\n\n",
+    "diagnosis": "'Tends to vary somewhat' stacks qualifications around membership changes; 'a list somewhere will only risk getting outdated' indirectly states the risk to a published list.",
+    "prior_grade": "uncertain",
+    "prior_reason": "The short explanation qualifies both the frequency of membership changes and its importance among reasons for nonpublication. A shorter explanation is possible, but indirect risk wording does not itself establish misleading content or substantial excess.",
+    "source_group": "curl",
+    "target": "We do not make the list of participants public mostly because it tends to vary\nsomewhat over time and a list somewhere will only risk getting outdated."
+  },
+  {
+    "after": "\nSee the [Installing](https://prometheus.io/docs/introduction/install/)\nchapter in the documentation for all the details.\n\n### Docker images\n\nDocker images are available on [Quay.io](https://quay.io/repository/prometheus/prometheus) or [Doc",
+    "before": "ecture overview\n\n![](https://cdn.jsdelivr.net/gh/prometheus/prometheus@c34257d069c630685da35bcef084632ffd5d6209/documentation/images/architecture.svg)\n\n## Install\n\nThere are various ways of installing Prometheus.\n\n### Precompiled binaries\n\n",
+    "diagnosis": "The download location is expressed through both a named section and a separate site link, while 'Using ... is the recommended way of installing' wraps the recommendation in an indirect nominal construction.",
+    "prior_grade": "uncertain",
+    "prior_reason": "The paragraph clearly identifies a download location and separately recommends the latest production release. A single link and active recommendation are reasonable alternatives, but ordinary location detail and nominal phrasing do not establish a material defect.",
+    "source_group": "prometheus",
+    "target": "Precompiled binaries for released versions are available in the\n[*download* section](https://prometheus.io/download/)\non [prometheus.io](https://prometheus.io). Using the latest production release binary\nis the recommended way of installing Prometheus."
+  },
+  {
+    "after": "\n\n* *Simple*: well-defined, user-facing API (gRPC)\n* *Secure*: automatic TLS with optional client cert authentication\n* *Fast*: benchmarked 10,000 writes/sec\n* *Reliable*: properly distributed using Raft\n\netcd is written in Go and uses the ",
+    "before": "e [releases][github-release] instead of the `master` branch in order to get stable binaries.\n\n![etcd Logo](logos/etcd-horizontal-color.svg)\n\netcd is a distributed reliable key-value store for the most critical data of a distributed system, ",
+    "diagnosis": "The indirect 'with a focus on being' introduces a list that already names the design priorities.",
+    "prior_grade": "uncertain",
+    "prior_reason": "With a focus on being already marks the following attributes as design priorities. Its priorities are restates that same useful qualification; neither phrasing is inherently defective.",
+    "source_group": "etcd",
+    "target": "with a focus on being:"
+  },
+  {
+    "after": "\n\n```bash\nmv /tmp/etcd-download-test/etcd /usr/local/bin/\netcd\n```\n\nIf etcd is [built from the master branch][dl-build], run it as below:\n\n```bash\n./bin/etcd\n```\n\nThis will bring up etcd listening on port 2379 for client communication and o",
+    "before": "ersion\n\n### Running etcd\n\nFirst start a single-member cluster of etcd.\n\nIf etcd is installed using the [pre-built release binaries][github-release], run it from the installation location as below:\n\n```bash\n/tmp/etcd-download-test/etcd\n```\n\n",
+    "diagnosis": "'Simply run as such' and 'as below' are indirect references to the example; 'it' also makes the command appear to be the object moved.",
+    "prior_grade": "accepted",
+    "prior_reason": "Run as such and as below leave the actual invocation and path relationship implicit in the example. Naming the executable and by-name invocation states the instruction directly.",
+    "source_group": "etcd",
+    "target": "The etcd command can be simply run as such if it is moved to the system path as below:"
+  },
+  {
+    "after": "\n\nBiggest changes are:\n\n- I/O driver internal rewrite. The windows implementation includes significant\n  changes.\n- Runtime API is polished, especially with how it interacts with feature flag\n  combinations.\n- Feature flags are simplified\n ",
+    "before": "_buf()` (#2884).\n- io: `AsyncReadExt::read_buf()`, `AsyncReadExt::write_buf()` for working with\n  `Buf`/`BufMut` (#3003).\n- rt: `Runtime::spawn_blocking()` (#2980).\n- sync: `watch::Sender::is_closed()` (#2991).\n\n# 0.3.0 (October 15, 2020)\n\n",
+    "diagnosis": "The middle sentence describes the APIs as refined and protected against future needs without identifying the properties or limits that support either assessment.",
+    "prior_grade": "accepted",
+    "prior_reason": "Polished and future-proofed asserts unrestricted achieved quality and future suitability beyond beta status or the concrete change list. The diagnosis retains stabilization status and API removals without that blanket assurance.",
+    "source_group": "tokio",
+    "target": "This represents a 1.0 beta release. APIs are polished and future-proofed. APIs\nnot included for 1.0 stabilization have been removed."
+  },
+  {
+    "after": "\n\n- Initial attempt in #469 (@mitsuhiko)\n- Second attempt, complete restructuring of the `bat` crate, see #679 (@DrSensor)\n- Updates to example, public API, error handling, further refactoring: #693 #873 #875 (@sharkdp)\n\nI want to stress th",
+    "before": "sing the library with older syntect, see #896 and #898 (@dtolnay)\n\n## New syntaxes\n\n- Rego, see #872 (@patrick-east)\n- Stylo, see #917\n\n\n# v0.13.0\n\n## `bat` as a library\n\nBeginning with this release, `bat` can be used as a library (#423).\n\n",
+    "diagnosis": "The opening clause appraises the library work as exceptionally large before acknowledging contributors.",
+    "prior_grade": "uncertain",
+    "prior_reason": "This is an explicit contributor acknowledgment in a personal release announcement, and the following attempt/restructuring history supports the appreciation. The actual diagnosis establishes no material burden or technical promise from describing the effort as huge.",
+    "source_group": "bat",
+    "target": "This was a huge effort and I want to thank all people who made this possible: @DrSensor, @mitsuhiko, @mre, @eth-p!"
+  },
+  {
+    "after": "\n\nCurrently, the Windows runtime and snapshot plugins are not stable and not supported.\nPlease refer to the github milestones for Windows support in a future release.\n\n#### Error Codes\n\nError codes will not change in a patch release, unless",
+    "before": "`/v2/metrics`.\n\nThe metrics API version will be incremented when breaking changes are made to the prometheus\noutput. New metrics can be added to the output in a backwards compatible manner without\nbumping the API version.\n\n### Plugins API\n\n",
+    "diagnosis": "The first sentence routes the relationship between containerd and its core plugins through a design noun and a subordinate implementation-purpose clause.",
+    "prior_grade": "uncertain",
+    "prior_reason": "The modular-design and core-plugin sentence provides concise architectural orientation before support policies. The actual diagnosis establishes no ambiguous actor or substantial complexity from this conventional implementation relationship.",
+    "source_group": "containerd",
+    "target": "containerd is based on a modular design where plugins are implemented to provide the core functionality.\nPlugins implemented in tree are supported by the containerd community unless explicitly specified as non-stable.\nOut of tree plugins are not supported by the containerd maintainers."
+  },
+  {
+    "after": "\n\n| Tool | Command | Line count | Time |\n| ---- | ------- | ---------- | ---- |\n| ripgrep | `rg -w 'Sherlock [A-Z]\\w+'` | 7882 | **2.769s** |\n| [ugrep](https://github.com/Genivia/ugrep) | `ugrep -w 'Sherlock [A-Z]\\w+'` | 7882 | 6.802s |\n| [",
+    "before": ".com/Genivia/ugrep) | `ugrep -r -n --include='*.c' --include='*.h' -w '[A-Z]+_SUSPEND'` | 388 | 0.493s |\n| [GNU grep](https://www.gnu.org/software/grep/) | `egrep -r -n --include='*.c' --include='*.h' -w '[A-Z]+_SUSPEND'` | 388 | 0.806s |\n\n",
+    "diagnosis": "The introduction stages the comparison as the final example and adds a colloquial assertion of its directness.",
+    "prior_grade": "uncertain",
+    "prior_reason": "Finally marks the third workload and straight-up is a conventional transition into a direct comparison. All concrete experimental conditions are clear; the critique supplies optional tone compression without a material defect.",
+    "source_group": "ripgrep",
+    "target": "And finally, a straight-up comparison between ripgrep, ugrep and GNU grep on a\nsingle large file cached in memory\n(~13GB, [`OpenSubtitles.raw.en.gz`](http://opus.nlpl.eu/download.php?f=OpenSubtitles/v2018/mono/OpenSubtitles.raw.en.gz)):"
+  },
+  {
+    "after": "\n\n**Read the FAQ:** https://www.dearimgui.org/faq (there is a Fonts section!)\n\n**Use the Discord server**: http://discord.dearimgui.org and not the GitHub issue tracker for basic font loading questions.\n\n## Index\n- [Readme First](#readme-fi",
+    "before": "ar ImGui without any file system access. ProggyClean does not scale smoothly, therefore it is recommended that you load your own file when using Dear ImGui in an application aiming to look nice and wanting to support multiple resolutions.\n\n",
+    "diagnosis": "The final convenience explanation endorses the provision of suggested fonts after their availability and location are already established.",
+    "prior_grade": "uncertain",
+    "prior_reason": "Provided as a convenience signals optional resources rather than a dependency on bundled fonts. The surrounding optional-loading and suggestion wording supports that function; the actual critique identifies no separate material burden beyond compression.",
+    "source_group": "imgui",
+    "target": "You may also load external .TTF/.OTF files. \nIn the [misc/fonts/](https://github.com/ocornut/imgui/tree/master/misc/fonts) folder you can find a few suggested fonts, provided as a convenience."
+  },
+  {
+    "after": "\n\n- `--ansi` tells fzf to extract and parse ANSI color codes in the input and it\n  makes the initial scanning slower. So it's not recommended that you add it\n  to your `$FZF_DEFAULT_OPTS`.\n- `--nth` makes fzf slower as fzf has to tokenize e",
+    "before": "f_complete_foo_post() {\n  awk '{print $NF}'\n}\n\n[ -n \"$BASH\" ] && complete -F _fzf_complete_foo -o default -o bashdefault foo\n```\n\nVim plugin\n----------\n\nSee [README-VIM.md](README-VIM.md).\n\nAdvanced topics\n---------------\n\n### Performance\n\n",
+    "diagnosis": "The second sentence predicts that performance will be acceptable for most use cases without delimiting those cases or an acceptability criterion.",
+    "prior_grade": "accepted",
+    "prior_reason": "Most use cases lacks an input/workload and acceptability scope for a broad performance reassurance. The linked improvement and option effects do not establish that majority prediction; the diagnosis retains the qualified force and actual evidence.",
+    "source_group": "fzf",
+    "target": "fzf is fast and is [getting even faster][perf]. Performance should not be\na problem in most use cases. However, you might want to be aware of the\noptions that affect the performance."
+  },
+  {
+    "after": "\n\n``` js\nconst tokens = marked.lexer(markdown, options);\nconsole.log(marked.parser(tokens, options));\n```\n\n``` js\nconst lexer = new marked.Lexer(options);\nconst tokens = lexer.lex(markdown);\nconsole.log(tokens);\nconsole.log(lexer.tokenizer.",
+    "before": "he lexer</h2>\n\nThe lexer takes a markdown string and calls the tokenizer functions.\n\n<h2 id=\"parser\">The parser</h2>\n\nThe parser takes tokens as input and calls the renderer functions.\n\n***\n\n<h2 id=\"extend\">Access to lexer and parser</h2>\n\n",
+    "diagnosis": "The sentence appends a personal-desire condition to the statement that direct lexer and parser access is available.",
+    "prior_grade": "accepted",
+    "prior_reason": "If you so desire appends a personal-state guard to an already optional access capability. It supplies no different API condition; the direct access to both lexer and parser remains available without the rhetorical condition.",
+    "source_group": "marked",
+    "target": "You also have direct access to the lexer and parser if you so desire."
+  },
+  {
+    "after": "\n  * `grunt test` Run the tests.\n  * `grunt lint` Perform syntax and code style checks.\n  * `grunt release` Build everything, including minified files (do not include\n    those in Pull Requests)\n  * `grunt transpile:fr,ru` Build custom loca",
+    "before": " get merged it must have approval of original\nauthor, or at least one other native speaker has to approve of the change\n(happens rarely).\n\nGrunt tasks\n===========\n\nWe use Grunt for managing the build. Here are some useful Grunt tasks:\n\n  * ",
+    "diagnosis": "The second sentence wraps the recommendation to run the default task before submitting a PR in an additional assurance action.",
+    "prior_grade": "uncertain",
+    "prior_reason": "Should make sure you do this is conventional responsibility wording before PR submission. The actual critique supplies optional compression, not a distinct verification step or material burden; modality and timing are already clear.",
+    "source_group": "marked",
+    "target": "`grunt` The default task lints the code and runs the tests. You should make sure you do this before submitting a PR."
+  }
+]
+
+CURRENT INPUT JSON:
+{
+  "item_id": "7550f6e1c97427a3",
+  "proposed_diagnosis": "The closing causal clause turns the glossary's shared source into an absolute assurance that meanings cannot drift elsewhere.",
+  "source": "---\ntitle: Capabilities\ndescription: The per-dialect capability gates Ptah tracks, plus cross-cutting testing and OCI capabilities.\ntype: reference\naudience:\n  - \"all-users\"\nreaderQuestion: \"Which capability keys does Ptah use for each dialect?\"\ngoal: \"Look up Ptah capability keys by dialect.\"\nsourceOfTruth:\n  - \"core/platform/capability\"\n  - \"docs/capabilities.md\"\ngenerated: false\noverlaps: []\ndisposition: keep\n---\n\nPtah uses capability gates to represent dialect-specific and cross-cutting\nbehavior. What a capability is and how gating works is explained in\n[Dialects and capabilities](../../concepts/dialects-and-capabilities/);\nper-engine status and operational notes are on the\n[Database support matrix](../../databases/support-matrix/).\n\n## How to read a row\n\nA cell in the matrices below is one glyph, and two different claims can wear\nthe same one. [The glossary](../glossary/) defines each word, from\n`docs/site/src/glossary.ts` rather than from this page, so the meanings cannot\ndrift from the ones used elsewhere.\n\n- A value can be measured or carried. The distinction is pinned by\n  `core/platform/capability/capability_measured_lines_test.go`, which requires\n  every registered key on a recorded line to be one or the other, with a\n  reason attached to the second.\n- A release line is certified, legacy-tested or best-effort. The level says who\n  re-measures the preset, not how well the engine works.\n\n## What capabilities decide\n\nCapabilities answer questions that a dialect name alone cannot answer:\n\n- Can this target drop constraints with the generic SQL spelling?\n  `drop_constraint_generic`\n- Can this target guard index drops with `IF EXISTS`?\n  `drop_index_if_exists`\n- Are CHECK constraints enforced? `check_constraints_enforced`\n- Are enums inline column types or standalone custom types?\n  `enum_inline_column`, `enum_custom_type`\n- Can PostgreSQL-style concurrent indexes be emitted?\n  `create_index_concurrently`, `drop_index_concurrently`\n- Can PostgreSQL emit `SPGIST` indexes with `INCLUDE` payload columns?\n  `index_include_spgist`\n- Does the target support roles, RLS, XML, or advisory locks?\n  `role_management`, `row_level_security`, `xml_type`, `advisory_locks`\n- Which schema objects can this target host?\n  `views`, `materialized_views`, `functions`, `triggers`\n- Does the target support foreign keys, and how is the referenced key backed?\n  `foreign_keys`, `foreign_keys_require_unique_reference`,\n  `foreign_keys_require_indexed_reference`,\n  `foreign_keys_create_backing_index`\n\nSchema rendering validates foreign keys before emitting any SQL. A malformed\nconstraint, incompatible column types, an unsupported referential action, or a\ntarget without `foreign_keys` fails the complete render instead of producing\npartial DDL or a comment that silently omits referential integrity.\n\nThe object-kind keys answer a question a dialect name cannot. PostgreSQL,\nCockroachDB, YugabyteDB, and Spanner share one planner and one renderer, so\nwithout them nothing could express that Spanner hosts views but not\nmaterialized views, user-defined functions, or triggers. A refused object kind\nis named rather than dropped:\n`-- SPANNER: trigger users_touch is not supported by this target; skipped.`\nappears in place of the DDL, identically in `ptah schema render` and in the plan\n`ptah schema apply` builds, because both pass through the same renderer. A\nmaterialized view presupposes a view and `create_or_replace_trigger`\npresupposes `triggers`, so those two requirement edges are validated.\n\n`sequences`, `role_management`, and `row_level_security` use the same named\nskip when a PostgreSQL-family preset disables them. They used to fail the\nrender instead, and an error is not something a plan can carry, so the\nmigration planner dropped roles, grants, and row-level security from the plan\nbefore they reached a visitor, without saying so.\n\nFor the PostgreSQL family, that refusal path currently applies to Spanner. A\nrole, grant, sequence, row-level security enablement, or policy is written as a\nnamed `-- SPANNER: ... skipped.` diagnostic instead of being dropped from a plan\nin silence. CockroachDB 25.4, 26.2 and 26.3 plus YugabyteDB 2026.1 were measured\nwith live servers and accept those three categories, so their presets enable\nthem. CockroachDB's three measured resolver arms differ in two places: the 25.4\nserver refuses generic and guarded `DROP CONSTRAINT` and\n`CREATE OR REPLACE TRIGGER`, and 26.3 is the first line to accept\n`CREATE DOMAIN`.\n\nMySQL and MariaDB roles do not take that skip path. Complete-schema validation\nand rendering fail before SQL because Ptah cannot read or converge their role\nstate, so a comment-only success would lose an authored security declaration.\nRole-free schemas still validate normally.\n\n`role_management` is not a PostgreSQL key. It promises that a declared role and\ngrant can be planned, rendered, introspected, and compared, not that any\nparticular attribute exists, and each engine satisfies it in its own\nvocabulary. ClickHouse carries it: a role there has no attributes at all, and\nits grants are managed at database and table scope, within the boundaries\n[ClickHouse roles and grants](../../databases/clickhouse/#roles-and-grants)\nstates. ClickHouse users, role membership, quotas, row policies, and settings\nprofiles stay outside the capability.\n\nA safely skipped object is reported again every time the plan is rebuilt,\nrather than reported once and then called synced. The skip comment is not a\nchange a database can absorb. Printed plans keep the diagnostic; the apply\nexecution path drops comment-only statements before target or dev-database\nexecution.\n\nExactly one referenced-key policy is enabled for every foreign-key-capable\npreset. PostgreSQL, CockroachDB, YugabyteDB, SQLite, SQL Server, and MySQL 8.4+\nrequire a declared candidate key. MySQL before 8.4 and MariaDB accept the\nreferenced columns as a full leftmost index prefix. Spanner creates and manages\nthe backing index. A root MySQL 8.4+ connection keeps the conservative\nunique-key policy because a pooled session probe cannot describe a later\nexecution session. `DatabaseConnection.WithSession` refines the policy from\n`restrict_fk_on_non_standard_key` on the pinned physical connection, so the\ncallback plans and executes with one consistent session policy.\n\nThe referenced-key policy is only one part of validation. MySQL and MariaDB\nrequire InnoDB tables in Ptah's portable schema path. Their nonunique-key\npolicy accepts a complete leftmost BTREE prefix, not FULLTEXT, SPATIAL, HASH,\nparser-backed, expression, or prefix indexes. The same path rejects generated\nFK columns on MariaDB, virtual generated FK columns on MySQL, invalid actions\non MySQL stored generated columns, and mismatched signedness, character sets,\nor collations. SQLite accepts standalone candidate keys only when their\ncollation semantics are represented in the schema IR; otherwise declare the\nprimary or unique key inline.\n\nPtah emits `ENGINE=InnoDB` for participating tables when the schema leaves the\nengine blank, so a session default cannot silently disable foreign keys.\n`SET NULL` requires nullable local columns. Explicit foreign-key names must fit\nthe target identifier limit: 63 bytes for the PostgreSQL family, 64 characters\nfor the MySQL family, and 128 characters for SQL Server and Spanner. Generated\nnames are shortened deterministically before collision checks.\n\nThe Go API exposes `capability.DefaultDialects()` for guards and UIs that must\ncover every normalized dialect with a default `capability.ForDialect` preset\nwithout maintaining a second list.\n\n`capability.IndexIncludeSPGiST` records PostgreSQL's version boundary for\n`SPGIST` indexes with `INCLUDE` payload columns. It is disabled for PostgreSQL\n12–13 and enabled for PostgreSQL 14 and newer; whole-schema and direct-AST\nrendering both consume the resolved key and fail closed on older servers.\n\n## Declarative database testing\n\n`ptah migrations test`, `ptah schema test`, and `migration/dbtest` provide a\nworkflow capability that composes migration execution, desired-schema\napplication, seed fixtures, SQL, and assertions against disposable databases.\nIt is local, MIT-licensed, and requires no account. This workflow is not a\ndialect capability flag; supported steps execute through the target's existing\ndatabase implementation.\n\nAtlas CE cannot run the corresponding test commands because the testing\nframework is outside Atlas's open-source core. See\n[Test migrations and schemas](../../testing/migrations-and-schema/) and\n[Database test commands](../test-cases/).\n\n## Cross-cutting OCI capability\n\nOCI registry distribution is not a dialect capability key. It is a native Ptah\nworkflow that applies across supported database targets:\n\n- **Migration artifacts** — push, pull, and direct `up`/`status`/`down` consumption through `oci://`; `migrations lint --dir` and `migrations validate --dir` read the artifact too, and `validate` needs no database.\n- **Desired-schema artifacts** — push/pull canonical `schema.hcl`; render, export, inspect, compare, drift, plan, apply, push and `migrations plan`/`generate` all resolve `--schema-file oci://...`, and all of them expose `--plain-http`.\n- **Pinning** — unqualified references resolve to `latest`; tags are movable; digest pins are immutable.\n- **Authentication** — Docker configuration, `DOCKER_CONFIG`, `credsStore`, and `credHelpers`.\n- **Integrity, and its limit** — `--verify-sum` requires the directory to carry a sum and to match it. On `migrations push` the directory is the *local* one being published, checked before the upload. On `migrations up`, `down` and `status` it is the *pulled* one, and there the limit bites: a sum checks a directory against the sum stored beside it, and for an artifact that sum travels *inside* the artifact — so over a movable tag it proves the pulled files are internally consistent, not that they are the reviewed ones. Anyone who can push to the repository can rewrite the migrations, re-hash them and repoint the tag, and the check still passes. Those three verbs therefore print the resolved digest and the `@sha256:` reference that pins it. Pinning it fixes which bytes a later pull gets, which is reproducibility rather than proof of a publisher: whoever repointed the tag chose the digest you are about to pin. Ptah verifies no signatures, so publisher authenticity comes from registry access controls, a digest allowlist promoted through your deployment system, or a registry-native signature policy.\n- **Deployment reports** — best-effort redacted referrer after an OCI-backed migration run adds committed revisions, with `--skip-report` opt-out. No-op runs do not publish a report.\n- **Referrer publication and listing** — deployment, lint, and plan reports attach to exact source digests. Native Referrers API discovery is preferred; Ptah merges the standard tag-schema fallback with per-attachment durable tags for concurrent Ptah writers. `ptah oci referrers` lists direct descriptor metadata with type and output-format filters; payload download and consumption are not implemented.\n- **Atlas compatibility** — native Ptah only; no Atlas Cloud API, `atlas://`, or implemented Atlas-compatible push command.\n\nSee [OCI registry artifacts](../../operate/oci-registry/) for the complete\nworkflow and security boundaries.\n",
+  "source_sha256": "db2a6a566be5b01e08d52a62514d1cf13bd8320cb2ed6dcf8d8c964555e589a9",
+  "target_end_byte": 1028,
+  "target_quote": "A cell in the matrices below is one glyph, and two different claims can wear\nthe same one. [The glossary](../glossary/) defines each word, from\n`docs/site/src/glossary.ts` rather than from this page, so the meanings cannot\ndrift from the ones used elsewhere.",
+  "target_start_byte": 770
+}
