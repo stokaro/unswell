@@ -16,6 +16,12 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-11-08-counterfactual-admission](2026-11-08-counterfactual-admission/README.md):
+  16 frozen synthetic source variants test whether a diagnosis follows its
+  actual contextual evidence. The unchanged CLI delivered five overlapping
+  warnings but none expressed the eight positive fixed diagnoses. This is
+  a baseline gap, not a new candidate or #349 qualification.
+
 - [2026-10-07-separated-admission](2026-10-07-separated-admission/README.md):
   complete original-event recall improves from 96/123 to 104/123 after separate
   necessity and actual-advice judgments. All 36 pages are available, but the

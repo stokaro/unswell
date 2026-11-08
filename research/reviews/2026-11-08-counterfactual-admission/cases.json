@@ -1,0 +1,149 @@
+{
+  "format": "unswell-counterfactual-admission-cases-v1",
+  "evidence_role": "synthetic exposed development controls",
+  "reviewer": "Codex assistant, synthetic control construction under ADR 0041",
+  "independent_human": false,
+  "original_349_events_used": false,
+  "cases": [
+    {
+      "id": "table-announcement",
+      "target": "The deprecated features are shown in the following table:",
+      "diagnosis": "The sentence repeats the section heading and only announces the immediately following table.",
+      "variants": [
+        {
+          "id": "matching-heading",
+          "role": "diagnosis-supported",
+          "applies": true,
+          "source": "# Deprecated features\n\nThe deprecated features are shown in the following table:\n\n| Feature | Replacement |\n| --- | --- |\n| oldFlag | newFlag |\n",
+          "rationale": "The heading already names the subject and the table directly follows."
+        },
+        {
+          "id": "unrelated-distractor",
+          "role": "distractor",
+          "applies": true,
+          "source": "# Deprecated features\n\nThe deprecated features are shown in the following table:\n\n| Feature | Replacement |\n| --- | --- |\n| oldFlag | newFlag |\n\nThe API also supports experimental fields.\n",
+          "rationale": "The unrelated note after the table does not make the announcement informative."
+        },
+        {
+          "id": "heading-removed",
+          "role": "support-removed",
+          "applies": false,
+          "source": "# Compatibility notes\n\nThe deprecated features are shown in the following table:\n\n| Feature | Replacement |\n| --- | --- |\n| oldFlag | newFlag |\n",
+          "rationale": "The target now supplies the table's otherwise missing subject."
+        },
+        {
+          "id": "table-contradicted",
+          "role": "different-problem",
+          "applies": false,
+          "source": "# Deprecated features\n\nThe deprecated features are shown in the following table:\n\nNo table is available yet; it will be added after release.\n",
+          "rationale": "The table claim is inaccurate; the fixed redundancy diagnosis is no longer the right problem."
+        }
+      ]
+    },
+    {
+      "id": "unsupported-comparison",
+      "target": "The features that distinguish Watchline from other monitoring systems are:",
+      "diagnosis": "The claim of distinguishing features lacks a comparison with other systems.",
+      "variants": [
+        {
+          "id": "no-comparison",
+          "role": "diagnosis-supported",
+          "applies": true,
+          "source": "# Watchline features\n\nThe features that distinguish Watchline from other monitoring systems are:\n\n- label queries\n- alerts\n",
+          "rationale": "A feature list alone does not establish how other systems compare."
+        },
+        {
+          "id": "unrelated-distractor",
+          "role": "distractor",
+          "applies": true,
+          "source": "# Watchline features\n\nThe example package is 8 MB.\n\nThe features that distinguish Watchline from other monitoring systems are:\n\n- label queries\n- alerts\n",
+          "rationale": "Package size gives no comparison for the listed features."
+        },
+        {
+          "id": "comparison-added",
+          "role": "support-added",
+          "applies": false,
+          "source": "# Feature comparison\n\n| Feature | Watchline | System A | System B |\n| --- | --- | --- | --- |\n| label queries | yes | no | no |\n| alerts | yes | no | no |\n\nThe features that distinguish Watchline from other monitoring systems are:\n\n- label queries\n- alerts\n",
+          "rationale": "The local table explicitly supports the comparative claim."
+        },
+        {
+          "id": "comparison-contradicts",
+          "role": "different-problem",
+          "applies": false,
+          "source": "# Feature comparison\n\n| Feature | Watchline | System A | System B |\n| --- | --- | --- | --- |\n| label queries | yes | yes | yes |\n| alerts | yes | yes | yes |\n\nThe features that distinguish Watchline from other monitoring systems are:\n\n- label queries\n- alerts\n",
+          "rationale": "The local table contradicts the claim; evidence is present, so 'lacks a comparison' is inaccurate."
+        }
+      ]
+    },
+    {
+      "id": "unsupported-reader-need",
+      "target": "Readers need a shorter explanation before the command:",
+      "diagnosis": "The sentence asserts a need on behalf of readers without evidence about readers.",
+      "variants": [
+        {
+          "id": "no-reader-evidence",
+          "role": "diagnosis-supported",
+          "applies": true,
+          "source": "# Run the command\n\nReaders need a shorter explanation before the command:\n\nThe database flag selects the destination.\n\n`tool apply --db staging`\n",
+          "rationale": "No observation or stated reader requirement supports the assertion."
+        },
+        {
+          "id": "unrelated-distractor",
+          "role": "distractor",
+          "applies": true,
+          "source": "# Run the command\n\nThe service handles 800 requests per second.\n\nReaders need a shorter explanation before the command:\n\nThe database flag selects the destination.\n\n`tool apply --db staging`\n",
+          "rationale": "Throughput does not support a claim about reader comprehension."
+        },
+        {
+          "id": "reader-evidence-added",
+          "role": "support-added",
+          "applies": false,
+          "source": "# Run the command\n\nA usability test recorded eight of ten readers missing the database flag. This page addresses that observed gap.\n\nReaders need a shorter explanation before the command:\n\nThe database flag selects the destination.\n\n`tool apply --db staging`\n",
+          "rationale": "The local observation supports the stated reader need."
+        },
+        {
+          "id": "reader-evidence-contradicts",
+          "role": "different-problem",
+          "applies": false,
+          "source": "# Run the command\n\nA usability test recorded zero readers missing the database flag; the short command was clear.\n\nReaders need a shorter explanation before the command:\n\nThe database flag selects the destination.\n\n`tool apply --db staging`\n",
+          "rationale": "The source contradicts the asserted need; the fixed 'without evidence' diagnosis is inaccurate."
+        }
+      ]
+    },
+    {
+      "id": "repeated-release-status",
+      "target": "I want to stress that this is the very first release of the library.",
+      "diagnosis": "The sentence repeats the first-release status already stated nearby.",
+      "variants": [
+        {
+          "id": "matching-heading",
+          "role": "diagnosis-supported",
+          "applies": true,
+          "source": "# First release\n\nI want to stress that this is the very first release of the library.\n\nThe API may change.\n",
+          "rationale": "The heading already states the release status."
+        },
+        {
+          "id": "unrelated-distractor",
+          "role": "distractor",
+          "applies": false,
+          "source": "# Release notes\n\nThe package supports JSON.\n\nI want to stress that this is the very first release of the library.\n\nThe API may change.\n",
+          "rationale": "No nearby text states the first-release status; the sentence adds that fact."
+        },
+        {
+          "id": "prior-fact-added",
+          "role": "support-added",
+          "applies": true,
+          "source": "# Release notes\n\nVersion 0.1 is the library's first release.\n\nI want to stress that this is the very first release of the library.\n\nThe API may change.\n",
+          "rationale": "The prior sentence already states the same release fact."
+        },
+        {
+          "id": "prior-fact-contradicts",
+          "role": "different-problem",
+          "applies": false,
+          "source": "# Third release\n\nVersion 0.3 follows versions 0.1 and 0.2.\n\nI want to stress that this is the very first release of the library.\n\nThe API may change.\n",
+          "rationale": "The first-release claim contradicts the context; it does not repeat it."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,348 @@
+{
+  "format": "unswell-counterfactual-admission-baseline-v1",
+  "packet_sha256": "34879fc2a8516ed395dfd5e4d2ee6546dc7dca0e1e6de3270d4e2bfb2a069bcc",
+  "research_role": "descriptive unchanged CLI baseline; no fixed-diagnosis verdict inferred",
+  "tool_commit": "fe727da86cad38b60015fbf1f80dfbbad9884b01",
+  "variants": [
+    {
+      "case": "table-announcement",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": true,
+      "findings": [],
+      "gate_passed": true,
+      "report_sha256": "95c7942b8b904cd207d09f15ee67c3d3cf62f3a1fcf4e599a15b7dde3376aeec",
+      "role": "diagnosis-supported",
+      "source_sha256": "f22983d366ef2b27b65b250ad2aa5b7674992a408e8013244e9003d6380ae1ff",
+      "status": "complete",
+      "target_end": 80,
+      "target_overlapping_findings": [],
+      "target_start": 23,
+      "variant": "matching-heading"
+    },
+    {
+      "case": "table-announcement",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": true,
+      "findings": [],
+      "gate_passed": true,
+      "report_sha256": "4b12478f848966e811b405fa3105712227c0d67a2f51f77cd6c6a26f18de89e3",
+      "role": "distractor",
+      "source_sha256": "519fe1083c9347224b85b66769b0328bf79022c18b9cd668146a60c7e4a86a86",
+      "status": "complete",
+      "target_end": 80,
+      "target_overlapping_findings": [],
+      "target_start": 23,
+      "variant": "unrelated-distractor"
+    },
+    {
+      "case": "table-announcement",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": false,
+      "findings": [],
+      "gate_passed": true,
+      "report_sha256": "c9eef61b86c121903524c6172882f32e594b94011123d2c01a850cf89f101eb9",
+      "role": "support-removed",
+      "source_sha256": "8b90928b49403eb548180cf82cd33313672b4c9dde56cf10cccdcdd6ca2be9ee",
+      "status": "complete",
+      "target_end": 80,
+      "target_overlapping_findings": [],
+      "target_start": 23,
+      "variant": "heading-removed"
+    },
+    {
+      "case": "table-announcement",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": false,
+      "findings": [
+        {
+          "id": "f0790879be82aa5b",
+          "message": "Several sentences contain be-plus-participle candidates; review voice only where the meaning allows it.",
+          "rule": "syntax.passive-candidate-density",
+          "span": {
+            "end": 56,
+            "start": 47
+          }
+        }
+      ],
+      "gate_passed": true,
+      "report_sha256": "70caf5d6cd8b85cf5ebf4e99ce053ef0bea4e366d9e5f3d1f3c1b9e56a4a098d",
+      "role": "different-problem",
+      "source_sha256": "e8efa433160eb4fcb0cdcf6a281638e12344c2bb339e4e38741f35b03b22c4c1",
+      "status": "complete",
+      "target_end": 80,
+      "target_overlapping_findings": [
+        {
+          "id": "f0790879be82aa5b",
+          "message": "Several sentences contain be-plus-participle candidates; review voice only where the meaning allows it.",
+          "rule": "syntax.passive-candidate-density",
+          "span": {
+            "end": 56,
+            "start": 47
+          }
+        }
+      ],
+      "target_start": 23,
+      "variant": "table-contradicted"
+    },
+    {
+      "case": "unsupported-comparison",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": true,
+      "findings": [],
+      "gate_passed": true,
+      "report_sha256": "41ad96afdbd6cedf8bb17d5d046433f26a427595ca0146fe6319365c9d273dfd",
+      "role": "diagnosis-supported",
+      "source_sha256": "581c5abc9bbe32b90b8dc98196f6ad0b7de8a1859f528f87dd575bff46772ab2",
+      "status": "complete",
+      "target_end": 96,
+      "target_overlapping_findings": [],
+      "target_start": 22,
+      "variant": "no-comparison"
+    },
+    {
+      "case": "unsupported-comparison",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": true,
+      "findings": [],
+      "gate_passed": true,
+      "report_sha256": "a450aa2a13d718e05272f09e2577cdc95e6376388d9f42597a2fd46d85822e2f",
+      "role": "distractor",
+      "source_sha256": "cf19b3cbdedb04d21f71a2e8ceb050f9ea41bcc3b1de5976379bc693fed77aab",
+      "status": "complete",
+      "target_end": 126,
+      "target_overlapping_findings": [],
+      "target_start": 52,
+      "variant": "unrelated-distractor"
+    },
+    {
+      "case": "unsupported-comparison",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": false,
+      "findings": [],
+      "gate_passed": true,
+      "report_sha256": "cf64fa4c2229fbcc29458a28ff4fff493695f89e854b2141f0cfa465c7350104",
+      "role": "support-added",
+      "source_sha256": "b55099e53675f3ccf7a3fa532cd3e64c316c3c95827bccce2c65084c9fae4da6",
+      "status": "complete",
+      "target_end": 230,
+      "target_overlapping_findings": [],
+      "target_start": 156,
+      "variant": "comparison-added"
+    },
+    {
+      "case": "unsupported-comparison",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": false,
+      "findings": [],
+      "gate_passed": true,
+      "report_sha256": "996a544d63210032d1a621456e5f61c3cb635c705be9f6548617eaa4f9ad0c2d",
+      "role": "different-problem",
+      "source_sha256": "81403e0b816acc4c99faa53c1e8f298fec20222a736da4f3fc3ad3047cbcbda5",
+      "status": "complete",
+      "target_end": 234,
+      "target_overlapping_findings": [],
+      "target_start": 160,
+      "variant": "comparison-contradicts"
+    },
+    {
+      "case": "unsupported-reader-need",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": true,
+      "findings": [],
+      "gate_passed": true,
+      "report_sha256": "e08bc69624867a4b309f2b76e8a001cd7f8830f22cf4d5b0d8357d8b26dc8f88",
+      "role": "diagnosis-supported",
+      "source_sha256": "f372085dfac68f952012f92bb819cb80cacd514231e4f2c646dffc7d5f871852",
+      "status": "complete",
+      "target_end": 73,
+      "target_overlapping_findings": [],
+      "target_start": 19,
+      "variant": "no-reader-evidence"
+    },
+    {
+      "case": "unsupported-reader-need",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": true,
+      "findings": [],
+      "gate_passed": true,
+      "report_sha256": "83609fa72b53ee8c177f348719726d839348c015c0d1007dc4333595a2e3ec7d",
+      "role": "distractor",
+      "source_sha256": "d1cc77b0e2d63e85d3ed19f6d3ccdf899ae792ba6435b2eb35b87f9bcee50b02",
+      "status": "complete",
+      "target_end": 119,
+      "target_overlapping_findings": [],
+      "target_start": 65,
+      "variant": "unrelated-distractor"
+    },
+    {
+      "case": "unsupported-reader-need",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": false,
+      "findings": [],
+      "gate_passed": true,
+      "report_sha256": "f7c0e4176a58eddfe9e9fc9eca8315ab7e49731cc6c756142e47584596fdd32a",
+      "role": "support-added",
+      "source_sha256": "d420740fd7d11e308646a57ff0f7f2729befa048f0dfbc15fe823a8b1e7eee6e",
+      "status": "complete",
+      "target_end": 187,
+      "target_overlapping_findings": [],
+      "target_start": 133,
+      "variant": "reader-evidence-added"
+    },
+    {
+      "case": "unsupported-reader-need",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": false,
+      "findings": [],
+      "gate_passed": true,
+      "report_sha256": "7982766b890edc72cfdb1049d47270232e379c967dcde25d432308d269de0c81",
+      "role": "different-problem",
+      "source_sha256": "f9af9151e1b29e01856ce86f569c053e86edeb80e5a0251387870384706a1385",
+      "status": "complete",
+      "target_end": 169,
+      "target_overlapping_findings": [],
+      "target_start": 115,
+      "variant": "reader-evidence-contradicts"
+    },
+    {
+      "case": "repeated-release-status",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": true,
+      "findings": [
+        {
+          "id": "30adbd0707e89d40",
+          "message": "This clause announces information or endorses a result; state the information directly.",
+          "rule": "filler.evaluative-closure",
+          "span": {
+            "end": 84,
+            "start": 17
+          }
+        }
+      ],
+      "gate_passed": true,
+      "report_sha256": "f49aaec8daec08ad5261e5764e666519c33598bfb4ff8069ab53b510780a1892",
+      "role": "diagnosis-supported",
+      "source_sha256": "266b6507d57984d11927c601b27e88d5824b00d5b51f05dc4f3d54835e70c140",
+      "status": "complete",
+      "target_end": 85,
+      "target_overlapping_findings": [
+        {
+          "id": "30adbd0707e89d40",
+          "message": "This clause announces information or endorses a result; state the information directly.",
+          "rule": "filler.evaluative-closure",
+          "span": {
+            "end": 84,
+            "start": 17
+          }
+        }
+      ],
+      "target_start": 17,
+      "variant": "matching-heading"
+    },
+    {
+      "case": "repeated-release-status",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": false,
+      "findings": [
+        {
+          "id": "9d2f9e34dfc7f510",
+          "message": "This clause announces information or endorses a result; state the information directly.",
+          "rule": "filler.evaluative-closure",
+          "span": {
+            "end": 112,
+            "start": 45
+          }
+        }
+      ],
+      "gate_passed": true,
+      "report_sha256": "08503c84d4c04a658adb7620955347cbae0f0510fd338c64ebeb5ec7d1a2cbdd",
+      "role": "distractor",
+      "source_sha256": "57bf017a3e5fa83ab3814cc299850a3f63bb17d2aa1765468a0e3d01aede8f56",
+      "status": "complete",
+      "target_end": 113,
+      "target_overlapping_findings": [
+        {
+          "id": "9d2f9e34dfc7f510",
+          "message": "This clause announces information or endorses a result; state the information directly.",
+          "rule": "filler.evaluative-closure",
+          "span": {
+            "end": 112,
+            "start": 45
+          }
+        }
+      ],
+      "target_start": 45,
+      "variant": "unrelated-distractor"
+    },
+    {
+      "case": "repeated-release-status",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": true,
+      "findings": [
+        {
+          "id": "852b06ac6952296e",
+          "message": "This clause announces information or endorses a result; state the information directly.",
+          "rule": "filler.evaluative-closure",
+          "span": {
+            "end": 129,
+            "start": 62
+          }
+        }
+      ],
+      "gate_passed": true,
+      "report_sha256": "320d68c5ad601d825b79cff5015f5194fc2811ff37257509af9580202e721391",
+      "role": "support-added",
+      "source_sha256": "bb010f3a3469da0c35685f5cbf7e9cac070cd82bde2bba1e9572f18c1c127972",
+      "status": "complete",
+      "target_end": 130,
+      "target_overlapping_findings": [
+        {
+          "id": "852b06ac6952296e",
+          "message": "This clause announces information or endorses a result; state the information directly.",
+          "rule": "filler.evaluative-closure",
+          "span": {
+            "end": 129,
+            "start": 62
+          }
+        }
+      ],
+      "target_start": 62,
+      "variant": "prior-fact-added"
+    },
+    {
+      "case": "repeated-release-status",
+      "cli_exit": 0,
+      "expected_fixed_diagnosis_applies": false,
+      "findings": [
+        {
+          "id": "0fc2def98df1b4d4",
+          "message": "This clause announces information or endorses a result; state the information directly.",
+          "rule": "filler.evaluative-closure",
+          "span": {
+            "end": 127,
+            "start": 60
+          }
+        }
+      ],
+      "gate_passed": true,
+      "report_sha256": "b7849b1397fbefcd94e8542efe497f8ed12fcc6b03517529617def5fa4c6d262",
+      "role": "different-problem",
+      "source_sha256": "c3a2461041b9d66d657ebb5753d6a188d4f8a8d9d1cc74ef28e90f0c93534f7a",
+      "status": "complete",
+      "target_end": 128,
+      "target_overlapping_findings": [
+        {
+          "id": "0fc2def98df1b4d4",
+          "message": "This clause announces information or endorses a result; state the information directly.",
+          "rule": "filler.evaluative-closure",
+          "span": {
+            "end": 127,
+            "start": 60
+          }
+        }
+      ],
+      "target_start": 60,
+      "variant": "prior-fact-contradicts"
+    }
+  ]
+}
