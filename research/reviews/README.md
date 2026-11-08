@@ -16,6 +16,12 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-11-08-source-role-rescue](2026-11-08-source-role-rescue/README.md):
+  four exact new source pages distinguish empty narration from real tasks,
+  safety qualifications, links, and a different quality claim. The unchanged
+  technical-profile CLI misses two of three narrow positives and partially
+  diagnoses one; this is an exposed development baseline, not an improvement.
+
 - [2026-11-08-operator-triage](2026-11-08-operator-triage/README.md):
   an offline, repository-held-out category/operator filter improves exposed
   whole-page usefulness from 77.4% to 84.9% but reduces FULL-event recall to

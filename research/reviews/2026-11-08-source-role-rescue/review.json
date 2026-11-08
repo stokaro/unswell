@@ -1,0 +1,137 @@
+{
+  "reviewer": "Codex assistant; maintainer-accepted assistant review under ADR 0041, not human annotation",
+  "date": "2026-11-08",
+  "status": "exposed source-only development",
+  "sources": {
+    "caddy": {
+      "path": "sources/caddy/README.md",
+      "repository": "caddyserver/caddy",
+      "revision": "fcfdef43c566a00aa5b7d6c50329b90ffe00e241",
+      "upstream_path": "README.md",
+      "blob": "24b466d8c42d1b198ac13e49d81ad53df8b6328d",
+      "sha256": "0bc5939a26994a481e65b84b4e1b9ee44dd06796df4a196c75e9bdcdd4868b18",
+      "license_path": "sources/caddy/LICENSE",
+      "license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    "carbon": {
+      "path": "sources/carbon/source.md",
+      "repository": "carbon-design-system/carbon",
+      "revision": "f5bdc21a0933baca91875e618f07141ff708cbe7",
+      "upstream_path": "docs/guides/building-an-icon-library.md",
+      "blob": "34972cf485b62a8df431924030ed0e4fccf69025",
+      "sha256": "6863e7d8c02cad44e79974d2b2c17ce57c04c47036e4cc502e769c3dcace438b",
+      "license_path": "sources/carbon/LICENSE",
+      "license_sha256": "037b3e9eaff51477b270e9082f54b99175e4dd893548654f00995045b68294b8"
+    },
+    "animal-ai": {
+      "path": "sources/animal-ai/source.md.gz",
+      "repository": "Kinds-of-Intelligence-CFI/animal-ai",
+      "revision": "9d74c9a7a0a8d60861c47058c9e86581bb71eb52",
+      "upstream_path": "docs/configGuide/YAML-Config-Syntax.md",
+      "blob": "bd0b30d0e5b5c3b7540bc2c080aa0f147e1185ef",
+      "sha256": "bc9cc64256de62b1a35a7cfd355da9756ab0a9381ace7895b06e1db1d191893f",
+      "license_path": "sources/animal-ai/LICENSE",
+      "license_sha256": "7e9943e0d9e2d2d4fb1c6059af2305f693dfb6425a7777d22d180b09974b32d0"
+    },
+    "discourse": {
+      "path": "sources/discourse/source.md",
+      "repository": "discourse/discourse",
+      "revision": "444e62cc26e96c7da97f08fa45df219f03f60114",
+      "upstream_path": "docs/developer-guides/docs/07-theme-developer-tutorial/02-remote-theme.md",
+      "blob": "0a6ce38f187f11de0e9df25fef245db8c1f921c2",
+      "sha256": "cc2949690b7f4dcafcc16881ba515b6db30b9c467ea9a09a4ead41d0b46eed99",
+      "license_path": "sources/discourse/LICENSE.txt",
+      "license_sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+    }
+  },
+  "cases": [
+    {
+      "id": "animal-intro-kickoff",
+      "source": "animal-ai",
+      "role": "positive",
+      "spans": [[1456, 1509, "Let's begin by covering the essentials of the syntax!"]],
+      "rationale": "The prior sentences give the roadmap and the next heading names YAML syntax; this last sentence only narrates starting.",
+      "safe_action": "Remove only the kickoff sentence; retain the preceding roadmap and the YAML section."
+    },
+    {
+      "id": "animal-repeated-example-openings",
+      "source": "animal-ai",
+      "role": "positive",
+      "spans": [[8290, 8418, "Next, we will explore more complex examples to better understand how to use YAML syntax in Animal-AI for creating custom arenas."], [8457, 8570, "Let's take a look at some examples to understand how to use the YAML syntax in Animal-AI to create custom arenas."]],
+      "rationale": "Two generic example announcements flank the Examples heading; neither specifies a parameter or action.",
+      "safe_action": "Remove the repeated announcements while retaining the Examples heading, example labels, and all YAML content."
+    },
+    {
+      "id": "animal-empty-conclusion",
+      "source": "animal-ai",
+      "role": "positive",
+      "spans": [[25710, 25840, "### Conclusion\n\nWe hope that this guide has helped you understand how to use the YAML syntax in Animal-AI to create custom arenas."]],
+      "rationale": "The Conclusion section contains only an outcome wish; the following Further Reading section has the actual links.",
+      "safe_action": "Remove the empty Conclusion heading and its sentence together; preserve Further Reading and its links."
+    },
+    {
+      "id": "animal-further-reading",
+      "source": "animal-ai",
+      "role": "control",
+      "spans": [[25882, 26000, "For more information on how YAML works, please refer to the [YAML documentation](https://yaml.org/spec/1.2/spec.html)."]],
+      "rationale": "This sentence provides a concrete reference and link after the conclusion.",
+      "safe_action": "Retain the reference."
+    },
+    {
+      "id": "carbon-enthusiastic-intro",
+      "source": "carbon",
+      "role": "unresolved",
+      "spans": [[785, 964, "We're so happy to hear that 🎉 We hope that this guide can serve as a\nreference to help get you up-and-running quickly so you can start using these\nicons as quickly as possible."]],
+      "rationale": "The guide uses a deliberate friendly voice; the hope sentence adds little information, but removing the whole introduction may erase that voice.",
+      "safe_action": "Abstain from a deletion recommendation pending an editorial judgment about this guide's voice."
+    },
+    {
+      "id": "carbon-required-approval",
+      "source": "carbon",
+      "role": "control",
+      "spans": [[966, 1226, "However, before getting started, make sure that you have\n[created an issue](https://github.com/IBM/carbon-elements/issues/new?labels=&template=feature_request.md)\non the Carbon Elements project and have received a green light from one of the\ncore contributors."]],
+      "rationale": "The passage gives a real prerequisite and link; the transition carries a required workflow.",
+      "safe_action": "Retain the approval prerequisite and link."
+    },
+    {
+      "id": "discourse-coding-step",
+      "source": "discourse",
+      "role": "control",
+      "spans": [[2323, 2501, "Now it's time to start writing some code! Open up the `my-first-theme` directory in your favorite text editor, then find the file inside `javascripts/discourse/api-initializers`."]],
+      "rationale": "The second sentence gives the exact file navigation required by the tutorial; the opening is a transition into an actual task.",
+      "safe_action": "Do not suppress the task or advise deleting the paragraph."
+    },
+    {
+      "id": "discourse-git-step",
+      "source": "discourse",
+      "role": "control",
+      "spans": [[5051, 5141, "First, let's prepare the local directory. Navigate to the theme in your terminal, then run"]],
+      "rationale": "The text introduces commands that follow immediately and gives the working-directory condition.",
+      "safe_action": "Retain the working-directory instruction and commands."
+    },
+    {
+      "id": "caddy-safety-warning",
+      "source": "caddy",
+      "role": "control",
+      "spans": [[6514, 6580, "Please be careful and only do this if you know what you are doing!"]],
+      "rationale": "The warning follows a passwordless sudoers example and carries a real safety qualification.",
+      "safe_action": "Retain the safety qualification."
+    },
+    {
+      "id": "caddy-other-claim",
+      "source": "caddy",
+      "role": "control",
+      "spans": [[9338, 9426, "Caddy exposes an unprecedented level of control compared to any web server in existence."]],
+      "rationale": "This is an unbounded comparative claim, a different editorial category; an empty-narration diagnosis would be wrong.",
+      "safe_action": "Do not use source-role triage to suppress a separate quality-claim diagnosis."
+    },
+    {
+      "id": "caddy-guide-link",
+      "source": "caddy",
+      "role": "control",
+      "spans": [[7849, 8031, "**We recommend that all users -- regardless of experience level -- do our [Getting Started](https://caddyserver.com/docs/getting-started) guide to become familiar with using Caddy.**"]],
+      "rationale": "The recommendation includes a named guide and direct link.",
+      "safe_action": "Retain the guide reference and link."
+    }
+  ]
+}
