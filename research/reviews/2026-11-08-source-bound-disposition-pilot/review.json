@@ -1,0 +1,38 @@
+{
+  "format": "unswell-349-disposition-complete-stream-review-v1",
+  "reviewer": "Codex assistant, November 8, 2026; not a human annotator",
+  "full_stream_reviewed": true,
+  "treatment_dispositions_reviewed": 128,
+  "edits_supplied": 0,
+  "review_note": "All six delivered findings and all 128 treatment decisions were inspected against the complete pinned README pages. The frozen Prefect recovery event is a debatable positive: 'can build' may describe a capability rather than a universal guarantee. Its frozen denominator is preserved; neither arm found it. No external product-truth claim or edit-safety result is inferred.",
+  "finding_reviews": [
+    {"arm": "control", "page": "dagger", "index": 0, "disposition": "accepted", "rationale": "The exact source sentence says any codebase and promises reliability at scale; the page narrows execution to supported systems and a Linux container runtime without establishing those universal claims."},
+    {"arm": "control", "page": "dagger", "index": 1, "disposition": "accepted", "rationale": "The exact source sentence guarantees identical local and CI behavior; explicit host dependencies and input-keyed operations make that unconditional scope materially unsupported."},
+    {"arm": "control", "page": "prefect", "index": 0, "disposition": "accepted", "rationale": "Any data process is unbounded, while the page demonstrates one workflow and names features; the diagnosis preserves the useful feature list."},
+    {"arm": "treatment", "page": "dagger", "index": 0, "disposition": "accepted", "rationale": "The source-bound diagnosis identifies the unqualified any-codebase, reliability, and scale claims and contrasts them with the stated runtime condition."},
+    {"arm": "treatment", "page": "dagger", "index": 1, "disposition": "accepted", "rationale": "The source-bound diagnosis identifies the unconditional local/CI equivalence guarantee and cites the page's explicit dependency and input conditions."},
+    {"arm": "treatment", "page": "prefect", "index": 0, "disposition": "accepted", "rationale": "The finding targets the unrestricted any-data-process and few-lines scope against the concrete example and later production guidance; no protected code is changed."}
+  ],
+  "event_reviews": [
+    {"arm": "control", "event_id": "dagger-universal-delivery", "grade": "FULL", "finding_indices": [0], "rationale": "Finding 0 quotes the frozen sentence and diagnoses its universal codebase, reliability, and scale scope with page-specific conditions."},
+    {"arm": "treatment", "event_id": "dagger-universal-delivery", "grade": "FULL", "finding_indices": [0], "rationale": "Finding 0 quotes the frozen sentence and diagnoses all material overbroad claims with the stated runtime qualification."},
+    {"arm": "control", "event_id": "dagger-identical-environments", "grade": "FULL", "finding_indices": [1], "rationale": "Finding 1 quotes the frozen sentence and explains why identical behavior is unsupported without matched inputs and host dependencies."},
+    {"arm": "treatment", "event_id": "dagger-identical-environments", "grade": "FULL", "finding_indices": [1], "rationale": "Finding 1 quotes the frozen sentence and identifies the missing local/CI input and dependency conditions."},
+    {"arm": "control", "event_id": "prefect-arbitrary-recovery", "grade": "MISSED", "finding_indices": [], "rationale": "No finding targets the frozen recovery sentence; only the separate any-data-process sentence was flagged. The frozen positive remains in the denominator despite its semantic ambiguity."},
+    {"arm": "treatment", "event_id": "prefect-arbitrary-recovery", "grade": "MISSED", "finding_indices": [], "rationale": "Unit 3 was retained and no finding targets the frozen recovery sentence; the frozen positive remains in the denominator despite its semantic ambiguity."},
+    {"arm": "control", "event_id": "prefect-any-data-process", "grade": "FULL", "finding_indices": [0], "rationale": "Finding 0 quotes the frozen sentence and pinpoints the unsupported any-data-process scope against the example."},
+    {"arm": "treatment", "event_id": "prefect-any-data-process", "grade": "FULL", "finding_indices": [0], "rationale": "Finding 0 quotes the frozen sentence and diagnoses its universal automation and effort scope using the example and production guidance."}
+  ],
+  "protected_reviews": [
+    {"arm": "control", "counterexample_id": "dagger-supported-system-condition", "flagged": false, "rationale": "No finding targets unit 10; the supported-system condition is preserved."},
+    {"arm": "treatment", "counterexample_id": "dagger-supported-system-condition", "flagged": false, "rationale": "Unit 10 was retained and no finding targets it; the supported-system condition is preserved."},
+    {"arm": "control", "counterexample_id": "dagger-linux-runtime-condition", "flagged": false, "rationale": "No finding targets unit 37; the Linux runtime requirement is preserved."},
+    {"arm": "treatment", "counterexample_id": "dagger-linux-runtime-condition", "flagged": false, "rationale": "Unit 37 was retained and no finding targets it; the Linux runtime requirement is preserved."},
+    {"arm": "control", "counterexample_id": "prefect-python-version", "flagged": false, "rationale": "No finding targets unit 7; Python 3.11+ is preserved."},
+    {"arm": "treatment", "counterexample_id": "prefect-python-version", "flagged": false, "rationale": "Unit 7 was retained and no finding targets it; Python 3.11+ is preserved."},
+    {"arm": "control", "counterexample_id": "airbyte-stated-vision", "flagged": false, "rationale": "Airbyte has no control findings; the explicitly framed vision is preserved."},
+    {"arm": "treatment", "counterexample_id": "airbyte-stated-vision", "flagged": false, "rationale": "Airbyte has no treatment findings and unit 1 was retained; the vision is preserved."},
+    {"arm": "control", "counterexample_id": "airbyte-cloud-scope", "flagged": false, "rationale": "Airbyte has no control findings; Cloud-only and read-only conditions are preserved."},
+    {"arm": "treatment", "counterexample_id": "airbyte-cloud-scope", "flagged": false, "rationale": "Airbyte has no treatment findings and unit 8 was retained; Cloud-only and read-only conditions are preserved."}
+  ]
+}

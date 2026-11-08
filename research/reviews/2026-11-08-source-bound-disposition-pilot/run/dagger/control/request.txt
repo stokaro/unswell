@@ -1,0 +1,1245 @@
+Review the COMPLETE public technical README, the exhaustive unit inventory,
+and the original source coordinates below. Use only this source; no tools.
+Do not infer AI authorship. This pass is for independently useful SEMANTIC
+corrections: unsupported scope, an unqualified guarantee, a contradiction,
+or a claim whose evidence does not support its breadth. Grammar-only repairs
+belong to the existing engine and do not count in this treatment.
+
+Read all inventory records before deciding. A complete inventory is not proof
+that a correction is needed. Preserve measurable statements with relevant
+evidence, technical conditions, attributed claims, necessary instructions,
+the author's voice, negation, numbers, versions, identifiers, links, and code.
+Do not flag a phrase merely because it is promotional, formal, or could be
+shorter. Abstain when a safe, source-specific diagnosis is not supported.
+
+For each finding return a supplied unit ordinal, an exact contiguous quote
+from the original source, its original 1-based line, the specific defect,
+page evidence, source function, and a minimal-deletion test. Do not propose
+replacement text. A finding may quote source syntax around eligible prose,
+but must target eligible prose and must not propose changing protected code.
+Return zero findings if no independently useful correction is established.
+Maximum 20 findings. Return schema JSON only. Echo the page ID, source SHA-256,
+and inventory response SHA-256 exactly.
+
+INPUT JSON:
+{
+  "excluded": [
+    {
+      "reason": "code",
+      "span": {
+        "end": 264,
+        "start": 221
+      }
+    }
+  ],
+  "inventory_records": [
+    {
+      "function": "promotion",
+      "ordinal": 0,
+      "proposition": "Dagger is a better way to ship software.",
+      "support": "Lines 13–35 describe delivery features; comparative evidence is absent."
+    },
+    {
+      "function": "definition",
+      "ordinal": 1,
+      "proposition": "Dagger is a software delivery automation platform.",
+      "support": "Lines 15–35 describe its execution engine, API, SDKs, containers, caching, and tracing."
+    },
+    {
+      "function": "capability",
+      "ordinal": 2,
+      "proposition": "Dagger can build, test, and ship any codebase reliably and at scale.",
+      "support": "Line 19 describes repeatability mechanisms and names tests, builds, and deployments; evidence for any codebase and scale is absent."
+    },
+    {
+      "function": "capability",
+      "ordinal": 3,
+      "proposition": "Dagger runs locally, on a CI server, or directly in the cloud.",
+      "support": "Line 17 lists supported environments; line 33 requires a Linux container runtime."
+    },
+    {
+      "function": "transition",
+      "ordinal": 4,
+      "proposition": "",
+      "support": "Introduces the reasons described in lines 13–21."
+    },
+    {
+      "function": "capability",
+      "ordinal": 5,
+      "proposition": "Dagger makes software delivery programmable, local-first, repeatable, and observable.",
+      "support": "Lines 15–21 explain each property through APIs, supported environments, execution isolation, caching, and tracing."
+    },
+    {
+      "function": "capability",
+      "ordinal": 6,
+      "proposition": "Dagger makes software delivery programmable.",
+      "support": "Line 15 lists an execution engine, system API, SDKs for 8 languages, an interactive REPL, and reusable modules."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 7,
+      "proposition": "Shell scripts and proprietary YAML are no longer acceptable for software delivery automation.",
+      "support": "absent"
+    },
+    {
+      "function": "capability",
+      "ordinal": 8,
+      "proposition": "Dagger provides a complete execution engine, system API, SDKs for 8 languages, an interactive REPL, a rich reusable-module ecosystem, and more.",
+      "support": "Lines 25–27 describe the API and name 8 SDK languages; evidence for engine completeness, the REPL, ecosystem richness, and unspecified additions is absent."
+    },
+    {
+      "function": "capability",
+      "ordinal": 9,
+      "proposition": "Dagger makes software delivery local-first.",
+      "support": "Line 17 says automated tasks run on supported laptops and other environments with a container runtime."
+    },
+    {
+      "function": "capability",
+      "ordinal": 10,
+      "proposition": "Once automated with Dagger, a task reliably runs on any supported laptop, AI sandbox, CI server, or dedicated cloud infrastructure.",
+      "support": "Line 17 limits the claim to supported systems and requires a container runtime; line 33 specifies a Linux container runtime and supported operating environments."
+    },
+    {
+      "function": "qualification",
+      "ordinal": 11,
+      "proposition": "A container runtime such as Docker is the only dependency.",
+      "support": "Line 33 specifies that the runtime must support Linux containers and describes Linux, macOS, and Windows execution."
+    },
+    {
+      "function": "capability",
+      "ordinal": 12,
+      "proposition": "Dagger makes software delivery repeatable.",
+      "support": "Line 19 describes containers, sandboxed functions, explicit typed host dependencies, just-in-time artifacts, and incremental operations."
+    },
+    {
+      "function": "capability",
+      "ordinal": 13,
+      "proposition": "Tools execute in containers orchestrated by sandboxed functions.",
+      "support": "Line 25 identifies container orchestration as a System API function; additional evidence for sandboxing is absent."
+    },
+    {
+      "function": "capability",
+      "ordinal": 14,
+      "proposition": "Host dependencies are explicit and strictly typed.",
+      "support": "Line 25 says every API operation is typed; specific evidence about host dependencies is absent."
+    },
+    {
+      "function": "capability",
+      "ordinal": 15,
+      "proposition": "Intermediate artifacts are built just-in-time.",
+      "support": "absent"
+    },
+    {
+      "function": "capability",
+      "ordinal": 16,
+      "proposition": "Every operation is incremental by default and has advanced cache control.",
+      "support": "Line 31 describes input keys, selective re-execution, and automatic content-addressed caching; advanced cache controls are not specified."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 17,
+      "proposition": "Dagger produces trustworthy test reports, builds, and deployments.",
+      "support": "Line 19 supplies containers, sandboxing, typed dependencies, just-in-time artifacts, and incremental execution as context; trustworthiness is not demonstrated."
+    },
+    {
+      "function": "capability",
+      "ordinal": 18,
+      "proposition": "Dagger makes software delivery observable.",
+      "support": "Lines 21 and 35 describe OpenTelemetry traces and spans, logs, metrics, trace visualization, and export."
+    },
+    {
+      "function": "capability",
+      "ordinal": 19,
+      "proposition": "Every operation emits a full OpenTelemetry trace enriched with granular logs and metrics.",
+      "support": "Line 35 reiterates per-operation OpenTelemetry spans; additional evidence for full traces and granular logs and metrics is absent."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 20,
+      "proposition": "Visualize traces in the terminal or a web view.",
+      "support": "Line 35 identifies a live CLI TUI and trace export to Jaeger, Honeycomb, or any OTel-compatible backend; no specific web view is identified."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 21,
+      "proposition": "Dagger enables immediate debugging of complex workflows instead of guessing from text logs.",
+      "support": "Lines 21 and 35 describe tracing and visualization; evidence for immediate debugging is absent."
+    },
+    {
+      "function": "transition",
+      "ordinal": 22,
+      "proposition": "",
+      "support": "Introduces the feature descriptions in lines 25–35."
+    },
+    {
+      "function": "transition",
+      "ordinal": 23,
+      "proposition": "",
+      "support": "Labels the System API description on line 25."
+    },
+    {
+      "function": "definition",
+      "ordinal": 24,
+      "proposition": "The System API is cross-language and orchestrates containers, filesystems, secrets, git repositories, network tunnels, and more.",
+      "support": "Line 27 names SDKs for 8 languages; line 13's container execution description supports container orchestration only indirectly, and the remaining resources have no examples."
+    },
+    {
+      "function": "capability",
+      "ordinal": 25,
+      "proposition": "Every System API operation is typed and composable.",
+      "support": "Lines 27–29 describe schema-generated SDKs, type safety, and custom types passed across language and module boundaries."
+    },
+    {
+      "function": "capability",
+      "ordinal": 26,
+      "proposition": "Dagger has SDKs in 8 languages.",
+      "support": "Line 27 lists Go, Python, TypeScript, PHP, Java, .NET, Elixir, and Rust."
+    },
+    {
+      "function": "capability",
+      "ordinal": 27,
+      "proposition": "Dagger provides native SDKs for Go, Python, TypeScript, PHP, Java, .NET, Elixir, and Rust.",
+      "support": "Line 15 asserts SDKs for 8 languages; line 27 says each SDK is generated from the API schema."
+    },
+    {
+      "function": "capability",
+      "ordinal": 28,
+      "proposition": "Each SDK is generated from the API schema, yielding idiomatic code, full type safety, and editor support.",
+      "support": "Line 25 describes typed API operations; SDK generation and its stated benefits have no examples or verification."
+    },
+    {
+      "function": "transition",
+      "ordinal": 29,
+      "proposition": "",
+      "support": "Labels the custom object type and cross-boundary transfer descriptions on line 29."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 30,
+      "proposition": "Define custom object types containing encapsulated state and functions.",
+      "support": "Line 29 further describes content-addressed types transferable across SDK languages and modules; no definition syntax is supplied."
+    },
+    {
+      "function": "capability",
+      "ordinal": 31,
+      "proposition": "Types are content-addressed and pass across SDK language and module boundaries without serialization.",
+      "support": "absent"
+    },
+    {
+      "function": "capability",
+      "ordinal": 32,
+      "proposition": "Dagger supports incremental execution.",
+      "support": "Line 31 describes input-keyed operations, selective re-execution, and automatic content-addressed caching."
+    },
+    {
+      "function": "capability",
+      "ordinal": 33,
+      "proposition": "Every operation is keyed by its inputs.",
+      "support": "Line 31 connects input keys with rerunning only affected operations and content-addressed caching."
+    },
+    {
+      "function": "capability",
+      "ordinal": 34,
+      "proposition": "Changing one file reruns only the affected operations.",
+      "support": "Line 31 says every operation is keyed by its inputs and caching is content-addressed."
+    },
+    {
+      "function": "capability",
+      "ordinal": 35,
+      "proposition": "Content-addressed caching works automatically across local runs and CI.",
+      "support": "Line 19 states operations are incremental by default; line 31 describes input keys and selective re-execution, without demonstrating cross-environment caching."
+    },
+    {
+      "function": "capability",
+      "ordinal": 36,
+      "proposition": "Dagger runs anywhere.",
+      "support": "Line 33 qualifies this with a Linux container runtime requirement and Linux, macOS, and Windows execution paths; line 17 limits execution to supported systems."
+    },
+    {
+      "function": "qualification",
+      "ordinal": 37,
+      "proposition": "A Linux container runtime is the only requirement.",
+      "support": "Line 17 names a container runtime such as Docker as the only dependency; line 33 describes native Linux execution and Docker Desktop or similar products on macOS and Windows."
+    },
+    {
+      "function": "capability",
+      "ordinal": 38,
+      "proposition": "Dagger runs natively on Linux and through Docker Desktop or similar products on macOS and Windows.",
+      "support": "Line 33 requires a Linux container runtime; no operating-system execution examples are supplied."
+    },
+    {
+      "function": "capability",
+      "ordinal": 39,
+      "proposition": "Dagger behaves identically locally and in CI.",
+      "support": "Lines 17–19 describe supported environments and containerized, sandboxed execution with explicit dependencies; behavioral equivalence is not demonstrated."
+    },
+    {
+      "function": "capability",
+      "ordinal": 40,
+      "proposition": "Dagger includes built-in tracing.",
+      "support": "Line 35 describes per-operation OpenTelemetry spans, a live CLI TUI, and trace export."
+    },
+    {
+      "function": "capability",
+      "ordinal": 41,
+      "proposition": "Every operation emits OpenTelemetry spans.",
+      "support": "Line 21 also asserts per-operation OpenTelemetry traces enriched with logs and metrics."
+    },
+    {
+      "function": "capability",
+      "ordinal": 42,
+      "proposition": "The CLI has a live TUI, and traces can be exported to Jaeger, Honeycomb, or any OTel-compatible backend.",
+      "support": "Line 21 describes terminal and web trace visualization; export compatibility is not demonstrated."
+    },
+    {
+      "function": "transition",
+      "ordinal": 43,
+      "proposition": "",
+      "support": "Introduces Documentation and Quickstart links on lines 39–40."
+    },
+    {
+      "function": "other",
+      "ordinal": 44,
+      "proposition": "",
+      "support": "Documentation link: https://docs.dagger.io"
+    },
+    {
+      "function": "other",
+      "ordinal": 45,
+      "proposition": "",
+      "support": "Quickstart link: https://docs.dagger.io/quickstart"
+    },
+    {
+      "function": "transition",
+      "ordinal": 46,
+      "proposition": "",
+      "support": "Introduces Discord and GitHub Discussions links on lines 44–45."
+    },
+    {
+      "function": "other",
+      "ordinal": 47,
+      "proposition": "",
+      "support": "Discord link: https://discord.gg/dagger-io"
+    },
+    {
+      "function": "other",
+      "ordinal": 48,
+      "proposition": "",
+      "support": "GitHub Discussions link: https://github.com/dagger/dagger/discussions"
+    },
+    {
+      "function": "transition",
+      "ordinal": 49,
+      "proposition": "",
+      "support": "Introduces the CONTRIBUTING.md reference on line 49."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 50,
+      "proposition": "Consult CONTRIBUTING.md.",
+      "support": "Linked source: https://github.com/dagger/dagger/blob/main/CONTRIBUTING.md"
+    }
+  ],
+  "inventory_sha256": "4fd8bf3e6c70a6e5d5c5ee2915f15bfd1d5e51d2d8dbd7ef09f727a076f358be",
+  "numbered_source": "0001| ## Dagger: a better way to ship\n0002| \n0003| Dagger is a platform for automating software delivery. It can build, test and ship any codebase, reliably and at scale.\n0004| \n0005| Dagger runs locally, in your CI server, or directly in the cloud.\n0006| \n0007| ```bash\n0008| brew install dagger/tap/dagger\n0009| ```\n0010| \n0011| ## Why Dagger?\n0012| \n0013| Dagger makes your software delivery *programmable*, *local-first*, *repeatable* and *observable*.\n0014| \n0015| **Programmable**. Shell scripts and proprietary YAML are no longer acceptable for automating software delivery. Dagger provides: a complete execution engine and system API; SDKs for 8 languages; an interactive REPL; a rich ecosystem of reusable modules; and more.\n0016| \n0017| **Local-first**. Once you automate a task with Dagger, it will reliably run on any supported system: your laptop, AI sandbox, CI server, or dedicated cloud infrastructure. The only dependency is a container runtime like Docker.\n0018| \n0019| **Repeatable**. Tools run in containers, orchestrated by sandboxed functions. Host dependencies are explicit and strictly typed. Intermediate artifacts are built just-in-time. Every operation is incremental by default, with advanced cache control. Whether it's a test report, a build or a deployment, Dagger gives you an output you can trust.\n0020| \n0021| **Observable**. Every operation emits a full OpenTelemetry trace, enriched by granular logs and metrics. Visualize the trace in directly in the terminal, or in a web view. Debug complex workflows immediately instead of guessing what went wrong from a wall of text logs.\n0022| \n0023| ## Features\n0024| \n0025| **System API**. A cross-language API for orchestrating containers, filesystems, secrets, git repositories, network tunnels, and more. Every operation is typed and composable.\n0026| \n0027| **SDKs in 8 languages**. Native SDKs for Go, Python, TypeScript, PHP, Java, .NET, Elixir and Rust. Each SDK is generated from the API schema, so you get idiomatic code with full type safety and editor support.\n0028| \n0029| **Typed artifacts**. Define custom object types with encapsulated state and functions. Types are content-addressed and can be passed across SDK language boundaries and module boundaries without serialization.\n0030| \n0031| **Incremental execution**. Every operation is keyed by its inputs. Change one file and only the affected operations re-run. Caching is content-addressed and works automatically across local runs and CI.\n0032| \n0033| **Runs anywhere**. The only requirement is a Linux container runtime. Runs natively on Linux, or via Docker Desktop and similar products on macOS and Windows. Local and CI behavior are identical.\n0034| \n0035| **Built-in tracing**. Every operation emits OpenTelemetry spans. The CLI includes a live TUI; traces can also be exported to Jaeger, Honeycomb, or any OTel-compatible backend.\n0036| \n0037| ## Getting started\n0038| \n0039| - [Documentation](https://docs.dagger.io)\n0040| - [Quickstart](https://docs.dagger.io/quickstart)\n0041| \n0042| ## Community\n0043| \n0044| - [Discord](https://discord.gg/dagger-io)\n0045| - [GitHub Discussions](https://github.com/dagger/dagger/discussions)\n0046| \n0047| ## Contributing\n0048| \n0049| See [CONTRIBUTING.md](https://github.com/dagger/dagger/blob/main/CONTRIBUTING.md).",
+  "page_id": "dagger/dagger/README.md",
+  "source_sha256": "88958ec1c1e8ad619b6bddad97c3ac090b7218e4a0bdf0700fa8ed1e0f8deddc",
+  "units": [
+    {
+      "kind": "fragment",
+      "ordinal": 0,
+      "raw_slice": "Dagger: a better way to ship",
+      "raw_span": {
+        "end": 31,
+        "start": 3
+      },
+      "segments": [
+        {
+          "end": 31,
+          "start": 3
+        }
+      ],
+      "text": "Dagger: a better way to ship"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 1,
+      "raw_slice": "Dagger is a platform for automating software delivery.",
+      "raw_span": {
+        "end": 87,
+        "start": 33
+      },
+      "segments": [
+        {
+          "end": 87,
+          "start": 33
+        }
+      ],
+      "text": "Dagger is a platform for automating software delivery."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 2,
+      "raw_slice": "It can build, test and ship any codebase, reliably and at scale.",
+      "raw_span": {
+        "end": 152,
+        "start": 88
+      },
+      "segments": [
+        {
+          "end": 152,
+          "start": 88
+        }
+      ],
+      "text": "It can build, test and ship any codebase, reliably and at scale."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 3,
+      "raw_slice": "Dagger runs locally, in your CI server, or directly in the cloud.",
+      "raw_span": {
+        "end": 219,
+        "start": 154
+      },
+      "segments": [
+        {
+          "end": 219,
+          "start": 154
+        }
+      ],
+      "text": "Dagger runs locally, in your CI server, or directly in the cloud."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 4,
+      "raw_slice": "Why Dagger?",
+      "raw_span": {
+        "end": 279,
+        "start": 268
+      },
+      "segments": [
+        {
+          "end": 279,
+          "start": 268
+        }
+      ],
+      "text": "Why Dagger?"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 5,
+      "raw_slice": "Dagger makes your software delivery *programmable*, *local-first*, *repeatable* and *observable*.",
+      "raw_span": {
+        "end": 378,
+        "start": 281
+      },
+      "segments": [
+        {
+          "end": 317,
+          "start": 281
+        },
+        {
+          "end": 330,
+          "start": 318
+        },
+        {
+          "end": 333,
+          "start": 331
+        },
+        {
+          "end": 345,
+          "start": 334
+        },
+        {
+          "end": 348,
+          "start": 346
+        },
+        {
+          "end": 359,
+          "start": 349
+        },
+        {
+          "end": 365,
+          "start": 360
+        },
+        {
+          "end": 376,
+          "start": 366
+        },
+        {
+          "end": 378,
+          "start": 377
+        }
+      ],
+      "text": "Dagger makes your software delivery programmable, local-first, repeatable and observable."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 6,
+      "raw_slice": "Programmable**.",
+      "raw_span": {
+        "end": 397,
+        "start": 382
+      },
+      "segments": [
+        {
+          "end": 394,
+          "start": 382
+        },
+        {
+          "end": 397,
+          "start": 396
+        }
+      ],
+      "text": "Programmable."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 7,
+      "raw_slice": "Shell scripts and proprietary YAML are no longer acceptable for automating software delivery.",
+      "raw_span": {
+        "end": 491,
+        "start": 398
+      },
+      "segments": [
+        {
+          "end": 491,
+          "start": 398
+        }
+      ],
+      "text": "Shell scripts and proprietary YAML are no longer acceptable for automating software delivery."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 8,
+      "raw_slice": "Dagger provides: a complete execution engine and system API; SDKs for 8 languages; an interactive REPL; a rich ecosystem of reusable modules; and more.",
+      "raw_span": {
+        "end": 643,
+        "start": 492
+      },
+      "segments": [
+        {
+          "end": 643,
+          "start": 492
+        }
+      ],
+      "text": "Dagger provides: a complete execution engine and system API; SDKs for 8 languages; an interactive REPL; a rich ecosystem of reusable modules; and more."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 9,
+      "raw_slice": "Local-first**.",
+      "raw_span": {
+        "end": 661,
+        "start": 647
+      },
+      "segments": [
+        {
+          "end": 658,
+          "start": 647
+        },
+        {
+          "end": 661,
+          "start": 660
+        }
+      ],
+      "text": "Local-first."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 10,
+      "raw_slice": "Once you automate a task with Dagger, it will reliably run on any supported system: your laptop, AI sandbox, CI server, or dedicated cloud infrastructure.",
+      "raw_span": {
+        "end": 816,
+        "start": 662
+      },
+      "segments": [
+        {
+          "end": 816,
+          "start": 662
+        }
+      ],
+      "text": "Once you automate a task with Dagger, it will reliably run on any supported system: your laptop, AI sandbox, CI server, or dedicated cloud infrastructure."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 11,
+      "raw_slice": "The only dependency is a container runtime like Docker.",
+      "raw_span": {
+        "end": 872,
+        "start": 817
+      },
+      "segments": [
+        {
+          "end": 872,
+          "start": 817
+        }
+      ],
+      "text": "The only dependency is a container runtime like Docker."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 12,
+      "raw_slice": "Repeatable**.",
+      "raw_span": {
+        "end": 889,
+        "start": 876
+      },
+      "segments": [
+        {
+          "end": 886,
+          "start": 876
+        },
+        {
+          "end": 889,
+          "start": 888
+        }
+      ],
+      "text": "Repeatable."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 13,
+      "raw_slice": "Tools run in containers, orchestrated by sandboxed functions.",
+      "raw_span": {
+        "end": 951,
+        "start": 890
+      },
+      "segments": [
+        {
+          "end": 951,
+          "start": 890
+        }
+      ],
+      "text": "Tools run in containers, orchestrated by sandboxed functions."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 14,
+      "raw_slice": "Host dependencies are explicit and strictly typed.",
+      "raw_span": {
+        "end": 1002,
+        "start": 952
+      },
+      "segments": [
+        {
+          "end": 1002,
+          "start": 952
+        }
+      ],
+      "text": "Host dependencies are explicit and strictly typed."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 15,
+      "raw_slice": "Intermediate artifacts are built just-in-time.",
+      "raw_span": {
+        "end": 1049,
+        "start": 1003
+      },
+      "segments": [
+        {
+          "end": 1049,
+          "start": 1003
+        }
+      ],
+      "text": "Intermediate artifacts are built just-in-time."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 16,
+      "raw_slice": "Every operation is incremental by default, with advanced cache control.",
+      "raw_span": {
+        "end": 1121,
+        "start": 1050
+      },
+      "segments": [
+        {
+          "end": 1121,
+          "start": 1050
+        }
+      ],
+      "text": "Every operation is incremental by default, with advanced cache control."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 17,
+      "raw_slice": "Whether it's a test report, a build or a deployment, Dagger gives you an output you can trust.",
+      "raw_span": {
+        "end": 1216,
+        "start": 1122
+      },
+      "segments": [
+        {
+          "end": 1216,
+          "start": 1122
+        }
+      ],
+      "text": "Whether it's a test report, a build or a deployment, Dagger gives you an output you can trust."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 18,
+      "raw_slice": "Observable**.",
+      "raw_span": {
+        "end": 1233,
+        "start": 1220
+      },
+      "segments": [
+        {
+          "end": 1230,
+          "start": 1220
+        },
+        {
+          "end": 1233,
+          "start": 1232
+        }
+      ],
+      "text": "Observable."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 19,
+      "raw_slice": "Every operation emits a full OpenTelemetry trace, enriched by granular logs and metrics.",
+      "raw_span": {
+        "end": 1322,
+        "start": 1234
+      },
+      "segments": [
+        {
+          "end": 1322,
+          "start": 1234
+        }
+      ],
+      "text": "Every operation emits a full OpenTelemetry trace, enriched by granular logs and metrics."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 20,
+      "raw_slice": "Visualize the trace in directly in the terminal, or in a web view.",
+      "raw_span": {
+        "end": 1389,
+        "start": 1323
+      },
+      "segments": [
+        {
+          "end": 1389,
+          "start": 1323
+        }
+      ],
+      "text": "Visualize the trace in directly in the terminal, or in a web view."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 21,
+      "raw_slice": "Debug complex workflows immediately instead of guessing what went wrong from a wall of text logs.",
+      "raw_span": {
+        "end": 1487,
+        "start": 1390
+      },
+      "segments": [
+        {
+          "end": 1487,
+          "start": 1390
+        }
+      ],
+      "text": "Debug complex workflows immediately instead of guessing what went wrong from a wall of text logs."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 22,
+      "raw_slice": "Features",
+      "raw_span": {
+        "end": 1500,
+        "start": 1492
+      },
+      "segments": [
+        {
+          "end": 1500,
+          "start": 1492
+        }
+      ],
+      "text": "Features"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 23,
+      "raw_slice": "System API**.",
+      "raw_span": {
+        "end": 1517,
+        "start": 1504
+      },
+      "segments": [
+        {
+          "end": 1514,
+          "start": 1504
+        },
+        {
+          "end": 1517,
+          "start": 1516
+        }
+      ],
+      "text": "System API."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 24,
+      "raw_slice": "A cross-language API for orchestrating containers, filesystems, secrets, git repositories, network tunnels, and more.",
+      "raw_span": {
+        "end": 1635,
+        "start": 1518
+      },
+      "segments": [
+        {
+          "end": 1635,
+          "start": 1518
+        }
+      ],
+      "text": "A cross-language API for orchestrating containers, filesystems, secrets, git repositories, network tunnels, and more."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 25,
+      "raw_slice": "Every operation is typed and composable.",
+      "raw_span": {
+        "end": 1676,
+        "start": 1636
+      },
+      "segments": [
+        {
+          "end": 1676,
+          "start": 1636
+        }
+      ],
+      "text": "Every operation is typed and composable."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 26,
+      "raw_slice": "SDKs in 8 languages**.",
+      "raw_span": {
+        "end": 1702,
+        "start": 1680
+      },
+      "segments": [
+        {
+          "end": 1699,
+          "start": 1680
+        },
+        {
+          "end": 1702,
+          "start": 1701
+        }
+      ],
+      "text": "SDKs in 8 languages."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 27,
+      "raw_slice": "Native SDKs for Go, Python, TypeScript, PHP, Java, .NET, Elixir and Rust.",
+      "raw_span": {
+        "end": 1776,
+        "start": 1703
+      },
+      "segments": [
+        {
+          "end": 1776,
+          "start": 1703
+        }
+      ],
+      "text": "Native SDKs for Go, Python, TypeScript, PHP, Java, .NET, Elixir and Rust."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 28,
+      "raw_slice": "Each SDK is generated from the API schema, so you get idiomatic code with full type safety and editor support.",
+      "raw_span": {
+        "end": 1887,
+        "start": 1777
+      },
+      "segments": [
+        {
+          "end": 1887,
+          "start": 1777
+        }
+      ],
+      "text": "Each SDK is generated from the API schema, so you get idiomatic code with full type safety and editor support."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 29,
+      "raw_slice": "Typed artifacts**.",
+      "raw_span": {
+        "end": 1909,
+        "start": 1891
+      },
+      "segments": [
+        {
+          "end": 1906,
+          "start": 1891
+        },
+        {
+          "end": 1909,
+          "start": 1908
+        }
+      ],
+      "text": "Typed artifacts."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 30,
+      "raw_slice": "Define custom object types with encapsulated state and functions.",
+      "raw_span": {
+        "end": 1975,
+        "start": 1910
+      },
+      "segments": [
+        {
+          "end": 1975,
+          "start": 1910
+        }
+      ],
+      "text": "Define custom object types with encapsulated state and functions."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 31,
+      "raw_slice": "Types are content-addressed and can be passed across SDK language boundaries and module boundaries without serialization.",
+      "raw_span": {
+        "end": 2097,
+        "start": 1976
+      },
+      "segments": [
+        {
+          "end": 2097,
+          "start": 1976
+        }
+      ],
+      "text": "Types are content-addressed and can be passed across SDK language boundaries and module boundaries without serialization."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 32,
+      "raw_slice": "Incremental execution**.",
+      "raw_span": {
+        "end": 2125,
+        "start": 2101
+      },
+      "segments": [
+        {
+          "end": 2122,
+          "start": 2101
+        },
+        {
+          "end": 2125,
+          "start": 2124
+        }
+      ],
+      "text": "Incremental execution."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 33,
+      "raw_slice": "Every operation is keyed by its inputs.",
+      "raw_span": {
+        "end": 2165,
+        "start": 2126
+      },
+      "segments": [
+        {
+          "end": 2165,
+          "start": 2126
+        }
+      ],
+      "text": "Every operation is keyed by its inputs."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 34,
+      "raw_slice": "Change one file and only the affected operations re-run.",
+      "raw_span": {
+        "end": 2222,
+        "start": 2166
+      },
+      "segments": [
+        {
+          "end": 2222,
+          "start": 2166
+        }
+      ],
+      "text": "Change one file and only the affected operations re-run."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 35,
+      "raw_slice": "Caching is content-addressed and works automatically across local runs and CI.",
+      "raw_span": {
+        "end": 2301,
+        "start": 2223
+      },
+      "segments": [
+        {
+          "end": 2301,
+          "start": 2223
+        }
+      ],
+      "text": "Caching is content-addressed and works automatically across local runs and CI."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 36,
+      "raw_slice": "Runs anywhere**.",
+      "raw_span": {
+        "end": 2321,
+        "start": 2305
+      },
+      "segments": [
+        {
+          "end": 2318,
+          "start": 2305
+        },
+        {
+          "end": 2321,
+          "start": 2320
+        }
+      ],
+      "text": "Runs anywhere."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 37,
+      "raw_slice": "The only requirement is a Linux container runtime.",
+      "raw_span": {
+        "end": 2372,
+        "start": 2322
+      },
+      "segments": [
+        {
+          "end": 2372,
+          "start": 2322
+        }
+      ],
+      "text": "The only requirement is a Linux container runtime."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 38,
+      "raw_slice": "Runs natively on Linux, or via Docker Desktop and similar products on macOS and Windows.",
+      "raw_span": {
+        "end": 2461,
+        "start": 2373
+      },
+      "segments": [
+        {
+          "end": 2461,
+          "start": 2373
+        }
+      ],
+      "text": "Runs natively on Linux, or via Docker Desktop and similar products on macOS and Windows."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 39,
+      "raw_slice": "Local and CI behavior are identical.",
+      "raw_span": {
+        "end": 2498,
+        "start": 2462
+      },
+      "segments": [
+        {
+          "end": 2498,
+          "start": 2462
+        }
+      ],
+      "text": "Local and CI behavior are identical."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 40,
+      "raw_slice": "Built-in tracing**.",
+      "raw_span": {
+        "end": 2521,
+        "start": 2502
+      },
+      "segments": [
+        {
+          "end": 2518,
+          "start": 2502
+        },
+        {
+          "end": 2521,
+          "start": 2520
+        }
+      ],
+      "text": "Built-in tracing."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 41,
+      "raw_slice": "Every operation emits OpenTelemetry spans.",
+      "raw_span": {
+        "end": 2564,
+        "start": 2522
+      },
+      "segments": [
+        {
+          "end": 2564,
+          "start": 2522
+        }
+      ],
+      "text": "Every operation emits OpenTelemetry spans."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 42,
+      "raw_slice": "The CLI includes a live TUI; traces can also be exported to Jaeger, Honeycomb, or any OTel-compatible backend.",
+      "raw_span": {
+        "end": 2675,
+        "start": 2565
+      },
+      "segments": [
+        {
+          "end": 2675,
+          "start": 2565
+        }
+      ],
+      "text": "The CLI includes a live TUI; traces can also be exported to Jaeger, Honeycomb, or any OTel-compatible backend."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 43,
+      "raw_slice": "Getting started",
+      "raw_span": {
+        "end": 2695,
+        "start": 2680
+      },
+      "segments": [
+        {
+          "end": 2695,
+          "start": 2680
+        }
+      ],
+      "text": "Getting started"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 44,
+      "raw_slice": "Documentation",
+      "raw_span": {
+        "end": 2713,
+        "start": 2700
+      },
+      "segments": [
+        {
+          "end": 2713,
+          "start": 2700
+        }
+      ],
+      "text": "Documentation"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 45,
+      "raw_slice": "Quickstart",
+      "raw_span": {
+        "end": 2752,
+        "start": 2742
+      },
+      "segments": [
+        {
+          "end": 2752,
+          "start": 2742
+        }
+      ],
+      "text": "Quickstart"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 46,
+      "raw_slice": "Community",
+      "raw_span": {
+        "end": 2802,
+        "start": 2793
+      },
+      "segments": [
+        {
+          "end": 2802,
+          "start": 2793
+        }
+      ],
+      "text": "Community"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 47,
+      "raw_slice": "Discord",
+      "raw_span": {
+        "end": 2814,
+        "start": 2807
+      },
+      "segments": [
+        {
+          "end": 2814,
+          "start": 2807
+        }
+      ],
+      "text": "Discord"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 48,
+      "raw_slice": "GitHub Discussions",
+      "raw_span": {
+        "end": 2867,
+        "start": 2849
+      },
+      "segments": [
+        {
+          "end": 2867,
+          "start": 2849
+        }
+      ],
+      "text": "GitHub Discussions"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 49,
+      "raw_slice": "Contributing",
+      "raw_span": {
+        "end": 2931,
+        "start": 2919
+      },
+      "segments": [
+        {
+          "end": 2931,
+          "start": 2919
+        }
+      ],
+      "text": "Contributing"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 50,
+      "raw_slice": "See [CONTRIBUTING.md](https://github.com/dagger/dagger/blob/main/CONTRIBUTING.md).",
+      "raw_span": {
+        "end": 3015,
+        "start": 2933
+      },
+      "segments": [
+        {
+          "end": 2937,
+          "start": 2933
+        },
+        {
+          "end": 2953,
+          "start": 2938
+        },
+        {
+          "end": 3015,
+          "start": 3014
+        }
+      ],
+      "text": "See CONTRIBUTING.md."
+    }
+  ]
+}

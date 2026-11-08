@@ -1,0 +1,25 @@
+{
+  "page_id": "dagger/dagger/README.md",
+  "source_sha256": "88958ec1c1e8ad619b6bddad97c3ac090b7218e4a0bdf0700fa8ed1e0f8deddc",
+  "inventory_sha256": "4fd8bf3e6c70a6e5d5c5ee2915f15bfd1d5e51d2d8dbd7ef09f727a076f358be",
+  "findings": [
+    {
+      "unit_ordinal": 2,
+      "line": 3,
+      "quote": "It can build, test and ship any codebase, reliably and at scale.",
+      "diagnosis": "Claims universal codebase coverage and reliable operation at unspecified scale beyond the execution capabilities described.",
+      "evidence": "Lines 17 and 33 condition execution on supported systems and a Linux container runtime. Line 19 explains repeatability mechanisms, but supplies no basis for universal codebase compatibility or scaling performance.",
+      "source_function": "capability",
+      "deletion_test": "Deleting this sentence removes the unsupported universal and scaling claims while preserving the platform definition and the specific delivery and execution capabilities described below."
+    },
+    {
+      "unit_ordinal": 39,
+      "line": 33,
+      "quote": "Local and CI behavior are identical.",
+      "diagnosis": "Guarantees behavioral equivalence without conditioning it on matching inputs and host dependencies.",
+      "evidence": "Line 19 explicitly recognizes host dependencies, and line 31 keys operations by their inputs. These mechanisms support repeatability under matching conditions; they do not establish identical behavior across local and CI environments without those conditions.",
+      "source_function": "capability",
+      "deletion_test": "Deleting this sentence removes the unconditional equivalence guarantee while retaining the runtime requirement, supported operating environments, and concrete repeatability mechanisms."
+    }
+  ]
+}

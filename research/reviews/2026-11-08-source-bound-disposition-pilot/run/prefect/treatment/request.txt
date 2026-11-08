@@ -1,0 +1,1141 @@
+Review the COMPLETE public technical README, the exhaustive unit inventory,
+and the original source coordinates below. Use only this source; no tools.
+Do not infer AI authorship. This pass is for independently useful SEMANTIC
+corrections: unsupported scope, an unqualified guarantee, a contradiction,
+or a claim whose evidence does not support its breadth. Grammar-only repairs
+belong to the existing engine and do not count in this treatment.
+
+Read all inventory records before deciding. A complete inventory is not proof
+that a correction is needed. Preserve measurable statements with relevant
+evidence, technical conditions, attributed claims, necessary instructions,
+the author's voice, negation, numbers, versions, identifiers, links, and code.
+Do not flag a phrase merely because it is promotional, formal, or could be
+shorter. Abstain when a safe, source-specific diagnosis is not supported.
+
+Return exactly one disposition for EVERY required unit ordinal in source
+order, including headings, instructions, fragments, and units with no factual
+proposition. Use retain when there is no independently useful correction,
+revise when there is a supported semantic correction, or uncertain when the
+page does not establish whether a safe correction would help. An absent
+external citation alone does not make a factual claim defective.
+
+For each revise disposition return exactly one finding for that ordinal: an
+exact contiguous quote from the original source, its original 1-based line,
+the specific defect, page evidence, source function, and a minimal-deletion
+test. Do not propose replacement text. A finding may quote source syntax
+around eligible prose, but must target eligible prose and must not propose
+changing protected code. Return zero findings if no independently useful
+correction is established. Maximum 20 findings. Return schema JSON only.
+Echo the page ID, source SHA-256, and inventory response SHA-256 exactly.
+The dispositions array must cover all supplied ordinals once, and findings
+must contain exactly the revise ordinals in ascending order.
+
+INPUT JSON:
+{
+  "excluded": [
+    {
+      "reason": "html",
+      "span": {
+        "end": 135,
+        "start": 0
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 1305,
+        "start": 135
+      }
+    },
+    {
+      "reason": "html",
+      "span": {
+        "end": 2352,
+        "start": 1306
+      }
+    },
+    {
+      "reason": "quote",
+      "span": {
+        "end": 3522,
+        "start": 3232
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 3741,
+        "start": 3706
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 3769,
+        "start": 3742
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3828,
+        "start": 3822
+      }
+    },
+    {
+      "reason": "inline-protected",
+      "span": {
+        "end": 3839,
+        "start": 3833
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 4433,
+        "start": 3984
+      }
+    },
+    {
+      "reason": "url",
+      "span": {
+        "end": 4499,
+        "start": 4478
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 4556,
+        "start": 4523
+      }
+    },
+    {
+      "reason": "code",
+      "span": {
+        "end": 4897,
+        "start": 4715
+      }
+    },
+    {
+      "reason": "quote",
+      "span": {
+        "end": 6211,
+        "start": 5235
+      }
+    }
+  ],
+  "inventory_records": [
+    {
+      "function": "other",
+      "ordinal": 0,
+      "proposition": "",
+      "support": "absent"
+    },
+    {
+      "function": "definition",
+      "ordinal": 1,
+      "proposition": "Prefect is a Python workflow orchestration framework for building data pipelines.",
+      "support": "Lines 79–101 illustrate a Python workflow using Prefect flow and task decorators."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 2,
+      "proposition": "Prefect is the simplest way to turn a script into a production workflow.",
+      "support": "The getting-started example illustrates script conversion and deployment; no comparison supports 'simplest'."
+    },
+    {
+      "function": "capability",
+      "ordinal": 3,
+      "proposition": "Prefect enables resilient, dynamic data pipelines that react to their surroundings and recover from unexpected changes.",
+      "support": "Line 58 names retries and event-based automations; line 122 describes event-triggered deployments; the tips link error handling and retries."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 4,
+      "proposition": "With only a few lines of code, data teams can confidently automate any data process using scheduling, caching, retries, and event-based automations.",
+      "support": "The examples illustrate a short workflow and scheduling; tips mention retries, and line 122 links event automation. No example demonstrates caching or substantiates 'any data process'."
+    },
+    {
+      "function": "capability",
+      "ordinal": 5,
+      "proposition": "Workflow activity is tracked and can be monitored through a self-hosted Prefect server or a managed Prefect Cloud dashboard.",
+      "support": "Links to Prefect server documentation and the Cloud comparison page; lines 104–107 instruct starting the server and viewing its UI."
+    },
+    {
+      "function": "transition",
+      "ordinal": 6,
+      "proposition": "",
+      "support": "absent"
+    },
+    {
+      "function": "qualification",
+      "ordinal": 7,
+      "proposition": "Prefect requires Python 3.11+.",
+      "support": "absent"
+    },
+    {
+      "function": "instruction",
+      "ordinal": 8,
+      "proposition": "Install the latest version of Prefect by running one of the supplied commands.",
+      "support": "Installation link https://www.prefect.io/docs/v3/get-started/install and the commands `pip install -U prefect` and `uv add prefect`."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 9,
+      "proposition": "Create and run a Python file that uses Prefect.",
+      "support": "The surrounding sentence specifies `flow` and `task` decorators; lines 81–102 provide the Python example."
+    },
+    {
+      "function": "other",
+      "ordinal": 10,
+      "proposition": "",
+      "support": "absent"
+    },
+    {
+      "function": "instruction",
+      "ordinal": 11,
+      "proposition": "Use decorators to orchestrate and observe the workflow, illustrated by a script fetching a repository's GitHub star count.",
+      "support": "The surrounding sentence identifies `flow` and `task`; the example uses `@task(log_prints=True)`, `@flow(name=\"GitHub Stars\")`, and the GitHub API's `stargazers_count`."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 12,
+      "proposition": "Start a Prefect server and open its UI.",
+      "support": "The same sentence supplies http://localhost:4200; the following command is `prefect server start`."
+    },
+    {
+      "function": "capability",
+      "ordinal": 13,
+      "proposition": "The UI lets you see what happened in the workflow.",
+      "support": "Line 60 describes tracking and monitoring workflow activity; the surrounding instruction opens the server UI after the example workflow."
+    },
+    {
+      "function": "instruction",
+      "ordinal": 14,
+      "proposition": "To run the workflow every minute, turn it into a deployment by replacing the script's last line with the supplied code.",
+      "support": "Lines 113–118 show `github_stars.serve` with `name=\"first-deployment\"`, `cron=\"* * * * *\"`, and repository parameters."
+    },
+    {
+      "function": "capability",
+      "ordinal": 15,
+      "proposition": "After the preceding setup, a local process looks for scheduled deployments.",
+      "support": "Conditional on running the preceding `github_stars.serve` example; no runtime output is provided."
+    },
+    {
+      "function": "capability",
+      "ordinal": 16,
+      "proposition": "Workflows can also be run manually from the UI or CLI.",
+      "support": "absent"
+    },
+    {
+      "function": "capability",
+      "ordinal": 17,
+      "proposition": "Deployments can run in response to events.",
+      "support": "The sentence links to https://www.prefect.io/docs/latest/automate/?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none."
+    },
+    {
+      "function": "transition",
+      "ordinal": 18,
+      "proposition": "",
+      "support": "absent"
+    },
+    {
+      "function": "instruction",
+      "ordinal": 19,
+      "proposition": "Use the agent setup guides to connect an agent to Prefect through plugins or MCP and start using the CLI.",
+      "support": "Agent setup guides linked at https://www.prefect.io/agents."
+    },
+    {
+      "function": "capability",
+      "ordinal": 20,
+      "proposition": "An agent-readable setup index provides the guides in plain text.",
+      "support": "The index is linked at https://www.prefect.io/agents/llms.txt; its contents are not reproduced."
+    },
+    {
+      "function": "transition",
+      "ordinal": 21,
+      "proposition": "",
+      "support": "absent"
+    },
+    {
+      "function": "definition",
+      "ordinal": 22,
+      "proposition": "Prefect Cloud provides workflow orchestration for modern data enterprises.",
+      "support": "Line 60 describes its managed monitoring dashboard; line 140 links the Cloud comparison page."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 23,
+      "proposition": "Prefect automates over 200 million data tasks monthly and helps organizations, including Fortune 50 leader Progressive Insurance and Cash App, increase engineering productivity, reduce pipeline errors, and cut workflow compute costs.",
+      "support": "The sentence supplies the task count and named organizations, but the page provides no measurement source, case studies, or outcome data."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 24,
+      "proposition": "Read more about Prefect Cloud or sign up to try it.",
+      "support": "Links to https://www.prefect.io/cloud-vs-oss?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none and https://app.prefect.cloud?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none."
+    },
+    {
+      "function": "transition",
+      "ordinal": 25,
+      "proposition": "",
+      "support": "absent"
+    },
+    {
+      "function": "instruction",
+      "ordinal": 26,
+      "proposition": "Consider prefect-client if the use case focuses on communicating with Prefect Cloud or a remote Prefect server.",
+      "support": "Links to https://pypi.org/project/prefect-client/; the next sentence describes client-side SDK functionality."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 27,
+      "proposition": "prefect-client is a lighter-weight option for accessing Prefect SDK client-side functionality and is ideal for ephemeral execution environments.",
+      "support": "The preceding sentence scopes use to Prefect Cloud or a remote server and links the package; no size comparison or execution evidence is supplied."
+    },
+    {
+      "function": "transition",
+      "ordinal": 28,
+      "proposition": "",
+      "support": "absent"
+    },
+    {
+      "function": "promotion",
+      "ordinal": 29,
+      "proposition": "Readers are invited to join a thriving community of over 25,000 practitioners solving data challenges with Prefect.",
+      "support": "Community resources include a Slack link and describe thousands of practitioners; no source or count substantiates over 25,000."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 30,
+      "proposition": "Prefect's community is founded on collaboration, technical innovation, and continuous improvement.",
+      "support": "Community resources link contribution and integration guides; the closing paragraph names bug reports, feature suggestions, and documentation improvements."
+    },
+    {
+      "function": "transition",
+      "ordinal": 31,
+      "proposition": "",
+      "support": "absent"
+    },
+    {
+      "function": "instruction",
+      "ordinal": 32,
+      "proposition": "Explore comprehensive documentation and API references, connect with thousands on Slack, contribute to the project, support or create integrations to extend Prefect, and follow its open source development blog.",
+      "support": "Links to https://www.prefect.io/docs, https://prefect.io/slack, https://www.prefect.io/docs/contribute/, https://www.prefect.io/docs/contribute/contribute-integrations, and https://dev-log.prefect.io/. Linked contents and Slack membership counts are not shown."
+    },
+    {
+      "function": "transition",
+      "ordinal": 33,
+      "proposition": "",
+      "support": "absent"
+    },
+    {
+      "function": "instruction",
+      "ordinal": 34,
+      "proposition": "Subscribe to the newsletter for Prefect news; use X and Bluesky for updates, YouTube for tutorials and webinars, and LinkedIn for professional networking and company news.",
+      "support": "Links to https://prefect.io/newsletter, https://x.com/PrefectIO, https://bsky.app/profile/prefect.io, https://www.youtube.com/@PrefectIO, and https://www.linkedin.com/company/prefect; channel contents are not reproduced."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 35,
+      "proposition": "Reader contributions, questions, and ideas improve Prefect every day.",
+      "support": "Contribution guides are linked, but no examples or daily improvement evidence are supplied."
+    },
+    {
+      "function": "promotion",
+      "ordinal": 36,
+      "proposition": "Bug reports, feature suggestions, and documentation improvements are invaluable to the Prefect community.",
+      "support": "The community resources link contribution guidance; no specific contribution outcomes substantiate the valuation."
+    }
+  ],
+  "inventory_sha256": "2f3445b01f089a13e81b38538e6eb264b95a3e69ea0600c1a270f67ed217517c",
+  "numbered_source": "0001| <p align=\"center\"><img src=\"https://github.com/PrefectHQ/prefect/assets/3407835/c654cbc6-63e8-4ada-a92a-efd2f8f24b85\" width=1000></p>\n0002| \n0003| <p align=\"center\">\n0004|     <a href=\"https://pypi.org/project/prefect/\" alt=\"PyPI version\">\n0005|         <img alt=\"PyPI\" src=\"https://img.shields.io/pypi/v/prefect?color=0052FF&labelColor=090422\" />\n0006|     </a>\n0007|     <a href=\"https://pypi.org/project/prefect/\" alt=\"PyPI downloads/month\">\n0008|         <img alt=\"Downloads\" src=\"https://img.shields.io/pypi/dm/prefect?color=0052FF&labelColor=090422\" />\n0009|     </a>\n0010|     <a href=\"https://github.com/prefecthq/prefect/\" alt=\"Stars\">\n0011|         <img src=\"https://img.shields.io/github/stars/prefecthq/prefect?color=0052FF&labelColor=090422\" />\n0012|     </a>\n0013|     <a href=\"https://github.com/prefecthq/prefect/pulse\" alt=\"Activity\">\n0014|         <img src=\"https://img.shields.io/github/commit-activity/m/prefecthq/prefect?color=0052FF&labelColor=090422\" />\n0015|     </a>\n0016|     <br>\n0017|     <a href=\"https://prefect.io/slack\" alt=\"Slack\">\n0018|         <img src=\"https://img.shields.io/badge/slack-join_community-red.svg?color=0052FF&labelColor=090422&logo=slack\" />\n0019|     </a>\n0020|     <a href=\"https://www.youtube.com/c/PrefectIO/\" alt=\"YouTube\">\n0021|         <img src=\"https://img.shields.io/badge/youtube-watch_videos-red.svg?color=0052FF&labelColor=090422&logo=youtube\" />\n0022|     </a>\n0023| </p>\n0024| \n0025| \n0026| <p align=\"center\">\n0027|     <a href=\"https://www.prefect.io/docs/v3/get-started/index?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none\">\n0028|         Installation\n0029|     </a>\n0030|     ·\n0031|     <a href=\"https://www.prefect.io/docs/v3/get-started/quickstart?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none\">\n0032|         Quickstart\n0033|     </a>\n0034|     ·\n0035|     <a href=\"https://www.prefect.io/docs/v3/how-to-guides/workflows/write-and-run?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none\">\n0036|         Build workflows\n0037|     </a>\n0038|     ·\n0039|     <a href=\"https://www.prefect.io/docs/v3/concepts/deployments?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none\">\n0040|         Deploy workflows\n0041|     </a>\n0042|     ·\n0043|     <a href=\"https://www.prefect.io/agents\">\n0044|         Agent setup\n0045|     </a>\n0046|     ·\n0047|     <a href=\"https://app.prefect.cloud/?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none\">\n0048|         Prefect Cloud\n0049|     </a>\n0050| </p>\n0051| \n0052| # Prefect\n0053| \n0054| Prefect is a workflow orchestration framework for building data pipelines in Python.\n0055| It's the simplest way to elevate a script into a production workflow.\n0056| With Prefect, you can build resilient, dynamic data pipelines that react to the world around them and recover from unexpected changes.\n0057| \n0058| With just a few lines of code, data teams can confidently automate any data process with features such as scheduling, caching, retries, and event-based automations.\n0059| \n0060| Workflow activity is tracked and can be monitored with a self-hosted [Prefect server](https://www.prefect.io/docs/v3/how-to-guides/self-hosted/server-cli?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none) instance or managed [Prefect Cloud](https://www.prefect.io/cloud-vs-oss?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none) dashboard.\n0061| \n0062| > [!TIP]\n0063| > Prefect flows can handle retries, dependencies, and even complex branching logic\n0064| > \n0065| > [Check our docs](https://www.prefect.io/docs/v3/get-started/index?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none) or see the example below to learn more!\n0066| \n0067| ## Getting started\n0068| \n0069| Prefect requires Python 3.11+. To [install the latest version of Prefect](https://www.prefect.io/docs/v3/get-started/install), run one of the following commands:\n0070| \n0071| ```bash\n0072| pip install -U prefect\n0073| ```\n0074| \n0075| ```bash\n0076| uv add prefect\n0077| ```\n0078| \n0079| Then create and run a Python file that uses Prefect `flow` and `task` decorators to orchestrate and observe your workflow - in this case, a simple script that fetches the number of GitHub stars from a repository:\n0080| \n0081| ```python\n0082| from prefect import flow, task\n0083| import httpx\n0084| \n0085| \n0086| @task(log_prints=True)\n0087| def get_stars(repo: str):\n0088|     url = f\"https://api.github.com/repos/{repo}\"\n0089|     count = httpx.get(url).json()[\"stargazers_count\"]\n0090|     print(f\"{repo} has {count} stars!\")\n0091| \n0092| \n0093| @flow(name=\"GitHub Stars\")\n0094| def github_stars(repos: list[str]):\n0095|     for repo in repos:\n0096|         get_stars(repo)\n0097| \n0098| \n0099| # run the flow!\n0100| if __name__ == \"__main__\":\n0101|     github_stars([\"PrefectHQ/prefect\"])\n0102| ```\n0103| \n0104| Fire up a Prefect server and open the UI at http://localhost:4200 to see what happened:\n0105| \n0106| ```bash\n0107| prefect server start\n0108| ```\n0109| \n0110| To run your workflow on a schedule, turn it into a deployment and schedule it to run every minute by changing the last line of your script to the following:\n0111| \n0112| ```python\n0113| if __name__ == \"__main__\":\n0114|     github_stars.serve(\n0115|         name=\"first-deployment\",\n0116|         cron=\"* * * * *\",\n0117|         parameters={\"repos\": [\"PrefectHQ/prefect\"]}\n0118|     )\n0119| ```\n0120| \n0121| You now have a process running locally that is looking for scheduled deployments!\n0122| Additionally you can run your workflow manually from the UI or CLI. You can even run deployments in response to [events](https://www.prefect.io/docs/latest/automate/?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none).\n0123| \n0124| > [!TIP]\n0125| > Where to go next - check out our [documentation](https://www.prefect.io/docs/v3/get-started/index?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none) to learn more about:\n0126| > - [Deploying flows to production environments](https://www.prefect.io/docs/v3/deploy?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none)\n0127| > - [Adding error handling and retries](https://www.prefect.io/docs/v3/develop/write-tasks#retries?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none)\n0128| > - [Integrating with your existing tools](https://www.prefect.io/docs/integrations/integrations?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none)\n0129| > - [Setting up team collaboration features](https://www.prefect.io/docs/v3/manage/cloud/manage-users/manage-teams#manage-teams?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none)\n0130| \n0131| \n0132| ## Work with your agent\n0133| \n0134| Use the [agent setup guides](https://www.prefect.io/agents) to connect your agent to Prefect through plugins or MCP and get started with the CLI. An [agent-readable setup index](https://www.prefect.io/agents/llms.txt) provides the guides as plain text.\n0135| \n0136| ## Prefect Cloud\n0137| \n0138| Prefect Cloud provides workflow orchestration for the modern data enterprise. By automating over 200 million data tasks monthly, Prefect empowers diverse organizations — from Fortune 50 leaders such as Progressive Insurance to innovative disruptors such as Cash App — to increase engineering productivity, reduce pipeline errors, and cut data workflow compute costs.\n0139| \n0140| Read more about Prefect Cloud [here](https://www.prefect.io/cloud-vs-oss?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none) or sign up to [try it for yourself](https://app.prefect.cloud?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none).\n0141| \n0142| ## prefect-client\n0143| \n0144| If your use case is geared towards communicating with Prefect Cloud or a remote Prefect server, check out our\n0145| [prefect-client](https://pypi.org/project/prefect-client/). It is a lighter-weight option for accessing client-side functionality in the Prefect SDK and is ideal for use in ephemeral execution environments.\n0146| \n0147| ## Connect & Contribute\n0148| Join a thriving community of over 25,000 practitioners who solve data challenges with Prefect. Prefect's community is built on collaboration, technical innovation, and continuous improvement.\n0149| \n0150| ### Community Resources\n0151| 🌐 **[Explore the Documentation](https://www.prefect.io/docs)** - Comprehensive guides and API references  \n0152| 💬 **[Join the Slack Community](https://prefect.io/slack)** - Connect with thousands of practitioners  \n0153| 🤝 **[Contribute to Prefect](https://www.prefect.io/docs/contribute/)** - Help shape the future of the project  \n0154|  🔌 **[Support or create a new Prefect integration](https://www.prefect.io/docs/contribute/contribute-integrations)** - Extend Prefect's capabilities   \n0155| 📋 **[Tail the Dev Log](https://dev-log.prefect.io/)** - Prefect's open source development blog\n0156| \n0157| ### Stay Informed\n0158| 📥 **[Subscribe to our Newsletter](https://prefect.io/newsletter)** - Get the latest Prefect news and updates  \n0159| 📣 **[X](https://x.com/PrefectIO)** and **[Bluesky](https://bsky.app/profile/prefect.io)** - Latest updates and announcements  \n0160| 📺 **[YouTube](https://www.youtube.com/@PrefectIO)** - Video tutorials and webinars  \n0161| 📱 **[LinkedIn](https://www.linkedin.com/company/prefect)** - Professional networking and company news  \n0162| \n0163| Your contributions, questions, and ideas make Prefect better every day. Whether you're reporting bugs, suggesting features, or improving documentation, your input is invaluable to the Prefect community.\n0164| ",
+  "page_id": "prefecthq/prefect/README.md",
+  "required_disposition_ordinals": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36
+  ],
+  "source_sha256": "ea65184760f7e6d32def7fc740e6b1bebe31edae113323a891d80243d704795e",
+  "units": [
+    {
+      "kind": "fragment",
+      "ordinal": 0,
+      "raw_slice": "Prefect",
+      "raw_span": {
+        "end": 2361,
+        "start": 2354
+      },
+      "segments": [
+        {
+          "end": 2361,
+          "start": 2354
+        }
+      ],
+      "text": "Prefect"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 1,
+      "raw_slice": "Prefect is a workflow orchestration framework for building data pipelines in Python.",
+      "raw_span": {
+        "end": 2447,
+        "start": 2363
+      },
+      "segments": [
+        {
+          "end": 2447,
+          "start": 2363
+        }
+      ],
+      "text": "Prefect is a workflow orchestration framework for building data pipelines in Python."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 2,
+      "raw_slice": "It's the simplest way to elevate a script into a production workflow.",
+      "raw_span": {
+        "end": 2517,
+        "start": 2448
+      },
+      "segments": [
+        {
+          "end": 2517,
+          "start": 2448
+        }
+      ],
+      "text": "It's the simplest way to elevate a script into a production workflow."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 3,
+      "raw_slice": "With Prefect, you can build resilient, dynamic data pipelines that react to the world around them and recover from unexpected changes.",
+      "raw_span": {
+        "end": 2652,
+        "start": 2518
+      },
+      "segments": [
+        {
+          "end": 2652,
+          "start": 2518
+        }
+      ],
+      "text": "With Prefect, you can build resilient, dynamic data pipelines that react to the world around them and recover from unexpected changes."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 4,
+      "raw_slice": "With just a few lines of code, data teams can confidently automate any data process with features such as scheduling, caching, retries, and event-based automations.",
+      "raw_span": {
+        "end": 2818,
+        "start": 2654
+      },
+      "segments": [
+        {
+          "end": 2818,
+          "start": 2654
+        }
+      ],
+      "text": "With just a few lines of code, data teams can confidently automate any data process with features such as scheduling, caching, retries, and event-based automations."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 5,
+      "raw_slice": "Workflow activity is tracked and can be monitored with a self-hosted [Prefect server](https://www.prefect.io/docs/v3/how-to-guides/self-hosted/server-cli?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none) instance or managed [Prefect Cloud](https://www.prefect.io/cloud-vs-oss?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none) dashboard.",
+      "raw_span": {
+        "end": 3230,
+        "start": 2820
+      },
+      "segments": [
+        {
+          "end": 2889,
+          "start": 2820
+        },
+        {
+          "end": 2904,
+          "start": 2890
+        },
+        {
+          "end": 3081,
+          "start": 3060
+        },
+        {
+          "end": 3095,
+          "start": 3082
+        },
+        {
+          "end": 3230,
+          "start": 3219
+        }
+      ],
+      "text": "Workflow activity is tracked and can be monitored with a self-hosted Prefect server instance or managed Prefect Cloud dashboard."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 6,
+      "raw_slice": "Getting started",
+      "raw_span": {
+        "end": 3541,
+        "start": 3526
+      },
+      "segments": [
+        {
+          "end": 3541,
+          "start": 3526
+        }
+      ],
+      "text": "Getting started"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 7,
+      "raw_slice": "Prefect requires Python 3.11+.",
+      "raw_span": {
+        "end": 3573,
+        "start": 3543
+      },
+      "segments": [
+        {
+          "end": 3573,
+          "start": 3543
+        }
+      ],
+      "text": "Prefect requires Python 3.11+."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 8,
+      "raw_slice": "To [install the latest version of Prefect](https://www.prefect.io/docs/v3/get-started/install), run one of the following commands:",
+      "raw_span": {
+        "end": 3704,
+        "start": 3574
+      },
+      "segments": [
+        {
+          "end": 3577,
+          "start": 3574
+        },
+        {
+          "end": 3615,
+          "start": 3578
+        },
+        {
+          "end": 3704,
+          "start": 3668
+        }
+      ],
+      "text": "To install the latest version of Prefect, run one of the following commands:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 9,
+      "raw_slice": "Then create and run a Python file that uses Prefect",
+      "raw_span": {
+        "end": 3821,
+        "start": 3770
+      },
+      "segments": [
+        {
+          "end": 3821,
+          "start": 3770
+        }
+      ],
+      "text": "Then create and run a Python file that uses Prefect"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 10,
+      "raw_slice": "and",
+      "raw_span": {
+        "end": 3832,
+        "start": 3829
+      },
+      "segments": [
+        {
+          "end": 3832,
+          "start": 3829
+        }
+      ],
+      "text": "and"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 11,
+      "raw_slice": "decorators to orchestrate and observe your workflow - in this case, a simple script that fetches the number of GitHub stars from a repository:",
+      "raw_span": {
+        "end": 3982,
+        "start": 3840
+      },
+      "segments": [
+        {
+          "end": 3982,
+          "start": 3840
+        }
+      ],
+      "text": "decorators to orchestrate and observe your workflow - in this case, a simple script that fetches the number of GitHub stars from a repository:"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 12,
+      "raw_slice": "Fire up a Prefect server and open the UI at",
+      "raw_span": {
+        "end": 4477,
+        "start": 4434
+      },
+      "segments": [
+        {
+          "end": 4477,
+          "start": 4434
+        }
+      ],
+      "text": "Fire up a Prefect server and open the UI at"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 13,
+      "raw_slice": "to see what happened:",
+      "raw_span": {
+        "end": 4521,
+        "start": 4500
+      },
+      "segments": [
+        {
+          "end": 4521,
+          "start": 4500
+        }
+      ],
+      "text": "to see what happened:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 14,
+      "raw_slice": "To run your workflow on a schedule, turn it into a deployment and schedule it to run every minute by changing the last line of your script to the following:",
+      "raw_span": {
+        "end": 4713,
+        "start": 4557
+      },
+      "segments": [
+        {
+          "end": 4713,
+          "start": 4557
+        }
+      ],
+      "text": "To run your workflow on a schedule, turn it into a deployment and schedule it to run every minute by changing the last line of your script to the following:"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 15,
+      "raw_slice": "You now have a process running locally that is looking for scheduled deployments!",
+      "raw_span": {
+        "end": 4979,
+        "start": 4898
+      },
+      "segments": [
+        {
+          "end": 4979,
+          "start": 4898
+        }
+      ],
+      "text": "You now have a process running locally that is looking for scheduled deployments!"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 16,
+      "raw_slice": "Additionally you can run your workflow manually from the UI or CLI.",
+      "raw_span": {
+        "end": 5047,
+        "start": 4980
+      },
+      "segments": [
+        {
+          "end": 5047,
+          "start": 4980
+        }
+      ],
+      "text": "Additionally you can run your workflow manually from the UI or CLI."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 17,
+      "raw_slice": "You can even run deployments in response to [events](https://www.prefect.io/docs/latest/automate/?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none).",
+      "raw_span": {
+        "end": 5233,
+        "start": 5048
+      },
+      "segments": [
+        {
+          "end": 5092,
+          "start": 5048
+        },
+        {
+          "end": 5099,
+          "start": 5093
+        },
+        {
+          "end": 5233,
+          "start": 5232
+        }
+      ],
+      "text": "You can even run deployments in response to events."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 18,
+      "raw_slice": "Work with your agent",
+      "raw_span": {
+        "end": 6236,
+        "start": 6216
+      },
+      "segments": [
+        {
+          "end": 6236,
+          "start": 6216
+        }
+      ],
+      "text": "Work with your agent"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 19,
+      "raw_slice": "Use the [agent setup guides](https://www.prefect.io/agents) to connect your agent to Prefect through plugins or MCP and get started with the CLI.",
+      "raw_span": {
+        "end": 6383,
+        "start": 6238
+      },
+      "segments": [
+        {
+          "end": 6246,
+          "start": 6238
+        },
+        {
+          "end": 6265,
+          "start": 6247
+        },
+        {
+          "end": 6383,
+          "start": 6297
+        }
+      ],
+      "text": "Use the agent setup guides to connect your agent to Prefect through plugins or MCP and get started with the CLI."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 20,
+      "raw_slice": "An [agent-readable setup index](https://www.prefect.io/agents/llms.txt) provides the guides as plain text.",
+      "raw_span": {
+        "end": 6490,
+        "start": 6384
+      },
+      "segments": [
+        {
+          "end": 6387,
+          "start": 6384
+        },
+        {
+          "end": 6414,
+          "start": 6388
+        },
+        {
+          "end": 6490,
+          "start": 6455
+        }
+      ],
+      "text": "An agent-readable setup index provides the guides as plain text."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 21,
+      "raw_slice": "Prefect Cloud",
+      "raw_span": {
+        "end": 6508,
+        "start": 6495
+      },
+      "segments": [
+        {
+          "end": 6508,
+          "start": 6495
+        }
+      ],
+      "text": "Prefect Cloud"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 22,
+      "raw_slice": "Prefect Cloud provides workflow orchestration for the modern data enterprise.",
+      "raw_span": {
+        "end": 6587,
+        "start": 6510
+      },
+      "segments": [
+        {
+          "end": 6587,
+          "start": 6510
+        }
+      ],
+      "text": "Prefect Cloud provides workflow orchestration for the modern data enterprise."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 23,
+      "raw_slice": "By automating over 200 million data tasks monthly, Prefect empowers diverse organizations — from Fortune 50 leaders such as Progressive Insurance to innovative disruptors such as Cash App — to increase engineering productivity, reduce pipeline errors, and cut data workflow compute costs.",
+      "raw_span": {
+        "end": 6880,
+        "start": 6588
+      },
+      "segments": [
+        {
+          "end": 6880,
+          "start": 6588
+        }
+      ],
+      "text": "By automating over 200 million data tasks monthly, Prefect empowers diverse organizations — from Fortune 50 leaders such as Progressive Insurance to innovative disruptors such as Cash App — to increase engineering productivity, reduce pipeline errors, and cut data workflow compute costs."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 24,
+      "raw_slice": "Read more about Prefect Cloud [here](https://www.prefect.io/cloud-vs-oss?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none) or sign up to [try it for yourself](https://app.prefect.cloud?utm_source=oss&utm_medium=oss&utm_campaign=oss_gh_repo&utm_term=none&utm_content=none).",
+      "raw_span": {
+        "end": 7191,
+        "start": 6882
+      },
+      "segments": [
+        {
+          "end": 6912,
+          "start": 6882
+        },
+        {
+          "end": 6917,
+          "start": 6913
+        },
+        {
+          "end": 7056,
+          "start": 7041
+        },
+        {
+          "end": 7076,
+          "start": 7057
+        },
+        {
+          "end": 7191,
+          "start": 7190
+        }
+      ],
+      "text": "Read more about Prefect Cloud here or sign up to try it for yourself."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 25,
+      "raw_slice": "prefect-client",
+      "raw_span": {
+        "end": 7210,
+        "start": 7196
+      },
+      "segments": [
+        {
+          "end": 7210,
+          "start": 7196
+        }
+      ],
+      "text": "prefect-client"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 26,
+      "raw_slice": "If your use case is geared towards communicating with Prefect Cloud or a remote Prefect server, check out our\n[prefect-client](https://pypi.org/project/prefect-client/).",
+      "raw_span": {
+        "end": 7381,
+        "start": 7212
+      },
+      "segments": [
+        {
+          "end": 7322,
+          "start": 7212
+        },
+        {
+          "end": 7337,
+          "start": 7323
+        },
+        {
+          "end": 7381,
+          "start": 7380
+        }
+      ],
+      "text": "If your use case is geared towards communicating with Prefect Cloud or a remote Prefect server, check out our prefect-client."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 27,
+      "raw_slice": "It is a lighter-weight option for accessing client-side functionality in the Prefect SDK and is ideal for use in ephemeral execution environments.",
+      "raw_span": {
+        "end": 7528,
+        "start": 7382
+      },
+      "segments": [
+        {
+          "end": 7528,
+          "start": 7382
+        }
+      ],
+      "text": "It is a lighter-weight option for accessing client-side functionality in the Prefect SDK and is ideal for use in ephemeral execution environments."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 28,
+      "raw_slice": "Connect & Contribute",
+      "raw_span": {
+        "end": 7553,
+        "start": 7533
+      },
+      "segments": [
+        {
+          "end": 7553,
+          "start": 7533
+        }
+      ],
+      "text": "Connect & Contribute"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 29,
+      "raw_slice": "Join a thriving community of over 25,000 practitioners who solve data challenges with Prefect.",
+      "raw_span": {
+        "end": 7648,
+        "start": 7554
+      },
+      "segments": [
+        {
+          "end": 7648,
+          "start": 7554
+        }
+      ],
+      "text": "Join a thriving community of over 25,000 practitioners who solve data challenges with Prefect."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 30,
+      "raw_slice": "Prefect's community is built on collaboration, technical innovation, and continuous improvement.",
+      "raw_span": {
+        "end": 7745,
+        "start": 7649
+      },
+      "segments": [
+        {
+          "end": 7745,
+          "start": 7649
+        }
+      ],
+      "text": "Prefect's community is built on collaboration, technical innovation, and continuous improvement."
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 31,
+      "raw_slice": "Community Resources",
+      "raw_span": {
+        "end": 7770,
+        "start": 7751
+      },
+      "segments": [
+        {
+          "end": 7770,
+          "start": 7751
+        }
+      ],
+      "text": "Community Resources"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 32,
+      "raw_slice": "🌐 **[Explore the Documentation](https://www.prefect.io/docs)** - Comprehensive guides and API references  \n💬 **[Join the Slack Community](https://prefect.io/slack)** - Connect with thousands of practitioners  \n🤝 **[Contribute to Prefect](https://www.prefect.io/docs/contribute/)** - Help shape the future of the project  \n 🔌 **[Support or create a new Prefect integration](https://www.prefect.io/docs/contribute/contribute-integrations)** - Extend Prefect's capabilities   \n📋 **[Tail the Dev Log](https://dev-log.prefect.io/)** - Prefect's open source development blog",
+      "raw_span": {
+        "end": 8354,
+        "start": 7771
+      },
+      "segments": [
+        {
+          "end": 7776,
+          "start": 7771
+        },
+        {
+          "end": 7804,
+          "start": 7779
+        },
+        {
+          "end": 7886,
+          "start": 7836
+        },
+        {
+          "end": 7913,
+          "start": 7889
+        },
+        {
+          "end": 7992,
+          "start": 7942
+        },
+        {
+          "end": 8016,
+          "start": 7995
+        },
+        {
+          "end": 8108,
+          "start": 8060
+        },
+        {
+          "end": 8154,
+          "start": 8111
+        },
+        {
+          "end": 8262,
+          "start": 8221
+        },
+        {
+          "end": 8281,
+          "start": 8265
+        },
+        {
+          "end": 8354,
+          "start": 8313
+        }
+      ],
+      "text": "🌐 Explore the Documentation - Comprehensive guides and API references   💬 Join the Slack Community - Connect with thousands of practitioners   🤝 Contribute to Prefect - Help shape the future of the project    🔌 Support or create a new Prefect integration - Extend Prefect's capabilities    📋 Tail the Dev Log - Prefect's open source development blog"
+    },
+    {
+      "kind": "fragment",
+      "ordinal": 33,
+      "raw_slice": "Stay Informed",
+      "raw_span": {
+        "end": 8373,
+        "start": 8360
+      },
+      "segments": [
+        {
+          "end": 8373,
+          "start": 8360
+        }
+      ],
+      "text": "Stay Informed"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 34,
+      "raw_slice": "📥 **[Subscribe to our Newsletter](https://prefect.io/newsletter)** - Get the latest Prefect news and updates  \n📣 **[X](https://x.com/PrefectIO)** and **[Bluesky](https://bsky.app/profile/prefect.io)** - Latest updates and announcements  \n📺 **[YouTube](https://www.youtube.com/@PrefectIO)** - Video tutorials and webinars  \n📱 **[LinkedIn](https://www.linkedin.com/company/prefect)** - Professional networking and company news",
+      "raw_span": {
+        "end": 8810,
+        "start": 8374
+      },
+      "segments": [
+        {
+          "end": 8379,
+          "start": 8374
+        },
+        {
+          "end": 8409,
+          "start": 8382
+        },
+        {
+          "end": 8493,
+          "start": 8443
+        },
+        {
+          "end": 8497,
+          "start": 8496
+        },
+        {
+          "end": 8530,
+          "start": 8525
+        },
+        {
+          "end": 8540,
+          "start": 8533
+        },
+        {
+          "end": 8623,
+          "start": 8580
+        },
+        {
+          "end": 8633,
+          "start": 8626
+        },
+        {
+          "end": 8711,
+          "start": 8672
+        },
+        {
+          "end": 8722,
+          "start": 8714
+        },
+        {
+          "end": 8810,
+          "start": 8767
+        }
+      ],
+      "text": "📥 Subscribe to our Newsletter - Get the latest Prefect news and updates   📣 X and Bluesky - Latest updates and announcements   📺 YouTube - Video tutorials and webinars   📱 LinkedIn - Professional networking and company news"
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 35,
+      "raw_slice": "Your contributions, questions, and ideas make Prefect better every day.",
+      "raw_span": {
+        "end": 8885,
+        "start": 8814
+      },
+      "segments": [
+        {
+          "end": 8885,
+          "start": 8814
+        }
+      ],
+      "text": "Your contributions, questions, and ideas make Prefect better every day."
+    },
+    {
+      "kind": "sentence",
+      "ordinal": 36,
+      "raw_slice": "Whether you're reporting bugs, suggesting features, or improving documentation, your input is invaluable to the Prefect community.",
+      "raw_span": {
+        "end": 9016,
+        "start": 8886
+      },
+      "segments": [
+        {
+          "end": 9016,
+          "start": 8886
+        }
+      ],
+      "text": "Whether you're reporting bugs, suggesting features, or improving documentation, your input is invaluable to the Prefect community."
+    }
+  ]
+}
