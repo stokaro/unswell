@@ -49,6 +49,13 @@ written by a tool.
 
 ## Runs
 
+The [TextSight fixed-threshold transfer screen](runs/2026-11-08-textsight-transfer/README.md)
+tested the existing interpretable ensemble and richness score on a pinned
+September 2026 generation corpus. The ensemble flagged 30/56 AI passages but
+also 41/338 human passages; richness flagged only 2/56 AI passages at 2/338
+human false flags. Both registered advance rules fail. This is origin research,
+not an editorial #349 result.
+
 The [November 2026 lexical richness and entropy screen](runs/2026-11-07-richness-screen/README.md)
 uses saved complete-document generation and editing responses. Its two
 directional feature checks pass on exposed data; it does not qualify an origin
