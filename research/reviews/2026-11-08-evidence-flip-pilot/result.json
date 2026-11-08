@@ -1,0 +1,207 @@
+{
+  "abstained": 0,
+  "admitted": 9,
+  "advance": true,
+  "calls": 16,
+  "complete": true,
+  "correct": 15,
+  "decisions": [
+    {
+      "basis": "The source provides reader evidence: eight of ten usability-test participants missed the database flag. Whether that supports a shorter explanation is a separate concern from the claimed absence of reader evidence.",
+      "case_id": "unsupported-reader-need",
+      "correct": true,
+      "decision": "reject",
+      "expected_applies": false,
+      "item_id": "001b83ba4c173d1e",
+      "replacement": "",
+      "variant_id": "reader-evidence-added"
+    },
+    {
+      "basis": "The preceding table explicitly compares Watchline with Systems A and B, showing that only Watchline supports label queries and alerts.",
+      "case_id": "unsupported-comparison",
+      "correct": true,
+      "decision": "reject",
+      "expected_applies": false,
+      "item_id": "062a433bd8269cec",
+      "replacement": "",
+      "variant_id": "comparison-added"
+    },
+    {
+      "basis": "The heading says only “Compatibility notes,” and the table does not identify its features as deprecated. The sentence supplies that useful status rather than merely repeating the heading and announcing the table.",
+      "case_id": "table-announcement",
+      "correct": true,
+      "decision": "reject",
+      "expected_applies": false,
+      "item_id": "102fa80038037992",
+      "replacement": "",
+      "variant_id": "heading-removed"
+    },
+    {
+      "basis": "The heading “First release” already states the release status, and “The API may change” preserves the practical warning. The target adds no distinct technical condition.",
+      "case_id": "repeated-release-status",
+      "correct": true,
+      "decision": "admit",
+      "expected_applies": true,
+      "item_id": "19f70b9d3e520822",
+      "replacement": "",
+      "variant_id": "matching-heading"
+    },
+    {
+      "basis": "The usability test found no missed database flags and described the command as clear; it does not establish a reader need for a shorter explanation. Deleting the claim preserves the flag explanation and command.",
+      "case_id": "unsupported-reader-need",
+      "correct": false,
+      "decision": "admit",
+      "expected_applies": false,
+      "item_id": "4a836aff5747e82b",
+      "replacement": "",
+      "variant_id": "reader-evidence-contradicts"
+    },
+    {
+      "basis": "The source lists label queries and alerts but provides no comparison showing that they distinguish Watchline from other monitoring systems. A neutral introduction preserves the feature claims.",
+      "case_id": "unsupported-comparison",
+      "correct": true,
+      "decision": "admit",
+      "expected_applies": true,
+      "item_id": "52afb2f958d6d691",
+      "replacement": "Watchline features include:",
+      "variant_id": "no-comparison"
+    },
+    {
+      "basis": "The source provides no evidence that readers need a shorter explanation. Deleting this assertion preserves the flag explanation and command.",
+      "case_id": "unsupported-reader-need",
+      "correct": true,
+      "decision": "admit",
+      "expected_applies": true,
+      "item_id": "6483da4c7acfc577",
+      "replacement": "",
+      "variant_id": "no-reader-evidence"
+    },
+    {
+      "basis": "The source lists label queries and alerts but provides no comparison showing that they distinguish Watchline from other monitoring systems. Removing the comparative claim preserves the feature list.",
+      "case_id": "unsupported-comparison",
+      "correct": true,
+      "decision": "admit",
+      "expected_applies": true,
+      "item_id": "79cb8293dcaa25c7",
+      "replacement": "Watchline features include:",
+      "variant_id": "unrelated-distractor"
+    },
+    {
+      "basis": "No table follows; the next sentence explicitly says it is unavailable until after release. The diagnosis of a redundant introduction to an immediately following table therefore does not apply.",
+      "case_id": "table-announcement",
+      "correct": true,
+      "decision": "reject",
+      "expected_applies": false,
+      "item_id": "a74f8424806f51e3",
+      "replacement": "",
+      "variant_id": "table-contradicted"
+    },
+    {
+      "basis": "The table explicitly compares Watchline with Systems A and B. It shows that both listed features are shared, making the distinguishing claim contradictory rather than lacking a comparison.",
+      "case_id": "unsupported-comparison",
+      "correct": true,
+      "decision": "reject",
+      "expected_applies": false,
+      "item_id": "b32cd3a4583443d5",
+      "replacement": "",
+      "variant_id": "comparison-contradicts"
+    },
+    {
+      "basis": "The heading already identifies deprecated features, and the immediately following table supplies them and their replacements. The sentence adds only an unnecessary table announcement.",
+      "case_id": "table-announcement",
+      "correct": true,
+      "decision": "admit",
+      "expected_applies": true,
+      "item_id": "b6d95c738c89b44a",
+      "replacement": "",
+      "variant_id": "matching-heading"
+    },
+    {
+      "basis": "The heading says “Third release,” and version 0.3 follows 0.1 and 0.2. The target contradicts that context; it does not repeat a nearby first-release statement.",
+      "case_id": "repeated-release-status",
+      "correct": true,
+      "decision": "reject",
+      "expected_applies": false,
+      "item_id": "d1114816b4f1f09e",
+      "replacement": "",
+      "variant_id": "prior-fact-contradicts"
+    },
+    {
+      "basis": "The heading already identifies deprecated features, and the immediately following table supplies them and their replacements. The sentence adds only a redundant table announcement.",
+      "case_id": "table-announcement",
+      "correct": true,
+      "decision": "admit",
+      "expected_applies": true,
+      "item_id": "d6455557d1830a3e",
+      "replacement": "",
+      "variant_id": "unrelated-distractor"
+    },
+    {
+      "basis": "No nearby text states that this is the first release. The heading, JSON support statement, and API-change warning do not duplicate that status.",
+      "case_id": "repeated-release-status",
+      "correct": true,
+      "decision": "reject",
+      "expected_applies": false,
+      "item_id": "e105b534d105ad54",
+      "replacement": "",
+      "variant_id": "unrelated-distractor"
+    },
+    {
+      "basis": "The source provides no evidence that readers need a shorter explanation. Deleting the assertion preserves the flag explanation and command.",
+      "case_id": "unsupported-reader-need",
+      "correct": true,
+      "decision": "admit",
+      "expected_applies": true,
+      "item_id": "ecda26bbddeb8776",
+      "replacement": "",
+      "variant_id": "unrelated-distractor"
+    },
+    {
+      "basis": "The preceding sentence already states that version 0.1 is the library's first release. The target adds no distinct information; deleting it preserves that status and the API-change warning.",
+      "case_id": "repeated-release-status",
+      "correct": true,
+      "decision": "admit",
+      "expected_applies": true,
+      "item_id": "f47f8623c30a4d43",
+      "replacement": "",
+      "variant_id": "prior-fact-added"
+    }
+  ],
+  "format": "unswell-349-evidence-flip-pilot-result-v1",
+  "freeze_sha256": "a7dc99f1cacc137eaf8425d8e495c3cffde9f550da19f2ab2ee8f8e99d6b8b14",
+  "pair_results": [
+    {
+      "both_correct": true,
+      "pair": [
+        "table-announcement/matching-heading",
+        "table-announcement/heading-removed"
+      ]
+    },
+    {
+      "both_correct": true,
+      "pair": [
+        "unsupported-comparison/no-comparison",
+        "unsupported-comparison/comparison-added"
+      ]
+    },
+    {
+      "both_correct": true,
+      "pair": [
+        "unsupported-reader-need/no-reader-evidence",
+        "unsupported-reader-need/reader-evidence-added"
+      ]
+    },
+    {
+      "both_correct": true,
+      "pair": [
+        "repeated-release-status/prior-fact-added",
+        "repeated-release-status/unrelated-distractor"
+      ]
+    }
+  ],
+  "run_sha256": "2f75a67388ebfdcfc2afc2787f035ac99fdcf0a709d659be9298167dc417560b",
+  "safety_clear": true,
+  "safety_review_sha256": "52a6ce7bbc9bb2eb1a40e1487de6dee6e7042730dc71a7ea4ff78827b4200f59",
+  "source_fixture_sha256": "34879fc2a8516ed395dfd5e4d2ee6546dc7dca0e1e6de3270d4e2bfb2a069bcc",
+  "total": 16
+}
