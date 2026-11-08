@@ -1,0 +1,9 @@
+{
+  "basis": "The shift from strings to objects requires consumers to change how they read policy names, so “nothing was removed” could misleadingly imply compatibility. Specify that the policy names remain available in `.policy_name`.",
+  "decision": "admit",
+  "item_id": "0175a2896b4b4994",
+  "replacement": "`rls_policies_added` held bare policy-name strings in Ptah v0.2.0 and earlier —\nthe v0.2.0 tag itself still declares `RLSPoliciesAdded []string`, so the object\nform has not appeared in a release yet. Policy names remain available in each\nobject's `.policy_name` field, which consumers now read.",
+  "source_sha256": "9e8504e46ddbb1a39c570a79b260b174160eea73ef3d87204a624d6e572dca03",
+  "target_end_byte": 8840,
+  "target_start_byte": 8562
+}
