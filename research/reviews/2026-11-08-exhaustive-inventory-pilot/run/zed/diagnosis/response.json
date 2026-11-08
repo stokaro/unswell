@@ -1,0 +1,16 @@
+{
+  "page_id": "zed-industries/zed/README.md",
+  "source_sha256": "0a1b8417d31d53dfd6b4f1c5cc1a1a6f7ae6d3ac044bdb1938bd49cbd09d8198",
+  "inventory_sha256": "b2ce0d9c2f33e62d80da6fae4f002e652d8dc0bb69bb8ae4294759890d0b43ed",
+  "findings": [
+    {
+      "unit_ordinal": 18,
+      "line": 36,
+      "quote": "to automatically comply with open source licenses",
+      "diagnosis": "This describes automatic license compliance more broadly than the documented process supports.",
+      "evidence": "Line 39 requires contributors to determine whether the system satisfies each dependency's license requirements, consult a lawyer if unsure, and verify acceptability before accepting the license. These conditions limit the compliance claim.",
+      "source_function": "capability",
+      "deletion_test": "Deleting this purpose clause preserves the statement that the project uses cargo-about, its link, and all troubleshooting instructions while removing the unsupported automatic-compliance claim."
+    }
+  ]
+}
