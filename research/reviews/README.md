@@ -16,6 +16,13 @@ diagnostic finds the intended construction and where it fires without a
 useful reason. It also records missed defects when whole pages are annotated.
 Independent human review is not a prerequisite for this work.
 
+- [2026-11-08-rubric-transfer](2026-11-08-rubric-transfer/README.md):
+  a paired 24-call Ptah screen found that examples from 11 other repositories
+  improved agreement with prior assistant grades from 6/12 to 8/12 but lost
+  three of six accepted diagnoses. All 16 admitted edits were separately
+  assessed safe. The registered gate failed; no #349 qualification or
+  product change is claimed.
+
 - [2026-11-08-real-source-admission-transfer-v2](2026-11-08-real-source-admission-transfer-v2/README.md):
   the same source-conditioned judge failed on 24 real-text cases: 14/24
   archived-grade agreements, 11/12 accepted retained, only 3/12 uncertain

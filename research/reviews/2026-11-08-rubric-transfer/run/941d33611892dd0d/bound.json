@@ -1,0 +1,9 @@
+{
+  "basis": "Splitting at the semicolon separates the header-placement condition from the handling of directives outside that block while preserving Atlas CE behavior and Ptah's WARN reporting.",
+  "decision": "admit",
+  "item_id": "941d33611892dd0d",
+  "replacement": "The header is significant only in\nthe unbroken run of line comments that begins on line 1. A directive outside\nthat block is ignored, as it is on Atlas CE, and reported at `WARN` rather than\ndropped in silence.",
+  "source_sha256": "064cbfe0da8f3bdb90903c3643a33f46504d099f977819f99d3ac489d9eea443",
+  "target_end_byte": 9216,
+  "target_start_byte": 9006
+}
