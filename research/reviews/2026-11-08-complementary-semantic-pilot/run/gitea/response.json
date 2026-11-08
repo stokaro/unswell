@@ -1,0 +1,30 @@
+{
+  "findings": [
+    {
+      "deletion_test": "Retain the cross-platform support information and every named operating system and architecture. A minimal repair must address the universal guarantee and its inference from implementation language.",
+      "diagnosis": "Being written in Go is presented as sufficient proof that Gitea works on every platform and architecture Go supports. The listed examples do not establish that universal application-level compatibility.",
+      "evidence": "Lines 21–23 supply Go as the reason for compatibility and list specific platforms, but state no condition establishing support for all Go targets.",
+      "line": 21,
+      "quote": "As Gitea is written in Go, it works across **all** the platforms and\narchitectures that are supported by Go, including Linux, macOS, FreeBSD/OpenBSD and Windows\non x86, amd64, ARM, RISC-V 64 and PowerPC architectures.",
+      "source_function": "Describe deployment compatibility."
+    },
+    {
+      "deletion_test": "Retain the documentation topics and its introductory purpose. Removing the universal coverage and effectiveness claim would lose no concrete feature or documented condition.",
+      "diagnosis": "The sentence extends a list of documentation categories into a promise of effective exploration of every feature. The page establishes neither exhaustive feature coverage nor that reader outcome.",
+      "evidence": "Line 36 names installation, administration, usage, development, and contributing guides; these categories do not establish the scope or effectiveness asserted by 'all features effectively.'",
+      "line": 36,
+      "quote": "It includes installation, administration, usage, development, contributing guides, and more to help you get started and explore all features effectively.",
+      "source_function": "Explain the scope and usefulness of the documentation."
+    },
+    {
+      "deletion_test": "Retain the interface-overview purpose, the identification of screenshots, and the functional <summary> element. The question-and-invitation framing adds no necessary condition or context.",
+      "diagnosis": "The disclosure label makes readers process a rhetorical question followed by an invitation before identifying its contents. Both clauses perform a single navigation task that needs no conversational setup.",
+      "evidence": "Lines 138–196 immediately provide labeled interface screenshots, so the summary only needs to identify that collection and its purpose.",
+      "line": 136,
+      "quote": "<summary>Looking for an overview of the interface? Check it out the screenshots!</summary>",
+      "source_function": "Label the expandable interface screenshot collection."
+    }
+  ],
+  "page_id": "gitea",
+  "source_sha256": "596511a44a8451c5ee3e38547ff19d8d23b8f7f80843ccebee15405b8c898497"
+}
