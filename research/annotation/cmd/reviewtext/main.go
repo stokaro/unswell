@@ -1,4 +1,4 @@
-// Command reviewtext exports verified eligible prose for isolated encoder research.
+// Command reviewtext exports verified eligible prose for isolated research.
 package main
 
 import (
@@ -16,7 +16,16 @@ func main() { os.Exit(mainCode()) }
 func mainCode() int {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()
-	if err := reviewbaseline.ExportText(ctx, os.Stdin, os.Stdout); err != nil {
+	var err error
+	switch {
+	case len(os.Args) == 1:
+		err = reviewbaseline.ExportText(ctx, os.Stdin, os.Stdout)
+	case len(os.Args) == 2 && os.Args[1] == "--source-inventory":
+		err = reviewbaseline.ExportSourceInventory(ctx, os.Stdin, os.Stdout)
+	default:
+		err = fmt.Errorf("usage: reviewtext [--source-inventory]")
+	}
+	if err != nil {
 		if ctx.Err() != nil {
 			return 130
 		}

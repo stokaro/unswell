@@ -212,3 +212,15 @@ model packs or qualified probabilities. The retained
 [sparse comparison](../reviews/2026-09-19-sparse-proposals/README.md), together with
 the [encoder comparison](../reviews/2026-09-19-context-encoders/README.md), document
 their fixed protocols, results, limitations and reproduction commands.
+
+`reviewtext --source-inventory` accepts one JSON value on standard input with
+`version: 1`, `basis: "source-function-inventory"`, and 1–16 `pages`. Each page
+has an `id`, supported `format`, exact UTF-8 `text`, and `sha256` of those bytes.
+It emits the input hash and, for every page, the existing extractor's eligible
+sentence units or fragments where protected boundaries prevent a full sentence.
+Each unit has a page-local `ordinal`, a complete `binding`, prepared `text`,
+`raw_span` in original UTF-8 byte coordinates, and the corresponding `raw_slice`.
+The separate `binding.segments` identify eligible text within that raw span;
+the envelope may contain Markdown syntax. The page also records excluded source
+regions. The command verifies every page before emitting output. It does not
+label a claim, decide whether an edit is useful, or alter the product detector.
