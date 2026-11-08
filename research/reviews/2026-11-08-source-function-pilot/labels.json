@@ -1,0 +1,87 @@
+{
+  "format": "unswell-349-source-function-source-only-review-v1",
+  "reviewer": "Codex assistant in this session, November 8, 2026; no human annotation",
+  "review_phase": "complete-source review before candidate generation",
+  "events": [
+    {
+      "id": "caddy-unsupported-superlative",
+      "page": "caddy",
+      "source_sha256": "0bc5939a26994a481e65b84b4e1b9ee44dd06796df4a196c75e9bdcdd4868b18",
+      "start_byte": 9338,
+      "end_byte": 9426,
+      "start_line": 185,
+      "quote": "Caddy exposes an unprecedented level of control compared to any web server in existence.",
+      "diagnosis": "The absolute cross-server superiority claim has no comparative evidence in the page. The next sentence gives the concrete control mechanism, so deleting the first sentence preserves the technical explanation."
+    },
+    {
+      "id": "caddy-plugin-comparison",
+      "page": "caddy",
+      "source_sha256": "0bc5939a26994a481e65b84b4e1b9ee44dd06796df4a196c75e9bdcdd4868b18",
+      "start_byte": 9603,
+      "end_byte": 9724,
+      "start_line": 185,
+      "quote": "Caddy is also ridiculously extensible, with a powerful plugin system that makes vast improvements over other web servers.",
+      "diagnosis": "The second cross-server superiority claim and its intensifiers are unsupported. Retain the specific fact that Caddy has a plugin system."
+    },
+    {
+      "id": "restic-vague-intro",
+      "page": "restic",
+      "source_sha256": "4684f85db668903f6b0e66c3c677efa62fb291e9fe56f2e909b57e84d5740587",
+      "start_byte": 3263,
+      "end_byte": 3306,
+      "start_line": 58,
+      "quote": "Restic is a program that does backups right",
+      "diagnosis": "The lead says the product does backups right without specifying an attribute; the immediately following principles provide the actual content. A direct introduction to those principles is more useful."
+    },
+    {
+      "id": "restic-absolute-behavior",
+      "page": "restic",
+      "source_sha256": "4684f85db668903f6b0e66c3c677efa62fb291e9fe56f2e909b57e84d5740587",
+      "start_byte": 3796,
+      "end_byte": 3842,
+      "start_line": 68,
+      "quote": "Nobody does backups if it takes too much time.",
+      "diagnosis": "The absolute claim about all users is not supported by the page and adds no necessary condition to the preceding performance rationale. The backup and restore performance goals should remain."
+    },
+    {
+      "id": "gitea-unsupported-superlatives",
+      "page": "gitea",
+      "source_sha256": "596511a44a8451c5ee3e38547ff19d8d23b8f7f80843ccebee15405b8c898497",
+      "start_byte": 1261,
+      "end_byte": 1304,
+      "start_line": 16,
+      "quote": "the easiest, fastest, and most painless way",
+      "diagnosis": "The comparative superlatives in a project-purpose sentence are not substantiated. Preserve the goal of easy self-hosted setup and the following service list."
+    },
+    {
+      "id": "gitea-screenshot-lead",
+      "page": "gitea",
+      "source_sha256": "596511a44a8451c5ee3e38547ff19d8d23b8f7f80843ccebee15405b8c898497",
+      "start_byte": 8225,
+      "end_byte": 8296,
+      "start_line": 136,
+      "quote": "Looking for an overview of the interface? Check it out the screenshots!",
+      "diagnosis": "The summary has a malformed phrase (\"it out the screenshots\") and a redundant question before the screenshots. A direct screenshot label preserves the navigation function."
+    },
+    {
+      "id": "otelcol-performant-tautology",
+      "page": "otelcol",
+      "source_sha256": "b64c26e3876adcf544f79b004710d7365fd75e1973af9540612183bffbc04f20",
+      "start_byte": 2766,
+      "end_byte": 2846,
+      "start_line": 58,
+      "quote": "Performant: Highly stable and performant under varying loads and configurations.",
+      "diagnosis": "The bullet repeats its label without a measurable or concrete performance property. The varying-load condition should be preserved if rewritten."
+    },
+    {
+      "id": "otelcol-call-list-grammar",
+      "page": "otelcol",
+      "source_sha256": "b64c26e3876adcf544f79b004710d7365fd75e1973af9540612183bffbc04f20",
+      "start_byte": 3430,
+      "end_byte": 3517,
+      "start_line": 68,
+      "quote": "Everyone is invited to join those calls, which typically serves the following purposes:",
+      "diagnosis": "The relative clause has subject-verb disagreement and makes the invitation and list introduction harder to follow. The open invitation and list purpose should both remain."
+    }
+  ]
+}

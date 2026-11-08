@@ -1,0 +1,56 @@
+{
+  "findings": [
+    {
+      "deletion_test": "Removing the unlimited capability and absence-of-bloat claim preserves the concrete claim that Caddy has a highly extensible modular architecture.",
+      "diagnosis": "The wording turns extensibility into an unsupported promise of unlimited functionality with no added overhead.",
+      "end_byte": 4827,
+      "evidence": "The overview describes Go applications implemented as Caddy modules and a plugin system, but establishes neither unlimited capabilities nor an absence of bloat.",
+      "line": 92,
+      "quote": "lets Caddy do anything without bloat",
+      "source_function": "promotion",
+      "start_byte": 4791
+    },
+    {
+      "deletion_test": "The comparison needs correction rather than wholesale deletion: the implementation language and memory-safety rationale are useful information worth preserving.",
+      "diagnosis": "The sentence compares a programming language with servers, leaving the basis and scope of the memory-safety comparison unclear.",
+      "end_byte": 4985,
+      "evidence": "The grammatical subject of the comparison is Go, described as 'a language,' while its comparison target is 'other servers.' The page identifies no particular servers or implementation languages.",
+      "line": 94,
+      "quote": "a language with higher **memory safety guarantees** than other servers",
+      "source_function": "supported capability",
+      "start_byte": 4915
+    },
+    {
+      "deletion_test": "Removing this sentence preserves the following concrete explanation of control over initialized values, HTTP handlers, TLS handshakes, and storage.",
+      "diagnosis": "The sentence asserts absolute superiority over every existing web server without supplying comparative evidence.",
+      "end_byte": 9426,
+      "evidence": "The next sentence explains how Caddy exposes configuration values, but does not establish that this control is unprecedented or exceeds every other server.",
+      "line": 185,
+      "quote": "Caddy exposes an unprecedented level of control compared to any web server in existence.",
+      "source_function": "promotion",
+      "start_byte": 9338
+    },
+    {
+      "deletion_test": "Removing the comparative clause preserves the claim that Caddy is extensible and has a powerful plugin system.",
+      "diagnosis": "The clause claims substantial improvements over competing servers without identifying what improves or which servers are being compared.",
+      "end_byte": 9723,
+      "evidence": "The page describes modular architecture and plugins but gives no comparison supporting 'vast improvements.'",
+      "line": 185,
+      "quote": "that makes vast improvements over other web servers",
+      "source_function": "promotion",
+      "start_byte": 9672
+    },
+    {
+      "deletion_test": "Removing the exclusivity claim preserves the description of Cloudsmith's service and the separate acknowledgment that it provides Debian package repository hosting.",
+      "diagnosis": "The exclusive market-position claim is unsupported by the page.",
+      "end_byte": 12474,
+      "evidence": "The preceding sentence establishes Cloudsmith's hosting contribution. Neither that acknowledgment nor the service description compares Cloudsmith with other package management providers.",
+      "line": 225,
+      "quote": "the only",
+      "source_function": "promotion",
+      "start_byte": 12466
+    }
+  ],
+  "page_id": "caddy",
+  "source_sha256": "0bc5939a26994a481e65b84b4e1b9ee44dd06796df4a196c75e9bdcdd4868b18"
+}

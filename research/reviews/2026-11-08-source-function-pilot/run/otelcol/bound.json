@@ -1,0 +1,66 @@
+{
+  "findings": [
+    {
+      "deletion_test": "Deleting the clause would lose the Collector's core capabilities. Preserve those facts; the defect is the grammatical connection between the implementation and its functions.",
+      "diagnosis": "The construction “implementation on how to” conflates an implementation with instructions, making the opening definition awkward to parse.",
+      "end_byte": 2374,
+      "evidence": "Lines 49–50 define the Collector through its ability to receive, process, and export telemetry data.",
+      "line": 49,
+      "quote": "implementation on how to",
+      "source_function": "technical definition",
+      "start_byte": 2350
+    },
+    {
+      "deletion_test": "The clause usefully introduces the meeting purposes, so preserve it. Correcting agreement loses no information.",
+      "diagnosis": "The singular verb “serves” disagrees with its plural antecedent, “those calls.”",
+      "end_byte": 3517,
+      "evidence": "Line 68 refers to “those calls,” and lines 70–73 list their purposes.",
+      "line": 68,
+      "quote": "which typically serves the following purposes:",
+      "source_function": "transition",
+      "start_byte": 3471
+    },
+    {
+      "deletion_test": "Removing the topic-interest criterion would weaken the instruction about whom to invite. Preserve the criterion while addressing the preposition error.",
+      "diagnosis": "“Interested on” uses the wrong preposition for interest in a discussion topic.",
+      "end_byte": 4607,
+      "evidence": "Lines 87–90 ask contributors to invite others to discussions and identify people interested in the topic.",
+      "line": 90,
+      "quote": "interested on that topic",
+      "source_function": "condition or qualification",
+      "start_byte": 4583
+    },
+    {
+      "deletion_test": "Removing “using” preserves the build relationship and the specified protocol version without losing a technical fact.",
+      "diagnosis": "“Built against using” combines two competing grammatical constructions, leaving an unnecessary verb between the build relationship and its object.",
+      "end_byte": 5107,
+      "evidence": "Lines 99–100 identify the OTLP version used by the code base and its stability status.",
+      "line": 99,
+      "quote": "built against using",
+      "source_function": "supported capability",
+      "start_byte": 5088
+    },
+    {
+      "deletion_test": "Deleting the reference to tests would lose part of the compatibility policy. Preserve both build and test coverage; the defect is grammatical.",
+      "diagnosis": "The plural noun “tests” is incorrectly used as a modifier of “steps” in this coordinated phrase.",
+      "end_byte": 5877,
+      "evidence": "Line 115 specifies the build and testing steps added when a new Go minor version is released.",
+      "line": 115,
+      "quote": "build and tests steps",
+      "source_function": "condition or qualification",
+      "start_byte": 5856
+    },
+    {
+      "deletion_test": "The heading identifies a useful reader task and should remain. Repairing the noun relationship loses no task information.",
+      "diagnosis": "“Images signatures” lacks the possessive marking needed for the plural noun relationship, making the heading grammatically malformed.",
+      "end_byte": 6436,
+      "evidence": "Lines 125–139 explain how to verify signatures associated with Collector images.",
+      "line": 122,
+      "quote": "Verifying the images signatures",
+      "source_function": "transition",
+      "start_byte": 6405
+    }
+  ],
+  "page_id": "otelcol",
+  "source_sha256": "b64c26e3876adcf544f79b004710d7365fd75e1973af9540612183bffbc04f20"
+}
