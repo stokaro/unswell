@@ -1,0 +1,92 @@
+{
+  "by_domain": {
+    "owt": {
+      "auroc": 0.175625,
+      "paired_win": 0.15,
+      "pairs": 80
+    },
+    "wp": {
+      "auroc": 0.87625,
+      "paired_win": 0.9,
+      "pairs": 80
+    },
+    "xsum": {
+      "auroc": 1.0,
+      "paired_win": 1.0,
+      "pairs": 80
+    }
+  },
+  "by_generator": {
+    "gemma2_9b": {
+      "auroc": 0.6736111111111112,
+      "paired_win": 0.6666666666666666,
+      "pairs": 60
+    },
+    "llama32_3b": {
+      "auroc": 0.7016666666666667,
+      "paired_win": 0.65,
+      "pairs": 60
+    },
+    "mistral7b": {
+      "auroc": 0.6969444444444445,
+      "paired_win": 0.7166666666666667,
+      "pairs": 60
+    },
+    "qwen25_7b": {
+      "auroc": 0.6952777777777778,
+      "paired_win": 0.7,
+      "pairs": 60
+    }
+  },
+  "coverage": {
+    "h2l": 240,
+    "human": 60,
+    "pairs": 240,
+    "parse_status": {
+      "parsed": 300
+    },
+    "truncated": 17
+  },
+  "metrics": {
+    "polished": {
+      "auroc": 0.6951388888888889,
+      "paired_win": 0.6833333333333333,
+      "pairs": 240,
+      "sources": 60
+    },
+    "race": {
+      "auroc": 0.691875,
+      "paired_win": 0.6833333333333333,
+      "pairs": 240,
+      "source_bootstrap": {
+        "auroc_95pct": [
+          0.5811111111111111,
+          0.7949305555555556
+        ],
+        "paired_win_95pct": [
+          0.5666666666666667,
+          0.7916666666666666
+        ]
+      },
+      "sources": 60
+    },
+    "richness_full": {
+      "auroc": 0.6433333333333333,
+      "paired_win": 0.70625,
+      "pairs": 240,
+      "sources": 60
+    },
+    "richness_prefix100": {
+      "auroc": 0.6183890338054305,
+      "paired_win": 0.6548117154811716,
+      "pairs": 239,
+      "sources": 60
+    }
+  },
+  "sha256": {
+    "input": "feaa0b6f8fabf2f33f2ce3f4d248a1dc55d1b1b2dc3f7266bcfcdeb2043a6bb4",
+    "parse_status": "ed83058dda86020696e1c047fc78f7bf319cf24e7acd139a69946a3d05185239",
+    "predictions": "0d1e468dea7a1b53bc3b2bd00b55c97731d927f5d7a83cb6ba81ed2d4ec6e8ca"
+  },
+  "status": "retire"
+}
