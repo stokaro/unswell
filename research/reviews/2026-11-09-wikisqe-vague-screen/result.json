@@ -1,0 +1,109 @@
+{
+  "admission_min_new_full_events": 8,
+  "admission_possible_by_span": false,
+  "cohorts": {
+    "confirmation": {
+      "baseline_full": 4,
+      "events": 20,
+      "new_span_ceiling": 0,
+      "span_ceiling": 0
+    },
+    "context": {
+      "baseline_full": 16,
+      "events": 46,
+      "new_span_ceiling": 1,
+      "span_ceiling": 1
+    },
+    "whole": {
+      "baseline_full": 28,
+      "events": 57,
+      "new_span_ceiling": 2,
+      "span_ceiling": 3
+    }
+  },
+  "credit_note": "Span overlap is only an optimistic bound, not diagnosis credit.",
+  "dataset": "ando55/WikiSQE_experiment/vague",
+  "dataset_revision": "e6a3da39b44df3efa2c75706ccba1dc26dd17076",
+  "dataset_sha256": {
+    "test": "37d789c7ba762bb7b40b95091a3ddf29e2eb46b9702d757dac1dad44e515c72f",
+    "train": "25b2d9609cdd34d88dadcf8ab687bd05d7a6212766a9b010513ae5741d4a4bbe",
+    "val": "dcfdd685a6082df6909f8fb1c03c81ac63c9a83376d262e1dc14584b2d1bc5aa"
+  },
+  "editorial_review_completed": false,
+  "format": "unswell-349-wikisqe-vague-screen-v1",
+  "local_input_sha256": {
+    "events": "c65f47f7b0a4566f5e42f94d80fe033624c9e54fd67c7bce58e58dc7d8c4b53e",
+    "frontier": "7e609e0e1a20c67ad2bb7d53e90c31f17580436de36cf8853f9576cb824dfb7f",
+    "sentences": "33efbc60954e7e821307a35144b25a2b7fffb72edf4974109b67df4c2449df21",
+    "source_hashes": "4d289082cda8d1113d55beead461aaebfb9649ddd1fe1ec0a2c308de38665415"
+  },
+  "model_coef_sha256": "dffb4b9c4ea6c6bd98eb9f90e4e4a104eb6dc702664a207ad9cbbe65f630130f",
+  "new_full_event_span_ceiling": 3,
+  "new_possible_categories": {
+    "empty_framing": 3
+  },
+  "possible_events": [
+    {
+      "baseline_full": false,
+      "category": "empty_framing",
+      "event": "context/c05-d01",
+      "selected_indices": [
+        655
+      ]
+    },
+    {
+      "baseline_full": false,
+      "category": "empty_framing",
+      "event": "whole/p009-d01",
+      "selected_indices": [
+        1922
+      ]
+    },
+    {
+      "baseline_full": true,
+      "category": "vague_claims",
+      "event": "whole/p015-d01",
+      "selected_indices": [
+        2741
+      ]
+    },
+    {
+      "baseline_full": false,
+      "category": "empty_framing",
+      "event": "whole/p024-d02",
+      "selected_indices": [
+        3684
+      ]
+    }
+  ],
+  "protocol_sha256": "f12f5206091e6f0c175bfc51f0eeb4f14bb60ab79a9221c93924f583115f4879",
+  "run_script_sha256": "4a04cdf57a6ec24ae831d897522771a439be075632f57febbf4cf0ee9cd80a77",
+  "scores_sha256": "7f01c46cc485e00382283d5496852c656b0a4fb5e4ad9d5f1f5a5edf6a0b54e1",
+  "selected_candidates": 108,
+  "source_pages": 36,
+  "source_sentences": 4139,
+  "source_tree": "e1aba8105d2062dbb09397e28292367f8edc95ca",
+  "status": "negative_early_stop",
+  "test_examples": 1000,
+  "test_labels": {
+    "0": 486,
+    "1": 514
+  },
+  "test_sanity": {
+    "accuracy": 0.711,
+    "f1": 0.7191448007774538,
+    "precision": 0.7184466019417476,
+    "recall": 0.7198443579766537
+  },
+  "top_candidates_sha256": "94d4ae76a3e3f1e0a9fba8d34426fa02577b951c8f6843b3175923e7ad7bb97a",
+  "train_examples": 24746,
+  "train_labels": {
+    "0": 12378,
+    "1": 12368
+  },
+  "versions": {
+    "pyarrow": "21.0.0",
+    "python": "3.12.15",
+    "sklearn": "1.7.2"
+  }
+}
