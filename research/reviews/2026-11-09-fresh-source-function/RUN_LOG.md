@@ -22,3 +22,9 @@
   Complete reports are in the local `baseline/` artifact directory; report
   hashes and every delivered original-byte span are in `baseline-audit.json`.
   See `BASELINE-RESULT.md` for the manual source-context disposition.
+- The exact offline source-function candidate and protocol were committed as
+  `44732a7` before its first run. The output and full same-assistant review are
+  tracked as `candidate-output.json` and `candidate-review.json`. The exposed
+  screen located all 17 positives and credited 15 FULL, but one supplied
+  deletion leaves a numbered list broken. `CANDIDATE-RESULT.md` retires v1;
+  it was not integrated into the runtime or tested on prospective pages.
