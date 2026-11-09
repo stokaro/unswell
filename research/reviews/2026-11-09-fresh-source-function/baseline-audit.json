@@ -1,0 +1,199 @@
+{
+  "format": "unswell-349-fresh-page-baseline-audit-v1",
+  "base_main_sha": "14722f076b93f82e842d3e8c1a447b90dddb01c5",
+  "labels_v2_sha256": "8cb6688ecb0111284451c148b3788bf132de7886f92cbc884b7cc33e3708eb82",
+  "reports": [
+    {
+      "page": 1,
+      "sha256": "9bd0c9780ed8f2faa6e92f40ef7d1e367c63c39a5ff7fa5dafa2d9cc3711dfd2",
+      "finding_count": 1,
+      "assessment_count": 81,
+      "status": "complete"
+    },
+    {
+      "page": 2,
+      "sha256": "aa3ae0c13c6d2f71e7c4cd71ac748cde43e7f4978e67de03c2e858c8727b1a2a",
+      "finding_count": 1,
+      "assessment_count": 146,
+      "status": "complete"
+    },
+    {
+      "page": 3,
+      "sha256": "4586fcfdb608a99901831d016bb36ece2d786d00877f8ad4c119c70f8d87bf49",
+      "finding_count": 2,
+      "assessment_count": 110,
+      "status": "complete"
+    },
+    {
+      "page": 4,
+      "sha256": "9f29ecf953808e9c2436b9ec244875d715939f449593888d1a5ca3f4ef5ea0c0",
+      "finding_count": 2,
+      "assessment_count": 205,
+      "status": "complete"
+    },
+    {
+      "page": 5,
+      "sha256": "2f407942eb92068fd0eba7a1b91bd1321ca82b9a1db938a7a1b0a1497e418870",
+      "finding_count": 1,
+      "assessment_count": 158,
+      "status": "complete"
+    },
+    {
+      "page": 6,
+      "sha256": "5ae477d497706e4593369160ea720698683a7643394349bc602fea0994ac052d",
+      "finding_count": 1,
+      "assessment_count": 75,
+      "status": "complete"
+    },
+    {
+      "page": 7,
+      "sha256": "eb5c9f840d255182b8e6bc62bfd15fbef5c7598035445f19df48437aa5166600",
+      "finding_count": 2,
+      "assessment_count": 551,
+      "status": "complete"
+    },
+    {
+      "page": 8,
+      "sha256": "6d1fb87cbd5f9776af717d891a3c2958a3fc2f0bb515e4152269822a9e198e23",
+      "finding_count": 1,
+      "assessment_count": 243,
+      "status": "complete"
+    },
+    {
+      "page": 9,
+      "sha256": "6e423338ed9cb957a272205cebe0b4ac71e5c6c2315c862e2fc21db1d7306bf5",
+      "finding_count": 0,
+      "assessment_count": 88,
+      "status": "complete"
+    }
+  ],
+  "findings": [
+    {
+      "page": 1,
+      "id": "aa6324af55b59935",
+      "rule_id": "filler.announced-importance",
+      "start_byte": 1710,
+      "end_byte": 1733,
+      "quote": "It is worth noting that",
+      "message": "State the fact without announcing its importance.",
+      "suggestion": "",
+      "overlap_labels": [
+        "fresh-001"
+      ]
+    },
+    {
+      "page": 2,
+      "id": "e2e2882457b74b68",
+      "rule_id": "filler.announced-importance",
+      "start_byte": 3966,
+      "end_byte": 3989,
+      "quote": "It is worth noting that",
+      "message": "State the fact without announcing its importance.",
+      "suggestion": "",
+      "overlap_labels": [
+        "fresh-007"
+      ]
+    },
+    {
+      "page": 3,
+      "id": "d79ecaebc4453210",
+      "rule_id": "syntax.long-sentence",
+      "start_byte": 409,
+      "end_byte": 739,
+      "quote": "Yunxiang Li<sup>1</sup>, Zihan Li<sup>2</sup>, Kai Zhang<sup>3</sup>, Ruilong Dan<sup>4</sup>, Steve Jiang<sup>1</sup>, You Zhang<sup>1</sup>\n<h5>1 UT Southwestern Medical Center, USA</h5>\n<h5>2 University of Illinois at Urbana-Champaign, USA</h5>\n<h5>3 Ohio State University, USA</h5>\n<h5>4 Hangzhou Dianzi University, China</h5>",
+      "message": "Consider splitting this long sentence without losing its conditions.",
+      "suggestion": "",
+      "overlap_labels": []
+    },
+    {
+      "page": 3,
+      "id": "cc8bd26eca86d714",
+      "rule_id": "syntax.long-sentence",
+      "start_byte": 11189,
+      "end_byte": 11401,
+      "quote": "As for the disease database, since the model cannot read all the data at once, we first let the model read the data in batches and select for itself the data entries that might help answer the patient's question.",
+      "message": "Consider splitting this long sentence without losing its conditions.",
+      "suggestion": "",
+      "overlap_labels": []
+    },
+    {
+      "page": 4,
+      "id": "be529240ee0fdb92",
+      "rule_id": "filler.instruction-scaffolding",
+      "start_byte": 6274,
+      "end_byte": 6380,
+      "quote": "if you want to set view to have a minimum and maximum width you could pass a number to the equality blocks",
+      "message": "State the supported action directly; preserve its conditions and optionality.",
+      "suggestion": "Remove narrated setup or nested support layers around the action and its method. Keep prerequisites, actors, operands, alternatives and limits; a capability is not an obligation.",
+      "overlap_labels": []
+    },
+    {
+      "page": 4,
+      "id": "3eb2b20869ff32cd",
+      "rule_id": "filler.wordy-phrase",
+      "start_byte": 9365,
+      "end_byte": 9376,
+      "quote": "in order to",
+      "message": "Consider a shorter phrase that preserves the condition or meaning.",
+      "suggestion": "",
+      "overlap_labels": []
+    },
+    {
+      "page": 5,
+      "id": "58427ef1d2c192b5",
+      "rule_id": "syntax.long-sentence",
+      "start_byte": 6953,
+      "end_byte": 7150,
+      "quote": "P.S. Also, all our team wants to bring our sincere apologies to all those who had been waiting so long for our update and to thank all those who was so patient to wait till it was finally released!",
+      "message": "Consider splitting this long sentence without losing its conditions.",
+      "suggestion": "",
+      "overlap_labels": []
+    },
+    {
+      "page": 6,
+      "id": "45a7f440d7c9a0cb",
+      "rule_id": "syntax.long-sentence",
+      "start_byte": 5338,
+      "end_byte": 5706,
+      "quote": "This framework was designed to be open source and shared,\nbut the only real usage and development was by\n[IOV](https://github.com/iov-one), so it was donated to\nthat organization in August 2018 to be developed further\nfor their BNS blockchain, as well as a companion to\n[iov-core](https://github.com/iov-one/iov-core)\nclient libraries that deprecated `confio/weave-js`",
+      "message": "Consider splitting this long sentence without losing its conditions.",
+      "suggestion": "",
+      "overlap_labels": []
+    },
+    {
+      "page": 7,
+      "id": "ff8cf6ecf0613860",
+      "rule_id": "filler.instruction-scaffolding",
+      "start_byte": 1327,
+      "end_byte": 1416,
+      "quote": "If you wish to use Orca inside of [Electron](https://electronjs.org/), follow these steps",
+      "message": "State the supported action directly; preserve its conditions and optionality.",
+      "suggestion": "Remove narrated setup or nested support layers around the action and its method. Keep prerequisites, actors, operands, alternatives and limits; a capability is not an obligation.",
+      "overlap_labels": []
+    },
+    {
+      "page": 7,
+      "id": "4f939409f18e5a22",
+      "rule_id": "filler.instruction-scaffolding",
+      "start_byte": 8303,
+      "end_byte": 8368,
+      "quote": "The prompt can also be used to inject patterns or change settings",
+      "message": "State the supported action directly; preserve its conditions and optionality.",
+      "suggestion": "Remove narrated setup or nested support layers around the action and its method. Keep prerequisites, actors, operands, alternatives and limits; a capability is not an obligation.",
+      "overlap_labels": []
+    },
+    {
+      "page": 8,
+      "id": "2245b29590929ad7",
+      "rule_id": "filler.unscoped-assurance",
+      "start_byte": 12035,
+      "end_byte": 12063,
+      "quote": "It is very simple to use TNN",
+      "message": "State the behavior, scope or evidence behind this quality claim.",
+      "suggestion": "Keep the technical conditions. Replace a bare quality announcement, nearly-always-right judgment, or universal learning promise with specific behavior.",
+      "overlap_labels": [
+        "fresh-036"
+      ]
+    }
+  ]
+}
