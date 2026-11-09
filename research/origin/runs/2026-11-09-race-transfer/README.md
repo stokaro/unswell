@@ -13,6 +13,10 @@ parser and `score.py` applies the predeclared checkpoint score. `freeze.json`
 pins code, source, model, and environment identities. None of the raw texts
 or per-document predictions belongs in Git.
 
+The first freeze stopped before inference on a mistaken tokenizer hash. The
+[V1 preflight record](preflight-v1.json) preserves the exact mismatch. V2
+corrects the hash without changing the selected documents or decision rule.
+
 Reproduce the local input and integrity checks with the pinned public ARB
 file and an environment containing `duckdb==1.4.2`:
 

@@ -6,6 +6,12 @@ the published, non-generative [RACE](https://aclanthology.org/2026.acl-long.235/
 encoder and RST parser. It makes no generative-model service calls and no
 authorship or editorial judgment about an individual document.
 
+V1 stopped at a pre-inference artifact check: one manually transcribed
+tokenizer SHA-256 differed from the actual downloaded file. No selected
+document was parsed or scored. [The terminal record](preflight-v1.json)
+preserves the error. V2 changes only that expected hash and the versioned
+freeze; the source selection, score, and advance rule below are unchanged.
+
 ## Fixed source and method
 
 - ARB `giper45/ARB-Dataset`, commit
