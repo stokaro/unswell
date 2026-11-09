@@ -1,0 +1,109 @@
+{
+  "new_findings": [
+    {
+      "diagnosis": "The second sentence repeats the backend customization capability without adding a discernible condition; 'according to the situation' supplies no useful guidance.",
+      "line": 28,
+      "quote": "Site owners can customize model introductions according to the situation.",
+      "reader_burden": "Readers must determine whether this describes a separate capability or merely repeats the preceding sentence.",
+      "retain": "Site owners can customize model introductions; preserve the surrounding details about tags, parameters, custom presets, and cloud synchronization.",
+      "source_function": "Feature definition"
+    },
+    {
+      "diagnosis": "The repeated praise of the channel algorithm provides no concrete information about its behavior.",
+      "line": 36,
+      "quote": "Self-written excellent channel algorithm",
+      "reader_burden": "Readers encounter an unexplained quality judgment before reaching the specific channel controls that substantiate the feature.",
+      "retain": "The algorithm is developed by the project; preserve the subsequent priority, weight, grouping, retry, redirection, upstream-hiding, and status-management capabilities.",
+      "source_function": "Promotion and feature introduction"
+    },
+    {
+      "diagnosis": "The claimed outcomes do not specify what becomes faster or what 'stand out' means, and the connection to the listed name and logo settings is unexplained.",
+      "line": 39,
+      "quote": "to make search engines crawl faster, making your site stand out",
+      "reader_burden": "Readers cannot distinguish an implemented SEO capability from an aspirational visibility benefit.",
+      "retain": "SEO configuration support, including custom site name and logo settings, and the intended search-discovery benefit without inventing a performance guarantee.",
+      "source_function": "Promotional benefit claim"
+    },
+    {
+      "diagnosis": "The explanation defines host networking twice in essentially identical terms.",
+      "line": 164,
+      "quote": "means using the host machine's network, allowing the Docker container to use the host's network.",
+      "reader_burden": "Readers process a second clause that adds no explanation of the option.",
+      "retain": "The meaning of --network host and the following statement that users can modify the setting.",
+      "source_function": "Technical definition"
+    },
+    {
+      "diagnosis": "'Personal privatization-oriented design' is an opaque description of the design constraint underlying the comparison.",
+      "line": 209,
+      "quote": "Due to its personal privatization-oriented design",
+      "reader_burden": "Readers must guess what deployment or usage model supposedly causes the commercial-development limitations.",
+      "retain": "The author's distinction between personal-use design and commercial-development needs, with the following examples providing the specific limitations.",
+      "source_function": "Causal qualification"
+    },
+    {
+      "diagnosis": "'Cost perception' and 'users without a foundation' leave both the billing difficulty and the affected audience unclear.",
+      "line": 220,
+      "quote": "not user-friendly in terms of cost perception for users without a foundation",
+      "reader_burden": "Readers cannot tell what users struggle to understand or what prior knowledge the comparison assumes.",
+      "retain": "The concern about inexperienced users understanding costs, alongside the explicit subscription-versus-elastic-billing distinction.",
+      "source_function": "Explanation of a user-facing limitation"
+    },
+    {
+      "diagnosis": "The project-origin conclusion repeats the immediately preceding statement of the same combined API and interface objective.",
+      "line": 227,
+      "quote": "We hope to create a project that has both a powerful API distribution system and a rich user interface design",
+      "reader_burden": "Readers encounter the central project objective again without new explanation after the preceding two-line conclusion.",
+      "retain": "The goal of combining API distribution with a rich user interface, the introduction of CoAI.Dev, and the author's commercial open-source positioning.",
+      "source_function": "Conclusion and authorial emphasis"
+    }
+  ],
+  "page_id": "page-002",
+  "reviews": [
+    {
+      "decision": "keep",
+      "id": "7e9b13e1e47da88d",
+      "reason": "This item combines parsing scope, storage integrations, OCR, a separate service reference, and deployment options in one chain. Separating these functions would clarify their relationships while retaining all-model support, formats, providers, the link, and deployment details."
+    },
+    {
+      "decision": "withhold",
+      "id": "b213acf92e3d4acf",
+      "reason": "The length largely comes from two useful enumerations: supported search engines and search controls. The SearXNG basis and the lists remain readily identifiable; sentence length alone does not establish a useful correction."
+    },
+    {
+      "decision": "withhold",
+      "id": "e11cad234fe264f5",
+      "reason": "This is a backend-capability inventory under one feature heading. Its length reflects the number of settings and management functions, not a difficult sequence of clauses; splitting it would primarily change list presentation."
+    },
+    {
+      "decision": "keep",
+      "id": "85a4f15d12157e55",
+      "reason": "The nested explanation moves from enabling caching to hash matching, prior requests, returned results, billing, and request reduction, with ambiguous uses of 'it.' Clearer sentence boundaries can reduce that burden while preserving the matching condition and the no-billing rule for cache hits."
+    },
+    {
+      "decision": "withhold",
+      "id": "e80e25c5221ed315",
+      "reason": "Most of this item's length comes from a capability list and necessary definitions distinguishing priority from weight among channels at the same priority. The long-sentence diagnosis does not identify a problem with that list structure; the promotional wording is a separate issue."
+    },
+    {
+      "decision": "keep",
+      "id": "e89afcd0280b7c8c",
+      "reason": "The sentence shifts from settings synchronizing to implied instructions to modify and build a site, then ends in benefit fragments. This makes the actor and sequence hard to follow. A repair can retain the synchronized settings, subsequent customization, and one-click launch emphasis."
+    },
+    {
+      "decision": "keep",
+      "id": "d0027d6a8393b4e1",
+      "reason": "The comma chain mixes supported code types, batch generation, distinct sales and promotion uses, and a redemption restriction. Separating these functions would make the operational rule easier to find while preserving one code per user per gift-code type and the qualified promotional benefit."
+    },
+    {
+      "decision": "withhold",
+      "id": "cfff6f26ff425bda",
+      "reason": "The item presents a single limitation, its consequence for channels at the same priority, and a linked alternative. The open-source qualification, weight parameter, and New API parenthetical are meaningful parts of the comparison; length alone does not make their relationship difficult to follow."
+    },
+    {
+      "decision": "keep",
+      "id": "72ec1a889712707d",
+      "reason": "The sentence carries the combined product objective across a line break into a chain of audience and business benefits. Separating the objective from the intended outcomes would reduce clause tracking while retaining both user and business audiences and the aspirational nature of the benefits."
+    }
+  ],
+  "source_sha256": "de76820d6bd81a7fc7dd4596df24a594214920ec42762c5aca25b31528680f9d"
+}
