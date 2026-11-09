@@ -49,6 +49,14 @@ written by a tool.
 
 ## Runs
 
+The [RACE source-matched transfer screen](runs/2026-11-09-race-transfer/README.md)
+ran the published, unchanged RACE encoder checkpoint on 60 ARB human sources
+and 240 paired rewrites. All 300 documents scored, but the registered advance
+rule failed: pooled AUROC was 0.692, paired-win fraction 0.683, and the `owt`
+domain reversed direction (paired-win fraction 0.150). The checkpoint is
+retired as an Unswell origin candidate on this evidence. This does not change
+the editorial #349 result.
+
 The [TextSight fixed-threshold transfer screen](runs/2026-11-08-textsight-transfer/README.md)
 tested the existing interpretable ensemble and richness score on a pinned
 September 2026 generation corpus. The ensemble flagged 30/56 AI passages but
