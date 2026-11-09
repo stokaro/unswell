@@ -1,0 +1,303 @@
+{
+  "format": "unswell-349-source-function-candidate-v1",
+  "baseline_audit_sha256": "3ac0ee019906abc79c51e180b46e1421acae7ba7c94cef5a28a06d76522e3704",
+  "pages": [
+    {
+      "page": 1,
+      "source_sha256": "d4f5b6543a2800a1c008b7f7530edb425afa6dd2b5747c0b67854c8619f610be",
+      "eligible_sentences": 54,
+      "diagnoses": 2
+    },
+    {
+      "page": 2,
+      "source_sha256": "6825ffef8bd4b02f82d12dd2fb6e3fb3c3e24a9772c62a29c70598212775c35c",
+      "eligible_sentences": 78,
+      "diagnoses": 0
+    },
+    {
+      "page": 3,
+      "source_sha256": "7ce81259928ea3dbc2b0e431f0babef49f158b626584519daa192df31b0197ac",
+      "eligible_sentences": 68,
+      "diagnoses": 2
+    },
+    {
+      "page": 4,
+      "source_sha256": "96049034111dac687325cc9a26dca1afab875eaed86ee82ddc51ae8dd10ad7a8",
+      "eligible_sentences": 116,
+      "diagnoses": 0
+    },
+    {
+      "page": 5,
+      "source_sha256": "265a811d2897e0ce8af28142ba1da7a4d244b2bb08104a64f5dadcf33b8ff1ff",
+      "eligible_sentences": 88,
+      "diagnoses": 3
+    },
+    {
+      "page": 6,
+      "source_sha256": "f9560fd9663c0c1630f688dfbd3d483d7a2a7672750744ea98b5f212248c366e",
+      "eligible_sentences": 45,
+      "diagnoses": 2
+    },
+    {
+      "page": 7,
+      "source_sha256": "345d068be97d91910ec82f6a2f1a0d857e50ca4066103e34ff9af9e18b6aff29",
+      "eligible_sentences": 289,
+      "diagnoses": 0
+    },
+    {
+      "page": 8,
+      "source_sha256": "978c5addf843540f6fb9a179bdd2ab245a32b4ccfdeeca967845697e181e726b",
+      "eligible_sentences": 131,
+      "diagnoses": 7
+    },
+    {
+      "page": 9,
+      "source_sha256": "3501a13e38983146c787ceb7cbe6de405c27e16bd1c9df70594febd53a2e5838",
+      "eligible_sentences": 51,
+      "diagnoses": 2
+    }
+  ],
+  "diagnoses": [
+    {
+      "operator": "repeated_proposition",
+      "start_byte": 2359,
+      "end_byte": 2442,
+      "quote": "4)The feature string may be changed along with the evolution of hardening services.",
+      "diagnosis": "This repeats an earlier claim without adding a condition or step.",
+      "content_to_retain": "Keep the earlier complete claim and any distinct warning.",
+      "edit_status": "proposed_unverified",
+      "edit": {
+        "operation": "delete",
+        "start_byte": 2359,
+        "end_byte": 2442
+      },
+      "page": 1,
+      "source_sha256": "d4f5b6543a2800a1c008b7f7530edb425afa6dd2b5747c0b67854c8619f610be",
+      "id": "candidate-001"
+    },
+    {
+      "operator": "empty_limitation_announcement",
+      "start_byte": 2673,
+      "end_byte": 2706,
+      "quote": "DexHunter has its own limitation.",
+      "diagnosis": "The next sentence names the limitation; this one only announces it.",
+      "content_to_retain": "Keep the specific limitation and its conditions.",
+      "edit_status": "proposed_unverified",
+      "edit": {
+        "operation": "delete",
+        "start_byte": 2673,
+        "end_byte": 2706
+      },
+      "page": 1,
+      "source_sha256": "d4f5b6543a2800a1c008b7f7530edb425afa6dd2b5747c0b67854c8619f610be",
+      "id": "candidate-002"
+    },
+    {
+      "operator": "unsupported_quality_generation",
+      "start_byte": 7869,
+      "end_byte": 7884,
+      "quote": "next-generation",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 3,
+      "source_sha256": "7ce81259928ea3dbc2b0e431f0babef49f158b626584519daa192df31b0197ac",
+      "id": "candidate-003"
+    },
+    {
+      "operator": "unsupported_quality_vague_degree",
+      "start_byte": 8193,
+      "end_byte": 8201,
+      "quote": "advanced",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 3,
+      "source_sha256": "7ce81259928ea3dbc2b0e431f0babef49f158b626584519daa192df31b0197ac",
+      "id": "candidate-004"
+    },
+    {
+      "operator": "unsupported_quality_ease",
+      "start_byte": 1820,
+      "end_byte": 1833,
+      "quote": "quite trivial",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 5,
+      "source_sha256": "265a811d2897e0ce8af28142ba1da7a4d244b2bb08104a64f5dadcf33b8ff1ff",
+      "id": "candidate-005"
+    },
+    {
+      "operator": "duplicate_command_narration",
+      "start_byte": 2039,
+      "end_byte": 2085,
+      "quote": "This will install curl and git to your system.",
+      "diagnosis": "The sentence repeats packages named in the preceding install command.",
+      "content_to_retain": "Keep the exact command and package names.",
+      "edit_status": "proposed_unverified",
+      "edit": {
+        "operation": "delete",
+        "start_byte": 2039,
+        "end_byte": 2085
+      },
+      "page": 5,
+      "source_sha256": "265a811d2897e0ce8af28142ba1da7a4d244b2bb08104a64f5dadcf33b8ff1ff",
+      "id": "candidate-006"
+    },
+    {
+      "operator": "unsupported_quality_stacked_praise",
+      "start_byte": 4547,
+      "end_byte": 4568,
+      "quote": "powerful and flexible",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 5,
+      "source_sha256": "265a811d2897e0ce8af28142ba1da7a4d244b2bb08104a64f5dadcf33b8ff1ff",
+      "id": "candidate-007"
+    },
+    {
+      "operator": "unsupported_quality_rank",
+      "start_byte": 1046,
+      "end_byte": 1059,
+      "quote": "best-of-class",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 6,
+      "source_sha256": "f9560fd9663c0c1630f688dfbd3d483d7a2a7672750744ea98b5f212248c366e",
+      "id": "candidate-008"
+    },
+    {
+      "operator": "unsupported_quality_stacked_praise",
+      "start_byte": 1856,
+      "end_byte": 1887,
+      "quote": "extremely powerful and flexible",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 6,
+      "source_sha256": "f9560fd9663c0c1630f688dfbd3d483d7a2a7672750744ea98b5f212248c366e",
+      "id": "candidate-009"
+    },
+    {
+      "operator": "unsupported_quality_unsupported_praise",
+      "start_byte": 257,
+      "end_byte": 284,
+      "quote": "many outstanding advantages",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 8,
+      "source_sha256": "978c5addf843540f6fb9a179bdd2ab245a32b4ccfdeeca967845697e181e726b",
+      "id": "candidate-010"
+    },
+    {
+      "operator": "empty_table_announcement",
+      "start_byte": 5246,
+      "end_byte": 5304,
+      "quote": "The support for each demo is shown in the following table.",
+      "diagnosis": "The sentence only announces the nearby table.",
+      "content_to_retain": "Keep the table and any separate instruction for using it.",
+      "edit_status": "proposed_unverified",
+      "edit": {
+        "operation": "delete",
+        "start_byte": 5246,
+        "end_byte": 5304
+      },
+      "page": 8,
+      "source_sha256": "978c5addf843540f6fb9a179bdd2ab245a32b4ccfdeeca967845697e181e726b",
+      "id": "candidate-011"
+    },
+    {
+      "operator": "unsupported_ease_announcement",
+      "start_byte": 12035,
+      "end_byte": 12064,
+      "quote": "It is very simple to use TNN.",
+      "diagnosis": "A bare ease claim precedes concrete steps.",
+      "content_to_retain": "Keep the complete steps and prerequisites.",
+      "edit_status": "proposed_unverified",
+      "edit": {
+        "operation": "delete",
+        "start_byte": 12035,
+        "end_byte": 12064
+      },
+      "page": 8,
+      "source_sha256": "978c5addf843540f6fb9a179bdd2ab245a32b4ccfdeeca967845697e181e726b",
+      "id": "candidate-012"
+    },
+    {
+      "operator": "unsupported_quality_ease",
+      "start_byte": 12222,
+      "end_byte": 12233,
+      "quote": "a wealth of",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 8,
+      "source_sha256": "978c5addf843540f6fb9a179bdd2ab245a32b4ccfdeeca967845697e181e726b",
+      "id": "candidate-013"
+    },
+    {
+      "operator": "unsupported_quality_vague_degree",
+      "start_byte": 13015,
+      "end_byte": 13019,
+      "quote": "rich",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 8,
+      "source_sha256": "978c5addf843540f6fb9a179bdd2ab245a32b4ccfdeeca967845697e181e726b",
+      "id": "candidate-014"
+    },
+    {
+      "operator": "unsupported_quality_unsupported_praise",
+      "start_byte": 13482,
+      "end_byte": 13496,
+      "quote": "widely praised",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 8,
+      "source_sha256": "978c5addf843540f6fb9a179bdd2ab245a32b4ccfdeeca967845697e181e726b",
+      "id": "candidate-015"
+    },
+    {
+      "operator": "unsupported_quality_rank",
+      "start_byte": 18127,
+      "end_byte": 18171,
+      "quote": "the best inference framework in the industry",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 8,
+      "source_sha256": "978c5addf843540f6fb9a179bdd2ab245a32b4ccfdeeca967845697e181e726b",
+      "id": "candidate-016"
+    },
+    {
+      "operator": "unsupported_quality_generation",
+      "start_byte": 503,
+      "end_byte": 518,
+      "quote": "next generation",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 9,
+      "source_sha256": "3501a13e38983146c787ceb7cbe6de405c27e16bd1c9df70594febd53a2e5838",
+      "id": "candidate-017"
+    },
+    {
+      "operator": "unsupported_quality_vague_degree",
+      "start_byte": 5852,
+      "end_byte": 5856,
+      "quote": "rich",
+      "diagnosis": "The evaluative wording supplies no checkable property at this location.",
+      "content_to_retain": "Keep the named product, capability, scope, and any comparison evidence.",
+      "edit_status": "unresolved",
+      "page": 9,
+      "source_sha256": "3501a13e38983146c787ceb7cbe6de405c27e16bd1c9df70594febd53a2e5838",
+      "id": "candidate-018"
+    }
+  ]
+}
