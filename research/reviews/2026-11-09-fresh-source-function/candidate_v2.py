@@ -71,6 +71,13 @@ def main() -> None:
         report_path = args.reports_dir / f"page-{number:03d}.json"
         report_bytes = report_path.read_bytes()
         report = json.loads(report_bytes)
+        if report.get("status") != "complete" or report.get("errors"):
+            page_results.append({"page": number, "status": "operational_error",
+                                 "source_sha256": source_meta["source_sha256"],
+                                 "report_sha256": hashlib.sha256(report_bytes).hexdigest(),
+                                 "errors": report.get("errors", []),
+                                 "eligible_sentences": 0, "diagnoses": 0})
+            continue
         diagnoses, sentence_count = candidate.run_page(data, report, number)
         excluded = report["documents"][0]["excluded"]
         diagnoses = [plan_edit(data, finding, excluded) for finding in diagnoses]
