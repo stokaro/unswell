@@ -1,8 +1,10 @@
 # Source-role selector: exposed replay and page-disjoint check
 
-Status: research only; #349 remains open. The selector and the page-disjoint
-source list were signed before transfer sources were fetched. All 19 transfer
-labels were signed before the selector was run. The reviewer was the assistant.
+Status: selector retired after the cue-enriched transfer in
+[`TRANSFER-V2-RESULT.md`](TRANSFER-V2-RESULT.md); #349 remains open. The selector
+and the page-disjoint source list were signed before transfer sources were
+fetched. All 19 transfer labels were signed before the selector was run. The
+reviewer was the assistant.
 
 ## Archived replay
 
@@ -37,7 +39,7 @@ status is **underpowered**. It provides no evidence of useful recall on new
 pages. The archived numerical threshold crossing is therefore not a verified
 product improvement or #349 qualification.
 
-## Next decision
+## Decision after the first transfer
 
 The current selector is a conservative admission filter over cached proposals,
 not an end-to-end detector. A new, independently frozen page-disjoint set must
@@ -46,3 +48,8 @@ After any transfer success, evaluate generated findings in their actual
 diagnosis-only delivery form, resolve supplied-edit safety, and measure the
 unchanged FULL and accepted-diagnosis gates in every cohort. Do not tune this
 selector on the exposed replay or present the 85.03% as deployed quality.
+
+The subsequently frozen cue-enriched transfer found five false admissions
+among 11 `withhold` targets. It fails the source-role safety criterion and
+retires this selector version; see `TRANSFER-V2-RESULT.md` and
+`transfer_v2_result.json`.
