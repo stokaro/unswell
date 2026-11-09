@@ -28,3 +28,18 @@
   screen located all 17 positives and credited 15 FULL, but one supplied
   deletion leaves a numbered list broken. `CANDIDATE-RESULT.md` retires v1;
   it was not integrated into the runtime or tested on prospective pages.
+- V2 selection and 12 source identities were committed in `07cc47b` before
+  transfer source content was fetched. All 12 source files were pinned and
+  validated by Git blob SHA-1 and SHA-256; the tracked inventory was committed
+  in `265a805` before full-page source review.
+- Source-only transfer labels were sealed in `51b2907`: 12 clear positives and
+  35 controls. The unchanged CLI then completed 11 pages and failed Markdown
+  parsing on page 3. The pre-output operational-error amendment was committed
+  in `0ee2469`; it leaves the diagnosis core untouched but makes this run
+  exploratory rather than a clean preregistered transfer.
+- The v2 candidate was run once. Its 22 diagnoses and complete dispositions
+  are tracked in `transfer-v2-candidate-output.json` and
+  `transfer-v2-audit.json`. `TRANSFER-V2-RESULT.md` records 2/12 FULL positive
+  events, 2/22 accepted candidate diagnoses, three retained-control hits, two
+  unsafe proposed deletions, and one operational error. V2 is retired; no
+  runtime change or #349 qualification followed.
