@@ -1,0 +1,175 @@
+{
+  "calibration": {
+    "eligible": 300,
+    "flagged": 2,
+    "raw": 300
+  },
+  "counts": {
+    "calibration/human": {
+      "eligible": 300,
+      "median_words": 281.5,
+      "raw": 300,
+      "removed_header": 1,
+      "truncated": 64
+    },
+    "test/free_llm": {
+      "eligible": 299,
+      "median_words": 262.5,
+      "raw": 300,
+      "removed_header": 0,
+      "truncated": 10
+    },
+    "test/h2l": {
+      "eligible": 299,
+      "median_words": 230.5,
+      "raw": 300,
+      "removed_header": 0,
+      "truncated": 1
+    },
+    "test/human": {
+      "eligible": 300,
+      "median_words": 307.5,
+      "raw": 300,
+      "removed_header": 0,
+      "truncated": 74
+    }
+  },
+  "dataset_sha256": "66e48240618b92ce876e2097d8df52f06661a70e31791b91a95b15688a099ab0",
+  "feasibility_pass": true,
+  "model_revision": "f7cb4b06e5067ecdb66c566c7982a413f86f569f",
+  "model_sha256": "ddd1173f2ef517ad499965e5029fae8099a8054a2bc76d8134e5889cc4ed1b3e",
+  "regimes": {
+    "free_llm": {
+      "by_domain": {
+        "owt": {
+          "auc": 0.9981,
+          "eligible_pairs": 100,
+          "flagged": 99,
+          "paired_win_fraction": 1.0,
+          "tpr": 0.99
+        },
+        "wp": {
+          "auc": 1.0,
+          "eligible_pairs": 99,
+          "flagged": 99,
+          "paired_win_fraction": 1.0,
+          "tpr": 1.0
+        },
+        "xsum": {
+          "auc": 1.0,
+          "eligible_pairs": 100,
+          "flagged": 100,
+          "paired_win_fraction": 1.0,
+          "tpr": 1.0
+        }
+      },
+      "by_generator": {
+        "gemma2_9b": {
+          "auc": 1.0,
+          "eligible_pairs": 79,
+          "flagged": 79,
+          "paired_win_fraction": 1.0,
+          "tpr": 1.0
+        },
+        "llama32_3b": {
+          "auc": 0.9992899408284024,
+          "eligible_pairs": 65,
+          "flagged": 64,
+          "paired_win_fraction": 1.0,
+          "tpr": 0.9846153846153847
+        },
+        "mistral7b": {
+          "auc": 0.9997165532879818,
+          "eligible_pairs": 84,
+          "flagged": 84,
+          "paired_win_fraction": 1.0,
+          "tpr": 1.0
+        },
+        "qwen25_7b": {
+          "auc": 1.0,
+          "eligible_pairs": 71,
+          "flagged": 71,
+          "paired_win_fraction": 1.0,
+          "tpr": 1.0
+        }
+      },
+      "overall": {
+        "auc": 0.9997427321842037,
+        "eligible_pairs": 299,
+        "flagged": 298,
+        "paired_win_fraction": 1.0,
+        "tpr": 0.9966555183946488
+      }
+    },
+    "h2l": {
+      "by_domain": {
+        "owt": {
+          "auc": 0.9417,
+          "eligible_pairs": 100,
+          "flagged": 70,
+          "paired_win_fraction": 0.96,
+          "tpr": 0.7
+        },
+        "wp": {
+          "auc": 0.9851035608611366,
+          "eligible_pairs": 99,
+          "flagged": 63,
+          "paired_win_fraction": 0.98989898989899,
+          "tpr": 0.6363636363636364
+        },
+        "xsum": {
+          "auc": 0.9989,
+          "eligible_pairs": 100,
+          "flagged": 81,
+          "paired_win_fraction": 1.0,
+          "tpr": 0.81
+        }
+      },
+      "by_generator": {
+        "gemma2_9b": {
+          "auc": 0.9700368530684185,
+          "eligible_pairs": 79,
+          "flagged": 56,
+          "paired_win_fraction": 0.9873417721518988,
+          "tpr": 0.7088607594936709
+        },
+        "llama32_3b": {
+          "auc": 0.9829585798816568,
+          "eligible_pairs": 65,
+          "flagged": 39,
+          "paired_win_fraction": 0.9846153846153847,
+          "tpr": 0.6
+        },
+        "mistral7b": {
+          "auc": 0.9753401360544217,
+          "eligible_pairs": 84,
+          "flagged": 55,
+          "paired_win_fraction": 0.9761904761904762,
+          "tpr": 0.6547619047619048
+        },
+        "qwen25_7b": {
+          "auc": 0.988295973021226,
+          "eligible_pairs": 71,
+          "flagged": 64,
+          "paired_win_fraction": 0.9859154929577465,
+          "tpr": 0.9014084507042254
+        }
+      },
+      "overall": {
+        "auc": 0.9771031643941342,
+        "eligible_pairs": 299,
+        "flagged": 214,
+        "paired_win_fraction": 0.9832775919732442,
+        "tpr": 0.7157190635451505
+      }
+    }
+  },
+  "selection_sha256": "4a7f2924b4e7a34554a286379bd3fdc7223a4832610375a71d7383d80ac2bc96",
+  "test_human": {
+    "eligible": 300,
+    "flagged": 3,
+    "fpr": 0.01,
+    "raw": 300
+  },
+  "threshold": 0.2994394277532895
+}
