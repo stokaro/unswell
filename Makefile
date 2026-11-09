@@ -30,6 +30,7 @@ check-complementary-semantic-pilot:
 
 check-dual-gate-feasibility:
 	python3 -B research/reviews/2026-11-08-dual-gate-feasibility/analyze.py --check
+	python3 -B research/reviews/2026-11-08-dual-gate-feasibility/category_frontier.py
 	python3 -B -m unittest discover -s research/reviews/2026-11-08-dual-gate-feasibility -p 'test_*.py'
 
 check-paired-source-necessity:
