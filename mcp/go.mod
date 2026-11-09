@@ -11,7 +11,7 @@ require (
 
 require (
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/jdkato/prose/v3 v3.2.1 // indirect
+	github.com/jdkato/prose/v3 v3.2.3 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/odvcencio/gotreesitter v0.56.0 // indirect
