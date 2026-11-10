@@ -74,5 +74,8 @@ result SHA-256 is
 Recheck from the repository root:
 
 ```sh
-make check-additive-admission-pilot
+python3 -B research/reviews/2026-11-10-additive-admission-pilot/verify_source.py
+python3 -B research/reviews/2026-11-10-additive-admission-pilot/run.py verify
+python3 -B research/reviews/2026-11-10-additive-admission-pilot/score.py verify
+python3 -B -m unittest discover -s research/reviews/2026-11-10-additive-admission-pilot -p 'test_*.py'
 ```
