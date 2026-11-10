@@ -23,13 +23,14 @@ func repetitionRules() []rule.Rule {
 		22,
 	)
 	near.Requires = append(near.Requires, nlp.POS)
-	near.Version = "3"
+	near.Version = "4"
 	near.RequiresStructure = true
 	near.BlockObservations = true
 	near.Description = "Compares indexed sentence candidates with set Jaccard and a shared technical-contrast signature."
 	near.Limitations += " Modal, condition, and state cues are retained in token order."
 	near.Limitations += " Numeric-unit protection retains the token after a number, not a complete unit expression."
 	near.Limitations += " Equal signatures do not establish semantic equivalence; comparisons stay within structural and task scopes."
+	near.Limitations += " Separate Markdown details choices have independent comparison scopes."
 	near.Defaults.Parameters = rule.Parameters{
 		MinWords:           12,
 		Similarity:         0.85,
@@ -53,9 +54,10 @@ func repetitionRules() []rule.Rule {
 		15,
 	)
 	sentence.Defaults.Parameters = rule.Parameters{MinWords: 8, OpenerWords: 3, AllowedOccurrences: 2, SaturationOccurrences: 5}
-	sentence.Version = "2"
+	sentence.Version = "3"
 	sentence.RequiresStructure = true
 	sentence.Limitations += " Groups stay within structural sections and explicit leading conditions."
+	sentence.Limitations += " Separate Markdown details choices have independent groups."
 	sentence.Limitations += " Repeated form need not mean redundant information."
 	sentence.BlockObservations = true
 	sentence.Parameters = []string{"min_words", "opener_words", "allowed_occurrences", "saturation_occurrences"}
@@ -75,11 +77,12 @@ func repetitionRules() []rule.Rule {
 		18,
 	)
 	paragraph.Defaults.Parameters = sentence.Defaults.Parameters
-	paragraph.Version = "3"
+	paragraph.Version = "4"
 	paragraph.RequiresStructure = true
 	paragraph.Description = "Groups opening words from each paragraph's first sentence. The word minimum applies to the complete paragraph."
 	paragraph.Limitations += " Repeated openings do not establish duplicate meaning."
 	paragraph.Limitations += " Structural sections and leading conditions bound comparisons."
+	paragraph.Limitations += " Separate Markdown details choices have independent groups."
 	paragraph.BlockObservations = true
 	paragraph.Parameters = slices.Clone(sentence.Parameters)
 	paragraph.Examples = []rule.Example{

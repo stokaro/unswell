@@ -83,6 +83,11 @@ threshold remains 0.85. Candidates share a word bigram and are compared within a
 structural scope as of version `3`; exact copies remain the responsibility of `repetition.exact-sentence`.
 Matching pairs form connected clusters with original source locations.
 
+Version `4` also keeps candidates in separate, matched Markdown `<details>`
+elements apart. The same boundary applies to exact-sentence and both opener rules.
+It prevents platform or shell alternatives from being compared as one repeated
+instruction while preserving comparisons inside each alternative.
+
 Near-sentence matching retains these cues in token order:
 
 - Modals: `may`, `must`, `can`, `should`, `could`, `would`, `might`, `shall`.
