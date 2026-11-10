@@ -1,0 +1,12 @@
+{
+  "format": "unswell-349-nli-evidence-terminal-v1",
+  "frozen_commit": "e6b0b23",
+  "freeze_sha256": "0539a9b5ae2537dfe39193ec05fdc96eb433773bcb8a2000897b6bdc24b8fa5e",
+  "status": "stopped_before_first_inference",
+  "exit_code": 1,
+  "exception": "ValueError: tokenizer silently truncates inputs",
+  "source_calls": 0,
+  "onnx_inference_calls": 0,
+  "result_file_written": false,
+  "reason": "The published tokenizer JSON has truncation enabled; the frozen runner rejects it before creating the ONNX session. The v1 protocol stops at this first error and has no retry."
+}
