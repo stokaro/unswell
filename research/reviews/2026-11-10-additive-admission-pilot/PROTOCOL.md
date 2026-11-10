@@ -44,9 +44,10 @@ frozen recall denominator.
 
 Use GPT-6-Astra at medium reasoning effort through the existing Codex
 subscription, with ephemeral tool-free sessions, read-only sandbox, and no
-web access. The packet must freeze exact request bytes, JSON schemas, runner,
-scorer, model, effort, and failure policy in a committed Git tree before the
-first call. Total budget: at most 4 generation calls plus 24 admission calls,
+web access. The packet must freeze the four exact generation requests, admission
+request renderer and template, JSON schemas, runner, scorer, model, effort,
+and failure policy in a committed Git tree before the first call. Each
+dynamic admission request must be materialized and hashed before its call. Total budget: at most 4 generation calls plus 24 admission calls,
 sequential, one attempt each, no automatic retry, at most 3 hours total and
 10 minutes per call. Stop on the first CLI, trace, schema, binding, source,
 resource, or timeout error. Do not repair or replay a failed response under

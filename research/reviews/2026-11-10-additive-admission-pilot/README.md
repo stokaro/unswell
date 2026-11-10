@@ -24,7 +24,11 @@ python3 -B research/reviews/2026-11-10-additive-admission-pilot/verify_source.py
   python3 -B -m unittest -q test_verify_source.py)
 ```
 
-Before any model call, the exact prompt, schema, runner, scorer, failure policy,
-and bounded budget must be frozen in a later committed packet. The unchanged
+Before any model call, run `python3 -B run.py prepare`, commit the generated
+`packet/` directory, and verify it with `python3 -B run.py verify`. The prompt,
+schemas, runner, scorer, failure policy, and bounded budget are then frozen.
+The bounded contract tests run with `python3 -B -m unittest -q test_run.py
+test_score.py`. A later `RESULT.md` will record execution and review without
+changing this source and packet freeze. The unchanged
 36-page/123-event #349 development gates and separate prospective confirmation
 remain required after this pilot. The original event labels are untouched.
