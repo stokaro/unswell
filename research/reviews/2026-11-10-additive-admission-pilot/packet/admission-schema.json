@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "basis": {
+      "type": "string"
+    },
+    "candidate_id": {
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "admit",
+        "reject",
+        "abstain"
+      ],
+      "type": "string"
+    },
+    "page_id": {
+      "type": "string"
+    },
+    "source_sha256": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "candidate_id",
+    "page_id",
+    "source_sha256",
+    "decision",
+    "basis"
+  ],
+  "type": "object"
+}
