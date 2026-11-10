@@ -1,0 +1,1532 @@
+{
+  "diagnoses": [
+    {
+      "preserve": "KANs are presented as alternatives to MLPs; preserve both expanded names and abbreviations.",
+      "problem": "“Promising” endorses KANs without identifying a capability, condition, or result that makes the endorsement useful.",
+      "quote": "Kolmogorov-Arnold Networks (KANs) are promising alternatives of Multi-Layer Perceptrons (MLPs).",
+      "segment_index": 0,
+      "unit_ordinal": 3
+    },
+    {
+      "preserve": "The claimed comparison concerns edge versus node activations and both accuracy and interpretability; the stronger improvement is qualified by “sometimes.”",
+      "problem": "The blanket causal comparison lacks task or evaluation conditions, while “simple” and “sometimes much better!” add promotional emphasis without a measure of improvement. Later discussion explicitly acknowledges setting-dependent advantages and limitations.",
+      "quote": "This simple change makes KANs better (sometimes much better!) than MLPs in terms of both model ",
+      "segment_index": 0,
+      "unit_ordinal": 6
+    },
+    {
+      "preserve": "Call the protected speed method before training under the preceding conditions; otherwise the symbolic branch remains on, and its computations are not parallelized.",
+      "problem": "“Super slow” and the exclamation marks amplify a performance warning without quantifying it. The nonparallelized symbolic computations already provide the concrete reason for the warning.",
+      "quote": "Otherwise, the symbolic branch is on, which is super slow because the symbolic computations are not parallelized!",
+      "segment_index": 0,
+      "unit_ordinal": 20
+    },
+    {
+      "preserve": "The section introduces advice about tuning KAN hyperparameters.",
+      "problem": "This rhetorical question repeats the section heading and delays the useful explanation of the advice’s empirical basis and limited scope.",
+      "quote": "So how can I tune the hyperparameters effectively?",
+      "segment_index": 0,
+      "unit_ordinal": 38
+    },
+    {
+      "preserve": "The author intends the experience-based advice to help users choose a starting point and set expectations.",
+      "problem": "The statement repeats the preceding announcement of personal advice and adds an extended statement of intent without another tuning instruction or caveat.",
+      "quote": "But I want to at least share my experience such that users can have better clues where to start and what to expect from tuning hyperparameters.",
+      "segment_index": 0,
+      "unit_ordinal": 41
+    },
+    {
+      "preserve": "Accuracy, interpretability, and parameter efficiency need not conflict; retain the Figure 2.3 reference and the later qualification that tradeoffs can occur.",
+      "problem": "“I also want to emphasize” and the nested “and also” bury the substantive three-way relationship under announcement language.",
+      "quote": "I also want to emphasize that accuracy and interpretability (and also parameter efficiency) are not necessarily contradictory, e.g., Figure 2.3 in ",
+      "segment_index": 0,
+      "unit_ordinal": 51
+    },
+    {
+      "preserve": "Recommend pursuing one goal at a time, subject to the following exception when pruning plausibly helps accuracy.",
+      "problem": "“Not to be greedy” moralizes a technical choice, and “it would be good” adds an indirect lead-in to the actual prioritization advice.",
+      "quote": "So it would be good not to be greedy and aim for one goal at a time.",
+      "segment_index": 2,
+      "unit_ordinal": 51
+    },
+    {
+      "preserve": "After a satisfactory initial result, the author recommends increasing the dataset and performing a final run, with an expectation rather than a guarantee of improvement.",
+      "problem": "“Quite good” and “even better results!” leave both the readiness criterion and expected improvement unspecified. The upbeat prediction also needs to remain consistent with the following caveat that small and large datasets may behave differently.",
+      "quote": "Once you get a quite good result, try increasing data size and have a final run, which should give you even better results!",
+      "segment_index": 0,
+      "unit_ordinal": 52
+    },
+    {
+      "preserve": "The simple-first approach reflects the author’s physics background and personal, potentially biased experience.",
+      "problem": "“Quite effective” and “make things well-controlled” offer vague benefits, while the sentence generalizes a personal method to physicists as a group. The nearby debugging explanation supplies a more concrete benefit.",
+      "quote": "Disclaimer: Try the simplest thing first is the mindset of physicists, which could be personal/biased but I find this mindset quite effective and make things well-controlled for me.",
+      "segment_index": 0,
+      "unit_ordinal": 53
+    },
+    {
+      "preserve": "Users should continually check whether their model is underfitting or overfitting.",
+      "problem": "“Another thing that would be good to keep in mind is that” postpones a concrete diagnostic instruction with empty reminder language.",
+      "quote": "Another thing that would be good to keep in mind is that please constantly checking if your model is in underfitting or overfitting regime.",
+      "segment_index": 0,
+      "unit_ordinal": 57
+    },
+    {
+      "preserve": "Start with a simple, initially underfitting model and expand it gradually toward a suitable fit, following the preceding overfitting checks.",
+      "problem": "“This is also the reason why I'd love to” repeats the author’s preference, and the undefined “Goldilocks zone” makes the desired fitting regime less explicit than the surrounding technical terms.",
+      "quote": "This is also the reason why I'd love to start from simple models to make sure that the model is first in underfitting regime and then gradually expands to the \"Goldilocks zone\".",
+      "segment_index": 0,
+      "unit_ordinal": 61
+    },
+    {
+      "preserve": "For machine learning applications, KANs are likely not yet usable as a simple out-of-the-box plug-in.",
+      "problem": "“I have to be honest” adds a sincerity announcement before an important usability caveat; it contributes no condition or explanation.",
+      "quote": "For users who are machine learning focus, I have to be honest that KANs are likely not a simple plug-in that can be used out-of-the box (yet).",
+      "segment_index": 0,
+      "unit_ordinal": 71
+    },
+    {
+      "preserve": "The author values LLM interpretability and cautions that interpretability can mean different things in LLMs and science.",
+      "problem": "“Do,” “for sure,” and “wildly” pile emphasis onto the distinction without specifying how the meanings differ.",
+      "quote": "We do care about LLM interpretability for sure, but interpretability can mean wildly different things for LLM and for science.",
+      "segment_index": 0,
+      "unit_ordinal": 78
+    },
+    {
+      "preserve": "The author hopes the ideas will inspire further work without claiming they are necessarily the future; retain the concrete ideas of learnable edge activations and AI-assisted scientific discovery.",
+      "problem": "The language about inspiring and impacting unspecified futures gives no concrete meaning to “impact” and extends a personal hope into a vague promotional conclusion.",
+      "quote": ", but can hopefully inspire and impact ",
+      "segment_index": 2,
+      "unit_ordinal": 83
+    },
+    {
+      "preserve": "Empirical trials reveal whether approaches succeed or fail, including outcomes that cannot be known beforehand.",
+      "problem": "This repeats the preceding practice-as-test maxim through an unspecified “many things”; “beforehand until” and “really tried and shown to be” add complexity without another testing criterion.",
+      "quote": "We don't know many things beforehand until they are really tried and shown to be succeeding or failing.",
+      "segment_index": 0,
+      "unit_ordinal": 87
+    }
+  ],
+  "page_id": "KindXiaoming/pykan/README.md",
+  "source_sha256": "44a4a633df3b10c4e8fc9a553b59a3950f456123f96295dbe9a5733f4bdad63d",
+  "units": [
+    {
+      "claims": [],
+      "empty_reason": "Page title.",
+      "ordinal": 0
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Repository for both named papers.",
+          "quote": "This is the github repo for the paper ",
+          "role": "Repository identification",
+          "scope": "This repository",
+          "segment_index": 0,
+          "support": "Links to the original KAN and KAN 2.0 papers."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 1
+    },
+    {
+      "claims": [],
+      "empty_reason": "Navigation to quickstart, examples, and documentation.",
+      "ordinal": 2
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "“Promising” is an evaluative qualification.",
+          "quote": "Kolmogorov-Arnold Networks (KANs) are promising alternatives of Multi-Layer Perceptrons (MLPs).",
+          "role": "Promotional positioning",
+          "scope": "KANs relative to MLPs",
+          "segment_index": 0,
+          "support": "Following sentences describe theoretical and architectural differences; no specific evaluation supports this adjective."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 3
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Comparable mathematical grounding, not identical theorems.",
+          "quote": "KANs have strong mathematical foundations just like MLPs:",
+          "role": "Theoretical framing",
+          "scope": "KANs and MLPs",
+          "segment_index": 0,
+          "support": "The same sentence names the respective theorems."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "",
+          "quote": "MLPs are based on the universal approximation theorem",
+          "role": "Technical explanation",
+          "scope": "MLPs",
+          "segment_index": 0,
+          "support": "Source assertion naming the theorem."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "",
+          "quote": "KANs are based on Kolmogorov-Arnold representation theorem.",
+          "role": "Technical explanation",
+          "scope": "KANs",
+          "segment_index": 0,
+          "support": "Source assertion naming the theorem."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 4
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Duality is explained through activation placement.",
+          "quote": "KANs and MLPs are dual:",
+          "role": "Architectural comparison",
+          "scope": "KANs and MLPs",
+          "segment_index": 0,
+          "support": "The following clauses contrast edges and nodes."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "",
+          "quote": "KANs have activation functions on edges",
+          "role": "Technical fact",
+          "scope": "KAN architecture",
+          "segment_index": 0,
+          "support": "Explicit source description."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "",
+          "quote": "MLPs have activation functions on nodes.",
+          "role": "Technical fact",
+          "scope": "MLP architecture",
+          "segment_index": 0,
+          "support": "Explicit source description."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 5
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Larger improvement only “sometimes”; comparison covers accuracy and interpretability.",
+          "quote": "This simple change makes KANs better (sometimes much better!) than MLPs in terms of both model ",
+          "role": "Causal performance claim",
+          "scope": "Edge versus node activations",
+          "segment_index": 0,
+          "support": "Papers are linked, but this claim gives no evaluation conditions; later text acknowledges limitations."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 6
+    },
+    {
+      "claims": [],
+      "empty_reason": "Introduction link.",
+      "ordinal": 7
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 8
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Two installation sources.",
+          "quote": "Pykan can be installed via PyPI or directly from GitHub.",
+          "role": "Installation options",
+          "scope": "Pykan",
+          "segment_index": 0,
+          "support": "Following protected installation commands."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 9
+    },
+    {
+      "claims": [],
+      "empty_reason": "Prerequisite label.",
+      "ordinal": 10
+    },
+    {
+      "claims": [],
+      "empty_reason": "Audience label for installation commands.",
+      "ordinal": 11
+    },
+    {
+      "claims": [],
+      "empty_reason": "Installation label.",
+      "ordinal": 12
+    },
+    {
+      "claims": [],
+      "empty_reason": "Installation label.",
+      "ordinal": 13
+    },
+    {
+      "claims": [],
+      "empty_reason": "Dependency-list label.",
+      "ordinal": 14
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "After activating the virtual environment.",
+          "quote": "After activating the virtual environment, you can install specific package requirements as follows:",
+          "role": "Installation instruction",
+          "scope": "Package requirements",
+          "segment_index": 0,
+          "support": "Following protected requirements installation command."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 15
+    },
+    {
+      "claims": [],
+      "empty_reason": "Optional Conda setup label and audience introduction.",
+      "ordinal": 16
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 17
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "First of two joint conditions; contrasts a custom loop with the protected fit method.",
+          "quote": "when (1) you need to write the training loop yourself",
+          "role": "Instruction condition",
+          "scope": "Efficiency-mode recommendation",
+          "segment_index": 0,
+          "support": "Continued in units 19–20."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 18
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Second joint condition: symbolic branch is never used.",
+          "quote": "(2) you never use the symbolic branch",
+          "role": "Instruction condition",
+          "scope": "Efficiency-mode recommendation",
+          "segment_index": 0,
+          "support": "Follows the custom-loop condition."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Under both preceding conditions; before training.",
+          "quote": "it is important to call",
+          "role": "Method-call instruction",
+          "scope": "Protected model.speed() call",
+          "segment_index": 0,
+          "support": "Unit 20 explains the consequence of leaving the symbolic branch on."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 19
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Timing of the preceding speed-method call.",
+          "quote": "before training!",
+          "role": "Instruction timing",
+          "scope": "Efficiency mode",
+          "segment_index": 0,
+          "support": "Continuation of units 18–19."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Otherwise, under the preceding usage conditions.",
+          "quote": "Otherwise, the symbolic branch is on",
+          "role": "Default-behavior warning",
+          "scope": "Symbolic branch",
+          "segment_index": 0,
+          "support": "Explicit source assertion."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Slowness attributed to nonparallelized symbolic computations.",
+          "quote": "which is super slow because the symbolic computations are not parallelized!",
+          "role": "Performance warning and explanation",
+          "scope": "Enabled symbolic branch",
+          "segment_index": 0,
+          "support": "Concrete mechanism is stated; no timing supports “super.”"
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 20
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 21
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Typically; single CPU; less than 10 minutes.",
+          "quote": " are runnable on a single CPU typically less than 10 minutes.",
+          "role": "Runtime guidance",
+          "scope": "Linked tutorial examples",
+          "segment_index": 2,
+          "support": "Source runtime statement tied to tutorial examples."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 22
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "All paper examples; single CPU; less than one day.",
+          "quote": "All examples in the paper are runnable on a single CPU in less than one day.",
+          "role": "Runtime guidance",
+          "scope": "Paper examples",
+          "segment_index": 0,
+          "support": "Author's reported runtime."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 23
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Most expensive training case in this discussion.",
+          "quote": "Training KANs for PDE is the most expensive",
+          "role": "Relative computational cost",
+          "scope": "PDE training",
+          "segment_index": 0,
+          "support": "Following runtime range."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "May; hours to days; single CPU.",
+          "quote": "may take hours to days on a single CPU.",
+          "role": "Runtime caveat",
+          "scope": "PDE training",
+          "segment_index": 0,
+          "support": "Source runtime estimate; broader training scope than the preceding paper-example statement."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 24
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Both MLPs and KANs; sweeps to obtain Pareto Frontiers.",
+          "quote": "We use CPUs to train our models because we carried out parameter sweeps (both for MLPs and KANs) to obtain Pareto Frontiers.",
+          "role": "Hardware-choice rationale",
+          "scope": "Authors' experiments",
+          "segment_index": 0,
+          "support": "Next unit specifies thousands of small models."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 25
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Thousands; small models.",
+          "quote": "There are thousands of small models which is why we use CPUs rather than GPUs.",
+          "role": "Workload explanation",
+          "scope": "Parameter sweeps",
+          "segment_index": 0,
+          "support": "Adds workload size to the preceding hardware rationale."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 26
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Relative to typical machine learning and science tasks.",
+          "quote": "our problem scales are smaller than typical machine learning tasks but are typical for science-related tasks.",
+          "role": "Scope caveat",
+          "scope": "Authors' experimental problems",
+          "segment_index": 0,
+          "support": "Consistent with the later small-scale science qualification."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 27
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "For large tasks; recommendation.",
+          "quote": "In case the scale of your task is large, it is advisable to use GPUs.",
+          "role": "Hardware recommendation",
+          "scope": "Larger user workloads",
+          "segment_index": 0,
+          "support": "Contrasts with the authors' small-model workload."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 28
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 29
+    },
+    {
+      "claims": [],
+      "empty_reason": "Documentation navigation.",
+      "ordinal": 30
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 31
+    },
+    {
+      "claims": [],
+      "empty_reason": "Quickstart label.",
+      "ordinal": 32
+    },
+    {
+      "claims": [],
+      "empty_reason": "Quickstart notebook navigation.",
+      "ordinal": 33
+    },
+    {
+      "claims": [],
+      "empty_reason": "Demo label.",
+      "ordinal": 34
+    },
+    {
+      "claims": [],
+      "empty_reason": "Tutorial directory navigation.",
+      "ordinal": 35
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 36
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Many intuitions; may not transfer directly.",
+          "quote": "Many intuition about MLPs and other networks may not directly transfer to KANs.",
+          "role": "Transfer caveat",
+          "scope": "Hyperparameter-tuning intuition",
+          "segment_index": 0,
+          "support": "Following advice contrasts KAN setup with MLP width conventions."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 37
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Rhetorical question, not a technical assertion.",
+          "quote": "So how can I tune the hyperparameters effectively?",
+          "role": "Transition framing",
+          "scope": "Upcoming tuning advice",
+          "segment_index": 0,
+          "support": "Duplicates the section's stated topic."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 38
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "General advice based on personal experience.",
+          "quote": "Here is my general advice based on my experience playing with the problems reported in the paper.",
+          "role": "Provenance qualification",
+          "scope": "Following tuning advice",
+          "segment_index": 0,
+          "support": "Identifies the paper's problems as the experiential basis."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 39
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Relatively small-scale and science-oriented; likely unsuitable for some readers' cases.",
+          "quote": "Since these problems are relatively small-scale and science-oriented, it is likely that my advice is not suitable to your case.",
+          "role": "Applicability caveat",
+          "scope": "Personal tuning advice",
+          "segment_index": 0,
+          "support": "Authors' stated problem scope."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 40
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Intended benefit, not a demonstrated outcome.",
+          "quote": "But I want to at least share my experience such that users can have better clues where to start and what to expect from tuning hyperparameters.",
+          "role": "Purpose framing",
+          "scope": "Tuning advice",
+          "segment_index": 0,
+          "support": "Repeats unit 39's announcement of experience-based advice."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 41
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Small shape, grid, and dataset; no regularization, with protected lamb=0.",
+          "quote": "Start from a simple setup (small KAN shape, small grid size, small data, no reguralization",
+          "role": "Initial configuration recommendation",
+          "scope": "KAN tuning",
+          "segment_index": 0,
+          "support": "Following configuration example and later debugging rationale."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 42
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Default MLP widths of order O(10^2) or higher, completed by protected code and unit 44.",
+          "quote": "This is very different from MLP literature, where people by default use widths of order",
+          "role": "Configuration contrast",
+          "scope": "Small KAN initialization versus MLP conventions",
+          "segment_index": 0,
+          "support": "The source supplies a numerical width comparison."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 43
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Example only; 5 inputs and 1 output; protected KAN configuration follows.",
+          "quote": "For example, if you have a task with 5 inputs and 1 outputs, I would try something as simple as",
+          "role": "Concrete starting example",
+          "scope": "Five-input, one-output task",
+          "segment_index": 0,
+          "support": "Protected KAN(width=[5,1,1], grid=3, k=3) example."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 44
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "If initial setup fails; increase gradually and first.",
+          "quote": "If it doesn't work, I would gradually first increase width.",
+          "role": "Tuning sequence",
+          "scope": "Initial KAN configuration",
+          "segment_index": 0,
+          "support": "Author's experience-based recommendation."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Only if increasing width still fails; consider.",
+          "quote": "If that still doesn't work, I would consider increasing depth.",
+          "role": "Tuning sequence",
+          "scope": "After width adjustment",
+          "segment_index": 0,
+          "support": "Author's experience-based recommendation."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "If the user better understands task complexity.",
+          "quote": "You don't need to be this extreme, if you have better understanding about the complexity of your task.",
+          "role": "Exception",
+          "scope": "Minimal starting configuration",
+          "segment_index": 0,
+          "support": "Allows task-specific judgment."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 45
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "After acceptable performance; optional refinement.",
+          "quote": "Once an acceptable performance is achieved, you could then try refining your KAN (more accurate or more interpretable).",
+          "role": "Workflow stage",
+          "scope": "Accuracy or interpretability refinement",
+          "segment_index": 0,
+          "support": "Next bullets describe each refinement path."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 46
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "If accuracy is the priority.",
+          "quote": "If you care about accuracy, try grid extention technique.",
+          "role": "Tuning recommendation",
+          "scope": "Grid extension",
+          "segment_index": 0,
+          "support": "Linked function-fitting example."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Overfitting risk; later guidance applies.",
+          "quote": "But watch out for overfitting, see below.",
+          "role": "Technical caveat",
+          "scope": "Grid extension",
+          "segment_index": 2,
+          "support": "Later train/test-loss and grid-reduction guidance."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 47
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "If interpretability is the priority; example method call follows.",
+          "quote": "If you care about interpretability, try sparsifying the network with, e.g.,",
+          "role": "Tuning recommendation",
+          "scope": "Network sparsification",
+          "segment_index": 0,
+          "support": "Protected training call with lamb=0.01."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 48
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Gradual increase; recommendation.",
+          "quote": "It would also be advisable to try increasing lamb gradually.",
+          "role": "Regularization guidance",
+          "scope": "Sparsification training",
+          "segment_index": 0,
+          "support": "Continuation of the lamb example."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "After sparsification training; prune only if the plot shows useless neurons; optional.",
+          "quote": "After training with sparsification, plot it, if you see some neurons that are obvious useless, you may call",
+          "role": "Inspection and pruning procedure",
+          "scope": "Trained sparse network",
+          "segment_index": 0,
+          "support": "Protected prune-method assignment follows."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 49
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Result of the preceding protected call.",
+          "quote": "to get the pruned model.",
+          "role": "Method outcome",
+          "scope": "Pruning",
+          "segment_index": 0,
+          "support": "Protected pruned_model assignment."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "After pruning; further training can target accuracy or sparsity; symbolic regression is another option.",
+          "quote": "You can then further train (either to encourage accuracy or encouarge sparsity), or do symbolic regression.",
+          "role": "Next-step options",
+          "scope": "Pruned model",
+          "segment_index": 0,
+          "support": "Source workflow recommendation."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 50
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Not necessarily contradictory; includes parameter efficiency.",
+          "quote": "I also want to emphasize that accuracy and interpretability (and also parameter efficiency) are not necessarily contradictory",
+          "role": "Relationship caveat",
+          "scope": "Accuracy, interpretability, and parameter efficiency",
+          "segment_index": 0,
+          "support": "Figure 2.3 in the linked paper."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Positive correlation in some cases; tradeoffs in others.",
+          "quote": "They can be positively correlated in some cases but in other cases may dispaly some tradeoff.",
+          "role": "Conditional relationship",
+          "scope": "Refinement objectives",
+          "segment_index": 2,
+          "support": "Preceding paper reference and explicit conditional framing."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "General recommendation; subsequent exception applies.",
+          "quote": "So it would be good not to be greedy and aim for one goal at a time.",
+          "role": "Prioritization advice",
+          "scope": "Refinement objectives",
+          "segment_index": 2,
+          "support": "Potential tradeoffs in the preceding sentence."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "If there is a strong reason to expect pruning to improve accuracy; may prioritize interpretability even with an accuracy end goal.",
+          "quote": "However, if you have a strong reason why you believe pruning (interpretability) can also help accuracy, you may want to plan ahead, such that even if your end goal is accuracy, you want to push interpretability first.",
+          "role": "Conditional exception",
+          "scope": "Ordering pruning and accuracy refinement",
+          "segment_index": 2,
+          "support": "Earlier statement that the objectives can be positively correlated."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 51
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "After a “quite good” result.",
+          "quote": "Once you get a quite good result, try increasing data size and have a final run",
+          "role": "Final training recommendation",
+          "scope": "Dataset scaling after initial tuning",
+          "segment_index": 0,
+          "support": "Later explanation of starting with small data."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Expected improvement, expressed as “should.”",
+          "quote": "which should give you even better results!",
+          "role": "Outcome prediction",
+          "scope": "Final run with more data",
+          "segment_index": 0,
+          "support": "No result or metric specified; later text qualifies small-to-large dataset transfer."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 52
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Could be personal or biased.",
+          "quote": "Try the simplest thing first is the mindset of physicists, which could be personal/biased",
+          "role": "Methodological framing",
+          "scope": "Simple-first approach",
+          "segment_index": 0,
+          "support": "Author's physics background and personal preference."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Personal assessment.",
+          "quote": "I find this mindset quite effective and make things well-controlled for me.",
+          "role": "Experiential benefit claim",
+          "scope": "Simple-first approach",
+          "segment_index": 0,
+          "support": "Next sentence supplies faster debugging feedback as a concrete benefit."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 53
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Initial debugging stage; author's preference.",
+          "quote": "The reason why I tend to choose a small dataset at first is to get faster feedback in the debugging stage",
+          "role": "Dataset-choice rationale",
+          "scope": "Initial experiments",
+          "segment_index": 0,
+          "support": "Following statement that the initial implementation is slow."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Initial implementation specifically.",
+          "quote": "my initial implementation is slow",
+          "role": "Implementation limitation",
+          "scope": "Author's implementation",
+          "segment_index": 0,
+          "support": "Author's report."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 54
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Assumption, not an established general fact.",
+          "quote": "The hidden assumption is that a small dataset behaves qualitatively similar to a large dataset",
+          "role": "Methodological assumption",
+          "scope": "Tuning with small datasets",
+          "segment_index": 0,
+          "support": "Explains the preceding workflow."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Not necessarily true generally; usually true only in the author's tested small-scale problems.",
+          "quote": "which is not necessarily true in general, but usually true in small-scale problems that I have tried.",
+          "role": "Generalization caveat",
+          "scope": "Small-versus-large dataset behavior",
+          "segment_index": 0,
+          "support": "Explicitly limited personal experience."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 55
+    },
+    {
+      "claims": [],
+      "empty_reason": "Cross-reference to the following data-sufficiency guidance.",
+      "ordinal": 56
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Continual checking.",
+          "quote": "Another thing that would be good to keep in mind is that please constantly checking if your model is in underfitting or overfitting regime.",
+          "role": "Monitoring instruction",
+          "scope": "Model fit during tuning",
+          "segment_index": 0,
+          "support": "Following train/test-loss criterion."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "If train/test losses have a large gap; probable recommendation, with alternatives.",
+          "quote": "If there is a large gap between train/test losses, you probably want to increase data or reduce model",
+          "role": "Conditional remediation",
+          "scope": "Possible overfitting",
+          "segment_index": 0,
+          "support": "Following grid-before-width reduction sequence."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 57
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Grid relative to width, in this overfitting response.",
+          "quote": "is more important than",
+          "role": "Parameter priority",
+          "scope": "Protected grid and width identifiers",
+          "segment_index": 0,
+          "support": "Surrounding protected identifiers and subsequent reduction order."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 58
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "First try; grid is the protected object.",
+          "quote": ", so first try decreasing",
+          "role": "Ordered adjustment",
+          "scope": "Model reduction for a large train/test-loss gap",
+          "segment_index": 0,
+          "support": "Preceding grid-versus-width priority."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 59
+    },
+    {
+      "claims": [],
+      "empty_reason": "Ordering connective only; completes the preceding grid-then-width instruction around protected identifiers.",
+      "ordinal": 60
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Start underfitting and expand gradually.",
+          "quote": "This is also the reason why I'd love to start from simple models to make sure that the model is first in underfitting regime and then gradually expands to the \"Goldilocks zone\".",
+          "role": "Workflow rationale",
+          "scope": "Simple-to-complex model tuning",
+          "segment_index": 0,
+          "support": "Preceding underfitting/overfitting monitoring guidance."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 61
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 62
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 63
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "For questions.",
+          "quote": "If you have any questions, please contact zmliu@mit.edu",
+          "role": "Contact instruction",
+          "scope": "Reader inquiries",
+          "segment_index": 0,
+          "support": "Explicit contact address."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 64
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 65
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Personal acknowledgment.",
+          "quote": "I would like to thank everyone who's interested in KANs.",
+          "role": "Acknowledgment",
+          "scope": "Interested readers",
+          "segment_index": 0,
+          "support": "Author's expressed gratitude."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Small math and physics examples; limited attention to optimization, not an assertion of none.",
+          "quote": "When I designed KANs and wrote codes, I have math & physics examples (which are quite small scale!) in mind, so did not consider much optimization in efficiency or reusability.",
+          "role": "Design scope and implementation caveat",
+          "scope": "Original KAN design and code",
+          "segment_index": 0,
+          "support": "Author's account of design priorities."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Personal reaction.",
+          "quote": "It's so honored to receive this unwarranted attention, which is way beyond my expectation.",
+          "role": "Reception acknowledgment",
+          "scope": "Attention received by the project",
+          "segment_index": 0,
+          "support": "Author's stated expectations."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Criticism concerning efficiency and reusability.",
+          "quote": "So I accept any criticism from people complaning about the efficiency and resuability of the codes, my apology.",
+          "role": "Acknowledgment of limitations",
+          "scope": "Project code",
+          "segment_index": 0,
+          "support": "Preceding account of limited optimization."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Personal hope completed by protected model.plot() and unit 67.",
+          "quote": "My only hope is that you find",
+          "role": "Reader-directed wish",
+          "scope": "Enjoyment of model plotting",
+          "segment_index": 0,
+          "support": "Continuation in unit 67."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 66
+    },
+    {
+      "claims": [],
+      "empty_reason": "Completes the plotting-related personal wish accounted for in unit 66.",
+      "ordinal": 67
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Scientific discovery and computing users were the original intended audience.",
+          "quote": "For users who are interested in scientific discoveries and scientific computing (the orginal users intended for)",
+          "role": "Audience definition",
+          "scope": "Project's intended users",
+          "segment_index": 0,
+          "support": "Consistent with the stated math and physics design scope."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "For that scientific audience.",
+          "quote": "I'm happy to hear your applications and collaborate.",
+          "role": "Collaboration invitation",
+          "scope": "Scientific applications",
+          "segment_index": 0,
+          "support": "Author's expressed willingness."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 68
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Mostly; continuing scientific focus.",
+          "quote": "This repo will continue remaining mostly for this purpose",
+          "role": "Project direction",
+          "scope": "Repository",
+          "segment_index": 0,
+          "support": "Preceding intended-audience statement."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Probably; significant efficiency updates specifically.",
+          "quote": "probably without signifiant updates for efficiency.",
+          "role": "Maintenance expectation",
+          "scope": "Future efficiency work",
+          "segment_index": 0,
+          "support": "Author's stated project priorities."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 69
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Examples already exist.",
+          "quote": "there are already implmentations like ",
+          "role": "Alternative implementation pointer",
+          "scope": "Linked efficientkan and fouierkan projects",
+          "segment_index": 0,
+          "support": "Two implementation links."
+        },
+        {
+          "disposition": "uncertain",
+          "qualifiers": "“Look promising” signals a tentative impression.",
+          "quote": " that look promising for improving efficiency.",
+          "role": "Tentative efficiency assessment",
+          "scope": "Alternative implementations",
+          "segment_index": 4,
+          "support": "Links are provided, but no comparative measurements appear in the page."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 70
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Likely; not yet; machine learning audience.",
+          "quote": "For users who are machine learning focus, I have to be honest that KANs are likely not a simple plug-in that can be used out-of-the box (yet).",
+          "role": "Usability caveat",
+          "scope": "KAN adoption in machine learning",
+          "segment_index": 0,
+          "support": "Following tuning requirement and application-specific examples."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 71
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "",
+          "quote": "Hyperparameters need tuning",
+          "role": "Adoption requirement",
+          "scope": "Machine learning applications",
+          "segment_index": 0,
+          "support": "Earlier tuning section."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Application-specific modifications recommended.",
+          "quote": "more tricks special to your applications should be introduced.",
+          "role": "Adaptation guidance",
+          "scope": "Machine learning applications",
+          "segment_index": 0,
+          "support": "Following GraphKAN and KANRL examples make the general wording concrete."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 72
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Attributed suggestion from GraphKAN.",
+          "quote": " suggests that KANs should better be used in latent space",
+          "role": "Application-specific recommendation",
+          "scope": "GraphKAN example",
+          "segment_index": 2,
+          "support": "Linked GraphKAN project."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Embedding after inputs; unembedding before outputs; linear layers.",
+          "quote": "need embedding and unembedding linear layers after inputs and before outputs",
+          "role": "Architectural detail",
+          "scope": "Latent-space KAN use",
+          "segment_index": 2,
+          "support": "Parenthetical explanation of the attributed GraphKAN suggestion."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 73
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "KANRL suggests; some parameters; reinforcement learning.",
+          "quote": " suggests that some trainable parameters should better be fixed in reinforcement learning to increase training stability.",
+          "role": "Application-specific recommendation and rationale",
+          "scope": "KANRL example",
+          "segment_index": 1,
+          "support": "Linked KANRL project."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 74
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Most common recently, according to the author.",
+          "quote": "The most common question I've been asked lately is whether KANs will be next-gen LLMs.",
+          "role": "Discussion context",
+          "scope": "Questions received by the author",
+          "segment_index": 0,
+          "support": "Personal report, not a prediction about KANs."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 75
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Explicit lack of confidence.",
+          "quote": "I don't have good intuition about this.",
+          "role": "Epistemic caveat",
+          "scope": "KANs as future LLMs",
+          "segment_index": 0,
+          "support": "Author's self-assessment."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 76
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Accuracy and/or interpretability; design intent.",
+          "quote": "KANs are designed for applications where one cares about high accuracy and/or interpretability.",
+          "role": "Design objectives",
+          "scope": "Intended KAN applications",
+          "segment_index": 0,
+          "support": "Earlier scientific focus and tuning objectives."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 77
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Author's stated interest.",
+          "quote": "We do care about LLM interpretability for sure",
+          "role": "Statement of priorities",
+          "scope": "LLM interpretability",
+          "segment_index": 0,
+          "support": "Personal statement."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Meanings can differ; no specific distinction supplied here.",
+          "quote": "interpretability can mean wildly different things for LLM and for science.",
+          "role": "Cross-domain caveat",
+          "scope": "LLMs versus scientific applications",
+          "segment_index": 0,
+          "support": "Supports the later caution about transferring paper conclusions."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 78
+    },
+    {
+      "claims": [],
+      "empty_reason": "Question introducing the qualified discussion of LLM accuracy; no independent assertion.",
+      "ordinal": 79
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Author does not know; scaling laws only seem to imply relevance.",
+          "quote": "I don't know, scaling laws seem to imply so",
+          "role": "Tentative reasoning",
+          "scope": "Importance of high accuracy for LLMs",
+          "segment_index": 0,
+          "support": "Invokes scaling laws without a specific citation."
+        },
+        {
+          "disposition": "uncertain",
+          "qualifiers": "Probably; “too high” has no threshold.",
+          "quote": "but probably not too high precision.",
+          "role": "Speculative limitation",
+          "scope": "LLM precision needs",
+          "segment_index": 0,
+          "support": "No precision definition or evidence provided; explicitly tentative."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 80
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Can differ.",
+          "quote": "accuracy can also mean different things for LLM and for science.",
+          "role": "Cross-domain caveat",
+          "scope": "Accuracy in LLMs versus science",
+          "segment_index": 0,
+          "support": "Distinct from the preceding interpretability caveat."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 81
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Difficult to transfer directly, not impossible.",
+          "quote": "This subtlety makes it hard to directly transfer conclusions in our paper to LLMs, or machine learning tasks in general.",
+          "role": "Generalization limitation",
+          "scope": "Paper conclusions applied beyond scientific tasks",
+          "segment_index": 0,
+          "support": "Preceding differences in accuracy and interpretability meanings."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 82
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Personal hope; two examples of high-level ideas.",
+          "quote": "I would be very happy if you have enjoyed the high-level idea (learnable activation functions on edges, or interacting with AI for scientific discoveries)",
+          "role": "Statement of intended inspiration",
+          "scope": "Architectural and scientific-discovery ideas",
+          "segment_index": 0,
+          "support": "Concrete ideas are named."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Not necessarily the future.",
+          "quote": "which is not necessariy ",
+          "role": "Prediction disclaimer",
+          "scope": "Future importance of the ideas",
+          "segment_index": 0,
+          "support": "Completed by the following emphasized phrase."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Hope rather than prediction; many possible futures.",
+          "quote": ", but can hopefully inspire and impact ",
+          "role": "Aspirational impact claim",
+          "scope": "Future influence of the ideas",
+          "segment_index": 2,
+          "support": "No specific outcome given."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 83
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Author's perspective as a physicist; exploratory message rather than simple endorsement.",
+          "quote": "As a physicist, the message I want to convey is less of \"KANs are great\", but more of \"try thinking of current architectures critically and seeking fundamentally different alternatives that can do fun and/or useful stuff\".",
+          "role": "Research philosophy",
+          "scope": "Critical exploration of alternative architectures",
+          "segment_index": 0,
+          "support": "Personal statement of intent."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 84
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Applies to both KANs and critiques.",
+          "quote": "I would like to welcome people to be critical of KANs, but also to be critical of critiques as well.",
+          "role": "Invitation to scrutiny",
+          "scope": "Evaluation of KANs and criticism",
+          "segment_index": 0,
+          "support": "Following call for empirical testing."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 85
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Expressed as a philosophical maxim; includes the Chinese text.",
+          "quote": "Practice is the only criterion for testing understanding (实践是检验真理的唯一标准).",
+          "role": "Empirical philosophy",
+          "scope": "Testing understanding",
+          "segment_index": 0,
+          "support": "Author's stated principle."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 86
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Many outcomes, not all; both success and failure.",
+          "quote": "We don't know many things beforehand until they are really tried and shown to be succeeding or failing.",
+          "role": "Empirical-testing rationale",
+          "scope": "Learning through trials",
+          "segment_index": 0,
+          "support": "Restates the preceding practice-based maxim."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 87
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Equal curiosity about success and failure.",
+          "quote": "As much as I'm willing to see success mode of KANs, I'm equally curious about failure modes of KANs, to better understand the boundaries.",
+          "role": "Research interest",
+          "scope": "Understanding KAN applicability",
+          "segment_index": 0,
+          "support": "Explicit interest in determining limitations."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 88
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "As far as the author can tell.",
+          "quote": "KANs and MLPs cannot replace each other (as far as I can tell)",
+          "role": "Comparative limitation",
+          "scope": "KANs and MLPs",
+          "segment_index": 0,
+          "support": "Following setting-dependent advantages and limitations."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Advantages in some settings; limitations in others.",
+          "quote": "they each have advantages in some settings and limitations in others.",
+          "role": "Context-dependent comparison",
+          "scope": "KANs and MLPs",
+          "segment_index": 0,
+          "support": "Author's qualified assessment."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 89
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Desired framework, not an existing result; could suggest alternatives.",
+          "quote": "I would be intrigued by a theoretical framework that encompasses both and could even suggest new alternatives",
+          "role": "Research aspiration",
+          "scope": "Unified treatment of KANs and MLPs",
+          "segment_index": 0,
+          "support": "Preceding complementary strengths and limitations."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Humorous personal aside.",
+          "quote": "physicists love unified theories, sorry :).",
+          "role": "Authorial aside",
+          "scope": "Motivation for a unified framework",
+          "segment_index": 0,
+          "support": "Author's self-described physics perspective."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 90
+    }
+  ]
+}

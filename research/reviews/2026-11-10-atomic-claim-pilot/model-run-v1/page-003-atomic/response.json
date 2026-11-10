@@ -1,0 +1,902 @@
+{
+  "diagnoses": [
+    {
+      "preserve": "Before installing a NuGet package or cloning the repository, select the appropriate FHIR version because HL7 specification updates introduce breaking changes.",
+      "problem": "The warning embeds its actionable version-selection requirement in metadiscourse ('it is important to understand' and 'you need to ensure'), delaying the reason readers must choose carefully.",
+      "quote": "Before installing one of the NuGet packages (or clone the repo) it is important to understand that HL7 has published several updates of the FHIR specification, each with breaking changes - so you need to ensure you use the version that is right for you:",
+      "segment_index": 0,
+      "unit_ordinal": 14
+    },
+    {
+      "preserve": "Download the package appropriate to the reader's FHIR release; retain the documentation reference.",
+      "problem": "'The correct' has no noun, leaving the object of the download instruction unstated. The following sentence and package table establish that the missing object is a package.",
+      "quote": ", and download the correct for your FHIR release.",
+      "segment_index": 2,
+      "unit_ordinal": 19
+    },
+    {
+      "preserve": "The table below supplies package links by required FHIR version.",
+      "problem": "The opening condition repeats the preceding instruction to choose a download for the reader's FHIR release. The independently useful information here is the location of the package links.",
+      "quote": "Depending on the version of FHIR you require, you'll find the relevant link to the package below.",
+      "segment_index": 0,
+      "unit_ordinal": 20
+    },
+    {
+      "preserve": "Pre-release packages are available by adding the protected feed URL to NuGet sources; using them is optional.",
+      "problem": "'Want to be brave' substitutes a judgment about the reader for information about pre-release packages, while 'you can do so by' further delays the setup instruction.",
+      "quote": "So if you want to be brave and use a pre-release packages, you can do so by adding",
+      "segment_index": 0,
+      "unit_ordinal": 30
+    },
+    {
+      "preserve": "Maintainers try to maintain compile compatibility between minor SDK releases; this is an aim, not a guarantee, and does not extend to binary compatibility.",
+      "problem": "'Spend a lot of effort' is an unquantified claim about maintainer effort that obscures the useful compatibility policy.",
+      "quote": "We spend a lot of effort trying to maintain ",
+      "segment_index": 0,
+      "unit_ordinal": 37
+    },
+    {
+      "preserve": "The contact link invites organizations interested in optional commercial support to inquire.",
+      "problem": "'If this is relevant for you, feel free to' adds two layers of invitation framing immediately after the paragraph has already identified the audience and support offering.",
+      "quote": "If this is relevant for you, feel free to ",
+      "segment_index": 0,
+      "unit_ordinal": 53
+    },
+    {
+      "preserve": "The project uses Git Flow for branch management, and contribution PRs target the protected develop branch.",
+      "problem": "The participation condition delays the branch-management policy and makes a standing project practice sound conditional on the reader's interest. The Contributing heading already supplies that context.",
+      "quote": "If you want to participate in this project, we're using ",
+      "segment_index": 0,
+      "unit_ordinal": 56
+    }
+  ],
+  "page_id": "FirelyTeam/firely-net-sdk/README.md",
+  "source_sha256": "3c5b9a83cbf5d7de5d8b18e8c3aa6bede4c0559a57469c382e60b858bbb9f5d4",
+  "units": [
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 0
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Official Firely SDK; Microsoft .NET (dotnet).",
+          "quote": "This is Firely's official support SDK for working with ",
+          "role": "Product identification",
+          "scope": "SDK for HL7 FHIR on .NET",
+          "segment_index": 0,
+          "support": "Direct identification; linked FHIR specification names the standard."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 1
+    },
+    {
+      "claims": [],
+      "empty_reason": "Introduces the capability list without an independent claim.",
+      "ordinal": 2
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Uses POCOs.",
+          "quote": "Class models for working with the FHIR data model using POCO's",
+          "role": "Capability",
+          "scope": "FHIR data models",
+          "segment_index": 0,
+          "support": "Explicit capability listing."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 3
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Both XML and JSON; parsing and serialization.",
+          "quote": "Xml and Json parsers and serializers",
+          "role": "Capability",
+          "scope": "SDK serialization",
+          "segment_index": 0,
+          "support": "Explicit capability listing."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 4
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "FHIR-compliant servers.",
+          "quote": "A REST client for working with FHIR-compliant servers",
+          "role": "Capability",
+          "scope": "Server communication",
+          "segment_index": 0,
+          "support": "Explicit capability listing."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 5
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Protected StructureDefinition identifier supplies a notable example.",
+          "quote": "Helper classes to work with the specification metadata, most notably",
+          "role": "Capability",
+          "scope": "Specification metadata helpers",
+          "segment_index": 0,
+          "support": "Capability listing with a specific protected example."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 6
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Part of the metadata-helper capability.",
+          "quote": "and generation of differentials",
+          "role": "Capability",
+          "scope": "Differential generation",
+          "segment_index": 0,
+          "support": "Continuation of the helper-class listing."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 7
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Profile-based instance validation.",
+          "quote": "Validation of instances based on profiles",
+          "role": "Capability",
+          "scope": "Validation",
+          "segment_index": 0,
+          "support": "Later text identifies the separate validator repository and compatible packages."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 8
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "FHIRPath expressions.",
+          "quote": "Evaluation ",
+          "role": "Capability",
+          "scope": "Expression evaluation",
+          "segment_index": 0,
+          "support": "The adjoining linked FhirPath name identifies the expression language."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 9
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 10
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Repository releases page.",
+          "quote": "Read the releases notes on ",
+          "role": "Navigation instruction",
+          "scope": "Release notes",
+          "segment_index": 0,
+          "support": "Accompanying releases link."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 11
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Documentation for this SDK.",
+          "quote": "You can find documentation about this SDK in ",
+          "role": "Resource location",
+          "scope": "SDK documentation",
+          "segment_index": 0,
+          "support": "Linked Firely documentation site."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 12
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 13
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Several updates; each introduces breaking changes.",
+          "quote": "HL7 has published several updates of the FHIR specification, each with breaking changes",
+          "role": "Technical rationale",
+          "scope": "FHIR specification versions",
+          "segment_index": 0,
+          "support": "Following list identifies the specification releases."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Before package installation or repository cloning.",
+          "quote": "so you need to ensure you use the version that is right for you:",
+          "role": "Version-selection instruction",
+          "scope": "Getting started",
+          "segment_index": 0,
+          "support": "Preceding breaking-change warning and following version list."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 14
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "March 2017; older release.",
+          "quote": "(published March 2017) is older",
+          "role": "Release context",
+          "scope": "STU3",
+          "segment_index": 1,
+          "support": "Linked STU3 specification and later release dates."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Still widely used.",
+          "quote": "still widely in use",
+          "role": "Adoption context",
+          "scope": "STU3",
+          "segment_index": 1,
+          "support": "Author assertion; no adoption measurements provided."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Full SDK support.",
+          "quote": "fully supported by the SDK.",
+          "role": "Compatibility assurance",
+          "scope": "STU3",
+          "segment_index": 1,
+          "support": "Package table includes STU3."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 15
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "January 2019.",
+          "quote": "(published January 2019)",
+          "role": "Release date",
+          "scope": "R4",
+          "segment_index": 1,
+          "support": "Linked R4 specification."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Active use.",
+          "quote": "is in active use",
+          "role": "Adoption context",
+          "scope": "R4",
+          "segment_index": 1,
+          "support": "Author assertion."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Full SDK support.",
+          "quote": "fully supported by the SDK.",
+          "role": "Compatibility assurance",
+          "scope": "R4",
+          "segment_index": 1,
+          "support": "Package table includes R4."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 16
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "May 2022.",
+          "quote": "(published May 2022)",
+          "role": "Release date",
+          "scope": "R4B",
+          "segment_index": 1,
+          "support": "Linked R4B specification."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Active use.",
+          "quote": "is in active use",
+          "role": "Adoption context",
+          "scope": "R4B",
+          "segment_index": 1,
+          "support": "Author assertion."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Full SDK support.",
+          "quote": "fully supported by the SDK.",
+          "role": "Compatibility assurance",
+          "scope": "R4B",
+          "segment_index": 1,
+          "support": "Package table includes R4B."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 17
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "March 26 2023.",
+          "quote": "(published March 26 2023)",
+          "role": "Release date",
+          "scope": "R5",
+          "segment_index": 1,
+          "support": "Linked R5 specification."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Latest official release as stated by the page.",
+          "quote": "is the latest official release of the FHIR spec",
+          "role": "Release status",
+          "scope": "R5",
+          "segment_index": 1,
+          "support": "Newest release in the supplied list; no outside verification."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Full SDK support.",
+          "quote": "fully supported by the SDK.",
+          "role": "Compatibility assurance",
+          "scope": "R5",
+          "segment_index": 1,
+          "support": "Package table includes R5."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 18
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Linked online documentation.",
+          "quote": "Read the ",
+          "role": "Instruction",
+          "scope": "Installation preparation",
+          "segment_index": 0,
+          "support": "Accompanying documentation link."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Must match the reader's FHIR release.",
+          "quote": ", and download the correct for your FHIR release.",
+          "role": "Download instruction",
+          "scope": "Package selection",
+          "segment_index": 2,
+          "support": "Next sentence and table identify packages as the download target."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 19
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Links depend on required FHIR version.",
+          "quote": "Depending on the version of FHIR you require, you'll find the relevant link to the package below.",
+          "role": "Transition and resource location",
+          "scope": "Version-specific package table",
+          "segment_index": 0,
+          "support": "Immediately following package table."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 20
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Most developers; enough to get started, not all use cases.",
+          "quote": "For most developers, just including this NuGet package is enough to get started.",
+          "role": "Setup guidance",
+          "scope": "Selected version-specific package",
+          "segment_index": 0,
+          "support": "Package table supplies the available choices."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 21
+    },
+    {
+      "claims": [],
+      "empty_reason": "Table column label.",
+      "ordinal": 22
+    },
+    {
+      "claims": [],
+      "empty_reason": "Table column label.",
+      "ordinal": 23
+    },
+    {
+      "claims": [],
+      "empty_reason": "Table column label.",
+      "ordinal": 24
+    },
+    {
+      "claims": [],
+      "empty_reason": "Bare version label in a package-navigation row.",
+      "ordinal": 25
+    },
+    {
+      "claims": [],
+      "empty_reason": "Bare version label in a package-navigation row.",
+      "ordinal": 26
+    },
+    {
+      "claims": [],
+      "empty_reason": "Bare version label in a package-navigation row.",
+      "ordinal": 27
+    },
+    {
+      "claims": [],
+      "empty_reason": "Bare version label in a package-navigation row.",
+      "ordinal": 28
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 29
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Every SDK release; normal NuGet feed.",
+          "quote": "Every release of the SDK results in a NuGet package on the normal NuGet feed.",
+          "role": "Distribution behavior",
+          "scope": "SDK releases",
+          "segment_index": 0,
+          "support": "Direct publication-policy statement."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Each commit on develop; pre-release package.",
+          "quote": "However, each commit on our develop branch also results in a pre-release package.",
+          "role": "Distribution behavior",
+          "scope": "Development builds",
+          "segment_index": 0,
+          "support": "Following feed setup instructions."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Pre-release packages are public too.",
+          "quote": "These are public too.",
+          "role": "Availability",
+          "scope": "Pre-release packages",
+          "segment_index": 0,
+          "support": "Direct assertion; subsequent instructions still require a PAT."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Optional use; requires adding the protected feed URL to NuGet sources.",
+          "quote": "So if you want to be brave and use a pre-release packages, you can do so by adding",
+          "role": "Promotional framing and setup instruction",
+          "scope": "Pre-release package consumption",
+          "segment_index": 0,
+          "support": "Protected feed URL and subsequent setup steps support the action; bravery is rhetorical."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 30
+    },
+    {
+      "claims": [],
+      "empty_reason": "Completes the feed-addition instruction accounted for in unit 30.",
+      "ordinal": 31
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "GitHub PAT with protected read:packages scope.",
+          "quote": "Get a Personal Access token (PAT) from ",
+          "role": "Prerequisite instruction",
+          "scope": "Pre-release feed access",
+          "segment_index": 0,
+          "support": "GitHub token link and protected scope."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 32
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Local console; follows PAT acquisition.",
+          "quote": "Next open a console on your machine and run",
+          "role": "Command instruction",
+          "scope": "NuGet source registration",
+          "segment_index": 0,
+          "support": "Following protected dotnet command."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 33
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Reader's GitHub username.",
+          "quote": ": your username on GitHub",
+          "role": "Parameter definition",
+          "scope": "Protected USERNAME placeholder",
+          "segment_index": 0,
+          "support": "Preceding command and protected placeholder."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 34
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "At least read:packages scope.",
+          "quote": ": your Personal access token with at least the scope",
+          "role": "Parameter definition",
+          "scope": "Protected PAT placeholder",
+          "segment_index": 0,
+          "support": "Protected scope and preceding PAT acquisition instruction."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 35
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 36
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Effort is asserted, not measured.",
+          "quote": "We spend a lot of effort trying to maintain ",
+          "role": "Maintainer-effort claim",
+          "scope": "Compatibility maintenance",
+          "segment_index": 0,
+          "support": "No measure of effort supplied."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Attempted compile compatibility between minor releases; explicitly not binary compatibility.",
+          "quote": " compatibility (not binary compatibility) between minor releases of the SDK.",
+          "role": "Compatibility policy",
+          "scope": "Minor SDK releases",
+          "segment_index": 2,
+          "support": "Direct policy statement; adjoining emphasized compile specifies compatibility type."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 37
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "About once a year; major versions with breaking changes.",
+          "quote": "We do, however, publish a new major version with breaking changes about once a year.",
+          "role": "Release cadence",
+          "scope": "Major SDK releases",
+          "segment_index": 0,
+          "support": "Following table links major-version breaking changes."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 38
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Each listed major upgrade.",
+          "quote": "The table below lists the breaking changes for each of the major upgrades.",
+          "role": "Navigation",
+          "scope": "Upgrade references",
+          "segment_index": 0,
+          "support": "Following table of versions 2.x through 6.x."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 39
+    },
+    {
+      "claims": [],
+      "empty_reason": "Table column label.",
+      "ordinal": 40
+    },
+    {
+      "claims": [],
+      "empty_reason": "Table column label.",
+      "ordinal": 41
+    },
+    {
+      "claims": [],
+      "empty_reason": "Bare version label in an upgrade-navigation row.",
+      "ordinal": 42
+    },
+    {
+      "claims": [],
+      "empty_reason": "Bare version label in an upgrade-navigation row.",
+      "ordinal": 43
+    },
+    {
+      "claims": [],
+      "empty_reason": "Bare version label in an upgrade-navigation row.",
+      "ordinal": 44
+    },
+    {
+      "claims": [],
+      "empty_reason": "Bare version label in an upgrade-navigation row.",
+      "ordinal": 45
+    },
+    {
+      "claims": [],
+      "empty_reason": "Bare version label in an upgrade-navigation row.",
+      "ordinal": 46
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Separate repository.",
+          "quote": "The profile validator has been split off into its own ",
+          "role": "Architecture and location update",
+          "scope": "Profile validator",
+          "segment_index": 0,
+          "support": "Accompanying validator repository link."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 47
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Validator packages compatible with SDK 6.0.",
+          "quote": "The NuGet packages for the validator that are compatible with the SDK 6.0 release can be found on ",
+          "role": "Compatibility and package location",
+          "scope": "Validator distribution",
+          "segment_index": 0,
+          "support": "Linked NuGet search for validator packages."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 48
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 49
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Active monitoring of repository issues.",
+          "quote": "We actively monitor the issues coming in through the GitHub repository at",
+          "role": "Support-channel assurance",
+          "scope": "GitHub issues",
+          "segment_index": 0,
+          "support": "Accompanying issue-tracker link; no response-time promise."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 50
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Bugs and feature suggestions.",
+          "quote": "You are welcome to register your bugs and feature suggestions there.",
+          "role": "Reporting instruction",
+          "scope": "GitHub issue tracker",
+          "segment_index": 0,
+          "support": "Preceding issue-tracker reference."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Questions and broader discussions; .NET FHIR Implementers chat.",
+          "quote": "For questions and broader discussions, we use the .NET FHIR Implementers chat on ",
+          "role": "Support routing",
+          "scope": "Zulip discussions",
+          "segment_index": 0,
+          "support": "Accompanying Zulip link."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 51
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Community support through GitHub.",
+          "quote": "In addition to community support via GitHub",
+          "role": "Support context",
+          "scope": "Community offering",
+          "segment_index": 0,
+          "support": "Preceding issue-reporting and monitoring statements."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Optional; organizations using the SDK in production and seeking guaranteed response times or implementation help.",
+          "quote": "Firely also offers optional commercial support for organizations that rely on the SDK in production and want guaranteed response times or implementation help.",
+          "role": "Commercial offering",
+          "scope": "Production SDK support",
+          "segment_index": 0,
+          "support": "Direct offering statement and following contact link; no specific response-time commitment supplied."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 52
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "For readers interested in the preceding commercial support offer.",
+          "quote": "If this is relevant for you, feel free to ",
+          "role": "Contact invitation",
+          "scope": "Commercial support inquiries",
+          "segment_index": 0,
+          "support": "Preceding audience description and accompanying contact link."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 53
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 54
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Open invitation.",
+          "quote": "We are welcoming contributions!",
+          "role": "Participation invitation",
+          "scope": "Project contributions",
+          "segment_index": 0,
+          "support": "Following contribution workflow instructions."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 55
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Git Flow for branch management.",
+          "quote": "If you want to participate in this project, we're using ",
+          "role": "Contribution workflow",
+          "scope": "Project branch management",
+          "segment_index": 0,
+          "support": "Accompanying Git Flow link and branch-management clause."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "PRs with changes target protected develop identifier.",
+          "quote": "Please submit PRs with changes against the",
+          "role": "Contribution instruction",
+          "scope": "Pull request target branch",
+          "segment_index": 2,
+          "support": "Following protected branch identifier."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 56
+    },
+    {
+      "claims": [],
+      "empty_reason": "Completes the target-branch instruction accounted for in unit 56.",
+      "ordinal": 57
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 58
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Automatic check; fails on binary compatibility breaks.",
+          "quote": "Our build pipeline automatically checks for binary compatibilty and fails when we break it.",
+          "role": "Build behavior",
+          "scope": "Binary compatibility enforcement",
+          "segment_index": 0,
+          "support": "Following suppression-file procedure."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Exceptions possible only in some cases; no criteria specified.",
+          "quote": "In some cases we can make an exception to break binary compatitibility.",
+          "role": "Policy caveat",
+          "scope": "Binary compatibility breaks",
+          "segment_index": 0,
+          "support": "Direct qualification of the enforcement policy."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Run the protected command locally to generate a suppression file, in the preceding exception context.",
+          "quote": "To make sure the pipeline doesn't break, you should run",
+          "role": "Build instruction",
+          "scope": "Compatibility suppression",
+          "segment_index": 0,
+          "support": "Protected dotnet pack command and continuation in unit 60."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 59
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Local generation.",
+          "quote": "locally to generate a suppression file.",
+          "role": "Command outcome",
+          "scope": "Protected suppression-generation command",
+          "segment_index": 0,
+          "support": "Preceding command explicitly enables suppression-file generation."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Commit the generated file for the build.",
+          "quote": "Please commit this file to make sure the build passes.",
+          "role": "Repository instruction",
+          "scope": "Compatibility suppression file",
+          "segment_index": 0,
+          "support": "Earlier pipeline failure behavior explains why the file is needed."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 60
+    }
+  ]
+}

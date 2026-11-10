@@ -1,0 +1,55 @@
+{
+  "diagnoses": [
+    {
+      "preserve": "The tool lets users customize the prefix of git commit hashes.",
+      "problem": "“Simple” adds an unsupported ease claim, while “whatever you want” obscures the hexadecimal prefix constraint explained later.",
+      "quote": "With this simple tool, you can change the start of your git commit hashes to whatever you want.",
+      "segment_index": 0,
+      "unit_ordinal": 3
+    },
+    {
+      "preserve": "The tool repeatedly changes whitespace in commit messages until the hash matches the requested prefix; the default prefix is \"0000000\".",
+      "problem": "“Good hash” substitutes a vague value judgment for the specific stopping condition: matching the desired prefix.",
+      "quote": "keeps trying new messages until it finds a good hash.",
+      "segment_index": 0,
+      "unit_ordinal": 6
+    },
+    {
+      "preserve": "The CPU implementation is about 20x slower on the author's laptop but may still be fast enough, depending on the intended use.",
+      "problem": "The long qualification about what users are planning to do and the speculative “good chance” bury the practical tradeoff in conversational reassurance.",
+      "quote": "The CPU implementation is about 20x slower on my laptop, but depending on what you're planning to use the tool for, there's a good chance it's fast enough anyway.",
+      "segment_index": 0,
+      "unit_ordinal": 36
+    },
+    {
+      "preserve": "Older implementations are available through the linked Node.js, C, and pure Rust without OpenCL branches; their performance and maintenance caveats must remain.",
+      "problem": "Describing all the older alternatives as “written in a different language” does not fit the listed pure Rust alternative, given the current Rust installation instructions. The introduction should describe the alternatives without this misleading generalization.",
+      "quote": "You can try installing an older version of the library written in a different language",
+      "segment_index": 0,
+      "unit_ordinal": 39
+    },
+    {
+      "preserve": "Repository detection automatically selects the sha256 shorthash instead of sha1 for the commit at HEAD when the repository uses sha256 objects.",
+      "problem": "“Detects that it's being run in a repository” wraps the relevant condition in an unnecessarily indirect description of execution, making the automatic format-selection behavior harder to follow.",
+      "quote": "detects that it's being run in a repository with sha256 objects, it will automatically customize the sha256 shorthash of the commit at",
+      "segment_index": 0,
+      "unit_ordinal": 73
+    },
+    {
+      "preserve": "SHA256 repositories are described as uncommon at the time of writing; uncertainty about an individual repository must remain.",
+      "problem": "The reader's wondering is treated as evidence of the repository's format. This speculative reassurance adds no reliable identification guidance and repeats the following sentence's point about rarity.",
+      "quote": "If you're wondering whether your repository uses sha256, then it probably doesn't.",
+      "segment_index": 0,
+      "unit_ordinal": 75
+    },
+    {
+      "preserve": "At the time of writing, the sha256 object format is experimental and rarely used.",
+      "problem": "“Highly” and “very” amplify the experimental-status and adoption claims without supporting detail. The underlying caveat is useful without those added degrees.",
+      "quote": "At the time of writing, this is a highly experimental feature and is very rarely used.",
+      "segment_index": 0,
+      "unit_ordinal": 76
+    }
+  ],
+  "page_id": "not-an-aardvark/lucky-commit/README.md",
+  "source_sha256": "5a60bf35c4a64643e1c427d94c79d9fe692d371a1a980030d8cc2f292e80e893"
+}

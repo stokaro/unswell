@@ -1,0 +1,125 @@
+{
+  "diagnoses": [
+    {
+      "preserve": "MLPs are based on the universal approximation theorem; KANs are based on the Kolmogorov-Arnold representation theorem.",
+      "problem": "“Strong mathematical foundations” adds an unqualified evaluation before the sentence supplies the precise mathematical basis for each architecture.",
+      "quote": "KANs have strong mathematical foundations just like MLPs:",
+      "segment_index": 0,
+      "unit_ordinal": 4
+    },
+    {
+      "preserve": "The comparison concerns edge-based versus node-based activation functions and claimed benefits in accuracy and interpretability; performance advantages are not universal.",
+      "problem": "“Simple” and “sometimes much better!” amplify a broad superiority claim without specifying conditions or magnitude. The blanket wording also sits uneasily with the later acknowledgment that each architecture has advantages in different settings.",
+      "quote": "This simple change makes KANs better (sometimes much better!) than MLPs in terms of both model",
+      "segment_index": 0,
+      "unit_ordinal": 6
+    },
+    {
+      "preserve": "Under the preceding training-loop and symbolic-branch conditions, call model.speed() before training; otherwise the symbolic branch remains enabled, and its computations are not parallelized.",
+      "problem": "“Super slow” and repeated exclamation marks give an unmeasured severity claim where the explanation of nonparallelized symbolic computation already establishes the practical concern.",
+      "quote": "before training! Otherwise, the symbolic branch is on, which is super slow because the symbolic computations are not parallelized!",
+      "segment_index": 0,
+      "unit_ordinal": 20
+    },
+    {
+      "preserve": "The section provides hyperparameter-tuning guidance, with the following sentences establishing its experiential basis and limited applicability.",
+      "problem": "The rhetorical question repeats the section heading and delays the advice without introducing a distinct question or condition.",
+      "quote": "So how can I tune the hyperparameters effectively?",
+      "segment_index": 0,
+      "unit_ordinal": 38
+    },
+    {
+      "preserve": "The advice is intended to help users choose a starting point and understand tuning expectations; retain the preceding caveat about small, science-oriented problems.",
+      "problem": "This sentence repeats the preceding announcement that the author is sharing experience and describes the section's usefulness instead of adding guidance.",
+      "quote": "But I want to at least share my experience such that users can have better clues where to start and what to expect from tuning hyperparameters.",
+      "segment_index": 0,
+      "unit_ordinal": 41
+    },
+    {
+      "preserve": "Gradually increasing lamb is an optional tuning suggestion.",
+      "problem": "“It would also be advisable to try” stacks advisory framing around a straightforward optional action, obscuring the actual recommendation.",
+      "quote": "It would also be advisable to try increasing lamb gradually.",
+      "segment_index": 0,
+      "unit_ordinal": 49
+    },
+    {
+      "preserve": "Generally pursue one objective at a time. If there is strong reason to expect pruning to improve accuracy, prioritize interpretability even when accuracy is the ultimate goal.",
+      "problem": "“Not to be greedy” adds a judgment about the reader, while “strong reason why you believe,” “plan ahead,” and repeated statements of the accuracy goal make the conditional exception unnecessarily difficult to follow.",
+      "quote": "So it would be good not to be greedy and aim for one goal at a time. However, if you have a strong reason why you believe pruning (interpretability) can also help accuracy, you may want to plan ahead, such that even if your end goal is accuracy, you want to push interpretability first.",
+      "segment_index": 2,
+      "unit_ordinal": 51
+    },
+    {
+      "preserve": "After obtaining satisfactory results, try increasing the dataset size for a final run; improvement is an expectation rather than a guarantee.",
+      "problem": "“Quite good” supplies no usable threshold, and “should give you even better results!” presents an enthusiastic improvement expectation without explaining its conditions, despite nearby caveats about dataset behavior and overfitting.",
+      "quote": "Once you get a quite good result, try increasing data size and have a final run, which should give you even better results!",
+      "segment_index": 0,
+      "unit_ordinal": 52
+    },
+    {
+      "preserve": "Starting with the simplest setup is the author's personal, potentially biased heuristic, informed by physics practice and found useful for keeping experiments controlled.",
+      "problem": "The sentence repeats “mindset” and the earlier simple-start recommendation, broadens a personal heuristic into a claim about physicists, and describes its effectiveness vaguely as “quite effective” and “well-controlled.”",
+      "quote": "Disclaimer: Try the simplest thing first is the mindset of physicists, which could be personal/biased but I find this mindset quite effective and make things well-controlled for me.",
+      "segment_index": 0,
+      "unit_ordinal": 53
+    },
+    {
+      "preserve": "The author initially uses a small dataset to obtain faster debugging feedback, partly because the initial implementation is slow.",
+      "problem": "“The reason why I tend to choose ... is to” delays the causal explanation, and the parenthetical turns a relevant implementation limitation into an aside.",
+      "quote": "Also, The reason why I tend to choose a small dataset at first is to get faster feedback in the debugging stage (my initial implementation is slow, after all!).",
+      "segment_index": 0,
+      "unit_ordinal": 54
+    },
+    {
+      "preserve": "Continually check whether the model is underfitting or overfitting.",
+      "problem": "The lengthy “Another thing that would be good to keep in mind” preamble buries the monitoring instruction and creates an awkward double introduction with “is that please.”",
+      "quote": "Another thing that would be good to keep in mind is that please constantly checking if your model is in underfitting or overfitting regime.",
+      "segment_index": 0,
+      "unit_ordinal": 57
+    },
+    {
+      "preserve": "Begin with a simple model that underfits, then gradually increase capacity toward a balance between underfitting and overfitting.",
+      "problem": "“This is also the reason why I'd love to” repeats the author's preference rather than advancing the procedure, and “Goldilocks zone” leaves the target less explicit than the surrounding discussion of fitting regimes.",
+      "quote": "This is also the reason why I'd love to start from simple models to make sure that the model is first in underfitting regime and then gradually expands to the \"Goldilocks zone\".",
+      "segment_index": 0,
+      "unit_ordinal": 61
+    },
+    {
+      "preserve": "For machine-learning applications, KANs are likely not yet usable as a straightforward plug-in; subsequent tuning requirements and examples support this caveat.",
+      "problem": "“I have to be honest” adds a sincerity preamble, while “simple plug-in” and “used out-of-the box” repeat substantially the same readiness limitation.",
+      "quote": "For users who are machine learning focus, I have to be honest that KANs are likely not a simple plug-in that can be used out-of-the box (yet).",
+      "segment_index": 0,
+      "unit_ordinal": 71
+    },
+    {
+      "preserve": "LLM interpretability matters, but its meaning can differ from interpretability in scientific applications.",
+      "problem": "“Do care ... for sure” adds emphatic reassurance, and “wildly” intensifies the difference without explaining it. These flourishes distract from the distinction needed to understand the transfer caveat.",
+      "quote": "We do care about LLM interpretability for sure, but interpretability can mean wildly different things for LLM and for science.",
+      "segment_index": 0,
+      "unit_ordinal": 78
+    },
+    {
+      "preserve": "The author hopes the ideas of learnable edge activations and AI-assisted scientific discovery will inspire further work, without claiming that KANs are necessarily the future.",
+      "problem": "The sentence embeds its concrete ideas inside a long statement about the author's happiness, then ends with vague future-impact language. This obscures both the specific ideas and the modest scope of the aspiration.",
+      "quote": "However, I would be very happy if you have enjoyed the high-level idea (learnable activation functions on edges, or interacting with AI for scientific discoveries), which is not necessariy",
+      "segment_index": 0,
+      "unit_ordinal": 83
+    },
+    {
+      "preserve": "The author welcomes critical examination of both KANs and critiques of KANs.",
+      "problem": "“I would like to welcome people” layers an intention over the invitation itself, and “also” and “as well” duplicate the same relationship.",
+      "quote": "I would like to welcome people to be critical of KANs, but also to be critical of critiques as well.",
+      "segment_index": 0,
+      "unit_ordinal": 85
+    },
+    {
+      "preserve": "Empirical trials are needed to establish whether approaches succeed or fail; many outcomes cannot be known beforehand.",
+      "problem": "Immediately after the statement about practice testing understanding, this sentence restates the same principle through vague “many things” and the cumbersome “really tried and shown to be succeeding or failing.”",
+      "quote": "We don't know many things beforehand until they are really tried and shown to be succeeding or failing.",
+      "segment_index": 0,
+      "unit_ordinal": 87
+    }
+  ],
+  "page_id": "KindXiaoming/pykan/README.md",
+  "source_sha256": "44a4a633df3b10c4e8fc9a553b59a3950f456123f96295dbe9a5733f4bdad63d"
+}
