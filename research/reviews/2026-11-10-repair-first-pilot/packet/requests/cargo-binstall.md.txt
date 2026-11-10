@@ -1,0 +1,1819 @@
+Review the COMPLETE public technical README for specific editorial
+revisions. Use only the supplied source and eligible unit inventory. Do not
+infer AI authorship or use outside knowledge. Return only schema JSON.
+
+Work from the edit backward: propose a finding only when you can give a
+minimal, concrete replacement that fixes a real reader burden in this page.
+For each finding, select ONE eligible unit ordinal and quote an exact unique
+substring of its raw_slice wholly inside ONE eligible segment. The replacement
+must be no longer than the quote. Empty replacement means delete that quote.
+State the source-specific diagnosis, the reason the change helps the reader,
+and the meaning the replacement retains. Do not propose a generic style
+preference or an edit that only makes a sentence shorter.
+
+Inspect the entire page, including introductions, list lead-ins, transitions,
+and conclusions. Consider empty framing, wordiness, vague claims, needless
+repetition, and unjustified intensifiers, but do not search for trigger words.
+Preserve the author's useful emphasis and voice; negation, conditions,
+uncertainty, attribution, numbers, units, versions, identifiers, links, code,
+table values and scope, and meaningful distinctions. Do not edit a protected
+span or quoted example. Up to six edits per page; zero is valid. No tools.
+
+INPUT JSON:
+{
+  "eligible_units": [
+    {
+      "eligible_segments": [
+        {
+          "end": 23,
+          "start": 2
+        }
+      ],
+      "ordinal": 0,
+      "raw_slice": "Cargo B(inary)Install",
+      "raw_span": {
+        "end": 23,
+        "start": 2
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 145,
+          "start": 25
+        }
+      ],
+      "ordinal": 1,
+      "raw_slice": "Binstall provides a low-complexity mechanism for installing Rust binaries as an\nalternative to building from source (via",
+      "raw_span": {
+        "end": 145,
+        "start": 25
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 319,
+          "start": 161
+        }
+      ],
+      "ordinal": 2,
+      "raw_slice": ") or manually\ndownloading packages. This is intended to work with existing CI artifacts and\ninfrastructure, and with minimal overhead for package maintainers.",
+      "raw_span": {
+        "end": 319,
+        "start": 161
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 374,
+          "start": 321
+        }
+      ],
+      "ordinal": 3,
+      "raw_slice": "Binstall works by fetching the crate information from",
+      "raw_span": {
+        "end": 374,
+        "start": 321
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 411,
+          "start": 387
+        }
+      ],
+      "ordinal": 4,
+      "raw_slice": "and searching\nthe linked",
+      "raw_span": {
+        "end": 411,
+        "start": 387
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 482,
+          "start": 425
+        },
+        {
+          "end": 495,
+          "start": 483
+        },
+        {
+          "end": 620,
+          "start": 543
+        }
+      ],
+      "ordinal": 5,
+      "raw_slice": "for matching releases and artifacts, falling back to the\n[quickinstall](https://github.com/alsuren/cargo-quickinstall) third-party\nartifact host, to alternate targets as supported, and finally to",
+      "raw_span": {
+        "end": 620,
+        "start": 425
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 654,
+          "start": 637
+        }
+      ],
+      "ordinal": 6,
+      "raw_slice": "as a last resort.",
+      "raw_span": {
+        "end": 654,
+        "start": 637
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1067,
+          "start": 1051
+        },
+        {
+          "end": 1129,
+          "start": 1068
+        },
+        {
+          "end": 1172,
+          "start": 1171
+        }
+      ],
+      "ordinal": 7,
+      "raw_slice": "You may want to\n[see this page as it was when the latest version was published](https://crates.io/crates/cargo-binstall).",
+      "raw_span": {
+        "end": 1172,
+        "start": 1051
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1183,
+          "start": 1178
+        }
+      ],
+      "ordinal": 8,
+      "raw_slice": "Usage",
+      "raw_span": {
+        "end": 1183,
+        "start": 1178
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1799,
+          "start": 1754
+        }
+      ],
+      "ordinal": 9,
+      "raw_slice": "Binstall aims to be a drop-in replacement for",
+      "raw_span": {
+        "end": 1799,
+        "start": 1754
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1860,
+          "start": 1816
+        }
+      ],
+      "ordinal": 10,
+      "raw_slice": "in many cases, and\nsupports similar options.",
+      "raw_span": {
+        "end": 1860,
+        "start": 1816
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1902,
+          "start": 1862
+        }
+      ],
+      "ordinal": 11,
+      "raw_slice": "For unattended use (e.g. in CI), use the",
+      "raw_span": {
+        "end": 1902,
+        "start": 1862
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1957,
+          "start": 1918
+        }
+      ],
+      "ordinal": 12,
+      "raw_slice": "flag. For additional\noptions please see",
+      "raw_span": {
+        "end": 1957,
+        "start": 1918
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2004,
+          "start": 1987
+        }
+      ],
+      "ordinal": 13,
+      "raw_slice": "For Crate Authors",
+      "raw_span": {
+        "end": 2004,
+        "start": 1987
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2016,
+          "start": 2006
+        }
+      ],
+      "ordinal": 14,
+      "raw_slice": "To support",
+      "raw_span": {
+        "end": 2016,
+        "start": 2006
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2070,
+          "start": 2034
+        }
+      ],
+      "ordinal": 15,
+      "raw_slice": "for your crate, add metadata to your",
+      "raw_span": {
+        "end": 2070,
+        "start": 2034
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2150,
+          "start": 2084
+        }
+      ],
+      "ordinal": 16,
+      "raw_slice": "and publish pre-built binaries to GitHub Releases on each release.",
+      "raw_span": {
+        "end": 2150,
+        "start": 2084
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2156,
+          "start": 2152
+        },
+        {
+          "end": 2167,
+          "start": 2157
+        },
+        {
+          "end": 2322,
+          "start": 2235
+        }
+      ],
+      "ordinal": 17,
+      "raw_slice": "See\n[SUPPORT.md](https://github.com/cargo-bins/cargo-binstall/blob/main/SUPPORT.md)\nfor full documentation on the metadata format, artifact naming, and supported\noptions.",
+      "raw_span": {
+        "end": 2322,
+        "start": 2152
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2339,
+          "start": 2327
+        }
+      ],
+      "ordinal": 18,
+      "raw_slice": "Installation",
+      "raw_span": {
+        "end": 2339,
+        "start": 2327
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2367,
+          "start": 2345
+        }
+      ],
+      "ordinal": 19,
+      "raw_slice": "If you already have it",
+      "raw_span": {
+        "end": 2367,
+        "start": 2345
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2399,
+          "start": 2369
+        }
+      ],
+      "ordinal": 20,
+      "raw_slice": "To upgrade cargo-binstall, use",
+      "raw_span": {
+        "end": 2399,
+        "start": 2369
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2445,
+          "start": 2438
+        }
+      ],
+      "ordinal": 21,
+      "raw_slice": "Quickly",
+      "raw_span": {
+        "end": 2445,
+        "start": 2438
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2512,
+          "start": 2447
+        }
+      ],
+      "ordinal": 22,
+      "raw_slice": "Here are one-liners for downloading and installing a pre-compiled",
+      "raw_span": {
+        "end": 2512,
+        "start": 2447
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2537,
+          "start": 2530
+        }
+      ],
+      "ordinal": 23,
+      "raw_slice": "binary.",
+      "raw_span": {
+        "end": 2537,
+        "start": 2530
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2559,
+          "start": 2544
+        }
+      ],
+      "ordinal": 24,
+      "raw_slice": "Linux and macOS",
+      "raw_span": {
+        "end": 2559,
+        "start": 2544
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2730,
+          "start": 2715
+        },
+        {
+          "end": 2739,
+          "start": 2731
+        },
+        {
+          "end": 2769,
+          "start": 2758
+        }
+      ],
+      "ordinal": 25,
+      "raw_slice": "or if you have [homebrew](https://brew.sh/) installed:",
+      "raw_span": {
+        "end": 2769,
+        "start": 2715
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2820,
+          "start": 2813
+        }
+      ],
+      "ordinal": 26,
+      "raw_slice": "Windows",
+      "raw_span": {
+        "end": 2820,
+        "start": 2813
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3011,
+          "start": 3003
+        }
+      ],
+      "ordinal": 27,
+      "raw_slice": "Manually",
+      "raw_span": {
+        "end": 3011,
+        "start": 3003
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3089,
+          "start": 3013
+        }
+      ],
+      "ordinal": 28,
+      "raw_slice": "Download the relevant package for your system below, unpack it, and move the",
+      "raw_span": {
+        "end": 3089,
+        "start": 3013
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3122,
+          "start": 3107
+        }
+      ],
+      "ordinal": 29,
+      "raw_slice": "executable into",
+      "raw_span": {
+        "end": 3122,
+        "start": 3107
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3148,
+          "start": 3146
+        }
+      ],
+      "ordinal": 30,
+      "raw_slice": "OS",
+      "raw_span": {
+        "end": 3148,
+        "start": 3146
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3160,
+          "start": 3156
+        }
+      ],
+      "ordinal": 31,
+      "raw_slice": "Arch",
+      "raw_span": {
+        "end": 3160,
+        "start": 3156
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3187,
+          "start": 3184
+        }
+      ],
+      "ordinal": 32,
+      "raw_slice": "URL",
+      "raw_span": {
+        "end": 3187,
+        "start": 3184
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3475,
+          "start": 3470
+        }
+      ],
+      "ordinal": 33,
+      "raw_slice": "Linux",
+      "raw_span": {
+        "end": 3475,
+        "start": 3470
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3487,
+          "start": 3480
+        }
+      ],
+      "ordinal": 34,
+      "raw_slice": "x86\\_64",
+      "raw_span": {
+        "end": 3487,
+        "start": 3480
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3637,
+          "start": 3632
+        }
+      ],
+      "ordinal": 35,
+      "raw_slice": "Linux",
+      "raw_span": {
+        "end": 3637,
+        "start": 3632
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3647,
+          "start": 3642
+        }
+      ],
+      "ordinal": 36,
+      "raw_slice": "armv7",
+      "raw_span": {
+        "end": 3647,
+        "start": 3642
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3799,
+          "start": 3794
+        }
+      ],
+      "ordinal": 37,
+      "raw_slice": "Linux",
+      "raw_span": {
+        "end": 3799,
+        "start": 3794
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3809,
+          "start": 3804
+        }
+      ],
+      "ordinal": 38,
+      "raw_slice": "arm64",
+      "raw_span": {
+        "end": 3809,
+        "start": 3804
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3959,
+          "start": 3956
+        }
+      ],
+      "ordinal": 39,
+      "raw_slice": "Mac",
+      "raw_span": {
+        "end": 3959,
+        "start": 3956
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3971,
+          "start": 3966
+        }
+      ],
+      "ordinal": 40,
+      "raw_slice": "Intel",
+      "raw_span": {
+        "end": 3971,
+        "start": 3966
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4121,
+          "start": 4118
+        }
+      ],
+      "ordinal": 41,
+      "raw_slice": "Mac",
+      "raw_span": {
+        "end": 4121,
+        "start": 4118
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4141,
+          "start": 4128
+        }
+      ],
+      "ordinal": 42,
+      "raw_slice": "Apple Silicon",
+      "raw_span": {
+        "end": 4141,
+        "start": 4128
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4283,
+          "start": 4280
+        }
+      ],
+      "ordinal": 43,
+      "raw_slice": "Mac",
+      "raw_span": {
+        "end": 4283,
+        "start": 4280
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4299,
+          "start": 4290
+        }
+      ],
+      "ordinal": 44,
+      "raw_slice": "Universal",
+      "raw_span": {
+        "end": 4299,
+        "start": 4290
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4315,
+          "start": 4303
+        }
+      ],
+      "ordinal": 45,
+      "raw_slice": "(both archs)",
+      "raw_span": {
+        "end": 4315,
+        "start": 4303
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4449,
+          "start": 4442
+        }
+      ],
+      "ordinal": 46,
+      "raw_slice": "Windows",
+      "raw_span": {
+        "end": 4449,
+        "start": 4442
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4461,
+          "start": 4452
+        }
+      ],
+      "ordinal": 47,
+      "raw_slice": "Intel/AMD",
+      "raw_span": {
+        "end": 4461,
+        "start": 4452
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4611,
+          "start": 4604
+        }
+      ],
+      "ordinal": 48,
+      "raw_slice": "Windows",
+      "raw_span": {
+        "end": 4611,
+        "start": 4604
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4620,
+          "start": 4614
+        }
+      ],
+      "ordinal": 49,
+      "raw_slice": "ARM 64",
+      "raw_span": {
+        "end": 4620,
+        "start": 4614
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4780,
+          "start": 4769
+        }
+      ],
+      "ordinal": 50,
+      "raw_slice": "From source",
+      "raw_span": {
+        "end": 4780,
+        "start": 4769
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4796,
+          "start": 4782
+        },
+        {
+          "end": 4801,
+          "start": 4797
+        },
+        {
+          "end": 4832,
+          "start": 4821
+        }
+      ],
+      "ordinal": 51,
+      "raw_slice": "With a recent [Rust](https://rustup.rs) installed:",
+      "raw_span": {
+        "end": 4832,
+        "start": 4782
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4902,
+          "start": 4885
+        }
+      ],
+      "ordinal": 52,
+      "raw_slice": "In GitHub Actions",
+      "raw_span": {
+        "end": 4902,
+        "start": 4885
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4968,
+          "start": 4904
+        }
+      ],
+      "ordinal": 53,
+      "raw_slice": "We provide a first-party, minimal action that installs Binstall:",
+      "raw_span": {
+        "end": 4968,
+        "start": 4904
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5129,
+          "start": 5083
+        },
+        {
+          "end": 5152,
+          "start": 5130
+        },
+        {
+          "end": 5306,
+          "start": 5219
+        }
+      ],
+      "ordinal": 54,
+      "raw_slice": "For more features, we recommend the excellent\n[taiki-e/install-action](https://github.com/marketplace/actions/install-development-tools),\nwhich has dedicated support for selected tools and uses Binstall for everything\nelse.",
+      "raw_span": {
+        "end": 5306,
+        "start": 5083
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5326,
+          "start": 5311
+        }
+      ],
+      "ordinal": 55,
+      "raw_slice": "Companion tools",
+      "raw_span": {
+        "end": 5326,
+        "start": 5311
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5345,
+          "start": 5328
+        },
+        {
+          "end": 5357,
+          "start": 5346
+        },
+        {
+          "end": 5395,
+          "start": 5358
+        }
+      ],
+      "ordinal": 56,
+      "raw_slice": "These are useful _third-party_ tools which work well with Binstall.",
+      "raw_span": {
+        "end": 5395,
+        "start": 5328
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5517,
+          "start": 5467
+        }
+      ],
+      "ordinal": 57,
+      "raw_slice": "While you can upgrade crates explicitly by running",
+      "raw_span": {
+        "end": 5517,
+        "start": 5467
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5541,
+          "start": 5535
+        }
+      ],
+      "ordinal": 58,
+      "raw_slice": "again,",
+      "raw_span": {
+        "end": 5541,
+        "start": 5535
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5672,
+          "start": 5557
+        }
+      ],
+      "ordinal": 59,
+      "raw_slice": "takes care of updating all tools as needed. It automatically uses\nBinstall to install the updates if it is present.",
+      "raw_span": {
+        "end": 5672,
+        "start": 5557
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5758,
+          "start": 5746
+        }
+      ],
+      "ordinal": 60,
+      "raw_slice": "Binstall and",
+      "raw_span": {
+        "end": 5758,
+        "start": 5746
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6003,
+          "start": 5775
+        }
+      ],
+      "ordinal": 61,
+      "raw_slice": "both install tools globally by default, which is\nfine for system-wide tools. When installing tooling for a project, however, you\nmay prefer to both scope the tools to that project and control their versions in\ncode. That's where",
+      "raw_span": {
+        "end": 6003,
+        "start": 5775
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6221,
+          "start": 6020
+        }
+      ],
+      "ordinal": 62,
+      "raw_slice": "comes in, with a dedicated section in your\nCargo.toml and a short cargo subcommand. When Binstall is available, it installs\nfrom binary whenever possible... and you can even manage Binstall itself with",
+      "raw_span": {
+        "end": 6221,
+        "start": 6020
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6261,
+          "start": 6243
+        }
+      ],
+      "ordinal": 63,
+      "raw_slice": "Unsupported crates",
+      "raw_span": {
+        "end": 6261,
+        "start": 6243
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6411,
+          "start": 6263
+        }
+      ],
+      "ordinal": 64,
+      "raw_slice": "Binstall is generally smart enough to auto-detect artifacts in most situations.\nHowever, if a package fails to install, you can manually specify the",
+      "raw_span": {
+        "end": 6411,
+        "start": 6263
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6437,
+          "start": 6432
+        }
+      ],
+      "ordinal": 65,
+      "raw_slice": ", and",
+      "raw_span": {
+        "end": 6437,
+        "start": 6432
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6508,
+          "start": 6448
+        },
+        {
+          "end": 6519,
+          "start": 6509
+        },
+        {
+          "end": 6588,
+          "start": 6587
+        }
+      ],
+      "ordinal": 66,
+      "raw_slice": "as needed at the command line, with values as\ndocumented in\n[SUPPORT.md](https://github.com/cargo-bins/cargo-binstall/blob/main/SUPPORT.md).",
+      "raw_span": {
+        "end": 6588,
+        "start": 6448
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6825,
+          "start": 6764
+        },
+        {
+          "end": 6852,
+          "start": 6826
+        },
+        {
+          "end": 6923,
+          "start": 6920
+        }
+      ],
+      "ordinal": 67,
+      "raw_slice": "Maintainers wanting to make their users' life easier can add\n[explicit Binstall metadata](https://github.com/cargo-bins/cargo-binstall/blob/main/SUPPORT.md)\nto",
+      "raw_span": {
+        "end": 6923,
+        "start": 6764
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7009,
+          "start": 6937
+        }
+      ],
+      "ordinal": 68,
+      "raw_slice": "to locate the appropriate binary package for a given version and\ntarget.",
+      "raw_span": {
+        "end": 7009,
+        "start": 6937
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7024,
+          "start": 7014
+        }
+      ],
+      "ordinal": 69,
+      "raw_slice": "Signatures",
+      "raw_span": {
+        "end": 7024,
+        "start": 7014
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7051,
+          "start": 7026
+        },
+        {
+          "end": 7059,
+          "start": 7052
+        },
+        {
+          "end": 7213,
+          "start": 7127
+        }
+      ],
+      "ordinal": 70,
+      "raw_slice": "We have initial, limited\n[support](https://github.com/cargo-bins/cargo-binstall/blob/main/SIGNING.md) for\nmaintainers to specify a signing public key and where to find package\nsignatures.",
+      "raw_span": {
+        "end": 7213,
+        "start": 7026
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7295,
+          "start": 7214
+        }
+      ],
+      "ordinal": 71,
+      "raw_slice": "With this enabled, Binstall will download and verify signatures for\nthat package.",
+      "raw_span": {
+        "end": 7295,
+        "start": 7214
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7308,
+          "start": 7297
+        }
+      ],
+      "ordinal": 72,
+      "raw_slice": "You can use",
+      "raw_span": {
+        "end": 7308,
+        "start": 7297
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7377,
+          "start": 7325
+        }
+      ],
+      "ordinal": 73,
+      "raw_slice": "to refuse to install packages if they're not signed.",
+      "raw_span": {
+        "end": 7377,
+        "start": 7325
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7463,
+          "start": 7379
+        }
+      ],
+      "ordinal": 74,
+      "raw_slice": "If you like to live dangerously (please don't use this outside testing), you can\nuse",
+      "raw_span": {
+        "end": 7463,
+        "start": 7379
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7542,
+          "start": 7484
+        }
+      ],
+      "ordinal": 75,
+      "raw_slice": "to disable checking or even downloading signatures at\nall.",
+      "raw_span": {
+        "end": 7542,
+        "start": 7484
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7550,
+          "start": 7547
+        }
+      ],
+      "ordinal": 76,
+      "raw_slice": "FAQ",
+      "raw_span": {
+        "end": 7550,
+        "start": 7547
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7569,
+          "start": 7556
+        }
+      ],
+      "ordinal": 77,
+      "raw_slice": "Why use this?",
+      "raw_span": {
+        "end": 7569,
+        "start": 7556
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7578,
+          "start": 7571
+        }
+      ],
+      "ordinal": 78,
+      "raw_slice": "Because",
+      "raw_span": {
+        "end": 7578,
+        "start": 7571
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7614,
+          "start": 7585
+        }
+      ],
+      "ordinal": 79,
+      "raw_slice": "-ing releases is frustrating,",
+      "raw_span": {
+        "end": 7614,
+        "start": 7585
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7736,
+          "start": 7631
+        },
+        {
+          "end": 7745,
+          "start": 7737
+        },
+        {
+          "end": 7759,
+          "start": 7746
+        }
+      ],
+      "ordinal": 80,
+      "raw_slice": "takes a not\ninconsequential portion of forever on constrained devices, and often putting\ntogether actual _packages_ is overkill.",
+      "raw_span": {
+        "end": 7759,
+        "start": 7631
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7792,
+          "start": 7765
+        }
+      ],
+      "ordinal": 81,
+      "raw_slice": "Why use the cargo manifest?",
+      "raw_span": {
+        "end": 7792,
+        "start": 7765
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7950,
+          "start": 7794
+        }
+      ],
+      "ordinal": 82,
+      "raw_slice": "Crates already have these, and they already contain a significant portion of the\nrequired information. Also, there's this great and woefully underused (IMO)",
+      "raw_span": {
+        "end": 7950,
+        "start": 7794
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7978,
+          "start": 7972
+        }
+      ],
+      "ordinal": 83,
+      "raw_slice": "field.",
+      "raw_span": {
+        "end": 7978,
+        "start": 7972
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7999,
+          "start": 7984
+        }
+      ],
+      "ordinal": 84,
+      "raw_slice": "Is this secure?",
+      "raw_span": {
+        "end": 7999,
+        "start": 7984
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8017,
+          "start": 8001
+        }
+      ],
+      "ordinal": 85,
+      "raw_slice": "Yes and also no?",
+      "raw_span": {
+        "end": 8017,
+        "start": 8001
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8027,
+          "start": 8019
+        },
+        {
+          "end": 8043,
+          "start": 8028
+        },
+        {
+          "end": 8203,
+          "start": 8111
+        }
+      ],
+      "ordinal": 86,
+      "raw_slice": "We have\n[initial support](https://github.com/cargo-bins/cargo-binstall/blob/main/SIGNING.md)\nfor verifying signatures, but not a lot of the ecosystem produces signatures at\nthe moment.",
+      "raw_span": {
+        "end": 8203,
+        "start": 8019
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8208,
+          "start": 8204
+        },
+        {
+          "end": 8211,
+          "start": 8209
+        },
+        {
+          "end": 8292,
+          "start": 8267
+        }
+      ],
+      "ordinal": 87,
+      "raw_slice": "See [#1](https://github.com/cargo-bins/cargo-binstall/issues/1) to\ndiscuss more on this.",
+      "raw_span": {
+        "end": 8292,
+        "start": 8204
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8390,
+          "start": 8294
+        }
+      ],
+      "ordinal": 88,
+      "raw_slice": "We always pull the metadata from crates.io over HTTPS, and verify the checksum\nof the crate tar.",
+      "raw_span": {
+        "end": 8390,
+        "start": 8294
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8480,
+          "start": 8391
+        }
+      ],
+      "ordinal": 89,
+      "raw_slice": "We also enforce using HTTPS with TLS >= 1.2 for the actual\ndownload of the package files.",
+      "raw_span": {
+        "end": 8480,
+        "start": 8391
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8510,
+          "start": 8482
+        }
+      ],
+      "ordinal": 90,
+      "raw_slice": "Compared to something like a",
+      "raw_span": {
+        "end": 8510,
+        "start": 8482
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8652,
+          "start": 8527
+        }
+      ],
+      "ordinal": 91,
+      "raw_slice": "script, we're not running arbitrary\ncode, but of course the crate you're downloading a package for might itself be\nmalicious!",
+      "raw_span": {
+        "end": 8652,
+        "start": 8527
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8687,
+          "start": 8658
+        }
+      ],
+      "ordinal": 92,
+      "raw_slice": "What do the error codes mean?",
+      "raw_span": {
+        "end": 8687,
+        "start": 8658
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8757,
+          "start": 8689
+        }
+      ],
+      "ordinal": 93,
+      "raw_slice": "You can find a full description of errors including exit codes here:",
+      "raw_span": {
+        "end": 8757,
+        "start": 8689
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8865,
+          "start": 8837
+        }
+      ],
+      "ordinal": 94,
+      "raw_slice": "Are debug symbols available?",
+      "raw_span": {
+        "end": 8865,
+        "start": 8837
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8903,
+          "start": 8867
+        }
+      ],
+      "ordinal": 95,
+      "raw_slice": "Yes! Extra pre-built packages with a",
+      "raw_span": {
+        "end": 8903,
+        "start": 8867
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9010,
+          "start": 8912
+        }
+      ],
+      "ordinal": 96,
+      "raw_slice": "suffix are available and contain\nsplit debuginfo, documentation files, and extra binaries like the",
+      "raw_span": {
+        "end": 9010,
+        "start": 8912
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9033,
+          "start": 9025
+        }
+      ],
+      "ordinal": 97,
+      "raw_slice": "utility.",
+      "raw_span": {
+        "end": 9033,
+        "start": 9025
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9058,
+          "start": 9038
+        }
+      ],
+      "ordinal": 98,
+      "raw_slice": "Telemetry collection",
+      "raw_span": {
+        "end": 9058,
+        "start": 9038
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9304,
+          "start": 9060
+        }
+      ],
+      "ordinal": 99,
+      "raw_slice": "Some crate installation strategies may collect anonymized usage statistics by\ndefault. Currently, only the name of the crate to be installed, its version, the\ntarget platform triple, and the collecting user agent are sent to endpoints\nunder the",
+      "raw_span": {
+        "end": 9304,
+        "start": 9060
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9382,
+          "start": 9370
+        }
+      ],
+      "ordinal": 100,
+      "raw_slice": "URL\nwhen the",
+      "raw_span": {
+        "end": 9382,
+        "start": 9370
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9443,
+          "start": 9398
+        }
+      ],
+      "ordinal": 101,
+      "raw_slice": "artifact host is used. The maintainers of the",
+      "raw_span": {
+        "end": 9443,
+        "start": 9398
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9614,
+          "start": 9459
+        }
+      ],
+      "ordinal": 102,
+      "raw_slice": "project use this data to determine which crate versions are most\nworthwhile to build and host. The aggregated collected telemetry is publicly\naccessible at",
+      "raw_span": {
+        "end": 9614,
+        "start": 9459
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9781,
+          "start": 9695
+        }
+      ],
+      "ordinal": 103,
+      "raw_slice": ".\nShould you be interested in it, the backend code for these endpoints can be\nfound at",
+      "raw_span": {
+        "end": 9781,
+        "start": 9695
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9964,
+          "start": 9858
+        }
+      ],
+      "ordinal": 104,
+      "raw_slice": "If you prefer not to participate in this data collection, you can opt out by any\nof the following methods:",
+      "raw_span": {
+        "end": 9964,
+        "start": 9858
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9979,
+          "start": 9968
+        }
+      ],
+      "ordinal": 105,
+      "raw_slice": "Setting the",
+      "raw_span": {
+        "end": 9979,
+        "start": 9968
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10037,
+          "start": 10002
+        }
+      ],
+      "ordinal": 106,
+      "raw_slice": "flag in the command line interface.",
+      "raw_span": {
+        "end": 10037,
+        "start": 10002
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10051,
+          "start": 10040
+        }
+      ],
+      "ordinal": 107,
+      "raw_slice": "Setting the",
+      "raw_span": {
+        "end": 10051,
+        "start": 10040
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10104,
+          "start": 10081
+        }
+      ],
+      "ordinal": 108,
+      "raw_slice": "environment variable to",
+      "raw_span": {
+        "end": 10104,
+        "start": 10081
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10128,
+          "start": 10115
+        }
+      ],
+      "ordinal": 109,
+      "raw_slice": "Disabling the",
+      "raw_span": {
+        "end": 10128,
+        "start": 10115
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10157,
+          "start": 10144
+        }
+      ],
+      "ordinal": 110,
+      "raw_slice": "strategy with",
+      "raw_span": {
+        "end": 10157,
+        "start": 10144
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10239,
+          "start": 10196
+        },
+        {
+          "end": 10249,
+          "start": 10241
+        }
+      ],
+      "ordinal": 111,
+      "raw_slice": ", or if specifying a list of strategies to\n  use with",
+      "raw_span": {
+        "end": 10249,
+        "start": 10196
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10284,
+          "start": 10264
+        }
+      ],
+      "ordinal": 112,
+      "raw_slice": ", avoiding including",
+      "raw_span": {
+        "end": 10284,
+        "start": 10264
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10314,
+          "start": 10301
+        }
+      ],
+      "ordinal": 113,
+      "raw_slice": "in that list.",
+      "raw_span": {
+        "end": 10314,
+        "start": 10301
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10323,
+          "start": 10317
+        }
+      ],
+      "ordinal": 114,
+      "raw_slice": "Adding",
+      "raw_span": {
+        "end": 10323,
+        "start": 10317
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10346,
+          "start": 10340
+        }
+      ],
+      "ordinal": 115,
+      "raw_slice": "to the",
+      "raw_span": {
+        "end": 10346,
+        "start": 10340
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10394,
+          "start": 10369
+        },
+        {
+          "end": 10421,
+          "start": 10396
+        },
+        {
+          "end": 10457,
+          "start": 10424
+        },
+        {
+          "end": 10502,
+          "start": 10497
+        },
+        {
+          "end": 10518,
+          "start": 10504
+        }
+      ],
+      "ordinal": 116,
+      "raw_slice": "configuration key in the\n  crate metadata (refer to\n  [the related support documentation](SUPPORT.md#support-for-cargo-binstall) for\n  more details).",
+      "raw_span": {
+        "end": 10518,
+        "start": 10369
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10648,
+          "start": 10525
+        }
+      ],
+      "ordinal": 117,
+      "raw_slice": "If you have ideas/contributions or anything is not working the way you expect\n(in which case, please include an output with",
+      "raw_span": {
+        "end": 10648,
+        "start": 10525
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10707,
+          "start": 10668
+        }
+      ],
+      "ordinal": 118,
+      "raw_slice": ") and feel free\nto open an issue or PR.",
+      "raw_span": {
+        "end": 10707,
+        "start": 10668
+      }
+    }
+  ],
+  "page_id": "cargo-binstall.md",
+  "source": "# Cargo B(inary)Install\n\nBinstall provides a low-complexity mechanism for installing Rust binaries as an\nalternative to building from source (via `cargo install`) or manually\ndownloading packages. This is intended to work with existing CI artifacts and\ninfrastructure, and with minimal overhead for package maintainers.\n\nBinstall works by fetching the crate information from `crates.io` and searching\nthe linked `repository` for matching releases and artifacts, falling back to the\n[quickinstall](https://github.com/alsuren/cargo-quickinstall) third-party\nartifact host, to alternate targets as supported, and finally to `cargo install`\nas a last resort.\n\n[![CI build](https://github.com/cargo-bins/cargo-binstall/actions/workflows/ci.yml/badge.svg)](https://github.com/cargo-bins/cargo-binstall/actions)\n[![GitHub tag](https://img.shields.io/github/tag/cargo-bins/cargo-binstall.svg)](https://github.com/cargo-bins/cargo-binstall/releases)\n[![Crates.io](https://img.shields.io/crates/v/cargo-binstall.svg)](https://crates.io/crates/cargo-binstall)\n\n_You may want to\n[see this page as it was when the latest version was published](https://crates.io/crates/cargo-binstall)._\n\n## Usage\n\n```console\n$ cargo binstall radio-sx128x@0.14.1-alpha.5\ncargo-binstall:  INFO resolve: Resolving package: 'radio-sx128x@=0.14.1-alpha.5'\ncargo-binstall:  WARN The package radio-sx128x v0.14.1-alpha.5 (x86_64-unknown-linux-gnu) has been downloaded from github.com\ncargo-binstall:  INFO This will install the following binaries:\ncargo-binstall:  INFO   - sx128x-util (sx128x-util-x86_64-unknown-linux-gnu -> /home/.cargo/bin/sx128x-util)\nDo you wish to continue? [yes]/no\n? yes\ncargo-binstall:  INFO Installing binaries...\ncargo-binstall:  INFO Done in 2.838798298s\n```\n\nBinstall aims to be a drop-in replacement for `cargo install` in many cases, and\nsupports similar options.\n\nFor unattended use (e.g. in CI), use the `--no-confirm` flag. For additional\noptions please see `cargo binstall --help`.\n\n## For Crate Authors\n\nTo support `cargo binstall` for your crate, add metadata to your `Cargo.toml`\nand publish pre-built binaries to GitHub Releases on each release.\n\nSee\n[SUPPORT.md](https://github.com/cargo-bins/cargo-binstall/blob/main/SUPPORT.md)\nfor full documentation on the metadata format, artifact naming, and supported\noptions.\n\n## Installation\n\n### If you already have it\n\nTo upgrade cargo-binstall, use `cargo binstall cargo-binstall`!\n\n### Quickly\n\nHere are one-liners for downloading and installing a pre-compiled\n`cargo-binstall` binary.\n\n#### Linux and macOS\n\n```\ncurl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash\n```\n\nor if you have [homebrew](https://brew.sh/) installed:\n\n```\nbrew install cargo-binstall\n```\n\n#### Windows\n\n```\nSet-ExecutionPolicy Unrestricted -Scope Process; iex (iwr \"https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.ps1\").Content\n```\n\n### Manually\n\nDownload the relevant package for your system below, unpack it, and move the\n`cargo-binstall` executable into `$HOME/.cargo/bin`:\n\n| OS      | Arch                      | URL                                                                                                                     |\n| ------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------- |\n| Linux   | x86\\_64                   | https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-x86_64-unknown-linux-musl.tgz      |\n| Linux   | armv7                     | https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-armv7-unknown-linux-musleabihf.tgz |\n| Linux   | arm64                     | https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-aarch64-unknown-linux-musl.tgz     |\n| Mac     | Intel                     | https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-x86_64-apple-darwin.zip            |\n| Mac     | Apple Silicon             | https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-aarch64-apple-darwin.zip           |\n| Mac     | Universal<br>(both archs) | https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-universal-apple-darwin.zip         |\n| Windows | Intel/AMD                 | https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-x86_64-pc-windows-msvc.zip         |\n| Windows | ARM 64                    | https://github.com/cargo-bins/cargo-binstall/releases/latest/download/cargo-binstall-aarch64-pc-windows-msvc.zip        |\n\n### From source\n\nWith a recent [Rust](https://rustup.rs) installed:\n\n```\ncargo install cargo-binstall --locked\n```\n\n### In GitHub Actions\n\nWe provide a first-party, minimal action that installs Binstall:\n\n```yml\n- uses: cargo-bins/cargo-binstall@main\n  with:\n      version: \"1.2.3\" # optional; defaults to latest\n```\n\nFor more features, we recommend the excellent\n[taiki-e/install-action](https://github.com/marketplace/actions/install-development-tools),\nwhich has dedicated support for selected tools and uses Binstall for everything\nelse.\n\n## Companion tools\n\nThese are useful _third-party_ tools which work well with Binstall.\n\n### [`cargo-update`](https://github.com/nabijaczleweli/cargo-update)\n\nWhile you can upgrade crates explicitly by running `cargo binstall` again,\n`cargo-update` takes care of updating all tools as needed. It automatically uses\nBinstall to install the updates if it is present.\n\n### [`cargo-run-bin`](https://github.com/dustinblackman/cargo-run-bin)\n\nBinstall and `cargo install` both install tools globally by default, which is\nfine for system-wide tools. When installing tooling for a project, however, you\nmay prefer to both scope the tools to that project and control their versions in\ncode. That's where `cargo-run-bin` comes in, with a dedicated section in your\nCargo.toml and a short cargo subcommand. When Binstall is available, it installs\nfrom binary whenever possible... and you can even manage Binstall itself with\n`cargo-run-bin`!\n\n## Unsupported crates\n\nBinstall is generally smart enough to auto-detect artifacts in most situations.\nHowever, if a package fails to install, you can manually specify the `pkg-url`,\n`bin-dir`, and `pkg-fmt` as needed at the command line, with values as\ndocumented in\n[SUPPORT.md](https://github.com/cargo-bins/cargo-binstall/blob/main/SUPPORT.md).\n\n```console\n$ cargo-binstall \\\n  --pkg-url=\"{ repo }/releases/download/{ version }/{ name }-{ version }-{ target }.{ archive-format }\" \\\n  --pkg-fmt=\"txz\" \\\n  crate_name\n```\n\nMaintainers wanting to make their users' life easier can add\n[explicit Binstall metadata](https://github.com/cargo-bins/cargo-binstall/blob/main/SUPPORT.md)\nto `Cargo.toml` to locate the appropriate binary package for a given version and\ntarget.\n\n## Signatures\n\nWe have initial, limited\n[support](https://github.com/cargo-bins/cargo-binstall/blob/main/SIGNING.md) for\nmaintainers to specify a signing public key and where to find package\nsignatures. With this enabled, Binstall will download and verify signatures for\nthat package.\n\nYou can use `--only-signed` to refuse to install packages if they're not signed.\n\nIf you like to live dangerously (please don't use this outside testing), you can\nuse `--skip-signatures` to disable checking or even downloading signatures at\nall.\n\n## FAQ\n\n### Why use this?\n\nBecause `wget`-ing releases is frustrating, `cargo install` takes a not\ninconsequential portion of forever on constrained devices, and often putting\ntogether actual _packages_ is overkill.\n\n### Why use the cargo manifest?\n\nCrates already have these, and they already contain a significant portion of the\nrequired information. Also, there's this great and woefully underused (IMO)\n`[package.metadata]` field.\n\n### Is this secure?\n\nYes and also no?\n\nWe have\n[initial support](https://github.com/cargo-bins/cargo-binstall/blob/main/SIGNING.md)\nfor verifying signatures, but not a lot of the ecosystem produces signatures at\nthe moment. See [#1](https://github.com/cargo-bins/cargo-binstall/issues/1) to\ndiscuss more on this.\n\nWe always pull the metadata from crates.io over HTTPS, and verify the checksum\nof the crate tar. We also enforce using HTTPS with TLS >= 1.2 for the actual\ndownload of the package files.\n\nCompared to something like a `curl ... | sh` script, we're not running arbitrary\ncode, but of course the crate you're downloading a package for might itself be\nmalicious!\n\n### What do the error codes mean?\n\nYou can find a full description of errors including exit codes here:\n<https://docs.rs/binstalk/latest/binstalk/errors/enum.BinstallError.html>\n\n### Are debug symbols available?\n\nYes! Extra pre-built packages with a `.full` suffix are available and contain\nsplit debuginfo, documentation files, and extra binaries like the `detect-wasi`\nutility.\n\n## Telemetry collection\n\nSome crate installation strategies may collect anonymized usage statistics by\ndefault. Currently, only the name of the crate to be installed, its version, the\ntarget platform triple, and the collecting user agent are sent to endpoints\nunder the `https://cargo-quickinstall-stats-server.fly.dev/record-install` URL\nwhen the `quickinstall` artifact host is used. The maintainers of the\n`quickinstall` project use this data to determine which crate versions are most\nworthwhile to build and host. The aggregated collected telemetry is publicly\naccessible at\n<https://alsuren.grafana.net/public-dashboards/12d4ec3edf2548a1850a813e00592b53>.\nShould you be interested in it, the backend code for these endpoints can be\nfound at\n<https://github.com/cargo-bins/cargo-quickinstall/tree/main/stats-server>.\n\nIf you prefer not to participate in this data collection, you can opt out by any\nof the following methods:\n\n- Setting the `--disable-telemetry` flag in the command line interface.\n- Setting the `BINSTALL_DISABLE_TELEMETRY` environment variable to `true`.\n- Disabling the `quickinstall` strategy with\n  `--disable-strategies quick-install`, or if specifying a list of strategies to\n  use with `--strategies`, avoiding including `quick-install` in that list.\n- Adding `quick-install` to the `disabled-strategies` configuration key in the\n  crate metadata (refer to\n  [the related support documentation](SUPPORT.md#support-for-cargo-binstall) for\n  more details).\n\n---\n\nIf you have ideas/contributions or anything is not working the way you expect\n(in which case, please include an output with `--log-level debug`) and feel free\nto open an issue or PR.\n",
+  "source_sha256": "ad1d8e53e2038c2dba4094b398747ed13da21bca0da09d9ab88440031f45eac5"
+}

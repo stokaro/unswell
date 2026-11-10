@@ -10,7 +10,7 @@ SHELL := /bin/bash
 check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-ape-screen check-dual-gate-triage check-dual-gate-feasibility check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-gen-technical-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot check-source-bound-disposition-pilot check-paired-source-necessity check-complementary-semantic-pilot check-unit-relation-pilot check-source-role-rescue check-source-role-selector check-structured-admission check-source-context-admission check-joint-coverage-triage
 
 check-joint-coverage-triage:
-	python3 -B research/reviews/2026-11-09-joint-coverage-triage/run.py verify
+	python3 -B research/reviews/2026-11-09-joint-coverage-triage/verify_historical.py
 	python3 -B -m unittest discover -s research/reviews/2026-11-09-joint-coverage-triage -p 'test_*.py'
 
 check-source-context-admission:
@@ -253,22 +253,30 @@ build-mcp:
 	cd mcp && CGO_ENABLED=0 go build -trimpath -ldflags "-X github.com/stokaro/unswell.BuildCommit=$$commit" -o ../bin/unswell-mcp ./cmd/unswell-mcp
 
 dogfood-mcp: dogfood build-mcp
-	cd mcp && go run ./cmd/mcp-selfcheck --timeout 5m --expected ../artifacts/dogfood/result.json \
-	  --output ../artifacts/dogfood/mcp-result.json -- ../bin/unswell-mcp --config ../.unswell.yaml \
-	  --prepared-feature prose-words --prepared-feature noun-token-ratio \
-	  --prepared-kind sentence --prepared-kind paragraph --prepared-kind fragment \
-	  --feature prose-words --feature type-token-ratio --feature activation/readability.long-paragraph \
-	  --feature activation/filler.announced-importance --feature activation/syntax.noun-stack \
-	  --feature activation/filler.section-announcement --feature activation/filler.stacked-hedging \
-	  --feature activation/syntax.not-only-density --feature activation/syntax.paired-contrast-density \
-	  --feature activation/syntax.triad-density --feature activation/syntax.whether-preface-density \
-	  --feature activation/syntax.rhetorical-question-density --feature activation/syntax.passive-candidate-density \
-	  --feature activation/repetition.exact-sentence --feature activation/repetition.sentence-openers \
-	  --feature activation/repetition.paragraph-openers \
-	  --feature activation/repetition.near-sentence --feature activation/repetition.ngram-density \
-	  --feature activation/repetition.syntax-template --feature activation/repetition.paragraph-overlap \
-	  --feature activation/repetition.heading-echo --feature activation/repetition.summary-echo \
-	  --feature activation/format.list-fragmentation
+	python3 -m unittest -q scripts/test_dogfood_mcp_shards.py
+	@set -eu; temporary=$$(mktemp -d); trap 'rm -rf "$$temporary"' EXIT; \
+	  python3 scripts/dogfood_mcp_shards.py split artifacts/dogfood/result.json "$$temporary"; \
+	  for part in 0 1; do \
+	    (cd mcp && go run ./cmd/mcp-selfcheck --timeout 5m \
+	      --expected "$$temporary/expected-$$part.json" \
+	      --output "$$temporary/mcp-$$part.json" -- ../bin/unswell-mcp --config ../.unswell.yaml \
+	      --prepared-feature prose-words --prepared-feature noun-token-ratio \
+	      --prepared-kind sentence --prepared-kind paragraph --prepared-kind fragment \
+	      --feature prose-words --feature type-token-ratio --feature activation/readability.long-paragraph \
+	      --feature activation/filler.announced-importance --feature activation/syntax.noun-stack \
+	      --feature activation/filler.section-announcement --feature activation/filler.stacked-hedging \
+	      --feature activation/syntax.not-only-density --feature activation/syntax.paired-contrast-density \
+	      --feature activation/syntax.triad-density --feature activation/syntax.whether-preface-density \
+	      --feature activation/syntax.rhetorical-question-density --feature activation/syntax.passive-candidate-density \
+	      --feature activation/repetition.exact-sentence --feature activation/repetition.sentence-openers \
+	      --feature activation/repetition.paragraph-openers \
+	      --feature activation/repetition.near-sentence --feature activation/repetition.ngram-density \
+	      --feature activation/repetition.syntax-template --feature activation/repetition.paragraph-overlap \
+	      --feature activation/repetition.heading-echo --feature activation/repetition.summary-echo \
+	      --feature activation/format.list-fragmentation); \
+	  done; \
+	  python3 scripts/dogfood_mcp_shards.py combine artifacts/dogfood/result.json \
+	    "$$temporary" artifacts/dogfood/mcp-result.json
 
 release:
 	bash scripts/release.sh

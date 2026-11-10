@@ -107,8 +107,11 @@ make dogfood-mcp
 ```
 
 This builds both executables, runs the CLI against owned repository files, and
-starts a real MCP subprocess with the committed policy. A client discovers its
-tools and submits the same source bytes. It compares the complete engine results
+starts real MCP subprocesses with the committed policy. The saved CLI scan is
+partitioned into two bounded expected inputs when the complete result grows
+beyond the 256 MiB reader limit. Each client discovers its tools and submits
+the same source bytes; the combined evidence must cover every document exactly
+once. It compares the complete engine results
 after removing source-display fields and normalizing the CLI discovery mode.
 Policy hashes, build revisions, findings, exclusions and gate outcomes must match.
 Both scans request word counts and type-token ratios. Their feature identities,

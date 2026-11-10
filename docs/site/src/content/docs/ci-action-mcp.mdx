@@ -149,7 +149,7 @@ Restart after a reviewed update.
 policy. It then feeds a deliberate violation through five contexts, and each one
 has to exit 1.
 
-`make dogfood-mcp` does the same work through a real MCP subprocess and compares
-the two engine results in full. Policy hashes, build revisions, findings,
+`make dogfood-mcp` does the same work through bounded MCP subprocesses and compares
+their combined results with the complete CLI scan. Policy hashes, build revisions, findings,
 exclusions, gate outcomes and the measurements that were asked for all have to
 match.
