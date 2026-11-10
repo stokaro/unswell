@@ -18,6 +18,7 @@ func repetitionScopes(ctx context.Context, view rule.View) (map[int]int, error) 
 	identities := make(map[string]int)
 	budget := repetitionBudget{ctx, view.MaxCandidates}
 	headings := make(map[string]int)
+	details := repetitionDetails(view.Document)
 	for _, block := range view.Document.Blocks {
 		if err := budget.spend(1); err != nil {
 			return nil, err
@@ -36,6 +37,7 @@ func repetitionScopes(ctx context.Context, view rule.View) (map[int]int, error) 
 			headings[owner] = block.ID + 1
 		}
 		key := fmt.Sprintf("%s/%d", owner, headings[owner])
+		key += details.suffix(block.Span)
 		if block.Kind == "heading" {
 			key += fmt.Sprintf("/block:%d", block.ID)
 		}

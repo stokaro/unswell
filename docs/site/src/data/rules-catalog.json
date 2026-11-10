@@ -654,7 +654,7 @@
         },
         {
           "id": "repetition.exact-sentence",
-          "version": "3",
+          "version": "4",
           "status": "experimental",
           "group": "repetition",
           "scope": "document",
@@ -672,7 +672,7 @@
           "weight": 30,
           "cap": 60,
           "summary": "This sentence is repeated; consider whether every occurrence is needed.",
-          "description": "Compares sentences within one structural section, with separate table-cell and leading-condition scopes. Protected operands are compared by literal source identity without interpreting their contents.",
+          "description": "Compares sentences within one structural section, with separate table-cell, leading-condition, and Markdown details scopes. Protected operands are compared by literal source identity without interpreting their contents.",
           "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Protected operands do not contribute to the prose word minimum. Identity comparison shares a bounded work budget."
         },
         {
@@ -718,7 +718,7 @@
         },
         {
           "id": "repetition.near-sentence",
-          "version": "3",
+          "version": "4",
           "status": "experimental",
           "group": "repetition",
           "scope": "document",
@@ -737,7 +737,7 @@
           "cap": 44,
           "summary": "These sentences have high lexical overlap; check for repeated information.",
           "description": "Compares indexed sentence candidates with set Jaccard and a shared technical-contrast signature.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Modal, condition, and state cues are retained in token order. Numeric-unit protection retains the token after a number, not a complete unit expression. Equal signatures do not establish semantic equivalence; comparisons stay within structural and task scopes."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Modal, condition, and state cues are retained in token order. Numeric-unit protection retains the token after a number, not a complete unit expression. Equal signatures do not establish semantic equivalence; comparisons stay within structural and task scopes. Separate Markdown details choices have independent comparison scopes."
         },
         {
           "id": "repetition.ngram-density",
@@ -762,7 +762,7 @@
         },
         {
           "id": "repetition.paragraph-openers",
-          "version": "3",
+          "version": "4",
           "status": "experimental",
           "group": "repetition",
           "scope": "document",
@@ -781,7 +781,7 @@
           "cap": 36,
           "summary": "Several paragraphs repeat the same opening formula.",
           "description": "Groups opening words from each paragraph's first sentence. The word minimum applies to the complete paragraph.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Repeated openings do not establish duplicate meaning. Structural sections and leading conditions bound comparisons."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Repeated openings do not establish duplicate meaning. Structural sections and leading conditions bound comparisons. Separate Markdown details choices have independent groups."
         },
         {
           "id": "repetition.paragraph-overlap",
@@ -868,7 +868,7 @@
         },
         {
           "id": "repetition.sentence-openers",
-          "version": "2",
+          "version": "3",
           "status": "experimental",
           "group": "repetition",
           "scope": "document",
@@ -887,7 +887,7 @@
           "cap": 30,
           "summary": "Several sentences repeat the same opening; consider removing repeated setup.",
           "description": "Several sentences repeat the same opening; consider removing repeated setup.",
-          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Groups stay within structural sections and explicit leading conditions. Repeated form need not mean redundant information."
+          "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Groups stay within structural sections and explicit leading conditions. Separate Markdown details choices have independent groups. Repeated form need not mean redundant information."
         },
         {
           "id": "repetition.summary-echo",

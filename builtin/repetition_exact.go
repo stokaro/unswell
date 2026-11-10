@@ -18,9 +18,10 @@ func exactRepetitionRule(sample string) rule.Rule {
 		30,
 	)
 	exact.Defaults.Parameters = rule.Parameters{MinWords: 12, Window: "document"}
-	exact.Version = "3"
+	exact.Version = "4"
 	exact.RequiresStructure = true
-	exact.Description = "Compares sentences within one structural section, with separate table-cell and leading-condition scopes."
+	exact.Description = "Compares sentences within one structural section, with separate table-cell, " +
+		"leading-condition, and Markdown details scopes."
 	exact.Description += " Protected operands are compared by literal source identity without interpreting their contents."
 	exact.Limitations += " Protected operands do not contribute to the prose word minimum. Identity comparison shares a bounded work budget."
 	exact.BlockObservations = true

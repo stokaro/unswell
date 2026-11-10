@@ -350,6 +350,13 @@ calculation retains the provider's `Word` flags; protected code words are omitte
 while other words in the same sentence remain eligible. This differs from exact
 repetition's rejection of the whole protected sentence.
 
+Matched, standalone Markdown `<details>` elements now form independent comparison
+scopes for exact-sentence and opener grouping. Repeated instructions inside one
+element remain eligible; instructions in separate choices do not form one group.
+This changes exact-sentence to version `4`, sentence-openers to version `3`, and
+paragraph-openers to version `4`. Unmatched or nonstandalone tags do not create a
+scope; code examples and HTML comments remain excluded.
+
 The paragraph rule's version is part of the recorded rule catalog and each
 activation source's `ruleset_hash`. The activation formula remains version `1`: only candidate
 eligibility changed. [ADR 0038](adr/0038-paragraph-opener-eligibility.md) records the
@@ -359,7 +366,7 @@ The remaining seven builtin rules record their actual candidate comparisons:
 
 | Rule | Eligible input |
 | --- | --- |
-| `repetition.near-sentence` | Two prepared sentences reached by the existing shared-bigram index. Structural section, table-cell and leading-condition scopes bound candidate comparisons. |
+| `repetition.near-sentence` | Two prepared sentences reached by the existing shared-bigram index. Structural section, table-cell, leading-condition and matched Markdown details scopes bound candidate comparisons. The details boundary starts in version `4`. |
 | `repetition.paragraph-overlap` | Prepared prose blocks of the same kind reached by the content-key index within `window_blocks`. |
 | `repetition.summary-echo` | An indexed comparison from an earlier nonsummary block to a later block under a selected summary heading. |
 | `repetition.heading-echo` | A selected heading and its adjacent paragraph, both meeting the lexical requirements without an excluded boundary between them. |

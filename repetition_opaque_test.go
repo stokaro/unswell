@@ -19,7 +19,7 @@ func TestExactSentenceRepeatsRetainOpaqueOperands(t *testing.T) {
 	result := singleRuleResult(t, "repetition.exact-sentence", text, "", "")
 	c.Assert(result.Findings, qt.HasLen, 1)
 	finding := result.Findings[0]
-	c.Assert(finding.RuleVersion, qt.Equals, "3")
+	c.Assert(finding.RuleVersion, qt.Equals, "4")
 	c.Assert(finding.Evidence.Kind, qt.Equals, "exact")
 	c.Assert(finding.Primary.Snippet, qt.Equals, first)
 	c.Assert(finding.Related, qt.HasLen, 1)
