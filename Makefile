@@ -253,22 +253,30 @@ build-mcp:
 	cd mcp && CGO_ENABLED=0 go build -trimpath -ldflags "-X github.com/stokaro/unswell.BuildCommit=$$commit" -o ../bin/unswell-mcp ./cmd/unswell-mcp
 
 dogfood-mcp: dogfood build-mcp
-	cd mcp && go run ./cmd/mcp-selfcheck --timeout 5m --expected ../artifacts/dogfood/result.json \
-	  --output ../artifacts/dogfood/mcp-result.json -- ../bin/unswell-mcp --config ../.unswell.yaml \
-	  --prepared-feature prose-words --prepared-feature noun-token-ratio \
-	  --prepared-kind sentence --prepared-kind paragraph --prepared-kind fragment \
-	  --feature prose-words --feature type-token-ratio --feature activation/readability.long-paragraph \
-	  --feature activation/filler.announced-importance --feature activation/syntax.noun-stack \
-	  --feature activation/filler.section-announcement --feature activation/filler.stacked-hedging \
-	  --feature activation/syntax.not-only-density --feature activation/syntax.paired-contrast-density \
-	  --feature activation/syntax.triad-density --feature activation/syntax.whether-preface-density \
-	  --feature activation/syntax.rhetorical-question-density --feature activation/syntax.passive-candidate-density \
-	  --feature activation/repetition.exact-sentence --feature activation/repetition.sentence-openers \
-	  --feature activation/repetition.paragraph-openers \
-	  --feature activation/repetition.near-sentence --feature activation/repetition.ngram-density \
-	  --feature activation/repetition.syntax-template --feature activation/repetition.paragraph-overlap \
-	  --feature activation/repetition.heading-echo --feature activation/repetition.summary-echo \
-	  --feature activation/format.list-fragmentation
+	python3 -m unittest -q scripts/test_dogfood_mcp_shards.py
+	@set -eu; temporary=$$(mktemp -d); trap 'rm -rf "$$temporary"' EXIT; \
+	  python3 scripts/dogfood_mcp_shards.py split artifacts/dogfood/result.json "$$temporary"; \
+	  for part in 0 1; do \
+	    (cd mcp && go run ./cmd/mcp-selfcheck --timeout 5m \
+	      --expected "$$temporary/expected-$$part.json" \
+	      --output "$$temporary/mcp-$$part.json" -- ../bin/unswell-mcp --config ../.unswell.yaml \
+	      --prepared-feature prose-words --prepared-feature noun-token-ratio \
+	      --prepared-kind sentence --prepared-kind paragraph --prepared-kind fragment \
+	      --feature prose-words --feature type-token-ratio --feature activation/readability.long-paragraph \
+	      --feature activation/filler.announced-importance --feature activation/syntax.noun-stack \
+	      --feature activation/filler.section-announcement --feature activation/filler.stacked-hedging \
+	      --feature activation/syntax.not-only-density --feature activation/syntax.paired-contrast-density \
+	      --feature activation/syntax.triad-density --feature activation/syntax.whether-preface-density \
+	      --feature activation/syntax.rhetorical-question-density --feature activation/syntax.passive-candidate-density \
+	      --feature activation/repetition.exact-sentence --feature activation/repetition.sentence-openers \
+	      --feature activation/repetition.paragraph-openers \
+	      --feature activation/repetition.near-sentence --feature activation/repetition.ngram-density \
+	      --feature activation/repetition.syntax-template --feature activation/repetition.paragraph-overlap \
+	      --feature activation/repetition.heading-echo --feature activation/repetition.summary-echo \
+	      --feature activation/format.list-fragmentation); \
+	  done; \
+	  python3 scripts/dogfood_mcp_shards.py combine artifacts/dogfood/result.json \
+	    "$$temporary" artifacts/dogfood/mcp-result.json
 
 release:
 	bash scripts/release.sh

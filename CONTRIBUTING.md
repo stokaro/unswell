@@ -30,7 +30,7 @@ grammar-based prose check with the committed extraction policy.
 `make check` includes `make dogfood-mcp`: the just-built CLI checks this repository
 using `.unswell.yaml`. Edit the prose when a finding is valid. Investigate a false
 positive with a realistic regression case; do not disable a rule just to make CI
-green. A real MCP client checks the same bytes and compares complete results, then
+green. Bounded MCP clients check the same bytes and compare complete results, then
 verifies failure and rewrite probes. Reports are written to `artifacts/dogfood/`.
 
 The root [e2e package](e2e/README.md) runs the built CLI against readable source
