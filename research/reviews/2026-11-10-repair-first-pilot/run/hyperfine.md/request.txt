@@ -1,0 +1,3393 @@
+Review the COMPLETE public technical README for specific editorial
+revisions. Use only the supplied source and eligible unit inventory. Do not
+infer AI authorship or use outside knowledge. Return only schema JSON.
+
+Work from the edit backward: propose a finding only when you can give a
+minimal, concrete replacement that fixes a real reader burden in this page.
+For each finding, select ONE eligible unit ordinal and quote an exact unique
+substring of its raw_slice wholly inside ONE eligible segment. The replacement
+must be no longer than the quote. Empty replacement means delete that quote.
+State the source-specific diagnosis, the reason the change helps the reader,
+and the meaning the replacement retains. Do not propose a generic style
+preference or an edit that only makes a sentence shorter.
+
+Inspect the entire page, including introductions, list lead-ins, transitions,
+and conclusions. Consider empty framing, wordiness, vague claims, needless
+repetition, and unjustified intensifiers, but do not search for trigger words.
+Preserve the author's useful emphasis and voice; negation, conditions,
+uncertainty, attribution, numbers, units, versions, identifiers, links, code,
+table values and scope, and meaningful distinctions. Do not edit a protected
+span or quoted example. Up to six edits per page; zero is valid. No tools.
+
+INPUT JSON:
+{
+  "eligible_units": [
+    {
+      "eligible_segments": [
+        {
+          "end": 11,
+          "start": 2
+        }
+      ],
+      "ordinal": 0,
+      "raw_slice": "hyperfine",
+      "raw_span": {
+        "end": 11,
+        "start": 2
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 46,
+          "start": 13
+        }
+      ],
+      "ordinal": 1,
+      "raw_slice": "A command-line benchmarking tool.",
+      "raw_span": {
+        "end": 46,
+        "start": 13
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 229,
+          "start": 195
+        }
+      ],
+      "ordinal": 2,
+      "raw_slice": "(hyperfine in action, benchmarking",
+      "raw_span": {
+        "end": 229,
+        "start": 195
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 266,
+          "start": 263
+        }
+      ],
+      "ordinal": 3,
+      "raw_slice": "and",
+      "raw_span": {
+        "end": 266,
+        "start": 263
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 306,
+          "start": 298
+        }
+      ],
+      "ordinal": 4,
+      "raw_slice": "Features",
+      "raw_span": {
+        "end": 306,
+        "start": 298
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 352,
+          "start": 310
+        }
+      ],
+      "ordinal": 5,
+      "raw_slice": "Statistical analysis across multiple runs.",
+      "raw_span": {
+        "end": 352,
+        "start": 310
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 417,
+          "start": 355
+        }
+      ],
+      "ordinal": 6,
+      "raw_slice": "Support for various performance metrics and hardware counters.",
+      "raw_span": {
+        "end": 417,
+        "start": 355
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 457,
+          "start": 420
+        }
+      ],
+      "ordinal": 7,
+      "raw_slice": "Support for arbitrary shell commands.",
+      "raw_span": {
+        "end": 457,
+        "start": 420
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 529,
+          "start": 460
+        }
+      ],
+      "ordinal": 8,
+      "raw_slice": "Constant feedback about the benchmark progress and current estimates.",
+      "raw_span": {
+        "end": 529,
+        "start": 460
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 588,
+          "start": 532
+        }
+      ],
+      "ordinal": 9,
+      "raw_slice": "Warmup runs can be executed before the actual benchmark.",
+      "raw_span": {
+        "end": 588,
+        "start": 532
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 655,
+          "start": 591
+        }
+      ],
+      "ordinal": 10,
+      "raw_slice": "Cache-clearing commands can be set up before each benchmark run.",
+      "raw_span": {
+        "end": 655,
+        "start": 591
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 751,
+          "start": 658
+        }
+      ],
+      "ordinal": 11,
+      "raw_slice": "Statistical outlier detection to detect interference from other programs and caching effects.",
+      "raw_span": {
+        "end": 751,
+        "start": 658
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 819,
+          "start": 754
+        }
+      ],
+      "ordinal": 12,
+      "raw_slice": "Export results to various formats: CSV, JSON, Markdown, AsciiDoc.",
+      "raw_span": {
+        "end": 819,
+        "start": 754
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 881,
+          "start": 822
+        }
+      ],
+      "ordinal": 13,
+      "raw_slice": "Parameterized benchmarks (e.g. vary the number of threads).",
+      "raw_span": {
+        "end": 881,
+        "start": 822
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 898,
+          "start": 884
+        }
+      ],
+      "ordinal": 14,
+      "raw_slice": "Cross-platform",
+      "raw_span": {
+        "end": 898,
+        "start": 884
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 908,
+          "start": 903
+        }
+      ],
+      "ordinal": 15,
+      "raw_slice": "Usage",
+      "raw_span": {
+        "end": 908,
+        "start": 903
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 930,
+          "start": 914
+        }
+      ],
+      "ordinal": 16,
+      "raw_slice": "Basic benchmarks",
+      "raw_span": {
+        "end": 930,
+        "start": 914
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 971,
+          "start": 932
+        }
+      ],
+      "ordinal": 17,
+      "raw_slice": "To run a benchmark, you can simply call",
+      "raw_span": {
+        "end": 971,
+        "start": 932
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1085,
+          "start": 996
+        }
+      ],
+      "ordinal": 18,
+      "raw_slice": ". Each argument is an executable\nand its arguments. Commands run directly by default; use",
+      "raw_span": {
+        "end": 1085,
+        "start": 996
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1164,
+          "start": 1091
+        }
+      ],
+      "ordinal": 19,
+      "raw_slice": "for shell syntax such as\npipes, redirections, and wildcards. For example:",
+      "raw_span": {
+        "end": 1164,
+        "start": 1091
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1313,
+          "start": 1198
+        },
+        {
+          "end": 1322,
+          "start": 1314
+        },
+        {
+          "end": 1512,
+          "start": 1323
+        }
+      ],
+      "ordinal": 20,
+      "raw_slice": "Hyperfine will automatically determine the number of runs to perform for each command. By default,\nit will perform *at least* 10 benchmarking runs and estimate a run count targeting roughly\n3 seconds, including shell overhead and preparation and conclusion commands. To set an exact\nnumber of runs, you can use the",
+      "raw_span": {
+        "end": 1512,
+        "start": 1198
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1534,
+          "start": 1527
+        }
+      ],
+      "ordinal": 21,
+      "raw_slice": "option:",
+      "raw_span": {
+        "end": 1534,
+        "start": 1527
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1651,
+          "start": 1577
+        }
+      ],
+      "ordinal": 22,
+      "raw_slice": "If you want to compare different programs, you can pass multiple commands:",
+      "raw_span": {
+        "end": 1651,
+        "start": 1577
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1738,
+          "start": 1699
+        }
+      ],
+      "ordinal": 23,
+      "raw_slice": "Commands run and appear in input order.",
+      "raw_span": {
+        "end": 1738,
+        "start": 1699
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1855,
+          "start": 1739
+        }
+      ],
+      "ordinal": 24,
+      "raw_slice": "The first command is the reference for all comparisons;\neach subsequent result shows its change from that reference.",
+      "raw_span": {
+        "end": 1855,
+        "start": 1739
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1897,
+          "start": 1861
+        }
+      ],
+      "ordinal": 25,
+      "raw_slice": "Warmup runs and preparation commands",
+      "raw_span": {
+        "end": 1897,
+        "start": 1861
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2044,
+          "start": 1899
+        }
+      ],
+      "ordinal": 26,
+      "raw_slice": "For programs that perform a lot of disk I/O, the benchmarking results can be heavily influenced\nby disk caches and whether they are cold or warm.",
+      "raw_span": {
+        "end": 2044,
+        "start": 1899
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2111,
+          "start": 2046
+        }
+      ],
+      "ordinal": 27,
+      "raw_slice": "If you want to run the benchmark on a warm cache, you can use the",
+      "raw_span": {
+        "end": 2111,
+        "start": 2046
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2213,
+          "start": 2128
+        }
+      ],
+      "ordinal": 28,
+      "raw_slice": "option to\nperform a certain number of program executions before the actual benchmark:",
+      "raw_span": {
+        "end": 2213,
+        "start": 2128
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2344,
+          "start": 2266
+        }
+      ],
+      "ordinal": 29,
+      "raw_slice": "Conversely, if you want to run the benchmark for a cold cache, you can use the",
+      "raw_span": {
+        "end": 2344,
+        "start": 2266
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2401,
+          "start": 2362
+        },
+        {
+          "end": 2406,
+          "start": 2402
+        },
+        {
+          "end": 2481,
+          "start": 2407
+        }
+      ],
+      "ordinal": 30,
+      "raw_slice": "option to run a special command before *each* benchmark run. For example, to clear Linux filesystem caches,\nyou can run",
+      "raw_span": {
+        "end": 2481,
+        "start": 2362
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2590,
+          "start": 2541
+        }
+      ],
+      "ordinal": 31,
+      "raw_slice": "To use this specific command with hyperfine, call",
+      "raw_span": {
+        "end": 2590,
+        "start": 2541
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2652,
+          "start": 2601
+        }
+      ],
+      "ordinal": 32,
+      "raw_slice": "to temporarily gain sudo permissions\nand then call:",
+      "raw_span": {
+        "end": 2652,
+        "start": 2601
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2783,
+          "start": 2759
+        }
+      ],
+      "ordinal": 33,
+      "raw_slice": "Parameterized benchmarks",
+      "raw_span": {
+        "end": 2783,
+        "start": 2759
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2907,
+          "start": 2785
+        }
+      ],
+      "ordinal": 34,
+      "raw_slice": "If you want to run a series of benchmarks where a single parameter is varied (say, the number of\nthreads), you can use the",
+      "raw_span": {
+        "end": 2907,
+        "start": 2785
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2948,
+          "start": 2932
+        }
+      ],
+      "ordinal": 35,
+      "raw_slice": "option and call:",
+      "raw_span": {
+        "end": 2948,
+        "start": 2932
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3091,
+          "start": 3050
+        }
+      ],
+      "ordinal": 36,
+      "raw_slice": "This also works with decimal numbers. The",
+      "raw_span": {
+        "end": 3091,
+        "start": 3050
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3165,
+          "start": 3121
+        }
+      ],
+      "ordinal": 37,
+      "raw_slice": "option can be used\nto control the step size:",
+      "raw_span": {
+        "end": 3165,
+        "start": 3121
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3249,
+          "start": 3240
+        }
+      ],
+      "ordinal": 38,
+      "raw_slice": "This runs",
+      "raw_span": {
+        "end": 3249,
+        "start": 3240
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3278,
+          "start": 3275
+        }
+      ],
+      "ordinal": 39,
+      "raw_slice": "and",
+      "raw_span": {
+        "end": 3278,
+        "start": 3275
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3366,
+          "start": 3293
+        }
+      ],
+      "ordinal": 40,
+      "raw_slice": "For non-numeric parameters, you can also supply a list of values with the",
+      "raw_span": {
+        "end": 3366,
+        "start": 3293
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3398,
+          "start": 3391
+        }
+      ],
+      "ordinal": 41,
+      "raw_slice": "option:",
+      "raw_span": {
+        "end": 3398,
+        "start": 3391
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3549,
+          "start": 3468
+        }
+      ],
+      "ordinal": 42,
+      "raw_slice": "A common use case is comparing the same command across multiple Git branches. Use",
+      "raw_span": {
+        "end": 3549,
+        "start": 3468
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3676,
+          "start": 3560
+        }
+      ],
+      "ordinal": 43,
+      "raw_slice": "to switch branches once before each set of benchmark runs, so the branch switch is not part of\nthe measured command:",
+      "raw_span": {
+        "end": 3676,
+        "start": 3560
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3929,
+          "start": 3817
+        }
+      ],
+      "ordinal": 44,
+      "raw_slice": "If you need a unique value for each individual run of a benchmark command, hyperfine also exposes\nthe zero-based",
+      "raw_span": {
+        "end": 3929,
+        "start": 3817
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4012,
+          "start": 3953
+        }
+      ],
+      "ordinal": 45,
+      "raw_slice": "environment variable inside the benchmarked command itself:",
+      "raw_span": {
+        "end": 4012,
+        "start": 3953
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4108,
+          "start": 4090
+        }
+      ],
+      "ordinal": 46,
+      "raw_slice": "Intermediate shell",
+      "raw_span": {
+        "end": 4108,
+        "start": 4090
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4221,
+          "start": 4110
+        }
+      ],
+      "ordinal": 47,
+      "raw_slice": "By default, benchmarked commands, including warmup runs, are executed directly, without an intermediate shell (",
+      "raw_span": {
+        "end": 4221,
+        "start": 4110
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4410,
+          "start": 4235
+        }
+      ],
+      "ordinal": 48,
+      "raw_slice": ").\nArguments are split using shell-like quoting, so quoted arguments containing spaces are supported.\nShell syntax such as pipes, redirections, environment-variable expansion,",
+      "raw_span": {
+        "end": 4410,
+        "start": 4235
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4419,
+          "start": 4414
+        }
+      ],
+      "ordinal": 49,
+      "raw_slice": ", and",
+      "raw_span": {
+        "end": 4419,
+        "start": 4414
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4555,
+          "start": 4424
+        }
+      ],
+      "ordinal": 50,
+      "raw_slice": "is not interpreted.\nThis avoids shell startup overhead and the noise from correcting for it, especially for fast commands\n(< 5 ms).",
+      "raw_span": {
+        "end": 4555,
+        "start": 4424
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4621,
+          "start": 4557
+        }
+      ],
+      "ordinal": 51,
+      "raw_slice": "Commands containing unquoted, standalone shell operators such as",
+      "raw_span": {
+        "end": 4621,
+        "start": 4557
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4629,
+          "start": 4627
+        }
+      ],
+      "ordinal": 52,
+      "raw_slice": "or",
+      "raw_span": {
+        "end": 4629,
+        "start": 4627
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4665,
+          "start": 4634
+        }
+      ],
+      "ordinal": 53,
+      "raw_slice": "require an explicit\nchoice: use",
+      "raw_span": {
+        "end": 4665,
+        "start": 4634
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4720,
+          "start": 4691
+        }
+      ],
+      "ordinal": 54,
+      "raw_slice": "to interpret shell syntax, or",
+      "raw_span": {
+        "end": 4720,
+        "start": 4691
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4786,
+          "start": 4743
+        }
+      ],
+      "ordinal": 55,
+      "raw_slice": "to pass\nthe operators as literal arguments.",
+      "raw_span": {
+        "end": 4786,
+        "start": 4743
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4815,
+          "start": 4788
+        }
+      ],
+      "ordinal": 56,
+      "raw_slice": "To enable shell syntax, use",
+      "raw_span": {
+        "end": 4815,
+        "start": 4788
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4834,
+          "start": 4821
+        }
+      ],
+      "ordinal": 57,
+      "raw_slice": "(an alias for",
+      "raw_span": {
+        "end": 4834,
+        "start": 4821
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4867,
+          "start": 4852
+        }
+      ],
+      "ordinal": 58,
+      "raw_slice": "). This selects",
+      "raw_span": {
+        "end": 4867,
+        "start": 4852
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4898,
+          "start": 4873
+        }
+      ],
+      "ordinal": 59,
+      "raw_slice": "on Unix (resolved through",
+      "raw_span": {
+        "end": 4898,
+        "start": 4873
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4909,
+          "start": 4905
+        }
+      ],
+      "ordinal": 60,
+      "raw_slice": ") or",
+      "raw_span": {
+        "end": 4909,
+        "start": 4905
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4931,
+          "start": 4920
+        }
+      ],
+      "ordinal": 61,
+      "raw_slice": "on Windows:",
+      "raw_span": {
+        "end": 4931,
+        "start": 4920
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5022,
+          "start": 4981
+        }
+      ],
+      "ordinal": 62,
+      "raw_slice": "You can also select a specific shell with",
+      "raw_span": {
+        "end": 5022,
+        "start": 4981
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5120,
+          "start": 5117
+        }
+      ],
+      "ordinal": 63,
+      "raw_slice": "The",
+      "raw_span": {
+        "end": 5120,
+        "start": 5117
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5162,
+          "start": 5157
+        }
+      ],
+      "ordinal": 64,
+      "raw_slice": ", and",
+      "raw_span": {
+        "end": 5162,
+        "start": 5157
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5242,
+          "start": 5175
+        }
+      ],
+      "ordinal": 65,
+      "raw_slice": "commands always run through a shell.\nThey use the shell selected by",
+      "raw_span": {
+        "end": 5242,
+        "start": 5175
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5277,
+          "start": 5252
+        }
+      ],
+      "ordinal": 66,
+      "raw_slice": ", or the platform shell (",
+      "raw_span": {
+        "end": 5277,
+        "start": 5252
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5290,
+          "start": 5282
+        }
+      ],
+      "ordinal": 67,
+      "raw_slice": "on Unix,",
+      "raw_span": {
+        "end": 5290,
+        "start": 5282
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5317,
+          "start": 5301
+        }
+      ],
+      "ordinal": 68,
+      "raw_slice": "on Windows)\nwhen",
+      "raw_span": {
+        "end": 5317,
+        "start": 5301
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5348,
+          "start": 5328
+        }
+      ],
+      "ordinal": 69,
+      "raw_slice": "is omitted or set to",
+      "raw_span": {
+        "end": 5348,
+        "start": 5328
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5407,
+          "start": 5358
+        },
+        {
+          "end": 5444,
+          "start": 5408
+        },
+        {
+          "end": 5446,
+          "start": 5445
+        }
+      ],
+      "ordinal": 70,
+      "raw_slice": "When benchmarked commands use a shell, hyperfine *corrects for the shell spawning time*.",
+      "raw_span": {
+        "end": 5446,
+        "start": 5358
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5583,
+          "start": 5447
+        }
+      ],
+      "ordinal": 71,
+      "raw_slice": "It runs the shell with an\nempty command multiple times to measure its startup time, then subtracts this time from each\ntime measurement.",
+      "raw_span": {
+        "end": 5583,
+        "start": 5447
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5605,
+          "start": 5590
+        }
+      ],
+      "ordinal": 72,
+      "raw_slice": "Shell functions",
+      "raw_span": {
+        "end": 5605,
+        "start": 5590
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5703,
+          "start": 5607
+        }
+      ],
+      "ordinal": 73,
+      "raw_slice": "If you are using bash, you can export shell functions to directly benchmark them with hyperfine:",
+      "raw_span": {
+        "end": 5703,
+        "start": 5607
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5862,
+          "start": 5802
+        }
+      ],
+      "ordinal": 74,
+      "raw_slice": "Otherwise, inline the function into the benchmarked command:",
+      "raw_span": {
+        "end": 5862,
+        "start": 5802
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5955,
+          "start": 5934
+        }
+      ],
+      "ordinal": 75,
+      "raw_slice": "Environment variables",
+      "raw_span": {
+        "end": 5955,
+        "start": 5934
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5960,
+          "start": 5957
+        }
+      ],
+      "ordinal": 76,
+      "raw_slice": "Use",
+      "raw_span": {
+        "end": 5960,
+        "start": 5957
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6178,
+          "start": 5969
+        }
+      ],
+      "ordinal": 77,
+      "raw_slice": "to set environment variables for benchmark commands and their respective setup, prepare, conclude,\nand cleanup commands. Assignments are space-separated and support shell-style quoting,\nbut no shell expansion:",
+      "raw_span": {
+        "end": 6178,
+        "start": 5969
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6327,
+          "start": 6267
+        }
+      ],
+      "ordinal": 78,
+      "raw_slice": "Specify once for all commands or once per benchmark command:",
+      "raw_span": {
+        "end": 6327,
+        "start": 6267
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6461,
+          "start": 6449
+        }
+      ],
+      "ordinal": 79,
+      "raw_slice": "Use an empty",
+      "raw_span": {
+        "end": 6461,
+        "start": 6449
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6571,
+          "start": 6473
+        }
+      ],
+      "ordinal": 80,
+      "raw_slice": "for no overrides. Values can contain parameter placeholders.\nFor example, the following benchmarks",
+      "raw_span": {
+        "end": 6571,
+        "start": 6473
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6589,
+          "start": 6585
+        }
+      ],
+      "ordinal": 81,
+      "raw_slice": "with",
+      "raw_span": {
+        "end": 6589,
+        "start": 6585
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6628,
+          "start": 6608
+        }
+      ],
+      "ordinal": 82,
+      "raw_slice": "ranging from 1 to 8:",
+      "raw_span": {
+        "end": 6628,
+        "start": 6608
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6743,
+          "start": 6717
+        }
+      ],
+      "ordinal": 83,
+      "raw_slice": "Choosing metrics and units",
+      "raw_span": {
+        "end": 6743,
+        "start": 6717
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6810,
+          "start": 6745
+        }
+      ],
+      "ordinal": 84,
+      "raw_slice": "By default, hyperfine displays wall-clock time and memory usage\n(",
+      "raw_span": {
+        "end": 6810,
+        "start": 6745
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6854,
+          "start": 6848
+        }
+      ],
+      "ordinal": 85,
+      "raw_slice": "). Use",
+      "raw_span": {
+        "end": 6854,
+        "start": 6848
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6980,
+          "start": 6867
+        }
+      ],
+      "ordinal": 86,
+      "raw_slice": "with a\ncomma-separated list to select a different set of metrics. Each\nmetric can have an optional unit after it:",
+      "raw_span": {
+        "end": 6980,
+        "start": 6867
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7145,
+          "start": 7109
+        }
+      ],
+      "ordinal": 87,
+      "raw_slice": "The following metrics are available:",
+      "raw_span": {
+        "end": 7145,
+        "start": 7109
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7240,
+          "start": 7170
+        }
+      ],
+      "ordinal": 88,
+      "raw_slice": ": Time from start to finish, including time spent waiting, in seconds.",
+      "raw_span": {
+        "end": 7240,
+        "start": 7170
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7329,
+          "start": 7259
+        },
+        {
+          "end": 7365,
+          "start": 7331
+        }
+      ],
+      "ordinal": 89,
+      "raw_slice": ": CPU time spent executing application and library code in user mode,\n  summed across threads, in seconds.",
+      "raw_span": {
+        "end": 7365,
+        "start": 7259
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7459,
+          "start": 7371
+        }
+      ],
+      "ordinal": 90,
+      "raw_slice": "Linux/macOS: Includes child-process time when parents wait for their children to finish.",
+      "raw_span": {
+        "end": 7459,
+        "start": 7371
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7518,
+          "start": 7464
+        }
+      ],
+      "ordinal": 91,
+      "raw_slice": "Windows: Includes the command and its child processes.",
+      "raw_span": {
+        "end": 7518,
+        "start": 7464
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7615,
+          "start": 7539
+        },
+        {
+          "end": 7666,
+          "start": 7617
+        }
+      ],
+      "ordinal": 92,
+      "raw_slice": ": CPU time spent executing kernel code on the program's behalf, for example\n  to read files, summed across threads, in seconds.",
+      "raw_span": {
+        "end": 7666,
+        "start": 7539
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7760,
+          "start": 7672
+        }
+      ],
+      "ordinal": 93,
+      "raw_slice": "Linux/macOS: Includes child-process time when parents wait for their children to finish.",
+      "raw_span": {
+        "end": 7760,
+        "start": 7672
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7819,
+          "start": 7765
+        }
+      ],
+      "ordinal": 94,
+      "raw_slice": "Windows: Includes the command and its child processes.",
+      "raw_span": {
+        "end": 7819,
+        "start": 7765
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7868,
+          "start": 7837
+        }
+      ],
+      "ordinal": 95,
+      "raw_slice": ": Total CPU time, calculated as",
+      "raw_span": {
+        "end": 7868,
+        "start": 7837
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7921,
+          "start": 7895
+        },
+        {
+          "end": 8011,
+          "start": 7923
+        },
+        {
+          "end": 8106,
+          "start": 8013
+        },
+        {
+          "end": 8145,
+          "start": 8108
+        }
+      ],
+      "ordinal": 96,
+      "raw_slice": "for each run, in seconds.\n  It excludes time spent sleeping or waiting without executing. CPU time is summed across\n  threads, so it can exceed wall-clock time: four threads running on four cores for one second\n  can consume roughly four CPU-seconds.",
+      "raw_span": {
+        "end": 8145,
+        "start": 7895
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8220,
+          "start": 8175
+        }
+      ],
+      "ordinal": 97,
+      "raw_slice": ": Peak memory held in physical RAM, in bytes.",
+      "raw_span": {
+        "end": 8220,
+        "start": 8175
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8316,
+          "start": 8226
+        },
+        {
+          "end": 8409,
+          "start": 8320
+        },
+        {
+          "end": 8472,
+          "start": 8414
+        },
+        {
+          "end": 8504,
+          "start": 8473
+        },
+        {
+          "end": 8598,
+          "start": 8508
+        },
+        {
+          "end": 8685,
+          "start": 8602
+        }
+      ],
+      "ordinal": 98,
+      "raw_slice": "Linux/macOS: Peak resident set size (RSS). This is the largest per-process peak among the\n    command and child processes (whose usage is collected when their parents wait for them),\n    *not the simultaneous total memory of the full process tree*. On Linux, measuring commands\n    with a very small peak RSS (below the peak inherited from hyperfine at startup, which can\n    be a few MiB) will currently result in that inherited value being reported instead.",
+      "raw_span": {
+        "end": 8685,
+        "start": 8226
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8723,
+          "start": 8690
+        }
+      ],
+      "ordinal": 99,
+      "raw_slice": "Windows: Currently not supported.",
+      "raw_span": {
+        "end": 8723,
+        "start": 8690
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8765,
+          "start": 8743
+        }
+      ],
+      "ordinal": 100,
+      "raw_slice": ": CPU cycles consumed.",
+      "raw_span": {
+        "end": 8765,
+        "start": 8743
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8861,
+          "start": 8771
+        }
+      ],
+      "ordinal": 101,
+      "raw_slice": "Linux: Includes threads and child processes, but excludes kernel and hypervisor execution.",
+      "raw_span": {
+        "end": 8861,
+        "start": 8771
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8955,
+          "start": 8866
+        }
+      ],
+      "ordinal": 102,
+      "raw_slice": "macOS: Includes the process's threads and kernel execution, but excludes child processes.",
+      "raw_span": {
+        "end": 8955,
+        "start": 8866
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8993,
+          "start": 8960
+        }
+      ],
+      "ordinal": 103,
+      "raw_slice": "Windows: Currently not supported.",
+      "raw_span": {
+        "end": 8993,
+        "start": 8960
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9044,
+          "start": 9015
+        }
+      ],
+      "ordinal": 104,
+      "raw_slice": ": Completed CPU instructions.",
+      "raw_span": {
+        "end": 9044,
+        "start": 9015
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9076,
+          "start": 9050
+        }
+      ],
+      "ordinal": 105,
+      "raw_slice": "Linux/macOS: Same scope as",
+      "raw_span": {
+        "end": 9076,
+        "start": 9050
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9128,
+          "start": 9095
+        }
+      ],
+      "ordinal": 106,
+      "raw_slice": "Windows: Currently not supported.",
+      "raw_span": {
+        "end": 9128,
+        "start": 9095
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9212,
+          "start": 9154
+        }
+      ],
+      "ordinal": 107,
+      "raw_slice": ": Cache accesses counted by the CPU's generic cache event.",
+      "raw_span": {
+        "end": 9212,
+        "start": 9154
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9238,
+          "start": 9218
+        }
+      ],
+      "ordinal": 108,
+      "raw_slice": "Linux: Same scope as",
+      "raw_span": {
+        "end": 9238,
+        "start": 9218
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9295,
+          "start": 9251
+        }
+      ],
+      "ordinal": 109,
+      "raw_slice": ". Cache-event definitions depend on the CPU.",
+      "raw_span": {
+        "end": 9295,
+        "start": 9251
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9339,
+          "start": 9300
+        }
+      ],
+      "ordinal": 110,
+      "raw_slice": "macOS/Windows: Currently not supported.",
+      "raw_span": {
+        "end": 9339,
+        "start": 9300
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9376,
+          "start": 9361
+        }
+      ],
+      "ordinal": 111,
+      "raw_slice": ": Cache misses.",
+      "raw_span": {
+        "end": 9376,
+        "start": 9361
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9402,
+          "start": 9382
+        }
+      ],
+      "ordinal": 112,
+      "raw_slice": "Linux: Same scope as",
+      "raw_span": {
+        "end": 9402,
+        "start": 9382
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9459,
+          "start": 9415
+        }
+      ],
+      "ordinal": 113,
+      "raw_slice": ". Cache-event definitions depend on the CPU.",
+      "raw_span": {
+        "end": 9459,
+        "start": 9415
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9503,
+          "start": 9464
+        }
+      ],
+      "ordinal": 114,
+      "raw_slice": "macOS/Windows: Currently not supported.",
+      "raw_span": {
+        "end": 9503,
+        "start": 9464
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9550,
+          "start": 9526
+        }
+      ],
+      "ordinal": 115,
+      "raw_slice": ": Mispredicted branches.",
+      "raw_span": {
+        "end": 9550,
+        "start": 9526
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9576,
+          "start": 9556
+        }
+      ],
+      "ordinal": 116,
+      "raw_slice": "Linux: Same scope as",
+      "raw_span": {
+        "end": 9576,
+        "start": 9556
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9634,
+          "start": 9595
+        }
+      ],
+      "ordinal": 117,
+      "raw_slice": "macOS/Windows: Currently not supported.",
+      "raw_span": {
+        "end": 9634,
+        "start": 9595
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9707,
+          "start": 9636
+        }
+      ],
+      "ordinal": 118,
+      "raw_slice": "Note that hardware counters are not available when a shell is enabled (",
+      "raw_span": {
+        "end": 9707,
+        "start": 9636
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9754,
+          "start": 9723
+        }
+      ],
+      "ordinal": 119,
+      "raw_slice": "Time measurements support units",
+      "raw_span": {
+        "end": 9754,
+        "start": 9723
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9788,
+          "start": 9783
+        }
+      ],
+      "ordinal": 120,
+      "raw_slice": ", and",
+      "raw_span": {
+        "end": 9788,
+        "start": 9783
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9821,
+          "start": 9792
+        }
+      ],
+      "ordinal": 121,
+      "raw_slice": ". Memory measurements\nsupport",
+      "raw_span": {
+        "end": 9821,
+        "start": 9792
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9875,
+          "start": 9870
+        }
+      ],
+      "ordinal": 122,
+      "raw_slice": ", and",
+      "raw_span": {
+        "end": 9875,
+        "start": 9870
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9908,
+          "start": 9881
+        }
+      ],
+      "ordinal": 123,
+      "raw_slice": ". Hardware counters\nsupport",
+      "raw_span": {
+        "end": 9908,
+        "start": 9881
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9921,
+          "start": 9917
+        }
+      ],
+      "ordinal": 124,
+      "raw_slice": "(1),",
+      "raw_span": {
+        "end": 9921,
+        "start": 9917
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9937,
+          "start": 9926
+        }
+      ],
+      "ordinal": 125,
+      "raw_slice": "(thousand),",
+      "raw_span": {
+        "end": 9937,
+        "start": 9926
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9956,
+          "start": 9942
+        }
+      ],
+      "ordinal": 126,
+      "raw_slice": "(million), and",
+      "raw_span": {
+        "end": 9956,
+        "start": 9942
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9971,
+          "start": 9961
+        }
+      ],
+      "ordinal": 127,
+      "raw_slice": "(billion).",
+      "raw_span": {
+        "end": 9971,
+        "start": 9961
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10028,
+          "start": 9973
+        }
+      ],
+      "ordinal": 128,
+      "raw_slice": "You can also use a preset to select a group of metrics:",
+      "raw_span": {
+        "end": 10028,
+        "start": 9973
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10038,
+          "start": 10032
+        }
+      ],
+      "ordinal": 129,
+      "raw_slice": "Preset",
+      "raw_span": {
+        "end": 10038,
+        "start": 10032
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10048,
+          "start": 10041
+        }
+      ],
+      "ordinal": 130,
+      "raw_slice": "Metrics",
+      "raw_span": {
+        "end": 10048,
+        "start": 10041
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10241,
+          "start": 10220
+        }
+      ],
+      "ordinal": 131,
+      "raw_slice": "All available metrics",
+      "raw_span": {
+        "end": 10241,
+        "start": 10220
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10266,
+          "start": 10249
+        }
+      ],
+      "ordinal": 132,
+      "raw_slice": "Exporting results",
+      "raw_span": {
+        "end": 10266,
+        "start": 10249
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10488,
+          "start": 10268
+        }
+      ],
+      "ordinal": 133,
+      "raw_slice": "Hyperfine can export results to CSV, JSON, Markdown, AsciiDoc, and org-mode. CSV exports all\nselected metrics, while Markdown, AsciiDoc, and org-mode contain only the primary metric,\nwhich is the first metric selected by",
+      "raw_span": {
+        "end": 10488,
+        "start": 10268
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10516,
+          "start": 10508
+        }
+      ],
+      "ordinal": 134,
+      "raw_slice": "Markdown",
+      "raw_span": {
+        "end": 10516,
+        "start": 10508
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10533,
+          "start": 10518
+        }
+      ],
+      "ordinal": 135,
+      "raw_slice": "You can use the",
+      "raw_span": {
+        "end": 10533,
+        "start": 10518
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10604,
+          "start": 10561
+        }
+      ],
+      "ordinal": 136,
+      "raw_slice": "option to create tables like the following:",
+      "raw_span": {
+        "end": 10604,
+        "start": 10561
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10615,
+          "start": 10608
+        }
+      ],
+      "ordinal": 137,
+      "raw_slice": "Command",
+      "raw_span": {
+        "end": 10615,
+        "start": 10608
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10633,
+          "start": 10618
+        },
+        {
+          "end": 10635,
+          "start": 10634
+        }
+      ],
+      "ordinal": 138,
+      "raw_slice": "Mean Wall Time [s",
+      "raw_span": {
+        "end": 10635,
+        "start": 10618
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10645,
+          "start": 10639
+        }
+      ],
+      "ordinal": 139,
+      "raw_slice": "Change",
+      "raw_span": {
+        "end": 10645,
+        "start": 10639
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10654,
+          "start": 10648
+        }
+      ],
+      "ordinal": 140,
+      "raw_slice": "Factor",
+      "raw_span": {
+        "end": 10654,
+        "start": 10648
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10730,
+          "start": 10716
+        }
+      ],
+      "ordinal": 141,
+      "raw_slice": "2.275 ± 0.046",
+      "raw_span": {
+        "end": 10730,
+        "start": 10716
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10786,
+          "start": 10772
+        }
+      ],
+      "ordinal": 142,
+      "raw_slice": "1.427 ± 0.026",
+      "raw_span": {
+        "end": 10786,
+        "start": 10772
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10795,
+          "start": 10789
+        }
+      ],
+      "ordinal": 143,
+      "raw_slice": "-37.3%",
+      "raw_span": {
+        "end": 10795,
+        "start": 10789
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10811,
+          "start": 10798
+        }
+      ],
+      "ordinal": 144,
+      "raw_slice": "(1.6x faster)",
+      "raw_span": {
+        "end": 10811,
+        "start": 10798
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10857,
+          "start": 10843
+        }
+      ],
+      "ordinal": 145,
+      "raw_slice": "0.232 ± 0.002",
+      "raw_span": {
+        "end": 10857,
+        "start": 10843
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10866,
+          "start": 10860
+        }
+      ],
+      "ordinal": 146,
+      "raw_slice": "-89.8%",
+      "raw_span": {
+        "end": 10866,
+        "start": 10860
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10882,
+          "start": 10869
+        }
+      ],
+      "ordinal": 147,
+      "raw_slice": "(9.8x faster)",
+      "raw_span": {
+        "end": 10882,
+        "start": 10869
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10895,
+          "start": 10891
+        }
+      ],
+      "ordinal": 148,
+      "raw_slice": "JSON",
+      "raw_span": {
+        "end": 10895,
+        "start": 10891
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10954,
+          "start": 10897
+        },
+        {
+          "end": 10981,
+          "start": 10955
+        },
+        {
+          "end": 11058,
+          "start": 11011
+        }
+      ],
+      "ordinal": 149,
+      "raw_slice": "The JSON export includes all available metrics listed in [Choosing metrics and units](#choosing-metrics-and-units)\nfor each measured run (excluding warmup runs).",
+      "raw_span": {
+        "end": 11058,
+        "start": 10897
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 11150,
+          "start": 11060
+        }
+      ],
+      "ordinal": 150,
+      "raw_slice": "The JSON output is useful if you want to analyze the benchmark results in more detail. The",
+      "raw_span": {
+        "end": 11150,
+        "start": 11060
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 11421,
+          "start": 11222
+        }
+      ],
+      "ordinal": 151,
+      "raw_slice": "folder includes a lot\nof helpful Python programs to further analyze benchmark results and create helpful\nvisualizations, like a histogram of runtimes or a whisker plot to compare\nmultiple benchmarks.",
+      "raw_span": {
+        "end": 11421,
+        "start": 11222
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 11482,
+          "start": 11423
+        }
+      ],
+      "ordinal": 152,
+      "raw_slice": "For example, these two commands create the following plots:",
+      "raw_span": {
+        "end": 11482,
+        "start": 11423
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 11739,
+          "start": 11736
+        }
+      ],
+      "ordinal": 153,
+      "raw_slice": "CSV",
+      "raw_span": {
+        "end": 11739,
+        "start": 11736
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 11744,
+          "start": 11741
+        }
+      ],
+      "ordinal": 154,
+      "raw_slice": "Use",
+      "raw_span": {
+        "end": 11744,
+        "start": 11741
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 11821,
+          "start": 11767
+        }
+      ],
+      "ordinal": 155,
+      "raw_slice": "to export one row per command. Each metric selected by",
+      "raw_span": {
+        "end": 11821,
+        "start": 11767
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 11885,
+          "start": 11834
+        }
+      ],
+      "ordinal": 156,
+      "raw_slice": "contributes a group of columns, in selection order:",
+      "raw_span": {
+        "end": 11885,
+        "start": 11834
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 11977,
+          "start": 11972
+        }
+      ],
+      "ordinal": 157,
+      "raw_slice": ", and",
+      "raw_span": {
+        "end": 11977,
+        "start": 11972
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 12086,
+          "start": 11995
+        }
+      ],
+      "ordinal": 158,
+      "raw_slice": "CSV uses explicitly selected units, or base units (seconds, bytes, or counts) when omitted.",
+      "raw_span": {
+        "end": 12086,
+        "start": 11995
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 12120,
+          "start": 12092
+        }
+      ],
+      "ordinal": 159,
+      "raw_slice": "Detailed benchmark flowchart",
+      "raw_span": {
+        "end": 12120,
+        "start": 12092
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 12220,
+          "start": 12122
+        }
+      ],
+      "ordinal": 160,
+      "raw_slice": "The following chart explains the execution order of various benchmark runs when using options\nlike",
+      "raw_span": {
+        "end": 12220,
+        "start": 12122
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 12270,
+          "start": 12268
+        }
+      ],
+      "ordinal": 161,
+      "raw_slice": "or",
+      "raw_span": {
+        "end": 12270,
+        "start": 12268
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 12336,
+          "start": 12324
+        }
+      ],
+      "ordinal": 162,
+      "raw_slice": "Installation",
+      "raw_span": {
+        "end": 12336,
+        "start": 12324
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 12515,
+          "start": 12506
+        }
+      ],
+      "ordinal": 163,
+      "raw_slice": "On Ubuntu",
+      "raw_span": {
+        "end": 12515,
+        "start": 12506
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 12555,
+          "start": 12517
+        },
+        {
+          "end": 12586,
+          "start": 12556
+        },
+        {
+          "end": 12641,
+          "start": 12640
+        }
+      ],
+      "ordinal": 164,
+      "raw_slice": "On Ubuntu, hyperfine can be installed [from the official repositories](https://launchpad.net/ubuntu/+source/rust-hyperfine):",
+      "raw_span": {
+        "end": 12641,
+        "start": 12517
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 12744,
+          "start": 12673
+        }
+      ],
+      "ordinal": 165,
+      "raw_slice": "Alternatively, for the latest version, you can download the appropriate",
+      "raw_span": {
+        "end": 12744,
+        "start": 12673
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 12769,
+          "start": 12752
+        },
+        {
+          "end": 12782,
+          "start": 12770
+        },
+        {
+          "end": 12849,
+          "start": 12830
+        }
+      ],
+      "ordinal": 166,
+      "raw_slice": "package from the [Release page](https://github.com/sharkdp/hyperfine/releases) and install it via",
+      "raw_span": {
+        "end": 12849,
+        "start": 12752
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 13012,
+          "start": 13003
+        }
+      ],
+      "ordinal": 167,
+      "raw_slice": "On Fedora",
+      "raw_span": {
+        "end": 13012,
+        "start": 13003
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 13083,
+          "start": 13014
+        }
+      ],
+      "ordinal": 168,
+      "raw_slice": "On Fedora, hyperfine can be installed from the official repositories:",
+      "raw_span": {
+        "end": 13083,
+        "start": 13014
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 13137,
+          "start": 13122
+        }
+      ],
+      "ordinal": 169,
+      "raw_slice": "On Alpine Linux",
+      "raw_span": {
+        "end": 13137,
+        "start": 13122
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 13183,
+          "start": 13139
+        },
+        {
+          "end": 13214,
+          "start": 13184
+        },
+        {
+          "end": 13270,
+          "start": 13269
+        }
+      ],
+      "ordinal": 170,
+      "raw_slice": "On Alpine Linux, hyperfine can be installed [from the official repositories](https://pkgs.alpinelinux.org/packages?name=hyperfine):",
+      "raw_span": {
+        "end": 13270,
+        "start": 13139
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 13315,
+          "start": 13302
+        }
+      ],
+      "ordinal": 171,
+      "raw_slice": "On Arch Linux",
+      "raw_span": {
+        "end": 13315,
+        "start": 13302
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 13359,
+          "start": 13317
+        },
+        {
+          "end": 13390,
+          "start": 13360
+        },
+        {
+          "end": 13448,
+          "start": 13447
+        }
+      ],
+      "ordinal": 172,
+      "raw_slice": "On Arch Linux, hyperfine can be installed [from the official repositories](https://archlinux.org/packages/extra/x86_64/hyperfine/):",
+      "raw_span": {
+        "end": 13448,
+        "start": 13317
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 13497,
+          "start": 13482
+        }
+      ],
+      "ordinal": 173,
+      "raw_slice": "On Debian Linux",
+      "raw_span": {
+        "end": 13497,
+        "start": 13482
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 13543,
+          "start": 13499
+        },
+        {
+          "end": 13574,
+          "start": 13544
+        },
+        {
+          "end": 13615,
+          "start": 13614
+        }
+      ],
+      "ordinal": 174,
+      "raw_slice": "On Debian Linux, hyperfine can be installed [from the official repositories](https://packages.debian.org/hyperfine):",
+      "raw_span": {
+        "end": 13615,
+        "start": 13499
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 13667,
+          "start": 13651
+        }
+      ],
+      "ordinal": 175,
+      "raw_slice": "On Exherbo Linux",
+      "raw_span": {
+        "end": 13667,
+        "start": 13651
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 13714,
+          "start": 13669
+        },
+        {
+          "end": 13741,
+          "start": 13715
+        },
+        {
+          "end": 13826,
+          "start": 13825
+        }
+      ],
+      "ordinal": 176,
+      "raw_slice": "On Exherbo Linux, hyperfine can be installed [from the rust repositories](https://gitlab.exherbo.org/exherbo/rust/-/tree/master/packages/sys-apps/hyperfine):",
+      "raw_span": {
+        "end": 13826,
+        "start": 13669
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 13906,
+          "start": 13898
+        }
+      ],
+      "ordinal": 177,
+      "raw_slice": "On NixOS",
+      "raw_span": {
+        "end": 13906,
+        "start": 13898
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 13945,
+          "start": 13908
+        },
+        {
+          "end": 13976,
+          "start": 13946
+        },
+        {
+          "end": 14033,
+          "start": 14032
+        }
+      ],
+      "ordinal": 178,
+      "raw_slice": "On NixOS, hyperfine can be installed [from the official repositories](https://nixos.org/nixos/packages.html?query=hyperfine):",
+      "raw_span": {
+        "end": 14033,
+        "start": 13908
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14075,
+          "start": 14068
+        }
+      ],
+      "ordinal": 179,
+      "raw_slice": "On Flox",
+      "raw_span": {
+        "end": 14075,
+        "start": 14068
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14124,
+          "start": 14077
+        }
+      ],
+      "ordinal": 180,
+      "raw_slice": "On Flox, hyperfine can be installed as follows.",
+      "raw_span": {
+        "end": 14124,
+        "start": 14077
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14204,
+          "start": 14156
+        }
+      ],
+      "ordinal": 181,
+      "raw_slice": "Hyperfine's version in Flox follows that of Nix.",
+      "raw_span": {
+        "end": 14204,
+        "start": 14156
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14221,
+          "start": 14210
+        }
+      ],
+      "ordinal": 182,
+      "raw_slice": "On openSUSE",
+      "raw_span": {
+        "end": 14221,
+        "start": 14210
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14263,
+          "start": 14223
+        },
+        {
+          "end": 14294,
+          "start": 14264
+        },
+        {
+          "end": 14345,
+          "start": 14344
+        }
+      ],
+      "ordinal": 183,
+      "raw_slice": "On openSUSE, hyperfine can be installed [from the official repositories](https://software.opensuse.org/package/hyperfine):",
+      "raw_span": {
+        "end": 14345,
+        "start": 14223
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14397,
+          "start": 14384
+        }
+      ],
+      "ordinal": 184,
+      "raw_slice": "On Void Linux",
+      "raw_span": {
+        "end": 14397,
+        "start": 14384
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14434,
+          "start": 14399
+        }
+      ],
+      "ordinal": 185,
+      "raw_slice": "Hyperfine can be installed via xbps",
+      "raw_span": {
+        "end": 14434,
+        "start": 14399
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14483,
+          "start": 14475
+        }
+      ],
+      "ordinal": 186,
+      "raw_slice": "On macOS",
+      "raw_span": {
+        "end": 14483,
+        "start": 14475
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14516,
+          "start": 14485
+        },
+        {
+          "end": 14525,
+          "start": 14517
+        },
+        {
+          "end": 14544,
+          "start": 14543
+        }
+      ],
+      "ordinal": 187,
+      "raw_slice": "Hyperfine can be installed via [Homebrew](https://brew.sh):",
+      "raw_span": {
+        "end": 14544,
+        "start": 14485
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14602,
+          "start": 14577
+        },
+        {
+          "end": 14611,
+          "start": 14603
+        },
+        {
+          "end": 14639,
+          "start": 14638
+        }
+      ],
+      "ordinal": 188,
+      "raw_slice": "Or you can install using [MacPorts](https://www.macports.org):",
+      "raw_span": {
+        "end": 14639,
+        "start": 14577
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14712,
+          "start": 14702
+        }
+      ],
+      "ordinal": 189,
+      "raw_slice": "On FreeBSD",
+      "raw_span": {
+        "end": 14712,
+        "start": 14702
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14749,
+          "start": 14714
+        }
+      ],
+      "ordinal": 190,
+      "raw_slice": "Hyperfine can be installed via pkg:",
+      "raw_span": {
+        "end": 14749,
+        "start": 14714
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14795,
+          "start": 14785
+        }
+      ],
+      "ordinal": 191,
+      "raw_slice": "On OpenBSD",
+      "raw_span": {
+        "end": 14795,
+        "start": 14785
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14843,
+          "start": 14833
+        }
+      ],
+      "ordinal": 192,
+      "raw_slice": "On Windows",
+      "raw_span": {
+        "end": 14843,
+        "start": 14833
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 14876,
+          "start": 14845
+        },
+        {
+          "end": 14887,
+          "start": 14877
+        },
+        {
+          "end": 14943,
+          "start": 14941
+        },
+        {
+          "end": 14949,
+          "start": 14944
+        },
+        {
+          "end": 15051,
+          "start": 15046
+        },
+        {
+          "end": 15058,
+          "start": 15052
+        },
+        {
+          "end": 15144,
+          "start": 15143
+        }
+      ],
+      "ordinal": 193,
+      "raw_slice": "Hyperfine can be installed via [Chocolatey](https://community.chocolatey.org/packages/hyperfine), [Scoop](https://scoop.sh/#/apps?q=hyperfine&s=0&d=1&o=true&id=8f7c10f75ecf5f9e42a862c615257328e2f70f61), or [Winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/s/sharkdp/hyperfine):",
+      "raw_span": {
+        "end": 15144,
+        "start": 14845
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15257,
+          "start": 15247
+        }
+      ],
+      "ordinal": 194,
+      "raw_slice": "With conda",
+      "raw_span": {
+        "end": 15257,
+        "start": 15247
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15289,
+          "start": 15259
+        }
+      ],
+      "ordinal": 195,
+      "raw_slice": "Hyperfine can be installed via",
+      "raw_span": {
+        "end": 15289,
+        "start": 15259
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15337,
+          "start": 15329
+        }
+      ],
+      "ordinal": 196,
+      "raw_slice": "from the",
+      "raw_span": {
+        "end": 15337,
+        "start": 15329
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15406,
+          "start": 15398
+        }
+      ],
+      "ordinal": 197,
+      "raw_slice": "channel:",
+      "raw_span": {
+        "end": 15406,
+        "start": 15398
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15493,
+          "start": 15459
+        }
+      ],
+      "ordinal": 198,
+      "raw_slice": "With cargo (Linux, macOS, Windows)",
+      "raw_span": {
+        "end": 15493,
+        "start": 15459
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15538,
+          "start": 15495
+        },
+        {
+          "end": 15544,
+          "start": 15539
+        },
+        {
+          "end": 15580,
+          "start": 15579
+        }
+      ],
+      "ordinal": 199,
+      "raw_slice": "Hyperfine can be installed from source via [cargo](https://doc.rust-lang.org/cargo/):",
+      "raw_span": {
+        "end": 15580,
+        "start": 15495
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15665,
+          "start": 15623
+        }
+      ],
+      "ordinal": 200,
+      "raw_slice": "Make sure that you use Rust 1.97 or newer.",
+      "raw_span": {
+        "end": 15665,
+        "start": 15623
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15708,
+          "start": 15671
+        }
+      ],
+      "ordinal": 201,
+      "raw_slice": "From binaries (Linux, macOS, Windows)",
+      "raw_span": {
+        "end": 15708,
+        "start": 15671
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15754,
+          "start": 15710
+        },
+        {
+          "end": 15767,
+          "start": 15755
+        },
+        {
+          "end": 15816,
+          "start": 15815
+        }
+      ],
+      "ordinal": 202,
+      "raw_slice": "Download the corresponding archive from the [Release page](https://github.com/sharkdp/hyperfine/releases).",
+      "raw_span": {
+        "end": 15816,
+        "start": 15710
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15838,
+          "start": 15821
+        }
+      ],
+      "ordinal": 203,
+      "raw_slice": "Alternative tools",
+      "raw_span": {
+        "end": 15838,
+        "start": 15821
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15865,
+          "start": 15840
+        },
+        {
+          "end": 15871,
+          "start": 15866
+        },
+        {
+          "end": 15912,
+          "start": 15911
+        }
+      ],
+      "ordinal": 204,
+      "raw_slice": "Hyperfine is inspired by [bench](https://github.com/Gabriella439/bench).",
+      "raw_span": {
+        "end": 15912,
+        "start": 15840
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15945,
+          "start": 15917
+        }
+      ],
+      "ordinal": 205,
+      "raw_slice": "Integration with other tools",
+      "raw_span": {
+        "end": 15945,
+        "start": 15917
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 15959,
+          "start": 15948
+        },
+        {
+          "end": 16023,
+          "start": 16003
+        }
+      ],
+      "ordinal": 206,
+      "raw_slice": "Chronologer](https://github.com/dandavison/chronologer) is a tool that uses",
+      "raw_span": {
+        "end": 16023,
+        "start": 15948
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 16102,
+          "start": 16036
+        }
+      ],
+      "ordinal": 207,
+      "raw_slice": "to\nvisualize changes in benchmark timings across your Git history.",
+      "raw_span": {
+        "end": 16102,
+        "start": 16036
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 16112,
+          "start": 16105
+        },
+        {
+          "end": 16200,
+          "start": 16152
+        }
+      ],
+      "ordinal": 208,
+      "raw_slice": "Bencher](https://github.com/bencherdev/bencher) is a continuous benchmarking tool that supports",
+      "raw_span": {
+        "end": 16200,
+        "start": 16105
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 16273,
+          "start": 16213
+        }
+      ],
+      "ordinal": 209,
+      "raw_slice": "to\ntrack benchmarks and catch performance regressions in CI.",
+      "raw_span": {
+        "end": 16273,
+        "start": 16213
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 16312,
+          "start": 16275
+        },
+        {
+          "end": 16317,
+          "start": 16313
+        },
+        {
+          "end": 16409,
+          "start": 16340
+        }
+      ],
+      "ordinal": 210,
+      "raw_slice": "Drop hyperfine JSON outputs onto the [Venz](https://try.venz.dev) chart to visualize the results,\nand manage hyperfine configurations.",
+      "raw_span": {
+        "end": 16409,
+        "start": 16275
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 16437,
+          "start": 16411
+        }
+      ],
+      "ordinal": 211,
+      "raw_slice": "Make sure to check out the",
+      "raw_span": {
+        "end": 16437,
+        "start": 16411
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 16455,
+          "start": 16449
+        },
+        {
+          "end": 16565,
+          "start": 16514
+        }
+      ],
+      "ordinal": 212,
+      "raw_slice": "folder](https://github.com/sharkdp/hyperfine/tree/master/scripts)\nin this repository for a set of tools to work with",
+      "raw_span": {
+        "end": 16565,
+        "start": 16449
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 16596,
+          "start": 16578
+        }
+      ],
+      "ordinal": 213,
+      "raw_slice": "benchmark results.",
+      "raw_span": {
+        "end": 16596,
+        "start": 16578
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 16619,
+          "start": 16601
+        }
+      ],
+      "ordinal": 214,
+      "raw_slice": "Origin of the name",
+      "raw_span": {
+        "end": 16619,
+        "start": 16601
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 16630,
+          "start": 16621
+        },
+        {
+          "end": 16640,
+          "start": 16631
+        },
+        {
+          "end": 16738,
+          "start": 16641
+        },
+        {
+          "end": 16774,
+          "start": 16739
+        },
+        {
+          "end": 16851,
+          "start": 16835
+        }
+      ],
+      "ordinal": 215,
+      "raw_slice": "The name *hyperfine* was chosen in reference to the hyperfine levels of caesium 133 which play a crucial role in the\n[definition of our base unit of time](https://en.wikipedia.org/wiki/Second#History_of_definition)\n— the second.",
+      "raw_span": {
+        "end": 16851,
+        "start": 16621
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 16872,
+          "start": 16856
+        }
+      ],
+      "ordinal": 216,
+      "raw_slice": "Citing hyperfine",
+      "raw_span": {
+        "end": 16872,
+        "start": 16856
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 16939,
+          "start": 16874
+        }
+      ],
+      "ordinal": 217,
+      "raw_slice": "Thank you for considering citing hyperfine in your research work.",
+      "raw_span": {
+        "end": 16939,
+        "start": 16874
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 17016,
+          "start": 16940
+        }
+      ],
+      "ordinal": 218,
+      "raw_slice": "Please see the information\nin the sidebar on how to properly cite hyperfine.",
+      "raw_span": {
+        "end": 17016,
+        "start": 16940
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 17028,
+          "start": 17021
+        }
+      ],
+      "ordinal": 219,
+      "raw_slice": "License",
+      "raw_span": {
+        "end": 17028,
+        "start": 17021
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 17121,
+          "start": 17042
+        }
+      ],
+      "ordinal": 220,
+      "raw_slice": "is dual-licensed under the terms of the MIT License and the Apache License 2.0.",
+      "raw_span": {
+        "end": 17121,
+        "start": 17042
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 17131,
+          "start": 17123
+        },
+        {
+          "end": 17146,
+          "start": 17132
+        },
+        {
+          "end": 17168,
+          "start": 17163
+        },
+        {
+          "end": 17180,
+          "start": 17169
+        },
+        {
+          "end": 17213,
+          "start": 17194
+        }
+      ],
+      "ordinal": 221,
+      "raw_slice": "See the [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) files for details.",
+      "raw_span": {
+        "end": 17213,
+        "start": 17123
+      }
+    }
+  ],
+  "page_id": "hyperfine.md",
+  "source": "# hyperfine\n\nA command-line benchmarking tool.\n\n<img width=\"800\" height=\"195\" alt=\"hyperfine-demo-800\" src=\"https://github.com/user-attachments/assets/9a5a45d3-df3f-4e0e-8cc9-5d8153f39e48\" />\n\n\n*(hyperfine in action, benchmarking [`mypy`](https://mypy-lang.org/) and [`ty`](https://ty.dev/))*\n\n\n## Features\n\n* Statistical analysis across multiple runs.\n* Support for various performance metrics and hardware counters.\n* Support for arbitrary shell commands.\n* Constant feedback about the benchmark progress and current estimates.\n* Warmup runs can be executed before the actual benchmark.\n* Cache-clearing commands can be set up before each benchmark run.\n* Statistical outlier detection to detect interference from other programs and caching effects.\n* Export results to various formats: CSV, JSON, Markdown, AsciiDoc.\n* Parameterized benchmarks (e.g. vary the number of threads).\n* Cross-platform\n\n## Usage\n\n### Basic benchmarks\n\nTo run a benchmark, you can simply call `hyperfine <command>...`. Each argument is an executable\nand its arguments. Commands run directly by default; use `-S` for shell syntax such as\npipes, redirections, and wildcards. For example:\n```sh\nhyperfine 'sleep 0.3'\n```\n\nHyperfine will automatically determine the number of runs to perform for each command. By default,\nit will perform *at least* 10 benchmarking runs and estimate a run count targeting roughly\n3 seconds, including shell overhead and preparation and conclusion commands. To set an exact\nnumber of runs, you can use the `-r`/`--runs` option:\n```sh\nhyperfine --runs 5 'sleep 0.3'\n```\n\nIf you want to compare different programs, you can pass multiple commands:\n```sh\nhyperfine 'hexdump file' 'xxd file'\n```\n\nCommands run and appear in input order. The first command is the reference for all comparisons;\neach subsequent result shows its change from that reference.\n\n### Warmup runs and preparation commands\n\nFor programs that perform a lot of disk I/O, the benchmarking results can be heavily influenced\nby disk caches and whether they are cold or warm.\n\nIf you want to run the benchmark on a warm cache, you can use the `-w`/`--warmup` option to\nperform a certain number of program executions before the actual benchmark:\n```sh\nhyperfine -S --warmup 3 'grep -R TODO *'\n```\n\nConversely, if you want to run the benchmark for a cold cache, you can use the `-p`/`--prepare`\noption to run a special command before *each* benchmark run. For example, to clear Linux filesystem caches,\nyou can run\n```sh\nsync; echo 3 | sudo tee /proc/sys/vm/drop_caches\n```\nTo use this specific command with hyperfine, call `sudo -v` to temporarily gain sudo permissions\nand then call:\n```sh\nhyperfine -S --prepare 'sync; echo 3 | sudo tee /proc/sys/vm/drop_caches' 'grep -R TODO *'\n```\n\n### Parameterized benchmarks\n\nIf you want to run a series of benchmarks where a single parameter is varied (say, the number of\nthreads), you can use the `-P`/`--parameter-scan` option and call:\n```sh\nhyperfine --prepare 'make clean' --parameter-scan num_threads 1 12 'make -j {num_threads}'\n```\nThis also works with decimal numbers. The `-D`/`--parameter-step-size` option can be used\nto control the step size:\n```sh\nhyperfine --parameter-scan delay 0.3 0.7 -D 0.2 'sleep {delay}'\n```\nThis runs `sleep 0.3`, `sleep 0.5` and `sleep 0.7`.\n\nFor non-numeric parameters, you can also supply a list of values with the `-L`/`--parameter-list`\noption:\n```\nhyperfine -L compiler g++,clang++ '{compiler} -O2 main.cpp'\n```\n\nA common use case is comparing the same command across multiple Git branches. Use `--setup`\nto switch branches once before each set of benchmark runs, so the branch switch is not part of\nthe measured command:\n```sh\nhyperfine \\\n    --parameter-list branch main,performance-improvements \\\n    --setup 'git switch {branch}' \\\n    'python main.py'\n```\n\nIf you need a unique value for each individual run of a benchmark command, hyperfine also exposes\nthe zero-based `$HYPERFINE_ITERATION` environment variable inside the benchmarked command itself:\n```sh\nhyperfine -S 'my-command > output-${HYPERFINE_ITERATION}.log'\n```\n\n### Intermediate shell\n\nBy default, benchmarked commands, including warmup runs, are executed directly, without an intermediate shell (`--shell=none`).\nArguments are split using shell-like quoting, so quoted arguments containing spaces are supported.\nShell syntax such as pipes, redirections, environment-variable expansion, `*`, and `~` is not interpreted.\nThis avoids shell startup overhead and the noise from correcting for it, especially for fast commands\n(< 5 ms).\n\nCommands containing unquoted, standalone shell operators such as `&&` or `>` require an explicit\nchoice: use `-S` / `--shell=default` to interpret shell syntax, or `-N` / `--shell=none` to pass\nthe operators as literal arguments.\n\nTo enable shell syntax, use `-S` (an alias for `--shell=default`). This selects `sh`\non Unix (resolved through `PATH`) or `cmd.exe` on Windows:\n```sh\nhyperfine -S 'sleep 0.1 && echo done'\n```\n\nYou can also select a specific shell with `--shell <SHELL>`:\n```sh\nhyperfine --shell zsh 'for i in {1..10000}; do echo test; done'\n```\n\nThe `--setup`, `--prepare`, `--conclude`, and `--cleanup` commands always run through a shell.\nThey use the shell selected by `--shell`, or the platform shell (`sh` on Unix, `cmd.exe` on Windows)\nwhen `--shell` is omitted or set to `none`.\n\nWhen benchmarked commands use a shell, hyperfine *corrects for the shell spawning time*. It runs the shell with an\nempty command multiple times to measure its startup time, then subtracts this time from each\ntime measurement.\n\n\n### Shell functions\n\nIf you are using bash, you can export shell functions to directly benchmark them with hyperfine:\n\n```bash\nmy_function() { sleep 1; }\nexport -f my_function\nhyperfine --shell=bash my_function\n```\n\nOtherwise, inline the function into the benchmarked command:\n\n```sh\nhyperfine -S 'my_function() { sleep 1; }; my_function'\n```\n\n### Environment variables\n\nUse `--env` to set environment variables for benchmark commands and their respective setup, prepare, conclude,\nand cleanup commands. Assignments are space-separated and support shell-style quoting,\nbut no shell expansion:\n\n```sh\nhyperfine --env 'OMP_NUM_THREADS=8 CFLAGS=\"-O3 -march=native\"' 'my_command'\n```\n\nSpecify once for all commands or once per benchmark command:\n\n```sh\nhyperfine \\\n  --env 'OMP_NUM_THREADS=8' './benchmark-cpp' \\\n  --env 'RAYON_NUM_THREADS=8' './benchmark-rust'\n```\n\nUse an empty `--env=''` for no overrides. Values can contain parameter placeholders.\nFor example, the following benchmarks `my_command` with `OMP_NUM_THREADS` ranging from 1 to 8:\n\n```sh\nhyperfine -P threads 1 8 --env 'OMP_NUM_THREADS={threads}' 'my_command'\n```\n\n### Choosing metrics and units\n\nBy default, hyperfine displays wall-clock time and memory usage\n(`time_wall_clock,memory_peak_resident`). Use `--metrics` with a\ncomma-separated list to select a different set of metrics. Each\nmetric can have an optional unit after it:\n\n```sh\nhyperfine \\\n    --metrics memory_peak_resident:MiB,time_wall_clock:ms,instructions \\\n    './baseline' './candidate'\n```\n\nThe following metrics are available:\n\n- **`time_wall_clock`**: Time from start to finish, including time spent waiting, in seconds.\n\n- **`time_user`**: CPU time spent executing application and library code in user mode,\n  summed across threads, in seconds.\n\n  - Linux/macOS: Includes child-process time when parents wait for their children to finish.\n  - Windows: Includes the command and its child processes.\n\n- **`time_system`**: CPU time spent executing kernel code on the program's behalf, for example\n  to read files, summed across threads, in seconds.\n\n  - Linux/macOS: Includes child-process time when parents wait for their children to finish.\n  - Windows: Includes the command and its child processes.\n\n- **`time_cpu`**: Total CPU time, calculated as `time_user + time_system` for each run, in seconds.\n  It excludes time spent sleeping or waiting without executing. CPU time is summed across\n  threads, so it can exceed wall-clock time: four threads running on four cores for one second\n  can consume roughly four CPU-seconds.\n\n- **`memory_peak_resident`**: Peak memory held in physical RAM, in bytes.\n\n  - Linux/macOS: Peak resident set size (RSS). This is the largest per-process peak among the\n    command and child processes (whose usage is collected when their parents wait for them),\n    *not the simultaneous total memory of the full process tree*. On Linux, measuring commands\n    with a very small peak RSS (below the peak inherited from hyperfine at startup, which can\n    be a few MiB) will currently result in that inherited value being reported instead.\n  - Windows: Currently not supported.\n\n- **`cpu_cycles`**: CPU cycles consumed.\n\n  - Linux: Includes threads and child processes, but excludes kernel and hypervisor execution.\n  - macOS: Includes the process's threads and kernel execution, but excludes child processes.\n  - Windows: Currently not supported.\n\n- **`instructions`**: Completed CPU instructions.\n\n  - Linux/macOS: Same scope as `cpu_cycles`.\n  - Windows: Currently not supported.\n\n- **`cache_references`**: Cache accesses counted by the CPU's generic cache event.\n\n  - Linux: Same scope as `cpu_cycles`. Cache-event definitions depend on the CPU.\n  - macOS/Windows: Currently not supported.\n\n- **`cache_misses`**: Cache misses.\n\n  - Linux: Same scope as `cpu_cycles`. Cache-event definitions depend on the CPU.\n  - macOS/Windows: Currently not supported.\n\n- **`branch_misses`**: Mispredicted branches.\n\n  - Linux: Same scope as `cpu_cycles`.\n  - macOS/Windows: Currently not supported.\n\nNote that hardware counters are not available when a shell is enabled (`--shell=..`).\n\nTime measurements support units `ns`, `us`, `ms`, `s`, `min`, and `h`. Memory measurements\nsupport `B`, `kB`, `MB`, `GB`, `TB`, `KiB`, `MiB`, `GiB`, and `TiB`. Hardware counters\nsupport `count` (1), `k` (thousand), `M` (million), and `B` (billion).\n\nYou can also use a preset to select a group of metrics:\n\n| Preset | Metrics |\n|:---|:---|\n| `--metrics=default` | `time_wall_clock,memory_peak_resident` |\n| `--metrics=time` | `time_wall_clock,time_cpu,time_user,time_system` |\n| `--metrics=all` | All available metrics |\n\n### Exporting results\n\nHyperfine can export results to CSV, JSON, Markdown, AsciiDoc, and org-mode. CSV exports all\nselected metrics, while Markdown, AsciiDoc, and org-mode contain only the primary metric,\nwhich is the first metric selected by `--metrics`.\n\n#### Markdown\n\nYou can use the `--export-markdown <file>` option to create tables like the following:\n\n| Command | Mean Wall Time [s] | Change | Factor |\n|:---|---:|---:|:---|\n| `find . -iregex '.*[0-9]\\.jpg$'` | 2.275 ± 0.046 |  |  |\n| `find . -iname '*[0-9].jpg'` | 1.427 ± 0.026 | -37.3% | (1.6x faster) |\n| `fd -HI '.*[0-9]\\.jpg$'` | 0.232 ± 0.002 | -89.8% | (9.8x faster) |\n\n#### JSON\n\nThe JSON export includes all available metrics listed in [Choosing metrics and units](#choosing-metrics-and-units)\nfor each measured run (excluding warmup runs).\n\nThe JSON output is useful if you want to analyze the benchmark results in more detail. The\n[`scripts/`](https://github.com/sharkdp/hyperfine/tree/master/scripts) folder includes a lot\nof helpful Python programs to further analyze benchmark results and create helpful\nvisualizations, like a histogram of runtimes or a whisker plot to compare\nmultiple benchmarks.\n\nFor example, these two commands create the following plots:\n\n```bash\nuvx --from 'git+https://github.com/sharkdp/hyperfine' \\\n  plot_histogram results.json\nuvx --from 'git+https://github.com/sharkdp/hyperfine' \\\n  plot_whisker results.json\n```\n\n| ![](doc/histogram.png) | ![](doc/whisker.png) |\n|---:|---:|\n\n\n#### CSV\n\nUse `--export-csv <file>` to export one row per command. Each metric selected by `--metrics`\ncontributes a group of columns, in selection order: `<metric>_unit`, `<metric>_mean`,\n`<metric>_stddev`, `<metric>_median`, `<metric>_min`, and `<metric>_max`.\n\nCSV uses explicitly selected units, or base units (seconds, bytes, or counts) when omitted.\n\n### Detailed benchmark flowchart\n\nThe following chart explains the execution order of various benchmark runs when using options\nlike `--warmup`, `--prepare <cmd>`, `--setup <cmd>` or `--cleanup <cmd>`:\n\n![](doc/execution-order.png)\n\n## Installation\n\n[![Packaging status](https://repology.org/badge/vertical-allrepos/hyperfine.svg?columns=3&exclude_unsupported=1)](https://repology.org/project/hyperfine/versions)\n\n### On Ubuntu\n\nOn Ubuntu, hyperfine can be installed [from the official repositories](https://launchpad.net/ubuntu/+source/rust-hyperfine):\n```\napt install hyperfine\n```\n\nAlternatively, for the latest version, you can download the appropriate `.deb` package from the [Release page](https://github.com/sharkdp/hyperfine/releases) and install it via `dpkg`:\n```\nwget https://github.com/sharkdp/hyperfine/releases/download/v2.0.0/hyperfine_2.0.0_amd64.deb\nsudo dpkg -i hyperfine_2.0.0_amd64.deb\n```\n\n### On Fedora\n\nOn Fedora, hyperfine can be installed from the official repositories:\n\n```sh\ndnf install hyperfine\n```\n\n### On Alpine Linux\n\nOn Alpine Linux, hyperfine can be installed [from the official repositories](https://pkgs.alpinelinux.org/packages?name=hyperfine):\n```\napk add hyperfine\n```\n\n### On Arch Linux\n\nOn Arch Linux, hyperfine can be installed [from the official repositories](https://archlinux.org/packages/extra/x86_64/hyperfine/):\n```\npacman -S hyperfine\n```\n\n### On Debian Linux\n\nOn Debian Linux, hyperfine can be installed [from the official repositories](https://packages.debian.org/hyperfine):\n```\napt install hyperfine\n```\n\n### On Exherbo Linux\n\nOn Exherbo Linux, hyperfine can be installed [from the rust repositories](https://gitlab.exherbo.org/exherbo/rust/-/tree/master/packages/sys-apps/hyperfine):\n```\ncave resolve -x repository/rust\ncave resolve -x hyperfine\n```\n\n### On NixOS\n\nOn NixOS, hyperfine can be installed [from the official repositories](https://nixos.org/nixos/packages.html?query=hyperfine):\n```\nnix-env -i hyperfine\n```\n\n### On Flox\n\nOn Flox, hyperfine can be installed as follows.\n```\nflox install hyperfine\n```\nHyperfine's version in Flox follows that of Nix.\n\n### On openSUSE\n\nOn openSUSE, hyperfine can be installed [from the official repositories](https://software.opensuse.org/package/hyperfine):\n```\nzypper install hyperfine\n```\n\n### On Void Linux\n\nHyperfine can be installed via xbps\n\n```\nxbps-install -S hyperfine\n```\n\n### On macOS\n\nHyperfine can be installed via [Homebrew](https://brew.sh):\n```\nbrew install hyperfine\n```\n\nOr you can install using [MacPorts](https://www.macports.org):\n```\nsudo port selfupdate\nsudo port install hyperfine\n```\n\n### On FreeBSD\n\nHyperfine can be installed via pkg:\n```\npkg install hyperfine\n```\n\n### On OpenBSD\n\n```\ndoas pkg_add hyperfine\n```\n\n### On Windows\n\nHyperfine can be installed via [Chocolatey](https://community.chocolatey.org/packages/hyperfine), [Scoop](https://scoop.sh/#/apps?q=hyperfine&s=0&d=1&o=true&id=8f7c10f75ecf5f9e42a862c615257328e2f70f61), or [Winget](https://github.com/microsoft/winget-pkgs/tree/master/manifests/s/sharkdp/hyperfine):\n```\nchoco install hyperfine\n```\n```\nscoop install hyperfine\n```\n```\nwinget install hyperfine\n```\n\n### With conda\n\nHyperfine can be installed via [`conda`](https://conda.io/en/latest/) from the [`conda-forge`](https://anaconda.org/conda-forge/hyperfine) channel:\n```\nconda install -c conda-forge hyperfine\n```\n\n### With cargo (Linux, macOS, Windows)\n\nHyperfine can be installed from source via [cargo](https://doc.rust-lang.org/cargo/):\n```\ncargo install --locked hyperfine\n```\n\nMake sure that you use Rust 1.97 or newer.\n\n### From binaries (Linux, macOS, Windows)\n\nDownload the corresponding archive from the [Release page](https://github.com/sharkdp/hyperfine/releases).\n\n## Alternative tools\n\nHyperfine is inspired by [bench](https://github.com/Gabriella439/bench).\n\n## Integration with other tools\n\n[Chronologer](https://github.com/dandavison/chronologer) is a tool that uses `hyperfine` to\nvisualize changes in benchmark timings across your Git history.\n\n[Bencher](https://github.com/bencherdev/bencher) is a continuous benchmarking tool that supports `hyperfine` to\ntrack benchmarks and catch performance regressions in CI.\n\nDrop hyperfine JSON outputs onto the [Venz](https://try.venz.dev) chart to visualize the results,\nand manage hyperfine configurations.\n\nMake sure to check out the [`scripts` folder](https://github.com/sharkdp/hyperfine/tree/master/scripts)\nin this repository for a set of tools to work with `hyperfine` benchmark results.\n\n## Origin of the name\n\nThe name *hyperfine* was chosen in reference to the hyperfine levels of caesium 133 which play a crucial role in the\n[definition of our base unit of time](https://en.wikipedia.org/wiki/Second#History_of_definition)\n— the second.\n\n## Citing hyperfine\n\nThank you for considering citing hyperfine in your research work. Please see the information\nin the sidebar on how to properly cite hyperfine.\n\n## License\n\n`hyperfine` is dual-licensed under the terms of the MIT License and the Apache License 2.0.\n\nSee the [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) files for details.\n",
+  "source_sha256": "03e31b51fd816c72b12c0f4d7ce9db3245b6a11647a34bea6803caa6b5180353"
+}
