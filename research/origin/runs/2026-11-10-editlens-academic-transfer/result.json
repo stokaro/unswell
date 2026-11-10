@@ -1,0 +1,151 @@
+{
+  "by_generator": {
+    "claude-4-8-opus-genai": {
+      "auc": 0.8395061728395061,
+      "pairs": 45,
+      "papers": 9,
+      "tpr": 0.022222222222222223,
+      "true_positives": 1,
+      "win_fraction": 0.9111111111111111
+    },
+    "claude-5-1-fable-genai": {
+      "auc": 0.7160330578512397,
+      "pairs": 55,
+      "papers": 11,
+      "tpr": 0.0,
+      "true_positives": 0,
+      "win_fraction": 0.7636363636363637
+    },
+    "claude-5-5-opus-genai": {
+      "auc": 0.74875,
+      "pairs": 40,
+      "papers": 8,
+      "tpr": 0.025,
+      "true_positives": 1,
+      "win_fraction": 0.825
+    },
+    "gemini-3-6-flash-genai": {
+      "auc": 0.9466666666666667,
+      "pairs": 30,
+      "papers": 6,
+      "tpr": 0.2,
+      "true_positives": 6,
+      "win_fraction": 1.0
+    },
+    "gemini-3-8-flash-genai": {
+      "auc": 0.952,
+      "pairs": 25,
+      "papers": 5,
+      "tpr": 0.2,
+      "true_positives": 5,
+      "win_fraction": 1.0
+    },
+    "gpt-5-6-sol-genai-responses": {
+      "auc": 0.8620408163265306,
+      "pairs": 35,
+      "papers": 7,
+      "tpr": 0.17142857142857143,
+      "true_positives": 6,
+      "win_fraction": 0.9714285714285714
+    },
+    "gpt-6-astra-genai": {
+      "auc": 0.8744444444444445,
+      "pairs": 60,
+      "papers": 12,
+      "tpr": 0.03333333333333333,
+      "true_positives": 2,
+      "win_fraction": 0.95
+    }
+  },
+  "by_prompt": {
+    "arb": {
+      "auc": 0.8448148148148148,
+      "pairs": 90,
+      "papers": 18,
+      "tpr": 0.06666666666666667,
+      "true_positives": 6,
+      "win_fraction": 0.9
+    },
+    "imbd": {
+      "auc": 0.8387543252595155,
+      "pairs": 85,
+      "papers": 17,
+      "tpr": 0.07058823529411765,
+      "true_positives": 6,
+      "win_fraction": 0.8941176470588236
+    },
+    "shield": {
+      "auc": 0.8329411764705882,
+      "pairs": 85,
+      "papers": 17,
+      "tpr": 0.09411764705882353,
+      "true_positives": 8,
+      "win_fraction": 0.9294117647058824
+    },
+    "v2": {
+      "auc": 0.8066666666666666,
+      "pairs": 30,
+      "papers": 6,
+      "tpr": 0.03333333333333333,
+      "true_positives": 1,
+      "win_fraction": 0.8666666666666667
+    }
+  },
+  "calibration_false_positives": 2,
+  "cleaned_below_50": 0,
+  "dataset_sha256": "6e0eb8058578afce4aaf81c822b70762afd9f18534eb5f1e89aa976cd051b793",
+  "eligible_calibration_humans": 300,
+  "eligible_test_humans": 290,
+  "feasibility_pass": false,
+  "format": "unswell-editlens-academic-transfer-v1",
+  "model_revision": "f7cb4b06e5067ecdb66c566c7982a413f86f569f",
+  "model_sha256": "ddd1173f2ef517ad499965e5029fae8099a8054a2bc76d8134e5889cc4ed1b3e",
+  "overall": {
+    "auc": 0.8350059453032105,
+    "pairs": 290,
+    "papers": 58,
+    "tpr": 0.07241379310344828,
+    "true_positives": 21,
+    "win_fraction": 0.903448275862069
+  },
+  "paper_mean_count": 58,
+  "paper_mean_positive": 55,
+  "raw_rows": 880,
+  "selected": {
+    "by_variant_papers": {
+      "claude-4-8-opus-genai|arb": 2,
+      "claude-4-8-opus-genai|imbd": 2,
+      "claude-4-8-opus-genai|shield": 4,
+      "claude-4-8-opus-genai|v2": 1,
+      "claude-5-1-fable-genai|arb": 4,
+      "claude-5-1-fable-genai|imbd": 2,
+      "claude-5-1-fable-genai|shield": 3,
+      "claude-5-1-fable-genai|v2": 2,
+      "claude-5-5-opus-genai|arb": 1,
+      "claude-5-5-opus-genai|imbd": 4,
+      "claude-5-5-opus-genai|shield": 2,
+      "claude-5-5-opus-genai|v2": 1,
+      "gemini-3-6-flash-genai|arb": 3,
+      "gemini-3-6-flash-genai|imbd": 1,
+      "gemini-3-6-flash-genai|shield": 1,
+      "gemini-3-6-flash-genai|v2": 1,
+      "gemini-3-8-flash-genai|arb": 1,
+      "gemini-3-8-flash-genai|imbd": 4,
+      "gpt-5-6-sol-genai-responses|arb": 2,
+      "gpt-5-6-sol-genai-responses|imbd": 2,
+      "gpt-5-6-sol-genai-responses|shield": 3,
+      "gpt-6-astra-genai|arb": 5,
+      "gpt-6-astra-genai|imbd": 2,
+      "gpt-6-astra-genai|shield": 4,
+      "gpt-6-astra-genai|v2": 1
+    },
+    "calibration_papers": 300,
+    "test_pairs": 290,
+    "test_papers": 58
+  },
+  "selection_sha256": "9a31161e982dfcbbd96757a19a69f41e474f562459d200ce5e69cfb402876ab4",
+  "test_human_false_positives": 2,
+  "test_human_fpr": 0.006896551724137931,
+  "threshold_strictly_greater": 0.47820500036080676,
+  "truncated": 0
+}
