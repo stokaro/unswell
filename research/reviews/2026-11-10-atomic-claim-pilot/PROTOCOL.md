@@ -117,7 +117,7 @@ text in either arm. No arm receives reference labels, reviewer grades, or the
 other arm's output. Use separate ephemeral tool-free sessions.
 
 The packet must pin exact prompts, response schemas, binder, request bytes,
-source and inventory hashes, arm order, model, effort, time and token limits,
+source and inventory hashes, arm order, model, effort, time and response-size limits,
 failure rule, and scorer in a committed Git tree before the first call. The
 maximum is 18 calls, one per arm on each of nine pages, sequentially, with
 one attempt each, ten minutes per call and three hours total. Stop on the
@@ -175,3 +175,55 @@ an estimate of general recall. Five of the 21 explicit controls overlap a
 finding's primary or related span. A location overlap is not a false-positive
 judgment: those findings need separate context review before any accepted
 rate or control-hit rate is claimed.
+
+
+## Paired execution contract (v1)
+
+The separate `model-packet/` freezes the exact 18 request bytes, response
+schemas, call order, model and effort, runner, binder, scorer, source and
+reference hashes, and failure policy. Page order is 1 through 9. Odd pages
+run free-form then atomic; even pages run atomic then free-form. Each call uses
+a separate ephemeral, tool-free Codex session and the existing subscription
+route. There is one attempt per request, one concurrent request, a 600-second
+per-call limit, a 10,800-second total limit, a 1 MiB response limit, and an
+8 MiB trace limit. The 20-diagnosis ceiling applies to each page and arm.
+Stop on the first CLI, schema, trace, source-binding, resource, or timeout
+failure. A stopped run is terminal; no output or request is repaired or retried
+under this packet. Preserve unattempted requests in the run journal.
+
+Both arms receive the same complete original page, excluded source spans, and
+all eligible units with their original raw slices and byte-segment boundaries.
+Neither arm receives source-only reference labels, grades, or the other arm's
+output. The free-form arm returns diagnoses directly. The atomic arm returns
+one ledger row for every eligible unit in exact ordinal order, with zero to
+five independently meaningful claims per unit, before its diagnoses. Claims
+record their exact quote, source role, scope, qualifiers, support, and
+`retain`, `diagnose`, or `uncertain` disposition. An empty row must give a
+reason. Each diagnosis names its precise editorial burden and meaning to
+preserve; neither arm produces replacement text.
+
+The binder locates a quote by unit ordinal and zero-based eligible-segment
+index, then requires exactly one match of the UTF-8 quote inside that segment.
+The model does not count bytes. The binder rejects missing or ambiguous quotes,
+protected-source targets, changed source identity, missing ledger rows, extra
+rows, duplicate diagnoses, and changed response shape. Returned bound spans
+are original source byte offsets. The packet verifier regenerates every
+request and checks hashes before execution.
+
+The scorer requires all 18 valid calls before a pilot pass. A named assistant
+reviews every delivered diagnosis, every frozen event, and every explicit
+control against the complete page. It records `FULL`, `PARTIAL`, or `MISSED`
+for each event, and `accepted`, `uncertain`, or `rejected` for every finding.
+All delivered findings stay in the denominator. A FULL or PARTIAL grade must
+cite an overlapping bound finding, but overlap alone never earns credit.
+Controls with overlapping findings are reviewed separately; overlap itself is
+not a false-positive judgment. Only a reviewed hit on an explicit `retain`
+control fails the atomic pilot gate. Diagnosis-only arms have no edit-safety
+claim. A pilot pass remains separate from the full 123-event development
+requirement and prospective confirmation.
+
+The user's standing instruction to continue the Unswell goal autonomously,
+including all needed permissions, governs this bounded new execution. The
+packet does not authorize a retry or a different budget. The public issue's
+older per-run permission language does not alter the frozen limits or the
+stop-on-first-error rule.

@@ -1,0 +1,1022 @@
+{
+  "diagnoses": [
+    {
+      "preserve": "The tool customizes the beginning of a Git commit hash; the page describes hexadecimal characters and wildcard placeholders.",
+      "problem": "“Simple” is an unsupported ease-of-use judgment, and “whatever you want” overstates the available prefix choices described later on the page.",
+      "quote": "With this simple tool, you can change the start of your git commit hashes to whatever you want.",
+      "segment_index": 0,
+      "unit_ordinal": 3
+    },
+    {
+      "preserve": "The tool repeatedly changes whitespace in commit messages until the hash satisfies the requested prefix.",
+      "problem": "“Good hash” leaves the stopping condition vague even though the surrounding instructions define it as matching the requested prefix.",
+      "quote": "keeps trying new messages until it finds a good hash.",
+      "segment_index": 0,
+      "unit_ordinal": 6
+    },
+    {
+      "preserve": "Whether CPU performance is adequate depends on the intended use; retain the separate, laptop-specific measurement of about 20x slower.",
+      "problem": "“There's a good chance” asserts an unspecified likelihood of acceptable performance, while the extended qualification never identifies a workload or adequacy threshold.",
+      "quote": "but depending on what you're planning to use the tool for, there's a good chance it's fast enough anyway.",
+      "segment_index": 0,
+      "unit_ordinal": 36
+    },
+    {
+      "preserve": "The older versions are slower than the current version and are unmaintained.",
+      "problem": "“Drastically” assigns an unsupported magnitude to the slowdown. The page's CPU/GPU comparison does not establish performance differences for these older branches.",
+      "quote": "Note that these older versions are drastically slower than the current version, and are also unmaintained.",
+      "segment_index": 6,
+      "unit_ordinal": 39
+    },
+    {
+      "preserve": "SHA256 use is presented as uncommon, with uncertainty about any particular reader's repository.",
+      "problem": "The reader's uncertainty is used as evidence of the repository's object format. The page's general rarity claim does not establish that inference.",
+      "quote": "If you're wondering whether your repository uses sha256, then it probably doesn't.",
+      "segment_index": 0,
+      "unit_ordinal": 75
+    },
+    {
+      "preserve": "At the time of writing, the feature is experimental and its use is described as rare.",
+      "problem": "“Highly” and “very” amplify the maturity and adoption claims without supporting evidence; “experimental” was already established in the linked format description.",
+      "quote": "At the time of writing, this is a highly experimental feature and is very rarely used.",
+      "segment_index": 0,
+      "unit_ordinal": 76
+    }
+  ],
+  "page_id": "not-an-aardvark/lucky-commit/README.md",
+  "source_sha256": "5a60bf35c4a64643e1c427d94c79d9fe692d371a1a980030d8cc2f292e80e893",
+  "units": [
+    {
+      "claims": [],
+      "empty_reason": "Project heading.",
+      "ordinal": 0
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Playful promotional invitation.",
+          "quote": "Make your git commits lucky!",
+          "role": "Tagline",
+          "scope": "Project purpose",
+          "segment_index": 0,
+          "support": "The following explanation and example give the wordplay a concrete meaning."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 1
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 2
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Describes the tool as simple and the desired prefix as unrestricted.",
+          "quote": "With this simple tool, you can change the start of your git commit hashes to whatever you want.",
+          "role": "Capability summary and promotion",
+          "scope": "Commit hash prefixes",
+          "segment_index": 0,
+          "support": "Examples demonstrate prefix changes; later text specifies hexadecimal characters and placeholders."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 3
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Latest commit in this repository.",
+          "quote": "As a demonstration, see the latest commit in this repository.",
+          "role": "Demonstration pointer",
+          "scope": "Repository history",
+          "segment_index": 0,
+          "support": "Points to a demonstration; its contents are not included."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 4
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 5
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "A few characters of various whitespace types.",
+          "quote": "amends your commit messages by adding a few characters of various types of whitespace",
+          "role": "Mechanism",
+          "scope": "Commit message modification",
+          "segment_index": 0,
+          "support": "Later sections explain whitespace placement and the GPG exception."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Repeated attempts until success.",
+          "quote": "keeps trying new messages until it finds a good hash.",
+          "role": "Stopping condition",
+          "scope": "Hash search",
+          "segment_index": 0,
+          "support": "Surrounding text defines success through a desired hash prefix."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Default behavior.",
+          "quote": "By default, it will look for a commit hash starting with \"0000000\".",
+          "role": "Default",
+          "scope": "Hash prefix",
+          "segment_index": 0,
+          "support": "Repeated in the example and performance calculation for a seven-character prefix."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 6
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "For a prefix other than the default.",
+          "quote": "To find a hash starting with something other than \"0000000\", pass the desired prefix as a command-line argument:",
+          "role": "Usage instruction",
+          "scope": "Prefix selection",
+          "segment_index": 0,
+          "support": "The following protected example demonstrates the argument."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 7
+    },
+    {
+      "claims": [],
+      "empty_reason": "Incomplete lead-in to the protected placeholder and its explanation.",
+      "ordinal": 8
+    },
+    {
+      "claims": [],
+      "empty_reason": "Placeholder label and example lead-in; no independent assertion.",
+      "ordinal": 9
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Only in the placeholder's slot; hexadecimal characters.",
+          "quote": "indicating that the hash is allowed to have any hex character in the given slot.",
+          "role": "Placeholder semantics",
+          "scope": "Wildcard positions in the prefix argument",
+          "segment_index": 0,
+          "support": "The preceding protected argument provides an example."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 10
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 11
+    },
+    {
+      "claims": [],
+      "empty_reason": "Expressive shrug, not an independent claim.",
+      "ordinal": 12
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 13
+    },
+    {
+      "claims": [],
+      "empty_reason": "Instruction lead-in whose prerequisites are protected identifiers.",
+      "ordinal": 14
+    },
+    {
+      "claims": [],
+      "empty_reason": "Conjunction between protected identifiers.",
+      "ordinal": 15
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Installation of the preceding Rust prerequisites.",
+          "quote": "Installation instructions can be found",
+          "role": "Reference pointer",
+          "scope": "Prerequisite installation",
+          "segment_index": 0,
+          "support": "An installation documentation link follows."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 16
+    },
+    {
+      "claims": [],
+      "empty_reason": "Imperative introducing a protected installation command.",
+      "ordinal": 17
+    },
+    {
+      "claims": [],
+      "empty_reason": "Incomplete qualification continued after a protected identifier.",
+      "ordinal": 18
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Usually; depends on Cargo setup.",
+          "quote": "setup, this will usually add the binary to your",
+          "role": "Installation outcome",
+          "scope": "Adding the binary to PATH",
+          "segment_index": 0,
+          "support": "The adjacent protected identifiers specify Cargo and PATH."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 19
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "After installation and the qualified PATH setup.",
+          "quote": "You can then use it by running",
+          "role": "Invocation instruction",
+          "scope": "Installed executable",
+          "segment_index": 0,
+          "support": "The protected executable name follows."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 20
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Alternative installation method.",
+          "quote": "Alternatively, you can build from source:",
+          "role": "Installation option",
+          "scope": "Source build",
+          "segment_index": 0,
+          "support": "The following protected commands clone and build the repository."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 21
+    },
+    {
+      "claims": [],
+      "empty_reason": "Incomplete build-output lead-in; the output identifier is protected.",
+      "ordinal": 22
+    },
+    {
+      "claims": [],
+      "empty_reason": "Noun and opening parenthesis within the build-output description.",
+      "ordinal": 23
+    },
+    {
+      "claims": [],
+      "empty_reason": "Platform and location qualifiers for protected build-output identifiers.",
+      "ordinal": 24
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Either relocation or an alias.",
+          "quote": "You can move this to wherever you want, or set up an alias for it.",
+          "role": "Post-build options",
+          "scope": "Generated executable",
+          "segment_index": 0,
+          "support": "The preceding sentence identifies the binary and output directory."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 25
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 26
+    },
+    {
+      "claims": [],
+      "empty_reason": "Default qualifier for the following claim.",
+      "ordinal": 27
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "By default, as established in the preceding fragment.",
+          "quote": "links with your system's OpenCL headers and runs on a GPU.",
+          "role": "Build and execution behavior",
+          "scope": "Default OpenCL configuration",
+          "segment_index": 0,
+          "support": "The troubleshooting section describes disabling OpenCL and installing its libraries."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "GPU execution relative to CPU execution.",
+          "quote": "This makes it significantly faster.",
+          "role": "Performance rationale",
+          "scope": "GPU acceleration",
+          "segment_index": 0,
+          "support": "The page reports an approximately 20x CPU slowdown on the author's laptop."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 28
+    },
+    {
+      "claims": [],
+      "empty_reason": "Conditional lead-in to a protected linker error; no independent assertion.",
+      "ordinal": 29
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "For a linker error resembling the preceding example.",
+          "quote": "there are a few workarounds:",
+          "role": "Troubleshooting transition",
+          "scope": "OpenCL linker errors",
+          "segment_index": 0,
+          "support": "Three workaround options follow."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 30
+    },
+    {
+      "claims": [],
+      "empty_reason": "Imperative fragment introducing the build instruction.",
+      "ordinal": 31
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Compilation without OpenCL.",
+          "quote": "without OpenCL by adding the flag",
+          "role": "Workaround instruction",
+          "scope": "Disabling default features",
+          "segment_index": 0,
+          "support": "The adjacent protected flag and commands specify how."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 32
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Either install or build.",
+          "quote": "to your install or build command",
+          "role": "Instruction scope",
+          "scope": "Where the disabling flag applies",
+          "segment_index": 0,
+          "support": "Protected examples show both command forms."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 33
+    },
+    {
+      "claims": [],
+      "empty_reason": "Conjunction between protected command alternatives.",
+      "ordinal": 34
+    },
+    {
+      "claims": [],
+      "empty_reason": "Incomplete causal lead-in to CPU fallback.",
+      "ordinal": 35
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "When compiled without OpenCL.",
+          "quote": "fall back to a multithreaded CPU implementation.",
+          "role": "Workaround result",
+          "scope": "CPU execution",
+          "segment_index": 0,
+          "support": "The preceding instruction disables OpenCL."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "About 20x; on the author's laptop.",
+          "quote": "The CPU implementation is about 20x slower on my laptop",
+          "role": "Reported performance comparison",
+          "scope": "CPU versus GPU",
+          "segment_index": 0,
+          "support": "Explicitly presented as a machine-specific observation."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Depends on intended use; probabilistic assurance.",
+          "quote": "but depending on what you're planning to use the tool for, there's a good chance it's fast enough anyway.",
+          "role": "Performance reassurance",
+          "scope": "CPU adequacy",
+          "segment_index": 0,
+          "support": "No workload or adequacy threshold is specified."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 36
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Stable build desired and extra GPU performance unnecessary.",
+          "quote": "This is the recommended approach if you just want a stable build, and you don't need the extra performance from GPUs.",
+          "role": "Conditional recommendation",
+          "scope": "Building without OpenCL",
+          "segment_index": 0,
+          "support": "Avoids the described OpenCL linker dependency at the stated performance cost."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 37
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "An option to try, not a guaranteed fix.",
+          "quote": "You can try installing the OpenCL libraries for your system.",
+          "role": "Workaround",
+          "scope": "OpenCL installation",
+          "segment_index": 0,
+          "support": "Addresses the missing OpenCL library error."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Varies by operating system.",
+          "quote": "The instructions for this will vary by OS",
+          "role": "Installation caveat",
+          "scope": "OpenCL libraries",
+          "segment_index": 0,
+          "support": "An example installation reference follows."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Only if the machine has a GPU.",
+          "quote": "Note that this will only be useful if your machine has a GPU.",
+          "role": "Applicability condition",
+          "scope": "Installing OpenCL as a workaround",
+          "segment_index": 2,
+          "support": "The page describes OpenCL as the GPU execution path."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 38
+    },
+    {
+      "claims": [
+        {
+          "disposition": "uncertain",
+          "qualifiers": "Older version; described as written in a different language.",
+          "quote": "You can try installing an older version of the library written in a different language",
+          "role": "Alternative workaround",
+          "scope": "Historical branches",
+          "segment_index": 0,
+          "support": "Links include Node.js, C, and pure Rust without OpenCL; the language description does not clearly cover all three."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Compared with the current version; magnitude described as drastic.",
+          "quote": "these older versions are drastically slower than the current version",
+          "role": "Performance caveat",
+          "scope": "Historical versions",
+          "segment_index": 6,
+          "support": "No measurements for these branches are supplied."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Applies to the older versions.",
+          "quote": "and are also unmaintained.",
+          "role": "Maintenance caveat",
+          "scope": "Historical versions",
+          "segment_index": 6,
+          "support": "Explicit maintenance-status statement."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 39
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 40
+    },
+    {
+      "claims": [],
+      "empty_reason": "Platform heading.",
+      "ordinal": 41
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Arch Linux; extra repository; pacman.",
+          "quote": "can be installed from the",
+          "role": "Package availability",
+          "scope": "Arch Linux installation",
+          "segment_index": 0,
+          "support": "Repository and package-manager links plus a protected installation command."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 42
+    },
+    {
+      "claims": [],
+      "empty_reason": "Platform heading.",
+      "ordinal": 43
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Funtoo Linux; dev-kit.",
+          "quote": "can be installed from",
+          "role": "Package availability",
+          "scope": "Funtoo installation",
+          "segment_index": 0,
+          "support": "A dev-kit link and protected emerge command follow."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 44
+    },
+    {
+      "claims": [],
+      "empty_reason": "Package-manager heading.",
+      "ordinal": 45
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Default tap.",
+          "quote": "is available from the default Homebrew tap:",
+          "role": "Package availability",
+          "scope": "Homebrew installation",
+          "segment_index": 0,
+          "support": "The following protected command demonstrates installation."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 46
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 47
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Computer power, GPG signing, and experimental Git features.",
+          "quote": "'s performance is determined by how powerful your computer is, whether you GPG-sign your commits, and whether you use experimental git features.",
+          "role": "Performance overview",
+          "scope": "Factors affecting runtime",
+          "segment_index": 0,
+          "support": "The following subsections explain hardware throughput, GPG overhead, and SHA256."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 48
+    },
+    {
+      "claims": [],
+      "empty_reason": "Subsection heading.",
+      "ordinal": 49
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Main bottleneck, not the only runtime cost.",
+          "quote": "'s main bottleneck is SHA1 throughput.",
+          "role": "Performance mechanism",
+          "scope": "Hash search",
+          "segment_index": 0,
+          "support": "The page supplies hash-rate calculations and separately accounts for I/O."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 50
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Default prefix; average-case calculation follows.",
+          "quote": "has length 7, so on average,",
+          "role": "Calculation premise",
+          "scope": "Default hash prefix",
+          "segment_index": 0,
+          "support": "The protected default prefix contains seven zeros."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 51
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "On average; seven-character default prefix.",
+          "quote": "needs to compute 16",
+          "role": "Expected search work",
+          "scope": "16 to the seventh power SHA1 hashes",
+          "segment_index": 0,
+          "support": "Adjacent exponent and hash-type fragments complete the calculation."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 52
+    },
+    {
+      "claims": [],
+      "empty_reason": "Exponent within the preceding calculation.",
+      "ordinal": 53
+    },
+    {
+      "claims": [],
+      "empty_reason": "Hash-type and count-unit continuation.",
+      "ordinal": 54
+    },
+    {
+      "claims": [],
+      "empty_reason": "Applicability qualifier for the following mechanism.",
+      "ordinal": 55
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Non-GPG-signed commits; 64-byte alignment; message end.",
+          "quote": "adds its whitespace to a 64-byte-aligned block at the very end of the commit message.",
+          "role": "Whitespace placement",
+          "scope": "Unsigned commit search",
+          "segment_index": 0,
+          "support": "The following explanation connects placement to SHA1 state caching."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "For any particular commit.",
+          "quote": "Since everything that precedes the whitespace is constant for any particular commit",
+          "role": "Caching premise",
+          "scope": "Unchanged commit prefix",
+          "segment_index": 0,
+          "support": "Only the appended whitespace varies between attempts."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 56
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "One 64-byte block per attempt; non-GPG case.",
+          "quote": "to cache the SHA1 buffer state and only hash a single 64-byte block on each attempt.",
+          "role": "Optimization mechanism",
+          "scope": "SHA1 work per attempt",
+          "segment_index": 0,
+          "support": "The preceding text establishes the constant prefix and aligned whitespace block."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Average-sized commit; approximately fivefold; versus hashing the entire commit each time.",
+          "quote": "For an average-sized commit, this speeds up the search by a factor of ~5 over the naive approach of hashing the entire commit on each attempt.",
+          "role": "Performance comparison",
+          "scope": "Cached versus full-commit hashing",
+          "segment_index": 0,
+          "support": "The reduced per-attempt hashing work explains the reported improvement."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 57
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Describes a high degree of parallelism.",
+          "quote": "Hash searching is extremely parallelizable",
+          "role": "Architecture rationale",
+          "scope": "Hash search",
+          "segment_index": 0,
+          "support": "The page describes independent attempts, GPU execution, multithreaded fallback, and a large GPU speed advantage."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 58
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Uses the parallelism described immediately before.",
+          "quote": "takes advantage of this by running on a GPU.",
+          "role": "Execution strategy",
+          "scope": "Parallel hash search",
+          "segment_index": 0,
+          "support": "The following measurement gives GPU throughput."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "When no GPU is available; multithreaded.",
+          "quote": "When no GPU is available, it falls back to a multithreaded CPU implementation.",
+          "role": "Fallback behavior",
+          "scope": "CPU execution",
+          "segment_index": 0,
+          "support": "The troubleshooting section also describes a CPU implementation."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 59
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Author's 2021 MacBook Pro GPU; about; single-block hashes.",
+          "quote": "The GPU on my 2021 MacBook Pro can compute about 1.5 billion single-block hashes per second.",
+          "role": "Reported throughput",
+          "scope": "Specific hardware",
+          "segment_index": 0,
+          "support": "Explicit machine-specific performance report."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Theoretical average; default prefix; author's laptop.",
+          "quote": "As a result, the theoretical average time to find a",
+          "role": "Runtime calculation",
+          "scope": "Expected hashing time",
+          "segment_index": 0,
+          "support": "The continued equation divides expected hashes by the reported throughput to obtain 0.18 seconds."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 60
+    },
+    {
+      "claims": [],
+      "empty_reason": "Continuation of the theoretical-time calculation already recorded.",
+      "ordinal": 61
+    },
+    {
+      "claims": [],
+      "empty_reason": "Exponent within the runtime calculation.",
+      "ordinal": 62
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Estimate of average time for the reader's computer.",
+          "quote": "You can estimate the average time for your computer by running",
+          "role": "Benchmark instruction",
+          "scope": "Local performance estimation",
+          "segment_index": 2,
+          "support": "The protected benchmark command follows; the preceding equation completes the already recorded theoretical-time claim."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 63
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Outside hashing; constant amount; process spawning is an example.",
+          "quote": "Outside of hashing, the tool also has to do a constant amount of I/O",
+          "role": "Runtime overhead",
+          "scope": "Non-hashing work",
+          "segment_index": 0,
+          "support": "The sentence gives Git process spawning as an example and reports observed total runtime."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 64
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Observed average; author's laptop; about 0.24 seconds.",
+          "quote": "resulting in an observed average time on my laptop of about 0.24 seconds.",
+          "role": "Measured runtime",
+          "scope": "Total execution time including overhead",
+          "segment_index": 0,
+          "support": "Distinguished from the 0.18-second theoretical hashing time."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 65
+    },
+    {
+      "claims": [],
+      "empty_reason": "Subsection heading.",
+      "ordinal": 66
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "GPG-signed commits.",
+          "quote": "For GPG-signed commits, the commit message is part of the signed payload",
+          "role": "Signature constraint",
+          "scope": "Signed commit contents",
+          "segment_index": 0,
+          "support": "The following text explains invalidation and alternative whitespace placement."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 67
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "For GPG-signed commits; preserves negation.",
+          "quote": "can't edit the commit message without making the signature invalid.",
+          "role": "Modification constraint",
+          "scope": "Signature validity",
+          "segment_index": 0,
+          "support": "The message is part of the signed payload."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Instead of modifying the message.",
+          "quote": "Instead, it adds its whitespace to the end of the signature itself.",
+          "role": "Alternative mechanism",
+          "scope": "GPG-signed hash search",
+          "segment_index": 0,
+          "support": "Explains how the tool avoids the preceding message-editing constraint."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "In Git's commit encoding.",
+          "quote": "Since the signature precedes the commit message in git's commit encoding",
+          "role": "Encoding premise",
+          "scope": "Ordering of signature and message",
+          "segment_index": 0,
+          "support": "The following explanation connects this ordering to repeated message hashing."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 68
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Each attempt; less effective caching; message rehashed every time.",
+          "quote": "to do more work on each attempt (it can't cache the SHA1 buffer state as effectively, and it needs to rehash the commit message every time).",
+          "role": "Performance mechanism",
+          "scope": "GPG-signed commits",
+          "segment_index": 0,
+          "support": "Variable signature whitespace precedes the message."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "GPG-signed commits.",
+          "quote": "As a result, the performance for GPG-signed commits depends on the length of the commit message.",
+          "role": "Performance consequence",
+          "scope": "Message-length dependence",
+          "segment_index": 0,
+          "support": "Every attempt rehashes the message; the following formula quantifies this dependence."
+        },
+        {
+          "disposition": "retain",
+          "qualifiers": "Rough multiplier of average search time.",
+          "quote": "This multiplies the average search time by roughly",
+          "role": "Quantitative estimate",
+          "scope": "GPG overhead",
+          "segment_index": 0,
+          "support": "The protected formula is 1 plus the ceiling of message length divided by 64 bytes."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 69
+    },
+    {
+      "claims": [],
+      "empty_reason": "Subsection heading.",
+      "ordinal": 70
+    },
+    {
+      "claims": [],
+      "empty_reason": "Transition word without an independent claim.",
+      "ordinal": 71
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "Experimental SHA256 object format.",
+          "quote": "also supports git repositories using the",
+          "role": "Compatibility claim",
+          "scope": "SHA256 repositories",
+          "segment_index": 0,
+          "support": "The linked format label specifies the feature; the following sentence explains detection and behavior."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 72
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "If SHA256 objects are detected; automatic; commit at HEAD.",
+          "quote": "detects that it's being run in a repository with sha256 objects, it will automatically customize the sha256 shorthash of the commit at",
+          "role": "Conditional behavior",
+          "scope": "SHA256 prefix customization",
+          "segment_index": 0,
+          "support": "The protected HEAD identifier and following SHA1 contrast complete the behavior."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 73
+    },
+    {
+      "claims": [
+        {
+          "disposition": "retain",
+          "qualifiers": "SHA256 hash rate is described as slightly lower.",
+          "quote": "The hash rate for sha256 is a bit slower than the hash rate for sha1.",
+          "role": "Performance caveat",
+          "scope": "SHA256 versus SHA1",
+          "segment_index": 0,
+          "support": "Qualitative comparison only; no numerical benchmark is supplied."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 74
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "Conditional on reader uncertainty; probably, not certainly.",
+          "quote": "If you're wondering whether your repository uses sha256, then it probably doesn't.",
+          "role": "Applicability reassurance",
+          "scope": "Reader's repository format",
+          "segment_index": 0,
+          "support": "The next sentence asserts rarity but provides no repository-specific evidence."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 75
+    },
+    {
+      "claims": [
+        {
+          "disposition": "diagnose",
+          "qualifiers": "At the time of writing; highly experimental.",
+          "quote": "At the time of writing, this is a highly experimental feature",
+          "role": "Maturity caveat",
+          "scope": "Git SHA256 object format",
+          "segment_index": 0,
+          "support": "The earlier linked label calls it experimental but does not establish the added degree."
+        },
+        {
+          "disposition": "diagnose",
+          "qualifiers": "At the time of writing; very rarely.",
+          "quote": "and is very rarely used.",
+          "role": "Adoption claim",
+          "scope": "Git SHA256 object format",
+          "segment_index": 0,
+          "support": "No adoption evidence is supplied."
+        }
+      ],
+      "empty_reason": "",
+      "ordinal": 76
+    },
+    {
+      "claims": [],
+      "empty_reason": "Section heading.",
+      "ordinal": 77
+    }
+  ]
+}
