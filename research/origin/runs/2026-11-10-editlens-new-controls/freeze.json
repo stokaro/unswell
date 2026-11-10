@@ -1,0 +1,66 @@
+{
+  "base_main_commit": "dc91d1035ca61382307cdb275ede413f27a43650",
+  "failure_policy": "stop_on_first_error; no partial resume or score-conditioned replacement",
+  "format": "unswell-origin-new-historical-score-freeze-v1",
+  "frame_identity_sha256": "6364b4f7405796240bd751f593c91bc910f5c9aa6cadceef08275c5a7871d743",
+  "helper_file_sha256": {
+    "2026-11-07-richness-screen/run.py": "ed17bd5b238823357a09146e18ea871abad8a1eb3ced1a6dc2b6352e1a338ad7",
+    "2026-11-09-editlens-transfer/run.py": "c411968219a2d273781769d1cbbd67e91b8dfac3bb10cc096195d1f87d19f264",
+    "2026-11-10-editlens-technical-windows/audit.py": "198b5c06cd79700fc6bec6a177146538116391b0fdf02ded096d375558cf89ae"
+  },
+  "limits": {
+    "calibration_documents": 404,
+    "max_window_tokens": 512,
+    "minimum_cleaned_words": 50,
+    "observed_test_flag_rate_ceiling": 0.01,
+    "test_candidate_documents": 403,
+    "test_coverage_floor": 0.7,
+    "test_documents": 357,
+    "threshold": "strict_greater_than_max_calibration_mean",
+    "window_width_words": 100
+  },
+  "local_file_sha256": {
+    "PROTOCOL.md": "78bbffacf9f70ac2bda761b1c00458b0c9538bd0305586c491ad82d9f9f3692a",
+    "SOURCE_FRAME.md": "6740b707d9748284b0af9074d5b159ef03f852e8895cc865e8dd29551af06c05",
+    "blob_audit.json": "91651bf12c14ed9fc81b252d3b73bed523d857dbe4edef53af31693aa8f2e863",
+    "build_frame.py": "dc0ebcd9c0070ba450cfb7a3dce8caced6acd2b727e759b46838c3d490562631",
+    "eligibility.json": "ded775eff6e65f56bab8edf9b2429ffb9eb93b5bd33a5e3c20353ea1d1dbdbd5",
+    "eligibility.py": "ffc8cc2269be46de3c98ef1502404ec276d4b23c98736340e2e027a66a57eec5",
+    "fetch_sources.py": "a55c084cad7e295732ef18c658fac47f1267068fde8f3067e37476c1423035bb",
+    "frame.json": "351add15fed1123dd1b312f9c371353de3ac8e06dc1c2e3745dfc1d190031d72",
+    "inventory.json": "6051df6a4af3f0aebe8394c982996c501a465999236724b5df8e56795ea3d194",
+    "inventory.py": "59e2229748262f014b5cc420fd6007a94533b99e2faef6f10262e1fba2945e4e",
+    "origin-new-corpus-exclusions-2026-11-10.json": "f3dcfc6021254fdee28012b4ffc563f2b83a71c6d23c5cc3dcab6e3170220f79",
+    "review_queue.json": "275324869d3845dbee0decafcb324a7eb0eed1e5f3ccbe262a56ad43eeb281b0",
+    "review_queue.py": "194bdcefde173debe44c73f7451e58801975dde5a24e4a128898f462a7db1eaa",
+    "score.py": "641e1ddc4059e66569afb8fd86b894e6b5e8fac1a358d05396a682e5cbad8518",
+    "source_review.json": "7a82c235f381d80f24d9ac819f00b76b64808aa799a70ffd9f44c7fceebf16dd",
+    "verify_frame.py": "d9bf953510fc3ad1255b98c0e15a8f0cae4241becded5b4ed9fdb3dc933723fc",
+    "verify_inventory.py": "6ac879545227f9202787a3e6070c56231a127419d8289a867c3823d76e3aa590",
+    "verify_score.py": "57531cd17af6d0bcd13e0ec3e13fc7083b91ef594b609ec36107cf7054729cfc"
+  },
+  "model_file_sha256": {
+    "SHA256SUMS": "68933101f365e6f080c80f99d805753d271297633e35131fd289d44acf66da98",
+    "config.json": "54b63c7e7298bdd5a49180a668e648a020d61cae92abdbae0a96ac3bf5a7ba18",
+    "manifest.json": "ff75ce561fe7d70c2df4ab5ffdc4a48b11543415047b2e809ea72480b993208a",
+    "merges.txt": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+    "requirements-runtime.txt": "d935a411c82267a32dde29c973e3523be672241cb35af0d731540c2372d549d4",
+    "special_tokens_map.json": "06e405a36dfe4b9604f484f6a1e619af1a7f7d09e34a8555eb0b77b66318067f",
+    "tokenizer.json": "2bb1a22cfbe25b8e5a232b7fc4d7fc5073923b45724a5f813b00811bb6620f66",
+    "tokenizer_config.json": "4903bcd294e8ff8b840eb9c21909d2f910b466d250ac6e298a7438a7da63ef0d",
+    "vocab.json": "ed19656ea1707df69134c4af35c8ceda2cc9860bf2c3495026153a133670ab5e"
+  },
+  "model_revision": "f7cb4b06e5067ecdb66c566c7982a413f86f569f",
+  "model_sha256": "ddd1173f2ef517ad499965e5029fae8099a8054a2bc76d8134e5889cc4ed1b3e",
+  "runtime": {
+    "batch": 8,
+    "duckdb": "1.4.1",
+    "emoji": "2.15.0",
+    "numpy": "2.5.3",
+    "onnxruntime": "1.30.0",
+    "provider": "CPUExecutionProvider",
+    "python": "3.12.15",
+    "threads": 4,
+    "tokenizers": "0.23.2"
+  }
+}
