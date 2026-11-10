@@ -2,12 +2,12 @@ SHELL := /bin/bash
 
 .PHONY: check test race fuzz lint lint-shell tidy policy build build-mcp release fmt schema dogfood dogfood-mcp
 .PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost
-.PHONY: check-contextual-admission check-external-controls check-current-baseline check-current-editorial-review
+.PHONY: check-contextual-admission check-external-controls check-current-baseline check-current-editorial-review check-current-editorial-delta
 .PHONY: check-source-review-contract check-source-bound-disposition-pilot check-paired-source-necessity check-complementary-semantic-pilot
 .PHONY: check-unit-relation-pilot check-source-role-rescue check-source-role-selector check-structured-admission check-source-context-admission check-joint-coverage-triage
 .PHONY: check-ape-screen check-dual-gate-triage check-dual-gate-feasibility check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-ape-screen check-dual-gate-triage check-dual-gate-feasibility check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-gen-technical-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot check-source-bound-disposition-pilot check-paired-source-necessity check-complementary-semantic-pilot check-unit-relation-pilot check-source-role-rescue check-source-role-selector check-structured-admission check-source-context-admission check-joint-coverage-triage
+check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-current-editorial-delta check-ape-screen check-dual-gate-triage check-dual-gate-feasibility check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-gen-technical-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot check-source-bound-disposition-pilot check-paired-source-necessity check-complementary-semantic-pilot check-unit-relation-pilot check-source-role-rescue check-source-role-selector check-structured-admission check-source-context-admission check-joint-coverage-triage
 
 check-joint-coverage-triage:
 	python3 -B research/reviews/2026-11-09-joint-coverage-triage/verify_historical.py
@@ -147,6 +147,10 @@ check-ape-screen:
 check-current-editorial-review:
 	python3 -B research/reviews/2026-11-07-current-main-editorial-review/verify.py
 	python3 -B -m unittest research/reviews/2026-11-07-current-main-editorial-review/test_verify.py
+
+check-current-editorial-delta:
+	python3 -B research/reviews/2026-11-10-current-main-editorial-delta/verify.py
+	python3 -B -m unittest research/reviews/2026-11-10-current-main-editorial-delta/test_verify.py
 
 check-current-baseline:
 	python3 -B research/reviews/2026-11-07-current-main-baseline/analyze.py --run research/reviews/2026-11-07-current-main-baseline --output research/reviews/2026-11-07-current-main-baseline/result.json --check
