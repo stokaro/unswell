@@ -97,7 +97,8 @@ func readerPurpose(tokens []document.Token) bool {
 		} else if !frameWord(tokens[i], "you", "we") {
 			continue
 		}
-		if intentionGoal(tokens[1:i]) && directInstruction(tokens[end:]) {
+		if intentionGoal(tokens[1:i]) && directInstruction(tokens[end:]) &&
+			!optionalNamedMethod(tokens[1:i], tokens[end:]) {
 			return true
 		}
 	}

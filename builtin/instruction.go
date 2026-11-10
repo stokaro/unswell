@@ -176,11 +176,36 @@ func readerInstruction(tokens []document.Token) bool {
 		if !frameWord(tokens[i], ",") || !readerGoal(tokens[1:i]) {
 			continue
 		}
-		rest := tokens[i+1:]
-		if len(rest) > 2 && frameWord(rest[0], "you") && frameWord(rest[1], "can") {
-			rest = rest[2:]
+		return readerInstructionAt(tokens, i)
+	}
+	return false
+}
+
+func readerInstructionAt(tokens []document.Token, comma int) bool {
+	rest := tokens[comma+1:]
+	if len(rest) > 2 && frameWord(rest[0], "you") && frameWord(rest[1], "can") {
+		rest = rest[2:]
+	}
+	return !instructionCondition(rest) && grammaticalAction(rest) &&
+		!optionalNamedMethod(tokens[1:comma], tokens[comma+1:])
+}
+
+// A different action with an exact command or option tells the reader how to
+// achieve the optional goal. Same-action repetition remains eligible.
+func optionalNamedMethod(goal, action []document.Token) bool {
+	verb := readerIntentionStart(goal) + 2
+	if verb >= len(goal) || !frameWord(goal[verb-2], "want", "wish", "intend") {
+		return false
+	}
+	start, ok := readerActionStart(action)
+	if !ok || start >= len(action) || !instructionVerb(action[start:]) ||
+		goal[verb].Normal == action[start].Normal {
+		return false
+	}
+	for _, operand := range action[start+1:] {
+		if operand.Protected {
+			return true
 		}
-		return !instructionCondition(rest) && grammaticalAction(rest)
 	}
 	return false
 }

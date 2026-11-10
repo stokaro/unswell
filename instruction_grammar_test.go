@@ -29,9 +29,26 @@ func TestInstructionActionGrammar(t *testing.T) {
 			r := singleRuleResult(t, "filler.instruction-scaffolding", text, "", "")
 			c.Assert(r.Findings, qt.HasLen, 1)
 			c.Assert(r.Findings[0].Primary.Snippet, qt.Equals, strings.TrimSuffix(text, "."))
-			c.Assert(r.Findings[0].RuleVersion, qt.Equals, "15")
+			c.Assert(r.Findings[0].RuleVersion, qt.Equals, "16")
 		})
 	}
+}
+
+func TestInstructionNamedMethodRetainsOptionalGoal(t *testing.T) {
+	id := "filler.instruction-scaffolding"
+	for _, text := range []string{
+		"If you want to run the benchmark on a warm cache, you can use the `-w`/`--warmup` " +
+			"option to perform three executions before the benchmark.",
+		"If you want to run the benchmark for a cold cache, you can use the `-p`/`--prepare` option before each run.",
+		"If you want to pass arguments this way, use `nix run github:eza-community/eza -- -ol`.",
+	} {
+		t.Run(text, func(t *testing.T) {
+			qt.New(t).Assert(singleRuleResult(t, id, text, "", "").Findings, qt.HasLen, 0)
+		})
+	}
+	text := "If you want to set the label, you can set `--label`."
+	result := singleRuleResult(t, id, text, "", "")
+	qt.New(t).Assert(result.Findings, qt.HasLen, 1)
 }
 
 func TestInstructionActionGrammarControls(t *testing.T) {
