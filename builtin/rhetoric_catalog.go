@@ -31,7 +31,7 @@ func localRhetoricRules() []rule.Rule {
 				"To do this/that passive invocation of a named method or function. The pair requests direct instruction wording "+
 				"while retaining the safety qualifier and prerequisite; automatic execution and unnamed operations remain excluded. "+
 				"A reader-intent condition followed by a distinct action with an exact code-form command or option "+
-				"is already a direct optional instruction. "+
+				"is already a direct optional instruction. The either/or coordinator before alternative actions is not an action verb. "+
 				"A supported-action prefix followed by a modal relative helpfulness clause and an unqualified purpose nominal "+
 				"requests direct wording for both layers while retaining their modality and the relative antecedent. "+
 				"Preserve modal meaning, named actors and conditions. "+
@@ -147,7 +147,7 @@ func localRhetoricVersion(id string) string {
 	case "filler.document-justification":
 		return "6"
 	case "filler.instruction-scaffolding":
-		return "16"
+		return "17"
 	case "filler.evaluative-closure":
 		return "12"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":
