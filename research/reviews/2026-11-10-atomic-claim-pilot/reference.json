@@ -1,0 +1,615 @@
+{
+  "controls": [
+    {
+      "byte_span": {
+        "end": 5466,
+        "start": 5437
+      },
+      "disposition": "optional",
+      "id": "C001",
+      "page": 1,
+      "quote": "I also want to emphasize that",
+      "reason": "The personal lead-in can be shortened, but this author's advice has an intentional first-person voice.",
+      "source_role": "hyperparameter-tuning caution",
+      "source_sha256": "44a4a633df3b10c4e8fc9a553b59a3950f456123f96295dbe9a5733f4bdad63d",
+      "unit_ordinal": 51
+    },
+    {
+      "byte_span": {
+        "end": 3266,
+        "start": 3184
+      },
+      "disposition": "optional",
+      "id": "C002",
+      "page": 3,
+      "quote": "So if you want to be brave and use a pre-release packages, you can do so by adding",
+      "reason": "The informal prerelease aside may suit this project's voice; the feed instruction is still clear.",
+      "source_role": "prerelease installation instruction",
+      "source_sha256": "3c5b9a83cbf5d7de5d8b18e8c3aa6bede4c0559a57469c382e60b858bbb9f5d4",
+      "unit_ordinal": 30
+    },
+    {
+      "byte_span": {
+        "end": 9220,
+        "start": 9196
+      },
+      "disposition": "optional",
+      "id": "C003",
+      "page": 8,
+      "quote": "Ready for the next step?",
+      "reason": "The question can serve as a navigation cue before the configuration link.",
+      "source_role": "configuration-guide link",
+      "source_sha256": "1b2b49d29eb7ce3e34dfe6562269878ffce3ed8aef947edacbe90764274f0fc7",
+      "unit_ordinal": 68
+    },
+    {
+      "byte_span": {
+        "end": 2603,
+        "start": 2490
+      },
+      "disposition": "retain",
+      "id": "C004",
+      "page": 1,
+      "quote": "Otherwise, the symbolic branch is on, which is super slow because the symbolic computations are not parallelized!",
+      "reason": "The conditional warning gives the reason for model.speed() and should not lose the symbolic-branch condition.",
+      "source_role": "performance warning",
+      "source_sha256": "44a4a633df3b10c4e8fc9a553b59a3950f456123f96295dbe9a5733f4bdad63d",
+      "unit_ordinal": 20
+    },
+    {
+      "byte_span": {
+        "end": 3953,
+        "start": 3826
+      },
+      "disposition": "retain",
+      "id": "C005",
+      "page": 1,
+      "quote": "Since these problems are relatively small-scale and science-oriented, it is likely that my advice is not suitable to your case.",
+      "reason": "The author limits the applicability of subsequent tuning advice.",
+      "source_role": "scope caveat",
+      "source_sha256": "44a4a633df3b10c4e8fc9a553b59a3950f456123f96295dbe9a5733f4bdad63d",
+      "unit_ordinal": 40
+    },
+    {
+      "byte_span": {
+        "end": 4066,
+        "start": 4022
+      },
+      "disposition": "retain",
+      "id": "C006",
+      "page": 2,
+      "quote": "exFAT formatted microSD cards will not work.",
+      "reason": "The file-system exclusion is necessary to prevent an unusable firmware card.",
+      "source_role": "installation safety warning",
+      "source_sha256": "50476acf692128467b7a1053f381fe1f1473493fd76d15c831f0578caf17890f",
+      "unit_ordinal": 57
+    },
+    {
+      "byte_span": {
+        "end": 7669,
+        "start": 7605
+      },
+      "disposition": "retain",
+      "id": "C007",
+      "page": 2,
+      "quote": "It is important to configure each camera with a unique hostname.",
+      "reason": "The following sentence gives a concrete IP-address fallback consequence; the warning is functional.",
+      "source_role": "multi-camera setup warning",
+      "source_sha256": "50476acf692128467b7a1053f381fe1f1473493fd76d15c831f0578caf17890f",
+      "unit_ordinal": 127
+    },
+    {
+      "byte_span": {
+        "end": 1492,
+        "start": 1399
+      },
+      "disposition": "retain",
+      "id": "C008",
+      "page": 3,
+      "quote": "each with breaking changes - so you need to ensure you use the version that is right for you:",
+      "reason": "The warning explains why choosing the correct specification-specific package matters.",
+      "source_role": "FHIR version constraint",
+      "source_sha256": "3c5b9a83cbf5d7de5d8b18e8c3aa6bede4c0559a57469c382e60b858bbb9f5d4",
+      "unit_ordinal": 14
+    },
+    {
+      "byte_span": {
+        "end": 4753,
+        "start": 4700
+      },
+      "disposition": "retain",
+      "id": "C009",
+      "page": 3,
+      "quote": "The profile validator has been split off into its own",
+      "reason": "The sentence identifies a concrete component move and links its new repository.",
+      "source_role": "SDK release fact",
+      "source_sha256": "3c5b9a83cbf5d7de5d8b18e8c3aa6bede4c0559a57469c382e60b858bbb9f5d4",
+      "unit_ordinal": 47
+    },
+    {
+      "byte_span": {
+        "end": 6575,
+        "start": 6434
+      },
+      "disposition": "retain",
+      "id": "C010",
+      "page": 4,
+      "quote": "The generation of requirement and interface documentation may not be precise enough and might not meet developer intent in complex scenarios.",
+      "reason": "The caveat limits an earlier automation promise and should remain visible.",
+      "source_role": "product limitation",
+      "source_sha256": "b5b77682ec78f62b3b570c1895d3e3c916be21e9de175f66b6992556a542aae3",
+      "unit_ordinal": 55
+    },
+    {
+      "byte_span": {
+        "end": 6672,
+        "start": 6602
+      },
+      "disposition": "retain",
+      "id": "C011",
+      "page": 4,
+      "quote": "automating the understanding of existing project code is not possible.",
+      "reason": "The limitation distinguishes current functionality from the roadmap.",
+      "source_role": "current capability limitation",
+      "source_sha256": "b5b77682ec78f62b3b570c1895d3e3c916be21e9de175f66b6992556a542aae3",
+      "unit_ordinal": 56
+    },
+    {
+      "byte_span": {
+        "end": 7314,
+        "start": 7258
+      },
+      "disposition": "retain",
+      "id": "C012",
+      "page": 5,
+      "quote": "You will not get quality generated text 100% of the time",
+      "reason": "The explicit quality limitation is necessary context for generated examples.",
+      "source_role": "model-output caveat",
+      "source_sha256": "d1270c72ee6874163eb6fa0a37a24a3a53b96fad6413466d94ded12f158ed448",
+      "unit_ordinal": 51
+    },
+    {
+      "byte_span": {
+        "end": 3759,
+        "start": 3724
+      },
+      "disposition": "retain",
+      "id": "C013",
+      "page": 5,
+      "quote": "minimum TensorFlow version of 2.1.0",
+      "reason": "The exact minimum version is a practical compatibility constraint.",
+      "source_role": "dependency requirement",
+      "source_sha256": "d1270c72ee6874163eb6fa0a37a24a3a53b96fad6413466d94ded12f158ed448",
+      "unit_ordinal": 30
+    },
+    {
+      "byte_span": {
+        "end": 2250,
+        "start": 2195
+      },
+      "disposition": "retain",
+      "id": "C014",
+      "page": 6,
+      "quote": "The CPU implementation is about 20x slower on my laptop",
+      "reason": "The comparison is explicitly scoped to the author's laptop and informs the OpenCL choice.",
+      "source_role": "measured performance scope",
+      "source_sha256": "5a60bf35c4a64643e1c427d94c79d9fe692d371a1a980030d8cc2f292e80e893",
+      "unit_ordinal": 36
+    },
+    {
+      "byte_span": {
+        "end": 4872,
+        "start": 4780
+      },
+      "disposition": "retain",
+      "id": "C015",
+      "page": 6,
+      "quote": "The GPU on my 2021 MacBook Pro can compute about 1.5 billion single-block hashes per second.",
+      "reason": "The hardware and rate support the following theoretical timing calculation.",
+      "source_role": "measured rate",
+      "source_sha256": "5a60bf35c4a64643e1c427d94c79d9fe692d371a1a980030d8cc2f292e80e893",
+      "unit_ordinal": 60
+    },
+    {
+      "byte_span": {
+        "end": 3363,
+        "start": 3294
+      },
+      "disposition": "retain",
+      "id": "C016",
+      "page": 7,
+      "quote": "To generate text predictions, you need to download the model weights.",
+      "reason": "The step identifies a real prerequisite before the inference command.",
+      "source_role": "inference prerequisite",
+      "source_sha256": "e8366343bda6f2684e4c796ac872fdd6137c83c36a64a652e4ed2e74c6d8e8ae",
+      "unit_ordinal": 28
+    },
+    {
+      "byte_span": {
+        "end": 3591,
+        "start": 3520
+      },
+      "disposition": "retain",
+      "id": "C017",
+      "page": 7,
+      "quote": "This will run the 7B model and require ~26 GB of GPU memory (A100 GPU).",
+      "reason": "The model size and approximate GPU-memory need are decision-useful.",
+      "source_role": "resource requirement",
+      "source_sha256": "e8366343bda6f2684e4c796ac872fdd6137c83c36a64a652e4ed2e74c6d8e8ae",
+      "unit_ordinal": 31
+    },
+    {
+      "byte_span": {
+        "end": 13577,
+        "start": 13455
+      },
+      "disposition": "retain",
+      "id": "C018",
+      "page": 8,
+      "quote": "Bearer Pro supports interprocedural and inter-file analysis, currently with full capabilities for Java, Python, C#, and Go",
+      "reason": "The claim distinguishes Pro from CLI and names the supported languages.",
+      "source_role": "edition and language scope",
+      "source_sha256": "1b2b49d29eb7ce3e34dfe6562269878ffce3ed8aef947edacbe90764274f0fc7",
+      "unit_ordinal": 107
+    },
+    {
+      "byte_span": {
+        "end": 14214,
+        "start": 14137
+      },
+      "disposition": "technical_uncertain",
+      "id": "C019",
+      "page": 8,
+      "quote": "achieving a score of 76% with a reported false positive rate of less than 2%.",
+      "reason": "The numbers and benchmark name must not be removed or altered without checking the cited evaluation; this review does not validate the metric.",
+      "source_role": "benchmark claim",
+      "source_sha256": "1b2b49d29eb7ce3e34dfe6562269878ffce3ed8aef947edacbe90764274f0fc7",
+      "unit_ordinal": 110
+    },
+    {
+      "byte_span": {
+        "end": 2861,
+        "start": 2776
+      },
+      "disposition": "retain",
+      "id": "C020",
+      "page": 9,
+      "quote": "On Ubuntu 23.10 and later you will need to run the following in order to use httptap:",
+      "reason": "The Ubuntu version and sysctl requirement are needed before the command block.",
+      "source_role": "system setup warning",
+      "source_sha256": "eb66af435daba14003ad8a6244b5f6e24af27dd32752e0850d915bbefe7f0981",
+      "unit_ordinal": 14
+    },
+    {
+      "byte_span": {
+        "end": 18047,
+        "start": 17908
+      },
+      "disposition": "out_of_scope",
+      "id": "C021",
+      "page": 9,
+      "quote": "We believe that a monastic schedule and the practice of the Buddhist spiritual path provide ideal conditions for technological development.",
+      "reason": "This is a stated community belief in an author background section, not a technical product promise.",
+      "source_role": "author viewpoint",
+      "source_sha256": "eb66af435daba14003ad8a6244b5f6e24af27dd32752e0850d915bbefe7f0981",
+      "unit_ordinal": 105
+    }
+  ],
+  "counts": {
+    "control_pages": {
+      "1": 3,
+      "2": 2,
+      "3": 3,
+      "4": 2,
+      "5": 2,
+      "6": 2,
+      "7": 2,
+      "8": 3,
+      "9": 2
+    },
+    "controls": 21,
+    "event_pages": {
+      "1": 1,
+      "2": 3,
+      "3": 1,
+      "4": 4,
+      "5": 1,
+      "7": 1,
+      "8": 4
+    },
+    "events": 15
+  },
+  "demoted_before_freeze": 3,
+  "draft_sha256": "58a7ec0865ef06902c95e96c1757bb8d08eb717a6122ffea1fa30f6044474ec1",
+  "events": [
+    {
+      "byte_span": {
+        "end": 6882,
+        "start": 6743
+      },
+      "claims": [
+        "Check whether the model is underfitting or overfitting."
+      ],
+      "id": "E001",
+      "page": 1,
+      "preserve": "The underfitting/overfitting check and the later train/test-loss advice.",
+      "purpose": "wordiness",
+      "quote": "Another thing that would be good to keep in mind is that please constantly checking if your model is in underfitting or overfitting regime.",
+      "reader_burden": "The nested lead-in obscures the actionable check.",
+      "revision": "Check whether your model is underfitting or overfitting.",
+      "source_role": "hyperparameter-tuning instruction",
+      "source_sha256": "44a4a633df3b10c4e8fc9a553b59a3950f456123f96295dbe9a5733f4bdad63d",
+      "unit_ordinal": 57
+    },
+    {
+      "byte_span": {
+        "end": 942,
+        "start": 928
+      },
+      "claims": [
+        "The latest stock firmware has unspecified extra benefits."
+      ],
+      "id": "E002",
+      "page": 2,
+      "preserve": "The comparison to newer stock firmware and the concrete missing updates and RTSP reasons.",
+      "purpose": "vague_claims",
+      "quote": "new cool stuff",
+      "reader_burden": "A generic favorable label gives no reason to prefer this firmware.",
+      "revision": "Remove the generic phrase; retain the newer-stock-firmware comparison.",
+      "source_role": "firmware comparison",
+      "source_sha256": "50476acf692128467b7a1053f381fe1f1473493fd76d15c831f0578caf17890f",
+      "unit_ordinal": 1
+    },
+    {
+      "byte_span": {
+        "end": 1426,
+        "start": 1393
+      },
+      "claims": [
+        "All relevant behavior now works."
+      ],
+      "id": "E003",
+      "page": 2,
+      "preserve": "The H264 hang was fixed for Shinobi and Home Assistant; app functions remain available unless disabled.",
+      "purpose": "vague_claims",
+      "quote": "Now everything works as it should",
+      "reader_burden": "The absolute claim extends beyond the listed H264 fixes and tested integrations.",
+      "revision": "State the fixed H264 integrations and that app functions remain available.",
+      "source_role": "RTSP status claim",
+      "source_sha256": "50476acf692128467b7a1053f381fe1f1473493fd76d15c831f0578caf17890f",
+      "unit_ordinal": 7
+    },
+    {
+      "byte_span": {
+        "end": 7043,
+        "start": 6969
+      },
+      "claims": [
+        "Open the camera web interface in a browser."
+      ],
+      "id": "E004",
+      "page": 2,
+      "preserve": "The action to open the camera interface and the following hostname and IP fallback instructions.",
+      "purpose": "wordiness",
+      "quote": "Go in the browser and access the web interface of the camera as a website.",
+      "reader_burden": "Browser, web interface, and website repeat the same action.",
+      "revision": "Open the camera's web interface in a browser.",
+      "source_role": "setup step",
+      "source_sha256": "50476acf692128467b7a1053f381fe1f1473493fd76d15c831f0578caf17890f",
+      "unit_ordinal": 119
+    },
+    {
+      "byte_span": {
+        "end": 2098,
+        "start": 2001
+      },
+      "claims": [
+        "Choose a package matching the required FHIR version."
+      ],
+      "id": "E005",
+      "page": 3,
+      "preserve": "The FHIR-version constraint and all table links.",
+      "purpose": "wordiness",
+      "quote": "Depending on the version of FHIR you require, you'll find the relevant link to the package below.",
+      "reader_burden": "The preceding sentence and immediately following table already convey the version choice.",
+      "revision": "Remove this redundant sentence; keep the version explanation and table.",
+      "source_role": "package-selection table lead-in",
+      "source_sha256": "3c5b9a83cbf5d7de5d8b18e8c3aa6bede4c0559a57469c382e60b858bbb9f5d4",
+      "unit_ordinal": 20
+    },
+    {
+      "byte_span": {
+        "end": 1380,
+        "start": 1207
+      },
+      "claims": [
+        "Efficiency improves greatly.",
+        "Development cycles shorten.",
+        "Communication costs fall.",
+        "These changes cause higher-quality delivery."
+      ],
+      "id": "E006",
+      "page": 4,
+      "preserve": "The preceding concrete capability: combining an LLM with DevOps tools to turn requirements into software.",
+      "purpose": "vague_claims",
+      "quote": "This innovative feature greatly improves development efficiency, shortens development cycles, and reduces communication costs, resulting in higher-quality software delivery.",
+      "reader_burden": "Four outcome claims are presented as established without evidence or scope, before the feature list.",
+      "revision": "Remove the unsupported outcome sentence; the concrete capability remains in the preceding sentence.",
+      "source_role": "product introduction",
+      "source_sha256": "b5b77682ec78f62b3b570c1895d3e3c916be21e9de175f66b6992556a542aae3",
+      "unit_ordinal": 7
+    },
+    {
+      "byte_span": {
+        "end": 1559,
+        "start": 1493
+      },
+      "claims": [
+        "Users no longer need requirement documents or explanations."
+      ],
+      "id": "E007",
+      "page": 4,
+      "preserve": "Users can enter requirements directly and still clarify documents when needed.",
+      "purpose": "vague_claims",
+      "quote": "No need for tedious requirement document writing and explanations.",
+      "reader_burden": "The blanket promise conflicts with the later workflow step to clarify requirement documents.",
+      "revision": "Users can enter requirements directly and clarify them during the workflow.",
+      "source_role": "feature benefit",
+      "source_sha256": "b5b77682ec78f62b3b570c1895d3e3c916be21e9de175f66b6992556a542aae3",
+      "unit_ordinal": 9
+    },
+    {
+      "byte_span": {
+        "end": 2193,
+        "start": 2130
+      },
+      "claims": [
+        "Generated and validated code is guaranteed to be high quality and reliable."
+      ],
+      "id": "E008",
+      "page": 4,
+      "preserve": "DevOpsGPT generates code and performs validation.",
+      "purpose": "vague_claims",
+      "quote": "ensuring the quality and reliability of the delivered software.",
+      "reader_burden": "Validation is described, but no evidence supports a guarantee of quality or reliability.",
+      "revision": "Remove the guarantee and retain the code-generation and validation facts.",
+      "source_role": "validation benefit",
+      "source_sha256": "b5b77682ec78f62b3b570c1895d3e3c916be21e9de175f66b6992556a542aae3",
+      "unit_ordinal": 12
+    },
+    {
+      "byte_span": {
+        "end": 3365,
+        "start": 3182
+      },
+      "claims": [],
+      "id": "E009",
+      "page": 4,
+      "preserve": "The following workflow diagram and six concrete steps.",
+      "purpose": "empty_framing",
+      "quote": "Through the above introduction and Demo demonstration, you must be curious about how DevOpsGPT achieves the entire process of automated requirement development in an existing project.",
+      "reader_burden": "The sentence predicts the reader's reaction and repeats the section's purpose without explaining the workflow.",
+      "revision": "Remove this sentence; the Workflow heading and diagram introduce the steps.",
+      "source_role": "workflow section introduction",
+      "source_sha256": "b5b77682ec78f62b3b570c1895d3e3c916be21e9de175f66b6992556a542aae3",
+      "unit_ordinal": 21
+    },
+    {
+      "byte_span": {
+        "end": 157,
+        "start": 111
+      },
+      "claims": [
+        "The tool works at every model size, complexity, and dataset."
+      ],
+      "id": "E010",
+      "page": 5,
+      "preserve": "A few lines of code can train a text-generating network on text data.",
+      "purpose": "vague_claims",
+      "quote": "of any size and complexity on any text dataset",
+      "reader_burden": "Universal scope exceeds the later hardware, dataset-size, and model-quality caveats.",
+      "revision": "Describe training on a text dataset without universal size and complexity claims.",
+      "source_role": "capability introduction",
+      "source_sha256": "d1270c72ee6874163eb6fa0a37a24a3a53b96fad6413466d94ded12f158ed448",
+      "unit_ordinal": 1
+    },
+    {
+      "byte_span": {
+        "end": 4589,
+        "start": 4506
+      },
+      "claims": [
+        "The generated quantized checkpoint can be used for inference."
+      ],
+      "id": "E011",
+      "page": 7,
+      "preserve": "The quantized checkpoint and the following generate.py command and path.",
+      "purpose": "needless_complexity",
+      "quote": "With the generated quantized checkpoint generation quantization then works as usual",
+      "reader_burden": "Repeated 'generation/quantization' makes the command's role hard to parse.",
+      "revision": "Run generation with the quantized checkpoint:",
+      "source_role": "quantized inference instruction",
+      "source_sha256": "e8366343bda6f2684e4c796ac872fdd6137c83c36a64a652e4ed2e74c6d8e8ae",
+      "unit_ordinal": 43
+    },
+    {
+      "byte_span": {
+        "end": 4022,
+        "start": 3937
+      },
+      "claims": [
+        "The scan identifies the user's most critical risks within minutes."
+      ],
+      "id": "E012",
+      "page": 8,
+      "preserve": "The next sentence's concrete install, scan, and report steps.",
+      "purpose": "vague_claims",
+      "quote": "Discover your most critical security risks and vulnerabilities in only a few minutes.",
+      "reader_burden": "The promise of priority and speed has no bound or evidence for a new project.",
+      "revision": "Remove this promise and begin with the concrete steps in the next sentence.",
+      "source_role": "getting-started introduction",
+      "source_sha256": "1b2b49d29eb7ce3e34dfe6562269878ffce3ed8aef947edacbe90764274f0fc7",
+      "unit_ordinal": 25
+    },
+    {
+      "byte_span": {
+        "end": 10365,
+        "start": 10317
+      },
+      "claims": [],
+      "id": "E013",
+      "page": 8,
+      "preserve": "The preceding stated design aims: free, open, extensible, and developer-focused.",
+      "purpose": "empty_framing",
+      "quote": "we bet you will see the difference for yourself.",
+      "reader_burden": "The invitation substitutes a reaction for a concrete difference.",
+      "revision": "Remove the sentence-ending invitation; retain the concrete design aims.",
+      "source_role": "SAST comparison",
+      "source_sha256": "1b2b49d29eb7ce3e34dfe6562269878ffce3ed8aef947edacbe90764274f0fc7",
+      "unit_ordinal": 77
+    },
+    {
+      "byte_span": {
+        "end": 12484,
+        "start": 12415
+      },
+      "claims": [
+        "The overall SAST experience improved dramatically."
+      ],
+      "id": "E014",
+      "page": 8,
+      "preserve": "The described filtering and prioritization behavior, without an outcome guarantee.",
+      "purpose": "vague_claims",
+      "quote": "we believe we have dramatically improved the overall SAST experience.",
+      "reader_burden": "No comparative measure supports the broad improvement claim.",
+      "revision": "State the filtering and prioritization behavior without claiming dramatic improvement.",
+      "source_role": "false-positive FAQ",
+      "source_sha256": "1b2b49d29eb7ce3e34dfe6562269878ffce3ed8aef947edacbe90764274f0fc7",
+      "unit_ordinal": 98
+    },
+    {
+      "byte_span": {
+        "end": 12550,
+        "start": 12486
+      },
+      "claims": [
+        "The product provides the best possible user experience."
+      ],
+      "id": "E015",
+      "page": 8,
+      "preserve": "The following link explaining how language support is evaluated.",
+      "purpose": "unjustified_intensifiers",
+      "quote": "We strive to provide the best possible experience for our users.",
+      "reader_burden": "The superlative is not testable and delays the useful evaluation link.",
+      "revision": "Replace the sentence with a direct link label about language-support evaluation.",
+      "source_role": "language-support evaluation link",
+      "source_sha256": "1b2b49d29eb7ce3e34dfe6562269878ffce3ed8aef947edacbe90764274f0fc7",
+      "unit_ordinal": 99
+    }
+  ],
+  "format": "unswell-349-atomic-claim-source-reference-v1",
+  "reviewed_on": "2026-11-10",
+  "reviewer": "root Codex assistant",
+  "role": "exposed_development_source_only_before_candidate",
+  "source_inventory_sha256": "98b8a7bec295d16db53654cad67a3771060b8cc83b1766aab6a7a8caf426d87f"
+}
