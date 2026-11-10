@@ -1,5 +1,14 @@
 # Current-main editorial delta for #349
 
+## Later reconciliation
+
+This protocol compares against the November 7 review at 5dd7619. That
+review was stale as a product baseline: #441 and #442 had already delivered
+and reviewed the seven findings by the time this replay ran. The exact
+cross-review comparison is in reconciliation.json and reconcile.py. The
+second assistant review grades three existing quality-claim diagnoses
+PARTIAL where #442 graded them FULL; it is not a detector change.
+
 ## Frozen inputs
 
 This is a paired replay on the same 36 complete pages and 123 labeled events
@@ -31,7 +40,7 @@ The verifier checks this for all 176 previous strict findings and confirms
 that their technical/strict profile membership is unchanged. It also verifies
 the previous review with its own frozen verifier.
 
-The seven new findings are reviewed against their complete original source
+The seven findings new relative to that stale review are reviewed against their complete original source
 pages, not their clipped snippets. new-review.json records each finding
 disposition, repair action, event status, and rationale. summary.json
 identifies the reviewer as the Codex assistant under ADR 0041, not a human annotator.
@@ -51,7 +60,8 @@ The latter includes negative cases for a changed carried finding, an
 unreviewed new finding, and a changed frozen target quote.
 
 The result is a comparison of two exact runtime snapshots on identical pages.
-It shows seven additional accepted diagnoses and four additional full events.
-It does not isolate a single rule change, prove a safe replacement edit, or
-meet the #349 full-event and accepted-finding targets. No new model calls
-were used in this replay or review.
+It shows seven additional accepted diagnoses and four additional full events
+only relative to the stale 5dd7619 review. #441/#442 had already covered all
+seven findings. The replay does not prove a new detector gain, a safe
+replacement edit, or the #349 full-event and accepted-finding targets. No new
+model calls were used in this replay or review.
