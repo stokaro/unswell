@@ -1,0 +1,346 @@
+{
+  "format": "unswell-349-atomic-claim-source-review-draft-v1",
+  "reviewer": "root Codex assistant",
+  "basis": "complete pinned source pages, before any candidate output",
+  "events": [
+    {
+      "page": 1,
+      "quote": "I also want to emphasize that",
+      "purpose": "wordiness",
+      "source_role": "hyperparameter-tuning caution",
+      "claims": [],
+      "reader_burden": "The self-referential lead-in delays the point about accuracy and interpretability.",
+      "preserve": "Accuracy and interpretability may correlate or trade off depending on the task.",
+      "revision": "Remove the lead-in and capitalize the following sentence."
+    },
+    {
+      "page": 1,
+      "quote": "Another thing that would be good to keep in mind is that please constantly checking if your model is in underfitting or overfitting regime.",
+      "purpose": "wordiness",
+      "source_role": "hyperparameter-tuning instruction",
+      "claims": [
+        "Check whether the model is underfitting or overfitting."
+      ],
+      "reader_burden": "The nested lead-in obscures the actionable check.",
+      "preserve": "The underfitting/overfitting check and the later train/test-loss advice.",
+      "revision": "Check whether your model is underfitting or overfitting."
+    },
+    {
+      "page": 2,
+      "quote": "new cool stuff",
+      "purpose": "vague_claims",
+      "source_role": "firmware comparison",
+      "claims": [
+        "The latest stock firmware has unspecified extra benefits."
+      ],
+      "reader_burden": "A generic favorable label gives no reason to prefer this firmware.",
+      "preserve": "The comparison to newer stock firmware and the concrete missing updates and RTSP reasons.",
+      "revision": "Remove the generic phrase; retain the newer-stock-firmware comparison."
+    },
+    {
+      "page": 2,
+      "quote": "Now everything works as it should",
+      "purpose": "vague_claims",
+      "source_role": "RTSP status claim",
+      "claims": [
+        "All relevant behavior now works."
+      ],
+      "reader_burden": "The absolute claim extends beyond the listed H264 fixes and tested integrations.",
+      "preserve": "The H264 hang was fixed for Shinobi and Home Assistant; app functions remain available unless disabled.",
+      "revision": "State the fixed H264 integrations and that app functions remain available."
+    },
+    {
+      "page": 2,
+      "quote": "Go in the browser and access the web interface of the camera as a website.",
+      "purpose": "wordiness",
+      "source_role": "setup step",
+      "claims": [
+        "Open the camera web interface in a browser."
+      ],
+      "reader_burden": "Browser, web interface, and website repeat the same action.",
+      "preserve": "The action to open the camera interface and the following hostname and IP fallback instructions.",
+      "revision": "Open the camera's web interface in a browser."
+    },
+    {
+      "page": 3,
+      "quote": "Depending on the version of FHIR you require, you'll find the relevant link to the package below.",
+      "purpose": "wordiness",
+      "source_role": "package-selection table lead-in",
+      "claims": [
+        "Choose a package matching the required FHIR version."
+      ],
+      "reader_burden": "The preceding sentence and immediately following table already convey the version choice.",
+      "preserve": "The FHIR-version constraint and all table links.",
+      "revision": "Remove this redundant sentence; keep the version explanation and table."
+    },
+    {
+      "page": 3,
+      "quote": "So if you want to be brave and use a pre-release packages, you can do so by adding",
+      "purpose": "wordiness",
+      "source_role": "prerelease installation instruction",
+      "claims": [
+        "A prerelease package is available from the stated feed."
+      ],
+      "reader_burden": "The 'be brave' aside and repeated possibility framing obscure the feed instruction.",
+      "preserve": "The prerelease status, the need to add the feed, and the exact feed URL.",
+      "revision": "To use a prerelease package, add the following URL to your NuGet sources:"
+    },
+    {
+      "page": 4,
+      "quote": "This innovative feature greatly improves development efficiency, shortens development cycles, and reduces communication costs, resulting in higher-quality software delivery.",
+      "purpose": "vague_claims",
+      "source_role": "product introduction",
+      "claims": [
+        "Efficiency improves greatly.",
+        "Development cycles shorten.",
+        "Communication costs fall.",
+        "These changes cause higher-quality delivery."
+      ],
+      "reader_burden": "Four outcome claims are presented as established without evidence or scope, before the feature list.",
+      "preserve": "The preceding concrete capability: combining an LLM with DevOps tools to turn requirements into software.",
+      "revision": "Remove the unsupported outcome sentence; the concrete capability remains in the preceding sentence."
+    },
+    {
+      "page": 4,
+      "quote": "No need for tedious requirement document writing and explanations.",
+      "purpose": "vague_claims",
+      "source_role": "feature benefit",
+      "claims": [
+        "Users no longer need requirement documents or explanations."
+      ],
+      "reader_burden": "The blanket promise conflicts with the later workflow step to clarify requirement documents.",
+      "preserve": "Users can enter requirements directly and still clarify documents when needed.",
+      "revision": "Users can enter requirements directly and clarify them during the workflow."
+    },
+    {
+      "page": 4,
+      "quote": "ensuring the quality and reliability of the delivered software.",
+      "purpose": "vague_claims",
+      "source_role": "validation benefit",
+      "claims": [
+        "Generated and validated code is guaranteed to be high quality and reliable."
+      ],
+      "reader_burden": "Validation is described, but no evidence supports a guarantee of quality or reliability.",
+      "preserve": "DevOpsGPT generates code and performs validation.",
+      "revision": "Remove the guarantee and retain the code-generation and validation facts."
+    },
+    {
+      "page": 4,
+      "quote": "Through the above introduction and Demo demonstration, you must be curious about how DevOpsGPT achieves the entire process of automated requirement development in an existing project.",
+      "purpose": "empty_framing",
+      "source_role": "workflow section introduction",
+      "claims": [],
+      "reader_burden": "The sentence predicts the reader's reaction and repeats the section's purpose without explaining the workflow.",
+      "preserve": "The following workflow diagram and six concrete steps.",
+      "revision": "Remove this sentence; the Workflow heading and diagram introduce the steps."
+    },
+    {
+      "page": 5,
+      "quote": "of any size and complexity on any text dataset",
+      "purpose": "vague_claims",
+      "source_role": "capability introduction",
+      "claims": [
+        "The tool works at every model size, complexity, and dataset."
+      ],
+      "reader_burden": "Universal scope exceeds the later hardware, dataset-size, and model-quality caveats.",
+      "preserve": "A few lines of code can train a text-generating network on text data.",
+      "revision": "Describe training on a text dataset without universal size and complexity claims."
+    },
+    {
+      "page": 7,
+      "quote": "With the generated quantized checkpoint generation quantization then works as usual",
+      "purpose": "needless_complexity",
+      "source_role": "quantized inference instruction",
+      "claims": [
+        "The generated quantized checkpoint can be used for inference."
+      ],
+      "reader_burden": "Repeated 'generation/quantization' makes the command's role hard to parse.",
+      "preserve": "The quantized checkpoint and the following generate.py command and path.",
+      "revision": "Run generation with the quantized checkpoint:"
+    },
+    {
+      "page": 8,
+      "quote": "Discover your most critical security risks and vulnerabilities in only a few minutes.",
+      "purpose": "vague_claims",
+      "source_role": "getting-started introduction",
+      "claims": [
+        "The scan identifies the user's most critical risks within minutes."
+      ],
+      "reader_burden": "The promise of priority and speed has no bound or evidence for a new project.",
+      "preserve": "The next sentence's concrete install, scan, and report steps.",
+      "revision": "Remove this promise and begin with the concrete steps in the next sentence."
+    },
+    {
+      "page": 8,
+      "quote": "Ready for the next step?",
+      "purpose": "empty_framing",
+      "source_role": "configuration-guide link",
+      "claims": [],
+      "reader_burden": "The rhetorical question adds no instruction before the configuration link.",
+      "preserve": "The link to configuring the scan command.",
+      "revision": "Remove the question; keep the linked next step."
+    },
+    {
+      "page": 8,
+      "quote": "we bet you will see the difference for yourself.",
+      "purpose": "empty_framing",
+      "source_role": "SAST comparison",
+      "claims": [],
+      "reader_burden": "The invitation substitutes a reaction for a concrete difference.",
+      "preserve": "The preceding stated design aims: free, open, extensible, and developer-focused.",
+      "revision": "Remove the sentence-ending invitation; retain the concrete design aims."
+    },
+    {
+      "page": 8,
+      "quote": "we believe we have dramatically improved the overall SAST experience.",
+      "purpose": "vague_claims",
+      "source_role": "false-positive FAQ",
+      "claims": [
+        "The overall SAST experience improved dramatically."
+      ],
+      "reader_burden": "No comparative measure supports the broad improvement claim.",
+      "preserve": "The described filtering and prioritization behavior, without an outcome guarantee.",
+      "revision": "State the filtering and prioritization behavior without claiming dramatic improvement."
+    },
+    {
+      "page": 8,
+      "quote": "We strive to provide the best possible experience for our users.",
+      "purpose": "unjustified_intensifiers",
+      "source_role": "language-support evaluation link",
+      "claims": [
+        "The product provides the best possible user experience."
+      ],
+      "reader_burden": "The superlative is not testable and delays the useful evaluation link.",
+      "preserve": "The following link explaining how language support is evaluated.",
+      "revision": "Replace the sentence with a direct link label about language-support evaluation."
+    }
+  ],
+  "controls": [
+    {
+      "page": 1,
+      "quote": "Otherwise, the symbolic branch is on, which is super slow because the symbolic computations are not parallelized!",
+      "disposition": "retain",
+      "source_role": "performance warning",
+      "reason": "The conditional warning gives the reason for model.speed() and should not lose the symbolic-branch condition."
+    },
+    {
+      "page": 1,
+      "quote": "Since these problems are relatively small-scale and science-oriented, it is likely that my advice is not suitable to your case.",
+      "disposition": "retain",
+      "source_role": "scope caveat",
+      "reason": "The author limits the applicability of subsequent tuning advice."
+    },
+    {
+      "page": 2,
+      "quote": "exFAT formatted microSD cards will not work.",
+      "disposition": "retain",
+      "source_role": "installation safety warning",
+      "reason": "The file-system exclusion is necessary to prevent an unusable firmware card."
+    },
+    {
+      "page": 2,
+      "quote": "It is important to configure each camera with a unique hostname.",
+      "disposition": "retain",
+      "source_role": "multi-camera setup warning",
+      "reason": "The following sentence gives a concrete IP-address fallback consequence; the warning is functional."
+    },
+    {
+      "page": 3,
+      "quote": "each with breaking changes - so you need to ensure you use the version that is right for you:",
+      "disposition": "retain",
+      "source_role": "FHIR version constraint",
+      "reason": "The warning explains why choosing the correct specification-specific package matters."
+    },
+    {
+      "page": 3,
+      "quote": "The profile validator has been split off into its own",
+      "disposition": "retain",
+      "source_role": "SDK release fact",
+      "reason": "The sentence identifies a concrete component move and links its new repository."
+    },
+    {
+      "page": 4,
+      "quote": "The generation of requirement and interface documentation may not be precise enough and might not meet developer intent in complex scenarios.",
+      "disposition": "retain",
+      "source_role": "product limitation",
+      "reason": "The caveat limits an earlier automation promise and should remain visible."
+    },
+    {
+      "page": 4,
+      "quote": "automating the understanding of existing project code is not possible.",
+      "disposition": "retain",
+      "source_role": "current capability limitation",
+      "reason": "The limitation distinguishes current functionality from the roadmap."
+    },
+    {
+      "page": 5,
+      "quote": "You will not get quality generated text 100% of the time",
+      "disposition": "retain",
+      "source_role": "model-output caveat",
+      "reason": "The explicit quality limitation is necessary context for generated examples."
+    },
+    {
+      "page": 5,
+      "quote": "minimum TensorFlow version of 2.1.0",
+      "disposition": "retain",
+      "source_role": "dependency requirement",
+      "reason": "The exact minimum version is a practical compatibility constraint."
+    },
+    {
+      "page": 6,
+      "quote": "The CPU implementation is about 20x slower on my laptop",
+      "disposition": "retain",
+      "source_role": "measured performance scope",
+      "reason": "The comparison is explicitly scoped to the author's laptop and informs the OpenCL choice."
+    },
+    {
+      "page": 6,
+      "quote": "The GPU on my 2021 MacBook Pro can compute about 1.5 billion single-block hashes per second.",
+      "disposition": "retain",
+      "source_role": "measured rate",
+      "reason": "The hardware and rate support the following theoretical timing calculation."
+    },
+    {
+      "page": 7,
+      "quote": "To generate text predictions, you need to download the model weights.",
+      "disposition": "retain",
+      "source_role": "inference prerequisite",
+      "reason": "The step identifies a real prerequisite before the inference command."
+    },
+    {
+      "page": 7,
+      "quote": "This will run the 7B model and require ~26 GB of GPU memory (A100 GPU).",
+      "disposition": "retain",
+      "source_role": "resource requirement",
+      "reason": "The model size and approximate GPU-memory need are decision-useful."
+    },
+    {
+      "page": 8,
+      "quote": "Bearer Pro supports interprocedural and inter-file analysis, currently with full capabilities for Java, Python, C#, and Go",
+      "disposition": "retain",
+      "source_role": "edition and language scope",
+      "reason": "The claim distinguishes Pro from CLI and names the supported languages."
+    },
+    {
+      "page": 8,
+      "quote": "achieving a score of 76% with a reported false positive rate of less than 2%.",
+      "disposition": "technical_uncertain",
+      "source_role": "benchmark claim",
+      "reason": "The numbers and benchmark name must not be removed or altered without checking the cited evaluation; this review does not validate the metric."
+    },
+    {
+      "page": 9,
+      "quote": "On Ubuntu 23.10 and later you will need to run the following in order to use httptap:",
+      "disposition": "retain",
+      "source_role": "system setup warning",
+      "reason": "The Ubuntu version and sysctl requirement are needed before the command block."
+    },
+    {
+      "page": 9,
+      "quote": "We believe that a monastic schedule and the practice of the Buddhist spiritual path provide ideal conditions for technological development.",
+      "disposition": "out_of_scope",
+      "source_role": "author viewpoint",
+      "reason": "This is a stated community belief in an author background section, not a technical product promise."
+    }
+  ]
+}

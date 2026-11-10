@@ -1,7 +1,8 @@
 # #349 atomic-claim acquisition and paired pilot
 
-Status: source identities selected; source bytes, source-only labels, prompts,
-schemas, and model calls are pending. This is exposed development. It cannot
+Status: source selection, source bytes, eligible-unit inventory, and source-only
+labels are frozen locally; prompts, schemas, and model calls are pending. No
+model call has been made for this packet. This is exposed development. It cannot
 replace the 36-page/123-event development evaluation or the separately frozen
 prospective confirmation. The earlier labels and denominators are unchanged.
 
@@ -52,6 +53,15 @@ source. Use the current public source-inventory exporter to bind eligible
 units, protected boundaries, and original byte spans. If the exporter reports
 an operational error, keep the page and error in the denominator.
 
+The metadata was committed as `50b4cfe` before source fetching. The nine
+complete source files were then fetched at the selected commits, all matched
+the search and GitHub API blob SHA-1, and were committed as `2fb7664` before
+editorial review. `verify_selection.py` and `verify_sources.py` reject drift.
+The current `reviewtext --source-inventory` exporter processed all nine pages
+without error and returned 889 eligible units. Its input and output SHA-256
+are `ef4b077536aa69bb16c0a851d144bb36e62e6780bb6fc32e8692d8d9ae298e30`
+and `98b8a7bec295d16db53654cad67a3771060b8cc83b1766aab6a7a8caf426d87f`.
+
 ## Source-only reference review
 
 The root Codex assistant reviews every complete page before seeing any new
@@ -79,6 +89,18 @@ are at least 12 clear positive events and 12 explicit controls across at
 least four repositories, with all nine source identities accounted for.
 Otherwise report the shortfall and stop without model calls. Do not choose a
 favorable six-page subset after reading labels.
+
+The source-only review records **15 clear events** on seven repositories and
+**21 controls** covering all nine pages. Pages 6 and 9 have no clear positive
+event and remain in the denominator. An initial draft contained three more
+possible events; before candidate output, the reviewer moved those personal
+or navigational phrases to `optional` controls. Both draft and final records
+are retained. All final quotes are unique original byte slices inside one
+eligible unit. `reference.json` SHA-256 is
+`9550fd43d25463c5e1d24d8e7d4806a5698321d40d59fdd4501053bef4258d39`;
+`verify_reference.py` checks its source, inventory, dispositions, and spans.
+The minimum source-only feasibility gate is met. This is the named assistant's
+judgment on a purposive sample, not a precision or recall result.
 
 ## Model packet to freeze after the source-only review
 
@@ -112,7 +134,10 @@ source mismatch, missing unit accounting, fabricated quote, or changed
 response shape. Preserve all delivered diagnoses, including duplicates, in
 the accepted-finding denominator. `FULL` requires the diagnosis to identify
 and resolve the complete frozen source-specific burden; source overlap or a
-shared category alone is partial. Review every diagnosis and every frozen
+shared category alone is partial. One diagnosis may cover more than one
+frozen event only if it explicitly identifies each independent burden. A
+generic warning about a sentence with several distinct claims earns no
+automatic credit for all claims. Review every diagnosis and every frozen
 event and control against the complete page. Report each arm's FULL, PARTIAL,
 MISSED, accepted/uncertain/rejected delivery, invalid and abstained pages,
 control hits, and binding errors. Supplied-edit safety is not applicable to

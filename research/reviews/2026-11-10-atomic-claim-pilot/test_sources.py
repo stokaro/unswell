@@ -48,7 +48,15 @@ class SourceTests(unittest.TestCase):
             copy = Path(directory)
             copy_packet(copy)
             (copy / "sources" / "page-009.source").unlink()
-            with self.assertRaises(FileNotFoundError):
+            with self.assertRaisesRegex(ValueError, "source file set changed"):
+                verify(copy)
+
+    def test_extra_page(self):
+        with tempfile.TemporaryDirectory() as directory:
+            copy = Path(directory)
+            copy_packet(copy)
+            (copy / "sources" / "page-010.source").write_text("unexpected")
+            with self.assertRaisesRegex(ValueError, "source file set changed"):
                 verify(copy)
 
 

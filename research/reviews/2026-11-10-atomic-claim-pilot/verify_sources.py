@@ -20,6 +20,11 @@ def verify(packet_dir: Path) -> dict:
         raise ValueError("source selection hash changed")
     if len(inventory["sources"]) != len(selection["selected"]):
         raise ValueError("source count changed")
+    expected_names = {f"page-{number:03d}.source" for number in
+                      range(1, len(selection["selected"]) + 1)}
+    actual_names = {path.name for path in source_dir.glob("page-*.source")}
+    if actual_names != expected_names:
+        raise ValueError("source file set changed")
     for number, (expected, record) in enumerate(
             zip(selection["selected"], inventory["sources"]), 1):
         for key, value in expected.items():
