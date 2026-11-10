@@ -1,10 +1,10 @@
 SHELL := /bin/bash
 
 .PHONY: check test race fuzz lint lint-shell tidy policy build build-mcp release fmt schema dogfood dogfood-mcp
-.PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost
+.PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost check-additive-admission-pilot
 .PHONY: check-contextual-admission check-external-controls check-current-baseline check-current-editorial-review
 .PHONY: check-source-review-contract check-source-bound-disposition-pilot check-paired-source-necessity check-complementary-semantic-pilot
-.PHONY: check-unit-relation-pilot check-source-role-rescue check-source-role-selector check-structured-admission check-source-context-admission check-joint-coverage-triage
+.PHONY: check-unit-relation-pilot check-source-role-rescue check-source-role-selector check-structured-admission check-source-context-admission check-joint-coverage-triage check-additive-admission-pilot
 .PHONY: check-ape-screen check-dual-gate-triage check-dual-gate-feasibility check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot
 
 check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-ape-screen check-dual-gate-triage check-dual-gate-feasibility check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-gen-technical-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot check-source-bound-disposition-pilot check-paired-source-necessity check-complementary-semantic-pilot check-unit-relation-pilot check-source-role-rescue check-source-role-selector check-structured-admission check-source-context-admission check-joint-coverage-triage
@@ -12,6 +12,12 @@ check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy sc
 check-joint-coverage-triage:
 	python3 -B research/reviews/2026-11-09-joint-coverage-triage/run.py verify
 	python3 -B -m unittest discover -s research/reviews/2026-11-09-joint-coverage-triage -p 'test_*.py'
+
+check-additive-admission-pilot:
+	python3 -B research/reviews/2026-11-10-additive-admission-pilot/verify_source.py
+	python3 -B research/reviews/2026-11-10-additive-admission-pilot/run.py verify
+	python3 -B research/reviews/2026-11-10-additive-admission-pilot/score.py verify
+	python3 -B -m unittest discover -s research/reviews/2026-11-10-additive-admission-pilot -p 'test_*.py'
 
 check-source-context-admission:
 	python3 -B research/reviews/2026-11-09-source-context-admission/verify_result.py
