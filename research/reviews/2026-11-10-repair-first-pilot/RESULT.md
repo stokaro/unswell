@@ -29,6 +29,18 @@ The one valid Nushell response omitted the page's frozen wordiness event,
 "From here one can then customize this file for their specific needs." None
 of its three bound edit spans overlaps that target. This is a directional
 location observation, not an accepted-finding fraction or a FULL-event score.
+An offline post-stop inventory audit confirmed that all four frozen positive
+events and all four retain controls occur verbatim in their frozen requests,
+each wholly inside one eligible segment at its registered original byte span
+and unit ordinal. The audit joined
+[`reference.json`](../2026-11-10-additive-admission-pilot/reference.json) byte
+spans to the frozen
+request `source`, `raw_span`, and `eligible_segments` fields without changing
+either input. The missed Nushell event is the entire raw slice of unit 33.
+The target was available to the model in both the complete source and the exact
+unit inventory; extraction and source eligibility did not hide it. This audit
+does not establish why the model selected other edits or whether it attended
+to the target.
 No complete four-page review or combined detector claim is available. The
 previous additive pilot's 0/4 FULL and 4/8 accepted result remains unchanged.
 
