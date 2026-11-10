@@ -153,3 +153,25 @@ candidate's entire combined finding stream to be reviewed on all original
 in each complete cohort, followed by separate prospective confirmation and
 suggestion-safety evidence before any product promotion. A failed pilot is
 published with frozen denominators; the exact candidate is retired.
+
+## Unchanged-engine baseline before either model arm
+
+The unchanged engine built from `beaf4b767c963fe1486a608006010d3af6a92307`
+was run once on each complete source page with `--no-gate`. The binary SHA-256
+was `32502857637eeebb72326d35bdc69fea13b9a0c245f8d5079b989ed38e4cbb03`.
+All nine reports completed and matched the source hashes. The engine delivered
+68 findings and 1,513 assessments. The local raw reports are under
+`artifacts/research/2026-11-10-atomic-claim-pilot/baseline/`; their hashes,
+compact finding evidence, and a reproducible span audit are in
+`baseline-summary.json`, `baseline-audit.json`, and `audit_baseline.py`.
+
+Only E001 among the 15 frozen positive spans overlaps a finding's primary or
+related source span. The finding is `readability.grade-metric`: it reports an
+ARI threshold and advises consideration of the audience. It does not identify
+the nested lead-in that makes the underfitting instruction wordy. Thus none
+of the 15 frozen events has a source-bound, source-specific FULL diagnosis in
+this baseline. This is a narrow observation for this purposive sample, not
+an estimate of general recall. Five of the 21 explicit controls overlap a
+finding's primary or related span. A location overlap is not a false-positive
+judgment: those findings need separate context review before any accepted
+rate or control-hit rate is claimed.
