@@ -1,0 +1,2653 @@
+Review one COMPLETE technical README for necessary editorial diagnoses.
+Use only its source and eligible unit inventory. Return at most six new, specific
+findings in empty_framing, wordiness, vague_claims, or needless_repetition.
+A finding must identify a concrete passage whose revision would improve this
+source; a phrase sounding promotional or AI-like alone is not sufficient.
+Preserve project voice, technical facts, numbers, conditions, useful emphasis,
+links, tables, code, and quoted material. Do not infer who wrote the page.
+
+For each finding, select ONE eligible unit ordinal and quote an exact, unique
+substring of its raw_slice wholly inside ONE eligible segment. Include a
+source-specific diagnosis and explain why the surrounding heading, list,
+example, or other evidence does not make the passage useful as written.
+Do not suggest replacement text. Do not report grammar-only or factual errors.
+Zero findings is valid. Return only schema JSON. No tools or outside sources.
+
+INPUT JSON:
+{
+  "eligible_units": [
+    {
+      "eligible_segments": [
+        {
+          "end": 467,
+          "start": 431
+        }
+      ],
+      "ordinal": 0,
+      "raw_slice": "Warp, the AI terminal for developers",
+      "raw_span": {
+        "end": 467,
+        "start": 431
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 533,
+          "start": 496
+        }
+      ],
+      "ordinal": 1,
+      "raw_slice": "Available for MacOS, Linux, & Windows",
+      "raw_span": {
+        "end": 533,
+        "start": 496
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 583,
+          "start": 580
+        }
+      ],
+      "ordinal": 2,
+      "raw_slice": "eza",
+      "raw_span": {
+        "end": 583,
+        "start": 580
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 613,
+          "start": 585
+        }
+      ],
+      "ordinal": 3,
+      "raw_slice": "A modern replacement for ls.",
+      "raw_span": {
+        "end": 613,
+        "start": 585
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1607,
+          "start": 1604
+        },
+        {
+          "end": 1685,
+          "start": 1609
+        }
+      ],
+      "ordinal": 4,
+      "raw_slice": "eza** is a modern alternative for the venerable file-listing command-line program",
+      "raw_span": {
+        "end": 1685,
+        "start": 1604
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 1908,
+          "start": 1691
+        },
+        {
+          "end": 1915,
+          "start": 1910
+        },
+        {
+          "end": 1919,
+          "start": 1917
+        },
+        {
+          "end": 1925,
+          "start": 1921
+        },
+        {
+          "end": 1938,
+          "start": 1927
+        },
+        {
+          "end": 1957,
+          "start": 1940
+        },
+        {
+          "end": 1960,
+          "start": 1959
+        }
+      ],
+      "ordinal": 5,
+      "raw_slice": "that ships with Unix and Linux operating systems, giving it more features and better defaults.\nIt uses colours to distinguish file types and metadata.\nIt knows about symlinks, extended attributes, and Git.\nAnd it’s **small**, **fast**, and just **one single binary**.",
+      "raw_span": {
+        "end": 1960,
+        "start": 1691
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2080,
+          "start": 1962
+        }
+      ],
+      "ordinal": 6,
+      "raw_slice": "By deliberately making some decisions differently, eza attempts to be a more featureful, more user-friendly version of",
+      "raw_span": {
+        "end": 2080,
+        "start": 1962
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2098,
+          "start": 2095
+        },
+        {
+          "end": 2138,
+          "start": 2100
+        }
+      ],
+      "ordinal": 7,
+      "raw_slice": "eza** features not in exa (non-exhaustive):",
+      "raw_span": {
+        "end": 2138,
+        "start": 2095
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2148,
+          "start": 2142
+        },
+        {
+          "end": 2167,
+          "start": 2149
+        },
+        {
+          "end": 2264,
+          "start": 2240
+        }
+      ],
+      "ordinal": 8,
+      "raw_slice": "Fixes [“The Grid Bug”](https://github.com/eza-community/eza/issues/66#issuecomment-1656758327) introduced in exa 2021.",
+      "raw_span": {
+        "end": 2264,
+        "start": 2142
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2285,
+          "start": 2267
+        }
+      ],
+      "ordinal": 9,
+      "raw_slice": "Hyperlink support.",
+      "raw_span": {
+        "end": 2285,
+        "start": 2267
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2308,
+          "start": 2288
+        }
+      ],
+      "ordinal": 10,
+      "raw_slice": "Mount point details.",
+      "raw_span": {
+        "end": 2308,
+        "start": 2288
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2334,
+          "start": 2311
+        }
+      ],
+      "ordinal": 11,
+      "raw_slice": "Selinux context output.",
+      "raw_span": {
+        "end": 2334,
+        "start": 2311
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2360,
+          "start": 2337
+        }
+      ],
+      "ordinal": 12,
+      "raw_slice": "Git repo status output.",
+      "raw_span": {
+        "end": 2360,
+        "start": 2337
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2393,
+          "start": 2363
+        }
+      ],
+      "ordinal": 13,
+      "raw_slice": "Human readable relative dates.",
+      "raw_span": {
+        "end": 2393,
+        "start": 2363
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2419,
+          "start": 2396
+        }
+      ],
+      "ordinal": 14,
+      "raw_slice": "Several security fixes.",
+      "raw_span": {
+        "end": 2419,
+        "start": 2396
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2433,
+          "start": 2422
+        }
+      ],
+      "ordinal": 15,
+      "raw_slice": "Support for",
+      "raw_span": {
+        "end": 2433,
+        "start": 2422
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2460,
+          "start": 2443
+        }
+      ],
+      "ordinal": 16,
+      "raw_slice": "terminal colours.",
+      "raw_span": {
+        "end": 2460,
+        "start": 2443
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2494,
+          "start": 2463
+        }
+      ],
+      "ordinal": 17,
+      "raw_slice": "Many smaller bug fixes/changes!",
+      "raw_span": {
+        "end": 2494,
+        "start": 2463
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2510,
+          "start": 2497
+        }
+      ],
+      "ordinal": 18,
+      "raw_slice": "Configuration",
+      "raw_span": {
+        "end": 2510,
+        "start": 2497
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2566,
+          "start": 2523
+        }
+      ],
+      "ordinal": 19,
+      "raw_slice": "file for customization of colors and icons.",
+      "raw_span": {
+        "end": 2566,
+        "start": 2523
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2648,
+          "start": 2568
+        }
+      ],
+      "ordinal": 20,
+      "raw_slice": "...and like, so much more that it became exhausting to update this all the time.",
+      "raw_span": {
+        "end": 2648,
+        "start": 2568
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2693,
+          "start": 2649
+        }
+      ],
+      "ordinal": 21,
+      "raw_slice": "Like seriously, we have a lot of good stuff.",
+      "raw_span": {
+        "end": 2693,
+        "start": 2649
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2753,
+          "start": 2743
+        }
+      ],
+      "ordinal": 22,
+      "raw_slice": "Nix ❄️",
+      "raw_span": {
+        "end": 2753,
+        "start": 2743
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2833,
+          "start": 2755
+        }
+      ],
+      "ordinal": 23,
+      "raw_slice": "If you already have Nix setup with flake support, you can try out eza with the",
+      "raw_span": {
+        "end": 2833,
+        "start": 2755
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2852,
+          "start": 2844
+        }
+      ],
+      "ordinal": 24,
+      "raw_slice": "command:",
+      "raw_span": {
+        "end": 2852,
+        "start": 2844
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2922,
+          "start": 2892
+        }
+      ],
+      "ordinal": 25,
+      "raw_slice": "Nix will build eza and run it.",
+      "raw_span": {
+        "end": 2922,
+        "start": 2892
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 2972,
+          "start": 2924
+        }
+      ],
+      "ordinal": 26,
+      "raw_slice": "If you want to pass arguments this way, use e.g.",
+      "raw_span": {
+        "end": 2972,
+        "start": 2924
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3031,
+          "start": 3019
+        }
+      ],
+      "ordinal": 27,
+      "raw_slice": "Installation",
+      "raw_span": {
+        "end": 3031,
+        "start": 3019
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3079,
+          "start": 3033
+        }
+      ],
+      "ordinal": 28,
+      "raw_slice": "eza is available for Windows, macOS and Linux.",
+      "raw_span": {
+        "end": 3079,
+        "start": 3033
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3157,
+          "start": 3080
+        },
+        {
+          "end": 3168,
+          "start": 3158
+        },
+        {
+          "end": 3182,
+          "start": 3181
+        }
+      ],
+      "ordinal": 29,
+      "raw_slice": "Platform and distribution\nspecific installation instructions can be found in [INSTALL.md](INSTALL.md).",
+      "raw_span": {
+        "end": 3182,
+        "start": 3080
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3430,
+          "start": 3372
+        }
+      ],
+      "ordinal": 30,
+      "raw_slice": "eza’s options are almost, but not quite, entirely unlike",
+      "raw_span": {
+        "end": 3430,
+        "start": 3372
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3456,
+          "start": 3435
+        }
+      ],
+      "ordinal": 31,
+      "raw_slice": "’s. Quick overview:",
+      "raw_span": {
+        "end": 3456,
+        "start": 3435
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3476,
+          "start": 3461
+        }
+      ],
+      "ordinal": 32,
+      "raw_slice": "Display options",
+      "raw_span": {
+        "end": 3476,
+        "start": 3461
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3530,
+          "start": 3528
+        },
+        {
+          "end": 3534,
+          "start": 3532
+        },
+        {
+          "end": 3545,
+          "start": 3536
+        },
+        {
+          "end": 3575,
+          "start": 3547
+        }
+      ],
+      "ordinal": 33,
+      "raw_slice": "-1**, **--oneline**: display one entry per line",
+      "raw_span": {
+        "end": 3575,
+        "start": 3528
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3582,
+          "start": 3580
+        },
+        {
+          "end": 3586,
+          "start": 3584
+        },
+        {
+          "end": 3594,
+          "start": 3588
+        },
+        {
+          "end": 3633,
+          "start": 3596
+        }
+      ],
+      "ordinal": 34,
+      "raw_slice": "-G**, **--grid**: display entries as a grid (default)",
+      "raw_span": {
+        "end": 3633,
+        "start": 3580
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3640,
+          "start": 3638
+        },
+        {
+          "end": 3644,
+          "start": 3642
+        },
+        {
+          "end": 3652,
+          "start": 3646
+        },
+        {
+          "end": 3695,
+          "start": 3654
+        }
+      ],
+      "ordinal": 35,
+      "raw_slice": "-l**, **--long**: display extended details and attributes",
+      "raw_span": {
+        "end": 3695,
+        "start": 3638
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3702,
+          "start": 3700
+        },
+        {
+          "end": 3706,
+          "start": 3704
+        },
+        {
+          "end": 3717,
+          "start": 3708
+        },
+        {
+          "end": 3745,
+          "start": 3719
+        }
+      ],
+      "ordinal": 36,
+      "raw_slice": "-R**, **--recurse**: recurse into directories",
+      "raw_span": {
+        "end": 3745,
+        "start": 3700
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3752,
+          "start": 3750
+        },
+        {
+          "end": 3756,
+          "start": 3754
+        },
+        {
+          "end": 3764,
+          "start": 3758
+        },
+        {
+          "end": 3802,
+          "start": 3766
+        }
+      ],
+      "ordinal": 37,
+      "raw_slice": "-T**, **--tree**: recurse into directories as a tree",
+      "raw_span": {
+        "end": 3802,
+        "start": 3750
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3809,
+          "start": 3807
+        },
+        {
+          "end": 3813,
+          "start": 3811
+        },
+        {
+          "end": 3823,
+          "start": 3815
+        },
+        {
+          "end": 3870,
+          "start": 3825
+        }
+      ],
+      "ordinal": 38,
+      "raw_slice": "-x**, **--across**: sort the grid across, rather than downwards",
+      "raw_span": {
+        "end": 3870,
+        "start": 3807
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3877,
+          "start": 3875
+        },
+        {
+          "end": 3881,
+          "start": 3879
+        },
+        {
+          "end": 3900,
+          "start": 3883
+        },
+        {
+          "end": 3962,
+          "start": 3902
+        }
+      ],
+      "ordinal": 39,
+      "raw_slice": "-F**, **--classify=(when)**: display type indicator by file names (always, auto, never)",
+      "raw_span": {
+        "end": 3962,
+        "start": 3875
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 3973,
+          "start": 3967
+        },
+        {
+          "end": 3975,
+          "start": 3974
+        },
+        {
+          "end": 3984,
+          "start": 3976
+        },
+        {
+          "end": 4038,
+          "start": 3986
+        }
+      ],
+      "ordinal": 40,
+      "raw_slice": "--colo[u]r=(when)**: when to use terminal colours (always, auto, never)",
+      "raw_span": {
+        "end": 4038,
+        "start": 3967
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4049,
+          "start": 4043
+        },
+        {
+          "end": 4051,
+          "start": 4050
+        },
+        {
+          "end": 4067,
+          "start": 4052
+        },
+        {
+          "end": 4090,
+          "start": 4069
+        }
+      ],
+      "ordinal": 41,
+      "raw_slice": "--colo[u]r-scale=(field)**: highlight levels of",
+      "raw_span": {
+        "end": 4090,
+        "start": 4043
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4125,
+          "start": 4099
+        }
+      ],
+      "ordinal": 42,
+      "raw_slice": "distinctly(all, age, size)",
+      "raw_span": {
+        "end": 4125,
+        "start": 4099
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4155,
+          "start": 4130
+        },
+        {
+          "end": 4223,
+          "start": 4157
+        }
+      ],
+      "ordinal": 43,
+      "raw_slice": "--color-scale-mode=(mode)**: use gradient or fixed colors in --color-scale. valid options are",
+      "raw_span": {
+        "end": 4223,
+        "start": 4130
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4234,
+          "start": 4232
+        }
+      ],
+      "ordinal": 44,
+      "raw_slice": "or",
+      "raw_span": {
+        "end": 4234,
+        "start": 4232
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4264,
+          "start": 4250
+        },
+        {
+          "end": 4311,
+          "start": 4266
+        }
+      ],
+      "ordinal": 45,
+      "raw_slice": "--icons=(when)**: when to display icons (always, auto, never)",
+      "raw_span": {
+        "end": 4311,
+        "start": 4250
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4334,
+          "start": 4316
+        },
+        {
+          "end": 4397,
+          "start": 4336
+        }
+      ],
+      "ordinal": 46,
+      "raw_slice": "--hyperlink=(when)**: when to display entries as hyperlinks (always, auto, never)",
+      "raw_span": {
+        "end": 4397,
+        "start": 4316
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4419,
+          "start": 4402
+        },
+        {
+          "end": 4481,
+          "start": 4421
+        }
+      ],
+      "ordinal": 47,
+      "raw_slice": "--absolute=(mode)**: display entries with their absolute path (on, follow, off)",
+      "raw_span": {
+        "end": 4481,
+        "start": 4402
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4488,
+          "start": 4486
+        },
+        {
+          "end": 4492,
+          "start": 4490
+        },
+        {
+          "end": 4511,
+          "start": 4494
+        },
+        {
+          "end": 4542,
+          "start": 4513
+        }
+      ],
+      "ordinal": 48,
+      "raw_slice": "-w**, **--width=(columns)**: set screen width in columns",
+      "raw_span": {
+        "end": 4542,
+        "start": 4486
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4576,
+          "start": 4559
+        }
+      ],
+      "ordinal": 49,
+      "raw_slice": "Filtering options",
+      "raw_span": {
+        "end": 4576,
+        "start": 4559
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4630,
+          "start": 4628
+        },
+        {
+          "end": 4634,
+          "start": 4632
+        },
+        {
+          "end": 4641,
+          "start": 4636
+        },
+        {
+          "end": 4672,
+          "start": 4643
+        }
+      ],
+      "ordinal": 50,
+      "raw_slice": "-a**, **--all**: show hidden and 'dot' files",
+      "raw_span": {
+        "end": 4672,
+        "start": 4628
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4679,
+          "start": 4677
+        },
+        {
+          "end": 4683,
+          "start": 4681
+        },
+        {
+          "end": 4706,
+          "start": 4685
+        },
+        {
+          "end": 4745,
+          "start": 4708
+        }
+      ],
+      "ordinal": 51,
+      "raw_slice": "-d**, **--treat-dirs-as-files**: list directories like regular files",
+      "raw_span": {
+        "end": 4745,
+        "start": 4677
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4752,
+          "start": 4750
+        },
+        {
+          "end": 4756,
+          "start": 4754
+        },
+        {
+          "end": 4773,
+          "start": 4758
+        },
+        {
+          "end": 4805,
+          "start": 4775
+        }
+      ],
+      "ordinal": 52,
+      "raw_slice": "-L**, **--level=(depth)**: limit the depth of recursion",
+      "raw_span": {
+        "end": 4805,
+        "start": 4750
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4812,
+          "start": 4810
+        },
+        {
+          "end": 4816,
+          "start": 4814
+        },
+        {
+          "end": 4827,
+          "start": 4818
+        },
+        {
+          "end": 4853,
+          "start": 4829
+        }
+      ],
+      "ordinal": 53,
+      "raw_slice": "-r**, **--reverse**: reverse the sort order",
+      "raw_span": {
+        "end": 4853,
+        "start": 4810
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4860,
+          "start": 4858
+        },
+        {
+          "end": 4864,
+          "start": 4862
+        },
+        {
+          "end": 4880,
+          "start": 4866
+        },
+        {
+          "end": 4906,
+          "start": 4882
+        }
+      ],
+      "ordinal": 54,
+      "raw_slice": "-s**, **--sort=(field)**: which field to sort by",
+      "raw_span": {
+        "end": 4906,
+        "start": 4858
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 4936,
+          "start": 4911
+        },
+        {
+          "end": 4975,
+          "start": 4938
+        }
+      ],
+      "ordinal": 55,
+      "raw_slice": "--group-directories-first**: list directories before other files",
+      "raw_span": {
+        "end": 4975,
+        "start": 4911
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5004,
+          "start": 4980
+        },
+        {
+          "end": 5042,
+          "start": 5006
+        }
+      ],
+      "ordinal": 56,
+      "raw_slice": "--group-directories-last**: list directories after other files",
+      "raw_span": {
+        "end": 5042,
+        "start": 4980
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5049,
+          "start": 5047
+        },
+        {
+          "end": 5053,
+          "start": 5051
+        },
+        {
+          "end": 5066,
+          "start": 5055
+        },
+        {
+          "end": 5091,
+          "start": 5068
+        }
+      ],
+      "ordinal": 57,
+      "raw_slice": "-D**, **--only-dirs**: list only directories",
+      "raw_span": {
+        "end": 5091,
+        "start": 5047
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5098,
+          "start": 5096
+        },
+        {
+          "end": 5102,
+          "start": 5100
+        },
+        {
+          "end": 5116,
+          "start": 5104
+        },
+        {
+          "end": 5135,
+          "start": 5118
+        }
+      ],
+      "ordinal": 58,
+      "raw_slice": "-f**, **--only-files**: list only files",
+      "raw_span": {
+        "end": 5135,
+        "start": 5096
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5153,
+          "start": 5140
+        },
+        {
+          "end": 5182,
+          "start": 5155
+        }
+      ],
+      "ordinal": 59,
+      "raw_slice": "--no-symlinks**: don't show symbolic links",
+      "raw_span": {
+        "end": 5182,
+        "start": 5140
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5202,
+          "start": 5187
+        },
+        {
+          "end": 5233,
+          "start": 5204
+        }
+      ],
+      "ordinal": 60,
+      "raw_slice": "--show-symlinks**: explicitly show links (with",
+      "raw_span": {
+        "end": 5233,
+        "start": 5187
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5304,
+          "start": 5263
+        }
+      ],
+      "ordinal": 61,
+      "raw_slice": ", to show symlinks that match the filter)",
+      "raw_span": {
+        "end": 5304,
+        "start": 5263
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5321,
+          "start": 5309
+        },
+        {
+          "end": 5350,
+          "start": 5323
+        }
+      ],
+      "ordinal": 62,
+      "raw_slice": "--git-ignore**: ignore files mentioned in",
+      "raw_span": {
+        "end": 5350,
+        "start": 5309
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5370,
+          "start": 5368
+        },
+        {
+          "end": 5374,
+          "start": 5372
+        },
+        {
+          "end": 5397,
+          "start": 5376
+        },
+        {
+          "end": 5450,
+          "start": 5399
+        }
+      ],
+      "ordinal": 63,
+      "raw_slice": "-I**, **--ignore-glob=(globs)**: glob patterns (pipe-separated) of files to ignore",
+      "raw_span": {
+        "end": 5450,
+        "start": 5368
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5460,
+          "start": 5452
+        }
+      ],
+      "ordinal": 64,
+      "raw_slice": "Pass the",
+      "raw_span": {
+        "end": 5460,
+        "start": 5452
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5498,
+          "start": 5469
+        }
+      ],
+      "ordinal": 65,
+      "raw_slice": "option twice to also show the",
+      "raw_span": {
+        "end": 5498,
+        "start": 5469
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5506,
+          "start": 5503
+        }
+      ],
+      "ordinal": 66,
+      "raw_slice": "and",
+      "raw_span": {
+        "end": 5506,
+        "start": 5503
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5524,
+          "start": 5512
+        }
+      ],
+      "ordinal": 67,
+      "raw_slice": "directories.",
+      "raw_span": {
+        "end": 5524,
+        "start": 5512
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5558,
+          "start": 5541
+        }
+      ],
+      "ordinal": 68,
+      "raw_slice": "Long view options",
+      "raw_span": {
+        "end": 5558,
+        "start": 5541
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5651,
+          "start": 5606
+        }
+      ],
+      "ordinal": 69,
+      "raw_slice": "These options are available when running with",
+      "raw_span": {
+        "end": 5651,
+        "start": 5606
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5676,
+          "start": 5674
+        },
+        {
+          "end": 5680,
+          "start": 5678
+        },
+        {
+          "end": 5690,
+          "start": 5682
+        },
+        {
+          "end": 5730,
+          "start": 5692
+        }
+      ],
+      "ordinal": 70,
+      "raw_slice": "-b**, **--binary**: list file sizes with binary prefixes",
+      "raw_span": {
+        "end": 5730,
+        "start": 5674
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5737,
+          "start": 5735
+        },
+        {
+          "end": 5741,
+          "start": 5739
+        },
+        {
+          "end": 5750,
+          "start": 5743
+        },
+        {
+          "end": 5800,
+          "start": 5752
+        }
+      ],
+      "ordinal": 71,
+      "raw_slice": "-B**, **--bytes**: list file sizes in bytes, without any prefixes",
+      "raw_span": {
+        "end": 5800,
+        "start": 5735
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5807,
+          "start": 5805
+        },
+        {
+          "end": 5811,
+          "start": 5809
+        },
+        {
+          "end": 5820,
+          "start": 5813
+        },
+        {
+          "end": 5848,
+          "start": 5822
+        }
+      ],
+      "ordinal": 72,
+      "raw_slice": "-g**, **--group**: list each file’s group",
+      "raw_span": {
+        "end": 5848,
+        "start": 5805
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5866,
+          "start": 5853
+        },
+        {
+          "end": 5923,
+          "start": 5868
+        }
+      ],
+      "ordinal": 73,
+      "raw_slice": "--smart-group**: only show group if it has a different name from owner",
+      "raw_span": {
+        "end": 5923,
+        "start": 5853
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5930,
+          "start": 5928
+        },
+        {
+          "end": 5934,
+          "start": 5932
+        },
+        {
+          "end": 5944,
+          "start": 5936
+        },
+        {
+          "end": 5979,
+          "start": 5946
+        }
+      ],
+      "ordinal": 74,
+      "raw_slice": "-h**, **--header**: add a header row to each column",
+      "raw_span": {
+        "end": 5979,
+        "start": 5928
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 5986,
+          "start": 5984
+        },
+        {
+          "end": 5990,
+          "start": 5988
+        },
+        {
+          "end": 5999,
+          "start": 5992
+        },
+        {
+          "end": 6042,
+          "start": 6001
+        }
+      ],
+      "ordinal": 75,
+      "raw_slice": "-H**, **--links**: list each file’s number of hard links",
+      "raw_span": {
+        "end": 6042,
+        "start": 5984
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6049,
+          "start": 6047
+        },
+        {
+          "end": 6053,
+          "start": 6051
+        },
+        {
+          "end": 6062,
+          "start": 6055
+        },
+        {
+          "end": 6097,
+          "start": 6064
+        }
+      ],
+      "ordinal": 76,
+      "raw_slice": "-i**, **--inode**: list each file’s inode number",
+      "raw_span": {
+        "end": 6097,
+        "start": 6047
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6104,
+          "start": 6102
+        },
+        {
+          "end": 6108,
+          "start": 6106
+        },
+        {
+          "end": 6120,
+          "start": 6110
+        },
+        {
+          "end": 6156,
+          "start": 6122
+        }
+      ],
+      "ordinal": 77,
+      "raw_slice": "-m**, **--modified**: use the modified timestamp field",
+      "raw_span": {
+        "end": 6156,
+        "start": 6102
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6163,
+          "start": 6161
+        },
+        {
+          "end": 6167,
+          "start": 6165
+        },
+        {
+          "end": 6177,
+          "start": 6169
+        },
+        {
+          "end": 6223,
+          "start": 6179
+        }
+      ],
+      "ordinal": 78,
+      "raw_slice": "-M**, **--mounts**: Show mount details (Linux and MacOS only).",
+      "raw_span": {
+        "end": 6223,
+        "start": 6161
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6230,
+          "start": 6228
+        },
+        {
+          "end": 6234,
+          "start": 6232
+        },
+        {
+          "end": 6247,
+          "start": 6236
+        },
+        {
+          "end": 6292,
+          "start": 6249
+        }
+      ],
+      "ordinal": 79,
+      "raw_slice": "-S**, **--blocksize**: show size of allocated file system blocks",
+      "raw_span": {
+        "end": 6292,
+        "start": 6228
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6299,
+          "start": 6297
+        },
+        {
+          "end": 6303,
+          "start": 6301
+        },
+        {
+          "end": 6319,
+          "start": 6305
+        },
+        {
+          "end": 6351,
+          "start": 6321
+        }
+      ],
+      "ordinal": 80,
+      "raw_slice": "-t**, **--time=(field)**: which timestamp field to use",
+      "raw_span": {
+        "end": 6351,
+        "start": 6297
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6358,
+          "start": 6356
+        },
+        {
+          "end": 6362,
+          "start": 6360
+        },
+        {
+          "end": 6374,
+          "start": 6364
+        },
+        {
+          "end": 6410,
+          "start": 6376
+        }
+      ],
+      "ordinal": 81,
+      "raw_slice": "-u**, **--accessed**: use the accessed timestamp field",
+      "raw_span": {
+        "end": 6410,
+        "start": 6356
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6417,
+          "start": 6415
+        },
+        {
+          "end": 6421,
+          "start": 6419
+        },
+        {
+          "end": 6432,
+          "start": 6423
+        },
+        {
+          "end": 6467,
+          "start": 6434
+        }
+      ],
+      "ordinal": 82,
+      "raw_slice": "-U**, **--created**: use the created timestamp field",
+      "raw_span": {
+        "end": 6467,
+        "start": 6415
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6474,
+          "start": 6472
+        },
+        {
+          "end": 6478,
+          "start": 6476
+        },
+        {
+          "end": 6493,
+          "start": 6480
+        },
+        {
+          "end": 6538,
+          "start": 6495
+        }
+      ],
+      "ordinal": 83,
+      "raw_slice": "-X**, **--dereference**: dereference symlinks for file information",
+      "raw_span": {
+        "end": 6538,
+        "start": 6472
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6545,
+          "start": 6543
+        },
+        {
+          "end": 6549,
+          "start": 6547
+        },
+        {
+          "end": 6560,
+          "start": 6551
+        },
+        {
+          "end": 6599,
+          "start": 6562
+        }
+      ],
+      "ordinal": 84,
+      "raw_slice": "-Z**, **--context**: list each file’s security context",
+      "raw_span": {
+        "end": 6599,
+        "start": 6543
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6606,
+          "start": 6604
+        },
+        {
+          "end": 6610,
+          "start": 6608
+        },
+        {
+          "end": 6622,
+          "start": 6612
+        },
+        {
+          "end": 6674,
+          "start": 6624
+        }
+      ],
+      "ordinal": 85,
+      "raw_slice": "-@**, **--extended**: list each file’s extended attributes and sizes",
+      "raw_span": {
+        "end": 6674,
+        "start": 6604
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6688,
+          "start": 6679
+        },
+        {
+          "end": 6723,
+          "start": 6690
+        }
+      ],
+      "ordinal": 86,
+      "raw_slice": "--changed**: use the changed timestamp field",
+      "raw_span": {
+        "end": 6723,
+        "start": 6679
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6733,
+          "start": 6728
+        },
+        {
+          "end": 6789,
+          "start": 6735
+        }
+      ],
+      "ordinal": 87,
+      "raw_slice": "--git**: list each file’s Git status, if tracked or ignored",
+      "raw_span": {
+        "end": 6789,
+        "start": 6728
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6805,
+          "start": 6794
+        },
+        {
+          "end": 6855,
+          "start": 6807
+        }
+      ],
+      "ordinal": 88,
+      "raw_slice": "--git-repos**: list each directory’s Git status, if tracked",
+      "raw_span": {
+        "end": 6855,
+        "start": 6794
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6881,
+          "start": 6860
+        },
+        {
+          "end": 6958,
+          "start": 6883
+        }
+      ],
+      "ordinal": 89,
+      "raw_slice": "--git-repos-no-status**: list whether a directory is a Git repository, but not its status (faster)",
+      "raw_span": {
+        "end": 6958,
+        "start": 6860
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 6971,
+          "start": 6963
+        },
+        {
+          "end": 7012,
+          "start": 6973
+        }
+      ],
+      "ordinal": 90,
+      "raw_slice": "--no-git**: suppress Git status (always overrides",
+      "raw_span": {
+        "end": 7012,
+        "start": 6963
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7078,
+          "start": 7066
+        },
+        {
+          "end": 7138,
+          "start": 7080
+        }
+      ],
+      "ordinal": 91,
+      "raw_slice": "--time-style**: how to format timestamps. valid timestamp styles are ‘",
+      "raw_span": {
+        "end": 7138,
+        "start": 7066
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7240,
+          "start": 7214
+        }
+      ],
+      "ordinal": 92,
+      "raw_slice": "’, or a custom style ‘",
+      "raw_span": {
+        "end": 7240,
+        "start": 7214
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7265,
+          "start": 7251
+        }
+      ],
+      "ordinal": 93,
+      "raw_slice": "’ (E.g., ‘",
+      "raw_span": {
+        "end": 7265,
+        "start": 7251
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7368,
+          "start": 7310
+        }
+      ],
+      "ordinal": 94,
+      "raw_slice": "’. For more specifications on the format string, see the",
+      "raw_span": {
+        "end": 7368,
+        "start": 7310
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7390,
+          "start": 7379
+        },
+        {
+          "end": 7396,
+          "start": 7391
+        },
+        {
+          "end": 7417,
+          "start": 7397
+        },
+        {
+          "end": 7486,
+          "start": 7483
+        }
+      ],
+      "ordinal": 95,
+      "raw_slice": "manual page_ and [chrono documentation](https://docs.rs/chrono/latest/chrono/format/strftime/index.html).).",
+      "raw_span": {
+        "end": 7486,
+        "start": 7379
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7503,
+          "start": 7491
+        },
+        {
+          "end": 7536,
+          "start": 7505
+        }
+      ],
+      "ordinal": 96,
+      "raw_slice": "--total-size**: show recursive directory size",
+      "raw_span": {
+        "end": 7536,
+        "start": 7491
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7557,
+          "start": 7541
+        },
+        {
+          "end": 7591,
+          "start": 7559
+        }
+      ],
+      "ordinal": 97,
+      "raw_slice": "--no-permissions**: suppress the permissions field",
+      "raw_span": {
+        "end": 7591,
+        "start": 7541
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7598,
+          "start": 7596
+        },
+        {
+          "end": 7602,
+          "start": 7600
+        },
+        {
+          "end": 7623,
+          "start": 7604
+        },
+        {
+          "end": 7670,
+          "start": 7625
+        }
+      ],
+      "ordinal": 98,
+      "raw_slice": "-o**, **--octal-permissions**: list each file's permission in octal format",
+      "raw_span": {
+        "end": 7670,
+        "start": 7596
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7688,
+          "start": 7675
+        },
+        {
+          "end": 7719,
+          "start": 7690
+        }
+      ],
+      "ordinal": 99,
+      "raw_slice": "--no-filesize**: suppress the filesize field",
+      "raw_span": {
+        "end": 7719,
+        "start": 7675
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7733,
+          "start": 7724
+        },
+        {
+          "end": 7760,
+          "start": 7735
+        }
+      ],
+      "ordinal": 100,
+      "raw_slice": "--no-user**: suppress the user field",
+      "raw_span": {
+        "end": 7760,
+        "start": 7724
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7774,
+          "start": 7765
+        },
+        {
+          "end": 7801,
+          "start": 7776
+        }
+      ],
+      "ordinal": 101,
+      "raw_slice": "--no-time**: suppress the time field",
+      "raw_span": {
+        "end": 7801,
+        "start": 7765
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7813,
+          "start": 7806
+        },
+        {
+          "end": 7843,
+          "start": 7815
+        }
+      ],
+      "ordinal": 102,
+      "raw_slice": "--stdin**: read file names from stdin",
+      "raw_span": {
+        "end": 7843,
+        "start": 7806
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7883,
+          "start": 7845
+        }
+      ],
+      "ordinal": 103,
+      "raw_slice": "Some of the options accept parameters:",
+      "raw_span": {
+        "end": 7883,
+        "start": 7845
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 7893,
+          "start": 7887
+        },
+        {
+          "end": 7907,
+          "start": 7895
+        },
+        {
+          "end": 7922,
+          "start": 7909
+        },
+        {
+          "end": 7930,
+          "start": 7924
+        },
+        {
+          "end": 7934,
+          "start": 7932
+        },
+        {
+          "end": 7945,
+          "start": 7936
+        },
+        {
+          "end": 7952,
+          "start": 7947
+        },
+        {
+          "end": 7958,
+          "start": 7954
+        },
+        {
+          "end": 7977,
+          "start": 7960
+        },
+        {
+          "end": 7984,
+          "start": 7979
+        },
+        {
+          "end": 7987,
+          "start": 7986
+        }
+      ],
+      "ordinal": 104,
+      "raw_slice": "Valid **--colo\\[u\\]r** options are **always**, **automatic** (or **auto** for short), and **never**.",
+      "raw_span": {
+        "end": 7987,
+        "start": 7887
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8012,
+          "start": 7990
+        },
+        {
+          "end": 8022,
+          "start": 8014
+        },
+        {
+          "end": 8026,
+          "start": 8024
+        },
+        {
+          "end": 8035,
+          "start": 8028
+        },
+        {
+          "end": 8039,
+          "start": 8037
+        },
+        {
+          "end": 8048,
+          "start": 8041
+        },
+        {
+          "end": 8052,
+          "start": 8050
+        },
+        {
+          "end": 8063,
+          "start": 8054
+        },
+        {
+          "end": 8067,
+          "start": 8065
+        },
+        {
+          "end": 8078,
+          "start": 8069
+        },
+        {
+          "end": 8082,
+          "start": 8080
+        },
+        {
+          "end": 8089,
+          "start": 8084
+        },
+        {
+          "end": 8093,
+          "start": 8091
+        },
+        {
+          "end": 8103,
+          "start": 8095
+        },
+        {
+          "end": 8107,
+          "start": 8105
+        },
+        {
+          "end": 8113,
+          "start": 8109
+        },
+        {
+          "end": 8117,
+          "start": 8115
+        },
+        {
+          "end": 8123,
+          "start": 8119
+        },
+        {
+          "end": 8127,
+          "start": 8125
+        },
+        {
+          "end": 8133,
+          "start": 8129
+        },
+        {
+          "end": 8137,
+          "start": 8135
+        },
+        {
+          "end": 8143,
+          "start": 8139
+        },
+        {
+          "end": 8151,
+          "start": 8145
+        },
+        {
+          "end": 8157,
+          "start": 8153
+        },
+        {
+          "end": 8267,
+          "start": 8159
+        },
+        {
+          "end": 8273,
+          "start": 8269
+        },
+        {
+          "end": 8277,
+          "start": 8275
+        },
+        {
+          "end": 8283,
+          "start": 8279
+        },
+        {
+          "end": 8291,
+          "start": 8285
+        },
+        {
+          "end": 8299,
+          "start": 8293
+        },
+        {
+          "end": 8337,
+          "start": 8301
+        },
+        {
+          "end": 8342,
+          "start": 8339
+        },
+        {
+          "end": 8349,
+          "start": 8344
+        },
+        {
+          "end": 8357,
+          "start": 8351
+        },
+        {
+          "end": 8360,
+          "start": 8359
+        }
+      ],
+      "ordinal": 105,
+      "raw_slice": "Valid sort fields are **accessed**, **changed**, **created**, **extension**, **Extension**, **inode**, **modified**, **name**, **Name**, **size**, **type**, and **none**. Fields starting with a capital letter sort uppercase before lowercase. The modified field has the aliases **date**, **time**, and **newest**, while its reverse has the aliases **age** and **oldest**.",
+      "raw_span": {
+        "end": 8360,
+        "start": 7990
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8385,
+          "start": 8363
+        },
+        {
+          "end": 8395,
+          "start": 8387
+        },
+        {
+          "end": 8399,
+          "start": 8397
+        },
+        {
+          "end": 8408,
+          "start": 8401
+        },
+        {
+          "end": 8412,
+          "start": 8410
+        },
+        {
+          "end": 8422,
+          "start": 8414
+        },
+        {
+          "end": 8430,
+          "start": 8424
+        },
+        {
+          "end": 8439,
+          "start": 8432
+        },
+        {
+          "end": 8442,
+          "start": 8441
+        }
+      ],
+      "ordinal": 106,
+      "raw_slice": "Valid time fields are **modified**, **changed**, **accessed**, and **created**.",
+      "raw_span": {
+        "end": 8442,
+        "start": 8363
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8467,
+          "start": 8445
+        },
+        {
+          "end": 8476,
+          "start": 8469
+        },
+        {
+          "end": 8480,
+          "start": 8478
+        },
+        {
+          "end": 8485,
+          "start": 8482
+        },
+        {
+          "end": 8489,
+          "start": 8487
+        },
+        {
+          "end": 8499,
+          "start": 8491
+        },
+        {
+          "end": 8503,
+          "start": 8501
+        },
+        {
+          "end": 8513,
+          "start": 8505
+        },
+        {
+          "end": 8521,
+          "start": 8515
+        },
+        {
+          "end": 8531,
+          "start": 8523
+        },
+        {
+          "end": 8534,
+          "start": 8533
+        }
+      ],
+      "ordinal": 107,
+      "raw_slice": "Valid time styles are **default**, **iso**, **long-iso**, **full-iso**, and **relative**.",
+      "raw_span": {
+        "end": 8534,
+        "start": 8445
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8545,
+          "start": 8538
+        }
+      ],
+      "ordinal": 108,
+      "raw_slice": "See the",
+      "raw_span": {
+        "end": 8545,
+        "start": 8538
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8612,
+          "start": 8552
+        }
+      ],
+      "ordinal": 109,
+      "raw_slice": "pages for further documentation of usage. They are available",
+      "raw_span": {
+        "end": 8612,
+        "start": 8552
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8622,
+          "start": 8615
+        },
+        {
+          "end": 8634,
+          "start": 8623
+        }
+      ],
+      "ordinal": 110,
+      "raw_slice": "online [in the repo",
+      "raw_span": {
+        "end": 8634,
+        "start": 8615
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8710,
+          "start": 8690
+        }
+      ],
+      "ordinal": 111,
+      "raw_slice": "in your terminal via",
+      "raw_span": {
+        "end": 8710,
+        "start": 8690
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8735,
+          "start": 8720
+        }
+      ],
+      "ordinal": 112,
+      "raw_slice": ", as of version",
+      "raw_span": {
+        "end": 8735,
+        "start": 8720
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8872,
+          "start": 8859
+        }
+      ],
+      "ordinal": 113,
+      "raw_slice": "Custom Themes",
+      "raw_span": {
+        "end": 8872,
+        "start": 8859
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 8924,
+          "start": 8921
+        },
+        {
+          "end": 8959,
+          "start": 8926
+        }
+      ],
+      "ordinal": 114,
+      "raw_slice": "Eza** has recently added support for a",
+      "raw_span": {
+        "end": 8959,
+        "start": 8921
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9055,
+          "start": 8972
+        }
+      ],
+      "ordinal": 115,
+      "raw_slice": "file, where you can specify all of the existing theme-ing options\navailable for the",
+      "raw_span": {
+        "end": 9055,
+        "start": 8972
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9071,
+          "start": 9068
+        }
+      ],
+      "ordinal": 116,
+      "raw_slice": "and",
+      "raw_span": {
+        "end": 9071,
+        "start": 9068
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9312,
+          "start": 9085
+        }
+      ],
+      "ordinal": 117,
+      "raw_slice": "environment variables, as well as the option to specify different icons\nfor different file types and extensions. Any existing environment variables set will continue to work and will take\nprecedence for backwards compatibility.",
+      "raw_span": {
+        "end": 9312,
+        "start": 9085
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9324,
+          "start": 9321
+        },
+        {
+          "end": 9342,
+          "start": 9326
+        }
+      ],
+      "ordinal": 118,
+      "raw_slice": "New** Pre-made themes",
+      "raw_span": {
+        "end": 9342,
+        "start": 9321
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9390,
+          "start": 9343
+        },
+        {
+          "end": 9401,
+          "start": 9391
+        },
+        {
+          "end": 9483,
+          "start": 9447
+        }
+      ],
+      "ordinal": 119,
+      "raw_slice": "Check out the themes available in the official [eza-themes](https://github.com/eza-community/eza-themes) repository, or contribute your own.",
+      "raw_span": {
+        "end": 9483,
+        "start": 9343
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9522,
+          "start": 9485
+        }
+      ],
+      "ordinal": 120,
+      "raw_slice": "An example theme file is available in",
+      "raw_span": {
+        "end": 9522,
+        "start": 9485
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9624,
+          "start": 9539
+        }
+      ],
+      "ordinal": 121,
+      "raw_slice": ", and needs to either be placed in a directory specified by the \nenvironment variable",
+      "raw_span": {
+        "end": 9624,
+        "start": 9539
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9675,
+          "start": 9641
+        }
+      ],
+      "ordinal": 122,
+      "raw_slice": ", or will looked for by default in",
+      "raw_span": {
+        "end": 9675,
+        "start": 9641
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9735,
+          "start": 9701
+        },
+        {
+          "end": 9744,
+          "start": 9736
+        },
+        {
+          "end": 9864,
+          "start": 9825
+        },
+        {
+          "end": 9869,
+          "start": 9865
+        }
+      ],
+      "ordinal": 123,
+      "raw_slice": "Full details are available on the [man page](https://github.com/eza-community/eza/tree/main/man/eza_colors-explanation.5.md) and an example theme file is included [here",
+      "raw_span": {
+        "end": 9869,
+        "start": 9701
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 9964,
+          "start": 9950
+        }
+      ],
+      "ordinal": 124,
+      "raw_slice": "Hacking on eza",
+      "raw_span": {
+        "end": 9964,
+        "start": 9950
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10038,
+          "start": 9966
+        },
+        {
+          "end": 10054,
+          "start": 10039
+        },
+        {
+          "end": 10123,
+          "start": 10122
+        }
+      ],
+      "ordinal": 125,
+      "raw_slice": "If you wanna contribute to eza, firstly, you're expected to follow our \n[code of conduct](https://github.com/eza-community/eza/blob/main/CODE_OF_CONDUCT.md).",
+      "raw_span": {
+        "end": 10123,
+        "start": 9966
+      }
+    },
+    {
+      "eligible_segments": [
+        {
+          "end": 10197,
+          "start": 10125
+        },
+        {
+          "end": 10213,
+          "start": 10198
+        },
+        {
+          "end": 10315,
+          "start": 10278
+        }
+      ],
+      "ordinal": 126,
+      "raw_slice": "After having understood the code of conduct, you can have a look at our\n[CONTRIBUTING.md](https://github.com/eza-community/eza/blob/main/CONTRIBUTING.md) \nfor more info about actual hacking.",
+      "raw_span": {
+        "end": 10315,
+        "start": 10125
+      }
+    }
+  ],
+  "page_id": "eza.md",
+  "source": "<!--\nSPDX-FileCopyrightText: 2023-2024 Christina Sørensen\nSPDX-FileContributor: Christina Sørensen\n\nSPDX-License-Identifier: EUPL-1.2\n-->\n\n<div align=\"center\">\n<div align=\"center\" markdown=\"1\">\n   <sup>Special thanks to:</sup>\n   <br>\n   <br>\n   <a href=\"https://www.warp.dev/eza\">\n      <img alt=\"Warp sponsorship\" width=\"400\" src=\"https://github.com/user-attachments/assets/ab8dd143-b0fd-4904-bdc5-dd7ecac94eae\">\n   </a>\n\n### [Warp, the AI terminal for developers](https://www.warp.dev/eza)\n[Available for MacOS, Linux, & Windows](https://www.warp.dev/eza)<br>\n\n</div>\n    \n# eza\n\nA modern replacement for ls.\n\n<a href=\"https://matrix.to/#/#eza-community:gitter.im\"><img alt=\"Gitter\" src=\"https://img.shields.io/gitter/room/eza-community/eza?logo=element&link=https%3A%2F%2Fapp.gitter.im%2F%23%2Froom%2F%23eza%3Agitter.im&link=Gitter%20matrix%20room%20for%20Eza\" width=200></a>\n\n[![Built with Nix](https://img.shields.io/badge/Built_With-Nix-5277C3.svg?logo=nixos&labelColor=73C3D5)](https://nixos.org)\n[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)\n\n[![Unit tests](https://github.com/eza-community/eza/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/eza-community/eza/actions/workflows/unit-tests.yml)\n[![Crates.io](https://img.shields.io/crates/v/eza?link=https%3A%2F%2Fcrates.io%2Fcrates%2Feza)](https://crates.io/crates/eza)\n![Crates.io](https://img.shields.io/crates/l/eza?link=https%3A%2F%2Fgithub.com%2Feza-community%2Feza%2Fblob%2Fmain%2FLICENCE)\n\n</div>\n\n![eza demo gif](docs/images/screenshots.png)\n\n---\n\n**eza** is a modern alternative for the venerable file-listing command-line program `ls` that ships with Unix and Linux operating systems, giving it more features and better defaults.\nIt uses colours to distinguish file types and metadata.\nIt knows about symlinks, extended attributes, and Git.\nAnd it’s **small**, **fast**, and just **one single binary**.\n\nBy deliberately making some decisions differently, eza attempts to be a more featureful, more user-friendly version of `ls`.\n\n---\n\n**eza** features not in exa (non-exhaustive):\n\n- Fixes [“The Grid Bug”](https://github.com/eza-community/eza/issues/66#issuecomment-1656758327) introduced in exa 2021.\n- Hyperlink support.\n- Mount point details.\n- Selinux context output.\n- Git repo status output.\n- Human readable relative dates.\n- Several security fixes.\n- Support for `bright` terminal colours.\n- Many smaller bug fixes/changes!\n- Configuration `theme.yml` file for customization of colors and icons.\n\n...and like, so much more that it became exhausting to update this all the time.\nLike seriously, we have a lot of good stuff.\n\n---\n\n<a id=\"try-it\">\n<h1>Try it!</h1>\n</a>\n\n### Nix ❄️\n\nIf you already have Nix setup with flake support, you can try out eza with the `nix run` command:\n\n    nix run github:eza-community/eza\n\nNix will build eza and run it.\n\nIf you want to pass arguments this way, use e.g. `nix run github:eza-community/eza -- -ol`.\n\n# Installation\n\neza is available for Windows, macOS and Linux. Platform and distribution\nspecific installation instructions can be found in [INSTALL.md](INSTALL.md).\n\n[![Packaging status](https://repology.org/badge/vertical-allrepos/eza.svg?columns=3)](https://repology.org/project/eza/versions)\n\n---\n\n<a id=\"options\">\n<h1>Command-line options</h1>\n</a>\n\neza’s options are almost, but not quite, entirely unlike `ls`’s. Quick overview:\n\n## Display options\n\n<details>\n<summary>Click to expand</summary>\n\n- **-1**, **--oneline**: display one entry per line\n- **-G**, **--grid**: display entries as a grid (default)\n- **-l**, **--long**: display extended details and attributes\n- **-R**, **--recurse**: recurse into directories\n- **-T**, **--tree**: recurse into directories as a tree\n- **-x**, **--across**: sort the grid across, rather than downwards\n- **-F**, **--classify=(when)**: display type indicator by file names (always, auto, never)\n- **--colo[u]r=(when)**: when to use terminal colours (always, auto, never)\n- **--colo[u]r-scale=(field)**: highlight levels of `field` distinctly(all, age, size)\n- **--color-scale-mode=(mode)**: use gradient or fixed colors in --color-scale. valid options are `fixed` or `gradient`\n- **--icons=(when)**: when to display icons (always, auto, never)\n- **--hyperlink=(when)**: when to display entries as hyperlinks (always, auto, never)\n- **--absolute=(mode)**: display entries with their absolute path (on, follow, off)\n- **-w**, **--width=(columns)**: set screen width in columns\n\n</details>\n\n## Filtering options\n\n<details>\n<summary>Click to expand</summary>\n\n- **-a**, **--all**: show hidden and 'dot' files\n- **-d**, **--treat-dirs-as-files**: list directories like regular files\n- **-L**, **--level=(depth)**: limit the depth of recursion\n- **-r**, **--reverse**: reverse the sort order\n- **-s**, **--sort=(field)**: which field to sort by\n- **--group-directories-first**: list directories before other files\n- **--group-directories-last**: list directories after other files\n- **-D**, **--only-dirs**: list only directories\n- **-f**, **--only-files**: list only files\n- **--no-symlinks**: don't show symbolic links\n- **--show-symlinks**: explicitly show links (with `--only-dirs`, `--only-files`, to show symlinks that match the filter)\n- **--git-ignore**: ignore files mentioned in `.gitignore`\n- **-I**, **--ignore-glob=(globs)**: glob patterns (pipe-separated) of files to ignore\n\nPass the `--all` option twice to also show the `.` and `..` directories.\n\n</details>\n\n## Long view options\n\n<details>\n<summary>Click to expand</summary>\n\nThese options are available when running with `--long` (`-l`):\n\n- **-b**, **--binary**: list file sizes with binary prefixes\n- **-B**, **--bytes**: list file sizes in bytes, without any prefixes\n- **-g**, **--group**: list each file’s group\n- **--smart-group**: only show group if it has a different name from owner\n- **-h**, **--header**: add a header row to each column\n- **-H**, **--links**: list each file’s number of hard links\n- **-i**, **--inode**: list each file’s inode number\n- **-m**, **--modified**: use the modified timestamp field\n- **-M**, **--mounts**: Show mount details (Linux and MacOS only).\n- **-S**, **--blocksize**: show size of allocated file system blocks\n- **-t**, **--time=(field)**: which timestamp field to use\n- **-u**, **--accessed**: use the accessed timestamp field\n- **-U**, **--created**: use the created timestamp field\n- **-X**, **--dereference**: dereference symlinks for file information\n- **-Z**, **--context**: list each file’s security context\n- **-@**, **--extended**: list each file’s extended attributes and sizes\n- **--changed**: use the changed timestamp field\n- **--git**: list each file’s Git status, if tracked or ignored\n- **--git-repos**: list each directory’s Git status, if tracked\n- **--git-repos-no-status**: list whether a directory is a Git repository, but not its status (faster)\n- **--no-git**: suppress Git status (always overrides `--git`, `--git-repos`, `--git-repos-no-status`)\n- **--time-style**: how to format timestamps. valid timestamp styles are ‘`default`’, ‘`iso`’, ‘`long-iso`’, ‘`full-iso`’, ‘`relative`’, or a custom style ‘`+<FORMAT>`’ (E.g., ‘`+%Y-%m-%d %H:%M`’ => ‘`2023-09-30 13:00`’. For more specifications on the format string, see the _`eza(1)` manual page_ and [chrono documentation](https://docs.rs/chrono/latest/chrono/format/strftime/index.html).).\n- **--total-size**: show recursive directory size\n- **--no-permissions**: suppress the permissions field\n- **-o**, **--octal-permissions**: list each file's permission in octal format\n- **--no-filesize**: suppress the filesize field\n- **--no-user**: suppress the user field\n- **--no-time**: suppress the time field\n- **--stdin**: read file names from stdin\n\nSome of the options accept parameters:\n\n- Valid **--colo\\[u\\]r** options are **always**, **automatic** (or **auto** for short), and **never**.\n- Valid sort fields are **accessed**, **changed**, **created**, **extension**, **Extension**, **inode**, **modified**, **name**, **Name**, **size**, **type**, and **none**. Fields starting with a capital letter sort uppercase before lowercase. The modified field has the aliases **date**, **time**, and **newest**, while its reverse has the aliases **age** and **oldest**.\n- Valid time fields are **modified**, **changed**, **accessed**, and **created**.\n- Valid time styles are **default**, **iso**, **long-iso**, **full-iso**, and **relative**.\n\n\n\nSee the `man` pages for further documentation of usage. They are available\n- online [in the repo](https://github.com/eza-community/eza/tree/main/man)\n- in your terminal via `man eza`, as of version [`[0.18.13] - 2024-04-25`](https://github.com/eza-community/eza/blob/main/CHANGELOG.md#01813---2024-04-25)\n</details>\n\n\n## Custom Themes\n<details>\n<summary>Click to expand</summary>\n\n**Eza** has recently added support for a `theme.yml` file, where you can specify all of the existing theme-ing options\navailable for the `LS_COLORS` and `EXA_COLORS` environment variables, as well as the option to specify different icons\nfor different file types and extensions. Any existing environment variables set will continue to work and will take\nprecedence for backwards compatibility.\n\n#### **New** Pre-made themes\nCheck out the themes available in the official [eza-themes](https://github.com/eza-community/eza-themes) repository, or contribute your own.\n\nAn example theme file is available in `docs/theme.yml`, and needs to either be placed in a directory specified by the \nenvironment variable `EZA_CONFIG_DIR`, or will looked for by default in `$XDG_CONFIG_HOME/eza`.\n\nFull details are available on the [man page](https://github.com/eza-community/eza/tree/main/man/eza_colors-explanation.5.md) and an example theme file is included [here](https://github.com/eza-community/eza/tree/main/docs/theme.yml)\n\n</details>\n\n\n# Hacking on eza\n\nIf you wanna contribute to eza, firstly, you're expected to follow our \n[code of conduct](https://github.com/eza-community/eza/blob/main/CODE_OF_CONDUCT.md). \nAfter having understood the code of conduct, you can have a look at our\n[CONTRIBUTING.md](https://github.com/eza-community/eza/blob/main/CONTRIBUTING.md) \nfor more info about actual hacking.\n\n[![Star History Chart](https://api.star-history.com/svg?repos=eza-community/eza&type=Date)](https://star-history.com/#eza-community/eza&Date)\n",
+  "source_sha256": "f057eaf79288831a7c0922fc0f9f586dc3adcd3c73f56311262ad5d973b45ac6"
+}

@@ -1,0 +1,132 @@
+{
+  "events": [
+    {
+      "category": "wordiness",
+      "id": "nushell-event-01",
+      "page": "nushell.md",
+      "quote": "From here one can\nthen customize this file for their specific needs.",
+      "rationale": "The opening From here and then duplicate the sequence, while one can and their specific needs add no actionable detail; the reader only needs to know the configuration file can be customized.",
+      "span": {
+        "end": 3096,
+        "start": 3028
+      },
+      "unit_ordinal": 33
+    },
+    {
+      "category": "wordiness",
+      "id": "eza-event-01",
+      "page": "eza.md",
+      "quote": "one single binary",
+      "rationale": "One and single repeat the same quantity in a sentence already making a specific binary count claim.",
+      "span": {
+        "end": 1957,
+        "start": 1940
+      },
+      "unit_ordinal": 5
+    },
+    {
+      "category": "empty_framing",
+      "id": "eza-event-02",
+      "page": "eza.md",
+      "quote": "Like seriously, we have a lot of good stuff.",
+      "rationale": "After the preceding so much more line, this sentence adds no feature or evidence and repeats the same promotional sentiment.",
+      "span": {
+        "end": 2693,
+        "start": 2649
+      },
+      "unit_ordinal": 21
+    },
+    {
+      "category": "wordiness",
+      "id": "cargo-binstall-event-01",
+      "page": "cargo-binstall.md",
+      "quote": "Binstall is generally smart enough to auto-detect artifacts in most situations.",
+      "rationale": "Generally and in most situations duplicate the uncertainty; smart enough does not describe the operation beyond the already stated automatic detection.",
+      "span": {
+        "end": 6342,
+        "start": 6263
+      },
+      "unit_ordinal": 64
+    }
+  ],
+  "format": "unswell-349-additive-admission-reference-v1",
+  "independent_human": false,
+  "pages": [
+    {
+      "bytes": 12908,
+      "eligible_units": 97,
+      "id": "nushell.md",
+      "source_sha256": "8894a1ff03997ae1e58190fac16fbc6876c1aa8f0ea593fa0dc65e4da20a0939"
+    },
+    {
+      "bytes": 17214,
+      "eligible_units": 222,
+      "id": "hyperfine.md",
+      "source_sha256": "03e31b51fd816c72b12c0f4d7ce9db3245b6a11647a34bea6803caa6b5180353"
+    },
+    {
+      "bytes": 10459,
+      "eligible_units": 127,
+      "id": "eza.md",
+      "source_sha256": "f057eaf79288831a7c0922fc0f9f586dc3adcd3c73f56311262ad5d973b45ac6"
+    },
+    {
+      "bytes": 10708,
+      "eligible_units": 119,
+      "id": "cargo-binstall.md",
+      "source_sha256": "ad1d8e53e2038c2dba4094b398747ed13da21bca0da09d9ab88440031f45eac5"
+    }
+  ],
+  "retain_controls": [
+    {
+      "category": "tagline",
+      "id": "nushell-retain-02",
+      "page": "nushell.md",
+      "quote": "A new type of shell.",
+      "rationale": "This is a short product tagline at the top of the README, not a redundant technical explanation.",
+      "span": {
+        "end": 986,
+        "start": 966
+      },
+      "unit_ordinal": 1
+    },
+    {
+      "category": "technical_cause",
+      "id": "hyperfine-retain-01",
+      "page": "hyperfine.md",
+      "quote": "This avoids shell startup overhead and the noise from correcting for it, especially for fast commands\n(< 5 ms).",
+      "rationale": "This sentence explains the causal reason for direct execution and names the affected case.",
+      "span": {
+        "end": 4555,
+        "start": 4444
+      },
+      "unit_ordinal": 50
+    },
+    {
+      "category": "concrete_feature",
+      "id": "eza-retain-03",
+      "page": "eza.md",
+      "quote": "It uses colours to distinguish file types and metadata.",
+      "rationale": "This names a specific visible behavior; its spelling is inherited from the source and is not an editorial defect.",
+      "span": {
+        "end": 1841,
+        "start": 1786
+      },
+      "unit_ordinal": 5
+    },
+    {
+      "category": "security_condition",
+      "id": "cargo-binstall-retain-02",
+      "page": "cargo-binstall.md",
+      "quote": "With this enabled, Binstall will download and verify signatures for\nthat package.",
+      "rationale": "This is a concrete conditional security behavior, not an empty assurance.",
+      "span": {
+        "end": 7295,
+        "start": 7214
+      },
+      "unit_ordinal": 71
+    }
+  ],
+  "reviewer": "Codex assistant, source-only full-page review under ADR 0041",
+  "status": "source-only pre-model freeze"
+}
