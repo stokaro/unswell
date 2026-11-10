@@ -204,7 +204,9 @@ func projectAction(tokens []document.Token, at, layers int) (instructionProjecti
 }
 
 func projectionVerb(token document.Token) bool {
-	if token.Protected || !token.Word || frameWord(token, "be", "have", "allow", "enable") {
+	// The tagger can label "either" as VB before two alternative actions.
+	// A coordinator cannot establish the action in an instruction frame.
+	if token.Protected || !token.Word || frameWord(token, "be", "have", "allow", "enable", "either") {
 		return false
 	}
 	// Infinitive syntax fixes the role; POS supplies open vocabulary. The

@@ -74,6 +74,8 @@ func TestInstructionWordingControls(t *testing.T) {
 			"If the worker wants to reconnect, the server checks its token.",
 			"If you want to change the queue, you must obtain permission.",
 			"If you want to change the queue, set its size only after draining it.",
+			"If you want to customize the dashboard, you can either set the theme option or edit the configuration file to change its appearance.",
+			"If you want to contribute to it, you can either make pull requests or join the chat.",
 			"Sometimes you might want to change the queue. The worker might fail.",
 			"This is done by the next worker.",
 			"You can configure the queue.",

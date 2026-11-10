@@ -33,7 +33,7 @@ func TestSupportedActionUsefulnessRevision(t *testing.T) {
 		c.Assert(result.Findings, qt.HasLen, 1)
 		finding := result.Findings[0]
 		c.Assert(finding.RuleID, qt.Equals, "filler.instruction-scaffolding")
-		c.Assert(finding.RuleVersion, qt.Equals, "16")
+		c.Assert(finding.RuleVersion, qt.Equals, "17")
 		c.Assert(finding.Primary.Path, qt.Equals, "draft.md")
 		c.Assert(finding.Primary.Snippet, qt.Equals, strings.TrimSuffix(files["draft.md"], "."))
 		c.Assert(finding.Message, qt.Contains, "support and helpfulness clauses")
