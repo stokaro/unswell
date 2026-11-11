@@ -51,6 +51,36 @@ func TestRepositoryPolicy(t *testing.T) {
 	}
 }
 
+// A records module bounds the root module and holds no Go source of its own.
+func TestRecordsModuleBoundsTheRootModule(t *testing.T) {
+	recordsFixture := func() fstest.MapFS {
+		tree := fixture()
+		tree[".gomodules"] = &fstest.MapFile{Data: []byte(". runtime\nresearch records\nresearch/annotation consumer\ntools tools\n")}
+		tree[".github/dependabot.yml"] = &fstest.MapFile{Data: []byte("version: 2\nupdates:\n" +
+			"- package-ecosystem: gomod\n  directories: [/, /research, /research/annotation, /tools]\n")}
+		tree["research/go.mod"] = &fstest.MapFile{Data: []byte("module github.com/stokaro/unswell/research\n")}
+		tree["research/annotation/go.mod"] = &fstest.MapFile{Data: []byte("module github.com/stokaro/unswell/research/annotation\n")}
+		tree["research/annotation/tool.go"] = &fstest.MapFile{Data: []byte("package annotation\n")}
+		tree["research/reviews/record.json"] = &fstest.MapFile{Data: []byte("{}\n")}
+		return tree
+	}
+	for _, row := range []struct{ name, file, content, want string }{
+		{"source in records", "research/reviews/probe.go", "package reviews", "records module must not hold Go source.*"},
+		{"records elsewhere", ".gomodules", ". runtime\nresearch records\nresearch/annotation records\ntools tools\n",
+			"only the research directory can have the records role"},
+		{"research not records", ".gomodules", ". runtime\nresearch consumer\nresearch/annotation consumer\ntools tools\n",
+			"only the research directory can have the records role"},
+	} {
+		t.Run(row.name, func(t *testing.T) {
+			c := qt.New(t)
+			tree := recordsFixture()
+			c.Assert(repopolicy.Check(tree), qt.IsNil)
+			tree[row.file] = &fstest.MapFile{Data: []byte(row.content)}
+			c.Assert(repopolicy.Check(tree), qt.ErrorMatches, row.want)
+		})
+	}
+}
+
 func TestAdapterHasThePublicLibraryBoundary(t *testing.T) {
 	for _, row := range []struct{ name, file, source, want string }{
 		{"filesystem", "goanalysis/analyzer.go", "package goanalysis; import \"os\"", "library boundary.*"},

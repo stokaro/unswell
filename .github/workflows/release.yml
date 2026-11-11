@@ -5,10 +5,16 @@ on:
 permissions:
   contents: read
 jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Resolve the pinned mirror tool before anything is published
+        run: bash scripts/mirror-containers.sh --check-tool
   checks:
     uses: ./.github/workflows/ci.yml
   containers:
-    needs: checks
+    needs: [checks, preflight]
     permissions:
       contents: read
       packages: write

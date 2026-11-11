@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.0-alpha.6
+
+This release publishes the content of alpha.5. The `v0.1.0-alpha.5` tag exists,
+but its release did not complete and its Go module cannot be downloaded. Use
+alpha.6.
+
+The root Go module no longer contains the research records. They are now a
+module of their own, `github.com/stokaro/unswell/research`, which holds no Go
+packages. The source tree of the root module shrinks from 674 MB to 7 MB. The
+Go module proxy refuses a source tree above 500 MB, so `go get` and
+`go install` failed for alpha.5. `make check` now fails when the root module
+exceeds 64 MB.
+
+The release workflow resolves the pinned mirror tool before it publishes
+anything, and a weekly workflow does the same. The tool's registry had removed
+the pinned image, which stopped the alpha.5 release after its container images
+were published.
+
 ## 0.1.0-alpha.5
 
 This release bases rule defaults on findings that two assistant reviewers

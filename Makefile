@@ -1,13 +1,13 @@
 SHELL := /bin/bash
 
 .PHONY: check test race fuzz lint lint-shell tidy policy build build-mcp release fmt schema dogfood dogfood-mcp
-.PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost
+.PHONY: check-registry check-mirror-policy check-sbom-policy check-research-cost research-cost check-module-size
 .PHONY: check-contextual-admission check-external-controls check-current-baseline check-current-editorial-review check-current-editorial-delta check-current-editorial-reconciliation check-instruction-operand-guard
 .PHONY: check-source-review-contract check-source-bound-disposition-pilot check-paired-source-necessity check-complementary-semantic-pilot
 .PHONY: check-unit-relation-pilot check-source-role-rescue check-source-role-selector check-structured-admission check-source-context-admission check-joint-coverage-triage check-explicit-proposition-nli check-evidence-aligned-pairs check-doc-function-sources check-assistant-panel-corpus
 .PHONY: check-ape-screen check-dual-gate-triage check-dual-gate-feasibility check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot
 
-check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-current-editorial-delta check-current-editorial-reconciliation check-instruction-operand-guard check-ape-screen check-dual-gate-triage check-dual-gate-feasibility check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-gen-technical-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot check-source-bound-disposition-pilot check-paired-source-necessity check-complementary-semantic-pilot check-unit-relation-pilot check-source-role-rescue check-source-role-selector check-structured-admission check-source-context-admission check-joint-coverage-triage check-explicit-proposition-nli check-evidence-aligned-pairs check-doc-function-sources check-assistant-panel-corpus
+check: policy tidy test lint lint-shell check-mirror-policy check-sbom-policy check-module-size schema dogfood-mcp check-performance check-research-cost check-reproducible check-contextual-admission check-source-review-contract check-external-controls check-current-baseline check-current-editorial-review check-current-editorial-delta check-current-editorial-reconciliation check-instruction-operand-guard check-ape-screen check-dual-gate-triage check-dual-gate-feasibility check-length-triage-audit check-scoped-degree check-quality-claim-screen check-hope-framing-screen check-contextual-unit-slices check-span-example-screen check-aiwritingeffect-screen check-arb-transfer check-heterogeneous-spans-transfer check-gen-edit-transfer check-gen-technical-transfer check-interpretable-ensemble check-counterfactual-admission check-evidence-flip-pilot check-real-source-transfer check-rubric-transfer check-operator-triage check-source-function-pilot check-exhaustive-inventory-pilot check-source-bound-disposition-pilot check-paired-source-necessity check-complementary-semantic-pilot check-unit-relation-pilot check-source-role-rescue check-source-role-selector check-structured-admission check-source-context-admission check-joint-coverage-triage check-explicit-proposition-nli check-evidence-aligned-pairs check-doc-function-sources check-assistant-panel-corpus
 
 check-assistant-panel-corpus:
 	python3 -B research/corpus/2026-11-11-assistant-panel/verify_record.py
@@ -203,6 +203,10 @@ check-performance: build
 	  ! bash scripts/measure-performance.sh --words 100 --artifacts "$$temporary/evidence" >"$$temporary/overwrite.log" 2>&1
 	python3 scripts/summarize-performance.py --self-test
 
+check-module-size:
+	bash scripts/check-module-size.sh
+	bash scripts/check-module-size.sh --self-test
+
 check-research-cost:
 	bash scripts/measure-research-cost.sh --self-test
 
@@ -312,5 +316,5 @@ release:
 fmt:
 	@formatter=$$(cd tools && go tool -n golangci-lint); root=$$PWD; \
 	while read -r directory role; do \
-	  if [ "$$role" != tools ]; then (cd "$$directory" && "$$formatter" fmt --config "$$root/.golangci.yml" ./...) || exit; fi; \
+	  if [ "$$role" != tools ] && [ "$$role" != records ]; then (cd "$$directory" && "$$formatter" fmt --config "$$root/.golangci.yml" ./...) || exit; fi; \
 	done <.gomodules

@@ -91,6 +91,14 @@ from repository Actions secrets. The token reaches `skopeo login` through stdin;
 the authfile stays in a temporary container tmpfs. The script removes the container
 and any tool image it had to pull.
 
+Skopeo is pinned by image digest. Its registry rebuilds the version tag and
+later removes the old image, which has stopped two releases. The release
+workflow now resolves the pin in a `preflight` job before it publishes
+anything, and the `Pinned tools` workflow resolves it every week. Run
+`bash scripts/mirror-containers.sh --check-tool` to do the same by hand. When
+the pin no longer resolves, read the new digest of the version tag, pull it,
+confirm the reported Skopeo version, and update the script.
+
 The mirror gate fetches both registries anonymously, requires identical index
 bytes, and checks that both Linux architectures and attestations are present.
 Missing, differing, malformed or incomplete indexes fail. The fetched indexes are

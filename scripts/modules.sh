@@ -6,7 +6,8 @@ shift
 while read -r directory role; do
   case "$operation:$role" in
     test:runtime | test:consumer) (cd "$directory" && go test -count=1 "$@" ./...) ;;
-    test:tools) : ;; # Dependency-only module; tidy and pinned tool execution cover it.
+    test:tools) : ;;   # Dependency-only module; tidy and pinned tool execution cover it.
+    test:records) : ;; # No Go packages; the module only bounds the root module.
     tidy:*) (cd "$directory" && go mod tidy "$@") ;;
     *)
       printf 'Unsupported module operation: %s:%s\n' "$operation" "$role" >&2

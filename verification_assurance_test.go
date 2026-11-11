@@ -1,8 +1,8 @@
 package unswell_test
 
 import (
-	_ "embed"
 	"encoding/json"
+	"os"
 	"strings"
 	"testing"
 
@@ -11,8 +11,9 @@ import (
 	"github.com/stokaro/unswell/document"
 )
 
-//go:embed research/reviews/2026-09-26-evidence-claims/cases.json
-var verificationAssuranceCases []byte
+// verificationAssuranceCasesPath is read at run time: research records are a
+// separate module, and embedding does not cross a module boundary.
+const verificationAssuranceCasesPath = "research/reviews/2026-09-26-evidence-claims/cases.json"
 
 func TestVerificationAssuranceConstructions(t *testing.T) {
 	var cases []struct {
@@ -21,6 +22,8 @@ func TestVerificationAssuranceConstructions(t *testing.T) {
 		Match bool   `json:"match"`
 	}
 	c := qt.New(t)
+	verificationAssuranceCases, err := os.ReadFile(verificationAssuranceCasesPath)
+	c.Assert(err, qt.IsNil)
 	c.Assert(json.Unmarshal(verificationAssuranceCases, &cases), qt.IsNil)
 	engine := singleRuleEngine(t, "filler.unscoped-assurance", "", "")
 	for _, row := range cases {

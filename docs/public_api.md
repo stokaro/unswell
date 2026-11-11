@@ -22,6 +22,12 @@ changes against the preceding release and document intentional differences.
 | `github.com/stokaro/unswell/report` | Writers and saved-result decoding | alpha |
 | `github.com/stokaro/unswell/goanalysis` | Go analysis adapter in a separate module | alpha |
 
+Research records live in `github.com/stokaro/unswell/research`, a module without
+Go packages. It keeps them out of the root module: the Go module proxy refuses a
+source tree above 500 MB, and the records alone exceed that.
+`make check-module-size` holds the root module under 64 MB. `v0.1.0-alpha.5`
+predates the boundary and cannot be downloaded as a module.
+
 `make check-published-module` selects the newest published release, including
 prereleases. Use `scripts/verify-published-module.sh --version TAG` to select one
 explicitly. The script builds and tests the consumer module against the published
