@@ -5,6 +5,7 @@ import unittest
 from unittest.mock import patch
 
 import acquire
+import fetch_sources
 
 
 class SelectionTest(unittest.TestCase):
@@ -64,6 +65,28 @@ class SelectionTest(unittest.TestCase):
             with self.assertRaisesRegex(SystemExit, "invalid search response"):
                 acquire.selection(search, excluded, output)
             self.assertFalse(output.exists())
+
+    def test_source_bytes_must_match_frozen_git_blob(self):
+        import base64
+        import hashlib
+
+        data = b"# Readme\nExact UTF-8 bytes: \xc3\xa9\n"
+        sha = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
+        selected = {"readme_blob_sha1": sha, "readme_bytes": len(data)}
+        response = {"encoding": "base64", "sha": sha,
+                    "content": base64.b64encode(data).decode()}
+        self.assertEqual(fetch_sources.verified_blob(response, selected), data)
+        with self.assertRaisesRegex(ValueError, "Git blob SHA-1"):
+            fetch_sources.verified_blob({**response, "content": base64.b64encode(
+                data.replace(b"Exact", b"Other")).decode()}, selected)
+        with self.assertRaises(UnicodeDecodeError):
+            invalid = b"\xff" * len(data)
+            invalid_sha = hashlib.sha1(b"blob " + str(len(invalid)).encode() +
+                                       b"\0" + invalid).hexdigest()
+            fetch_sources.verified_blob({"encoding": "base64", "sha": invalid_sha,
+                                         "content": base64.b64encode(invalid).decode()},
+                                        {"readme_blob_sha1": invalid_sha,
+                                         "readme_bytes": len(invalid)})
 
 
 if __name__ == "__main__":
