@@ -17,12 +17,13 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 DIGESTS = "files.sha256"
-DATA_DIRECTORIES = ("audit", "configs", "items", "labels", "manifests", "phrases", "reviews", "rounds")
+DATA_DIRECTORIES = ("audit", "configs", "contextual", "items", "labels", "manifests", "phrases", "reviews", "rounds")
 DOCUMENT_KEYS = {"doc", "repository", "path", "sha256", "reference", "origin", "family", "operation", "items"}
 ITEM_KEYS = {"id", "kind", "segments"}
 LABEL_KEYS = {"doc", "annotator", "model", "effort", "rubric", "prompt_sha256", "flags", "unbound_flags"}
 FLAG_KEYS = {"item", "label", "categories"}
 REVIEW_KEYS = {"id", "set", "doc", "rule", "group", "phrase", "reviews", "severity", "span"}
+CONTEXT_KEYS = {"id", "set", "doc", "caller", "categories", "span", "reviews"}
 LABELS = {"needs_revision", "uncertain"}
 VERDICTS = {"yes", "no", "uncertain", None}
 SEVERITIES = {"note", "warning", "error"}
@@ -162,6 +163,30 @@ def load_reviews(root, sets, panel):
     return rounds
 
 
+def check_contextual(root, sets, panel):
+    """Check the flags of calling assistants: coordinates, categories, and verdicts only."""
+    reviewers = {name for name, member in panel.items() if "reviewer" in member["roles"]}
+    for path in sorted((root / "contextual").glob("*.jsonl.gz")):
+        seen = set()
+        for row in rows(path):
+            if set(row) != CONTEXT_KEYS:
+                fail(f"unexpected flag fields in {path.name}: {sorted(set(row) ^ CONTEXT_KEYS)}")
+            if row["id"] in seen:
+                fail(f"duplicate flag {row['id']} in {path.name}")
+            seen.add(row["id"])
+            if "caller" not in panel.get(row["caller"], {}).get("roles", []):
+                fail(f"flag by an assistant outside the panel: {row['caller']}")
+            if row["doc"] not in sets.get(row["set"], {}):
+                fail(f"flag for unknown document {row['doc']} in {row['set']}")
+            if not set(row["reviews"]) <= reviewers - {row["caller"]}:
+                fail(f"flag {row['id']} is judged by its own caller or outside the panel")
+            if any(verdict not in VERDICTS for verdict in row["reviews"].values()):
+                fail(f"invalid verdict for flag {row['id']}")
+            if not row["categories"] or any(" " in category for category in row["categories"]):
+                fail(f"flag {row['id']} carries text instead of categories")
+            check_span(row["span"], f"flag {row['id']}")
+
+
 def check_panel(panel):
     models = [member["model"] for member in panel.values()]
     if len(set(models)) != len(models):
@@ -239,6 +264,7 @@ def verify(root=HERE):
         fail("summary lists other sets than the item files")
     marks = load_labels(root, sets, panel)
     rounds = load_reviews(root, sets, panel)
+    check_contextual(root, sets, panel)
     check_separation(sets, roles)
     if normalized(summarize(sets, marks, rounds, roles, panel)) != normalized(published):
         fail("summary differs from the data files")
