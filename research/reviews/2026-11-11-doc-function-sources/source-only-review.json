@@ -1,0 +1,826 @@
+{
+  "acquisition_gate_passed": false,
+  "considered_not_positive": [
+    {
+      "id": "P03",
+      "reason": "Two separate automatic-unbind triggers are useful, and the tip is compact; repetition alone is not a clear defect.",
+      "source": "database-concept_reference-02.source",
+      "source_sha256": "e36e0326c7bd6f2e5efeb0a4d09bf5d977f0b4ea67f1fc19cb974f24fb3b78ec",
+      "span": {
+        "end": 4526,
+        "quote": "No need to call `$databaseUnbind`/`$firestoreUnbind` as `$databaseBind`/`$firestoreBind` will automatically unbind any existing binding on the provided key. Upon component removal, all bindings are removed as well, so no need to use `$databaseUnbind`/`$firestoreUnbind` in `unmounted` hooks.",
+        "start": 4235
+      }
+    },
+    {
+      "id": "P06",
+      "reason": "The platform-convergence sentence is rhetorical and the following operational reasoning supports its point; motive cannot be disproved from this page.",
+      "source": "security-guide-01.source",
+      "source_sha256": "21565b389a9b7e1462e40cef39827b92f54d2c98331729dae6af28c5c791ec18",
+      "span": {
+        "end": 23693,
+        "quote": "That is not five independent designs arriving at the same place by accident.",
+        "start": 23617
+      }
+    },
+    {
+      "id": "P08",
+      "reason": "The full performance section also exercises an authenticated tool and inspects service metrics; the opening only says testing helps validate performance, so the apparent mismatch is not clear.",
+      "source": "observability-guide-01.source",
+      "source_sha256": "fd915123881d3e1037618e81f5b8f4847c0265b4a278dfcedc10e09ba9b74cc1",
+      "span": {
+        "end": 26687,
+        "quote": "Performance testing helps validate the stability, scalability, and responsiveness of ContextForge under different workloads.",
+        "start": 26563
+      }
+    },
+    {
+      "id": "P10",
+      "reason": "The full FAQ explicitly directs readers to Docker or native CPAMP Full Mode for the full feature set; the phrase does not describe the lightweight panel.",
+      "source": "observability-concept_reference-02.source",
+      "source_sha256": "1ff5f48076b150a1e9b531addfd9c36eb8159a60d447391c0b7876fe6923ac58",
+      "span": {
+        "end": 1475,
+        "quote": "the full CPAMP feature set",
+        "start": 1449
+      }
+    }
+  ],
+  "counts": {
+    "controls": 32,
+    "out_of_domain": 1,
+    "positive_repositories": 6,
+    "positives": 8,
+    "retain_controls": 32,
+    "reviewed_english": 15,
+    "selected_development": 16
+  },
+  "development_sources_sha256": "d4cc0c89932af796784c26aca9478c6d0840ab660a805b5d9a20b29867906797",
+  "format": "unswell-349-doc-function-source-review-v1",
+  "labels": [
+    {
+      "diagnosis": "Two adjacent orientation sentences repeat the document title and the section structure without adding an upgrade action.",
+      "edit_safety": "safe",
+      "evidence_span": {
+        "end": 1857,
+        "quote": "## Breaking Changes to the Data Model",
+        "start": 1820
+      },
+      "evidence_state": "aligned",
+      "facts_to_retain": "The v0.10-to-v1.0 migration and the distinctions among data model, HTTP API, and WebSocket changes.",
+      "function": "guide",
+      "id": "P01",
+      "kind": "positive",
+      "reader_burden": "Readers reach the actual interface changes only after two descriptions of what the page will do.",
+      "repo": "bigchaindb/bigchaindb",
+      "safe_edit": "Begin the change sections after the version and compatibility context.",
+      "source": "database-guide-02.source",
+      "source_sha256": "8a8ed535c7b6a90b96bd462d23e15179ac4b799b75dcd5ab22c12ecce59635ed",
+      "span": {
+        "end": 1234,
+        "quote": "In this\ndocument, we'd like to give a comprehensive summary of those changes to allow\nyou to upgrade efficiently.\n\nThe next sections will go over each of the above mentioned interfaces and\ndetail the exact changes.",
+        "start": 1020
+      },
+      "topic": "database"
+    },
+    {
+      "diagnosis": "The sentence announces the breakdown already stated by the heading and endpoint subheadings.",
+      "edit_safety": "safe",
+      "evidence_span": {
+        "end": 5870,
+        "quote": "## Breaking Changes to the HTTP API",
+        "start": 5835
+      },
+      "evidence_state": "aligned",
+      "facts_to_retain": "Every endpoint name, old/new behavior, and example.",
+      "function": "guide",
+      "id": "P02",
+      "kind": "positive",
+      "reader_burden": "An extra preamble delays the first endpoint change.",
+      "repo": "bigchaindb/bigchaindb",
+      "safe_edit": "Remove only this announcement.",
+      "source": "database-guide-02.source",
+      "source_sha256": "8a8ed535c7b6a90b96bd462d23e15179ac4b799b75dcd5ab22c12ecce59635ed",
+      "span": {
+        "end": 5970,
+        "quote": "In this section, we'll go over each of the endpoints separately and list the\nchanges done to them:",
+        "start": 5872
+      },
+      "topic": "database"
+    },
+    {
+      "diagnosis": "The self-referential warning adds no rule before the actual runtime override rule.",
+      "edit_safety": "safe",
+      "evidence_span": {
+        "end": 12056,
+        "quote": "A frozen file is a complete, already-validated snapshot, and it is **authoritative**.",
+        "start": 11971
+      },
+      "evidence_state": "aligned",
+      "facts_to_retain": "A frozen file is authoritative and ordinary runtime environment variables do not override it.",
+      "function": "guide",
+      "id": "P04",
+      "kind": "positive",
+      "reader_burden": "The crucial behavior is delayed by a generic importance cue.",
+      "repo": "dmno-dev/varlock",
+      "safe_edit": "Start the section with the concrete rule.",
+      "source": "security-guide-01.source",
+      "source_sha256": "21565b389a9b7e1462e40cef39827b92f54d2c98331729dae6af28c5c791ec18",
+      "span": {
+        "end": 11969,
+        "quote": "This is the most important thing to understand before you use it.",
+        "start": 11904
+      },
+      "topic": "security"
+    },
+    {
+      "diagnosis": "The meta-comment delays the concrete rollback limitation immediately following it.",
+      "edit_safety": "safe",
+      "evidence_span": {
+        "end": 18137,
+        "quote": "The payload lives in platform config rather than inside the release",
+        "start": 18070
+      },
+      "evidence_state": "aligned",
+      "facts_to_retain": "An environment-variable payload is separate from the release, is another deployment operation, and does not roll back with code.",
+      "function": "guide",
+      "id": "P05",
+      "kind": "positive",
+      "reader_burden": "Readers must pass a comment on the explanation before reaching the reason.",
+      "repo": "dmno-dev/varlock",
+      "safe_edit": "State the rollback limitation directly.",
+      "source": "security-guide-01.source",
+      "source_sha256": "21565b389a9b7e1462e40cef39827b92f54d2c98331729dae6af28c5c791ec18",
+      "span": {
+        "end": 18068,
+        "quote": "it is worth being clear about why",
+        "start": 18035
+      },
+      "topic": "security"
+    },
+    {
+      "diagnosis": "The example says B has higher priority but returns A's value, contradicting the preceding first-match rule.",
+      "edit_safety": "requires_external_verification",
+      "evidence_span": {
+        "end": 14772,
+        "quote": "Here is the list of the **context sources** order from the highest to the lowest priority:",
+        "start": 14682
+      },
+      "evidence_state": "contradicted_by_scope",
+      "facts_to_retain": "The actual precedence must be checked against the authoritative implementation before changing A or B.",
+      "function": "concept_reference",
+      "id": "P07",
+      "kind": "positive",
+      "reader_burden": "A reader cannot determine the effective precedence from this example.",
+      "repo": "intuitem/ciso-assistant-community",
+      "safe_edit": "Verify implementation precedence and then correct the example; do not guess the intended winner.",
+      "source": "security-concept_reference-02.source",
+      "source_sha256": "5c474562fab82c5bb55682807009285b18a2bf2dc26d72f775d62cac4aa488f1",
+      "span": {
+        "end": 14680,
+        "quote": "if `B` has a higher priority than `A` and both `B` and `A` have a `\"someValue\"` context value, then the context value of `\"someValue\"` will be equal to `A[\"someValue\"]` instead of `B[\"someValue\"]`.",
+        "start": 14483
+      },
+      "topic": "security"
+    },
+    {
+      "diagnosis": "The completion claim includes comprehensive observability although monitoring setup remains a next step; the page also marks the flow as preview.",
+      "edit_safety": "safe",
+      "evidence_span": {
+        "end": 30212,
+        "quote": "1. **Set up monitoring**: Deploy Prometheus and Grafana for detailed metrics",
+        "start": 30136
+      },
+      "evidence_state": "contradicted_by_scope",
+      "facts_to_retain": "The deployment path and the explicit outstanding monitoring, alerting, and hardening steps.",
+      "function": "guide",
+      "id": "P09",
+      "kind": "positive",
+      "reader_burden": "Readers may infer production qualification and monitoring are already complete.",
+      "repo": "IBM/mcp-context-forge",
+      "safe_edit": "Describe the deployment as a starting stack and keep the outstanding steps visible.",
+      "source": "observability-guide-01.source",
+      "source_sha256": "fd915123881d3e1037618e81f5b8f4847c0265b4a278dfcedc10e09ba9b74cc1",
+      "span": {
+        "end": 30119,
+        "quote": "You now have a production-ready ContextForge stack on IBM Cloud Kubernetes Service with GitOps management, managed databases, and comprehensive observability!",
+        "start": 29961
+      },
+      "topic": "observability"
+    },
+    {
+      "diagnosis": "The importance cue delays a concrete packet-loss caveat.",
+      "edit_safety": "safe",
+      "evidence_span": {
+        "end": 9954,
+        "quote": "Therefore, it’s advisable to use pf_ring for support or switch to raw socket capture.",
+        "start": 9867
+      },
+      "evidence_state": "aligned",
+      "facts_to_retain": "pcap can lose more packets than raw sockets in some scenarios; pf_ring or raw sockets are alternatives.",
+      "function": "concept_reference",
+      "id": "P11",
+      "kind": "positive",
+      "reader_burden": "The operational warning is harder to spot at the start of an otherwise direct technical section.",
+      "repo": "session-replay-tools/tcpcopy",
+      "safe_edit": "Lead with the packet-loss limitation.",
+      "source": "testing-concept_reference-01.source",
+      "source_sha256": "f6c732fd22432a9075d6f01eebb5edf73750e20afef6e22192ea6e8e5cfa3f3a",
+      "span": {
+        "end": 9866,
+        "quote": "It’s important to note that in certain scenarios, pcap packet capture may experience higher packet loss rates than raw socket capture.",
+        "start": 9730
+      },
+      "topic": "testing"
+    },
+    {
+      "diagnosis": "The opening superlative and near-universal image claim have no comparison or compatibility boundary on the page.",
+      "edit_safety": "safe",
+      "evidence_span": {
+        "end": 413,
+        "quote": "To specify the container image, use `WithImage(...)`.",
+        "start": 360
+      },
+      "evidence_state": "unresolved",
+      "facts_to_retain": "Generic containers accept an image and can be configured with the documented builder methods.",
+      "function": "concept_reference",
+      "id": "P12",
+      "kind": "positive",
+      "reader_burden": "Readers must infer actual image support from API examples rather than the broad claim.",
+      "repo": "testcontainers/testcontainers-dotnet",
+      "safe_edit": "Describe the generic builder's configuration capability without a superlative.",
+      "source": "testing-concept_reference-02.source",
+      "source_sha256": "7846f6f7f381219b8c14bb797a42d001f037f48661c8fbc710dd7211f4802ba5",
+      "span": {
+        "end": 152,
+        "quote": "offers the greatest flexibility and makes it easy to use virtually any container image",
+        "start": 66
+      },
+      "topic": "testing"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C01",
+      "kind": "control",
+      "reason": "The limitation and strict-mode alternative scope a real index operation.",
+      "repo": "orioledb/orioledb",
+      "source": "database-concept_reference-01.source",
+      "source_sha256": "f179b472a198ba6e270e2f990a22a7cdf40ba1cdeebbe4e897ec85a575e052f6",
+      "span": {
+        "end": 1005,
+        "quote": "UNIQUE CIC\n  is downgraded to a plain build (or rejected in strict mode)",
+        "start": 933
+      },
+      "topic": "database"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C02",
+      "kind": "control",
+      "reason": "The explicit crash boundary is necessary to interpret the spool design.",
+      "repo": "orioledb/orioledb",
+      "source": "database-concept_reference-01.source",
+      "source_sha256": "f179b472a198ba6e270e2f990a22a7cdf40ba1cdeebbe4e897ec85a575e052f6",
+      "span": {
+        "end": 5878,
+        "quote": "Entries are NOT WAL-logged and are NOT crash-recoverable",
+        "start": 5822
+      },
+      "topic": "database"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C03",
+      "kind": "control",
+      "reason": "The numeric ceiling is a migration constraint.",
+      "repo": "bigchaindb/bigchaindb",
+      "source": "database-guide-02.source",
+      "source_sha256": "8a8ed535c7b6a90b96bd462d23e15179ac4b799b75dcd5ab22c12ecce59635ed",
+      "span": {
+        "end": 2778,
+        "quote": "numbers are capped at 9e18",
+        "start": 2752
+      },
+      "topic": "database"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C04",
+      "kind": "control",
+      "reason": "The query value and negation distinguish spent from unspent outputs.",
+      "repo": "bigchaindb/bigchaindb",
+      "source": "database-guide-02.source",
+      "source_sha256": "8a8ed535c7b6a90b96bd462d23e15179ac4b799b75dcd5ab22c12ecce59635ed",
+      "span": {
+        "end": 11196,
+        "quote": "If `?spent=false`, response is an array of all NOT YET spent",
+        "start": 11136
+      },
+      "topic": "database"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C05",
+      "kind": "control",
+      "reason": "The one-way boundary prevents users from mistaking a local edit for a database write.",
+      "repo": "vuejs/vuefire",
+      "source": "database-concept_reference-02.source",
+      "source_sha256": "e36e0326c7bd6f2e5efeb0a4d09bf5d977f0b4ea67f1fc19cb974f24fb3b78ec",
+      "span": {
+        "end": 551,
+        "quote": "However, this synchronization **is only one-way**.",
+        "start": 501
+      },
+      "topic": "database"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C06",
+      "kind": "control",
+      "reason": "The initial-value type changes binding behavior.",
+      "repo": "vuejs/vuefire",
+      "source": "database-concept_reference-02.source",
+      "source_sha256": "e36e0326c7bd6f2e5efeb0a4d09bf5d977f0b4ea67f1fc19cb974f24fb3b78ec",
+      "span": {
+        "end": 3003,
+        "quote": "For Firebase Database, using an _Array_ as the initial value will bind the Reference as an array",
+        "start": 2907
+      },
+      "topic": "database"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C07",
+      "kind": "control",
+      "reason": "The concrete authority rule is the point of the section.",
+      "repo": "dmno-dev/varlock",
+      "source": "security-guide-01.source",
+      "source_sha256": "21565b389a9b7e1462e40cef39827b92f54d2c98331729dae6af28c5c791ec18",
+      "span": {
+        "end": 12056,
+        "quote": "A frozen file is a complete, already-validated snapshot, and it is **authoritative**.",
+        "start": 11971
+      },
+      "topic": "security"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C08",
+      "kind": "control",
+      "reason": "The temporal limitation changes secret-rotation operations.",
+      "repo": "dmno-dev/varlock",
+      "source": "security-guide-01.source",
+      "source_sha256": "21565b389a9b7e1462e40cef39827b92f54d2c98331729dae6af28c5c791ec18",
+      "span": {
+        "end": 2608,
+        "quote": "a rotated secret takes effect on the next build or deploy, not the next restart",
+        "start": 2529
+      },
+      "topic": "security"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C09",
+      "kind": "control",
+      "reason": "Unverified is a distinct compatibility state and must not become supported.",
+      "repo": "nolabs-ai/nono",
+      "source": "security-concept_reference-01.source",
+      "source_sha256": "e2bcf44b6b204b24f348a2681ac56a38d12392e21b0411dd28228812bf18dd0b",
+      "span": {
+        "end": 3003,
+        "quote": "`--isolate` / `linux.isolate` (namespace isolation) | Unverified",
+        "start": 2939
+      },
+      "topic": "security"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C10",
+      "kind": "control",
+      "reason": "This explains why the default policy fails secure.",
+      "repo": "nolabs-ai/nono",
+      "source": "security-concept_reference-01.source",
+      "source_sha256": "e2bcf44b6b204b24f348a2681ac56a38d12392e21b0411dd28228812bf18dd0b",
+      "span": {
+        "end": 4477,
+        "quote": "On WSL2, seccomp notify returns EBUSY, so the child could bypass the proxy.",
+        "start": 4402
+      },
+      "topic": "security"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C11",
+      "kind": "control",
+      "reason": "The plaintext warning is an actionable security constraint.",
+      "repo": "microsoft/PyRIT",
+      "source": "security-guide-02.source",
+      "source_sha256": "938f7105456db480e96869a4a927f300f0a33718cf259b13321701be79a0585d",
+      "span": {
+        "end": 2225,
+        "quote": "Only put the values you need to patch in this file. Because it contains plaintext secrets, do not commit it.",
+        "start": 2117
+      },
+      "topic": "security"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C12",
+      "kind": "control",
+      "reason": "The qualifier separates syntax tolerance from real failures.",
+      "repo": "microsoft/PyRIT",
+      "source": "security-guide-02.source",
+      "source_sha256": "938f7105456db480e96869a4a927f300f0a33718cf259b13321701be79a0585d",
+      "span": {
+        "end": 16795,
+        "quote": "Non-strict mode does not suppress operational failures.",
+        "start": 16740
+      },
+      "topic": "security"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C13",
+      "kind": "control",
+      "reason": "Despite rough grammar, the current-versus-target distinction is necessary.",
+      "repo": "intuitem/ciso-assistant-community",
+      "source": "security-concept_reference-02.source",
+      "source_sha256": "5c474562fab82c5bb55682807009285b18a2bf2dc26d72f775d62cac4aa488f1",
+      "span": {
+        "end": 1407,
+        "quote": "This spec describe how the test codebase should be, not how it is at this exact moment.",
+        "start": 1320
+      },
+      "topic": "security"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C14",
+      "kind": "control",
+      "reason": "The exception prevents an overbroad reading of the import rule.",
+      "repo": "intuitem/ciso-assistant-community",
+      "source": "security-concept_reference-02.source",
+      "source_sha256": "5c474562fab82c5bb55682807009285b18a2bf2dc26d72f775d62cac4aa488f1",
+      "span": {
+        "end": 9011,
+        "quote": "Note that this restriction doesn't include type-only import declarations.",
+        "start": 8938
+      },
+      "topic": "security"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C15",
+      "kind": "control",
+      "reason": "The preview status limits the reader's confidence in a deployment guide.",
+      "repo": "IBM/mcp-context-forge",
+      "source": "observability-guide-01.source",
+      "source_sha256": "fd915123881d3e1037618e81f5b8f4847c0265b4a278dfcedc10e09ba9b74cc1",
+      "span": {
+        "end": 161,
+        "quote": "This guide is in preview and will continue to evolve.",
+        "start": 108
+      },
+      "topic": "observability"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C16",
+      "kind": "control",
+      "reason": "The authentication default affects how users access the API.",
+      "repo": "IBM/mcp-context-forge",
+      "source": "observability-guide-01.source",
+      "source_sha256": "fd915123881d3e1037618e81f5b8f4847c0265b4a278dfcedc10e09ba9b74cc1",
+      "span": {
+        "end": 15811,
+        "quote": "Basic auth for API endpoints is disabled by default for security.",
+        "start": 15746
+      },
+      "topic": "observability"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C17",
+      "kind": "control",
+      "reason": "The qualifier matters to query interpretation.",
+      "repo": "pydantic/logfire",
+      "source": "observability-concept_reference-01.source",
+      "source_sha256": "18a22a0cc87fc02396e29c3dc903235688853b544df5a1bbf1d9e758c65dc38f",
+      "span": {
+        "end": 14234,
+        "quote": "Exceptions usually represent errors, but not always.",
+        "start": 14182
+      },
+      "topic": "observability"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C18",
+      "kind": "control",
+      "reason": "The table-specific timestamp distinction prevents a wrong query.",
+      "repo": "pydantic/logfire",
+      "source": "observability-concept_reference-01.source",
+      "source_sha256": "18a22a0cc87fc02396e29c3dc903235688853b544df5a1bbf1d9e758c65dc38f",
+      "span": {
+        "end": 13246,
+        "quote": "The `metrics` table also has a `start_timestamp` column, but you should usually use `recorded_timestamp` instead",
+        "start": 13134
+      },
+      "topic": "observability"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C19",
+      "kind": "control",
+      "reason": "The FAQ's direct telemetry answer is distinct from optional configured outbound features.",
+      "repo": "seakee/CPA-Manager-Plus",
+      "source": "observability-concept_reference-02.source",
+      "source_sha256": "1ff5f48076b150a1e9b531addfd9c36eb8159a60d447391c0b7876fe6923ac58",
+      "span": {
+        "end": 12187,
+        "quote": "No telemetry is uploaded.",
+        "start": 12162
+      },
+      "topic": "observability"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C20",
+      "kind": "control",
+      "reason": "The retention condition determines whether missing usage data is recoverable.",
+      "repo": "seakee/CPA-Manager-Plus",
+      "source": "observability-concept_reference-02.source",
+      "source_sha256": "1ff5f48076b150a1e9b531addfd9c36eb8159a60d447391c0b7876fe6923ac58",
+      "span": {
+        "end": 11242,
+        "quote": "If Manager Server is down longer than the retention window, that period usually cannot be recovered from CPA.",
+        "start": 11133
+      },
+      "topic": "observability"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C21",
+      "kind": "control",
+      "reason": "The guard prevents a false benchmark improvement.",
+      "repo": "DataDog/datadog-agent",
+      "source": "observability-guide-02.source",
+      "source_sha256": "6ad3d6885e5efb541ee96504bbd9d54cb6a32b4057cc7a108543d31e117dd19f",
+      "span": {
+        "end": 17917,
+        "quote": "A broken check costs nothing: it must never pass for a performance improvement.",
+        "start": 17838
+      },
+      "topic": "observability"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C22",
+      "kind": "control",
+      "reason": "The omission is a concrete measurement limit.",
+      "repo": "DataDog/datadog-agent",
+      "source": "observability-guide-02.source",
+      "source_sha256": "6ad3d6885e5efb541ee96504bbd9d54cb6a32b4057cc7a108543d31e117dd19f",
+      "span": {
+        "end": 17472,
+        "quote": "The `container` and `containerd` checks aren't timed.",
+        "start": 17419
+      },
+      "topic": "observability"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C23",
+      "kind": "control",
+      "reason": "The tradeoff qualifies an otherwise favorable architecture description.",
+      "repo": "session-replay-tools/tcpcopy",
+      "source": "testing-concept_reference-01.source",
+      "source_sha256": "f6c732fd22432a9075d6f01eebb5edf73750e20afef6e22192ea6e8e5cfa3f3a",
+      "span": {
+        "end": 9538,
+        "quote": "This architecture requires more machine resources and is more challenging to use",
+        "start": 9458
+      },
+      "topic": "testing"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C24",
+      "kind": "control",
+      "reason": "The availability boundary is specific and relevant.",
+      "repo": "session-replay-tools/tcpcopy",
+      "source": "testing-concept_reference-01.source",
+      "source_sha256": "f6c732fd22432a9075d6f01eebb5edf73750e20afef6e22192ea6e8e5cfa3f3a",
+      "span": {
+        "end": 10698,
+        "quote": "only the second and third architectures are open-source",
+        "start": 10643
+      },
+      "topic": "testing"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C25",
+      "kind": "control",
+      "reason": "The caveat limits what generated test data proves.",
+      "repo": "unionai-oss/pandera",
+      "source": "testing-guide-01.source",
+      "source_sha256": "2f9522efe7791238030a0ab81df955255070bb21cbd8dc6568db0e21d8f4f834",
+      "span": {
+        "end": 11630,
+        "quote": "The values satisfy the schema but are not realistic",
+        "start": 11579
+      },
+      "topic": "testing"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C26",
+      "kind": "control",
+      "reason": "The explicit supported backends prevent feature overclaim.",
+      "repo": "unionai-oss/pandera",
+      "source": "testing-guide-01.source",
+      "source_sha256": "2f9522efe7791238030a0ab81df955255070bb21cbd8dc6568db0e21d8f4f834",
+      "span": {
+        "end": 11896,
+        "quote": "`generate` currently supports **pandas** dataframe schemas and **xarray**",
+        "start": 11823
+      },
+      "topic": "testing"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C27",
+      "kind": "control",
+      "reason": "The portability limit explains the warning against host mounts.",
+      "repo": "testcontainers/testcontainers-dotnet",
+      "source": "testing-concept_reference-02.source",
+      "source_sha256": "7846f6f7f381219b8c14bb797a42d001f037f48661c8fbc710dd7211f4802ba5",
+      "span": {
+        "end": 3417,
+        "quote": "Host paths differ between environments and may not be available on every system or Docker setup",
+        "start": 3322
+      },
+      "topic": "testing"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "concept_reference",
+      "id": "C28",
+      "kind": "control",
+      "reason": "The immutable-builder rule is essential usage guidance.",
+      "repo": "testcontainers/testcontainers-dotnet",
+      "source": "testing-concept_reference-02.source",
+      "source_sha256": "7846f6f7f381219b8c14bb797a42d001f037f48661c8fbc710dd7211f4802ba5",
+      "span": {
+        "end": 11679,
+        "quote": "Calling `WithImage(...)` without using the returned builder does not update the existing instance",
+        "start": 11582
+      },
+      "topic": "testing"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C29",
+      "kind": "control",
+      "reason": "The environment exclusion is required for the TypeScript loader example.",
+      "repo": "theintern/intern",
+      "source": "testing-guide-02.source",
+      "source_sha256": "7be2df5ee56578afc0a1c32d2ea82bd64f2f3f13772244280018401c8cba6aa6",
+      "span": {
+        "end": 2946,
+        "quote": "This method does not work in browsers.",
+        "start": 2908
+      },
+      "topic": "testing"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C30",
+      "kind": "control",
+      "reason": "The warning limits a proposed speed optimization.",
+      "repo": "theintern/intern",
+      "source": "testing-guide-02.source",
+      "source_sha256": "7be2df5ee56578afc0a1c32d2ea82bd64f2f3f13772244280018401c8cba6aa6",
+      "span": {
+        "end": 3722,
+        "quote": "disabling feature tests may lead to test failures",
+        "start": 3673
+      },
+      "topic": "testing"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C31",
+      "kind": "control",
+      "reason": "The failure behavior is a concrete operational limitation.",
+      "repo": "microsoft/PyRIT",
+      "source": "security-guide-02.source",
+      "source_sha256": "938f7105456db480e96869a4a927f300f0a33718cf259b13321701be79a0585d",
+      "span": {
+        "end": 17016,
+        "quote": "Loading remains non-transactional, so earlier successful assignments remain.",
+        "start": 16940
+      },
+      "topic": "security"
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": null,
+      "function": "guide",
+      "id": "C32",
+      "kind": "control",
+      "reason": "The sentence introduces a distinct measurement that CPU usage alone can hide.",
+      "repo": "DataDog/datadog-agent",
+      "source": "observability-guide-02.source",
+      "source_sha256": "6ad3d6885e5efb541ee96504bbd9d54cb6a32b4057cc7a108543d31e117dd19f",
+      "span": {
+        "end": 16743,
+        "quote": "So the benchmark also compares the run times of two checks:",
+        "start": 16684
+      },
+      "topic": "observability"
+    }
+  ],
+  "reviewer": "root Codex assistant; assistant review under ADR 0041",
+  "source_dispositions": {
+    "database-concept_reference-01.source": "reviewed_english",
+    "database-concept_reference-02.source": "reviewed_english",
+    "database-guide-01.source": "out_of_domain_chinese",
+    "database-guide-02.source": "reviewed_english",
+    "observability-concept_reference-01.source": "reviewed_english",
+    "observability-concept_reference-02.source": "reviewed_english",
+    "observability-guide-01.source": "reviewed_english",
+    "observability-guide-02.source": "reviewed_english",
+    "security-concept_reference-01.source": "reviewed_english",
+    "security-concept_reference-02.source": "reviewed_english",
+    "security-guide-01.source": "reviewed_english",
+    "security-guide-02.source": "reviewed_english",
+    "testing-concept_reference-01.source": "reviewed_english",
+    "testing-concept_reference-02.source": "reviewed_english",
+    "testing-guide-01.source": "reviewed_english",
+    "testing-guide-02.source": "reviewed_english"
+  },
+  "spec_sha256": "a670b662f40795a8456fe61b0137ca67864189ddbb2e3915709ca134d56e2dc1"
+}
