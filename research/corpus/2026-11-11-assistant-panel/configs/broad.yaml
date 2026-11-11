@@ -1,0 +1,132 @@
+version: 1
+extends: [builtin:technical-v1]
+language: en
+calibration:
+  model: none
+rules:
+  density.connective-overuse:
+    enabled: true
+    parameters:
+      phrases: ["moreover", "furthermore", "additionally", "consequently", "thus", "hence", "nevertheless", "nonetheless", "accordingly", "subsequently", "likewise", "similarly"]
+  filler.announced-importance:
+    enabled: true
+    parameters:
+      phrases: ["It is important to note that", "It is worth noting that", "It is crucial to note that", "it is important to note", "it's important to note", "important to note", "it is worth noting", "it's worth noting", "worth noting", "worth mentioning", "it should be noted", "keep in mind that", "bear in mind", "needless to say", "it goes without saying"]
+  filler.document-justification:
+    enabled: true
+  filler.document-metadiscourse:
+    enabled: true
+  filler.empty-transition:
+    enabled: true
+  filler.evaluative-closure:
+    enabled: true
+  filler.instruction-scaffolding:
+    enabled: true
+  filler.modern-world-opening:
+    enabled: true
+  filler.nominal-support:
+    enabled: true
+  filler.numbered-section-framing:
+    enabled: true
+  filler.section-announcement:
+    enabled: true
+  filler.stacked-hedging:
+    enabled: true
+  filler.unnamed-numerical-choice:
+    enabled: true
+  filler.unscoped-assurance:
+    enabled: true
+  filler.unspecified-update:
+    enabled: true
+  filler.weak-intensifiers:
+    enabled: true
+  filler.wordy-phrase:
+    enabled: true
+  format.em-dash-density:
+    enabled: true
+  format.list-fragmentation:
+    enabled: true
+  hype.absolute-claim:
+    enabled: true
+  hype.metaphor-cluster:
+    enabled: true
+  hype.modifier-cluster:
+    enabled: true
+  hype.vague-praise:
+    enabled: true
+    parameters:
+      phrases: ["game-changing solution", "unparalleled experience", "unprecedented excellence", "comprehensive", "robust", "powerful", "seamless", "seamlessly", "cutting-edge", "state-of-the-art", "innovative", "versatile", "intuitive", "effortless", "effortlessly", "streamlined", "sophisticated", "elegant", "blazing fast", "blazingly fast", "lightning-fast", "lightning fast", "next-generation", "world-class", "best-in-class", "feature-rich", "user-friendly", "vibrant", "holistic", "meticulous", "meticulously", "pivotal", "crucial", "vital", "invaluable", "indispensable", "unparalleled", "unmatched", "exceptional", "outstanding", "superior", "top-notch", "game-changing", "game-changer", "revolutionary", "transformative", "groundbreaking", "impressive", "remarkable", "remarkably", "incredibly", "extremely", "highly", "truly", "significantly", "substantially", "dramatically", "greatly", "vastly", "tremendous", "tremendously", "immensely", "exceptionally", "extraordinarily", "ultimate", "premier", "unrivaled", "flawless", "flawlessly", "stunning", "beautiful", "beautifully", "delightful", "amazing", "awesome", "incredible", "excellent", "production-ready", "enterprise-grade", "battle-tested", "rock-solid", "bulletproof", "future-proof", "supercharge", "supercharged", "turbocharge", "rich set of", "wide range of", "wide variety of", "a plethora of", "a myriad of", "myriad", "a multitude of", "straightforward", "simple yet powerful", "easy-to-use", "easy to use", "highly customizable", "fully customizable", "extensive", "unprecedented", "peace of mind", "with ease", "like never before", "to the next level", "second to none", "stands out", "sets it apart", "ever-evolving", "ever-changing", "fast-paced", "modern", "tapestry", "testament to", "landscape of", "realm of", "in the realm", "cornerstone", "paradigm shift", "synergy", "game changer", "treasure trove", "one-stop", "all-in-one", "seamless integration", "seamless experience", "smooth experience", "robust solution", "comprehensive solution", "comprehensive guide", "comprehensive overview", "comprehensive suite", "comprehensive set", "comprehensive documentation", "best practices"]
+  policy.banned-phrases:
+    enabled: true
+    parameters:
+      phrases: ["leverage", "leverages", "leveraging", "leveraged", "utilize", "utilizes", "utilizing", "harness", "harnesses", "harnessing", "empower", "empowers", "empowering", "streamline", "streamlines", "streamlining", "enhance", "enhances", "enhancing", "elevate", "elevates", "foster", "fosters", "fostering", "facilitate", "facilitates", "facilitating", "underscores", "showcase", "showcases", "showcasing", "delve", "delves", "delving", "unlock", "unlocks", "unleash", "revolutionize", "revolutionizes", "boasts", "boasting", "spearhead", "embark", "navigate the", "ensuring that", "ensures that", "tailored to", "designed to help", "aims to provide", "aims to", "as mentioned earlier", "as mentioned above", "as previously mentioned", "as you can see", "in conclusion", "in summary", "to summarize", "to sum up", "in essence", "at its core", "at the end of the day", "when it comes to", "in today's", "in the world of", "plays a crucial role", "plays a key role", "plays a vital role", "plays an important role", "a crucial role", "a key role", "a vital role", "is crucial for", "is essential for", "is vital for", "is key to", "whether you're", "whether you are", "look no further", "this guide will", "this document provides", "this section provides", "this guide provides", "this document outlines", "this section outlines", "this guide covers", "this section covers", "this document describes", "provides an overview", "an overview of", "by following these", "by following this", "by leveraging", "by adhering to", "rest assured", "feel free to", "don't hesitate to", "happy coding", "we hope", "we're excited", "we are excited", "we're thrilled", "get started today", "simply put", "that being said", "with that said", "first and foremost", "last but not least", "not only", "but also", "more than just", "is not just", "isn't just", "the following sections", "the following table", "the sections below", "as follows", "here's how", "here is how", "here's what", "here's a breakdown", "a breakdown of", "key takeaways", "key features", "key benefits", "in a nutshell", "the bottom line", "overall", "ultimately", "essentially", "basically", "importantly", "notably", "interestingly", "crucially", "as a result", "in contrast", "on the other hand", "in other words", "for instance", "specifically", "in particular", "in turn", "taken together", "together these", "these changes", "these features", "these capabilities", "these improvements", "this ensures", "this ensures that", "this enables", "this makes", "this means", "this helps", "this provides", "ensuring", "making it", "making it easy", "providing a", "offering a"]
+  readability.grade-metric:
+    enabled: true
+  readability.long-paragraph:
+    enabled: true
+  repetition.adjacent-word:
+    enabled: true
+  repetition.definition-echo:
+    enabled: true
+  repetition.duplicate-list-item:
+    enabled: true
+  repetition.exact-sentence:
+    enabled: true
+  repetition.explanatory-restart:
+    enabled: true
+  repetition.heading-echo:
+    enabled: true
+  repetition.near-sentence:
+    enabled: true
+  repetition.ngram-density:
+    enabled: true
+  repetition.paragraph-openers:
+    enabled: true
+  repetition.paragraph-overlap:
+    enabled: true
+  repetition.redundant-predicate:
+    enabled: true
+  repetition.redundant-support:
+    enabled: true
+  repetition.repeated-claim:
+    enabled: true
+  repetition.sentence-openers:
+    enabled: true
+  repetition.summary-echo:
+    enabled: true
+  repetition.syntax-template:
+    enabled: true
+  scaffold.ai-self-reference:
+    enabled: true
+  scaffold.chat-preamble:
+    enabled: true
+  scaffold.dive-in:
+    enabled: true
+    parameters:
+      phrases: ["Let's dive in", "Let's dive into", "Let's delve into", "dive into", "deep dive", "let's explore", "let's dive", "let's take a look"]
+  scaffold.follow-up-offer:
+    enabled: true
+  syntax.long-sentence:
+    enabled: true
+  syntax.nominalization-chain:
+    enabled: true
+  syntax.not-only-density:
+    enabled: true
+  syntax.noun-stack:
+    enabled: true
+  syntax.paired-contrast-density:
+    enabled: true
+  syntax.parenthetical-load:
+    enabled: true
+  syntax.passive-candidate-density:
+    enabled: true
+  syntax.repeated-reframing:
+    enabled: true
+  syntax.rhetorical-question-density:
+    enabled: true
+  syntax.slogan-contrast:
+    enabled: true
+  syntax.triad-density:
+    enabled: true
+  syntax.whether-preface-density:
+    enabled: true

@@ -1,0 +1,234 @@
+{
+ "density.connective-overuse": {
+  "summary": "Remove repeated transitions where the connection is already clear.",
+  "description": "Remove repeated transitions where the connection is already clear."
+ },
+ "filler.announced-importance": {
+  "summary": "State the fact without announcing its importance.",
+  "description": "State the fact without announcing its importance."
+ },
+ "filler.document-justification": {
+  "summary": "State the information directly; remove redundant document or outcome announcements.",
+  "description": "A document subject followed by 'exists so/to/because', deliberate non-repetition of material, a statement that a document part earns its place, a page explaining what its fields mean, editorial ownership, document dedication or future-presentation clauses, or announcements that definitions or counts are repeated or omitted here. Ownership may use a pronoun only after an adjacent explicit document announcement in the same block. A generic possibility announcement may precede two complete conditional branches in the same block. Exact counts, concrete outcome kinds and scoped introductions remain excluded. Storage existence and ordinary scope exclusions do not match. Reports complete matched clauses, once per clause."
+ },
+ "filler.document-metadiscourse": {
+  "summary": "Document self-description: check whether this announcement or navigation helps the reader.",
+  "description": "Recognizes document subjects followed by communicative verbs, and 'in this document, we' announcements. Also recognizes bare invitations to see an anaphoric referent in action; named objects and conditions stay excluded. Embedded document subjects identifying themselves as a map of a relative topic receive a self-description explanation; literal maps remain excluded. Groups their complete clauses within eight sentences of uninterrupted prose; one clause is sufficient."
+ },
+ "filler.empty-transition": {
+  "summary": "Check whether these repeated opening transitions add information.",
+  "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default."
+ },
+ "filler.evaluative-closure": {
+  "summary": "This clause announces information or endorses a result; state the information directly.",
+  "description": "An anaphoric purpose tail ('which is the point of doing it', 'which is what doing it is for'), a bare whole-point/design declaration, an anaphoric assertion of value or verification, an information subject announcing cognitive worth, abstract feature-purpose or intentionality closures, output claiming to prove understanding, or an impersonal modal notice followed by a that-clause. Also recognizes cognitive notices modifying information nouns, gerund-anaphor purpose clefts, relative feature-purpose predicates and discourse subjects declaring importance or editorial integrity. Information judgments may join adjacent evaluative predicates and retain a quoted noun-phrase subject. Discourse subjects admit selecting importance and attention predicates; author notices and document-outcome endorsements qualify. Document endorsements admit helped/helps with a reader object or a bare/to-infinitive action. Gerund action subjects can close with abstract functional clefts. Bare noun/counts compounds remain excluded. Discourse subjects contrasting verification with assertion receive a local evidence-commentary explanation; a bare it requires an information antecedent in its sentence. Concrete quantities, checking actors and explicit methods remain excluded from that construction. Bare information-subject/abstract-value identities retain their written offline/online prefix. Anaphoric abstract recasting contrasts receive a constraint-focused explanation; concrete alternatives and conditions before or after the candidate remain excluded. Attribution is scoped through the candidate clause; later operational reporting does not erase a preceding judgment. Bare anaphoric question and worth predicates retain local spans before coordinated or causal explanations. Deictic conversion appraisals, demonstrative-plan completion metaphors and unqualified abstract value labels receive guidance that preserves operational facts and requires verification before weakening claims. Literal control loops, explicit criteria and operational consequences remain excluded from these constructions. Concrete component purposes and measured evaluations stay excluded; notice and cognitive-worth frames retain their attached conditions. Reports complete matched clauses, once per clause."
+ },
+ "filler.instruction-scaffolding": {
+  "summary": "State the supported action directly; preserve its conditions and optionality.",
+  "description": "An affirmative impersonal capability with a transitive configuration or presentation action, or a reader-intention clause introducing an instruction. Anaphoric gerund methods, nominalized methods and reader-purpose clauses are also recognized. Nested enables/allows plus an action nominalization and passive infinitive, and nominal actions performed through a gerund method, also qualify. Actor-to-action projection recognizes ability nouns, modal used-to/used-for actions, named method predicates, and nested intended-to-enable actions. Narrated prerequisites and repeated same-actor obligations can introduce an action. Standalone generic reader enablement requires an adjacent method; concrete capability explanations remain controls. Infinitive reader goals admit coordinated actions. Relative operation or actor antecedents can carry nested support; capable-of gerunds, imperative assurance and purpose-to-steps announcements also qualify. A second method may be anchored by a repeated two-noun object and explicit reader action. An adjacent anaphoric method may name a nominal syntax or configuration instrument; that instrument cannot establish a standalone warning or replace a passive actor. A discourse-marked unnamed piece, bit or part of logic or code may carry a transitive gerund through allows, enables or supports. Named components, numbered architectural parts and unmarked part descriptions remain excluded. Reader prerequisites with will need to have the following and an installed-state operand request direct wording; separate deadlines, qualified states and optional requirements remain excluded. A complete temporal state prerequisite and impersonal safe/possible action may introduce an immediate To do this/that passive invocation of a named method or function. The pair requests direct instruction wording while retaining the safety qualifier and prerequisite; automatic execution and unnamed operations remain excluded. A reader-intent condition followed by a distinct action with an exact code-form command or option is already a direct optional instruction. The either/or coordinator before alternative actions is not an action verb. A supported-action prefix followed by a modal relative helpfulness clause and an unqualified purpose nominal requests direct wording for both layers while retaining their modality and the relative antecedent. A configuration operand or opaque identifier used as a standalone subject does not establish an actor for a simple modal used-to/used-for capability. Preserve modal meaning, named actors and conditions. Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. Failure, permission, negation and quoted constructions do not match. Reports complete matched clauses, once per clause. An immediate anaphoric method may be related across adjacent prose paragraphs, without crossing structural boundaries."
+ },
+ "filler.modern-world-opening": {
+  "summary": "Replace the generic opening with the document's subject.",
+  "description": "Replace the generic opening with the document's subject."
+ },
+ "filler.nominal-support": {
+  "summary": "Consider expressing the action or frequency without this support noun.",
+  "description": "An inflected make followed by use of an operand, an instrumental by/through/with the use of construction, or a frequency or execution-mode modifier carried by basis or manner. Modified use nouns, legal use restrictions, quantities and unrelated nominal subjects do not match. Reports complete matched clauses, once per clause."
+ },
+ "filler.numbered-section-framing": {
+  "summary": "The introduction and heading emphasize a count instead of naming the section's subject.",
+  "description": "A paragraph opens with a count and a generic content noun; the next heading repeats only that count and noun. Reports the opening clause and the related heading. Code, lists, intervening paragraphs, and excluded content break the pair."
+ },
+ "filler.section-announcement": {
+  "summary": "Replace repeated section announcements with their subject.",
+  "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default."
+ },
+ "filler.stacked-hedging": {
+  "summary": "Check whether each hedge expresses a distinct uncertainty; retain needed qualifications.",
+  "description": "Counts distinct configured modal/adverb cues in one clause; commas, punctuation, conjunctions, and code end a clause."
+ },
+ "filler.unnamed-numerical-choice": {
+  "summary": "Name the choice instead of introducing a count of unnamed answers or options.",
+  "description": "A prose block opens with a count and answers/options/choices, followed by ', and/but the right/best one depends on' and a stated selection condition. Reports that clause; the actual task is left unnamed by the opening."
+ },
+ "filler.unscoped-assurance": {
+  "summary": "State the behavior, scope or evidence behind this quality claim.",
+  "description": "A positive copular clause announces intentional quality without a mechanism, calls a choice nearly always right, or promises the fastest/best/easiest way to understand everything. Also recognizes affirmative extreme quality predicates and unrestricted claims about what everybody or nobody knows, wants or can verify, unsupported majority claims about reader preferences or practice, and anaphoric result tails predicting generic readers' preferences or understanding. Ordinary copular quality or difficulty judgments require a main subject and a complete predicate without a stated local mechanism. Testing-to-guarantee and unrestricted-trust constructions receive explanations of their specific assurance. Grouped occurrences use a specific explanation only when all occurrences support the same explanation; mixed groups retain the general diagnostic. Technical adjective-noun phrases, conditional, quantified and protected constructions are excluded. Reports complete matched clauses, once per clause. Local emphatic capability modifiers, optimization degree, attributive ease-to-use software descriptions, and deictic superlative benefits request criteria for their extent or ranking. Bare quality fragments may occur in headings or lists. Local measurements, criteria, comparisons, mechanisms, negation, attribution and quoted operators remain excluded; a bare count in an adjacent sentence and a reader-intent condition do not establish a quality criterion. Formal technical properties are not inferred from degree words alone. Testing or review activities guaranteeing abstract quality, and bare assertions that nothing is taken on trust, also request explicit scope. Concrete invariants, proofs, qualifications, attribution and protected code are excluded. Source-local quality claims about future-proofed APIs, unbounded feature-set rankings, paired subjective software qualities, reasonable defaults and important effects on quality request a criterion or concrete behavior. Named comparison sets, local mechanisms and quotations are excluded."
+ },
+ "filler.unspecified-update": {
+  "summary": "Identify the assets and version behind this update announcement.",
+  "description": "Matches a standalone affirmative update or upgrade of an indefinite asset set to an unnamed latest version. A second clause, another sentence in the same block, a stated version, attribution, quotation or condition excludes it. The rule does not determine whether an update happened or infer its destination version. Reports complete matched clauses, once per clause."
+ },
+ "filler.weak-intensifiers": {
+  "summary": "Check whether these intensifiers add a measurable distinction.",
+  "description": "Counts configured adverbs before adjectives/adverbs per 100 prose words, after the minimum word count."
+ },
+ "filler.wordy-phrase": {
+  "summary": "Consider a shorter phrase that preserves the condition or meaning.",
+  "description": "Consider a shorter phrase that preserves the condition or meaning."
+ },
+ "format.em-dash-density": {
+  "summary": "Em dashes exceed the selected local density; punctuation can be intentional.",
+  "description": "Counts U+2014 in selected prose per 100 prose words, with mapped source ranges including encoded Markdown entities."
+ },
+ "format.list-fragmentation": {
+  "summary": "Several short lists fragment this section; check whether the grouping helps readers.",
+  "description": "Counts complete short flat unordered lists in a bounded section window using grammar-derived list ownership."
+ },
+ "hype.absolute-claim": {
+  "summary": "Check whether this guarantee has conditions or exceptions.",
+  "description": "Matches configured phrases in affirmative prose, excluding questions and explicit qualifications conservatively."
+ },
+ "hype.metaphor-cluster": {
+  "summary": "Replace clustered stock metaphors with specific properties.",
+  "description": "Counts nonoverlapping configured phrases in bounded prose windows; one occurrence is allowed by default."
+ },
+ "hype.modifier-cluster": {
+  "summary": "Replace the cluster of evaluative modifiers with specific properties.",
+  "description": "Replace the cluster of evaluative modifiers with specific properties."
+ },
+ "hype.vague-praise": {
+  "summary": "Replace general praise with a specific property or measured result.",
+  "description": "Matches configured phrases in affirmative prose, excluding questions and explicit qualifications conservatively."
+ },
+ "policy.banned-phrases": {
+  "summary": "Remove a phrase forbidden by this editorial policy.",
+  "description": "Remove a phrase forbidden by this editorial policy."
+ },
+ "readability.grade-metric": {
+  "summary": "The ARI formula exceeds the selected level; consider the audience and keep necessary technical terms.",
+  "description": "Applies 4.71*characters/words + 0.5*words/sentences - 21.43 to local extracted prose words, excluding identifier-shaped tokens and counting each part of a hyphenated compound as a word."
+ },
+ "readability.long-paragraph": {
+  "summary": "Consider paragraph boundaries while keeping each condition with the statement it qualifies.",
+  "description": "Requires both paragraph length and a configured count of long sentences; reports local descriptive measurements."
+ },
+ "repetition.adjacent-word": {
+  "summary": "This word occurs twice in succession; check for an accidental duplicate.",
+  "description": "Locates adjacent equal prose words separated only by whitespace. Quoted examples, protected text, repeated adjectives/adverbs, and ambiguous grammatical repetitions are excluded. Quotation protection follows the repeated tokens, including quotes spanning sentences in one block. Numeric operands and formatting conversions are not prose words; uppercase Boolean operator names remain distinct from their lowercase grammatical uses."
+ },
+ "repetition.definition-echo": {
+  "summary": "The definition repeats its subject; state the distinguishing information directly.",
+  "description": "A positive copula repeats the same nominal phrase, ignoring articles, immediately before ', not' and a nominal alternative. Also recognizes a still-qualified repetition of the same nominal or gerund subject, including a bounded both-object ellipsis. Added modifiers, conditions and code identifiers are excluded; bare uncontrasted identities stay outside the rule. Reports complete matched clauses, once per clause."
+ },
+ "repetition.duplicate-list-item": {
+  "summary": "This complete list item is repeated in the same list; check whether both entries describe the same change.",
+  "description": "Compares complete simple unordered items within one grammar list and section, preserving case, punctuation and references."
+ },
+ "repetition.exact-sentence": {
+  "summary": "This sentence is repeated; consider whether every occurrence is needed.",
+  "description": "Compares sentences within one structural section, with separate table-cell, leading-condition, and Markdown details scopes. Protected operands are compared by literal source identity without interpreting their contents."
+ },
+ "repetition.explanatory-restart": {
+  "summary": "The explanation repeats a judgment; state it once and name the concrete cause.",
+  "description": "A nominal subject and a copular adjective are repeated as 'and it/they is/are ADJECTIVE because'. The repeated copula and adjective must agree; negation, quantities, conditions and ambiguous noun antecedents are excluded. A reason-subject setup also includes a final abstract optimization or design judgment repeating the same adjective. Reports complete matched clauses, once per clause."
+ },
+ "repetition.heading-echo": {
+  "summary": "The first paragraph closely echoes its heading; check whether it adds information.",
+  "description": "Compares a selected heading with its immediately following paragraph using exact set Jaccard."
+ },
+ "repetition.near-sentence": {
+  "summary": "These sentences have high lexical overlap; check for repeated information.",
+  "description": "Compares indexed sentence candidates with set Jaccard and a shared technical-contrast signature."
+ },
+ "repetition.ngram-density": {
+  "summary": "This phrase recurs in a short prose window; check whether each use is needed.",
+  "description": "Groups repeated consecutive prose n-grams in sentence windows; longer covering phrases take precedence."
+ },
+ "repetition.paragraph-openers": {
+  "summary": "Several paragraphs repeat the same opening formula.",
+  "description": "Groups opening words from each paragraph's first sentence. The word minimum applies to the complete paragraph."
+ },
+ "repetition.paragraph-overlap": {
+  "summary": "These prose blocks have high lexical overlap; check for repeated information.",
+  "description": "Builds connected clusters of Jaccard-qualified block pairs through an expiring inverted index."
+ },
+ "repetition.redundant-predicate": {
+  "summary": "The predicate repeats the relation already named by its subject.",
+  "description": "A category/type label describing its own unqualified category/type, or a path/location subject followed by is located/situated at/in, or a reason subject followed by is because. The grammatical subject must name the repeated relation; files, identifiers and control-flow conditions do not qualify. Reports complete matched clauses, once per clause."
+ },
+ "repetition.redundant-support": {
+  "summary": "This clause marks the same relationship twice; check whether one marker is enough.",
+  "description": "An additive also with a clause-final as well, an in-addition-to introduction with also in the same main clause, a like-introduced example immediately restated by for example, or adjacent then finally sequencing. Separate finite or to-infinitive predicates and literal as-well-as comparisons do not qualify. Reports complete matched clauses, once per clause."
+ },
+ "repetition.repeated-claim": {
+  "summary": "These passages repeat an assertion; check whether the explanation can be shared.",
+  "description": "Compares short complete assertions, assertions containing opaque inline-code atoms, and prefixes before a nonrestrictive ', which' clause, within one section and sentence window. Case, operands, punctuation, negation and conditions remain part of the exact identity. Also compares adjacent explicit reformulations of an only restriction as rejection of its negated property. Actors, predicates, tense, properties and objects must agree. A bounded possessive dependency-role conversion compares an owner's license restriction with its refusal of code not licensed under that property. A closed definition-benefit grammar compares the same opaque source and the same cross-page meaning invariant. A contribution section can connect an explicit add instruction and map-rendering statement to that source."
+ },
+ "repetition.sentence-openers": {
+  "summary": "Several sentences repeat the same opening; consider removing repeated setup.",
+  "description": "Several sentences repeat the same opening; consider removing repeated setup."
+ },
+ "repetition.summary-echo": {
+  "summary": "This summary has high lexical overlap with preceding prose; check what it adds.",
+  "description": "Compares paragraphs under explicitly configured selected summary headings with preceding nonsummary paragraphs."
+ },
+ "repetition.syntax-template": {
+  "summary": "Several sentences repeat a POS shape; check whether the structure serves the text.",
+  "description": "Groups complete normalized POS shapes with at least two lexical realizations; imperative openings and lists are excluded."
+ },
+ "scaffold.ai-self-reference": {
+  "summary": "Remove the assistant's self-reference.",
+  "description": "Remove the assistant's self-reference."
+ },
+ "scaffold.chat-preamble": {
+  "summary": "Start with the subject instead of a conversational acknowledgment.",
+  "description": "Start with the subject instead of a conversational acknowledgment."
+ },
+ "scaffold.dive-in": {
+  "summary": "Start with the subject instead of announcing the explanation.",
+  "description": "Start with the subject instead of announcing the explanation."
+ },
+ "scaffold.follow-up-offer": {
+  "summary": "Remove the conversational follow-up offer from this document.",
+  "description": "Remove the conversational follow-up offer from this document."
+ },
+ "syntax.long-sentence": {
+  "summary": "Consider splitting this long sentence without losing its conditions.",
+  "description": "Consider splitting this long sentence without losing its conditions."
+ },
+ "syntax.nominalization-chain": {
+  "summary": "Consider a direct verb while preserving the subject, conditions, and technical meaning.",
+  "description": "Matches a configured weak verb, a configured common noun, and an of-complement with a common-noun head."
+ },
+ "syntax.not-only-density": {
+  "summary": "Repeated paired contrasts make this passage formulaic.",
+  "description": "Counts ordered not-only/not-just followed by but in bounded prose windows, allowing one matching sentence."
+ },
+ "syntax.noun-stack": {
+  "summary": "Review this common-noun sequence; keep established technical terms.",
+  "description": "Counts NN modifiers followed by an NN/NNS head within a shallow NP chunk, stopping at terms, identifiers, and configured verb forms in predicate position."
+ },
+ "syntax.paired-contrast-density": {
+  "summary": "Check whether repeated paired contrasts carry distinct information.",
+  "description": "Counts paired contrasts in bounded prose windows: 'rather than' and 'instead of' and comma-not alternatives within a sentence, and adjacent 'It is not about'/'It is about' sentence pairs including contractions."
+ },
+ "syntax.parenthetical-load": {
+  "summary": "Review the load of balanced insertions; retain conditions, qualifications, and necessary definitions.",
+  "description": "Measures nonexempt words, pair count, and nesting of balanced parentheses and square brackets within a prose block."
+ },
+ "syntax.passive-candidate-density": {
+  "summary": "Several sentences contain be-plus-participle candidates; review voice only where the meaning allows it.",
+  "description": "Counts sentences containing a be verb, up to four adverbs, and VBN in bounded contiguous prose windows."
+ },
+ "syntax.repeated-reframing": {
+  "summary": "Repeated denial and redefinition: review whether both clauses add information.",
+  "description": "Groups adjacent copular denial/redefinition clauses, or a do-supported negative action followed by a finite positive action, with a repeated subject or anaphoric pronoun. Action pairs exclude attributed and quoted claims. A singular pronoun and determiner-led object can resolve a plural-noun tag on an s-ending finite predicate. Each pair stays in one block; repetition is counted within eight sentences of uninterrupted prose."
+ },
+ "syntax.rhetorical-question-density": {
+  "summary": "Check repeated question-and-short-answer transitions.",
+  "description": "Counts configured complete questions followed in the same block by a short nonquestion answer."
+ },
+ "syntax.slogan-contrast": {
+  "summary": "The contrast names abstract actions without their objects; name the check and its failure condition.",
+  "description": "A short nominal subject and a bare check/verify/prove verb opposed to a bare trust/assume/assert verb. Both verbs must lack objects and qualifiers; concrete alternatives and refusal/guessing contrasts are excluded. Reports complete matched clauses, once per clause."
+ },
+ "syntax.triad-density": {
+  "summary": "Check repeated triads of evaluative modifiers against specific properties.",
+  "description": "Counts three-item lists from the evaluative dictionary with at least two adjective tags; one triad is allowed."
+ },
+ "syntax.whether-preface-density": {
+  "summary": "Reduce repeated whether-you prefaces while preserving alternatives.",
+  "description": "Counts whether-you-are prefaces containing 'or' before a comma within 32 tokens; one occurrence is allowed."
+ }
+}

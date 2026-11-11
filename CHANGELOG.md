@@ -10,7 +10,9 @@ and reports qualified words such as `powerful` and `seamless`.
 enable them in configuration to keep their findings. These changes alter
 configuration hashes and reported findings. The
 [qualification record](docs/research/rule-qualification.md) reports precision by
-rule, a final test on 772 real pages, and the limits of the measurement.
+rule, a final test on 772 real pages, and the limits of the measurement. Its
+labels, reviews, and manifests are in
+`research/corpus/2026-11-11-assistant-panel`, without page text.
 
 One Markdown block that the grammar rejects no longer hides its file. The block
 is excluded with the reason `unparsed`, the rest of the file is analyzed, and the

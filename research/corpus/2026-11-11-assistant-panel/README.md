@@ -1,0 +1,115 @@
+# Assistant-panel corpus record
+
+This directory holds the data behind the
+[rule qualification record](../../../docs/research/rule-qualification.md) and
+the decisions of ADRs
+[0046](../../../docs/adr/0046-assistant-panel-corpus.md),
+[0047](../../../docs/adr/0047-qualified-defaults-and-assistant-review.md), and
+[0048](../../../docs/adr/0048-severity-follows-review.md).
+
+Every annotator, reviewer, and auditor here is an AI assistant. `summary.json`
+names the models. No label is a human judgment.
+
+## What is stored
+
+The record stores coordinates and decisions. It stores no page text, no quote,
+and no reviewer prose. A page is identified by its repository, path, commit
+reference, and SHA-256 digest, so it can be fetched again and checked.
+
+| Path | Content |
+| --- | --- |
+| `manifests/<set>.json` | Corpus manifest: source, commit reference, license, digest. |
+| `manifests/<set>-selection.json` | Selection log: every repository considered, in order, with the decision. |
+| `manifests/<set>-parse-failures.json` | Pages that the engine could not parse and that were left out. |
+| `items/<set>.jsonl.gz` | One row per document: its identity and the byte segments of each item. |
+| `labels/<set>.jsonl.gz` | One row per document and annotator: the items marked, with categories. |
+| `reviews/<round>.jsonl.gz` | One row per finding: rule, severity, byte span, and each reviewer's verdict. |
+| `audit/*.json` | Outcomes of the blind paired comparisons, with placebo rows. |
+| `phrases/*.json` | Phrase candidates, their statistics, the selection decisions, and the rule statements shown to reviewers. |
+| `configs/*.yaml` | Engine configurations: every rule enabled with all candidates, and the selected lists. |
+| `summary.json` | Panel, document counts, annotator agreement counts, and per-rule review counts. |
+| `files.sha256` | Digest of every data file. |
+| `scripts/` | The scripts that built the corpus, as they ran. |
+
+An item is a sentence, a paragraph without separate sentences, or a fragment of
+six or more words. Segments and spans are byte offsets into the page as it is
+at the pinned commit.
+
+## Sets
+
+| Set | Role | Documents | Labels |
+| --- | --- | ---: | --- |
+| `long-prose` | development | 493 | two annotators |
+| `real-dev-1` | development | 164 | two annotators |
+| `real-dev-2` | development | 593 | none |
+| `real-test-1a` | final test 1 | 127 | two annotators |
+| `real-test-1b` | final test 1 | 645 | two annotators |
+| `real-test-2` | final test 2 | 589 | none |
+
+`long-prose` comes from the archives of
+[the long-prose study](../../generation/studies/long-prose-v3). The other sets
+are README files and documentation pages of public repositories. No repository
+appears under two roles. A test set became development data after it was opened.
+
+## Review rounds
+
+| Round | Findings | Reviewers |
+| --- | ---: | --- |
+| `development` | 7,315 | `astra`, `claude` |
+| `final-test-1` | 1,453 | `astra`, `claude` |
+| `final-test-2` | 1,001 | `astra`, `claude`, `qwen` |
+
+A verdict answers one question: is the finding justified under the statement of
+its rule? The values are `yes`, `no`, and `uncertain`. A missing verdict means
+that the reviewer returned no answer for that finding. Nothing was repaired by
+hand.
+
+## Verify
+
+```sh
+make check-assistant-panel-corpus
+```
+
+The check runs offline. It compares file digests, rejects any field outside the
+schema, binds labels and reviews to existing items, checks repository
+separation between roles, and recomputes `summary.json` from the data files.
+Its tests break one property at a time and expect a rejection.
+
+## Rebuild
+
+The scripts read and write a workspace directory outside the repository. They
+need the GitHub command-line client and access to the three models. The model
+behind `qwen` runs on a private endpoint; its address and key come from the
+environment and are not part of this record.
+
+1. Select and fetch pages: `acquire_real.py`, `acquire_real_dev.py`,
+   `acquire_more.py`, `acquire_dev2.py`, `acquire_real3.py`, in that order. Each
+   one skips repositories that an earlier selection log names.
+2. Extract items: `build_docs.py` for the study archives, `prep_real.py` for
+   real pages.
+3. Annotate: `annotate.py` once per annotator.
+4. Run the engine with `configs/broad.yaml`, then review the findings with
+   `review_findings.py` once per reviewer.
+5. Select phrases and defaults: `rule_table.py`, `select_release.py`,
+   `gen_lexicon_go.py`.
+6. Audit: `audit.py` for items, `audit_spans.py` for findings.
+7. Report and export: `gen_docs.py`, `export_record.py`.
+
+`study.py`, `study2.py`, `study3.py`, `embed.py`, `mine.py`, `qualify.py`, and
+`excess.py` produced the negative results on fitted models and mined phrases
+that ADR 0047 reports.
+
+A rebuild does not reproduce the files byte for byte. Repository rankings
+change, and the models do not return the same answers twice.
+
+## Limits
+
+- Assistants wrote every label. The record does not measure agreement with a
+  human editor.
+- The two annotators agree on which items need revision with a Cohen kappa of
+  0.43 on the long-prose set.
+- Reviewers saw at most eight findings per rule and page.
+- `real-dev-2` and `real-test-2` have reviews of findings and no item labels, so
+  they give precision and no recall.
+- The auditor's paired comparison penalizes mechanical edits that break
+  grammar. The qualification record states the effect.

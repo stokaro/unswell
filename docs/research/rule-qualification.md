@@ -3,7 +3,9 @@
 This record supports the rule defaults and phrase lists that changed after
 [ADR 0046](../adr/0046-assistant-panel-corpus.md) and [ADR 0047](../adr/0047-qualified-defaults-and-assistant-review.md).
 Every reviewer here is an AI assistant. No number is a human judgment, and none
-measures agreement with a native-speaking editor.
+measures agreement with a native-speaking editor. The labels, reviews, and
+manifests are in the
+[corpus record](../../research/corpus/2026-11-11-assistant-panel/README.md).
 
 ## Documents
 

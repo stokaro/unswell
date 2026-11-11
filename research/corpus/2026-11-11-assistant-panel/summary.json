@@ -1,0 +1,506 @@
+{
+ "panel": {
+  "astra": {
+   "effort": "medium",
+   "model": "gpt-6-astra",
+   "roles": [
+    "annotator",
+    "reviewer"
+   ]
+  },
+  "claude": {
+   "effort": "default",
+   "model": "claude-sonnet-5-5",
+   "roles": [
+    "annotator",
+    "reviewer"
+   ]
+  },
+  "qwen": {
+   "effort": "default",
+   "model": "private-host/Qwen3.8-27B",
+   "roles": [
+    "auditor",
+    "reviewer"
+   ]
+  }
+ },
+ "rounds": [
+  {
+   "findings": 7315,
+   "round": "development",
+   "rules": {
+    "density.connective-overuse": {
+     "any_accept": 4,
+     "both_accept": 2,
+     "both_reject": 2,
+     "reviewed": 6
+    },
+    "filler.announced-importance": {
+     "any_accept": 58,
+     "both_accept": 56,
+     "both_reject": 0,
+     "reviewed": 58
+    },
+    "filler.document-justification": {
+     "any_accept": 4,
+     "both_accept": 4,
+     "both_reject": 0,
+     "reviewed": 4
+    },
+    "filler.document-metadiscourse": {
+     "any_accept": 87,
+     "both_accept": 63,
+     "both_reject": 13,
+     "reviewed": 100
+    },
+    "filler.evaluative-closure": {
+     "any_accept": 21,
+     "both_accept": 20,
+     "both_reject": 0,
+     "reviewed": 21
+    },
+    "filler.instruction-scaffolding": {
+     "any_accept": 143,
+     "both_accept": 94,
+     "both_reject": 26,
+     "reviewed": 169
+    },
+    "filler.nominal-support": {
+     "any_accept": 28,
+     "both_accept": 27,
+     "both_reject": 0,
+     "reviewed": 28
+    },
+    "filler.unscoped-assurance": {
+     "any_accept": 77,
+     "both_accept": 60,
+     "both_reject": 11,
+     "reviewed": 88
+    },
+    "filler.unspecified-update": {
+     "any_accept": 5,
+     "both_accept": 5,
+     "both_reject": 0,
+     "reviewed": 5
+    },
+    "filler.weak-intensifiers": {
+     "any_accept": 20,
+     "both_accept": 15,
+     "both_reject": 2,
+     "reviewed": 22
+    },
+    "filler.wordy-phrase": {
+     "any_accept": 116,
+     "both_accept": 116,
+     "both_reject": 0,
+     "reviewed": 116
+    },
+    "format.em-dash-density": {
+     "any_accept": 2,
+     "both_accept": 0,
+     "both_reject": 33,
+     "reviewed": 35
+    },
+    "hype.vague-praise": {
+     "any_accept": 694,
+     "both_accept": 518,
+     "both_reject": 91,
+     "reviewed": 787
+    },
+    "policy.banned-phrases": {
+     "any_accept": 1005,
+     "both_accept": 606,
+     "both_reject": 1010,
+     "reviewed": 2017
+    },
+    "readability.grade-metric": {
+     "any_accept": 245,
+     "both_accept": 33,
+     "both_reject": 638,
+     "reviewed": 903
+    },
+    "readability.long-paragraph": {
+     "any_accept": 33,
+     "both_accept": 2,
+     "both_reject": 0,
+     "reviewed": 33
+    },
+    "repetition.adjacent-word": {
+     "any_accept": 11,
+     "both_accept": 10,
+     "both_reject": 8,
+     "reviewed": 19
+    },
+    "repetition.duplicate-list-item": {
+     "any_accept": 6,
+     "both_accept": 6,
+     "both_reject": 0,
+     "reviewed": 6
+    },
+    "repetition.exact-sentence": {
+     "any_accept": 2,
+     "both_accept": 0,
+     "both_reject": 5,
+     "reviewed": 7
+    },
+    "repetition.explanatory-restart": {
+     "any_accept": 3,
+     "both_accept": 3,
+     "both_reject": 0,
+     "reviewed": 3
+    },
+    "repetition.near-sentence": {
+     "any_accept": 1,
+     "both_accept": 0,
+     "both_reject": 1,
+     "reviewed": 2
+    },
+    "repetition.ngram-density": {
+     "any_accept": 7,
+     "both_accept": 5,
+     "both_reject": 21,
+     "reviewed": 28
+    },
+    "repetition.paragraph-openers": {
+     "any_accept": 7,
+     "both_accept": 0,
+     "both_reject": 32,
+     "reviewed": 39
+    },
+    "repetition.paragraph-overlap": {
+     "any_accept": 1,
+     "both_accept": 0,
+     "both_reject": 8,
+     "reviewed": 9
+    },
+    "repetition.redundant-predicate": {
+     "any_accept": 2,
+     "both_accept": 2,
+     "both_reject": 0,
+     "reviewed": 2
+    },
+    "repetition.redundant-support": {
+     "any_accept": 5,
+     "both_accept": 5,
+     "both_reject": 0,
+     "reviewed": 5
+    },
+    "repetition.repeated-claim": {
+     "any_accept": 8,
+     "both_accept": 3,
+     "both_reject": 1,
+     "reviewed": 9
+    },
+    "repetition.sentence-openers": {
+     "any_accept": 21,
+     "both_accept": 4,
+     "both_reject": 56,
+     "reviewed": 77
+    },
+    "scaffold.dive-in": {
+     "any_accept": 0,
+     "both_accept": 0,
+     "both_reject": 8,
+     "reviewed": 8
+    },
+    "syntax.long-sentence": {
+     "any_accept": 915,
+     "both_accept": 641,
+     "both_reject": 149,
+     "reviewed": 1065
+    },
+    "syntax.nominalization-chain": {
+     "any_accept": 2,
+     "both_accept": 2,
+     "both_reject": 0,
+     "reviewed": 2
+    },
+    "syntax.noun-stack": {
+     "any_accept": 17,
+     "both_accept": 6,
+     "both_reject": 40,
+     "reviewed": 57
+    },
+    "syntax.paired-contrast-density": {
+     "any_accept": 0,
+     "both_accept": 0,
+     "both_reject": 47,
+     "reviewed": 47
+    },
+    "syntax.parenthetical-load": {
+     "any_accept": 28,
+     "both_accept": 2,
+     "both_reject": 93,
+     "reviewed": 121
+    },
+    "syntax.passive-candidate-density": {
+     "any_accept": 269,
+     "both_accept": 31,
+     "both_reject": 1139,
+     "reviewed": 1408
+    }
+   }
+  },
+  {
+   "findings": 1453,
+   "round": "final-test-1",
+   "rules": {
+    "filler.announced-importance": {
+     "any_accept": 1,
+     "both_accept": 1,
+     "both_reject": 0,
+     "reviewed": 1
+    },
+    "filler.document-metadiscourse": {
+     "any_accept": 41,
+     "both_accept": 20,
+     "both_reject": 12,
+     "reviewed": 53
+    },
+    "filler.evaluative-closure": {
+     "any_accept": 5,
+     "both_accept": 4,
+     "both_reject": 0,
+     "reviewed": 5
+    },
+    "filler.instruction-scaffolding": {
+     "any_accept": 66,
+     "both_accept": 28,
+     "both_reject": 13,
+     "reviewed": 79
+    },
+    "filler.nominal-support": {
+     "any_accept": 4,
+     "both_accept": 4,
+     "both_reject": 0,
+     "reviewed": 4
+    },
+    "filler.unscoped-assurance": {
+     "any_accept": 9,
+     "both_accept": 4,
+     "both_reject": 9,
+     "reviewed": 18
+    },
+    "filler.wordy-phrase": {
+     "any_accept": 117,
+     "both_accept": 117,
+     "both_reject": 19,
+     "reviewed": 136
+    },
+    "hype.vague-praise": {
+     "any_accept": 61,
+     "both_accept": 53,
+     "both_reject": 3,
+     "reviewed": 64
+    },
+    "repetition.adjacent-word": {
+     "any_accept": 6,
+     "both_accept": 6,
+     "both_reject": 5,
+     "reviewed": 11
+    },
+    "repetition.definition-echo": {
+     "any_accept": 1,
+     "both_accept": 0,
+     "both_reject": 0,
+     "reviewed": 1
+    },
+    "repetition.exact-sentence": {
+     "any_accept": 1,
+     "both_accept": 1,
+     "both_reject": 3,
+     "reviewed": 4
+    },
+    "repetition.near-sentence": {
+     "any_accept": 2,
+     "both_accept": 2,
+     "both_reject": 0,
+     "reviewed": 2
+    },
+    "repetition.redundant-support": {
+     "any_accept": 1,
+     "both_accept": 1,
+     "both_reject": 0,
+     "reviewed": 1
+    },
+    "repetition.repeated-claim": {
+     "any_accept": 0,
+     "both_accept": 0,
+     "both_reject": 1,
+     "reviewed": 1
+    },
+    "syntax.long-sentence": {
+     "any_accept": 928,
+     "both_accept": 660,
+     "both_reject": 144,
+     "reviewed": 1073
+    }
+   }
+  },
+  {
+   "findings": 1001,
+   "round": "final-test-2",
+   "rules": {
+    "density.connective-overuse": {
+     "any_accept": 2,
+     "both_accept": 1,
+     "both_reject": 0,
+     "reviewed": 2
+    },
+    "filler.announced-importance": {
+     "any_accept": 1,
+     "both_accept": 1,
+     "both_reject": 0,
+     "reviewed": 1
+    },
+    "filler.document-metadiscourse": {
+     "any_accept": 26,
+     "both_accept": 16,
+     "both_reject": 11,
+     "reviewed": 37
+    },
+    "filler.evaluative-closure": {
+     "any_accept": 2,
+     "both_accept": 2,
+     "both_reject": 0,
+     "reviewed": 2
+    },
+    "filler.instruction-scaffolding": {
+     "any_accept": 62,
+     "both_accept": 36,
+     "both_reject": 8,
+     "reviewed": 70
+    },
+    "filler.nominal-support": {
+     "any_accept": 7,
+     "both_accept": 7,
+     "both_reject": 0,
+     "reviewed": 7
+    },
+    "filler.unscoped-assurance": {
+     "any_accept": 3,
+     "both_accept": 2,
+     "both_reject": 6,
+     "reviewed": 9
+    },
+    "filler.wordy-phrase": {
+     "any_accept": 81,
+     "both_accept": 77,
+     "both_reject": 4,
+     "reviewed": 85
+    },
+    "hype.vague-praise": {
+     "any_accept": 49,
+     "both_accept": 44,
+     "both_reject": 5,
+     "reviewed": 54
+    },
+    "repetition.adjacent-word": {
+     "any_accept": 3,
+     "both_accept": 3,
+     "both_reject": 6,
+     "reviewed": 9
+    },
+    "repetition.exact-sentence": {
+     "any_accept": 4,
+     "both_accept": 4,
+     "both_reject": 2,
+     "reviewed": 6
+    },
+    "repetition.near-sentence": {
+     "any_accept": 1,
+     "both_accept": 0,
+     "both_reject": 0,
+     "reviewed": 1
+    },
+    "repetition.repeated-claim": {
+     "any_accept": 0,
+     "both_accept": 0,
+     "both_reject": 2,
+     "reviewed": 2
+    },
+    "syntax.long-sentence": {
+     "any_accept": 622,
+     "both_accept": 432,
+     "both_reject": 93,
+     "reviewed": 715
+    }
+   }
+  }
+ ],
+ "sets": [
+  {
+   "annotated": {
+    "astra": 2881,
+    "both": 941,
+    "claude": 1448,
+    "documents": 493,
+    "items": 40496
+   },
+   "documents": 493,
+   "items": 40496,
+   "repositories": 20,
+   "role": "development",
+   "set": "long-prose"
+  },
+  {
+   "annotated": {
+    "astra": 529,
+    "both": 147,
+    "claude": 211,
+    "documents": 164,
+    "items": 10893
+   },
+   "documents": 164,
+   "items": 10893,
+   "repositories": 80,
+   "role": "development",
+   "set": "real-dev-1"
+  },
+  {
+   "annotated": {},
+   "documents": 593,
+   "items": 37622,
+   "repositories": 310,
+   "role": "development",
+   "set": "real-dev-2"
+  },
+  {
+   "annotated": {
+    "astra": 383,
+    "both": 100,
+    "claude": 154,
+    "documents": 127,
+    "items": 8471
+   },
+   "documents": 127,
+   "items": 8471,
+   "repositories": 60,
+   "role": "final test 1",
+   "set": "real-test-1a"
+  },
+  {
+   "annotated": {
+    "astra": 2031,
+    "both": 520,
+    "claude": 812,
+    "documents": 645,
+    "items": 44782
+   },
+   "documents": 645,
+   "items": 44782,
+   "repositories": 320,
+   "role": "final test 1",
+   "set": "real-test-1b"
+  },
+  {
+   "annotated": {},
+   "documents": 589,
+   "items": 40119,
+   "repositories": 316,
+   "role": "final test 2",
+   "set": "real-test-2"
+  }
+ ]
+}
