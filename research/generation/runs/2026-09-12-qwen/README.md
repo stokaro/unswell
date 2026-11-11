@@ -7,7 +7,7 @@ the [Haiku run](../2026-09-12-haiku/README.md), and the
 [luna run](../2026-09-12-codex-luna/README.md). It ran under amendment 3: a
 third generator family, Qwen, through an OpenAI-compatible chat endpoint
 that the maintainer's organization operates, with no vendor call. The model
-is `HivenetQuant/Qwen3.6-35B-A3B`, the smaller of the two the endpoint
+is `private-host/Qwen3.6-35B-A3B`, the smaller of the two the endpoint
 serves, with thinking disabled. Every number is a rule outcome under one
 policy. It is not a false-positive rate, not recall, not a share of LLM
 text, and not a decision. The run brings the controlled cohort to three
@@ -30,7 +30,8 @@ Every request went as the one user message of a chat completion request:
 the request text and the one harness line, with no system message. The
 decoding parameters were temperature 0.7, top-p 0.8, seed 1, and at most
 512 completion tokens, with thinking disabled through the chat template.
-The endpoint named `HivenetQuant/Qwen3.6-35B-A3B` in every response. Every
+Every response named the same model; the records store it as
+`private-host/Qwen3.6-35B-A3B`. Every
 response stopped on its own, and no response carried reasoning text. Six
 requests ran at a time, and a request took half a second on average with
 29 completion tokens. Each response row keeps the identifier the endpoint

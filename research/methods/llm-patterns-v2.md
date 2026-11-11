@@ -48,7 +48,7 @@ of the confirmation partition exists yet.
 
 `corpus screen` ran on September 12, 2026 on the development partition of
 the pinned plan (`screening/2026-09-12-dataset-plan.json`, SHA-256
-`c1a648fc11dfb1265c6177e56969111a6c230355ae4f809ced06d016bcca6c0c`) with
+`272b71b7439bd642f55104d718e9d2b21c0d37edfcd542d22c7a3b9f0def7a6e`) with
 the pilot, run 2, and Haiku records of the Claude family and the luna record
 of the OpenAI family. The record is `screening/2026-09-12-development.json`,
 SHA-256 `dab04b57b48a177fd9ddfdd37cf35ef5d5b98a338157a00cc649bf99aa00fe97`.
@@ -74,7 +74,7 @@ The second acquisition round added 24 repositories, ten pinned to
 runs answered 600 requests each on 150 new tasks from seven of the new
 development repositories. `corpus screen` ran again on September 12, 2026
 against the grown plan (`screening/2026-09-12-dataset-plan-2.json`, SHA-256
-`8b51bd3cbbaa81031e763c6ee6ed5b8cfa0549d9de89543a57f6d3bca54630f6`) with
+`1b64c8ba7e7de00a73d06caca1e127e314ca701e7a76e3a67edc2b6d98ae728a`) with
 four Claude records and two OpenAI records. The record is
 `screening/2026-09-12-development-2.json`, SHA-256
 `2b97a8a98ab49c7172c4bde45c5dfd7719ef68894b0839ed1b613b1b757037c5`.
@@ -140,7 +140,7 @@ Amendment 6 added six repositories, two pinned to `development` and four to
 `final_test`, and two round-three generation runs answered 600 requests each
 on 150 new tasks. `corpus screen` ran on September 13, 2026 against the
 grown plan (`screening/2026-09-13-dataset-plan-3.json`, SHA-256
-`2cd58567e18b47970bfd275aefd89ae6389178fd4c7ccaa5dea90402256398e3`) with
+`b8429155b4d7ba96ad99fe81db6d2279b0dcdb73bd37e59b6bb38e89b8e4d33c`) with
 five Claude records and three OpenAI records. The record is
 `screening/2026-09-13-development-3.json`, SHA-256
 `2005d1ae0e83d3638d3d961177302f5507db530e9db28e6edee206346903c8a2`.

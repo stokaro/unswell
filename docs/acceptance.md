@@ -146,7 +146,13 @@ usefulness requirement and has five unresolved supplied suggestions.
 [ADR 0045](adr/0045-separated-admission-rejected.md) rejects this configuration.
 The two smaller exposed cohorts pass their development screen, but admission
 of six cached proposal streams does not qualify standalone generation,
-prospective confirmation, or current-main integration. #349 remains open.
+prospective confirmation, or current-main integration.
+
+[ADR 0046](adr/0046-assistant-panel-corpus.md) retires the 123-event screen as an
+acceptance gate. More than 60 frozen pilots failed it, and the current engine
+reaches 45 of the 123 events. The successor path fits a local model on a corpus
+annotated by two assistants and accepts it on a repository-disjoint final test.
+The 123 events remain a regression replay; #349 closes with this negative result.
 
 ## What this alpha does not claim
 

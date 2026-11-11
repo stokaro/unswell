@@ -13,11 +13,11 @@ false-positive rate is inferred from a rule count.
 - Corrected engine: the production-file hashes and binary identity in `engine.json`.
 - Historical development sample: `comparison-manifest.json`, selected before the
   first corrected-rule scan. Its original hash is
-  `ea01bb0101e588c64528216dd751f799548520048219ecbb91fa6f6ecefe548b`.
+  `0db595ce69c644766f184212c197c6c79a428ab8608c2e79bbbeb43381b2c83f`.
   The manifest retains rights, references, source hashes, and global groups.
 - `comparison-source-bindings.json` maps the manifest to the isolated scan filenames.
   The sources belong to 17 groups in global dataset plan
-  `7bee3144ebb406ce677ffb330f2d906a13bed5a8fde48d45f10bde4468948cd7`.
+  `b2e693cc0770665c91a6222fafbe1175d703fd52331c66bd19299815319c8f17`.
 
 The historical selection used a fixed hash order, admitted README/documentation
 roles and 400–6,000 prose words, and capped each global group at two pages and the

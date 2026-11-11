@@ -10,7 +10,7 @@ import time
 FAMILIES = {
     'luna': ('openai', 'gpt-5.6-luna', 'codex exec', 'reasoning effort low; decoding parameters unavailable'),
     'haiku': ('claude', 'claude-haiku-4-5-20251001', 'claude print', 'reasoning effort low; decoding parameters unavailable'),
-    'qwen': ('qwen', 'HivenetQuant/Qwen3.6-35B-A3B', 'OpenAI-compatible router',
+    'qwen': ('qwen', 'private-host/Qwen3.6-35B-A3B', 'OpenAI-compatible router',
              'temperature 0.7; top_p 0.9; max_tokens 16384; enable_thinking false'),
 }
 

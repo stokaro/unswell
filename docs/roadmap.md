@@ -46,6 +46,15 @@ probability as unavailable with a reason and
 enables no probability gate. Cohort measurements from the completed pattern branch
 never count toward those criteria.
 
+[ADR 0046](adr/0046-assistant-panel-corpus.md) adds a separate path for contextual
+diagnostics. Two assistants from different model families annotate a corpus of at
+least 5,000 units, split by repository. A local model fitted on it ships as an
+advisory rule family at 85% precision on the final test, confirmed by a
+third-assistant audit with placebo items. The 123-event screen of
+[#349](https://github.com/stokaro/unswell/issues/349) is retired as a gate and kept
+as a regression replay. This path produces no probability and leaves #22 and #25
+on hold.
+
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on
 an explicit maintainer request, after the other implementation tasks have a

@@ -53,7 +53,7 @@ or incomplete adherence to the brief remain possible confounders.
 
 The three selected models are `gpt-5.6-luna` through Codex at low effort,
 `claude-haiku-4-5-20251001` through Claude at low effort, and
-`HivenetQuant/Qwen3.6-35B-A3B` through the authorized router with thinking disabled.
+`private-host/Qwen3.6-35B-A3B` through the authorized router with thinking disabled.
 The router uses temperature 0.7, top-p 0.9, and a 16,384-token output limit.
 CLI decoding settings that are not exposed remain unavailable. Codex records the
 requested model; its reply does not independently identify the served model.
