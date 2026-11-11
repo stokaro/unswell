@@ -1,0 +1,68 @@
+{
+  "base_commit": "39cb4f21e03d62498e80e25ac9ca4f8ef4f18df7",
+  "budget": {
+    "max_seconds": 14400,
+    "max_temp_bytes": 12884901888
+  },
+  "checkpoint_repository": "odeveloper/meld",
+  "checkpoint_revision": "71d48f8e8be43885f86553565537ed015bff480a",
+  "code_sha256": {
+    "PROTOCOL.md": "a2861b87fce03fa7bdde675dde39a33863fbbec91cbd343be25fed1808b25985",
+    "fetch.py": "b0c802ce4901198586683b2e11459ec8c15c698c3241a1dc818894f09c29c3f9",
+    "prepare.py": "f5ca15c32e4fc0c594f21d0b6034485c20c813f57dd34bd9f582f85e16bc1499",
+    "requirements.txt": "06333e00c7af48211446afb2f12bf5713e8e8f71fc0dfcb9cdb9f59aea81b6e7",
+    "score.py": "69e13a4feabf1f8be693e5ffcf26c92ce005ce1f7ba4c63fa47c768e331d8b1f",
+    "verify.py": "c36970ebcbada6993fc52b0fd8e510b3bb51420240d9896a769d5120760ef97a"
+  },
+  "date": "2026-11-11",
+  "decision": {
+    "calibration_max_alert_fraction": 0.01,
+    "comparison": "strictly_greater",
+    "generation_detection_fraction_min": 0.5,
+    "polish_detection_fraction_min": 0.2,
+    "test_alert_fraction_max": 0.01
+  },
+  "eligible_counts": {
+    "calibration": 402,
+    "generate": 228,
+    "matched_source": 38,
+    "polish": 228,
+    "response": 456,
+    "test": 351
+  },
+  "environment": {
+    "device": "mps",
+    "python": "3.15.0",
+    "safetensors": "0.7.0",
+    "torch": "2.9.1",
+    "transformers": "5.8.1"
+  },
+  "format": "unswell-meld-freeze-v1",
+  "manifest_sha256": "169be90bb73687e678511ce4c22019ca7c6f8d7fa9627d4ca8e2a1dfaf69eb86",
+  "model_sha256": {
+    "config.json": "87319931b40acf10c2060da23a99d4586fec9c4eca7c7169f93990cb1bbc6ab6",
+    "meld.py": "7236347d37c1cdebe1a72639955bd8ac76f5ff41cbe946bdad22d6681988bac7",
+    "meld_config.json": "b56b7276d4e3afb25aa3c6680ef0618e5a9d58d9d2282f02e590355af5e1e910",
+    "model.safetensors": "86700f566059951fc9326a6b04234256d31691b61b4c0a738422616f0d62d303",
+    "tokenizer.json": "6c8aaa9a542084f2457eab775d4eeb51f92a70c0fd9de28d5edb0ddec3c08d30",
+    "tokenizer_config.json": "fb54f027372062b2ca52282efb04d178a8b57167a00cd8f4e816515823a2c016"
+  },
+  "original_revision_claim": "8990324abd92e1fa17072f6887ea1e5c1cef5abc",
+  "packet_sha256": "95aeb86baacee7209bc1c01f87d4735f0277c5768f4797778397f14a58bb9468",
+  "scoring": {
+    "batch_size": 1,
+    "canonical": true,
+    "cap_tokens": 16384,
+    "content_tokens_per_window": 2046,
+    "minimum_prose_words": 100,
+    "pooling": "top_quantile_mean",
+    "rho": 0.25,
+    "window_overlap": 0
+  },
+  "source_sha256": {
+    "research/generation/studies/long-prose-v3/inputs.tar.gz": "c47cced06c21e5fb8222aff06a8d220c8ec1623ac2638e59bd04d0223ebc7ec2",
+    "research/generation/studies/long-prose-v3/outputs.tar.gz": "b2eaed6ebfcb6dfa01fc31a48dea6020a0b18449f823ec481eef885e8ceeca48",
+    "research/origin/runs/2026-11-07-richness-screen/run.py": "ed17bd5b238823357a09146e18ea871abad8a1eb3ced1a6dc2b6352e1a338ad7",
+    "research/origin/runs/2026-11-10-editlens-new-controls/documents.json": "99b089fc0a4d28316387e7af5549e1b14e5d46a4c31189a2d7afa3726628be33"
+  }
+}
