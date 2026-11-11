@@ -503,6 +503,34 @@ if (W / "engine/ctx-eval.json").exists():
     add("assistants were also the annotators of these pages, under a rubric with the same categories, so the")
     add("coverage figure measures agreement between two models and not recall against an editor.")
     add("")
+if (W / "engine/relisting.json").exists():
+    relisting = json.loads((W / "engine/relisting.json").read_text())
+    add("## Phrase lists read again on all opened pages")
+    add("")
+    add("ADR 0047 lists a phrase when both reviewers accept at least 80% of five or more reviewed findings of")
+    add("its word family. A test set becomes development data once it is opened, so the criterion was read again")
+    add("over every reviewed finding of a listed phrase, on generated documents and on real pages.")
+    add("")
+    add("| Rule | Word family | Reviewed | Both accept | On real pages | Decision |")
+    add("| --- | --- | ---: | ---: | ---: | --- |")
+    for row in sorted(relisting["families"], key=lambda r: (r["rule"], -r["reviewed"])):
+        if not row["reviewed"]:
+            continue
+        real = f"{pct(row['real_both_accept'], row['real_reviewed'])} of {row['real_reviewed']:,}" if row["real_reviewed"] else "none"
+        add(f"| `{row['rule']}` | `{row['family']}` | {row['reviewed']:,} | {pct(row['both_accept'], row['reviewed'])} | {real} | {row['decision']} |")
+    add("")
+    dropped = [row for row in relisting["families"] if row["decision"] == "drop"]
+    names = ", ".join(f"`{phrase}`" for row in dropped for phrase in row["phrases"])
+    praise = [row for row in relisting["families"] if row["rule"] == "hype.vague-praise"]
+    before = (sum(r["real_both_accept"] for r in praise), sum(r["real_reviewed"] for r in praise))
+    kept = [r for r in praise if r["decision"] == "keep"]
+    after = (sum(r["real_both_accept"] for r in kept), sum(r["real_reviewed"] for r in kept))
+    add(f"The lists lose {names}. On real pages both reviewers accepted {pct(*before)} of {before[1]:,}")
+    add(f"`hype.vague-praise` findings; without the dropped families the share is {pct(*after)} of {after[1]:,}.")
+    add("The same pages chose what to drop, so that share is optimistic, and the rule keeps its note until")
+    add("new pages confirm it. Findings on generated documents are accepted more often than on real pages,")
+    add("which is why a family can pass on all pages and sit below 80% on real ones.")
+    add("")
 add("## Limits")
 add("")
 add("- Reviewers and auditor are assistants. Models can share a preference that readers do not have.")

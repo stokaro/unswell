@@ -102,7 +102,8 @@ environment and are not part of this record.
 4. Run the engine with `configs/broad.yaml`, then review the findings with
    `review_findings.py` once per reviewer.
 5. Select phrases and defaults: `rule_table.py`, `select_release.py`,
-   `gen_lexicon_go.py`.
+   `gen_lexicon_go.py`. `relist.py` reads the listing criterion again over all
+   opened pages and writes `phrases/relisting.json`.
 6. Audit: `audit.py` for items, `audit_spans.py` for findings.
 7. Compare defaults between rounds: `round3_evidence.py`, `compare_rounds.py`.
 8. Review in context through the MCP server: `mcp_review.py` once per calling
