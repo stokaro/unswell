@@ -71,6 +71,11 @@ angle brackets must be escaped, and comments use `{/* ... */}`. MDX comments
 are excluded expression content; they do not activate Unswell suppressions.
 Use configured suppressions when needed. This adapter extracts prose; it does
 not compile MDX or resolve its components, exports, or rendering behavior.
+For Docusaurus compatibility, an ATX heading may end with a classic `{#id}`
+anchor using a simple ASCII ID (letters, digits, hyphens, underscores, or dots).
+Unswell excludes that anchor as `mdx-heading-id` while retaining the
+heading text and its original source coordinates. This narrow exception does
+not make `{#id}` valid in ordinary MDX expressions or elsewhere in a page.
 
 Malformed expressions, unmatched tags and exhausted parsing limits fail
 extraction. The boundary pass permits 128 candidate delimiters per construct,

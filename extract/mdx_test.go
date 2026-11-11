@@ -43,6 +43,43 @@ func TestMDXComponents(t *testing.T) {
 	}
 }
 
+func TestMDXClassicHeadingIDs(t *testing.T) {
+	for name, source := range map[string]string{
+		"LF":       "## Crash cleanup {#crash-cleanup}\n\nThe cleanup scans orphaned spool files.\n",
+		"CRLF":     "## Crash cleanup {#crash-cleanup}\r\n\r\nThe cleanup scans orphaned spool files.\r\n",
+		"indented": "   ### Crash cleanup {#crash-cleanup}\n\nThe cleanup scans orphaned spool files.\n",
+	} {
+		t.Run(name, func(t *testing.T) {
+			c := qt.New(t)
+			doc, err := extract.Parse(t.Context(), document.Source{Name: "concurrent-index.mdx", Format: document.MDX,
+				Bytes: []byte(source)}, extract.Options{IncludeStructure: true})
+			c.Assert(err, qt.IsNil)
+			c.Assert(doc.Blocks[0].Kind, qt.Equals, "heading")
+			c.Assert(doc.Blocks[0].Text, qt.Equals, "Crash cleanup")
+			c.Assert(mdxText(doc), qt.Contains, "The cleanup scans orphaned spool files.")
+			c.Assert(mdxText(doc), qt.Not(qt.Contains), "crash-cleanup")
+			assertMDXExclusion(t, doc, "{#crash-cleanup}", "mdx-heading-id")
+			assertMDXMapping(t, doc, source)
+		})
+	}
+}
+
+func TestMDXClassicHeadingIDNotAnExpressionEscape(t *testing.T) {
+	for _, source := range []string{
+		"Text {#anchor} stays.\n",
+		"## Heading {#anchor} trailing\n",
+		"## Heading {#}\n",
+		"## Heading {#anchor with space}\n",
+		"####### Heading {#anchor}\n",
+	} {
+		t.Run(source, func(t *testing.T) {
+			_, err := extract.Parse(t.Context(), document.Source{Name: "invalid.mdx", Format: document.MDX,
+				Bytes: []byte(source)}, extract.Options{})
+			qt.New(t).Assert(err, qt.IsNotNil)
+		})
+	}
+}
+
 func TestMDXGrammarBoundaries(t *testing.T) {
 	for name, region := range map[string]string{
 		"object":        "{({value: {nested: '}'}}).value}",
