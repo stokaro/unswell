@@ -16,7 +16,10 @@ exceeds 64 MB.
 The release workflow resolves the pinned mirror tool before it publishes
 anything, and a weekly workflow does the same. The tool's registry had removed
 the pinned image, which stopped the alpha.5 release after its container images
-were published.
+were published. The job that checks this repository through the published
+action now checks `README.md` and `docs`: the action uses the default analysis
+timeout of 30 seconds, and the whole repository needs longer on a hosted
+runner.
 
 ## 0.1.0-alpha.5
 
