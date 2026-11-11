@@ -14,20 +14,24 @@ type instructionProjection struct {
 }
 
 func projectedInstructionWithMethod(c frameClause, method bool) bool {
+	return projectedInstruction(c, method, false)
+}
+
+func projectedInstruction(c frameClause, method, additionalSupport bool) bool {
 	if !c.eligible() || len(c.sentence.Tokens) > 96 || rhetoricQuoted(c) || rhetoricAttributed(c) ||
 		projectionGuard(c.tokens()) {
 		return false
 	}
 	tokens := c.tokens()
 	for verb := 1; verb+3 < len(tokens); verb++ {
-		if projectedPredicate(tokens, verb, method) {
+		if projectedPredicate(tokens, verb, method, additionalSupport) {
 			return true
 		}
 	}
 	return false
 }
 
-func projectedPredicate(tokens []document.Token, verb int, method bool) bool {
+func projectedPredicate(tokens []document.Token, verb int, method, additionalSupport bool) bool {
 	operation := operationSubject(tokens[:verb])
 	if !projectionSubject(tokens[:verb]) && !operation {
 		var relative bool
@@ -36,12 +40,39 @@ func projectedPredicate(tokens []document.Token, verb int, method bool) bool {
 			return false
 		}
 	}
+	if modalUsageOperand(tokens[:verb], tokens[verb:], method, additionalSupport) {
+		return false
+	}
 	layers := 0
 	if operation {
 		layers = 1
 	}
 	p, ok := projectSupport(tokens, verb, layers)
 	return ok && p.layers > 0 && (!p.capabilityOnly || method) && actionOperand(tokens[p.action:])
+}
+
+// A configuration operand can be used by an actor without itself performing
+// the action. An opaque code name alone does not establish an actor role.
+func modalUsageOperand(subject, predicate []document.Token, method, additionalSupport bool) bool {
+	if method || additionalSupport || len(subject) == 0 || !modalUsagePredicate(predicate) {
+		return false
+	}
+	return len(subject) == 1 && subject[0].Protected ||
+		len(subject) >= 3 && frameWord(subject[len(subject)-2], "environment") &&
+			frameWord(subject[len(subject)-1], "variable", "variables")
+}
+
+func modalUsagePredicate(predicate []document.Token) bool {
+	if len(predicate) < 4 || !frameWord(predicate[0], "can", "may", "could") {
+		return false
+	}
+	at := supportAdverb(predicate, 1)
+	if at+2 >= len(predicate) || !frameWord(predicate[at], "be") {
+		return false
+	}
+	at = supportAdverb(predicate, at+1)
+	return at+1 < len(predicate) && frameWord(predicate[at], "used") &&
+		frameWord(predicate[at+1], "to", "for")
 }
 
 func projectionSubject(tokens []document.Token) bool {

@@ -34,6 +34,8 @@ func localRhetoricRules() []rule.Rule {
 				"is already a direct optional instruction. The either/or coordinator before alternative actions is not an action verb. "+
 				"A supported-action prefix followed by a modal relative helpfulness clause and an unqualified purpose nominal "+
 				"requests direct wording for both layers while retaining their modality and the relative antecedent. "+
+				"A configuration operand or opaque identifier used as a standalone subject does not establish an actor "+
+				"for a simple modal used-to/used-for capability. "+
 				"Preserve modal meaning, named actors and conditions. "+
 				"Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. "+
 				"Failure, permission, negation and quoted constructions do not match.",
@@ -147,7 +149,7 @@ func localRhetoricVersion(id string) string {
 	case "filler.document-justification":
 		return "6"
 	case "filler.instruction-scaffolding":
-		return "17"
+		return "18"
 	case "filler.evaluative-closure":
 		return "12"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":
