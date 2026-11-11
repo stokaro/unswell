@@ -1,0 +1,410 @@
+{
+  "format": "unswell-349-doc-function-review-spec-v1",
+  "reviewer": "root Codex assistant; assistant review under ADR 0041",
+  "source_dispositions": {
+    "database-guide-01.source": "out_of_domain_chinese",
+    "database-concept_reference-01.source": "reviewed_english",
+    "database-guide-02.source": "reviewed_english",
+    "database-concept_reference-02.source": "reviewed_english",
+    "security-guide-01.source": "reviewed_english",
+    "security-concept_reference-01.source": "reviewed_english",
+    "security-guide-02.source": "reviewed_english",
+    "security-concept_reference-02.source": "reviewed_english",
+    "observability-guide-01.source": "reviewed_english",
+    "observability-concept_reference-01.source": "reviewed_english",
+    "observability-concept_reference-02.source": "reviewed_english",
+    "observability-guide-02.source": "reviewed_english",
+    "testing-concept_reference-01.source": "reviewed_english",
+    "testing-guide-01.source": "reviewed_english",
+    "testing-concept_reference-02.source": "reviewed_english",
+    "testing-guide-02.source": "reviewed_english"
+  },
+  "labels": [
+    {
+      "id": "P01",
+      "kind": "positive",
+      "source": "database-guide-02.source",
+      "quote": "In this\ndocument, we'd like to give a comprehensive summary of those changes to allow\nyou to upgrade efficiently.\n\nThe next sections will go over each of the above mentioned interfaces and\ndetail the exact changes.",
+      "evidence_quote": "## Breaking Changes to the Data Model",
+      "evidence_state": "aligned",
+      "diagnosis": "Two adjacent orientation sentences repeat the document title and the section structure without adding an upgrade action.",
+      "reader_burden": "Readers reach the actual interface changes only after two descriptions of what the page will do.",
+      "facts_to_retain": "The v0.10-to-v1.0 migration and the distinctions among data model, HTTP API, and WebSocket changes.",
+      "edit_safety": "safe",
+      "safe_edit": "Begin the change sections after the version and compatibility context."
+    },
+    {
+      "id": "P02",
+      "kind": "positive",
+      "source": "database-guide-02.source",
+      "quote": "In this section, we'll go over each of the endpoints separately and list the\nchanges done to them:",
+      "evidence_quote": "## Breaking Changes to the HTTP API",
+      "evidence_state": "aligned",
+      "diagnosis": "The sentence announces the breakdown already stated by the heading and endpoint subheadings.",
+      "reader_burden": "An extra preamble delays the first endpoint change.",
+      "facts_to_retain": "Every endpoint name, old/new behavior, and example.",
+      "edit_safety": "safe",
+      "safe_edit": "Remove only this announcement."
+    },
+    {
+      "id": "P04",
+      "kind": "positive",
+      "source": "security-guide-01.source",
+      "quote": "This is the most important thing to understand before you use it.",
+      "evidence_quote": "A frozen file is a complete, already-validated snapshot, and it is **authoritative**.",
+      "evidence_state": "aligned",
+      "diagnosis": "The self-referential warning adds no rule before the actual runtime override rule.",
+      "reader_burden": "The crucial behavior is delayed by a generic importance cue.",
+      "facts_to_retain": "A frozen file is authoritative and ordinary runtime environment variables do not override it.",
+      "edit_safety": "safe",
+      "safe_edit": "Start the section with the concrete rule."
+    },
+    {
+      "id": "P05",
+      "kind": "positive",
+      "source": "security-guide-01.source",
+      "quote": "it is worth being clear about why",
+      "evidence_quote": "The payload lives in platform config rather than inside the release",
+      "evidence_state": "aligned",
+      "diagnosis": "The meta-comment delays the concrete rollback limitation immediately following it.",
+      "reader_burden": "Readers must pass a comment on the explanation before reaching the reason.",
+      "facts_to_retain": "An environment-variable payload is separate from the release, is another deployment operation, and does not roll back with code.",
+      "edit_safety": "safe",
+      "safe_edit": "State the rollback limitation directly."
+    },
+    {
+      "id": "P07",
+      "kind": "positive",
+      "source": "security-concept_reference-02.source",
+      "quote": "if `B` has a higher priority than `A` and both `B` and `A` have a `\"someValue\"` context value, then the context value of `\"someValue\"` will be equal to `A[\"someValue\"]` instead of `B[\"someValue\"]`.",
+      "evidence_quote": "Here is the list of the **context sources** order from the highest to the lowest priority:",
+      "evidence_state": "contradicted_by_scope",
+      "diagnosis": "The example says B has higher priority but returns A's value, contradicting the preceding first-match rule.",
+      "reader_burden": "A reader cannot determine the effective precedence from this example.",
+      "facts_to_retain": "The actual precedence must be checked against the authoritative implementation before changing A or B.",
+      "edit_safety": "requires_external_verification",
+      "safe_edit": "Verify implementation precedence and then correct the example; do not guess the intended winner."
+    },
+    {
+      "id": "P09",
+      "kind": "positive",
+      "source": "observability-guide-01.source",
+      "quote": "You now have a production-ready ContextForge stack on IBM Cloud Kubernetes Service with GitOps management, managed databases, and comprehensive observability!",
+      "evidence_quote": "1. **Set up monitoring**: Deploy Prometheus and Grafana for detailed metrics",
+      "evidence_state": "contradicted_by_scope",
+      "diagnosis": "The completion claim includes comprehensive observability although monitoring setup remains a next step; the page also marks the flow as preview.",
+      "reader_burden": "Readers may infer production qualification and monitoring are already complete.",
+      "facts_to_retain": "The deployment path and the explicit outstanding monitoring, alerting, and hardening steps.",
+      "edit_safety": "safe",
+      "safe_edit": "Describe the deployment as a starting stack and keep the outstanding steps visible."
+    },
+    {
+      "id": "P11",
+      "kind": "positive",
+      "source": "testing-concept_reference-01.source",
+      "quote": "It’s important to note that in certain scenarios, pcap packet capture may experience higher packet loss rates than raw socket capture.",
+      "evidence_quote": "Therefore, it’s advisable to use pf_ring for support or switch to raw socket capture.",
+      "evidence_state": "aligned",
+      "diagnosis": "The importance cue delays a concrete packet-loss caveat.",
+      "reader_burden": "The operational warning is harder to spot at the start of an otherwise direct technical section.",
+      "facts_to_retain": "pcap can lose more packets than raw sockets in some scenarios; pf_ring or raw sockets are alternatives.",
+      "edit_safety": "safe",
+      "safe_edit": "Lead with the packet-loss limitation."
+    },
+    {
+      "id": "P12",
+      "kind": "positive",
+      "source": "testing-concept_reference-02.source",
+      "quote": "offers the greatest flexibility and makes it easy to use virtually any container image",
+      "evidence_quote": "To specify the container image, use `WithImage(...)`.",
+      "evidence_state": "unresolved",
+      "diagnosis": "The opening superlative and near-universal image claim have no comparison or compatibility boundary on the page.",
+      "reader_burden": "Readers must infer actual image support from API examples rather than the broad claim.",
+      "facts_to_retain": "Generic containers accept an image and can be configured with the documented builder methods.",
+      "edit_safety": "safe",
+      "safe_edit": "Describe the generic builder's configuration capability without a superlative."
+    },
+    {
+      "id": "C01",
+      "kind": "control",
+      "source": "database-concept_reference-01.source",
+      "quote": "UNIQUE CIC\n  is downgraded to a plain build (or rejected in strict mode)",
+      "disposition": "retain",
+      "reason": "The limitation and strict-mode alternative scope a real index operation."
+    },
+    {
+      "id": "C02",
+      "kind": "control",
+      "source": "database-concept_reference-01.source",
+      "quote": "Entries are NOT WAL-logged and are NOT crash-recoverable",
+      "disposition": "retain",
+      "reason": "The explicit crash boundary is necessary to interpret the spool design."
+    },
+    {
+      "id": "C03",
+      "kind": "control",
+      "source": "database-guide-02.source",
+      "quote": "numbers are capped at 9e18",
+      "disposition": "retain",
+      "reason": "The numeric ceiling is a migration constraint."
+    },
+    {
+      "id": "C04",
+      "kind": "control",
+      "source": "database-guide-02.source",
+      "quote": "If `?spent=false`, response is an array of all NOT YET spent",
+      "disposition": "retain",
+      "reason": "The query value and negation distinguish spent from unspent outputs."
+    },
+    {
+      "id": "C05",
+      "kind": "control",
+      "source": "database-concept_reference-02.source",
+      "quote": "However, this synchronization **is only one-way**.",
+      "disposition": "retain",
+      "reason": "The one-way boundary prevents users from mistaking a local edit for a database write."
+    },
+    {
+      "id": "C06",
+      "kind": "control",
+      "source": "database-concept_reference-02.source",
+      "quote": "For Firebase Database, using an _Array_ as the initial value will bind the Reference as an array",
+      "disposition": "retain",
+      "reason": "The initial-value type changes binding behavior."
+    },
+    {
+      "id": "C07",
+      "kind": "control",
+      "source": "security-guide-01.source",
+      "quote": "A frozen file is a complete, already-validated snapshot, and it is **authoritative**.",
+      "disposition": "retain",
+      "reason": "The concrete authority rule is the point of the section."
+    },
+    {
+      "id": "C08",
+      "kind": "control",
+      "source": "security-guide-01.source",
+      "quote": "a rotated secret takes effect on the next build or deploy, not the next restart",
+      "disposition": "retain",
+      "reason": "The temporal limitation changes secret-rotation operations."
+    },
+    {
+      "id": "C09",
+      "kind": "control",
+      "source": "security-concept_reference-01.source",
+      "quote": "`--isolate` / `linux.isolate` (namespace isolation) | Unverified",
+      "disposition": "retain",
+      "reason": "Unverified is a distinct compatibility state and must not become supported."
+    },
+    {
+      "id": "C10",
+      "kind": "control",
+      "source": "security-concept_reference-01.source",
+      "quote": "On WSL2, seccomp notify returns EBUSY, so the child could bypass the proxy.",
+      "disposition": "retain",
+      "reason": "This explains why the default policy fails secure."
+    },
+    {
+      "id": "C11",
+      "kind": "control",
+      "source": "security-guide-02.source",
+      "quote": "Only put the values you need to patch in this file. Because it contains plaintext secrets, do not commit it.",
+      "disposition": "retain",
+      "reason": "The plaintext warning is an actionable security constraint."
+    },
+    {
+      "id": "C12",
+      "kind": "control",
+      "source": "security-guide-02.source",
+      "quote": "Non-strict mode does not suppress operational failures.",
+      "disposition": "retain",
+      "reason": "The qualifier separates syntax tolerance from real failures."
+    },
+    {
+      "id": "C13",
+      "kind": "control",
+      "source": "security-concept_reference-02.source",
+      "quote": "This spec describe how the test codebase should be, not how it is at this exact moment.",
+      "disposition": "retain",
+      "reason": "Despite rough grammar, the current-versus-target distinction is necessary."
+    },
+    {
+      "id": "C14",
+      "kind": "control",
+      "source": "security-concept_reference-02.source",
+      "quote": "Note that this restriction doesn't include type-only import declarations.",
+      "disposition": "retain",
+      "reason": "The exception prevents an overbroad reading of the import rule."
+    },
+    {
+      "id": "C15",
+      "kind": "control",
+      "source": "observability-guide-01.source",
+      "quote": "This guide is in preview and will continue to evolve.",
+      "disposition": "retain",
+      "reason": "The preview status limits the reader's confidence in a deployment guide."
+    },
+    {
+      "id": "C16",
+      "kind": "control",
+      "source": "observability-guide-01.source",
+      "quote": "Basic auth for API endpoints is disabled by default for security.",
+      "disposition": "retain",
+      "reason": "The authentication default affects how users access the API."
+    },
+    {
+      "id": "C17",
+      "kind": "control",
+      "source": "observability-concept_reference-01.source",
+      "quote": "Exceptions usually represent errors, but not always.",
+      "disposition": "retain",
+      "reason": "The qualifier matters to query interpretation."
+    },
+    {
+      "id": "C18",
+      "kind": "control",
+      "source": "observability-concept_reference-01.source",
+      "quote": "The `metrics` table also has a `start_timestamp` column, but you should usually use `recorded_timestamp` instead",
+      "disposition": "retain",
+      "reason": "The table-specific timestamp distinction prevents a wrong query."
+    },
+    {
+      "id": "C19",
+      "kind": "control",
+      "source": "observability-concept_reference-02.source",
+      "quote": "No telemetry is uploaded.",
+      "disposition": "retain",
+      "reason": "The FAQ's direct telemetry answer is distinct from optional configured outbound features."
+    },
+    {
+      "id": "C20",
+      "kind": "control",
+      "source": "observability-concept_reference-02.source",
+      "quote": "If Manager Server is down longer than the retention window, that period usually cannot be recovered from CPA.",
+      "disposition": "retain",
+      "reason": "The retention condition determines whether missing usage data is recoverable."
+    },
+    {
+      "id": "C21",
+      "kind": "control",
+      "source": "observability-guide-02.source",
+      "quote": "A broken check costs nothing: it must never pass for a performance improvement.",
+      "disposition": "retain",
+      "reason": "The guard prevents a false benchmark improvement."
+    },
+    {
+      "id": "C22",
+      "kind": "control",
+      "source": "observability-guide-02.source",
+      "quote": "The `container` and `containerd` checks aren't timed.",
+      "disposition": "retain",
+      "reason": "The omission is a concrete measurement limit."
+    },
+    {
+      "id": "C23",
+      "kind": "control",
+      "source": "testing-concept_reference-01.source",
+      "quote": "This architecture requires more machine resources and is more challenging to use",
+      "disposition": "retain",
+      "reason": "The tradeoff qualifies an otherwise favorable architecture description."
+    },
+    {
+      "id": "C24",
+      "kind": "control",
+      "source": "testing-concept_reference-01.source",
+      "quote": "only the second and third architectures are open-source",
+      "disposition": "retain",
+      "reason": "The availability boundary is specific and relevant."
+    },
+    {
+      "id": "C25",
+      "kind": "control",
+      "source": "testing-guide-01.source",
+      "quote": "The values satisfy the schema but are not realistic",
+      "disposition": "retain",
+      "reason": "The caveat limits what generated test data proves."
+    },
+    {
+      "id": "C26",
+      "kind": "control",
+      "source": "testing-guide-01.source",
+      "quote": "`generate` currently supports **pandas** dataframe schemas and **xarray**",
+      "disposition": "retain",
+      "reason": "The explicit supported backends prevent feature overclaim."
+    },
+    {
+      "id": "C27",
+      "kind": "control",
+      "source": "testing-concept_reference-02.source",
+      "quote": "Host paths differ between environments and may not be available on every system or Docker setup",
+      "disposition": "retain",
+      "reason": "The portability limit explains the warning against host mounts."
+    },
+    {
+      "id": "C28",
+      "kind": "control",
+      "source": "testing-concept_reference-02.source",
+      "quote": "Calling `WithImage(...)` without using the returned builder does not update the existing instance",
+      "disposition": "retain",
+      "reason": "The immutable-builder rule is essential usage guidance."
+    },
+    {
+      "id": "C29",
+      "kind": "control",
+      "source": "testing-guide-02.source",
+      "quote": "This method does not work in browsers.",
+      "disposition": "retain",
+      "reason": "The environment exclusion is required for the TypeScript loader example."
+    },
+    {
+      "id": "C30",
+      "kind": "control",
+      "source": "testing-guide-02.source",
+      "quote": "disabling feature tests may lead to test failures",
+      "disposition": "retain",
+      "reason": "The warning limits a proposed speed optimization."
+    },
+    {
+      "id": "C31",
+      "kind": "control",
+      "source": "security-guide-02.source",
+      "quote": "Loading remains non-transactional, so earlier successful assignments remain.",
+      "disposition": "retain",
+      "reason": "The failure behavior is a concrete operational limitation."
+    },
+    {
+      "id": "C32",
+      "kind": "control",
+      "source": "observability-guide-02.source",
+      "quote": "So the benchmark also compares the run times of two checks:",
+      "disposition": "retain",
+      "reason": "The sentence introduces a distinct measurement that CPU usage alone can hide."
+    }
+  ],
+  "considered_not_positive": [
+    {
+      "id": "P03",
+      "source": "database-concept_reference-02.source",
+      "quote": "No need to call `$databaseUnbind`/`$firestoreUnbind` as `$databaseBind`/`$firestoreBind` will automatically unbind any existing binding on the provided key. Upon component removal, all bindings are removed as well, so no need to use `$databaseUnbind`/`$firestoreUnbind` in `unmounted` hooks.",
+      "reason": "Two separate automatic-unbind triggers are useful, and the tip is compact; repetition alone is not a clear defect."
+    },
+    {
+      "id": "P06",
+      "source": "security-guide-01.source",
+      "quote": "That is not five independent designs arriving at the same place by accident.",
+      "reason": "The platform-convergence sentence is rhetorical and the following operational reasoning supports its point; motive cannot be disproved from this page."
+    },
+    {
+      "id": "P08",
+      "source": "observability-guide-01.source",
+      "quote": "Performance testing helps validate the stability, scalability, and responsiveness of ContextForge under different workloads.",
+      "reason": "The full performance section also exercises an authenticated tool and inspects service metrics; the opening only says testing helps validate performance, so the apparent mismatch is not clear."
+    },
+    {
+      "id": "P10",
+      "source": "observability-concept_reference-02.source",
+      "quote": "the full CPAMP feature set",
+      "reason": "The full FAQ explicitly directs readers to Docker or native CPAMP Full Mode for the full feature set; the phrase does not describe the lightweight panel."
+    }
+  ]
+}
