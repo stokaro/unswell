@@ -24,7 +24,7 @@ func supportedActionUsefulness(c frameClause) (rhetoricalFrame, bool) {
 		}
 		// Helpfulness alone is not a support chain. The main clause must
 		// independently contain an existing supported-action construction.
-		if !projectedInstructionWithMethod(prefix, false) {
+		if !projectedInstruction(prefix, false, true) {
 			continue
 		}
 		frame, _ := localFrame(c, 0)

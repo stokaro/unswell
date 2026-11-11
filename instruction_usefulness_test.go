@@ -16,6 +16,7 @@ func TestSupportedActionUsefulnessPurpose(t *testing.T) {
 		"The worker has the ability to attach messages to records, which could be helpful for detailed request tracing purposes.",
 		"The parser has the capability to correlate records, which might be useful for debugging purposes.",
 		"The reader may be used for indexing files that can be useful for search purposes.",
+		"The environment variable can be used to select a pager, which may be useful for debugging purposes.",
 	} {
 		t.Run(text, func(t *testing.T) {
 			c := qt.New(t)

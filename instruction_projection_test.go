@@ -16,6 +16,7 @@ func TestInstructionProjection(t *testing.T) {
 		"The renderer also has the capability to format a date.",
 		"The renderer has the ability to format a date.",
 		"The function can be used to configure a label.",
+		"The `Render` function can be used to configure a label.",
 		"Optionally, the function may be used to provide metadata.",
 		"The function can be used to configure a label when rendering a chart.",
 		"The map is intended to allow extra values to be passed to the template.",
@@ -56,6 +57,10 @@ func TestInstructionProjectionControls(t *testing.T) {
 		"The adapter has the ability to `query` a local index.",
 		"The adapter can be used to leak credentials.",
 		"Can the adapter be used to query a local index?",
+		"`BAT_CACHE_PATH` can be used to place cached assets in a non-standard path.",
+		"The `PAGER` and `BAT_PAGER` environment variables can be used to control the pager.",
+		"The environment variable can also be used to select a cache directory.",
+		"The environment variables may be used for configuring a pager.",
 	} {
 		t.Run(text, func(t *testing.T) {
 			qt.New(t).Assert(singleRuleResult(t, "filler.instruction-scaffolding", text, "", "").Findings, qt.HasLen, 0)
@@ -110,6 +115,17 @@ func TestInstructionProjectionAdjacentMethod(t *testing.T) {
 		qt.New(t).Assert(r.Findings, qt.HasLen, 2)
 		qt.New(t).Assert(r.Findings[0].Related, qt.HasLen, 0)
 	}
+}
+
+func TestInstructionProjectionOperandWithMethod(t *testing.T) {
+	first := "`BAT_CACHE_PATH` can be used to place cached assets."
+	second := "This is done by using the cache option."
+	result := singleRuleResult(t, "filler.instruction-scaffolding", first+" "+second, "", "")
+	c := qt.New(t)
+	c.Assert(result.Findings, qt.HasLen, 1)
+	c.Assert(result.Findings[0].Primary.Snippet, qt.Equals, strings.TrimSuffix(first, "."))
+	c.Assert(result.Findings[0].Related, qt.HasLen, 1)
+	c.Assert(result.Findings[0].Related[0].Snippet, qt.Equals, strings.TrimSuffix(second, "."))
 }
 
 func TestInstructionProjectionMethods(t *testing.T) {
