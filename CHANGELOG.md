@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.5
+
+This release bases rule defaults on findings that two assistant reviewers
+judged on real documentation pages, and adds review by the calling assistant
+through the MCP server.
 
 Rule defaults now rest on reviewed findings. `hype.vague-praise` ships enabled
 and reports qualified words such as `powerful` and `seamless`.
