@@ -4,7 +4,7 @@ This directory is the record of the sixth run of stage C of the
 [pattern protocol](../../../methods/llm-patterns-v1.md), after the
 [Qwen run](../2026-09-12-qwen/README.md) of the same day. It ran under
 amendment 3 through the same endpoint with the same parameters; only the
-model differs. The model is `HivenetQuant/Qwen3.8-27B`, the larger of the
+model differs. The model is `private-host/Qwen3.8-27B`, the larger of the
 two the endpoint serves, with thinking disabled. In the protocol's terms
 it is a second model stratum of the Qwen family, as the Haiku run is of the
 Claude family, not a fourth family. Every number is a rule outcome under
@@ -29,7 +29,8 @@ Every request went as the one user message of a chat completion request:
 the request text and the one harness line, with no system message. The
 decoding parameters were temperature 0.7, top-p 0.8, seed 1, and at most
 512 completion tokens, with thinking disabled through the chat template.
-The endpoint named `HivenetQuant/Qwen3.8-27B` in every response. Every
+Every response named the same model; the records store it as
+`private-host/Qwen3.8-27B`. Every
 response stopped on its own, and no response carried reasoning text. Six
 requests ran at a time, and a request took 0.8 seconds on average with
 31 completion tokens. Each response row keeps the identifier the endpoint
