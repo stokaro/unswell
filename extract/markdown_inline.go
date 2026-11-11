@@ -67,7 +67,9 @@ func (r *markdownInlineReader) read(node *ts.Node, depth int) error {
 		return err
 	}
 	if depth > 128 {
-		return fmt.Errorf("inline syntax nesting exceeds 128")
+		// One block nested this deep is excluded like a block the grammar
+		// rejects; the rest of the document is still extracted.
+		return fmt.Errorf("inline syntax nesting exceeds 128: %w", errInvalidSyntax)
 	}
 	kind := node.Type(r.syntax.lang)
 	span := syntaxSpan(node, r.offset)

@@ -3,6 +3,7 @@ package unswell
 import (
 	"context"
 	"crypto/sha256"
+	"errors"
 	"fmt"
 	"math"
 	"slices"
@@ -54,7 +55,31 @@ func (e *Engine) analyzeSource(ctx context.Context, source document.Source, iden
 	if err := e.summarizeSource(ctx, &result, doc, identities, builder); err != nil {
 		return result, err
 	}
-	return result, suppressionErr
+	return result, errors.Join(suppressionErr, unparsedBlocks(doc))
+}
+
+// unparsedBlocks reports Markdown blocks that the inline grammar rejected.
+// The extractor excluded them and the rules saw the rest of the document, so
+// the findings stand. The error keeps the run incomplete.
+func unparsedBlocks(doc document.Document) error {
+	count, first := 0, -1
+	for _, exclusion := range doc.Excluded {
+		if exclusion.Reason != extract.UnparsedReason {
+			continue
+		}
+		count++
+		if first < 0 || exclusion.Span.Start < first {
+			first = exclusion.Span.Start
+		}
+	}
+	if count == 0 {
+		return nil
+	}
+	position, err := document.Locate(doc.Source, first)
+	if err != nil {
+		return fmt.Errorf("%d block(s) could not be parsed and were excluded", count)
+	}
+	return fmt.Errorf("%d block(s) could not be parsed and were excluded; the first starts at line %d", count, position.Line)
 }
 
 // summarizeSource scores units, decides revision probabilities, records source

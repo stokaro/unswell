@@ -249,11 +249,21 @@ Grammar errors, partial parses and
 unsupported string escapes produce incomplete analysis and CLI exit code 2.
 This is not a substitute for a compiler or a language-specific linter.
 
+Markdown and MDX degrade by block. When the inline grammar rejects one block, or
+the block grammar rejects a run of lines, that part is excluded with the reason
+`unparsed` and the rest of the file is analyzed. At most eight such runs are
+excluded per file; a file that needs more fails as a whole. A run that holds half
+of a fenced block extends to the closing fence. The run is still incomplete, the
+gate cannot pass, and the error names the file, the number of excluded blocks,
+and the line of the first one. Findings from the rest of the file are reported.
+On 2,133 public documentation pages, 15 failed as a whole before this change and
+none does after it; pages that parsed before give the same findings.
+
 A lone `|` after a Markdown table ends the table. Following prose retains its
 paragraph or list-item context, including inside quoted blocks. The scanner
 adapter handles this boundary without changing source bytes. Rows with two or
-more pipes still support empty cells. Incomplete trees with orphaned delimiters
-remain errors; see the [boundary investigation](../research/parsers/markdown-lone-pipe.md).
+more pipes still support empty cells. A table that the grammar builds with an
+orphaned delimiter is excluded as an `unparsed` run; see the [boundary investigation](../research/parsers/markdown-lone-pipe.md).
 
 There is no dedicated Zsh grammar in this backend. Zsh uses the Bash grammar;
 extended Zsh syntax can fail explicitly. Bash also has upstream parsing limits,

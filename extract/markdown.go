@@ -2,6 +2,7 @@ package extract
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -24,26 +25,67 @@ type markdownReader struct {
 func markdown(ctx context.Context, doc *document.Document, options Options) error {
 	source := maskFrontMatter(doc)
 	var protected []document.Span
+	prepare := prepareMarkdown
 	if doc.Format == document.MDX {
 		var err error
 		protected, err = maskMDX(ctx, doc, source)
 		if err != nil {
 			return err
 		}
-	}
-	prepare := prepareMarkdown
-	if doc.Format == document.MDX {
 		prepare = prepareMDXMarkdown
 	}
 	input, err := prepare(ctx, source)
 	if err != nil {
 		return err
 	}
-	syntax, err := parseSyntax(ctx, input.source, "markdown")
-	if err != nil {
-		return err
+	return extractMarkdown(ctx, doc, input, options, protected)
+}
+
+// extractMarkdown reads the blocks of a prepared document. A table that the
+// grammar builds wrongly is only found by the block walk, so the walk can ask
+// for one more run of lines to be blanked and the document to be read again.
+func extractMarkdown(
+	ctx context.Context, doc *document.Document, input markdownInput, options Options, protected []document.Span,
+) error {
+	var blanked []document.Span
+	for {
+		syntax, recovered, regions, err := parseMarkdownBlocks(ctx, input)
+		if err != nil {
+			return err
+		}
+		for _, region := range regions {
+			blanked = mergeRegions(blanked, region)
+		}
+		saved := *doc
+		err = readMarkdownBlocks(ctx, doc, syntax, recovered, options, protected)
+		syntax.tree.Release()
+		next, merged, retry := retryAfterOrphan(err, recovered, blanked)
+		if retry {
+			// Drop what the walk extracted and read the document again.
+			*doc = saved
+			input, blanked = next, merged
+			continue
+		}
+		if err != nil {
+			return err
+		}
+		excludeUnparsed(doc, recovered, blanked)
+		return nil
 	}
-	defer syntax.tree.Release()
+}
+
+// retryAfterOrphan blanks the run of lines at an orphaned table delimiter.
+func retryAfterOrphan(err error, input markdownInput, blanked []document.Span) (markdownInput, []document.Span, bool) {
+	var orphan *orphanedDelimiterError
+	if !errors.As(err, &orphan) || len(blanked) >= maxUnparsedRegions {
+		return input, blanked, false
+	}
+	return blankAt(input, orphan.position, blanked)
+}
+
+func readMarkdownBlocks(
+	ctx context.Context, doc *document.Document, syntax syntaxTree, input markdownInput, options Options, protected []document.Span,
+) error {
 	reader := markdownReader{ctx: ctx, doc: doc, syntax: syntax, input: input, options: options, protected: protected,
 		headings: make(map[markdownScope][6]string), lists: make(map[document.Span]document.ListContext)}
 	if options.IncludeStructure {
@@ -54,13 +96,24 @@ func markdown(ctx context.Context, doc *document.Document, options Options) erro
 	return walkSyntax(ctx, syntax.tree.RootNode(), 0, reader.block)
 }
 
+// excludeUnparsed records the runs that recovery blanked for the block grammar,
+// in source coordinates. The engine keeps such a run incomplete.
+func excludeUnparsed(doc *document.Document, input markdownInput, blanked []document.Span) {
+	for _, region := range blanked {
+		span := document.Span{Start: input.offset(region.Start), End: min(input.offset(region.End), len(doc.Source))}
+		if span.End > span.Start {
+			doc.Excluded = append(doc.Excluded, document.Exclusion{Span: span, Reason: UnparsedReason})
+		}
+	}
+}
+
 func (r *markdownReader) block(node *ts.Node) (bool, error) {
 	if len(r.doc.Blocks) > r.options.MaxBlocks {
 		return true, fmt.Errorf("source exceeds %d prose blocks", r.options.MaxBlocks)
 	}
 	kind := node.Type(r.syntax.lang)
 	if kind == "|" && !markdownTableDelimiter(node.Parent(), r.syntax.lang) {
-		return true, fmt.Errorf("markdown grammar returned an orphaned table delimiter")
+		return true, &orphanedDelimiterError{position: int(node.StartByte())}
 	}
 	if reason := markdownExclusion(kind, r.options.IncludeQuotes); reason != "" {
 		span := r.input.span(node)
@@ -131,6 +184,13 @@ func (r *markdownReader) inline(node *ts.Node, kind string) error {
 		return nil
 	}
 	mapped, err := r.inlineMapping(node, span)
+	if errors.Is(err, errInvalidSyntax) && r.ctx.Err() == nil {
+		// One block the inline grammar rejects must not hide the rest of the
+		// file. The exclusion is recorded and the engine reports the run as
+		// incomplete, so this never passes a gate silently.
+		r.doc.Excluded = append(r.doc.Excluded, document.Exclusion{Span: span, Reason: UnparsedReason})
+		return nil
+	}
 	if err != nil {
 		return err
 	}
