@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"runtime"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -168,11 +169,18 @@ func checkFlags(command *cobra.Command, options *checkOptions) {
 	flags.StringVar(&options.format, "format", "", "Input syntax: text, markdown, go, javascript, typescript, tsx, "+
 		"python, rust, java, c, cpp, csharp, yaml, bash, sh, zsh, fish, powershell")
 	flags.StringArrayVar(&options.reports, "report", nil, "Report format:path; repeat for one analysis and multiple reports")
-	flags.IntVar(&options.jobs, "jobs", 1, "Concurrent source workers (1–64)")
+	flags.IntVar(&options.jobs, "jobs", defaultJobs(), "Concurrent source workers (1–64)")
 	flags.DurationVar(&options.timeout, "timeout", 30*time.Second, "Analysis timeout")
 	flags.BoolVar(&options.includeSource, "include-source", false, "Include source text in saved reports and HTML highlights")
 	flags.BoolVar(&options.noGate, "no-gate", false, "Report findings without a style failure exit code")
 	flags.BoolVar(&options.allowEmpty, "allow-empty", false, "Explicitly allow a scan without applicable prose")
 	flags.StringVar(&options.minSeverity, "min-severity", "note", "Display severity floor; never changes the gate")
 	flags.IntVar(&options.maxFindings, "max-findings", 0, "Presentation limit; zero displays all findings")
+}
+
+// defaultJobs uses the available processors, at most eight. One worker made a
+// large repository exceed the default analysis timeout. The result does not
+// depend on the number of workers.
+func defaultJobs() int {
+	return max(1, min(runtime.GOMAXPROCS(0), 8))
 }

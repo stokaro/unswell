@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+`unswell check` now uses the available processors, at most eight, when `--jobs`
+is not given. It used one worker, so a large repository could exceed the
+default analysis timeout of 30 seconds and end with an operational error. On
+this repository the check takes 4 seconds in place of 12. The result does not
+depend on the number of workers.
+
 ## 0.1.0-alpha.6
 
 This release publishes the content of alpha.5. The `v0.1.0-alpha.5` tag exists,

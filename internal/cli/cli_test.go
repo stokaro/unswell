@@ -8,6 +8,9 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"regexp"
+	"runtime"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -46,6 +49,19 @@ func TestExitCodesAndCleanJSON(t *testing.T) {
 			c.Assert(result.SchemaVersion, qt.Equals, unswell.SchemaVersion)
 		})
 	}
+}
+
+func TestCheckUsesAvailableProcessorsByDefault(t *testing.T) {
+	c := qt.New(t)
+	var output, stderr bytes.Buffer
+	code := cli.Run(t.Context(), []string{"check", "--help"},
+		cli.Environment{Dir: t.TempDir(), In: strings.NewReader(""), Out: &output, Err: &stderr})
+	c.Assert(code, qt.Equals, 0, qt.Commentf("stderr: %s", stderr.String()))
+	match := regexp.MustCompile(`--jobs int[^\n]*\(default (\d+)\)`).FindStringSubmatch(output.String() + stderr.String())
+	c.Assert(match, qt.HasLen, 2, qt.Commentf("help: %s", output.String()))
+	workers, err := strconv.Atoi(match[1])
+	c.Assert(err, qt.IsNil)
+	c.Assert(workers, qt.Equals, max(1, min(runtime.GOMAXPROCS(0), 8)))
 }
 
 func TestMultipleReportsAndSavedTransformation(t *testing.T) {
