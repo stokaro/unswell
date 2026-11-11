@@ -111,7 +111,7 @@ func TestNewEditorialRulesRequireExplicitOptIn(t *testing.T) {
 			c.Assert(policy.Rules[d.ID].Enabled, qt.IsFalse)
 		}
 	}
-	c.Assert(newRules, qt.Equals, 11)
+	c.Assert(newRules, qt.Equals, 10)
 }
 
 func surfaceRuleID(id string) bool {

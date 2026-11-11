@@ -31,7 +31,7 @@ func TestStdioProcess(t *testing.T) {
 	t.Cleanup(func() { c.Assert(session.Close(), qt.IsNil) })
 	tools, err := session.ListTools(t.Context(), nil)
 	c.Assert(err, qt.IsNil)
-	c.Assert(tools.Tools, qt.HasLen, 2)
+	c.Assert(tools.Tools, qt.HasLen, 4)
 	for _, tc := range []struct{ name, text, outcome string }{
 		{"clean.md", "The client opens connections.", "pass"},
 		{"bad.md", "Certainly! The client opens connections.", "policy_failure"},

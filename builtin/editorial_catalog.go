@@ -1,6 +1,8 @@
 package builtin
 
 import (
+	"slices"
+
 	"github.com/stokaro/unswell/nlp"
 	"github.com/stokaro/unswell/rule"
 )
@@ -54,8 +56,11 @@ func editorialPhraseRules() []rule.Rule {
 	praise := experimentalPattern("hype.vague-praise", "Replace general praise with a specific property or measured result.", "inflation",
 		rule.Example{Text: "This is a game-changing solution for the team.", Match: true},
 		rule.Example{Text: "The robust estimator tolerates outliers."})
+	praise.Defaults.Enabled = true
+	praise.Version = "2"
 	praise.Defaults.Parameters = rule.Parameters{
-		Phrases: []string{"game-changing solution", "unparalleled experience", "unprecedented excellence"},
+		Phrases: append([]string{"game-changing solution", "unparalleled experience", "unprecedented excellence"},
+			qualifiedPraise()...),
 	}
 	absolute := experimentalPattern("hype.absolute-claim", "Check whether this guarantee has conditions or exceptions.", "inflation",
 		rule.Example{Text: "The service guarantees complete safety.", Match: true},
@@ -160,5 +165,11 @@ func editorialQualifierRules() []rule.Rule {
 }
 
 func evaluativeWords() []string {
-	return []string{"powerful", "seamless", "robust", "innovative", "transformative", "unparalleled"}
+	words := []string{"powerful", "seamless", "robust", "innovative", "transformative", "unparalleled"}
+	for _, word := range qualifiedClusterWords() {
+		if !slices.Contains(words, word) {
+			words = append(words, word)
+		}
+	}
+	return words
 }

@@ -97,8 +97,8 @@ func verifyDiscovery(ctx context.Context, session *mcp.ClientSession, expected u
 	if err != nil {
 		return server.Description{}, err
 	}
-	if len(tools.Tools) != 2 {
-		return server.Description{}, fmt.Errorf("expected both Unswell MCP tools")
+	if len(tools.Tools) != 4 {
+		return server.Description{}, fmt.Errorf("expected the four Unswell MCP tools")
 	}
 	result, err := session.CallTool(ctx, &mcp.CallToolParams{Name: "unswell_describe", Arguments: server.DescribeInput{}})
 	if err != nil {

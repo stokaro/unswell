@@ -177,8 +177,9 @@ findings; its size and absence of quality labels prevent an accuracy conclusion.
 
 ## Comparison scope and short complete items
 
-The default exact-sentence (v3), near-sentence (v3), sentence-openers (v2), and
-paragraph-openers (v3) rules compare within one grammar-derived heading/container section. Repeated headings start new sections even when their titles match. Each
+The exact-sentence (v3), near-sentence (v3), sentence-openers (v2), and
+paragraph-openers (v3) rules compare within one grammar-derived heading/container section.
+The two opener rules are opt-in since [ADR 0047](adr/0047-qualified-defaults-and-assistant-review.md). Repeated headings start new sections even when their titles match. Each
 table cell is independent: equal capability values in distinct provider rows are
 not redundant by themselves. Repeated sentences inside a cell remain eligible.
 This conservative scope can miss deliberate repetition across sections or cells.

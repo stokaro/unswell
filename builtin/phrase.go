@@ -63,7 +63,7 @@ func phraseRules() []rule.Rule {
 			"filler.wordy-phrase",
 			"Consider a shorter phrase that preserves the condition or meaning.",
 			"any",
-			[]string{"due to the fact that", "in order to", "at this point in time"},
+			append([]string{"due to the fact that", "in order to", "at this point in time"}, qualifiedWordyPhrases()...),
 			false,
 		},
 	}

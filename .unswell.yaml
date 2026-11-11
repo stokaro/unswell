@@ -42,8 +42,16 @@ extraction:
     - id: editorial-pattern-vocabulary
       paths: ["builtin/editorial_catalog.go"]
       kinds: [string]
-      symbols: [Phrases]
+      symbols: [Phrases, words]
       reason: "Configured phrase lists contain the exact wording that the experimental rules must detect."
+    - id: qualified-phrase-lists
+      paths: ["builtin/lexicon_qualified.go"]
+      kinds: [string]
+      reason: "The qualified phrase lists store the wording that the rules must detect."
+    - id: matcher-word-lists
+      paths: ["builtin/rhetoric_context.go", "builtin/rhetoric_degree.go", "builtin/rhetoric_quality.go", "builtin/rhetoric_quality_claim.go"]
+      kinds: [string]
+      reason: "These matchers list the evaluative words that the rules must detect."
     - id: shell-gate-fixture
       paths: ["scripts/dogfood.sh", "scripts/check-containers.sh"]
       kinds: [string]
@@ -88,3 +96,9 @@ rules:
   readability.grade-metric: {enabled: true}
   format.em-dash-density: {enabled: true}
   format.list-fragmentation: {enabled: true}
+overrides:
+  # Frozen research records quote third-party pages and prompts. Their wording
+  # is evidence; it is reported, and it does not fail this repository's gate.
+  - files: ["research/reviews/**"]
+    rules:
+      hype.vague-praise: {gate: none}

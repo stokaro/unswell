@@ -1,6 +1,6 @@
 # Which rules ship enabled
 
-The catalog holds 58 rules. Thirty-four are enabled by their descriptors and 24
+The catalog holds 58 rules. Thirty-three are enabled by their descriptors and 25
 are opt-in; strict additionally enables em-dash density. This page says how that split was chosen and what each opt-in rule was
 measured at. Every rule also carries its own reason: `unswell rules show ID`
 prints it, the rules page shows it, and a test fails if an opt-in rule has
@@ -25,6 +25,23 @@ also ship as experimental warnings. Their
 [complete-page measurement](../research/reviews/2026-09-17-local-repetition/README.md)
 records gains on known examples and no confirmation gain. These results do not
 qualify their defaults or establish broad editorial recall.
+
+## Qualification on the assistant-panel corpus
+
+[ADR 0047](adr/0047-qualified-defaults-and-assistant-review.md) adds a second
+kind of evidence: two assistants from different model families judge each
+finding under the statement of its rule. The
+[qualification record](research/rule-qualification.md) holds the tables.
+Three defaults changed on that evidence.
+
+- `hype.vague-praise` ships enabled. Its list was three phrases that no measured
+  text contains. It now also holds words and phrases whose findings both
+  reviewers accepted on development pages.
+- `filler.wordy-phrase` and `hype.modifier-cluster` gained qualified entries.
+- `repetition.sentence-openers` and `repetition.paragraph-openers` are opt-in.
+  Both reviewers rejected most of their findings as deliberate parallel wording.
+
+A phrase or rule without reviewed findings stays unlisted or opt-in.
 
 ## The decision rule
 
@@ -84,7 +101,7 @@ severity, with every rule enabled.
 
 `filler.empty-transition`, `filler.section-announcement`,
 `filler.stacked-hedging`, `hype.absolute-claim`, `hype.metaphor-cluster`,
-`hype.vague-praise`, `repetition.heading-echo`, `repetition.summary-echo`,
+`repetition.heading-echo`, `repetition.summary-echo`,
 `syntax.rhetorical-question-density`, `syntax.triad-density`,
 `syntax.whether-preface-density`, and `syntax.nominalization-chain` at 0.001
 in human prose and none in the generated arm.

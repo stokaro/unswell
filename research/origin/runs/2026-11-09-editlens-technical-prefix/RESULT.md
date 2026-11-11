@@ -2,7 +2,7 @@
 
 The [protocol](PROTOCOL.md) and [runner](run.py) were frozen in
 [`freeze.json`](freeze.json), SHA-256
-`a6ce8835d8998647e35f11d05aac181d86eab12fa530d9ff97ced84e0dd4a01b`,
+`8a4f2217d50f7943a97bb725271f1dbac07333591e077c2124ab84c3226b098a`,
 before the first technical-document score. The 38 original documents and all
 456 saved responses matched the pinned long-prose-v3 archives; the checkpoint
 and tokenizer matched the earlier [ARB screen](../2026-11-09-editlens-transfer/RESULT.md).

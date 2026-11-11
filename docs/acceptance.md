@@ -117,7 +117,7 @@ state.
 
 | Requirement | State | Evidence |
 | --- | --- | --- |
-| Stable rule qualification against a real corpus | Open | [#26](https://github.com/stokaro/unswell/issues/26) accepts assistant-reviewed evidence under [ADR 0041](adr/0041-assistant-review-acceptance.md). Each rule still needs contextual positives/negatives, confirmation results and a recorded default decision. Independent human review is no longer a blocker; the whole-page audit does not qualify all defaults |
+| Stable rule qualification against a real corpus | Partly met | [#26](https://github.com/stokaro/unswell/issues/26) accepts assistant-reviewed evidence under [ADR 0041](adr/0041-assistant-review-acceptance.md). Each rule still needs contextual positives/negatives, confirmation results and a recorded default decision. Independent human review is no longer a blocker; the whole-page audit does not qualify all defaults [ADR 0047](adr/0047-qualified-defaults-and-assistant-review.md) adds review of findings by two assistants on the assistant-panel corpus and a final test on 772 real pages; the [qualification record](research/rule-qualification.md) reports each rule. Rules with too few reviewed findings stay unqualified |
 | Coverage and failure-path targets | Partly met | Failure-path tests and the [measurement recorded on #27](https://github.com/stokaro/unswell/issues/27): configuration 91.9%, engine and scoring 91.9%, rules 92.7%, source mapping 90.9%, 86.7% overall; the CI gate that enforces them is deferred to #123 |
 | Reproducible performance and resource limits | Met | [Alpha.4 measurements](performance/alpha4/README.md): all 24 scans complete within 10 seconds and 512 MiB under a two-CPU quota. Synthetic, pytest, and FastAPI each exceed 100,000 prose words. Date-fns is smaller; its row establishes completeness and measured cost, not the word-count target. Historical failures and coverage changes remain recorded |
 | SARIF consumers, reproducible releases and formats | Met | [SARIF](sarif.md), [reproducible builds](reproducible-builds.md), the [release audit](release/v0.1.0-alpha.3-audit.json) and the format checks in [reports](reports.md) |
@@ -153,6 +153,14 @@ acceptance gate. More than 60 frozen pilots failed it, and the current engine
 reaches 45 of the 123 events. The successor path fits a local model on a corpus
 annotated by two assistants and accepts it on a repository-disjoint final test.
 The 123 events remain a regression replay; #349 closes with this negative result.
+
+[ADR 0047](adr/0047-qualified-defaults-and-assistant-review.md) records the outcome
+of that path. A fitted word model reached 18.7% recall at 85% precision on generated
+documents and none on real pages, so no model pack ships. Rule defaults and phrase
+lists were instead qualified by two reviewers. On the final test, the share of
+items both annotators marked that a rule other than sentence length touches rose
+from 3.2% to 11.0%. The MCP server lets the calling assistant review the rest in
+context; those findings are advisory.
 
 ## What this alpha does not claim
 

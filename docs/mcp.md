@@ -83,6 +83,54 @@ Malformed tool arguments return an MCP tool error before analysis and may have n
 structured engine result. Client cancellation can return a transport cancellation
 instead of a result. Neither case counts as a pass.
 
+## Contextual review by the calling assistant
+
+Fixed rules name constructions. They do not judge whether a sentence repeats an
+earlier one, frames a statement without adding to it, or makes a claim with no
+scope. An assistant that calls the server can make that judgment itself. Two
+tools give it exact items and bind its answer to the source. The server sends
+nothing anywhere and makes no editorial judgment in these tools.
+
+`unswell_review_request` accepts one `source` with the same fields as a checked
+source. It returns the editorial rubric as `instructions`, the seven defect
+`categories`, and the reviewable `items`: each sentence, each paragraph without
+separate sentences, and each fragment of six or more words. Every item has an
+`id`, its `kind`, its first `line`, and its original `text`. Items come from the
+same extraction as `unswell_check`, so protected code and excluded regions are
+not listed.
+
+The assistant reads the items in the context of the whole document and decides
+which ones need revision under the rubric. It sends those to
+`unswell_review_submit` with the same `source` and up to 256 `flags`:
+
+```json
+{
+  "source": {"name": "docs/guide.md", "text": "It is important to note that the client retries.\n"},
+  "flags": [
+    {
+      "item": "i001",
+      "categories": ["empty_framing"],
+      "quote": "It is important to note that",
+      "reason": "The opening only announces the statement."
+    }
+  ]
+}
+```
+
+The response lists `accepted` findings and `rejected` flags. An accepted finding
+carries the item, categories, reason, the quote exactly as it occurs in the
+source, its half-open byte `span`, and one-based `start` and `end` positions. A
+flag is rejected with a `problem` when its item is unknown or repeated, when it
+has no category or reason, or when its quote does not occur inside one segment
+of the item. A quote never crosses protected inline code. Runs of white space
+compare equal, so a quote copied across a wrapped line still binds.
+
+These findings are the calling assistant's judgments, reported with
+`"reviewer": "calling assistant"`. They are advisory. They do not enter
+`unswell_check`, its scores, or its gate, and no rule is qualified by them. The
+[rule qualification record](research/rule-qualification.md) reports how two
+assistants agree on such judgments.
+
 An assistant should inspect the effective policy, check its draft, revise relevant
 findings, and check the revised text again. A failed check does not authorize
 changing the policy. Tool arguments cannot disable the gate, alter rules or supply

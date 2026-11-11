@@ -66,7 +66,7 @@ python3 -m unittest discover \
 [`audit.py`](audit.py) has SHA-256
 `198b5c06cd79700fc6bec6a177146538116391b0fdf02ded096d375558cf89ae`;
 `result.json` has SHA-256
-`7ea5f327565e26b55829baf03986395416a080c94927dfa382f614c6df120370`.
+`52a33f84ce4953a13b5c28078ce0e7a87e373ab7bb73426a299ff9b25f55bf11`.
 The independent verifier checks input hashes, response identities, complete
 pairing, internal accounting, and absence of raw text or token IDs. It does
 not independently reconstruct window boundaries; the replay above does.
