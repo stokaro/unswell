@@ -100,7 +100,7 @@ protocol frames; startup errors, help and `--version` go to stderr. Omitting
 `--config` uses builtin defaults rather than searching for a file. `--timeout 30s`
 bounds each check, to a maximum of five minutes.
 
-Two tools:
+Four tools. The first two run the fixed policy:
 
 `unswell_describe` takes an empty object, or a logical file such as
 `{"file":"docs/reference/api.md"}` to resolve the file overrides that would apply.
@@ -132,6 +132,15 @@ cancellation is not a pass either.
   Tool arguments cannot disable the gate, change a rule or supply configuration.
   An assistant that fails a check should revise the draft and check again.
 </Note>
+
+The other two tools let the calling assistant review a draft in context.
+`unswell_review_request` returns the editorial rubric and the document's items:
+sentences, paragraphs without separate sentences, and longer fragments. The
+assistant decides which items need revision and sends its flags to
+`unswell_review_submit`. The server binds each quote to an exact byte range and
+rejects a flag whose quote does not occur inside one segment of its item. These
+findings are the assistant's own judgments. They are advisory and never reach the
+gate.
 
 Repeat `--feature ID` at startup to collect block measurements, and
 `--feature activation/<rule id>` to collect one rule's activation. The rule has to

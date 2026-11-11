@@ -55,6 +55,12 @@ third-assistant audit with placebo items. The 123-event screen of
 as a regression replay. This path produces no probability and leaves #22 and #25
 on hold.
 
+[ADR 0047](adr/0047-qualified-defaults-and-assistant-review.md) closes the fitted
+model of that path with a negative result on real pages. It qualifies rule defaults
+and phrase lists by review of findings, which is the evidence #26 asks for, and it
+adds review by the calling assistant through the MCP server. The
+[qualification record](research/rule-qualification.md) reports the measurements.
+
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on
 an explicit maintainer request, after the other implementation tasks have a

@@ -9,10 +9,10 @@ raw score files, calibration threshold, frozen input manifest, and model inputs
 were not changed or rerun.
 
 The completion marker has SHA-256
-`20a907c6e08ef5bcc5f365cea6655127a47514d7a4232bc728c26cb58923c6cc`.
+`b73a53b874d1aa6df4a9ca28fcff5d6b6321074e5a4c06aad1eef88a07408657`.
 The immutable raw score digests are recorded in that marker. The threshold
 file has SHA-256
-`eb7e5fb0385fd9740aaac5cd75f4779764f5c9fc3e50b7e3d5184889b06dd161`.
+`bc56770fe561ee42b4e5a319a2df8bbeccac5c154dc4ff82f30ae95dabe7f8b6`.
 
 `verify_v2.py` is an analysis-only amendment. For each response, it requires
 every sealed field other than `family` to match the pre-inference manifest in

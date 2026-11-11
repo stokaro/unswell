@@ -7,7 +7,8 @@ server name in its `io.modelcontextprotocol.server.name` label.
 
 This entry lets clients discover the offline checker for AI-style wording. The
 server provides `unswell_check` for draft bytes and `unswell_describe` for the fixed
-policy. It does not host a public HTTP endpoint. See [MCP configuration](mcp.md)
+policy. `unswell_review_request` and `unswell_review_submit` let the calling assistant
+review a draft in context and bind its findings to source coordinates. It does not host a public HTTP endpoint. See [MCP configuration](mcp.md)
 and [container commands](containers.md), including explicit Docker contexts.
 
 ## Release sequence

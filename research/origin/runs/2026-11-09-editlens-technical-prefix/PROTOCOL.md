@@ -13,9 +13,9 @@ Use all 38 original technical Markdown documents from 20 repositories and all
 operations (`generate`, `polish`), and two prompts (`neutral`, `plain`). Verify
 the archives against their wrappers and source hashes before scoring. The
 input archive SHA-256 is
-`c47cced06c21e5fb8222aff06a8d220c8ec1623ac2638e59bd04d0223ebc7ec2`;
+`af2a668913d3525cbd7cd72e2f2ac5d5a2c7189b76452b6f17b025d17d07942e`;
 the output archive SHA-256 is
-`b2eaed6ebfcb6dfa01fc31a48dea6020a0b18449f823ec481eef885e8ceeca48`.
+`d0a6fd2c647e9e8112f16f1d9ef13fcefe781707ec050385d248ec8eb8c0d70f`.
 The historical authorship of source pages is **unknown**; they are paired
 source baselines, not verified human negatives. Keep raw texts out of the
 result artifact.

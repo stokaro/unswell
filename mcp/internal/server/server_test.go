@@ -64,7 +64,7 @@ func TestDiscoveryAndFixedPolicy(t *testing.T) {
 	session := connect(c, t.Context(), server.Options{Config: policy})
 	tools, err := session.ListTools(t.Context(), nil)
 	c.Assert(err, qt.IsNil)
-	c.Assert(tools.Tools, qt.HasLen, 2)
+	c.Assert(tools.Tools, qt.HasLen, 4)
 	for _, tool := range tools.Tools {
 		c.Assert(tool.Annotations.ReadOnlyHint, qt.IsTrue)
 		c.Assert(*tool.Annotations.OpenWorldHint, qt.IsFalse)

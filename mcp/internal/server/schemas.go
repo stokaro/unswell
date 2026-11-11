@@ -34,3 +34,34 @@ func toolSchemas() (*mcp.Tool, *mcp.Tool, error) {
 	describe.OutputSchema = description
 	return check, describe, nil
 }
+
+func reviewSchemas() (*mcp.Tool, *mcp.Tool, error) {
+	requestInput, err := jsonschema.For[ReviewRequestInput](nil)
+	if err != nil {
+		return nil, nil, err
+	}
+	submitInput, err := jsonschema.For[ReviewSubmitInput](nil)
+	if err != nil {
+		return nil, nil, err
+	}
+	for _, input := range []*jsonschema.Schema{requestInput, submitInput} {
+		format := input.Properties["source"].Properties["format"]
+		for _, name := range document.Formats() {
+			format.Enum = append(format.Enum, string(name))
+		}
+	}
+	maximum := MaxReviewFlags
+	flags := submitInput.Properties["flags"]
+	flags.MaxItems = &maximum
+	categories := flags.Items.Properties["categories"]
+	for _, name := range ReviewCategories() {
+		categories.Items.Enum = append(categories.Items.Enum, name)
+	}
+	request := tool("unswell_review_request",
+		"List the reviewable items of one document with the editorial rubric for the calling assistant.")
+	request.InputSchema = requestInput
+	submit := tool("unswell_review_submit",
+		"Bind the calling assistant's review flags to exact source coordinates. The result is advisory.")
+	submit.InputSchema = submitInput
+	return request, submit, nil
+}

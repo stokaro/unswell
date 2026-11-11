@@ -29,10 +29,10 @@ test an evidence-aligned detector, justify any cutoff, change the original
 
 ## Source and review integrity
 
-- Selection SHA-256: `9795837fd6eab4cb27a66ed2bbd730cad278a728c033b395d0cf65a15f05beda`.
-- Development source manifest SHA-256: `f10def35de225cd5cf18992f33a34a03522d98032b26547929823f3b1d9fb3f2`.
+- Selection SHA-256: `8dc9e58811e1e25cd6e42d2ff66f4ce98c5151398c1ccaa13d63727dcc44313b`.
+- Development source manifest SHA-256: `b2789bb5d56848cf9ebe70c8f0265938f5fc366beddd3b61df7cb44220484177`.
 - Source-only review specification SHA-256: `04c389dd7b517d8eb540939bc427d8daf48d249b6968662a816d2338e9fdc19b`.
-- Materialized review SHA-256: `47352ec1205f7e35d4c8b500e22d5f5e38d2b57a6aee73970be04b3a4dadc777`.
+- Materialized review SHA-256: `1240f4c173207c93d001ddd7b43102434d19a5684b7705b15e4ff3f3a2ffa393`.
 - The source bytes are local under
   `artifacts/research/2026-11-11-evidence-aligned-pairs/sources/`, excluded
   from Git. The public packet includes pinned source identities, hashes, and

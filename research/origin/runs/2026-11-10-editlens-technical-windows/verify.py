@@ -13,8 +13,8 @@ HERE = Path(__file__).resolve().parent
 STUDY = HERE.parents[2] / "generation" / "studies" / "long-prose-v3"
 RUNS = HERE.parent
 EXPECTED = {
-    "input_archive_sha256": "c47cced06c21e5fb8222aff06a8d220c8ec1623ac2638e59bd04d0223ebc7ec2",
-    "output_archive_sha256": "b2eaed6ebfcb6dfa01fc31a48dea6020a0b18449f823ec481eef885e8ceeca48",
+    "input_archive_sha256": "af2a668913d3525cbd7cd72e2f2ac5d5a2c7189b76452b6f17b025d17d07942e",
+    "output_archive_sha256": "d0a6fd2c647e9e8112f16f1d9ef13fcefe781707ec050385d248ec8eb8c0d70f",
     "tokenizer_sha256": "2bb1a22cfbe25b8e5a232b7fc4d7fc5073923b45724a5f813b00811bb6620f66",
     "richness_runner_sha256": "ed17bd5b238823357a09146e18ea871abad8a1eb3ced1a6dc2b6352e1a338ad7",
     "editlens_runner_sha256": "c411968219a2d273781769d1cbbd67e91b8dfac3bb10cc096195d1f87d19f264",

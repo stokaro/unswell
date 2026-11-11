@@ -43,7 +43,6 @@ var optInReasons = map[string]string{
 	"filler.stacked-hedging":             silentRule + "It counts hedges stacked inside one sentence.",
 	"hype.absolute-claim":                silentRule + "It looks for a guarantee stated without conditions.",
 	"hype.metaphor-cluster":              silentRule + "Its list holds stock metaphors such as \"rich tapestry of possibilities\".",
-	"hype.vague-praise":                  silentRule + "Its list holds superlatives offered in place of a measured result.",
 	"repetition.heading-echo":            silentRule + "It compares a heading against the paragraph below it.",
 	"repetition.summary-echo":            silentRule + "It compares a closing section against the body it summarizes.",
 	"syntax.rhetorical-question-density": silentRule + "It counts questions a paragraph asks and answers itself.",
@@ -55,6 +54,10 @@ var optInReasons = map[string]string{
 	// Rules whose warning load falls mainly on human technical prose. They
 	// are editorially sound and stay in the catalog; a project that wants
 	// that load asks for it.
+	"repetition.sentence-openers": "Its findings fall mainly on deliberate parallel wording. On the assistant-panel " +
+		"corpus two reviewers both rejected 56 of 77 findings and both accepted four. Repeated form need not mean redundant information.",
+	"repetition.paragraph-openers": "Its findings fall mainly on deliberate parallel wording. On the assistant-panel " +
+		"corpus two reviewers both rejected 32 of 39 findings and both accepted none. Repeated openings do not establish duplicate meaning.",
 	"repetition.ngram-density": "Fires an order of magnitude more on human prose, 0.603 findings per thousand " +
 		"words against 0.056 in the controlled arm. Parallel technical wording is often deliberate.",
 	"repetition.paragraph-overlap": "0.283 per thousand words in human prose and none in the controlled arm.",

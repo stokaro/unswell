@@ -53,6 +53,7 @@ func repetitionRules() []rule.Rule {
 		"document",
 		15,
 	)
+	sentence.Defaults.Enabled = false
 	sentence.Defaults.Parameters = rule.Parameters{MinWords: 8, OpenerWords: 3, AllowedOccurrences: 2, SaturationOccurrences: 5}
 	sentence.Version = "3"
 	sentence.RequiresStructure = true
@@ -76,6 +77,7 @@ func repetitionRules() []rule.Rule {
 		"document",
 		18,
 	)
+	paragraph.Defaults.Enabled = false
 	paragraph.Defaults.Parameters = sentence.Defaults.Parameters
 	paragraph.Version = "4"
 	paragraph.RequiresStructure = true
@@ -92,6 +94,12 @@ func repetitionRules() []rule.Rule {
 			"Measured on PostgreSQL 18.7. The client must not wait more than 60 seconds.\n\n" +
 			"Measured on PostgreSQL 18.8. The client retries only after the connection closes.", Match: true},
 		{Text: "Measured on PostgreSQL 18.6.\n\nMeasured on PostgreSQL 18.7.\n\nMeasured on PostgreSQL 18.8.", Match: false},
+	}
+	// Both opener rules ship disabled, so their examples enable them.
+	for _, d := range []*rule.Descriptor{&sentence, &paragraph} {
+		for i := range d.Examples {
+			d.Examples[i].Config = "version: 1\nrules:\n  " + d.ID + ": {enabled: true}\n"
+		}
 	}
 	return []rule.Rule{
 		exactRepetitionRule(sample),

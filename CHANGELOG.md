@@ -2,12 +2,29 @@
 
 ## Unreleased
 
+Rule defaults now rest on reviewed findings. `hype.vague-praise` ships enabled
+and reports qualified words such as `powerful` and `seamless`.
+`filler.wordy-phrase` reports stock verbs such as `leverage` and `utilize`.
+`hype.modifier-cluster` counts more evaluative modifiers.
+`repetition.sentence-openers` and `repetition.paragraph-openers` are opt-in;
+enable them in configuration to keep their findings. These changes alter
+configuration hashes and reported findings. The
+[qualification record](docs/research/rule-qualification.md) reports precision by
+rule, a final test on 772 real pages, and the limits of the measurement.
+
 MDX files now participate in directory scans and MCP checks. Markdown prose
 between component tags is checked; imports, exports, expressions and tag
 attributes retain explicit exclusions. Original byte coordinates survive
 masking, indentation, CRLF and Unicode. Use `languages.mdx.contexts` to select
 headings, paragraphs, list items or table cells. The added default file pattern
 changes configuration hashes; existing diagnostic and feature values are unchanged.
+
+The MCP server adds `unswell_review_request` and `unswell_review_submit`. The
+calling assistant receives the editorial rubric and the document's sentences,
+judges them in context, and submits flags. The server binds each quote to
+original byte coordinates and rejects a quote that crosses protected code. These
+findings are advisory, are labeled as the calling assistant's judgments, and
+change neither scores nor the gate.
 
 Building from source now requires Go 1.26. The Go analysis adapter and its
 consumer use `golang.org/x/tools` v0.50.0, which requires this compiler version.
