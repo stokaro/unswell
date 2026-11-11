@@ -43,6 +43,12 @@ Three defaults changed on that evidence.
 
 A phrase or rule without reviewed findings stays unlisted or opt-in.
 
+[ADR 0048](adr/0048-severity-follows-review.md) ties default severity to the same
+evidence. A rule reports warnings when both reviewers accepted at least 85% of 50
+or more findings on real pages, and notes when it falls below that share.
+`syntax.long-sentence`, `filler.instruction-scaffolding`,
+`filler.unscoped-assurance`, and `hype.vague-praise` report notes.
+
 ## The decision rule
 
 A rule ships enabled when it names a construction a reader can act on and its

@@ -57,6 +57,7 @@ func editorialPhraseRules() []rule.Rule {
 		rule.Example{Text: "This is a game-changing solution for the team.", Match: true},
 		rule.Example{Text: "The robust estimator tolerates outliers."})
 	praise.Defaults.Enabled = true
+	praise.Defaults.Severity = "note"
 	praise.Version = "2"
 	praise.Defaults.Parameters = rule.Parameters{
 		Phrases: append([]string{"game-changing solution", "unparalleled experience", "unprecedented excellence"},

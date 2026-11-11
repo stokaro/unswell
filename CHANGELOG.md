@@ -12,6 +12,12 @@ configuration hashes and reported findings. The
 [qualification record](docs/research/rule-qualification.md) reports precision by
 rule, a final test on 772 real pages, and the limits of the measurement.
 
+Default severity now follows reviewed precision. `syntax.long-sentence`,
+`filler.instruction-scaffolding`, `filler.unscoped-assurance`, and
+`hype.vague-praise` report notes. Rules whose findings two reviewers accepted at
+least 85% of the time on real pages keep warnings. Use `--min-severity warning`
+to see only those. Scores and the gate are unchanged.
+
 MDX files now participate in directory scans and MCP checks. Markdown prose
 between component tags is checked; imports, exports, expressions and tag
 attributes retain explicit exclusions. Original byte coordinates survive

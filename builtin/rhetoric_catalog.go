@@ -137,11 +137,21 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 	d.Parameters = []string{"window_sentences", "allowed_occurrences", "saturation_occurrences"}
 	d.Defaults.Parameters = rule.Parameters{WindowSentences: 8, SaturationOccurrences: 1}
 	d.Examples = examples
+	if reviewedBelowWarning(id) {
+		d.Defaults.Severity = "note"
+	}
 	if id == "filler.instruction-scaffolding" {
 		d.Description += " An immediate anaphoric method may be related across adjacent prose paragraphs, without crossing structural boundaries."
 		return check{d, instructionRhetoric(find, id, suggestion)}
 	}
 	return check{d, localRhetoric(find, id, suggestion)}
+}
+
+// reviewedBelowWarning names the local rules whose findings on real pages both
+// reviewers accepted less than 85% of the time. They report notes.
+// docs/research/rule-qualification.md has the measurements.
+func reviewedBelowWarning(id string) bool {
+	return id == "filler.instruction-scaffolding" || id == "filler.unscoped-assurance"
 }
 
 func localRhetoricVersion(id string) string {

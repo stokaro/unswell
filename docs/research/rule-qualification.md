@@ -166,6 +166,36 @@ adjective can leave `most language models` or `for , API-key-free`, and the audi
 prefers the grammatical original while stating that the removed word carried no
 information. A later audit should let an assistant write the minimal edit.
 
+## Second round: severity by evidence
+
+[ADR 0048](../adr/0048-severity-follows-review.md) sets default severity from the reviews above:
+a warning needs both reviewers to accept at least 85% of 50 or more findings on real pages.
+A new set of 589 real pages from 316 repositories, selected by the same rule and used
+for nothing before, reports the result.
+
+| Severity | Findings | Reviewed | Both accept | At least one accepts | Both reject |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| warning | 115 | 115 | 82.6% (75% to 88%) | 87.8% | 12.2% |
+| note | 1,063 | 885 | 59.9% (57% to 63%) | 86.1% | 13.9% |
+
+| Rule | Severity | Reviewed | Both accept | At least one accepts |
+| --- | --- | ---: | ---: | ---: |
+| `filler.wordy-phrase` | warning | 85 | 90.6% | 95.3% |
+| `repetition.adjacent-word` | warning | 9 | 33.3% | 33.3% |
+| `filler.nominal-support` | warning | 7 | 100.0% | 100.0% |
+| `repetition.exact-sentence` | warning | 6 | 66.7% | 66.7% |
+| `syntax.long-sentence` | note | 715 | 60.4% | 87.0% |
+| `filler.instruction-scaffolding` | note | 70 | 51.4% | 88.6% |
+| `hype.vague-praise` | note | 54 | 81.5% | 90.7% |
+| `filler.document-metadiscourse` | note | 37 | 43.2% | 70.3% |
+| `filler.unscoped-assurance` | note | 9 | 22.2% | 33.3% |
+
+Findings are capped at eight per rule and page for review, so a page with many long
+sentences contributes eight of them.
+The third assistant, `private-host/Qwen3.8-27B`, judged the same findings as a check. It gave the
+same answer as the second reviewer for 83.1% of 1,000 findings. It accepted
+75.4% of them and the second reviewer 83.9%.
+
 ## Limits
 
 - Reviewers and auditor are assistants. Models can share a preference that readers do not have.
