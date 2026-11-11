@@ -14,12 +14,15 @@ from pathlib import Path
 W, OUT = Path(sys.argv[1]), Path(sys.argv[2])
 SETS = [("long-prose", "docs.jsonl", "development"), ("real-dev-1", "docs-realdev.jsonl", "development"),
         ("real-dev-2", "docs-realdev2.jsonl", "development"), ("real-test-1a", "docs-real.jsonl", "final test 1"),
-        ("real-test-1b", "docs-real2.jsonl", "final test 1"), ("real-test-2", "docs-real3.jsonl", "final test 2")]
+        ("real-test-1b", "docs-real2.jsonl", "final test 1"), ("real-test-2", "docs-real3.jsonl", "final test 2"),
+        ("real-test-3", "docs-real4.jsonl", "final test 3")]
 MANIFESTS = {"real-dev-1": "realdev", "real-dev-2": "realdev2", "real-test-1a": "real", "real-test-1b": "real2",
-             "real-test-2": "real3"}
+             "real-test-2": "real3", "real-test-3": "real4"}
 ROUNDS = [("development", "rev", ["report-broad-dev.json", "report-broad-dev2.json"]),
           ("final-test-1", "rev-final", ["report-final-new.json"]),
-          ("final-test-2", "rev-real3", ["report-real3-r2.json"])]
+          ("final-test-2", "rev-real3", ["report-real3-r2.json"]),
+          ("final-test-3", "rev-real4", ["report-real4-r3.json"]),
+          ("final-test-3-removed", "rev-real4-removed", ["report-real4-removed.json"])]
 AUDITS = [("development", "audit-spans-dev.json"), ("final-test-1", "audit-spans-final.json")]
 
 
@@ -139,6 +142,11 @@ for name, source in (("excess.json", "excess-v0.json"), ("assignment.json", "eng
                      ("rule-statements.json", "rule-statements.json")):
     data = json.loads((W / source).read_text())
     (OUT / "phrases" / name).write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n")
+(OUT / "rounds").mkdir(parents=True, exist_ok=True)
+for name, source in (("round-3-development.json", "engine/round3-dev.json"),
+                     ("round-3-test.json", "engine/round3-test.json"),
+                     ("round-3-length-bands.json", "engine/round3-evidence.json")):
+    shutil.copy(W / source, OUT / "rounds" / name)
 (OUT / "configs").mkdir(parents=True, exist_ok=True)
 for name in ("broad.yaml", "release.yaml"):
     shutil.copy(W / "engine" / name, OUT / "configs" / name)

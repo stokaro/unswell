@@ -147,9 +147,9 @@ func TestSelectedOverridesRejectIncompatibleCombination(t *testing.T) {
 	data := []byte(`version: 1
 overrides:
   - files: [docs/**]
-    rules: {syntax.long-sentence: {parameters: {onset: 50}}}
+    rules: {syntax.long-sentence: {parameters: {onset: 60}}}
   - files: ['**/*.md']
-    rules: {syntax.long-sentence: {parameters: {saturation: 40}}}
+    rules: {syntax.long-sentence: {parameters: {saturation: 50}}}
 `)
 	plan, _, err := config.CompileBundle(config.Bundle{Root: "policy.yaml", Files: map[string][]byte{"policy.yaml": data}}, bundleCatalog())
 	c.Assert(err, qt.IsNil)

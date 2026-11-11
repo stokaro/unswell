@@ -62,6 +62,9 @@ adds review by the calling assistant through the MCP server. The
 [qualification record](research/rule-qualification.md) reports the measurements.
 [ADR 0048](adr/0048-severity-follows-review.md) sets default severity from that
 evidence: a warning needs 85% acceptance by both reviewers on real pages.
+[ADR 0049](adr/0049-defaults-follow-reviewed-forms.md) reads the reviews inside a
+rule: a rule, a matcher form, or a length band that reviewers reject leaves the
+default.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on

@@ -52,7 +52,7 @@ func TestFrameCatalogDeclaresNonblockingRecognition(t *testing.T) {
 			continue
 		}
 		count++
-		c.Assert(d.Defaults.Enabled, qt.IsTrue)
+		c.Assert(d.Defaults.Enabled, qt.Equals, d.ID == "syntax.repeated-reframing")
 		c.Assert(d.Defaults.Score, qt.Equals, rule.Score{})
 		c.Assert(d.Defaults.Gate, qt.Equals, "none")
 		c.Assert(d.Defaults.Severity, qt.Equals, "note")

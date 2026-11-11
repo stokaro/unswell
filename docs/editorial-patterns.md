@@ -2,10 +2,12 @@
 
 These rules target formulaic wording that can leak from AI drafts into code and
 documents. They examine the wording and its context, without attributing authorship.
-All these rules are experimental; eleven are disabled in builtin profiles.
-`syntax.repeated-reframing` and
-`filler.document-metadiscourse` ship enabled in technical and strict as zero-score
-notes. `syntax.paired-contrast-density` stays opt-in because contrast frequency
+All these rules are experimental; twelve are disabled in builtin profiles.
+`syntax.repeated-reframing` ships enabled in technical and strict as a zero-score
+note. `filler.document-metadiscourse` and `filler.unscoped-assurance` are opt-in
+since [ADR 0049](adr/0049-defaults-follow-reviewed-forms.md): two reviewers
+accepted fewer than half of their findings on real pages.
+`syntax.paired-contrast-density` stays opt-in because contrast frequency
 does not establish redundant information; its [default-policy review](rule-defaults.md#repeated-contrasts-opt-in-surface-measurement)
 records the rejected, uncertain, and accepted findings removed from the standard
 stream. The project enables the remaining rules for its own self-checks.
@@ -291,6 +293,13 @@ occurrence counts, source ranges, allowances or scoring weights. It does not
 establish broader editorial recall or attribute authorship.
 
 ## Layered instruction wording
+
+`filler.instruction-scaffolding` version 19 no longer reports a conditional
+reader goal, such as `If you want to change the port, you can set the option`,
+or a reminder that opens with `Be sure to`. On real pages two reviewers
+accepted 25 of 138 such findings.
+[ADR 0049](adr/0049-defaults-follow-reviewed-forms.md) records the decision.
+The forms below remain.
 
 `filler.instruction-scaffolding` version 4 follows bounded support predicates to
 an action and its operand: nominal ability, generic reader enablement, modal

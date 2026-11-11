@@ -27,6 +27,7 @@ reference, and SHA-256 digest, so it can be fetched again and checked.
 | `audit/*.json` | Outcomes of the blind paired comparisons, with placebo rows. |
 | `phrases/*.json` | Phrase candidates, their statistics, the selection decisions, and the rule statements shown to reviewers. |
 | `configs/*.yaml` | Engine configurations: every rule enabled with all candidates, and the selected lists. |
+| `rounds/*.json` | Acceptance by sentence length, and the comparison of defaults before and after round three. |
 | `summary.json` | Panel, document counts, annotator agreement counts, and per-rule review counts. |
 | `files.sha256` | Digest of every data file. |
 | `scripts/` | The scripts that built the corpus, as they ran. |
@@ -45,6 +46,7 @@ at the pinned commit.
 | `real-test-1a` | final test 1 | 127 | two annotators |
 | `real-test-1b` | final test 1 | 645 | two annotators |
 | `real-test-2` | final test 2 | 589 | none |
+| `real-test-3` | final test 3 | 578 | none |
 
 `long-prose` comes from the archives of
 [the long-prose study](../../generation/studies/long-prose-v3). The other sets
@@ -58,6 +60,13 @@ appears under two roles. A test set became development data after it was opened.
 | `development` | 7,315 | `astra`, `claude` |
 | `final-test-1` | 1,453 | `astra`, `claude` |
 | `final-test-2` | 1,001 | `astra`, `claude`, `qwen` |
+| `final-test-3` | 547 | `astra`, `claude`, `qwen` |
+| `final-test-3-removed` | 593 | `astra`, `claude` |
+
+`final-test-3` holds the findings of the round-three defaults on the third test
+set, as reviewed before two rules became opt-in. `final-test-3-removed` holds
+the findings that the earlier defaults reported there and round three dropped.
+`rounds/round-3-test.json` compares the two.
 
 A verdict answers one question: is the finding justified under the statement of
 its rule? The values are `yes`, `no`, and `uncertain`. A missing verdict means
@@ -83,8 +92,9 @@ behind `qwen` runs on a private endpoint; its address and key come from the
 environment and are not part of this record.
 
 1. Select and fetch pages: `acquire_real.py`, `acquire_real_dev.py`,
-   `acquire_more.py`, `acquire_dev2.py`, `acquire_real3.py`, in that order. Each
-   one skips repositories that an earlier selection log names.
+   `acquire_more.py`, `acquire_dev2.py`, `acquire_real3.py`, `acquire_real4.py`,
+   in that order. Each one skips repositories that an earlier selection log
+   names.
 2. Extract items: `build_docs.py` for the study archives, `prep_real.py` for
    real pages.
 3. Annotate: `annotate.py` once per annotator.
@@ -93,7 +103,8 @@ environment and are not part of this record.
 5. Select phrases and defaults: `rule_table.py`, `select_release.py`,
    `gen_lexicon_go.py`.
 6. Audit: `audit.py` for items, `audit_spans.py` for findings.
-7. Report and export: `gen_docs.py`, `export_record.py`.
+7. Compare defaults between rounds: `round3_evidence.py`, `compare_rounds.py`.
+8. Report and export: `gen_docs.py`, `export_record.py`.
 
 `study.py`, `study2.py`, `study3.py`, `embed.py`, `mine.py`, `qualify.py`, and
 `excess.py` produced the negative results on fitted models and mined phrases
@@ -109,7 +120,7 @@ change, and the models do not return the same answers twice.
 - The two annotators agree on which items need revision with a Cohen kappa of
   0.43 on the long-prose set.
 - Reviewers saw at most eight findings per rule and page.
-- `real-dev-2` and `real-test-2` have reviews of findings and no item labels, so
-  they give precision and no recall.
+- `real-dev-2`, `real-test-2`, and `real-test-3` have reviews of findings and no
+  item labels, so they give precision and no recall.
 - The auditor's paired comparison penalizes mechanical edits that break
   grammar. The qualification record states the effect.

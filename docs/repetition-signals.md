@@ -233,7 +233,11 @@ lower the word minimums, opener counts or gates of the earlier rules.
   Punctuation, quoted examples, protected code and term exemptions interrupt the
   match. Ambiguous grammatical repetitions such as `had had` and `that that`,
   repeated adjectives/adverbs and ambiguous noun/verb readings stay silent.
-  It carries weight 12 and cap 24.
+  Version 4 requires both copies in the same case; a sentence may open with the
+  capitalized copy. A repeated capitalized word inside a sentence is read as a
+  name or a title. In Markdown, emphasis, code, a closing link, or a table
+  boundary between the copies separates them. The rule reports a note and
+  carries weight 12 and cap 24.
 - `repetition.repeated-claim` compares assertions within one structural section
   and a 16-sentence window, with at least five prose words. A complete assertion
   can match the prefix before a nonrestrictive `, which` tail; two partial

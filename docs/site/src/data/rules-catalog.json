@@ -88,14 +88,15 @@
             "paragraph",
             "string"
           ],
-          "enabled": true,
+          "enabled": false,
           "severity": "note",
           "gate": "none",
           "weight": 0,
           "cap": 0,
           "summary": "Document self-description: check whether this announcement or navigation helps the reader.",
           "description": "Recognizes document subjects followed by communicative verbs, and 'in this document, we' announcements. Also recognizes bare invitations to see an anaphoric referent in action; named objects and conditions stay excluded. Embedded document subjects identifying themselves as a map of a relative topic receive a self-description explanation; literal maps remain excluded. Groups their complete clauses within eight sentences of uninterrupted prose; one clause is sufficient.",
-          "limitations": "The document-metadiscourse frame is a bounded token/POS heuristic, not a dependency or semantic parse. Clauses are limited to 48 tokens and subjects to eight. Protected text is opaque, never a lexical cue. Recognition does not establish redundancy, authorship, or a need for revision. Technical definitions and useful navigation can match; defaults carry no score or gate. Precision is unqualified."
+          "limitations": "The document-metadiscourse frame is a bounded token/POS heuristic, not a dependency or semantic parse. Clauses are limited to 48 tokens and subjects to eight. Protected text is opaque, never a lexical cue. Recognition does not establish redundancy, authorship, or a need for revision. Technical definitions and useful navigation can match; defaults carry no score or gate. Precision is unqualified.",
+          "opt_in_reason": "On real pages two reviewers both accepted 60 of 133 findings and both rejected 31. They disagreed on the rest: a statement of a page's scope helps one reader and delays another."
         },
         {
           "id": "filler.empty-transition",
@@ -141,7 +142,7 @@
         },
         {
           "id": "filler.instruction-scaffolding",
-          "version": "18",
+          "version": "19",
           "status": "experimental",
           "group": "rhetorical-patterns",
           "scope": "block",
@@ -157,8 +158,8 @@
           "weight": 12,
           "cap": 24,
           "summary": "State the supported action directly; preserve its conditions and optionality.",
-          "description": "An affirmative impersonal capability with a transitive configuration or presentation action, or a reader-intention clause introducing an instruction. Anaphoric gerund methods, nominalized methods and reader-purpose clauses are also recognized. Nested enables/allows plus an action nominalization and passive infinitive, and nominal actions performed through a gerund method, also qualify. Actor-to-action projection recognizes ability nouns, modal used-to/used-for actions, named method predicates, and nested intended-to-enable actions. Narrated prerequisites and repeated same-actor obligations can introduce an action. Standalone generic reader enablement requires an adjacent method; concrete capability explanations remain controls. Infinitive reader goals admit coordinated actions. Relative operation or actor antecedents can carry nested support; capable-of gerunds, imperative assurance and purpose-to-steps announcements also qualify. A second method may be anchored by a repeated two-noun object and explicit reader action. An adjacent anaphoric method may name a nominal syntax or configuration instrument; that instrument cannot establish a standalone warning or replace a passive actor. A discourse-marked unnamed piece, bit or part of logic or code may carry a transitive gerund through allows, enables or supports. Named components, numbered architectural parts and unmarked part descriptions remain excluded. Reader prerequisites with will need to have the following and an installed-state operand request direct wording; separate deadlines, qualified states and optional requirements remain excluded. A complete temporal state prerequisite and impersonal safe/possible action may introduce an immediate To do this/that passive invocation of a named method or function. The pair requests direct instruction wording while retaining the safety qualifier and prerequisite; automatic execution and unnamed operations remain excluded. A reader-intent condition followed by a distinct action with an exact code-form command or option is already a direct optional instruction. The either/or coordinator before alternative actions is not an action verb. A supported-action prefix followed by a modal relative helpfulness clause and an unqualified purpose nominal requests direct wording for both layers while retaining their modality and the relative antecedent. A configuration operand or opaque identifier used as a standalone subject does not establish an actor for a simple modal used-to/used-for capability. Preserve modal meaning, named actors and conditions. Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. Failure, permission, negation and quoted constructions do not match. Reports complete matched clauses, once per clause. An immediate anaphoric method may be related across adjacent prose paragraphs, without crossing structural boundaries.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
+          "description": "An affirmative impersonal capability with a transitive configuration or presentation action, or a reader-intention clause introducing an instruction. Anaphoric gerund methods and nominalized methods are also recognized. Nested enables/allows plus an action nominalization and passive infinitive, and nominal actions performed through a gerund method, also qualify. Actor-to-action projection recognizes ability nouns, modal used-to/used-for actions, named method predicates, and nested intended-to-enable actions. Narrated prerequisites and repeated same-actor obligations can introduce an action. Standalone generic reader enablement requires an adjacent method; concrete capability explanations remain controls. Infinitive reader goals admit coordinated actions. Relative operation or actor antecedents can carry nested support; capable-of gerunds and purpose-to-steps announcements also qualify. A second method may be anchored by a repeated two-noun object and explicit reader action. An adjacent anaphoric method may name a nominal syntax or configuration instrument; that instrument cannot establish a standalone warning or replace a passive actor. A discourse-marked unnamed piece, bit or part of logic or code may carry a transitive gerund through allows, enables or supports. Named components, numbered architectural parts and unmarked part descriptions remain excluded. Reader prerequisites with will need to have the following and an installed-state operand request direct wording; separate deadlines, qualified states and optional requirements remain excluded. A complete temporal state prerequisite and impersonal safe/possible action may introduce an immediate To do this/that passive invocation of a named method or function. The pair requests direct instruction wording while retaining the safety qualifier and prerequisite; automatic execution and unnamed operations remain excluded. A reader-intent condition followed by a distinct action with an exact code-form command or option is already a direct optional instruction. The either/or coordinator before alternative actions is not an action verb. A supported-action prefix followed by a modal relative helpfulness clause and an unqualified purpose nominal requests direct wording for both layers while retaining their modality and the relative antecedent. A configuration operand or opaque identifier used as a standalone subject does not establish an actor for a simple modal used-to/used-for capability. Preserve modal meaning, named actors and conditions. Named actor permissions and simple passive predicates do not. Adjacent method announcements remain related evidence. Failure, permission, negation and quoted constructions do not match. Reports complete matched clauses, once per clause. An immediate anaphoric method may be related across adjacent prose paragraphs, without crossing structural boundaries.",
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples. A conditional reader goal and a be-sure-to reminder are not reported."
         },
         {
           "id": "filler.modern-world-opening",
@@ -298,14 +299,15 @@
             "paragraph",
             "string"
           ],
-          "enabled": true,
+          "enabled": false,
           "severity": "note",
           "gate": "none",
           "weight": 12,
           "cap": 24,
           "summary": "State the behavior, scope or evidence behind this quality claim.",
           "description": "A positive copular clause announces intentional quality without a mechanism, calls a choice nearly always right, or promises the fastest/best/easiest way to understand everything. Also recognizes affirmative extreme quality predicates and unrestricted claims about what everybody or nobody knows, wants or can verify, unsupported majority claims about reader preferences or practice, and anaphoric result tails predicting generic readers' preferences or understanding. Ordinary copular quality or difficulty judgments require a main subject and a complete predicate without a stated local mechanism. Testing-to-guarantee and unrestricted-trust constructions receive explanations of their specific assurance. Grouped occurrences use a specific explanation only when all occurrences support the same explanation; mixed groups retain the general diagnostic. Technical adjective-noun phrases, conditional, quantified and protected constructions are excluded. Reports complete matched clauses, once per clause. Local emphatic capability modifiers, optimization degree, attributive ease-to-use software descriptions, and deictic superlative benefits request criteria for their extent or ranking. Bare quality fragments may occur in headings or lists. Local measurements, criteria, comparisons, mechanisms, negation, attribution and quoted operators remain excluded; a bare count in an adjacent sentence and a reader-intent condition do not establish a quality criterion. Formal technical properties are not inferred from degree words alone. Testing or review activities guaranteeing abstract quality, and bare assertions that nothing is taken on trust, also request explicit scope. Concrete invariants, proofs, qualifications, attribution and protected code are excluded. Source-local quality claims about future-proofed APIs, unbounded feature-set rankings, paired subjective software qualities, reasonable defaults and important effects on quality request a criterion or concrete behavior. Named comparison sets, local mechanisms and quotations are excluded.",
-          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples."
+          "limitations": "Bounded token constructions, not a semantic or authorship classifier. Candidates are limited to 48 tokens; local tails may occur in sentences of up to 96 tokens. Protected text is never construction vocabulary. Warnings request an editorial review and do not prove that a sentence can be deleted. Defaults are experimental policy proposals; review results describe only their declared samples.",
+          "opt_in_reason": "On real pages two reviewers both accepted 14 of 48 findings and both rejected 21. A neighboring sentence explained most of the rejected claims, and a local rule does not read it."
         },
         {
           "id": "filler.unspecified-update",
@@ -591,7 +593,7 @@
       "rules": [
         {
           "id": "repetition.adjacent-word",
-          "version": "3",
+          "version": "4",
           "status": "experimental",
           "group": "repetition",
           "scope": "sentence",
@@ -604,12 +606,12 @@
             "table-cell"
           ],
           "enabled": true,
-          "severity": "warning",
+          "severity": "note",
           "gate": "none",
           "weight": 12,
           "cap": 24,
           "summary": "This word occurs twice in succession; check for an accidental duplicate.",
-          "description": "Locates adjacent equal prose words separated only by whitespace. Quoted examples, protected text, repeated adjectives/adverbs, and ambiguous grammatical repetitions are excluded. Quotation protection follows the repeated tokens, including quotes spanning sentences in one block. Numeric operands and formatting conversions are not prose words; uppercase Boolean operator names remain distinct from their lowercase grammatical uses.",
+          "description": "Locates a prose word written twice in succession, separated only by whitespace. The two copies have the same case; a sentence may open with the capitalized copy. A repeated capitalized word inside a sentence is read as a name or a title. In Markdown, emphasis, code, a closing link, or a table boundary between the copies separates them. Quoted examples, protected text, repeated adjectives/adverbs, and ambiguous grammatical repetitions are excluded. Quotation protection follows the repeated tokens, including quotes spanning sentences in one block. Numeric operands and formatting conversions are not prose words; uppercase Boolean operator names remain distinct from their lowercase grammatical uses.",
           "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established. Deliberate repetition and technical compounds can still match; this is not an authorship signal. Unclosed quotations and ambiguous plural possessives inside single quotes protect the remaining passage."
         },
         {
@@ -1035,7 +1037,7 @@
       "rules": [
         {
           "id": "syntax.long-sentence",
-          "version": "1",
+          "version": "2",
           "status": "experimental",
           "group": "syntax-load",
           "scope": "sentence",
@@ -1044,8 +1046,7 @@
             "heading",
             "list-item",
             "paragraph",
-            "string",
-            "table-cell"
+            "string"
           ],
           "enabled": true,
           "severity": "note",
@@ -1053,7 +1054,7 @@
           "weight": 20,
           "cap": 40,
           "summary": "Consider splitting this long sentence without losing its conditions.",
-          "description": "Consider splitting this long sentence without losing its conditions.",
+          "description": "Reports a sentence with more prose words than the onset. Table cells are not measured.",
           "limitations": "Alpha defaults are editorial policy proposals; corpus precision has not been established."
         },
         {

@@ -198,9 +198,91 @@ The third assistant, `private-host/Qwen3.8-27B`, judged the same findings as a c
 same answer as the second reviewer for 83.1% of 1,000 findings. It accepted
 75.4% of them and the second reviewer 83.9%.
 
+## Third round: thresholds, matcher forms, and two rules
+
+[ADR 0049](../adr/0049-defaults-follow-reviewed-forms.md) reads the reviews inside a rule.
+Split by sentence length, the long-sentence findings on real pages show where the rule holds.
+
+| Sentence length in prose words | Reviewed | Both accept |
+| --- | ---: | ---: |
+| 36 to 39 | 1,051 | 47.6% |
+| 40 to 44 | 760 | 64.1% |
+| 45 to 49 | 356 | 75.8% |
+| 50 to 54 | 192 | 83.3% |
+| 55 to 59 | 96 | 86.5% |
+| 60 to 69 | 113 | 74.3% |
+| 70 or more | 62 | 66.1% |
+
+In table rows both reviewers accepted 45.0% of 109 findings,
+against 62.5% of 2,521 elsewhere.
+In `filler.instruction-scaffolding`, the conditional reader goal and the `Be sure to` reminder gave
+138 reviewed findings, and both reviewers accepted 18.1% of them.
+In `repetition.adjacent-word`, both reviewers accepted none of the 15 findings whose two
+copies differ in case, repeat a capitalized word inside a sentence, or stand on two sides of Markdown markup.
+They accepted 45.1% of 133 `filler.document-metadiscourse` findings and
+29.2% of 48 `filler.unscoped-assurance` findings. Both rules are now opt-in.
+
+The next table compares the earlier defaults with the changed ones on the 2,118 real pages
+reviewed before this round. A finding keeps its verdict when its page, rule, and byte span are unchanged.
+
+| Rule | Reviewed before | Both accept | Reviewed after | Both accept |
+| --- | ---: | ---: | ---: | ---: |
+| `syntax.long-sentence` | 2,630 | 61.8% | 733 | 78.7% |
+| `filler.wordy-phrase` | 284 | 90.5% | 284 | 90.5% |
+| `filler.instruction-scaffolding` | 234 | 42.7% | 96 | 78.1% |
+| `hype.vague-praise` | 211 | 82.5% | 211 | 82.5% |
+| `filler.document-metadiscourse` | 133 | 45.1% | 0 | not reported |
+| `filler.unscoped-assurance` | 48 | 29.2% | 0 | not reported |
+| `repetition.adjacent-word` | 32 | 46.9% | 17 | 88.2% |
+| `filler.nominal-support` | 24 | 95.8% | 24 | 95.8% |
+| `filler.evaluative-closure` | 13 | 92.3% | 13 | 92.3% |
+| `repetition.exact-sentence` | 11 | 45.5% | 11 | 45.5% |
+| all notes | 3,256 | 60.6% | 1,057 | 79.6% |
+| all warnings | 380 | 83.9% | 348 | 87.4% |
+| all findings | 3,636 | 63.0% | 1,405 | 81.5% |
+
+The default profile reports 1,733 findings on these pages in place of 4,219.
+These pages chose the changes, so the right columns overstate the effect.
+
+A third set of 578 new real pages from 319 repositories, selected by the same rule and used
+for nothing before, reports the result. Both reviewers judged the findings of the earlier
+defaults and of the changed ones on the same pages.
+
+| Rule | Reviewed before | Both accept | Reviewed after | Both accept |
+| --- | ---: | ---: | ---: | ---: |
+| `syntax.long-sentence` | 832 | 60.8% | 276 | 67.0% |
+| `filler.wordy-phrase` | 96 | 96.9% | 96 | 96.9% |
+| `filler.instruction-scaffolding` | 59 | 57.6% | 26 | 88.5% |
+| `hype.vague-praise` | 55 | 85.5% | 55 | 85.5% |
+| `filler.document-metadiscourse` | 36 | 36.1% | 0 | not reported |
+| `filler.unscoped-assurance` | 17 | 29.4% | 0 | not reported |
+| `filler.nominal-support` | 11 | 90.9% | 11 | 90.9% |
+| `repetition.adjacent-word` | 11 | 63.6% | 7 | 100.0% |
+| `repetition.exact-sentence` | 10 | 80.0% | 10 | 80.0% |
+| `filler.evaluative-closure` | 5 | 100.0% | 5 | 100.0% |
+| all notes | 999 | 60.6% | 364 | 72.0% |
+| all warnings | 141 | 90.1% | 130 | 92.3% |
+| all findings | 1,140 | 64.2% | 494 | 77.3% |
+
+| Severity, changed defaults | Findings | Reviewed | Both accept | At least one accepts | Both reject |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| warning | 130 | 130 | 92.3% (86% to 96%) | 95.4% | 4.6% |
+| note | 387 | 364 | 72.0% (67% to 76%) | 85.4% | 14.6% |
+
+The changed defaults report 517 findings on these pages in place of 1,174,
+or 0.61 per thousand words in place of 1.38.
+Both reviewers accepted 54.2% of the 646 dropped findings they reviewed.
+The gain is smaller than on the pages that chose the changes, as expected. `syntax.long-sentence`
+holds two findings in three above 45 words, and one in two above 70, where the sentence is often a list.
+
+The third assistant, `private-host/Qwen3.8-27B`, judged findings of this round as a check. It gave the
+same answer as the second reviewer for 90.8% of 546 findings. It accepted
+80.0% of them and the second reviewer 83.3%.
+
 ## Limits
 
 - Reviewers and auditor are assistants. Models can share a preference that readers do not have.
 - The phrase lists cover prose in paragraphs, comments, and strings. List items, headings, and table cells are not checked by the praise rule.
 - Coverage of the annotators' agreement stays low. Most items they mark are contextual: a claim without scope, a sentence that repeats an earlier one, a frame that adds nothing. Fixed rules name a small part of that. The MCP review tools let the calling assistant judge the rest.
-- Two real pages failed to parse and are tracked in issue 522.
+- The corpus tool left out 17 of 2,713 real pages that it could not parse; issue 522 tracks them. The engine now analyzes such a page and excludes the rejected block.
+- The third round matches findings between defaults by page, rule, and byte span. Review stays capped at eight findings per rule and page.

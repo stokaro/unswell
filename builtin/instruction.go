@@ -46,9 +46,6 @@ func announcedInstruction(clauses []frameClause, index int) (rhetoricalFrame, bo
 	if !instructionEligible(c) {
 		return rhetoricalFrame{}, false
 	}
-	if readerInstruction(c.tokens()) {
-		return localFrame(c, 0)
-	}
 	if !capabilityInstruction(c.tokens()) && !readerGoal(c.tokens()) {
 		return rhetoricalFrame{}, false
 	}
@@ -162,48 +159,6 @@ func readerIntentionStart(tokens []document.Token) int {
 func instructionCondition(tokens []document.Token) bool {
 	for _, token := range tokens {
 		if frameWord(token, "if", "when", "whenever", "until", "unless", "provided", "except", "because") {
-			return true
-		}
-	}
-	return false
-}
-
-func readerInstruction(tokens []document.Token) bool {
-	if len(tokens) < 9 || !frameWord(tokens[0], "if") {
-		return false
-	}
-	for i := 6; i < len(tokens)-2; i++ {
-		if !frameWord(tokens[i], ",") || !readerGoal(tokens[1:i]) {
-			continue
-		}
-		return readerInstructionAt(tokens, i)
-	}
-	return false
-}
-
-func readerInstructionAt(tokens []document.Token, comma int) bool {
-	rest := tokens[comma+1:]
-	if len(rest) > 2 && frameWord(rest[0], "you") && frameWord(rest[1], "can") {
-		rest = rest[2:]
-	}
-	return !instructionCondition(rest) && grammaticalAction(rest) &&
-		!optionalNamedMethod(tokens[1:comma], tokens[comma+1:])
-}
-
-// A different action with an exact command or option tells the reader how to
-// achieve the optional goal. Same-action repetition remains eligible.
-func optionalNamedMethod(goal, action []document.Token) bool {
-	verb := readerIntentionStart(goal) + 2
-	if verb >= len(goal) || !frameWord(goal[verb-2], "want", "wish", "intend") {
-		return false
-	}
-	start, ok := readerActionStart(action)
-	if !ok || start >= len(action) || !instructionVerb(action[start:]) ||
-		goal[verb].Normal == action[start].Normal {
-		return false
-	}
-	for _, operand := range action[start+1:] {
-		if operand.Protected {
 			return true
 		}
 	}

@@ -26,7 +26,8 @@ func TestDiscourseRolesRevision(t *testing.T) {
 	}
 	binary := buildCLI(t)
 	for _, profile := range []string{"technical", "strict"} {
-		out, stderr, code := invoke(t, binary, work, []string{"check", "--profile", profile,
+		policy := profilePolicy(t, work, profile, "filler.unscoped-assurance")
+		out, stderr, code := invoke(t, binary, work, []string{"check", "--config", policy,
 			"--include-source", "--report", "json:result.json", "draft.md", "revision.md", "control.md"}, nil)
 		c.Assert(code, qt.Equals, 0, qt.Commentf("%s\n%s", out, stderr))
 		var result unswell.RunResult

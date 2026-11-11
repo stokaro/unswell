@@ -25,8 +25,6 @@ func TestConstructionWording(t *testing.T) {
 			"This is done by defining the label option.",
 			"By helping to triage the issue: This can be done by providing a test case.",
 			"Attachment of a class to a node is done as per below:",
-			"If you need a horizontal divider you just need to put three dashes on a line.",
-			"If we are just interested in the total across applications, we could simply write:",
 		},
 		"filler.document-justification": {
 			"The count is not repeated here.",
@@ -118,8 +116,6 @@ func TestConstructionRewritesKeepConditions(t *testing.T) {
 		{"filler.instruction-scaffolding", "It is possible to apply `compact.css` to the dashboard.",
 			"You can apply `compact.css` to the dashboard."},
 		{"filler.instruction-scaffolding", "This is done by defining `retry_limit` as `3`.", "Define `retry_limit` as `3` to configure retries."},
-		{"filler.instruction-scaffolding", "If you need a horizontal divider you just need to put three dashes on a line.",
-			"To insert a horizontal divider, put three dashes on a line."},
 		{"filler.document-justification", "Use the reference rather than this page restating a list that drifts.",
 			"Use the reference for the current list."},
 	} {

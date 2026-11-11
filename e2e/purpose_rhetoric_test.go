@@ -24,7 +24,8 @@ func TestPurposeRhetoricRevision(t *testing.T) {
 	}
 	binary := buildCLI(t)
 	for _, profile := range []string{"technical", "strict"} {
-		stdout, stderr, code := invoke(t, binary, workspace, []string{"check", "--profile", profile,
+		policy := profilePolicy(t, workspace, profile, "filler.unscoped-assurance")
+		stdout, stderr, code := invoke(t, binary, workspace, []string{"check", "--config", policy,
 			"--include-source", "--report", "json:result.json", "draft.md", "revision.md"}, nil)
 		c.Assert(code, qt.Equals, 0, qt.Commentf("%s\n%s", stdout, stderr))
 		var result unswell.RunResult

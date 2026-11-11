@@ -14,6 +14,6 @@ The client opens the connection — then checks the reply from the server. The c
 
 Moreover, the client sends the request to the server and waits until the server sends a reply. Furthermore, the server checks the request and sends a reply that the client can read before closing the connection. // want "density.connective-overuse"
 
-The client retries the request after the connection closes because the server may still be processing an earlier attempt, provided that the retry budget permits another attempt for this operation and the caller has not canceled the request. // want "syntax.long-sentence"
+The client retries the request after the connection closes because the server may still be processing an earlier attempt, provided that the retry budget permits another attempt for this operation and the caller has not canceled the request, and it records each attempt so that an operator can review the sequence after an incident. // want "syntax.long-sentence"
 
 `TransportCacheEntry`.
