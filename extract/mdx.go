@@ -51,6 +51,10 @@ func (m *mdxMasker) region(pos int) (int, error) {
 	if m.source[pos] == '`' {
 		return mdxCodeSpanEnd(m.source, pos), nil
 	}
+	if end := mdxHeadingIDEnd(m.source, pos); end > pos {
+		m.exclude(pos, end, "mdx-heading-id", true)
+		return end, nil
+	}
 	kind, delimiter := "", byte(0)
 	switch {
 	case mdxESMStart(m.source, pos):
@@ -68,6 +72,66 @@ func (m *mdxMasker) region(pos int) (int, error) {
 	}
 	m.exclude(pos, end, "mdx-"+kind, !mdxFlow(m.source, pos, end))
 	return end, nil
+}
+
+// mdxHeadingIDEnd accepts the classic Docusaurus heading ID suffix. It is
+// invalid in plain MDX, but Docusaurus still supports it for older documents.
+// Restricting the match to the end of an ATX heading leaves ordinary MDX
+// expressions and malformed anchors subject to the JavaScript grammar.
+func mdxHeadingIDEnd(source []byte, pos int) int {
+	if pos >= len(source) || !bytes.HasPrefix(source[pos:], []byte("{#")) ||
+		!mdxATXHeadingBefore(source, pos) {
+		return 0
+	}
+	end := pos + 2
+	for end < len(source) && headingIDByte(source[end]) {
+		end++
+	}
+	if end == pos+2 || end >= len(source) || source[end] != '}' {
+		return 0
+	}
+	end++
+	if !mdxHeadingTail(source[end:]) {
+		return 0
+	}
+	return end
+}
+
+func mdxATXHeadingBefore(source []byte, pos int) bool {
+	lineStart := bytes.LastIndexByte(source[:pos], '\n') + 1
+	prefix := source[lineStart:pos]
+	marker := bytes.TrimLeft(prefix, " ")
+	if len(prefix)-len(marker) > 3 {
+		return false
+	}
+	afterHashes := bytes.TrimLeft(marker, "#")
+	level := len(marker) - len(afterHashes)
+	if level == 0 || level > 6 || len(afterHashes) == 0 || !mdxHorizontalSpace(afterHashes[0]) {
+		return false
+	}
+	title := bytes.TrimLeft(afterHashes, " \t")
+	return len(bytes.TrimSpace(title)) != 0 && mdxHorizontalSpace(prefix[len(prefix)-1])
+}
+
+func mdxHorizontalSpace(value byte) bool {
+	return value == ' ' || value == '\t'
+}
+
+func mdxHeadingTail(source []byte) bool {
+	for _, char := range source {
+		if char == '\n' {
+			return true
+		}
+		if char != ' ' && char != '\t' && char != '\r' {
+			return false
+		}
+	}
+	return true
+}
+
+func headingIDByte(value byte) bool {
+	return value >= 'a' && value <= 'z' || value >= 'A' && value <= 'Z' ||
+		value >= '0' && value <= '9' || value == '-' || value == '_' || value == '.'
 }
 
 func (m *mdxMasker) exclude(start, end int, reason string, inline bool) {
@@ -115,12 +179,14 @@ func mdxESMStart(source []byte, pos int) bool {
 }
 
 // trimMDXTags leaves a visible block's first token at its start even when a
-// component wraps it. Interior tags and all dynamic expressions stay boundaries.
+// component wraps it. It also drops a classic heading ID at the block edge.
+// Interior tags and dynamic expressions stay boundaries.
 func trimMDXTags(source []byte, mapped document.MappedText) document.MappedText {
 	edge := func(pos int) bool {
 		char := mapped.Text[pos]
 		if char == 0 {
-			return source[mapped.Map[pos].Start] == '<'
+			start := mapped.Map[pos].Start
+			return source[start] == '<' || bytes.HasPrefix(source[start:], []byte("{#"))
 		}
 		return char == ' ' || char == '\t' || char == '\r' || char == '\n'
 	}
