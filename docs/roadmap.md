@@ -60,6 +60,8 @@ model of that path with a negative result on real pages. It qualifies rule defau
 and phrase lists by review of findings, which is the evidence #26 asks for, and it
 adds review by the calling assistant through the MCP server. The
 [qualification record](research/rule-qualification.md) reports the measurements.
+[ADR 0048](adr/0048-severity-follows-review.md) sets default severity from that
+evidence: a warning needs 85% acceptance by both reviewers on real pages.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on

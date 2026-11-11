@@ -25,6 +25,9 @@ func contextRules() []rule.Rule {
 		20,
 	)
 	long.BlockObservations = true
+	// Two reviewers both accepted about six of ten findings on real pages, so
+	// the rule reports a note. docs/research/rule-qualification.md has the table.
+	long.Defaults.Severity = "note"
 	long.Defaults.Parameters = rule.Parameters{Onset: 35, Saturation: 65}
 	long.Parameters = []string{"onset", "saturation"}
 	long.Examples = []rule.Example{
