@@ -5,6 +5,7 @@ import unittest
 from unittest.mock import patch
 
 import acquire
+import fetch_sources
 
 
 class AcquisitionTest(unittest.TestCase):
@@ -86,6 +87,20 @@ class AcquisitionTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "invalid search snapshot"):
                 acquire.select(search, excluded, output)
             self.assertFalse(output.exists())
+
+    def test_fetched_bytes_must_match_frozen_blob(self):
+        import base64
+        import hashlib
+
+        data = "A document with é and a preserved byte span.\n".encode()
+        sha = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
+        selected = {"blob_sha1": sha, "bytes": len(data)}
+        response = {"encoding": "base64", "sha": sha,
+                    "content": base64.b64encode(data).decode()}
+        self.assertEqual(fetch_sources.verified_blob(response, selected), data)
+        with self.assertRaisesRegex(ValueError, "Git blob SHA-1"):
+            fetch_sources.verified_blob({**response, "content": base64.b64encode(
+                data.replace(b"document", b"argument")).decode()}, selected)
 
 
 if __name__ == "__main__":
