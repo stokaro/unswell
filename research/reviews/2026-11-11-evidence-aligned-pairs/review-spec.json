@@ -1,0 +1,178 @@
+{
+  "format": "unswell-349-source-only-review-spec-v1",
+  "reviewed_pages": [
+    "go-01.source", "go-02.source", "go-03.source", "go-04.source",
+    "rust-01.source", "rust-02.source", "rust-03.source", "rust-04.source",
+    "python-01.source", "python-02.source", "python-03.source", "python-04.source"
+  ],
+  "labels": [
+    {
+      "id": "P01", "kind": "positive", "source": "go-01.source",
+      "quote": "up to 21x smaller than the field.",
+      "evidence_quote": "heaviest rival measured",
+      "evidence_state": "aligned",
+      "diagnosis": "The comparison is with the largest rival in the table, not the field as a whole.",
+      "reader_burden": "The scope of the size claim is wider than the shown measurement.",
+      "facts_to_retain": "One binary, 53 MB, and the table's specific compared products and sizes.",
+      "safe_edit": "Name the heaviest measured rival as the comparison scope."
+    },
+    {
+      "id": "P02", "kind": "positive", "source": "go-01.source",
+      "quote": "As always, it's important to note that a lack of findings does not and can not guarantee a lack of security problems.",
+      "evidence_quote": "Read the report's coverage and any incomplete analysis before acting on it.",
+      "evidence_state": "aligned",
+      "diagnosis": "The lead-in and 'important to note' delay a necessary safety limitation.",
+      "reader_burden": "A long wrapper obscures the concrete warning.",
+      "facts_to_retain": "No findings do not guarantee security; review the report's coverage and incomplete analysis.",
+      "safe_edit": "State the limitation directly; keep the limitation itself."
+    },
+    {
+      "id": "P03", "kind": "positive", "source": "go-02.source",
+      "quote": "The bottleneck stopped being the model. It became managing the sessions.",
+      "evidence_quote": "five terminals, a prompt typed into the wrong one, and",
+      "evidence_state": "aligned",
+      "diagnosis": "The universal change of bottleneck is not established by the following concrete scenario.",
+      "reader_burden": "The reader must map an absolute claim back to a narrower session-management problem.",
+      "facts_to_retain": "Several simultaneous CLI sessions create navigation and coordination work.",
+      "safe_edit": "Describe session management as a possible bottleneck for parallel agent work."
+    },
+    {
+      "id": "P04", "kind": "positive", "source": "go-04.source",
+      "quote": "powerful tool for power users who want deeper control over how AI agents work",
+      "evidence_quote": "customize workflows, agent profiles, runtimes, prompts, and review gates",
+      "evidence_state": "aligned",
+      "diagnosis": "The generic praise and repeated 'power' framing precede the actual controls.",
+      "reader_burden": "The useful capabilities arrive after a circular description of the audience.",
+      "facts_to_retain": "Users can customize workflows, profiles, runtimes, prompts, and gates.",
+      "safe_edit": "Lead with the specific controls."
+    },
+    {
+      "id": "P05", "kind": "positive", "source": "go-04.source",
+      "quote": "There are a few similar tools in this space, and new ones appearing everyday. Here's what sets this one apart:",
+      "evidence_quote": "**Server-first architecture** - The core app runs as a server you can access from any device, including your phone.",
+      "evidence_state": "unresolved",
+      "diagnosis": "The list describes features but supplies no comparison showing they distinguish Kandev from other tools.",
+      "reader_burden": "A uniqueness claim asks readers to accept an unshown comparison.",
+      "facts_to_retain": "Keep the listed capabilities and the comparison section's navigational role.",
+      "safe_edit": "Use a neutral introduction to the capabilities unless comparison evidence is supplied."
+    },
+    {
+      "id": "P06", "kind": "positive", "source": "rust-02.source",
+      "quote": "checks whether it already exists.",
+      "evidence_quote": "it can never prove something **doesn't**",
+      "evidence_state": "contradicted_by_scope",
+      "diagnosis": "The initial description suggests a conclusive nonexistence check, while the page later limits the result to searched sources.",
+      "reader_burden": "The reader must reconcile an absolute promise with the later limitation.",
+      "facts_to_retain": "The tool searches selected registries and other sources for similar existing projects; no clean result proves novelty.",
+      "safe_edit": "Describe a search for similar projects in checked sources."
+    },
+    {
+      "id": "P07", "kind": "positive", "source": "rust-03.source",
+      "quote": "Type <code>blaze</code> wherever you'd type <code>cargo</code>.",
+      "evidence_quote": "other cargo\ncommands are not blaze's yet.",
+      "evidence_state": "contradicted_by_scope",
+      "diagnosis": "The tagline promises command interchangeability that the usage section explicitly limits.",
+      "reader_burden": "A user might try unsupported cargo commands.",
+      "facts_to_retain": "The supported build, check, run, test, and bench commands, plus the unsupported-command limitation.",
+      "safe_edit": "Scope the tagline to the supported commands."
+    },
+    {
+      "id": "P08", "kind": "positive", "source": "python-01.source",
+      "quote": "- and more ...",
+      "evidence_quote": "- **[CLI](https://vicoa.ai/docs/cli-commands):** sessions, chat history, tasks, and automations are supported via CLI, so your agents can drive Vicoa the same way you do.",
+      "evidence_state": "aligned",
+      "diagnosis": "The final list item supplies no feature or destination after an already detailed feature list.",
+      "reader_burden": "The reader scans a list item without learning another capability.",
+      "facts_to_retain": "Retain all named features and their links.",
+      "safe_edit": "Remove only the empty final list item."
+    },
+    {
+      "id": "P09", "kind": "positive", "source": "python-02.source",
+      "quote": "The aim of this classifier is to suggest an appropriate assignee for a bug.",
+      "evidence_quote": "The aim of this classifier is to detect patches that might be more likely to be backed-out",
+      "evidence_state": "aligned",
+      "diagnosis": "The repeated classifier-purpose scaffolding restates the list's function before individual tasks.",
+      "reader_burden": "Repeated introductions make the classifier list harder to scan.",
+      "facts_to_retain": "Keep the assignee suggestion and each classifier's purpose; some entries also state caveats and measurements.",
+      "safe_edit": "Condense only the repeated scaffolding, preserving each distinct task."
+    },
+    {
+      "id": "C01", "kind": "control", "paired_positive": "P01", "source": "go-01.source",
+      "quote": "on the same model, DeepSeek V4 Flash: 113 real GitHub issues from DeepSWE, graded",
+      "evidence_quote": "against nine other coding harnesses",
+      "disposition": "retain", "reason": "This nearby benchmark comparison states its actual model, cohort, and competitors."
+    },
+    {
+      "id": "C02", "kind": "control", "paired_positive": "P01", "source": "go-01.source",
+      "quote": "those are results for the original project, not a measurement of codeaf's imported review specialist.",
+      "evidence_quote": "PR-AF publishes its own [Martian Code-Review-Bench results]",
+      "disposition": "retain", "reason": "This comparison limitation prevents transfer of another project's benchmark result."
+    },
+    {
+      "id": "C03", "kind": "control", "paired_positive": "P02", "source": "go-01.source",
+      "quote": "Read the report's coverage and any incomplete analysis before acting on it.",
+      "evidence_quote": "They leave your code unchanged; posting a review or fixing findings is a separate action you request.",
+      "disposition": "retain", "reason": "The adjacent action guidance gives readers a specific safety check."
+    },
+    {
+      "id": "C04", "kind": "control", "paired_positive": "P03", "source": "go-02.source",
+      "quote": "Today's experience is technical: a\nterminal, a local daemon, and a `config.toml`.",
+      "evidence_quote": "The [Quick Start](https://compozy.com/docs/getting-started/quick-start) continues through the",
+      "disposition": "retain", "reason": "This modestly scoped limitation sets installation expectations."
+    },
+    {
+      "id": "C05", "kind": "control", "paired_positive": "P03", "source": "go-02.source",
+      "quote": "No Loops ship by default.",
+      "evidence_quote": "Write one, fork one, or install an extension that ships one.",
+      "disposition": "retain", "reason": "The negative claim is a concrete product constraint needed to use the feature."
+    },
+    {
+      "id": "C06", "kind": "control", "paired_positive": "P04", "source": "go-04.source",
+      "quote": "**Office mode** is an experimental autonomy layer for persistent agent teams, disabled by default in production.",
+      "evidence_quote": "Office is not yet a stable production contract.",
+      "disposition": "retain", "reason": "This qualifies a capability rather than praising it without context."
+    },
+    {
+      "id": "C07", "kind": "control", "paired_positive": "P05", "source": "go-04.source",
+      "quote": "Nightlies are best-effort builds scheduled for 12:00 UTC when `main` has changed since the latest",
+      "evidence_quote": "They do not move `latest`, and no Homebrew, Scoop, or Desktop nightly channel is",
+      "disposition": "retain", "reason": "This limits release-channel behavior precisely instead of making a sweeping quality claim."
+    },
+    {
+      "id": "C08", "kind": "control", "paired_positive": "P06", "source": "rust-02.source",
+      "quote": "`patent` can prove something **exists**; it can never prove something **doesn't**",
+      "evidence_quote": "it only searched some sources.",
+      "disposition": "retain", "reason": "The existence versus absence distinction is necessary to interpret a clean result."
+    },
+    {
+      "id": "C09", "kind": "control", "paired_positive": "P06", "source": "rust-02.source",
+      "quote": "A clean **Open** result means *keep looking before you commit*, not a green light.",
+      "evidence_quote": "the list of sources checked is always shown",
+      "disposition": "retain", "reason": "The conclusion translates incomplete search coverage into a user action."
+    },
+    {
+      "id": "C10", "kind": "control", "paired_positive": "P07", "source": "rust-03.source",
+      "quote": "These numbers are blaze v1's; v2 has not been measured yet.",
+      "evidence_quote": "## How fast",
+      "disposition": "retain", "reason": "The version distinction prevents v1 measurements being attributed to v2."
+    },
+    {
+      "id": "C11", "kind": "control", "paired_positive": "P07", "source": "rust-03.source",
+      "quote": "other cargo\ncommands are not blaze's yet.",
+      "evidence_quote": "blaze answers `build`, `check`, `run`, `test` and `bench`",
+      "disposition": "retain", "reason": "The command boundary is essential even though it repeats the named tool."
+    },
+    {
+      "id": "C12", "kind": "control", "paired_positive": "P08", "source": "python-01.source",
+      "quote": "The one prerequisite: the machine that runs agents needs at least one",
+      "evidence_quote": "[supported agent CLI](#supported-agents) installed and signed in.",
+      "disposition": "retain", "reason": "A requirement before the setup steps is actionable, unlike the empty list tail."
+    },
+    {
+      "id": "C13", "kind": "control", "paired_positive": "P09", "source": "python-02.source",
+      "quote": "The dataset currently contains 2110 bugs, the accuracy of the current classifier is ~93%",
+      "evidence_quote": "**defect** - Bugs on Bugzilla aren't always bugs.",
+      "disposition": "retain", "reason": "The classifier-specific measurement is distinct information, not repeated scaffolding."
+    }
+  ]
+}
