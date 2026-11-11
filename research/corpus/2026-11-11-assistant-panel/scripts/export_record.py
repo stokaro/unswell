@@ -8,7 +8,7 @@ their spans, audit outcomes, phrase statistics and decisions, the engine
 configurations, and a summary. Page text, quotes, and reviewer
 prose are left out. A page is fetched again from its pinned commit when needed.
 """
-import collections, gzip, json, shutil, sys
+import collections, gzip, hashlib, json, shutil, sys
 from pathlib import Path
 
 W, OUT = Path(sys.argv[1]), Path(sys.argv[2])
@@ -33,9 +33,10 @@ def write_gz(path, rows):
             handle.write((json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n").encode())
 
 
-PANEL = {"astra": {"model": "gpt-6-astra", "effort": "medium", "roles": ["annotator", "reviewer"]},
-         "claude": {"model": "claude-sonnet-5-5", "effort": "default", "roles": ["annotator", "reviewer"]},
-         "qwen": {"model": "private-host/Qwen3.8-27B", "effort": "default", "roles": ["auditor", "reviewer"]}}
+PANEL = {"astra": {"model": "gpt-6-astra", "effort": "medium", "roles": ["annotator", "reviewer", "caller"]},
+         "claude": {"model": "claude-sonnet-5-5", "effort": "default", "roles": ["annotator", "reviewer", "caller"]},
+         "qwen": {"model": "private-host/Qwen3.8-27B", "effort": "default", "roles": ["auditor", "reviewer", "caller"]}}
+CALLERS = {"claude": ("astra", "qwen"), "astra": ("claude",)}
 summary = {"panel": PANEL, "sets": [], "rounds": []}
 for name, docs_file, role in SETS:
     items, labels = [], []
@@ -142,7 +143,30 @@ for name, source in (("excess.json", "excess-v0.json"), ("assignment.json", "eng
                      ("rule-statements.json", "rule-statements.json")):
     data = json.loads((W / source).read_text())
     (OUT / "phrases" / name).write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n")
+for caller, reviewers in CALLERS.items():
+    if not (W / "ctx" / caller).exists():
+        continue
+    votes = collections.defaultdict(dict)
+    for reviewer in reviewers:
+        for path in sorted((W / "ctx-rev" / caller / reviewer).glob("*.json")) if (W / "ctx-rev" / caller / reviewer).exists() else []:
+            for finding in json.loads(path.read_text())["findings"]:
+                votes[finding["id"]][reviewer] = finding.get("justified")
+    rows = []
+    for path in sorted((W / "ctx" / caller).glob("*.json")):
+        record = json.loads(path.read_text())
+        source_set, document = record["path"].split("/", 1)
+        for flag in record["accepted"]:
+            categories = sorted(set(flag["categories"]))
+            span = flag["span"]
+            key = f"{record['path']}|{span['start']}|{span['end']}|contextual.{'+'.join(categories)}"
+            identifier = hashlib.sha256(key.encode()).hexdigest()[:16]
+            rows.append({"id": identifier, "set": rename.get(source_set, source_set), "doc": document.removesuffix(".md"),
+                         "caller": caller, "categories": categories, "span": [span["start"], span["end"]],
+                         "reviews": {reviewer: votes[identifier].get(reviewer) for reviewer in reviewers}})
+    write_gz(OUT / "contextual" / f"{caller}.jsonl.gz", sorted(rows, key=lambda r: (r["set"], r["doc"], r["span"], r["id"])))
 (OUT / "rounds").mkdir(parents=True, exist_ok=True)
+if (W / "engine/ctx-eval.json").exists():
+    shutil.copy(W / "engine/ctx-eval.json", OUT / "rounds" / "contextual-review.json")
 for name, source in (("round-3-development.json", "engine/round3-dev.json"),
                      ("round-3-test.json", "engine/round3-test.json"),
                      ("round-3-length-bands.json", "engine/round3-evidence.json")):

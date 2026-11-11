@@ -279,6 +279,44 @@ The third assistant, `private-host/Qwen3.8-27B`, judged findings of this round a
 same answer as the second reviewer for 90.8% of 546 findings. It accepted
 80.0% of them and the second reviewer 83.3%.
 
+## Review in context through the MCP server
+
+[ADR 0047](../adr/0047-qualified-defaults-and-assistant-review.md) lets the calling assistant review a
+document in context: `unswell_review_request` returns the rubric and the items, and `unswell_review_submit`
+binds each flag to source bytes or rejects it. A client drove the server with two calling assistants on
+pages of final test 1. It passed the server's instructions and items to the assistant unchanged and
+submitted the answer unchanged. The assistant of the other family then judged each bound flag under the
+statement of its category, the way it judges a rule finding. A flag that it accepts has two models behind
+it, the one that raised it and the one that judged it.
+
+| Calling assistant | Pages | Flags | Bound by the server | Per 1,000 words | Reviewer | Reviewed | Accepted | Rejected |
+| --- | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |
+| `claude-sonnet-5-5` | 120 | 351 | 331 | 1.77 | `gpt-6-astra` | 329 | 62.9% | 37.1% |
+| `gpt-6-astra` | 120 | 378 | 359 | 1.92 | `claude-sonnet-5-5` | 356 | 76.7% | 23.0% |
+
+Of the 690 bound flags, 675 lie outside every finding of the default rules on the same page.
+On these pages the other annotator had marked 472 items for revision. The flags touch 224 of them
+(47.5%); the default rules touch 20 (4.2%).
+The third assistant, `private-host/Qwen3.8-27B`, judged 80 of the flags. It gave the same answer as the
+reviewer for 81.2% and accepted 60.0%.
+
+| Category | Reviewed | Accepted |
+| --- | ---: | ---: |
+| `unjustified_intensifiers` | 263 | 80.6% |
+| `vague_claims` | 226 | 70.8% |
+| `needless_repetition` | 143 | 48.3% |
+| `wordiness` | 99 | 92.9% |
+| `empty_framing` | 52 | 75.0% |
+| `needless_complexity` | 8 | 62.5% |
+| `formulaic_transitions` | 7 | 42.9% |
+
+Review in context reports about three times as many items as the default rules and reaches items that no
+rule names. Its flags are accepted less often than rule findings, and repetition is the weakest category:
+whether a sentence repeats an earlier one is where two models differ most. These flags are judgments of
+the calling assistant. They carry its label, stay advisory, and reach neither scores nor the gate. The two
+assistants were also the annotators of these pages, under a rubric with the same categories, so the
+coverage figure measures agreement between two models and not recall against an editor.
+
 ## Limits
 
 - Reviewers and auditor are assistants. Models can share a preference that readers do not have.

@@ -12,9 +12,9 @@ from pathlib import Path
 import verify_record
 
 PANEL = {
-    "astra": {"model": "model-a", "effort": "medium", "roles": ["annotator", "reviewer"]},
-    "claude": {"model": "model-b", "effort": "default", "roles": ["annotator", "reviewer"]},
-    "qwen": {"model": "model-c", "effort": "default", "roles": ["auditor", "reviewer"]},
+    "astra": {"model": "model-a", "effort": "medium", "roles": ["annotator", "reviewer", "caller"]},
+    "claude": {"model": "model-b", "effort": "default", "roles": ["annotator", "reviewer", "caller"]},
+    "qwen": {"model": "model-c", "effort": "default", "roles": ["auditor", "reviewer", "caller"]},
 }
 ROLES = {"dev": "development", "test": "final test 1"}
 
@@ -35,6 +35,11 @@ def label(name, annotator, items):
 def review(identifier, source_set, name, verdicts):
     return {"id": identifier, "set": source_set, "doc": name, "rule": "filler.wordy-phrase", "group": "",
             "phrase": "in order to", "reviews": verdicts, "severity": "warning", "span": [11, 22]}
+
+
+def flag(identifier, caller, verdicts):
+    return {"id": identifier, "set": "dev", "doc": "dev-1", "caller": caller,
+            "categories": ["vague_claims"], "span": [11, 22], "reviews": verdicts}
 
 
 def write_rows(path, rows):
@@ -60,6 +65,7 @@ class RecordCase(unittest.TestCase):
         write_rows(self.root / "reviews/round.jsonl.gz",
                    [review("f1", "dev", "dev-1", {"astra": "yes", "claude": "yes"}),
                     review("f2", "test", "test-1", {"claude": "no", "qwen": "no"})])
+        write_rows(self.root / "contextual/claude.jsonl.gz", [flag("c1", "claude", {"astra": "yes", "qwen": "no"})])
         self.seal()
 
     def seal(self, summary=None):
@@ -116,6 +122,16 @@ class RecordCase(unittest.TestCase):
         self.rewrite("reviews/round.jsonl.gz", lambda rows: rows[0]["reviews"].update(human="yes"))
         verify_record.write_digests(self.root)
         self.rejects("outside the panel")
+
+    def test_flag_with_quote_is_rejected(self):
+        self.rewrite("contextual/claude.jsonl.gz", lambda rows: rows[0].update(quote="A sentence from the page."))
+        verify_record.write_digests(self.root)
+        self.rejects("unexpected flag fields")
+
+    def test_flag_judged_by_its_caller_is_rejected(self):
+        self.rewrite("contextual/claude.jsonl.gz", lambda rows: rows[0]["reviews"].update(claude="yes"))
+        verify_record.write_digests(self.root)
+        self.rejects("judged by its own caller")
 
     def test_human_role_is_rejected(self):
         summary = json.loads((self.root / "summary.json").read_text())

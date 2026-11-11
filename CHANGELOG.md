@@ -51,6 +51,9 @@ judges them in context, and submits flags. The server binds each quote to
 original byte coordinates and rejects a quote that crosses protected code. These
 findings are advisory, are labeled as the calling assistant's judgments, and
 change neither scores nor the gate.
+On 120 real pages an assistant of another model family accepted 70.1% of the
+flags that two calling assistants raised this way; the
+[qualification record](docs/research/rule-qualification.md) has the measurement.
 
 Building from source now requires Go 1.26. The Go analysis adapter and its
 consumer use `golang.org/x/tools` v0.50.0, which requires this compiler version.

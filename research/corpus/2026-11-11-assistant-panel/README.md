@@ -27,7 +27,8 @@ reference, and SHA-256 digest, so it can be fetched again and checked.
 | `audit/*.json` | Outcomes of the blind paired comparisons, with placebo rows. |
 | `phrases/*.json` | Phrase candidates, their statistics, the selection decisions, and the rule statements shown to reviewers. |
 | `configs/*.yaml` | Engine configurations: every rule enabled with all candidates, and the selected lists. |
-| `rounds/*.json` | Acceptance by sentence length, and the comparison of defaults before and after round three. |
+| `contextual/<caller>.jsonl.gz` | Flags that a calling assistant raised through the MCP server: categories, byte span, and the verdicts of the other assistants. |
+| `rounds/*.json` | Acceptance by sentence length, the comparison of defaults before and after round three, and the measurement of review in context. |
 | `summary.json` | Panel, document counts, annotator agreement counts, and per-rule review counts. |
 | `files.sha256` | Digest of every data file. |
 | `scripts/` | The scripts that built the corpus, as they ran. |
@@ -104,7 +105,10 @@ environment and are not part of this record.
    `gen_lexicon_go.py`.
 6. Audit: `audit.py` for items, `audit_spans.py` for findings.
 7. Compare defaults between rounds: `round3_evidence.py`, `compare_rounds.py`.
-8. Report and export: `gen_docs.py`, `export_record.py`.
+8. Review in context through the MCP server: `mcp_review.py` once per calling
+   assistant, then `ctx_report.py`, `review_findings.py` with the other
+   assistant, and `ctx_eval.py`.
+9. Report and export: `gen_docs.py`, `export_record.py`.
 
 `study.py`, `study2.py`, `study3.py`, `embed.py`, `mine.py`, `qualify.py`, and
 `excess.py` produced the negative results on fitted models and mined phrases
@@ -120,6 +124,8 @@ change, and the models do not return the same answers twice.
 - The two annotators agree on which items need revision with a Cohen kappa of
   0.43 on the long-prose set.
 - Reviewers saw at most eight findings per rule and page.
+- Flags raised in context were judged by one assistant of the other family.
+  The third assistant judged 80 of them before its run was stopped for time.
 - `real-dev-2`, `real-test-2`, and `real-test-3` have reviews of findings and no
   item labels, so they give precision and no recall.
 - The auditor's paired comparison penalizes mechanical edits that break

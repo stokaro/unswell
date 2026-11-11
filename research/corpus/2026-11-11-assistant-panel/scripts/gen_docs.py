@@ -448,6 +448,61 @@ if (W / "engine/round3-dev.json").exists() and (W / "engine/round3-evidence.json
             add(f"same answer as the second reviewer for {pct(same, len(third))} of {len(third):,} findings. It accepted")
             add(f"{pct(third_yes, len(third))} of them and the second reviewer {pct(second_yes, len(third))}.")
             add("")
+if (W / "engine/ctx-eval.json").exists():
+    ctx = json.loads((W / "engine/ctx-eval.json").read_text())
+    names = {"claude": "`claude-sonnet-5-5`", "astra": "`gpt-6-astra`", "qwen": "`private-host/Qwen3.8-27B`"}
+    add("## Review in context through the MCP server")
+    add("")
+    add("[ADR 0047](../adr/0047-qualified-defaults-and-assistant-review.md) lets the calling assistant review a")
+    add("document in context: `unswell_review_request` returns the rubric and the items, and `unswell_review_submit`")
+    add("binds each flag to source bytes or rejects it. A client drove the server with two calling assistants on")
+    add("pages of final test 1. It passed the server's instructions and items to the assistant unchanged and")
+    add("submitted the answer unchanged. The assistant of the other family then judged each bound flag under the")
+    add("statement of its category, the way it judges a rule finding. A flag that it accepts has two models behind")
+    add("it, the one that raised it and the one that judged it.")
+    add("")
+    add("| Calling assistant | Pages | Flags | Bound by the server | Per 1,000 words | Reviewer | Reviewed | Accepted | Rejected |")
+    add("| --- | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: |")
+    for caller in ("claude", "astra"):
+        if caller not in ctx:
+            continue
+        c, r = ctx[caller], ctx[caller]["review"]
+        add(f"| {names[caller]} | {c['pages']:,} | {c['flags']:,} | {c['bound']:,} | {1000 * c['bound'] / c['words']:.2f} | "
+            f"{names[c['reviewer']]} | {r.get('reviewed', 0):,} | {pct(r.get('accept', 0), r.get('reviewed', 0))} | "
+            f"{pct(r.get('reject', 0), r.get('reviewed', 0))} |")
+    add("")
+    bound = sum(ctx[c]["bound"] for c in ctx)
+    beyond = sum(ctx[c]["beyond_rules"] for c in ctx)
+    marked = sum(ctx[c]["other_marked"] for c in ctx)
+    touched = sum(ctx[c]["other_marked_touched"] for c in ctx)
+    by_rules = sum(ctx[c]["other_marked_touched_by_rules"] for c in ctx)
+    add(f"Of the {bound:,} bound flags, {beyond:,} lie outside every finding of the default rules on the same page.")
+    add(f"On these pages the other annotator had marked {marked:,} items for revision. The flags touch {touched:,} of them")
+    add(f"({pct(touched, marked)}); the default rules touch {by_rules:,} ({pct(by_rules, marked)}).")
+    third = collections.Counter()
+    for c in ctx.values():
+        third.update(c.get("third", {}))
+    if third["reviewed"]:
+        add(f"The third assistant, {names['qwen']}, judged {third['reviewed']:,} of the flags. It gave the same answer as the")
+        add(f"reviewer for {pct(third['same'], third['reviewed'])} and accepted {pct(third['accept'], third['reviewed'])}.")
+    add("")
+    add("| Category | Reviewed | Accepted |")
+    add("| --- | ---: | ---: |")
+    totals = collections.defaultdict(collections.Counter)
+    for c in ctx.values():
+        for category, counts in c["categories"].items():
+            totals[category]["reviewed"] += counts.get("reviewed", 0)
+            totals[category]["accept"] += counts.get("accept", 0)
+    for category, counts in sorted(totals.items(), key=lambda kv: -kv[1]["reviewed"]):
+        add(f"| `{category}` | {counts['reviewed']:,} | {pct(counts['accept'], counts['reviewed'])} |")
+    add("")
+    add("Review in context reports about three times as many items as the default rules and reaches items that no")
+    add("rule names. Its flags are accepted less often than rule findings, and repetition is the weakest category:")
+    add("whether a sentence repeats an earlier one is where two models differ most. These flags are judgments of")
+    add("the calling assistant. They carry its label, stay advisory, and reach neither scores nor the gate. The two")
+    add("assistants were also the annotators of these pages, under a rubric with the same categories, so the")
+    add("coverage figure measures agreement between two models and not recall against an editor.")
+    add("")
 add("## Limits")
 add("")
 add("- Reviewers and auditor are assistants. Models can share a preference that readers do not have.")

@@ -127,9 +127,16 @@ compare equal, so a quote copied across a wrapped line still binds.
 
 These findings are the calling assistant's judgments, reported with
 `"reviewer": "calling assistant"`. They are advisory. They do not enter
-`unswell_check`, its scores, or its gate, and no rule is qualified by them. The
-[rule qualification record](research/rule-qualification.md) reports how two
-assistants agree on such judgments.
+`unswell_check`, its scores, or its gate, and no rule is qualified by them.
+
+The [rule qualification record](research/rule-qualification.md) measures these
+tools on 120 real documentation pages with two calling assistants. The server
+bound 690 of 729 flags; the rest quoted text that does not occur inside one
+segment of the item. An assistant of the other model family accepted 70.1% of
+the 685 flags it judged, against 77.3% for the findings of the default rules.
+The flags reach 47.5% of the items that the other annotator had marked for
+revision, and the default rules reach 4.2%. Acceptance differs by category:
+92.9% for wordiness and 48.3% for repetition.
 
 An assistant should inspect the effective policy, check its draft, revise relevant
 findings, and check the revised text again. A failed check does not authorize
