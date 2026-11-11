@@ -7,6 +7,7 @@ from unittest.mock import patch
 import acquire
 import fetch_sources
 import materialize_review
+import verify_packet
 
 
 class SelectionTest(unittest.TestCase):
@@ -97,6 +98,21 @@ class SelectionTest(unittest.TestCase):
             materialize_review.locate(b"same same", "same")
         with self.assertRaisesRegex(ValueError, "missing or repeated"):
             materialize_review.locate(data, "not there")
+
+    def test_published_packet_rejects_a_corrupted_selection_hash(self):
+        self.assertEqual(verify_packet.verify()["positives"], 9)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for path in verify_packet.HERE.glob("*.json"):
+                (root / path.name).write_bytes(path.read_bytes())
+            (root / "search").mkdir()
+            for path in (verify_packet.HERE / "search").glob("*.json"):
+                (root / "search" / path.name).write_bytes(path.read_bytes())
+            sources = json.loads((root / "development-sources.json").read_text())
+            sources["selection_sha256"] = "0" * 64
+            (root / "development-sources.json").write_text(json.dumps(sources))
+            with self.assertRaisesRegex(ValueError, "different selection"):
+                verify_packet.verify(root)
 
 
 if __name__ == "__main__":
