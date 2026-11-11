@@ -62,6 +62,11 @@ extraction:
       kinds: [string]
       symbols: [values, fail]
       reason: "The custom policy stores matcher phrases and deliberate failing examples."
+    - id: qualification-configurations
+      paths: ["research/corpus/**/configs/*.yaml"]
+      kinds: [string]
+      symbols: [phrases]
+      reason: "Engine configurations used in rule qualification list the phrases under test."
     - id: mcp-gate-fixtures
       paths: ["mcp/internal/selfcheck/probes.go"]
       kinds: [string]

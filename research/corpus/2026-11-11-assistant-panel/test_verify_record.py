@@ -1,0 +1,139 @@
+"""Negative tests for the corpus record check.
+
+Each test builds a small valid record, breaks one property, and expects the
+check to reject it.
+"""
+import gzip
+import json
+import tempfile
+import unittest
+from pathlib import Path
+
+import verify_record
+
+PANEL = {
+    "astra": {"model": "model-a", "effort": "medium", "roles": ["annotator", "reviewer"]},
+    "claude": {"model": "model-b", "effort": "default", "roles": ["annotator", "reviewer"]},
+    "qwen": {"model": "model-c", "effort": "default", "roles": ["auditor", "reviewer"]},
+}
+ROLES = {"dev": "development", "test": "final test 1"}
+
+
+def document(name, repository):
+    return {"doc": name, "repository": repository, "path": "README.md", "sha256": "0" * 64, "reference": "",
+            "origin": "real", "family": "", "operation": "",
+            "items": [{"id": "i001", "kind": "sentence", "segments": [[0, 10]]},
+                      {"id": "i002", "kind": "sentence", "segments": [[11, 30]]}]}
+
+
+def label(name, annotator, items):
+    return {"doc": name, "annotator": annotator, "model": PANEL[annotator]["model"], "effort": "default",
+            "rubric": "rubric-v1", "prompt_sha256": "1" * 64, "unbound_flags": 0,
+            "flags": [{"item": item, "label": "needs_revision", "categories": ["wordiness"]} for item in items]}
+
+
+def review(identifier, source_set, name, verdicts):
+    return {"id": identifier, "set": source_set, "doc": name, "rule": "filler.wordy-phrase", "group": "",
+            "phrase": "in order to", "reviews": verdicts, "severity": "warning", "span": [11, 22]}
+
+
+def write_rows(path, rows):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with gzip.GzipFile(path, "wb", mtime=0) as handle:
+        for row in rows:
+            handle.write((json.dumps(row, sort_keys=True) + "\n").encode())
+
+
+def read_rows(path):
+    return list(verify_record.rows(path))
+
+
+class RecordCase(unittest.TestCase):
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.directory.cleanup)
+        self.root = Path(self.directory.name)
+        write_rows(self.root / "items/dev.jsonl.gz", [document("dev-1", "owner/dev")])
+        write_rows(self.root / "items/test.jsonl.gz", [document("test-1", "owner/test")])
+        write_rows(self.root / "labels/dev.jsonl.gz",
+                   [label("dev-1", "astra", ["i001", "i002"]), label("dev-1", "claude", ["i002"])])
+        write_rows(self.root / "reviews/round.jsonl.gz",
+                   [review("f1", "dev", "dev-1", {"astra": "yes", "claude": "yes"}),
+                    review("f2", "test", "test-1", {"claude": "no", "qwen": "no"})])
+        self.seal()
+
+    def seal(self, summary=None):
+        """Write a summary that matches the data, or the given one, and the digests."""
+        if summary is None:
+            sets = verify_record.load_items(self.root)
+            marks = verify_record.load_labels(self.root, sets, PANEL)
+            rounds = verify_record.load_reviews(self.root, sets, PANEL)
+            summary = verify_record.summarize(sets, marks, rounds, ROLES, PANEL)
+        (self.root / "summary.json").write_text(json.dumps(summary))
+        verify_record.write_digests(self.root)
+
+    def rewrite(self, name, change):
+        path = self.root / name
+        rows = read_rows(path)
+        change(rows)
+        write_rows(path, rows)
+
+    def rejects(self, pattern):
+        with self.assertRaisesRegex(ValueError, pattern):
+            verify_record.verify(self.root)
+
+    def test_valid_record_passes(self):
+        summary = verify_record.verify(self.root)
+        self.assertEqual(summary["sets"][0]["annotated"]["both"], 1)
+        self.assertEqual(summary["rounds"][0]["rules"]["filler.wordy-phrase"]["both_accept"], 1)
+
+    def test_changed_file_is_rejected(self):
+        write_rows(self.root / "items/dev.jsonl.gz", [document("dev-1", "owner/other")])
+        self.rejects("digest mismatch")
+
+    def test_unlisted_file_is_rejected(self):
+        (self.root / "audit").mkdir()
+        (self.root / "audit/extra.json").write_text("[]")
+        self.rejects("data files differ")
+
+    def test_page_text_is_rejected(self):
+        self.rewrite("items/dev.jsonl.gz", lambda rows: rows[0].update(text="A sentence from the page."))
+        verify_record.write_digests(self.root)
+        self.rejects("unexpected document fields")
+
+    def test_quote_in_review_is_rejected(self):
+        quote = "This long sentence was copied from the page under review."
+        self.rewrite("reviews/round.jsonl.gz", lambda rows: rows[0].update(phrase=quote))
+        verify_record.write_digests(self.root)
+        self.rejects("carries text")
+
+    def test_unbound_flag_is_rejected(self):
+        self.rewrite("labels/dev.jsonl.gz", lambda rows: rows[0]["flags"][0].update(item="i999"))
+        verify_record.write_digests(self.root)
+        self.rejects("unknown item")
+
+    def test_reviewer_outside_panel_is_rejected(self):
+        self.rewrite("reviews/round.jsonl.gz", lambda rows: rows[0]["reviews"].update(human="yes"))
+        verify_record.write_digests(self.root)
+        self.rejects("outside the panel")
+
+    def test_human_role_is_rejected(self):
+        summary = json.loads((self.root / "summary.json").read_text())
+        summary["panel"]["astra"]["roles"].append("human")
+        self.seal(summary)
+        self.rejects("cannot hold a human role")
+
+    def test_shared_repository_is_rejected(self):
+        write_rows(self.root / "items/test.jsonl.gz", [document("test-1", "Owner/Dev")])
+        self.seal()
+        self.rejects("appears in dev and test")
+
+    def test_wrong_summary_is_rejected(self):
+        summary = json.loads((self.root / "summary.json").read_text())
+        summary["rounds"][0]["rules"]["filler.wordy-phrase"]["both_accept"] = 2
+        self.seal(summary)
+        self.rejects("summary differs")
+
+
+if __name__ == "__main__":
+    unittest.main()

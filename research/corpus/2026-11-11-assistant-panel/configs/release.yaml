@@ -1,0 +1,22 @@
+version: 1
+extends: [builtin:technical-v1]
+language: en
+calibration:
+  model: none
+rules:
+  filler.wordy-phrase:
+    enabled: true
+    parameters:
+      phrases: ["due to the fact that", "in order to", "at this point in time", "by adhering to", "first and foremost", "the bottom line", "empower", "empowering", "empowers", "facilitate", "facilitates", "facilitating", "foster", "fostering", "fosters", "leverage", "leveraged", "leverages", "leveraging", "utilize", "utilizes", "utilizing"]
+  hype.modifier-cluster:
+    enabled: true
+    parameters:
+      phrases: ["powerful", "seamless", "robust", "innovative", "transformative", "unparalleled", "beautiful", "comprehensive", "crucial", "cutting-edge", "delightful", "easy-to-use", "enterprise-grade", "excellent", "extensive", "feature-rich", "intuitive", "seamlessly", "significantly", "sophisticated", "state-of-the-art", "straightforward", "streamlined", "unprecedented", "user-friendly"]
+  hype.vague-praise:
+    enabled: true
+    parameters:
+      phrases: ["game-changing solution", "unparalleled experience", "unprecedented excellence", "comprehensive documentation", "comprehensive guide", "seamless integration", "beautiful", "beautifully", "easy to use", "excellent", "exceptional", "exceptionally", "intuitive", "powerful", "seamless", "seamlessly", "sophisticated", "state-of-the-art", "unprecedented"]
+  repetition.paragraph-openers:
+    enabled: false
+  repetition.sentence-openers:
+    enabled: false
