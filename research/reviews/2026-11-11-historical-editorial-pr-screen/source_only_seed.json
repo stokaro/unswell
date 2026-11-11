@@ -1,0 +1,76 @@
+[
+  {
+    "pr": "fullstack-hy2020/fullstack-hy2020.github.io#2168",
+    "decision": "necessary",
+    "quote": "a collection of various different kinds of events",
+    "diagnosis": "The stacked quantifiers restate variety without adding an event type; they slow the explanation of event handling.",
+    "retain_quote": "Button elements support so-called [mouse events](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent), of which [click](https://developer.mozilla.org/en-US/docs/Web/Events/click) is the most common event.",
+    "retain_reason": "This distinguishes an event category from a concrete event and is needed for the tutorial."
+  },
+  {
+    "pr": "home-assistant/developers.home-assistant#601",
+    "decision": "necessary",
+    "quote": "When the entity has been added to Home Assistant, `hass` will be set on the entity when the entity is added to Home Assistant.",
+    "diagnosis": "The same lifecycle condition appears twice in one sentence without a second condition.",
+    "retain_quote": "So if your integration's domain is \"awesome_sauce\" and you are making a light platform, you would register services under the `awesome_sauce` domain.",
+    "retain_reason": "Repeating the exact identifier ties the example to the service name and should be retained."
+  },
+  {
+    "pr": "rubygems/bundler#6463",
+    "decision": "no_clear_six_purpose_diagnosis",
+    "reason": "The manpage is a compact command reference. Its section labels and repeated command names aid scanning; possible stylistic tightening is optional."
+  },
+  {
+    "pr": "forem/forem#4175",
+    "decision": "no_clear_six_purpose_diagnosis",
+    "reason": "Repeated 'We use' openings form a parallel inventory of different services and purposes; removing them is an optional style choice."
+  },
+  {
+    "pr": "elastic/observability-docs#112",
+    "decision": "no_clear_six_purpose_diagnosis",
+    "reason": "The selected quick-start page has step and screenshot scaffolding; no source-visible necessary diagnosis in the six editorial purposes was established."
+  },
+  {
+    "pr": "umbraco/UmbracoDocs#2685",
+    "decision": "necessary",
+    "quote": "Run `echo > deploy` again in order to double-check that the UDA files have been generated correctly",
+    "diagnosis": "'Again' implies this exact command already appeared in this generation step, while the prior command creates a different export marker; the instruction's sequence is unclear.",
+    "retain_quote": "Add an *export* marker by typing `echo > deploy-export`",
+    "retain_reason": "The distinct export command is an essential procedural step and must not be altered."
+  },
+  {
+    "pr": "remix-run/remix#521",
+    "decision": "no_clear_six_purpose_diagnosis",
+    "reason": "The tutorial uses a conversational teaching voice and repeats concepts across a long worked example; no local repetition or framing was clearly unnecessary under the full sequence."
+  },
+  {
+    "pr": "speced/respec-web-services#193",
+    "decision": "necessary",
+    "quote": "technical\n        specifications, or documents that tend to be technical in nature in\n        general",
+    "diagnosis": "The second description repeats 'technical' while broadening the category only vaguely; the abstract does not tell readers what other documents ReSpec serves.",
+    "retain_quote": "It was originally designed for the purpose of writing W3C\n        specifications, but has since grown to be able to support other outputs\n        as well.",
+    "retain_reason": "The W3C origin and later expansion are distinct factual claims; a rewrite must preserve them."
+  },
+  {
+    "pr": "coralproject/talk#3953",
+    "decision": "necessary",
+    "quote": "the first thing to try is to try re-running the scraper job",
+    "diagnosis": "Two adjacent 'try' instructions describe one action and obscure the actual troubleshooting step.",
+    "retain_quote": "If this tag is not present, or if the canonical URL references a different URL than your site such as a wire service, you can specify the `storyURL` parameter in the render function.",
+    "retain_reason": "Both conditions matter for deciding when an explicit story URL is needed."
+  },
+  {
+    "pr": "graphql-hive/graphql-eslint#1310",
+    "decision": "no_clear_six_purpose_diagnosis",
+    "reason": "The awkward 'only valid if when' construction is a grammar defect, but the present six-purpose contextual screen excludes grammar alone."
+  },
+  {
+    "pr": "rust-lang/rust#100345",
+    "decision": "necessary",
+    "quote": "This method doesn't cover everything that could be considered a number, e.g. ideographic numbers like '三'.",
+    "diagnosis": "The example and caveat immediately restate the preceding explanation of ideographic numbers without adding a new limitation.",
+    "evidence_quote": "Note that this means ideographic numbers like '三'\n    /// are considered alphabetic, not numeric.",
+    "retain_quote": "If you want to parse ASCII decimal digits (0-9) or ASCII base-N, use\n    /// `is_ascii_digit` or `is_digit` instead.",
+    "retain_reason": "The alternative APIs address a distinct ASCII use case and should be retained."
+  }
+]

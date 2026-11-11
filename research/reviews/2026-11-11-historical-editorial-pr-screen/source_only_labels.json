@@ -1,0 +1,139 @@
+[
+  {
+    "pr": "fullstack-hy2020/fullstack-hy2020.github.io#2168",
+    "source_sha256": "cf42678ece2036e52176e5b66c7332ec208cabe4c93febca7823fef1cb7bad9f",
+    "decision": "necessary",
+    "span": {
+      "start": 11106,
+      "end": 11155,
+      "quote": "a collection of various different kinds of events"
+    },
+    "retain_span": {
+      "start": 11386,
+      "end": 11598,
+      "quote": "Button elements support so-called [mouse events](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent), of which [click](https://developer.mozilla.org/en-US/docs/Web/Events/click) is the most common event."
+    },
+    "diagnosis": "The stacked quantifiers restate variety without adding an event type; they slow the explanation of event handling.",
+    "retain_reason": "This distinguishes an event category from a concrete event and is needed for the tutorial."
+  },
+  {
+    "pr": "home-assistant/developers.home-assistant#601",
+    "source_sha256": "7a64fbdfdda65421917f5aadcc80c5b0ca19fe4ea3fe91a86a395d0e41dd0d77",
+    "decision": "necessary",
+    "span": {
+      "start": 2831,
+      "end": 2957,
+      "quote": "When the entity has been added to Home Assistant, `hass` will be set on the entity when the entity is added to Home Assistant."
+    },
+    "retain_span": {
+      "start": 2300,
+      "end": 2449,
+      "quote": "So if your integration's domain is \"awesome_sauce\" and you are making a light platform, you would register services under the `awesome_sauce` domain."
+    },
+    "diagnosis": "The same lifecycle condition appears twice in one sentence without a second condition.",
+    "retain_reason": "Repeating the exact identifier ties the example to the service name and should be retained."
+  },
+  {
+    "pr": "rubygems/bundler#6463",
+    "source_sha256": "167862bf579ba9a69184c7f83f87789dbbdea6590e73e0f35f95628441e5d1bb",
+    "decision": "no_clear_six_purpose_diagnosis",
+    "reason": "The manpage is a compact command reference. Its section labels and repeated command names aid scanning; possible stylistic tightening is optional."
+  },
+  {
+    "pr": "forem/forem#4175",
+    "source_sha256": "80099703506a0e396b5739635df6fd93a23caef16627088316270a1b33e51a05",
+    "decision": "no_clear_six_purpose_diagnosis",
+    "reason": "Repeated 'We use' openings form a parallel inventory of different services and purposes; removing them is an optional style choice."
+  },
+  {
+    "pr": "elastic/observability-docs#112",
+    "source_sha256": "2c17d2a0082cce224e3e71ac799006efc61e131bfd57649159ddcfdb8843d213",
+    "decision": "no_clear_six_purpose_diagnosis",
+    "reason": "The selected quick-start page has step and screenshot scaffolding; no source-visible necessary diagnosis in the six editorial purposes was established."
+  },
+  {
+    "pr": "umbraco/UmbracoDocs#2685",
+    "source_sha256": "99fc570937a425863e4b57b9c95d921ce1a6043ede11007fe051dcae9868b65c",
+    "decision": "necessary",
+    "span": {
+      "start": 13435,
+      "end": 13534,
+      "quote": "Run `echo > deploy` again in order to double-check that the UDA files have been generated correctly"
+    },
+    "retain_span": {
+      "start": 13220,
+      "end": 13275,
+      "quote": "Add an *export* marker by typing `echo > deploy-export`"
+    },
+    "diagnosis": "'Again' implies this exact command already appeared in this generation step, while the prior command creates a different export marker; the instruction's sequence is unclear.",
+    "retain_reason": "The distinct export command is an essential procedural step and must not be altered."
+  },
+  {
+    "pr": "remix-run/remix#521",
+    "source_sha256": "89e5507d291bc9c34b614cddca1b6de7461fef191dfc5c5f27ea3395107bb687",
+    "decision": "no_clear_six_purpose_diagnosis",
+    "reason": "The tutorial uses a conversational teaching voice and repeats concepts across a long worked example; no local repetition or framing was clearly unnecessary under the full sequence."
+  },
+  {
+    "pr": "speced/respec-web-services#193",
+    "source_sha256": "8a313935be0ceb437e41a0046931d12c3ec3c999e61362ac329e523f40988d1e",
+    "decision": "necessary",
+    "span": {
+      "start": 7112,
+      "end": 7213,
+      "quote": "technical\n        specifications, or documents that tend to be technical in nature in\n        general"
+    },
+    "retain_span": {
+      "start": 7215,
+      "end": 7369,
+      "quote": "It was originally designed for the purpose of writing W3C\n        specifications, but has since grown to be able to support other outputs\n        as well."
+    },
+    "diagnosis": "The second description repeats 'technical' while broadening the category only vaguely; the abstract does not tell readers what other documents ReSpec serves.",
+    "retain_reason": "The W3C origin and later expansion are distinct factual claims; a rewrite must preserve them."
+  },
+  {
+    "pr": "coralproject/talk#3953",
+    "source_sha256": "0089dd20ad44e1fbecd277ac25810d83b21762a5326d4abc0776ca027ac5ecdb",
+    "decision": "necessary",
+    "span": {
+      "start": 4880,
+      "end": 4939,
+      "quote": "the first thing to try is to try re-running the scraper job"
+    },
+    "retain_span": {
+      "start": 3457,
+      "end": 3639,
+      "quote": "If this tag is not present, or if the canonical URL references a different URL than your site such as a wire service, you can specify the `storyURL` parameter in the render function."
+    },
+    "diagnosis": "Two adjacent 'try' instructions describe one action and obscure the actual troubleshooting step.",
+    "retain_reason": "Both conditions matter for deciding when an explicit story URL is needed."
+  },
+  {
+    "pr": "graphql-hive/graphql-eslint#1310",
+    "source_sha256": "13d957b62f1b89859378d65f6740432326d58c99ce9067f56be4295b1ebba904",
+    "decision": "no_clear_six_purpose_diagnosis",
+    "reason": "The awkward 'only valid if when' construction is a grammar defect, but the present six-purpose contextual screen excludes grammar alone."
+  },
+  {
+    "pr": "rust-lang/rust#100345",
+    "source_sha256": "860e78eb5e585cd101aa16e147da455d9611ef8d58d21f3ba97a7744f7b95470",
+    "decision": "necessary",
+    "span": {
+      "start": 28731,
+      "end": 28839,
+      "quote": "This method doesn't cover everything that could be considered a number, e.g. ideographic numbers like '三'."
+    },
+    "retain_span": {
+      "start": 29114,
+      "end": 29230,
+      "quote": "If you want to parse ASCII decimal digits (0-9) or ASCII base-N, use\n    /// `is_ascii_digit` or `is_digit` instead."
+    },
+    "evidence_span": {
+      "start": 28560,
+      "end": 28659,
+      "quote": "Note that this means ideographic numbers like '三'\n    /// are considered alphabetic, not numeric."
+    },
+    "diagnosis": "The example and caveat immediately restate the preceding explanation of ideographic numbers without adding a new limitation.",
+    "retain_reason": "The alternative APIs address a distinct ASCII use case and should be retained."
+  }
+]
