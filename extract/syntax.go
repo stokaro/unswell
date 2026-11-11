@@ -2,6 +2,7 @@ package extract
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"sync"
 	"sync/atomic"
@@ -41,8 +42,15 @@ func parseBudget(size int) time.Duration {
 	return parseBudgetFloor + time.Duration(size/1024)*parseBudgetPerKiB
 }
 
+// errInvalidSyntax marks a grammar that could not produce a complete tree.
+var errInvalidSyntax = errors.New("grammar returned an incomplete or invalid syntax tree")
+
+// UnparsedReason is the exclusion reason of a Markdown block whose inline
+// grammar failed. The rest of the document is still extracted.
+const UnparsedReason = "unparsed"
+
 func invalidSyntax(name string) error {
-	return fmt.Errorf("parse %s: %s grammar returned an incomplete or invalid syntax tree", name, name)
+	return fmt.Errorf("parse %s: %s %w", name, name, errInvalidSyntax)
 }
 
 // parsers keeps idle parsers by grammar name. Building a parser derives tables
@@ -105,7 +113,7 @@ func parseSyntaxTree(ctx context.Context, source []byte, name string) (syntaxTre
 		err = ctx.Err()
 	}
 	if err == nil && (tree == nil || tree.RootNode() == nil) {
-		err = fmt.Errorf("%s grammar returned an incomplete or invalid syntax tree", name)
+		err = fmt.Errorf("%s %w", name, errInvalidSyntax)
 	}
 	if err != nil {
 		if tree != nil {

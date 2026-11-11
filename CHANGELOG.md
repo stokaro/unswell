@@ -12,6 +12,12 @@ configuration hashes and reported findings. The
 [qualification record](docs/research/rule-qualification.md) reports precision by
 rule, a final test on 772 real pages, and the limits of the measurement.
 
+One Markdown block that the grammar rejects no longer hides its file. The block
+is excluded with the reason `unparsed`, the rest of the file is analyzed, and the
+run stays incomplete with an error that names the file and line. This covers
+HTML inside list items, code spans with angle brackets in tables, and tables the
+grammar builds wrongly.
+
 Default severity now follows reviewed precision. `syntax.long-sentence`,
 `filler.instruction-scaffolding`, `filler.unscoped-assurance`, and
 `hype.vague-praise` report notes. Rules whose findings two reviewers accepted at
