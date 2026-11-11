@@ -1,0 +1,81 @@
+{
+  "format": "unswell-349-historical-utility-review-v1",
+  "reviewer": "root Codex assistant, accepted under ADR 0041; not a human annotator",
+  "scope": "exposed retrospective review of all findings on seven complete historical Markdown sources",
+  "rubric": "Accepted means the reported problem points to a useful, source-specific editorial change. Optional means the suggested change is plausible but the source reads adequately as written. No replacement edit or edit safety is assessed.",
+  "full_event_matches": [],
+  "findings": [
+    {
+      "pr": "fullstack-hy2020/fullstack-hy2020.github.io#2168",
+      "start": 1709,
+      "status": "optional",
+      "reason": "The sentence introduces destructuring in one coherent step; the long URL and introductory wording inflate its length, but splitting it is a style choice."
+    },
+    {
+      "pr": "fullstack-hy2020/fullstack-hy2020.github.io#2168",
+      "start": 10260,
+      "status": "optional",
+      "reason": "The two render-failure cases lead to one debugging action, and the conditional sentence is readable without a split."
+    },
+    {
+      "pr": "umbraco/UmbracoDocs#2685",
+      "start": 1560,
+      "status": "optional",
+      "reason": "Replacing 'in order to' with 'to' would save words but would not materially clarify the migration requirement."
+    },
+    {
+      "pr": "umbraco/UmbracoDocs#2685",
+      "start": 2716,
+      "status": "optional",
+      "reason": "The connector capability and its purpose are clear; shortening the purpose marker alone is optional."
+    },
+    {
+      "pr": "umbraco/UmbracoDocs#2685",
+      "start": 8852,
+      "status": "optional",
+      "reason": "The collision-avoidance condition remains clear; the reported phrase alone is a low-value tightening."
+    },
+    {
+      "pr": "umbraco/UmbracoDocs#2685",
+      "start": 13461,
+      "status": "optional",
+      "reason": "The useful problem is the misleading 'again' command sequence, which this finding does not diagnose; shortening 'in order to' is optional."
+    },
+    {
+      "pr": "remix-run/remix#521",
+      "start": 2089,
+      "status": "optional",
+      "reason": "The note gives one clear caveat about example shell commands. Its conversational length does not make a split necessary."
+    },
+    {
+      "pr": "remix-run/remix#521",
+      "start": 3357,
+      "status": "accepted",
+      "reason": "The MVC analogy, server-side view behavior, and browser hydration are distinct technical steps packed into one sentence; separating them would make the explanation easier to follow."
+    },
+    {
+      "pr": "remix-run/remix#521",
+      "start": 10047,
+      "status": "accepted",
+      "reason": "The file-read premise, need for a runtime check, and introduction of an invariant helper are chained through comma clauses; separating the steps would clarify the instruction."
+    },
+    {
+      "pr": "remix-run/remix#521",
+      "start": 17934,
+      "status": "accepted",
+      "reason": "The adjacent 'a a' is an accidental duplicate in ordinary prose, and removing one article preserves meaning."
+    },
+    {
+      "pr": "coralproject/talk#3953",
+      "start": 1972,
+      "status": "optional",
+      "reason": "The repeated global-style instruction occurs in parallel entries for different CSS and font properties; consolidating it is possible but the separate entries remain usable."
+    },
+    {
+      "pr": "coralproject/talk#3953",
+      "start": 4744,
+      "status": "accepted",
+      "reason": "The scraper status, failure symptom, and menu action are packed into one troubleshooting sentence; splitting them would improve scanning while preserving the condition and action. This does not diagnose the repeated 'try' in the frozen event."
+    }
+  ]
+}
