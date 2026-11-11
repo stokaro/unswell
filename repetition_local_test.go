@@ -40,6 +40,15 @@ func TestAdjacentWordRepetition(t *testing.T) {
 		{"The client retries retries.", "retries"},
 		{"The AND AND operators differ.", "AND"},
 		{"The library was named “ImGui” when when the maintainer released it.", "when"},
+		// Version 4: two copies in the same case, adjacent in the Markdown source.
+		{"The Unity Catalog catalog name is required.", ""},
+		{"Open the tab in In progress.", ""},
+		{"The team reads No Rules Rules before the review.", ""},
+		{"The option takes *value* *value* pairs.", ""},
+		{"The **retry** retry policy applies to each request.", ""},
+		{"Set the `limit` limit option before the run.", ""},
+		{"Read the [the guide](https://example.com/guide) before the run.", "the"},
+		{"The client retries the\nthe request once.", "the"},
 	} {
 		t.Run(row.text, func(t *testing.T) {
 			c := qt.New(t)

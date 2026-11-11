@@ -5,6 +5,7 @@ import (
 	"slices"
 	"strings"
 	"unicode"
+	"unicode/utf8"
 
 	"github.com/stokaro/unswell/document"
 	"github.com/stokaro/unswell/rule"
@@ -44,8 +45,9 @@ func adjacentSentence(view rule.View, block document.Block, sentence document.Se
 			continue
 		}
 		*evaluated = true
-		if left.Normal != right.Normal || distinctOperatorUse(left, right) || ambiguousDuplicate(left, right, sentence.Tokens) ||
-			!adjacentWordGap(block, left, right) {
+		if !sameWrittenWord(left, right, sentenceOpening(sentence.Tokens, i-1)) ||
+			ambiguousDuplicate(left, right, sentence.Tokens) ||
+			!adjacentWordGap(block, left, right) || !adjacentInSource(view.Document, left, right) {
 			continue
 		}
 		occurrences := []rule.Occurrence{tokenOccurrence(sentence, i-1, i), tokenOccurrence(sentence, i, i+1)}
@@ -109,10 +111,56 @@ func duplicateProseWord(text string) bool {
 	return letters
 }
 
-func distinctOperatorUse(left, right document.Token) bool {
-	return left.Text != right.Text &&
-		(slices.Contains([]string{"AND", "OR", "XOR", "NOT", "NOR", "NAND"}, left.Text) ||
-			slices.Contains([]string{"AND", "OR", "XOR", "NOT", "NOR", "NAND"}, right.Text))
+// sameWrittenWord accepts a word written twice the same way. A sentence may
+// open with the capitalized form of the repeated word. Elsewhere a repeated
+// capitalized word is read as a name or a title, and a pair that differs in
+// case as two words. On real pages two reviewers accepted no finding of
+// either kind.
+func sameWrittenWord(left, right document.Token, opening bool) bool {
+	if left.Text == right.Text {
+		return opening || !titleCase(right.Text)
+	}
+	first, size := utf8.DecodeRuneInString(right.Text)
+	return opening && unicode.IsLower(first) && left.Text == string(unicode.ToUpper(first))+right.Text[size:]
+}
+
+// sentenceOpening reports whether only punctuation separates the token from
+// the start of its sentence, or from a full stop that the segmenter kept
+// inside it, as it does before a closing quotation mark.
+func sentenceOpening(tokens []document.Token, index int) bool {
+	for i := index - 1; i >= 0; i-- {
+		if tokens[i].Word {
+			return false
+		}
+		if slices.Contains([]string{".", "!", "?"}, tokens[i].Text) {
+			return true
+		}
+	}
+	return true
+}
+
+// titleCase reports an initial capital followed by a lowercase letter.
+func titleCase(text string) bool {
+	first, size := utf8.DecodeRuneInString(text)
+	return unicode.IsUpper(first) && strings.IndexFunc(text[size:], unicode.IsLower) >= 0
+}
+
+// maxAdjacentSourceGap bounds the markup inspected between two words.
+const maxAdjacentSourceGap = 64
+
+// adjacentInSource rejects Markdown words that only the extracted text puts
+// side by side. Emphasis, code, a closing link, or a table boundary between
+// them gives each word its own role. A line break and an opening link
+// bracket leave the pair adjacent for the reader.
+func adjacentInSource(doc *document.Document, left, right document.Token) bool {
+	if (doc.Format != document.Markdown && doc.Format != document.MDX) || len(left.Spans) == 0 || len(right.Spans) == 0 {
+		return true
+	}
+	start, end := left.Spans[len(left.Spans)-1].End, right.Spans[0].Start
+	if start < 0 || end < start || end > len(doc.Source) || end-start > maxAdjacentSourceGap {
+		return false
+	}
+	return strings.Trim(string(doc.Source[start:end]), " \t\r\n[") == ""
 }
 
 func adjacentWordGap(block document.Block, left, right document.Token) bool {

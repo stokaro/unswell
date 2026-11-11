@@ -46,8 +46,23 @@ A phrase or rule without reviewed findings stays unlisted or opt-in.
 [ADR 0048](adr/0048-severity-follows-review.md) ties default severity to the same
 evidence. A rule reports warnings when both reviewers accepted at least 85% of 50
 or more findings on real pages, and notes when it falls below that share.
-`syntax.long-sentence`, `filler.instruction-scaffolding`,
-`filler.unscoped-assurance`, and `hype.vague-praise` report notes.
+`syntax.long-sentence`, `filler.instruction-scaffolding`, `hype.vague-praise`,
+and `repetition.adjacent-word` report notes.
+
+[ADR 0049](adr/0049-defaults-follow-reviewed-forms.md) reads the same reviews
+inside a rule. A rule, a matcher form, or a block kind leaves the default when
+both reviewers accepted fewer than half of 30 or more of its findings. A length
+threshold sits at the lowest five-word step from which they accepted at least
+75%.
+
+- `syntax.long-sentence` starts above 45 words and does not measure table
+  cells. Set `onset: 35` to restore the earlier threshold.
+- `filler.instruction-scaffolding` no longer reports a conditional reader goal
+  or a reminder that opens with `Be sure to`.
+- `repetition.adjacent-word` requires both copies in the same case with no
+  markup between them.
+- `filler.document-metadiscourse` and `filler.unscoped-assurance` are opt-in.
+  Both reviewers accepted 45% of 133 and 29% of 48 of their findings.
 
 ## The decision rule
 
@@ -156,6 +171,9 @@ remain in the research scope. Projects can request the measurement explicitly;
 the matcher, allowance, and gate thresholds are unchanged.
 
 ### Denial/redefinition and document self-description
+
+`filler.document-metadiscourse` is opt-in since ADR 0049; the paragraph below
+describes the rule when a project enables it.
 
 `syntax.repeated-reframing` and `filler.document-metadiscourse` expose complete
 clauses in technical and strict, with zero score and `gate: none`. They close the

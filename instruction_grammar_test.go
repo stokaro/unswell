@@ -9,11 +9,6 @@ import (
 
 func TestInstructionActionGrammar(t *testing.T) {
 	for _, text := range []string{
-		"If you want to read and write records, call the storage function.",
-		"If you need to inspect the records, you can query the index.",
-		"If you want to synchronize the repositories, run the synchronization command.",
-		"If we intend to decode a packet, we need to read its header.",
-		"Be sure to register the callback before starting the worker.",
 		"The parser is capable of decoding a packet.",
 		"The utility includes a reader that has the ability to decode packets.",
 		"The utility includes a reader which can be used to decode packets.",
@@ -29,26 +24,32 @@ func TestInstructionActionGrammar(t *testing.T) {
 			r := singleRuleResult(t, "filler.instruction-scaffolding", text, "", "")
 			c.Assert(r.Findings, qt.HasLen, 1)
 			c.Assert(r.Findings[0].Primary.Snippet, qt.Equals, strings.TrimSuffix(text, "."))
-			c.Assert(r.Findings[0].RuleVersion, qt.Equals, "18")
+			c.Assert(r.Findings[0].RuleVersion, qt.Equals, "19")
 		})
 	}
 }
 
-func TestInstructionNamedMethodRetainsOptionalGoal(t *testing.T) {
-	id := "filler.instruction-scaffolding"
+// A conditional reader goal and a be-sure-to reminder are ordinary instructions.
+// Two reviewers accepted 25 of 138 such findings on real pages, so version 19
+// reports neither form.
+func TestInstructionReaderGoalsAndRemindersAreNotReported(t *testing.T) {
 	for _, text := range []string{
-		"If you want to run the benchmark on a warm cache, you can use the `-w`/`--warmup` " +
-			"option to perform three executions before the benchmark.",
+		"If you want to read and write records, call the storage function.",
+		"If you need to inspect the records, you can query the index.",
+		"If you want to synchronize the repositories, run the synchronization command.",
+		"If we intend to decode a packet, we need to read its header.",
+		"If you want to set the label, you can set `--label`.",
 		"If you want to run the benchmark for a cold cache, you can use the `-p`/`--prepare` option before each run.",
 		"If you want to pass arguments this way, use `nix run github:eza-community/eza -- -ol`.",
+		"If you need a horizontal divider you just need to put three dashes on a line.",
+		"If we are just interested in the total across applications, we could simply write:",
+		"Be sure to register the callback before starting the worker.",
 	} {
 		t.Run(text, func(t *testing.T) {
-			qt.New(t).Assert(singleRuleResult(t, id, text, "", "").Findings, qt.HasLen, 0)
+			c := qt.New(t)
+			c.Assert(singleRuleResult(t, "filler.instruction-scaffolding", text, "", "").Findings, qt.HasLen, 0)
 		})
 	}
-	text := "If you want to set the label, you can set `--label`."
-	result := singleRuleResult(t, id, text, "", "")
-	qt.New(t).Assert(result.Findings, qt.HasLen, 1)
 }
 
 func TestInstructionActionGrammarControls(t *testing.T) {

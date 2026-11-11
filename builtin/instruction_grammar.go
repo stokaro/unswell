@@ -23,11 +23,6 @@ func instructionVerb(tokens []document.Token) bool {
 		(projectionVerb(tokens[0]) || instructionAction(tokens))
 }
 
-func imperativeAssurance(tokens []document.Token) bool {
-	return len(tokens) >= 5 && matches(tokens[:3], []string{"be", "sure", "to"}) &&
-		grammaticalAction(tokens[3:]) && !instructionCondition(tokens)
-}
-
 func procedureAnnouncement(tokens []document.Token) bool {
 	start := 1
 	if len(tokens) < 8 {

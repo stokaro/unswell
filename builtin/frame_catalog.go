@@ -32,6 +32,11 @@ func frameRules() []rule.Rule {
 		{Text: "This page defines all four roles; other pages link here instead of redefining them.", Match: true},
 		{Text: "See the configuration reference for the complete list of environment variables."},
 	}
+	// optInReasons records the review that turned this rule off.
+	meta.Defaults.Enabled = false
+	for i := range meta.Examples {
+		meta.Examples[i].Config = "version: 1\nrules:\n  " + meta.ID + ": {enabled: true}\n"
+	}
 	return []rule.Rule{
 		check{reframe, rhetoricalFrames(denialFrames, "denial-redefinition")},
 		check{meta, rhetoricalFrames(metadiscourseFrames, "document-metadiscourse")},

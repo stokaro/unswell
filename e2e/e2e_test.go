@@ -140,6 +140,20 @@ func invoke(t *testing.T, binary, workspace string, args []string, input []byte)
 	return stdout.String(), stderr.String(), command.ProcessState.ExitCode()
 }
 
+// profilePolicy writes a policy that extends a builtin profile and enables
+// the named opt-in rules. It returns the policy's name inside the workspace.
+func profilePolicy(t *testing.T, workspace, profile string, rules ...string) string {
+	t.Helper()
+	var policy strings.Builder
+	policy.WriteString("version: 1\nextends: [builtin:" + profile + "]\nrules:\n")
+	for _, id := range rules {
+		policy.WriteString("  " + id + ": {enabled: true}\n")
+	}
+	name := "policy-" + profile + ".yaml"
+	qt.New(t).Assert(os.WriteFile(filepath.Join(workspace, name), []byte(policy.String()), 0o600), qt.IsNil)
+	return name
+}
+
 func decodeFile(t *testing.T, path string, target any) {
 	t.Helper()
 	c := qt.New(t)

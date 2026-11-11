@@ -339,12 +339,122 @@ if (W / "rev-real3").exists() and (W / "docs-real3.jsonl").exists():
         add("Python ones. The TypeScript pages and the older Python ones have one review only and are")
         add("not counted above.")
     add("")
+if (W / "engine/round3-dev.json").exists() and (W / "engine/round3-evidence.json").exists():
+    evidence = json.loads((W / "engine/round3-evidence.json").read_text())
+    dev = json.loads((W / "engine/round3-dev.json").read_text())
+
+    def rule_rows(side):
+        return {(row["rule"], row["severity"]): row for row in side["rules"]}
+
+    def removed_rule(side, rule):
+        rows = [row for row in side["rules"] if row["rule"] == rule]
+        return sum(r["reviewed"] for r in rows), sum(r["both_accept"] for r in rows)
+
+    def comparison(result, minimum):
+        add("| Rule | Reviewed before | Both accept | Reviewed after | Both accept |")
+        add("| --- | ---: | ---: | ---: | ---: |")
+        before_rules, after_rules = collections.defaultdict(collections.Counter), collections.defaultdict(collections.Counter)
+        for side, target in ((result["old"], before_rules), (result["new"], after_rules)):
+            for row in side["rules"]:
+                target[row["rule"]]["reviewed"] += row["reviewed"]
+                target[row["rule"]]["both_accept"] += row["both_accept"]
+        for rule in sorted(before_rules, key=lambda r: -before_rules[r]["reviewed"]):
+            before, after = before_rules[rule], after_rules[rule]
+            if before["reviewed"] < minimum:
+                continue
+            shown = pct(after["both_accept"], after["reviewed"]) if after["reviewed"] else "not reported"
+            add(f"| `{rule}` | {before['reviewed']:,} | {pct(before['both_accept'], before['reviewed'])} | {after['reviewed']:,} | {shown} |")
+        for label, key in (("all notes", "note"), ("all warnings", "warning")):
+            before, after = result["old"]["severity"][key], result["new"]["severity"][key]
+            add(f"| {label} | {before['reviewed']:,} | {pct(before['both_accept'], before['reviewed'])} | "
+                f"{after['reviewed']:,} | {pct(after['both_accept'], after['reviewed'])} |")
+        before, after = result["old"]["all"], result["new"]["all"]
+        add(f"| all findings | {before['reviewed']:,} | {pct(before['both_accept'], before['reviewed'])} | "
+            f"{after['reviewed']:,} | {pct(after['both_accept'], after['reviewed'])} |")
+        add("")
+
+    add("## Third round: thresholds, matcher forms, and two rules")
+    add("")
+    add("[ADR 0049](../adr/0049-defaults-follow-reviewed-forms.md) reads the reviews inside a rule.")
+    add("Split by sentence length, the long-sentence findings on real pages show where the rule holds.")
+    add("")
+    add("| Sentence length in prose words | Reviewed | Both accept |")
+    add("| --- | ---: | ---: |")
+    for band in evidence["bands"]:
+        label = f"{band['low']} to {band['high']}" if band["high"] else f"{band['low']} or more"
+        add(f"| {label} | {band['reviewed']:,} | {pct(band['both_accept'], band['reviewed'])} |")
+    add("")
+    table_rows, other_rows = evidence["rows"]["table row"], evidence["rows"]["other"]
+    forms = removed_rule(dev["removed"], "filler.instruction-scaffolding")
+    words = removed_rule(dev["removed"], "repetition.adjacent-word")
+    meta = removed_rule(dev["removed"], "filler.document-metadiscourse")
+    assurance = removed_rule(dev["removed"], "filler.unscoped-assurance")
+    add(f"In table rows both reviewers accepted {pct(table_rows['both_accept'], table_rows['reviewed'])} of {table_rows['reviewed']:,} findings,")
+    add(f"against {pct(other_rows['both_accept'], other_rows['reviewed'])} of {other_rows['reviewed']:,} elsewhere.")
+    add("In `filler.instruction-scaffolding`, the conditional reader goal and the `Be sure to` reminder gave")
+    add(f"{forms[0]:,} reviewed findings, and both reviewers accepted {pct(forms[1], forms[0])} of them.")
+    add(f"In `repetition.adjacent-word`, both reviewers accepted none of the {words[0]:,} findings whose two")
+    add("copies differ in case, repeat a capitalized word inside a sentence, or stand on two sides of Markdown markup.")
+    add(f"They accepted {pct(meta[1], meta[0])} of {meta[0]:,} `filler.document-metadiscourse` findings and")
+    add(f"{pct(assurance[1], assurance[0])} of {assurance[0]:,} `filler.unscoped-assurance` findings. Both rules are now opt-in.")
+    add("")
+    add(f"The next table compares the earlier defaults with the changed ones on the {dev['documents']:,} real pages")
+    add("reviewed before this round. A finding keeps its verdict when its page, rule, and byte span are unchanged.")
+    add("")
+    comparison(dev, 10)
+    add(f"The default profile reports {dev['new']['findings']:,} findings on these pages in place of {dev['old']['findings']:,}.")
+    add("These pages chose the changes, so the right columns overstate the effect.")
+    add("")
+    if (W / "engine/round3-test.json").exists() and (W / "docs-real4.jsonl").exists():
+        test = json.loads((W / "engine/round3-test.json").read_text())
+        real4 = docs("docs-real4.jsonl")
+        add(f"A third set of {real4[0]:,} new real pages from {real4[1]:,} repositories, selected by the same rule and used")
+        add("for nothing before, reports the result. Both reviewers judged the findings of the earlier")
+        add("defaults and of the changed ones on the same pages.")
+        add("")
+        comparison(test, 5)
+        after = test["new"]
+        add("| Severity, changed defaults | Findings | Reviewed | Both accept | At least one accepts | Both reject |")
+        add("| --- | ---: | ---: | ---: | ---: | ---: |")
+        for level in ("warning", "note"):
+            c = after["severity"][level]
+            low, high = wilson(c["both_accept"], c["reviewed"])
+            add(f"| {level} | {after['reported'][level]:,} | {c['reviewed']:,} | {pct(c['both_accept'], c['reviewed'])} ({low:.0f}% to {high:.0f}%) | "
+                f"{pct(c['any_accept'], c['reviewed'])} | {pct(c['both_reject'], c['reviewed'])} |")
+        add("")
+        gone = test["removed"]["all"]
+        add(f"The changed defaults report {after['findings']:,} findings on these pages in place of {test['old']['findings']:,},")
+        add(f"or {1000 * after['findings'] / real4[3]:.2f} per thousand words in place of {1000 * test['old']['findings'] / real4[3]:.2f}.")
+        add(f"Both reviewers accepted {pct(gone['both_accept'], gone['reviewed'])} of the {gone['reviewed']:,} dropped findings they reviewed.")
+        add("The gain is smaller than on the pages that chose the changes, as expected. `syntax.long-sentence`")
+        add("holds two findings in three above 45 words, and one in two above 70, where the sentence is often a list.")
+        add("")
+        third = {}
+        if (W / "rev-real4" / "qwen").exists():
+            second = {}
+            for review_path in (W / "rev-real4" / "astra").glob("*.json"):
+                for finding in json.loads(review_path.read_text())["findings"]:
+                    if finding.get("justified"):
+                        second[finding["id"]] = finding["justified"]
+            for review_path in (W / "rev-real4" / "qwen").glob("*.json"):
+                for finding in json.loads(review_path.read_text())["findings"]:
+                    if finding.get("justified") and finding["id"] in second:
+                        third[finding["id"]] = finding["justified"]
+        if third:
+            same = sum(third[k] == second[k] for k in third)
+            third_yes = sum(v == "yes" for v in third.values())
+            second_yes = sum(second[k] == "yes" for k in third)
+            add("The third assistant, `private-host/Qwen3.8-27B`, judged findings of this round as a check. It gave the")
+            add(f"same answer as the second reviewer for {pct(same, len(third))} of {len(third):,} findings. It accepted")
+            add(f"{pct(third_yes, len(third))} of them and the second reviewer {pct(second_yes, len(third))}.")
+            add("")
 add("## Limits")
 add("")
 add("- Reviewers and auditor are assistants. Models can share a preference that readers do not have.")
 add("- The phrase lists cover prose in paragraphs, comments, and strings. List items, headings, and table cells are not checked by the praise rule.")
 add("- Coverage of the annotators' agreement stays low. Most items they mark are contextual: a claim without scope, a sentence that repeats an earlier one, a frame that adds nothing. Fixed rules name a small part of that. The MCP review tools let the calling assistant judge the rest.")
-add("- Two real pages failed to parse and are tracked in issue 522.")
+add("- The corpus tool left out 17 of 2,713 real pages that it could not parse; issue 522 tracks them. The engine now analyzes such a page and excludes the rejected block.")
+add("- The third round matches findings between defaults by page, rule, and byte span. Review stays capped at eight findings per rule and page.")
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text("\n".join(lines) + "\n")
 print("written", OUT, len(lines), "lines; final reviews by both:", len(final))

@@ -12,14 +12,14 @@ func localRhetoricRules() []rule.Rule {
 			"Remove narrated setup or nested support layers around the action and its method. "+
 				"Keep prerequisites, actors, operands, alternatives and limits; a capability is not an obligation.",
 			"An affirmative impersonal capability with a transitive configuration or presentation action, "+
-				"or a reader-intention clause introducing an instruction. Anaphoric gerund methods, nominalized "+
-				"methods and reader-purpose clauses are also recognized. Nested enables/allows plus an action nominalization "+
+				"or a reader-intention clause introducing an instruction. Anaphoric gerund methods and nominalized "+
+				"methods are also recognized. Nested enables/allows plus an action nominalization "+
 				"and passive infinitive, and nominal actions performed through a gerund method, also qualify. "+
 				"Actor-to-action projection recognizes ability nouns, modal used-to/used-for actions, named method predicates, "+
 				"and nested intended-to-enable actions. Narrated prerequisites and repeated same-actor obligations can introduce an action. "+
 				"Standalone generic reader enablement requires an adjacent method; concrete capability explanations remain controls. "+
 				"Infinitive reader goals admit coordinated actions. Relative operation or actor antecedents can carry nested support; "+
-				"capable-of gerunds, imperative assurance and purpose-to-steps announcements also qualify. "+
+				"capable-of gerunds and purpose-to-steps announcements also qualify. "+
 				"A second method may be anchored by a repeated two-noun object and explicit reader action. "+
 				"An adjacent anaphoric method may name a nominal syntax or configuration instrument; "+
 				"that instrument cannot establish a standalone warning or replace a passive actor. "+
@@ -140,7 +140,16 @@ func localRhetoricRule(id string, find frameFinder, summary, suggestion, descrip
 	if reviewedBelowWarning(id) {
 		d.Defaults.Severity = "note"
 	}
+	// optInReasons records the review that turned this rule off.
+	if id == "filler.unscoped-assurance" {
+		d.Defaults.Enabled = false
+		for i := range d.Examples {
+			d.Examples[i].Config = "version: 1\nrules:\n  " + id + ": {enabled: true}\n"
+		}
+	}
 	if id == "filler.instruction-scaffolding" {
+		// Two reviewers both accepted 25 of 138 findings of these two forms on real pages.
+		d.Limitations += " A conditional reader goal and a be-sure-to reminder are not reported."
 		d.Description += " An immediate anaphoric method may be related across adjacent prose paragraphs, without crossing structural boundaries."
 		return check{d, instructionRhetoric(find, id, suggestion)}
 	}
@@ -159,7 +168,7 @@ func localRhetoricVersion(id string) string {
 	case "filler.document-justification":
 		return "6"
 	case "filler.instruction-scaffolding":
-		return "18"
+		return "19"
 	case "filler.evaluative-closure":
 		return "12"
 	case "repetition.redundant-predicate", "repetition.explanatory-restart":

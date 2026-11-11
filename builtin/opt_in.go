@@ -58,6 +58,10 @@ var optInReasons = map[string]string{
 		"corpus two reviewers both rejected 56 of 77 findings and both accepted four. Repeated form need not mean redundant information.",
 	"repetition.paragraph-openers": "Its findings fall mainly on deliberate parallel wording. On the assistant-panel " +
 		"corpus two reviewers both rejected 32 of 39 findings and both accepted none. Repeated openings do not establish duplicate meaning.",
+	"filler.unscoped-assurance": "On real pages two reviewers both accepted 14 of 48 findings and both rejected 21. " +
+		"A neighboring sentence explained most of the rejected claims, and a local rule does not read it.",
+	"filler.document-metadiscourse": "On real pages two reviewers both accepted 60 of 133 findings and both rejected 31. " +
+		"They disagreed on the rest: a statement of a page's scope helps one reader and delays another.",
 	"repetition.ngram-density": "Fires an order of magnitude more on human prose, 0.603 findings per thousand " +
 		"words against 0.056 in the controlled arm. Parallel technical wording is often deliberate.",
 	"repetition.paragraph-overlap": "0.283 per thousand words in human prose and none in the controlled arm.",

@@ -15,8 +15,6 @@ func TestInstructionWording(t *testing.T) {
 		{"filler.instruction-scaffolding", "It is also possible to customize the dashboard."},
 		{"filler.instruction-scaffolding", "It is possible to set `retry_limit` to `3`."},
 		{"filler.instruction-scaffolding", "It is possible to activate and deactivate a worker."},
-		{"filler.instruction-scaffolding", "If you want to display a label, you can set the label option."},
-		{"filler.instruction-scaffolding", "If you wish to customize the dashboard, select a theme."},
 		{"repetition.redundant-predicate", "The default path for the configuration file is located at `/etc/example.conf`."},
 		{"repetition.redundant-predicate", "The location of the archive is situated in the storage directory."},
 		{"repetition.redundant-predicate", "The reason for the delay is because the queue is full."},

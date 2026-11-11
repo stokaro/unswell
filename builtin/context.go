@@ -25,13 +25,19 @@ func contextRules() []rule.Rule {
 		20,
 	)
 	long.BlockObservations = true
-	// Two reviewers both accepted about six of ten findings on real pages, so
-	// the rule reports a note. docs/research/rule-qualification.md has the table.
+	// Review on real pages sets the onset. Two reviewers both accepted 48% of
+	// the findings on sentences of 36 to 39 words, 64% from 40 to 44, and 79%
+	// above 45. A table cell is an inventory more often than a sentence: they
+	// accepted 45% of the findings there. The rule reports a note.
+	// docs/research/rule-qualification.md has the table.
+	long.Version = "2"
 	long.Defaults.Severity = "note"
-	long.Defaults.Parameters = rule.Parameters{Onset: 35, Saturation: 65}
+	long.Defaults.Parameters = rule.Parameters{Onset: 45, Saturation: 75}
 	long.Parameters = []string{"onset", "saturation"}
+	long.Contexts = []string{"paragraph", "comment", "string", "heading", "list-item"}
+	long.Description = "Reports a sentence with more prose words than the onset. Table cells are not measured."
 	long.Examples = []rule.Example{
-		{Text: strings.Repeat("word ", 40) + "ends.", Match: true},
+		{Text: strings.Repeat("word ", 50) + "ends.", Match: true},
 		{Text: "The client may retry if the connection closes.", Match: false},
 	}
 	hype := descriptor(

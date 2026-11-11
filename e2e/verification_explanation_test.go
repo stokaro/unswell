@@ -27,7 +27,8 @@ func TestVerificationExplanationReports(t *testing.T) {
 	}
 	binary := buildCLI(t)
 	for _, profile := range []string{"technical", "strict"} {
-		stdout, stderr, code := invoke(t, binary, work, []string{"check", "--profile", profile,
+		policy := profilePolicy(t, work, profile, "filler.unscoped-assurance")
+		stdout, stderr, code := invoke(t, binary, work, []string{"check", "--config", policy,
 			"--include-source", "--report", "json:result.json", "--report", "text:result.txt",
 			"--report", "sarif:result.sarif", "--report", "html:result.html", "--report", "markdown:result.md",
 			"draft.md", "revision.md", "control.md"}, nil)

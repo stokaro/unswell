@@ -10,9 +10,15 @@ func localRepetitionRules() []rule.Rule {
 	word := descriptor("repetition.adjacent-word", "This word occurs twice in succession; check for an accidental duplicate.",
 		"repetition", "sentence", 12)
 	word.Requires = append(word.Requires, nlp.POS)
-	word.Version = "3"
+	word.Version = "4"
 	word.BlockObservations, word.TermExemptions = true, true
-	word.Description = "Locates adjacent equal prose words separated only by whitespace. " +
+	// Two reviewers both accepted 15 of 32 findings of version 3 on real pages,
+	// so the rule reports a note. Version 4 drops the forms they rejected.
+	word.Defaults.Severity = "note"
+	word.Description = "Locates a prose word written twice in succession, separated only by whitespace. " +
+		"The two copies have the same case; a sentence may open with the capitalized copy. " +
+		"A repeated capitalized word inside a sentence is read as a name or a title. " +
+		"In Markdown, emphasis, code, a closing link, or a table boundary between the copies separates them. " +
 		"Quoted examples, protected text, repeated adjectives/adverbs, and ambiguous grammatical repetitions are excluded. " +
 		"Quotation protection follows the repeated tokens, including quotes spanning sentences in one block. " +
 		"Numeric operands and formatting conversions are not prose words; uppercase Boolean operator names " +

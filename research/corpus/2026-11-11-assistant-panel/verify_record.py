@@ -17,7 +17,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 DIGESTS = "files.sha256"
-DATA_DIRECTORIES = ("audit", "configs", "items", "labels", "manifests", "phrases", "reviews")
+DATA_DIRECTORIES = ("audit", "configs", "items", "labels", "manifests", "phrases", "reviews", "rounds")
 DOCUMENT_KEYS = {"doc", "repository", "path", "sha256", "reference", "origin", "family", "operation", "items"}
 ITEM_KEYS = {"id", "kind", "segments"}
 LABEL_KEYS = {"doc", "annotator", "model", "effort", "rubric", "prompt_sha256", "flags", "unbound_flags"}

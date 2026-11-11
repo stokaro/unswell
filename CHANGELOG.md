@@ -26,17 +26,17 @@ Default severity now follows reviewed precision. `syntax.long-sentence`,
 least 85% of the time on real pages keep warnings. Use `--min-severity warning`
 to see only those. Scores and the gate are unchanged.
 
-One Markdown block that the grammar rejects no longer hides its file. The block
-is excluded with the reason `unparsed`, the rest of the file is analyzed, and the
-run stays incomplete with an error that names the file and line. This covers
-HTML inside list items, code spans with angle brackets in tables, and tables the
-grammar builds wrongly.
-
-Default severity now follows reviewed precision. `syntax.long-sentence`,
-`filler.instruction-scaffolding`, `filler.unscoped-assurance`, and
-`hype.vague-praise` report notes. Rules whose findings two reviewers accepted at
-least 85% of the time on real pages keep warnings. Use `--min-severity warning`
-to see only those. Scores and the gate are unchanged.
+The defaults report fewer findings that reviewers rejected.
+`syntax.long-sentence` starts above 45 words, up from 35, and no longer
+measures table cells; set `onset: 35` to restore the earlier threshold.
+`filler.instruction-scaffolding` no longer reports a conditional reader goal or
+a reminder that opens with `Be sure to`. `repetition.adjacent-word` requires
+both copies in the same case with no markup between them, and reports a note.
+`filler.document-metadiscourse` and `filler.unscoped-assurance` are opt-in;
+enable them in configuration to keep their findings. On 578 new real pages the
+default profile reports 517 findings in place of 1,174, and two reviewers
+accept 77% of them, up from 64%.
+[ADR 0049](docs/adr/0049-defaults-follow-reviewed-forms.md) states the rule.
 
 MDX files now participate in directory scans and MCP checks. Markdown prose
 between component tags is checked; imports, exports, expressions and tag

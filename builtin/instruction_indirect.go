@@ -27,8 +27,8 @@ func indirectInstruction(clauses []frameClause, index int) (rhetoricalFrame, boo
 }
 
 func indirectForm(tokens []document.Token, embedded, owned bool) bool {
-	return readerPurpose(tokens) || possibilityNoun(tokens) || nominalizedMethod(tokens) ||
-		imperativeAssurance(tokens) || procedureAnnouncement(tokens) ||
+	return possibilityNoun(tokens) || nominalizedMethod(tokens) ||
+		procedureAnnouncement(tokens) ||
 		(embedded && capabilityInstruction(tokens)) || (concreteMethod(tokens) && !owned)
 }
 
@@ -84,57 +84,6 @@ func nominalizedMethod(tokens []document.Token) bool {
 func methodComplement(tokens []document.Token) bool {
 	return (frameWord(tokens[0], "by") && methodAction(tokens[1:])) ||
 		(frameWord(tokens[0], "as") && frameWord(tokens[1], "per", "shown") && frameWord(tokens[2], "below", "above"))
-}
-
-func readerPurpose(tokens []document.Token) bool {
-	if len(tokens) < 8 || !frameWord(tokens[0], "if") {
-		return false
-	}
-	for i := 4; i < len(tokens)-2; i++ {
-		end := i
-		if frameWord(tokens[i], ",") {
-			end++
-		} else if !frameWord(tokens[i], "you", "we") {
-			continue
-		}
-		if intentionGoal(tokens[1:i]) && directInstruction(tokens[end:]) &&
-			!optionalNamedMethod(tokens[1:i], tokens[end:]) {
-			return true
-		}
-	}
-	return false
-}
-
-func intentionGoal(tokens []document.Token) bool {
-	if len(tokens) < 3 || !frameWord(tokens[0], "you", "we") || instructionCondition(tokens) {
-		return false
-	}
-	if frameWord(tokens[1], "want", "wish", "intend", "need") {
-		return (frameWord(tokens[2], "to") && grammaticalAction(tokens[3:])) ||
-			(frameWord(tokens[1], "need") && nominalSubject(tokens[2:]))
-	}
-	return interestedGoal(tokens)
-}
-
-func interestedGoal(tokens []document.Token) bool {
-	i := 2
-	if frameWord(tokens[1], "are") && frameWord(tokens[i], "just", "only") {
-		i++
-	}
-	return i+2 < len(tokens) && frameWord(tokens[1], "are") && frameWord(tokens[i], "interested") &&
-		frameWord(tokens[i+1], "in") && nominalSubject(tokens[i+2:])
-}
-
-func directInstruction(tokens []document.Token) bool {
-	i, ok := readerActionStart(tokens)
-	if !ok {
-		return false
-	}
-	if i < len(tokens) && frameWord(tokens[i], "simply", "just") {
-		i++
-	}
-	return !instructionCondition(tokens[i:]) &&
-		(grammaticalAction(tokens[i:]) || (i+1 == len(tokens) && frameWord(tokens[i], "write")))
 }
 
 func readerActionStart(tokens []document.Token) (int, bool) {

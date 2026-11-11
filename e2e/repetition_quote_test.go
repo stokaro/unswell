@@ -42,7 +42,7 @@ func TestAdjacentQuotationRepair(t *testing.T) {
 			c.Assert(result.Findings, qt.HasLen, row.code)
 			if row.code == 1 {
 				finding := result.Findings[0]
-				c.Assert(finding.RuleVersion, qt.Equals, "3")
+				c.Assert(finding.RuleVersion, qt.Equals, "4")
 				c.Assert(finding.Primary.Span.Start, qt.Equals, strings.Index(row.text, "when"))
 				c.Assert(finding.Related[0].Span.Start, qt.Equals, strings.LastIndex(row.text, "when"))
 			}

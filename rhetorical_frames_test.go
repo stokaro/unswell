@@ -112,7 +112,9 @@ func TestRhetoricalFramesDefaultToUnscoredNotes(t *testing.T) {
 	for _, profile := range []string{"technical", "strict"} {
 		t.Run(profile, func(t *testing.T) {
 			c := qt.New(t)
-			engine, err := unswell.New(unswell.Options{Config: []byte("version: 1\nextends: [builtin:" + profile + "]\n")})
+			config := "version: 1\nextends: [builtin:" + profile + "]\n" +
+				"rules:\n  filler.document-metadiscourse: {enabled: true}\n"
+			engine, err := unswell.New(unswell.Options{Config: []byte(config)})
 			c.Assert(err, qt.IsNil)
 			result, err := engine.Analyze(t.Context(), document.Source{Name: "guide.md", Format: document.Markdown,
 				Bytes: []byte(denialTriplet + "\n\nThis page defines the four roles.")})
