@@ -171,6 +171,25 @@ difference between 81.5% and 77.3% is the price of choosing on the same pages.
 Both reviewers accepted 54.2% of the 646 dropped findings they reviewed: the
 changes remove findings that hold about half the time.
 
+## Sixth result: review in context reaches what rules do not
+
+The MCP server gives the calling assistant the rubric and the items of a
+document and binds its flags to source bytes. A client drove the server on 120
+pages of test 1 with the two annotator models as calling assistants, and the
+model of the other family judged each bound flag.
+
+| | Default rules | Review in context |
+| --- | ---: | ---: |
+| Reports per 1,000 words | 0.61 | 1.77 and 1.92 |
+| Accepted by review | 77.3% | 70.1% |
+| Items marked by the other annotator that it touches | 4.2% | 47.5% |
+
+The server bound 690 of 729 flags. Of the bound flags, 675 lie outside every
+rule finding. Acceptance depends on the category: 92.9% for wordiness, 80.6%
+for unjustified intensifiers, and 48.3% for repetition. The rate for the
+default rules comes from test 3, and the two measurements use different
+reviewers: two for a rule finding, one of the other family for a flag.
+
 ## Negative and null results, stated
 
 - The fitted word model has no recall on real pages at 85% precision.
@@ -207,8 +226,8 @@ changes remove findings that hold about half the time.
   shows the confirmed findings.
 - Thresholds and matcher forms that follow review inside a rule, and four
   rules moved to opt-in over the three rounds.
-- Review in context by the calling assistant through the MCP server. Its
-  findings are advisory and never reach scores or the gate.
+- Review in context by the calling assistant through the MCP server, measured
+  above. Its findings are advisory and never reach scores or the gate.
 - One Markdown block that the grammar rejects no longer hides its file.
 
 ## Reproduction
@@ -225,4 +244,6 @@ separates rules, phrases, and forms inside a rule, and its decisions hold on
 new pages with a measured loss. It does not replace a human editor, and it
 does not make a fixed rule read context. On this register the fixed rules name
 a small, confirmed part of what the annotators mark. The rest needs a reader,
-and the product now hands that part to the assistant that calls it.
+and the product now hands that part to the assistant that calls it. Measured
+the same way, that assistant reaches ten times as many marked items as the
+rules, and a second model accepts seven of its ten flags.
