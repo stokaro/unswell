@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 import acquire
 import fetch_sources
+import materialize_review
 
 
 class SelectionTest(unittest.TestCase):
@@ -87,6 +88,15 @@ class SelectionTest(unittest.TestCase):
                                          "content": base64.b64encode(invalid).decode()},
                                         {"readme_blob_sha1": invalid_sha,
                                          "readme_bytes": len(invalid)})
+
+    def test_review_quote_requires_one_exact_utf8_location(self):
+        data = "first é second".encode()
+        self.assertEqual(materialize_review.locate(data, "é"),
+                         {"start": 6, "end": 8, "quote": "é"})
+        with self.assertRaisesRegex(ValueError, "missing or repeated"):
+            materialize_review.locate(b"same same", "same")
+        with self.assertRaisesRegex(ValueError, "missing or repeated"):
+            materialize_review.locate(data, "not there")
 
 
 if __name__ == "__main__":

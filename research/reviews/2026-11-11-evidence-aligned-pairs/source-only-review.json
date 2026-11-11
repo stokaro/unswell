@@ -1,0 +1,480 @@
+{
+  "format": "unswell-349-source-only-review-v1",
+  "labels": [
+    {
+      "diagnosis": "The comparison is with the largest rival in the table, not the field as a whole.",
+      "evidence_span": {
+        "end": 16293,
+        "quote": "heaviest rival measured",
+        "start": 16270
+      },
+      "evidence_state": "aligned",
+      "facts_to_retain": "One binary, 53 MB, and the table's specific compared products and sizes.",
+      "id": "P01",
+      "kind": "positive",
+      "reader_burden": "The scope of the size claim is wider than the shown measurement.",
+      "repo": "Agent-Field/CodeAF",
+      "safe_edit": "Name the heaviest measured rival as the comparison scope.",
+      "source": "go-01.source",
+      "source_sha256": "dfcd91ebe4da7e7b38d3d1115acda5e945079a914f4ba1e2a6c2dbfe5a1f0a04",
+      "span": {
+        "end": 16212,
+        "quote": "up to 21x smaller than the field.",
+        "start": 16179
+      }
+    },
+    {
+      "diagnosis": "The lead-in and 'important to note' delay a necessary safety limitation.",
+      "evidence_span": {
+        "end": 8715,
+        "quote": "Read the report's coverage and any incomplete analysis before acting on it.",
+        "start": 8640
+      },
+      "evidence_state": "aligned",
+      "facts_to_retain": "No findings do not guarantee security; review the report's coverage and incomplete analysis.",
+      "id": "P02",
+      "kind": "positive",
+      "reader_burden": "A long wrapper obscures the concrete warning.",
+      "repo": "Agent-Field/CodeAF",
+      "safe_edit": "State the limitation directly; keep the limitation itself.",
+      "source": "go-01.source",
+      "source_sha256": "dfcd91ebe4da7e7b38d3d1115acda5e945079a914f4ba1e2a6c2dbfe5a1f0a04",
+      "span": {
+        "end": 8833,
+        "quote": "As always, it's important to note that a lack of findings does not and can not guarantee a lack of security problems.",
+        "start": 8716
+      }
+    },
+    {
+      "diagnosis": "The universal change of bottleneck is not established by the following concrete scenario.",
+      "evidence_span": {
+        "end": 2002,
+        "quote": "five terminals, a prompt typed into the wrong one, and",
+        "start": 1948
+      },
+      "evidence_state": "aligned",
+      "facts_to_retain": "Several simultaneous CLI sessions create navigation and coordination work.",
+      "id": "P03",
+      "kind": "positive",
+      "reader_burden": "The reader must map an absolute claim back to a narrower session-management problem.",
+      "repo": "compozy/compozy",
+      "safe_edit": "Describe session management as a possible bottleneck for parallel agent work.",
+      "source": "go-02.source",
+      "source_sha256": "d3a58617d91d56ee84185f9b362bab20c01381ee8e94271b4066190a709e6f71",
+      "span": {
+        "end": 1880,
+        "quote": "The bottleneck stopped being the model. It became managing the sessions.",
+        "start": 1808
+      }
+    },
+    {
+      "diagnosis": "The generic praise and repeated 'power' framing precede the actual controls.",
+      "evidence_span": {
+        "end": 746,
+        "quote": "customize workflows, agent profiles, runtimes, prompts, and review gates",
+        "start": 674
+      },
+      "evidence_state": "aligned",
+      "facts_to_retain": "Users can customize workflows, profiles, runtimes, prompts, and gates.",
+      "id": "P04",
+      "kind": "positive",
+      "reader_burden": "The useful capabilities arrive after a circular description of the audience.",
+      "repo": "kdlbs/kandev",
+      "safe_edit": "Lead with the specific controls.",
+      "source": "go-04.source",
+      "source_sha256": "ca1df83c9e14c1c96af7c6eaf15a029ee1ba7f20b4c03e2fafc1e2e27f0a3367",
+      "span": {
+        "end": 672,
+        "quote": "powerful tool for power users who want deeper control over how AI agents work",
+        "start": 595
+      }
+    },
+    {
+      "diagnosis": "The list describes features but supplies no comparison showing they distinguish Kandev from other tools.",
+      "evidence_span": {
+        "end": 15906,
+        "quote": "**Server-first architecture** - The core app runs as a server you can access from any device, including your phone.",
+        "start": 15791
+      },
+      "evidence_state": "unresolved",
+      "facts_to_retain": "Keep the listed capabilities and the comparison section's navigational role.",
+      "id": "P05",
+      "kind": "positive",
+      "reader_burden": "A uniqueness claim asks readers to accept an unshown comparison.",
+      "repo": "kdlbs/kandev",
+      "safe_edit": "Use a neutral introduction to the capabilities unless comparison evidence is supplied.",
+      "source": "go-04.source",
+      "source_sha256": "ca1df83c9e14c1c96af7c6eaf15a029ee1ba7f20b4c03e2fafc1e2e27f0a3367",
+      "span": {
+        "end": 15787,
+        "quote": "There are a few similar tools in this space, and new ones appearing everyday. Here's what sets this one apart:",
+        "start": 15677
+      }
+    },
+    {
+      "diagnosis": "The initial description suggests a conclusive nonexistence check, while the page later limits the result to searched sources.",
+      "evidence_span": {
+        "end": 3098,
+        "quote": "it can never prove something **doesn't**",
+        "start": 3058
+      },
+      "evidence_state": "contradicted_by_scope",
+      "facts_to_retain": "The tool searches selected registries and other sources for similar existing projects; no clean result proves novelty.",
+      "id": "P06",
+      "kind": "positive",
+      "reader_burden": "The reader must reconcile an absolute promise with the later limitation.",
+      "repo": "r14dd/patent",
+      "safe_edit": "Describe a search for similar projects in checked sources.",
+      "source": "rust-02.source",
+      "source_sha256": "f5e5fbe40a147dfd258ffb92c4fd4a5d5b210149b8595dd9779d168115b29ce3",
+      "span": {
+        "end": 1513,
+        "quote": "checks whether it already exists.",
+        "start": 1480
+      }
+    },
+    {
+      "diagnosis": "The tagline promises command interchangeability that the usage section explicitly limits.",
+      "evidence_span": {
+        "end": 1996,
+        "quote": "other cargo\ncommands are not blaze's yet.",
+        "start": 1955
+      },
+      "evidence_state": "contradicted_by_scope",
+      "facts_to_retain": "The supported build, check, run, test, and bench commands, plus the unsupported-command limitation.",
+      "id": "P07",
+      "kind": "positive",
+      "reader_burden": "A user might try unsupported cargo commands.",
+      "repo": "indexable-inc/blaze",
+      "safe_edit": "Scope the tagline to the supported commands.",
+      "source": "rust-03.source",
+      "source_sha256": "c75a98b4b0b881ee288485fe7eecc71122157a0a6816afff4c1b5b5694add7dd",
+      "span": {
+        "end": 365,
+        "quote": "Type <code>blaze</code> wherever you'd type <code>cargo</code>.",
+        "start": 302
+      }
+    },
+    {
+      "diagnosis": "The final list item supplies no feature or destination after an already detailed feature list.",
+      "evidence_span": {
+        "end": 4270,
+        "quote": "- **[CLI](https://vicoa.ai/docs/cli-commands):** sessions, chat history, tasks, and automations are supported via CLI, so your agents can drive Vicoa the same way you do.",
+        "start": 4100
+      },
+      "evidence_state": "aligned",
+      "facts_to_retain": "Retain all named features and their links.",
+      "id": "P08",
+      "kind": "positive",
+      "reader_burden": "The reader scans a list item without learning another capability.",
+      "repo": "vicoa-ai/vicoa",
+      "safe_edit": "Remove only the empty final list item.",
+      "source": "python-01.source",
+      "source_sha256": "0ff77ec1bba1d1e90a88b60347f87a175d8b6564999bbf22da5a0dc2ef785294",
+      "span": {
+        "end": 4285,
+        "quote": "- and more ...",
+        "start": 4271
+      }
+    },
+    {
+      "diagnosis": "The repeated classifier-purpose scaffolding restates the list's function before individual tasks.",
+      "evidence_span": {
+        "end": 1350,
+        "quote": "The aim of this classifier is to detect patches that might be more likely to be backed-out",
+        "start": 1260
+      },
+      "evidence_state": "aligned",
+      "facts_to_retain": "Keep the assignee suggestion and each classifier's purpose; some entries also state caveats and measurements.",
+      "id": "P09",
+      "kind": "positive",
+      "reader_burden": "Repeated introductions make the classifier list harder to scan.",
+      "repo": "mozilla/bugbug",
+      "safe_edit": "Condense only the repeated scaffolding, preserving each distinct task.",
+      "source": "python-02.source",
+      "source_sha256": "b79cf2e7549d9597968357757d4a23b7eff2b636f3d9d888f09824cd4d0f7312",
+      "span": {
+        "end": 1242,
+        "quote": "The aim of this classifier is to suggest an appropriate assignee for a bug.",
+        "start": 1167
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 9866,
+        "quote": "against nine other coding harnesses",
+        "start": 9831
+      },
+      "id": "C01",
+      "kind": "control",
+      "paired_positive": "P01",
+      "reason": "This nearby benchmark comparison states its actual model, cohort, and competitors.",
+      "repo": "Agent-Field/CodeAF",
+      "source": "go-01.source",
+      "source_sha256": "dfcd91ebe4da7e7b38d3d1115acda5e945079a914f4ba1e2a6c2dbfe5a1f0a04",
+      "span": {
+        "end": 9948,
+        "quote": "on the same model, DeepSeek V4 Flash: 113 real GitHub issues from DeepSWE, graded",
+        "start": 9867
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 8957,
+        "quote": "PR-AF publishes its own [Martian Code-Review-Bench results]",
+        "start": 8898
+      },
+      "id": "C02",
+      "kind": "control",
+      "paired_positive": "P01",
+      "reason": "This comparison limitation prevents transfer of another project's benchmark result.",
+      "repo": "Agent-Field/CodeAF",
+      "source": "go-01.source",
+      "source_sha256": "dfcd91ebe4da7e7b38d3d1115acda5e945079a914f4ba1e2a6c2dbfe5a1f0a04",
+      "span": {
+        "end": 9117,
+        "quote": "those are results for the original project, not a measurement of codeaf's imported review specialist.",
+        "start": 9016
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 8639,
+        "quote": "They leave your code unchanged; posting a review or fixing findings is a separate action you request.",
+        "start": 8538
+      },
+      "id": "C03",
+      "kind": "control",
+      "paired_positive": "P02",
+      "reason": "The adjacent action guidance gives readers a specific safety check.",
+      "repo": "Agent-Field/CodeAF",
+      "source": "go-01.source",
+      "source_sha256": "dfcd91ebe4da7e7b38d3d1115acda5e945079a914f4ba1e2a6c2dbfe5a1f0a04",
+      "span": {
+        "end": 8715,
+        "quote": "Read the report's coverage and any incomplete analysis before acting on it.",
+        "start": 8640
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 3722,
+        "quote": "The [Quick Start](https://compozy.com/docs/getting-started/quick-start) continues through the",
+        "start": 3629
+      },
+      "id": "C04",
+      "kind": "control",
+      "paired_positive": "P03",
+      "reason": "This modestly scoped limitation sets installation expectations.",
+      "repo": "compozy/compozy",
+      "source": "go-02.source",
+      "source_sha256": "d3a58617d91d56ee84185f9b362bab20c01381ee8e94271b4066190a709e6f71",
+      "span": {
+        "end": 3860,
+        "quote": "Today's experience is technical: a\nterminal, a local daemon, and a `config.toml`.",
+        "start": 3779
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 6792,
+        "quote": "Write one, fork one, or install an extension that ships one.",
+        "start": 6732
+      },
+      "id": "C05",
+      "kind": "control",
+      "paired_positive": "P03",
+      "reason": "The negative claim is a concrete product constraint needed to use the feature.",
+      "repo": "compozy/compozy",
+      "source": "go-02.source",
+      "source_sha256": "d3a58617d91d56ee84185f9b362bab20c01381ee8e94271b4066190a709e6f71",
+      "span": {
+        "end": 6731,
+        "quote": "No Loops ship by default.",
+        "start": 6706
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 6350,
+        "quote": "Office is not yet a stable production contract.",
+        "start": 6303
+      },
+      "id": "C06",
+      "kind": "control",
+      "paired_positive": "P04",
+      "reason": "This qualifies a capability rather than praising it without context.",
+      "repo": "kdlbs/kandev",
+      "source": "go-04.source",
+      "source_sha256": "ca1df83c9e14c1c96af7c6eaf15a029ee1ba7f20b4c03e2fafc1e2e27f0a3367",
+      "span": {
+        "end": 6015,
+        "quote": "**Office mode** is an experimental autonomy layer for persistent agent teams, disabled by default in production.",
+        "start": 5903
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 12985,
+        "quote": "They do not move `latest`, and no Homebrew, Scoop, or Desktop nightly channel is",
+        "start": 12905
+      },
+      "id": "C07",
+      "kind": "control",
+      "paired_positive": "P05",
+      "reason": "This limits release-channel behavior precisely instead of making a sweeping quality claim.",
+      "repo": "kdlbs/kandev",
+      "source": "go-04.source",
+      "source_sha256": "ca1df83c9e14c1c96af7c6eaf15a029ee1ba7f20b4c03e2fafc1e2e27f0a3367",
+      "span": {
+        "end": 12888,
+        "quote": "Nightlies are best-effort builds scheduled for 12:00 UTC when `main` has changed since the latest",
+        "start": 12791
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 3133,
+        "quote": "it only searched some sources.",
+        "start": 3103
+      },
+      "id": "C08",
+      "kind": "control",
+      "paired_positive": "P06",
+      "reason": "The existence versus absence distinction is necessary to interpret a clean result.",
+      "repo": "r14dd/patent",
+      "source": "rust-02.source",
+      "source_sha256": "f5e5fbe40a147dfd258ffb92c4fd4a5d5b210149b8595dd9779d168115b29ce3",
+      "span": {
+        "end": 3098,
+        "quote": "`patent` can prove something **exists**; it can never prove something **doesn't**",
+        "start": 3017
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 3236,
+        "quote": "the list of sources checked is always shown",
+        "start": 3193
+      },
+      "id": "C09",
+      "kind": "control",
+      "paired_positive": "P06",
+      "reason": "The conclusion translates incomplete search coverage into a user action.",
+      "repo": "r14dd/patent",
+      "source": "rust-02.source",
+      "source_sha256": "f5e5fbe40a147dfd258ffb92c4fd4a5d5b210149b8595dd9779d168115b29ce3",
+      "span": {
+        "end": 3386,
+        "quote": "A clean **Open** result means *keep looking before you commit*, not a green light.",
+        "start": 3304
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 2009,
+        "quote": "## How fast",
+        "start": 1998
+      },
+      "id": "C10",
+      "kind": "control",
+      "paired_positive": "P07",
+      "reason": "The version distinction prevents v1 measurements being attributed to v2.",
+      "repo": "indexable-inc/blaze",
+      "source": "rust-03.source",
+      "source_sha256": "c75a98b4b0b881ee288485fe7eecc71122157a0a6816afff4c1b5b5694add7dd",
+      "span": {
+        "end": 2070,
+        "quote": "These numbers are blaze v1's; v2 has not been measured yet.",
+        "start": 2011
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 1953,
+        "quote": "blaze answers `build`, `check`, `run`, `test` and `bench`",
+        "start": 1896
+      },
+      "id": "C11",
+      "kind": "control",
+      "paired_positive": "P07",
+      "reason": "The command boundary is essential even though it repeats the named tool.",
+      "repo": "indexable-inc/blaze",
+      "source": "rust-03.source",
+      "source_sha256": "c75a98b4b0b881ee288485fe7eecc71122157a0a6816afff4c1b5b5694add7dd",
+      "span": {
+        "end": 1996,
+        "quote": "other cargo\ncommands are not blaze's yet.",
+        "start": 1955
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 4596,
+        "quote": "[supported agent CLI](#supported-agents) installed and signed in.",
+        "start": 4531
+      },
+      "id": "C12",
+      "kind": "control",
+      "paired_positive": "P08",
+      "reason": "A requirement before the setup steps is actionable, unlike the empty list tail.",
+      "repo": "vicoa-ai/vicoa",
+      "source": "python-01.source",
+      "source_sha256": "0ff77ec1bba1d1e90a88b60347f87a175d8b6564999bbf22da5a0dc2ef785294",
+      "span": {
+        "end": 4530,
+        "quote": "The one prerequisite: the machine that runs agents needs at least one",
+        "start": 4461
+      }
+    },
+    {
+      "disposition": "retain",
+      "evidence_span": {
+        "end": 2000,
+        "quote": "**defect** - Bugs on Bugzilla aren't always bugs.",
+        "start": 1951
+      },
+      "id": "C13",
+      "kind": "control",
+      "paired_positive": "P09",
+      "reason": "The classifier-specific measurement is distinct information, not repeated scaffolding.",
+      "repo": "mozilla/bugbug",
+      "source": "python-02.source",
+      "source_sha256": "b79cf2e7549d9597968357757d4a23b7eff2b636f3d9d888f09824cd4d0f7312",
+      "span": {
+        "end": 2254,
+        "quote": "The dataset currently contains 2110 bugs, the accuracy of the current classifier is ~93%",
+        "start": 2166
+      }
+    }
+  ],
+  "reviewed_pages": [
+    "go-01.source",
+    "go-02.source",
+    "go-03.source",
+    "go-04.source",
+    "rust-01.source",
+    "rust-02.source",
+    "rust-03.source",
+    "rust-04.source",
+    "python-01.source",
+    "python-02.source",
+    "python-03.source",
+    "python-04.source"
+  ],
+  "reviewer": "root Codex assistant; maintainer-accepted assistant review under ADR 0041",
+  "source_manifest_sha256": "f10def35de225cd5cf18992f33a34a03522d98032b26547929823f3b1d9fb3f2",
+  "spec_sha256": "04c389dd7b517d8eb540939bc427d8daf48d249b6968662a816d2338e9fdc19b"
+}
