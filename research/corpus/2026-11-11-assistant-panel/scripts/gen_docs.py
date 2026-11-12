@@ -531,6 +531,73 @@ if (W / "engine/relisting.json").exists():
     add("new pages confirm it. Findings on generated documents are accepted more often than on real pages,")
     add("which is why a family can pass on all pages and sit below 80% on real ones.")
     add("")
+if (W / "engine/round4-test.json").exists() and (W / "engine/round4-evidence.json").exists() and (W / "docs-real5.jsonl").exists():
+    fourth = json.loads((W / "engine/round4-test.json").read_text())["new"]
+    third = json.loads((W / "engine/round3-test.json").read_text())["new"]
+    decided = json.loads((W / "engine/round4-evidence.json").read_text())
+    real5 = docs("docs-real5.jsonl")
+    add("## Fourth test: the same defaults on new pages")
+    add("")
+    add(f"A fourth set of {real5[0]:,} new real pages from {real5[1]:,} repositories was selected by the same rule. The")
+    add("decisions that could follow from it were written in issue 525 before any page was read. The defaults")
+    add("under test are those of the third round with the phrase lists read again.")
+    add("")
+    add("| Severity | Findings | Reviewed | Both accept | At least one accepts | Both reject | Both accept, third test |")
+    add("| --- | ---: | ---: | ---: | ---: | ---: | ---: |")
+    for level in ("warning", "note"):
+        c, before = fourth["severity"][level], third["severity"][level]
+        low, high = wilson(c["both_accept"], c["reviewed"])
+        add(f"| {level} | {fourth['reported'][level]:,} | {c['reviewed']:,} | {pct(c['both_accept'], c['reviewed'])} ({low:.0f}% to {high:.0f}%) | "
+            f"{pct(c['any_accept'], c['reviewed'])} | {pct(c['both_reject'], c['reviewed'])} | {pct(before['both_accept'], before['reviewed'])} |")
+    c, before = fourth["all"], third["all"]
+    add(f"| all | {fourth['findings']:,} | {c['reviewed']:,} | {pct(c['both_accept'], c['reviewed'])} | {pct(c['any_accept'], c['reviewed'])} | "
+        f"{pct(c['both_reject'], c['reviewed'])} | {pct(before['both_accept'], before['reviewed'])} |")
+    add("")
+    add("| Rule | Severity | Reviewed | Both accept | Both accept, third test |")
+    add("| --- | --- | ---: | ---: | ---: |")
+    earlier = {(row["rule"], row["severity"]): row for row in third["rules"]}
+    for row in fourth["rules"]:
+        if row["reviewed"] < 5:
+            continue
+        before = earlier.get((row["rule"], row["severity"]))
+        shown = f"{pct(before['both_accept'], before['reviewed'])} of {before['reviewed']:,}" if before else "none"
+        add(f"| `{row['rule']}` | {row['severity']} | {row['reviewed']:,} | {pct(row['both_accept'], row['reviewed'])} | {shown} |")
+    add("")
+    add(f"The defaults report {1000 * fourth['findings'] / real5[3]:.2f} findings per thousand words on these pages.")
+    add("The share over all findings holds between the two tests. Single rules move by ten to twenty points")
+    add("between sets of this size, in both directions, so one set does not settle a rule. The third test ran")
+    add("before the phrase lists were read again, so its `hype.vague-praise` figure covers a slightly longer list.")
+    add("")
+    praise = decided["vague_praise"]["new"]
+    commas_old, commas_new = decided["long_sentence_eight_commas"]["earlier"], decided["long_sentence_eight_commas"]["new"]
+    pooled = (commas_old["both_accept"] + commas_new["both_accept"], commas_old["reviewed"] + commas_new["reviewed"])
+    fewer_old, fewer_new = decided["long_sentence_fewer_commas"]["earlier"], decided["long_sentence_fewer_commas"]["new"]
+    fewer = (fewer_old["both_accept"] + fewer_new["both_accept"], fewer_old["reviewed"] + fewer_new["reviewed"])
+    exact_old, exact_new = decided["exact_sentence"]["earlier"], decided["exact_sentence"]["new"]
+    exact = (exact_old["both_accept"] + exact_new["both_accept"], exact_old["reviewed"] + exact_new["reviewed"])
+    add("The decisions fixed in advance:")
+    add("")
+    if praise["reviewed"] >= 50 and praise["both_accept"] / praise["reviewed"] >= 0.85:
+        outcome = "It meets the 85% of ADR 0048 on pages that did not choose its list and becomes a warning."
+    elif praise["reviewed"] >= 50:
+        outcome = "It stays below the 85% of ADR 0048 and remains a note."
+    else:
+        outcome = "That is fewer than the 50 findings ADR 0048 asks for, so it remains a note."
+    add(f"- `hype.vague-praise`: both reviewers accepted {pct(praise['both_accept'], praise['reviewed'])} of {praise['reviewed']:,} findings on the new pages. {outcome}")
+    if pooled[1] >= 30 and pooled[0] / pooled[1] < 0.5:
+        outcome = "That is below half, so these sentences leave the rule in the next change under ADR 0049."
+    else:
+        outcome = "That is not below half, so the rule keeps them."
+    add(f"- `syntax.long-sentence` with eight or more commas: {pct(commas_new['both_accept'], commas_new['reviewed'])} of {commas_new['reviewed']:,} on the new pages and "
+        f"{pct(*pooled)} of {pooled[1]:,} over all reviewed real pages, against {pct(*fewer)} of {fewer[1]:,} with fewer commas. {outcome}")
+    if exact[1] >= 30 and exact[0] / exact[1] < 0.85:
+        outcome = "With 30 or more findings below 85% it becomes a note under ADR 0048."
+    elif exact[1] >= 30:
+        outcome = "It keeps its warning."
+    else:
+        outcome = "That is still fewer than 30, so its severity is unchanged."
+    add(f"- `repetition.exact-sentence`: {pct(*exact)} of {exact[1]:,} reviewed findings on real pages. {outcome}")
+    add("")
 add("## Limits")
 add("")
 add("- Reviewers and auditor are assistants. Models can share a preference that readers do not have.")

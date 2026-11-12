@@ -354,6 +354,39 @@ The same pages chose what to drop, so that share is optimistic, and the rule kee
 new pages confirm it. Findings on generated documents are accepted more often than on real pages,
 which is why a family can pass on all pages and sit below 80% on real ones.
 
+## Fourth test: the same defaults on new pages
+
+A fourth set of 606 new real pages from 318 repositories was selected by the same rule. The
+decisions that could follow from it were written in issue 525 before any page was read. The defaults
+under test are those of the third round with the phrase lists read again.
+
+| Severity | Findings | Reviewed | Both accept | At least one accepts | Both reject | Both accept, third test |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| warning | 133 | 133 | 85.7% (79% to 91%) | 88.0% | 12.0% | 92.3% |
+| note | 288 | 280 | 76.4% (71% to 81%) | 93.2% | 6.8% | 72.0% |
+| all | 421 | 413 | 79.4% | 91.5% | 8.5% | 77.3% |
+
+| Rule | Severity | Reviewed | Both accept | Both accept, third test |
+| --- | --- | ---: | ---: | ---: |
+| `syntax.long-sentence` | note | 190 | 81.1% | 67.0% of 276 |
+| `filler.wordy-phrase` | warning | 109 | 95.4% | 96.9% of 96 |
+| `hype.vague-praise` | note | 56 | 67.9% | 85.5% of 55 |
+| `filler.instruction-scaffolding` | note | 25 | 60.0% | 88.5% of 26 |
+| `repetition.adjacent-word` | note | 9 | 77.8% | 100.0% of 7 |
+| `repetition.exact-sentence` | warning | 7 | 0.0% | 80.0% of 10 |
+| `filler.nominal-support` | warning | 6 | 83.3% | 90.9% of 11 |
+
+The defaults report 0.47 findings per thousand words on these pages.
+The share over all findings holds between the two tests. Single rules move by ten to twenty points
+between sets of this size, in both directions, so one set does not settle a rule. The third test ran
+before the phrase lists were read again, so its `hype.vague-praise` figure covers a slightly longer list.
+
+The decisions fixed in advance:
+
+- `hype.vague-praise`: both reviewers accepted 67.9% of 56 findings on the new pages. It stays below the 85% of ADR 0048 and remains a note.
+- `syntax.long-sentence` with eight or more commas: 57.1% of 21 on the new pages and 52.8% of 180 over all reviewed real pages, against 80.6% of 1,019 with fewer commas. That is not below half, so the rule keeps them.
+- `repetition.exact-sentence`: 46.4% of 28 reviewed findings on real pages. That is still fewer than 30, so its severity is unchanged.
+
 ## Limits
 
 - Reviewers and auditor are assistants. Models can share a preference that readers do not have.
