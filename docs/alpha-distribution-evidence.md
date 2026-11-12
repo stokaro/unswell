@@ -1,7 +1,8 @@
 # Alpha distribution evidence
 
-The [alpha.8 evidence](release/v0.1.0-alpha.8.md) records the current release.
-The [alpha.7 evidence](release/v0.1.0-alpha.7.md) and the
+The [alpha.9 evidence](release/v0.1.0-alpha.9.md) records the current release.
+The [alpha.8 evidence](release/v0.1.0-alpha.8.md), the
+[alpha.7 evidence](release/v0.1.0-alpha.7.md), and the
 [alpha.4 audit](release/v0.1.0-alpha.4.md) record the ones before it. The record
 below remains specific to alpha.3.
 

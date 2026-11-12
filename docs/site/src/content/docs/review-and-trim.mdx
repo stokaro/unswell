@@ -118,8 +118,17 @@ findings: a model's answer differs between runs, so it cannot fail a build.
 
 ## How they were measured
 
-Both commands were compared with what people edited and judged by a consensus of
-models. The numbers and the judges are in the documentation of
+`unswell review` was compared with the sentences that people edited. It flags
+them more often than the other sentences, by a small margin on documentation.
+
+`unswell trim` was compared with the words that editors removed. On model
+answers that experts had edited, it removes words the expert also removed or
+replaced, more often than random words of the same sentences, and the trimmed
+text is closer to the expert's version. On fiction and on documentation written
+by people that is not shown. A consensus of models also judged trimmed
+paragraphs. That is agreement between models, and no reader judged them.
+
+The numbers are in the documentation of
 [review](https://github.com/stokaro/unswell/blob/main/docs/review.md#measured-behavior)
 and of
 [trim](https://github.com/stokaro/unswell/blob/main/docs/trim.md#measured-behavior).

@@ -55,8 +55,11 @@ Both commands send the selected documents to the model their user names and
 to nothing else. `unswell check`, the Go library, the GitHub Action, and the
 MCP server still send nothing anywhere.
 
-Both commands were measured, against what people edited and by a consensus of
-models. The numbers, with their limits, are in the documentation of
+`unswell review` was measured against the sentences that people edited and
+against another model's annotation. `unswell trim` was judged by a consensus
+of models only; no comparison with human editors existed when this version
+was released, and alpha.9 records the first one. The numbers, with their
+limits, are in the documentation of
 [review](docs/review.md#measured-behavior) and
 [trim](docs/trim.md#measured-behavior), in
 [ADR 0052](docs/adr/0052-claims-follow-human-references.md), and in the

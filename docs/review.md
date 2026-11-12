@@ -190,6 +190,22 @@ writers who edited the same paragraphs agree word by word with a kappa of
 0.11; a sentence one of them edited was edited by another in
 69.1% of cases and a sentence one left alone in 62.0%.
 
+Word by word the result is the same. Each cell gives the share of the words
+under findings that the editor removed or replaced, then the share for random
+words of the same documents.
+
+| Reference | Default rules of `unswell check` | Review by `claude-sonnet-5-5` | Review by `gpt-6-astra` |
+| --- | ---: | ---: | ---: |
+| Documentation that maintainers reworded | 3.9% / 1.9% | 9.8% / 5.7% | 7.9% / 4.6% |
+| Model answers that experts edited | 45.0% / 45.9% | 61.8% / 56.4% | 67.5% / 59.8% |
+| Model fiction that writers edited | 8.7% / 23.4% | 62.0% / 48.7% | 61.4% / 48.0% |
+
+For the review the first share is above the second in every cell, with a 95%
+interval that excludes zero. For the default rules it is not, in any row. No
+rule was registered for this table; the
+[record](../research/reviews/2026-11-12-human-reference/RESULTS-words.md) has
+the intervals.
+
 Confirmation by a second model shortens the list and does not move it closer to what people edited in any consistent way. The margin between the two shares, in points, changes from +7.2 to +7.6 and from +4.7 to +5.8 on documentation, from +17.3 to +14.8 and from +14.1 to +13.2 on expert-edited answers, and from +7.4 to +3.3 and from -0.1 to +0.3 on fiction. Use confirmation for a shorter list.
 
 Whether revising a flagged sentence helps was judged by a weighted consensus of
