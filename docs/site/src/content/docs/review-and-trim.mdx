@@ -1,0 +1,125 @@
+---
+title: Two commands that ask a model you name.
+accent: you
+eyebrow: Review and trim
+lead: The check applies fixed rules offline. Review and trim give each selected document to a model you choose, and deterministic code decides what of its answer you see. Both are advisory and neither touches the gate.
+description: Use unswell review to flag wording in context and unswell trim to propose sentences with empty words removed, through a model endpoint or a local program you name.
+---
+
+import Note from '../../components/Note.astro';
+
+## What leaves the machine
+
+`unswell check`, the Go library, the GitHub Action and the MCP server send nothing
+anywhere. `unswell review` and `unswell trim` send the complete text of every
+selected document to the endpoint or the local program you name, and to nothing
+else. An API key goes to that endpoint in the `Authorization` header. It is not
+written to a report or to an error message.
+
+Without a named model both commands fail before they read a document.
+
+<Note>
+  Run them only where your policy lets that text reach that model.
+</Note>
+
+## Name the model
+
+An endpoint that implements the OpenAI chat completions API:
+
+```sh
+export REVIEW_API_KEY=...
+unswell review README.md docs \
+  --endpoint https://api.example.com/v1/chat/completions \
+  --model example-model \
+  --api-key-env REVIEW_API_KEY
+```
+
+`--api-key-env` names the environment variable that holds the key, so the key
+never appears in a command line. Plain `http` is accepted for this machine only,
+and a model served here needs no key.
+
+A local program can be the model. It reads the prompt on standard input and
+prints the answer on standard output. It runs by its arguments, without a shell,
+in an empty temporary directory:
+
+```sh
+unswell trim docs/guide.md --command assistant --command-arg=--print
+```
+
+Paths, `--stdin`, `--filename`, `--format`, `--config` and `--profile` select and
+extract documents as they do for `unswell check`. The model is asked about the
+same prose that the rules see. Code blocks and protected identifiers are context.
+
+## Review
+
+A rule names a construction. It cannot tell that a sentence repeats an earlier
+one or that an opening adds nothing. `unswell review` asks the model to read the
+whole document and flag items under a fixed rubric of seven categories. Unswell
+binds every flag to source bytes and drops a flag that does not quote its item.
+
+```text
+docs/guide.md:3:1: review [empty_framing] The opening only announces the statement.
+    "It is important to note that"
+Reviewed 1 document: 1 finding.
+Reviewer: example-model at api.example.com. No second model confirmed these findings.
+Findings are a model's judgment, bound to source bytes. They are advisory and never gate.
+```
+
+`--confirm-model` names a second model that answers `yes`, `no` or `uncertain`
+for every bound flag without seeing the first model's reasons. The text report
+then lists the flags it accepted. That gives a shorter list.
+
+## Trim
+
+`unswell trim` asks the model for sentences with empty words removed. The model
+proposes, and a deterministic check keeps a proposal only if all of this holds:
+
+- Every word of the trimmed sentence occurs in the original, in the same order.
+  Nothing is added, replaced or moved.
+- At least one word is removed and at least half of the words remain.
+- No negation, number, modal or hedging word is removed.
+- No code or link is removed, and a kept word keeps its quotation marks and its
+  emphasis markers.
+
+Only sentences that lie in one piece of source are offered. A sentence with
+inline code, a link or emphasis inside is left alone, as are headings, tables and
+code.
+
+```text
+docs/guide.md:3:1: trim
+    - These features significantly improve the ability to type-check your code.
+    + These features improve the ability to type-check your code.
+1 trim in 1 document.
+Model: example-model at api.example.com.
+Nothing was written. Use --write to apply these trims.
+A trim only deletes words. A deleted word can still carry meaning that the check cannot see.
+```
+
+Files change only with `--write`. The command reads each file again first and
+leaves it alone if it changed during the run or is read-only. Review the change
+in your version control before you keep it.
+
+<Note>
+  The check is exact about words and knows nothing about their meaning. A removed
+  adjective can be the point of a sentence, so read each trim.
+</Note>
+
+## Reports and exit codes
+
+`--report json:PATH` writes the complete result, with schema `unswell-review-v1`
+or `unswell-trim-v1`: byte spans, the accepted items, and the rejected ones with
+the reason. `--report text:PATH` writes the text shown above. SARIF and HTML are
+not produced.
+
+Both commands exit with `0` when every selected document was processed, with or
+without findings, `2` when a document could not be processed or the options were
+invalid, and `130` when the run was interrupted. There is no exit code for
+findings: a model's answer differs between runs, so it cannot fail a build.
+
+## How they were measured
+
+Both commands were compared with what people edited and judged by a consensus of
+models. The numbers and the judges are in the documentation of
+[review](https://github.com/stokaro/unswell/blob/main/docs/review.md#measured-behavior)
+and of
+[trim](https://github.com/stokaro/unswell/blob/main/docs/trim.md#measured-behavior).

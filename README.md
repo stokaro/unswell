@@ -20,7 +20,7 @@ wording. No score is a probability that a tool wrote the text; see
 [ADR 0037](docs/adr/0037-diagnostics-not-authorship.md) for the goal and its
 non-goals.
 
-**Development alpha.** The published release is `v0.1.0-alpha.7`. Stage 2 features
+**Development alpha.** The published release is `v0.1.0-alpha.8`. Stage 2 features
 include custom rules, baselines, and checks of changed code. Go tools can train,
 calibrate, and load models.
 
