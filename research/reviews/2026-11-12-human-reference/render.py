@@ -176,6 +176,44 @@ def rule_word_section(add, rule_words):
                 f"| {share(report['chance_document'])} | {difference(report, 'precision_minus_document')} |")
 
 
+def vocabulary_section(add, vocabulary):
+    listed, rule = vocabulary["list"], vocabulary["rule"]
+    add("")
+    add("## A wide list of phrases that chat models favor, on answers the other results did not use")
+    add("")
+    add(f"The list has {listed['phrases']} words and phrases and is not in the product. It ran on expert-edited answers that no")
+    add("other result of this record had used. On the selection part a phrase left the list when it had at least four")
+    add(f"findings and the expert removed or replaced every flagged word in fewer than half of them: {len(listed['dropped'])} left,")
+    add(f"{listed['kept']} stayed. The confirmation part ran once with those. The second row is high by construction: the list")
+    add("was pruned on the answers it counts.")
+    add("")
+    add("| Part | Answers | With a finding | Findings | Words under findings that the editor changed | Chance in the document "
+        "| Difference, points | Findings with every flagged word changed | 95% interval |")
+    add("| --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | --- |")
+    for part, label in (("selection_all", f"Selection, all {listed['phrases']} phrases"),
+                        ("selection", f"Selection, the {listed['kept']} that stayed"), ("confirmation", "Confirmation")):
+        report = vocabulary["parts"][part]
+        low, high = report["findings_interval"]
+        add(f"| {label} | {report['documents']} | {report['documents_with_output']} | {report['findings']} "
+            f"| {share(report['precision'])} | {share(report['chance_document'])} | {difference(report, 'precision_minus_document')} "
+            f"| {report['findings_changed']} of {report['findings']}, {pct(report['findings_changed'], report['findings'])} "
+            f"| {100 * low:.1f}% to {100 * high:.1f}% |")
+    add("")
+    add("The phrases that left: " + ", ".join(f"`{phrase}`" for phrase in listed["dropped"]) + ".")
+    add("")
+    add("The rule for the confirmation part asked for two things. Words under findings above the chance of the same answers, "
+        "with an interval above zero: " + ("met. " if rule["words_above_chance"] else "not met. ")
+        + "At least 70% of findings with every flagged word changed, with the lower end of the interval above 60%: "
+        + ("met. " if rule["findings_changed_enough"] else "not met. ")
+        + ("The list ships as a rule that is off by default." if rule["ships"] else "The list does not ship."))
+    load = vocabulary.get("load")
+    if load:
+        add("")
+        add(f"On {load['pages']:,} pages of public repositories from the assistant-panel corpus the kept phrases produce "
+            f"{load['findings']:,} findings in {load['words']:,} words, {1000 * load['findings'] / load['words']:.2f} per 1,000 words, "
+            f"on {load['pages_with_finding']:,} of the pages.")
+
+
 def system_name(name):
     parts = name.split("-")
     if parts[0] == "rules":
@@ -368,7 +406,7 @@ def render(results):
 
 
 def has_words(results):
-    return any(results.get(name) for name in ("trims", "openers", "rule_words"))
+    return any(results.get(name) for name in ("trims", "openers", "rule_words", "vocabulary"))
 
 
 def render_words(results):
@@ -385,6 +423,8 @@ def render_words(results):
         opener_section(add, results["openers"])
     if results.get("rule_words"):
         rule_word_section(add, results["rule_words"])
+    if results.get("vocabulary"):
+        vocabulary_section(add, results["vocabulary"])
     return "\n".join(lines) + "\n"
 
 

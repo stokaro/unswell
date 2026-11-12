@@ -50,12 +50,18 @@ on those 150 answers.
    that is ordinary writing. The gate, the severity, and the place outside the
    business profile are unchanged.
 
-4. **Not listed.** A wide list of words that models favor was part of the run
-   with every rule. On the test part the words under its findings are words
-   the expert changed in 75.8% of cases, against 57.1% for random words of the
-   same answers (+18.7 points, +10.6 to +26.6). No rule was registered for it
-   and single phrases have one to four findings, so nothing is listed. It is a
-   candidate that needs texts this record has not used.
+4. **Not listed.** A wide list of 160 words and phrases that models favor
+   was part of the run with every rule. On the test part, which had been read,
+   the words under its findings were words the expert changed in 75.8% of
+   cases. The list was then tested under a registered rule on the
+   1,733 expert-edited answers that no result had used: pruned on 850
+   of them, where 10 phrases left, and confirmed on the other 883. There
+   the words under its findings are words the expert changed in 69.2% of
+   cases, against 56.3% for random words of the same answers
+   (+12.9 points, +8.7 to +17.4). The expert removed or replaced the whole
+   flagged phrase in 227 of 343 (66.2%) findings. The rule asked for
+   70%, so the list does not ship, not even off by default. It beats chance
+   and reports one phrase in three that an expert kept.
 
 ## Consequences
 
