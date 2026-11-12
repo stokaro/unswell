@@ -56,6 +56,18 @@ triplet with labels hidden, and chose between the raw and the expert-edited
 answer of 300 Beemo test rows. A model was to be admitted as a judge of
 writing only if it agreed with the writers' majority.
 
+`unswell trim` changes text, so it is compared with the editor word by word.
+The command ran on every development and test document with two models. A
+removed word is a hit when the editor removed or replaced that word. Precision
+is compared with two chance values: random removal of the same number of
+words from the same sentences, among the words the check allows to remove, and
+from the same documents. For Beemo and LAMP, where the editor's text exists,
+the net movement is the change of the word-level edit distance to that text
+per removed word, compared with the same random removal, 20 draws per
+document. Intervals come from 2,000 bootstrap draws over documents. The rule,
+two amendments, and the change of the parser that the development parts led
+to were posted on issue 525 before any test document ran.
+
 ## What the results say
 
 1. **Editors do not agree on which places to change.** One writer's edited
@@ -109,6 +121,30 @@ writing only if it agreed with the writers' majority.
    by a second model shortens the list. J stays about the same on
    documentation and falls or stays flat on the other two.
 
+8. **Trimming removes words that experts also changed, on model answers.**
+   On Beemo's test part, 71.2% and 68.0% of the words that
+   `unswell trim` removes with the two models are words the expert removed or
+   replaced, against 62.7% and 59.3% for random words of the same
+   sentences. The trimmed text is closer to the expert's text than the
+   original was: the edit distance falls by 0.28 and 0.23 words per
+   removed word, against 0.15 and 0.09 under random removal. This is the
+   first result in this record in which a part of the tool changes text in the
+   direction that people changed it.
+
+9. **On fiction and on documentation written by people, that is not shown.**
+   On LAMP the differences over chance are +2.6 and +3.1 points and the
+   intervals reach zero; the distance to the writer's text does not fall. On
+   documentation pull requests they are +2.0 and +2.2 points, on pages
+   where a maintainer changed about 4.0% of the words. The development
+   parts had shown larger differences on fiction than the test part did.
+
+10. **At the level of words, review beats chance and the fixed rules do not.**
+    The words under the quotes of `unswell review` are words an editor changed
+    more often than random words of the same documents, with both reviewer
+    models on all three test parts. The words under the findings of the
+    default rules are not, on any of them. No rule was registered for this
+    comparison.
+
 ## Decisions
 
 Each rule was registered on issue 525 before its result was read.
@@ -153,6 +189,15 @@ Each rule was registered on issue 525 before its result was read.
     prefers them in 33 of 40; single models: 31, 34, 21, 16 of 40. The command
     ships as built.
 
+11. *State that trimming agrees with editors above chance on a kind of text
+    only if, with both models, precision exceeds both chance values and the
+    net movement is below that of random removal, each with an interval that
+    excludes zero; state that it moves text toward the editor's version only
+    if the net movement itself is below zero.* Met on expert-edited answers,
+    both parts of the rule. Not met on fiction and on documentation pull
+    requests. [ADR 0054](../../../docs/adr/0054-trim-measured-against-editors.md)
+    records what the documentation states.
+
 ## Limits
 
 - An unedited sentence is not a clean sentence. A person changed what they
@@ -171,6 +216,18 @@ Each rule was registered on issue 525 before its result was read.
   audit of its own in which its phrase sets fired more often on text written
   by people than on model text.
 - Each configuration ran once. A model's answers differ between runs.
+- An editor who kept a word did not judge it necessary, and the editors of
+  this record agree with each other on words only slightly. A word that one
+  editor kept may be one that another would drop, so precision against one
+  editor understates agreement with editors as a group. The chance values
+  correct for the base rate, not for this.
+- Beemo's experts also corrected facts and restructured answers, and they
+  changed more than half of the words. Being closer to their text by edit
+  distance is not the same as reading better; no reader judged the trimmed
+  text.
+- The test parts were read for the review before, and now for trimming. A
+  later change to the command can be checked on them for a loss, not credited
+  with a gain.
 - The two comparisons and the check of the command were judged by models.
   Result 3 applies to them: these model families did not share professional
   writers' preferences on fiction. The judging rule here asks about lost
@@ -192,6 +249,8 @@ Each rule was registered on issue 525 before its result was read.
 | `data/expert-pairs.jsonl.gz` | Per Beemo pair: each judge's choice and the position it was shown in |
 | `data/readers.jsonl.gz` | The one reader's answers to the first comparison, withdrawn as a measure and kept as recorded |
 | `data/panel.jsonl.gz` | Per pair of the two comparisons and of the check of the command: the arm, the model that revised, and each judge model's answer under the information rule |
+| `data/trims.jsonl.gz` | Per document and trimming model: each accepted trim with the byte spans of the words of its sentence, the words the check never removes, the words the trim removed, and the edit distances to the editor's text before, after, and under random removal |
+| `data/word-counts.jsonl.gz` | Per document: its words, the words an editor changed, and both counts under the findings of the default rules and of the review |
 | `results.json`, `RESULTS.md` | Every published number, recounted and rendered |
 | `verify.py`, `test_verify.py`, `render.py` | The check, its negative tests, and the renderer |
 | `scripts/` | The scripts that fetched, prepared, ran, and measured, as they ran |

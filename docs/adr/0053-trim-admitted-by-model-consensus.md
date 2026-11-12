@@ -3,7 +3,8 @@
 Status: proposed on November 12, 2026. It takes effect when the maintainer
 merges it. It replaces decision 5 of
 [ADR 0052](0052-claims-follow-human-references.md) and that ADR's sentence
-about the README.
+about the README. [ADR 0054](0054-trim-measured-against-editors.md) adds a
+measurement of the command against human editors.
 
 ## Context
 
