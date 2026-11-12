@@ -31,6 +31,7 @@ export const sidebar = [
 		items: [
 			{ label: 'Reports, gate & exit codes', slug: 'reports' },
 			{ label: 'CI, Action & MCP', slug: 'ci-action-mcp' },
+			{ label: 'Review & trim with a model', slug: 'review-and-trim' },
 		],
 	},
 ];

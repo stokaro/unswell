@@ -17,9 +17,10 @@ different flags on a second run.
 ## What leaves the machine
 
 `unswell check`, the Go library, the GitHub Action, and the MCP server send
-nothing anywhere. `unswell review` is the exception, and only on your
-instruction. It sends the complete text of every selected document, with the
-rubric, to the endpoint or the local program you name. An API key goes to that
+nothing anywhere. `unswell review` and [`unswell trim`](trim.md) are the
+exceptions, and only on your instruction. A review sends the complete text of
+every selected document, with the rubric, to the endpoint or the local program
+you name. An API key goes to that
 endpoint in the `Authorization` header and nowhere else. It is not written to
 a report or to an error message.
 
