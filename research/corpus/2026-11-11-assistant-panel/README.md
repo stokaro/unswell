@@ -48,6 +48,7 @@ at the pinned commit.
 | `real-test-1b` | final test 1 | 645 | two annotators |
 | `real-test-2` | final test 2 | 589 | none |
 | `real-test-3` | final test 3 | 578 | none |
+| `real-test-4` | final test 4 | 606 | none |
 
 `long-prose` comes from the archives of
 [the long-prose study](../../generation/studies/long-prose-v3). The other sets
@@ -63,6 +64,7 @@ appears under two roles. A test set became development data after it was opened.
 | `final-test-2` | 1,001 | `astra`, `claude`, `qwen` |
 | `final-test-3` | 547 | `astra`, `claude`, `qwen` |
 | `final-test-3-removed` | 593 | `astra`, `claude` |
+| `final-test-4` | 413 | `astra`, `claude` |
 
 `final-test-3` holds the findings of the round-three defaults on the third test
 set, as reviewed before two rules became opt-in. `final-test-3-removed` holds
@@ -94,7 +96,7 @@ environment and are not part of this record.
 
 1. Select and fetch pages: `acquire_real.py`, `acquire_real_dev.py`,
    `acquire_more.py`, `acquire_dev2.py`, `acquire_real3.py`, `acquire_real4.py`,
-   in that order. Each one skips repositories that an earlier selection log
+   `acquire_real5.py`, in that order. Each one skips repositories that an earlier selection log
    names.
 2. Extract items: `build_docs.py` for the study archives, `prep_real.py` for
    real pages.
@@ -106,6 +108,8 @@ environment and are not part of this record.
    opened pages and writes `phrases/relisting.json`.
 6. Audit: `audit.py` for items, `audit_spans.py` for findings.
 7. Compare defaults between rounds: `round3_evidence.py`, `compare_rounds.py`.
+   `round4_evidence.py` computes the decisions that were fixed before final
+   test 4 was read.
 8. Review in context through the MCP server: `mcp_review.py` once per calling
    assistant, then `ctx_report.py`, `review_findings.py` with the other
    assistant, and `ctx_eval.py`.
@@ -127,7 +131,7 @@ change, and the models do not return the same answers twice.
 - Reviewers saw at most eight findings per rule and page.
 - Flags raised in context were judged by one assistant of the other family.
   The third assistant judged 80 of them before its run was stopped for time.
-- `real-dev-2`, `real-test-2`, and `real-test-3` have reviews of findings and no
-  item labels, so they give precision and no recall.
+- `real-dev-2`, `real-test-2`, `real-test-3`, and `real-test-4` have reviews of
+  findings and no item labels, so they give precision and no recall.
 - The auditor's paired comparison penalizes mechanical edits that break
   grammar. The qualification record states the effect.

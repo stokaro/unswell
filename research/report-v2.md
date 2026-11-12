@@ -73,8 +73,9 @@ round.
 | Real pages, test 1 | final test 1 | 772 | two annotators | yes |
 | Real pages, test 2 | final test 2 | 589 | none | yes |
 | Real pages, test 3 | final test 3 | 578 | none | yes |
+| Real pages, test 4 | final test 4 | 606 | none | yes |
 
-The sets hold 3,189 documents and 10,909 reviewed findings. The
+The sets hold 3,795 documents and 11,322 reviewed findings. The
 [corpus record](corpus/2026-11-11-assistant-panel/README.md) stores every label
 and review without page text.
 
@@ -170,6 +171,14 @@ On the pages that chose the changes, the share rose from 63.0% to 81.5%. The
 difference between 81.5% and 77.3% is the price of choosing on the same pages.
 Both reviewers accepted 54.2% of the 646 dropped findings they reviewed: the
 changes remove findings that hold about half the time.
+
+A fourth set of 606 new pages tested the same defaults again, with its possible
+decisions written down before any page was read. Both reviewers accepted 79.4%
+of 413 findings: 76.4% of the notes and 85.7% of the warnings. The overall share
+holds; single rules moved by ten to twenty points in both directions between
+the two sets. `syntax.long-sentence` rose from 67.0% to 81.1%, and
+`hype.vague-praise` fell from 85.5% to 67.9%. None of the three decisions fixed
+in advance changed a default.
 
 ## Sixth result: review in context reaches what rules do not
 
