@@ -1,6 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-alpha.9
+
+This release makes the two model commands read more answers, adds one chat
+opener to the default rules, and records the first measurement of a part of
+the tool against human editors.
 
 `unswell review` and `unswell trim` now read an answer in which the model
 corrects itself. A model sometimes writes its JSON object, notices a mistake,
