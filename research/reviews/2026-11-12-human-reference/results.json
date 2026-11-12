@@ -1,0 +1,871 @@
+{
+ "expert_pairs": {
+  "astra": {
+   "chooses_first_position": 188,
+   "pairs": 300,
+   "prefers_edited": 188
+  },
+  "claude": {
+   "chooses_first_position": 158,
+   "pairs": 300,
+   "prefers_edited": 178
+  }
+ },
+ "judges": {
+  "astra": {
+   "admitted": false,
+   "checks": {
+    "AI-edited over AI-generated": false,
+    "Human-edited over AI-generated": false,
+    "expert-edited over raw": false
+   }
+  },
+  "claude": {
+   "admitted": false,
+   "checks": {
+    "AI-edited over AI-generated": false,
+    "Human-edited over AI-generated": false,
+    "expert-edited over raw": false
+   }
+  },
+  "qwen": {
+   "admitted": false,
+   "checks": {
+    "AI-edited over AI-generated": false,
+    "Human-edited over AI-generated": false,
+    "expert-edited over raw": false
+   }
+  }
+ },
+ "preferences": {
+  "judges": {
+   "astra": {
+    "pairs": {
+     "AI-edited over AI-generated": {
+      "agrees_with_majority": 109,
+      "prefers_first": 119
+     },
+     "Human-edited over AI-edited": {
+      "agrees_with_majority": 110,
+      "prefers_first": 70
+     },
+     "Human-edited over AI-generated": {
+      "agrees_with_majority": 102,
+      "prefers_first": 72
+     }
+    },
+    "triplets": 201
+   },
+   "claude": {
+    "pairs": {
+     "AI-edited over AI-generated": {
+      "agrees_with_majority": 103,
+      "prefers_first": 95
+     },
+     "Human-edited over AI-edited": {
+      "agrees_with_majority": 104,
+      "prefers_first": 64
+     },
+     "Human-edited over AI-generated": {
+      "agrees_with_majority": 98,
+      "prefers_first": 68
+     }
+    },
+    "triplets": 199
+   },
+   "qwen": {
+    "pairs": {
+     "AI-edited over AI-generated": {
+      "agrees_with_majority": 106,
+      "prefers_first": 108
+     },
+     "Human-edited over AI-edited": {
+      "agrees_with_majority": 108,
+      "prefers_first": 70
+     },
+     "Human-edited over AI-generated": {
+      "agrees_with_majority": 104,
+      "prefers_first": 74
+     }
+    },
+    "triplets": 201
+   }
+  },
+  "judgments": 603,
+  "triplets": 201,
+  "writers": {
+   "AI-edited over AI-generated": {
+    "judgments_preferring_first": 432,
+    "writer_pairs": 603,
+    "writer_pairs_agreeing": 473
+   },
+   "Human-edited over AI-edited": {
+    "judgments_preferring_first": 426,
+    "writer_pairs": 603,
+    "writer_pairs_agreeing": 477
+   },
+   "Human-edited over AI-generated": {
+    "judgments_preferring_first": 478,
+    "writer_pairs": 603,
+    "writer_pairs_agreeing": 513
+   }
+  }
+ },
+ "readers": {
+  "arms": {
+   "control": {
+    "decisive": 13,
+    "interval": [
+     0.2320575430148814,
+     0.7085656756816796
+    ],
+    "original": 7,
+    "revised": 6,
+    "same": 7
+   },
+   "reviewed": {
+    "decisive": 15,
+    "interval": [
+     0.3011663015105079,
+     0.7519077474025355
+    ],
+    "original": 7,
+    "revised": 8,
+    "same": 5
+   }
+  },
+  "decision": {
+   "ahead_of_control": false,
+   "enough_answers": true,
+   "revision_preferred": false
+  },
+  "readers": 1
+ },
+ "sentences": {
+  "ceiling": {
+   "documents": 286,
+   "edited": 2006,
+   "edited_flagged": 1386,
+   "edits": 2098,
+   "edits_touched": 1291,
+   "findings": 2098,
+   "findings_on_edit": 1291,
+   "flagged": 2006,
+   "fpr": 0.62,
+   "j": 0.07092721834496507,
+   "paragraphs": 54,
+   "sentences": 3006,
+   "tpr": 0.6909272183449651,
+   "unedited_flagged": 620,
+   "words": {
+    "both": 13266,
+    "first_only": 13026,
+    "kappa": 0.11230924762730864,
+    "marked_by": {
+     "0": 2199,
+     "1": 3349,
+     "2": 3080,
+     "3": 1162
+    },
+    "neither": 20182,
+    "second_only": 13026,
+    "word_pairs": 59500
+   }
+  },
+  "sets": {
+   "beemo/dev": {
+    "documents": 150,
+    "edited": 1382,
+    "edited_flagged": 0,
+    "edits": 2316,
+    "edits_touched": 0,
+    "findings": 0,
+    "findings_on_edit": 0,
+    "flagged": 0,
+    "fpr": 0.0,
+    "j": 0.0,
+    "sentences": 1781,
+    "tpr": 0.0,
+    "unedited_flagged": 0
+   },
+   "beemo/test": {
+    "documents": 300,
+    "edited": 3070,
+    "edited_flagged": 0,
+    "edits": 4652,
+    "edits_touched": 0,
+    "findings": 0,
+    "findings_on_edit": 0,
+    "flagged": 0,
+    "fpr": 0.0,
+    "j": 0.0,
+    "sentences": 3802,
+    "tpr": 0.0,
+    "unedited_flagged": 0
+   },
+   "lamp/ceiling": {
+    "documents": 150,
+    "edited": 1053,
+    "edited_flagged": 0,
+    "edits": 1093,
+    "edits_touched": 0,
+    "findings": 0,
+    "findings_on_edit": 0,
+    "flagged": 0,
+    "fpr": 0.0,
+    "j": 0.0,
+    "sentences": 1582,
+    "tpr": 0.0,
+    "unedited_flagged": 0
+   },
+   "lamp/dev": {
+    "documents": 67,
+    "edited": 420,
+    "edited_flagged": 0,
+    "edits": 519,
+    "edits_touched": 0,
+    "findings": 0,
+    "findings_on_edit": 0,
+    "flagged": 0,
+    "fpr": 0.0,
+    "j": 0.0,
+    "sentences": 702,
+    "tpr": 0.0,
+    "unedited_flagged": 0
+   },
+   "lamp/test": {
+    "documents": 215,
+    "edited": 1563,
+    "edited_flagged": 0,
+    "edits": 1731,
+    "edits_touched": 0,
+    "findings": 0,
+    "findings_on_edit": 0,
+    "flagged": 0,
+    "fpr": 0.0,
+    "j": 0.0,
+    "sentences": 2261,
+    "tpr": 0.0,
+    "unedited_flagged": 0
+   },
+   "prs/dev": {
+    "documents": 60,
+    "edited": 244,
+    "edited_flagged": 0,
+    "edits": 762,
+    "edits_touched": 0,
+    "findings": 0,
+    "findings_on_edit": 0,
+    "flagged": 0,
+    "fpr": 0.0,
+    "j": 0.0,
+    "sentences": 1471,
+    "tpr": 0.0,
+    "unedited_flagged": 0
+   },
+   "prs/test": {
+    "documents": 61,
+    "edited": 202,
+    "edited_flagged": 0,
+    "edits": 647,
+    "edits_touched": 0,
+    "findings": 0,
+    "findings_on_edit": 0,
+    "flagged": 0,
+    "fpr": 0.0,
+    "j": 0.0,
+    "sentences": 1745,
+    "tpr": 0.0,
+    "unedited_flagged": 0
+   }
+  },
+  "systems": {
+   "lamp5-astra": {
+    "beemo/dev": {
+     "documents": 150,
+     "edited": 1382,
+     "edited_flagged": 840,
+     "edits": 2316,
+     "edits_touched": 1174,
+     "findings": 1088,
+     "findings_on_edit": 849,
+     "flagged": 1012,
+     "fpr": 0.43107769423558895,
+     "j": 0.17673706698004055,
+     "sentences": 1781,
+     "tpr": 0.6078147612156295,
+     "unedited_flagged": 172
+    },
+    "lamp/dev": {
+     "documents": 67,
+     "edited": 420,
+     "edited_flagged": 328,
+     "edits": 519,
+     "edits_touched": 314,
+     "findings": 589,
+     "findings_on_edit": 318,
+     "flagged": 510,
+     "fpr": 0.6453900709219859,
+     "j": 0.1355623100303951,
+     "sentences": 702,
+     "tpr": 0.780952380952381,
+     "unedited_flagged": 182
+    }
+   },
+   "lamp5-claude": {
+    "beemo/dev": {
+     "documents": 150,
+     "edited": 1382,
+     "edited_flagged": 945,
+     "edits": 2316,
+     "edits_touched": 1589,
+     "findings": 1158,
+     "findings_on_edit": 944,
+     "flagged": 1139,
+     "fpr": 0.48621553884711777,
+     "j": 0.19757606752046541,
+     "sentences": 1781,
+     "tpr": 0.6837916063675832,
+     "unedited_flagged": 194
+    },
+    "lamp/dev": {
+     "documents": 67,
+     "edited": 420,
+     "edited_flagged": 369,
+     "edits": 519,
+     "edits_touched": 396,
+     "findings": 609,
+     "findings_on_edit": 357,
+     "flagged": 582,
+     "fpr": 0.7553191489361702,
+     "j": 0.12325227963525831,
+     "sentences": 702,
+     "tpr": 0.8785714285714286,
+     "unedited_flagged": 213
+    }
+   },
+   "review-astra": {
+    "beemo/dev": {
+     "documents": 150,
+     "edited": 1382,
+     "edited_flagged": 295,
+     "edits": 2316,
+     "edits_touched": 352,
+     "findings": 315,
+     "findings_on_edit": 266,
+     "flagged": 324,
+     "fpr": 0.07268170426065163,
+     "j": 0.14077705116626588,
+     "sentences": 1781,
+     "tpr": 0.2134587554269175,
+     "unedited_flagged": 29
+    },
+    "beemo/test": {
+     "documents": 300,
+     "edited": 3070,
+     "edited_flagged": 696,
+     "edits": 4652,
+     "edits_touched": 782,
+     "findings": 758,
+     "findings_on_edit": 650,
+     "flagged": 759,
+     "fpr": 0.0860655737704918,
+     "j": 0.14064452394937793,
+     "sentences": 3802,
+     "tpr": 0.22671009771986972,
+     "unedited_flagged": 63
+    },
+    "lamp/dev": {
+     "documents": 67,
+     "edited": 420,
+     "edited_flagged": 68,
+     "edits": 519,
+     "edits_touched": 51,
+     "findings": 117,
+     "findings_on_edit": 49,
+     "flagged": 117,
+     "fpr": 0.17375886524822695,
+     "j": -0.011854103343465039,
+     "sentences": 702,
+     "tpr": 0.1619047619047619,
+     "unedited_flagged": 49
+    },
+    "lamp/test": {
+     "documents": 215,
+     "edited": 1563,
+     "edited_flagged": 110,
+     "edits": 1731,
+     "edits_touched": 98,
+     "findings": 158,
+     "findings_on_edit": 99,
+     "flagged": 160,
+     "fpr": 0.07163323782234957,
+     "j": -0.0012557586156956985,
+     "sentences": 2261,
+     "tpr": 0.07037747920665387,
+     "unedited_flagged": 50
+    },
+    "prs/dev": {
+     "documents": 60,
+     "edited": 244,
+     "edited_flagged": 56,
+     "edits": 762,
+     "edits_touched": 85,
+     "findings": 346,
+     "findings_on_edit": 58,
+     "flagged": 229,
+     "fpr": 0.14099429502852487,
+     "j": 0.08851390169278661,
+     "sentences": 1471,
+     "tpr": 0.22950819672131148,
+     "unedited_flagged": 173
+    },
+    "prs/test": {
+     "documents": 61,
+     "edited": 202,
+     "edited_flagged": 39,
+     "edits": 647,
+     "edits_touched": 70,
+     "findings": 367,
+     "findings_on_edit": 50,
+     "flagged": 265,
+     "fpr": 0.14646791963707065,
+     "j": 0.046601387293622426,
+     "sentences": 1745,
+     "tpr": 0.19306930693069307,
+     "unedited_flagged": 226
+    }
+   },
+   "review-astra-claude": {
+    "beemo/dev": {
+     "documents": 150,
+     "edited": 1382,
+     "edited_flagged": 278,
+     "edits": 2316,
+     "edits_touched": 328,
+     "findings": 294,
+     "findings_on_edit": 253,
+     "flagged": 303,
+     "fpr": 0.06265664160401002,
+     "j": 0.13850110079830547,
+     "sentences": 1781,
+     "tpr": 0.2011577424023155,
+     "unedited_flagged": 25
+    },
+    "beemo/test": {
+     "documents": 300,
+     "edited": 3070,
+     "edited_flagged": 623,
+     "edits": 4652,
+     "edits_touched": 701,
+     "findings": 672,
+     "findings_on_edit": 578,
+     "flagged": 675,
+     "fpr": 0.07103825136612021,
+     "j": 0.131893344725085,
+     "sentences": 3802,
+     "tpr": 0.2029315960912052,
+     "unedited_flagged": 52
+    },
+    "lamp/dev": {
+     "documents": 67,
+     "edited": 420,
+     "edited_flagged": 60,
+     "edits": 519,
+     "edits_touched": 47,
+     "findings": 104,
+     "findings_on_edit": 44,
+     "flagged": 104,
+     "fpr": 0.15602836879432624,
+     "j": -0.013171225937183395,
+     "sentences": 702,
+     "tpr": 0.14285714285714285,
+     "unedited_flagged": 44
+    },
+    "lamp/test": {
+     "documents": 215,
+     "edited": 1563,
+     "edited_flagged": 99,
+     "edits": 1731,
+     "edits_touched": 89,
+     "findings": 139,
+     "findings_on_edit": 88,
+     "flagged": 141,
+     "fpr": 0.06017191977077364,
+     "j": 0.0031678115152148426,
+     "sentences": 2261,
+     "tpr": 0.06333973128598848,
+     "unedited_flagged": 42
+    },
+    "prs/test": {
+     "documents": 61,
+     "edited": 202,
+     "edited_flagged": 35,
+     "edits": 647,
+     "edits_touched": 64,
+     "findings": 296,
+     "findings_on_edit": 43,
+     "flagged": 213,
+     "fpr": 0.11535968891769281,
+     "j": 0.05790763781498044,
+     "sentences": 1745,
+     "tpr": 0.17326732673267325,
+     "unedited_flagged": 178
+    }
+   },
+   "review-claude": {
+    "beemo/dev": {
+     "documents": 150,
+     "edited": 1382,
+     "edited_flagged": 441,
+     "edits": 2316,
+     "edits_touched": 640,
+     "findings": 488,
+     "findings_on_edit": 426,
+     "flagged": 488,
+     "fpr": 0.11779448621553884,
+     "j": 0.20130826342266667,
+     "sentences": 1781,
+     "tpr": 0.3191027496382055,
+     "unedited_flagged": 47
+    },
+    "beemo/test": {
+     "documents": 300,
+     "edited": 3070,
+     "edited_flagged": 941,
+     "edits": 4652,
+     "edits_touched": 1296,
+     "findings": 1035,
+     "findings_on_edit": 895,
+     "flagged": 1039,
+     "fpr": 0.13387978142076504,
+     "j": 0.17263487655969098,
+     "sentences": 3802,
+     "tpr": 0.306514657980456,
+     "unedited_flagged": 98
+    },
+    "lamp/dev": {
+     "documents": 67,
+     "edited": 420,
+     "edited_flagged": 137,
+     "edits": 519,
+     "edits_touched": 133,
+     "findings": 204,
+     "findings_on_edit": 122,
+     "flagged": 204,
+     "fpr": 0.2375886524822695,
+     "j": 0.08860182370820668,
+     "sentences": 702,
+     "tpr": 0.3261904761904762,
+     "unedited_flagged": 67
+    },
+    "lamp/test": {
+     "documents": 215,
+     "edited": 1563,
+     "edited_flagged": 471,
+     "edits": 1731,
+     "edits_touched": 439,
+     "findings": 625,
+     "findings_on_edit": 438,
+     "flagged": 630,
+     "fpr": 0.22779369627507162,
+     "j": 0.07354987378250993,
+     "sentences": 2261,
+     "tpr": 0.30134357005758156,
+     "unedited_flagged": 159
+    },
+    "prs/dev": {
+     "documents": 60,
+     "edited": 244,
+     "edited_flagged": 54,
+     "edits": 762,
+     "edits_touched": 99,
+     "findings": 253,
+     "findings_on_edit": 57,
+     "flagged": 190,
+     "fpr": 0.11083944580277098,
+     "j": 0.11047202960706508,
+     "sentences": 1471,
+     "tpr": 0.22131147540983606,
+     "unedited_flagged": 136
+    },
+    "prs/test": {
+     "documents": 61,
+     "edited": 202,
+     "edited_flagged": 38,
+     "edits": 647,
+     "edits_touched": 78,
+     "findings": 288,
+     "findings_on_edit": 52,
+     "flagged": 217,
+     "fpr": 0.11600777705767984,
+     "j": 0.07211103482350828,
+     "sentences": 1745,
+     "tpr": 0.18811881188118812,
+     "unedited_flagged": 179
+    }
+   },
+   "review-claude-astra": {
+    "beemo/dev": {
+     "documents": 150,
+     "edited": 1382,
+     "edited_flagged": 302,
+     "edits": 2316,
+     "edits_touched": 433,
+     "findings": 325,
+     "findings_on_edit": 291,
+     "flagged": 325,
+     "fpr": 0.05764411027568922,
+     "j": 0.16087976816135854,
+     "sentences": 1781,
+     "tpr": 0.21852387843704776,
+     "unedited_flagged": 23
+    },
+    "beemo/test": {
+     "documents": 300,
+     "edited": 3070,
+     "edited_flagged": 703,
+     "edits": 4652,
+     "edits_touched": 954,
+     "findings": 756,
+     "findings_on_edit": 667,
+     "flagged": 762,
+     "fpr": 0.08060109289617487,
+     "j": 0.14838913511685445,
+     "sentences": 3802,
+     "tpr": 0.22899022801302932,
+     "unedited_flagged": 59
+    },
+    "lamp/dev": {
+     "documents": 67,
+     "edited": 420,
+     "edited_flagged": 82,
+     "edits": 519,
+     "edits_touched": 79,
+     "findings": 132,
+     "findings_on_edit": 73,
+     "flagged": 132,
+     "fpr": 0.1773049645390071,
+     "j": 0.01793313069908814,
+     "sentences": 702,
+     "tpr": 0.19523809523809524,
+     "unedited_flagged": 50
+    },
+    "lamp/test": {
+     "documents": 215,
+     "edited": 1563,
+     "edited_flagged": 195,
+     "edits": 1731,
+     "edits_touched": 187,
+     "findings": 255,
+     "findings_on_edit": 188,
+     "flagged": 259,
+     "fpr": 0.09169054441260745,
+     "j": 0.03306953236282441,
+     "sentences": 2261,
+     "tpr": 0.12476007677543186,
+     "unedited_flagged": 64
+    },
+    "prs/test": {
+     "documents": 61,
+     "edited": 202,
+     "edited_flagged": 31,
+     "edits": 647,
+     "edits_touched": 58,
+     "findings": 196,
+     "findings_on_edit": 40,
+     "flagged": 151,
+     "fpr": 0.07777057679844458,
+     "j": 0.07569476973620888,
+     "sentences": 1745,
+     "tpr": 0.15346534653465346,
+     "unedited_flagged": 120
+    }
+   },
+   "rules-all": {
+    "beemo/dev": {
+     "documents": 150,
+     "edited": 1382,
+     "edited_flagged": 207,
+     "edits": 2316,
+     "edits_touched": 310,
+     "findings": 262,
+     "findings_on_edit": 202,
+     "flagged": 233,
+     "fpr": 0.06516290726817042,
+     "j": 0.08462001603139543,
+     "sentences": 1781,
+     "tpr": 0.14978292329956586,
+     "unedited_flagged": 26
+    },
+    "beemo/test": {
+     "documents": 300,
+     "edited": 3070,
+     "edited_flagged": 421,
+     "edits": 4652,
+     "edits_touched": 592,
+     "findings": 540,
+     "findings_on_edit": 426,
+     "flagged": 487,
+     "fpr": 0.09016393442622951,
+     "j": 0.04696961606236984,
+     "sentences": 3802,
+     "tpr": 0.13713355048859935,
+     "unedited_flagged": 66
+    },
+    "lamp/dev": {
+     "documents": 67,
+     "edited": 420,
+     "edited_flagged": 72,
+     "edits": 519,
+     "edits_touched": 65,
+     "findings": 144,
+     "findings_on_edit": 71,
+     "flagged": 110,
+     "fpr": 0.1347517730496454,
+     "j": 0.03667679837892604,
+     "sentences": 702,
+     "tpr": 0.17142857142857143,
+     "unedited_flagged": 38
+    },
+    "lamp/test": {
+     "documents": 215,
+     "edited": 1563,
+     "edited_flagged": 214,
+     "edits": 1731,
+     "edits_touched": 212,
+     "findings": 343,
+     "findings_on_edit": 240,
+     "flagged": 283,
+     "fpr": 0.0988538681948424,
+     "j": 0.038062318625375124,
+     "sentences": 2261,
+     "tpr": 0.13691618682021753,
+     "unedited_flagged": 69
+    },
+    "prs/dev": {
+     "documents": 60,
+     "edited": 244,
+     "edited_flagged": 38,
+     "edits": 762,
+     "edits_touched": 61,
+     "findings": 543,
+     "findings_on_edit": 56,
+     "flagged": 284,
+     "fpr": 0.20048899755501223,
+     "j": -0.04475129263697944,
+     "sentences": 1471,
+     "tpr": 0.1557377049180328,
+     "unedited_flagged": 246
+    },
+    "prs/test": {
+     "documents": 61,
+     "edited": 202,
+     "edited_flagged": 38,
+     "edits": 647,
+     "edits_touched": 56,
+     "findings": 678,
+     "findings_on_edit": 46,
+     "flagged": 393,
+     "fpr": 0.23007128969539858,
+     "j": -0.041952477814210465,
+     "sentences": 1745,
+     "tpr": 0.18811881188118812,
+     "unedited_flagged": 355
+    }
+   },
+   "rules-default": {
+    "beemo/dev": {
+     "documents": 150,
+     "edited": 1382,
+     "edited_flagged": 37,
+     "edits": 2316,
+     "edits_touched": 37,
+     "findings": 27,
+     "findings_on_edit": 20,
+     "flagged": 41,
+     "fpr": 0.010025062656641603,
+     "j": 0.016747730396903984,
+     "sentences": 1781,
+     "tpr": 0.026772793053545588,
+     "unedited_flagged": 4
+    },
+    "beemo/test": {
+     "documents": 300,
+     "edited": 3070,
+     "edited_flagged": 82,
+     "edits": 4652,
+     "edits_touched": 124,
+     "findings": 63,
+     "findings_on_edit": 54,
+     "flagged": 117,
+     "fpr": 0.04781420765027322,
+     "j": -0.021104109930403514,
+     "sentences": 3802,
+     "tpr": 0.026710097719869708,
+     "unedited_flagged": 35
+    },
+    "lamp/dev": {
+     "documents": 67,
+     "edited": 420,
+     "edited_flagged": 0,
+     "edits": 519,
+     "edits_touched": 0,
+     "findings": 4,
+     "findings_on_edit": 0,
+     "flagged": 4,
+     "fpr": 0.014184397163120567,
+     "j": -0.014184397163120567,
+     "sentences": 702,
+     "tpr": 0.0,
+     "unedited_flagged": 4
+    },
+    "lamp/test": {
+     "documents": 215,
+     "edited": 1563,
+     "edited_flagged": 6,
+     "edits": 1731,
+     "edits_touched": 6,
+     "findings": 10,
+     "findings_on_edit": 6,
+     "flagged": 10,
+     "fpr": 0.0057306590257879654,
+     "j": -0.0018918874326977544,
+     "sentences": 2261,
+     "tpr": 0.003838771593090211,
+     "unedited_flagged": 4
+    },
+    "prs/dev": {
+     "documents": 60,
+     "edited": 244,
+     "edited_flagged": 6,
+     "edits": 762,
+     "edits_touched": 10,
+     "findings": 90,
+     "findings_on_edit": 7,
+     "flagged": 56,
+     "fpr": 0.040749796251018745,
+     "j": -0.016159632316592516,
+     "sentences": 1471,
+     "tpr": 0.02459016393442623,
+     "unedited_flagged": 50
+    },
+    "prs/test": {
+     "documents": 61,
+     "edited": 202,
+     "edited_flagged": 8,
+     "edits": 647,
+     "edits_touched": 30,
+     "findings": 107,
+     "findings_on_edit": 11,
+     "flagged": 73,
+     "fpr": 0.04212572909915749,
+     "j": -0.002521768703117884,
+     "sentences": 1745,
+     "tpr": 0.039603960396039604,
+     "unedited_flagged": 65
+    }
+   }
+  }
+ }
+}
