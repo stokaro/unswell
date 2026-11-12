@@ -38,6 +38,20 @@ func TestParseFlagsReadsAnObjectInsideOtherText(t *testing.T) {
 	c.Assert(flags, qt.HasLen, 0)
 }
 
+func TestParseFlagsTakesTheLastObjectOfACorrectedAnswer(t *testing.T) {
+	c := qt.New(t)
+	answer := `{"flags": [{"item": "i001", "categories": ["wordiness"], "quote": "in order", "reason": "Shorter."}]}` +
+		"\n\nWait, the quote is incomplete. Corrected:\n\n" +
+		`{"flags": [{"item": "i001", "categories": ["wordiness"], "quote": "in order to", "reason": "Shorter."}]}`
+	flags, err := review.ParseFlags(answer)
+	c.Assert(err, qt.IsNil)
+	c.Assert(flags, qt.DeepEquals, []review.Flag{{Item: "i001", Categories: []string{"wordiness"},
+		Quote: "in order to", Reason: "Shorter."}})
+
+	_, err = review.ParseFlags(`{"flags": []}` + "\nCorrected:\n" + `{"flags": [{"item": "i001"`)
+	c.Assert(err, qt.ErrorMatches, "the answer is not the requested JSON object: .*")
+}
+
 func TestParseFlagsRejectsAnswersThatAreNotAReview(t *testing.T) {
 	cases := []struct{ name, answer, problem string }{
 		{"refusal", "I cannot review this document.", "the answer contains no JSON object"},
@@ -95,6 +109,16 @@ func TestParseVerdictsKeepsTheOrderOfThePrompt(t *testing.T) {
 		{Justified: review.Justified, Reason: "Announces only."},
 		{Justified: review.Unjustified, Reason: "A real condition."},
 	})
+}
+
+func TestParseVerdictsTakesTheLastObjectOfACorrectedAnswer(t *testing.T) {
+	c := qt.New(t)
+	answer := `{"reviews": [{"id": "f001", "justified": "yes", "reason": "Announces only."}]}` +
+		"\nOn a second reading:\n" +
+		`{"reviews": [{"id": "f001", "justified": "no", "reason": "It states a condition."}]}`
+	verdicts, err := review.ParseVerdicts(answer, 1)
+	c.Assert(err, qt.IsNil)
+	c.Assert(verdicts, qt.DeepEquals, []review.Verdict{{Justified: review.Unjustified, Reason: "It states a condition."}})
 }
 
 func TestParseVerdictsLeavesASkippedFlagUnjudged(t *testing.T) {

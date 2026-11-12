@@ -89,7 +89,8 @@ reason. `--report text:PATH` writes the text above.
 The limits are those of `unswell review`: `--max-documents`,
 `--max-document-bytes`, `--jobs`, `--attempts`, `--retry-delay`,
 `--request-timeout`, `--timeout`, and `--max-tokens`. One document costs one
-model call.
+model call. An answer in which the model corrects itself is read as for the
+review: the last object counts.
 
 ## Measured behavior
 

@@ -68,13 +68,14 @@ func (d *Document) Prompt() string {
 }
 
 // ParseFlags reads a reviewing model's answer. The JSON object may sit inside
-// a code fence or between other text. An answer without a flags field is an
-// error, so a refusal or an empty answer never reads as a clean document.
+// a code fence or between other text. When the answer holds several objects
+// with a flags field, the last one counts. An answer without a flags field is
+// an error, so a refusal or an empty answer never reads as a clean document.
 func ParseFlags(answer string) ([]Flag, error) {
 	var parsed struct {
 		Flags *[]Flag `json:"flags"`
 	}
-	if err := decodeObject(answer, &parsed); err != nil {
+	if err := decodeObject(answer, "flags", &parsed); err != nil {
 		return nil, err
 	}
 	if parsed.Flags == nil {
@@ -118,7 +119,7 @@ func ParseVerdicts(answer string, count int) ([]Verdict, error) {
 			Reason    string `json:"reason"`
 		} `json:"reviews"`
 	}
-	if err := decodeObject(answer, &parsed); err != nil {
+	if err := decodeObject(answer, "reviews", &parsed); err != nil {
 		return nil, err
 	}
 	if parsed.Reviews == nil {
@@ -155,13 +156,38 @@ func findingID(index int) string {
 	return fmt.Sprintf("f%03d", index+1)
 }
 
-// decodeObject decodes the outermost JSON object in an answer.
-func decodeObject(answer string, target any) error {
-	start, end := strings.Index(answer, "{"), strings.LastIndex(answer, "}")
-	if start < 0 || end < start {
-		return fmt.Errorf("the answer contains no JSON object")
+// decodeObject decodes the JSON object of an answer that holds the field.
+// A model that corrects itself writes the object again, so the last object
+// with the field is the answer. Text around the objects is ignored, but every
+// opening brace outside an object must start a complete one: a cut-off
+// correction is an error, not a reason to fall back to what it corrected.
+func decodeObject(answer, field string, target any) error {
+	var chosen string
+	found := false
+	for position := 0; ; {
+		offset := strings.Index(answer[position:], "{")
+		if offset < 0 {
+			break
+		}
+		start := position + offset
+		decoder := json.NewDecoder(strings.NewReader(answer[start:]))
+		var object map[string]json.RawMessage
+		if err := decoder.Decode(&object); err != nil {
+			return fmt.Errorf("the answer is not the requested JSON object: %w", err)
+		}
+		found = true
+		position = start + int(decoder.InputOffset())
+		if _, ok := object[field]; ok {
+			chosen = answer[start:position]
+		}
 	}
-	if err := json.Unmarshal([]byte(answer[start:end+1]), target); err != nil {
+	switch {
+	case !found:
+		return fmt.Errorf("the answer contains no JSON object")
+	case chosen == "":
+		return fmt.Errorf("the answer has no %s field", field)
+	}
+	if err := json.Unmarshal([]byte(chosen), target); err != nil {
 		return fmt.Errorf("the answer is not the requested JSON object: %w", err)
 	}
 	return nil

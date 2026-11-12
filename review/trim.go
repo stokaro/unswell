@@ -108,13 +108,14 @@ func (d *Document) TrimPrompt() string {
 	return prompt.String()
 }
 
-// ParseTrims reads a model's answer to TrimPrompt. An answer without a trims
-// field is an error, so a refusal never reads as "nothing to trim".
+// ParseTrims reads a model's answer to TrimPrompt. When the answer holds
+// several objects with a trims field, the last one counts. An answer without
+// a trims field is an error, so a refusal never reads as "nothing to trim".
 func ParseTrims(answer string) ([]Trim, error) {
 	var parsed struct {
 		Trims *[]Trim `json:"trims"`
 	}
-	if err := decodeObject(answer, &parsed); err != nil {
+	if err := decodeObject(answer, "trims", &parsed); err != nil {
 		return nil, err
 	}
 	if parsed.Trims == nil {

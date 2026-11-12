@@ -115,6 +115,43 @@ func TestBindTrimsTakesOneProposalPerItem(t *testing.T) {
 	c.Assert(err, qt.ErrorMatches, "trims must contain at most 1024 entries")
 }
 
+func TestParseTrimsTakesTheLastObjectOfACorrectedAnswer(t *testing.T) {
+	c := qt.New(t)
+	answer := `{"trims": [{"item": "i001", "text": "The client retries, given a failure."}]}` +
+		"\n\nWait, that replaces a word. Corrected:\n\n" +
+		`{"trims": [{"item": "i001", "text": "The client retries."}]}`
+	trims, err := review.ParseTrims(answer)
+	c.Assert(err, qt.IsNil)
+	c.Assert(trims, qt.DeepEquals, []review.Trim{{Item: "i001", Text: "The client retries."}})
+
+	// An object without the field does not replace the answer.
+	trims, err = review.ParseTrims(`{"trims": [{"item": "i002", "text": "It works."}]}` + "\n" + `{"done": true}`)
+	c.Assert(err, qt.IsNil)
+	c.Assert(trims, qt.DeepEquals, []review.Trim{{Item: "i002", Text: "It works."}})
+
+	// A correction that withdraws every proposal leaves none.
+	trims, err = review.ParseTrims(`{"trims": [{"item": "i001", "text": "x"}]}` + " Corrected: " + `{"trims": []}`)
+	c.Assert(err, qt.IsNil)
+	c.Assert(trims, qt.HasLen, 0)
+}
+
+func TestParseTrimsRejectsACutOffCorrection(t *testing.T) {
+	complete := `{"trims": [{"item": "i001", "text": "The client retries."}]}`
+	cases := []struct{ name, answer, problem string }{
+		{"cut-off correction", complete + "\nCorrected:\n" + `{"trims": [{"item": "i001", "text": "The cli`,
+			"the answer is not the requested JSON object: .*"},
+		{"brace that starts no object", complete + "\nI left {name} alone.", "the answer is not the requested JSON object: .*"},
+		{"objects without the field", `{"note": "nothing"} {"done": true}`, "the answer has no trims field"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			c := qt.New(t)
+			_, err := review.ParseTrims(tc.answer)
+			c.Assert(err, qt.ErrorMatches, tc.problem)
+		})
+	}
+}
+
 func TestParseTrimsRejectsAnswersWithoutTrims(t *testing.T) {
 	c := qt.New(t)
 	trims, err := review.ParseTrims("Done.\n```json\n" + `{"trims": [{"item": "i001", "text": "The client retries."}]}` + "\n```")
