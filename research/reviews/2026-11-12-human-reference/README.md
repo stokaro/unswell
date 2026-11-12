@@ -84,16 +84,25 @@ writing only if it agreed with the writers' majority.
    maintainers reworded, the default rules flag edited and unedited sentences
    at the same rate, and enabling every rule does not help.
 
-5. **Revising what the review flags did not help the first reader.** In the
-   blind comparison of 40 documentation paragraphs, the revised paragraph was
-   preferred in 8 of 15 decisive answers where the revision followed the
-   review's findings, and in 6 of 13 where the model rewrote random other
-   sentences. The reader chose the revision where it trimmed a stock phrase or
-   an intensifier, and the original where the revision deleted a whole
-   sentence or changed what a sentence claims. That pattern is an observation
-   on 15 answers, not a result.
+5. **A weighted consensus of models prefers trimmed paragraphs.** Paragraphs
+   of generated documentation were compared before and after a model's
+   revision. A first comparison had one reader; the maintainer withdrew those
+   answers as a measure and accepted a consensus of models in their place, in
+   which a stronger model weighs more. Four models answered by a rule about
+   lost information, not about taste. Where the revision could only delete
+   words, the consensus prefers the trimmed paragraph in 16 of 20 decisive
+   answers after review findings and in 17 of 20 after trimming random
+   sentences. Where the model rewrote freely, it prefers the revision in
+   15 of 20 after review findings and in 6 of 9 for random sentences.
 
-6. **Review by a model does a little.** It flags edited sentences more often
+6. **The consensus hides a split between model families.** On the trim-only
+   pairs after review findings the single models prefer the trimmed paragraph
+   in 16, 18, 9, 6 of 20 pairs: the two models of one family approve, and the
+   other two find that about half of the trims lose information. The outcome
+   rests on the two votes of the strongest model. `RESULTS.md` lists every
+   count, and `data/panel.jsonl.gz` every answer.
+
+7. **Review by a model does a little.** It flags edited sentences more often
    than unedited ones in all three genres, by a margin that is small on
    documentation and fiction and larger on expert-edited answers. Confirmation
    by a second model shortens the list. J stays about the same on
@@ -127,13 +136,21 @@ Each rule was registered on issue 525 before its result was read.
    not.* The review reaches +7.2 and +4.7 with the two reviewer models, the
    default rules -0.3. Neither reaches 10 points, so the documentation says that neither finds what maintainers tighten.
 
-7. *Add a revision step if readers prefer the revised paragraph in at least
-   70% of decisive answers, with at least 15 such answers and the lower end of
-   the interval above 50%; say that the review's selection adds nothing if it
-   does not lead the control arm by 15 points.* One reader answered all 40 pairs.
-   The revised paragraph was preferred in 8 of 15 decisive answers in the reviewed
-   arm and in 6 of 13 in the control arm. No revision step is added, and the
-   documentation says that the selection added nothing a plain rewrite did not.
+7. *Add a revision step if readers prefer the revised paragraph.* One reader
+   answered the first comparison. The maintainer withdrew those answers as a
+   measure, so this rule was not applied to them.
+8. *Let a model panel stand in if it reproduces the reader.* Set aside with
+   the reader's answers: agreement with withdrawn answers shows nothing.
+9. *Maintainer's decision: a weighted consensus of four models judges both
+   comparisons, by the 70% rule.* Trim-only meets it in both arms
+   (16 of 20 and 17 of 20), and trimming after review findings is not ahead of
+   random trimming. A trim-only fix enters the product, not tied to review
+   findings. Free revision meets the rule after review findings only
+   (15 of 20); it is admitted and not built.
+10. *Ship `unswell trim` as built if the consensus prefers its trims in at
+    least 70% of decisive answers on documents outside both comparisons.* It
+    prefers them in 33 of 40; single models: 31, 34, 21, 16 of 40. The command
+    ships as built.
 
 ## Limits
 
@@ -153,13 +170,16 @@ Each rule was registered on issue 525 before its result was read.
   audit of its own in which its phrase sets fired more often on text written
   by people than on model text.
 - Each configuration ran once. A model's answers differ between runs.
-- The reader comparison has one reader, the maintainer of this project, who
-  knew its purpose but not which version was which. Readers of technical
-  documentation are engineers, and this is one of them. The intervals are
-  wide: 30% to 75% for the reviewed arm.
-- In that comparison a model rewrote the flagged sentences and deleted
-  some of them. The result is about that way of revising. It does not
-  show that a careful human revision of the same sentences would not help.
+- The two comparisons and the check of the command were judged by models.
+  Result 3 applies to them: these model families did not share professional
+  writers' preferences on fiction. The judging rule here asks about lost
+  information and not about taste, which is a narrower question, and it was
+  not validated against people.
+- Two of the four judges belong to one model family and hold three of the five
+  votes together.
+- In the free-revision comparison a model rewrote the flagged sentences and
+  deleted some of them. The trim-only comparison and the command never delete
+  a sentence.
 
 ## Files
 
@@ -168,7 +188,8 @@ Each rule was registered on issue 525 before its result was read.
 | `data/sentences.jsonl.gz` | Per document: sentence spans, the spans a person changed, each system's finding spans, and a digest of the text |
 | `data/preferences.jsonl.gz` | Per LAMP triplet: the three writers' orders and each judge's order |
 | `data/expert-pairs.jsonl.gz` | Per Beemo pair: each judge's choice and the position it was shown in |
-| `data/readers.jsonl.gz` | Per reader and pair of the blind comparison: the arm, the reviewer model, and which version was preferred |
+| `data/readers.jsonl.gz` | The one reader's answers to the first comparison, withdrawn as a measure and kept as recorded |
+| `data/panel.jsonl.gz` | Per pair of the two comparisons and of the check of the command: the arm, the model that revised, and each judge model's answer under the information rule |
 | `results.json`, `RESULTS.md` | Every published number, recounted and rendered |
 | `verify.py`, `test_verify.py`, `render.py` | The check, its negative tests, and the renderer |
 | `scripts/` | The scripts that fetched, prepared, ran, and measured, as they ran |

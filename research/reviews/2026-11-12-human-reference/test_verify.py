@@ -47,6 +47,14 @@ class RecordCase(unittest.TestCase):
         write_rows(self.root / "data/readers.jsonl.gz",
                    [{"reader": "r1", "pair": "a", "arm": "reviewed", "reviewer": "m", "outcome": "revised"},
                     {"reader": "r1", "pair": "b", "arm": "control", "reviewer": "m", "outcome": "original"}])
+        # The top model against two others, with one abstaining: two votes each, and the tie goes to the top model.
+        tie = {"fable": "revised", "claude": "original", "astra": "original", "qwen": "same"}
+        # Three one-vote models together outweigh the top model.
+        outvoted = {"fable": "revised", "claude": "original", "astra": "original", "qwen": "original"}
+        write_rows(self.root / "data/panel.jsonl.gz",
+                   [{"comparison": "first", "pair": "a", "arm": "reviewed", "reviewer": "m", "judges": tie},
+                    {"comparison": "trim", "pair": "t", "arm": "reviewed", "reviewer": "m", "judges": outvoted},
+                    {"comparison": "product", "pair": "p", "arm": "product", "reviewer": "m", "judges": tie}])
         self.seal()
 
     def seal(self):
@@ -137,14 +145,6 @@ class RecordCase(unittest.TestCase):
         self.seal_digests_only()
         self.rejects("invalid choice")
 
-    def test_reader_decision_cannot_be_declared(self):
-        results = json.loads((self.root / "results.json").read_text())
-        self.assertFalse(results["readers"]["decision"]["enough_answers"])
-        results["readers"]["decision"]["revision_preferred"] = True
-        (self.root / "results.json").write_text(json.dumps(results))
-        verify.write_digests(self.root)
-        self.rejects("results differ from the data files")
-
     def test_reader_cannot_answer_a_pair_twice(self):
         self.rewrite("data/readers.jsonl.gz", lambda rows: rows.append(dict(rows[0], outcome="original")))
         self.seal_digests_only()
@@ -159,6 +159,44 @@ class RecordCase(unittest.TestCase):
         self.rewrite("data/readers.jsonl.gz", lambda rows: rows[0].update(comment="The left one reads better."))
         self.seal_digests_only()
         self.rejects("unexpected reader fields")
+
+    def test_consensus_weighs_the_top_model(self):
+        results = verify.verify(self.root)
+        self.assertEqual(results["panel"]["first"]["arms"]["reviewed"]["revised"], 1)
+        self.assertEqual(results["panel"]["trim"]["arms"]["reviewed"]["original"], 1)
+        self.assertEqual(results["panel"]["first"]["opposed"], 1)
+        # One pair cannot meet a rule that needs fifteen decisive answers.
+        self.assertFalse(results["panel"]["first"]["reviewed_meets_rule"])
+
+    def test_product_pairs_have_one_arm(self):
+        results = verify.verify(self.root)
+        self.assertEqual(results["panel"]["product"]["arms"]["product"]["revised"], 1)
+        self.assertFalse(results["panel"]["product"]["product_meets_rule"])
+        self.rewrite("data/panel.jsonl.gz", lambda rows: rows[2].update(arm="reviewed"))
+        self.seal_digests_only()
+        self.rejects("invalid panel row")
+
+    def test_consensus_outcome_cannot_be_declared(self):
+        results = json.loads((self.root / "results.json").read_text())
+        results["panel"]["trim"]["reviewed_meets_rule"] = True
+        (self.root / "results.json").write_text(json.dumps(results))
+        verify.write_digests(self.root)
+        self.rejects("results differ from the data files")
+
+    def test_panel_needs_every_judge(self):
+        self.rewrite("data/panel.jsonl.gz", lambda rows: rows[0]["judges"].pop("qwen"))
+        self.seal_digests_only()
+        self.rejects("does not carry one valid answer of every judge")
+
+    def test_panel_answer_must_be_valid(self):
+        self.rewrite("data/panel.jsonl.gz", lambda rows: rows[0]["judges"].update(claude="better"))
+        self.seal_digests_only()
+        self.rejects("does not carry one valid answer of every judge")
+
+    def test_panel_pair_cannot_repeat(self):
+        self.rewrite("data/panel.jsonl.gz", lambda rows: rows.append(dict(rows[1])))
+        self.seal_digests_only()
+        self.rejects("appears twice in the panel answers")
 
     def test_editor_cannot_edit_a_paragraph_twice(self):
         self.rewrite("data/sentences.jsonl.gz", lambda rows: rows[2].update(editor="e1"))

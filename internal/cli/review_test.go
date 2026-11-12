@@ -106,6 +106,13 @@ type reviewOutcome struct {
 
 func runReview(t *testing.T, dir, stdin string, args ...string) reviewOutcome {
 	t.Helper()
+	return runCommand(t, "review", dir, stdin, args...)
+}
+
+// runCommand runs one model-backed command with a short retry delay and a
+// fixed environment in which only REVIEW_KEY is set.
+func runCommand(t *testing.T, name, dir, stdin string, args ...string) reviewOutcome {
+	t.Helper()
 	var output, stderr bytes.Buffer
 	environment := cli.Environment{Dir: dir, In: strings.NewReader(stdin), Out: &output, Err: &stderr,
 		Getenv: func(name string) string {
@@ -114,7 +121,7 @@ func runReview(t *testing.T, dir, stdin string, args ...string) reviewOutcome {
 			}
 			return ""
 		}}
-	arguments := append([]string{"review", "--retry-delay", "1ms"}, args...)
+	arguments := append([]string{name, "--retry-delay", "1ms"}, args...)
 	code := cli.Run(t.Context(), arguments, environment)
 	return reviewOutcome{code: code, stdout: output.String(), stderr: stderr.String()}
 }

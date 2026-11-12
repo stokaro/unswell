@@ -1,7 +1,8 @@
 # ADR 0052: Claims follow what was measured against people
 
 Status: proposed on November 12, 2026. It takes effect when the maintainer
-merges it.
+merges it. [ADR 0053](0053-trim-admitted-by-model-consensus.md) replaces
+decision 5, narrows decision 6, and replaces the sentence about the README.
 
 ## Context
 
@@ -30,10 +31,9 @@ matter here.
 4. On documentation that maintainers reworded, the default rules flag 4.0% of
    the reworded sentences and 4.2% of the others. With every rule enabled the
    rates are 18.8% and 23.0%.
-5. In a blind comparison of 40 documentation paragraphs before and after a
-   model's revision, one reader preferred the revised paragraph in 8 of 15 decisive
-   answers where the revision followed the review's findings, and in 6 of 13
-   where the model rewrote random other sentences.
+5. A first blind comparison of paragraphs before and after revision had one
+   reader. The maintainer later withdrew those answers as a measure, and
+   ADR 0053 decides the question by a consensus of models.
 6. `unswell review` flags reworded sentences more often than the others in all
    three genres. On the documentation test the margin is 18.8% against 11.6% with one reviewer model and 19.3% against 14.6% with the other.
    Confirmation by a second model shortens the list and does not move it closer to what people edited in any consistent way. The margin, in points, changes from +7.2 to +7.6 and from +4.7 to +5.8 on documentation, from +17.3 to +14.8 and from +14.1 to +13.2 on expert-edited answers, and from +7.4 to +3.3 and from -0.1 to +0.3 on fiction.
@@ -62,28 +62,26 @@ matter here.
    defaults consistent with a stated rubric. It is not evidence that a reader
    is helped.
 
-5. **The tool reports and does not rewrite.** The registered rule asked for
-   the revised paragraph to be preferred in at least 70% of decisive answers
-   and to lead the control arm by 15 points. Neither held, so no revision step
-   enters the product, and the documentation says that the review's selection
-   added nothing that a plain rewrite did not. The comparison stays open for
-   more readers, and a revision step is admitted only under the same rule.
+5. **Replaced by ADR 0053.** This decision said that the tool reports findings
+   and does not rewrite. It rested on answers that were withdrawn as a
+   measure.
 
 6. **A method that claims more needs a human reference.** A new rule family,
    prompt, or model-based method is admitted on a measurement against one of
    the human references of the record, on its test part, with the rule
-   written before the result is read.
+   written before the result is read. ADR 0053 admits a revision option on a
+   consensus of models; this decision still governs any claim that findings
+   match what people edit.
 
 ## Consequences
 
-The README states these limits near the top. The review documentation
-reports the human-referenced numbers before the model-referenced ones.
+The review documentation reports the human-referenced numbers before the
+model-referenced ones. ADR 0053 keeps the limits there and out of the README.
 
 The qualification record keeps its numbers and gains a sentence that they are
 agreement between models and that the judge validation failed.
 
-The work that the record points to, in order: more readers for the blind
-comparison, and a second comparison in which a revision may only trim, which
-is where the first reader preferred it; a human reference of documentation
-written by models and edited by people, which no public set provides; the
-open-source linters that were registered as a comparison and not run.
+The work that the record points to, in order: a human reference of
+documentation written by models and edited by people, which no public set
+provides; the open-source linters that were registered as a comparison and not
+run.

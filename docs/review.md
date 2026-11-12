@@ -187,19 +187,20 @@ writers who edited the same paragraphs agree word by word with a kappa of
 
 Confirmation by a second model shortens the list and does not move it closer to what people edited in any consistent way. The margin between the two shares, in points, changes from +7.2 to +7.6 and from +4.7 to +5.8 on documentation, from +17.3 to +14.8 and from +14.1 to +13.2 on expert-edited answers, and from +7.4 to +3.3 and from -0.1 to +0.3 on fiction. Use confirmation for a shorter list.
 
-Revising what the review flags did not make documentation read better in a
-first blind comparison. One reader compared 40 paragraphs before and after a
-model's revision without knowing which was which. Where the revision followed
-the review's findings, the revised paragraph was preferred in 8 of 15 decisive
-answers, with 5 answers of "no real difference". Where the model rewrote
-as many random other sentences, it was preferred in 6 of 13, with 7. The
-review's selection added nothing that a plain rewrite did not, so the command
-reports findings and does not rewrite.
+Whether revising a flagged sentence helps was judged by a weighted consensus of
+four models, which the maintainer accepts in place of readers
+([ADR 0053](adr/0053-trim-admitted-by-model-consensus.md)). Where a model
+rewrote the flagged sentences freely, the consensus preferred the revised
+paragraph in 15 of 20 decisive answers. Where the model could only delete
+words, it preferred the trimmed paragraph in 16 of 20, and in 17 of 20 when
+the same trimming was applied to random other sentences. So the review's
+selection adds nothing to trimming, and [`unswell trim`](trim.md) works on any
+sentence without a review.
 
-Models are not used as judges of writing here. Three were
+Read that consensus as agreement between models. Three models were
 tried on paragraphs that professional writers had ranked: they agree
 with the writers' majority 50.7%, 49.2%, 51.7% of the time on "writer-edited or raw
-model text", where two writers agree 85.1%. No model is used as a judge here.
+model text", where two writers agree 85.1%.
 
 ### Against another model's annotation
 

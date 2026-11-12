@@ -123,16 +123,55 @@ A judge is admitted when it agrees with the writers' majority on at least 70% of
 raw", on at least 65% of the pairs "model-edited or raw", and prefers the expert-edited Beemo answer in at least
 65% of pairs.
 
-## Readers
+## Reader answers, withdrawn as a measure
 
-The blind comparison of paragraphs before and after revision, 1 reader. In the reviewed arm the revision follows the
-findings of `unswell review`; in the control arm the same model rewrote as many random other sentences.
+The blind comparison of paragraphs before and after revision was first answered by 1 reader. The maintainer
+withdrew these answers as a measure, and no decision rests on them. They are kept as recorded. In the reviewed
+arm the revision follows the findings of `unswell review`; in the control arm the same model rewrote as many
+random other sentences.
 
 | Arm | Revised preferred | Original preferred | No real difference | Revised among decisive answers | 95% interval |
 | --- | ---: | ---: | ---: | ---: | --- |
 | reviewed | 8 | 7 | 5 | 53.3% of 15 | 30.1% to 75.2% |
 | control | 6 | 7 | 7 | 46.2% of 13 | 23.2% to 70.9% |
 
-The registered rule asks for at least 15 decisive answers in the reviewed arm, the revision preferred in at
-least 70% of them with the lower end of the interval above 50%, and a lead of 15 points over the control arm.
-Enough answers: yes. Revision preferred: no. Ahead of the control: no.
+## The two comparisons, judged by a consensus of models
+
+Four models answered every pair by a rule about information: a version is worse if it lacks a fact, condition,
+qualification, or instruction that the other has; otherwise the shorter one is better when the extra words carry
+no information. `claude-fable-5-2` has two votes and the other three one each; a tie goes to `claude-fable-5-2`.
+
+Free revision: 40 pairs. All four models agree on 17; on 14 at least one
+model prefers the revision and another the original.
+
+| Arm | Revised preferred | Original preferred | No real difference | Revised among decisive answers | 95% interval |
+| --- | ---: | ---: | ---: | ---: | --- |
+| reviewed | 15 | 5 | 0 | 75.0% of 20 | 53.1% to 88.8% |
+| control | 6 | 3 | 11 | 66.7% of 9 | 35.4% to 87.9% |
+
+Single models, revised preferred / original preferred: `claude-fable-5-2` 15/5, 6/3; `claude-sonnet-5-5` 16/4, 4/5; `gpt-6-astra` 8/12, 9/8; `private-host/Qwen3.8-27B` 9/11, 9/6. Two numbers per model are the reviewed and the control arm.
+
+Only the reviewed arm reaches the registered 70% of decisive answers. The reviewed arm is not 15 points ahead of the control arm.
+
+Revision that may only delete words: 40 pairs. All four models agree on 13; on 25 at least one
+model prefers the revision and another the original.
+
+| Arm | Revised preferred | Original preferred | No real difference | Revised among decisive answers | 95% interval |
+| --- | ---: | ---: | ---: | ---: | --- |
+| reviewed | 16 | 4 | 0 | 80.0% of 20 | 58.4% to 91.9% |
+| control | 17 | 3 | 0 | 85.0% of 20 | 64.0% to 94.8% |
+
+Single models, revised preferred / original preferred: `claude-fable-5-2` 16/4, 19/1; `claude-sonnet-5-5` 18/2, 15/2; `gpt-6-astra` 9/11, 13/7; `private-host/Qwen3.8-27B` 6/14, 10/10. Two numbers per model are the reviewed and the control arm.
+
+Both arms reach the registered 70% of decisive answers. The reviewed arm is not 15 points ahead of the control arm.
+
+The command `unswell trim` as built, on documents outside both comparisons: 40 pairs. All four models agree on 16; on 23 at least one
+model prefers the revision and another the original.
+
+| Arm | Revised preferred | Original preferred | No real difference | Revised among decisive answers | 95% interval |
+| --- | ---: | ---: | ---: | ---: | --- |
+| product | 33 | 7 | 0 | 82.5% of 40 | 68.0% to 91.3% |
+
+Single models, revised preferred / original preferred: `claude-fable-5-2` 31/9; `claude-sonnet-5-5` 34/5; `gpt-6-astra` 21/19; `private-host/Qwen3.8-27B` 16/24.
+
+The command meets the registered rule.

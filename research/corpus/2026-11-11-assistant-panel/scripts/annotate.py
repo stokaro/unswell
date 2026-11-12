@@ -62,6 +62,7 @@ character for character from the item. Return {"flags": []} when nothing needs r
 ANNOTATORS = {
     "astra": {"kind": "codex", "model": "gpt-6-astra", "effort": "medium"},
     "claude": {"kind": "claude", "model": "claude-sonnet-5-5", "effort": "default"},
+    "fable": {"kind": "claude", "model": "claude-fable-5-2", "effort": "default"},
     "qwen": {"kind": "router", "model": "private-host/Qwen3.8-27B", "effort": "default"},
 }
 CODEX_OPTIONS = ["--ignore-user-config", "--strict-config", "--ephemeral", "--skip-git-repo-check",

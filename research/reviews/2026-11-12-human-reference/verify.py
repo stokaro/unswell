@@ -22,7 +22,8 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 DIGESTS = "files.sha256"
 RESULTS = "results.json"
-DATA = ("data/sentences.jsonl.gz", "data/preferences.jsonl.gz", "data/expert-pairs.jsonl.gz", "data/readers.jsonl.gz")
+DATA = ("data/sentences.jsonl.gz", "data/preferences.jsonl.gz", "data/expert-pairs.jsonl.gz", "data/readers.jsonl.gz",
+        "data/panel.jsonl.gz")
 SETS = {"lamp": {"dev", "test", "ceiling"}, "beemo": {"dev", "test"}, "prs": {"dev", "test"}}
 DOCUMENT_KEYS = {"id", "set", "split", "editor", "kind", "generator", "text_sha256", "units", "reference", "systems"}
 OPTIONAL_KEYS = {"repository", "pull_request", "path", "base", "words"}
@@ -34,6 +35,12 @@ READER_KEYS = {"reader", "pair", "arm", "reviewer", "outcome"}
 MIN_DECISIVE = 15
 PREFERRED = 0.70
 LEAD = 0.15
+PANEL_KEYS = {"comparison", "pair", "arm", "reviewer", "judges"}
+OUTCOMES = ("revised", "original", "same")
+JUDGE_MODELS = ("fable", "claude", "astra", "qwen")
+COMPARISONS = {"first": ("reviewed", "control"), "trim": ("reviewed", "control"), "product": ("product",)}
+TOP_JUDGE = "fable"
+WEIGHTS = {TOP_JUDGE: 2}
 COUNTS = ("documents", "sentences", "edited", "flagged", "edited_flagged", "unedited_flagged", "findings",
           "findings_on_edit", "edits", "edits_touched")
 
@@ -264,7 +271,7 @@ def wilson(yes, total, z=1.96):
 
 
 def reader_results(root):
-    """Count the blind comparison by arm and apply the registered decision."""
+    """Count the reader answers to the blind comparison by arm. They are withdrawn as a measure and decide nothing."""
     path = root / DATA[3]
     if not path.exists():
         return {}
@@ -285,12 +292,71 @@ def reader_results(root):
         decisive = counter["revised"] + counter["original"]
         result["arms"][arm] = {"revised": counter["revised"], "original": counter["original"], "same": counter["same"],
                                "decisive": decisive, "interval": wilson(counter["revised"], decisive)}
-    reviewed, control = result["arms"]["reviewed"], result["arms"]["control"]
-    share = reviewed["revised"] / reviewed["decisive"] if reviewed["decisive"] else 0.0
-    other = control["revised"] / control["decisive"] if control["decisive"] else 0.0
-    result["decision"] = {"enough_answers": reviewed["decisive"] >= MIN_DECISIVE,
-                          "revision_preferred": share >= PREFERRED and reviewed["interval"][0] > 0.5,
-                          "ahead_of_control": share - other >= LEAD}
+    return result
+
+
+def consensus(votes):
+    """The answer with the most votes; the top model has two votes and decides a tie."""
+    tally = collections.Counter()
+    for judge, vote in votes.items():
+        tally[vote] += WEIGHTS.get(judge, 1)
+    best = max(tally.values())
+    leaders = [vote for vote, count in tally.items() if count == best]
+    return leaders[0] if len(leaders) == 1 else votes[TOP_JUDGE]
+
+
+def arm_summary(counter):
+    decisive = counter["revised"] + counter["original"]
+    return {"revised": counter["revised"], "original": counter["original"], "same": counter["same"], "decisive": decisive,
+            "interval": wilson(counter["revised"], decisive)}
+
+
+def meets(entry):
+    return (entry["decisive"] >= MIN_DECISIVE and entry["revised"] >= PREFERRED * entry["decisive"]
+            and entry["interval"][0] > 0.5)
+
+
+def panel_results(root):
+    """Read the comparisons on the weighted consensus of the judge models and apply the registered rule."""
+    path = root / DATA[4]
+    if not path.exists():
+        return {}
+    arms = {comparison: collections.defaultdict(collections.Counter) for comparison in COMPARISONS}
+    single = collections.defaultdict(lambda: collections.defaultdict(collections.Counter))
+    counts, seen = collections.defaultdict(collections.Counter), set()
+    for row in rows(path):
+        if set(row) != PANEL_KEYS:
+            fail(f"unexpected panel fields: {sorted(row)}")
+        if row["arm"] not in COMPARISONS.get(row["comparison"], ()):
+            fail(f"invalid panel row for pair {row['pair']}")
+        if set(row["judges"]) != set(JUDGE_MODELS) or any(vote not in OUTCOMES for vote in row["judges"].values()):
+            fail(f"pair {row['pair']} does not carry one valid answer of every judge")
+        if (row["comparison"], row["pair"]) in seen:
+            fail(f"pair {row['pair']} appears twice in the panel answers")
+        seen.add((row["comparison"], row["pair"]))
+        arms[row["comparison"]][row["arm"]][consensus(row["judges"])] += 1
+        for judge, vote in row["judges"].items():
+            single[(row["comparison"], row["arm"])][judge][vote] += 1
+        counts[row["comparison"]]["pairs"] += 1
+        counts[row["comparison"]]["unanimous"] += len(set(row["judges"].values())) == 1
+        counts[row["comparison"]]["opposed"] += {"revised", "original"} <= set(row["judges"].values())
+    result = {}
+    for comparison, names in COMPARISONS.items():
+        if not counts[comparison]["pairs"]:
+            continue
+        summaries = {name: arm_summary(arms[comparison][name]) for name in names}
+        for name in names:
+            summaries[name]["judges"] = {judge: {vote: single[(comparison, name)][judge][vote] for vote in OUTCOMES}
+                                         for judge in JUDGE_MODELS}
+        entry = {**dict(counts[comparison]), "arms": summaries}
+        for name in names:
+            entry[f"{name}_meets_rule"] = meets(summaries[name])
+        if names == ("reviewed", "control"):
+            reviewed, control = summaries["reviewed"], summaries["control"]
+            share = reviewed["revised"] / reviewed["decisive"] if reviewed["decisive"] else 0.0
+            other = control["revised"] / control["decisive"] if control["decisive"] else 0.0
+            entry["ahead_of_control"] = share - other >= LEAD
+        result[comparison] = entry
     return result
 
 
@@ -299,7 +365,7 @@ def summarize(root):
     preferences = preference_results(root)
     experts = expert_results(root)
     return {"sentences": sentence_results(documents), "preferences": preferences, "expert_pairs": experts,
-            "judges": admissions(preferences, experts), "readers": reader_results(root)}
+            "judges": admissions(preferences, experts), "readers": reader_results(root), "panel": panel_results(root)}
 
 
 def normalized(value):
