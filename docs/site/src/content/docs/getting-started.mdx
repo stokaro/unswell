@@ -136,6 +136,11 @@ that finds no applicable prose fails unless `--allow-empty` says otherwise.
 `--no-gate` reports findings without the style failure; it does not hide an
 operational error.
 
+An analysis that runs longer than `--timeout`, 30 seconds by default, ends with
+an operational error. `--jobs` sets the number of workers. By default the check
+uses the available processors, at most eight, and the result does not depend on
+that number.
+
 <Note>
   A failed check is a reason to revise the wording. It is not a reason to add a
   suppression, and an assistant that adds one to pass has not done the work.
