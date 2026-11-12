@@ -112,8 +112,8 @@ func TestTrimWritesAcceptedTrimsOnRequest(t *testing.T) {
 	model := newFakeModel(t, trimAnswers(draftTrims))
 	root := t.TempDir()
 	path := filepath.Join(root, "draft.md")
-	// A read-only source keeps its mode after it is replaced.
-	c.Assert(os.WriteFile(path, []byte(trimDraft), 0o400), qt.IsNil)
+	// #nosec G306 -- The test needs a mode other than the default of a new file to show that the mode is kept.
+	c.Assert(os.WriteFile(path, []byte(trimDraft), 0o640), qt.IsNil)
 	outcome := runCommand(t, "trim", root, "", "draft.md", "--write", "--quiet", "--endpoint", model.server.URL, "--model", "first")
 	c.Assert(outcome.code, qt.Equals, 0, qt.Commentf("stderr: %s", outcome.stderr))
 	c.Assert(outcome.stdout, qt.Contains, "Written to 1 file. Review the change before you keep it.\n")
@@ -124,11 +124,32 @@ func TestTrimWritesAcceptedTrimsOnRequest(t *testing.T) {
 	if runtime.GOOS != "windows" {
 		info, err := os.Stat(path)
 		c.Assert(err, qt.IsNil)
-		c.Assert(info.Mode().Perm(), qt.Equals, os.FileMode(0o400))
+		c.Assert(info.Mode().Perm(), qt.Equals, os.FileMode(0o640))
 	}
 	entries, err := os.ReadDir(root)
 	c.Assert(err, qt.IsNil)
 	c.Assert(entries, qt.HasLen, 1)
+}
+
+func TestTrimDoesNotWriteAReadOnlyFile(t *testing.T) {
+	c := qt.New(t)
+	model := newFakeModel(t, trimAnswers(draftTrims))
+	root := t.TempDir()
+	path := filepath.Join(root, "draft.md")
+	c.Assert(os.WriteFile(path, []byte(trimDraft), 0o400), qt.IsNil)
+	// The temporary directory is removed after the test on every platform.
+	t.Cleanup(func() { _ = os.Chmod(path, 0o600) })
+	outcome := runCommand(t, "trim", root, "", "draft.md", "--write", "--quiet", "--report", "json:-",
+		"--endpoint", model.server.URL, "--model", "first")
+	c.Assert(outcome.code, qt.Equals, 2)
+	var report trimReport
+	c.Assert(json.Unmarshal([]byte(outcome.stdout), &report), qt.IsNil)
+	c.Assert(report.Documents[0].Error, qt.Equals, "the file is read-only and was not written")
+	c.Assert(report.Documents[0].Written, qt.IsFalse)
+	c.Assert(report.Summary.Written, qt.Equals, 0)
+	data, err := fs.ReadFile(os.DirFS(root), "draft.md")
+	c.Assert(err, qt.IsNil)
+	c.Assert(string(data), qt.Equals, trimDraft)
 }
 
 func TestTrimDoesNotWriteAFileThatChanged(t *testing.T) {

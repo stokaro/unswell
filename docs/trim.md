@@ -65,8 +65,9 @@ Paths, `--stdin`, `--filename`, `--format`, `--config`, `--profile`, and
 [`unswell check`](inputs.md).
 
 `--write` puts the accepted trims into the files. The command reads each file
-again first and leaves it alone if it changed during the run. A written file
-keeps its mode. Review the change in your version control before you keep it.
+again first and leaves it alone if it changed during the run or is read-only;
+that document then counts as failed. A written file keeps its mode. Review the
+change in your version control before you keep it.
 `--write` cannot be combined with `--stdin`.
 
 `--report json:PATH` writes the complete result with schema `unswell-trim-v1`:

@@ -211,12 +211,16 @@ func writeTrims(root string, documents []trimmedDocument) {
 	}
 }
 
-// rewriteFile replaces a file's content and keeps its mode. It refuses when
-// the file no longer has the content the trims were made for.
+// rewriteFile replaces a file's content and keeps its mode. It refuses a
+// read-only file, and a file that no longer has the content the trims were
+// made for.
 func rewriteFile(path, expected string, data []byte) (err error) {
 	info, err := os.Stat(path)
 	if err != nil {
 		return err
+	}
+	if info.Mode().Perm()&0o200 == 0 {
+		return fmt.Errorf("the file is read-only and was not written")
 	}
 	// #nosec G304 -- The path is a source the user selected, read again before it is replaced.
 	current, err := os.ReadFile(path)
