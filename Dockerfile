@@ -12,7 +12,7 @@ RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go build -trimpath -buildvcs=false \
     -o /out/unswell ./cmd/unswell
 
 # Git is required to preserve tracked-file discovery inside a mounted repository.
-FROM alpine/git@sha256:0b5f57d22181e8b8fbe8ac5ca8754faa0d577f101b9857418f1acc43955ad464
+FROM alpine/git@sha256:6a1fdb962814ca11508ca8d1bab94375b5b7ac4e4a9a40981c29fc32c02f095d
 ARG VERSION=development
 ARG BUILD_COMMIT=development
 LABEL org.opencontainers.image.title="Unswell CLI" \
