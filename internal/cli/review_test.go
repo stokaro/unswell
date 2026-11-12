@@ -360,6 +360,18 @@ func TestReviewKeepsTheKeyAndTerminalControlOutOfItsOutput(t *testing.T) {
 	}
 }
 
+func TestReviewKeepsTheAddressQueryOutOfErrors(t *testing.T) {
+	c := qt.New(t)
+	closed := httptest.NewServer(http.NotFoundHandler())
+	address := closed.URL + "/v1/chat/completions?api-key=query-secret"
+	closed.Close()
+	outcome := runReview(t, t.TempDir(), reviewDraft, "--stdin", "--filename", "draft.md", "--report", "json:-",
+		"--endpoint", address, "--model", "first", "--attempts", "1")
+	c.Assert(outcome.code, qt.Equals, 2)
+	c.Assert(decodeReview(c, outcome.stdout).Documents[0].Error, qt.Contains, "request to 127.0.0.1:")
+	c.Assert(outcome.stdout+outcome.stderr, qt.Not(qt.Contains), "query-secret")
+}
+
 func TestReviewDoesNotFollowARedirect(t *testing.T) {
 	c := qt.New(t)
 	target := newFakeModel(t, scripted)
@@ -462,7 +474,9 @@ func TestReviewReportsFinishedDocumentsWhenTheTimeLimitPasses(t *testing.T) {
 	root := t.TempDir()
 	c.Assert(os.WriteFile(filepath.Join(root, "a.md"), []byte(reviewDraft), 0o600), qt.IsNil)
 	c.Assert(os.WriteFile(filepath.Join(root, "b.md"), []byte("Second page of the guide explains the retry policy.\n"), 0o600), qt.IsNil)
-	outcome := runReview(t, root, "", "a.md", "b.md", "--quiet", "--jobs", "1", "--timeout", "2s", "--attempts", "1",
+	// The limit is long enough for the first document on a slow machine and
+	// ends the held request of the second one.
+	outcome := runReview(t, root, "", "a.md", "b.md", "--quiet", "--jobs", "1", "--timeout", "8s", "--attempts", "1",
 		"--endpoint", model.server.URL, "--model", "first")
 	c.Assert(outcome.code, qt.Equals, 2)
 	c.Assert(outcome.stdout, qt.Contains, "a.md:1:1: review [empty_framing]")
@@ -532,7 +546,9 @@ func TestReviewRunsALocalProgramAsTheModel(t *testing.T) {
 	c.Assert(outcome.code, qt.Equals, 0, qt.Commentf("stderr: %s", outcome.stderr))
 	report := decodeReview(c, outcome.stdout)
 	c.Assert(report.Reviewer.Transport, qt.Equals, "command")
-	c.Assert(report.Reviewer.Command, qt.Equals, filepath.Base(os.Args[0]))
+	program, err := os.Executable()
+	c.Assert(err, qt.IsNil)
+	c.Assert(report.Reviewer.Command, qt.Equals, filepath.Base(program))
 	c.Assert(report.Confirmer.Transport, qt.Equals, "command")
 	c.Assert(report.Summary.Findings, qt.Equals, 1)
 	c.Assert(report.Summary.Unconfirmed, qt.Equals, 1)

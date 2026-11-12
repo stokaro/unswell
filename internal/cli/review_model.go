@@ -183,6 +183,11 @@ func (c *endpointClient) ask(ctx context.Context, prompt string) (string, error)
 	}
 	response, err := c.client.Do(request)
 	if err != nil {
+		// The transport's error repeats the whole address. A query string can
+		// hold a credential, so only the host and the cause are reported.
+		if transport, ok := errors.AsType[*url.Error](err); ok {
+			err = transport.Err
+		}
 		return "", fmt.Errorf("request to %s failed: %w", c.host, err)
 	}
 	data, readErr := io.ReadAll(io.LimitReader(response.Body, maxAnswerBytes+1))
