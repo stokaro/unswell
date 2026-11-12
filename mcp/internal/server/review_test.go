@@ -127,3 +127,15 @@ func TestReviewSubmitRejectsAnUnknownCategoryAtTheSchema(t *testing.T) {
 		c.Assert(result.IsError, qt.IsTrue)
 	}
 }
+
+func TestReviewRequestReturnsNoItemsWithoutProse(t *testing.T) {
+	c := qt.New(t)
+	session := connect(c, t.Context(), server.Options{})
+	result, err := session.CallTool(t.Context(), &mcp.CallToolParams{Name: "unswell_review_request",
+		Arguments: server.ReviewRequestInput{Source: server.Source{Name: "code.md", Text: "```sh\nmake build\n```\n"}}})
+	c.Assert(err, qt.IsNil)
+	c.Assert(result.IsError, qt.IsFalse)
+	out := output[server.ReviewRequestOutput](c, result)
+	c.Assert(out.Items, qt.HasLen, 0)
+	c.Assert(out.SourceHash, qt.HasLen, 64)
+}

@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"runtime"
 	"time"
 
@@ -15,11 +16,21 @@ import (
 )
 
 // Environment makes the working directory and streams explicit in CLI tests.
+// Getenv reads one environment variable; nil means the process environment.
+// Only the review command uses it, to read an API key the user names.
 type Environment struct {
-	Dir string
-	In  io.Reader
-	Out io.Writer
-	Err io.Writer
+	Dir    string
+	In     io.Reader
+	Out    io.Writer
+	Err    io.Writer
+	Getenv func(string) string
+}
+
+func (e Environment) getenv(name string) string {
+	if e.Getenv == nil {
+		return os.Getenv(name)
+	}
+	return e.Getenv(name)
 }
 
 type trackedWriter struct {
@@ -67,6 +78,7 @@ func Run(ctx context.Context, args []string, environment Environment) int {
 		doctorCommand(environment),
 		explainCommand(environment),
 		baselineCommand(environment, &code),
+		reviewCommand(environment),
 	)
 	root.AddCommand(
 		&cobra.Command{

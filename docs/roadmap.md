@@ -66,6 +66,13 @@ evidence: a warning needs 85% acceptance by both reviewers on real pages.
 rule: a rule, a matcher form, or a length band that reviewers reject leaves the
 default. [ADR 0050](adr/0050-listed-phrases-leave-on-strong-evidence.md) lets a
 listed phrase leave only on strong evidence.
+[ADR 0051](adr/0051-review-command.md) adds `unswell review`, which gives the
+review in context to a person at a terminal and to a CI job: a model the user
+names reads the document, and the command binds its flags to source bytes. On
+generated documents it reaches 45.3% of the marked items after confirmation by
+a second model, where the default rules reach 7.3%. Open after it: SARIF output
+for review findings, documents above the size limit, and a configuration
+section that names the model.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on

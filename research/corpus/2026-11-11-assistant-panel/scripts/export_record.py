@@ -165,7 +165,35 @@ for caller, reviewers in CALLERS.items():
                          "caller": caller, "categories": categories, "span": [span["start"], span["end"]],
                          "reviews": {reviewer: votes[identifier].get(reviewer) for reviewer in reviewers}})
     write_gz(OUT / "contextual" / f"{caller}.jsonl.gz", sorted(rows, key=lambda r: (r["set"], r["doc"], r["span"], r["id"])))
+# The review command on generated documents. <reviewer>-none holds every bound
+# flag; the confirmed runs hold the same flags with a confirming model's verdict.
+COMMAND = {"claude": ("qwen", "astra"), "astra": ("qwen", "claude")}
+for reviewer, confirmers in COMMAND.items():
+    first = W / "product" / f"{reviewer}-none"
+    if not first.exists():
+        continue
+    votes = collections.defaultdict(dict)
+    for confirmer in confirmers:
+        for path in sorted((W / "product" / f"{reviewer}-{confirmer}").glob("*.json")):
+            document = json.loads(path.read_text())["documents"][0]
+            for flag in document["findings"] + document["unconfirmed"]:
+                verdict = (flag.get("confirmation") or {}).get("justified")
+                if verdict:
+                    votes[(path.stem, flag["span"]["start"], flag["span"]["end"])][confirmer] = verdict
+    rows = []
+    for path in sorted(first.glob("*.json")):
+        for flag in json.loads(path.read_text())["documents"][0]["findings"]:
+            categories = sorted(set(flag["categories"]))
+            span = flag["span"]
+            key = f"command|{reviewer}|{path.stem}|{span['start']}|{span['end']}|{'+'.join(categories)}"
+            rows.append({"id": hashlib.sha256(key.encode()).hexdigest()[:16], "set": "long-prose", "doc": path.stem,
+                         "caller": reviewer, "categories": categories, "span": [span["start"], span["end"]],
+                         "reviews": votes.get((path.stem, span["start"], span["end"]), {})})
+    write_gz(OUT / "contextual" / f"command-{reviewer}.jsonl.gz",
+             sorted(rows, key=lambda r: (r["set"], r["doc"], r["span"], r["id"])))
 (OUT / "rounds").mkdir(parents=True, exist_ok=True)
+if (W / "engine/review-command.json").exists():
+    shutil.copy(W / "engine/review-command.json", OUT / "rounds" / "review-command.json")
 if (W / "engine/ctx-eval.json").exists():
     shutil.copy(W / "engine/ctx-eval.json", OUT / "rounds" / "contextual-review.json")
 for name, source in (("round-3-development.json", "engine/round3-dev.json"),

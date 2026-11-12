@@ -2,6 +2,31 @@
 
 ## Unreleased
 
+`unswell review` reads documents with a model you name: an endpoint that
+implements the OpenAI chat completions API, or a local program that takes a
+prompt on standard input. The model flags items under the rubric of the MCP
+review tools. The command binds each flag to source bytes and drops a flag
+that does not quote its item. A second model, named with the `--confirm-`
+flags, can judge the bound flags; the text report then shows the confirmed
+ones. Findings are advisory and the command exits 0 when the review completed.
+A document that cannot be reviewed makes the run exit 2. See
+[review in context](docs/review.md) and
+[ADR 0051](docs/adr/0051-review-command.md).
+
+This is the first Unswell command that sends text off the machine, and it does
+so only to the model its user names. `unswell check`, the Go library, the
+GitHub Action, and the MCP server still send nothing anywhere.
+
+On 60 generated documents the default rules reach 7.3% of the items that a
+reviewing model had marked. The review reaches 57.0%, and 45.3% after a second
+model confirmed the flags. These numbers compare models; no human reviewed
+the flags.
+
+The new public package `github.com/stokaro/unswell/review` holds the items, the
+rubric, the prompts, and the binding. It makes no model call. The MCP review
+tools now use it. `unswell_review_request` returns an empty item list for a
+document without prose; it returned an error before.
+
 `hype.vague-praise` reports `comprehensive guide` again. It had left the list
 on four accepted findings of six, which is not strong evidence.
 [ADR 0050](docs/adr/0050-listed-phrases-leave-on-strong-evidence.md) now asks

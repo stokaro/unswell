@@ -503,6 +503,73 @@ if (W / "engine/ctx-eval.json").exists():
     add("assistants were also the annotators of these pages, under a rubric with the same categories, so the")
     add("coverage figure measures agreement between two models and not recall against an editor.")
     add("")
+if (W / "engine/review-command.json").exists():
+    command = json.loads((W / "engine/review-command.json").read_text())
+    names = {"claude": "`claude-sonnet-5-5`", "astra": "`gpt-6-astra`", "qwen": "`private-host/Qwen3.8-27B`"}
+    runs = command["runs"]
+    pooled = command["pooled_independent"]
+    add("## The review command on generated documents")
+    add("")
+    add("[ADR 0051](../adr/0051-review-command.md) adds `unswell review`. A model that the user names reads each")
+    add("document under the rubric of the MCP tools, the command binds its flags to source bytes, and a second")
+    add("model can judge the bound flags. The measurement above used real pages and counted every bound flag.")
+    add(f"This one ran the command itself on {runs[0]['documents']} of the 455 generated documents of the first corpus,")
+    add("one process per document and without project configuration, and it counts what remains after")
+    add("confirmation. The sample is the first 60 documents by the SHA-256 of the document identifier. The")
+    add("decision rule was registered on issue 525 before the confirmed runs were read.")
+    add("")
+    add("A marked item is one that the run's reference annotator had labeled for revision earlier, under a rubric")
+    add("with the same categories. Coverage is the share of marked items that a flag touches. In the first two")
+    add("runs the reference annotator is neither the reviewer nor the confirming model. In the last two the")
+    add("confirming model is also the reference annotator, so they show what two strong models do together and")
+    add("do not enter the decision.")
+    add("")
+    add("| Reviewer | Confirming model | Reference marks | Bound flags | Kept | Marked items | Coverage before | Coverage after | Default rules |")
+    add("| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |")
+    for run in runs:
+        reference = names[run["reference"]] + ("" if run["independent_reference"] else " (also confirms)")
+        add(f"| {names[run['reviewer']]} | {names[run['confirmer']]} | {reference} | {run['bound']:,} | {run['kept']:,} | "
+            f"{run['marked']:,} | {pct(run['marked_touched_before'], run['marked'])} | "
+            f"{pct(run['marked_touched_after'], run['marked'])} | {pct(run['marked_touched_by_rules'], run['marked'])} |")
+    add("")
+    add("The second table asks whether confirmation separates flags: how often a flag lies on a marked item, for")
+    add("all bound flags, for the flags the confirming model kept, and for the ones it dropped.")
+    add("")
+    add("| Reviewer | Confirming model | All bound flags | Kept | Dropped | Rule findings | Bound per 1,000 words | Kept per 1,000 words |")
+    add("| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |")
+    for run in runs:
+        add(f"| {names[run['reviewer']]} | {names[run['confirmer']]} | {pct(run['bound_on_marked'], run['bound'])} | "
+            f"{pct(run['kept_on_marked'], run['kept'])} | {pct(run['dropped_on_marked'], run['dropped'])} | "
+            f"{pct(run['rule_findings_on_marked'], run['rule_findings'])} | {1000 * run['bound'] / run['words']:.2f} | "
+            f"{1000 * run['kept'] / run['words']:.2f} |")
+    add("")
+    add(f"Pooled over the two independent runs, the reviewers' flags touch {pooled['marked_touched_before']:,} of")
+    add(f"{pooled['marked']:,} marked items ({pct(pooled['marked_touched_before'], pooled['marked'])}) before confirmation and")
+    add(f"{pooled['marked_touched_after']:,} ({pct(pooled['marked_touched_after'], pooled['marked'])}) after it; the default rules touch")
+    add(f"{pooled['marked_touched_by_rules']:,} ({pct(pooled['marked_touched_by_rules'], pooled['marked'])}). Confirmation keeps")
+    add(f"{pct(pooled['kept'], pooled['bound'])} of the flags and {pct(pooled['marked_touched_after'], pooled['marked_touched_before'])} of the coverage.")
+    add(f"A kept flag lies on a marked item {pct(pooled['kept_on_marked'], pooled['kept'])} of the time and a dropped flag")
+    add(f"{pct(pooled['dropped_on_marked'], pooled['dropped'])}, a difference of "
+        f"{100 * (pooled['kept_on_marked'] / pooled['kept'] - pooled['dropped_on_marked'] / pooled['dropped']):.1f} points.")
+    add("")
+    if not pooled["separates"]:
+        add("The registered rule asked for 10 points. The confirming model does not separate the flags, so the")
+        add("command shows every bound flag and marks the confirmed ones.")
+    elif pooled["keeps_two_thirds_of_coverage"]:
+        add("The registered rule asked for a difference of 10 points and for two thirds of the coverage. Both hold,")
+        add("so with a confirming model the text report shows confirmed flags only. The JSON report keeps the rest")
+        add("with the verdict, and `--show-unconfirmed` lists them in the text report.")
+    else:
+        add("The registered rule asked for a difference of 10 points and for two thirds of the coverage. The")
+        add("confirming model separates the flags, and coverage falls below two thirds, so the text report shows")
+        add("both groups, confirmed first.")
+    add("")
+    add("What these numbers do not show. The reference is another model's annotation under the same rubric, so")
+    add("coverage measures agreement between models and not recall against an editor. A flag on an item that")
+    add("the reference annotator did not mark is not shown to be wrong: on real pages a second model accepted")
+    add("70.1% of the flags it was asked about directly. Each configuration ran once on 60 documents, and a")
+    add("model's answers differ between runs.")
+    add("")
 if (W / "engine/relisting.json").exists():
     relisting = json.loads((W / "engine/relisting.json").read_text())
     add("## Phrase lists read again on all opened pages")
@@ -608,7 +675,7 @@ add("## Limits")
 add("")
 add("- Reviewers and auditor are assistants. Models can share a preference that readers do not have.")
 add("- The phrase lists cover prose in paragraphs, comments, and strings. List items, headings, and table cells are not checked by the praise rule.")
-add("- Coverage of the annotators' agreement stays low. Most items they mark are contextual: a claim without scope, a sentence that repeats an earlier one, a frame that adds nothing. Fixed rules name a small part of that. The MCP review tools let the calling assistant judge the rest.")
+add("- Coverage of the annotators' agreement stays low. Most items they mark are contextual: a claim without scope, a sentence that repeats an earlier one, a frame that adds nothing. Fixed rules name a small part of that. The MCP review tools let the calling assistant judge the rest, and `unswell review` gives the same review to a model the user names.")
 add("- The corpus tool left out 17 of 2,713 real pages that it could not parse; issue 522 tracks them. The engine now analyzes such a page and excludes the rejected block.")
 add("- The third round matches findings between defaults by page, rule, and byte span. Review stays capped at eight findings per rule and page.")
 OUT.parent.mkdir(parents=True, exist_ok=True)
