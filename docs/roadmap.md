@@ -73,6 +73,18 @@ generated documents it reaches 45.3% of the marked items after confirmation by
 a second model, where the default rules reach 7.3%. Open after it: SARIF output
 for review findings, documents above the size limit, and a configuration
 section that names the model.
+[ADR 0052](adr/0052-claims-follow-human-references.md) limits the claims to
+what was measured against people: the default rules do not separate sentences
+that maintainers reworded from the others (4.0% against 4.2%), the review
+separates them a little (18.8% against 11.6%), editors do not agree with each
+other on which places to change, and no model is a valid judge of writing.
+A first blind comparison found no preference for paragraphs revised after the
+review's findings (8 of 15 decisive answers, against 6 of 13 for random rewrites),
+so no revision step is planned on this evidence.
+Open after it, in order: more readers for that comparison and a second one in
+which a revision may only trim; a human reference of documentation that models
+wrote and people edited; the open-source linters that were registered as a
+comparison and not run.
 
 During alpha implementation, race detection, active fuzzing, and coverage are deferred.
 Their tests and commands remain available. #123 is on hold and may start only on

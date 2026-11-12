@@ -30,6 +30,38 @@ evidence, and work still open.
 Revision probability is unavailable until a labeled corpus and compatible
 calibration model meet the later acceptance criteria.
 
+## What the evidence says
+
+Unswell has two parts. Both were measured against what people edited; the
+[record](research/reviews/2026-11-12-human-reference/README.md) has the method
+and every number.
+
+`unswell check` applies fixed rules offline. It is fast and reproducible, and
+it can fail a build on wording a project has decided to refuse. It is a narrow
+check. On documentation pages that maintainers reworded, its findings fall on
+4.0% of the reworded sentences and on 4.2% of the others.
+
+`unswell review` gives a document to a model you name. On the same pages its
+findings fall on 18.8% of the reworded sentences and on 11.6% of the others
+(19.3% and 14.6% with a second reviewer model). They are suggestions.
+
+Three limits apply to both:
+
+- Editors do not agree on which places to change. Three professional writers
+  who edited the same paragraphs agree word by word with a kappa of 0.11. No
+  tool finds what an editor would mark, and a second editor does not either.
+- Revising what the review flags did not make documentation read better in a
+  first blind comparison. One reader preferred the revised paragraph in 8 of 15
+  decisive answers, and in 6 of 13 when a model rewrote random other sentences.
+  Unswell therefore reports findings and does not rewrite. Models are not used
+  as judges here: the ones tried disagreed with professional writers.
+- Every acceptance rate in the
+  [qualification record](docs/research/rule-qualification.md) is agreement
+  between models.
+
+[ADR 0052](docs/adr/0052-claims-follow-human-references.md) records what the
+project may claim on this evidence.
+
 ## Quick start
 
 Build with the minimum Go version declared in [go.mod](go.mod):
@@ -72,10 +104,9 @@ printf '%s\n' 'It is important to note that the client may retry.' |
 
 ## Review with a model
 
-Fixed rules name constructions. On documents that models wrote, the default
-rules reach 7.3% of the items a reviewing model had marked for revision.
-`unswell review` asks a model you name to read each document in context, binds
-its flags to source bytes, and drops a flag that does not quote its item:
+Fixed rules name constructions. `unswell review` asks a model you name to read
+each document in context, binds its flags to source bytes, and drops a flag
+that does not quote its item:
 
 ```sh
 bin/unswell review README.md docs \
@@ -84,9 +115,8 @@ bin/unswell review README.md docs \
 ```
 
 A local program that reads a prompt on standard input works as well, and a
-second model can confirm the flags. On the same documents the review reaches
-57.0% of the marked items, and 45.3% after a second model confirmed the flags.
-These numbers compare models with each other; no human reviewed the flags.
+second model can shorten the list. On model answers that experts edited, the
+findings fall on 30.7% of the edited sentences and on 13.4% of the others.
 
 The command sends the selected documents to the model you name and to nothing
 else. Its findings are advisory and never fail a build. See

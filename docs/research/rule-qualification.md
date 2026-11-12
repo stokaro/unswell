@@ -443,7 +443,7 @@ The decisions fixed in advance:
 
 ## Limits
 
-- Reviewers and auditor are assistants. Models can share a preference that readers do not have.
+- Reviewers and auditor are assistants, so every acceptance rate on this page is agreement between models. Models can share a preference that readers do not have, and the [human-reference record](../../research/reviews/2026-11-12-human-reference/README.md) found one: three models tried as judges of writing agreed with the majority of professional writers about half the time and preferred raw model text to a writer's edit. [ADR 0052](../adr/0052-claims-follow-human-references.md) limits what these rates may be used for.
 - The phrase lists cover prose in paragraphs, comments, and strings. List items, headings, and table cells are not checked by the praise rule.
 - Coverage of the annotators' agreement stays low. Most items they mark are contextual: a claim without scope, a sentence that repeats an earlier one, a frame that adds nothing. Fixed rules name a small part of that. The MCP review tools let the calling assistant judge the rest, and `unswell review` gives the same review to a model the user names.
 - The corpus tool left out 17 of 2,713 real pages that it could not parse; issue 522 tracks them. The engine now analyzes such a page and excludes the rejected block.

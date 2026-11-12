@@ -91,8 +91,9 @@ and its item. It does not see the first model's reasons. It answers `yes`,
 With a confirming model the text report lists only the flags it answered
 `yes` to. The others are counted there and kept in the JSON report with the
 verdict. `--show-unconfirmed` lists them in the text report as well, marked
-`review, not confirmed`. [Measured behavior](#measured-behavior) shows what
-confirmation keeps and what it costs.
+`review, not confirmed`. Confirmation gives a shorter list.
+[Measured behavior](#measured-behavior) shows that it does not bring the list
+closer to what people edit.
 
 ## What is reported
 
@@ -161,6 +162,47 @@ A document without prose is counted and not sent.
 
 ## Measured behavior
 
+### Against what people edited
+
+The [human-reference record](../research/reviews/2026-11-12-human-reference/README.md)
+compares findings with sentences that people changed. Each cell gives the share
+of edited sentences that a finding touches, then the share of unedited
+sentences. The numbers are from the test parts.
+
+| Reference | Default rules of `unswell check` | Review by `claude-sonnet-5-5` | Review by `gpt-6-astra` |
+| --- | ---: | ---: | ---: |
+| Documentation that maintainers reworded | 4.0% / 4.2% | 18.8% / 11.6% | 19.3% / 14.6% |
+| Model answers that experts edited | 2.7% / 4.8% | 30.7% / 13.4% | 22.7% / 8.6% |
+| Model fiction that writers edited | 0.4% / 0.6% | 30.1% / 22.8% | 7.0% / 7.2% |
+
+Read the first row as the one about documentation. The review flags reworded
+sentences more often than the others, and the default rules do not. Neither
+finds most of what maintainers changed.
+
+An unedited sentence is not a clean sentence: a maintainer changed what they
+came to change. Editors also disagree with each other. Three professional
+writers who edited the same paragraphs agree word by word with a kappa of
+0.11; a sentence one of them edited was edited by another in
+69.1% of cases and a sentence one left alone in 62.0%.
+
+Confirmation by a second model shortens the list and does not move it closer to what people edited in any consistent way. The margin between the two shares, in points, changes from +7.2 to +7.6 and from +4.7 to +5.8 on documentation, from +17.3 to +14.8 and from +14.1 to +13.2 on expert-edited answers, and from +7.4 to +3.3 and from -0.1 to +0.3 on fiction. Use confirmation for a shorter list.
+
+Revising what the review flags did not make documentation read better in a
+first blind comparison. One reader compared 40 paragraphs before and after a
+model's revision without knowing which was which. Where the revision followed
+the review's findings, the revised paragraph was preferred in 8 of 15 decisive
+answers, with 5 answers of "no real difference". Where the model rewrote
+as many random other sentences, it was preferred in 6 of 13, with 7. The
+review's selection added nothing that a plain rewrite did not, so the command
+reports findings and does not rewrite.
+
+Models are not used as judges of writing here. Three were
+tried on paragraphs that professional writers had ranked: they agree
+with the writers' majority 50.7%, 49.2%, 51.7% of the time on "writer-edited or raw
+model text", where two writers agree 85.1%. No model is used as a judge here.
+
+### Against another model's annotation
+
 The measurement ran the command on 60 documents that models wrote for the first
 corpus, one process per document. Two annotators had labeled these documents
 earlier. The comparison for each run uses the marks of the annotator that took
@@ -179,8 +221,8 @@ for revision. The third column is the share of marked items that a finding
 touches. The last column is the share of findings that lie on a marked item.
 
 A second model drops 285 of 778 flags and a fifth of the reach. A flag it
-drops lies on a marked item 21.4% of the time, a flag it keeps 47.9%. Use it
-when a shorter list matters more than reach.
+drops lies on a marked item 21.4% of the time, a flag it keeps 47.9%. That
+difference is between models; against what people edited it does not appear.
 
 Read these numbers as agreement between models, not as recall and precision
 against an editor. The reference is a model's annotation under the same
