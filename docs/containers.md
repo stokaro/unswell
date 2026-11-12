@@ -9,11 +9,12 @@ model and grammars and run without runtime downloads. Release images support
 | CLI commands, filesystem discovery and reports | `ghcr.io/stokaro/unswell` | `docker.io/cabyrc/unswell` |
 | MCP over stdin/stdout, with source bytes supplied by the client | `ghcr.io/stokaro/unswell-mcp` | `docker.io/cabyrc/unswell-mcp` |
 
-The release tag is the version without its leading `v`, such as `0.1.0-alpha.3`.
-Version `0.1.0-alpha.3` is public in both registries. Each mirror preserves the
+The release tag is the version without its leading `v`, such as `0.1.0-alpha.7`.
+Version `0.1.0-alpha.7` is public in GHCR. Docker Hub holds versions up to
+`0.1.0-alpha.4`; later ones follow when the mirror credential is renewed. Each mirror preserves the
 GHCR image index, both architectures, and its provenance/SBOM attestations. Release
 evidence records immutable image digests; pin a digest in reproducible installations.
-Either registry name works in the examples below.
+Either registry name works in the examples below for a mirrored version.
 
 ## Run the CLI
 
@@ -22,7 +23,7 @@ With an explicit Docker context, mount a repository at `/work` and keep it read-
 ```sh
 docker --context remote-dev-container run --rm --read-only --network none \
   --mount type=bind,source=/absolute/path/on/daemon/repository,target=/work,readonly \
-  ghcr.io/stokaro/unswell:0.1.0-alpha.3 \
+  ghcr.io/stokaro/unswell:0.1.0-alpha.7 \
   check . --config .unswell.yaml --report json:-
 ```
 
@@ -45,7 +46,7 @@ Use `docker` as the client's command with these arguments:
 [
   "--context", "remote-dev-container", "run", "--rm", "-i",
   "--read-only", "--network", "none",
-  "ghcr.io/stokaro/unswell-mcp:0.1.0-alpha.3"
+  "ghcr.io/stokaro/unswell-mcp:0.1.0-alpha.7"
 ]
 ```
 
