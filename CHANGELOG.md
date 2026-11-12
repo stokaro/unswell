@@ -15,6 +15,13 @@ by chance in the same sentences, and the trimmed text is closer to the
 expert's version. On fiction and on documentation written by people the
 registered rule is not met. See [trim](docs/trim.md#measured-behavior).
 
+`scaffold.chat-preamble` now also reports a document that opens with `Sure,`
+or `Sure!`, as in `Sure, here is a summary`. Experts who edited model answers
+removed that opener in 39 of 39 test answers
+([ADR 0055](docs/adr/0055-phrase-listed-on-editor-reference.md)). The rule
+has `gate: forbid`, so such a document now fails the check; the business
+profile leaves the rule off as before.
+
 ## 0.1.0-alpha.8
 
 This release adds two commands that work with a model you name, `unswell

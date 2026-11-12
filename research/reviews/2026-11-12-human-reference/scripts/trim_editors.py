@@ -17,7 +17,11 @@ every document and model, each accepted trim with the byte spans of the words
 of its sentence, which of them the check never removes, and which the trim
 removed, plus the edit distances; data/word-counts.jsonl.gz holds, for every
 document, its number of words, how many the editor changed, and the same two
-counts under the spans of the earlier systems.
+counts under the spans of the earlier systems; data/openers.jsonl.gz holds
+every finding of scaffold.chat-preamble that flags the opener "Sure" in the
+run rules-opener, with the byte spans of its words; data/rule-words.jsonl.gz
+holds, for every document and rule of the run rules-all, the words under that
+rule's findings and how many of them the editor changed.
 """
 import argparse, collections, gzip, json, random, re, sys
 from pathlib import Path
@@ -258,10 +262,26 @@ def export(root, out):
     """Write the record's data files for the development and test parts."""
     docs = [d for d in read_jsonl(root / "docs.jsonl") if d["split"] in ("dev", "test")]
     edited = editor_texts(root)
-    trims, counts = [], []
+    trims, counts, openers, by_rule = [], [], [], []
     for doc in sorted(docs, key=lambda d: d["id"]):
-        words = words_of(doc["text"].encode())
+        raw = doc["text"].encode()
+        words = words_of(raw)
         changed = changed_flags(words, doc["reference"])
+        run = json.loads((root / "runs" / "rules-opener" / f"{doc['id']}.json").read_text())
+        for span, name in sorted(zip(run["spans"], run["rules"])):
+            if name == "scaffold.chat-preamble" and raw[span[0]:span[1]].decode().lower().startswith("sure"):
+                openers.append({"id": doc["id"], "span": span,
+                                "words": [[a, b] for _, a, b in words if span[0] <= a and b <= span[1]]})
+        run = json.loads((root / "runs" / "rules-all" / f"{doc['id']}.json").read_text())
+        spans = collections.defaultdict(list)
+        for span, name in zip(run["spans"], run["rules"]):
+            spans[name].append(span)
+        entry = {}
+        for name, found in sorted(spans.items()):
+            row = span_document(doc, found)
+            if row["removed"]:
+                entry[name] = [row["removed"], row["hits"]]
+        by_rule.append({"id": doc["id"], "rules": entry})
         systems = {}
         for system in ("rules-default", "review-claude", "review-astra"):
             path = root / "runs" / system / f"{doc['id']}.json"
@@ -280,7 +300,9 @@ def export(root, out):
     (out / "data").mkdir(parents=True, exist_ok=True)
     write_gz(out / "data" / "trims.jsonl.gz", trims)
     write_gz(out / "data" / "word-counts.jsonl.gz", counts)
-    print(f"exported {len(trims)} trim rows and {len(counts)} documents")
+    write_gz(out / "data" / "openers.jsonl.gz", openers)
+    write_gz(out / "data" / "rule-words.jsonl.gz", by_rule)
+    print(f"exported {len(trims)} trim rows, {len(counts)} documents, and {len(openers)} opener findings")
 
 
 def main():

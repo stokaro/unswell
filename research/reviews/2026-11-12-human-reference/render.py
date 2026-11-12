@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Render RESULTS.md from results.json, so that no number in it is typed by hand.
+"""Render RESULTS.md and RESULTS-words.md from results.json, so that no number in them is typed by hand.
+
+The comparisons at the level of words have a page of their own. One page with
+every table is more than the repository's self-check through the MCP server
+accepts for a single document.
 
 usage: render.py [record directory]
 """
@@ -10,6 +14,8 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 MODELS = {"claude": "`claude-sonnet-5-5`", "astra": "`gpt-6-astra`", "qwen": "`private-host/Qwen3.8-27B`"}
 SETS = [("prs", "Documentation pull requests"), ("beemo", "Expert-edited answers (Beemo)"), ("lamp", "Writer-edited fiction (LAMP)")]
+# A rule needs findings in this many documents of a set for a row of the rule table.
+RULE_ROW_DOCUMENTS = 10
 PAIRS = [("Human-edited over AI-generated", "writer-edited or raw"), ("AI-edited over AI-generated", "model-edited or raw"),
          ("Human-edited over AI-edited", "writer-edited or model-edited")]
 
@@ -111,10 +117,59 @@ def trim_section(add, trims):
     trim_tables(add, trims, "dev")
 
 
+def opener_section(add, openers):
+    add("")
+    add("## A chat opener, listed from what experts removed")
+    add("")
+    add("`scaffold.chat-preamble` gained the openers `Sure,` and `Sure!` at the start of a document. The table counts")
+    add("the findings these two phrases produce and how often the editor removed or replaced every flagged word.")
+    add("")
+    add("| Set | Part | Documents | Findings | Editor changed every flagged word | 95% interval |")
+    add("| --- | --- | ---: | ---: | ---: | --- |")
+    for key, label in SETS:
+        for split in ("dev", "test"):
+            entry = openers["sets"].get(f"{key}/{split}")
+            if not entry:
+                continue
+            low, high = entry["interval"]
+            interval = f"{100 * low:.1f}% to {100 * high:.1f}%" if entry["findings"] else "n/a"
+            add(f"| {label} | {'development' if split == 'dev' else 'test'} | {entry['documents']} | {entry['findings']} "
+                f"| {entry['changed']} of {entry['findings']} | {interval} |")
+    add("")
+    add("The rule asked for at least 85% on the test part of the expert-edited answers, a lower end of the interval above")
+    add(f"70%, and at most one finding on the other two sets, which have {openers['elsewhere']}. "
+        + ("The phrases are listed." if openers["listed"] else "The phrases are not listed."))
+
+
+def rule_word_section(add, rule_words):
+    add("")
+    add("## Each rule against the words an editor changed")
+    add("")
+    add("Test parts, every rule enabled, before the opener was listed. A row gives the words under the findings of one")
+    add("rule, how many of them the editor changed, and what random words of the same documents would give. No rule was")
+    add(f"registered for this table. It lists the rules with findings in at least {RULE_ROW_DOCUMENTS} documents of a set;")
+    add("`results.json` has every rule.")
+    for key, label in SETS:
+        rules = rule_words.get(f"{key}/test")
+        if not rules:
+            continue
+        add("")
+        add(f"{label}:")
+        add("")
+        add("| Rule | Documents | Words under findings | Editor changed them | Chance in the document | Difference, points |")
+        add("| --- | ---: | ---: | ---: | ---: | --- |")
+        for name, report in rules.items():
+            if report["documents"] < RULE_ROW_DOCUMENTS:
+                continue
+            add(f"| `{name}` | {report['documents']} | {report['removed_words']:,} | {share(report['precision'])} "
+                f"| {share(report['chance_document'])} | {difference(report, 'precision_minus_document')} |")
+
+
 def system_name(name):
     parts = name.split("-")
     if parts[0] == "rules":
-        return "`unswell check`, default rules" if parts[1] == "default" else "`unswell check`, every rule"
+        return {"default": "`unswell check`, default rules", "opener": "`unswell check`, default rules with the listed opener",
+                "all": "`unswell check`, every rule"}[parts[1]]
     if parts[0] == "review":
         text = f"`unswell review`, {MODELS[parts[1]]}"
         return text + (f", confirmed by {MODELS[parts[2]]}" if len(parts) > 2 else "")
@@ -292,12 +347,45 @@ def render(results):
             lead = "The reviewed arm leads the control arm by the registered 15 points." if entry["ahead_of_control"] else \
                 "The reviewed arm is not 15 points ahead of the control arm."
             add(f"{floor} {lead}")
+    if has_words(results):
+        add("")
+        add("## Words")
+        add("")
+        add(f"The comparisons at the level of words are in [{WORDS_PAGE}]({WORDS_PAGE}): the words that trims remove, the")
+        add("listed chat opener, and each rule against the words an editor changed.")
+    return "\n".join(lines) + "\n"
+
+
+def has_words(results):
+    return any(results.get(name) for name in ("trims", "openers", "rule_words"))
+
+
+def render_words(results):
+    """Render the page of the comparisons at the level of words."""
+    lines = []
+    add = lines.append
+    add("# Results at the level of words")
+    add("")
+    add("Generated by `render.py` from `results.json`, which `verify.py` recounts from the data files.")
+    add("[RESULTS.md](RESULTS.md) has the other results.")
     if results.get("trims"):
         trim_section(add, results["trims"])
+    if results.get("openers"):
+        opener_section(add, results["openers"])
+    if results.get("rule_words"):
+        rule_word_section(add, results["rule_words"])
     return "\n".join(lines) + "\n"
+
+
+# Every generated page and its renderer. The second page exists only when the record has word-level results.
+WORDS_PAGE = "RESULTS-words.md"
+PAGES = {"RESULTS.md": render, WORDS_PAGE: render_words}
 
 
 if __name__ == "__main__":
     root = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE
-    (root / "RESULTS.md").write_text(render(json.loads((root / "results.json").read_text())))
-    print("written", root / "RESULTS.md")
+    loaded = json.loads((root / "results.json").read_text())
+    for page, function in PAGES.items():
+        if page == "RESULTS.md" or has_words(loaded):
+            (root / page).write_text(function(loaded))
+            print("written", root / page)

@@ -59,7 +59,7 @@ text before and after the edit.
 
 `unswell trim` ran on every development and test document with
 `claude-sonnet-5-5` and `gpt-6-astra`. The
-[record](../../research/reviews/2026-11-12-human-reference/RESULTS.md) has every
+[record](../../research/reviews/2026-11-12-human-reference/RESULTS-words.md) has every
 number, and its check recounts them from the coordinates of every removed
 word. Test parts:
 

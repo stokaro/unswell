@@ -5,6 +5,7 @@ usage: run_systems.py <human directory> <unswell binary> <system> [--workers N] 
 
 systems:
   rules-default          unswell check with the default rules
+  rules-opener           the same with a build whose scaffold.chat-preamble lists "Sure," and "Sure!"
   rules-all              unswell check with every rule enabled (needs RULES_CONFIG)
   review-<reviewer>      unswell review with one reviewer (claude or astra)
   review-<reviewer>-<confirmer>   the same with a confirming model
@@ -127,7 +128,8 @@ def one(doc):
         return "cached"
     try:
         name = options.system
-        if name == "rules-default":
+        if name in ("rules-default", "rules-opener"):
+            # rules-opener is the default rules of a build whose chat-preamble rule lists the opener "Sure".
             result = rules(doc, [])
         elif name == "rules-all":
             result = rules(doc, ["--config", os.environ["RULES_CONFIG"], "--allow-config-outside-root"])
