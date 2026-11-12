@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+`unswell review` and `unswell trim` now read an answer in which the model
+corrects itself. A model sometimes writes its JSON object, notices a mistake,
+and writes the object again. Such an answer failed the document; the last
+object is now the answer. A correction that is cut off is still an error.
+
 ## 0.1.0-alpha.8
 
 This release adds two commands that work with a model you name, `unswell

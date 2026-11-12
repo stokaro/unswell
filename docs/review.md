@@ -159,6 +159,10 @@ One document costs one call to the reviewer and, when it has bound flags, one
 call to the confirming model. Each call carries the whole document. A model
 returns at most 256 flags for one document; more is a failed document.
 
+The answer is one JSON object, with or without text around it. When a model
+corrects itself and writes the object again, the last one counts. An answer
+whose last object is cut off fails and is asked again, up to `--attempts`.
+
 A document without prose is counted and not sent.
 
 ## Measured behavior
